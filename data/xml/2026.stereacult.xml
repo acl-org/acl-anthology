@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.stereacult">
+  <volume id="1" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Stereotypes Across Cultures in Language Technologies (<fixed-case>S</fixed-case>tere<fixed-case>AC</fixed-case>u<fixed-case>LT</fixed-case> 2026)</booktitle>
+      <editor><first>Weicheng</first><last>Ma</last></editor>
+      <editor><first>Soroush</first><last>Vosoughi</last></editor>
+      <editor><first>Nabeel</first><last>Gillani</last></editor>
+      <editor><first>Rolando</first><last>Coto-Solano</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, United States</address>
+      <isbn>979-8-89176-408-8</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="b990d075">2026.stereacult-1</url>
+      <venue>stereacult</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="162e405c">2026.stereacult-1.0</url>
+      <bibkey>stereacult-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>C</fixed-case>row<fixed-case>S</fixed-case>-Pairs-<fixed-case>NL</fixed-case>: A Benchmark to Evaluate <fixed-case>D</fixed-case>utch Stereotype Bias in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Jens</first><last>van der Weide</last></author>
+      <author><first>Dong</first><last>Nguyen</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Marianne</first><last>Schaaphok</last><affiliation>TNO</affiliation></author>
+      <author id="roos-m-bakker" orcid="0000-0002-1760-2740"><first>Roos M.</first><last>Bakker</last><affiliation>Universiteit Leiden and TNO</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>Bias benchmarks for LLMs largely focus on English, overlooking language- and culture-specific stereotypes. We introduce CrowS-Pairs-NL, a Dutch stereotype benchmark built by filtering, translating, and adapting the English CrowS-Pairs dataset to address known conceptual pitfalls, and extending it with newly crowdsourced Dutch sentence pairs. We evaluate six multilingual and Dutch-trained models using both a pseudo-log-likelihood metric adapted for autoregressive models and a prompt-based metric with three template variants. Models explicitly trained on Dutch data consistently exhibit higher stereotyping scores, suggesting that language-specific fine-tuning introduces language-specific bias. The two metrics broadly agree on model rankings but differ in sensitivity, with the prompt metric showing a narrower range of scores. Our benchmark and findings underscore the need for culturally grounded bias evaluation beyond English.</abstract>
+      <url hash="014684e8">2026.stereacult-1.1</url>
+      <bibkey>van-der-weide-etal-2026-crows</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Lost in Translation: Cross-Cultural Bias in <fixed-case>LLM</fixed-case>-Assisted Medical Symptom Interpretation</title>
+      <author id="yuting-tian" orcid="0009-0002-9488-6588"><first>Yuting</first><last>Tian</last></author>
+      <author><first>Salar</first><last>Khaleghzadegan</last></author>
+      <author><first>Benjamin</first><last>Huh</last></author>
+      <author><first>Yash</first><last>Raj</last></author>
+      <author><first>Gena</first><last>Heng</last><affiliation>Dartmouth College</affiliation></author>
+      <pages>13-19</pages>
+      <abstract>Large language models (LLMs) are increasingly used to convert patient language into clinical-style summaries, yet patient symptom descriptions may vary across linguistic, cultural, and cross-linguistic contexts. In this pilot study, we operationalize this variation using four expression styles: direct English, indirect English, culturally mediated English, and Chinese-original patient language. We propose a compact red-teaming framework for testing whether LLM-based symptom interpretation changes when the same underlying concern is expressed in different linguistic and cultural forms. Our pilot dataset contains eight symptom scenarios, each expressed in four styles, yielding 32 vignettes before prompt variation. We evaluate GPT-5 mini as a pilot case-study model under generic and culture-aware prompts, repeating the full evaluation three times to produce 192 model outputs. Reference labels and a stratified subset of model output annotations were reviewed for face validity by an independent reviewer with clinical training.The model usually preserves broad symptom categories, but subtle failure modes emerge. Culture-aware prompting reduces severity downgrades from 14.6% to 9.4% and ambiguity-flagging failures from 28.1% to 13.5%, but does not reduce interpretation inconsistency or clinical category shift, both of which remain at 6.2%. Indirect English shows the highest severity-downgrade and flagging-failure rates, while Chinese-original expressions are often interpreted with the correct broad category but are not consistently flagged as ambiguous. These findings suggest that medical LLM evaluation should assess cultural robustness, severity framing, ambiguity preservation, and human-review escalation in addition to factual accuracy.</abstract>
+      <url hash="c5e2e7cf">2026.stereacult-1.2</url>
+      <bibkey>tian-etal-2026-lost</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Exploratory As-Analyzed No-Detection of Culturally-Marked Predicate-Triggered <fixed-case>PII</fixed-case> Amplification in a Synthetic-<fixed-case>E</fixed-case>nglish <fixed-case>RAG</fixed-case> Probe: A Predicate-Resource-Confounded Audit</title>
+      <author><first>Yanhang</first><last>Li</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Zhichao</first><last>Fan</last></author>
+      <author><first>Zexin</first><last>Zhuang</last></author>
+      <pages>20-34</pages>
+      <abstract>We ask whether stereotype-loaded queries about culturally marked people leak more personal information from a retrieval-augmented generation (RAG) system than otherwise equivalent neutral queries. We pre-register a four-culture audit covering en-Anglo, es-LATAM, Arabic, and Hindi probes on a synthetic English PII corpus, comparing five paired query arms via the Stereotype-Trigger Leakage Delta (STLD). The locked confirmatory estimator was not run, so all reported tests are exploratory or sensitivity analyses, with deviations documented. We also identify a prompt-echo confound in the name-leakage metric: the model often re-emits the queried name, inflating apparent leakage without retrieval extraction. On cleaner non-name channels—email, phone, SSN-like identifier, and address—we find no stereotype-driven amplification for any culture after multiple-comparison correction. One name-included es-LATAM cell is significant in the negative direction, but matched-arm decomposition and an expanded culture-neutral control sensitivity suggest a high-leak control-predicate sampling artifact rather than a stereotype-treatment effect. Because the study is powered only for mid-sized effects and the culturally marked probe bank mixes stereotype content with cultural markers and heritage practices, we interpret the results as no detection—not evidence of no effect—of culturally marked predicate-triggered PII amplification under this synthetic-English RAG setting. The paper contributes a preregistered stereotype-as-privacy-side-channel test, diagnoses prompt-echo and predicate-resource confounds, and outlines release of the synthetic corpus, predicate bank, query generator, audit scripts, and analysis code upon acceptance</abstract>
+      <url hash="01473be5">2026.stereacult-1.3</url>
+      <bibkey>li-etal-2026-exploratory</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Controlling Cross-Lingual Answer Distributions in Language Models: Enabling Transfer of Factual Preferences</title>
+      <author id="lukas-ellinger" orcid="0009-0003-2932-6741"><first>Lukas</first><last>Ellinger</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Alexander</first><last>Manev</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="georg-groh" orcid="0000-0002-5942-2297"><first>Georg</first><last>Groh</last><affiliation>Technical University Munich</affiliation></author>
+      <pages>35-49</pages>
+      <abstract>Multilingual large language models exhibit systematic differences in their outputs across languages, even when representing the same underlying knowledge. Prior work has primarily focused on evaluating or reducing such inconsistencies. In this work, we instead study whether cross-lingual behavior can be controlled: specifically, whether answer distributions associated with other languages can be expressed under English prompting. To this end, we construct a human-annotated factual dataset and a cultural scenarios dataset, and compare intervention methods including persona prompting, activation steering, and preference-based fine-tuning. We evaluate how these methods affect answer distributions and their generalization to culturally grounded settings. Our results show that answer distributions can be systematically shifted toward those observed in other languages, with persona prompting consistently outperforming more complex intervention methods.</abstract>
+      <url hash="721f3f65">2026.stereacult-1.4</url>
+      <bibkey>ellinger-etal-2026-controlling</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Counterfactual Auditing of Cross-Cultural Variation in <fixed-case>LLM</fixed-case>-Generated Medical Advice</title>
+      <author id="hyunwoo-yoo" orcid="0000-0003-3862-4006"><first>Hyunwoo</first><last>Yoo</last></author>
+      <author id="gail-rosen" orcid="0000-0003-1763-5750"><first>Gail</first><last>Rosen</last><affiliation>Drexel University</affiliation></author>
+      <pages>50-61</pages>
+      <abstract>Large language models (LLMs) are increasingly explored for patient-facing medical advice and symptom triage, yet their responses may shift when identical clinical evidence is paired with culturally marked patient descriptors. We present a counterfactual audit framework for evaluating cross-cultural variation in LLM-generated medical advice by isolating identity-related cues while holding clinical evidence constant.Our evaluation uses matched clinical vignettes, cross-regional and culturally marked prompt variants, repeated sampling, and structured comparison of urgency framing, safety recommendations, empathy, and escalation advice.Across multiple commercial and open-weight LLMs, we observe measurable identity-conditioned variation in both triage decisions and interactional framing. In several cases, culturally marked descriptors shift urgency assessments or escalation recommendations despite unchanged clinical evidence. While the magnitude and direction of these effects differ across models, the results suggest that LLM-generated medical advice remains sensitive to culturally linked identity cues in ways that may affect safety-critical guidance.Our results demonstrate how culturally grounded counterfactual auditing can help identify clinically unsupported variation while distinguishing potentially harmful shifts from appropriate communication adaptation in patient-facing medical advice.</abstract>
+      <url hash="9d5df9df">2026.stereacult-1.5</url>
+      <bibkey>yoo-rosen-2026-counterfactual</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Stereotyped by Silence: How <fixed-case>LLM</fixed-case>s Erase <fixed-case>N</fixed-case>ortheast <fixed-case>I</fixed-case>ndian Languages Through Omission and Orthographic Corruption</title>
+      <author id="badal-nyalang" orcid="0009-0006-6923-0797"><first>Badal</first><last>Nyalang</last><affiliation>MWire Labs</affiliation></author>
+      <pages>62-68</pages>
+      <abstract>Large language models (LLMs) perpetuate cultural stereotypes not only through biased associations but through systematic omission and orthographic erasure of underrepresented languages. We present empirical evidence of two compounding failure modes affecting Northeast Indian languages: (1) entity-level invisibility, where state-of-the-art NER systems score F1=0.000 on culturally critical named entities such as Khasi surnames, Garo festivals, and tribal names; and (2) orthographic corruption, where LLM tokenizers corrupt semantically meaningful diacritics (ï, ñ) and the Garo morpheme boundary marker (U+00B7) at rates of 18.8–50% across four of five evaluated models. Drawing on NortheastNER (F1=0.964, six entity categories, XLM-RoBERTa-base) and a systematic tokenization study across Khasi and Garo, we argue that stereotype-by-omission constitutes a distinct and measurable harm to indigenous language communities. We further show that a custom multilingual tokenizer achieves 26–50% token reduction over five baseline LLMs, demonstrating that culturally grounded infrastructure can partially remediate these failures. Our findings call for cultural representation audits as a standard component of multilingual NLP evaluation.</abstract>
+      <url hash="c3cb02c0">2026.stereacult-1.6</url>
+      <bibkey>nyalang-2026-stereotyped</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Whose Pragmatics? Cultural Grounding as a Bottleneck for Stereotype Detection in <fixed-case>E</fixed-case>gyptian <fixed-case>A</fixed-case>rabic Social Media</title>
+      <author id="samar-a-assem" orcid="0009-0007-0419-1798"><first>Samar A.</first><last>Assem</last><affiliation>Alexandria University</affiliation></author>
+      <pages>69-78</pages>
+      <abstract>Stereotype detection benchmarks assume that stereotyping occurs through what is said — via lexical co-occurrence between demographic terms and stereotypical attributes. We argue that stereotyping is often conveyed by what is meant: through presupposition, implicature, and speech-act framing that leave surface content unchanged while embedding prejudice in the pragmatic layer. We call this phenomenon pragmatic stereotyping. Evaluating GPT-4 and Claude 3.5 Sonnet on a stratified sample of 500 Egyptian Arabic social media comments annotated with a seven-tag sentiment/(im)politeness taxonomy, we find that cultural grounding is the critical bottleneck in detecting pragmatic stereotyping in non-English discourse. About 35% of LLM errors result from cultural grounding gaps, leading to a 15-percentage-point F1 difference between explicit tags (0.81) and implicit tags (0.66). These failures are bidirectional: on the author side, LLMs under-detect prejudice encoded through concessive presupposition and backhanded compliments; on the model side, LLMs apply English-based pragmatic assumptions, misinterpreting genuine polite criticism as sarcasm and positive-intended impoliteness as conflictive. Our five-layer Chain-of-Thought diagnostic framework localizes these failures to the culture-dependent inference layers. These results extend stereotype evaluation beyond lexical benchmarks and have direct implications for content moderation pipelines serving Arabic-speaking communities.</abstract>
+      <url hash="27e5c366">2026.stereacult-1.7</url>
+      <bibkey>assem-2026-whose</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Measuring Semantic Flow Without Direction: A Rhizomatic Protocol for Stereotype Translation in Cross-Cultural Language Technology</title>
+      <author id="gustavo-avina-cerecer" orcid="0000-0002-3050-9233"><first>Gustavo Aviña</first><last>Cerecer</last><affiliation>Universidad Autónoma de San Luis Potosí</affiliation></author>
+      <pages>79-87</pages>
+      <abstract>We present an open-source measurement protocol for stereotype interpretation that quantifies how users translate or interprets provocative discourse without assuming a normative direction. Building on Deleuze and Guattari’s rhizomatic framework, we operationalize three modes of semantic movement —Reaffirm, De-signify, and Escape (RDE)— through an abstract-machine operator detector that combines transparent linguistic patterns (526 patterns across 8 languages) with optional contextual embeddings. The protocol is direction-agnostic: it measures equally well a user who reproduces their own semantic territory and one who departs from it, capturing diasporic, assimilationist, and escape trajectories that English-centric, Chomskyan-hierarchical taxonomies obscure. We demonstrate the protocol on five extreme user profiles (Russian conservative, Russian diaspora, trans Russian exile, Mexican malinchista, Mapuche speaker), each producing coherent and distinct RDE signatures. Deployed in a free-tier web service, the protocol enables both individual reflective use and corporate calibration of tolerable territoriality ranges for personnel engaged in intercultural translation and interpretation tasks.</abstract>
+      <url hash="65360a00">2026.stereacult-1.8</url>
+      <bibkey>cerecer-2026-measuring</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Signals Are Not States: Neuro-Symbolic Safeguards for Culturally Aware Classroom <fixed-case>AI</fixed-case></title>
+      <author><first>Sina</first><last>Bagheri Nezhad</last></author>
+      <pages>88-100</pages>
+      <abstract>Classroom AI systems increasingly infer high-level educational states such as engagement, confusion, collaboration, participation, and instructional quality from multimodal and linguistic signals. In multicultural and multilingual classrooms, such inferences can translate culturally situated behavior into stereotyped claims: silence may be read as disengagement, gaze aversion as inattention, code-switching as low proficiency, or indirect help-seeking as confusion. We argue that stereotype-aware classroom AI should separate observable evidence from culturally loaded interpretation and should treat unsupported construct-level claims as safety risks. We introduce NSCR, a culturally grounded neuro-symbolic framework that converts video, audio, ASR, lesson artifacts, and contextual metadata into typed facts with uncertainty, provenance, and cultural scope, then composes them through executable reasoning and policy constraints. We define a taxonomy of stereotype-prone classroom inferences and propose a benchmark agenda covering culture-conditioned state inference, evidence-grounded claim verification, multilingual and code-switched reasoning, collaboration analysis, counterfactual cultural robustness, and culture-conditioned red-teaming. We further specify metrics for stereotype leakage, unsupported attribution, cultural calibration gaps, abstention under cultural ambiguity, and evidence faithfulness. The contribution is methodological: a concrete framework and evaluation agenda for mitigating stereotyped reasoning in classroom AI, with education as a high-stakes, culturally variable deployment setting.</abstract>
+      <url hash="e224cf10">2026.stereacult-1.9</url>
+      <bibkey>bagheri-nezhad-2026-signals</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>A</fixed-case>mchi<fixed-case>B</fixed-case>ias: Measuring Stereotypical Bias in Goan Identity Groups with a Minimal Pair Dataset in <fixed-case>E</fixed-case>nglish and <fixed-case>K</fixed-case>onkani</title>
+      <author><first>Michelle</first><last>Barbosa</last></author>
+      <author><first>Sebastian</first><last>Padó</last><affiliation>University of Stuttgart, Universität Stuttgart</affiliation></author>
+      <author><first>Franziska</first><last>Weeber</last><affiliation>University of Stuttgart, Universität Stuttgart and Humboldt Universität Berlin</affiliation></author>
+      <pages>101-115</pages>
+      <abstract>Socio-cultural stereotypical bias is an important consideration in the development and deployment of NLP systems. It is however often considered only at the national level, despite rich subnational socio-cultural structures. We present AmchiBias, the first benchmark for enmeasuring socio-cultural stereotypical bias for the Indian state of Goa with its unique historically multicultural setting. It covers various Goan identity groups and comprises 313 minimal pairs across eight sociodemographic dimensions in both English and Devanagari Konkani. We then evaluate stereotypical bias in five multilingual encoder models on this benchmark. We find near-chance scores in Konkani, reflecting language incompetence for general multilingual models and a lack of Goan cultural competence for Indian language models. Queried in English, models with a stronger Indian language coverage show higher bias for pan-Indian groups than hyperlocal Goan groups. This suggests the English signal reflects pan-Indian pretraining associations rather than genuine Goan cultural knowledge. Our findings highlight a critical gap in low-resource multilingual NLP evaluation for hyperlocal community identities.</abstract>
+      <url hash="718627fd">2026.stereacult-1.10</url>
+      <bibkey>barbosa-etal-2026-amchibias</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Translation Is Not Representation: <fixed-case>E</fixed-case>nglish-Hub Routing in Cross-Lingual Bias Benchmarks</title>
+      <author id="hak-hyun-kim" orcid="0000-0001-6846-3472"><first>Hak Hyun</first><last>Kim</last></author>
+      <author><first>Benjamin</first><last>Huh</last></author>
+      <pages>116-125</pages>
+      <abstract>Cross-lingual bias benchmarks such as JBBQ and KoBBQ translate English bias probes and compare scores across languages, assuming the translated probe measures the same construct. We test this assumption at the representation and behavioral levels using 13B-parameter models matched on architecture but differing in language-training regime. A multi-anchor logit lens shows that an English-centric model (Llama 2) processes Japanese and Korean inputs predominantly through English-script predictions in its middle layers, even where Centered Kernel Alignment (CKA) between languages is high: geometric convergence masks English-hub routing. Matched continual-adaptation comparisons show that target-language adaptation reduces this English-script mass: from 0.77 to 0.56 after Japanese adaptation (Swallow), and from 0.78 to 0.71 after Korean adaptation (koen), while balanced bilingual pretraining (LLM-jp) lowers it further to 0.19. Behaviorally, every model is more stereotype-biased in English than in Japanese, with gaps from 0.13 to 0.14, but this asymmetry is language-specific: in Korean it is weak and disappears after Korean adaptation, with Korean nearly as stereotype-leaning as English. Yet patching English hub states into target-language processing does not transplant this bias. Cross-lingual bias scores thus reflect genuine language-specific behavior, not an English-pivot artifact, even though the underlying representations are not comparable. We distill this dissociation between representation and behavior into a four-step audit protocol for translated bias benchmarks.</abstract>
+      <url hash="83087911">2026.stereacult-1.11</url>
+      <bibkey>kim-huh-2026-translation</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>I</fixed-case>ndic<fixed-case>S</fixed-case>teer: Inference-Time Safety Steering for <fixed-case>I</fixed-case>ndic <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ruhaib</first><last>Muhammad</last></author>
+      <author><first>Saahas Vijayalakshmi</first><last>Rajaram</last><affiliation>Indian Institute of Technology, Madras</affiliation></author>
+      <author><first>Suriya Priyan</first><last>Durairaj</last></author>
+      <pages>126-136</pages>
+      <abstract>Safety controls for Indic language generation must account for multilingual variation and culturally grounded harm categories that are underrepresented in English-centric resources. We present IndicSteer, an initial study of inference-time activation steering for safety across 8 harm categories and 9 Indic language settings, based on contrastive directions computed from safe/unsafe response pairs. To the best of our knowledge, this is the first application of Contrastive Activation Addition (CAA) to Indic LLMs. Evaluation uses a structured LLM-as-a-judge protocol with strict isolation by category and alpha, covering <tex-math>\approx</tex-math>12,960 prompt-response pairs. We report harmful-response and coherence metrics for Sarvam-1 and OpenHathi (Hindi track), and present cross-lingual representation structure via linear CKA for Sarvam-1 and Krutrim-2-Instruct. On matched slices, Sarvam-1 at <tex-math>\alpha=12</tex-math> reduces harmful rate from 73.47% to 41.34% (32.13 pp; 43.73% relative) with no additional retraining. For OpenHathi Hindi, harmful rate falls monotonically from 85.83% (baseline) to 27.13% at <tex-math>\alpha=15</tex-math>, a 58.71 pp total reduction.</abstract>
+      <url hash="62393bc4">2026.stereacult-1.12</url>
+      <bibkey>muhammad-etal-2026-indicsteer</bibkey>
+    </paper>
+  </volume>
+</collection>
