@@ -1024,4 +1024,434 @@
       <bibkey>huang-etal-2026-overview</bibkey>
     </paper>
   </volume>
+  <volume id="2" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the <fixed-case>B</fixed-case>io<fixed-case>NLP</fixed-case> 2026 (Shared Tasks)</booktitle>
+      <editor><first>Deepak</first><last>Gupta</last></editor>
+      <editor><first>Dina</first><last>Demner-Fushman</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, USA</address>
+      <isbn>979-8-89176-435-4</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="3eb20704">2026.bionlp-2</url>
+      <venue>bionlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="0db9cbaa">2026.bionlp-2.0</url>
+      <bibkey>bionlp-2026-2</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>NM</fixed-case> at <fixed-case>CRF</fixed-case> Filling 2026: A Two-Stage <fixed-case>LLM</fixed-case> Pipeline for Clinical <fixed-case>CRF</fixed-case> Population</title>
+      <author><first>Niccolò</first><last>Morabito</last><affiliation>N.A.</affiliation></author>
+      <pages>1-5</pages>
+      <abstract>This paper describes our participation in the CRF Filling Shared Task 2026, which aims to automatically populate a predefined Case Report Form (CRF) from clinical notes describing patients with dyspnea.We propose a two-stage pipeline based on large language models (LLMs). In the first stage, a few-shot prompted LLM extracts candidate CRF fields from the clinical note and outputs them in a structured JSON format. In the second stage, a separate LLM verifies each extracted field against the original note and removes predictions that are not supported by explicit textual evidence. This verification step aims to reduce false positives generated during extraction.Experiments on the development set show that the verification stage significantly reduces unsupported predictions while preserving most correct extractions, resulting in improved macro F1. On the official test set, the proposed system achieves a macro F1 score of 0.56 for both English and Italian. These results indicate that separating extraction and verification can balance recall-oriented extraction with precision-oriented validation in CRF population tasks.</abstract>
+      <url hash="d2cf2bf7">2026.bionlp-2.1</url>
+      <bibkey>morabito-2026-nm</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>V</fixed-case>erba<fixed-case>N</fixed-case>ex<fixed-case>AI</fixed-case> at <fixed-case>C</fixed-case>linical<fixed-case>S</fixed-case>kill<fixed-case>QA</fixed-case>: From Visual Evidence to Procedural Order A Two-Stage Generative Vision-Language Framework for <fixed-case>C</fixed-case>lin<fixed-case>S</fixed-case>kill<fixed-case>QA</fixed-case></title>
+      <author><first>Andrea</first><last>Menco Tovar</last><affiliation>Universidad Tecnológica de Bolivar</affiliation></author>
+      <author><first>Jairo E.</first><last>Serrano</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <author><first>Edwin</first><last>Puertas</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <author><first>Juan Carlos</first><last>Martinez-Santos</last><affiliation>Universidad Tecnologica de Bolivar</affiliation></author>
+      <pages>6-12</pages>
+      <abstract>This work addresses the temporal ordering task of clinical frames in the Basic Life Support (BLS) subset of ClinSkillQA. A two-stage hybrid pipeline based on Qwen2-VL-2B-Instruct in a zero-shot configuration is proposed. In Stage 1, each image is processed independently to extract factual visual evidence, which is then transformed, using deterministic rules, into a structured representation. In Stage 2, ordering is formulated as an ordinal scoring task over procedural stages, with ties broken using PCA applied to multimodal embeddings. Evaluation followed the official benchmark protocol, considering Task Accuracy, Pairwise Accuracy, and BERTScore. In the test phase, the system achieved Task Accuracy = 0.17, Pairwise Micro Accuracy = 0.60, and BERT F1 = 0.71, with complete coverage in both predictions and rationales. The results demonstrate an interpretable and reproducible foundation, although challenges in fine-grained temporal discrimination remain.</abstract>
+      <url hash="5e2f7834">2026.bionlp-2.2</url>
+      <attachment hash="01a2efbc" type="SupplementaryMaterial">2026.bionlp-2.2.SupplementaryMaterial.zip</attachment>
+      <bibkey>menco-tovar-etal-2026-verbanexai</bibkey>
+    </paper>
+    <paper id="3">
+      <title>zzucs at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Bridging Long-Tail Imbalance and Clinical Rubrics for <fixed-case>DMRS</fixed-case> Defense-Level Detection</title>
+      <author><first>Bin</first><last>Huang</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Liuyuan</first><last>Su</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Kaixuan</first><last>Yuan</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Guanghui</first><last>Zhao</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Shixin</first><last>Zhang</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Kunli</first><last>Zhang</last><affiliation>Zhengzhou University</affiliation></author>
+      <pages>13-23</pages>
+      <abstract>Detecting DMRS defense levels in emotionalsupport dialogues is challenging due to severe class imbalance and fine-grained clinical distinctions between adjacent levels, issueswell documented in psychotherapy-orientedNLP surveys (Na et al., 2025). We presentzzucs for PsyDefDetect at BioNLP 2026 (Naet al., 2026a), adopting a data–supervisionco-design strategy. SCCR applies stratifiedresampling to balance support across nine defense levels. CoR–QLoRA encodes clinical rubrics, including task contracts, taxonomy definitions, and boundary cues, into staticprompts for 8B model fine-tuning. Ablationsshow SCCR improves macro-F1 by 4.9 pointsover random oversampling. Our system fromteam zzucs, submitted on CodaBench underthe display name sly_zzu with submission ID652647, achieves 0.3585 macro-F1 on the official blind-test leaderboard LB1. It ranks6th of 21 registered teams with official submissions and surpasses all published 8B baselines by 4.4 F1 points over the strongest 8Bcomparator, Ministral-8B. The code has beenreleased at https://github.com/jackssdd/zzucs_psydefdetect_code.</abstract>
+      <url hash="9f58c4e5">2026.bionlp-2.3</url>
+      <attachment hash="feebaff2" type="SupplementaryMaterial">2026.bionlp-2.3.SupplementaryMaterial.zip</attachment>
+      <attachment hash="133e48fa" type="SupplementaryMaterial">2026.bionlp-2.3.SupplementaryMaterial.txt</attachment>
+      <bibkey>huang-etal-2026-zzucs</bibkey>
+    </paper>
+    <paper id="4">
+      <title>zzunlp at <fixed-case>C</fixed-case>linical<fixed-case>S</fixed-case>kill<fixed-case>QA</fixed-case>: Perceive-and-Plan with Decomposed In-Context Learning and Saliency-Guided Perception for Clinical Skill Keyframe Reordering</title>
+      <author><first>Bin</first><last>Huang</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Yi</first><last>Luo</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Zhontian</first><last>Hua</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Guanghui</first><last>Zhao</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Kaixuan</first><last>Yuan</last><affiliation>Zhengzhou University</affiliation></author>
+      <author><first>Kunli</first><last>Zhang</last><affiliation>Zhengzhou University</affiliation></author>
+      <pages>24-32</pages>
+      <abstract>Multimodal Large Language Models (MLLMs)show strong medical visual understanding,however their capability for continuous per-ception in procedural clinical workflows re-mains underexplored. We present Perceive-and-Plan, a decomposed in-context learningparadigm for clinical skill keyframe reorder-ing. The method separates visual perceptionfrom temporal planning via two stages: (1)structured visual perception with saliency-guided Picture-in-Picture (PiP) compositionthat magnifies critical regions (head, chest)as color-coded insets, and (2) temporal rea-soning with chain-style self-verification viafresh conversation reset and visual-evidenceanchoring (BLS Rules R1-R11). Withoutparameter updates, our system scores 71.43overall (2nd place, ClinSkill QA 2026), with0.86 pairwise accuracy and 1.0 rationale cover-age. Structured prompting with visual saliencyguidance measurably improves MLLMs’ pro-cedural understanding.Our code is pub-lished at https://github.com/NanceTide/clinskillqa-perceive-and-plan.</abstract>
+      <url hash="9d0bdac3">2026.bionlp-2.4</url>
+      <attachment hash="31dfab1a" type="SupplementaryMaterial">2026.bionlp-2.4.SupplementaryMaterial.zip</attachment>
+      <bibkey>huang-etal-2026-zzunlp</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>DLNLP</fixed-case> at <fixed-case>C</fixed-case>linical<fixed-case>S</fixed-case>kill<fixed-case>QA</fixed-case>: <fixed-case>E</fixed-case>vidence<fixed-case>F</fixed-case>low for Structured Zero-Shot Clinical Keyframe Ordering</title>
+      <author><first>Kexin</first><last>Li</last><affiliation>Dalian Minzu University</affiliation></author>
+      <author><first>Zhekun</first><last>Wang</last><affiliation>Dalian Minzu University</affiliation></author>
+      <author><first>Yiran</first><last>Wang</last><affiliation>Dalian Minzu University</affiliation></author>
+      <author><first>Di</first><last>Zhao</last><affiliation>Dalian Minzu University</affiliation></author>
+      <pages>33-37</pages>
+      <abstract>The ClinSkill QA shared task requires models to recover the temporal order of scrambled clinical keyframes and generate explanations. We propose EvidenceFlow, a structured zero-shot framework based on Qwen2.5-VL that decomposes the task into global overview, local evidence modeling, and ordering decision, with two variants: model-led EvidenceFlow-M and rule-guided EvidenceFlow-R. On the official test set, EvidenceFlow-R achieves better ordering performance, while EvidenceFlow-M produces better explanation quality, revealing a trade-off between ordering stability and rationale generation. EvidenceFlow provides an interpretable zero-shot baseline for clinical keyframe ordering.</abstract>
+      <url hash="8bcaa090">2026.bionlp-2.5</url>
+      <attachment hash="019c13eb" type="SupplementaryMaterial">2026.bionlp-2.5.SupplementaryMaterial.zip</attachment>
+      <bibkey>li-etal-2026-dlnlp</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>UTS</fixed-case> at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Multi-Agent Councils and Absence-Based Reasoning for Defense Mechanism Classification</title>
+      <author><first>Dima</first><last>Galat</last><affiliation>UTS</affiliation></author>
+      <author><first>Marian</first><last>Rizoiu</last><affiliation>UTS</affiliation></author>
+      <pages>38-46</pages>
+      <abstract>This paper describes our system for classifying psychological defense mechanisms in emotional support dialogues using the Defense Mechanism Rating Scales (DMRS), placing second (F1 0.406) among 64 teams.1 A central insight is that defense mechanisms are defined by what is absent: missing affect, blocked cognition, denied reality. We encode this as an affect-cognition integration spectrum in prompt-level clinical rules, which account for the largest single gain (+11.4pp F1).Our architecture is a multi-phase deliberative council of Gemini 2.5 agents where class-specific advocates rate evidence strength rather than voting, achieving F1 0.382 with no fine-tuning - a top-5 result on its own. We find, however, that the council is confidently wrong about minority classes: 59–80% of stable minority predictions are incorrect, driven by a systematic "L7 attractor" in which emotional content defaults to the majority class. A targeted override ensemble from three fine-tuned Qwen3.5 models applies 16 overrides (+2.4pp), selected by a structured multi-agent system (builder, critic, regression guard) that produced a larger F1 gain in one iteration than 8 prior attempts combined.</abstract>
+      <url hash="3f705a6e">2026.bionlp-2.6</url>
+      <attachment hash="3f21e1c5" type="SupplementaryMaterial">2026.bionlp-2.6.SupplementaryMaterial.txt</attachment>
+      <attachment hash="be92a273" type="SupplementaryMaterial">2026.bionlp-2.6.SupplementaryMaterial.zip</attachment>
+      <bibkey>galat-rizoiu-2026-uts</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Otter at <fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>A</fixed-case>ct2026: Diverse Encoder Ensemble for Medical Decision Span Detection</title>
+      <author><first>Lalita</first><last>Lowphansirikul</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author><first>Piyalitt</first><last>Ittichaiwong</last><affiliation>Faculty of Medicine Siriraj Hospital, Mahidol University</affiliation></author>
+      <pages>47-53</pages>
+      <abstract>We build an ensemble of 10 transformer encoders for the MedExACT 2026 shared task on medical decision span detection. The ensemble is diversified along three training directions: encoder initialization (including domain-adaptive pre-training on clinical text), loss function, and data augmentation with LLM-generated synthetic notes and silver-labeled clinical documents. Greedy forward search selects the combination with the highest validation final score. A BERT-based boundary refiner is applied to the ensemble’s predicted spans to correct offset errors before submission.</abstract>
+      <url hash="5be8dc7a">2026.bionlp-2.7</url>
+      <attachment hash="4f12abe2" type="SupplementaryMaterial">2026.bionlp-2.7.SupplementaryMaterial.zip</attachment>
+      <attachment hash="f1c95b9c" type="SupplementaryMaterial">2026.bionlp-2.7.SupplementaryMaterial.txt</attachment>
+      <bibkey>lowphansirikul-ittichaiwong-2026-otter</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Eraserhead at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Prompt Design and Class Rebalancing for Psychological Defense Mechanism Detection</title>
+      <author><first>Muhammad</first><last>Abu Horaira</last><affiliation>Department of Computer Science and Engineering, Chittagong University of Engineering and Technology, Bangladesh</affiliation></author>
+      <author><first>Mehreen</first><last>Rahman</last><affiliation>Department of Computer Science and Engineering, Chittagong University of Engineering and Technology, Bangladesh</affiliation></author>
+      <author><first>Nahian</first><last>Chowdhury</last><affiliation>Department of Computer Science and Engineering, Chittagong University of Engineering and Technology, Bangladesh</affiliation></author>
+      <pages>54-58</pages>
+      <abstract>We describe the Eraserhead system submitted to the PsyDefDetect shared task at BioNLP 2026, which frames psychological defense level detection as a nine-class utterance classification problem over supportive dialogue. Our system is based on Qwen3-14B and combines clinically informed prompt design, per-label oversampling, and careful inference settings for stable prediction. A central challenge of the task is strong class imbalance, with High-Adaptive responses appearing far more often than several minority classes. This makes it easy for models to favor the majority class and achieve reasonable accuracy while performing poorly on rarer categories. To address this, we iteratively adjusted oversampling targets based on error analysis and predicted label distributions across submission rounds. Our final system achieved an official macro F1 of 0.3418 on Leaderboard 1 and 0.3947 on Leaderboard 2, ranking 7th among the 21 registered teams on both leaderboards. We further analyze the main failure modes of the system, especially the difficulty of distinguishing Minor Image Distorting defenses from High-Adaptive responses and the persistent tendency to over-predict the majority class. These findings highlight the broader difficulty of modeling psychological function from text alone.</abstract>
+      <url hash="dc2c04b4">2026.bionlp-2.8</url>
+      <attachment hash="449fffc1" type="SupplementaryMaterial">2026.bionlp-2.8.SupplementaryMaterial.txt</attachment>
+      <bibkey>abu-horaira-etal-2026-eraserhead</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Nürnberg <fixed-case>NLP</fixed-case> at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Multi-Axis Voter Ensembles for Psychological Defence Mechanism Classification</title>
+      <author><first>Philipp</first><last>Steigerwald</last><affiliation>TH Nürnberg</affiliation></author>
+      <author><first>Eric</first><last>Rudolph</last><affiliation>TH Nürnberg</affiliation></author>
+      <author><first>Jens</first><last>Albrecht</last><affiliation>TH Nürnberg</affiliation></author>
+      <pages>59-65</pages>
+      <abstract>Detecting levels of psychological defence mechanisms in supportive conversations is inherently ambiguous. In the PsyDefDetect shared task at BioNLP 2026 the eight positive defence categories share surface language and differ only in pragmatic function and trained raters reach only moderate inter-annotator agreement. On such a task the decisive lever is not a stronger single model but error independence, since any single representation will waver on the overlapping defence boundaries. We translate this insight into a 9-voter ensemble spanning three orthogonal axes: class granularity (all nine classes for the gatekeeper, only the eight defence classes for the specialists), training method (generative and discriminative) and base model. The system reaches an F1 score of .420 on the hidden test set, placing first among 21 registered teams.</abstract>
+      <url hash="47857e8e">2026.bionlp-2.9</url>
+      <attachment hash="c04ac315" type="SupplementaryMaterial">2026.bionlp-2.9.SupplementaryMaterial.zip</attachment>
+      <attachment hash="1e3681c4" type="SupplementaryMaterial">2026.bionlp-2.9.SupplementaryMaterial.zip</attachment>
+      <attachment hash="61a143cc" type="SupplementaryMaterial">2026.bionlp-2.9.SupplementaryMaterial.txt</attachment>
+      <bibkey>steigerwald-etal-2026-nurnberg</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Neural Nexus at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Fine-Tuning <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a with Focal Loss and Role-Tagged Dialogue History for Defense Level Detection</title>
+      <author><first>Subhrajyoti</first><last>Basu</last><affiliation>Heritage Institute of Technology</affiliation></author>
+      <pages>66-70</pages>
+      <abstract>We describe our system for the PsyDefDetect shared task at BioNLP 2026, which focuses onclassifying help-seeker utterances in multi-turn supportive conversations into nine psychological defense mechanism levels defined by the Defense Mechanism Rating Scales (DMRS). Our approach fine-tunes roberta-base using a composite training objective that combines focal loss, label smoothing, and squareroot dampened class weights to address the severe label imbalance present in the PSYDEFCONV corpus, where the dominant class constitutes 52% of the training data. The inputrepresentation is constructed by concatenating up to eight dialogue turns with role-specific tags, separated using RoBERTa’s native /s tokens, followed by the target utterance marked using a [TARGET] token. Model selection is performed using macro-F1 based early stopping on a stratified 15% validation split, along with cosine learning rate decay for stable optimization. Our best submission achieves an official Leaderboard 1 (positive classes) macroF1 score of 0.2556, ranking 11th among 21 registered teams.</abstract>
+      <url hash="68962a01">2026.bionlp-2.10</url>
+      <attachment hash="3defda0b" type="SupplementaryMaterial">2026.bionlp-2.10.SupplementaryMaterial.zip</attachment>
+      <attachment hash="e971fde2" type="SupplementaryMaterial">2026.bionlp-2.10.SupplementaryMaterial.txt</attachment>
+      <bibkey>basu-2026-neural</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>EL</fixed-case>i<fixed-case>RF</fixed-case>-<fixed-case>UPV</fixed-case>@<fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>ACT</fixed-case> 2026: Dynamic Section Conditioning for Medical Decision Span Detection in Discharge Summaries</title>
+      <author><first>Vicent</first><last>Ahuir</last><affiliation>Valencian Research Institute for Artificial Intelligence, Universitat PolitÃ¨cnica de ValÃ¨ncia</affiliation></author>
+      <author><first>Lluís</first><last>Hurtado</last><affiliation>Valencian Research Institute for Artificial Intelligence, Universitat Politècnica de València</affiliation></author>
+      <author><first>María</first><last>Castro-Bleda</last><affiliation>Valencian Research Institute for Artificial Intelligence, Universitat Politècnica de València</affiliation></author>
+      <pages>71-76</pages>
+      <abstract>Extracting medical decisions from discharge summaries is essential for downstream clinical analytics, yet the task remains challenging due to the heterogeneous structure of electronic health records. For the MedExACT track at ACL 2026, we proposed a system that achieved the 4th position. Our approach first applies dynamic section conditioning to capture the contextual dependencies inherent in each document. A transformer backbone is then augmented with category- and section-aware layer mixing, enabling us to fuse global document structure with fine-grained semantic cues. To further improve robustness, we employ an ensemble of instruction-tuned large language models for automatic section extraction, while a fairness-oriented model selection criterion ensures that performance does not degrade on minority demographic subgroups. The resulting system attains a final score of 0.5806 on the held-out test set and demonstrates significant gains over the baseline across all evaluated subpopulations.</abstract>
+      <url hash="46be8051">2026.bionlp-2.11</url>
+      <attachment hash="a052c33d" type="SupplementaryMaterial">2026.bionlp-2.11.SupplementaryMaterial.txt</attachment>
+      <bibkey>ahuir-etal-2026-elirf</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>VISHC</fixed-case> at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Mitigating Data Scarcity in Psychological Defense Classification with Context-Aware Synthetic Augmentation</title>
+      <author><first>Hoang-Thuy-Duong</first><last>Vu</last><affiliation>VinUni-Illinois Smart Health Center, College of Engineering and Computer Science, VinUniversity</affiliation></author>
+      <author><first>Quoc-Cuong</first><last>Pham</last><affiliation>VinUni-Illinois Smart Health Center, College of Engineering and Computer Science, VinUniversity</affiliation></author>
+      <author><first>Huy-Hieu</first><last>Pham</last><affiliation>VinUni-Illinois Smart Health Center, College of Engineering and Computer Science, Center for Innovations in Health Sciences, VinUniversity</affiliation></author>
+      <pages>77-86</pages>
+      <abstract>Psychological defense mechanisms (PDMs) are unconscious cognitive processes that modulate how individuals perceive and respond to emotional distress. Automatically classifying PDMs from text is clinically valuable but severely hindered by data scarcity and class imbalance, challenges which generative augmentation alone cannot resolve without psychological grounding. In this work, we address these challenges in the PsyDefDetect shared task (BioNLP@ACL 2026) by proposing a context-aware synthetic augmentation framework combined with a hybrid classification model. Our hybrid model integrates contextual language representations with basic clinical features, along with 150 annotated defense items. Experiments demonstrate that definition quality in prompting directly governs generation fidelity and downstream performance. Our method surpasses DMRS Co-Pilot, reaching an accuracy of 58.26% (+40.25%) and a macro-F1 of 24.62% (+15.99%), thereby establishing a strong baseline for psychologically grounded defense mechanism classification in low-resource settings. Source code is available at: https://github.com/htdgv/CASA-PDC.</abstract>
+      <url hash="0fb45026">2026.bionlp-2.12</url>
+      <attachment hash="26f4d8d4" type="SupplementaryMaterial">2026.bionlp-2.12.SupplementaryMaterial.txt</attachment>
+      <bibkey>vu-etal-2026-vishc</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Diverse Transformer Ensemble with Majority Voting for Medical Decision Extraction at <fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>ACT</fixed-case> 2026</title>
+      <author><first>Rishik</first><last>Kondadadi</last><affiliation>Student</affiliation></author>
+      <pages>87-91</pages>
+      <abstract>This paper describes our system for the MedEx-ACT 2026 shared task on extracting and classifying medical decisions from ICU discharge summaries. We frame the task as BIO token classification and train 25 diverse transformer models spanning 13 distinct architectures, including Longformer, DeBERTa, RoBERTa, BioBERT, SciBERT, and others. Each model is trained with category-aware oversampling, focal loss, and demographic-group-aware sampling to address class imbalance and promote fairness across patient subgroups. At inference time, we aggregate predictions via text-normalized majority voting, retaining spans agreed upon by at least 6 of 25 models. Our best submission achieves a final score of 0.5554 on the test set, demonstrating that a simple vote-based ensemble over architecturally diverse models outperforms more complex filtering approaches. We find that architectural diversity is a key driver of ensemble quality and that cross-validation is essential for reliable model selection on small clinical datasets.</abstract>
+      <url hash="bdd6a8a8">2026.bionlp-2.13</url>
+      <attachment hash="a23eccb8" type="SupplementaryMaterial">2026.bionlp-2.13.SupplementaryMaterial.txt</attachment>
+      <bibkey>kondadadi-2026-diverse</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>FBK</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>lin<fixed-case>S</fixed-case>kill <fixed-case>QA</fixed-case> 2026: Improving Temporal Reasoning via Keypoint-Augmented Inputs</title>
+      <author><first>Pedro Gabriel</first><last>Campana</last><affiliation>University of Padova</affiliation></author>
+      <author><first>Alberto</first><last>Lavelli</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <author><first>Bernardo</first><last>Magnini</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <pages>92-98</pages>
+      <abstract>Understanding procedural skills from visual data is a key challenge in medical AI, especially for tasks that require reasoning over temporal sequences. We report on FBK-NLP’s participation at the ClinSkill QA 2026 shared task, which requires models to arrange shuffled key frames into a coherent sequence of clinical actions and provide explanations for the resulting order. We conduct a systematic study of prompting and reasoning strategies using an open and easily deployable vision-language model (VLM). The central finding of our study is that incorporating keypoint-based representations of people’s body parts substantially improves temporal reasoning behind frame ordering. Furthermore, we show that model performance is highly sensitive to prompt design and to seemingly minor factors such as filename ordering and the inclusion of domain information.</abstract>
+      <url hash="9c11f9ab">2026.bionlp-2.14</url>
+      <attachment hash="77e6ad75" type="SupplementaryMaterial">2026.bionlp-2.14.SupplementaryMaterial.zip</attachment>
+      <bibkey>campana-etal-2026-fbk</bibkey>
+    </paper>
+    <paper id="15">
+      <title>transformer_1376 at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: A <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case>-Based Generative Framework for Context-Aware Psychological Defense Mechanism Detection</title>
+      <author><first>Pritha</first><last>Saha</last><affiliation>Chittagong University of Engineering \&amp; Technology(CUET)</affiliation></author>
+      <author><first>Shuvodwip</first><last>Saha</last><affiliation>Chittagong University of Engineering \&amp; Technology</affiliation></author>
+      <author><first>Anik Mahmud</first><last>Shanto</last><affiliation>Southeast University</affiliation></author>
+      <pages>99-103</pages>
+      <abstract>Psychological defense mechanisms play a cru-cial role in shaping human responses duringemotionally charged conversations, yet remainunderexplored in natural language processing.In this work, we address the PSYDEFCONVshared task, which involves classifying defensemechanisms in multi-turn dialogues using clin-ically grounded annotations based on the De-fense Mechanism Rating Scales (DMRS). Wepropose a generative supervised fine-tuningframework that reformulates the task as con-ditional text generation. A pre-trained causallanguage model (Gemma-2-2B) is adapted us-ing parameter-efficient fine-tuning (PEFT) with4-bit quantization, enabling efficient trainingunder limited computational resources. To han-dle class imbalance, we apply random oversam-pling, and we design a prompt-based input rep-resentation to incorporate conversational con-text effectively. Experimental results demon-strate that our generative approach is compet-itive with discriminative baselines while of-fering improved flexibility in modeling sub-tle and context-dependent defensive behaviors.The findings highlight the potential of genera-tive large language models for psychologicallygrounded dialogue understanding tasks.</abstract>
+      <url hash="403ee49a">2026.bionlp-2.15</url>
+      <attachment hash="83dd5447" type="SupplementaryMaterial">2026.bionlp-2.15.SupplementaryMaterial.txt</attachment>
+      <bibkey>saha-etal-2026-transformer</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Explainators at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Hierarchical Prompting and Representation-Based Classification for Psychological Defenses</title>
+      <author><first>Liudmila</first><last>Babakova</last><affiliation>Moscow State Pedagogical University</affiliation></author>
+      <author><first>Christopher</first><last>Luongo-Vazquez</last><affiliation>Universidad de la Rioja</affiliation></author>
+      <author><first>Ilia</first><last>Stepin</last><affiliation>Universidad Autonoma de Madrid</affiliation></author>
+      <pages>104-108</pages>
+      <abstract>Psychological defense detection is one of essential present-day challenges in clinical practice. The state-of-the-art natural language processing (NLP) tools aim to automate this task. However, their potential and efficiency remain largely unexplored. This manuscript attempts to address this problem from various perspectives: it first explores the efficiency of direct large language model (LLM)-prompting. Then, it applies NLP techniques for LLM fine-tuning applied to the psychological defense classification task. Finally, it attempts to generate states of mind based on the speaker’s psychological state. The results show that the complexity of the task requires further improvement of the software solutions used.</abstract>
+      <url hash="687e52c6">2026.bionlp-2.16</url>
+      <attachment hash="cff8851a" type="SupplementaryMaterial">2026.bionlp-2.16.SupplementaryMaterial.txt</attachment>
+      <bibkey>babakova-etal-2026-explainators</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>P</fixed-case>erception<fixed-case>L</fixed-case>ab at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Overcoming Extreme Response Bias in <fixed-case>LLM</fixed-case>s via Rubric-Grounded Retrieval and Supervised Clinical Reasoning Distillation for Fine-Grained Ordinal Classification</title>
+      <author><first>Tamjid</first><last>Fahim</last><affiliation>Rajshahi University of Engineering \&amp; Technology</affiliation></author>
+      <author><first>Syed</first><last>Johan</last><affiliation>Rajshahi University of Engineering and Technology</affiliation></author>
+      <author><first>Saad</first><last>Bin Maksud</last><affiliation>Rajshahi University of Engineering \&amp; Technology</affiliation></author>
+      <pages>109-122</pages>
+      <abstract>Automating the classification of psychological defense mechanisms is a critical yet challenging frontier in clinical natural language processing. General-purpose Large Language Models (LLMs) struggle to apply fine-grained ordinal frameworks like the Defense Mechanism Rating Scales due to the implicit nature of clinical cues and a fundamental clinical reasoning gap. These models exhibit severe extreme response bias, systematically gravitating toward the scale’s endpoints while failing to resolve nuanced, mid-level defenses. In this paper, we present our third-place system for the PsyDefDetect Shared Task at BioNLP 2026, designed specifically to overcome this failure mode. We propose a hybrid architecture that synergizes label-flattened generative retrieval with an LLM classifier fine-tuned via the distillation of supervised clinical reasoning traces. This dual approach, grounding decisions in rubric criteria while leveraging task-specific supervision, successfully mitigates the observed bias, achieving an accuracy of 67.37% and a macro-F1 of 39.56%. Our work provides empirical evidence that tightly integrating targeted clinical supervision with dynamic rubric-grounded retrieval significantly outperforms the raw parameter scale of un-tuned foundation models.</abstract>
+      <url hash="b8c87c80">2026.bionlp-2.17</url>
+      <attachment hash="e61b4811" type="SupplementaryMaterial">2026.bionlp-2.17.SupplementaryMaterial.zip</attachment>
+      <attachment hash="b10c1761" type="SupplementaryMaterial">2026.bionlp-2.17.SupplementaryMaterial.txt</attachment>
+      <bibkey>fahim-etal-2026-perceptionlab</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>L</fixed-case>ingu<fixed-case>IUT</fixed-case>ics at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Iterative Imbalance-Aware Fine-tuning of Qwen3-8<fixed-case>B</fixed-case> for Psychological Defense Mechanism Classification</title>
+      <author><first>Shefayat</first><last>Adib</last><affiliation>Islamic University of Technology</affiliation></author>
+      <author><first>Ahmed</first><last>Sani</last><affiliation>Islamic University of Technology</affiliation></author>
+      <author><first>Md Hasibur</first><last>Alif</last><affiliation>Islamic University of Technology</affiliation></author>
+      <author><first>Ajwad</first><last>Abrar</last><affiliation>IUT</affiliation></author>
+      <pages>123-131</pages>
+      <abstract>Detecting psychological defense mechanisms in conversational text remains a challenging clinical NLP problem. For the PsyDefDetect 2026 shared task (9-class utterance classification evaluated via macro F1), our team LinguIUTics1 achieves a macro F1-score of 0.3917 on the official positive-class leaderboard, ranking 4th out of 21 registered teams and improving over the Ministral-8B task baseline (31.48 macro F1) by +7.7 absolute points (+24.4% relative). BERT-family encoders and zero-shot LLMs proved ineffective on rare classes due to severe class imbalance, leading us to QLoRA fine-tuning of Qwen3-8B. We leverage three key strategies: grouped stratified cross-validation (preventing leakage), minority-class round-robin lexical augmentation, and a post-processing pipeline with logitbias tuning and ensemble blending. Together, these components close much of the validation–leaderboard gap and substantially improve minority-class recall, driving the critical "Unclear" class (Level 8) from near-zero performance to F1=0.797.</abstract>
+      <url hash="b4f25395">2026.bionlp-2.18</url>
+      <attachment hash="d223378c" type="SupplementaryMaterial">2026.bionlp-2.18.SupplementaryMaterial.txt</attachment>
+      <attachment hash="689bc208" type="SupplementaryMaterial">2026.bionlp-2.18.SupplementaryMaterial.zip</attachment>
+      <bibkey>adib-etal-2026-linguiutics</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>TONI</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Defense Mechanism Detection via <fixed-case>LLM</fixed-case>-based Ensemble Methods</title>
+      <author><first>Durjoy</first><last>Paul</last><affiliation>Texas State University</affiliation></author>
+      <author><first>Arshitha</first><last>Basavaraj</last><affiliation>International Institute of Information Technology, Bangalore</affiliation></author>
+      <author><first>Callum</first><last>Chan</last><affiliation>University of Ottawa</affiliation></author>
+      <author><first>Veronica</first><last>Perez-Rosas</last><affiliation>Texas State University</affiliation></author>
+      <author><first>Diana</first><last>Inkpen</last><affiliation>University of Ottawa</affiliation></author>
+      <author><first>Francisco</first><last>Pereira</last><affiliation>National Institute of Mental Health</affiliation></author>
+      <author><first>Juan Antonio</first><last>Lossio-Ventura</last><affiliation>National Institutes of Health</affiliation></author>
+      <pages>132-140</pages>
+      <abstract>This system paper presents the approach of Team TONI-NLP to the PsyDefDetect 2026 shared task. The objective of the task was to classify utterances from helper–seeker conversations into nine categories: seven labels representing progressively higher levels of defensive maturity, one label indicating the absence of a defense mechanism, and one label for cases requiring additional information. We investigated several modern NLP approaches, including prompt engineering, fine-tuning, hierarchical modeling and classification using text embeddings derived from transformer-based models as well as classical embeddings such as TF-IDF. Our results show that ensemble methods performed best among our submitted systems, achieving a macro-F1 score of 0.320 and ranking 9th in the shared task out of 21 teams.</abstract>
+      <url hash="680dfd90">2026.bionlp-2.19</url>
+      <attachment hash="f2a556b6" type="SupplementaryMaterial">2026.bionlp-2.19.SupplementaryMaterial.txt</attachment>
+      <attachment hash="8a3c7009" type="SupplementaryMaterial">2026.bionlp-2.19.SupplementaryMaterial.zip</attachment>
+      <bibkey>paul-etal-2026-toni</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Zero-Shot, Fine-Tuned, and Retrieval-Augmented Extraction of Clinical Decisions with Corpus Boundary Diagnostics</title>
+      <author><first>Mohammed</first><last>Alliheedi</last><affiliation>Al Baha University</affiliation></author>
+      <author><first>Robert</first><last>Mercer</last><affiliation>University of Western Ontario</affiliation></author>
+      <author><first>Anemily</first><last>Machina</last><affiliation>University of Western Ontario</affiliation></author>
+      <author><first>Sudipta</first><last>Roy</last><affiliation>University of Western Ontario</affiliation></author>
+      <author><first>Yetian</first><last>Wang</last><affiliation>University of Waterloo</affiliation></author>
+      <author><first>Xindi</first><last>Wang</last><affiliation>Shandong University</affiliation></author>
+      <pages>141-145</pages>
+      <abstract>We present the CanSA system for the MedEx-ACT@ACL 2026 shared task, which requires extracting and classifying clinical decisions from ICU discharge summaries into nine DIC-TUM categories. We have developed three approaches: (1) a training-free system which consists of a preprocessing module that normalizes text and an inference engine combining zero shot LLMs with a RAG ensemble, (2) a supervised fine-tuning method which required training, and (3) a training-free retrieval-augmented pipeline employing TF–IDF-based lexical retrieval to surface in-context exemplars from the development corpus, combined with section aware chunking and structured extraction calls to a large language model. Our team’s best submission achieved a Final Score of 0.41, ranking 34th out of 37 on the official test leaderboard.</abstract>
+      <url hash="39bb5de6">2026.bionlp-2.20</url>
+      <attachment hash="eb176d8b" type="SupplementaryMaterial">2026.bionlp-2.20.SupplementaryMaterial.zip</attachment>
+      <attachment hash="6f907610" type="SupplementaryMaterial">2026.bionlp-2.20.SupplementaryMaterial.txt</attachment>
+      <bibkey>alliheedi-etal-2026-zero</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>CASPAR</fixed-case>: A Context-Aware Span Refinement Approach for Decision Support</title>
+      <author><first>Jing</first><last>Tao</last><affiliation>Queen's University</affiliation></author>
+      <author><first>Amir</first><last>Eskandari</last><affiliation>Queen‘s University</affiliation></author>
+      <author><first>Farhana</first><last>Zulkernine</last><affiliation>Queen's University</affiliation></author>
+      <pages>146-154</pages>
+      <abstract>This paper presents CASPAR, a two-stage approach for the MedExACT shared task on medical decision span extraction and classification from ICU discharge summaries. Stage 1 performs document-level sequence labeling using a sliding-window RoBERTa encoder with BiGRU and CRF to generate candidate spans. Stage 2 applies a lightweight refinement module that revisits each candidate within its surrounding context to revise category assignments and correct span boundaries. The system achieves a final score of 0.5668 on the official leaderboard, substantially outperforming the organizer baseline on span-level F1. In addition to system description, we provides ablation results, repeated-run validation statistics, and subgroup- and error-level analyses that highlight the challenges of exact boundary recovery and confusion in race categories subgroups in clinical decision extraction.</abstract>
+      <url hash="cf708b04">2026.bionlp-2.21</url>
+      <attachment hash="ecb63dea" type="SupplementaryMaterial">2026.bionlp-2.21.SupplementaryMaterial.txt</attachment>
+      <bibkey>tao-etal-2026-caspar</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>KCL</fixed-case>-Cogstack at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: A Hierarchical Approach to Detecting Defense Mechanisms in Supportive Dialogue</title>
+      <author><first>Shubham</first><last>Agarwal</last><affiliation>King's College London</affiliation></author>
+      <author><first>Thomas</first><last>Searle</last><affiliation>King's College London</affiliation></author>
+      <author><first>Richard</first><last>Dobson</last><affiliation>King's College London</affiliation></author>
+      <pages>155-163</pages>
+      <abstract>We present our system for the PsyDefDetect shared task, which focuses on detecting and classifying psychological defense mechanisms in peer emotional support conversations. Our core contribution is a hierarchical classification framework that structures prediction as a coarse-to-fine pipeline over a clinically validated label hierarchy, grounded in the Defense Mechanism Rating Scales (DMRS). Through systematic experimentation with flat fine-tuning, few-shot prompting, and hierarchical classification, we demonstrate that explicitly modelling the structured relationships among defense levels offers a more effective alternative to flat classification, achieving a macro F1 of 0.23 on the official test set.</abstract>
+      <url hash="b90053da">2026.bionlp-2.22</url>
+      <attachment hash="d4901a54" type="SupplementaryMaterial">2026.bionlp-2.22.SupplementaryMaterial.txt</attachment>
+      <bibkey>agarwal-etal-2026-kcl</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>DAL</fixed-case> Team at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: From Supervised Encoders to Hierarchical <fixed-case>LLM</fixed-case>-<fixed-case>RAG</fixed-case> for Psychological Defense Detection</title>
+      <author><first>Anh</first><last>Chu</last><affiliation>VNU University of Engineering and Technology, Hanoi, Vietnam</affiliation></author>
+      <author><first>Luong</first><last>Tran</last><affiliation>Faculty of Information Technology, VNU University of Engineering and Technology, Vietnam</affiliation></author>
+      <author><first>Dat</first><last>Do</last><affiliation>Faculty of Information Technology, VNU University of Engineering and Technology, Vietnam</affiliation></author>
+      <author><first>Phuong</first><last>Mai</last><affiliation>Faculty of Information Technology, VNU University of Engineering and Technology, Vietnam</affiliation></author>
+      <author><first>Quynh</first><last>Le</last><affiliation>Faculty of Information Technology, VNU University of Engineering and Technology, Vietnam</affiliation></author>
+      <author><first>Cat</first><last>Can</last><affiliation>Faculty of Biology and Medicine, University of Lausanne, Switzerland</affiliation></author>
+      <pages>164-170</pages>
+      <abstract>We propose a hierarchical framework for psychological defense mechanism detection in multi-turn dialogues, integrating large language models, retrieval-augmented generation, and heuristic calibration. Our approach decomposes prediction into coarse-to-fine reasoning stages and incorporates dialogue reconstruction, explanation-enhanced retrieval, and hybrid LLM–supervised filtering to address severe label imbalance and implicit, context-dependent labeling. Experiments on the PsyDefDetect dataset show that LLM-based RAG improves performance on minority and ambiguous classes, achieving a Macro F1 of 0.31, while also revealing persistent challenges in fine-grained discrimination of latent psychological constructs.</abstract>
+      <url hash="681bb23a">2026.bionlp-2.23</url>
+      <attachment hash="9a0a6c3e" type="SupplementaryMaterial">2026.bionlp-2.23.SupplementaryMaterial.txt</attachment>
+      <attachment hash="7deb1b6b" type="SupplementaryMaterial">2026.bionlp-2.23.SupplementaryMaterial.zip</attachment>
+      <bibkey>chu-etal-2026-dal</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>CUAMC</fixed-case> @ <fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>ACT</fixed-case> 2026: Robust Ensemble Voting for Fair Medical Decision Extraction</title>
+      <author><first>William</first><last>Baumgartner</last><affiliation>University of Colorado Anschutz Medical Campus</affiliation></author>
+      <author><first>Lisa</first><last>Schilling</last><affiliation>University of Colorado Anschutz Medical Campus</affiliation></author>
+      <pages>171-178</pages>
+      <abstract>Automated extraction of medical decisions from clinical notes is a critical step to constructing more granular patient health trajectories than what is currently obtainable from structured healthcare data. Here we present a system designed for the MedExACT shared task that employs an ensemble of BERT-based classifiers to account for demographic diversity when extracting mentions of medical decisions from MIMIC-III discharge summaries. A simple voting strategy combined with architectural diversity is demonstrated to work best when training data is limited.</abstract>
+      <url hash="6eb730b6">2026.bionlp-2.24</url>
+      <attachment hash="310d7ce9" type="SupplementaryMaterial">2026.bionlp-2.24.SupplementaryMaterial.zip</attachment>
+      <attachment hash="3ec6393e" type="SupplementaryMaterial">2026.bionlp-2.24.SupplementaryMaterial.txt</attachment>
+      <bibkey>baumgartner-schilling-2026-cuamc</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>LAMAR</fixed-case> at <fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>ACT</fixed-case> 2026: Agreement-Driven Large Language Model Ensembles for Clinical Decision Extraction from Discharge Summaries</title>
+      <author><first>Monrada</first><last>Chiewhawan</last><affiliation>Mahidol University</affiliation></author>
+      <author><first>Keetawan</first><last>Limaroon</last><affiliation>King Mongkut's University of Technology Thonburi</affiliation></author>
+      <author><first>Titipat</first><last>Achakulvisut</last><affiliation>Mahidol University</affiliation></author>
+      <pages>179-190</pages>
+      <abstract>This paper presents an ensemble of Qwen3.5-4B language models for extracting medical decisions from discharge summaries in the MedDec dataset. The models were trained to annotate discharge summaries with inline XML-like tags. Three different training strategies were used including dynamic fine-tuning, reinforcement learning, and pseudo-label augmentation. By combining predictions based on inter-model agreement, the system improved performance across evaluation metrics, achieving an overall F1 of 0.5942 and ranking second on the test leaderboard. The results also showed stable performance across demographic groups, suggesting fairness for underrepresented populations.</abstract>
+      <url hash="43a953d8">2026.bionlp-2.25</url>
+      <attachment hash="77f3a85e" type="SupplementaryMaterial">2026.bionlp-2.25.SupplementaryMaterial.txt</attachment>
+      <attachment hash="c0d69777" type="SupplementaryMaterial">2026.bionlp-2.25.SupplementaryMaterial.zip</attachment>
+      <bibkey>chiewhawan-etal-2026-lamar</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>CS</fixed-case>_<fixed-case>M</fixed-case>etro at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: Detecting Psychological Defense Mechanisms in Mental Health Dialogues with Summarization-Enhanced Transformer Ensembles</title>
+      <author><first>Oarisa</first><last>Rebayet</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Radiul</first><last>Walee</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Symom Hossain</first><last>Shohan</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Kawsar</first><last>Ahmed</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Mohammed Moshiul</first><last>Hoque</last><affiliation>Department of Computer Science \&amp; Engineering, Chittagong University of Engineering \&amp; Technology</affiliation></author>
+      <pages>191-200</pages>
+      <abstract>Detecting psychological defense mechanisms in supportive conversations is essential for assisting mental health practitioners. Natural language processing techniques are increasingly integral to such systems, enabling automated classification of defense levels to better understand help-seeker behavior and resistance patterns. In PsyDefDetect at BioNLP 2026, we address the task of nine-class defense level classification on the PSYDEFCONV corpus. We propose a three-stage pipeline combining LLM-based dialogue summarization, domain-specific transformer fine-tuning, and rule-based ensemble prediction. Additionally, we evaluate three mental health domain-specific transformers (Mental-BERT, Mental-RoBERTa, Mental-XLNet) alongside fine-tuned LLMs (Qwen3-4B, Qwen3-1.7B, Mistral-7B under different input conditions. Experimental results on the released test-set gold labels show that our ensemble approach achieves the best performance, reaching 34.69% macro F1 and surpassing the baseline by 4.69 percentage points. On the official PsyDefDetect Leaderboard 1 (labels 1–8), the submitted system achieved a Macro-F1 score of 23.46%, ranking 15th out of 21 teams, while on Leaderboard 2 (labels 0–8), it achieved 30.04%, securing 14th place. These findings demonstrate that domain-specific transformers substantially outperform generic LLM fine-tuning on this specialized clinical task.</abstract>
+      <url hash="6055f026">2026.bionlp-2.26</url>
+      <attachment hash="2d6ea2f8" type="SupplementaryMaterial">2026.bionlp-2.26.SupplementaryMaterial.txt</attachment>
+      <bibkey>rebayet-etal-2026-cs</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Sparse Category Routing and Fairness-Aware Optimization for Medical Decision Extraction</title>
+      <author><first>Ahmed</first><last>Elshehaby</last><affiliation>UG student at MBZUAI</affiliation></author>
+      <author><first>Mohamed</first><last>Abdalla</last><affiliation>UG student at MBZUAI</affiliation></author>
+      <author><first>Youssef</first><last>Mohamed</last><affiliation>MS student at MBZUAI</affiliation></author>
+      <pages>201-212</pages>
+      <abstract>Extracting structured medical decisions fromICU discharge summaries is hard because oflong documents, severe category imbalanceacross nine DICTUM decision types, and afairness-aware evaluation that penalizes incon-sistent performance across demographic sub-groups. We present our system for the MedEx-ACT 2026 shared task (Elgaar et al., 2026),which fine-tunes BiomedBERT with a com-posite loss combining label-smoothed cross-entropy, a soft token-F1 auxiliary term, andR-Drop regularization. At inference time weapply a deterministic ensemble: half-offsetsliding-window augmentation across four win-dow configurations, dual-branch logit aggrega-tion from the same checkpoint, per-categorylength calibration on the Anchor Branch, andsparse routing of categories 4 and 7 to a context-weighted specialist branch motivated by theirunusual span-length distributions. Adding R-Drop improved validation Overall_F1 by 1.24points over the CE + soft-F1 baseline, with alarger 1.70-point gain on Worst-Group F1. Ourbest submission achieves Span F1 of 0.4900,Token F1 of 0.6796, and an official Overall_F1of 0.5724, with the African American subgroupas the Worst-Group bottleneck at Base_Score0.5601</abstract>
+      <url hash="8f819602">2026.bionlp-2.27</url>
+      <attachment hash="e7207afd" type="SupplementaryMaterial">2026.bionlp-2.27.SupplementaryMaterial.txt</attachment>
+      <bibkey>elshehaby-etal-2026-sparse</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>A</fixed-case>lien<fixed-case>A</fixed-case>nnotators at <fixed-case>P</fixed-case>sy<fixed-case>D</fixed-case>ef<fixed-case>D</fixed-case>etect: What Lies Between the Lines: Probing Lightweight Open-Source <fixed-case>LLM</fixed-case>s for Psychological Defense Mechanism Detection</title>
+      <author><first>Siam</first><last>Karip</last><affiliation>United International University</affiliation></author>
+      <author><first>Nahid</first><last>Hossain</last><affiliation>United International University</affiliation></author>
+      <pages>213-223</pages>
+      <abstract>Detecting psychological defense mechanisms in therapy dialogue is a clinically valuable but computationally underexplored task. We present our systematic analysis for PsyDefDetect, a shared task at BioNLP@ACL 2026, which frames defense detection as a nine-class utterance-level classification problem based on the Defense Mechanism Rating Scale (DMRS). We systematically evaluate six open-source, instruction-tuned small language models (SLMs, = 9B parameters) in zero-shot and fine-tuning settings, and compare a clinically-grounded prompt against the organizer-provided baseline. Our official submission achieved 59.96% accuracy and 16.28% Macro F1. Post-submission experiments show that fine-tuning combined with 5-fold cross-validation and logit averaging ensemble substantially improves performance, with the best configuration reaching 34.59% Macro F1 and 65.25% accuracy. We find that clinically-grounded prompts outperform bare label definitions, model scale does not consistently improve zero-shot performance, and fine-tuning dramatically recovers even collapsed zero-shot models. Certain defense tiers remain persistently difficult across all settings, pointing to clinical ambiguity at tier boundaries as a more fundamental bottleneck than data imbalance alone.</abstract>
+      <url hash="e8167b2b">2026.bionlp-2.28</url>
+      <attachment hash="985ed088" type="SupplementaryMaterial">2026.bionlp-2.28.SupplementaryMaterial.txt</attachment>
+      <attachment hash="a5735504" type="SupplementaryMaterial">2026.bionlp-2.28.SupplementaryMaterial.zip</attachment>
+      <bibkey>karip-hossain-2026-alienannotators</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Team Aurum at <fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>x<fixed-case>ACT</fixed-case> 2026@<fixed-case>ACL</fixed-case>: Data Augmentation and Clinical Longformer Fine-Tuning for Medical Decision Extraction</title>
+      <author><first>Jyoti</first><last>Kumari</last><affiliation>Banaras Hindu University</affiliation></author>
+      <author><first>Vinay</first><last>Ulli</last><affiliation>Oogwai Analytics</affiliation></author>
+      <author><first>Anindita</first><last>Mondal</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <pages>224-228</pages>
+      <abstract>This paper describes the system submitted by team Aurum to the Medical Decision Extraction, Analysis, and Classification Task (MedExACT) at BioNLP 2026. The task requires the extraction and classification of contiguous text spans representing medical decisions from lengthy ICU discharge summaries. To address the dual challenges of long document lengths and severe class imbalance withina limited training set of 350 notes, we propose a two-pronged strategy. First, we employ a tripartite data augmentation pipeline utilizing rule-based entity replacement, LLM-based contextual paraphrasing, and synthetic note generation to expand the training data to over 2,300 notes. Second, we fine-tune a domain-specific Clinical Longformer model equipped with a sliding-window inference mechanism and Focal Loss to handle sequences up to 2,048 tokens while focusing on rare decision categories. Paired with a targeted post-processing module,our system achieved a Final Score of 0.5251, demonstrating high token-level detection (Token F1: 0.6311) and strong stability across patient demographics.</abstract>
+      <url hash="ed8b6772">2026.bionlp-2.29</url>
+      <attachment hash="bf189c9b" type="SupplementaryMaterial">2026.bionlp-2.29.SupplementaryMaterial.txt</attachment>
+      <bibkey>kumari-etal-2026-team</bibkey>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>NJUST</fixed-case>-<fixed-case>KMG</fixed-case> at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: Cascade Multi-modal Alignment with <fixed-case>G</fixed-case>aussian Soft Priors for Medical Visual Answer Localization</title>
+      <author><first>Jinglong</first><last>Li</last><affiliation>Nanjing University of Science and Technology</affiliation></author>
+      <author><first>Yang</first><last>Yang</last><affiliation>Nanjing University of Science and Technology</affiliation></author>
+      <pages>229-232</pages>
+      <abstract>This paper describes the system developed for the Medical Visual Answer Localization (MVAL) task at MedGenVidQA 2026. Accurately locating surgical or instructional steps in medical videos is inherently challenging due to audio-visual asynchrony and the visual homogeneity of surgical scenes. We propose a Cascade Multi-modal Alignment Framework that integrates Large Language Models (LLMs) to bridge the semantic-temporal gap. Our pipeline utilizes WhisperX for word-level speech transcription to ensure precise textual anchoring. We then employ Gemini3 as a high-level semantic ranker to generate multi-scale textual priors. Crucially, we transform these discrete semantic scores into a continuous 1D Gaussian Soft Prior, which is injected as an attention bias into our cross-modal fusion network. This mechanism preserves global temporal context while guiding the model to focus on query-relevant frames. Our system achieves highly competitive performance on the validation leaderboard, particularly under strict evaluation metrics, reaching an IoU@0.7 of 67.5%.</abstract>
+      <url hash="832d7023">2026.bionlp-2.30</url>
+      <attachment hash="d66d0b87" type="SupplementaryMaterial">2026.bionlp-2.30.SupplementaryMaterial.txt</attachment>
+      <bibkey>li-yang-2026-njust</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>LAMAR</fixed-case>-2 at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: Visual Answer Localization in Medical Videos via Multimodal <fixed-case>LLM</fixed-case> and Context-Augmented Prompting</title>
+      <author><first>Watcharitpol</first><last>Sermsrisuwan</last><affiliation>Department of Biomedical Engineering, Faculty of Engineering, Mahidol University</affiliation></author>
+      <author><first>Nopporn</first><last>Lekuthai</last><affiliation>Faculty of Medicine Ramathibodi Hospital</affiliation></author>
+      <author><first>Seksan</first><last>Yoadsanit</last><affiliation>Faculty of Medicine Ramathibodi Hospital, Mahidol University</affiliation></author>
+      <author><first>Titipat</first><last>Achakulvisut</last><affiliation>Department of Biomedical Engineering, Mahidol University</affiliation></author>
+      <pages>233-242</pages>
+      <abstract>This paper presents an approach to localizing visual answers within continuous medical videos using a multi-step multimodal generation pipeline with the MedGenVidQA dataset. We frame visual answer localization as a multimodal fusion problem, integrating raw video, timestamped ASR transcripts, and VLM-generated scene descriptions into structured contextual blocks, enabling the model to cross-reference spoken commentary against observable physical events. We show that targeted guidance, which forces the model to treat audio transcripts as supplementary hints with observable visual movements, significantly outperforms baseline approaches. It achieves state-of-the-art performance on the test leaderboard, yielding an mIoU of 79.55, alongside IoU@0.3, IoU@0.5, and IoU@0.7 scores of 93.75, 90.00, and 77.50, respectively. Our findings highlight the effectiveness of combining multimodal context fusion with targeted guidance to overcome text bias, establishing a promising approach for achieving the micro-level precision required in the medical domain. We release our code on GitHub at https://github.com/biodatlab/medgenvidqa-lamar.</abstract>
+      <url hash="1f1f98e2">2026.bionlp-2.31</url>
+      <attachment hash="cee616ff" type="SupplementaryMaterial">2026.bionlp-2.31.SupplementaryMaterial.zip</attachment>
+      <attachment hash="a118aec6" type="SupplementaryMaterial">2026.bionlp-2.31.SupplementaryMaterial.txt</attachment>
+      <bibkey>sermsrisuwan-etal-2026-lamar</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Varja-Dominators at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: Hybrid Video and Document Retrieval using <fixed-case>P</fixed-case>ub<fixed-case>M</fixed-case>ed<fixed-case>BERT</fixed-case>, T5 Query Expansion, and Cross-Encoder Re-Ranking</title>
+      <author><first>Pratik</first><last>Dhaktode</last><affiliation>Student</affiliation></author>
+      <author><first>Suhani</first><last>Bighane</last><affiliation>Pune Institute of Computer Technology, Katraj, Dhankwadi, Pune</affiliation></author>
+      <author><first>Anupama</first><last>Phakatkar</last><affiliation>Pune Institute of Computer Technology, Katraj, Dhankwadi, Pune</affiliation></author>
+      <pages>243-247</pages>
+      <abstract>This paper presents a system for Task A of the MedGenVidQA 2026 shared task, which requires simultaneously retrieving relevant PubMed documents and medical videos for 60 consumer health topics. The core contribution is a unified multi-stage pipeline that treats video and document retrieval as complementary rather than independent problems.For video retrieval, the system fine-tunes a PubMedBERT bi-encoder on 2,710 MedVidQA training samples using BM25-driven hard negative mining. Video transcripts (833 unique videos) are segmented into overlapping 30-second temporal chunks with a 10-second stride, producing 32,489 indexed chunks. At query time, T5-based query expansion generates enriched queries for BM25 sparse retrieval, while the original query drives FAISS dense retrieval. The two ranked lists are fused via weighted Reciprocal Rank Fusion (RRF, dense weight 0.75, sparse weight 0.25), and a cross-encoder (MiniLM-L-6-v2) re-ranks the top-200 fused candidates to produce the final top-10 videos. For document retrieval, the NCBI PubMed ESearch API is queried using a progressive keyword fallback chain with exponential backoff, ensuring full topic coverage.The system achieves a MAP of 0.3898, Recall@10 of 0.8449, and NDCG@10 of 0.1079, with complete 60/60 topic coverage across both retrieval modalities. Key limitations include reliance solely on transcript text for video retrieval (no visual or audio features) and dependence on a live API for document retrieval.</abstract>
+      <url hash="7355acfe">2026.bionlp-2.32</url>
+      <attachment hash="e0e9176a" type="SupplementaryMaterial">2026.bionlp-2.32.SupplementaryMaterial.zip</attachment>
+      <attachment hash="cb6c887d" type="SupplementaryMaterial">2026.bionlp-2.32.SupplementaryMaterial.txt</attachment>
+      <bibkey>dhaktode-etal-2026-varja</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Pride-Boiler at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: <fixed-case>LLM</fixed-case>-Augmented <fixed-case>BM</fixed-case>25 Retrieval with Corrective Self-Verification for Biomedical Evidence Retrieval</title>
+      <author><first>Basil</first><last>Ebinesar</last><affiliation>Purdue University Northwest</affiliation></author>
+      <author><first>Keyuan</first><last>Jiang</last><affiliation>Purdue University Northwest</affiliation></author>
+      <author><first>Charansai</first><last>Maddineni</last><affiliation>Purdue University Northwest</affiliation></author>
+      <author><first>Ashok</first><last>Raja</last><affiliation>Purdue University Northwest</affiliation></author>
+      <pages>248-256</pages>
+      <abstract>This paper describes the Pride-Boiler system submitted to MedGenVidQA 2026 Shared Task A, which asks for retrieving relevant PubMed articles and medical instructional videos in response to consumer health queries. Our approach pairs Pyserini BM25 retrieval with LLM-driven query rewriting and a corrective self-verification loop inspired by the Corrective Retrieval-Augmented Generation (CRAG) paradigm. Given a consumer query, the pipeline first asks Google Gemini to generate clinically optimized search text, one targeting PubMed abstracts with MeSH terms and clinical synonyms, and another targeting video subtitles with procedural action language. BM25 retrieves a broad candidate pool, and Gemini then scores each candidate against the original query, blending its relevance judgment with the normalized lexical signal. A quality grader assesses the top results: if they are judged insufficient, the pipeline triggers a corrective cycle with reformulated terminology and retries up to three attempts. The entire workflow is orchestrated as a LangGraph state machine. In the official shared task evaluation, Pride-Boiler ranked first among all participating systems on PubMed article retrieval, achieving an nDCG of 0.6532 and MAP of 0.5550, both exceeding the organizer-provided Text-RR baseline. Our performance on video (text) retrieval achieves 0.5304 in MAP and 0.5927 in nDCG, outperforming other systems but falling below that of baseline, indicating the structural limitations of lexical matching over noisy subtitle text. We release the pipeline code to support reproducibility on GitHub at https://github.com/basilll007/BioNLP.</abstract>
+      <url hash="c4028f20">2026.bionlp-2.33</url>
+      <attachment hash="96c52e70" type="SupplementaryMaterial">2026.bionlp-2.33.SupplementaryMaterial.txt</attachment>
+      <bibkey>ebinesar-etal-2026-pride</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Seahawk at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: <fixed-case>LLM</fixed-case> Segment-Range Selection for Medical Visual Answer Localization</title>
+      <author><first>Xiaotian</first><last>Tian</last><affiliation>NKU School of Mathematical Sciences</affiliation></author>
+      <author><first>Gulustan</first><last>Dogan</last><affiliation>Associate Professor</affiliation></author>
+      <pages>257-261</pages>
+      <abstract>Medical visual answer localization requires identifying the temporal span in a video where a medical question is answered or visually explained. We present a simple retrieval-and-selection pipeline for Task C that treats visual answer localization as segment-level answer paragraph selection over timestamped video transcripts. Given a question and a segmented transcript, our system prompts DeepSeek to select a contiguous range of transcript segments rather than directly generating timestamps. The final start and end times are then computed deterministically from the selected segment boundaries, decreasing the risk of hallucinated or malformed temporal outputs. To support long videos, we apply overlapping sliding-window prompting and rank candidate ranges using lexical question. In a 20-sample sanity check on test dataset, a completeness-biased configuration achieved an mIoU of 0.3217, while a shorter duration-penalized configuration improved performance to 0.4815. These results suggest that constrained LLM-based segment selection, combined with deterministic timestamp extraction, is a practical baseline for medical visual answer localization.</abstract>
+      <url hash="51ae9c92">2026.bionlp-2.34</url>
+      <attachment hash="709d6424" type="SupplementaryMaterial">2026.bionlp-2.34.SupplementaryMaterial.txt</attachment>
+      <attachment hash="492e7d66" type="SupplementaryMaterial">2026.bionlp-2.34.SupplementaryMaterial.zip</attachment>
+      <bibkey>tian-dogan-2026-seahawk</bibkey>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>UNCC</fixed-case> at <fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>en<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2026: Structured Temporal Grounding for Medical Video Question Answering</title>
+      <author><first>Hilmi</first><last>Demirhan</last><affiliation>University of North Carolina Wilmington</affiliation></author>
+      <author><first>Wlodek</first><last>Zadrozny</last><affiliation>University of North Carolina Charlotte</affiliation></author>
+      <pages>262-269</pages>
+      <abstract>MedGenVidQA 2026 Task C evaluates visualanswer localization in medical videos. Thesystem receives a video and a question, then returns the start and end time of the visual answer.Our framework used timestamped automaticspeech recognition (ASR) as a proposal sourcerather than as a final boundary label. The framework generated transcript tables, phase maps,lexical and dense candidate windows, schemaconstrained ranking inputs, selective key-framechecks, and a deterministic validation pass forthe final JSON file. The ranker selected amongbounded candidate intervals instead of generating arbitrary timestamps over a full transcript.Each output can be traced to segment identifiers, candidate source families, selected anchors, phase labels, and validation flags. Ourbest run ranked fifth among six participant systems, with 62.50 IoU@0.3, 36.25 IoU@0.5,22.50 IoU@0.7, and 42.57 mIoU. The threshold pattern suggests that coarse temporal retrieval was more reliable than strict start-endlocalization.</abstract>
+      <url hash="1bd3b060">2026.bionlp-2.35</url>
+      <attachment hash="4613ae82" type="SupplementaryMaterial">2026.bionlp-2.35.SupplementaryMaterial.txt</attachment>
+      <bibkey>demirhan-zadrozny-2026-uncc</bibkey>
+    </paper>
+  </volume>
 </collection>
