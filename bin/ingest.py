@@ -430,9 +430,16 @@ def add_parent_event(
     if event is None:
         log.warning(f"No event node with id '{parent_event}' found")
         return
-    if volume := anthology.get_volume(volume_full_id) is None:
+    if (volume := anthology.get_volume(volume_full_id)) is None:
         log.warning(f"No such ingested volume {volume_full_id}")
         return
+
+    # A derived/implicit event is never serialized: a collection only writes its
+    # event when one is explicitly defined on it. If the parent event isn't yet
+    # explicit, promote it to an explicit event on its collection so that the
+    # colocation is persisted to the XML.
+    if not event.is_explicit and event.collection.get_event() is None:
+        event = event.collection.create_event(id=event.id)
 
     if event in volume.get_events():
         log.info(
