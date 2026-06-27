@@ -43,7 +43,6 @@
             {{ $acronym := index hugo.Data.venues $venue "acronym" }}
             {{ $name := index hugo.Data.venues $venue "name" }}
           <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}" class="badge text-bg-primary align-middle ms-1">{{- $acronym -}}</a>
-            {{ if ne (add $index 1) $len }} | {{ end }}
           {{- end -}}
           <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
         </li>
