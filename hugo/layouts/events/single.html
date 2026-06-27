@@ -11,20 +11,6 @@
   <span class="fw-light text-muted">{{ . }}</span><br/>
   {{ end }}
   <hr />
-  {{ if isset $event "vol_venues" }}
-  <dl id="venues">
-      <dt>{{ if gt (len $event.vol_venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
-      <dd>
-        {{- $len := (len $event.vol_venues) -}}
-        {{- range $index, $venue := $event.vol_venues -}}
-          {{ $acronym := index hugo.Data.venues $venue "acronym" }}
-          {{ $name := index hugo.Data.venues $venue "name" }}
-          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}">{{- $acronym -}}</a>
-          {{ if ne (add $index 1) $len }} | {{ end }}
-        {{- end -}}
-      </dd>
-  </dl>
-  {{ end }}
 
   {{/* Get the event and iterate through all the volumes associated with it */}}
   {{ $volumes := index $event "volumes" }}
@@ -51,6 +37,13 @@
             <span class="badge text-bg-light align-middle">{{ . }}</span>
           {{ end }}
           <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
+          {{- $this_vol_venues := index hugo.Data.vol_venues . -}}
+          {{- $len := (len $this_vol_venues) -}}
+          {{- range $index, $venue := $this_vol_venues -}}
+            {{ $acronym := index hugo.Data.venues $venue "acronym" }}
+            {{ $name := index hugo.Data.venues $venue "name" }}
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}" class="badge text-bg-primary align-middle ms-1">{{- $acronym -}}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
           <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
         </li>
         {{ end }}
