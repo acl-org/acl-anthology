@@ -524,11 +524,11 @@ def export_events(anthology, builddir, dryrun):
         data["vol_venues"] = {}
         for vol_id in data["volumes"][1:]:
             vol = anthology.get(vol_id)
-            data["vol_venues"] = []
+            data["vol_venues"][vol_id] = []
             for venue in vol.venues():
                 if venue.acronym.lower() == "ws":
                     continue
-                data["vol_venues"].append(venue.id)
+                data["vol_venues"][vol_id].append(venue.id)
 
         if event.title is not None:
             data["title"] = event.title.as_text()
