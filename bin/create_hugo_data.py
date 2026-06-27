@@ -522,7 +522,7 @@ def export_events(anthology, builddir, dryrun):
 
         # List venues for each volume in this event
         data["vol_venues"] = {}
-        for vol_id in data["volumes"][1:]:
+        for vol_id in data["volumes"]:
             vol = anthology.get(vol_id)
             data["vol_venues"][vol_id] = []
             for venue in vol.venues():
