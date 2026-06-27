@@ -37,7 +37,7 @@
             <span class="badge text-bg-light align-middle">{{ . }}</span>
           {{ end }}
           <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
-          {{- $this_vol_venues := index hugo.Data.vol_venues . -}}
+          {{- $this_vol_venues := index $event.vol_venues . -}}
           {{- $len := (len $this_vol_venues) -}}
           {{- range $index, $venue := $this_vol_venues -}}
             {{ $acronym := index hugo.Data.venues $venue "acronym" }}
