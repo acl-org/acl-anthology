@@ -68,6 +68,32 @@ body:
       description: |
         What address should be included in bibliography entries, if any? For conferences this is the location of the conference. For a fully-online event use "Online", optionally following the host team location. Ensure the address field is consistent across submitted volumes.
       placeholder: ex. Barcelona, Spain (Online)
+  - type: checkboxes
+    id: submission_platform
+    attributes:
+      label: Submission Platform(s)
+      description: Which of the following will you use to collect submissions?
+      options:
+        - label: OpenReview (proceedings compiled with [aclpub2](https://github.com/rycolab/aclpub2/))
+        - label: Softconf/START (export the proceedings in ACLPUB format; do NOT postprocess with aclpub2)
+        - label: Other (explain)
+  - type: checkboxes
+    id: orcid_request
+    attributes:
+      label: ORCID iDs
+      description: |
+        The Anthology now expects that ORCID iDs will be supplied for most authors.
+        Check to confirm that authors will be instructed to supply ORCID information in their
+        profiles in the submission platform ([instructions](https://aclanthology.org/info/author-pages/)).
+  - type: checkboxes
+    id: delivery_method
+    attributes:
+      label: Delivery Method
+      description: Once the proceedings are compiled, how will you deliver them to the Anthology?
+      options:
+        - label: ZIP file or tarball
+        - label: Private GitHub repo
+        - label: Web directory (HTTP, FTP, or Google Drive folder)
   - type: textarea
     id: ingestion_information
     attributes:
