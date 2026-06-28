@@ -29,7 +29,7 @@
       <title>Baselines for Detection and Classification of Discourse Presentation in <fixed-case>E</fixed-case>nglish Narrative</title>
       <author><first>Reinaldo</first><last>Di Polo</last><affiliation>Florida International University</affiliation></author>
       <author><first>Mustafa</first><last>Ocal</last><affiliation>Florida International University</affiliation></author>
-      <author><first>Mark</first><last>Finlayson</last><affiliation>Florida International University</affiliation></author>
+      <author id="mark-finlayson" orcid="0000-0001-5716-9526"><first>Mark</first><last>Finlayson</last><affiliation>Florida International University</affiliation></author>
       <pages>1-11</pages>
       <abstract>Discourse presentation is when speech, writing, or thought (SW&amp;T) attributed to a discourse entity (such as a character in a narrative) is presented within a discourse. Discourse presentations can be generally broken into direct or indirect: direct presentation is when the text quotes the words or thoughts verbatim, whereas in indirect presentation the text expresses the SW&amp;T in the narrator’s or writer’s own words. Automatically detecting and categorizing discourse presentations supports discourse and narrative analysis and improves attribution for downstream NLP tasks, but detecting indirect discourse presentations remains challenging due to diverse surface forms and subtle perspective shifts. We study detection and categorization of discourse presentations on a corrected version of the Semino &amp; Short’s English Narrative SW&amp;TP corpus. We cast the task as five-way clause classification: Direct Speech &amp; Writing, Direct Thought, Indirect Speech &amp; Writing, Indirect Thought, and Narrative (i.e., no discourse presentation). We compare four approaches: (1) CNN; (2) generative baseline (Claude Sonnet 4.6); (3) untuned BERT, and (4) fine-tuned BERT. The CNN baseline achieves 0.43 F1 and exhibits substantial confusion with the Narrative class. Claude achieves 0.71 F1 but performs unevenly across classes and fails to recover Indirect Thought. BERT achieves 0.81 F1 overall but struggles on indirect categories. The fine-tuning BERT yields strong performance (0.88 F1), with remaining errors concentrated in Indirect Speech &amp; Writing (F1 = 0.60). We release our code and the corrected dataset to support reproducibility. To our knowledge, this is the first time computational approaches have been evaluated across the full range of SW&amp;TP discourse presentation types.</abstract>
       <url hash="ca949319">2026.codi-1.3</url>
@@ -38,7 +38,7 @@
     </paper>
     <paper id="4">
       <title><fixed-case>D</fixed-case>isco<fixed-case>E</fixed-case>xplorer: An Open Interface for the Study of Multilingual Discourse Relations</title>
-      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <author id="amir-zeldes" orcid="0000-0001-8016-6753"><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
       <pages>12-23</pages>
       <abstract>The relations connecting propositions in discourse such as cause (A because B) or concession (A although B) are a subject of intense interest in Computational Linguistics and Pragmatics, but challenging to study and compare across languages. Recent progress in standardizing discourse relation inventories across datasets offers the potential to facilitate such studies, but is hindered by the complexity of relevant data and the lack of easily accessible interfaces to analyze it. In this paper we present DiscoExplorer, a new open source web interface, capable of running on local computers, which we use to make datasets from the DISRPT Shared Task on discourse relation classification publicly available, covering 16 different languages. We present the query language, search and visualization facilities for relations and signaling devices such as connectives, as well as some example studies.</abstract>
       <url hash="4fb3185c">2026.codi-1.4</url>
@@ -57,7 +57,7 @@
     <paper id="6">
       <title><fixed-case>DM</fixed-case> Doppelgangers: Implicit Connectives as e<fixed-case>RST</fixed-case> Signals</title>
       <author><first>Lin</first><last>Ai</last><affiliation>Georgetown University</affiliation></author>
-      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <author id="amir-zeldes" orcid="0000-0001-8016-6753"><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
       <pages>29-39</pages>
       <abstract>Recent work representing discourse relations such as "cause" or "concession" in the framework of eRST has connected hierarchical discourse parsing to explicit connectives, such as ’because’ or ’although’, bringing the framework closer to lexicalized shallow parsing in the tradition of PDTB. However, while PDTB postulates implicit, unexpressed connectives (i.e. an implied ’although’ etc.), no such devices are recognized in eRST, and consequently next to nothing is known about the relationship between PDTB-style implicit connectives and eRST-style discourse graphs. In this paper we propose and evaluate an algorithm to align eRST data, which already indicates explicit connectives, to implicit connective annotations following the PDTB guidelines. We also conduct the first evaluation of the relationship between hierarchical RST-style relations and PDTB implicit connectives.</abstract>
       <url hash="cd006d80">2026.codi-1.6</url>
@@ -65,8 +65,8 @@
     </paper>
     <paper id="7">
       <title>What’s in a Bridge?: A Descriptive, Multi-Genre Analysis of the <fixed-case>GUMB</fixed-case>ridge Corpus for Varieties of Bridging Anaphora</title>
-      <author><first>Lauren</first><last>Levine</last><affiliation>Georgetown University</affiliation></author>
-      <author><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
+      <author id="lauren-levine-1855" orcid="0009-0006-0269-1855"><first>Lauren</first><last>Levine</last><affiliation>Georgetown University</affiliation></author>
+      <author id="amir-zeldes" orcid="0000-0001-8016-6753"><first>Amir</first><last>Zeldes</last><affiliation>Georgetown University</affiliation></author>
       <pages>40-52</pages>
       <abstract>In this paper, we present a descriptive corpus analysis of bridging anaphora across 16 genres of English, leveraging the multi-genre GUMBridge corpus for varieties of bridging anaphora. We begin our investigation by examining the distribution of bridging instances by sub-varieties and across genres, finding that spoken genres have less bridging instances than written ones. We then investigate the linguistic environments of bridging anaphora and their corresponding associative antecedents in the underlying data of the corpus, examining both categorical features (entity type, part of speech, syntactic dependency relations) and numeric features (mention length, cluster size, salience, and distance between the bridging anaphor and antecedent). We find bridging anaphora have a tendency to be shorter and are more often definite, and bridging antecedents show a tendency to be more salient than other entities. Finally, we analyze how several of the numeric features of bridging environments vary by genre, finding consistent patterns across genres for observed trends in the environments of bridging anaphora and antecedents.</abstract>
       <url hash="640889e0">2026.codi-1.7</url>
@@ -74,9 +74,9 @@
     </paper>
     <paper id="8">
       <title>Dataset Cartography for Implicit Discourse Relation Recognition: Promises and Pitfalls</title>
-      <author><first>Daniil</first><last>Ignatev</last><affiliation>Utrecht University</affiliation></author>
-      <author><first>Denis</first><last>Paperno</last><affiliation>Utrecht University</affiliation></author>
-      <author><first>Massimo</first><last>Poesio</last><affiliation>Queen Mary University of London and University of Utrecht</affiliation></author>
+      <author id="daniil-ignatev" orcid="0009-0006-0455-5224"><first>Daniil</first><last>Ignatev</last><affiliation>Utrecht University</affiliation></author>
+      <author id="denis-paperno" orcid="0000-0002-8889-4066"><first>Denis</first><last>Paperno</last><affiliation>Utrecht University</affiliation></author>
+      <author id="massimo-poesio" orcid="0000-0001-8469-2072"><first>Massimo</first><last>Poesio</last><affiliation>Queen Mary University of London and University of Utrecht</affiliation></author>
       <pages>53-64</pages>
       <abstract>Crowdsourced data for implicit discourse relation recognition, IDRR, has been shown to contain both plausible interpretations and noisy annotations. We present a case study of dataset cartography (Swayamdipta 2020) on IDRR-focused DiscoGeM corpus (Scholman et al., 2022). Our findings show that error identification via low confidence proves unreliable, as confidence is strongly affected by label rarity. However, high-confidence datapoints reveal a different use case: auditing the cue-rich regions of the dataset. Our lexical probe demonstrates an association between high confidence items and (mostly temporal) intra-argument cue words. Dataset cartography can thus serve a diagnostic of cue-driven easy-to-learn cases, which need to be balanced out to ensure the robustness of IDRR learning.</abstract>
       <url hash="d5f12590">2026.codi-1.8</url>
@@ -85,9 +85,9 @@
     </paper>
     <paper id="9">
       <title>Universal Discourse Relations: A Proposal</title>
-      <author><first>Anna</first><last>Latusek</last><affiliation>Institute of Computer Science, PAS</affiliation></author>
-      <author><first>Maciej</first><last>Ogrodniczuk</last><affiliation>Institute of Computer Science, Polish Academy of Sciences</affiliation></author>
-      <author><first>Alina</first><last>Wróblewska</last><affiliation>Institute of Computer Science, Polish Academy of Sciences</affiliation></author>
+      <author id="anna-latusek" orcid="0009-0001-5439-6149"><first>Anna</first><last>Latusek</last><affiliation>Institute of Computer Science, PAS</affiliation></author>
+      <author id="maciej-ogrodniczuk" orcid="0000-0002-3467-9424"><first>Maciej</first><last>Ogrodniczuk</last><affiliation>Institute of Computer Science, Polish Academy of Sciences</affiliation></author>
+      <author id="alina-wroblewska" orcid="0000-0002-2589-9900"><first>Alina</first><last>Wróblewska</last><affiliation>Institute of Computer Science, Polish Academy of Sciences</affiliation></author>
       <author><first>Bartosz</first><last>Żuk</last><affiliation>Institute of Computer Science Polish Academy of Sciences</affiliation></author>
       <pages>65-77</pages>
       <abstract>This paper introduces a novel ’universal’ approach to discourse annotation, serving as a comprehensive synthesis of the ISO 24617-8 semantic annotation framework and a newly developed multi-layer model of coherence relations. To address the complexities of text analysis, we present a hierarchical classification and a systematic decision tree. By unifying disparate formalisms, our model provides researchers with a robust, standardised methodology for analysing complex discourse structures across various linguistic contexts.</abstract>
@@ -116,8 +116,8 @@
     <paper id="14">
       <title>Errors in coreference resolution in <fixed-case>G</fixed-case>erman: Effects of modality, simplification and heterogeneous training data</title>
       <author><first>Sarah</first><last>Jablotschkin</last><affiliation>University of Hildesheim</affiliation></author>
-      <author><first>Ekaterina</first><last>Lapshinova-Koltunski</last><affiliation>University of Hildesheim</affiliation></author>
-      <author><first>Heike</first><last>Zinsmeister</last><affiliation>University of Hamburg</affiliation></author>
+      <author id="ekaterina-lapshinova-koltunski" orcid="0000-0002-5618-8087"><first>Ekaterina</first><last>Lapshinova-Koltunski</last><affiliation>University of Hildesheim</affiliation></author>
+      <author id="heike-zinsmeister" orcid="0009-0006-0505-7606"><first>Heike</first><last>Zinsmeister</last><affiliation>University of Hamburg</affiliation></author>
       <pages>109-119</pages>
       <abstract>Errors in automatic coreference resolution can be traced back to errors in mention detection and coreference linking. In this paper, we analyse the errors in mention detection produced by the coreference resolver CorPipe (Straka 2023). In particular, we evaluate the performance on different variants of German (written, spoken, original, and simplified). We discuss the errors against the background of the fact that the tool was trained on a combination of different coreference corpora, including two German datasets with partially conflicting annotation guidelines. The results indicate that simplification has a significant effect on mention detection independent of the modality.</abstract>
       <url hash="84ea9f7c">2026.codi-1.14</url>
@@ -135,15 +135,15 @@
     </paper>
     <paper id="21">
       <title>Findings of the Fifth Shared Task on Multilingual Coreference Resolution: Expanding Datasets for Long-Range Entities</title>
-      <author><first>Michal</first><last>Novák</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
-      <author><first>Miloslav</first><last>Konopík</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
-      <author><first>Anna</first><last>Nedoluzhko</last><affiliation>Charles University in Prague</affiliation></author>
+      <author id="michal-novak" orcid="0000-0002-6052-7459"><first>Michal</first><last>Novák</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
+      <author id="miloslav-konopik" orcid="0000-0001-7397-1658"><first>Miloslav</first><last>Konopík</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
+      <author id="anna-nedoluzhko" orcid="0000-0003-0110-500X"><first>Anna</first><last>Nedoluzhko</last><affiliation>Charles University in Prague</affiliation></author>
       <author><first>Martin</first><last>Popel</last><affiliation>Charles University, Faculty of Mathematics and Physics, UFAL</affiliation></author>
       <author><first>Ondrej</first><last>Prazak</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
       <author><first>Jakub</first><last>Sido</last><affiliation>University of West Bohemia</affiliation></author>
-      <author><first>Milan</first><last>Straka</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
-      <author><first>Zdeněk</first><last>Žabokrtský</last><affiliation>Charles University</affiliation></author>
-      <author><first>Daniel</first><last>Zeman</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
+      <author id="milan-straka" orcid="0000-0003-3295-5576"><first>Milan</first><last>Straka</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
+      <author id="zdenek-zabokrtsky" orcid="0000-0001-8149-4054"><first>Zdeněk</first><last>Žabokrtský</last><affiliation>Charles University</affiliation></author>
+      <author id="daniel-zeman" orcid="0000-0002-5791-6568"><first>Daniel</first><last>Zeman</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
       <pages>130-161</pages>
       <abstract>This paper describes the fifth edition of the Shared Task on Multilingual Coreference Resolution, held in conjunction with the CODI-CRAC 2026 workshop. Building on previous iterations, the task required participants to develop systems capable of mention identification and identity-based coreference clustering. The 2026 edition specifically emphasizes long-range entities, defined as coreferential chains spanning significant distances, across many words and sentences. The task expanded its linguistic scope by incorporating five new datasets and two additional languages. These additions leverage version 1.4 of CorefUD, a harmonized multilingual collection comprising 27 datasets in 19 languages. In total, ten systems participated, including four LLM-based approaches (three fine-tuned models and one few-shot approach). While traditional systems still maintained their lead, LLMs demonstrated significant potential, suggesting they may soon challenge established approaches in future editions.</abstract>
       <url hash="68cbd262">2026.codi-1.21</url>
@@ -152,9 +152,9 @@
     </paper>
     <paper id="22">
       <title>Generative Multilingual Coreference Resolution at <fixed-case>CRAC</fixed-case> 2026</title>
-      <author><first>Jakub</first><last>Hejman</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
+      <author id="jakub-hejman" orcid="0009-0003-3835-9211"><first>Jakub</first><last>Hejman</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
       <author><first>Ondrej</first><last>Prazak</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
-      <author><first>Miloslav</first><last>Konopík</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
+      <author id="miloslav-konopik" orcid="0000-0001-7397-1658"><first>Miloslav</first><last>Konopík</last><affiliation>University of West Bohemia in Pilsen</affiliation></author>
       <pages>162-166</pages>
       <abstract>Participating again in this year’s edition of the CRAC shared task on coreference resolution, we present our upgraded system with an official uplift of 15.46 percentage points in CoNLL-U score. We incorporated the larger Gemma 3 27B IT model, joint pre-training, headword tagging, more efficient training and inference as well as a sliding window to achieve this result. Our system placed second in the LLM track and third overall with a primary score of 73.83. We reached the highest scores on two datasets. Finally, we compare specialized and general LLM approaches.</abstract>
       <url hash="7e8f6f45">2026.codi-1.22</url>
@@ -194,7 +194,7 @@
     </paper>
     <paper id="26">
       <title>Lightweight Multilingual Coreference Resolution without <fixed-case>LLM</fixed-case>s @<fixed-case>CRAC</fixed-case>2026</title>
-      <author><first>Sobha</first><last>Lalitha Devi</last><affiliation>AU-KBC Research Centre, Anna University</affiliation></author>
+      <author id="sobha-lalitha-devi" orcid="0000-0003-1326-9474"><first>Sobha</first><last>Lalitha Devi</last><affiliation>AU-KBC Research Centre, Anna University</affiliation></author>
       <author><first>Aashik Ali</first><last>S</last><affiliation>AU-KBC Research Centre, Anna University</affiliation></author>
       <author><first>Gopinath</first><last>P</last><affiliation>AU-KBC Research Centre, Anna University</affiliation></author>
       <author><first>Vijay</first><last>Sundar Ram</last><affiliation>AU-KBC, Anna University, Chennai</affiliation></author>
@@ -207,7 +207,7 @@
     </paper>
     <paper id="27">
       <title><fixed-case>C</fixed-case>or<fixed-case>P</fixed-case>ipe at <fixed-case>CRAC</fixed-case> 2026: Empty Nodes and Cross-Lingual Transfer in Multilingual Coreference Resolution</title>
-      <author><first>Milan</first><last>Straka</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
+      <author id="milan-straka" orcid="0000-0003-3295-5576"><first>Milan</first><last>Straka</last><affiliation>Charles University, Faculty of Mathematics and Physics, Institute of Formal and Applied Linguistics</affiliation></author>
       <pages>205-216</pages>
       <abstract>We introduce CorPipe 26, our winning submission to the CRAC 2026 Shared Task on Multilingual Coreference Resolution. The fifth edition of this shared task focuses mainly on the comparison of generative LLMs and specialized systems; additionally, 5 more datasets and 2 new languages are introduced. CorPipe 26 is an improved version of CorPipe 25, with a new variant predicting empty nodes together with mentions and coreference links in a single model. Our system outperforms all other submissions in the LLM track by 2.8 percent points and all submissions in the unconstrained track by 9.5 percent points. Furthermore, we perform a series of ablation experiments with different model sizes, empty node prediction methods, and cross-lingual zero-shot evaluation. The source code and the trained models are publicly available at https://github.com/ufal/crac2026-corpipe.</abstract>
       <url hash="66449794">2026.codi-1.27</url>
