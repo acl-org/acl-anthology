@@ -15,8 +15,8 @@ import sys
 
 from anthology.utils import indent
 
-filename = sys.argv[1]
-outfilename = sys.argv[2]
+import pathlib; input_path = pathlib.Path(sys.argv[1]); filename = str(input_path.resolve())
+output_path = pathlib.Path(sys.argv[2]); outfilename = str(output_path.resolve())
 tree = etree.parse(filename)
 root = tree.getroot()
 collection_id = root.attrib["id"]
