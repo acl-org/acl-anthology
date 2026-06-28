@@ -1142,7 +1142,7 @@ if __name__ == "__main__":
     )
     pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
-        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
+        "--pdfs-dir", default=pdfs_path, help="Root path for placement of PDF files"
     )
     attachments_path = Path.home() / "anthology-files" / "attachments"
     parser.add_argument(
@@ -1159,6 +1159,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--parent-event",
+        "-p",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
     )
