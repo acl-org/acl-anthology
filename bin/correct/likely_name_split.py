@@ -15,37 +15,42 @@ Options:
 from collections import defaultdict
 from docopt import docopt
 import json
-import sys
 import os
+import warnings
+import logging as log
 
 # ruff: noqa: F403, F405
-from math import *
+from math import log as LOG
+from math import inf
 
-from anthology import Anthology
+from acl_anthology.anthology import Anthology
+from acl_anthology.utils.logging import setup_rich_logging
 
 
 def log0(x):
     if x == 0:
         return -inf
     else:
-        return log(x)
+        return LOG(x)
 
 
 class NameSplitter:
-    def __init__(self, anthology=None, anthology_dir=None):
+    def __init__(self, anthology=None):
         # counts of how often each name appears
-        self.first_count = defaultdict(lambda: 0)  # "Maria" "Victoria"
-        self.first_full_count = defaultdict(lambda: 0)  # "Maria Victoria"
-        self.last_count = defaultdict(lambda: 0)  # "van" "den" "Bosch"
-        self.last_full_count = defaultdict(lambda: 0)  # "van den Bosch"
+        self.first_count = defaultdict(lambda: 0.0)  # "Maria" "Victoria"
+        self.first_full_count = defaultdict(lambda: 0.0)  # "Maria Victoria"
+        self.last_count = defaultdict(lambda: 0.0)  # "van" "den" "Bosch"
+        self.last_full_count = defaultdict(lambda: 0.0)  # "van den Bosch"
         self.first_total = 0
         self.last_total = 0
 
         if os.path.exists("names.cache"):
             self.load_cache()
         else:
-            if anthology is None and anthology_dir is not None:
-                anthology = Anthology(os.path.join(anthology_dir, "data"))
+            if anthology is None:
+                self.anthology = Anthology.from_within_repo()
+            else:
+                self.anthology = anthology
             self.count_names(anthology)
             self.dump_cache()
 
@@ -58,7 +63,7 @@ class NameSplitter:
             self.last_count = defaultdict(int, p["last_count"])
             self.last_full_count = defaultdict(int, p["last_full_count"])
             self.last_total = p["last_total"]
-        print("Loaded cache from names.cache", file=sys.stderr)
+        log.info("Loaded cache from names.cache")
 
     def dump_cache(self):
         with open("names.cache", "w") as cache:
@@ -71,16 +76,18 @@ class NameSplitter:
                 "last_total": self.last_total,
             }
             print(json.dumps(p), file=cache)
-        print("Dumped counts to names.cache", file=sys.stderr)
+        log.info("Dumped counts to names.cache")
 
     # counts names in anthology database into global vars
     # first_count last_count (dicts)
     # first_full_count last_full_count (dicts)
     # first_total last_total (floats)
     def count_names(self, anthology):
-        for person in anthology.people.personids():
-            name = anthology.people.get_canonical_name(person)
-            num_papers = len(anthology.people.get_papers(person)) + 0.0
+        for person in self.anthology.people.values():
+            name = person.canonical_name
+            if name.first is None:
+                continue
+            num_papers = sum(1 for paper in person.papers()) + 0.0
             # print(name.last, ", ", name.first, num_papers)
             for w in name.first.split(" "):
                 self.first_count[w] += num_papers
@@ -114,7 +121,7 @@ class NameSplitter:
             first_probs = [
                 # more smoothing for first than last name,
                 # so that default is one-word last name when all counts are zero
-                log((self.first_count[x] + 0.1) / self.first_total)
+                LOG((self.first_count[x] + 0.1) / self.first_total)
                 for x in words[0:i]
             ]
             first_score = max(
@@ -123,7 +130,7 @@ class NameSplitter:
                 sum(first_probs),
             )
             last_probs = [
-                log((self.last_count[x] + 0.01) / self.last_total) for x in words[i:]
+                LOG((self.last_count[x] + 0.01) / self.last_total) for x in words[i:]
             ]
             last_score = max(
                 log0((self.last_full_count[last]) / self.last_total), sum(last_probs)
@@ -144,18 +151,27 @@ if __name__ == "__main__":
             args["--importdir"].format(scriptdir=scriptdir)
         )
 
-    anthology = Anthology(importdir=args["--importdir"])
-    splitter = NameSplitter(anthology)
+    log_level = log.DEBUG  # if not args.quiet else log.INFO
+    tracker = setup_rich_logging(level=log_level)
+    log.getLogger("acl-anthology").setLevel(log.WARNING)
+    log.getLogger("git.cmd").setLevel(log.WARNING)
+    log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    # for all names currently in anthology,
-    # see if they match what we predict
-    for person in anthology.people.personids():
-        name = anthology.people.get_canonical_name(person)
+    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+        anthology = Anthology.from_within_repo()
+        splitter = NameSplitter(anthology)
 
-        # find our prediction of split
-        best = splitter.best_split(name.first + " " + name.last)
+        # for all names currently in anthology,
+        # see if they match what we predict
+        for person in anthology.people.values():
+            name = person.canonical_name
+            if name.first is None:
+                continue
 
-        # if current split does not match our prediction
-        if not (best[0] == name.last and best[1] == name.first):
-            # print suggested replacement
-            print(name.last, ",", name.first, "  ==>  ", best[0], ",", best[1])
+            # find our prediction of split
+            best = splitter.best_split(name.first + " " + name.last)
+
+            # if current split does not match our prediction
+            if not (best[0] == name.last and best[1] == name.first):
+                # print suggested replacement
+                print(name.last, ",", name.first, "  ==>  ", best[0], ",", best[1])
