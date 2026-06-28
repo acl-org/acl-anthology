@@ -46,7 +46,9 @@ from ..utils.attrs import (
     track_modifications,
     ConvertableIntoDate,
 )
+from ..utils.citation import render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
+from ..utils.latex import make_bibtex_entry
 from .event import Event
 from .paper import (
     Paper,
@@ -58,6 +60,7 @@ if TYPE_CHECKING:
     from ..anthology import Anthology
     from ..people import Person
     from ..sigs import SIG
+    from ..utils.latex import SerializableAsBibTeX
     from . import Collection, Event
 
 
@@ -277,6 +280,26 @@ class Volume(SlottedDict[Paper]):
         return self.parent.parent.parent
 
     @property
+    def bibkey(self) -> str:
+        """Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology."""
+        if self.frontmatter:
+            return self.frontmatter.bibkey
+        raise ValueError(
+            f"Cannot obtain bibkey as there is no frontmatter: {self.full_id}"
+        )
+
+    @property
+    def bibtype(self) -> str:
+        """The BibTeX entry type for this paper."""
+        match self.type:
+            case VolumeType.JOURNAL:
+                return "book"
+            case VolumeType.PROCEEDINGS:
+                return "proceedings"
+            case _:  # pragma: no cover
+                raise ValueError(f"Unknown volume type: {self.parent.type}")
+
+    @property
     def venue_acronym(self) -> str:
         """The acronym of the venue(s) associated with this volume.  In case of multiple venues, this will be a concatenation of the individual venue acronyms."""
         return "-".join(venue.acronym for venue in self.venues() if venue.id != "ws")
@@ -370,18 +393,82 @@ class Volume(SlottedDict[Paper]):
             )
             raise exc
 
-    def to_bibtex(self) -> str:
-        """Generate a BibTeX entry for this volume.
+    def to_bibtex(self, with_abstract: bool = False) -> str:
+        """Generate a BibTeX entry for this paper.
+
+        Arguments:
+            with_abstract: If True, includes the abstract in the BibTeX entry.
 
         Returns:
-            The BibTeX entry for this volume as a formatted string.  Currently, this is simply the frontmatter's BibTeX.
+            The BibTeX entry for this paper as a formatted string.
 
         Raises:
-            Exception: If this volume has no frontmatter.
+            ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
-        if self.frontmatter is None:  # pragma: no cover
-            raise Exception("Cannot generate BibTeX for volume without frontmatter.")
-        return self.frontmatter.to_bibtex()
+        if self.bibkey == constants.NO_BIBKEY:  # pragma: no cover
+            raise ValueError("Cannot generate BibTeX entry without bibkey")
+        # Note: Fields are added in the order in which they will appear in the
+        # BibTeX entry, for reproducibility
+        bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
+            ("title", self.title),
+            ("editor", self.editors),
+        ]
+        match self.type:
+            case VolumeType.JOURNAL:
+                bibtex_fields.extend(
+                    [
+                        ("volume", self.journal_volume),
+                        ("number", self.journal_issue),
+                    ]
+                )
+            case VolumeType.PROCEEDINGS:
+                pass
+        bibtex_fields.extend(
+            [
+                ("month", self.month),
+                ("year", self.year),
+                ("address", self.address),
+                ("publisher", self.publisher),
+                ("url", self.web_url),
+                ("doi", self.doi),
+                ("ISBN", self.isbn),
+            ]
+        )
+        return make_bibtex_entry(self.bibtype, self.bibkey, bibtex_fields)
+
+    def to_citation(self) -> str:
+        """Generate a citation (reference) for this paper.
+
+        Returns:
+            The generated citation reference as a single string with HTML markup.
+        """
+        return render_acl_citation(self)
+
+    def to_markdown_citation(self) -> str:
+        """Generate a brief citation (reference) in Markdown for this paper.
+
+        Returns:
+            The generated citation reference as a single string with Markdown markup.
+        """
+        namespecs = self.editors
+        if len(namespecs) == 0:
+            name = ""
+        elif len(namespecs) == 1:
+            name = namespecs[0].last
+        elif len(namespecs) == 2:
+            name = f"{namespecs[0].last} & {namespecs[1].last}"
+        else:
+            name = f"{namespecs[0].last} et al."
+
+        venue_year = (
+            f"{self.year}"
+            if self.venue_acronym == "WS"
+            else f"{self.venue_acronym} {self.year}"
+        )
+        if name:
+            return f"[_{self.title.as_text()}_]({self.web_url}) ({name}, {venue_year})"
+        else:
+            return f"[_{self.title.as_text()}_]({self.web_url}) ({venue_year})"
 
     def generate_paper_id(self) -> str:
         """Generate a paper ID that is not yet taken in this volume.
