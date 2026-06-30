@@ -1,14 +1,22 @@
 # default namespace = ""
 
+# Text formatting
 b = element b { MarkupText }
 i = element i { MarkupText }
+u = element u { MarkupText }
+sc = element sc { MarkupText }  # small caps
+a = element a {
+  attribute href { xsd:anyURI } & MarkupText
+}
 url = element url {
   attribute type { xsd:NCName }? & xsd:anyURI
 }
+br = element br { empty }  # line break (use two for a paragraph break)
 fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
-MarkupText = (text | b | i | url | fixed-case | tex-math )+
+MarkupText = (text | b | i | u | sc | a | url | br | fixed-case | tex-math )+
 
+# Authors
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
 last = element last { xsd:string { pattern="\S(.*\S)?" } }
 affiliation = element affiliation { text }

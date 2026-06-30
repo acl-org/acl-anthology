@@ -43,6 +43,9 @@ MARKUP_LATEX_CMDS = defaultdict(
         "fixed-case": "{{{text}}}",
         "b": "\\textbf{{{text}}}",
         "i": "\\textit{{{text}}}",
+        "u": "\\underline{{{text}}}",
+        "sc": "\\textsc{{{text}}}",
+        "br": "\\\\",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
     },
@@ -60,6 +63,11 @@ def markup_to_latex(element: etree._Element) -> str:
         text += markup_to_latex(nested_element)
         if nested_element.tail:
             text += latex_encode(nested_element.tail)
+
+    if tag == "a":
+        # Hyperlinks carry their target in the href attribute
+        href = element.get("href", "")
+        return f"\\href{{{href}}}{{{text}}}"
 
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
     return text
@@ -157,8 +165,15 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
+        # Mark <br/> line breaks with a sentinel character so they survive
+        # whitespace normalization (which strips newlines from the source),
+        # then restore them as newlines.
+        for sub in element.iterfind(".//br"):
+            sub.text = "\ue000"
         text = etree.tostring(element, encoding="unicode", method="text")
-        self._text = remove_extra_whitespace(text)
+        text = remove_extra_whitespace(text)
+        text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
+        self._text = text.replace("\ue000", "\n")
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
@@ -183,6 +198,14 @@ class MarkupText:
                 else:
                     sub.tag = "span"
                 sub.set("class", "acl-markup-url")
+            elif sub.tag == "a":
+                if not allow_url:
+                    sub.tag = "span"
+                    sub.attrib.pop("href", None)
+                sub.set("class", "acl-markup-url")
+            elif sub.tag == "sc":
+                sub.tag = "span"
+                sub.set("style", "font-variant: small-caps")
             elif sub.tag == "fixed-case":
                 sub.tag = "span"
                 sub.set("class", "acl-fixed-case")
@@ -190,8 +213,12 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
+            elif sub.tag == "br":
+                # A line break; keep as an HTML <br> element
+                pass
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
+
         self._html = remove_extra_whitespace(stringify_children(element))
         return self._html
 
