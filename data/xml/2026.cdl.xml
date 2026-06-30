@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.cdl">
+  <volume id="1" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Computational Developmental Linguistics (<fixed-case>CDL</fixed-case>)</booktitle>
+      <editor><first>Martin Ziqiao</first><last>Ma</last></editor>
+      <editor><first>Emmy</first><last>Liu</last></editor>
+      <editor><first>Jing</first><last>Liu</last></editor>
+      <editor><first>Tyler A.</first><last>Chang</last></editor>
+      <editor><first>Abdellah</first><last>Fourtassi</last></editor>
+      <editor><first>Alex</first><last>Warstadt</last></editor>
+      <editor><first>Michael</first><last>Hahn</last></editor>
+      <editor><first>Weiwei</first><last>Sun</last></editor>
+      <editor><first>Freda</first><last>Shi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Grand Hyatt Manchester San Diego, 1 Market Pl, San Diego, CA 92101</address>
+      <isbn>979-8-89176-428-6</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="83ac560b">2026.cdl-1</url>
+      <venue>cdl</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="c2798c5e">2026.cdl-1.0</url>
+      <bibkey>cdl-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Linguistics Theory Meets <fixed-case>LLM</fixed-case>: Code-Switched Text Generation via Equivalence Constrained Large Language Models</title>
+      <author><first>Garry</first><last>Kuwanto</last><affiliation>Boston University, Boston University</affiliation></author>
+      <author><first>Chaitanya</first><last>Agarwal</last><affiliation>Deccan AI</affiliation></author>
+      <author id="genta-indra-winata" orcid="0000-0001-9135-2594"><first>Genta Indra</first><last>Winata</last><affiliation>Capital One</affiliation></author>
+      <author id="derry-tanti-wijaya" orcid="0000-0002-0848-4703"><first>Derry Tanti</first><last>Wijaya</last><affiliation>Monash University and Boston University</affiliation></author>
+      <pages>1-14</pages>
+      <abstract>Code-switching is a common practice for millions of multilingual speakers but remains challenging for Large Language Models (LLMs). This paper investigates LLM capabilities in generating code-switched text, conducting extensive experiments across five diverse language pairs: English paired with Hindi, Tamil, Malayalam, and Indonesian, as well as Indonesian-Javanese. Our analysis, grounded in comprehensive human evaluations by native speakers, uncovers a directional asymmetry: LLMs consistently produce higher-quality (more accurate and fluent) code-switched text when prompted with a lower-resource language (e.g., Hindi, Tamil, Javanese) as the source, compared to when a higher-resource language (English, Indonesian) serves as the source. This asymmetry mirrors sociolinguistic patterns, particularly the Matrix Language Frame model, suggesting LLMs implicitly learn common code-switching structures from their training data where regional languages often form the grammatical base. Furthermore, we find that explicit linguistic guidance, applied through Equivalence Constraint Theory (ECT) to identify switching points, primarily benefits generation quality only in the less common, higher-resource-source direction where LLMs intrinsically struggle. These findings highlight a crucial interplay between the implicit linguistic knowledge captured by LLMs and the targeted utility of explicit linguistic constraints. We also introduce CSPref, a pairwise preference dataset derived from our human evaluations, to facilitate future research in code-switching generation and evaluation.</abstract>
+      <url hash="1ecb87a7">2026.cdl-1.1</url>
+      <bibkey>kuwanto-etal-2026-linguistics</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Do Structural Priors Help Neural Language Models Learn Grammar? Evidence from Child-Scale Data</title>
+      <author id="jon-paul-cacioli" orcid="0009-0000-7054-2014"><first>Jon-Paul</first><last>Cacioli</last><affiliation>University of Melbourne</affiliation></author>
+      <pages>15-26</pages>
+      <abstract>We show that structural grammatical priors produce targeted, linguistically specific effects on grammatical learning: improving filler-gap dependencies — which require long-distance hierarchical tracking — by 9–13 percentage points beyond structural regularisation alone (<tex-math>d = 2.41</tex-math>–2.82), while damaging locally cued phenomena regardless of whether the grammar is real or random. This phenomenon-specificity, revealed by a random grammar control, suggests the right question is not whether structural priors help, but for which constructions and why. We test this by augmenting BabyBERTa (7.4M parameters) with a differentiable PCFG auxiliary loss derived from Minimalist Grammar, trained on AO-CHILDES (893K sentences of child-directed speech). In a pre-registered study of 190 experimental runs spanning 7 constraint strengths, 3 data scales, 5 random seeds, and 3 independent lexicon permutations, our confirmatory hypotheses about overall accuracy and sample efficiency are falsified. However, a random grammar control (<tex-math>n = 15</tex-math> runs per condition; three independent lexicon permutations) reveals that linguistically accurate category assignments specifically drive filler-gap gains: real grammar outperforms both a structurally equivalent random grammar and the no-grammar baseline, while both conditions equally damage subject-verb agreement. These results show that structural priors function as targeted interventions rather than global boosters: they help specifically the constructions, specifically long-distance dependencies, whose computational demands align with what phrase-structure representations encode. We release code and pre-registered materials.</abstract>
+      <url hash="35c1ea30">2026.cdl-1.3</url>
+      <bibkey>cacioli-2026-structural</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Fine-tuned speech representations track spoken language convergence to adult models in infants and children who are deaf/hard-of-hearing</title>
+      <author><first>Landon</first><last>Choy</last></author>
+      <author><first>Ali Sartaz</first><last>Khan</last></author>
+      <author id="sonia-patrizi" orcid="0009-0004-9799-9208"><first>Sonia</first><last>Patrizi</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Daisy S.</first><last>Ye</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Julianna</first><last>Gross</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Margaret</first><last>Cychosz</last><affiliation>Stanford University</affiliation></author>
+      <pages>27-36</pages>
+      <abstract>Language development is characterized by a gradual convergence of children’s speech toward adult patterns. Measuring this process has traditionally required detailed transcription and language-specific expertise, limiting scalability across languages and populations. Here, we use fine-tuned speech embeddings to capture this convergence directly from the acoustic signal in longform, child-centered recordings, taken as children go about their daily lives. Using BabyHuBERT, we extracted embeddings from vocalizations of children who are deaf/hard-of-hearing and their female adult caregivers (<tex-math>&gt;</tex-math>925 hrs. observation). Embedding distance between children and caregivers decreased with hearing age, controlling for pitch, indicating, as expected, that children’s speech patterns converge to caregivers over development. This single distance metric likewise related to multiple standardized measures of speech and language, from infancy through preschoolhood. These results suggest a path toward scalable, language-neutral assessment of spoken language development from children’s everyday lives.</abstract>
+      <url hash="c381912e">2026.cdl-1.8</url>
+      <bibkey>choy-etal-2026-fine</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Do Language Models Show Structural Priming Across Different Domains?</title>
+      <author id="so-young-lee" orcid="0000-0003-0457-3167"><first>So Young</first><last>Lee</last><affiliation>Miami University</affiliation></author>
+      <author><first>Russell</first><last>Scheinberg</last></author>
+      <author><first>Ameeta</first><last>Agrawal</last><affiliation>Portland State University</affiliation></author>
+      <pages>37-51</pages>
+      <abstract>We test whether large language models show cross-domain structural priming by asking whether arithmetic expressions influence relative-clause attachment preferences. Experiment 1 examines English and French using materials based on prior psycholinguistic studies, and Experiment 2 extends the test to a larger multilingual dataset. Across both experiments, we find no robust priming effect. Instead, responses largely reflect baseline attachment preferences, which vary across languages and only partially align with human patterns. These findings suggest that, although language models show some structural sensitivity, they provide limited evidence of abstract structural generalization across domains.</abstract>
+      <url hash="47ff4f18">2026.cdl-1.9</url>
+      <bibkey>lee-etal-2026-language</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Do large language models and humans follow similar learning stages? Assessing <fixed-case>GPT</fixed-case>-2’s order of <fixed-case>S</fixed-case>wedish grammar acquisition within the Processability Theory framework</title>
+      <author><first>Stella</first><last>Lundqvist</last></author>
+      <author id="murathan-kurfali" orcid="0000-0002-7020-8275"><first>Murathan</first><last>Kurfali</last><affiliation>RISE Research Institutes of Sweden AB</affiliation></author>
+      <author><first>Johan</first><last>Sjons</last><affiliation>Uppsala University</affiliation></author>
+      <pages>52-76</pages>
+      <abstract>We investigate whether GPT-2 acquires Swedish grammatical structures in the same implicational order as for human second language (L2) learners, as predicted by Processability Theory (PT). We present SwePT – a minimal pair dataset targeting Swedish syntactic and morphological structures that are acquired by human L2 learners on four separate stages of language development – and evaluate the GPT-2 models on SwePT using an acceptability classification task throughout fine-tuning with different input orders in regards to the grammatical structures identified in the data. We find that the observed acquisition orders correlate across the fine-tuned models, while violating the implicational order sequence as hypothesized by PT. The observed relation between performance on the classification task and frequency distributions of the contrasting features in the minimal pairs suggests that the acquisition order can be explained by unigram and n-gram heuristics. While the adaptation of NLP methodologies into the PT framework requires further conceptual and methodological refinement, we do not find evidence for PT-like grammatical development in our experiments.</abstract>
+      <url hash="47c21d98">2026.cdl-1.10</url>
+      <bibkey>lundqvist-etal-2026-large</bibkey>
+    </paper>
+    <paper id="11">
+      <title>On the Learnability of Syntax from Raw Speech with Autoregressive Predictive Coding</title>
+      <author id="shunsuke-kando" orcid="0009-0004-8060-5583"><first>Shunsuke</first><last>Kando</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Yusuke</first><last>Miyao</last><affiliation>NII, Tokyo Institute of Technology, The University of Tokyo and AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>77-82</pages>
+      <abstract>Children are known to generalize syntactic knowledge at ages when their linguistic input is predominantly raw speech rather than text. This raises the question of whether syntactic generalization can emerge directly from acoustic input. We address this question using Autoregressive Predictive Coding (APC), a simple prediction-based self-supervised speech model. To approximate the input available to human learners while enabling controlled comparison, we train models on both child-directed speech and audiobook speech. We evaluate the models on a minimal-pair benchmark targeting elementary syntactic phenomena, designed to be acquisition-friendly. Our results show that APC partially generalizes word-order regularities when trained to predict near-future frames. However, the model fails to generalize agreement phenomena, suggesting that predictive learning from acoustic signals alone is insufficient. Furthermore, we observe distinct learning dynamics across word-order phenomena, suggesting that some improvements may be driven by shallow statistical regularities rather than genuine syntactic generalization.</abstract>
+      <url hash="57910878">2026.cdl-1.11</url>
+      <bibkey>kando-miyao-2026-learnability</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Modeling Writing Development as Coordinated Change Across Linguistic and Semantic Dimensions</title>
+      <author id="michelle-banawan" orcid="0000-0002-4647-4362"><first>Michelle</first><last>Banawan</last><affiliation>Arizona State University</affiliation></author>
+      <author id="andrew-potter" orcid="0000-0001-8866-4714"><first>Andrew</first><last>Potter</last><affiliation>University of North Alabama</affiliation></author>
+      <author id="tracy-arner" orcid="0000-0002-5072-8636"><first>Tracy</first><last>Arner</last><affiliation>Arizona State University</affiliation></author>
+      <author id="danielle-s-mcnamara" orcid="0000-0001-5869-1420"><first>Danielle S</first><last>McNamara</last><affiliation>Arizona State University</affiliation></author>
+      <pages>83-91</pages>
+      <abstract>Writing development is often assessed through aggregate improvements in surface-level features, yet less attention has been given to how multiple linguistic dimensions evolve jointly over time. We model writing development as a multidimensional system shaped by stable individual variation and instructional progression across staged assignments, using interpretable linguistic features from the Writing Analytics Toolkit (WAT) and transformer-based sentence embeddings.Variance partitioning reveals substantial between-student stability alongside stage-dependent change. Mixed-effects models identify non-uniform developmental trajectories: academic focus, information density, and conventional language increase, whereas development of ideas and lexical variety decline, indicating tradeoffs across competing dimensions. Cross-lagged analyses further show dynamic dependencies between dimensions, suggesting coordinated change rather than independent progression.Embedding-based analyses capture stage-dependent shifts in semantic representation, with larger changes in earlier stages and increasing stability over time. Although assignment structure contributes to observed variation, stable individual differences and cross-stage dependencies indicate underlying developmental processes that generalize across tasks.Together, these findings characterize writing development as structured change in a multidimensional representational system, highlighting the need for computational models that capture stable variation, non-monotonic trajectories, and interactions among linguistic components.</abstract>
+      <url hash="4381908c">2026.cdl-1.14</url>
+      <bibkey>banawan-etal-2026-modeling</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>L</fixed-case>1 Influence in <fixed-case>L</fixed-case>2 Language Models: A Human-centric Approach</title>
+      <author><first>Laura</first><last>Barbenel</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Lily</first><last>Goulder</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="aoife-o-driscoll" orcid="0009-0001-3258-8158"><first>Aoife</first><last>O’Driscoll</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="suchir-salhan" orcid="0000-0001-7201-7387"><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="catherine-arnett" orcid="0000-0003-0448-5415"><first>Catherine</first><last>Arnett</last><affiliation>EleutherAI</affiliation></author>
+      <author id="andrew-caines" orcid="0000-0001-9647-4902"><first>Andrew</first><last>Caines</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>92-116</pages>
+      <abstract>Language learners typically exhibit first language (L1) influence in their written second language (L2) production. We investigate whether similar patterns emerge in L2 language models (L2LMs), which are typically assessed on task-based benchmarks rather than on language use. We evaluate the use of Native Language Identification (NLI) as a method for detecting whether L2LMs exhibit human-like L1 influence. Using existing learner corpora and our novel L2 English dataset, we identify the conditions that yield the highest NLI accuracy, and show that text length but not proficiency affects performance. We then apply NLI to L2LM-generated text under various instruction-tuning and prompting conditions. We find that instruction tuning on human learner essays yields high NLI accuracy (~90%) and is necessary for detectable L1 influence. Whilst NLI accuracy is similar for L2LM and human essays, human evaluation shows that LM-generated L1 influence remains distinguishable from human writing.</abstract>
+      <url hash="e797c7f5">2026.cdl-1.15</url>
+      <bibkey>barbenel-etal-2026-l1</bibkey>
+    </paper>
+    <paper id="16">
+      <title>A Scalable Tool for Measuring Manner and Result Verbs in Developmental Language Research</title>
+      <author id="divyesh-pratap-singh" orcid="0009-0005-8193-4546"><first>Divyesh Pratap</first><last>Singh</last></author>
+      <author id="dakshesh-gusain" orcid="0009-0001-9067-0125"><first>Dakshesh</first><last>Gusain</last></author>
+      <author><first>Federica</first><last>Bulgarelli</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="alison-eisel-hendricks" orcid="0000-0001-6389-8514"><first>Alison Eisel</first><last>Hendricks</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="john-beavers" orcid="0000-0002-7040-9982"><first>John</first><last>Beavers</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Nathan M.</first><last>Beers</last></author>
+      <author id="ifeoma-nwogu" orcid="0000-0003-1414-6433"><first>Ifeoma</first><last>Nwogu</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <pages>117-128</pages>
+      <abstract>Manner and result verbs encode different aspects of event structure and have been discussed in developmental work as a potentially informative distinction for studying early verb learning. However, this distinction remains difficult to measure at scale because large annotated resources for manner and result classification are not currently available. We present a computational approach for identifying manner and result verbs in sentence context. Using linguistically informed prompts, we generate sentence-level annotations with large language models over data drawn from MASC and InterCorp, extending coverage from previously annotated portions of VerbNet to 436 classes. We then train a RoBERTa-based classifier on these annotations and evaluate it on three held-out gold-standard datasets, including previously annotated items and a new expert-annotated set. Across these evaluations, the model shows promising performance, with average accuracy up to 89.6%. We present this work as a scalable measurement tool that can support future research on verb semantics in developmental and other language datasets, while noting that further validation is needed for borderline cases, mixed manner/result verbs, and downstream developmental applications.</abstract>
+      <url hash="451c3042">2026.cdl-1.16</url>
+      <bibkey>singh-etal-2026-scalable</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Making Synthetic Questions More Child-Directed: Prompting and Sampling Effects</title>
+      <author><first>Whitney</first><last>Poh</last><affiliation>Montclair State University and Montclair State University</affiliation></author>
+      <author><first>Michael</first><last>Tombolini</last></author>
+      <author id="libby-barak" orcid="0000-0003-1045-7701"><first>Libby</first><last>Barak</last><affiliation>Montclair State University</affiliation></author>
+      <pages>129-135</pages>
+      <abstract>Child-directed Speech (CDS) has been shown to better support language learning as training data for computational models. Artificially generated input aims at replicating the advantage of CDS by re-creating targeted linguistic properties. Recently, the use of questions in CDS has been suggested as a linguistic property that may entail an effective discourse structure for model training. However, previous work has shown inconsistent improvement over baseline using questions in training data. In this study, we propose a new question generation method that aligns both the generation prompts and sampling methods with properties of CDS. We show that prompt wording substantially changes whether synthetic questions match CDS on surface properties such as MLU and question type. Despite marked improvements over baseline, enhanced CDS-likeness does not translate into consistent downstream gains. Overall, our results show that the role of questions in training data is a topic worth looking further into.</abstract>
+      <url hash="9b941f02">2026.cdl-1.18</url>
+      <bibkey>poh-etal-2026-making</bibkey>
+    </paper>
+  </volume>
+</collection>

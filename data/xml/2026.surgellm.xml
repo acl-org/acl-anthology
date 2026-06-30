@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.surgellm">
+  <volume id="1" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Structured Understanding, Retrieval, and Generation in the <fixed-case>LLM</fixed-case> Era (<fixed-case>SURG</fixed-case>e<fixed-case>LLM</fixed-case> 2026)</booktitle>
+      <editor><first>Vivek</first><last>Gupta</last></editor>
+      <editor><first>Kaize</first><last>Ding</last></editor>
+      <editor><first>Harsha</first><last>Kokel</last></editor>
+      <editor><first>Yue</first><last>Zhao</last></editor>
+      <editor><first>Amit</first><last>Agarwal</last></editor>
+      <editor><first>Yu</first><last>Wang</last></editor>
+      <editor><first>Michael</first><last>Glass</last></editor>
+      <editor><first>Yu</first><last>Zhang</last></editor>
+      <editor><first>Kavitha</first><last>Srinivas</last></editor>
+      <editor><first>Xiusi</first><last>Chen</last></editor>
+      <editor><first>Oktie</first><last>Hassanzadeh</last></editor>
+      <editor><first>Qi</first><last>Zhu</last></editor>
+      <editor><first>Shuaichen</first><last>Chang</last></editor>
+      <editor><first>Yuan</first><last>Luo</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, United States</address>
+      <isbn>979-8-89176-406-4</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="03e5adbb">2026.surgellm-1</url>
+      <venue>surgellm</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="1c7c53d9">2026.surgellm-1.0</url>
+      <bibkey>surgellm-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>UNJOIN</fixed-case>: Enhancing Multi-Table Text-to-<fixed-case>SQL</fixed-case> Generation via Schema Simplification</title>
+      <author><first>Poojah</first><last>Ganesan</last></author>
+      <author><first>Rajat Aayush</first><last>Jha</last><affiliation>Arizona State University</affiliation></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <author id="vivek-gupta" orcid="0009-0008-7634-4746"><first>Vivek</first><last>Gupta</last><affiliation>Arizona State University</affiliation></author>
+      <pages>1-15</pages>
+      <abstract>Recent advances in large language models (LLMs) have greatly improved Text-to-SQL performance for single-table queries. But, it remains challenging in multi-table databases due to complex schema and relational operations. Existing methods often struggle with retrieving the right tables and columns, generating accurate JOINs and UNIONs, and generalizing across diverse schemas. To address these issues, we introduce UNJOIN, a two-stage framework that decouples the retrieval of schema elements from SQL logic generation. In the first stage, we merge the column names of all tables in the database into a single-table representation by prefixing each column with its table name. This allows the model to focus purely on accurate retrieval without being distracted by the need to write complex SQL logic. In the second stage, the SQL query is generated on this simplified schema and mapped back to the original schema by reconstructing JOINs, UNIONs, and relational logic. Evaluations on SPIDER and BIRD datasets show that UNJOIN matches or exceeds the state-of-the-art baselines. UNJOIN uses only schema information, which does not require data access or fine-tuning, making it scalable and adaptable across databases. Our code is available at: https://github.com/coral-lab-asu/unjoin</abstract>
+      <url hash="98aab9ba">2026.surgellm-1.1</url>
+      <bibkey>ganesan-etal-2026-unjoin</bibkey>
+    </paper>
+    <paper id="2">
+      <title>The Mighty <fixed-case>T</fixed-case>o<fixed-case>RR</fixed-case>: A Benchmark for Table Reasoning and Robustness in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Shir</first><last>Ashury-Tahan</last><affiliation>Open University of Israel and International Business Machines</affiliation></author>
+      <author id="yifan-mai" orcid="0009-0004-7270-2607"><first>Yifan</first><last>Mai</last><affiliation>Stanford University</affiliation></author>
+      <author id="rajmohan-c" orcid="0000-0002-0832-4689"><first>Rajmohan</first><last>C</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Ariel</first><last>Gera</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Yotam</first><last>Perlitz</last><affiliation>International Business Machines</affiliation></author>
+      <author id="asaf-yehudai" orcid="0000-0002-3743-7551"><first>Asaf</first><last>Yehudai</last><affiliation>International Business Machines</affiliation></author>
+      <author id="elron-bandel" orcid="0009-0001-0419-8849"><first>Elron</first><last>Bandel</last></author>
+      <author id="leshem-choshen" orcid="0000-0002-0085-6496"><first>Leshem</first><last>Choshen</last><affiliation>Massachusetts Institute of Technology and International Business Machines</affiliation></author>
+      <author><first>Eyal</first><last>Shnarch</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Percy</first><last>Liang</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Michal</first><last>Shmueli-Scheuer</last><affiliation>International Business Machines</affiliation></author>
+      <pages>16-51</pages>
+      <abstract>Despite its real-world significance, model performance on tabular data remains underexplored, leaving uncertainty about which model to rely on and which prompt configuration to adopt. To address this gap, we create ToRR, a benchmark for Table Reasoning and Robustness, measuring model performance and robustness on table-related tasks. The benchmark includes 10 datasets that cover different types of table reasoning capabilities across varied domains. ToRR goes beyond model performance rankings, and is designed to reflect whether models can handle tabular data consistently and robustly, across a variety of common table representation formats. We present a leaderboard as well as comprehensive analyses of the results of leading models over ToRR. Our results reveal a striking pattern of brittle model behavior, where even strong models are unable to perform robustly on tabular data tasks. We further find that no single table format consistently yields superior performance. However, evaluating models across multiple formats is essential for a reliable assessment of their capabilities. Moreover, we show that the reliability boost from testing multiple prompts can be equivalent to adding more test examples. Overall, our findings show that reasoning over table tasks remains a significant challenge. The leaderboard, data and code are publicly available.</abstract>
+      <url hash="945aaea1">2026.surgellm-1.2</url>
+      <bibkey>ashury-tahan-etal-2026-mighty</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Ontology-Free General-Domain Knowledge Graph-to-Text Generation Dataset Synthesis using Large Language Model</title>
+      <author id="daehui-kim" orcid="0009-0009-8208-460X"><first>Daehui</first><last>Kim</last><affiliation>Korea Telecom Research</affiliation></author>
+      <author id="deokhyung-kang" orcid="0009-0008-2119-9350"><first>Deokhyung</first><last>Kang</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author id="sangwon-ryu" orcid="0009-0002-4655-1150"><first>Sangwon</first><last>Ryu</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author id="gary-geunbae-lee" orcid="0000-0002-3692-6732"><first>Gary</first><last>Lee</last></author>
+      <pages>52-69</pages>
+      <abstract>Knowledge Graph-to-Text (G2T) generation involves verbalizing structured knowledge graphs into natural language text. Recent advancements in Pretrained Language Models (PLMs) have improved G2T performance, but their effectiveness relies on datasets with precise graph-text alignment. However, the scarcity of high-quality, general-domain G2T generation datasets restricts progress in the general-domain G2T generation research. To address this issue, we introduce Wikipedia Ontology-Free Graph-text dataset (WikiOFGraph), a new large-scale G2T dataset generated using a novel method that leverages Large Language Models (LLMs) and Data-QuestEval. Our dataset, which contains 5.85M general-domain graph-text pairs, offers high graph-text consistency without reliance on external ontologies. Experimental results demonstrate that PLM fine-tuned on WikiOFGraph outperforms those trained on other datasets across various evaluation metrics. Our method proves to be a scalable and effective solution for generating high-quality G2T data, significantly advancing the field of G2T generation.</abstract>
+      <url hash="3c345bb3">2026.surgellm-1.3</url>
+      <bibkey>kim-etal-2026-ontology</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Output-Space Search: Targeting <fixed-case>LLM</fixed-case> Generations in a Frozen Encoder-Defined Output Space</title>
+      <author id="tobias-materzok" orcid="0000-0002-3576-046X"><first>Tobias</first><last>Materzok</last><affiliation>Technische Universität Darmstadt</affiliation></author>
+      <pages>70-92</pages>
+      <abstract>We introduce Output-Space Search (OS-Search), which turns LLM generation into endpoint search. An outer loop selects a target z* in a frozen encoder-defined 3D output space Z, and a retrieval-grounded policy trained with sequence-level RL generates outputs whose coordinates land near z* under standard autoregressive decoding. This enables parallel sweeps and black-box optimization in Z without path-dependent token/program search. On stories, sweeping Z (text) yields 3.1x higher LLM-scored diversity than prompt-chaining. On code, Bayesian optimization over Z (code) improves an objective withheld from the controller under matched inference budgets while preserving validity.</abstract>
+      <url hash="780b5eff">2026.surgellm-1.4</url>
+      <bibkey>materzok-2026-output</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>T</fixed-case>ree<fixed-case>D</fixed-case>iff: <fixed-case>AST</fixed-case>-Guided Code Generation with Diffusion <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Yiming</first><last>Zeng</last><affiliation>ByteDance Inc. and University of Connecticut</affiliation></author>
+      <author id="jinghan-cao" orcid="0009-0005-5629-7901"><first>Jinghan</first><last>Cao</last></author>
+      <author id="zexin-li" orcid="0000-0001-8758-2151"><first>Zexin</first><last>Li</last><affiliation>University of California, Riverside</affiliation></author>
+      <author id="yiming-chen" orcid="0009-0001-8557-1077"><first>Yiming</first><last>Chen</last></author>
+      <author><first>Tao</first><last>Ren</last><affiliation>Tiktok</affiliation></author>
+      <author id="zhuochun-li" orcid="0009-0004-0772-9416"><first>Zhuochun</first><last>Li</last></author>
+      <author id="dawei-xiang" orcid="0009-0001-2935-0288"><first>Dawei</first><last>Xiang</last><affiliation>University of Connecticut</affiliation></author>
+      <author><first>Xidong</first><last>Wu</last></author>
+      <author><first>Shangqian</first><last>Gao</last><affiliation>Florida State University</affiliation></author>
+      <author><first>Tingting</first><last>Yu</last><affiliation>University of Connecticut</affiliation></author>
+      <pages>93-106</pages>
+      <abstract>Code generation is increasingly critical for real-world applications. Still, diffusion-based large language models continue to struggle with this demand. Unlike free-form text, code requires syntactic precision; even minor structural inconsistencies can render a program non-executable. Existing diffusion-based large language models rely on random token masking for corruption, leading to two key failures: they lack awareness of syntactic boundaries during the iterative denoising process, and they fail to capture the long-range hierarchical dependencies essential for program correctness.We propose TreeDiff to address both issues. Specifically, we propose a syntax-aware diffusion framework that incorporates structural priors from Abstract Syntax Tree (AST) into the corruption process. Instead of masking individual tokens at random, we selectively mask tokens belonging to key AST nodes. By aligning the corruption process with the underlying structure of code, our method encourages the model to internalize the compositional nature of programming languages, enabling it to reconstruct programs that respect grammatical boundaries and capture long-range dependencies. Our method achieves a 13.3% relative improvement over the random masking training method, demonstrating its effectiveness in code generation task by leveraging underlying structures.</abstract>
+      <url hash="911dce33">2026.surgellm-1.5</url>
+      <bibkey>zeng-etal-2026-treediff</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Chart-<fixed-case>RL</fixed-case>: Generalized Chart Comprehension via Reinforcement Learning with Verifiable Rewards</title>
+      <author id="xin-zhang-6331" orcid="0000-0002-4600-6331"><first>Xin</first><last>Zhang</last><affiliation>Oracle</affiliation></author>
+      <author id="xingyu-li-9894" orcid="0000-0002-5547-9894"><first>Xingyu</first><last>Li</last><affiliation>Oracle</affiliation></author>
+      <author id="rongguang-wang" orcid="0000-0001-8783-9252"><first>Rongguang</first><last>Wang</last><affiliation>Oracle</affiliation></author>
+      <author><first>Ruizhong</first><last>Miao</last><affiliation>Oracle</affiliation></author>
+      <author><first>Zheng</first><last>Wang</last><affiliation>Oracle</affiliation></author>
+      <author><first>Yuying</first><last>Wang</last><affiliation>Oracle</affiliation></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <author><first>Chenyang</first><last>Li</last><affiliation>Oracle</affiliation></author>
+      <pages>107-118</pages>
+      <abstract>Accurate chart comprehension represents a critical challenge in advancing multimodal learning systems, as extensive information is compressed into structured visual representations. However, existing vision-language models (VLMs) frequently struggle to generalize on unseen charts because it requires abstract, symbolic, and quantitative reasoning over structured visual representations. In this work, we introduce Chart-RL, an effective reinforcement learning (RL) method that employs mathematically verifiable rewards to enhance chart question answering in VLMs. Our experiments demonstrate that Chart-RL consistently outperforms supervised fine-tuning (SFT) across different chart understanding benchmarks, achieving relative improvements of 16.7% on MultiChartQA, and 11.5% on ChartInsights. We conduct robustness analysis, where Chart-RL achieves enhanced performance in 18 of 25 perturbed chart categories, demonstrating strong consistency and reasoning capability across visual variations. Furthermore, we demonstrate that task difficulty and inherent complexity are more critical than data quantity in RL training. For instance, Chart-RL trained on merely 10 complex chart-query examples significantly outperforms models trained on over 6,000 simple examples. Additionally, training on challenging reasoning tasks not only improves in-domain generalization relative to simpler tasks, but also facilitate strong transfer to out-of-domain visual mathematical problems.</abstract>
+      <url hash="b35073ab">2026.surgellm-1.6</url>
+      <bibkey>zhang-etal-2026-chart</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>RSAT</fixed-case>: Structured Attribution Makes Small Language Models Faithful Table Reasoners</title>
+      <author id="jugal-gajjar" orcid="0009-0008-2688-076X"><first>Jugal</first><last>Gajjar</last></author>
+      <author><first>Kamalasankari</first><last>Subramaniakuppusamy</last></author>
+      <pages>119-131</pages>
+      <abstract>When a language model answers a table question, users have no way to verify which cells informed which reasoning steps. We introduce RSAT, a method that trains small language models (SLMs, 1–8B) to produce step-by-step reasoning with cell-level citations grounded in table evidence. Phase 1 (SFT) teaches a structured JSON output format from verified reasoning traces. Phase 2 (GRPO) optimizes a composite reward centered on NLI-based faithfulness, alongside citation validity and parsimony. Across six models from two families—Qwen2.5 (1.5B/3B/7B) and Llama3 (1B/3B/8B)—RSAT improves faithfulness 3.7<tex-math>\times</tex-math> over SFT alone (0.224<tex-math>\rightarrow</tex-math>0.826), with near-perfect citation validity (0.992). Post-hoc attribution collapses below 13% format success, confirming that attribution must be integrated into reasoning, not retrofitted. Ablations show the faithfulness reward is essential: removing it drops faithfulness from 0.97 to 0.03.</abstract>
+      <url hash="1c337310">2026.surgellm-1.7</url>
+      <bibkey>gajjar-subramaniakuppusamy-2026-rsat</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Framework of Thoughts: A Foundation Framework for Dynamic and Optimized Reasoning based on Chains, Trees, and Graphs</title>
+      <author><first>Felix</first><last>Fricke</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="simon-malberg" orcid="0009-0000-3781-4700"><first>Simon</first><last>Malberg</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="georg-groh" orcid="0000-0002-5942-2297"><first>Georg</first><last>Groh</last><affiliation>Technical University Munich</affiliation></author>
+      <pages>132-151</pages>
+      <abstract>Prompting schemes such as Chain of Thought, Tree of Thoughts, and Graph of Thoughts can significantly enhance the reasoning capabilities of large language models. However, most existing schemes require users to define static, problem-specific reasoning structures that lack adaptability to dynamic or unseen problem types. Additionally, these schemes are often under-optimized in terms of hyperparameters, prompts, runtime, and prompting cost. To address these limitations, we introduce Framework of Thoughts (FoT) – a general-purpose foundation framework for implementing and optimizing dynamic reasoning schemes. FoT comes with built-in features for hyperparameter tuning, prompt optimization, parallel execution, and intelligent caching, unlocking the latent performance potential of reasoning schemes. We demonstrate FoT’s capabilities by implementing three popular schemes – Tree of Thoughts, Graph of Thoughts, and ProbTree – within FoT. We empirically show that FoT enables significantly faster execution, reduces costs, and achieves better task scores through optimization. We release our codebase to facilitate the development of future dynamic and efficient reasoning schemes.</abstract>
+      <url hash="0d19f29d">2026.surgellm-1.8</url>
+      <bibkey>fricke-etal-2026-framework</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>T</fixed-case>ab<fixed-case>G</fixed-case>uard: Agentic <fixed-case>LLM</fixed-case> Orchestration for Adaptive Tabular Anomaly Detection via Dynamic Validator Selection and Generation</title>
+      <author><first>Srihari</first><last>Unnikrishnan</last></author>
+      <author id="minghua-ma-1731" orcid="0000-0002-6303-1731"><first>Minghua</first><last>Ma</last><affiliation>Microsoft</affiliation></author>
+      <pages>152-161</pages>
+      <abstract>Tabular anomaly detection is challenging because real-world tables contain heterogeneous columns, ranging from structured identifiers to free-form text. Existing methods face a fundamental trilemma: rule-based systems require extensive manual configuration and fail on novel schemas; statistical methods scale efficiently but miss semantic errors; and LLM-based approaches understand semantics but incur prohibitive per-cell inference costs. No prior method simultaneously addresses semantic heterogeneity, domain-specific validation rules, and enterprise-scale processing.We introduce TabGuard, an agentic framework that resolves this trilemma through semantic routing. Using LLM function calling, the system analyzes a small sample of each column and dynamically selects the most effective validation strategy, routing to a regex-based validator for syntactic patterns, a code-generation validator for domain-specific rules (such as Luhn checksums for credit cards), or an embedding-based validator for distributional outliers. This architecture decouples expensive cognitive reasoning (<tex-math>O(m)</tex-math> LLM calls for <tex-math>m</tex-math> columns) from scalable programmatic execution, enabling deployment on enterprise datasets without per-cell inference.</abstract>
+      <url hash="05069da5">2026.surgellm-1.9</url>
+      <bibkey>unnikrishnan-ma-2026-tabguard</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>S</fixed-case>truct<fixed-case>S</fixed-case>urvey: Structured Agentic Retrieval for Automated Survey Paper Generation</title>
+      <author><first>Paolo</first><last>Pedinotti</last></author>
+      <author><first>Enrico</first><last>Santus</last><affiliation>Bloomberg</affiliation></author>
+      <pages>162-181</pages>
+      <abstract>The rapid growth of scientific publications makes it increasingly difficult to track and synthesize research progress. While Large Language Models (LLMs) can support automated survey generation, existing methods retrieve unstructured data and require models to infer conceptual, methodological, and taxonomic relations from raw text at generation time. We introduce STRUCTSURVEY, a hierarchical multiagent framework that shifts structural reasoning from generation to retrieval by dynamically constructing graph-based representations of entities, relations, and topical taxonomies. We evaluate STRUCTSURVEY on a new referencegrounded benchmark of ACL survey papers for reproducible long-form scientific summarization. Compared with embedding-only retrieval baselines, STRUCTSURVEY improves ROUGE1 recall by +2.9 and ROUGE-2 recall by +1.0 on average, without reducing precision. It also improves LLM-as-a-Judge ratings for logical structure, depth, and synthesis, showing that explicit structural retrieval yields surveys closer to human-written organization and reasoning.</abstract>
+      <url hash="88c59f65">2026.surgellm-1.10</url>
+      <bibkey>pedinotti-santus-2026-structsurvey</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Modeling <fixed-case>LLM</fixed-case> Agent Reviewer Dynamics in Elo-Ranked Review System</title>
+      <author><first>Hsiang-Wei</first><last>Huang</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Junbin</first><last>Lu</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Kuang-Ming</first><last>Chen</last></author>
+      <author id="jianxu-shangguan" orcid="0009-0008-5280-9182"><first>Jianxu</first><last>Shangguan</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Jenq-Neng</first><last>Hwang</last></author>
+      <pages>182-189</pages>
+      <abstract>In this work, we explore the Large Language Model (LLM) agent reviewer dynamics in an Elo-ranked review system using real-world conference paper submissions. Multiple LLM agent reviewers with different personas engage in multi round review interactions moderated by an Area Chair. We compare a baseline setting with conditions that incorporate Elo ratings and reviewer memory. Our simulation results showcase several interesting findings, including how incorporating Elo improves Area Chair decision accuracy, as well as reviewers’ adaptive review strategies that exploits our Elo system without improving review effort. These findings show how the Elo system affects peer review and offer insights for improving AI conference evaluation. Our code is available at https://github.com/hsiangwei0903/EloReview.</abstract>
+      <url hash="549fbde3">2026.surgellm-1.11</url>
+      <bibkey>huang-etal-2026-modeling</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>DSM</fixed-case>entor: Curriculum-Guided Inference with Online Memory for Data-Science <fixed-case>LLM</fixed-case> Agents</title>
+      <author><first>He</first><last>Wang</last></author>
+      <author><first>Alexander Hanbo</first><last>Li</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yiqun</first><last>Hu</last><affiliation>AWS AI Labs</affiliation></author>
+      <author><first>Sheng</first><last>Zhang</last><affiliation>Amazon</affiliation></author>
+      <author><first>Hideo</first><last>Kobayashi</last><affiliation>Amazon</affiliation></author>
+      <author id="jiani-zhang" orcid="0000-0003-0074-6761"><first>Jiani</first><last>Zhang</last></author>
+      <author><first>Henghui</first><last>Zhu</last><affiliation>Figma</affiliation></author>
+      <author><first>Chung-Wei</first><last>Hang</last><affiliation>Amazon</affiliation></author>
+      <author><first>Patrick</first><last>Ng</last><affiliation>Oracle</affiliation></author>
+      <pages>190-208</pages>
+      <abstract>Large language model (LLM) agents have shown strong capabilities in generating code to solve complex data science problems, yet they often overlook the impact of task order during inference. We present DSMentor, an inference-time optimization framework that applies curriculum learning—progressing from easier to harder tasks—to enhance LLM performance on challenging data science tasks. Guided by a mentor and supported by a growing long-term memory, DSMentor organizes problems by difficulty, retains prior experiences, and leverages them to guide subsequent reasoning. Extensive experiments on DSEval and QRData benchmarks show that DSMentor with Claude-3.5-Sonnet improves pass rates by up to 5.2% over baseline agents and achieves an 8.8% gain over GPT-4 with Program-of-Thoughts prompting. These results highlight the effectiveness of curriculum-based inference strategies in advancing LLM agents.</abstract>
+      <url hash="36c88c22">2026.surgellm-1.12</url>
+      <bibkey>wang-etal-2026-dsmentor</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Asking language models how to represent data for fine-tuning</title>
+      <author><first>Usneek</first><last>Singh</last></author>
+      <author id="ananya-singha" orcid="0009-0009-7682-611X"><first>Ananya</first><last>Singha</last><affiliation>Research, Microsoft</affiliation></author>
+      <author><first>Abhijeet</first><last>Awasthi</last><affiliation>Meta AI</affiliation></author>
+      <author id="sumit-gulwani" orcid="0000-0002-9226-9634"><first>Sumit</first><last>Gulwani</last><affiliation>Research, Microsoft</affiliation></author>
+      <author><first>Aditya</first><last>Kanade</last><affiliation>Google</affiliation></author>
+      <author id="vu-le" orcid="0000-0003-3727-3291"><first>Vu</first><last>Le</last><affiliation>Microsoft</affiliation></author>
+      <author id="mukul-singh" orcid="0000-0001-9510-4512"><first>Mukul</first><last>Singh</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Gust</first><last>Verbruggen</last><affiliation>Microsoft</affiliation></author>
+      <pages>209-218</pages>
+      <abstract>Language models are often used for tasks involving structured data like tables and graphs, but there is no principled approach for choosing the best format to represent such data for fine-tuning. We address this in three steps. First, we show that format choice remains important even after fine-tuning; models learn more efficiently with specific formats rather than adapting to any format. Second, we show that a pre-trained model can suggest its own candidate formats by auto-completing partial prompts, reducing reliance on developer intuition. Third, and most importantly, we demonstrate that base model performance across formats reliably predicts post-fine-tuning performance: the format that performs best before fine-tuning remains among the top candidates after fine-tuning in 16 out of 18 settings across three data structure types, three models, and six tasks. This finding allows format selection to be done via inference alone, avoiding costly trial-and-error fine-tuning runs.</abstract>
+      <url hash="17bdc3ab">2026.surgellm-1.13</url>
+      <bibkey>singh-etal-2026-asking</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>T</fixed-case>ab<fixed-case>B</fixed-case>ridge: Bridging Structure and Context for Accurate Table Reasoning</title>
+      <author id="jeongwoo-lee" orcid="0009-0005-2059-8577"><first>Jeongwoo</first><last>Lee</last></author>
+      <author id="eunsoo-lee" orcid="0009-0008-2273-0430"><first>Eunsoo</first><last>Lee</last><affiliation>Dongguk University</affiliation></author>
+      <author id="jihie-kim" orcid="0000-0003-2358-4021"><first>Jihie</first><last>Kim</last><affiliation>Dongguk University</affiliation></author>
+      <pages>219-240</pages>
+      <abstract>Table reasoning remains challenging for Large Language Models (LLMs) as it requires integrating structured tabular information with natural language questions. Previous SQL-based approaches rely on surface-level alignment between question keywords and column headers, often generating queries with spurious or missing column mappings. We introduce TabBridge, a framework that incorporates both structural and contextual information for accurate table reasoning. TabBridge first generates a unified textual representation called Table Specification (TabSpec), preserving the structural information through row and column analysis. In order to ensure accuracy and consistency, we also employ a reconstruction-based evaluation mechanism to verify and refine the generated TabSpec. TabSpec is subsequently used to generate SQL aligned with the contextual intent of the question, enabling accurate interpretation of column semantics that are often overlooked by previous approaches.Across three public benchmarks, TabBridge shows consistent improvements over previous SQL-based methods, achieving 73.94% accuracy on WikiTableQuestions (+5.3 pp over the previous state of the art). TabBridge also demonstrates robust performance across diverse LLM backbones, confirming its generalizability across model architectures. Our code is available at https://github.com/raylee0519/TabBridge.</abstract>
+      <url hash="af5c1cd3">2026.surgellm-1.14</url>
+      <bibkey>lee-etal-2026-tabbridge</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Map-of-Actions: Deliberate Reasoning over Multi-Labeled Graphs</title>
+      <author><first>Wuguang</first><last>Ni</last></author>
+      <author><first>Kai</first><last>Yang</last><affiliation>Tongji University, Tsinghua University</affiliation></author>
+      <pages>241-259</pages>
+      <abstract>Multi-step reasoning in large language models (LLMs) is typically expressed as unstructured text, making intermediate states difficult to organize, verify, and revise explicitly. This limitation often leads to redundant reasoning paths, error accumulation, and limited controllability in complex tasks. We propose Map-of-Actions (MoA), a neuro-symbolic reasoning framework that treats reasoning as operations over an explicit structured state space. MoA represents intermediate states as a multi-labeled graph, in which each node corresponds to a semantically labeled reasoning unit. This representation provides LLMs with structured memory, explicit state transitions, and flexible interfaces to external tools. Experiments on multiple complex question answering (QA) benchmarks show that MoA consistently outperforms strong baselines, improving accuracy by up to 17.9 percentage points.</abstract>
+      <url hash="1e37ed62">2026.surgellm-1.15</url>
+      <bibkey>ni-yang-2026-map</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Routing End User Queries to Enterprise Databases</title>
+      <author><first>Saikrishna</first><last>Sudarshan</last><affiliation>BITS Pilani K K Birla Goa Campus, Goa, India</affiliation></author>
+      <author><first>Tanay</first><last>Kulkarni</last></author>
+      <author><first>Manasi</first><last>Patwardhan</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Lovekesh</first><last>Vig</last></author>
+      <author><first>Ashwin</first><last>Srinivasan</last></author>
+      <author><first>Tanmay Tulsidas</first><last>Verlekar</last><affiliation>BITS Pilani, Goa campus</affiliation></author>
+      <pages>260-268</pages>
+      <abstract>We address the task of routing natural language queries in multi-database enterprise environments. We construct realistic benchmarks by extending existing NL-to-SQL datasets. Our study shows that routing becomes increasingly challenging with larger, domain-overlapping DB repositories and ambiguous queries, motivating the need for more structured and robust reasoning-based solutions. By explicitly modelling schema coverage, structural connectivity, and fine-grained semantic alignment, the proposed modular, reasoning-driven re-ranking strategy consistently outperforms embedding-only and direct LLM-prompting baselines across all the metrics.</abstract>
+      <url hash="e6675998">2026.surgellm-1.16</url>
+      <bibkey>sudarshan-etal-2026-routing</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>S</fixed-case>chema<fixed-case>S</fixed-case>cope: How Join-Hop Depth Breaks Text-to-<fixed-case>SQL</fixed-case> in Large Language Models, and a Decomposition-Based Remedy</title>
+      <author><first>Kaustubh S.</first><last>Bukkapatnam</last></author>
+      <author><first>Rayan</first><last>Malik</last></author>
+      <pages>269-274</pages>
+      <abstract>Large language models (LLMs) achieve impressive accuracy on standard Text-to-SQL benchmarks such as Spider and BIRD, yet enterprise databases, with hundreds of tables and complex foreign key graphs, remain a practical bottleneck. We hypothesize that a single, measurable property drives most of this gap: the join-hop depth (<tex-math>h</tex-math>) of the query, defined as the number of foreign key edges that must be traversed to gather all required columns. We introduce the Join-Hop Depth (JHD) benchmark, 410 human-annotated questions stratified by <tex-math>h \in \{1, \ldots, 6\}</tex-math> over 12 enterprise-scale schemas. Experiments on five frontier LLMs confirm a sharp accuracy cliff: all models exceed 80% at <tex-math>h = 1</tex-math> but fall below 40% at <tex-math>h = 4</tex-math> and below 25% at <tex-math>h = 6</tex-math>, the typical depth of real enterprise analytics queries. To address this, we propose SchemaScope, a decomposition framework that partitions deep queries into a sequence of sub-queries with <tex-math>h \leq 2</tex-math>, executes them independently, and merges the results. SchemaScope raises execution accuracy from 46.8% to 67.3% on JHD (GPT-4o, <tex-math>h \geq 3</tex-math>) and improves execution accuracy by <tex-math>+9.3</tex-math> percentage points on the BIRD development set. Error analysis shows that decomposition eliminates <i>wrong join path</i> errors, the dominant failure mode at high <tex-math>h</tex-math>, and shifts the residual error budget toward condition and aggregation mistakes that are amenable to existing post-processing methods.</abstract>
+      <url hash="7a73250d">2026.surgellm-1.17</url>
+      <bibkey>bukkapatnam-malik-2026-schemascope</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Generalization in Graph Reasoning: A Systematic Comparison of <fixed-case>LLM</fixed-case> Training Approaches</title>
+      <author id="sola-shirai" orcid="0000-0001-6913-3598"><first>Sola</first><last>Shirai</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Kavitha</first><last>Srinivas</last><affiliation>IBM Research</affiliation></author>
+      <author><first>Julian</first><last>Dolby</last><affiliation>Certora</affiliation></author>
+      <author><first>Michael</first><last>Katz</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Shirin</first><last>Sohrabi</last><affiliation>International Business Machines</affiliation></author>
+      <author id="horst-samulowitz" orcid="0000-0002-6780-3217"><first>Horst</first><last>Samulowitz</last><affiliation>International Business Machines</affiliation></author>
+      <pages>275-297</pages>
+      <abstract>For large language models (LLMs), reasoning over graphs can help solve many problems. Prior work has tried to improve LLM graph reasoning through different training methods, but the merits of such approaches remain unclear and the limitations of each approach with respect to generalizability of reasoning are often not thoroughly explored. In this paper we systematically compare the ability of LLMs to learn fundamental graph tasks across a variety of training methods and their ability to generalize out of distribution across various dimensions. We highlight key tradeoffs between training methods, e.g., training specialized graph encoders and fusing their embeddings with LLMs consistently collapses in terms of generalizability; however, no single method shows clear superiority across all dimensions of generalizability, regardless of the size of the model.</abstract>
+      <url hash="5eba37b8">2026.surgellm-1.18</url>
+      <bibkey>shirai-etal-2026-generalization</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Can <fixed-case>LLM</fixed-case>s Self-Correct Table Reasoning Errors?</title>
+      <author id="farseen-shaikh" orcid="0009-0008-1860-4888"><first>Farseen</first><last>Shaikh</last><affiliation>Independent</affiliation></author>
+      <pages>298-312</pages>
+      <abstract>Self-correction—the ability of LLMs to detect and fix their own errors—has been studied extensively for mathematical and code reasoning, with limited prior work on table reasoning (primarily multi-agent pipelines such as Table-Critic, ACL 2025, rather than single-model structured prompting). Tables present unique challenges: errors arise from wrong cell retrieval, incorrect computation, flawed logic, and hallucination of values not present in the data. We conduct the first cross-provider single-model self-correction analysis for table reasoning across five providers (Google, Moonshot AI, Zhipu, Alibaba, MiniMax), testing five models (Gemini 3.1 Pro, Kimi K2.5, GLM 5, Qwen 3.5+, MiniMax M2.5) on WikiTableQuestions and TabFact with a multi-seed paired protocol. We propose Structured Self-Correction (SSC), a table-specific verification chain that guides models through cell verification, computation checking, logic validation, and completeness assessment. We confirm that the Accuracy-Correction Paradox (terminology from Li 2025) previously observed in math extends to tables: models with base accuracy in the mid-60s–mid-70s region benefit modestly from self-correction (multi-seed mean SCG up to +1.3% with within-seed point estimates as high as +3.4%), while stronger models above this region are systematically harmed by over-correction (multi-seed mean SCG down to -1.3%, with 95% bootstrap CIs significantly below zero). SSC reduces over-correction rates in 9 of 10 conditions, with reductions of 38–69% on TabFact. An inference-mode-controlled probe shows that SSC’s qualitative direction is robust for Qwen 3.5+ across reasoning-ON and reasoning-OFF settings, while GLM 5 exhibits a substantial mode-dependent shift, indicating that mode robustness itself is model-dependent. Stronger baselines (self-consistency, self-critic, tool-augmented arithmetic verification, majority voting, and a same-family scaling probe) further characterize where SSC helps. Ablation studies reveal that answer-aware review is essential, reasoning traces aid error detection, and iterative correction shows diminishing returns. A FinQA domain transfer probe confirms a capability floor: self-correction fails when base task competence is very low (21.5% accuracy). Our primary contribution is empirical: we characterize the conditions under which self-correction helps or harms table reasoning, providing actionable guidance for practitioners.</abstract>
+      <url hash="6252d4fb">2026.surgellm-1.19</url>
+      <bibkey>shaikh-2026-llms</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Mixed-Policy <fixed-case>GRPO</fixed-case> for Text-to-<fixed-case>SQL</fixed-case> with Off-Policy Data Generation</title>
+      <author id="marko-sterbentz" orcid="0000-0002-6271-3239"><first>Marko</first><last>Sterbentz</last><affiliation>Northwestern University, Northwestern University</affiliation></author>
+      <author><first>Michael</first><last>Glass</last><affiliation>International Business Machines</affiliation></author>
+      <author id="nhan-h-pham" orcid="0000-0002-4490-8649"><first>Nhan H</first><last>Pham</last><affiliation>International Business Machines</affiliation></author>
+      <author id="dharmashankar-subramanian" orcid="0000-0002-1990-7740"><first>Dharmashankar</first><last>Subramanian</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Kristian J</first><last>Hammond</last></author>
+      <pages>313-325</pages>
+      <abstract>Recent advances in text-to-SQL have shown that methods such as Group Relative Policy Optimization (GRPO) can substantially improve reasoning performance, but these approaches remain inherently on-policy, limiting their ability to incorporate novel reasoning patterns. In this work, we address this limitation by leveraging existing datasets to generate high-quality off-policy rollouts, enabling mixed-policy training that exposes models to diverse and informative reasoning trajectories. We present the first application of mixed-policy GRPO to the text-to-SQL domain and introduce a systematic study of off-policy data generation strategies for this setting, including a novel method, Iterative Error Correction (IEC), which iteratively refines model outputs through targeted feedback. Our experiments show that mixed-policy GRPO outperforms both base models and on-policy GRPO, yielding average improvements of +4.7% over base models and +4.1% over on-policy GRPO across the Spider and BIRD benchmarks. Gains are particularly strong on BIRD, reaching up to +7.3% over base models and +4.5% over on-policy GRPO.</abstract>
+      <url hash="8329c46c">2026.surgellm-1.20</url>
+      <bibkey>sterbentz-etal-2026-mixed</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>T</fixed-case>ab<fixed-case>F</fixed-case>aith: Benchmarking and Improving Structural Faithfulness in <fixed-case>LLM</fixed-case> Table Summarization</title>
+      <author><first>Kaustubh S.</first><last>Bukkapatnam</last></author>
+      <author id="sohum-mehta" orcid="0009-0004-4585-4947"><first>Sohum</first><last>Mehta</last></author>
+      <pages>326-332</pages>
+      <abstract>When large language models (LLMs) summarize tabular data, they produce fluent but systematically unfaithful text—hallucinating numerical values, misattributing entities to rows or columns, fabricating comparative rankings, and conflating temporal references. Existing faithfulness metrics (BLEU, PARENT, BERTScore) are poorly correlated with human judgments of structural faithfulness (r ≤0.60) because they are agnostic to the table’s schema and cell structure. We introduce TABFAITH, a benchmark of 2,400 (table, summary, error annotation) triples across five structural error types, built from ToTTo and a new enterprise table summarization dataset (TabSum-Ent) covering financial reports, clinical notes, and operational dashboards. We further propose STAF (Structural Table-Aware Faithfulness), a reference-free metric that decomposes faithfulness verification into cell-level claim alignment using natural language inference over table cells. STAF achieves r = 0.94 with human faithfulness judgments—a +0.34 improvement over PARENT (r = 0.60) and +0.70 over BLEU (r = 0.24). Guided by STAF’s fine-grained signal, we design CAVE (Cell-Anchored Verification and Editing), a training-free post-processing method that identifies unfaithful claims, traces them to specific table cells, and re-generates the offending spans. CAVE improves STAF scores by +0.14 on average across five LLMs on both ToTTo and TabSum-Ent, with the largest gains for numerical errors (+0.17)—the dominant error type for smaller models.</abstract>
+      <url hash="16ee220c">2026.surgellm-1.21</url>
+      <bibkey>bukkapatnam-mehta-2026-tabfaith</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>S</fixed-case>truct<fixed-case>H</fixed-case>allu-Drift: Benchmarking Structured Hallucinations Under Schema Evolution in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Mujtaba</first><last>Hasan</last><affiliation>Indian Institute of Technology Delhi, Mathematics, Indian Institute of Technology, Delhi</affiliation></author>
+      <pages>333-343</pages>
+      <abstract>Large Language Models (LLMs) are increasingly used to generate structured outputs—JSON objects, SQL queries, and structured records—from formal schemas. While recent advances in constrained decoding and schema-aware prompting have improved syntactic compliance, the semantic reliability of these outputs remains poorly characterized. We investigate this gap through the lens of schema drift—the inevitable evolution of database schemas in production environments through column renamings, type changes, and constraint modifications.We introduce StructHallu-Drift, a benchmark and evaluation framework for studying structured hallucinations under schema evolution. We contribute: (1) a six-category hallucination taxonomy that disentangles syntactic validity from semantic fidelity; (2) a controlled evaluation suite applying realistic schema mutations at three severity levels to established NL-to-structure datasets; and (3) a systematic evaluation of four LLMs spanning 7B to 70B parameters across three structured output tasks.Experiments on 1,200 schema–model evaluation instances reveal four key findings: (i) 39–54% of structured outputs contain at least one semantic hallucination; (ii) schema drift severity has surprisingly minimal effect on hallucination rates (∼44% across all levels, p = 0.59), suggesting imperfect schema conditioning under our prompting setup; (iii) output format is the dominant factor in generation reliability, with SQL achieving ∼85% semantic validity while schema-grounded record generation drops to 7–24%; (iv) each model exhibits a distinct hallucination fingerprint, implying that mitigation strategies must be model-specific rather than universal. We publicly release our benchmark and evaluation toolkit.</abstract>
+      <url hash="91ec3f44">2026.surgellm-1.22</url>
+      <bibkey>hasan-2026-structhallu</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Reasoners or Translators? Contamination-aware Evaluation and Neuro-Symbolic Robustness on Tax Law</title>
+      <author><first>Parisa</first><last>Kordjamshidi</last><affiliation>Michigan State University</affiliation></author>
+      <author><first>Samer</first><last>Aslan</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Madhavan</first><last>Seshadri</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Leslie</first><last>Barrett</last><affiliation>Bloomberg, LP</affiliation></author>
+      <author><first>Enrico</first><last>Santus</last><affiliation>Bloomberg</affiliation></author>
+      <pages>344-360</pages>
+      <abstract>Recent advances in large language models (LLMs) have significantly enhanced automated legal reasoning. Yet, it remains unclear whether their performance reflects genuine legal reasoning ability or artifacts of data contamination. We present a comprehensive empirical study of tax law reasoning approaches and implement a contamination detection protocol to rigorously assess LLM reliability. We show that performance can be inflated by contamination. Building on this analysis, we conduct a systematic evaluation, comparing monolithic LLMs with hybrid systems that translate statutory text into formal representations and delegate inference to symbolic solvers. We build a novel test suite designed to probe generalization to unseen documents via case and rule variations. Our findings indicate that legal reasoning is inherently compositional and that neuro-symbolic frameworks offer a more reliable and robust foundation for legal AI, as well as improved generalization to unobserved situations.</abstract>
+      <url hash="6a29cdca">2026.surgellm-1.23</url>
+      <bibkey>kordjamshidi-etal-2026-reasoners</bibkey>
+    </paper>
+    <paper id="24">
+      <title>More Than Efficiency: Embedding Compression Improves Domain Adaptation in Dense Retrieval</title>
+      <author><first>Chunsheng</first><last>Zuo</last></author>
+      <author id="daniel-khashabi" orcid="0009-0009-7664-2230"><first>Daniel</first><last>Khashabi</last><affiliation>Johns Hopkins University</affiliation></author>
+      <pages>361-377</pages>
+      <abstract>Dense retrievers powered by pretrained embeddings are widely used for document retrieval but struggle in specialized domains due to the mismatches between the training and target domain distributions. Domain adaptation typically requires costly annotation and retraining of query-document pairs. In this work, we revisit an overlooked alternative: applying PCA to domain embeddings to derive lower-dimensional representations that preserve domain-relevant features while discarding non-discriminative components. Though traditionally used for efficiency, we demonstrate that this simple embedding compression can effectively improve retrieval performance. Evaluated across 9 retrievers and 14 MTEB datasets, PCA applied solely to query embeddings improves NDCG@10 in 75.4% of model-dataset pairs, offering a simple and lightweight method for domain adaptation.</abstract>
+      <url hash="c2f8cf2b">2026.surgellm-1.24</url>
+      <bibkey>zuo-khashabi-2026-efficiency</bibkey>
+    </paper>
+  </volume>
+</collection>

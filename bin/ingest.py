@@ -388,7 +388,11 @@ def namespec_from(
     if openreview:
         kwargs["openreview"] = str(openreview)
     if affiliation:
-        kwargs["affiliation"] = affiliation
+        # Collapse internal whitespace (tabs, newlines, repeated spaces) to single
+        # spaces; stray tabs in affiliations otherwise produce invalid XML.
+        affiliation = " ".join(affiliation.split())
+        if affiliation:
+            kwargs["affiliation"] = affiliation
     try:
         return NameSpecification(**kwargs)
     except ValueError as e:
@@ -430,9 +434,16 @@ def add_parent_event(
     if event is None:
         log.warning(f"No event node with id '{parent_event}' found")
         return
-    if volume := anthology.get_volume(volume_full_id) is None:
+    if (volume := anthology.get_volume(volume_full_id)) is None:
         log.warning(f"No such ingested volume {volume_full_id}")
         return
+
+    # A derived/implicit event is never serialized: a collection only writes its
+    # event when one is explicitly defined on it. If the parent event isn't yet
+    # explicit, promote it to an explicit event on its collection so that the
+    # colocation is persisted to the XML.
+    if not event.is_explicit and event.collection.get_event() is None:
+        event = event.collection.create_event(id=event.id)
 
     if event in volume.get_events():
         log.info(
@@ -598,7 +609,10 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
-        venue_name = venue_abbrev.lower()
+        # Use the registered venue slug (letters/digits only) for the venue tag
+        # and file paths; `anthology_venue_id` may contain hyphens/`+`/case
+        # (e.g. "LT-EDI", "CODI-CRAC") that don't match the venue key.
+        venue_name = venue_slug
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
         attachments_dest_dir = Path(args.attachments_dir) / venue_name
         source_path = Path(source)
@@ -1128,7 +1142,7 @@ if __name__ == "__main__":
     )
     pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
-        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
+        "--pdfs-dir", default=pdfs_path, help="Root path for placement of PDF files"
     )
     attachments_path = Path.home() / "anthology-files" / "attachments"
     parser.add_argument(
@@ -1145,6 +1159,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--parent-event",
+        "-p",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
     )

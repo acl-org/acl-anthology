@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.americasnlp">
+  <volume id="6" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the Sixth Workshop on <fixed-case>NLP</fixed-case> for Indigenous Languages of the <fixed-case>A</fixed-case>mericas (<fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case>)</booktitle>
+      <editor><first>Manuel</first><last>Mager</last></editor>
+      <editor><first>Abteen</first><last>Ebrahimi</last></editor>
+      <editor><first>Minh Duc</first><last>Bui</last></editor>
+      <editor><first>Robert</first><last>Pugh</last></editor>
+      <editor><first>Arturo</first><last>Oncevay</last></editor>
+      <editor><first>Luis</first><last>Chiruzzo</last></editor>
+      <editor><first>Rolando Coto</first><last>Solano</last></editor>
+      <editor><first>Shruti</first><last>Rijhwani</last></editor>
+      <editor><first>Katharina</first><last>Von Der Wense</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, USA</address>
+      <isbn>979-8-89176-415-6</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="a8630c57">2026.americasnlp-6</url>
+      <venue>americasnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="d417bc78">2026.americasnlp-6.0</url>
+      <bibkey>americasnlp-2026-6</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Neural Text-to-Speech for Myaamia: Speech Synthesis for an Indigenous <fixed-case>A</fixed-case>lgonquian Language</title>
+      <author id="anita-baral" orcid="0009-0001-1773-8971"><first>Anita</first><last>Baral</last><affiliation>Department of Computer Science and Software Engineering, Miami University, USA</affiliation></author>
+      <author><first>John</first><last>Femiani</last><affiliation>Department of Computer Science and Software Engineering, Miami University, USA</affiliation></author>
+      <author><first>Hunter</first><last>Lockwood</last><affiliation>Myaamia Center, Miami University</affiliation></author>
+      <author><first>Daniela</first><last>Inclezan</last><affiliation>Department of Computer Science and Software Engineering, Miami University, USA</affiliation></author>
+      <author><first>Balaram</first><last>Bhandari</last><affiliation>Myaamia Center, Miami University, USA</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>We present the first neural text-to-speech (TTS) implementation for Myaamia (Miami-Illinois), an Indigenous Algonquian language of North America. Developed in collaboration with the Myaamia Center at Miami University, our approach upholds principles of data sovereignty. Using 14,358 utterances (10.4 hours total, 8.18 hours for training) from seven speakers, we train and evaluate FastSpeech, Glow-TTS, and VITS, assessing synthesis quality through objective (MCD, F0 RMSE, duration RMSE) and subjective (expert evaluation) metrics. VITS outperforms other models in spectral and prosodic accuracy, but challenges remain in phonetic precision and prosody modeling. Our results confirm the feasibility of neural TTS for Myaamia, with direct implications for language learning and revitalization. This work offers a replicable framework for other low-resource Indigenous languages while ensuring ethical, linguistic data governance.</abstract>
+      <url hash="2385a718">2026.americasnlp-6.1</url>
+      <attachment hash="02b7d5ce" type="SupplementaryMaterial">2026.americasnlp-6.1.SupplementaryMaterial.zip</attachment>
+      <attachment hash="bf3f0f87" type="SupplementaryMaterial">2026.americasnlp-6.1.SupplementaryMaterial.zip</attachment>
+      <bibkey>baral-etal-2026-neural</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Evaluating Frontier <fixed-case>LLM</fixed-case> Translation Capability for <fixed-case>L</fixed-case>akota</title>
+      <author><first>Lance</first><last>Robertson</last><affiliation>University of California San Diego</affiliation></author>
+      <pages>11-21</pages>
+      <abstract>We evaluate seven large language models—four proprietary and three open-weight—on bidirectional Lakota–English translation using 200 sentence pairs from the New Lakota Dictionary. Each model is evaluated with and without extended reasoning, where the provider’s API permits. The best model (Gemini 3.1 Pro) achieves a mean chrF++ of 59.4 on Lakota→English and 42.6 on English→Lakota; the strongest open-weight model trails the proprietary leaders, and no model produces reliable translation in either direction. Two independent LLM judges from different model families agree substantially (Cohen’s κ=0.75) that semantic equivalence ranges from 6% (GPT-5.2) to 60% (Gemini), diverging substantially from chrF++ scores. For the open-weight models, enabling reasoning changes refusal behavior far more than translation quality: it surfaces the limitation rather than overcoming it. Diacritic-normalization analysis shows models produce roughly correct base characters but place diacritical marks inconsistently. All results and evaluation code are publicly available at https://github.com/robotson/lakota-translation-benchmark.</abstract>
+      <url hash="03cdb88f">2026.americasnlp-6.2</url>
+      <attachment hash="bb1e980d" type="SupplementaryMaterial">2026.americasnlp-6.2.SupplementaryMaterial.zip</attachment>
+      <bibkey>robertson-2026-evaluating</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Bridging Digital Tools for Linguistic Documentation and Revitalization</title>
+      <author><first>Christopher</first><last>Haberland</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Carly</first><last>Crowther</last><affiliation>UW</affiliation></author>
+      <author><first>Jingnong</first><last>Qu</last><affiliation>University of Washingtong</affiliation></author>
+      <author><first>Anuk</first><last>Centellas</last><affiliation>University of Washington</affiliation></author>
+      <pages>22-32</pages>
+      <abstract>Digital tools serving language revitalization tend to fall into two categories: 1) linguist-oriented documentation tools that prioritize annotation, morphological analysis, and archival preservation, and 2) community-facing applications that emphasize accessibility and language learning. Few systems integrate the former with the latter, and practical barriers — including the cost of computational expertise, single-user workflows, and limited data governance — further constrain their utility. These disconnects incur additional development and communication costs for revitalization teams consisting of linguists and community members. We introduce "langlit", a collaborative web-based platform that attempts to tailor documentation workflows for the language revitalization context within a single system. The platform integrates a finite-state morphological analyzer with a three-tier human-in-the-loop annotation workflow, searchable corpus interfaces with multiple query modalities, interactive word construction guided by the morphological grammar, corpus-linked hypothesis tracking with provenance, and a grammar-derived editable dictionary. All components share a single underlying FST grammar, and the system supports configurable access controls, collaborative editing, and optional LLM integration with transparent data handling. Designed for redeployment across languages through a modular architecture, "langlit" is published as an open-source repository on GitHub. We situate our system within the existing landscape of revitalization tools through a comparative analysis and discuss how integrated, community-informed design can better serve the specific goals of language revitalization.</abstract>
+      <url hash="95a2e9be">2026.americasnlp-6.3</url>
+      <attachment hash="b0d60b43" type="SupplementaryMaterial">2026.americasnlp-6.3.SupplementaryMaterial.zip</attachment>
+      <attachment hash="c9a29eaa" type="SupplementaryMaterial">2026.americasnlp-6.3.SupplementaryMaterial.zip</attachment>
+      <bibkey>haberland-etal-2026-bridging</bibkey>
+    </paper>
+    <paper id="4">
+      <title>A Systematic Comparison of Parameter-Efficient Fine-Tuning Techniques for Low-Resource Neural Machine Translation: Evidence from Indigenous Languages of the <fixed-case>A</fixed-case>mericas</title>
+      <author><first>Drew</first><last>Stackhouse</last><affiliation>Villanova University</affiliation></author>
+      <author><first>Justin</first><last>Debenedetto</last><affiliation>Villanova University</affiliation></author>
+      <pages>33-45</pages>
+      <abstract>We present the first systematic benchmark of parameter-efficient fine-tuning (PEFT) for low-resource neural machine translation (NMT) of indigenous languages of the Americas. We evaluate eight PEFT methods alongside full fine-tuning on NLLB-200-distilled-600M across 13 indigenous-to-Spanish language pairs spanning four resource tiers (357-125,008 training sentences). OFT (Orthogonal Finetuning) achieves the highest development-set chrF++ among PEFT methods (26.63) while training only 0.28% of parameters. LoRA (Low-Rank Adaptation) offers a strong efficiency-quality tradeoff (25.27 chrF++, 0.19%). On held-out test data, full fine-tuning ranks first (25.12) with OFT a close second (25.06; p = 0.43). VeRA (Vector-based Random Matrix Adaptation) and Prefix Tuning consistently underperform. These results demonstrate that PEFT is a viable alternative to full fine-tuning for indigenous-language NMT.</abstract>
+      <url hash="1ec68d06">2026.americasnlp-6.4</url>
+      <attachment hash="61cebaf6" type="SupplementaryMaterial">2026.americasnlp-6.4.SupplementaryMaterial.zip</attachment>
+      <bibkey>stackhouse-debenedetto-2026-systematic</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Linguistic Feature Tagging for Automatic Classification of 27 Closely-Related <fixed-case>Q</fixed-case>uechua Varieties</title>
+      <author><first>Claire</first><last>Post</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <author id="alexis-palmer" orcid="0000-0001-5071-3090"><first>Alexis</first><last>Palmer</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <pages>46-63</pages>
+      <abstract>This paper presents a multi-dialect text classifier for Quechua that augments neural models with rule-based linguistic information to address challenges in low-resource, morphologically complex settings. The approach is built on a carefully curated dataset spanning multiple genres, including annotated parallel bible corpora, and encodes manually annotated lexical variation and polypersonal verbal agreement as explicit features within a transformer-based classifier. Results show that neural models substantially outperform statistical baselines, enabling highly accurate multi-class classification across 27 Quechua dialects. The impact of linguistic augmentation is context-dependent: gains are minimal in high-resource settings but more pronounced in low-resource and cross-domain conditions. Overall, this work aims to contribute to the development of dialect-sensitive NLP methods for Quechua and other low-resource, morphologically rich languages.</abstract>
+      <url hash="a11f43d4">2026.americasnlp-6.5</url>
+      <bibkey>post-palmer-2026-linguistic</bibkey>
+    </paper>
+    <paper id="6">
+      <title>What Resources Matter for Interlinear Glossing? Using <fixed-case>LLM</fixed-case>s and <fixed-case>RAG</fixed-case> for the Low-Resource <fixed-case>M</fixed-case>apudungun Language</title>
+      <author><first>Anaís</first><last>Almendra</last><affiliation>Universidad de Chile</affiliation></author>
+      <author><first>Arianna</first><last>Bisazza</last><affiliation>University of Groningen</affiliation></author>
+      <author><first>Claudio</first><last>Gutierrez</last><affiliation>Universidad de Chile</affiliation></author>
+      <author><first>Felipe</first><last>Hasler</last><affiliation>Universidad de Chile</affiliation></author>
+      <pages>64-73</pages>
+      <abstract>Interlinear glossing is essential for the study and revitalization of endangered languages. However, it remains a time-consuming process that requires extensive linguistic expertise. Recent advances in Large Language Models (LLMs) offer a potential solution. In this research, we study the case of Mapudungun, an endangered language spoken in Chile and Argentina, to generate automatic interlinear glosses using the Gemini 2.5 Pro model. Our study investigates which information configuration through Retrieval-Augmented Generation (RAG) yields the best results. We compare the integration of a formal grammar, a dictionary, a small annotated corpus, and a combination of all these resources. Our evaluation shows that while dictionary integration causes a significant degradation in performance, grounding the model with a structured corpus maximizes accuracy relative to the resources employed. Notably, we find that a remarkably small dataset of 589 meaning units provides enough normative guidance to significantly improve the morphological tagging task. This work highlights the viability of utilizing minimally annotated corpora to assist in the documentation of morphologically complex languages.</abstract>
+      <url hash="91cb3471">2026.americasnlp-6.6</url>
+      <bibkey>almendra-etal-2026-resources</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Deer, Deities, and Dancing: Culturally Biased <fixed-case>LLM</fixed-case> Hallucination in Low-Resource Wixárika Translation</title>
+      <author><first>Henry</first><last>Gagnier</last><affiliation>Pittsford Sutherland High School</affiliation></author>
+      <author><first>Ashwin</first><last>Kirubakaran</last><affiliation>Edison Academy Magnet School</affiliation></author>
+      <pages>74-81</pages>
+      <abstract>Large language models (LLMs) struggle with low-resource polysynthetic languages, yet the nature of their failures remains underexplored. We evaluate GPT-4o-mini, Gemma~3~27B, Llama~3.3~70B, and NLLB-200 on Spanish$\leftrightarrow$Wixárika translation using zero-shot and 5-shot prompting. All systems are unusable, scoring below 3 BLEU and 21 chrF. Qualitative analysis reveals that LLMs largely ignore source content and instead generate fluent hallucinations. Spanish outputs frequently include indigenous cultural stereotypes such as deer, deities, rain dance, and shamans, regardless of the input, while Wixárika outputs are repetitive across different inputs and morphologically implausible. Few-shot prompting yields model-dependent improvements, with Gemma and Llama improving substantially at higher shot counts while GPT-4o-mini remains flat. These results demonstrate that current LLMs are unable to represent polysynthetic morphology and instead default to exoticizing Indigenous culture and identity. We call for the development of inclusive morphological-aware modeling strategies and increased resource creation to ensure that Indigenous languages of the Americas are represented safely and accurately.</abstract>
+      <url hash="6126da06">2026.americasnlp-6.7</url>
+      <attachment hash="bae6acd0" type="SupplementaryMaterial">2026.americasnlp-6.7.SupplementaryMaterial.zip</attachment>
+      <bibkey>gagnier-kirubakaran-2026-deer</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>I</fixed-case>ndigi<fixed-case>E</fixed-case>val: Evaluating <fixed-case>LLM</fixed-case>s in <fixed-case>N</fixed-case>orth <fixed-case>A</fixed-case>merican Indigenous Languages</title>
+      <author><first>Julia</first><last>Mainzinger</last><affiliation>Charles Darwin University</affiliation></author>
+      <author><first>Jacqueline</first><last>Brixey</last><affiliation>UW-Madison</affiliation></author>
+      <pages>82-94</pages>
+      <abstract>This paper presents IndigiEval, a framework for evaluating the language and cultural proficiency of several commercially available large language models (LLMs) across five North American Indigenous languages (Mvskoke, Choctaw, Cherokee, Cheyenne, and Hawaiian). This framework is a qualitative evaluation method intended for communities with small speaker populations to be able to critically evaluate LLM performance with minimal data and human effort. IndigiEval includes tasks such as answering cultural questions, translation, text generation, and speech recognition. The results of our experiments indicate that no currently available LLM performs well across all evaluation categories, and that LLMs frequently hallucinate orthographies, grammatical structures, cultural knowledge, and vocabulary for all languages and cultures considered. Our proposed evaluation framework is not intended as a comprehensive score, but rather a qualitative and flexible framework to inform language communities about a given LLM’s potential as a resource, since each language has unique environments, strengths, and availability of resources.</abstract>
+      <url hash="7db3eb06">2026.americasnlp-6.8</url>
+      <attachment hash="9760d92b" type="SupplementaryMaterial">2026.americasnlp-6.8.SupplementaryMaterial.zip</attachment>
+      <bibkey>mainzinger-brixey-2026-indigieval</bibkey>
+    </paper>
+    <paper id="9">
+      <title>A data-centric approach to performance improvement in under-resourced <fixed-case>ASR</fixed-case>: The case of Dënë Sųłıné</title>
+      <author id="olga-kriukova" orcid="0000-0002-9375-421X"><first>Olga</first><last>Kriukova</last><affiliation>University of Saskatchewan</affiliation></author>
+      <author id="olga-lovick" orcid="0000-0001-5668-8789"><first>Olga</first><last>Lovick</last><affiliation>University of Saskatchewan</affiliation></author>
+      <author><first>Antti</first><last>Arppe</last><affiliation>University of Alberta</affiliation></author>
+      <pages>95-106</pages>
+      <abstract>This paper presents a study focused on advancing Automatic Speech Recognition (ASR) for the under-resourced language Dënë Sųłıné through data-centric approaches. We explore multiple strategies to enhance the quality of training data—both audio recordings and transcriptions—to address the challenges posed by mixed-quality datasets. Our experiments investigate which data preparation techniques most effectively improve ASR performance in this context. Our findings show that reducing non-phonemic spelling variation in the corpus significantly improves model generalization, resulting in a substantial increase in recognition accuracy. Additionally, we demonstrate that increasing manually reviewed transcriptions consistently improves word and character error rates, while audio enhancement slightly reduces performance, highlighting the complex trade-offs in low-resource ASR development.</abstract>
+      <url hash="f6f67cad">2026.americasnlp-6.9</url>
+      <bibkey>kriukova-etal-2026-data</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Towards a Community-accessible <fixed-case>C</fixed-case>ahuilla corpus: Developing <fixed-case>HTR</fixed-case> for <fixed-case>J</fixed-case>.<fixed-case>P</fixed-case>. Harrington’s handwritten fieldnotes on Mountain <fixed-case>C</fixed-case>ahuilla</title>
+      <author><first>Ray</first><last>Huaute</last><affiliation>University of California Los Angeles</affiliation></author>
+      <author><first>Jacqueline</first><last>Brixey</last><affiliation>UW-Madison</affiliation></author>
+      <pages>107-114</pages>
+      <abstract>This paper describes ongoing work to develop a corpus of Cahuilla language from the John Peabody Harrington collection, which contains linguistic and ethnographic fieldnotes documenting Indigenous languages of California and other regions across the Americas. Handwritten notes present numerous processing challenges, including scratch-outs, multilingual entries in Spanish and other Indigenous languages, unique abbreviations, and varying script orientations. We compare the efficacy of deep learning text recognition models to convert images of the notes into a machine-readable format, with a focus on respecting tribal data sovereignty in our methods. We find that Pylaia is the most accurate model for our data. Finally, we present the preliminary findings and indicate future directions for developing a Cahuilla corpus.</abstract>
+      <url hash="cbcc7956">2026.americasnlp-6.10</url>
+      <bibkey>huaute-brixey-2026-towards</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Corpora duplication for <fixed-case>NLP</fixed-case> in low-resource languages: A case study of <fixed-case>N</fixed-case>ahuatl</title>
+      <author><first>Juan Jose</first><last>Guzman Landa</last><affiliation>Universite Avignon</affiliation></author>
+      <author id="juan-manuel-torres-moreno" orcid="0000-0002-4392-1825"><first>Juan-Manuel</first><last>Torres-Moreno</last><affiliation>LIA Avignon</affiliation></author>
+      <author><first>Luis</first><last>Moreno Jimenez</last><affiliation>Sorbonne Université</affiliation></author>
+      <author><first>Elvys</first><last>Linhares Pontes</last><affiliation>Trading Central Labs</affiliation></author>
+      <author><first>Miguel</first><last>Figueroa-Saavedra</last><affiliation>Universidad Veracruzana</affiliation></author>
+      <author><first>Graham</first><last>Ranger</last><affiliation>LCTT Université d'Avignon</affiliation></author>
+      <author><first>Martha</first><last>Lorena Avendaño Garrido</last><affiliation>Universidad Veracruzana</affiliation></author>
+      <pages>115-127</pages>
+      <abstract>In this paper, we aim to answer the following question: could corpus duplication be useful in Natural Language Processing (NLP) for low-resource languages? In these languages (or pi-languages), corpora available for training Large Language Models are virtually non-existent. Specifically, we study the impact of corpus expansion in Nahuatl, an agglutinative and polysynthetic Amerindian pi-language characterised by extensive dialectal variation. Our goal is to increase the size of Nahuatl corpora, which currently consist of a limited number of tokens, through controlled duplication techniques. Our experimental setup employs incremental duplication alongside appropriate corpus balancing, with the objective of training embeddings optimised for downstream NLP tasks. Consequently, static embeddings were trained and evaluated on a sentence-level semantic similarity task. Our results show a significant improvement in performance when incremental duplication is applied, compared to results obtained without corpus expansion. To our knowledge, this technique has not yet been explored in this field.</abstract>
+      <url hash="d66d59bf">2026.americasnlp-6.11</url>
+      <attachment hash="bb1d2873" type="SupplementaryMaterial">2026.americasnlp-6.11.SupplementaryMaterial.zip</attachment>
+      <bibkey>guzman-landa-etal-2026-corpora</bibkey>
+    </paper>
+    <paper id="12">
+      <title>On the Robustness of Morphosyntactic Transformation with Large Language Models: The Case of <fixed-case>Q</fixed-case>uechua Collao</title>
+      <author><first>Pool</first><last>Pocco</last><affiliation>Pontificia Universidad Católica del Perú</affiliation></author>
+      <author><first>Arturo</first><last>Oncevay</last><affiliation>JPMorgan</affiliation></author>
+      <pages>128-146</pages>
+      <abstract>We present a morphosyntactically controlled transformation dataset for Quechua Collao and evaluate large language models on a sentence-level transformation task under varying prompting conditions. Results show that performance depends on the interaction between model behavior, context size, and linguistic complexity, with smaller models benefiting more from additional examples and morphological hints providing selective gains.</abstract>
+      <url hash="c0f8680c">2026.americasnlp-6.12</url>
+      <attachment hash="4b82bc07" type="SupplementaryMaterial">2026.americasnlp-6.12.SupplementaryMaterial.zip</attachment>
+      <bibkey>pocco-oncevay-2026-robustness</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Building Community-Centred <fixed-case>NLP</fixed-case> Resources for <fixed-case>P</fixed-case>uno <fixed-case>Q</fixed-case>uechua</title>
+      <author id="elwin-huaman" orcid="0000-0002-2410-4977"><first>Elwin</first><last>Huaman</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Adrian</first><last>Gamarra Lafuente</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Johanna</first><last>Cordova</last><affiliation>ERTIM INALCO</affiliation></author>
+      <author><first>Anna</first><last>Korhonen</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>147-152</pages>
+      <abstract>The preservation of under-resourced languages requires digital tools and resources shaped by and for their speakers. We present the first dedicated ASR resources for Puno Quechua (ISO 639-3: qxp): (1) the largest speech corpus for any single Quechua variety, consisting in 66 hours of recordings for scripted and spontaneous speech (including 36 hours of manually transcribed and validated data), collected via a participatory design campaign; (2) the first systematic ASR benchmark for Puno Quechua, evaluating state-of-the-art models and fine-tuning Whisper-base, wav2vec2-base, and XLS-R-300M, with and without continued pre-training (CPT); (3) an open release of all datasets and fine-tuned models.</abstract>
+      <url hash="9de7b64c">2026.americasnlp-6.13</url>
+      <attachment hash="084bce54" type="SupplementaryMaterial">2026.americasnlp-6.13.SupplementaryMaterial.zip</attachment>
+      <bibkey>huaman-etal-2026-building</bibkey>
+    </paper>
+    <paper id="14">
+      <title>The Power of Simplicity: N-Grams and Transformers in <fixed-case>N</fixed-case>ahuatl Language Identification</title>
+      <author><first>Luis</first><last>Mercado Campos</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <author><first>Robert</first><last>Pugh</last><affiliation>Indiana University</affiliation></author>
+      <author id="alexis-palmer" orcid="0000-0001-5071-3090"><first>Alexis</first><last>Palmer</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <pages>153-167</pages>
+      <abstract>In the context of real-world language technology applications, the language or variety in which a given text is written is often unknown or uncertain. Yet, this information is crucial in order to adequately select and apply appropriate models or resources. Language identification (LID), or the process of determining the language or variety of a text sample, is thus often an important fundamental task in natural language processing. LID can be particularly challenging when: (1) there are not many labeled texts for training; and (2) similar or related languages are involved, since these may share a number of surface-level features. In this paper, we present an LID system for Nahuatl, a group of closely-related language varieties spoken in Mexico and Central America. Nahuatl LID involves both of the aforementioned challenges: Nahuatl varieties can be quite similar, sharing morphemes and even many lexical items, and there is a relative paucity of representative, variant-labeled Nahuatl text. We describe LID experiments for a total of 11 Nahuatl varieties, achieving generally good results (90.59% ±0.09% in 5-fold cross-validation experiments). Many of the outstanding errors are the result of confusion between three highly similar Huasteca variants.</abstract>
+      <url hash="1a907b3d">2026.americasnlp-6.14</url>
+      <bibkey>mercado-campos-etal-2026-power</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>RAN</fixed-case>: Resource Abundance Notation for Languages in <fixed-case>NLP</fixed-case></title>
+      <author id="jared-coleman" orcid="0000-0003-1227-2962"><first>Jared</first><last>Coleman</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Tainã</first><last>Coleman</last><affiliation>San Diego Supercomputer Center</affiliation></author>
+      <author><first>Bhaskar</first><last>Krishnmachari</last><affiliation>University of Southern California</affiliation></author>
+      <pages>168-172</pages>
+      <abstract>The term "low-resource" is used pervasively in NLP but communicates almost nothing precise. We propose RAN (Resource Abundance Notation), a compact, multi-dimensional notation for quantifying a language’s NLP resource profile. A RAN score is written as S/M/L_1-B_1/L_2-B_2/..., where S = floor(log10(speakers)), M = floor(log10(monolingual sentences)), and each L_i-B_i pair records a bilingual partner and floor(log10(parallel sentences)). Values derive from canonical sources: Wikidata for speakers, OSCAR 23.01 for monolingual corpora, and (where available) OPUS for parallel corpora. We score 20 typologically diverse languages and correlate each profile against published benchmarks for three tasks: machine translation (MT, via NLLB-200 chrF++), named entity recognition (NER, via XTREME XLM-R WikiANN F1), and part-of-speech tagging (POS, via XTREME XLM-R UD accuracy). The RAN components carry complementary information: a linear model using all three explains 52% of MT variance, 76% of NER variance, and 72% of POS variance. Among single predictors, B_max (the largest bilingual corpus, regardless of partner) is strongest for the cross-lingual transfer tasks (NER, POS), while M and B_en are strongest for MT. RAN is designed first as a communication tool, not a predictive model.</abstract>
+      <url hash="70f9d8ff">2026.americasnlp-6.15</url>
+      <attachment hash="93044465" type="SupplementaryMaterial">2026.americasnlp-6.15.SupplementaryMaterial.zip</attachment>
+      <bibkey>coleman-etal-2026-ran</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Bringing <fixed-case>M</fixed-case>apudungun into the <fixed-case>M</fixed-case>odern <fixed-case>MT</fixed-case> Ecosystem: Morphology-Aware Tokenization for <fixed-case>NLLB</fixed-case>-200 Fine-Tuning</title>
+      <author><first>Isaac</first><last>Thompson</last><affiliation>BYU</affiliation></author>
+      <author><first>Brandon</first><last>Rogers</last><affiliation>BYU</affiliation></author>
+      <author><first>Eric</first><last>Ringger</last><affiliation>BYU</affiliation></author>
+      <pages>173-185</pages>
+      <abstract>For Mapudungun arn→es translation, morphology-aware tokenization can substitute for a 5× increase in model parameters. We fine-tune three sizes of Meta’s NLLB-200 on Mapudungun–Spanish translation across eight tokenization strategies, including our novel Morfessor-VC method, whichconstrains Morfessor morpheme segmentation to tokens already present in NLLB’s pretrainedvocabulary. Our 600M Morfessor-VC model is competitive with our own fine-tuned 3.3B Standard BPE model on arn→es (43.2 vs. 42.9 chrF++, ∆ = +0.3, p = 0.039, 95% CI [0.02, 0.60]) while using five times fewer parameters, and all fine-tuned conditions surpass frontier LLMs by over 27 chrF++. Mapudungun is an indigenous polysynthetic language spoken by 200,000+ Mapuche people in Chile and Argentina, absent from NLLB-200 and not supported by major commercial MT providers; prior work predates large-scale multilingual models and does not address the tokenization challenges posed by its agglutinativemorphology. These results establish new state-of-the-art baselines for Mapudungun MT and provide a practical foundation for community language tools in pedagogy, social media, and language revitalization.</abstract>
+      <url hash="bec04596">2026.americasnlp-6.16</url>
+      <attachment hash="cb2073c9" type="SupplementaryMaterial">2026.americasnlp-6.16.SupplementaryMaterial.zip</attachment>
+      <bibkey>thompson-etal-2026-bringing</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>Q</fixed-case>om<fixed-case>L</fixed-case>’aqtaqa:  A <fixed-case>Q</fixed-case>om–<fixed-case>S</fixed-case>panish Parallel Corpus for Natural Language Processing with Machine Translation Evaluation</title>
+      <author><first>Viviana</first><last>Cotik</last><affiliation>Universidad de Buenos Aires</affiliation></author>
+      <author><first>Aleksei</first><last>Korablev</last><affiliation>Minerva University, San Francisco, USA</affiliation></author>
+      <author><first>Paola</first><last>Cúneo</last><affiliation>CONICET - Universidad de Buenos Aires. Instituto de Lingüística. Buenos Aires, Argentina</affiliation></author>
+      <author><first>Pablo</first><last>Laciana</last><affiliation>ICC (CONICET -UBA)</affiliation></author>
+      <pages>186-202</pages>
+      <abstract>Qom, a language of the Guaycuruan family, is a low-resource language for NLP and speech processing. We present the first parallel Qom–Spanish corpus in a computationally usable format, comprising 33,392 parallel segments, totaling 1,469,905 Qom tokens and 891,344 Spanish tokens. A subset of 2,943 segments excludes Bible-derived content. It includes alignments at different levels: sentences, sentence fragments, and paragraphs, and is compiled from multiple sources, both previously available and newly collected. We also present bidirectional neural machine translation baselines based on NLLB-200, achieving competitive performance in both translation directions on the full dataset, and lower performance on the non-Bible subset. An ablation study shows that training exclusively on biblical data reduces performance on non-biblical text, highlighting the importance of domain diversity in low-resource machine translation.</abstract>
+      <url hash="968ddc43">2026.americasnlp-6.17</url>
+      <bibkey>cotik-etal-2026-qomlaqtaqa</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Toward a Coarse-Labeled Spoken Language Identification Dataset for Central Alaskan Yup’ik and <fixed-case>S</fixed-case>amoan from <fixed-case>US</fixed-case> Broadcast Archives</title>
+      <author><first>Yangyang</first><last>Chen</last><affiliation>Brandeis University</affiliation></author>
+      <author id="kyeongmin-rim" orcid="0000-0001-8688-4086"><first>Kyeongmin</first><last>Rim</last><affiliation>Department of Computer Science, Brandeis University</affiliation></author>
+      <author id="james-pustejovsky" orcid="0000-0003-2233-9761"><first>James</first><last>Pustejovsky</last><affiliation>Brandeis University</affiliation></author>
+      <pages>203-211</pages>
+      <abstract>Publicly available spoken language identification (LID) systems provide sparse and inconsistent coverage of indigenous languages of the Americas and languages of the Pacific Islands. No system on HuggingFace covers Central Alaskan Yup’ik except the largest variant of Meta’s MMS-LID family, and only three MMS-LID variants cover Samoan, while Whisper and VoxLingua107-based models lack both despite including other Polynesian languages. We describe an ongoing effort to build a coarse-labeled LID dataset for Yup’ik and Samoan from US public broadcast archives, benchmark publicly available LID systems on it, and train a simple MLP classifier on frozen wav2vec~2.0 representations as a prototype. We report preliminary corpus statistics, off-the-shelf model performance, and prototype results. Guided by the distinctive phonological typology of the target languages, we outline a phonologically-informed fine-tuning direction as future work.</abstract>
+      <url hash="45dd2f3e">2026.americasnlp-6.18</url>
+      <bibkey>chen-etal-2026-toward</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Retrieval-Augmented Long-Context Translation for Cultural Image Captioning: Gators submission for <fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case> 2026 shared task</title>
+      <author><first>Aashish</first><last>Dhawan</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Christopher</first><last>Driggers-Ellis</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Dzmitry</first><last>Kasinets</last><affiliation>University of Florida</affiliation></author>
+      <author id="christan-grant" orcid="0000-0002-6684-3620"><first>Christan</first><last>Grant</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Zhe</first><last>Wang</last><affiliation>University of Florida</affiliation></author>
+      <pages>212-223</pages>
+      <abstract>This paper presents the University of Florida Gators submission to the AmericasNLP 2026 shared task on cultural image captioning for Indigenous languages. The system uses a two-stage pipeline: first generating Spanish captions from images with a vision-language model, then translating them into target languages using retrieval-augmented many-shot prompting with Gemini 2.5 Flash. The paper reports strong improvements over the shared task baseline across multiple languages, analyzes the role of retrieval, synthetic exemplars, and morphology-aware prompting, and discusses limitations related to dev-set exemplars, cascade errors, and chrF++ based evaluation.</abstract>
+      <url hash="a68e7983">2026.americasnlp-6.19</url>
+      <attachment hash="3f77b1fb" type="SupplementaryMaterial">2026.americasnlp-6.19.SupplementaryMaterial.zip</attachment>
+      <bibkey>dhawan-etal-2026-retrieval</bibkey>
+    </paper>
+    <paper id="20">
+      <title>From Machine Translation to Image Captioning: Training Vision-Language Models for Indigenous Languages of the <fixed-case>A</fixed-case>mericas</title>
+      <author><first>Luis</first><last>Lara</last><affiliation>Mila - Quebec AI Institute</affiliation></author>
+      <author><first>Param</first><last>Raval</last><affiliation>Mila - Quebec AI Institute</affiliation></author>
+      <pages>224-235</pages>
+      <abstract>We describe our system for the AmericasNLP 2026 Shared Task on Cultural Image Captioning for Indigenous Languages of the Americas. Our post-training pipeline starts from Aya Vision 32B: the vision-language model is first fine-tuned on machine translation data from prior AmericasNLP shared tasks and then further fine-tuned on the cultural Image Captioning data. This approach uses translation as an intermediate training task, while the final system produces captions directly in the requested Indigenous language rather than translating a Spanish caption afterward. Our experiments show that machine translation fine-tuning is an important initialization step. The resulting fine-tuned vision-language model also shows translation capabilities for the languages considered in this work. In addition, our zero-shot GPT-5.5 submission ranks first in the Maya language track under the official human-evaluation stage.</abstract>
+      <url hash="6cc899ec">2026.americasnlp-6.20</url>
+      <attachment hash="da944a8b" type="SupplementaryMaterial">2026.americasnlp-6.20.SupplementaryMaterial.zip</attachment>
+      <bibkey>lara-raval-2026-machine</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Culturally-Aware Image Captioning for <fixed-case>G</fixed-case>uaraní with Multimodal Prompting: <fixed-case>IUH</fixed-case>oosiers at <fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case> 2026</title>
+      <author><first>Wenchen</first><last>Shi</last><affiliation>Indiana University Bloomington</affiliation></author>
+      <author><first>Phakphum</first><last>Artkaew</last><affiliation>Indiana University</affiliation></author>
+      <author id="luke-gessler" orcid="0000-0002-4996-9045"><first>Luke</first><last>Gessler</last><affiliation>Indiana University Bloomington</affiliation></author>
+      <pages>236-242</pages>
+      <abstract>The AmericasNLP 2026 shared task challenges systems to generate culturally grounded image captions in indigenous languages of the Americas, a setting that demands both cultural awareness and linguistic accuracy for severely underresourced languages. We present IUHoosiers, Indiana University’s system for the Guaraní track. Rather than fine-tuning, our approach centers on inference-time knowledge injection: for each test image, we retrieve relevant Guaraní grammatical and cultural resources using BM25 and inject them into a large vision language model’s prompt alongside the image, enabling language-specific cultural and linguistic grounding without any parameter updates. IUHoosiers placed first for Guaraní in both automatic evaluation (24.67 chrF++) and human evaluation (3.45/5), outperforming all other participating systems.</abstract>
+      <url hash="0a3fca82">2026.americasnlp-6.21</url>
+      <attachment hash="add0b1c5" type="SupplementaryMaterial">2026.americasnlp-6.21.SupplementaryMaterial.zip</attachment>
+      <bibkey>shi-etal-2026-culturally</bibkey>
+    </paper>
+    <paper id="22">
+      <title>6fanle Submission to the <fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case> 2026 Shared Task on <fixed-case>W</fixed-case>ixarika Image Captioning</title>
+      <author><first>Ji</first><last>Wang</last><affiliation>Uppsala univerity</affiliation></author>
+      <author><first>Hanqi</first><last>Yang</last><affiliation>Uppsala University</affiliation></author>
+      <pages>243-247</pages>
+      <abstract>This system description presents a Wixarika image captioning system for the AmericasNLP 2026 Shared Task on Cultural Image Captioning for Indigenous Languages. The system uses Spanish as a pivot language, combining CLIP-based image retrieval, Qwen3-VL Spanish caption generation, the official Sheffield-compatible Spanish-to-Wixarika MT model, and character n-gram language-model reranking. We report local 5-fold development results, official test results, error analysis, and implementation details for reproducibility.</abstract>
+      <url hash="0926bbe5">2026.americasnlp-6.22</url>
+      <attachment hash="567fbf9f" type="SupplementaryMaterial">2026.americasnlp-6.22.SupplementaryMaterial.zip</attachment>
+      <bibkey>wang-yang-2026-6fanle</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Culturally Grounded Image Captioning in Indigenous Languages with Vision-Language Models: Cascaded and Single-Stage Approaches</title>
+      <author><first>Mirelle</first><last>Bueno</last><affiliation>University of Campinas</affiliation></author>
+      <author><first>Sushil</first><last>Garg</last><affiliation>Motorola Mobility</affiliation></author>
+      <pages>248-256</pages>
+      <abstract>Culturally grounded image captioning for under-resourced Indigenous languages is challenging due to severe data scarcity and the need to describe culturally specific visual content. This paper describes our submission to the AmericasNLP 2026 shared task, where we evaluate two architectural paradigms for caption generation across Bribri, Guaraní, Yucatec Maya, Wixárika, and Orizaba Nahuatl. First, we implement a cascaded system that combines a large vision-language model with a machine translation pipeline, showing that culturally contextualized, persona-based prompting improves over the official baseline in most comparable settings. Second, we develop a direct, end-to-end Single-stage approach by adapting PaliGemma 2 using LoRA fine-tuning, continued pre-training, and multilingual joint training. Our single-stage experiments show that, despite severe domain mismatch and reliance on synthetic training data, multilingual training and continued pre-training improve automatic chrF++ relative to single-language LoRA fine-tuning in some settings. Overall, cascaded pipelines remain the strongest among the evaluated approaches under current data constraints, while single-stage models remain a promising but currently data-limited path toward direct Indigenous-language image captioning.</abstract>
+      <url hash="e3249252">2026.americasnlp-6.23</url>
+      <bibkey>bueno-garg-2026-culturally</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Schema-Constrained Image Captioning for Five Low-Resource Indigenous Languages</title>
+      <author><first>Diego</first><last>Cuadros</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Nicholas</first><last>Leeds</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Amanda</first><last>Avalos</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Azul</first><last>Alpizar-Velazquez</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Jared</first><last>Coleman</last><affiliation>Loyola Marymount University</affiliation></author>
+      <author><first>Faezeh</first><last>Dehghan Tarzjani</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Bhaskar</first><last>Krishnamachari</last><affiliation>University of Southern California</affiliation></author>
+      <pages>257-263</pages>
+      <abstract>We describe our submission to all five tracks of the AmericasNLP 2026 Shared Task on Cultural Image Captioning: Bribri, Guaraní, Yucatec Maya, Orizaba Nahuatl, and Wixárika. Our system is an LLM-assisted rule-based machine translation (LLM-RBMT) captioner. For each language, a coding agent reads the small development split and open-web linguistic references and writes a complete Pydantic grammar package with a closed vocabulary. At inference time, a vision–language model sees the image and the schema, emits a structured SentenceList under constrained decoding, and a deterministic Python renderer produces the surface string. The model never generates target-language tokens. The same architecture handles all five languages with no fine-tuning, no parallel corpora, and no human edits to the generated packages. On the official test set, the system placed first on human evaluation in Bribri and Orizaba Nahuatl, third on Yucatec Maya, and first on ChrF++ in Yucatec Maya. We suggest that a strength of the approach is that outputs are restricted to simple sentences that are grammatically correct by construction, modulo the correctness of the generated grammar itself.</abstract>
+      <url hash="c06e7872">2026.americasnlp-6.24</url>
+      <attachment hash="912ba7f0" type="SupplementaryMaterial">2026.americasnlp-6.24.SupplementaryMaterial.zip</attachment>
+      <bibkey>cuadros-etal-2026-schema</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>USP</fixed-case> at <fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case> 2026 Shared Task: Culturally-Aware Image Captioning for Indigenous Languages via Vision-Language Models and Fine-Tuned Neural Machine Translation</title>
+      <author><first>Rafael</first><last>Fernandes</last><affiliation>University of São Paulo</affiliation></author>
+      <pages>264-271</pages>
+      <abstract>We describe the USP system for the AmericasNLP 2026 Shared Task on Culturally Relevant Image Captioning for Indigenous Languages, covering Guaraní (grn), Maya Yucateco (yua), Nahuatl (nah), Wixárika (hch), and Bribri (bzd). We propose a two-stage cascade: Qwen3-VL-8B-Instruct (Bai et al., 2025) generates Spanish captions via language-specific cultural prompts; language-specific fine-tuned NLLB-200-distilled-600M (NLLB Team et al., 2022) models then translate them into each target language. We train on AmericasNLP 2023 data (Ebrahimi et al., 2023) augmented with public parallel corpora. Our system achieves competitive results, including 3rd place in Guaraní human evaluation (2.41/5.0) and 5th in Bribri (1.09/5.0) among 8 teams. We also report that NLLB-200-distilled-600M silently lacks vocabulary entries for Bribri and Maya Yucateco, producing English output without error.</abstract>
+      <url hash="f8be0b77">2026.americasnlp-6.25</url>
+      <attachment hash="922480f4" type="SupplementaryMaterial">2026.americasnlp-6.25.SupplementaryMaterial.zip</attachment>
+      <bibkey>fernandes-2026-usp</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Nearest-Neighbor Retrieval for Indigenous Image Captioning</title>
+      <author id="justin-vasselli" orcid="0009-0009-1417-2421"><first>Justin</first><last>Vasselli</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Arturo</first><last>Martínez Peguero</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Shintaro</first><last>Ozaki</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Frederikus</first><last>Hudi</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Haruki</first><last>Sakajo</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author id="taro-watanabe" orcid="0000-0001-8349-3522"><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <pages>272-278</pages>
+      <abstract>This paper describes the NAIST submission to the AmericasNLP 2026 Shared Task on Indigenous Language Image Captioning. We investigate two approaches for generating captions in Bribri, Guaraní, Nahuatl, Wixárika, and Yucatec Maya. The first is a nearest-neighbor retrieval system that uses CLIP image embeddings to retrieve the most similar image from the development set and directly reuse its caption. The second is a generation pipeline that combines scene analysis, dictionary-grounded lexical planning, retrieved gloss templates, and interlinear gloss representations to constrain generation in low-resource settings.The retrieval-based approach substantially outperformed the gloss-based pipeline under chrF++ evaluation and was competitive across all submitted systems, achieving first-place automated system rankings for Bribri and Wixárika and third place for Nahuatl. The gloss-based pipeline produced weaker automatic evaluation results and exposed problems with dictionary coverage, orthographic mismatches between resources, and unstable grammatical generation. Our results suggest that retrieval-based methods provide a strong baseline for low-resource captioning tasks when high-quality examples are available.</abstract>
+      <url hash="3b6bc329">2026.americasnlp-6.26</url>
+      <bibkey>vasselli-etal-2026-nearest</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Findings of the <fixed-case>A</fixed-case>mericas<fixed-case>NLP</fixed-case> 2026 Shared Task on Cultural Image Captioning for Indigenous Languages</title>
+      <author><first>Minh Duc</first><last>Bui</last><affiliation>Johannes Gutenberg University Mainz</affiliation></author>
+      <author><first>David</first><last>Guzmán</last><affiliation>Mila-Quebec AI Institute, McGill University</affiliation></author>
+      <author><first>Abteen</first><last>Ebrahimi</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <author><first>Franklin</first><last>Morales</last><affiliation>Independent Researcher; Mèkichawak</affiliation></author>
+      <author><first>Marvin</first><last>Agüero-Torales</last><affiliation>Centro Tecnológico en Ingeniería (CIDIT), Paraguay; Universidad de Granada, Spain; Fujitsu, Spain</affiliation></author>
+      <author><first>Raquel</first><last>Insfrán</last><affiliation>Centro Tecnológico en Ingeniería (CIDIT), Paraguay; Universidad Católica Nuestra Señora de la Asunción, Paraguay</affiliation></author>
+      <author><first>Cecilia</first><last>González</last><affiliation>Centro Tecnológico en Ingeniería (CIDIT), Paraguay; Universidad Católica Nuestra Señora de la Asunción, Paraguay</affiliation></author>
+      <author><first>Ramón</first><last>Araujo</last><affiliation>Centro Tecnológico en Ingeniería (CIDIT), Paraguay; Universidad Católica Nuestra Señora de la Asunción, Paraguay</affiliation></author>
+      <author><first>Luca</first><last>Cernuzzi</last><affiliation>Centro Tecnológico en Ingeniería (CIDIT), Paraguay; Universidad Católica Nuestra Señora de la Asunción, Paraguay</affiliation></author>
+      <author><first>Carlos Raul</first><last>Noh Chi</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Carlos Eduardo</first><last>Tec Cahun</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Sindi Estrella</first><last>Poot Cohuo</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Daniel Ricardo</first><last>Benítez Chi</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Santos Natanael</first><last>Palomo Arévalo</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Jessica Elizabeth</first><last>Canul Canche</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Deysi Aracely</first><last>Poot Poot</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Wendy Marleny</first><last>Dzib Dzib</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Eduardo José</first><last>Ake Pool</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Reynaldo Alexander</first><last>Couoh Martin</last><affiliation>Universidad Intercultural Maya de Quintana Roo, Mexico</affiliation></author>
+      <author><first>Silvia</first><last>Fernandez Sabido</last><affiliation>CentroGeo, Mexico</affiliation></author>
+      <author><first>Luis Samuel</first><last>Santiago Melchor</last><affiliation>Ximomachti</affiliation></author>
+      <author><first>Sotero</first><last>Silverio</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Robert</first><last>Pugh</last><affiliation>Indiana University; Mozilla Data Collective</affiliation></author>
+      <author><first>Raúl</first><last>Vázquez</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>John E.</first><last>Ortega</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Arturo</first><last>Oncevay</last><affiliation>Pontificia Universidad Católica del Perú</affiliation></author>
+      <author><first>Rubén</first><last>Manrique</last><affiliation>Universidad de Los Andes</affiliation></author>
+      <author><first>Luis</first><last>Chiruzzo</last><affiliation>Universidad de la República, Uruguay</affiliation></author>
+      <author><first>Rolando</first><last>Coto-Solano</last><affiliation>Dartmouth College</affiliation></author>
+      <author><first>Elisabeth</first><last>Mager</last><affiliation>Universidad Nacional Autónoma de México</affiliation></author>
+      <author><first>Shruti</first><last>Rijhwani</last><affiliation>Google DeepMind</affiliation></author>
+      <author><first>David Ifeoluwa</first><last>Adelani</last><affiliation>Mila-Quebec AI Institute, McGill University; Canada CIFAR AI Chair</affiliation></author>
+      <author><first>Manuel</first><last>Mager</last><affiliation>Universidad Iberoamericana, Mexico</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>University of Colorado Boulder; Johannes Gutenberg University Mainz</affiliation></author>
+      <pages>279-295</pages>
+      <abstract>Indigenous languages of the Americas face severe endangerment, and the scarcity of culturally grounded resources remains a critical barrier to revitalization efforts. We present the AmericasNLP 2026 Shared Task on Cultural Image Captioning for Indigenous Languages, the first shared task dedicated to generating captions for images depicting Indigenous cultures of the Americas, written in the Indigenous languages themselves. To support this, we introduce and publicly release a newly constructed dataset spanning five cultures and their dominant languages: Bribri, Guaraní, Yucatec Maya, Central Veracruz Nahuatl, and Wixárika. Evaluation follows a two-stage process, combining automatic evaluation using ChrF++ with human evaluation of the top-performing systems for each language. Eight teams participate, submitting 27 systems in total. Results indicate that the task remains largely unsolved: while the strongest systems produce understandable captions, they fall short on descriptive detail and, critically, cultural grounding.</abstract>
+      <url hash="cd285b63">2026.americasnlp-6.27</url>
+      <bibkey>bui-etal-2026-findings</bibkey>
+    </paper>
+  </volume>
+</collection>
