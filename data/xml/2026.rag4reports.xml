@@ -17,10 +17,12 @@
       <url hash="eb95cc92">2026.rag4reports-1</url>
       <venue>rag4reports</venue>
       <venue>ws</venue>
+      <doi>10.18653/v1/2026.rag4reports-1</doi>
     </meta>
     <frontmatter>
       <url hash="1952955a">2026.rag4reports-1.0</url>
       <bibkey>rag4reports-2026-1</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.0</doi>
     </frontmatter>
     <paper id="3">
       <title>A Tale of Trust and Accuracy: Base vs. Instruct <fixed-case>LLM</fixed-case>s in <fixed-case>RAG</fixed-case> Systems</title>
@@ -32,6 +34,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) represents a significant advancement in artificial intelligence combining a retrieval phase with a generative phase, with the latter typically being powered by Large Language Models (LLMs). Common wisdom and practices in RAG involve using "instructed" LLMs, which are fine-tuned with supervised training to enhance their ability to follow instructions and are aligned with human preferences using state-of-the-art techniques.However, contrary to this popular belief, our study demonstrates that base models outperform their instructed counterparts in RAG tasks by 20% on average under our experimental settings. This finding challenges the prevailing assumptions about the superiority of instructed LLMs in RAG applications. Further investigations reveal a more complex situation, questioning fundamental aspects of RAG and suggesting the need for broader discussions on the topic; or, as Fromm would have it, "Seldom is a glance at the statistics enough to understand the meaning of the figures".</abstract>
       <url hash="470b7678">2026.rag4reports-1.3</url>
       <bibkey>cuconasu-etal-2026-tale</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.3</doi>
     </paper>
     <paper id="4">
       <title>Decompose, Retrieve, Cite: A <fixed-case>RAG</fixed-case> Pipeline for Structured Report Generation from Technical Documentation</title>
@@ -43,6 +46,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) grounds language-model output in external knowledge, yet its application to dense technical documentation remains largely unexplored. Engineering software manuals pose compounding challenges: formulae are corrupted during PDF extraction, heterogeneous content types require different parsing treatment, and queries demand cross-document synthesis across multiple reference volumes.We present an end-to-end RAG system for OpenFOAM, an open-source computational fluid dynamics toolkit, operating in two modes. In single-query mode, a formula-preserving parser (Marker), adaptive header-aware chunking, two-stage dense-then-rerank retrieval, and a citation-enforcement prompt produce grounded, source-attributed answers across a 20-question benchmark.In report mode, a user prompt is decomposed into sub-questions via LLM planning; each sub-question undergoes independent retrieval and cross-encoder re-ranking, and the deduplicated chunk set is passed to a long-context generation call that produces a structured, multi-section report with inline citations.Evaluated on a 10-prompt golden set with a six-dimension LLM-as-a-judge framework, both pipelines achieve overall scores above 4.6/5.0 with perfect citation correctness (5.0/5.0). The decomposed pipeline demonstrates superior robustness (90% vs 70% judge success rate). Retrieval analysis using page-level ground truth reveals low absolute recall (&lt;14%), identifying retrieval breadth as the primary bottleneck.</abstract>
       <url hash="b2a097e5">2026.rag4reports-1.4</url>
       <bibkey>dhurve-etal-2026-decompose</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.4</doi>
     </paper>
     <paper id="5">
       <title><fixed-case>E</fixed-case>ncou<fixed-case>RAG</fixed-case>e: Evaluating <fixed-case>RAG</fixed-case> Local, Reliable, and Efficient</title>
@@ -53,6 +57,7 @@
       <abstract>We introduce <tex-math>\textbf{EncouRAGe}</tex-math>, a comprehensive Python library designed to streamline the development and evaluation of Retrieval-Augmented Generation (RAG) systems using Large Language Models (LLMs) and Embedding Models. EncouRAGe comprises five modular and extensible components: <tex-math>\textit{Type Manifest}</tex-math>, <tex-math>\textit{RAG Factory}</tex-math>, <tex-math>\textit{Inference}</tex-math>, <tex-math>\textit{Vector Store}</tex-math>, and <tex-math>\textit{Metrics}</tex-math>, facilitating flexible experimentation and extensible development. Each component helps to make development RAG evaluation and emphasizes <tex-math>\textbf{scientific reproducibility}</tex-math>, <tex-math>\textbf{diverse evaluation metrics}</tex-math>, and <tex-math>\textbf{local deployment}</tex-math>, enabling researchers to efficiently assess datasets within RAG workflows. This paper presents implementation details and an extensive evaluation across multiple benchmark datasets, including <tex-math>\textit{25k QA pairs}</tex-math> and <tex-math>\textit{over 51k documents}</tex-math>. Our results show that RAG still underperforms compared to the <tex-math>\textit{Oracle Context}</tex-math>, while <tex-math>\textit{Hybrid BM25}</tex-math> consistently achieves the best results across all four datasets. <tex-math>\textbf{Code}</tex-math>: https://github.com/uhh-hcds/encourage</abstract>
       <url hash="6f8d2603">2026.rag4reports-1.5</url>
       <bibkey>strich-etal-2026-encourage</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.5</doi>
     </paper>
     <paper id="6">
       <title><fixed-case>REFS</fixed-case>af<fixed-case>E</fixed-case>: A <fixed-case>RAG</fixed-case>-Enabled Framework for Predictive Risk Analysis and Automated Safety Report Generation in Mission-Critical Environments</title>
@@ -71,6 +76,7 @@
       <abstract>Operational safety in mission-critical environments requires AI systems that are accurate, interpretable, and resistant to hallucination. We present an agentic Retrieval-Augmented Generation (RAG) framework, REFSafe, for grounded hazard analysis and automated safety report generation. The system integrates Large Language Models (LLMs) with structured operational data, historical incident repositories, policy documents, and external authoritative sources. Through iterative agentic reasoning, the framework retrieves, verifies, and synthesizes evidence prior to generation, enforcing citation-backed outputs with explicit source attribution (documents, links, and prior events) to ensure traceability and trust.To mitigate hallucinations and unsupported claims, all risk assessments and forecasts are constrained to retrieved evidence, with confidence signals derived from retrieval relevance and source consistency. A transparent pipeline enables subject matter experts (SMEs) to validate predictions, and provide structured feedback, forming a continuous performance calibration loop. Preliminary deployment demonstrates improved reliability in hazard detection and safety/vulnerability report generation. This work advances trustworthy, evidence-grounded AI for predictive safety intelligence in mission-critical operations.</abstract>
       <url hash="f106c0f4">2026.rag4reports-1.6</url>
       <bibkey>das-etal-2026-refsafe</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.6</doi>
     </paper>
     <paper id="7">
       <title><fixed-case>ORCHID</fixed-case>: Orchestrated Retrieval-Augmented Classification of High-Risk Property with Intelligent Decision-Making</title>
@@ -88,6 +94,7 @@
       <abstract>High-Risk Property (HRP) classification is critical at U.S. Department of Energy (DOE) sites, where inventories include sensitive and often dual-use equipment. Compliance must track evolving rules designated by various export control policies to make transparent and auditable decisions. Traditional expert-only workflows are time-consuming, backlog-prone, and struggle to keep pace with shifting regulatory boundaries. We propose ORCHID, a modular agentic framework for HRP classification that pairs retrieval-augmented generation (RAG) with human oversight to produce policy based outputs that can be audited. Small cooperating agents—retrieval, description refiner, classifier, validator, and feedback logger—coordinate via agent-to-agent messaging and invoke tools through the Model Context Protocol (MCP) for model-agnostic on-premise operation. The interface follows an "Item to Evidence to Decision" loop with step-by-step reasoning, on-policy citations, and append-only audit bundles (run-cards, prompts, evidence). In preliminary tests on real HRP cases, ORCHID improves accuracy and traceability over a non-agentic baseline while deferring uncertain items to Subject Matter Experts (SMEs). The demonstration shows single item submission, grounded citations, SME feedback capture, and exportable audit artifacts—illustrating a practical path to trustworthy LLM assistance in sensitive DOE compliance workflows.</abstract>
       <url hash="e775ee8a">2026.rag4reports-1.7</url>
       <bibkey>das-etal-2026-orchid</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.7</doi>
     </paper>
     <paper id="8">
       <title>A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science</title>
@@ -101,6 +108,7 @@
       <abstract>Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protocol constraints, is a natural target for retrieval-augmented generation and deep research agents, yet existing benchmarks evaluate isolated subtasks or assume fixed evidence inputs. We introduce RAG4SR-CS-200, a benchmark of 200 computer science systematic reviews designed for protocol-driven systematic review automation. Each instance comprises review objectives, research questions, eligibility criteria, cleaned full-text review structure, references, and extracted tables. These elements support evaluation across key tasks in systematic review creation such as literature retrieval, eligibility screening, citation-grounded review generation, and structured table generation, in both stage-wise and end-to-end settings. RAG4SR-CS-200 provides a foundation for developing more reliable and diagnosable deep research agents for scientific evidence synthesis. Code and data are publicly available (https://github.com/webis-de/rag4sr-cs-200).</abstract>
       <url hash="b018f5f1">2026.rag4reports-1.8</url>
       <bibkey>achkar-etal-2026-pipeline</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.8</doi>
     </paper>
     <paper id="9">
       <title><fixed-case>UNH</fixed-case> @ <fixed-case>R</fixed-case>ag4<fixed-case>R</fixed-case>eports: A Broad Exploration of <fixed-case>LLM</fixed-case>-Judges for <fixed-case>RAG</fixed-case></title>
@@ -113,6 +121,7 @@
       <abstract>We submitted a breadth of LLM-as-a-Judge approaches to Rag4Reports Task A; our top method ranked first among all submitted systems. We find that citation faithfulness is the most essential signal, and that content is best verified by checking whether cited documents cover nuggets generated from the LLM’s internal knowledge.</abstract>
       <url hash="30798274">2026.rag4reports-1.9</url>
       <bibkey>tran-etal-2026-unh</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.9</doi>
     </paper>
     <paper id="10">
       <title>Crucible @ <fixed-case>R</fixed-case>ag4<fixed-case>R</fixed-case>eports: Generating Nuggets for Report Generation and Evaluation</title>
@@ -122,6 +131,7 @@
       <abstract>We submit to both tracks of the RAG4Reports challenge with two complementary components: PREFNUGGET, which derives concise nugget banks from pairwise preference judgments between system responses, and CRUCIBLE, a nugget-first pipeline that uses such banks to assemble reports on a given topic. The shared nugget-level representation unifies our approach to report evaluation (Task A) and report generation (Task B).</abstract>
       <url hash="2bcb24a9">2026.rag4reports-1.10</url>
       <bibkey>dietz-yang-2026-crucible</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>G</fixed-case>en<fixed-case>AI</fixed-case>us at <fixed-case>RAG</fixed-case>4<fixed-case>R</fixed-case>eports 2026: Citation-Aware Compression for Multilingual Report Generation</title>
@@ -131,6 +141,7 @@
       <abstract>This paper describes the GenAIus submission to RAG4Reports 2026 Multilingual Report Generation Task. Our system builds on our earlier TREC RAGTIME pipeline, reusing the evidence preparation stages for overlapping topics, including question generation, multilingual retrieval, nugget generation, and nugget clustering. For RAG4Reports, we focused on the final generation stage and tested a citation-aware compression strategy: generating the long report first from clustered evidence nuggets and then deriving the short report from it, rather than generating both length conditions independently. Our baseline run, which followed the original TREC-style setup, ranked third overall. Our best run, genaius-cluster-gpt4, ranked second overall with an F1 score of 0.5456, achieving the best balance among our submissions between nugget coverage and sentence support. The results suggest that citation-aware compression is a promising strategy for length-constrained, citation-grounded report generation.</abstract>
       <url hash="ae453b49">2026.rag4reports-1.11</url>
       <bibkey>yeniterzi-yeniterzi-2026-genaius</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.11</doi>
     </paper>
     <paper id="12">
       <title><fixed-case>AMU</fixed-case> at <fixed-case>RAG</fixed-case>4<fixed-case>R</fixed-case>eports 2026 Task <fixed-case>B</fixed-case>: A Practical Multilingual <fixed-case>RAG</fixed-case> Pipeline for Citation-Grounded Reports</title>
@@ -143,6 +154,7 @@
       <abstract>This system paper presents AMU’s submission to RAG4Reports 2026 Task B: a practical multilingual retrieval-augmented generation pipeline for evidence-supported report generation. The system combines full-query retrieval, optional query rewriting, dense retrieval with Qdrant, cross-encoder reranking, diversity-aware context selection, and structured generation. The best submitted run uses BAAI/bge-m3 embeddings, BAAI/bge-reranker-v2-m3 reranking, and gpt-5.1 generation with medium reasoning effort, using a partial-coverage prompt strategy. On the official leaderboard, it achieved F1=0.4351, sentence_support=0.8280, and nugget_coverage=0.3403, indicating that the generated reports were well grounded but only partially comprehensive.</abstract>
       <url hash="b1b4d0cb">2026.rag4reports-1.12</url>
       <bibkey>czajka-etal-2026-amu</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.12</doi>
     </paper>
     <paper id="13">
       <title>Exploring Capability Thresholds in Ultra-Lightweight <fixed-case>LLM</fixed-case> Judges for Nugget-Based Report Evaluation</title>
@@ -155,6 +167,7 @@
       <abstract>Reliable automatic evaluation of retrieval-grounded long-form reports typically requires human annotation or frontier-scale proprietary LLMs, both of which are expensive in constrained settings. Team rgipt participated in RAG4Reports@ACL 2026 Task 1 with a zero-shot nugget-verification system that runs entirely on a single NVIDIA T4 GPU. We compare three ultra-lightweight decoder-only models: Qwen2-0.5B, Qwen2-1.5B, and Qwen2.5-0.5B, under identical inference conditions to examine how small an LLM judge can be while retaining human-aligned ranking signal. Both Qwen2 models produced negative <tex-math>\tau_{\text{gap}}</tex-math>, whereas Qwen2.5-0.5B achieved <tex-math>\tau_{\text{gap}} = 0.0772</tex-math> and Pearson <tex-math>r = 0.2209</tex-math>, ranking 13th of 21 teams. Within this family and evaluation setting, model generation appears to matter more than parameter count, although this finding is based on three configurations on a single task and warrants further validation.</abstract>
       <url hash="791c47fc">2026.rag4reports-1.13</url>
       <bibkey>bajpai-etal-2026-exploring</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.13</doi>
     </paper>
     <paper id="14">
       <title><fixed-case>EFSG</fixed-case>: Evidence-First Structured Generation for Multilingual <fixed-case>RAG</fixed-case> Report Generation</title>
@@ -164,6 +177,7 @@
       <abstract>We describe EFSG (Evidence-First Structured Generation), our submission to Task B of the RAG4Reports@ACL 2026 shared task. Standard retrieval-augmented generation pipelines allow generation models to write from parametric memory and attach citations retroactively: a behaviour we term post-rationalization. EFSG addresses this structurally through a phase boundary: all evidence is retrieved, extracted, and sealed into a fact pool before any generation begins; each sentence then sees only its single committed source passage. Our best run (t5100k doc corpus) achieved sentence_support of 0.612 and nugget_coverage of 0.126 (F1 = 0.182).</abstract>
       <url hash="1565ac6d">2026.rag4reports-1.14</url>
       <bibkey>gupta-bedi-2026-efsg</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.14</doi>
     </paper>
     <paper id="15">
       <title>Adapting <fixed-case>A</fixed-case>uto<fixed-case>ARGUE</fixed-case> for Automatic Report Evaluation under Missing Citation Annotations</title>
@@ -174,6 +188,7 @@
       <abstract>We adapt the AutoARGUE framework (Walden et al., 2026) for Task A.2 of RAG4Reports 2026, which requires ranking 57 report generation systems across 68 topics using automated evaluation. The RAGTIME-1 corpus poses a fundamental challenge: all nugget annotations use a no-reference-doc sentinel rather than ground-truth document citations, rendering the original citation-relevance gating inoperable. We address this with three adaptations: automatic sentinel detection with forced direct LLM-based nugget matching; a WEAK POSITIVE partial credit mechanism for sentences that correctly answer nuggets but lack attesting citations; and a report-level request alignment check. Our nugget_coverage_weighted metric achieves the highest topic-level Pearson correlation (r=0.599) of any non-coordinator submission, closely approaching the coordinator baseline (r=0.607).</abstract>
       <url hash="123d3927">2026.rag4reports-1.15</url>
       <bibkey>kaur-etal-2026-adapting</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.15</doi>
     </paper>
     <paper id="16">
       <title><fixed-case>JU</fixed-case>-<fixed-case>NLP</fixed-case>-<fixed-case>PG</fixed-case> at <fixed-case>RAG</fixed-case>4<fixed-case>R</fixed-case>eports 2026: Memory-Efficient Multilingual Report Generation with 4-bit Quantized <fixed-case>LLM</fixed-case>s</title>
@@ -183,6 +198,7 @@
       <abstract>In the present article, we have described our system developed for participating in Task B on Multilingual Report Generation under RAG4Reports 2026 at ACL 2026 with submitted run ID ju_nlp_pg. The problem statement is given a report request in English, the system retrieves relevant passages from a four million multilingual document corpus (English, Chinese, Russian, Arabic) and generates a grounded, citation-bearing report. Our core challenge was how to fit a large retrieval corpus along with a capable generative model on a two-GPU node with ≈29 GB RAM. We addressed the challenge employing three different techniques: (1) 4-bit NF4 quantization, shrinking the LLM from ≈14 GB to ≈4 GB; (2) memory-mapped, chunked FAISS index construction over pre-computed multilingual-e5-large embeddings; and (3) strict model-loading order to prevent heap fragmentation. On the other hand, the reports are structured around topic nuggets to directly target the Auto-ARGUE evaluation signal.</abstract>
       <url hash="3f921449">2026.rag4reports-1.16</url>
       <bibkey>chatterjee-das-2026-ju</bibkey>
+      <doi>10.18653/v1/2026.rag4reports-1.16</doi>
     </paper>
   </volume>
 </collection>
