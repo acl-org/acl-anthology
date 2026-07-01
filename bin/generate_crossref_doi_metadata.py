@@ -335,13 +335,27 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
     )
 
 
+def default_output_filename(identifiers):
+    """Derive a default output filename from the input identifiers."""
+    slug = "_".join(identifiers)
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "-", slug)
+    return f"crossref_{slug}.xml"
+
+
 def main(args):
     setup_rich_logging()
     anthology = Anthology.from_within_repo(verbose=False)
     volume_ids = resolve_inputs(anthology, args.identifiers)
 
     xml_bytes = generate_crossref_xml(anthology, volume_ids)
-    sys.stdout.buffer.write(xml_bytes)
+
+    if args.output == "-":
+        print(xml_bytes.decode("utf-8"), end="")
+    else:
+        output = args.output or default_output_filename(args.identifiers)
+        with open(output, "w", encoding="utf-8") as f:
+            print(xml_bytes.decode("utf-8"), end="", file=f)
+        log.info("Wrote Crossref metadata to %s", output)
 
 
 if __name__ == "__main__":
@@ -354,6 +368,11 @@ if __name__ == "__main__":
         "identifiers",
         nargs="+",
         help="Volume IDs (e.g., 2024.emnlp-main, W10-17) or event IDs (e.g., emnlp-2024, naacl-2012)",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="Output file path. Defaults to a name derived from the inputs. Use '-' to write to stdout.",
     )
     args = parser.parse_args()
 
