@@ -41,6 +41,7 @@ Limitations:
 """
 
 import logging
+import os
 import re
 import sys
 import time
@@ -54,6 +55,7 @@ from acl_anthology.utils.logging import setup_rich_logging
 log = logging.getLogger(__name__)
 
 # CONSTANTS
+MAX_FILE_BYTES = 10_000_000
 DOI_PREFIX = "10.18653/v1/"
 CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 PUBLISHER_PLACE = "Stroudsburg, PA, USA"
@@ -335,13 +337,68 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
     )
 
 
+def default_output_filename(identifiers):
+    """Derive a default output filename from the input identifiers."""
+    slug = "_".join(identifiers)
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "-", slug)
+    return f"crossref_{slug}.xml"
+
+
+def numbered_filename(output, part):
+    """Insert a part number before the file extension (e.g. foo.xml -> foo.part2.xml)."""
+    root, ext = os.path.splitext(output)
+    return f"{root}.part{part}{ext}"
+
+
+def split_volume_ids_by_size(anthology, volume_ids, max_bytes):
+    """Group volume IDs into chunks whose generated XML stays under max_bytes.
+
+    Volumes are treated as atomic (never split across files). Each volume's size
+    is measured independently; the per-file batch header overhead makes the
+    per-volume estimate slightly conservative, keeping files safely under the limit.
+    """
+    chunks = []
+    current = []
+    current_size = 0
+    for vid in sorted(volume_ids):
+        size = len(generate_crossref_xml(anthology, [vid]))
+        if size > max_bytes:
+            log.warning(
+                "Volume %s alone exceeds the %d-byte limit (%d bytes); writing anyway",
+                vid,
+                max_bytes,
+                size,
+            )
+        if current and current_size + size > max_bytes:
+            chunks.append(current)
+            current = []
+            current_size = 0
+        current.append(vid)
+        current_size += size
+    if current:
+        chunks.append(current)
+    return chunks
+
+
 def main(args):
     setup_rich_logging()
     anthology = Anthology.from_within_repo(verbose=False)
     volume_ids = resolve_inputs(anthology, args.identifiers)
 
-    xml_bytes = generate_crossref_xml(anthology, volume_ids)
-    sys.stdout.buffer.write(xml_bytes)
+    if args.output == "-":
+        xml_bytes = generate_crossref_xml(anthology, volume_ids)
+        print(xml_bytes.decode("utf-8"), end="")
+        return
+
+    base_output = args.output or default_output_filename(args.identifiers)
+    chunks = split_volume_ids_by_size(anthology, volume_ids, MAX_FILE_BYTES)
+
+    for i, chunk in enumerate(chunks, start=1):
+        output = base_output if len(chunks) == 1 else numbered_filename(base_output, i)
+        xml_bytes = generate_crossref_xml(anthology, chunk)
+        with open(output, "w", encoding="utf-8") as f:
+            print(xml_bytes.decode("utf-8"), end="", file=f)
+        log.info("Wrote Crossref metadata to %s (%d bytes)", output, len(xml_bytes))
 
 
 if __name__ == "__main__":
@@ -354,6 +411,11 @@ if __name__ == "__main__":
         "identifiers",
         nargs="+",
         help="Volume IDs (e.g., 2024.emnlp-main, W10-17) or event IDs (e.g., emnlp-2024, naacl-2012)",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="Output file path. Defaults to a name derived from the inputs. Use '-' to write to stdout.",
     )
     args = parser.parse_args()
 

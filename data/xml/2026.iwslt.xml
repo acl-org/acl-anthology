@@ -15,10 +15,12 @@
       <url hash="73b1ddb1">2026.iwslt-1</url>
       <venue>iwslt</venue>
       <venue>ws</venue>
+      <doi>10.18653/v1/2026.iwslt-1</doi>
     </meta>
     <frontmatter>
       <url hash="de75a647">2026.iwslt-1.0</url>
       <bibkey>iwslt-2026-1</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.0</doi>
     </frontmatter>
     <paper id="1">
       <title>Towards Zero-Shot <fixed-case>SLU</fixed-case>: An Empirical Study of Competing Architectural Paradigms</title>
@@ -31,6 +33,7 @@
       <abstract>Spoken Language Understanding (SLU) is crucial for enabling natural voice interactions with modern devices. However, traditional supervised models fail to generalize to new domains due to two key challenges: the prohibitive cost of data annotation and the inherent difficulty of transferring domain-specific intents. While the rise of Large Language Models (LLMs) offers a promising solution through zero-shot inference, the zero-shot SLU capabilities of emerging speech-enabled LLMs have remained largely unexplored. To address this gap, this paper provides the first comprehensive assessment, focusing on intent classification (IC), the first key sub-task of SLU, across 13 languages. We systematically evaluate a range of architectures, including cascaded, end-to-end, and hybrid systems for zero-shot SLU. Our analysis identifies the hybrid approach as the most effective architectural design for end-to-end SLU, and assesses multilingual transfer capabilities. The findings offer a detailed map of the challenges and opportunities, highlighting which models and settings are most promising for zero-shot SLU.</abstract>
       <url hash="8fc79fe4">2026.iwslt-1.1</url>
       <bibkey>lee-etal-2026-towards-zero</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.1</doi>
     </paper>
     <paper id="2">
       <title>Redefining Machine Simultaneous Interpretation: From Incremental Translation to Human-Like Strategies</title>
@@ -41,6 +44,7 @@
       <abstract>Simultaneous Machine Translation (SiMT) requires high-quality translations under strict real-time constraints, which traditional policies with only READ/WRITE actions cannot fully address. We extend the action space of SiMT with four adaptive actions: Sentence_Cut, Drop, Partial_Summarization and Pronominalization, which enable real-time restructuring, omission, and simplification while preserving semantic fidelity. We adapt these actions in a large language model (LLM) framework and construct training references through action-aware prompting. To evaluate both quality and word-level monotonicity, we further develop a latency-aware TTS pipeline that maps textual outputs to speech with realistic timing. Experiments on the ACL60/60 English-Chinese, English-German and English-Japanese benchmarks show that our framework consistently improves semantic metrics and achieves lower delay compared to reference translations and salami-based baselines. Notably, combining Drop and Sentence_Cut leads to consistent improvements in the balance between fluency and latency. These results demonstrate that enriching the action space of LLM-based SiMT provides a promising direction for bridging the gap between human and machine interpretation.</abstract>
       <url hash="aa2447c5">2026.iwslt-1.2</url>
       <bibkey>zhang-etal-2026-redefining-machine</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.2</doi>
     </paper>
     <paper id="3">
       <title>A Practical Evaluation Method for Long-Form Simultaneous Speech-to-Speech Translation</title>
@@ -51,6 +55,7 @@
       <abstract>Simultaneous speech-to-speech translation (SimulS2ST) enables real-time cross-lingual communication, but existing evaluation has focused largely on short or pre-segmented speech rather than long-form, continuous input. Prior approaches are difficult to reproduce and make assumptions that do not hold for end-to-end systems. We present a practical evaluation method for long-form SimulS2ST. Given source speech, pre-segmented source transcripts, and reference translations, we run automatic speech recognition (ASR) and forced alignment on the generated target speech to recover token-level timestamps, then apply a sentence-embedding-based aligner to match the target text to its corresponding source sentences. This enables sentence-level computation of latency and quality metrics, including YAAL and xCOMET, which are then aggregated into final system-level scores. Experiments on representative SimulS2ST systems show that the method is effective in practice and reveal that current systems suffer from substantial latency accumulation on long speech.</abstract>
       <url hash="ad36974b">2026.iwslt-1.3</url>
       <bibkey>xue-etal-2026-practical</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.3</doi>
     </paper>
     <paper id="4">
       <title>Selected-Layer Codec Compression for Compact Speech Translation Models: An <fixed-case>IWSLT</fixed-case> 2026 <fixed-case>E</fixed-case>nglish-to-<fixed-case>C</fixed-case>hinese Submission</title>
@@ -59,6 +64,7 @@
       <abstract>This paper describes a selected-layer codec compression approach submitted to the IWSLT 2026 Model Compression Shared Task for constrained English-to-Chinese speech translation. The approach is compared against standard quantization, global codec compression, and a pruning-plus-codec variant. The results indicate that translation quality after compression depends strongly on where compression is applied. In these experiments, selected-layer compression preserves translation quality better than uniform global compression, with one variant achieving the highest COMET score among compressed systems and another providing the strongest overall quality-compression trade-off among the custom codec methods. These results suggest that simple layer-aware post-hoc compression is a viable approach for model compression in constrained English-to-Chinese speech translation.</abstract>
       <url hash="dee06872">2026.iwslt-1.4</url>
       <bibkey>palomino-2026-selected</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.4</doi>
     </paper>
     <paper id="5">
       <title>Team <fixed-case>QUESPA</fixed-case> System Submission for the <fixed-case>IWSLT</fixed-case> 2026 Dialectal and Low-resource Speech Translation Task</title>
@@ -71,6 +77,7 @@
       <abstract>This paper describes the QUESPA team’s speech translation (ST) submissions for the Quechua to Spanish (QUE-SPA) track of the IWSLT 2026 Evaluation Campaign on dialectal and low-resource speech translation. The campaign supports a single submission category, namely unconstrained. This marks our fourth consecutive participation in the IWSLT shared task, building upon prior systems with substantial improvements. Our 2026 submission comprises three unconstrained-only systems. The best-performing system (contrastive 2) extends our strongest model from the previous year by leveraging a high-performing pre-trained language model (PLM) for end-to-end speech translation without cascading, augmented with additional Quechua-Collao text - now made available on the IWSLT GitHub. Fine-tuning Microsoft’s SpeechT5 model in an ST setting, combined with targeted data augmentation, results in a BLEU score of 27.2 on the official evaluation set. Additionally, we evaluate prompt-based machine translation using Gemini, DeepSeek, GPT-5, Claude, and Qwen for the first time. Aside from that, we introduce SIDON, an audio enhancement framework designed to improve audio quality. This paper provides a comparative analysis across our current and three previous IWSLT submissions, with a detailed examination of the impact of synthetic data, unconstrained external resources, and audio enhancement techniques on fine-tuning performance. Our results highlight the complementary role of PLM-based ST, LLM prompting, and ASR enhancement in advancing low-resource speech translation.</abstract>
       <url hash="5c84f479">2026.iwslt-1.5</url>
       <bibkey>ortega-etal-2026-team</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.5</doi>
     </paper>
     <paper id="6">
       <title><fixed-case>ADAPT</fixed-case>–<fixed-case>MTU</fixed-case> <fixed-case>HAI</fixed-case> at <fixed-case>IWSLT</fixed-case>2026: Robust Cascaded Speech Translation for <fixed-case>B</fixed-case>hojpuri–<fixed-case>H</fixed-case>indi and <fixed-case>I</fixed-case>rish–<fixed-case>E</fixed-case>nglish</title>
@@ -80,6 +87,7 @@
       <abstract>Low-resource speech translation remains challenging due to limited data, weak ASR support, and error propagation in cascaded systems. We present the ADAPT–MTU HAI submission to the IWSLT 2026 Low-Resource Speech Translation task, a robust cascaded framework combining Whisper-based ASR and NLLB-200 multilingual translation for Bhojpuri→Hindi and Irish→English language pairs. We evaluate multiple ASR models and routing strategies, including direct and pivot-based translation. For Bhojpuri→Hindi, the best configuration (Whisper-large-v3 and direct NLLB) achieves BLEU 25.59, chrF++ 42.48, and TER 63.83 on the full development set, outperforming pivot and copy baselines. For Irish→English, replacing Whisper with a language-specific Wav2Vec2 ASR model improves ASR coverage from 94.8% to 100% on the test set while maintaining low repetition rates. Our findings highlight the critical role of ASR quality in downstream translation performance, the conditional benefits of pivot translation, and the effectiveness of modular cascaded architectures for low-resource speech translation.</abstract>
       <url hash="8f49e76b">2026.iwslt-1.6</url>
       <bibkey>sonawane-afli-2026-adapt</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.6</doi>
     </paper>
     <paper id="7">
       <title>The <fixed-case>FBK</fixed-case> Sentence-Aware Subtitling System at the <fixed-case>IWSLT</fixed-case> 2026 Subtitling Track</title>
@@ -91,6 +99,7 @@
       <abstract>This paper describes the FBK submissions to the Subtitling track of the 2026 IWSLT Evaluation Campaign. The task requires automatically subtitling English audio-visual content across three domains (ITV entertainment series, Asharq-Bloomberg news programs, and YouTube recordings from the YODAS dataset), into up to four target languages per domain, chosen from a pool of five (Arabic, Chinese, German, Japanese, and Spanish). All submitted systems are based on an ASR-MT cascade framework built exclusively from freely available open-source components usable without restrictions, including for commercial purposes. Our primary system implements a two-stage pipeline: the first stage produces time-aligned subtitles via voice activity detection, automatic transcription, and subtitle-level translation, while the second refinement stage re-processes the audio at a longer context level, combining long-form transcription with sentence-level translation, and re-aligning the resulting output to the original subtitle timing. This design preserves synchronization constraints while leveraging broader context to improve both transcription and translation quality. We also submitted two contrastive systems: one corresponding to the first-stage baseline pipeline, and another sharing the same baseline architecture but using alternative components.</abstract>
       <url hash="40cdc970">2026.iwslt-1.7</url>
       <bibkey>cettolo-etal-2026-fbk</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.7</doi>
     </paper>
     <paper id="8">
       <title><fixed-case>KIT</fixed-case>’s Submission to Cross-Lingual Voice Cloning in <fixed-case>IWSLT</fixed-case> 2026</title>
@@ -100,6 +109,7 @@
       <abstract>Cross-lingual voice cloning aims to generate speech in a target language while preserving speaker identity from a source-language reference. This task is central to speech translation and is the focus of the IWSLT 2026 Cross-Lingual Voice Cloning track. A key challenge is maintaining intelligibility and naturalness in the presence of accent variation and domain-specific vocabulary. We build on a multilingual text-to-speech model, FishAudio-S2-Pro, and introduce language tag prompting to improve language control and reduce accent leakage. We further apply reinforcement learning (RL) fine-tuning for task adaptation and observe improvements in intelligibility. Finally, we propose a reference-conditioned lexical matching method that improves pronunciation of domain-specific terms when lexical overlap is present. Results show that language prompting provides the largest gains, while lexical matching yields consistent improvements on matched subsets.</abstract>
       <url hash="61648087">2026.iwslt-1.8</url>
       <bibkey>akti-waibel-2026-kits</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.8</doi>
     </paper>
     <paper id="9">
       <title><fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Submissions to the <fixed-case>IWSLT</fixed-case> 2026 Offline Speech Translation Task</title>
@@ -118,6 +128,7 @@
       <abstract>This paper describes the HW-TSC’s submission to the IWSLT 2026 Offline Speech Translation Task, specifically for the English-to-Chinese and English-to-German unconstrained tracks. Our system adopts a robust cascade architecture optimized for long-form, unsegmented audio. To mitigate the hallucination and inconsistency issues common in long-sequence processing, we propose a two-pass transcription strategy: an initial streaming ASR with a 12-second context buffer for sentence-level coherence, followed by Qwen3-ForcedAligner for precise timestamping. Based on these alignments, a second-pass refinement is conducted using Qwen3-Omni on re-segmented 30-second chunks to ensure high-fidelity transcriptions. For the translation module, we employ a context-aware segment merging strategy (up to 150 tokens) to empower the Qwen3 llm with sufficient semantic context. Experimental results on the tst-2022 benchmark demonstrate the effectiveness of our pipeline, achieving COMET scores of 0.8462 (En-Zh) and 0.7854 (En-De), significantly outperforming the standard cascade baselines.</abstract>
       <url hash="c30761bd">2026.iwslt-1.9</url>
       <bibkey>huang-etal-2026-hw</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.9</doi>
     </paper>
     <paper id="10">
       <title><fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Submission to the <fixed-case>IWSLT</fixed-case> 2026 Subtitling Track</title>
@@ -136,6 +147,7 @@
       <abstract>This paper introduces HW-TSC’s submission to the IWSLT 2026 Subtitling track. For automatic subtitle generation, we employ a cascaded strategy under unconstrained conditions. First, we construct a large-model-based streaming speech recognition framework, which incorporates VAD voice activity detection, sliding-window context caching, long audio chunking, and the Qwen3 forced alignment model to achieve high-precision transcription and timestamping from English speech to text. Next, we perform text translation using a Qwen3-based translation model. Finally, according to subtitle constraints such as characters per second (CPS) and characters per line (CPL), we identify translation segments that exceed compliance thresholds via quantitative evaluation, and rewrite them using a large language model while preserving core semantic meaning, ultimately producing subtitle files that meet the required standards.</abstract>
       <url hash="fc0cb9c3">2026.iwslt-1.10</url>
       <bibkey>lan-etal-2026-hw</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.10</doi>
     </paper>
     <paper id="11">
       <title><fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Submission to the <fixed-case>IWSLT</fixed-case> 2026 Cross-Lingual Voice Cloning Track</title>
@@ -154,6 +166,7 @@
       <abstract>This paper presents HW-TSC’s submission to the IWSLT 2026 Cross-Lingual Voice Cloning Track. The Cross-Lingual Voice Cloning Track includes three target languages: Arabic, Chinese, and French. We take part in two language tasks of this track, namely Chinese and French. We employ the Qwen3-TTS-12Hz-1.7B-Base multilingual model as the core voice cloning model. To tackle problems such as excessively long duration of the original reference audio and scattered features, we design a sliding-window audio segmentation preprocessing method, which continuously splits long audio into standardized short segments with overlapping redundancy. This method avoids feature attenuation caused by overly long audio and maximizes the preservation of complete timbre information through step overlap. To select the outputs with the highest timbre similarity from numerous synthetic results, this study conducts voiceprint recognition based on the Enhanced Context-Dependent Adversarial Time Delay Neural Network (ECAPA-TDNN), with cosine similarity as the core quantitative evaluation metric, and selects the result with the highest similarity as the optimal output.</abstract>
       <url hash="1cb9a6f2">2026.iwslt-1.11</url>
       <bibkey>he-etal-2026-hw</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.11</doi>
     </paper>
     <paper id="12">
       <title>Balancing Linguistic Intelligibility and Speaker Identity in Zero-Shot Cross-Lingual Voice Cloning</title>
@@ -164,6 +177,7 @@
       <abstract>Cross-lingual voice cloning (CLVC) aims to synthesize speech in a target language while preserving the vocal identity of a source speaker who has no recorded speech in that language. Despite recent advances in multilingual text-to-speech systems, zero-shot CLVC remains challenging due to phonetic divergence across languages and the difficulty of maintaining speaker identity alongside linguistic intelligibility. In this work, we present a systematic evaluation of four state-of-the-art CLVC systems spanning autoregressive and diffusion-based architectures. Using English source speakers from the ACL-60/60 dataset, we evaluate zero-shot voice transfer across multiple target languages, including Arabic, Chinese, French, German, Russian, and Japanese. Systems are assessed using speaker similarity and content consistency metrics under a unified multilingual evaluation pipeline. We analyze how different modeling approaches autoregressive language modeling and diffusion-based flow matching handle the tradeoff between speech accuracy and speaker identity preservation across different architectural approaches. We further observe substantial performance variation across languages, with Arabic remaining particularly challenging under zero-shot transfer settings.</abstract>
       <url hash="6f012dcf">2026.iwslt-1.12</url>
       <bibkey>ahtasam-etal-2026-balancing</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.12</doi>
     </paper>
     <paper id="13">
       <title><fixed-case>CUHKSZ</fixed-case> Simultaneous Speech Translation System for <fixed-case>IWSLT</fixed-case> 2026</title>
@@ -173,6 +187,7 @@
       <abstract>We present the CUHKSZ Team submission to the IWSLT 2026 Simultaneous Speech Translation evaluation, targeting the main and Extra Context tracks for English→<fixed-case>Chinese, German</fixed-case> on unsegmented speech. Our system is built upon Qwen3-Omni-30B-A3B, a natively aligned audio-text LLM. Under the Constrained condition, we apply LoRA adaptation exclusively to the LLM. Specifically, we construct syntax-aware, chunk-aligned supervision from existing ASR corpora, using Qwen3-30B-Instruct to synthesize target translations. This enables the model to internalize the simultaneous read/write policy by autonomously predicting &lt;wait&gt; tokens at semantically incomplete boundaries. With the policy internalized, execution is delegated to a lightweight streaming agent served via vLLM. This agent feeds audio in fixed chunks, manages a bounded dialogue history, and enforces strict emission controls to minimize computation-aware delay. For the sub-track, contextual priors are dynamically injected into the prompt. On the official dev set, our 0–2 s latency regime submissions achieve 40.5 BLEU (1.95 s) for En→Zh and 27.7 BLEU (1.72 s) for En→De. In the 2–4 s regime, performance scales to 42.1 BLEU (2.16 s) and 30.5 BLEU (2.29 s) respectively.</abstract>
       <url hash="8101d192">2026.iwslt-1.13</url>
       <bibkey>yang-nakamura-2026-cuhksz</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.13</doi>
     </paper>
     <paper id="14">
       <title>Fleurs-Badini: Translation and Recording Fleurs Dataset for Badini Variant of <fixed-case>N</fixed-case>orthern <fixed-case>K</fixed-case>urdish</title>
@@ -188,6 +203,7 @@
       <abstract>Multilingual speech benchmarks such as the FLEURS benchmark have significantly advanced research across a wide range of languages. However, important dialects, including Badini Kurdish, remain underrepresented, limiting bechmarking in automatic speech recognition (ASR) and speech-to-text translation (S2TT). To address this limitation, this study introduces FLEURS-Badini, a dialect-focused extension designed to support research on Northern Kurdish (Badini). The dataset is constructed through a structured process of translation, recording, and validation, resulting in 5,224 utterances paired with their corresponding translated text. The data were collected from 45 speakers. To evaluate the dataset, baseline experiments are conducted using state-of-the-art models for both ASR and S2TT. The results indicate that ASR remains challenging, with the best performance achieved by the W2V-BERT CTC model, reaching a Word Error Rate (WER) of approximately 55% on the test set. Similarly, speech-to-text translation performance is limited, with BLEU scores 6.13 and 5.24 on dev and test sets. Overall, FLEURS-Badini expands multilingual coverage and provides a standardized foundation for evaluating ASR and speech translation systems in the Badini dialect.</abstract>
       <url hash="8995b453">2026.iwslt-1.14</url>
       <bibkey>mohammadamini-etal-2026-fleurs</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.14</doi>
     </paper>
     <paper id="15">
       <title><fixed-case>LIUM</fixed-case> Submission for <fixed-case>IWSLT</fixed-case> 2026 Low-resource Speech Translation Track</title>
@@ -197,6 +213,7 @@
       <abstract>This paper describes the LIUM submission to the IWSLT 2026 low-resource speech translation track. It proposes different data augmentation methods for low-resource speech-to-text translation, including two main pipelines: pseudo-labeling and speech synthesis. The goal is to generate parallel speech data in low-resource scenarios without relying on human-annotated speech translation data. Our submission focuses on Central Kurdish–English language pairs. The objective of this work is to explore the advantages and limitations of each data augmentation method. Our best results are obtained using the pseudo-labeling pipeline, achieving a BLEU score of 25.73 on the development set and 21.09 on the test set for Central Kurdish–English translation.</abstract>
       <url hash="2000b4c1">2026.iwslt-1.15</url>
       <bibkey>mohammadamini-tahon-2026-lium</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.15</doi>
     </paper>
     <paper id="16">
       <title>Multilingual Long-Form Speech Instruction Following: <fixed-case>KIT</fixed-case>’s Submission to <fixed-case>IWSLT</fixed-case> 2026</title>
@@ -212,6 +229,7 @@
       <abstract>With the advent of Large Language Models, single-task and token-based multi-task models have evolved into instruction-based systems that infer task and target language implicitly from natural language prompts. This trend is reflected in IWSLT’s Instruction Following Track, which this year introduced new tasks including an unknown surprise task, posing a genuine challenge against overfitting to known tasks. We present KIT’s submission to the Long and Short Instruction Following tracks in the unconstrained setting. Our approach combines a general data augmentation pipeline that converts short-form corpora into long-form training data through segment concatenation, LLM-based label generation, and cross-lingual translation, yielding over 1M instances across six tasks and four languages. We further show that likelihood-based re-ranking, while highly effective for ASR, systematically degrades semantic tasks by spuriously selecting candidates generated from segmented audio processing rather than holistic long-form inference, a failure mode resolved by combining likelihood with Minimum Bayes Risk decoding.</abstract>
       <url hash="830fec61">2026.iwslt-1.16</url>
       <bibkey>ugan-etal-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.16</doi>
     </paper>
     <paper id="17">
       <title><fixed-case>NAVER</fixed-case> <fixed-case>LABS</fixed-case> <fixed-case>E</fixed-case>urope Submission to the Instruction-following 2026 Short Track</title>
@@ -223,6 +241,7 @@
       <abstract>In this paper, we describe NAVER LABS Europe’s submission to the instruction-following speech processing short track at IWSLT 2026. We participate again in the constrained setting, developing systems capable of jointly performing ASR, ST, and SQA from English speech into Chinese, Italian, and German. Building on our previous submission, ranked first in last year’s short track, we update our multi-stage training pipeline by replacing the speech projector with SpeechMapper, a method for learning a speech-to-LLM embedding projector using ASR-only data. In addition, we introduce a synthetic SQA dataset, fakACL, composed of artificially generated scientific presentations. This dataset is built by prompting the LLM backbone, segmenting the generated talks, and synthesizing speech with Seamless. The combination of an improved speech projection mechanism and domain-specific synthetic data allows our model to outperform last year’s best short-track system, while being considerably more compact and relying on a weaker LLM backbone.</abstract>
       <url hash="33294cc5">2026.iwslt-1.17</url>
       <bibkey>zanon-boito-etal-2026-naver</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.17</doi>
     </paper>
     <paper id="18">
       <title><fixed-case>CATENG</fixed-case> Submission for the <fixed-case>IWSLT</fixed-case> 2026: Dialectal and Low-resource Speech Translation Task</title>
@@ -236,6 +255,7 @@
       <abstract>We present the CATENG systems submitted to the IWSLT 2026 Dialectal and Low-Resource Speech Translation shared task for the Catalan–English (CA–EN) pair. Although Catalan is not strictly low-resource, its dialectal diversity and relative under-representation in speech technology make it a challenging setting. We evaluate three unconstrained systems: two cascaded approaches combining ASR and MT, and one end-to-end model. Our primary system uses a Mamba-based ASR (ConMamba) with a fine-tuned NLLB-200 MT model, while a contrastive system replaces the ASR with Whisper-v3; we also evaluate an end-to-end SpeechT5 model with data augmentation. Experiments are conducted on the IWSLT 2026 Catalan dataset (15 hours), complemented with large-scale parallel text. Results show that cascaded systems outperform end-to-end ST, with Whisper-v3 + NLLB achieving 44.7 BLEU and 65.1 chrF. We find that performance is primarily constrained by ASR quality rather than MT capacity, and that Mamba-based ASR models provide competitive results, highlighting the importance of robust speech representations and dialectal coverage for Catalan–English speech translation.</abstract>
       <url hash="eb35b413">2026.iwslt-1.18</url>
       <bibkey>zevallos-etal-2026-cateng</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.18</doi>
     </paper>
     <paper id="19">
       <title><fixed-case>BSC</fixed-case>’s Submission to the Instruction Following Track of <fixed-case>IWSLT</fixed-case> 2026</title>
@@ -249,6 +269,7 @@
       <abstract>We present the Barcelona Supercomputing Center (BSC) submission to the Instruction Following (IF) track of IWSLT 2026, which evaluates unified spoken language systems capable of solving multiple tasks through natural language instructions. Our system consists of an end-to-end (E2E) architecture that combines a speech encoder with a translation-oriented Large Language Model. The model is trained on speech and text data, covering automatic speech recognition, translation, question answering, and instruction following. We investigate a Chain-of-Thought (CoT) generation strategy that explicitly decomposes tasks by producing an intermediate transcription before the final output, which enables effective reuse of text-only supervision and improves robustness across tasks. To further support generalization, we design diverse prompt formulations and align text-only and speech inputs under a shared inference pattern. Results on IWSLT 2025 evaluation data show that our approach achieves competitive and even state-of-the-art performance across tasks.</abstract>
       <url hash="46739211">2026.iwslt-1.19</url>
       <bibkey>pareras-etal-2026-bscs</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.19</doi>
     </paper>
     <paper id="20">
       <title>Towards Dynamic Attention Masking for Simultaneous Speech Translation</title>
@@ -257,6 +278,7 @@
       <abstract>We present a proof-of-concept system for simultaneous speech translation based on dynamic attention masking. Our approach builds on SeamlessM4T by injecting lightweight per-layer schedulers into the conformer-encoder, training each scheduler to predict the number of future frames needed for translation. The schedulers are trained jointly with LoRA adapters across three language directions: English to German, Italian, and Chinese. At inference time, we evaluate our system using sliding window retranslation inference regime (Sen et al., 2022), and an adapted version of StreamAtt (Papi et al., 2024) that replaces the fixed cutoff with a content-aware threshold derived from the learnt representations from the scheduler outputs.</abstract>
       <url hash="47420490">2026.iwslt-1.20</url>
       <bibkey>pong-2026-towards</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.20</doi>
     </paper>
     <paper id="21">
       <title>Diet-<fixed-case>KIT</fixed-case>: Post-Training Quantization for Speech <fixed-case>LLM</fixed-case>s</title>
@@ -267,6 +289,7 @@
       <abstract>We present Diet-KIT, a system for the IWSLT speech translation compression task under a strict 4 GB on-disk storage constraint, starting from the 16 GB Qwen2-Audio-7B base model. Compression is achieved with a sequential pipeline based on Half-Quadratic Quantization (HQQ). Based on systematic ablations, we find that 4-bit quantization preserves translation quality well, whereas 3-bit quantization induces a sharp performance cliff, precluding aggressive compression across the whole model. We further show that the embedding table tolerates 2-bit quantization with negligible loss, while the LM head requires higher precision. To satisfy the storage constraint, we propose a sensitivity-guided layer selection method that identifies MLP sublayers tolerant to 3-bit compression via a per-layer sensitivity analysis, which consistently outperforms manual and random layer selection. Finally, AWQ calibration is applied as a data-driven refinement stage. The final system achieves 3.98 GB on disk with COMET scores of 74.4 on en→de and 77.1 on en→zh, compared to 75.6 and 79.5 for the uncompressed fine-tuned model.</abstract>
       <url hash="6f7f53c1">2026.iwslt-1.21</url>
       <bibkey>liu-etal-2026-diet</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.21</doi>
     </paper>
     <paper id="22">
       <title>A Pocket Offline Model for Simultaneous Speech Translation as <fixed-case>CUNI</fixed-case> Submission to <fixed-case>IWSLT</fixed-case> 2026</title>
@@ -276,6 +299,7 @@
       <abstract>We implement a direct speech translation model Canary for simultaneous translation with AlignAtt simultaneous policy. We focus on Nemo toolkit with the recent state-of-the-art foundation model Canary-1B-v2 that has only one billion of parameters, which is suitable for small pocket devices. This is a CUNI submission to IWSLT 2026 Simultaneous Speech Translation Shared task on Czech to English and English to German and Italian.</abstract>
       <url hash="1694ff5b">2026.iwslt-1.22</url>
       <bibkey>sharipov-ortega-machacek-2026-pocket</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.22</doi>
     </paper>
     <paper id="23">
       <title><fixed-case>N</fixed-case>e<fixed-case>M</fixed-case>o@<fixed-case>IWSLT</fixed-case> 2026: Cascaded System for Simultaneous Speech Translation</title>
@@ -292,6 +316,7 @@
       <abstract>This paper describes the NVIDIA NeMo team’s submission to the IWSLT 2026 Simultaneous Speech Translation (SimulST) tracks. We use a cascaded architecture combining a dual-mode Unified ASR Transducer model with a multilingual Large Language Model (LLM). The ASR is trained to deliver stable transcriptions across wide range of latencies, providing a reliable foundation for high-quality LLM translation. Our submission participates in the English–German, English–Italian, and English–Chinese tasks, in both standard and contextualized settings, as well as the Czech–English standard track, covering both low- and high-latency scenarios. We further analyze how ASR and LLM design choices affect the system’s overall latency and translation quality.</abstract>
       <url hash="fcf2fe43">2026.iwslt-1.23</url>
       <bibkey>grigoryan-etal-2026-nemo</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.23</doi>
     </paper>
     <paper id="24">
       <title><fixed-case>MLLP</fixed-case>-<fixed-case>VRAIN</fixed-case> <fixed-case>UPV</fixed-case> System for the <fixed-case>IWSLT</fixed-case> 2026 Simultaneous Speech Translation Task</title>
@@ -305,6 +330,7 @@
       <abstract>This work describes the participation of the MLLP-VRAIN research group in the shared task of the IWSLT 2026 Simultaneous Speech Translation track. Our submission utilizes the recently released Parakeet and Qwen 3.5 models to create a robust, cascaded solution for long-form SimulST through the use of adaptive black-box policies. We explore relaxations of these policies to achieve better quality-latency trade-offs. Compared to last year, we participate on all language directions. In addition to this, for the En→<fixed-case>De, It, Zh</fixed-case> directions we also participate in this year’s new context track employing a combination of ASR word-boosting and a RAG mechanism of offline pre-translated exemplars to guide generation and enrich our system with domain-specific context. Finally, we provide a detailed latency analysis of our system. Compared to last year, results on the MCIF En→De test set shows a substantial quality improvement of +5.82 XCOMET-XL. Our context track processing further improves performance by +1.03.</abstract>
       <url hash="e290e1c9">2026.iwslt-1.24</url>
       <bibkey>iranzo-sanchez-etal-2026-mllp</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.24</doi>
     </paper>
     <paper id="25">
       <title>One Voice, Many Tongues: Cross-Lingual Voice Cloning for Scientific Speech</title>
@@ -314,6 +340,7 @@
       <abstract>Preserving a speaker’s voice identity while generating speech in a different language remains a fundamental challenge in spoken language technology, particularly in specialized domains such as scientific communication. In this paper, we address this challenge through our system submission to the International Conference on Spoken Language Translation (IWSLT 2026), the Cross-Lingual Voice Cloning shared task. First, we evaluate several state-of-the-art voice cloning models for cross-lingual speech generation of scientific texts in Arabic, Chinese, and French. Then, we build voice cloning systems based on the OmniVoice foundation model. We employ data augmentation via multi-model ensemble distillation from the ACL 60/60 corpus. We investigate the effect of using this synthetic data for fine-tuning, demonstrating improvements in intelligibility (WER and CER) and speaker similarity (SIM), with gains varying across languages.</abstract>
       <url hash="91e6f45a">2026.iwslt-1.25</url>
       <bibkey>abebe-moslem-2026-one</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.25</doi>
     </paper>
     <paper id="26">
       <title><fixed-case>M</fixed-case>apudungun-<fixed-case>S</fixed-case>panish Speech Translation: A Low-Resource End-to-End System for the <fixed-case>IWSLT</fixed-case> 2026 Shared Task</title>
@@ -327,6 +354,7 @@
       <abstract>We present an end-to-end speech translation system for Mapudungun–Spanish developed for the IWSLT 2026 low-resource task. Building on the Canary-1B-v2 model, we apply parameter-efficient fine-tuning with a lightweight adapter and leverage an English-centered configuration as a proxy to enable translation. Experiments show that the system captures key phonetic patterns despite limited data, though it exhibits biases toward repetitive Spanish outputs. Our results highlight both the feasibility and the challenges of adapting multilingual foundation models to low-resource Indigenous languages.</abstract>
       <url hash="00498b2b">2026.iwslt-1.26</url>
       <bibkey>barriga-martinez-etal-2026-mapudungun</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.26</doi>
     </paper>
     <paper id="27">
       <title>Test-Time Adaptation of an Offline Multimodal Foundation Model for Simultaneous Speech Translation</title>
@@ -338,6 +366,7 @@
       <abstract>End-to-end simultaneous speech-to-text translation (SimulST) systems typically rely on complex architectures and sophisticated training strategies. In contrast, we propose a simple approach that combines conventional pause-based segmentation for streaming audio input with a strong off-the-shelf multimodal foundation model adapted at test-time for translation. To achieve simultaneity, we adopt a variant of the classic wait-k read-write policy to control the interaction between audio input and translation output, and use a multi-turn conversation format with response prefilling and key-value caching for coherent translation and computational efficiency. Experiments on the official development sets of the IWSLT 2026 SimulST shared task show that our system achieves a better quality–latency trade-off than the cascaded baseline across all language directions and latency regimes, highlighting the effectiveness of this simple yet powerful approach.</abstract>
       <url hash="82947c9a">2026.iwslt-1.27</url>
       <bibkey>xing-etal-2026-test</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.27</doi>
     </paper>
     <paper id="28">
       <title><fixed-case>AURA</fixed-case>-<fixed-case>ST</fixed-case>: Acoustic-Unconstrained Residual Architecture for Speech Translation</title>
@@ -349,6 +378,7 @@
       <abstract>We present AURA-ST, a three-stage modular pipeline for low-resource speech-to-text translation submitted to the IWSLT 2026 African-Celtic Track 1. The architecture bypasses traditional cross-attention between audio and text modalities by treating projected acoustic representations as a native token prefix to a frozen large language model. A dual-stream encoder captures linguistic and paralinguistic features via a jointly trained semantic and a paralinguistic encoder. A convolutional subsampler then bridges the modality gap through a 4x temporal compression and a linear projection into the LLM embedding space. Finally, a MLP-targeted Low-Rank Adaptation adapter fine-tunes the frozen Gemma-4-E2B backbone for translation without catastrophic forgetting of base language model knowledge. We further identify and resolve the incompatibility between standard PEFT attention-level adapter injection and the Gemma-4 Per-Layer Embedding architecture that tends to cause gradient isolation. Trained on the IWSLT 2026 Track 1 data covering Hausa, Igbo, and Yoruba, the final system achieves a best proxy teacher-forced SacreBLEU of 91.29 on the validation set at Phase 3, with Phase 1 speech encoder validation loss converging to 0.651.</abstract>
       <url hash="4ab5e236">2026.iwslt-1.28</url>
       <bibkey>hb-etal-2026-aura</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.28</doi>
     </paper>
     <paper id="29">
       <title><fixed-case>FBK</fixed-case>’s Long-form <fixed-case>S</fixed-case>peech<fixed-case>LLM</fixed-case>s for <fixed-case>IWSLT</fixed-case> 2026 Instruction Following</title>
@@ -361,6 +391,7 @@
       <abstract>This paper describes our submission to the IWSLT 2026 Instruction Following shared task. SpeechLLM systems are developed for both short-form and long-form speech instruction following under constrained settings. For the short track, strong performance is achieved on MCIF, with a SIFS score of 2.0708. For the long track, three speech segmentation strategies are investigated, and the HIFS score is introduced to account for unstable long-form generation. Experimental results show that fixed 30-second segmentation provides the most robust long-form performance, achieving the highest HIFS score of 2.0663. Further analysis shows that hallucination mainly manifests as repetitive insertions, substantially affecting ASR and SSUM, while short-form capabilities are largely retained after long-form extension.</abstract>
       <url hash="8924a18b">2026.iwslt-1.29</url>
       <bibkey>xie-etal-2026-fbks</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.29</doi>
     </paper>
     <paper id="30">
       <title>Pinch-<fixed-case>AST</fixed-case>: Robust Cascaded Speech Translation System for the <fixed-case>IWSLT</fixed-case> 2026 Simultaneous Speech Translation Task</title>
@@ -370,6 +401,7 @@
       <abstract>We describe Pinch-AST, our submission to the IWSLT 2026 Simultaneous Speech-to-Text Translation shared task, covering all four official directions (En → De, En → It, En → Zh, Cs → En) under both low- and high- latency regimes. Pinch-AST is a cascaded system pairing off-the-shelf speech models with a translation backbone adapted per language pair via LoRA on ASR-noise-augmented parallel data. The streaming policy is a character-level longest-common-prefix re-translation strategy, and the full pipeline runs on a single H100 80 GB GPU within the real-time budget. Evaluated on the IWSLT 2026 development set, Pinch-AST achieves competitive quality–latency trade-offs across all four language pairs in both latency regimes.</abstract>
       <url hash="e3b9579c">2026.iwslt-1.30</url>
       <bibkey>bentes-safka-2026-pinch</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.30</doi>
     </paper>
     <paper id="31">
       <title><fixed-case>IIIT</fixed-case>-<fixed-case>BGP</fixed-case> <fixed-case>IWSLT</fixed-case> 2026 Systems for Low-resource <fixed-case>ST</fixed-case></title>
@@ -381,6 +413,7 @@
       <abstract>We present low-resource Bhojpuri-Hindi speech translation systems for the IWSLT 2026 shared task, covering both end-to-end and cascaded settings. Our end-to-end model connects a Bhojpuri-finetuned Wav2Vec2 encoder to a pretrained NLLB-200 decoder via a lightweight interconnection adapter that combines learnable layer aggregation, CNN-based temporal compression, and Transformer refinement, with optional LoRA-based decoder adaptation. For our cascaded system, we finetune Whisper for Bhojpuri ASR and NLLB-200 for Hindi MT, and further apply QE Fusion with COMET-Kiwi to improve translation selection from beam candidates.</abstract>
       <url hash="a659c681">2026.iwslt-1.31</url>
       <bibkey>singh-etal-2026-iiit</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.31</doi>
     </paper>
     <paper id="32">
       <title><fixed-case>A</fixed-case>lign<fixed-case>A</fixed-case>tt4<fixed-case>LLM</fixed-case>: Fast <fixed-case>A</fixed-case>lign<fixed-case>A</fixed-case>tt for Decoder-Only <fixed-case>LLM</fixed-case>s at <fixed-case>IWSLT</fixed-case> 2026 Simultaneous Speech Translation Task</title>
@@ -390,6 +423,7 @@
       <abstract>We describe AlignAtt4LLM, an IWSLT 2026 simultaneous speech translation system for English to German, Italian, and Chinese. The system is a synchronous cascade: Qwen3-ASR with forced alignment produces an incrementally updated source transcript, and Gemma-4 E4B-it translates that prefix under an MT-side AlignAtt policy. To our knowledge, this is the first application of AlignAtt to a decoder-only LLM, where the encoder-decoder cross-attention used by earlier AlignAtt systems is absent. We recover a usable policy by proposing (1) an explicit source span in the prompt, (2) offline selection of translation-specific alignment heads, (3) selective qk-fast replay of the draft-to-source attention block, and (4) runtime query/key capture that preserves model outputs bit-identically. On the IWSLT 2026 development set, AlignAtt4LLM outperforms the supplied baselines for the European target languages, English to German and English to Italian, in both the low-latency regime around 2 seconds and the high-latency regime below 4 seconds CU-LongYAAL. Results for English to Chinese are more mixed, but the method is not tied to Gemma-4: because AlignAtt4LLM only requires a deterministic prompt layout, calibrated attention heads, and query/key capture, the same policy can be reapplied to stronger translation-focused decoder-only MT backbones for non-European target languages.</abstract>
       <url hash="7911db27">2026.iwslt-1.32</url>
       <bibkey>fuxa-machacek-2026-alignatt4llm</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.32</doi>
     </paper>
     <paper id="33">
       <title>The <fixed-case>CUHKSZ</fixed-case> System for the <fixed-case>IWSLT</fixed-case> 2026 Low-Resource Speech-to-Text Task</title>
@@ -400,6 +434,7 @@
       <abstract>This paper describes the CUHKSZ system for the IWSLT 2026 Low-Resource Speech-to-Text task. We propose Gradient-Driven Parameter Sharing (GDPS), a framework that analyzes inter-language gradient behaviors to automatically determine optimal language groupings and shared-private parameter ratios. Built upon SeamlessM4T-Medium, GDPS reduces negative transfer by specializing Layer 11 FFN2 while maintaining shared encoder representations across languages. Additionally, we incorporate curriculum distillation with progressive pseudo-label mixing and test-time reranking combining prior-BLEU weighting and self-consistency scoring. Evaluation on eight low-resource languages (bem, ckb, gle, hau, ibo, yor, aeb, est) demonstrates strongest gains on bem (+2.07 BLEU), hau (+1.50), and ibo (+0.38) compared to unified fine-tuning, while ckb and yor benefit more from prior-based reranking at inference.</abstract>
       <url hash="c984444b">2026.iwslt-1.33</url>
       <bibkey>sun-etal-2026-cuhksz</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.33</doi>
     </paper>
     <paper id="34">
       <title>Hurdles of Automatic Metric for Speech Translation Evaluation</title>
@@ -409,6 +444,7 @@
       <abstract>Automatic evaluation of speech translation has so far relied on text-only automated metrics that ignore speech phenomena. One would expect that incorporating the source audio modality would improve the performance of automatic metrics. We implement two standard metric paradigms: a COMET-audio regression model using audio and text encoders, and one based on prompting a speech large language model. Surprisingly, both audio-infused models fail to reliably surpass text-only baselines. We attribute this failure to the noise pollution and audio-transcript mismatches present in the audio signal, which makes the modality unreliable from the metric’s perspective. Furthermore, we argue that current human-annotated evaluation datasets for automated metrics predominantly feature technical content or short texts where paralinguistic features like prosody lack importance, rendering the extra audio information unhelpful for quality estimation (QE).</abstract>
       <url hash="55b04fd0">2026.iwslt-1.34</url>
       <bibkey>zarzu-zouhar-2026-hurdles</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.34</doi>
     </paper>
     <paper id="35">
       <title>Optimization of Voice Translation Systems for Indigenous Languages: Retraining the <fixed-case>NLLB</fixed-case>-200 Model for the <fixed-case>Q</fixed-case>uechua–<fixed-case>S</fixed-case>panish Pair</title>
@@ -420,6 +456,7 @@
       <abstract>This article describes the fine-tuning and incremental retraining process of the massive NLLB-200 model applied to the Quechua (Chanka and Collao variants) and Spanish language pair. Using a curated dataset of 22,891 parallel pairs, a robust cleaning strategy and optimized training for consumer hardware (NVIDIA RTX 3060) were implemented. The results demonstrate a progressive improvement in the BLEU metric, reaching a competitive state for translation tasks in low-resource scenarios, in line with the challenges posed by the IWSLT 2026 shared task.</abstract>
       <url hash="47d283a3">2026.iwslt-1.35</url>
       <bibkey>quispe-callanaupa-etal-2026-optimization</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.35</doi>
     </paper>
     <paper id="36">
       <title>Tie-Calibrated <fixed-case>COMETK</fixed-case>iwi for Speech Translation Quality Estimation: <fixed-case>IWSLT</fixed-case>2026 Metrics Track</title>
@@ -431,6 +468,7 @@
       <abstract>We describe our submission to the IWSLT 2026 Speech Translation Metrics shared task, which targets reference-free quality estimation for English-to-German and English-to-Chinese speech translation. Our primary system combines COMETKiwi-22, applied to ASR transcripts, with a lightweight post-processing step called tie calibration: a learned score-bucketing that collapses near-identical scores into exact ties, reducing noisy within-document pairwise ranking errors. On the official development set the method achieves a segment-level Kendall tau-b of 39.4% on average, compared to 34.6% for plain COMETKiwi, 29.2% for SpeechQE, and 24.4% for BLASER 2.0 QE. System-level Soft Pairwise Accuracy is 88.0%, comparable to COMETKiwi (89.4%) and above SpeechQE (86.0%). The method requires no audio, no retraining, and one hyperparameter per target language tuned entirely on the training split.</abstract>
       <url hash="da98582b">2026.iwslt-1.36</url>
       <bibkey>shah-etal-2026-tie</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.36</doi>
     </paper>
     <paper id="37">
       <title><fixed-case>H</fixed-case>ydra<fixed-case>QE</fixed-case>: <fixed-case>OSU</fixed-case>’s Submission for the <fixed-case>IWSLT</fixed-case> 2026 Speech Translation Metrics Shared Task</title>
@@ -440,6 +478,7 @@
       <abstract>We present HydraQE, our contribution to the IWSLT 2026 Speech Translation Metrics shared task. HydraQE is an end-to-end, reference-free quality estimation (QE) system for speech translation built on a Qwen3-ASR backbone, which accepts source audio and a translation hypothesis as joint input. Hidden states from all backbone layers are combined via a sparsemax scalar mix, then re-encoded by a bidirectional Transformer for full cross-modal interaction. To address the scarcity of human-annotated speech translation data, three independent prediction heads are trained on complementary supervision signals: human direct assessment (DA) annotations, MetricX-24 pseudo-labels, and xCOMET pseudo-labels. We train on a combination of synthetically corrupted examples and silver pseudo-labeled machine translation outputs, using a curriculum that begins on synthetic and silver data and gradually shifts toward human-annotated examples. HydraQE outperforms cascaded text-based baselines and prior direct speech QE systems, demonstrating that end-to-end speech translation QE is competitive with cascaded approaches.</abstract>
       <url hash="c35165dc">2026.iwslt-1.37</url>
       <bibkey>krahn-fosler-lussier-2026-hydraqe</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.37</doi>
     </paper>
     <paper id="38">
       <title>Lexilogic@<fixed-case>IWSLT</fixed-case> 2026: Pairwise Ranking Fine-tuning of <fixed-case>C</fixed-case>omet<fixed-case>K</fixed-case>iwi for Speech Translation Quality Estimation</title>
@@ -448,6 +487,7 @@
       <abstract>We describe our submission to the IWSLT 2026 Speech Translation Metrics Shared Task for the ASR text to translated text evaluation scenario. We fine-tune CometKiwi-22, a 580M-parameter quality estimation model, with a pair-wise ranking objective, and construct within-document translation pairs and train with an adaptive margin ranking loss combined with mean squared error (MSE) calibration. Our system achieves 35.2% per-source Kendall’s τ on the dev (development) set.</abstract>
       <url hash="1f6e2acc">2026.iwslt-1.38</url>
       <bibkey>gupta-2026-lexilogic</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.38</doi>
     </paper>
     <paper id="39">
       <title>Speech Translation and Metrics in 2026: Findings of the <fixed-case>IWSLT</fixed-case> Campaign</title>
@@ -510,6 +550,7 @@
       <abstract>This paper reports on the outcomes of the shared tasks organized as part of the 23rd International Workshop on Spoken Language Translation (IWSLT). The workshop covered ten major challenges in spoken language translation, including speech-to-text translation for both high-resource and low-resource language pairs, customized speech translation, speech generation, instruction-following speech processing, and the evaluation of speech translation systems. The shared tasks received strong participation, with more than 30 teams submitting runs. This year’s edition broadened the range of tasks, placing particular emphasis on speech generation and evaluation metrics.</abstract>
       <url hash="db5ce5a5">2026.iwslt-1.39</url>
       <bibkey>adelani-etal-2026-speech</bibkey>
+      <doi>10.18653/v1/2026.iwslt-1.39</doi>
     </paper>
   </volume>
 </collection>
