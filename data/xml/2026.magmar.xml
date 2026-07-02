@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.magmar">
+  <volume id="main" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the 2nd Workshop on Multimodal Augmented Generation via Multimodal Retrieval (<fixed-case>MAGM</fixed-case>a<fixed-case>R</fixed-case> 2026)</booktitle>
+      <editor><first>Kenton</first><last>Murray</last></editor>
+      <editor><first>Reno</first><last>Kriz</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, USA</address>
+      <isbn>979-8-89176-425-5</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="010ce446">2026.magmar-main</url>
+      <venue>magmar</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.magmar-main</doi>
+    </meta>
+    <frontmatter>
+      <url hash="50d6e8c4">2026.magmar-main.0</url>
+      <bibkey>magmar-2026-main</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.0</doi>
+    </frontmatter>
+    <paper id="3">
+      <title>When Image and Text Disagree: Cross-Modal Evidence Conflict in Multimodal Retrieval-Augmented Generation</title>
+      <author id="jasper-kyle-catapang" orcid="0000-0002-4510-0975" openreview="~Jasper_Kyle_Catapang1"><first>Jasper Kyle</first><last>Catapang</last><affiliation>Tokyo University of Foreign Studies</affiliation></author>
+      <pages>1-10</pages>
+      <abstract>This paper introduces the Cross-Modal Conflict Benchmark (CMC-Bench) to evaluate how multimodal retrieval-augmented generation (RAG) systems handle contradicting evidence between retrieved text and images. Using 3,768 instances from ChartQA and MMMU evaluation splits, the study benchmarks four open vision-language models (VLMs) across four conflict types (factual, temporal, entity, and granularity) and four evidence conditions: aligned (both modalities support the gold answer), image-correct (image supports the gold and text contradicts it), text-correct (text supports the gold and the image is wrong or swapped), and both-wrong(neither modality supports the gold). Key findings reveal that cross-modal disagreement severely degrades performance, with change in accuracy between 0.17 and 0.46 relative to aligned evidence. Results show models often exhibit a modality lean rather than reliable arbitration, with text-leaning systems particularly vulnerable when only the image is correct. Furthermore, merging abstention and fabrication into a single hallucination score obscures critical behavioral differences; for instance, Qwen3-VL-4B abstains on 31.7% of conflicts, while Gemma-3n-E2B fabricates unsupported answers in 51.9% of conflicts. Multimodal RAG evaluation should explicitly distinguish abstention from fabrication to assess reliability accurately.</abstract>
+      <url hash="8b123b55">2026.magmar-main.3</url>
+      <bibkey>catapang-2026-image</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.3</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>MODE</fixed-case>-<fixed-case>RAG</fixed-case>: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation</title>
+      <author openreview="~Zehang_Wei1"><first>Zehang</first><last>Wei</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author openreview="~JiaXin_Dai3"><first>JiaXin</first><last>Dai</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author openreview="~Jiamin_Yan1"><first>Jiamin</first><last>Yan</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author id="xiang-xiang" orcid="0000-0003-0606-6193" openreview="~Xiang_Xiang1"><first>Xiang</first><last>Xiang</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <pages>11-26</pages>
+      <abstract>While Multimodal Retrieval-Augmented Generation (M-RAG) enhances Large Vision-Language Models, it remains highly susceptible to cross-modal hallucinations, causal fabrications, and sycophancy. Furthermore, existing mitigation pipelines often face an intervention paradox: static rules tend to unnecessarily disrupt accurate generations, whereas leaving the multi-modal reasoning completely unguided allows existing mismatches to cascade into severe logical fabrications. To quantify and mitigate these hallucinations, we propose a Multi-Agent system, MODE-RAG, driven by Variational Free Energy (VFE) and internal attention states to dynamically gate interventions. High-risk queries are routed to five stage-specific agents, integrating Monte Carlo Tree Search (MCTS) for rigorous causal derivation and logit perturbations to penalize sycophancy. Dedicated Correction and Overseer agents ensure formatting stability and perform post-hoc factual verification. To objectively evaluate our approach, we introduce ModeVent, a challenging subset derived from the MultiVent dataset. Extensive experiments indicate that our system effectively reduces hallucination rates and logical fabrication, significantly improving the robustness of M-RAG systems.</abstract>
+      <url hash="203dc59d">2026.magmar-main.6</url>
+      <bibkey>wei-etal-2026-mode</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.6</doi>
+    </paper>
+    <paper id="8">
+      <title>Non-Event Oriented Video Assessments in Long-Form Robot Videos</title>
+      <author id="stephanie-m-lukin" orcid="0000-0001-8761-167X" openreview="~Stephanie_M._Lukin1"><first>Stephanie M.</first><last>Lukin</last><affiliation>DEVCOM Army Research Laboratory</affiliation></author>
+      <author><first>Kimberly A.</first><last>Pollard</last><affiliation>Army Research Laboratory</affiliation></author>
+      <author openreview="~Claire_Bonial1"><first>Claire</first><last>Bonial</last><affiliation>Army Research Laboratory</affiliation></author>
+      <author><first>Cory J.</first><last>Hayes</last><affiliation>Army Research Laboratory</affiliation></author>
+      <author id="ron-artstein" orcid="0009-0005-5187-6381" openreview="~Ron_Artstein1"><first>Ron</first><last>Artstein</last><affiliation>University of Southern California</affiliation></author>
+      <author openreview="~Kallirroi_Georgila1"><first>Kallirroi</first><last>Georgila</last><affiliation>University of Southern California</affiliation></author>
+      <author openreview="~David_Traum1"><first>David</first><last>Traum</last><affiliation>University of Southern California</affiliation></author>
+      <pages>27-41</pages>
+      <abstract>We introduce Video-SCOUT, a novel dataset of sixty 20-minute robot-recorded videos from human-robot collaborative exploration exercises, together with a new video analysis method for these types of exploration videos. Unlike video from stationary cameras where detection of motion can help identify events of interest, the camera in an exploration task is constantly in motion while the environment is stationary. Our analysis method—Non-Event Oriented Video Assessments (NOVA)—uses vision-language models to select frames relevant for supporting a particular assessment within continuous long-form videos. Results of testing with two different video-language models reveals a trade-off in precision and recall, and exhibits gains in overall recall when combined with a human’s knowledge, suggesting that NOVA may improve a human analysis of robot-navigation. We outline future work to mitigate miscommunication in human-robot interaction by leveraging dialogue with NOVA in support of better collaboration.</abstract>
+      <url hash="d4e0875e">2026.magmar-main.8</url>
+      <bibkey>lukin-etal-2026-non</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.8</doi>
+    </paper>
+    <paper id="10">
+      <title>Less is More: Controlled Visual Evidence Routing and Redundancy Compression for Key Information Extraction</title>
+      <author id="yang-li-1452" orcid="0009-0008-8451-1452" openreview="~Yang_Li157"><first>Yang</first><last>Li</last><affiliation>University of the Chinese Academy of Sciences</affiliation></author>
+      <author id="yajiao-wang" orcid="0009-0008-4009-9523" openreview="~Yajiao_Wang1"><first>Yajiao</first><last>Wang</last><affiliation>University of the Chinese Academy of Sciences</affiliation></author>
+      <author id="wenhao-hu" orcid="0000-0002-6067-1995" openreview="~Wenhao_Hu2"><first>Wenhao</first><last>Hu</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
+      <author id="mengting-zhang" orcid="0000-0002-9941-7548" openreview="~Mengting_Zhang3"><first>Mengting</first><last>Zhang</last><affiliation>University of the Chinese Academy of Sciences</affiliation></author>
+      <author id="zhixiong-zhang" orcid="0000-0003-1596-7487" openreview="~zhixiong_zhang4"><first>Zhixiong</first><last>Zhang</last><affiliation>University of the Chinese Academy of Sciences</affiliation></author>
+      <pages>42-53</pages>
+      <abstract>Key Information Extraction (KIE) in visually-rich documents is inherently token-centric, yet prevailing multimodal encoders often fuse dense visual patches with text tokens indiscriminately, which can introduce low-density visual noise, intensify modality competition, and cause robustness collapse under distribution shifts. We propose OTCR, a lightweight and architecture-agnostic framework that turns vision from a competitor into a selective supporter for extraction. OTCR learns sparse, interpretable cross-modal coupling via optimal transport to route local visual evidence to the most relevant text tokens, applies token-level gating to control injection strength, and further suppresses spurious correlations through a variational information bottleneck. Experiments on FUNSD, CORD, and SROIE show consistent gains when OTCR is plugged into LayoutLMv3 and GeoLayoutLM, and ablations verify the complementary contributions of coupling, gating, and bottlenecking. Under distribution shifts from Do-GOOD and EC-FUNSD, OTCR markedly mitigates performance degradation, indicating that controlled visual evidence can effectively compensate when text/layout shortcuts become unreliable.</abstract>
+      <url hash="30ed87f0">2026.magmar-main.10</url>
+      <bibkey>li-etal-2026-less</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>K</fixed-case>o<fixed-case>V</fixed-case>i<fixed-case>D</fixed-case>o<fixed-case>R</fixed-case>e: A Benchmark for <fixed-case>K</fixed-case>orean Visual Document Retrieval</title>
+      <author openreview="~Yongbin_Choi1"><first>Yongbin</first><last>Choi</last><affiliation>Kyung Hee University</affiliation></author>
+      <author openreview="~Yongwoo_Song1"><first>Yongwoo</first><last>Song</last><affiliation>Kyung Hee University</affiliation></author>
+      <author openreview="~Mujeen_Sung1"><first>Mujeen</first><last>Sung</last><affiliation>Kyung Hee University</affiliation></author>
+      <pages>54-80</pages>
+      <abstract>Recent advances in multimodal retrieval have improved the ability to retrieve information from visually rich documents such as PDFs and reports. However, existing benchmarks remain largely centered on English and provide limited coverage of Korean visual documents with complex structures. Furthermore, most existing Korean resources primarily evaluate single-page retrieval, failing to capture realistic scenarios that require evidence aggregation across multiple pages. To address these gaps, we introduce KoViDoRe, a benchmark for Korean visual document retrieval. The dataset is constructed from publicly available Korean documents with diverse layouts, including tables, figures, and multi-column structures. We develop a multi-stage data curation pipeline consisting of structured document parsing, synthetic query generation using both summary-based and context-based strategies, and relevance mapping with human verification. Using KoViDoRe, we evaluate a wide range of multimodal retrieval models and observe that current models struggle to effectively handle Korean visual document retrieval, particularly in settings involving structured content and diverse query types. Motivated by this finding, we further curate a large-scale training dataset, Ko-VDR Train Public, to support the development of retrieval models tailored to Korean visual documents. Together, KoViDoRe and Ko-VDR Train Public provide a unified benchmark and training resource for Korean visual document retrieval.</abstract>
+      <url hash="37d29aa2">2026.magmar-main.11</url>
+      <bibkey>choi-etal-2026-kovidore</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Decoupling Semantics and Logic: A Training-Free Coarse-to-Fine Pipeline for Video Retrieval-Augmented Generation</title>
+      <author openreview="~JiaXin_Dai3"><first>JiaXin</first><last>Dai</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author openreview="~Zehang_Wei1"><first>Zehang</first><last>Wei</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author openreview="~Jiamin_Yan1"><first>Jiamin</first><last>Yan</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author id="xiang-xiang" orcid="0000-0003-0606-6193" openreview="~Xiang_Xiang1"><first>Xiang</first><last>Xiang</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <pages>81-91</pages>
+      <abstract>This paper presents our system description for the 2nd Workshop on Multimodal Augmented Generation via MultimodAl Retrieval (MAGMaR). Addressing the critical challenges of cross-lingual long-video comprehension, strict persona adherence, and zero-hallucination temporal grounding, we propose a fully training-free, two-stage cascaded Video RAG pipeline. Our architecture strategically decouples semantic retrieval from cognitive logical reasoning through a modality-aware division of labor. In the first stage, a high-recall semantic pre-fetching module employs dense retrieval using only high-fidelity visual summaries and global text descriptions, explicitly isolating noisy modalities (e.g., OCR and ASR) to maintain a pristine vector space. In the second stage, an Adaptive, Iterative, and Reasoning-based (A.I.R.) filtering agent, powered by a commercial Large Language Model (LLM), performs fine-grained cognitive reranking. The agent re-incorporates full multimodal contexts to enforce strict logical alignment with user personas, effectively pruning semantically similar but logically irrelevant candidates. Finally, a Prompt Sculpting mechanism constrains the generator to synthesize the distilled subset into strictly formatted JSON responses with exact chunk-level citations. Evaluated on the Full RAG track, our resource-aware approach demonstrates exceptional precision in both information retrieval and persona-conditioned generation.</abstract>
+      <url hash="1d6db824">2026.magmar-main.12</url>
+      <bibkey>dai-etal-2026-decoupling</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.12</doi>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>MARQUIS</fixed-case>: A Three-Stage Pipeline for Video Retrieval-Augmented Generation</title>
+      <author id="debashish-chakraborty" orcid="0009-0000-8656-9406" openreview="~Debashish_Chakraborty1"><first>Debashish</first><last>Chakraborty</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Dengjia_Zhang1"><first>Dengjia</first><last>Zhang</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Jialiang_Jin1"><first>Jialiang</first><last>Jin</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="katherine-m-guerrerio" orcid="0009-0009-0135-7822" openreview="~Katherine_M._Guerrerio1"><first>Katherine M.</first><last>Guerrerio</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Hanting_Liu1"><first>Hanting</first><last>Liu</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Hanxiang_Qin1"><first>Hanxiang</first><last>Qin</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="tyler-skow" orcid="0009-0008-5703-8559" openreview="~Tyler_Skow1"><first>Tyler</first><last>Skow</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="alexander-martin" orcid="0000-0002-8863-4002" openreview="~Alexander_Martin1"><first>Alexander</first><last>Martin</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="reno-kriz" orcid="0000-0002-0239-9989" openreview="~Reno_Kriz1"><first>Reno</first><last>Kriz</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Benjamin_Van_Durme2"><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University</affiliation></author>
+      <pages>92-119</pages>
+      <abstract>Retrieval-augmented generation from videos requires systems to retrieve relevant audiovisual evidence from large corpora and synthesize it into coherent, attributed text. Current approaches struggle at both ends: retrieval methods fail on complex, multi-faceted queries that cannot be captured by a single embedding, while generation methods lack the high-level reasoning needed to synthesize across multiple videos and face memory constraints over long, multi-video contexts. We present MARQUIS: a three-stage pipeline that addresses these limitations through (1) query expansion, fusion, and reranking, (2) calibrated structured evidence extraction, and (3) article generation from extracted evidence, optionally controlled by an RLM. On the MAGMaR2026 shared task, we improve retrieval performance from 0.195 to 0.759 (nDCG@10). For article generation, ITER-QA-BASE improves average human score from 3.09 to 3.83 over the CAG baseline, while MARQUIS-RLM achieves a human score of 3.30 and the strongest citation recall among non-QA systems.</abstract>
+      <url hash="1cb70094">2026.magmar-main.13</url>
+      <bibkey>chakraborty-etal-2026-marquis</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.13</doi>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>TRACE</fixed-case>: Evidence Grounding-Guided Multi-Video Event Understanding and Claim Generation</title>
+      <author id="pengyu-yan" orcid="0000-0003-1584-2350" openreview="~Pengyu_Yan1"><first>Pengyu</first><last>Yan</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author openreview="~Akhil_V_S_S_Gorugantu1"><first>Akhil V S S</first><last>Gorugantu</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author openreview="~Mahesh_Bhosale1"><first>Mahesh</first><last>Bhosale</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="abdul-wasi" orcid="0000-0003-4465-7066" openreview="~Abdul_Wasi1"><first>Abdul</first><last>Wasi</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author openreview="~Vishvesh_Trivedi1"><first>Vishvesh</first><last>Trivedi</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="david-doermann" orcid="0000-0003-1639-4561" openreview="~David_Doermann2"><first>David</first><last>Doermann</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <pages>120-129</pages>
+      <abstract>Multi-video event understanding demands models that can locate and attribute query-relevant evidence scattered across long, heterogeneous video corpora. Existing large vision–language models (LVLMs) often underperform in this regime because they quickly exhaust their context budget and struggle to precisely localize evidentially important segments, frequently missing dense informational cues such as broadcast graphics, subtitles, and scoreboards. We introduce TRACE, an evidence grounding-guided framework that follows a <i>ground-before-reasoning</i> strategy for multi-video event reasoning. Our approach first builds a structured, text-searchable timeline for each video using OCR and object detection. A text-only LLM then conducts query-aware evidence localization, selecting relevant moments prior to any downstream visual reasoning. The retrieved frames and their grounding summaries are subsequently used to steer LVLM-based claim generation and cross-video citation consolidation. Experiments on MAGMaR 2026 and WikiVideo demonstrate that structured grounding markedly boosts factual completeness and attribution fidelity. On the MAGMaR validation split, TRACE raises macro-average MiRAGE F1 from 0.705 to 0.811 compared to an unguided Qwen3-VL-30B baseline, with especially strong improvements in citation recall (0.440  0.628). The method also attains state-of-the-art results on the official MAGMaR 2026 leaderboard.</abstract>
+      <url hash="bf946755">2026.magmar-main.14</url>
+      <bibkey>yan-etal-2026-trace</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>CRAFT</fixed-case>: Critic-Refined Adaptive Key-Frame Targeting for Multimodal Video Question Answering</title>
+      <author openreview="~Mahesh_Bhosale1"><first>Mahesh</first><last>Bhosale</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="abdul-wasi" orcid="0000-0003-4465-7066" openreview="~Abdul_Wasi1"><first>Abdul</first><last>Wasi</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author openreview="~Vishvesh_Trivedi1"><first>Vishvesh</first><last>Trivedi</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="pengyu-yan" orcid="0000-0003-1584-2350" openreview="~Pengyu_Yan1"><first>Pengyu</first><last>Yan</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author openreview="~Akhil_V_S_S_Gorugantu1"><first>Akhil V S S</first><last>Gorugantu</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <author id="david-doermann" orcid="0000-0003-1639-4561" openreview="~David_Doermann2"><first>David</first><last>Doermann</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <pages>130-143</pages>
+      <abstract>Grounded multi-video question answering over real-world news events requires systems to surface query-relevant evidence across heterogeneous video archives while attributing every claim to its supporting source. We introduce CRAFT (Critic-Refined Adaptive Key-Frame Targeting), a query-conditioned pipeline that combines dynamic keyframe selection, per-video ASR with multilingual fallback, and a hybrid critic loop to iteratively verify and repair claims before consolidation. The pipeline integrates UNLI temporal entailment, DeBERTa-v3 cross-claim screening, and a Llama-3.2-3B adjudicator, with a final citation-merging stage that emits each fact once with all supporting source identifiers. On MAGMaR 2026, CRAFT achieves the best overall average (0.739), reference recall (0.810), and citation F1 (0.635). We further evaluate on a MAGMaR-style conversion of WikiVideo with 52 non-overlapping event queries, where CRAFT also performs strongly (0.823 Avg), showing that its claim-centric evidence aggregation generalizes beyond MAGMaR. Ablations show that atomic claims, ASR, and the critic loop drive the main gains over the vanilla query-conditioned baseline. Code and implementation details are publicly available at <url>https://github.com/bhosalems/CRAFT</url>.</abstract>
+      <url hash="ab6abe53">2026.magmar-main.15</url>
+      <bibkey>bhosale-etal-2026-craft</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Findings of the <fixed-case>MAGM</fixed-case>a<fixed-case>R</fixed-case> 2026 Shared Task</title>
+      <author id="alexander-martin" orcid="0000-0002-8863-4002" openreview="~Alexander_Martin1"><first>Alexander</first><last>Martin</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author openreview="~Dengjia_Zhang1"><first>Dengjia</first><last>Zhang</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="joel-brogan" orcid="0000-0002-2069-7699" openreview="~Joel_Robert_Gray_Brogan1"><first>Joel</first><last>Brogan</last><affiliation>OpenAI</affiliation></author>
+      <author id="francis-ferraro" orcid="0000-0003-2413-9368" openreview="~Francis_Ferraro1"><first>Francis</first><last>Ferraro</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
+      <author id="jeremy-gwinnup" orcid="0009-0002-8321-9333" openreview="~Jeremy_Gwinnup1"><first>Jeremy</first><last>Gwinnup</last><affiliation>Air Force Research Laboratory</affiliation></author>
+      <author id="reno-kriz" orcid="0000-0002-0239-9989" openreview="~Reno_Kriz1"><first>Reno</first><last>Kriz</last><affiliation>Human Language Technology Center of Excellence, Johns Hopkins University</affiliation></author>
+      <author id="teng-long" orcid="0000-0002-2380-9502" openreview="~Teng_Long2"><first>Teng</first><last>Long</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="kenton-murray" orcid="0000-0002-5628-1003" openreview="~Kenton_Murray1"><first>Kenton</first><last>Murray</last><affiliation>Human Language Technology Center of Excellence, Johns Hopkins University</affiliation></author>
+      <author id="andrew-yates" orcid="0000-0002-5970-880X" openreview="~Andrew_Yates2"><first>Andrew</first><last>Yates</last><affiliation>Human Language Technology Center of Excellence, Johns Hopkins University</affiliation></author>
+      <author id="xiang-xiang" orcid="0000-0003-0606-6193" openreview="~Xiang_Xiang1"><first>Xiang</first><last>Xiang</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <pages>144-150</pages>
+      <abstract>This overview paper presents the results of the shared task for the second workshop on Multimodal Augmented Generation via Multimodal Retrieval (MAGMaR). In this shared task participants submitted systems focused on either (i) video retrieval or (ii) grounded generation of articles given retrieved videos. Teams could submit to either task. For the retrieval task, we had 2 participating teams that submitted a total of 17 systems – all of which beat a baseline derived from the winner of last years shared task. On the generation side, we had 4 teams submit 16 systems. All teams had at least one generated report that was labeled the best by a human annotator.</abstract>
+      <url hash="bf482099">2026.magmar-main.16</url>
+      <bibkey>martin-etal-2026-findings</bibkey>
+      <doi>10.18653/v1/2026.magmar-main.16</doi>
+    </paper>
+  </volume>
+</collection>

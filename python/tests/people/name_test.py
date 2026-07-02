@@ -177,6 +177,19 @@ def test_name_spec_to_xml_with_id_and_orcid():
     assert etree.tostring(element, encoding="unicode") == xml
 
 
+def test_name_spec_from_xml_with_openreview():
+    xml = '<author orcid="0000-0003-1222-4055" openreview="~Zheng_Gong7"><first>Zheng</first><last>Gong</last></author>'
+    ns = NameSpecification.from_xml(etree.fromstring(xml))
+    assert ns.orcid == "0000-0003-1222-4055"
+    assert ns.openreview == "~Zheng_Gong7"
+
+
+def test_name_spec_to_xml_with_openreview():
+    xml = '<author openreview="~Jane_Doe1"><first>Jane</first><last>Doe</last></author>'
+    element = NameSpecification.from_xml(etree.fromstring(xml)).to_xml("author")
+    assert etree.tostring(element, encoding="unicode") == xml
+
+
 @pytest.mark.parametrize(
     "attr_name",
     (
