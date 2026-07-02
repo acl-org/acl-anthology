@@ -200,6 +200,13 @@ normalize: venv/bin/activate
 clean:
 	rm -rf build
 
+# Upgrade uv-managed dependencies in both the root workspace and the
+# acl_anthology Python package under python/.
+.PHONY: upgrade
+upgrade:
+	uv sync --upgrade
+	cd python && uv sync --upgrade
+
 .PHONY: check
 check: test-scripts
 	@if grep -rl '	' data/xml; then \

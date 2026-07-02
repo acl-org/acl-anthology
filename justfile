@@ -12,6 +12,11 @@ mod python
 check:
   make check
 
+# Upgrade uv-managed dependencies in root workspace and python/ package
+upgrade:
+  uv sync --upgrade
+  cd python && uv sync --upgrade
+
 # Upgrade Hugo to new version in Github workflows & README
 upgrade-hugo-version VERSION:
   sed -i 's/HUGO_VERSION: .*$/HUGO_VERSION: {{VERSION}}/' .github/workflows/*.yml
