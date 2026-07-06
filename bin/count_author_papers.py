@@ -7,7 +7,8 @@ The event must be specified explicitly. By default, this includes both the
 event's own collection volumes and the volumes listed as colocated with the
 event:
 
-    ./bin/count_author_papers.py --event acl-2026 --output build/acl-2026-author-paper-counts.tsv
+    ./bin/count_author_papers.py --event acl-2026 \
+        --output build/acl-2026-author-paper-counts.tsv
 
 Use --main-only to restrict the count to the event's collection volumes, or
 --colocated-only to count only the colocated volumes.
@@ -110,9 +111,7 @@ def count_papers_with_prolific_authors(
     threshold: int,
 ) -> tuple[int, int]:
     """Counts authors over threshold and papers containing at least one of them."""
-    prolific_author_ids = {
-        row.person_id for row in rows if row.count > threshold
-    }
+    prolific_author_ids = {row.person_id for row in rows if row.count > threshold}
     paper_count = sum(
         1 for author_ids in author_ids_by_paper if author_ids & prolific_author_ids
     )
