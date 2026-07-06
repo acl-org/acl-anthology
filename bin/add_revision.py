@@ -41,6 +41,7 @@ Usage:
     add_revision [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
 `-e` denotes erratum instead of revision.
+`-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
 
 List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
@@ -375,15 +376,18 @@ def add_revision(
     return paper.collection.path
 
 
-def update_frontmatter(
+def replace_pdf(
     anthology: Anthology,
     anth_id: str,
     pdf_path: Path,
+    description: str = "PDF",
 ) -> Path | None:
-    """Update a frontmatter PDF in place, replacing the file and updating the checksum.
+    """Replace a paper's canonical PDF in place, updating the recorded checksum.
 
-    Frontmatter does not support <revision> entries, so we simply overwrite the
-    canonical PDF and record the new checksum.
+    This overwrites {anthology_id}.pdf and records the new checksum without
+    creating any <revision> or <erratum> entries. It is used both for frontmatter
+    (which cannot carry revisions) and for the --replace flag, where a bad file
+    simply needs to be swapped out.
     """
     paper = anthology.get_paper(anth_id)
     if paper is None:
@@ -397,7 +401,10 @@ def update_frontmatter(
     copy_file(pdf_path, canonical_pdf)
     paper.pdf = PDFReference.from_file(canonical_pdf)
     paper.collection.save()
-    print(f"-> Updated frontmatter PDF and checksum for {paper.full_id}", file=sys.stderr)
+    print(
+        f"-> Replaced {description} and updated checksum for {paper.full_id}",
+        file=sys.stderr,
+    )
     return paper.collection.path
 
 
@@ -478,11 +485,13 @@ def main(args):
     _, _, paper_id = parse_id(anthology_id)
     is_frontmatter = paper_id == "0"
 
-    if is_frontmatter:
-        collection_path = update_frontmatter(
+    if is_frontmatter or args.replace:
+        description = "frontmatter PDF" if is_frontmatter else "PDF"
+        collection_path = replace_pdf(
             anthology,
             anthology_id,
             pdf_path,
+            description=description,
         )
     else:
         # build a list of the checksums of all revisions for the paper
@@ -528,6 +537,8 @@ def main(args):
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             if is_frontmatter:
                 msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+            elif args.replace:
+                msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
             else:
                 msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
             if explanation_text:
@@ -556,6 +567,12 @@ if __name__ == "__main__":
         "-e",
         action="store_true",
         help="This is an erratum instead of a revision.",
+    )
+    parser.add_argument(
+        "--replace",
+        "-R",
+        action="store_true",
+        help="Replace the paper's PDF in place (update checksum) without recording a revision.",
     )
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
