@@ -380,7 +380,9 @@ def replace_pdf(
     anthology: Anthology,
     anth_id: str,
     pdf_path: Path,
-    description: str = "PDF",
+    label: str = "PDF",
+    explanation: str | None = None,
+    archive: bool = False,
 ) -> Path | None:
     """Replace a paper's canonical PDF in place, updating the recorded checksum.
 
@@ -388,6 +390,12 @@ def replace_pdf(
     creating any <revision> or <erratum> entries. It is used both for frontmatter
     (which cannot carry revisions) and for the --replace flag, where a bad file
     simply needs to be swapped out.
+
+    When ``archive`` is set, the pre-replacement PDF is preserved as
+    {anthology_id}.orig (only if one isn't already there, so the true original
+    survives repeated replacements) and, if an ``explanation`` is given, it is
+    logged to a parallel {anthology_id}.README. Both sit alongside the PDF under
+    ANTHOLOGY_FILES_DIR so they are synced.
     """
     paper = anthology.get_paper(anth_id)
     if paper is None:
@@ -398,11 +406,26 @@ def replace_pdf(
     canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
 
     pdf_dir.mkdir(parents=True, exist_ok=True)
+
+    if archive:
+        orig_path = pdf_dir / f"{paper.full_id}.orig"
+        if paper.pdf is not None and not orig_path.exists():
+            print(
+                f"-> Archiving original {paper.full_id} -> {orig_path}",
+                file=sys.stderr,
+            )
+            paper.pdf.download(orig_path)
+            os.chmod(orig_path, 0o600)
+        if explanation:
+            readme_path = pdf_dir / f"{paper.full_id}.README"
+            print(f"-> Logging description -> {readme_path}", file=sys.stderr)
+            readme_path.write_text(explanation.strip() + "\n")
+
     copy_file(pdf_path, canonical_pdf)
     paper.pdf = PDFReference.from_file(canonical_pdf)
     paper.collection.save()
     print(
-        f"-> Replaced {description} and updated checksum for {paper.full_id}",
+        f"-> Replaced {label} and updated checksum for {paper.full_id}",
         file=sys.stderr,
     )
     return paper.collection.path
@@ -486,12 +509,14 @@ def main(args):
     is_frontmatter = paper_id == "0"
 
     if is_frontmatter or args.replace:
-        description = "frontmatter PDF" if is_frontmatter else "PDF"
+        label = "frontmatter PDF" if is_frontmatter else "PDF"
         collection_path = replace_pdf(
             anthology,
             anthology_id,
             pdf_path,
-            description=description,
+            label=label,
+            explanation=explanation_text if args.replace else None,
+            archive=args.replace,
         )
     else:
         # build a list of the checksums of all revisions for the paper
