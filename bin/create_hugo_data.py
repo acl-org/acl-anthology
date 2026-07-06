@@ -109,19 +109,6 @@ def person_to_dict(person_id, ns):
     }
 
 
-def _title_html(paper):
-    """Render a paper's title to HTML, falling back to raw XML on parse errors.
-
-    Reports the offending paper so build failures can be traced to a specific
-    paper (e.g. invalid TeX-math in the title).
-    """
-    try:
-        return remove_extra_whitespace(paper.title.as_html(allow_url=False))
-    except ValueError as e:
-        log.error(f"Paper {paper.full_id}: error processing title: {e}")
-        return paper.title.as_xml()
-
-
 def paper_to_dict(paper):
     """
     Turn a single paper into a dictionary as used by the Hugo templates.
@@ -132,7 +119,7 @@ def paper_to_dict(paper):
         "ingest_date": paper.ingest_date.isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
-        "title_html": _title_html(paper),
+        "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
         "title_raw": paper.title.as_xml(),
         # Slightly funky logic: If there is an external URL given for a paper,
         # it will be in '.pdf', even though we use the Anthology landing page
