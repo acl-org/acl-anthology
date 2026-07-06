@@ -4,12 +4,9 @@ import re
 import sys
 import os
 import inspect
-import nltk
 import nltk.corpus
 import nltk.tokenize
 from collections import defaultdict
-
-nltk.download("punkt_tab", quiet=True)
 
 
 def is_hyphen(s):
