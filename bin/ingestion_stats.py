@@ -24,6 +24,7 @@ The report includes:
     the ingested volumes, i.e. first-time Anthology authors),
   - the number of new entries added to `data/yaml/people.yaml`,
   - a histogram of papers by number of authors,
+  - the top ten authors by paper counts within the ingested volumes,
   - the number of single-author papers written by those new authors,
   - the percentage of paper-author instances (by token) that have an ORCID iD.
 
@@ -190,9 +191,16 @@ def compute_stats(
     # ingested set (i.e. they are first-time authors).
     people_papers: Dict = defaultdict(list)
     for paper in papers:
-        for author in paper.authors:
-            person = author.resolve()
+        for person in {author.resolve() for author in paper.authors}:
             people_papers[person].append(paper)
+
+    top_authors = sorted(
+        (
+            (person.canonical_name.as_first_last(), len(author_papers), person.id)
+            for person, author_papers in people_papers.items()
+        ),
+        key=lambda item: (-item[1], item[0].casefold(), item[2]),
+    )[:10]
 
     def is_new_person(person) -> bool:
         return all(paper.parent.full_id in volume_set for paper in person.papers())
@@ -217,6 +225,7 @@ def compute_stats(
         "num_author_instances_with_orcid": num_author_instances_with_orcid,
         "pct_author_instances_with_orcid": pct_author_instances_with_orcid,
         "author_count_hist": author_count_hist,
+        "top_authors": top_authors,
     }
 
 
@@ -258,6 +267,14 @@ def format_report(stats: Dict) -> str:
         f"({stats['pct_author_instances_with_orcid']:.1f}%) |"
     )
     lines.append("")
+
+    top_authors = stats["top_authors"]
+    if top_authors:
+        author_counts = ", ".join(
+            f"{author} ({count})" for author, count, _person_id in top_authors
+        )
+        lines.append(f"Top ten authors by paper counts: {author_counts}")
+        lines.append("")
 
     lines.append("### Papers by number of authors")
     lines.append("")
