@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT))
 # bin/ingest.py imports the `fixedcase` package that lives under bin/.
 sys.path.insert(0, str(ROOT / "bin"))
 
-from bin.ingest import check_for_anonymous_pdf
+from bin.ingest import check_for_anonymous_pdf  # noqa: E402
 
 DATADIR = Path(__file__).resolve().parent / "data"
 
