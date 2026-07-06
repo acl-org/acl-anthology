@@ -3,10 +3,11 @@
 """
 Count papers per author for an Anthology event.
 
-By default this counts ACL 2026, including both the event's own collection
-volumes and the volumes listed as colocated with the event:
+The event must be specified explicitly. By default, this includes both the
+event's own collection volumes and the volumes listed as colocated with the
+event:
 
-    ./bin/count_author_papers.py --output build/acl-2026-author-paper-counts.tsv
+    ./bin/count_author_papers.py --event acl-2026 --output build/acl-2026-author-paper-counts.tsv
 
 Use --main-only to restrict the count to the event's collection volumes, or
 --colocated-only to count only the colocated volumes.
@@ -131,11 +132,14 @@ def write_tsv(rows: Iterable[AuthorCount], output: Path | None) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     parser.add_argument(
         "--event",
-        default="acl-2026",
-        help="Event ID to count. Default: %(default)s.",
+        required=True,
+        help="Event ID to count (e.g. acl-2026).",
     )
     parser.add_argument(
         "--datadir",
