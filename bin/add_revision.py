@@ -42,6 +42,7 @@ Usage:
 
 `-e` denotes erratum instead of revision.
 `-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
+`-R` also works on whole volumes (e.g. 2026.silkroadnlp-1), which cannot carry revisions.
 
 List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
@@ -65,7 +66,8 @@ from git.repo.base import Repo
 from github import Github, GithubException
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import PaperErratum, PaperRevision
+from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
+from acl_anthology.collections.volume import Volume
 from acl_anthology.files import FileReference, PDFReference
 from acl_anthology.utils.ids import parse_id
 
@@ -377,19 +379,18 @@ def add_revision(
 
 
 def replace_pdf(
-    anthology: Anthology,
-    anth_id: str,
+    item: Paper | Volume,
     pdf_path: Path,
     label: str = "PDF",
     explanation: str | None = None,
     archive: bool = False,
 ) -> Path | None:
-    """Replace a paper's canonical PDF in place, updating the recorded checksum.
+    """Replace a paper's or volume's canonical PDF in place, updating the checksum.
 
     This overwrites {anthology_id}.pdf and records the new checksum without
-    creating any <revision> or <erratum> entries. It is used both for frontmatter
-    (which cannot carry revisions) and for the --replace flag, where a bad file
-    simply needs to be swapped out.
+    creating any <revision> or <erratum> entries. It is used for frontmatter and
+    whole volumes (neither of which can carry revisions) and for the --replace
+    flag, where a bad file simply needs to be swapped out.
 
     When ``archive`` is set, the pre-replacement PDF is preserved as
     {anthology_id}.orig (only if one isn't already there, so the true original
@@ -397,38 +398,33 @@ def replace_pdf(
     logged to a parallel {anthology_id}.README. Both sit alongside the PDF under
     ANTHOLOGY_FILES_DIR so they are synced.
     """
-    paper = anthology.get_paper(anth_id)
-    if paper is None:
-        print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
-        sys.exit(1)
-
-    pdf_dir = resolve_pdf_dir(paper.full_id)
-    canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
+    pdf_dir = resolve_pdf_dir(item.full_id)
+    canonical_pdf = pdf_dir / f"{item.full_id}.pdf"
 
     pdf_dir.mkdir(parents=True, exist_ok=True)
 
     if archive:
-        orig_path = pdf_dir / f"{paper.full_id}.orig"
-        if paper.pdf is not None and not orig_path.exists():
+        orig_path = pdf_dir / f"{item.full_id}.orig"
+        if item.pdf is not None and not orig_path.exists():
             print(
-                f"-> Archiving original {paper.full_id} -> {orig_path}",
+                f"-> Archiving original {item.full_id} -> {orig_path}",
                 file=sys.stderr,
             )
-            paper.pdf.download(orig_path)
+            item.pdf.download(orig_path)
             os.chmod(orig_path, 0o600)
         if explanation:
-            readme_path = pdf_dir / f"{paper.full_id}.README"
+            readme_path = pdf_dir / f"{item.full_id}.README"
             print(f"-> Logging description -> {readme_path}", file=sys.stderr)
             readme_path.write_text(explanation.strip() + "\n")
 
     copy_file(pdf_path, canonical_pdf)
-    paper.pdf = PDFReference.from_file(canonical_pdf)
-    paper.collection.save()
+    item.pdf = PDFReference.from_file(canonical_pdf)
+    item.collection.save()
     print(
-        f"-> Replaced {label} and updated checksum for {paper.full_id}",
+        f"-> Replaced {label} and updated checksum for {item.full_id}",
         file=sys.stderr,
     )
-    return paper.collection.path
+    return item.collection.path
 
 
 def normalize_id(id):
@@ -505,14 +501,44 @@ def main(args):
     pdf_path = Path(pdf_path)
     validate_file_type(pdf_path)
 
-    _, _, paper_id = parse_id(anthology_id)
+    _, volume_id, paper_id = parse_id(anthology_id)
+    is_volume = paper_id is None and volume_id is not None
     is_frontmatter = paper_id == "0"
 
-    if is_frontmatter or args.replace:
+    if is_volume and not args.replace:
+        print(
+            f"-> FATAL: {anthology_id} is a volume; volumes do not support "
+            "revisions. Use -R to replace the volume PDF.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if is_volume:
+        volume = anthology.get_volume(anthology_id)
+        if volume is None:
+            print(
+                f"-> FATAL: volume ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        collection_path = replace_pdf(
+            volume,
+            pdf_path,
+            label="volume PDF",
+            explanation=explanation_text,
+            archive=True,
+        )
+    elif is_frontmatter or args.replace:
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         label = "frontmatter PDF" if is_frontmatter else "PDF"
         collection_path = replace_pdf(
-            anthology,
-            anthology_id,
+            paper,
             pdf_path,
             label=label,
             explanation=explanation_text if args.replace else None,
@@ -562,6 +588,8 @@ def main(args):
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             if is_frontmatter:
                 msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+            elif is_volume:
+                msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
             elif args.replace:
                 msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
             else:
