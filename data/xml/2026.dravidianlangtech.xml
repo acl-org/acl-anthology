@@ -1,0 +1,873 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.dravidianlangtech">
+  <volume id="1" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the Sixth Workshop on Speech, Vision, and Language Technologies for <fixed-case>D</fixed-case>ravidian Languages</booktitle>
+      <editor><first>Bharathi Raja</first><last>Chakravarthi</last></editor>
+      <editor><first>Ruba</first><last>Priyadharshini</last></editor>
+      <editor><first>Anand Kumar</first><last>Madasamy</last></editor>
+      <editor><first>Sajeetha</first><last>Thavareesan</last></editor>
+      <editor><first>Saranya</first><last>Rajiakodi</last></editor>
+      <editor><first>Subalalitha</first><last>Navaneethakrishnan</last></editor>
+      <editor><first>Dhivya</first><last>Chinnappa</last></editor>
+      <editor><first>Balasubramanian</first><last>Palani</last></editor>
+      <editor><first>Malliga</first><last>Subramanian</last></editor>
+      <editor><first>Kogilavani</first><last>Shanmugavadivel</last></editor>
+      <editor><first>Ratnavel</first><last>Rajalakshmi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Underline (Virtual)</address>
+      <isbn>979-8-89176-401-9</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="8547cc04">2026.dravidianlangtech-1</url>
+      <venue>dravidianlangtech</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.dravidianlangtech-1</doi>
+    </meta>
+    <frontmatter>
+      <url hash="e1a6b03b">2026.dravidianlangtech-1.0</url>
+      <bibkey>dravidianlangtech-2026-1</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Abusive Content Detection in <fixed-case>T</fixed-case>elugu-<fixed-case>E</fixed-case>nglish Code-Mixed Social Media Using Hybrid Transformer Architectures</title>
+      <author><first>Bojja Revanth</first><last>Reddy</last></author>
+      <author><first>Sivaiah</first><last>Bellamkonda</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <pages>1-5</pages>
+      <abstract>The rapid growth of social media platforms has led to a substantial increase in user-generated content, including abusive and offensive language. Detecting abusive content becomes particularly challenging in low-resource and code-mixed language settings such as Telugu-English social media text. Code-mixed content involves transliteration, inconsistent spelling variations, informal expressions, and frequent language switching within a single sentence. This paper focuses on detecting abusive content in Telugu-English code-mixed comments using both traditional machine learning and transformer-based deep learning models. The proposed approach incorporates preprocessing strategies to normalize transliterations and spelling variations, hybrid feature extraction techniques combining TF-IDF and FastText embeddings, and fine-tuning of multilingual transformer models. The study addresses challenges such as morphological complexity, contextual ambiguity, and limited annotated data in low-resource NLP environments.</abstract>
+      <url hash="aa1904b3">2026.dravidianlangtech-1.1</url>
+      <bibkey>reddy-bellamkonda-2026-abusive</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Beyond Benchmark Accuracy: Robustness Evaluation of <fixed-case>H</fixed-case>inglish Sentiment Models</title>
+      <author><first>Chennuru</first><last>Rahul</last></author>
+      <author id="kolawole-adebayo" orcid="0000-0001-7126-7026"><first>Kolawole</first><last>Adebayo</last><affiliation>National University of Ireland, Maynooth</affiliation></author>
+      <pages>6-13</pages>
+      <abstract>Multilingual transformers have achieved re-markable performance on code-mixed senti-ment benchmarks, but their robustness underlinguistic stress and domain shift remains un-derexplored. We fine-tune XLM-RoBERTaand mBERT on a carefully cleaned 25,543-tweet Hinglish sentiment dataset, where XLM-R achieves near-perfect in-distribution accu-racy (99.7%). The integrity of this result isconfirmed by rigorous hash-based and 3-gramJaccard deduplication, ruling out data leakage.However, when evaluated on a 400-examplehuman-validated adversarial benchmark span-ning negation, sarcasm, contrast, subtle senti-ment, and true neutral, XLM-R performancecollapses to 42.5% – a drop of over 57 per-centage points. Zero-shot transfer to EnglishTweetEval yields only 50.8% accuracy (40.8%macro F1), above . Our results highlight a crit-ical gap between benchmark scores and real-world reliability, underscoring the need for ad-versarial evaluation and cross-domain stress-testing before deploying sentiment models inpractical, safety-sensitive applications.</abstract>
+      <url hash="21e4e624">2026.dravidianlangtech-1.2</url>
+      <bibkey>rahul-adebayo-2026-beyond</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Cascaded Modular or End-to-End? : An Investigation on Speech-to-Speech Translation Task for <fixed-case>D</fixed-case>ravidian Languages</title>
+      <author><first>Bhavana</first><last>Nali</last></author>
+      <author id="abhik-jana" orcid="0000-0002-4485-0002"><first>Abhik</first><last>Jana</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <pages>14-20</pages>
+      <abstract>This paper presents a study of speech-to-speech translation for low-resource Dravidian languages, focusing on Tamil, Telugu, and Kannada. We investigate the efficacy of the Cascaded Modular system with the End-to-end system in both zero-shot and fine-tuned settings. The Cascaded Modular approach combines an ASR Module (Whisper-based ASR for English speech; IndicConformer for Dravidian speech), a Text-to-Text translation module (IndicTrans2), and a Speech synthesis module (Indic Parler-TTS), whereas SeamlessM4T is used as the End-to-end system. For parameter-efficient Low-Rank Adaptation (LoRA) fine-tuning to adapt the translation component to a domain-specific dataset, we use FLEURS and Mann-ki-Baat (a subset of BhasaAnuvaad dataset). Cascaded Modular systems achieve BLEU scores ranging from 3.17 to 19.18 in the zero-shot setting and 5.08 to 19.18 after fine-tuning, whereas the End-to-end model ranges from 3.02 to 15.72 in zero-shot settings across languages and 4.11 to 16.84 after fine-tuning. The results show that Cascaded Modular systems consistently outperform the End-to-end model across both setups. Note that parameter-efficient fine-tuning yields significant improvements in translation quality and speech generation performance for low-resource Dravidian speech translation.</abstract>
+      <url hash="d4af57e3">2026.dravidianlangtech-1.3</url>
+      <bibkey>nali-jana-2026-cascaded</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>FLAICOL</fixed-case>: Flip-Point-Led Augmentation for Imbalanced Code-Mixed Offensive Language Detection</title>
+      <author><first>Danish</first><last>Mohammed</last><affiliation>National Institute of Technology Calicut</affiliation></author>
+      <author><first>Vidhya</first><last>Kamakshi</last><affiliation>National Institute of Technology Calicut</affiliation></author>
+      <pages>21-31</pages>
+      <abstract>Hate speech detection in low-resource, code-mixed languages is a challenging task as people often switch between scripts and languages in a single post. Code-Mixed scripts can take the form of explicit slurs, subtle insults, or fragmented abuse, and is often hidden by spelling variants and Romanized script. These datasets are also subjected to class imbalance with hate speech being a minority class of interest. To mitigate the imbalance, targeted data augmentation of minority class samples can help learn better representations to aid hate speech detection despite the naturally expected imbalance. We propose FLAICOL, a flip-point method which identifies the minimal embedding perturbation that moves an input across the decision boundary, map it back to discrete text, and retrain on those focused examples. Empirical results show that these interpretable augmentations strengthen Transformer classifiers on low-resource, code-mixed low resource hate datasets (Experiments were conducted on the Tamil-English, Malayalam-English, and Kannada-English splits in the Dravidian CodeMix Benchmark).</abstract>
+      <url hash="16f1fe1c">2026.dravidianlangtech-1.4</url>
+      <bibkey>mohammed-kamakshi-2026-flaicol</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>LIMP</fixed-case>: Linguistically-Informed Multi-Strategy Prompting for <fixed-case>T</fixed-case>elugu Multi-Turn Dialogue Generation</title>
+      <author><first>Arjungopal</first><last>Anilkumar</last></author>
+      <author><first>Suryansh Ram</first><last>Menon</last></author>
+      <author><first>Divagar</first><last>S</last></author>
+      <author id="premjith-b" orcid="0000-0003-1188-1838"><first>Premjith</first><last>B</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <pages>32-41</pages>
+      <abstract>Generating contextually coherent multi-turn dialogue in Telugu requires resolving three deeply interacting constraints absent from generic LLM prompting: morphologically encoded social hierarchy (honorific verb conjugations), strict SOV agglutinative syntax, and culturally governed emotional logic formalised in Natyashastra rasa theory (Bharata Muni, 1951). We introduce LIMP (Linguistically-Informed Multi-Strategy Prompting), an inference-time, training-free framework that injects expert linguistic and cultural knowledge into prompt structure, requiring no fine-tuning or labelled data. We empirically evaluate two strategies on 10,000 stratified evaluation instances from the IndicDialogue Telugu corpus (Arnob et al., 2024): LIMP-RAW, a dense constraint prompt, and LIMP-COT, a six-stage analytical scaffold grounded in rasa theory and Telugu morphological grammar. Our primary finding is that LIMP-COT achieves approximately 2× higher morphosyntactic surface fidelity than LIMP-RAW on GEMMA-3-1B-IT (Gemma Team, Google DeepMind, 2025) (1B parameters): Jaccard = 0.0436 vs. 0.0211, Dice = 0.0792 vs. 0.0411 (p &lt; 0.001, Cohen’s d = 0.57), demonstrating that sequential analytical commitment to linguistic constraints produces more form-faithful Telugu than holistic constraint injection. Concurrently, LIMP-RAW achieves near-ceiling semantic fidelity (BERTSCORE F1 = 0.9709), exceeding both LIMP-COT (0.9637) and SARVAM-1 (Sarvam AI, 2024) (2B, Indic-pretrained; 0.9680) on this dimension. This semantic–lexical dissociation—no single configuration dominates across both metric classes—is itself a substantive finding: in agglutinative Telugu, semantic paraphrase fidelity and morphosyntactic surface fidelity are orthogonal evaluation dimensions. On lexical metrics specifically, LIMP-COT with a 1B general-purpose model surpasses SARVAM-1 under matched prompting (Jaccard = 0.0436 vs. 0.0052), suggesting that structured linguistic scaffolding is a stronger lever than parametric scale for form-faithful generation.</abstract>
+      <url hash="44703568">2026.dravidianlangtech-1.5</url>
+      <bibkey>anilkumar-etal-2026-limp</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>T</fixed-case>amil<fixed-case>M</fixed-case>ayangoli<fixed-case>S</fixed-case>pell: An Open-Source Neural Framework for Context-Sensitive Mayangoli Error Correction in <fixed-case>T</fixed-case>amil</title>
+      <author id="yazhmozhi-v-m" orcid="0000-0002-7471-9080"><first>Yazhmozhi V</first><last>M</last><affiliation>University of Dundee</affiliation></author>
+      <author><first>Annalu</first><last>Waller</last><affiliation>University of Dundee</affiliation></author>
+      <author id="jacky-visser" orcid="0000-0003-2778-0847"><first>Jacky</first><last>Visser</last><affiliation>University of Dundee</affiliation></author>
+      <pages>42-51</pages>
+      <abstract>Mayangoli errors are context-sensitive errors in Tamil that arise from confusion among phonetically similar graphemes (e.g., ல/ள/ழ, ர/ற, ந/ன/ண). These errors are challenging for conventional spell checkers because both incorrect and correct forms are valid dictionary words, making dictionary lookup insufficient and requiring contextual modelling. We present TamilMayangoliSpell, a reproducible framework for Mayangoli error correction that combines (i) Tamil-specific preprocessing for sentence segmentation and normalisation, (ii) linguistically grounded error induction for generating training data constrained by dictionary validity, and (iii) fine-tuning of multilingual sequence-to-sequence models. Using 30,000 sentence pairs derived from TamilCorp, a massive multi-genre Tamil corpus and split 80/10/10 into train/validation/test, we fine-tune mBART, mT5, and NLLB under a small hyperparameter grid using greedy decoding with a maximum sequence length of 128. mT5 achieves the best performance (BLEU 99.28; Exact Match Accuracy 93.50%) and remains strong in a cross-genre evaluation on short stories. The preprocessing scripts, generated parallel datasets, and trained models are publicly available in a GitHub repository.</abstract>
+      <url hash="d9b9bf8f">2026.dravidianlangtech-1.6</url>
+      <bibkey>m-etal-2026-tamilmayangolispell</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>T</fixed-case>amil<fixed-case>T</fixed-case>ok: Morphologically-Informed Tokenization for <fixed-case>T</fixed-case>amil</title>
+      <author><first>Surendhar</first><last>Muthukumar</last></author>
+      <author><first>Aaricia</first><last>Herygers</last><affiliation>Georg-August Universität Göttingen</affiliation></author>
+      <author><first>Lisa</first><last>Beinborn</last></author>
+      <pages>52-61</pages>
+      <abstract>Tokenization is fundamental to neural language modeling, yet for Tamil it remains largely adapted from general-purpose multilingual models without systematic consideration of the rich agglutinative morphology. We introduce TamilMorph, a large-scale dataset of more than 480,000 morphologically segmented Tamil word forms. Building on this new resource, we develop TamilTok, a morphology-aware tokenization framework that incorporates explicit morpheme structure into tokenizer training. We benchmark Tamil tokenization quality across multiple tokenization algorithms and vocabulary configurations and find that our approach improves both morphological alignment and downstream performance compared to previous approaches. Our morphological resource for Tamil and our systematic empirical analyses can guide future developments of tokenization for morphologically rich languages.</abstract>
+      <url hash="67abded2">2026.dravidianlangtech-1.7</url>
+      <bibkey>muthukumar-etal-2026-tamiltok</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Thiruppugazh-<fixed-case>KG</fixed-case> Dataset: A Manually Annotated Resource for Computational Analysis of <fixed-case>T</fixed-case>amil Devotional Literature</title>
+      <author><first>Garthigan</first><last>Kumarasamy</last></author>
+      <author id="jubeerathan-thevakumar" orcid="0009-0002-4748-7971"><first>Jubeerathan</first><last>Thevakumar</last></author>
+      <author id="sathurgini-uthayakumar" orcid="0009-0009-4543-7699"><first>Sathurgini</first><last>Uthayakumar</last></author>
+      <author><first>Disne</first><last>Kajanath</last><affiliation>Eastern University of Sri Lanka</affiliation></author>
+      <author id="narthana-sivalingam" orcid="0009-0009-9827-0124"><first>Narthana</first><last>Sivalingam</last></author>
+      <author id="uthayasanker-thayasivam" orcid="0000-0002-3936-8174"><first>Uthayasanker</first><last>Thayasivam</last><affiliation>University of Moratuwa</affiliation></author>
+      <pages>62-70</pages>
+      <abstract>This paper introduces Thiruppugazh-KG, a semantically annotated dataset and knowledge graph derived from the Thiruppugazh corpus, a 14th-century collection of 1,335 Tamil devotional hymns composed by Arunagirinathar. The dataset includes annotations for entities, devotional themes, mythological events, philosophical concepts, imagery, and sacred locations mentioned in each hymn. Using these annotations, we construct a Neo4j-based knowledge graph that models relationships between hymns and their associated cultural and narrative elements. Graph analytics, including PageRank, are applied to identify prominent entities and sacred locations within the corpus. The resulting resource provides a structured representation of Tamil devotional literature and supports computational analysis of cultural texts in low-resource languages.</abstract>
+      <url hash="7844b8fd">2026.dravidianlangtech-1.8</url>
+      <bibkey>kumarasamy-etal-2026-thiruppugazh</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Findings in <fixed-case>T</fixed-case>amil Dialect Speech Recognition and Classification</title>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <author id="shunmuga-priya-muthusamy-chinnan" orcid="0000-0001-5341-7684"><first>Shunmuga Priya Muthusamy</first><last>Chinnan</last></author>
+      <author id="saranya-s" orcid="0009-0009-2946-9850"><first>Saranya</first><last>S</last></author>
+      <author><first>Suhasini</first><last>S</last></author>
+      <pages>71-79</pages>
+      <abstract>As part of DravidianLangTech-2026, we provide a overview of Shared Task on Dialect-based Speech Recognition and Classification in Tamil. Creating reliable system for Tamil dialect identification from audio signals and dialect-aware Automatic Speech Recognition (ASR) is the main goal of the joint work. Dialect-based Tamil Speech Recognition and Tamil Dialect Classification from Speech are the two subtasks that make up the task. 5,134 audio recordings in four Tamil dialects: Southern, Northern, Western, and Central-spanning 9 hours and 22 minutes make up the training dataset. There are 579 audio samples in the test set, totaling almost two hours in length. The shared task involved 17 teams in total. For speech recognition and dialect classification, the top-performing system obtained a Word Error Rate (WER) of 0.51 and a macro F1-score of 0.79, respectively. The findings emphasize the difficulties in understanding Tamil speech due to dialectal diversity and set solid foundations for further study on low-resource dialect-aware ASR systems.</abstract>
+      <url hash="7ddb6c24">2026.dravidianlangtech-1.9</url>
+      <bibkey>b-etal-2026-findings</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Findings of the Shared Task on Hope Speech Detection in <fixed-case>T</fixed-case>ulu</title>
+      <author id="thenmozhi-durairaj" orcid="0000-0003-0681-6628"><first>Thenmozhi</first><last>Durairaj</last></author>
+      <author><first>Anusha M D</first><last>Gowda</last></author>
+      <author><first>Raksha</first><last>Adyanthaya</last></author>
+      <author id="rathnakara-shetty-p" orcid="0000-0003-3818-4565"><first>Rathnakara Shetty</first><last>P</last><affiliation>Yenepoya University</affiliation></author>
+      <author id="parameshwar-r-hegde" orcid="0000-0003-0689-7667"><first>Parameshwar R</first><last>Hegde</last><affiliation>Yenepoya University</affiliation></author>
+      <author id="mohammed-fadhel-aljunid" orcid="0000-0001-9099-3664"><first>Mohammed Fadhel</first><last>Aljunid</last><affiliation>Moodlakatte Institute of Technology | MIT Kundapura</affiliation></author>
+      <author id="prasanna-kumar-kumaresan" orcid="0000-0003-2244-246X"><first>Prasanna Kumar</first><last>Kumaresan</last><affiliation>Data Science Institution, University of Galway, Ireland</affiliation></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <pages>80-87</pages>
+      <abstract>Hope Speech Identification is the process of detecting positive, supportive, and encouraging language in text. It focuses on identifying content that promotes unity, inclusiveness, and resilience. Identification of hope speech helps supports mental well being, create healthier online environments, counter hate speech, and promote positive digital communication. This shared task hope speech detection in code-mixed Tulu language as part of DravidianLangTech @ ACL 2026, focuses on both the coarse-grained hope tone classification and the fine-grained hope type classification tasks. There are 11 teams participated in the tasks and submitted several runs for both the tasks. The teams are ranked based on the macro-F1 score.</abstract>
+      <url hash="f4d3e276">2026.dravidianlangtech-1.10</url>
+      <bibkey>durairaj-etal-2026-findings</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>From Comments to Harm: A Findings Report on Abusive <fixed-case>T</fixed-case>amil Text Targeting Women on Social Media Shared Task</title>
+      <author><first>Bhuvaneswari</first><last>Sivagnanam</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="kathiravan-pannerselvam" orcid="0000-0002-9249-8293"><first>Kathiravan</first><last>Pannerselvam</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author><first/><last>Jananayagan</last></author>
+      <author><first>Charmathi</first><last>Rajkumar</last></author>
+      <author id="ramesh-kannan" orcid="0000-0002-6220-1217"><first>Ramesh Kannan</first><last>R</last></author>
+      <author id="ratnavel-rajalakshmi" orcid="0000-0002-6570-483X"><first>Ratnavel</first><last>Rajalakshmi</last><affiliation>Vellore Institute of Technology</affiliation></author>
+      <author id="shunmuga-priya-muthusamy-chinnan" orcid="0000-0001-5341-7684"><first>Shunmuga Priya Muthusamy</first><last>Chinnan</last></author>
+      <author><first>Saranya</first><last>Rajiakodi</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <pages>88-100</pages>
+      <abstract>This paper presents an overview of the second shared task on Abusive Tamil Text Targeting Women on Social Media as a binary classification problem (abusive vs. non-abusive). We release a dataset of Tamil YouTube comments and evaluate submissions using macro-F1 to encourage balanced performance in a noisy, low-resource setting. There are 89 teams registered for this task and 24 teams submitted the results. The approaches used by the teams includes transformer fine-tuning, heterogeneous ensembles, classical baselines, and large language models using prompting and LoRA. Results show that the best-performing system scored 0.8297 macro-F1 and many submissions are around 0.79-0.81. Across submissions, transformer fine-tuning with domain-aligned encoders is consistently strong, while additional gains are frequently associated with Tamil-aware normalization and macro-F1-oriented calibration such as class-weighted learning and validation-based threshold tuning. Overall, the findings highlights the importance of language-aware preprocessing and careful decision calibration for reliable moderation of women-targeted abusive Tamil social media text.
+Disclaimer: This paper (including figures and examples) may contain offensive or harmful language, including abusive content targeting women. All such text is presented solely for research and educational purposes and it does not reflect the author’s views. Reader discretion is advised.</abstract>
+      <url hash="b9986401">2026.dravidianlangtech-1.11</url>
+      <bibkey>sivagnanam-etal-2026-comments</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Overview of the Shared Task on Multilevel Political Meme Classification in <fixed-case>T</fixed-case>amil and <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Saranya</first><last>Rajiakodi</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="shunmuga-priya-muthusamy-chinnan" orcid="0000-0001-5341-7684"><first>Shunmuga Priya Muthusamy</first><last>Chinnan</last></author>
+      <author id="premjith-b" orcid="0000-0003-1188-1838"><first>Premjith</first><last>B</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author><first>Subalalitha</first><last>CN</last></author>
+      <author id="rahul-ponnusamy" orcid="0000-0001-8023-7742"><first>Rahul</first><last>Ponnusamy</last></author>
+      <author id="anshid-kizhakkeparambil" orcid="0009-0003-4824-5250"><first>Anshid K</first><last>A</last></author>
+      <author><first>Bhuvaneswari</first><last>Sivagnanam</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <pages>101-113</pages>
+      <abstract>This paper presents an overview of the Multi-Level Political Meme Classification shared task conducted at DravidianLangTech–ACL 2026. The task introduces a hierarchical two-level classification framework for Tamil and Malayalam political memes: Level 1 focuses on stance detection (Support/Praise vs. Troll/Oppose), while Level 2 identifies the political target (individual or party), conditioned on the predicted stance. The dataset was curated from social media platforms and manually annotated with strong inter-annotator agreement. A total of 64 teams registered and 19 teams submitted their results using diverse multimodal approaches combining transformer-based text encoders, vision models, OCR pipelines, and hierarchical architectures. Results show that stance detection achieves high macro-F1 scores across both languages, whereas target identification remains more challenging, particularly in Malayalam. The findings highlight the importance of multimodal fusion, hierarchical reasoning, and robustness to OCR noise and class imbalance in political meme analysis.</abstract>
+      <url hash="c7a500a3">2026.dravidianlangtech-1.12</url>
+      <bibkey>rajiakodi-etal-2026-overview</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Shared Task on Depression Detection from <fixed-case>M</fixed-case>alayalam and <fixed-case>T</fixed-case>amil Speech Data</title>
+      <author><first>Jyothish Lal</first><last>G</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author id="premjith-b" orcid="0000-0003-1188-1838"><first>Premjith</first><last>B</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <author><first>Saranya</first><last>Rajiakodi</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="thenmozhi-durairaj" orcid="0000-0003-0681-6628"><first>Thenmozhi</first><last>Durairaj</last></author>
+      <author id="prasanna-kumar-kumaresan" orcid="0000-0003-2244-246X"><first>Prasanna Kumar</first><last>Kumaresan</last><affiliation>Data Science Institution, University of Galway, Ireland</affiliation></author>
+      <pages>114-123</pages>
+      <abstract>Depression is one of the most common mental health problems in the world. It affects a person’s emotions, thinking, energy levels, and daily life. Early detection of depression is very important to provide timely support and treatment. While many studies focus on identifying depression from text, speech also carries important emotional and psychological signals that are often not fully explored. This paper presents an overview of the shared task on Depression Detection in Dravidian Languages (DD- DL). The task focuses on identifying signs of depression from speech data in two low-resource Dravidian languages: Tamil and Malayalam. Participants were provided with curated training datasets and were asked to build systems to classify speech samples as Depressed or Non-Depressed. The shared task includes two subtasks: (1) Depression detection in Tamil and (2) Depression detection in Malayalam. Participants applied various machine learning and deep learning approaches to model the acoustic and linguistic characteristics of speech. All submissions were evaluated using the macro-F1 score, which ensures fair performance measurement across classes.</abstract>
+      <url hash="36041a91">2026.dravidianlangtech-1.13</url>
+      <bibkey>g-etal-2026-shared</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Shared Task on Prompt Style Recovery for Large Language Models in <fixed-case>T</fixed-case>elugu</title>
+      <author id="premjith-b" orcid="0000-0003-1188-1838"><first>Premjith</first><last>B</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author><first>Jyothish Lal</first><last>G</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <author><first>Saranya</first><last>Rajiakodi</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="thenmozhi-durairaj" orcid="0000-0003-0681-6628"><first>Thenmozhi</first><last>Durairaj</last></author>
+      <author id="ratnavel-rajalakshmi" orcid="0000-0002-6570-483X"><first>Ratnavel</first><last>Rajalakshmi</last><affiliation>Vellore Institute of Technology</affiliation></author>
+      <author id="rahul-ponnusamy" orcid="0000-0001-8023-7742"><first>Rahul</first><last>Ponnusamy</last></author>
+      <author><first>Chinthala</first><last>Bhuvanesh</last></author>
+      <pages>124-133</pages>
+      <abstract>This paper presents an overview of the Shared Task on Prompt Recovery for Large Language Models (LLMs) in Telugu, organized as part of DravidianLangTech @ ACL 2026. The task focuses on identifying the underlying communicative style of Telugu text excerpts, framed as a nine-class single-label classification problem covering Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative, and Persuasive tones. The dataset was constructed by collecting Telugu YouTube comments and generating style-modified variants using an LLM, resulting in 3,000 training instances, 300 validation samples, and 301 test samples. A total of 52 teams registered for the shared task, with 13 teams submitting valid system predictions. Systems explored diverse approaches, including transformer-based fine-tuning (IndicBERT, MuRIL, XLM-R), ensemble and stacking methods, pairwise modeling strategies, curriculum learning, and few-shot large language model prompting. Evaluation was conducted using Macro F1-score as the primary metric. The top-performing system achieved a Macro F1-score of 0.2987. Overall results indicate that Telugu prompt-style recovery remains a challenging problem, particularly due to stylistic overlap and high lexical similarity across classes.</abstract>
+      <url hash="e665231e">2026.dravidianlangtech-1.14</url>
+      <bibkey>b-etal-2026-shared</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>T</fixed-case>amil<fixed-case>P</fixed-case>oli<fixed-case>S</fixed-case>ent 2026: A Shared Task report on Multiclass Political Sentiment Analysis in <fixed-case>T</fixed-case>amil</title>
+      <author id="mani-vegupatti" orcid="0009-0005-1322-952X"><first>Mani</first><last>Vegupatti</last><affiliation>National University of Ireland, Galway</affiliation></author>
+      <author id="kishore-kumar-ponnusamy" orcid="0000-0001-9621-668X"><first>Kishore Kumar</first><last>Ponnusamy</last></author>
+      <author id="bharathi-raja-chakravarthi" orcid="0000-0002-4575-7934"><first>Bharathi Raja</first><last>Chakravarthi</last><affiliation>University of Galway</affiliation></author>
+      <author><first>Saranya</first><last>Rajiakodi</last><affiliation>Central University of Tamil Nadu</affiliation></author>
+      <author id="thenmozhi-durairaj" orcid="0000-0003-0681-6628"><first>Thenmozhi</first><last>Durairaj</last></author>
+      <author id="prasanna-kumar-kumaresan" orcid="0000-0003-2244-246X"><first>Prasanna Kumar</first><last>Kumaresan</last><affiliation>Data Science Institution, University of Galway, Ireland</affiliation></author>
+      <author id="sathiyaraj-thangasamy" orcid="0000-0002-2272-3117"><first>Sathiyaraj</first><last>Thangasamy</last></author>
+      <pages>134-143</pages>
+      <abstract>Political sentiment analysis aims to automatically identify opinions and attitudes expressed in political discourse on social media platforms. This paper presents an overview of the TamilPoliSent 2026 shared task on multiclass political sentiment analysis in Tamil, organized as part of DravidianLangTech@ACL 2026. The task focuses on categorizing Tamil comments from X (formerly Twitter) into seven sentiment classes: Substantiated, Sarcastic, Opinionated, Positive, Negative, Neutral, and None of the above. The dataset consists of 5,440 annotated Tamil tweets collected from political discussions on social media. Participants were provided with labeled training and development datasets, while the test set was used for final evaluation.A total of 22 teams participated in the shared task and explored a wide range of modeling approaches including classical machine learning methods, transformer-based architectures, hybrid lexical–contextual models, and ensemble frameworks. System performance was evaluated using Macro F1-score to ensure balanced evaluation across all sentiment categories. The best-performing system achieved a Macro F1-score of 0.3935.The results highlight several challenges in Tamil political sentiment analysis, including class imbalance, sarcasm, informal writing styles, and semantic overlap between sentiment categories. The shared task demonstrates that transformer-based models combined with class-balanced learning and hybrid representations are effective for handling fine-grained political sentiment classification in low-resource languages. These findings contribute to advancing research in political discourse analysis and natural language processing for Tamil and other under-resourced languages.</abstract>
+      <url hash="dc66f97a">2026.dravidianlangtech-1.15</url>
+      <bibkey>vegupatti-etal-2026-tamilpolisent</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>A</fixed-case>buse<fixed-case>D</fixed-case>etect_<fixed-case>A</fixed-case>lchemists@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Weighted Transformer Ensemble for Detecting Abusive <fixed-case>T</fixed-case>amil Text Targeting Women</title>
+      <author><first>Meclin A</first><last>Francis</last></author>
+      <author><first>Jyoti</first><last>Kumari</last></author>
+      <author><first>Vinay Babu</first><last>Ulli</last><affiliation>Oogwai Analytics</affiliation></author>
+      <author><first>Malavika</first><last>Sreekumar</last><affiliation>Transunion</affiliation></author>
+      <author><first>Joel</first><last>Johnson</last><affiliation>International Business Machines</affiliation></author>
+      <pages>144-147</pages>
+      <abstract>This paper describes our system submitted to the shared task on Abusive Tamil Text Targeting Women on Social Media at DravidianLangTech@ACL 2026. We formulate the problem as a supervised binary classification task, assigning each Tamil social media comment to an Abusive or Non-Abusive category. Our pipeline begins with a tailored preprocessing stage that handles emoji translation, URL removal, and entity normalization. We then independently fine-tune two pre-trained transformer models MuRIL and XLM-RoBERTa on the task data. At inference time, we combine these models through a weighted softmax ensemble, assigning a weight of 0.6 to MuRIL and 0.4 to XLM-RoBERTa. The resulting system achieves a Macro-F1 score of 0.8115 on the test set, outperforming both individual models. The code is publicly available at: https://github.com/meclin2345/AbuseDetect_Alchemists</abstract>
+      <url hash="bf5f59f4">2026.dravidianlangtech-1.16</url>
+      <bibkey>francis-etal-2026-abusedetect</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>AIT</fixed-case>amil<fixed-case>D</fixed-case>ialect@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Zero-Shot Whisper and <fixed-case>W</fixed-case>av2<fixed-case>V</fixed-case>ec2 Embedding-Based <fixed-case>T</fixed-case>amil Speech Recognition and Dialect Classification.</title>
+      <author><first>Varalakshmi</first><last>K</last><affiliation>St Joseph's Institute Of Technology</affiliation></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <pages>148-152</pages>
+      <abstract>Low-resource languages pose significant challenges for speech technology due to linguistic variation and limited annotated resources. One such language is Tamil, which is a morphologically rich language with significant dialectal variations, which makes Automatic Speech Recognition (ASR) and dialect classification a challenging task. In this article, we introduce a shared-task system for handling Speech Processing in Tamil Language covering both ASR and Dialect classification. We use the Whisper Large-v3 multilingual model in a zero-shot setting without task-specific fine-tuning. For dialect classification, we employ a pre-trained Wav2Vec2 model to extract acoustic features and mean and standard deviation pooling to create utterance-level representations, with an XGBoost model trained for four-way prediction of dialects. Experiments on 579 Tamil speech samples resulted in a word error rate (WER) of 0.61, highlighting the difficulty of the dialectal ASR problem in low- resource setting. The dialect classification system obtained an accuracy of 0.49 and a macro F1 score of 0.41, and there was a certain amount of confusion between the dialect classes. The proposed system is purely based on the standard pretrained models without adaptation, but has produced a benchmark that can be replicated in the multilingual speech representation evaluation of Tamil low-resource scenarios. The results also indicate the need for additional strategies to improve the robustness of the model and stronger baseline models and improved methods for embedding-based dialect classification for future research.</abstract>
+      <url hash="c999548c">2026.dravidianlangtech-1.17</url>
+      <bibkey>k-b-2026-aitamildialect</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Azrael@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026:Dialect-Sensitive Automatic Speech Recognition and Classification for <fixed-case>T</fixed-case>amil</title>
+      <author><first>Janish Andrin</first><last>J</last></author>
+      <author><first>Mohammed</first><last>Sahil</last></author>
+      <author id="saranya-s" orcid="0009-0009-2946-9850"><first>Saranya</first><last>S</last></author>
+      <pages>153-157</pages>
+      <abstract>Tamil is a pre-historic language of millions of individuals who live in India, Sri Lanka, and other parts of the world. Consider the variations in accents, vocabulary and even speech rhythm even among the central region, the northern region, the southern region and the western region of Tamil Nadu. Such idiosyncrasies make it difficult to use features such as voice assistants or translation applications to keep up. A feasible system has been developed in this project to manage that challenge. It picks up raw audio files in Tamil, identifies which of the four predominant dialects the speech belongs to and translates that speech into text. Good quality datasets on Tamil dialects are rather rare, due to the lack of resources and interest in languages. There were pre-trained models, namely, XLSR to spot the dialects and Wav2Vec 2.0 to convert speech into text. All in all, this configuration had an accuracy rate of 46 percentage. It was very good at distinguishing between northern and southern, but was somewhat confused between central and west-central-western. In the case of the transcription component, a cursory inspection reveals that it is a reliable process, able to nail down clear speech despite those accent twists. With that said, it is possible to improve it with such details as a more detailed fine-tuning or equalizing the classes of data.</abstract>
+      <url hash="4e03efe8">2026.dravidianlangtech-1.18</url>
+      <bibkey>j-etal-2026-azrael</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>B</fixed-case>yte<fixed-case>B</fixed-case>reaker@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a Large with Sliding-Window Chunking and Top-K Mean Pooling for Writing Style Classification</title>
+      <author><first>Chava Srinivasa</first><last>Sai</last></author>
+      <author><first>R Vinay</first><last>Kumar</last></author>
+      <author><first>Jigeesha Sai</first><last>Surapaneni</last></author>
+      <author><first>Chava Shanmukha</first><last>Sai</last></author>
+      <pages>158-162</pages>
+      <abstract>Identifying different writing styles in large chunks of text is difficult because writing styles vary in different sections of a document. Additionally, the writing styles associated with a text can be differentiated in only tiny and nuanced ways. In this paper, we describe ByteBreaker, the system we built for the Prompt Recovery for LLM Shared Task at DravidianLangTech@ACL-2026. The goal is to analyze the writing style in a specific document that a large language model (LLM) has written. The styles to choose from are categorized as: Authoritative,Formal, Humorous,Informal,Inspiring,Optimistic,Persuasive, Pessimistic, and Serious. Given that a number of documents exceed the 512 token limit of transformer models, we adopt a sliding-window method that breaks each document down into overlapping 512 token chunks, with a stride of 256 tokens. We fine-tune XLM-RoBERTa Large with just the rewritten “CHANGE STYLE” text, as that one has more distinct stylistic indicators. For prediction, we Top-K mean pool the chunk-level predictions, which puts more emphasis on the confident chunks as opposed to treating all chunks the same. To enhance consistency, we trained the model with five distinct random seeds and made three submission:a weighted ensemble(Run 1), a mean-guided single model (Run 2), and a Top-K-guided single model (Run 3). Among the three, Run 3 reached the highest macro F1 score of 0.3306, while Run 1 achieves the best accuraccy(0.3256) with a macro F1 of 0.3290.</abstract>
+      <url hash="330ba95c">2026.dravidianlangtech-1.19</url>
+      <bibkey>sai-etal-2026-bytebreaker</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>B</fixed-case>yte<fixed-case>B</fixed-case>uilders@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Transformer-Based Weighted Ensemble for Political Multiclass Sentiment Analysis of <fixed-case>T</fixed-case>amil <fixed-case>X</fixed-case> (<fixed-case>T</fixed-case>witter) Comments</title>
+      <author><first>Mitharshana T</first><last>V</last></author>
+      <author id="shanthi-s" orcid="0000-0001-8611-4196"><first>Shanthi</first><last>S</last><affiliation>Kongu Engineering College</affiliation></author>
+      <author><first>Lavana</first><last>V</last></author>
+      <author><first>Kaviya Varma</first><last>R</last></author>
+      <pages>163-168</pages>
+      <abstract>Our proposal for the Dravidian LangTech 2026 Tamil Political Sentiment Analysis job is outlined in this document. Seven categories—substantiated, sarcastic, opinionated, positive, negative, neutral, and none of the above—should be used to classify Tamil political remarks according to their attitudes. Classifying the sentiments of Tamil political utterances is quite difficult. Furthermore, the emotions associated with various identities are not distributed uniformly. We built an ensemble of two transformer-based techniques, XLM-RoBERTa and IndicBERT, and used 10-fold cross-validation to improve the model’s dependability and prevent overfitting in order to address some of these issues while finishing this research. In order to help the model concentrate more on the challenging examples, used oversampling to address class imbalance and Focal Loss to train the model. In order to improve the representation of sentences, finally averaged the token embeddings.</abstract>
+      <url hash="a6aaf4b2">2026.dravidianlangtech-1.20</url>
+      <bibkey>v-etal-2026-bytebuilders</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>cantnlp@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: organic domain adaptation improves multi-class hope speech detection in <fixed-case>T</fixed-case>ulu</title>
+      <author><first>Andrew</first><last>Li</last></author>
+      <author id="sidney-gig-jan-wong" orcid="0000-0002-8483-0540"><first>Sidney</first><last>Wong</last></author>
+      <pages>169-175</pages>
+      <abstract>This paper presents our systems and results for the Hope Speech Detection in Code-Mixed Tulu Language shared task at the Sixth Workshop on Speech, Vision, and Language Technologies for Dravidian Languages (DravidianLangTech-2026). We trained an XLM-RoBERTa-based text classification system for detecting hope speech in code-mixed Tulu social media comments. We compared this organically adapted hope speech detection model with our baseline model. On the development set, the organically adapted model outperformed the baseline system. While our submitted systems performed more modestly on the official test set, these results suggest that further adapting XLM-RoBERTa on organically collected Tulu social media text containing code-mixed and mixed-script variation can improve hope speech detection in code-mixed Tulu.</abstract>
+      <url hash="1dba8fd7">2026.dravidianlangtech-1.21</url>
+      <bibkey>li-wong-2026-cantnlp</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>CHMOD</fixed-case>_777@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Context-Aware Fine-tuned <fixed-case>M</fixed-case>u<fixed-case>RIL</fixed-case> for Abusive <fixed-case>T</fixed-case>amil Text Detection on Social Media</title>
+      <author id="arunaggiri-pandian-karunanidhi" orcid="0000-0001-8420-573X"><first>Arunaggiri Pandian</first><last>Karunanidhi</last><affiliation>Micron Technology</affiliation></author>
+      <author><first>Prabalakshmi</first><last>Arumugam</last></author>
+      <pages>176-180</pages>
+      <abstract>This paper describes Team CHMOD_777’s system for the DravidianLangTech@ACL 2026 shared task on detecting abusive Tamil text targeting women on social media. We fine-tune three transformer backbones (MuRIL, XLM-RoBERTa, IndicBERT-v3) with Focal Loss and weighted sampling, systematically evaluating the effects of context length, hyperparameter tuning, and language-specific pre-training. Our best system, MuRIL with 256-token context, achieves 82.76% Macro F1 on the development set and 80.61% on the official test set, ranking 6th out of 24 teams. We find that (1) extending context from 128 to 256 tokens improves F1 while converging 2.4x faster, (2) language-specific pre-training (MuRIL, 236M) outperforms larger models (IndicBERT, 270M), and (3) default hyperparameters are optimal, with every tuning attempt degrading performance.</abstract>
+      <url hash="9e1208d2">2026.dravidianlangtech-1.22</url>
+      <bibkey>karunanidhi-arumugam-2026-chmod</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>CHMOD</fixed-case>_777@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>LLM</fixed-case> Augmented Transformer Fine-tuning for <fixed-case>T</fixed-case>amil Political Sentiment Analysis</title>
+      <author id="arunaggiri-pandian-karunanidhi" orcid="0000-0001-8420-573X"><first>Arunaggiri Pandian</first><last>Karunanidhi</last><affiliation>Micron Technology</affiliation></author>
+      <author><first>Prabalakshmi</first><last>Arumugam</last></author>
+      <pages>181-185</pages>
+      <abstract>This paper describes Team CHMOD_777’s system for the DravidianLangTech@ACL 2026 shared task on political multiclass sentiment analysis of Tamil Twitter comments. The task requires classifying Tamil political tweets into seven sentiment categories under severe class imbalance (8:1 ratio). We address this challenge through LLM-based data augmentation using Gemini 2.5 Flash, expanding training data from 4,352 to 15,316 samples (3.5x the original). Our best system, MuRIL fine-tuned on augmented data with Focal Loss (gamma=3.0) and weighted sampling, achieves 35.79% Macro F1 on the development set, a 67% relative improvement over the non-augmented baseline. On the official test set, our system achieves 34.25% Macro F1, ranking 12th out of 22 participating teams. We find that (1) language-specific pre-training (MuRIL, 236M) outperforms larger general models (IndicBERT-v3, 1B), (2) smaller models benefit disproportionately from augmentation, and (3) Substantiated is the hardest category (F1=10.7%) due to its requirement for factual reasoning.</abstract>
+      <url hash="60f2e516">2026.dravidianlangtech-1.23</url>
+      <bibkey>karunanidhi-arumugam-2026-chmod-777</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>CHMOD</fixed-case>_777@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>T</fixed-case>amil-Adapted Whisper and <fixed-case>MMS</fixed-case> for Dialect Speech Recognition and Classification</title>
+      <author id="arunaggiri-pandian-karunanidhi" orcid="0000-0001-8420-573X"><first>Arunaggiri Pandian</first><last>Karunanidhi</last><affiliation>Micron Technology</affiliation></author>
+      <author><first>Prabalakshmi</first><last>Arumugam</last></author>
+      <pages>186-190</pages>
+      <abstract>This paper describes Team CHMOD_777’s system for the DravidianLangTech@ACL 2026 shared task on Tamil dialect speech recognition and classification. The task comprises two subtasks: classifying Tamil speech into four regional dialects (Northern, Southern, Western, Central) and transcribing dialectal Tamil speech to text. For dialect classification, we fine-tune MMS-1b-all with Focal Loss and weighted sampling, achieving 83.04 Macro F1 on the development set (5th out of 11 teams on the test set). For speech recognition, we fine-tune a Tamil-specific Whisper model (763M parameters), achieving 53.72 WER on the development set and 49.75 on the official test set, ranking 1st out of 13 teams. Our key finding is that domain-specific pre-training significantly outperforms larger general-purpose models: Tamil Whisper (763M) beats Whisper-large-v3 (1.5B) by 8 WER points despite having half the parameters.</abstract>
+      <url hash="8a4dbc00">2026.dravidianlangtech-1.24</url>
+      <bibkey>karunanidhi-arumugam-2026-chmod-777-dravidianlangtech</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Cuet Yet Another Baseline@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Shared Task on Prompt Recovery for <fixed-case>LLM</fixed-case> in <fixed-case>T</fixed-case>elugu</title>
+      <author><first>Rotna Dipika</first><last>Debnath</last></author>
+      <author><first>Shahrin Afroz Hoque</first><last>Ruhi</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Ayesha</first><last>Labiba</last></author>
+      <author><first>Arpita</first><last>Mallik</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>191-195</pages>
+      <abstract>Prompt recovery in large language models (LLMs) is the task of inferring the communicative intent and stylistic framing of the original instruction from model-generated output. This task is especially challenging for low-resource Dravidian languages such as Telugu, where agglutinative morphology, register variation, and scarce annotated data complicate stylistic modelling. In this paper, we present our system for the Shared Task on Prompt Recovery for LLM in Telugu at DravidianLangTech @ ACL 2026, which aims to classify Telugu transcript excerpts into nine communicative style categories: Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative, and Persuasive.We have implemented a transformer-based approach using ai4bharat/IndicBERTv2-MLM-only, MuRIL-base and Telugu-BERT for Telugu communicative style classification. Our system fine-tunes the pretrained Indic language training samples to capture stylistic patterns in Telugu transcripts. Our approach achieved a macro F1 score of 0.2993 on the evaluation set, demonstrating the potential of Indic-focused pretrained models for stylistic analysis in low-resource language settings.Controlled ablations reveal that label smoothing benefits stronger Indic backbones but degrades weaker ones, and that surface linguistic feature augmentation does not complement rich contextual representations on small datasets.</abstract>
+      <url hash="b1af2c60">2026.dravidianlangtech-1.25</url>
+      <bibkey>debnath-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>CUET</fixed-case>-2567@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech-<fixed-case>ACL</fixed-case> 2026: Multimodal Stance and Target Identification in <fixed-case>D</fixed-case>ravidian Political Memes</title>
+      <author><first>Arka</first><last>Dutta</last></author>
+      <author><first>Anindya</first><last>Majumder</last></author>
+      <author id="adnan-faisal" orcid="0009-0003-9674-445X"><first>Adnan</first><last>Faisal</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>196-200</pages>
+      <abstract>In Dravidian languages, political memes progressively shape public opinion and political discourse, influencing digital conversations andpublic narratives. Our paper proposes a multilevel multimodal framework for political meme classification in Tamil and Malayalam as part of the Multi Level Political Meme ClassificationDravidianLangTech@ACL 2026 shared task. The task has involved two levels: Level 1 has identified whether a meme expresses Troll/Oppose or Support/Praise, while Level 2 has determined the specific target category (Individual, Party, or Intersection). We have evaluated unimodal and multimodal architectures to analyze the impact of textual and visual representation. Experimental results have highlighted the importance of a multimodal approach over unimodal approaches. This workconfirms the effectiveness of combining image and text features in meme understanding. Among the evaluated models, the mBERT+ViTarchitecture has achieved the best overall performance across both languages and classification levels. According to the evaluation of shared task we achieved average F1 score of 0.72 securing the 2nd rank in Malayalam task and F1 score of 0.76 in Tamil task securing the 6th rank. However after our experimental evaluation we got best average F1 score of 0.62 for Tamil and 0.49 for Malayalam. Despite moderate results, challenges have remained mainly due to the dataset size, class imbalance, and noisy text extraction from images.</abstract>
+      <url hash="5baca04c">2026.dravidianlangtech-1.26</url>
+      <bibkey>dutta-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>I</fixed-case>nfer<fixed-case>X</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Shared Task on Dialect Based Speech Recognition and Classification in <fixed-case>T</fixed-case>amil</title>
+      <author><first>Md. Ashraful Islam</first><last>Semon</last></author>
+      <author><first>Jihadul</first><last>Islam</last></author>
+      <author><first>Ratnajit</first><last>Dhar</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>201-206</pages>
+      <abstract>Tamil has a lot of internal variability, including the way it is used in casual conversations, code mixing, and phonetic differences in the way it is spoken in different regions, making it quite difficult to transcribe the spoken word and classify the dialects. In order to address these challenges, our paper presents the system developed by the CUET_InferX team for the Shared Task on Dialect Based Speech Recognition and Classification in Tamil, which was part of DravidianLangTech@ACL 2026. For Subtask 2 (ASR), our proposed system is based on a dual-architecture design that incorporates a fine-tuned Whisper-large-v3 model with Low-Rank Adaptation (LoRA) and a Wav2Vec2 XLSR-53 model, topped with a KenLM statistical language model for n-gram phonetic correction. Our ASR system resulted in a Word Error Rate (WER) of 0.54, which earned us 2nd position for Subtask 2. For Subtask 1 (Speech-Based Dialect Classification), our proposed system is based on a text-based weighted ensemble of IndicBERT, MuRIL, XLM-RoBERTa, and TamilBERT models, which is completely dependent on our ASR system’s transcription outputs. Our proposed system achieved a Macro F1 score of 0.22, which earned us 9th position for Subtask 1.</abstract>
+      <url hash="5b71ae3f">2026.dravidianlangtech-1.27</url>
+      <bibkey>semon-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>C</fixed-case>uet_<fixed-case>N</fixed-case>eural_<fixed-case>N</fixed-case>avigators@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Depression Detection from <fixed-case>M</fixed-case>alayalam and <fixed-case>T</fixed-case>amil Speech using Self-Supervised Acoustic Models</title>
+      <author><first>Shuva</first><last>Dey</last></author>
+      <author><first>Abir</first><last>Dey</last></author>
+      <author><first>Sha Newaz</first><last>Mahmud</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>207-211</pages>
+      <abstract>Depression detection from speech aims to findsigns of depression using behavioral signals.This approach enables early mental healthscreening and makes it scalable. However, thetask is tough because of subtle acoustic cues,differences among speakers, and language-specific patterns. In this work, we introduceour system for the Shared Task on DepressionDetection in Dravidian Languages (DD-DL)at DravidianLangTech@ACL 2026. We fo-cus on speech in Tamil and Malayalam. Weexplore pretrained self-supervised speech en-coders, including HuBERT, XLS-R, and Whis-per, to identify acoustic patterns related to de-pression directly from raw audio. Our methodcombines these models through ensembling tocapture different acoustic features. The ex-periments use stratified evaluation and cross-lingual analysis to check how well the mod-els work across languages. Results show thatpretrained acoustic representations effectivelycapture vocal features of depression, achiev-ing Macro-F1 scores of 0.9058 for Tamil and0.9396 for Malayalam. However, cross-lingualtransfer faces challenges because of phoneticand prosodic differences.</abstract>
+      <url hash="13a2ab03">2026.dravidianlangtech-1.28</url>
+      <bibkey>dey-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>SYNTHETICA</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multi Architecture Transformer Ensemble for Detecting Abusive <fixed-case>T</fixed-case>amil Text Targeting Women</title>
+      <author><first>Miftahul Jannat</first><last>Rishta</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Sumaiya</first><last>Zaman</last></author>
+      <author id="shiti-chowdhury" orcid="0009-0006-2298-5965"><first>Shiti</first><last>Chowdhury</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>212-216</pages>
+      <abstract>Abusive language targeting women has been a serious problem on Tamil social media and building systems to detect it automatically is harder than it looks. Tamil is morphologically complex, people have written it mixed with English in ways no dictionary has accounted for and a lot of the hostility has been indirect enough that has slipped past models trained on surface patterns. In the Shared Task on Abusive Tamil Text Targeting Women on Social Media DravidianLangTech@ACL 2026, we have worked on classifying Tamil YouTube comments as Abusive or Non-Abusive. We have trained three transformer models four times each with different learning rates, giving us 12 models total. Their predicted probabilities have been averaged to make the final decision. The 12-model ensemble has achieved a macro F1 of 0.8086, outperforming all individual models and securing 4th place in the shared task. Combining Tamil-specialized and multilingual transformer models has outperformed any single-architecture approach.</abstract>
+      <url hash="1a06fb2b">2026.dravidianlangtech-1.29</url>
+      <bibkey>rishta-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>SYNTHETICA</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multilingual Transformer Based Hope Speech Detection for Coarse and Fine-Grained Classification in <fixed-case>T</fixed-case>ulu</title>
+      <author><first>Sumaiya</first><last>Zaman</last></author>
+      <author><first>Miftahul Jannat</first><last>Rishta</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author id="shiti-chowdhury" orcid="0009-0006-2298-5965"><first>Shiti</first><last>Chowdhury</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>217-221</pages>
+      <abstract>Hope speech has played a vital role in online communities, yet most NLP work has focused on English and a few high-resource languages, leaving code-mixed varieties like Tulu largely unexplored. In the Shared Task on Hope Speech Detection in Code-Mixed Tulu at DravidianLangTech@ACL 2026, we have tackled two subtasks: (i) coarse-grained classification into Encouraging, Discouraging, Uninvolved and Blended categories (Task 1) and (ii) fine-grained classification into Optimistic, Realistic, Inspiring, Fading and Hopelessness (Task 2).We have fine-tuned three multilingual transformer encoders XLM-RoBERTa-base, MuRIL and mBERT on the official training splits. In Task 1, a three-way soft-voting ensemble of all three models has yielded the best performance with a macro F1 of 0.58, securing 1st place. In Task 2, XLM-RoBERTa-base alone has outperformed both MuRIL and mBERT, achieving a macro F1 of 0.42 and also securing 1st place.</abstract>
+      <url hash="8a67af8d">2026.dravidianlangtech-1.30</url>
+      <bibkey>zaman-etal-2026-cuet</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>CYBERPUNK</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multimodal Political Meme Classification using <fixed-case>CLIP</fixed-case> and Logo Similarity</title>
+      <author><first>Shahad</first><last>Abir</last></author>
+      <pages>222-226</pages>
+      <abstract>We present our system for the DravidianLangTech 2026 shared task on multi-level political meme classification in Tamil and Malayalam. The task involves two hierarchical levels: (1) stance detection (Support vs. Troll) and (2) target identification (Person, Party, or Intersection). Our approach combines CLIP vision-language embeddings (ViT-L-14) with face detection features and political logo similarity matching, resulting in a 773-dimensional feature representation. We train separate LinearSVC classifiers for each language and task level. Our system achieved Rank 1 in Malayalam with an average F1-score of 0.7930 and Rank 6 in Tamil with 0.7666. Our codes are available at https://github.com/A-k-a-sh/Shared-task-multimodal-political-meme.</abstract>
+      <url hash="70fc1ff2">2026.dravidianlangtech-1.31</url>
+      <bibkey>abir-2026-cyberpunk</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Dialectmind@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang Tech 2026: Zero-Shot Dialectal <fixed-case>T</fixed-case>amil Automatic Speech Recognition Using a Large Pretrained Conformer Model</title>
+      <author><first/><last>Gayathri.k</last><affiliation>St Joseph's Institute Of Technology</affiliation></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <pages>227-231</pages>
+      <abstract>The low-resource dialectal Automatic Speech Recognition (ASR) in languages like Tamil is a critical issue because of phonological differences, lack of labeled data and because of the differences in the acoustic of speech patterns among regions. This paper will introduce a dialect-conscious Tamil ASR model that is trained on the Conformer-CTC-BPE-Large framework via the NVIDIA NeMo framework. This model is an integration of convolutional subsampling, multi-head self-attention, and Connectionist Temporal Classification (CTC) decoding along with a BPE tokenizer to make possible both efficient end-to-end speech recognition. The system is tested on the audio recordings of dialectal Tamil, in which mono-channel audio normalization and batch transcription are used. Our findings indicate that even using large pretrained Conformer models, dialectal ASR tasks are successfully implemented even in zero-shot. Transcriptions generated are examined and the challenges associated with the dialectal differences and acoustic models, and we comment on the possible future directions of enhancing data-efficient adaptation in low-resource speech recognition.</abstract>
+      <url hash="c9b71288">2026.dravidianlangtech-1.32</url>
+      <bibkey>gayathri-k-b-2026-dialectmind</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.32</doi>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>DLRG</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Dual-Purpose Whisper Adaptation for <fixed-case>T</fixed-case>amil Dialect Identification and Dialectal Speech Recognition</title>
+      <author id="gulisetty-abhinav" orcid="0009-0001-5686-2713"><first>Gulisetty</first><last>Abhinav</last></author>
+      <author><first>Tanisha</first><last>Nanda</last></author>
+      <author id="ramesh-kannan" orcid="0000-0002-6220-1217"><first>Ramesh Kannan</first><last>R</last></author>
+      <author id="ratnavel-rajalakshmi" orcid="0000-0002-6570-483X"><first>Ratnavel</first><last>Rajalakshmi</last><affiliation>Vellore Institute of Technology</affiliation></author>
+      <pages>232-236</pages>
+      <abstract>This paper describes our system developed for the shared task on Dialect Based Speech Recognition and Classification in Tamil at DravidianLangTech@ACL 2026. We participated in both Subtask 1 (Dialect Identification) and Subtask 2 (Dialectal ASR). Our approach leverages a single Tamil-adapted Whisper Medium model as a unified foundation for both tasks. For dialect classification, we have used the Whisper encoder as a feature extractor by discarding the decoder, applying mean pooling over the temporal dimension, and fine-tuning the full encoder with a lightweight classification head, achieving 73.4% accuracy on the test set. For dialectal ASR, we apply Low-Rank Adaptation (LoRA) to the full encoder-decoder architecture with SpecAugment-based data augmentation, achieving a Word Error Rate (WER) of 0.55 on the test set. Our experiments reveal that unfreezing the pre-trained encoder is critical for dialect discrimination, boosting accuracy from 52.78% (frozen) to 73.4% (unfrozen). The code is publicly available at https://github.com/DLRG-VIT/DravidianLangTech2026</abstract>
+      <url hash="9482eb6a">2026.dravidianlangtech-1.33</url>
+      <bibkey>abhinav-etal-2026-dlrg</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>DLRG</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Explainable Transformer-Based Detection of Abusive <fixed-case>T</fixed-case>amil Text Targeting Women on Social Media</title>
+      <author><first>Mirudhula</first><last>Sankar</last></author>
+      <author id="ratnavel-rajalakshmi" orcid="0000-0002-6570-483X"><first>Ratnavel</first><last>Rajalakshmi</last><affiliation>Vellore Institute of Technology</affiliation></author>
+      <pages>237-241</pages>
+      <abstract>Many social media platforms have users who have normalized the abuse of women online, creating a need for systems that automatically detect such activity. For low-resource, regional languages like Tamil, which has informal writing styles, spelling variations, dialectal differences, and culturally specific expressions, it becomes a challenge to correctly detect abusive comments. In this work, a transformer-based approach for binary classification of Tamil comments into abusive and non-abusive categories is done using the DravidianLangTech dataset. The proposed system fine-tunes MuRIL(a multilingual transformer pretrained for Indian languages), enabling effective contextual representation with minimal preprocessing. To improve the transparency of the system, a post-hoc Explainable AI component is incorporated. A perturbation-based method using log-odds differences identifies words that significantly influence the predictions. Experimental findings indicate that the model reaches a validation accuracy exceeding 81% while also exhibiting a strong macro-F1 score. This research shows that utilizing contextual multilingual representations alongside simple interpretability methods offers a viable and effective approach for detecting abusive text in Tamil. The implementation of our system is publicly available at https://github.com/mirud5173/Abusive-Tamil-Comment-Detection-using-Transformer-Models</abstract>
+      <url hash="8a78aa56">2026.dravidianlangtech-1.34</url>
+      <bibkey>sankar-rajalakshmi-2026-dlrg</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>DPR</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Transformer-Based Abusive Content Detection for <fixed-case>T</fixed-case>amil Text Targeting Women on Social Media</title>
+      <author><first>Diya</first><last>Prakash</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <author><first>Praveen Kumar</first><last>S</last></author>
+      <author><first>R Ranjith</first><last>Kumar</last></author>
+      <author><first>Balasubramanian</first><last>Palani</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <author><first>Jobin</first><last>Jose</last></author>
+      <author><first>Siranjeevi</first><last>Rajamanickam</last></author>
+      <pages>242-247</pages>
+      <abstract>The fast-growing number of content in Tamil in social media has led to increasing abusive and gender-directed hate speech in online platforms. Detecting abusive content written in Tamil is relatively difficult owing to the complex morphological structure of Tamil language, its dialects, transliteration, and contextualized usage. In this study, the use of transformer-based pretrained language models in detecting abusive content in Tamil was explored. Five transformer-based models—mBERT, MuRIL, XLM-RoBERTa, IndicBERT, and Tamil-BERT—were fine-tuned and tested using DravidianLangTech 2026 shared task dataset. The experimental results show that the best-performing model was Tamil-BERT with an accuracy rate of 80.72% owing to Tamil-specific pretraining and better morphological analysis capabilities. Our system ranks 5th at the leaderboard of the DravidianLangTech 2026 shared task challenge. The source code and fine-tuned models are opensource and publicly accessible.</abstract>
+      <url hash="28c3d913">2026.dravidianlangtech-1.35</url>
+      <bibkey>prakash-etal-2026-dpr</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.35</doi>
+    </paper>
+    <paper id="36">
+      <title>Dravid-Tech-Builders@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Comparative Study of Classical and Deep Learning Approaches for <fixed-case>T</fixed-case>amil Dialect Classification and Speech Recognition</title>
+      <author><first>Naveen</first><last>A</last></author>
+      <author><first>Karthiyayini</first><last>P</last></author>
+      <author><first>Kalaivani K</first><last>S</last></author>
+      <pages>248-252</pages>
+      <abstract>The rapid expansion of digital connectivity across India has dramatically increased participation in speech-enabled services and multilingual communication platforms. Tamil, with its rich dialectal diversity across geographical regions, presents unique challenges for automatic speech recognition and dialect identification systems. We participated in the DravidianLangTech 2026 shared task to classify Tamil speech into four regional dialects (Central, Northern, Southern, Western) and perform automatic speech recognition. We trained four machine learning models (SVM, Random Forest, CNN, CNN+BiLSTM) alongside two transfer learning models (Wav2Vec2-Base, Wav2Vec2-XLSR-53) for ASR. Among classification models, SVM with MFCC features achieved the best performance with 94.17% macro F1-score and validation accuracy of 94.35%. For ASR, Wav2Vec2-XLSR-53 obtained 15.3% WER, demonstrating effective cross-lingual knowledge transfer. Our analysis reveals that traditional machine learning approaches with engineered features outperform deep learning methods in low-resource scenarios with limited training data. Code is available at: https://github.com/Naveen-Arul/dravid-tech</abstract>
+      <url hash="c6aee74d">2026.dravidianlangtech-1.36</url>
+      <bibkey>a-etal-2026-dravid</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.36</doi>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>ERROR</fixed-case>_500@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech2026: Automatic Prompt Style Classification in <fixed-case>T</fixed-case>elugu Using Transformer-Based Language Models</title>
+      <author><first>Mahashweta Manjari</first><last>Barua</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Tasnia</first><last>Khanam</last></author>
+      <author><first>Nuzha Saifa</first><last>Rahmat</last></author>
+      <author id="shiti-chowdhury" orcid="0009-0006-2298-5965"><first>Shiti</first><last>Chowdhury</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>253-257</pages>
+      <abstract>Recovering writing style prompts in low resource languages has been daunting due to diverse morphology, culturally cognizant language patterns and deficient annotated resources. As previous works have predominantly focused on binary sentiment or single attribute transfer, extensive multi-class style classification in under-resourced languages like Telegu has been vastly underexplored. In this study, we have addressed this chasm through the Telugu Prompt-Style Recovery Shared Task at DravidianLangTech@ACL 2026 (Premjith et al., 2026), framing prompt reconstruction as a nine-class classification problem with Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative and Persuasive as prompt styles. We have evaluated three input configurations—Change Style, Original Transcripts and Merged input style—while training three transformer based models-MuRIL, XLM-RoBERTa and IndicBERT v2 under identical conditions. Our most promising model, IndicBERT v2 with partial layer freezing and weighted cross-entropy loss, has obtained a macro-F1 of 0.2987 and accuracy of 0.299. The Change Style configuration has significantly outperformed Original and Merged inputs, indicating that explicit style changes have made tonal and meaning cues more distinctive. These results have showcased the importance of language-specific pretraining and careful input design for style-sensitive NLP in low-resource settings, ultimately securing 1st rank on the shared task.</abstract>
+      <url hash="96c3d250">2026.dravidianlangtech-1.37</url>
+      <bibkey>barua-etal-2026-error</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.37</doi>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>HNK</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Investigating Grapheme-Level Normalization for Abusive <fixed-case>T</fixed-case>amil Text Classification</title>
+      <author><first>Hanish Vigneshwar</first><last>R</last></author>
+      <author><first>Nahul</first><last>Alaguraj</last></author>
+      <author><first>Karthikeyan</first><last>Manimaran</last></author>
+      <author id="ratnavel-rajalakshmi" orcid="0000-0002-6570-483X"><first>Ratnavel</first><last>Rajalakshmi</last><affiliation>Vellore Institute of Technology</affiliation></author>
+      <pages>258-262</pages>
+      <abstract>The increasing prevalence of social media has also correlated with an increase in abusive content targeting women, particularly for regional languages such as Tamil. The automatic identification of abusive content is critical for the creation of safer online spaces. In this paper, we focus on the abusive text detection of women in the context of binary text classification. We evaluated the performance of the proposed system on the abusive text detection of women using the IndicBERT, MuRIL, and Tamil-BERT models. Additionally, we propose the use of grapheme-aware normalization for the proposed system. Grapheme-aware normalization aims to maintain the structural integrity of Tamil characters at the Unicode level. The experimental results reveal that the proposed system using the Tamil-BERT model with grapheme-aware normalization achieves the best performance among the evaluated models. The proposed system achieved the third position in the shared task.</abstract>
+      <url hash="0c284850">2026.dravidianlangtech-1.38</url>
+      <bibkey>r-etal-2026-hnk</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.38</doi>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>H</fixed-case>ope_<fixed-case>S</fixed-case>peech_<fixed-case>A</fixed-case>lchemists@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> <fixed-case>SVM</fixed-case> and <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a with Focal Loss for Hope Speech Detection in <fixed-case>T</fixed-case>ulu</title>
+      <author><first>Joel</first><last>Johnson</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Meclin A</first><last>Francis</last></author>
+      <author><first>Jyoti</first><last>Kumari</last></author>
+      <author><first>Malavika</first><last>Sreekumar</last><affiliation>Transunion</affiliation></author>
+      <author><first>Vinay Babu</first><last>Ulli</last><affiliation>Oogwai Analytics</affiliation></author>
+      <pages>263-267</pages>
+      <abstract>This paper describes our system submitted to the shared task on Hope Speech Detection in Tulu at DravidianLangTech@ACL 2026 hope-speech-dravidianlangtech-acl-2026. The task comprises two sub-tasks: coarse-grained classification into four categories Task 1 and fine-grained classification into five categories Task 2. We compare a traditional TF-IDF + LinearSVC baseline against XLM-RoBERTa fine-tuned with minority-class oversampling and Focal Loss. Our experiments reveal an interesting trade-off: while the transformer approach achieves the best validation Macro-F1 of 0.57 on the coarse-grained task, the TF-IDF baseline outperforms it on the smaller fine-grained task, highlighting the data scarcity threshold below which large pre-trained models struggle to generalise. On the official test set, our system achieves a Macro-F1 of 0.55 on Task 1 and 0.40 on Task 2. The code is publicly available at: https://github.com/meclin2345/Hope_Speech_Alchemists</abstract>
+      <url hash="b9f0bbc1">2026.dravidianlangtech-1.39</url>
+      <bibkey>johnson-etal-2026-hope</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.39</doi>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>IIITK</fixed-case>_<fixed-case>S</fixed-case>peech<fixed-case>S</fixed-case>cape@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Dialect based speech recognition and classification using Speech Foundation Models and Deep Learning Techniques</title>
+      <author><first>G Srishtik</first><last>Sekar</last></author>
+      <author><first>Harissh Ragav</first><last>Dhamodaran</last></author>
+      <author><first>Kishore Shankar</first><last>S</last></author>
+      <author><first>Balasubramanian</first><last>Palani</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <author><first>R</first><last>Tharaniya Sairaj</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <pages>268-272</pages>
+      <abstract>Dialectal variation poses a significant challenge to Automatic Speech Recognition (ASR), particularly for low resource morphologically rich languages such as Tamil. Although widely spoken in India, Sri Lanka, and the global diaspora, Tamil exhibits substantial phonetic, lexical, and prosodic variation across dialects, complicating both dialect classification and speech recognition. In this work, we address these tasks within a unified framework.We evaluate state-of-the-art models for dialect classification, including Whisper, CLDNN, wav2vec, and wavLM, and for ASR, Whisper and a zero-shot Conformer. Among them, Whisper achieves the best performance, obtaining a macro F1-score of 0.46 for dialect classification and a word error rate of 0.57 for ASR.These results highlight the strong generalization capability of transformer-based foundation models across dialects and languages. The code is publicly available in github for research purpose.</abstract>
+      <url hash="f964b462">2026.dravidianlangtech-1.40</url>
+      <bibkey>sekar-etal-2026-iiitk</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.40</doi>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>I</fixed-case>ndi<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Hierarchical Modeling for Multi-Level Political Meme Classification</title>
+      <author id="saurabh-kumar" orcid="0000-0002-0717-9512"><first>Saurabh</first><last>Kumar</last><affiliation>Indian Institute of Technology, Guwahati</affiliation></author>
+      <author><first>Vivekananda</first><last>G</last></author>
+      <author id="ranbir-singh-sanasam" orcid="0000-0003-0484-2144"><first>Ranbir Singh</first><last>Sanasam</last><affiliation>Indian Institute of Technology, Guwahati, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <author id="sukumar-nandi" orcid="0000-0002-5869-1057"><first>Sukumar</first><last>Nandi</last><affiliation>Indian Institute of Technology, Guwahati</affiliation></author>
+      <pages>273-278</pages>
+      <abstract>Political memes are a widely used form of digital political expression in linguistically diverse regions such as South India, where visual cues, textual overlays, and cultural symbolism convey complex political narratives. The Shared Task on Multi-Level Political Meme Classification at DravidianLangTech 2026 introduces a hierarchical setting requiring stance identification (Support vs. Troll) and target-type prediction (Individual vs. Party) for Tamil and Malayalam memes. We propose a two-stage hierarchical framework based on the Gemma 3 4B Instruction model. Instead of jointly predicting both levels, two specialized models are fine-tuned: the first predicts meme stance, and its output conditions the second model for target identification, explicitly modeling the dependency between the meme content, the predicted stance, and the target type. Using LoRA-based parameter-efficient instruction tuning, our approach achieves an average F1-scores of 0.8029 for Tamil and 0.6950 for Malayalam across both levels, ranking 1st in Tamil and 4th in Malayalam.</abstract>
+      <url hash="6ad344a6">2026.dravidianlangtech-1.41</url>
+      <bibkey>kumar-etal-2026-indilangtech</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.41</doi>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>J</fixed-case>erin<fixed-case>W</fixed-case>arriors@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Two-Stream Cross-Attention Approach for Prompt Recovery in <fixed-case>T</fixed-case>elugu</title>
+      <author><first>Savith</first><last>A</last></author>
+      <author><first>Wordson</first><last>Robert</last></author>
+      <author><first>Jerin Mahibha</first><last>C</last><affiliation>Meenakshi Sundararajan Engineering College</affiliation></author>
+      <author><first>Shrey</first><last>Patnaik</last></author>
+      <pages>279-283</pages>
+      <abstract>Identifying the structure of detailed sentences which show glimpses of various annotation cues, in a low resource language that is morphological rich like Telugu is a challenge. Standard baseline architectures like Multi Layer Perceptrons (MLP) struggle with low resource languages. This paper details our proposed solution for the Telugu Prompt-Style Recovery Shared Task at DravidianLangTech @ ACL 2026. We propose a Two-Stream Cross-Attention architecture that uses a shared MuRIL encoder to calculate the relationship between an original transcript and its style-shifted counterpart, helping the MLP to distinguish the styles better and catch the differences better. Through experimentation we have found out that this proposed model handles the signal dilution of the individual labels better than the rest. Our best-performing system achieved a Macro F1-score of 0.2588 on the test set, securing 2nd place out of 13 teams. We have concluded that the local transformation is the main driver for the style recovery in this task. For reproducibility, we release our implementation and experimental setup on GitHub.</abstract>
+      <url hash="0767c28e">2026.dravidianlangtech-1.42</url>
+      <bibkey>a-etal-2026-jerinwarriors</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.42</doi>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>KEC</fixed-case>’<fixed-case>S</fixed-case> <fixed-case>CODE</fixed-case> <fixed-case>CRAFTERS</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Abusive <fixed-case>T</fixed-case>amil Text Detection Targeting Women on Social Media</title>
+      <author><first/><last>Nivetha</last></author>
+      <author><first>Nethrasri</first><last>S</last></author>
+      <author id="malliga-subramanian" orcid="0000-0003-3263-0376"><first>Malliga</first><last>Subramanian</last></author>
+      <pages>284-288</pages>
+      <abstract>As social media platforms continue to grow insize, unfortunately, they have also become ahub for digital toxicity, where women in linguistically diverse regions are particularly vulnerable to online harassment. Hence, the requirement for an automated moderation toolthat can effectively handle regional languagesis critical. Our paper is a step in this direction as we propose a classification modelfor the “Abusive Tamil Text Detection Targeting Women on Social Media” shared taskfor DravidianLangTech-2026. Our model istrained on a dataset of 25,948 comments fortraining and 915 for testing. Our primary objective was to classify content as either ”Abusive”or ”Non-Abusive” for YouTube videos. TheTamil language is particularly difficult to workwith owing to its highly agglutinative structure and the tendency for code-mixing betweenTamil and English or even using a mix of bothin a single sentence. To overcome these difficulties in preprocessing, we designed a specificpipeline for denoising these informal scripts.We then implemented four traditional machinelearning models: SVM, Logistic Regression,Random Forest, and Multinomial Naive Bayesusing TF-IDF for feature extraction. Our modelwas optimized for hyperparameters and decision thresholds to achieve an accuracy and F1score of 0.86 using Logistic Regression</abstract>
+      <url hash="4c433a95">2026.dravidianlangtech-1.43</url>
+      <bibkey>nivetha-etal-2026-kecs</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.43</doi>
+    </paper>
+    <paper id="44">
+      <title>Lannisters@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Comparative and Ablation Study of Multilingual Transformers for Gender-Targeted Abuse Detection in <fixed-case>T</fixed-case>amil Social Media Platforms</title>
+      <author><first>Kalaivani K</first><last>S</last></author>
+      <author><first>Jaisanth</first><last>K</last></author>
+      <author><first>Nandhini</first><last>B</last></author>
+      <pages>289-293</pages>
+      <abstract>The prevalence of the use of the Tamil lan- guage on social media has heightened the need to address the issue of online harassment of women. As a result, there is a heightened need to develop a system to automatically iden- tify abusive content in the Tamil language to promote a safe online communication plat- form. This paper presents a model to iden- tify abusive content using a binary classifi- cation model to identify Abusive and Non- Abusive content. In this work, we experi- mented with several multilingual transformer models including DistilBERT, mBERT, and XLM-RoBERTa. From the experiments, it was observed that the XLM-RoBERTa model performed better than the others, achieving an accuracy of 91.17% and a macro F1 score of 0.8865. In this paper, ablation experiments are conducted to show that structured preprocess- ing, balancing the minority class, and tuning the hyperparameters contribute to the model’s performance</abstract>
+      <url hash="89e1b48b">2026.dravidianlangtech-1.44</url>
+      <bibkey>s-etal-2026-lannisters</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.44</doi>
+    </paper>
+    <paper id="45">
+      <title>Mano_sub@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Article-Aware Batching and Discriminative Fine-Tuning of <fixed-case>M</fixed-case>u<fixed-case>RIL</fixed-case> for <fixed-case>T</fixed-case>elugu Prompt-Style Classification</title>
+      <author><first>Manohar Sita Rama</first><last>Madhurapantula</last></author>
+      <author><first>Seshu Babu</first><last>Pulagara</last></author>
+      <pages>294-300</pages>
+      <abstract>This paper presents Team Mano_sub’s sub mission to the Telugu Prompt-Style Recovery task at DravidianLangTech 2026, classifying Telugu text into nine stylistic categories: Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative, and Persuasive. We identify a critical structural property of the dataset: each of 384 unique source articles appears ap proximately 7.8 times with different style la bels. Standard random batching leads to poor within-batch diversity when same-article samples co-occur, causing majority-class collapse and keeping macro F1 stuck at 0.022 regard less of learning rate. We propose an article aware batch sampler that enforces within-batch article diversity, combined with discriminative learning rates for full MuRIL fine-tuning. Complete five-fold cross-validation yields a mean macro F1 of 0.3834 (std=0.0189) on the development set, with fold best scores ranging from 0.3488 to 0.4040. The fold 1 best model achieves macro F1=0.2765 on the official test set —a5.6×improvement over our officially submitted result of F1=0.0491, which would have ranked 2nd among all 13 participating teams. All nine style classes are correctly predicted by epoch 5. Our system is officially ranked 12th in the Prompt Recovery for LLM in Telugu shared task at DravidianLangTech@ACL 2026. Code: https:// github.com/msrmanohar/ACL-PRLLM</abstract>
+      <url hash="bbb6f957">2026.dravidianlangtech-1.45</url>
+      <bibkey>madhurapantula-pulagara-2026-mano</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.45</doi>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>M</fixed-case>ed<fixed-case>H</fixed-case>astra@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Piecewise Style Classification for <fixed-case>T</fixed-case>elugu Prompt Recovery Using <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Shruti</first><last>Chandrasekar</last></author>
+      <author><first>Vedajanaani R</first><last>S</last></author>
+      <author id="vijayalakshmi-p" orcid="0000-0003-3171-0219"><first>Vijayalakshmi</first><last>P</last><affiliation>Sri Sivasubramaniya Nadar Institutions</affiliation></author>
+      <pages>301-305</pages>
+      <abstract>We present a system for the DravidianLangTech @ ACL 2026 shared task on TeluguPrompt-Style Recovery(B et al., 2026). The task requires classifying Telugu text into one of nine communicative styles: Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative and Persuasive. Our approach fine-tunes the multilingual XLMRoBERTa base model with a piecewise segment comparison strategy that evaluates distinct stylistic markers across sentence segments,enabling richer contextual discrimination between visually similar styles. Evaluated on the official test set, our system achieves a Macro F1score of 0.1205, Accuracy of 0.1196, Precision of 0.1205 and Recall of 0.1231. We analyze the challenges of stylistic ambiguity in low resource Telugu NLP and discuss directions for future improvement.</abstract>
+      <url hash="6f59815e">2026.dravidianlangtech-1.46</url>
+      <bibkey>chandrasekar-etal-2026-medhastra</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.46</doi>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>MUCS</fixed-case>@Dravidianlangtech@<fixed-case>ACL</fixed-case>2026: Hope Speech Detection in Code-Mixed <fixed-case>T</fixed-case>ulu Language Using Multiple Features</title>
+      <author><first>Hosahalli Lakshmaiah</first><last>Shashirekha</last></author>
+      <author><first>Rachana</first><last>A</last></author>
+      <pages>306-315</pages>
+      <abstract>Hope speech refers to online expressions that promote positivity, encouragement, and social harmony. It fosters inclusivity and resilience, making it particularly valuable in culturally diverse and code-mixed communities. Detecting hope speech is an emerging area in computational linguistics, aimed at supporting healthier digital interactions and improving accessibility for vulnerable groups.While most of the hope speech detection work has been focused on high-resource languages, low- resource languages such as Tulu remains unexplored. In this paper, we - Team MUCS, describe our proposed system submitted to the first shared task on Hope Speech Detection in Code-Mixed Tulu, organized by DravidianLangTech@ACL 2026. As there are no pretrained language models for Tulu, we explored multiple hand crafted features - word n-grams (n = 1, 3), character n-grams (n = 1, 3), syllable n-grams (n = 1, 3) and sub-words, to train ensemble of classical Machine Learning (ML) models: i) Multinomial Naive Bayes (MNB) and Logistic Regression (LR) classifiers and ii) k Nearest Neighbor (kNN) and Decision Tree (DT) classifiers, both with soft-voting. Experimental results demonstrate that feature integration effectively captures lexical, sub-lexical, and phonological cues in noisy code-mixed text. The system achieves competitive performance on both development and test datasets, highlighting the effectiveness of feature-based approaches for hope speech detection in code-mixed Tulu.An ablation study is also conducted to evaluate the contribution of multiple feature sets for hope speech detection.</abstract>
+      <url hash="a6de6282">2026.dravidianlangtech-1.47</url>
+      <bibkey>shashirekha-a-2026-mucs</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.47</doi>
+    </paper>
+    <paper id="48">
+      <title><fixed-case>NITC</fixed-case>-<fixed-case>HSR</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Ensembling Multilingual Transformer Models for Detecting Abusive <fixed-case>T</fixed-case>amil Text Targeting Women on Social Media</title>
+      <author><first>Rameez Mohammed</first><last>A</last><affiliation>National Institute of Technology Calicut, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <author id="s-d-madhu-kumar" orcid="0000-0002-5276-8842"><first>S D Madhu</first><last>Kumar</last></author>
+      <pages>316-320</pages>
+      <abstract>The proliferation of misogynistic content on social media platforms is a serious problem that requires the development of automated detection systems, which is a challenging task for low-resource languages like Tamil. This study investigates the effectiveness of multilingual transformer models for identifying abusive Tamil text targeting women in social media. Results indicate that such models achieve strong baseline performance on this task. Furthermore, an ensemble of two best performing models was found to improve the classification performance further. The results also highlighted the significance of domain-specific pre-training for improving classifier performance. The best performing ensemble model achieved a weighted F1 score of 0.83 on the test set, placing our approach in first position in the shared task.</abstract>
+      <url hash="ffad9675">2026.dravidianlangtech-1.48</url>
+      <bibkey>a-kumar-2026-nitc</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.48</doi>
+    </paper>
+    <paper id="49">
+      <title><fixed-case>P</fixed-case>huc<fixed-case>N</fixed-case>guyen@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Political Multiclass Sentiment Analysis with <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a and Low-Rank Adaptation</title>
+      <author><first>Dinh Khac Phuc</first><last>Nguyen</last></author>
+      <author id="thin-dang-van" orcid="0000-0001-8340-1405"><first>Thìn Đặng</first><last>Văn</last></author>
+      <pages>321-325</pages>
+      <abstract>Analyzing political sentiment in code-mixed Tamil-English presents significant challenges due to informal jargon, severe class imbalance, and distribution shifts. This paper describes our system for the Political Multiclass Sentiment Analysis shared task at DravidianLangTech@ACL 2026, which categorizes tweets into seven sentiment classes. Our approach leverages XLM-RoBERTa integrated with Low-Rank Adaptation (LoRA). To mitigate majority-class dominance, we combine random oversampling with automated hyperparameter optimization to improve macro-level balance within this Parameter-Efficient Fine-Tuning (PEFT) framework. Enhanced by targeted preprocessing—specifically emoji demojization and noise removal—our system helps preserve nuanced symbolic cues, achieving a macro-average F1-score of 0.3763 and securing Rank 2 on the shared task leaderboard.</abstract>
+      <url hash="d9e08e26">2026.dravidianlangtech-1.49</url>
+      <bibkey>nguyen-van-2026-phucnguyen</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.49</doi>
+    </paper>
+    <paper id="50">
+      <title><fixed-case>P</fixed-case>oly<fixed-case>T</fixed-case>ics<fixed-case>T</fixed-case>amil_<fixed-case>A</fixed-case>lchemists@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech@<fixed-case>ACL</fixed-case> 2026: An Augmentation-Driven Focal Ensemble Model for Political Sentiment Analysis in <fixed-case>T</fixed-case>amil</title>
+      <author><first>Jyoti</first><last>Kumari</last></author>
+      <author><first>Meclin A</first><last>Francis</last></author>
+      <author><first>Vinay Babu</first><last>Ulli</last><affiliation>Oogwai Analytics</affiliation></author>
+      <author><first>Malavika</first><last>Sreekumar</last><affiliation>Transunion</affiliation></author>
+      <author><first>Joel</first><last>Johnson</last><affiliation>International Business Machines</affiliation></author>
+      <pages>326-330</pages>
+      <abstract>This paper describes our system submitted to the DravidianLangTech@ACL 2026 shared task on Political Multiclass Sentiment Analysis of Tamil X (Twitter) Comments. The task requires classifying Tamil political tweets into seven sentiment categories. We address two key challenges, severe class imbalance and semantic overlap between categories, through a three-stage pipeline. First, we balance the training set by augmenting minority classes via back-translation and transformer-based paraphrasing. Second, we fine-tune XLM-RoBERTa-base using a class-weighted Focal Loss (<tex-math>\gamma{=}2</tex-math>), which directs learning towards hard, ambiguous samples. Third, we train five models under Stratified 5-Fold Cross-Validation and average their softmax outputs at inference time. On the official test set, the system achieves a Macro-F1 of 0.3539. The code is publicly available at: https://github.com/meclin2345/PolyTicsTamil_Alchemists</abstract>
+      <url hash="79a433f2">2026.dravidianlangtech-1.50</url>
+      <bibkey>kumari-etal-2026-polyticstamil</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.50</doi>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>P</fixed-case>rime<fixed-case>L</fixed-case>ine@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Abusive <fixed-case>T</fixed-case>amil Comment Detection Using <fixed-case>M</fixed-case>u<fixed-case>RIL</fixed-case></title>
+      <author><first>Rithikaa</first><last>V</last></author>
+      <author id="s-sumathi" orcid="0000-0001-5635-2468"><first/><last>S.Sumathi</last><affiliation>St.Joseph's college of Engineering</affiliation></author>
+      <author><first>Nithya Varshini C N</first><last>R</last></author>
+      <author><first>Sanjay Krishnan</first><last>K</last></author>
+      <pages>331-335</pages>
+      <abstract>Detecting abusive language in Tamil social media is a genuinely difficult problem. The language is morphologically rich, speakers routinely mix Tamil with English, and informal romanised Tamil is common enough to confuse models trained primarily on formal text. This work presents a system for binary classification of Tamil comments into Abusive and Non-Abusive categories, submitted to the DravidianLangTech@ACL 2026 shared task. MuRIL, a BERT-based encoder pre-trained on 17 Indian languages and their transliterated equivalents, is fine-tuned, and it is shown that this Indian-language-specific pre-training provides a meaningful advantage over generic multilingual baselines. The system achieves a macro-averaged F1 of 0.83 on the validation set, compared to 0.79 for XLM-RoBERTa and 0.77 for mBERT under identical training conditions, establishing a strong transformer-based baseline for abusive language detection in code-mixed Tamil.</abstract>
+      <url hash="4f6c8b54">2026.dravidianlangtech-1.51</url>
+      <bibkey>v-etal-2026-primeline</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.51</doi>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>P</fixed-case>rime<fixed-case>L</fixed-case>ine@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Hope Speech Detection in <fixed-case>T</fixed-case>ulu Using <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a for Coarse and Fine-Grained Classification</title>
+      <author><first>Rithikaa</first><last>V</last></author>
+      <author id="s-sumathi" orcid="0000-0001-5635-2468"><first/><last>S.Sumathi</last><affiliation>St.Joseph's college of Engineering</affiliation></author>
+      <author><first>Sanjay Krishnan</first><last>K</last></author>
+      <author><first>Nithya Varshini C N</first><last>R</last></author>
+      <pages>336-340</pages>
+      <abstract>Hope speech detection in low-resource, code-mixed languages presents a genuine challenge for natural language processing. Tulu, a Dravidian language spoken along the coastal regions of Karnataka and Kerala, is one such language where social media content is deeply code-mixed, blending Tulu, Kannada script, and English within a single comment. Two classification tasks are addressed: a four-class coarse-grained setting (Track 1) and a five-class fine-grained setting (Track 2). XLM-RoBERTa, a cross-lingual transformer pre-trained on more than 100 languages, is fine-tuned on the task-provided datasets using Google Colab with an NVIDIA T4 GPU. The system achieves a Macro F1-score of 0.34 on Track 1 and 0.19 on Track 2 on the official Codabench evaluation, establishing the first transformer-based baseline for hope speech classification in Tulu.</abstract>
+      <url hash="5cfda531">2026.dravidianlangtech-1.52</url>
+      <bibkey>v-etal-2026-primeline-dravidianlangtech</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.52</doi>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>RMS</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multimodal Gated Fusion for Hierarchical <fixed-case>T</fixed-case>amil Political Meme Classification</title>
+      <author><first>Md. Ajwad</first><last>Hossain</last></author>
+      <pages>341-347</pages>
+      <abstract>Internet memes have become a dominant and highly accessible medium for political discourse on social media. However, their multimodal nature—combining culturally specific visual symbols with code-mixed text—presents a significant challenge for automated content analysis, particularly in low-resource languages. In this study, we describe the system submitted by team RMS for the Multi-Level Political Meme Classification shared task at DravidianLangTech @ ACL 2026, focusing exclusively on the Tamil language track. We propose a robust late-fusion multimodal architecture that leverages a pre-trained ResNet-50 network for visual feature extraction and a Transformer-based model (MuRIL) for processing code-mixed Tamil text. The modalities are aligned using bidirectional cross-modal attention and combined using a Gated Multimodal Unit, allowing the model to dynamically weight the importance of visual versus textual cues. Our system ranked 11th on the official leaderboard with a macro-averaged F1-score of 0.7382. Through detailed error analysis, we demonstrate that while our gated fusion approach excels at identifying explicit trolling stances, it struggles with complex target resolution when visual and textual cues contradict.</abstract>
+      <url hash="3c2c8fe0">2026.dravidianlangtech-1.53</url>
+      <bibkey>hossain-2026-rms</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.53</doi>
+    </paper>
+    <paper id="54">
+      <title>Semantica@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Vision-Language Models for Hierarchical Political Meme Classification in <fixed-case>T</fixed-case>amil and <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Junain</first><last>Uddin</last></author>
+      <author><first>Rahul</first><last>Datta</last></author>
+      <author><first>Taha Ibne</first><last>Abdullah</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>348-353</pages>
+      <abstract>Political memes are widely used to express opinions, sarcasm, and ideological narratives on social media platforms. However, detecting political trolling in low-resource languages such as Tamil and Malayalam remains challenging due to limited datasets and tools. To address this problem, DravidianLangTech@ACL 2026 organized a shared task on hierarchical political meme classification.This work explores text-only models, classical multimodal fusion, and Vision-Language Models (VLMs) for Tamil and Malayalam political meme classification. Our experiments include IndicBERTv2, XLM-RoBERTa, EfficientNet-based multimodal fusion, and Qwen-VL models. Among the submitted systems, Qwen2.5-VL-7B-Instruct with 4-bit QLoRA fine-tuning achieved competitive performance, ranking 3rd in the Malayalam track and 4th in the Tamil track based on weighted-F1 score. Additional post-evaluation experiments with Qwen3-VL-8B further improved macro-F1 performance, highlighting the effectiveness of VLMs for low-resource multilingual political meme classification.</abstract>
+      <url hash="f1188a32">2026.dravidianlangtech-1.54</url>
+      <bibkey>uddin-etal-2026-semantica</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.54</doi>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>SERENE</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multimodal Approaches for Depression Detection in <fixed-case>D</fixed-case>ravidian Speech: Acoustic, Spectrogram, and Transformer-Based Models</title>
+      <author><first>TT</first><last>Pranesh</last></author>
+      <author><first/><last>K.K.Thamizhmathi</last></author>
+      <author><first>S</first><last>Vigneshwaran</last></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <pages>354-358</pages>
+      <abstract>This paper presents our submission to the De-pression Detection in Dravidian Languagesshared task at DravidianLangTech 2026. Weinvestigate three complementary approachesfor speech-based depression detection in Tamiland Malayalam: (i) acoustic feature engineer-ing using MFCC and prosodic features with aSupport Vector Machine (SVM) classifier, (ii)a convolutional neural network (CNN) trainedon Mel-spectrogram representations, and (iii)a transformer-based model using Whisper-generated transcripts fine-tuned with XLM-RoBERTa. Experimental results show thatacoustic feature-based SVM and spectrogram-based CNN models achieve the strongestperformance on both Tamil and Malayalamdatasets, while the transformer-based approachalso produces competitive results. We furtherdiscuss limitations and future research direc-tions.</abstract>
+      <url hash="2cb16657">2026.dravidianlangtech-1.55</url>
+      <bibkey>pranesh-etal-2026-serene</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.55</doi>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>SJM</fixed-case>_<fixed-case>MINDS</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech@<fixed-case>ACL</fixed-case>2026:  Machine Learning Approaches for Hope Speech Detection in Code-Mixed <fixed-case>T</fixed-case>ulu</title>
+      <author><first>Hosahalli Lakshmaiah</first><last>Shashirekha</last></author>
+      <author><first/><last>Manjula</last><affiliation>Yenepoya University</affiliation></author>
+      <author><first>Jayashree</first><last>Krishna</last><affiliation>Hira women's college</affiliation></author>
+      <pages>359-365</pages>
+      <abstract>Hope speech detection is an important task in understanding emotionally constructive communication in online platforms, especially in low-resource and code-mixed languages. This paper describes our system submitted to the first shared task on Hope Speech Detection in Code-Mixed Tulu, organized by DravidianLangTech@ACL 2026. The shared task consists of two tasks: Task 1 - Coarse-Grained Hope Tone Classification and Task 2 - Fine-Grained Hope Type Classification, with the objective of detecting and classifying the tone and type of hope expressed in code-mixed Tulu texts. We experimented with Logistic Regression (LR) and Linear Support Vector Classifier (LinearSVC) - classical Machine Learning (ML) approaches, trained with Term Frequency and Inverse Document Frequency (TF-IDF) of word ngrams (n = 1, 2). For Task 1, we employed both models, whereas for Task 2, we employed only the LR model. Linear SVC obtained a macro F1-score of 0.51 in Task 1 and secured 4th rank, while the LR model obtained a macro F1-score of 0.37 in Task 2 and secured 5th rank. The results demonstrate that traditional ML approaches remain effective for low-resource code-mixed language scenarios.</abstract>
+      <url hash="a1a79452">2026.dravidianlangtech-1.56</url>
+      <bibkey>shashirekha-etal-2026-sjm</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.56</doi>
+    </paper>
+    <paper id="57">
+      <title><fixed-case>SSN</fixed-case>_<fixed-case>H</fixed-case>ope<fixed-case>N</fixed-case>etters@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multi-Level Hope Speech Detection using <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Moogambigai</first><last>A</last></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <author><first>Nikhil Karthik</first><last>S</last></author>
+      <author><first>Pandiarajan</first><last>D</last></author>
+      <author><first>Nandhika</first><last>Saravanan</last></author>
+      <pages>366-370</pages>
+      <abstract>This paper presents our system submission to the Shared Task on Hope Speech Detection in Code-Mixed Tulu Language at DravidianLangTech @ ACL 2026. We introduce a transformer-based approach built on XLM RoBERTa-base for multilingual hope speechclassification. Our system addresses two sub tasks: coarse-grained classification of hope versus non-hope speech and fine-grained categorization of different hope expressions. Since hope is often expressed in subtle ways, especially in mixed-language text, our model looks at the full context of a sentence to understand its real meaning rather than just focusing on specific words. Experimental results demonstrate that multilingual transformer models effectively model supportive and encouraging expressions, underscoring their suitability for promoting constructive discourse in low-resourceand code-mixed language settings.</abstract>
+      <url hash="bd5e69d0">2026.dravidianlangtech-1.57</url>
+      <bibkey>a-etal-2026-ssn</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.57</doi>
+    </paper>
+    <paper id="58">
+      <title>Still Loading@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>T</fixed-case>elugu Prompt-Style Recovery using Multilingual Transformers</title>
+      <author><first>Samonwita</first><last>Sarker</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Isnat Mehrin</first><last>Sami</last></author>
+      <author><first>Priyontee</first><last>Mojumder</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Arpita</first><last>Mallik</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>371-375</pages>
+      <abstract>This paper describes the system that our Still-Loading team designed to run the Telugu Prompt-Style Recovery shared task at DravidianLangTech@ACL 2026. The purpose of the given task is categorizing Telugu transcript passages as belonging to one of 9 communicative styles: Formal, Informal, Optimistic, Pessimistic, Humorous, Serious, Inspiring, Authoritative, and Persuasive. We compared several multilingual Transformer-based models, i.e. MuRIL, XLM-RoBERTa-Large, mBERT, and IndicBERTv2. We chose a "Turbo Sandwich" preprocessing strategy which helps to give more emphasis to lexical deltas, in addition to Focal Loss. Our system based on the MuRIL was rated at the 7th place in the official leaderboard with a Macro-F1 rating of 0.1703. The source code to reproduce our experiments is publicly available on Still-Loading-Prompt-Recovery-for-LLM-in-Telugu (https://github.com/Priyontee1713/Still-Loading-Prompt-Recovery-for-LLM-in-Telugu).</abstract>
+      <url hash="62fd2ed3">2026.dravidianlangtech-1.58</url>
+      <bibkey>sarker-etal-2026-still</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.58</doi>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>SUPERNOVA</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Transformer and Ensemble Approaches for Abusive <fixed-case>T</fixed-case>amil Text Detection Targeting Women</title>
+      <author><first>Kiruthika</first><last>K</last></author>
+      <author><first>Roahiyaa</first><last>T</last></author>
+      <author id="premjith-b" orcid="0000-0003-1188-1838"><first>Premjith</first><last>B</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <pages>376-380</pages>
+      <abstract>Abusive language targeting women on Tamil social media is a growing concern that necessitates automated detection systems capable of handling low-resource, code-mixed, and morphologically rich text. This paper presents the SUPERNOVA system submitted to the shared task on Abusive Tamil Text Targeting Women on Social Media at DravidianLangTech@ACL 2026. We investigate three complementary approaches: (1) fine-tuning MuRIL with class balancing and label smoothing, (2) MuRIL contextual embeddings combined with XG-Boost and decision threshold tuning, and (3) a lightweight ensemble of character-level TF-IDF and SentenceBERT features with Random Forest and Extra Trees. Our best system achieves an accuracy of 0.8007 and a macro F1-score of 0.7994, ranking 11th among all participating teams. These results highlight the effectiveness of multilingual transformer representations combined with ensemble techniques for the detection of abusive text on Tamil social networks. The code is publicly available at https://github.com/Kiruthi001/SuperNova-DravidianLangTech-ACL2026.</abstract>
+      <url hash="ded06dac">2026.dravidianlangtech-1.59</url>
+      <bibkey>k-etal-2026-supernova</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.59</doi>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>SYNAPSE</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Multi-Level Political Meme Classification for <fixed-case>T</fixed-case>amil and <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Suriya</first><last>KP</last></author>
+      <author><first>Durai Singh</first><last>K</last></author>
+      <author><first>Gnanasabesan</first><last>G</last></author>
+      <author><first>Ganesh Sundhar</first><last>S</last></author>
+      <author><first>Hari Krishnan</first><last>N</last></author>
+      <author><first>Jyothish Lal</first><last>G</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <pages>381-386</pages>
+      <abstract>Political memes in Tamil and Malayalampresent unique multimodal challenges for automated under-standing, combining visual context with code-mixed, cultur-ally grounded text. We present SYNAPSE, our system forthe DravidianLangTech@ACL 2026 shared task on multi-levelpolitical meme classification. The task requires hierarchicalclassification of memes along two levels: Level 1 identifies thepolitical stance (Support/Praise vs. Troll/Oppose), and Level 2identifies the target (individual person vs. party). Our approachfine-tunes the Qwen3-VL-2B-Instruct vision-language modelusing parameter-efficient LoRA adapters on task-specific mul-timodal data, with structured output prompting for hierarchi-cal label prediction. We report results for both Tamil andMalayalam subtracks. For Malayalam, our system achievesa Level 1 F1 of 0.9200 and Level 2 F1 of 0.4256 (Avg-F1:0.6728, Rank 5). For Tamil, our system achieves a Level 1 F1of 0.7840 and Level 2 F1 of 0.4885 (Avg-F1: 0.6362, Rank 14).</abstract>
+      <url hash="4d6ccc0d">2026.dravidianlangtech-1.60</url>
+      <bibkey>kp-etal-2026-synapse</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.60</doi>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>T</fixed-case>amil<fixed-case>E</fixed-case>cho_<fixed-case>P</fixed-case>olitical@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Hybrid <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a with Sarcasm-Aware Feature Fusion for Political Multiclass Sentiment Analysis in <fixed-case>T</fixed-case>amil <fixed-case>X</fixed-case></title>
+      <author><first>Kanimozhi Selvi C</first><last>S</last></author>
+      <author><first>Inigashree N</first><last>S</last></author>
+      <author><first>Kavinraj</first><last>J</last></author>
+      <author><first>Moneissh A</first><last>G</last></author>
+      <pages>387-391</pages>
+      <abstract>Political sentiment analysis in Tamil social media is challenging due to informal language, sarcasm, emoji-driven sentiment inversion, and severe class imbalance. This paper presents TamilEcho, our system submitted to the Shared Task on Political Multiclass Sentiment Analysis of Tamil X (Twitter) Comments at DravidianLangTech@ACL 2026. We propose a hybrid architecture that integrates contextual representations from XLM-RoBERTa with lexical TF-IDF features and explicit sarcasm-aware emoji features. Domain-specific hashtag expansion is incorporated to enrich political context. To address class imbalance, we apply inverse-frequency class weighting and label smoothing during training. Experimental results demonstrate that hybrid feature fusion significantly improves performance over transformer-only baselines. Our final system achieves a Macro-F1 score of 0.3559 on the official test set, securing Rank 10 among participating teams. The results highlight the effectiveness of combining semantic, lexical, and pragmatic cues for fine-grained political sentiment classification in Tamil.</abstract>
+      <url hash="78422b74">2026.dravidianlangtech-1.61</url>
+      <bibkey>s-etal-2026-tamilecho</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.61</doi>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>TAMILGOODBADTXT</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026:A Multilingual Transformer-Based Approach for Abusive Language Identification in <fixed-case>T</fixed-case>amil Social Media</title>
+      <author><first>Varalakshmi</first><last>K</last><affiliation>St Joseph's Institute Of Technology</affiliation></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <pages>392-396</pages>
+      <abstract>It is difficult to detect abusive language, particularly in social networks for low-resource languages like Tamil. Spelling errors, informal expressions and code-mixing make it even more challenging to read text from social media. The current work proposes a multilingual transformer-based approach to detect abusive content in Tamil text. A pretrained XLM-RoBERTa model is used to learn contextual and semantic representations from the input text. This is a general pipeline comprising preprocessing, tokenization, and binary classification (abusive / non-abusive). Experiments are performed on Tamil social media datasets that have abusive and non-abusive data. The results reveal that multilingual transformer models achieve good performance in low-resource scenarios. The proposed model attains an F1-score of 78.64%, which shows the potential of using cross-lingual pretrained models for the detection of abusive Tamil language.</abstract>
+      <url hash="25433837">2026.dravidianlangtech-1.62</url>
+      <bibkey>k-b-2026-tamilgoodbadtxt</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.62</doi>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>T</fixed-case>amil<fixed-case>V</fixed-case>oice<fixed-case>L</fixed-case>ab@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Investigating Whisper <fixed-case>T</fixed-case>amil Large-v2 for Dialectal <fixed-case>T</fixed-case>amil Speech Recognition</title>
+      <author><first/><last>S.b.priya</last></author>
+      <author id="bharathi-b" orcid="0000-0001-7279-5357"><first>Bharathi</first><last>B</last></author>
+      <pages>397-402</pages>
+      <abstract>Automatic Speech Recognition (ASR) for languages rich in dialects and those with limited resources presents significant challenges due to the variations in pronunciation and vocabulary across different regions. This study offers a baseline evaluation of the Whisper Tamil Large-v2 model without fine-tuning for the Tamil Dialect Speech Recognition shared task. The focus is on the ASR subtask, utilizing dialectal Tamil speech recordings gathered from various regional dialects within Tamil Nadu. The pretrained Whisper Tamil Large-v2 model was assessed directly, without any supplementary fine-tuning or domain adaptation. A total of 579 dialect speech samples were used for experimentation, with performance evaluated based on Word Error Rate (WER). The model recorded a WER of 0.71, indicating that even robust multilingual pretrained models encounter challenges in dialect-rich and low-resource environments. These findings underscore the necessity for dialect-aware adaptation and the importance of balanced dialect training data to develop effective Tamil ASR systems.</abstract>
+      <url hash="ae4e8fd0">2026.dravidianlangtech-1.63</url>
+      <bibkey>s-b-priya-b-2026-tamilvoicelab</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.63</doi>
+    </paper>
+    <paper id="64">
+      <title>Team Oryu@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Multilingual Transformer Approach for Hope Speech Detection in Code-Mixed <fixed-case>T</fixed-case>ulu</title>
+      <author><first>Joyeta Barua</first><last>Moni</last></author>
+      <author><first>Noore Tamanna</first><last>Orny</last></author>
+      <author><first>Md. Abtahee</first><last>Kabir</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>403-408</pages>
+      <abstract>Hope speech detection appears to have an essential role to play in fostering positive and inclusive communication on social media, especially in low-resource multilingual settings. This paper describes the system submitted by Team Oryu for Task 1: Coarse-Grained Hope Tone Classification in Code-Mixed Tulu. The task involves classifying comments in social media texts into one of the four classes: Encouraging, Discouraging, Uninvolved, and Blended Tone. The texts in this task show heavy code-mixing between Tulu, English, and Kannada. In order to overcome this challenge, we employed a fine-tuned multilingual transformer model, code-mixed text processing, data augmentation, and class-weighted loss to handle class imbalance. Our proposed system achieved a Macro F1-score of 63%, securing 3rd position on the shared task. The results demonstrate the efficacy of multilingual transformer models in emotionally nuanced classification in code-mixed environments while underscoring the difficulties in capturing blended emotional tones.</abstract>
+      <url hash="aff68762">2026.dravidianlangtech-1.64</url>
+      <bibkey>moni-etal-2026-team</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.64</doi>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>T</fixed-case>eam_<fixed-case>O</fixed-case>ne@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Gated Multimodal Architecture for Multi-Level Stance and Target Detection in <fixed-case>M</fixed-case>alayalam Political Memes</title>
+      <author><first>Nimisha M</first><last>Iyer</last></author>
+      <author id="ashmi-s-n" orcid="0009-0005-6274-0287"><first>Ashmi S</first><last>N</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <author><first>Balasubramanian</first><last>Palani</last><affiliation>Indian Institute of Information Technology Kottayam, Indian Institute of Information Technology Kottayam</affiliation></author>
+      <author><first>Jobin</first><last>Jose</last></author>
+      <author><first>Siranjeevi</first><last>Rajamanickam</last></author>
+      <pages>409-413</pages>
+      <abstract>Stance and target detection in multimodal political memes presents notable challenges in low-resource and highly imbalanced settings.This task is based on the Malayalam dataset from the DravidianLangTech 2026 Shared Task(500 samples with a 95.4:4.6 stance imbalance).The primary challenges stem from linguistic variability and visually complex meme formats,which hinder accurate text extraction and effective multimodal alignment. A lightweight yet high-performing multimodal framework is proposed that integrates bilingual OCR, a Vision Transformer (ViT), and IndicBERT to learn complementary visual and textual representations. A gated fusion mechanism effectivelycombines multimodal features, while asymmetric loss weighting and post-training threshold optimization address extreme class imbalance. The methodology achieves a Weighted F1-score of 0.9535 for stance detection and 0.5283 for target identification, demonstrating strong robustness and generalization under realistic multimodal constraints.</abstract>
+      <url hash="d0f54b13">2026.dravidianlangtech-1.65</url>
+      <bibkey>iyer-etal-2026-team</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.65</doi>
+    </paper>
+    <paper id="66">
+      <title>Trailblazer@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: A Comparative Study of <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case> <fixed-case>SVM</fixed-case> and <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a for Political Multiclass Text Classification.</title>
+      <author><first>Anuradha</first><last>C</last></author>
+      <author><first>Anbuaruvi</first><last>R</last></author>
+      <author id="shanthi-murugan" orcid="0000-0003-3047-7830"><first>Shanthi</first><last>Murugan</last></author>
+      <pages>414-419</pages>
+      <abstract>The rapid growth of social media networks faces challenges in the classification of multilingual and code-mixed data. A task is shared by Political Multiclass Sentiment Analysis of Tamil X (Twitter) -DravidianLangTech@ACL 2026 to classify the political text.For the above task, we proposed solutions to compare a traditional machine learning and the transformer based model. First we developed a Baseline traditional Support vector Machine model using the TF-IDF features. To provide a stronger Indic-language baseline we consider the IndicBERT, a transformer model specifically designed for Indian Languages. IndicBERT improves contextual understanding of Tamil-English code-mixed political text . To capture the deeper information from the text we developed an XLM-RoBERTa model where we used minimal pre-processing technique. The Result shows us that the transformer-based performs well compared to the traditional baseline model with the macro F1 score of 0.3738. The Study highlights the importance of robust multi-class social media political text classification.</abstract>
+      <url hash="ae2051e9">2026.dravidianlangtech-1.66</url>
+      <bibkey>c-etal-2026-trailblazer</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.66</doi>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>T</fixed-case>ri<fixed-case>V</fixed-case>ector@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Abusive <fixed-case>T</fixed-case>amil Text Detection on Social Media Using Lexicon-Augmented Transformers</title>
+      <author><first>Oarisa</first><last>Rebayet</last></author>
+      <author><first>Tahmima Hoque</first><last>Eid</last></author>
+      <author><first>Fawzia</first><last>Tabassum</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>420-428</pages>
+      <abstract>Abusive comment detection in low-resource languages poses significant challenges, particularly when targeting gender-based abuse on social media platforms. This work presents our system for ’Abusive Tamil text targeting women on social media’ at DravidianLangTech@ACL 2026. We introduce nine handcrafted lexicon features integrated with pretrained multilingual transformer embeddings and evaluate their effectiveness in classifying Tamil online comments as abusive or non-abusive. To better understand their impact, we compare model performance with and without these lexical attributes across multiple transformer architectures. Our best-performing model, XLM-RoBERTa-Large, achieved a macro F1-score of 81.71%, securing 15th rank in the competition. The findings indicate that larger multilingual models generalize more effectively to unseen data compared to smaller domain-specific models, while the addition of lexical features yields only mild gains.</abstract>
+      <url hash="89ab7b1c">2026.dravidianlangtech-1.67</url>
+      <bibkey>rebayet-etal-2026-trivector</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.67</doi>
+    </paper>
+    <paper id="68">
+      <title><fixed-case>T</fixed-case>ri<fixed-case>V</fixed-case>ector@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Depression Detection from <fixed-case>T</fixed-case>amil and <fixed-case>M</fixed-case>alayalam Speech with Speaker-Independent Evaluation using <fixed-case>MFCC</fixed-case> and <fixed-case>W</fixed-case>av2<fixed-case>V</fixed-case>ec2</title>
+      <author><first>Tahmima Hoque</first><last>Eid</last></author>
+      <author><first>Fawzia</first><last>Tabassum</last></author>
+      <author><first>Oarisa</first><last>Rebayet</last></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>429-435</pages>
+      <abstract>Depression is a major mental health concern that can be reflected through subtle changes in speech patterns, prosody, and vocal characteristics. In low-resource and multilingual settings, depression detection from speech may become particularly more challenging. In this work, we present our system for the Shared Task on Depression Detection from Malayalam and Tamil. We explored both handcrafted acoustic features (MFCC) and pretrained speech representations (Wav2Vec2) for depression detection, along with a simple fusion strategy to examine their complementary strengths. Our observations showed that Wav2Vec2 generalized better for Malayalam, whereas for Tamil, a validation-tuned probability fusion performed best. The final system achieved macro-F1 scores of 99.5% for Malayalam and 88.6% for Tamil, securing 3rd place in both tasks.</abstract>
+      <url hash="cb09edb6">2026.dravidianlangtech-1.68</url>
+      <bibkey>eid-etal-2026-trivector</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.68</doi>
+    </paper>
+    <paper id="69">
+      <title><fixed-case>VITECH</fixed-case>@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech2026: Prompting and <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Adaptation for <fixed-case>T</fixed-case>amil Abusive Language Detection - A Comparative Study of Open <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Triambiga</first><last>Krubhakaran</last></author>
+      <author id="senthil-kumar-b" orcid="0000-0003-0835-5271"><first>Senthil Kumar</first><last>B</last><affiliation>Velammal Institute of Technology</affiliation></author>
+      <author><first>Kaviya</first><last>Nagarajan</last></author>
+      <author id="balaji-n" orcid="0000-0002-6695-8823"><first>Balaji</first><last>N</last><affiliation>Velammal Institute of Technology</affiliation></author>
+      <pages>436-441</pages>
+      <abstract>The detection of abusive Tamil text using large language models (LLMs) has received relatively little attention compared to BERT variations. We empirically evaluated four families of open-weight LLMs —Gemma, LLaMA, Qwen, and DeepSeek-Distilled— on the Tamil dataset provided by the shared task. The models are assessed under two in-context learning settings (zero-shot and few-shot) and a parameter-efficient fine-tuning approach using LoRA, with model sizes of approximately 2B and 8B parameters. Experimental results show that 8B models consistently outperform their 2B counterparts, indicating the benefit of increased model capacity. Among the adaptation techniques, LoRA fine-tuning significantly outperforms both zero-shot and few-shot prompting. Across all evaluated settings, Google’s Gemma-2-9B model with LoRA fine-tuning achieved the best performance compared to the other model families and our test result was ranked 12th among all 22 submissions with the 0.7959 f1-score.</abstract>
+      <url hash="5a841e26">2026.dravidianlangtech-1.69</url>
+      <bibkey>krubhakaran-etal-2026-vitech</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.69</doi>
+    </paper>
+    <paper id="70">
+      <title><fixed-case>W</fixed-case>ave2<fixed-case>W</fixed-case>ord@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: <fixed-case>W</fixed-case>his<fixed-case>T</fixed-case>am: A unified framework for dialect based <fixed-case>T</fixed-case>amil speech recognition and classification</title>
+      <author><first>Ruwad</first><last>Naswan</last></author>
+      <author id="shadab-tanjeed-ahmad" orcid="0009-0003-3365-2451"><first>Shadab Tanjeed</first><last>Ahmad</last><affiliation>Islamic University of Technology</affiliation></author>
+      <pages>442-446</pages>
+      <abstract>While Automatic Speech Recognition (ASR) systems have shown impressive performance in languages having sufficient annotated speech data like English, their performance is still limited for low-resource, dialect rich languages like Tamil. Tamil poses further challenges because of its extremely high regional variation in dialects that manifest in varying vocabulary, pronunciations, and even syntactic structures. To address these challenges, we present a unified framework WhisTam based on the Whisper medium model, which performs speech transcription and dialect classification jointly within a single system. Our method is evaluated against speech samples from four regional dialects and achieves a macro F1-score of 0.53 and a Word Error Rate (WER) of 0.55 for dialect classification and transcription respectively, ranking 2nd in the dialect classification task and 3rd in the transcription task in the DravidianLangTech@ACL 2026 shared task on Dialect-based Speech Recognition and Classification in Tamil. These findings emphasize the challenges in dialectal Tamil ASR as well as the promise of multi-task learning for low-resource languages. Our implementation is publicly available at: https://github.com/rwd51/DravidianLangTech-Wave2Word.</abstract>
+      <url hash="515c3a9e">2026.dravidianlangtech-1.70</url>
+      <bibkey>naswan-ahmad-2026-wave2word</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.70</doi>
+    </paper>
+    <paper id="71">
+      <title>Wise@<fixed-case>D</fixed-case>ravidian<fixed-case>L</fixed-case>ang<fixed-case>T</fixed-case>ech 2026: Dialect-Aware <fixed-case>T</fixed-case>amil Speech Classification and Recognition via Cross-Pipeline Embedding Transfer</title>
+      <author><first>Ganesh Sundhar</first><last>S</last></author>
+      <author><first>Hari Krishnan</first><last>N</last></author>
+      <author><first>Gnanasabesan</first><last>G</last></author>
+      <author><first>Suriya</first><last>KP</last></author>
+      <author><first>Jyothish Lal</first><last>G</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <pages>447-452</pages>
+      <abstract>This paper presents the **Wise** system for the shared task on dialect-based speech processing in Tamil, addressing two subtasks: **(1) four-way dialect region classification** (Northern, Southern, Western, Central), and **(2) dialectal Tamil ASR**. All audio is preprocessed using loudness normalization followed by neural denoising to ensure consistent audio quality for downstream models. For classification, we experiment with different model variants combining multilingual and Tamil-pretrained **Wav2Vec2** backbones with five temporal pooling strategies under frozen and partial fine-tuning settings. Our best configuration, i.e., learned attentive pooling with partial fine-tuning and a differentially trained MLP head, achieves a macro F1 of **0.79**, securing **1st place** with a margin of **0.26** points. For ASR, we propose two novel **dialect-conditioned Whisper** architectures—residual injection and cross-attention—that inject dialect embeddings from the trained classifier into the ASR pipeline. In addition, we evaluate a vanilla Whisper-Tamil fine-tuned baseline. The best model achieved a **WER of 0.90**, securing **8th place** in the shared task.</abstract>
+      <url hash="1cf26abc">2026.dravidianlangtech-1.71</url>
+      <bibkey>s-etal-2026-wise</bibkey>
+      <doi>10.18653/v1/2026.dravidianlangtech-1.71</doi>
+    </paper>
+  </volume>
+</collection>

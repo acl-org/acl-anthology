@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.unlp">
+  <volume id="1" type="proceedings" ingest-date="2026-06-29">
+    <meta>
+      <booktitle>Proceedings of the Fifth <fixed-case>U</fixed-case>krainian Natural Language Processing Conference (<fixed-case>UNLP</fixed-case> 2026)</booktitle>
+      <editor><first>Mariana</first><last>Romanyshyn</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Lviv, Ukraine</address>
+      <isbn>979-8-89176-359-3</isbn>
+      <month>May</month>
+      <year>2026</year>
+      <url hash="ae9670f5">2026.unlp-1</url>
+      <venue>unlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="549a3ec4">2026.unlp-1.0</url>
+      <bibkey>unlp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Improving Domain-Specific Translation from <fixed-case>E</fixed-case>nglish into <fixed-case>U</fixed-case>krainian with Retrieval-Augmented Generation</title>
+      <author><first>Anton</first><last>Shpigunov</last><affiliation>National Taras Shevchenko University of Kyiv</affiliation></author>
+      <pages>1-11</pages>
+      <abstract>Large language models have demonstrated competence as language translators, including for lower-resourced languages like Ukrainian. However, in specialized or novel domains, translation quality can suffer without adequate lexical and stylistic reference material. We present a retrieval-augmented approach to English-Ukrainian machine translation in a narrow domain: a private legal/military bilingual corpus. In this approach, semantically similar translation units retrieved via vector embeddings are provided as in-context examples to the LLM. We evaluate three open-weight Gemma 3 models, 4B, 12B, and 27B, against Gemini 3 Flash as a baseline across five augmentation conditions, with k values of 0, 3, 5, 10, and 25, on a 2,581-pair index and a 258-pair test set. We find that context augmentation yields statistically significant improvements in both ChrF++ and COMET for all models, with the smallest model’s COMET score improving by 0.076 at k = 3. However, smaller models exhibit context saturation: the 4B model’s performance peaks at k = 10 and degrades with additional context, losing 9.72 ChrF++ points and 0.007 COMET between k = 10 and k = 25, while larger models continue to benefit.</abstract>
+      <url hash="212ea9b1">2026.unlp-1.1</url>
+      <bibkey>shpigunov-2026-improving</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>UAR</fixed-case>eviews: A Multi-Task <fixed-case>U</fixed-case>krainian Dataset for Emotion and Intent Classification</title>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Ihor</first><last>Pysmennyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Denys</first><last>Mykhailov</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <pages>12-23</pages>
+      <abstract>We introduce UAReviews, a multi-task Ukrainian-language dataset for emotion and intent classification comprising 11,580 annotated texts. The dataset combines two sources: citizen reviews of government digital services provided by the Ministry of Digital Transformation of Ukraine and Ukrainian-language Telegram posts drawn from the COSMUS corpus. Each text is annotated with both an emotion label following the Ekman taxonomy (seven classes) and an intent label (five classes), making it the first publicly available Ukrainian resource for joint emotion and intent analysis. Annotation was performed by students at the Anonymous Institution, with a gold standard subset (20\%) validated by three independent annotators achieving Krippendorff’s alpha = 0.93. We establish baselines using single-task and multi-task fine-tuned XLM-RoBERTa models and analyze emotion to intent correlation. Both the dataset and the baseline models are publicly available.</abstract>
+      <url hash="fe9b7958">2026.unlp-1.2</url>
+      <bibkey>kyslyi-etal-2026-uareviews</bibkey>
+    </paper>
+    <paper id="3">
+      <title>A Two-Axis Framework for Analyzing <fixed-case>U</fixed-case>krainian Dialogues</title>
+      <author><first>Artem</first><last>Korotenko</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <pages>24-32</pages>
+      <abstract>Online discussions increasingly serve as a major venue for exchanging information and evaluating competing viewpoints. Yet most computational approaches to discourse quality focus on detecting harmful language or predicting engagement, providing limited insight into whether interactions actually improve collective understanding.We introduce a two-dimensional framework for modeling dialogic constructiveness, distinguishing between substantive contribution (SC) and relational conduct (SC). Using expert-annotated Ukrainian-language discussions, we show that collapsing rubric-level labels into these axes improves inter-annotator agreement, suggesting that constructiveness is better captured as a multidimensional judgment.We further compare nominal, regression, and ordinal prediction approaches and find that explicitly modeling constructiveness as an ordinal task yields substantially higher agreement with expert annotations under quadratic weighted kappa (QWK). These results indicate that dialogic constructiveness is better understood as an ordered interactional judgment rather than a binary label or continuous score.</abstract>
+      <url hash="953de18b">2026.unlp-1.3</url>
+      <bibkey>korotenko-kyslyi-2026-two</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Entropy of <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Anton</first><last>Lavreniuk</last><affiliation>ARIMLABS</affiliation></author>
+      <author><first>Mykyta</first><last>Mudryi</last><affiliation>ARIMLABS</affiliation></author>
+      <author><first>Markiian</first><last>Chaklosh</last><affiliation>ARIMLABS</affiliation></author>
+      <pages>33-40</pages>
+      <abstract>In natural language processing, the entropy of a language is a measure of its unpredictability and complexity. The first study on this subject was conducted by Claude Shannon in 1951. By having participants predict the next character in a sentence, he was able to approximate the entropy of the English language. Several follow-up studies by other authors have since been conducted for English, and one for Hebrew. However, to date, Shannon’s experiment has never been conducted for Ukrainian. In this paper, we perform this experiment for Ukrainian by recruiting 184 volunteers using social media channels. We rely on techniques used for English to approximate the entropy value of Ukrainian. The final result is an upper bound of H_upper ≈ 1.201 bits per character. We compare this to the performance of current Large Language Models. The methods and code used are also documented and published, along with a discussion of the main challenges encountered.</abstract>
+      <url hash="4cef1802">2026.unlp-1.4</url>
+      <bibkey>lavreniuk-etal-2026-entropy</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>S</fixed-case>im<fixed-case>I</fixed-case>dioms: A Corpus and Benchmark for <fixed-case>U</fixed-case>krainian Idiom Translation</title>
+      <author><first>Yaryna</first><last>Petruniv</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Iuliia</first><last>Makogon</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <pages>41-52</pages>
+      <abstract>We present a corpus of aligned Ukrainian–English idiomatic expressions and a comprehensive evaluation of six large language models on the task of translating sentences containing idioms. The corpus is constructed by linking entries across multiple phraseological dictionaries and the MIDAS corpus using vector similarity search, enriched with figurative meanings, contextual sentences from the UberText fiction corpus, and semantic transparency scores. We evaluate Gemini 2.5 Flash, Claude Haiku 4.5, Gemma 3 12B, Qwen3-30B-A3B, LapaLM, and Tiny Aya Global in both Ukrainian-to-English and English-to-Ukrainian directions under default and context-augmented prompting. Our evaluation of 65{,}723 translations reveals a pronounced direction asymmetry, with all models performing substantially worse when translating into Ukrainian. Providing figurative meaning and target idiom candidates improves quality for most models in Ukrainian-to-English but has limited effect in the reverse direction. We additionally show that semantic transparency of idioms is only weakly correlated with translation quality. We release the corpus and evaluation framework to support research on idiomatic translation for mid-resource languages.</abstract>
+      <url hash="4377d00b">2026.unlp-1.5</url>
+      <bibkey>petruniv-etal-2026-simidioms</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>U</fixed-case>kr<fixed-case>SL</fixed-case>: Towards a <fixed-case>U</fixed-case>krainian Continuous Sign Language Dataset</title>
+      <author><first>Oleksandr</first><last>Sobetskyi</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Maryna</first><last>Kosse</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Angelina</first><last>Savchenko</last><affiliation>NTUU "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <pages>53-57</pages>
+      <abstract>We present UkrSL, an annotated dataset for Ukrainian Sign Language (USL) — one ofthe most underresourced sign languages in Europe. The dataset comprises 1,456 annotated clips (1,463 with cropped video segments) totalling approximately two hours of signing, sourced from six broadcast videos from Suspilne, Ukraine’s public broadcaster.Each clip is annotated with a spoken Ukrainian transcription aligned to the corresponding signing segment. We describe the data collection pipeline, the annotation methodology, and provide a detailed analysis of the dataset’s statistics and limitations. The dataset is being actively expanded, and we release this snapshot to support the research community and invite collaboration.</abstract>
+      <url hash="10fdc35d">2026.unlp-1.6</url>
+      <bibkey>sobetskyi-etal-2026-ukrsl</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Digitizing Old <fixed-case>U</fixed-case>krainian Texts: A Prompt-Based <fixed-case>OCR</fixed-case> Pipeline and Evaluation Dataset</title>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>lang-uk initiative</affiliation></author>
+      <author><first>Hanna</first><last>Dydyk-Meush</last><affiliation>Ivan Krypiakevych Institute of Ukrainian Studies of NAS of Ukraine</affiliation></author>
+      <pages>58-66</pages>
+      <abstract>We present a methodology and an open dataset for OCR of handwritten index cards containing a scholarly transcription of an early 17th-century Ukrainian polemical text, Perestoroha by Iov Boretskyi (Lviv, 1605–1606). The 430 cards, produced by 20th-century researchers, preserve the text in Old Ukrainian orthography with archaic diacritics, titlos, superscript letters, and ligatures that make automated recognition non-trivial. We develop a prompt-based OCR pipeline driven by a custom instruction set designed iteratively from the source material’s orthographic conventions. The pipeline is evaluated against human-proofread ground truth in proprietary and open-source configurations using identical instructions and evaluation data. The proprietary configuration with extended thinking at maximum budget (Claude Opus 4.7, xhigh) achieves a Character Error Rate of 2.5%; an Opus 4.6 baseline at the default 2,048-token thinking budget — used for the first batch of the released dataset — reaches 4.2%; and two open-source Qwen3.6 variants running locally on consumer hardware reach 14.6% (dense 27B) and 14.8% (35B-A3B MoE). We release the fully digitized text aligned at line level to 300 DPI scanned images, as both a scholarly digital resource and training data for future OCR systems targeting Old Slavic manuscripts.</abstract>
+      <url hash="285ff85d">2026.unlp-1.7</url>
+      <bibkey>chaplynskyi-dydyk-meush-2026-digitizing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Semantic Fidelity Versus Literary Quality: A Construct Validity Study of Neural Machine Translation Metrics</title>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>lang-uk initiative</affiliation></author>
+      <author><first>Ivan</first><last>Kulynych</last><affiliation>Grammarly</affiliation></author>
+      <author><first>Maria</first><last>Shvedova</last><affiliation>National Technical University "Kharkiv Polytechnic Institute"; University of Jena</affiliation></author>
+      <author><first>Lesia</first><last>Ivashkevych</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <pages>67-79</pages>
+      <abstract>Automatic machine translation metrics are the de facto standard for evaluating translation quality. Yet, it remains unclear what they actually measure. We investigate this question using a unique multilingual corpus: seven human Ukrainian translations of George Orwell’s Animal Farm, alongside three architecturally distinct AI systems (GPT-5.2, DeepL, and Lapa, a Ukrainian-tuned LLM). Across seven neural metrics, four reference-free and three reference-based, all three AI translations rank at the top. However, stylometric analysis exposes that these same AI translations are not as lexically rich as human ones ($-$18% MTLD), underuse Ukrainian particles (up to 2x fewer) and diminutive morphology (2.6x fewer), and converge on near-identical outputs (LaBSE pairwise similarity 0.941 vs. 0.711 for human pairs). A controlled LLM-as-a-judge experiment demonstrates a clear preference reversal: when the English source is visible, AI ranks first; when it is hidden and the judge evaluates literary quality alone, humans rise to the top and AI falls to the lower ranks. Human evaluation (1,034 pairwise judgments) is balanced across both patterns. We argue that current MT metrics reward semantic fidelity and surface fluency — properties optimized by AI systems — while failing to capture the lexical richness, cultural adaptation, and stylistic voice that characterize skilled literary translation.</abstract>
+      <url hash="cc6673a6">2026.unlp-1.8</url>
+      <bibkey>chaplynskyi-etal-2026-semantic</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Graph-Based Detection of Disinformation Narrative Diffusion between <fixed-case>R</fixed-case>ussian and <fixed-case>U</fixed-case>krainian <fixed-case>T</fixed-case>elegram Channels</title>
+      <author><first>Yuliia</first><last>Vistak</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Viktoriia</first><last>Makovska</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Vera</first><last>Schmitt</last><affiliation>Technische Universität Berlin, German Research Center for Artificial Intelligence</affiliation></author>
+      <author><first>Veronika</first><last>Solopova</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <pages>80-96</pages>
+      <abstract>Detecting disinformation narratives on social media is challenging due to the scale of amplification, rapid evolution, and linguistic variability of online content. We propose a graph-based framework for identifying and analyzing disinformation narratives in Telegram ecosystems by combining weak supervision with propagation graph analysis. The approach aggregates semantically related claims into narrative-level clusters and models their diffusion across interconnected channels. This enables the detection of coordinated narrative amplification that is difficult to capture through post-level analysis alone. Our results demonstrate that integrating textual signals with network structure provides a scalable method for detecting disinformation narratives and offers insights into how they propagate within large-scale messaging environments.</abstract>
+      <url hash="9fdf8d08">2026.unlp-1.9</url>
+      <bibkey>vistak-etal-2026-graph</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Professional Translators Versus Quality Estimation Models: Reliability and Agreement in <fixed-case>E</fixed-case>nglish-<fixed-case>U</fixed-case>krainian Translation Evaluation</title>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>lang-uk initiative</affiliation></author>
+      <author><first>Kyrylo</first><last>Zakharov</last><affiliation>UNHCR</affiliation></author>
+      <author><first>Lesia</first><last>Ivashkevych</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <pages>97-107</pages>
+      <abstract>We extend a prior study comparing automatic Quality Estimation (QE) models with crowdsourced student judgments for English–Ukrainian parallel corpus evaluation. Eight professional translators each rate 1,000 sentence pairs on a continuous 0–100 scale under one of two paradigms: holistic quality scoring or a two-stage fluency-plus-adequacy protocol, with a repeated task for test–retest reliability. Professionals using the holistic scale achieve significantly higher inter-rater reliability than both linguistics students and professionals using separate fluency and adequacy scales, contradicting the expectation that multidimensional evaluation improves agreement. Adequacy correlates strongly with holistic judgments while fluency emerges as a largely independent dimension. Experts also exhibit a significant leniency drift over the session, alongside increasing evaluation speed. We additionally evaluate three LLMs as translation quality judges (Gemini 3 Flash, GPT-5.4, Gemma 3 27B) and find that the two larger models modestly outperform dedicated QE models in correlation with expert scores (r = 0.814–0.821 vs. r ≤ 0.747). When prompted for separate fluency and adequacy scores, the LLMs replicate the adequacy-dominance pattern, confirming that meaning preservation drives holistic quality perception across both human and machine judges.</abstract>
+      <url hash="847ad62a">2026.unlp-1.10</url>
+      <bibkey>chaplynskyi-etal-2026-professional</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Belief Propagation in <fixed-case>LLM</fixed-case> World Models: Measuring Strategic Information Bias with Prediction Markets</title>
+      <author><first>Mykola</first><last>Khandoga</last><affiliation>Lexsi labs</affiliation></author>
+      <author><first>Yevhen</first><last>Kostiuk</last><affiliation>Aarhus University</affiliation></author>
+      <author><first>Anton</first><last>Polishko</last><affiliation>Principle</affiliation></author>
+      <author><first>Yurii</first><last>Filipchuk</last><affiliation>Principle</affiliation></author>
+      <author><first>Kostiantyn</first><last>Kozlov</last><affiliation>Principle</affiliation></author>
+      <author><first>Dmytro</first><last>Zamriy</last><affiliation>Principle</affiliation></author>
+      <author><first>Artur</first><last>Kiulian</last><affiliation>FuturePrinciple.com</affiliation></author>
+      <pages>108-120</pages>
+      <abstract>Every information ecosystem produces beliefs that shape strategic decisions. Both human analysts and AI systems inherit the blind spots of their information sources. We show that LLMs, combined with prediction markets, function as a calibrated instrument for measuring how far ecosystem-induced beliefs fall from reality: LLMs extract the beliefs a text corpus implies, and prediction markets provide a ground truth proxy against which to quantify the error.We isolate the bias contribution of specific text through ablation: varying information context while holding the model fixed, with a contaminated model that knows actual outcomes as control. Applied to 111 Ukraine-related prediction markets (~93,000 predictions, four models), we find that English news context systematically biases territorial predictions, wrong 64–72% of the time (p 10{-6}). A contaminated model that knows actual outcomes shows the same error rate, indicating the bias originates primarily in the text. Supplementing with Ukrainian military-analytical sources partially corrects the distortion.We show that the distortion originates primarily in the sources, not the models. Consistent across four architectures, it will persist in any system that processes them and propagate into downstream decisions.</abstract>
+      <url hash="29e0e9c1">2026.unlp-1.11</url>
+      <bibkey>khandoga-etal-2026-belief</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Toward a Gold-Standard Benchmark for Evaluating <fixed-case>U</fixed-case>krainian Language Proficiency in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Svitlana</first><last>Galeshchuk</last><affiliation>PSL/Paris Dauphine, West Ukrainian National University, BNP Paribas</affiliation></author>
+      <author><first>Yuliia</first><last>Maksymiuk</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Yuliia</first><last>Chernobrov</last><affiliation>National Commission for State Language Standards</affiliation></author>
+      <author><first>Nina</first><last>Stankevych</last><affiliation>Ivan Franko National University of Lviv</affiliation></author>
+      <author><first>Oleksandra</first><last>Antoniv</last><affiliation>Ivan Franko National University of Lviv</affiliation></author>
+      <author><first>Nataliia</first><last>Faryna</last><affiliation>Ivan Franko National University of Lviv</affiliation></author>
+      <author><first>Oksana</first><last>Popkova</last><affiliation>Kherson State University</affiliation></author>
+      <pages>121-135</pages>
+      <abstract>The paper presents an expert-curated benchmark for assessing Ukrainian proficiency in LLMs, focusing on grammar and orthography as core components of language competence. Prepared by professional linguists, the proposed gold-standard dataset is designed to test normative Ukrainian usage.The benchmark is further used to evaluate a range of LLMs, including Ukrainian-focused, multilingual, and large-scale models, under zero-shot and few-shot prompting in Ukrainian and English. Across these settings, smaller models achieve no more than 42.1% accuracy, while large-scale LLMs reach up to 59.6%. These results show that standard Ukrainian remains challenging for current LLMs and highlight the need for stronger language-specific evaluation and adaptation.</abstract>
+      <url hash="6bfdec37">2026.unlp-1.12</url>
+      <bibkey>galeshchuk-etal-2026-toward</bibkey>
+    </paper>
+    <paper id="13">
+      <title>How Far Can Prompting Go for Minimal-Edit <fixed-case>U</fixed-case>krainian Grammatical Error Correction?</title>
+      <author><first>Kateryna</first><last>Karpo</last><affiliation>Faculty of Applied Sciences, Ukrainian Catholic University, Lviv, Ukraine</affiliation></author>
+      <author><first>Artem</first><last>Chernodub</last><affiliation>Zendesk</affiliation></author>
+      <pages>136-154</pages>
+      <abstract>Fine-tuned Large Language Models (LLMs) dominate in Ukrainian grammatical error correction (GEC), while API-accessed LLMs remain nearly untested on minimal-edit benchmarks. We evaluate 11 commercial LLMs from four providers and one open-source Ukrainian model on the UNLP 2023 GEC-only benchmark, comparing zero-shot, few-shot, minimal-edits, and LLM-assisted prompt optimization strategies. Our best configuration (Gemini 3.1-Pro) reaches F0.5=69.22, closing over 90% of the gap to fine-tuned SOTA (F0.5=73.14). For zero-shot prompts, only Claude models benefit from Ukrainian instructions. However, the best overall results for all models use Ukrainian minimal-edits prompts, whose language-specific rules require Ukrainian to express precisely. LLM-assisted prompt optimization on top of minimal-edits + few-shot achieves the highest score. Detailed minimal-edits instructions yield the largest gains for punctuation and case errors but cause the model to abandon several low-frequency categories. Delving into error analysis, we identify five recurring overcorrection patterns tied to Ukrainian-specific linguistic phenomena. Code, prompts, and outputs are publicly available.</abstract>
+      <url hash="1557f548">2026.unlp-1.13</url>
+      <bibkey>karpo-chernodub-2026-far</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Data-Efficient Adaptation of Multilingual <fixed-case>LLM</fixed-case>s to <fixed-case>U</fixed-case>krainian</title>
+      <author><first>Yurii</first><last>Paniv</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Bohdan</first><last>Didenko</last><affiliation>Lviv Polytechnic National University, WebSpellChecker LLC</affiliation></author>
+      <author><first>Mykola</first><last>Haltiuk</last><affiliation>AGH University of Science and Technology</affiliation></author>
+      <author><first>Vladyslav</first><last>Humennyy</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Andrian</first><last>Kravchenko</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Viktoriia</first><last>Makovska</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Artem</first><last>Orlovskyi</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Bohdan</first><last>Ruban</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Maksym-Yurii</first><last>Rudko</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Anastasiia</first><last>Senyk</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Nazarii</first><last>Drushchak</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Dmytro</first><last>Chaplynskyi</last><affiliation>lang-uk initiative</affiliation></author>
+      <author><first>Mariana</first><last>Romanyshyn</last><affiliation>Grammarly</affiliation></author>
+      <pages>155-168</pages>
+      <abstract>Adapting large language models to low-resource languages presents three interconnected challenges: inefficient tokenization, scarcity of high-quality annotated data, and limited resources for instruction tuning. We present a reproducible approach that addresses each challenge using data-centric methods that primarily rely on unlabeled text corpora, parallel translation data, and a multilingual base model. Our approach combines (1) vocabulary surgery for tokenizer adaptation without full retraining, (2) cross-lingual transfer of quality classifiers via translation, enabling filtering without target-language annotations, and (3) generation of instruction data through translation, task conversion, and targeted synthesis. We validate this recipe by adapting Gemma-3-12B to Ukrainian. %, producing Lapa-12BOur pretrained model achieves top performance on Ukrainian benchmarks, while our instruction-tuned variant demonstrates strong performance on translation (33 BLEU on FLORES), summarization, and question-answering tasks, while requiring 1.5x fewer tokens than the original model for the same text. We release all models, datasets, classifiers, and code to enable replication for other languages.</abstract>
+      <url hash="7cc79bd8">2026.unlp-1.14</url>
+      <bibkey>paniv-etal-2026-data</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Dictionary-Based Speculative Decoding for Non-<fixed-case>L</fixed-case>atin-Script Languages</title>
+      <author><first>Oleksiy</first><last>Syvokon</last><affiliation>Lviv Polytechnic National University</affiliation></author>
+      <pages>169-183</pages>
+      <abstract>Large language models tokenize non-Latin-script languagesinefficiently: a single word in Ukrainian or Crimean Tatar is split intotwo to three times as many tokens as its English equivalent. We propose_dictionary-based speculative decoding_ (DictSpec), which acceleratesinference by proposing draft continuations from a static n-gram lookuptable built offline from an unlabeled corpus. The lookup table requiresno trainable parameters or GPU resources, is inexpensive to construct,adds under 5 MB of memory overhead, and can be reused across modelsthat share a tokenizer. We evaluate DictSpec on Ukrainian and Crimean Tatar(Cyrillic and Latin scripts), implementing a vLLM plugin to benchmarkfive models ranging from 3B to 70B parameters on consumer- andserver-grade GPUs. In controlled emulation, DictSpec reduces verificationsteps by up to 1.65×, with gains correlating substantially with tokenizerfertility. In live vLLM serving, pure DictSpec gives modest speedups,while a hybrid with prompt-local n-gram speculation reaches up to 1.76×.We release our code and vLLM plugin as opensource.</abstract>
+      <url hash="6b6cb088">2026.unlp-1.15</url>
+      <bibkey>syvokon-2026-dictionary</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Scaling <fixed-case>ASR</fixed-case> for <fixed-case>H</fixed-case>utsul Dialect: Multi-Speaker Data Collection, Enhanced Transcription and Cross-Speaker Evaluation</title>
+      <author><first>Artem</first><last>Orlovskyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Zakhar</first><last>Guzii</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Bohdan</first><last>Onyshchenko</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Pavlo</first><last>Khomenko</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <pages>184-198</pages>
+      <abstract>We present a significant expansion of ASR resources for the Hutsul dialect of Ukrainian, building on prior work that established the first aligned speech corpus from a single literary source. In this work, we scale the dataset from a single speaker to a multi-speaker corpus comprising 40 speakers and 60.63 hours of audio drawn from diverse sources: YouTube channels (with author permissions), field recordings from native speakers, linguist student recordings, and regional radio broadcasts. To obtain reference transcriptions for audio without existing text, we introduce a novel RAG-enhanced correction pipeline: audio is first transcribed using ElevenLabs, then corrected through a RAG pipeline backed by a dialect-aware language model. We evaluate a fine-tuned ASR models across five distinct speaker datasets, demonstrating that while the model achieves strong performance on in-domain speakers (CER 3.24%), cross-speaker generalization remains challenging, with CER ranging from 5.33% to 17.24% depending on speaker characteristics. All data, code, and models are released publicly to support further research on Ukrainian dialect speech technologies.</abstract>
+      <url hash="84a507e0">2026.unlp-1.16</url>
+      <bibkey>orlovskyi-etal-2026-scaling</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Mining Native <fixed-case>U</fixed-case>krainian Paraphrases: A Multi-Source Comparison</title>
+      <author><first>Vladyslav</first><last>Fesenko</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Hanna</first><last>Dydyk-Meush</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <author><first>Volodymyr</first><last>Mudryi</last><affiliation>Ukrainian Catholic University</affiliation></author>
+      <pages>199-208</pages>
+      <abstract>We introduce a Ukrainian paraphrase dataset mined from event-aligned news headlines and compare it with translated and LLM-generated data sources. Candidate pairs are retrieved from native Ukrainian news titles and filtered using semantic and lexical constraints to form a training corpus in a semi-automatic pipeline. Human evaluation indicates that the sources differ in useful ways: LLM-generated paraphrases are generally stronger in meaning preservation, whereas news-mined pairs offer greater lexical variation while remaining fluent and meaning-preserving. We tune mT5-large and mT0-large and evaluate them on several held-out test sets, including a human-validated subset. Relative to Spivavtor-large, the models achieve comparable semantic preservation with lower copying on the combined and human-validated sets. Overall, the findings highlight the value of naturally mined Ukrainian paraphrases as supervision for low-resource paraphrase generation.</abstract>
+      <url hash="e7eef771">2026.unlp-1.17</url>
+      <bibkey>fesenko-etal-2026-mining</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Automated <fixed-case>CEFR</fixed-case>-Level Assignment for <fixed-case>U</fixed-case>krainian Texts</title>
+      <author><first>Olha</first><last>Kanishcheva</last><affiliation>Heidelberg University</affiliation></author>
+      <author><first>Mikhail</first><last>Kopotev</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>209-222</pages>
+      <abstract>The present study evaluates CEFR-based text complexity for Ukrainian using a new dataset compiled from textbooks, designed for language learners. We compare traditional machine learning, transformer-based models, and LLM-based evaluation across A1–B2 language proficiency levels. Results show that explicit linguistic features remain highly effective: a Random Forest classifier achieves the highest macro-F1 (0.576), slightly outperforming fine-tuned XLM-RoBERTa (0.574). While GPT-5.5 shows strong performance (macro-F1 0.564), marking a significant advancement over GPT-4.1, supervised models achieve slightly better scores in this experiment for the proficiency-level assessment. These findings suggest that structured linguistic analysis is a robust alternative to purely neural approaches for Ukrainian CEFR classification.</abstract>
+      <url hash="bf029f43">2026.unlp-1.18</url>
+      <bibkey>kanishcheva-kopotev-2026-automated</bibkey>
+    </paper>
+    <paper id="19">
+      <title>An End-to-End <fixed-case>U</fixed-case>krainian <fixed-case>RAG</fixed-case> for Local Deployment. Optimized Hybrid Search and Lightweight Generation</title>
+      <author><first>Mykola</first><last>Trokhymovych</last><affiliation>Pompeu Fabra University</affiliation></author>
+      <author><first>Yana</first><last>Oliinyk</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Nazarii</first><last>Nyzhnyk</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>223-229</pages>
+      <abstract>This paper presents a highly efficient Retrieval-Augmented Generation (RAG) system built specifically for Ukrainian document question answering, which achieved 2nd place in the UNLP 2026 Shared Task. Our solution features a custom two-stage search pipeline that retrieves relevant document pages, paired with a specialized Ukrainian language model fine-tuned on synthetic data to generate accurate, grounded answers. Finally, we compress the model for lightweight deployment. Evaluated under strict computational limits, our architecture demonstrates that high-quality, verifiable AI question answering can be achieved locally on resource-constrained hardware without sacrificing accuracy.</abstract>
+      <url hash="e7f82374">2026.unlp-1.19</url>
+      <bibkey>trokhymovych-etal-2026-end</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Qwen Goes Brrr: Off-the-Shelf <fixed-case>RAG</fixed-case> for <fixed-case>U</fixed-case>krainian Multi-Domain Document Understanding</title>
+      <author><first>Anton</first><last>Bazdyrev</last><affiliation>Dun \&amp; Bradstreet, NTUU "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Oleksandr</first><last>Kharytonov</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Artur</first><last>Khodakovskyi</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Ivan</first><last>Havlytskyi</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Ivan</first><last>Bashtovyi</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <pages>230-239</pages>
+      <abstract>We participated in the Fifth UNLP shared task on multi-domain document understanding, where systems must answer Ukrainian multiple-choice questions from PDF collections and localize the supporting document and page. We propose a retrieval-augmented pipeline built around three ideas: contextual chunking of PDFs, question-aware dense retrieval and reranking conditioned on both the question and answer options, and constrained answer generation from a small set of reranked passages. Our final system uses Qwen3-Embedding-8B for retrieval, a fine-tuned Qwen3-Reranker-8B for passage ranking, and Qwen3-32B for answer selection. On a held-out split, reranking improves Recall@1 from 0.6957 to 0.7935, while using the top-2 reranked passages raises answer accuracy from 0.9348 to 0.9674. Our best leaderboard run reached 0.9452 on the public leaderboard and 0.9598 on the private leaderboard. The main lesson of this shared task is that, under strict code-competition constraints, preserving document structure and making relevance estimation aware of the answer space are more important than adding complex downstream heuristics.</abstract>
+      <url hash="bc9cc6f1">2026.unlp-1.20</url>
+      <bibkey>bazdyrev-etal-2026-qwen</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>RAG</fixed-case> Pipeline Strategies for <fixed-case>U</fixed-case>krainian Multi-Domain Document Understanding Task</title>
+      <author><first>Mykola</first><last>Nosenko</last><affiliation>Taras Shevchenko National University of Kyiv</affiliation></author>
+      <author><first>Pavlo</first><last>Kilko</last><affiliation>Taras Shevchenko National University of Kyiv</affiliation></author>
+      <pages>240-248</pages>
+      <abstract>In this work, we present top-performing solution to the UNLP 2026 Shared Task on Ukrainian Multi-Domain Document Understanding. This task focuses on answering multiple-choice questions grounded in domain-specific Ukrainian documents, while also requiring systems to identify the source document and page. We developed a modular retrieval-augmented generation (RAG) pipeline and conducted a series of ablation experiments over its individual components to identify the best-performing strategy at each stage. Based on our evaluation results, we propose two final pipeline configurations that differ in their computational cost and retrieval accuracy: a stronger but more compute-intensive document-level augmentation approach and a lighter summary-based augmentation that is suitable for constrained environments. Our submission achieved 3rd place on the private leaderboard. This demonstrates that isolated curation of RAG components can yield strong performance for Ukrainian document grounded question answering without additional language model adaptations.</abstract>
+      <url hash="d04a4223">2026.unlp-1.21</url>
+      <bibkey>nosenko-kilko-2026-rag</bibkey>
+    </paper>
+    <paper id="22">
+      <title>The <fixed-case>UNLP</fixed-case> 2026 Shared Task on Multi-Domain Document Understanding</title>
+      <author><first>Volodymyr</first><last>Sydorskyi</last><affiliation>National Technical University of Ukraine "Igor Sikorsky Kyiv Polytechnic Institute"</affiliation></author>
+      <author><first>Nataliia</first><last>Romanyshyn</last><affiliation>Texty.org.ua</affiliation></author>
+      <author><first>Roman</first><last>Kyslyi</last><affiliation>Kyiv School of Economics</affiliation></author>
+      <author><first>Olena</first><last>Nahorna</last><affiliation>Preply</affiliation></author>
+      <pages>249-259</pages>
+      <abstract>This paper presents the results of the UNLP 2026 Shared Task on Multi-Domain Document Understanding. This Shared Task aims to challenge and assess AI capabilities to find the right information in a stack of domain-specific documents and generalize across domains. Participants were required not only to select the correct answer, but also to localize it by predicting the corresponding document and page. A total of 54 teams registered for the competition, 15 teams submitted systems, and 513 runs were evaluated on a hidden test set via Kaggle in a code-only submission format under constrained computational resources. The Kaggle leaderboard is left open for further submissions. Summarizing the contributions of this work, we establish a Ukrainian multi-domain document understanding benchmark, which consists of: (1) a collected dataset; (2) a proposed evaluation metric; and (3) an analysis of top-performing systems evaluated under a unified framework.</abstract>
+      <url hash="dd718516">2026.unlp-1.22</url>
+      <bibkey>sydorskyi-etal-2026-unlp</bibkey>
+    </paper>
+  </volume>
+</collection>

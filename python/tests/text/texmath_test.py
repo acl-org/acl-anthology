@@ -333,6 +333,10 @@ def test_texmath_should_warn(caplog):
 
 
 def test_texmath_unhandled_element_raises():
+    # Covers the defensive `else` branch in TexMath._parse(): normal TeX input
+    # only ever yields the handled constituent types (TexCmd, str/TexText,
+    # TexGroup, TexMathModeEnv), so we pass a synthetic object() to ensure an
+    # unexpected type fails loudly with a clear error rather than silently.
     trg = etree.Element("span")
     with pytest.raises(ValueError, match="unhandled element"):
         TexMath._parse([object()], trg)

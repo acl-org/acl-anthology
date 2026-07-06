@@ -273,6 +273,25 @@ def repair_latex(text: str) -> str:
     return text
 
 
+def abstract_has_empty_markup(abstract: MarkupText) -> bool:
+    """Return True if the abstract contains an empty markup element, e.g. an
+    empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
+    expands to nothing.
+
+    The Anthology schema defines ``MarkupText = (text | b | i | url |
+    fixed-case | tex-math)+``, so a markup element with neither text nor child
+    elements is invalid and makes the XML fail schema validation at build time.
+    Such abstracts render without raising, so they must be detected explicitly.
+    """
+    root = abstract.to_xml()
+    for element in root.iter():
+        if element is root:
+            continue
+        if len(element) == 0 and not element.text:
+            return True
+    return False
+
+
 # Maps (slugified full name, number of spaces in the full name) -> set of
 # observed split points (i.e. the number of whitespace-delimited tokens in the
 # first name) seen in the existing Anthology data. Populated once in main() and
@@ -366,10 +385,14 @@ def namespec_from(
     kwargs: Dict[str, Any] = {"name": name}
     if orcid:
         kwargs["orcid"] = str(orcid)
-    elif openreview:
+    if openreview:
         kwargs["openreview"] = str(openreview)
     if affiliation:
-        kwargs["affiliation"] = affiliation
+        # Collapse internal whitespace (tabs, newlines, repeated spaces) to single
+        # spaces; stray tabs in affiliations otherwise produce invalid XML.
+        affiliation = " ".join(affiliation.split())
+        if affiliation:
+            kwargs["affiliation"] = affiliation
     try:
         return NameSpecification(**kwargs)
     except ValueError as e:
@@ -411,9 +434,16 @@ def add_parent_event(
     if event is None:
         log.warning(f"No event node with id '{parent_event}' found")
         return
-    if volume := anthology.get_volume(volume_full_id) is None:
+    if (volume := anthology.get_volume(volume_full_id)) is None:
         log.warning(f"No such ingested volume {volume_full_id}")
         return
+
+    # A derived/implicit event is never serialized: a collection only writes its
+    # event when one is explicitly defined on it. If the parent event isn't yet
+    # explicit, promote it to an explicit event on its collection so that the
+    # colocation is persisted to the XML.
+    if not event.is_explicit and event.collection.get_event() is None:
+        event = event.collection.create_event(id=event.id)
 
     if event in volume.get_events():
         log.info(
@@ -579,7 +609,10 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
-        venue_name = venue_abbrev.lower()
+        # Use the registered venue slug (letters/digits only) for the venue tag
+        # and file paths; `anthology_venue_id` may contain hyphens/`+`/case
+        # (e.g. "LT-EDI", "CODI-CRAC") that don't match the venue key.
+        venue_name = venue_slug
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
         attachments_dest_dir = Path(args.attachments_dir) / venue_name
         source_path = Path(source)
@@ -781,7 +814,12 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
                 abstract = MarkupText.from_latex_maybe(repair_latex(abstract))
                 # ensure the abstract can be rendered without error
                 _ = abstract.as_text()
-        except ValueError as e:
+                _ = abstract.as_html()
+                # reject abstracts with empty markup elements (e.g. an empty
+                # <i/>), which are invalid per the schema and break the build
+                if abstract_has_empty_markup(abstract):
+                    raise ValueError("abstract contains an empty markup element")
+        except Exception as e:
             log.warning(
                 f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
             )
@@ -978,9 +1016,16 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     if is_title:
         elem = markup.to_xml()
         protect_fixedcase(elem)
-        return MarkupText.from_xml(elem)
-    else:
-        return markup
+        markup = MarkupText.from_xml(elem)
+    # Ensure the markup renders to HTML without error, so that invalid markup
+    # (e.g. malformed TeX-math) is caught here at ingestion rather than later
+    # breaking the website build in create_hugo_data.py.
+    try:
+        _ = markup.as_html(allow_url=not is_title)
+    except Exception as e:
+        snippet = text if len(text) <= 100 else text[:97] + "..."
+        log.warning(f"Error rendering markup to HTML for {snippet!r}: {e}")
+    return markup
 
 
 def namespec_from_bib(person) -> NameSpecification:
@@ -1059,6 +1104,18 @@ def register_volume_with_sig(
 
 def main(args):
     setup_rich_logging()
+
+    # Validate all proceedings up front, before loading the (slow) Anthology.
+    formats: Dict[str, str] = {}
+    for source in args.proceedings:
+        if not Path(source).is_dir():
+            raise Exception(
+                f"Proceedings path does not exist or is not a directory: {source}"
+            )
+        format_ = detect_ingestion_format(source)
+        log.info(f"Detected {format_} format for {source}")
+        formats[source] = format_
+
     anthology = Anthology.from_within_repo()
 
     anthology.load_all()
@@ -1070,8 +1127,7 @@ def main(args):
 
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
-        format_ = detect_ingestion_format(source)
-        log.info(f"Detected {format_} format for {source}")
+        format_ = formats[source]
         metadata = read_ingest_metadata(anthology, source, format_, args)
         ingest(
             anthology=anthology,
@@ -1103,7 +1159,7 @@ if __name__ == "__main__":
     )
     pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
-        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
+        "--pdfs-dir", default=pdfs_path, help="Root path for placement of PDF files"
     )
     attachments_path = Path.home() / "anthology-files" / "attachments"
     parser.add_argument(
@@ -1120,6 +1176,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--parent-event",
+        "-p",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
     )

@@ -116,7 +116,7 @@ After your conference management software has collected all the camera-ready pap
 
 If you are submitting multiple volumes (e.g., main conference volumes and workshops), please group each volume's directory inside a single top-level folder for sharing.
 A link to this directory should be posted to the ingestion request Github issue you created, or alternately shared with the Anthology Director via email.
-We prefer sharing via HTTP or FTP since these allow automated downloaded, but we can accommodate other methods, such as Dropbox or Google Drive.
+We prefer sharing via HTTP, FTP, or a private GitHub repo since these allow automated downloads, but we can accommodate other methods, such as Dropbox or Google Drive.
 This sharing should be done **two weeks prior to your desired publication date** (which was negotiated when you first contacted us) to give us time to process it.
 
 If you are using aclpub2, we suggest you run our [format checker](https://github.com/acl-org/acl-anthology/blob/master/bin/aclpub2_format_check.py) on each directory, which will surface errors.

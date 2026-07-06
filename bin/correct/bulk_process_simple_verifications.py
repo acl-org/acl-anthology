@@ -151,6 +151,13 @@ class AnthologyMetadataUpdater:
                 log.warning(
                     f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}"
                 )
+            elif (
+                "[ ] Verification:" in issue.body
+                and "[ ] Split/disambiguate:" in issue.body
+                and "[ ] Merge profiles:" in issue.body
+                and "[ ] Name change:" in issue.body
+            ):
+                log.warning(f"#{issue.number}: No issue type (empty checkboxes)")
 
             # Skip verification if non-simple
             if not issue.title.lower().endswith("/unverified"):
@@ -169,7 +176,11 @@ class AnthologyMetadataUpdater:
             self.stats["visited_issues"] += 1
             try:
                 if issue_ids and issue.number not in issue_ids:
-                    continue
+                    if self.stats["relevant_issues"] == len(issue_ids):
+                        # we've already visited all the specified issues
+                        break
+                    else:
+                        continue
                 opened_at = issue.created_at.strftime("%Y-%m-%d")
                 if verbose:
                     log.info(

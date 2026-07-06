@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.mellm">
+  <volume id="1" type="proceedings" ingest-date="2026-06-27">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Multilinguality in the Era of Large Language Models (<fixed-case>M</fixed-case>e<fixed-case>LLM</fixed-case> 2026)</booktitle>
+      <editor><first>Kaiyu</first><last>Huang</last></editor>
+      <editor><first>Fengran</first><last>Mo</last></editor>
+      <editor><first>Pinzhen</first><last>Chen</last></editor>
+      <editor><first>Meng</first><last>Jiang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, United States</address>
+      <isbn>979-8-89176-430-9</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="16c41124">2026.mellm-1</url>
+      <venue>mellm</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.mellm-1</doi>
+    </meta>
+    <frontmatter>
+      <url hash="98c23908">2026.mellm-1.0</url>
+      <bibkey>mellm-2026-1</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Lost in Dialect: The Annotation Gap in Multilingual <fixed-case>LLM</fixed-case> Safety</title>
+      <author id="wajdi-zaghouani" orcid="0000-0003-1521-5568"><first>Wajdi</first><last>Zaghouani</last><affiliation>Northwestern University</affiliation></author>
+      <pages>1-13</pages>
+      <abstract>Large Language Models are increasingly used as safety infrastructure for detecting harmful online content and moderating social media across multiple languages. Yet their effectiveness remains uneven across linguistic communities. This disparity reflects not only disparities in training data availability but also structural problems in annotation design. We argue that a central source of multilingual safety failure lies in the annotation gap underlying existing hate speech datasets. Most annotation guidelines and safety benchmarks are developed for English and standard language varieties, overlooking dialectal variation and culturally embedded forms of hostility. Using Arabic dialectal discourse as a case study, we show how harmful speech expressed through dialects, sarcasm, code-switching, and culturally specific expressions often remains undetected by current annotation schemes. We introduce the concept of the Multilingual Safety Annotation Gap (MSAG), identifying four sources of bias: language coverage gaps, dialect representation gaps, cultural semantic gaps, and annotation guideline gaps. We discuss implications for LLM safety alignment and outline directions for culturally grounded multilingual annotation. This paper is primarily a conceptual and methodological position paper; rather than introducing a new benchmark or empirical evaluation, we aim to formalize the MSAG as a framework for analyzing systematic weaknesses in multilingual safety annotation pipelines.</abstract>
+      <url hash="d098562d">2026.mellm-1.1</url>
+      <bibkey>zaghouani-2026-lost</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Evidence-Augmented Generation Reasoning for Extremely Low-Resource Language Decipherment</title>
+      <author><first>Xiaoyu</first><last>Zhu</last></author>
+      <author><first>Long</first><last>Yuan</last></author>
+      <author id="rui-qi" orcid="0009-0006-0611-7682"><first>Rui</first><last>Qi</last></author>
+      <author id="jinan-xu" orcid="0000-0003-0170-626X"><first>Jinan</first><last>Xu</last><affiliation>Beijing Jiaotong University</affiliation></author>
+      <pages>14-29</pages>
+      <abstract>Inspired by linguistic Olympiads, extremely low-resource language reasoning presents a unique challenge that enables models to solve problems without prior knowledge. This task mirrors the Rosetta Stone decipherment process, where the goal is to induce and apply linguistic rules from minimal context. Existing methods mainly rely on naive in-context learning that fails to handle the complexity and diversity of language rules. To mitigate this issue, we propose a framework that combines dynamic knowledge construction with task-aware evidence augmentation. First, we use large language models (LLMs) to generate a diverse set of task-specific examples that instantiate potential linguistic rules for the target low-resource language. Second, we apply a semantic retrieval mechanism to select the most relevant examples as evidence for each test query, preventing context overload and ensuring focused, analogical reasoning. Our method shifts from learning language distributions to dynamically discovering and applying rules. Experimental results on the LINGOLY and Linguini benchmark show that our approach achieves competitive performance across various LLMs, outperforming existing baselines. More importantly, our framework advances extremely low-resource reasoning and provides a generalizable framework for rule induction under knowledge constraints.</abstract>
+      <url hash="b476bd47">2026.mellm-1.2</url>
+      <bibkey>zhu-etal-2026-evidence</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Improving <fixed-case>K</fixed-case>orean-<fixed-case>E</fixed-case>nglish Cross-Lingual Retrieval: A Data-Centric Study of Language Composition and Model Merging</title>
+      <author id="youngjoon-jang" orcid="0009-0005-3591-638X"><first>Youngjoon</first><last>Jang</last><affiliation>Korea University</affiliation></author>
+      <author id="junyoung-son" orcid="0000-0002-4142-6927"><first>Junyoung</first><last>Son</last></author>
+      <author><first>Taemin</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author id="seongtae-hong" orcid="0009-0002-2073-7731"><first>Seongtae</first><last>Hong</last><affiliation>Korea University</affiliation></author>
+      <author id="hyeonseok-moon" orcid="0000-0002-0841-4262"><first>Hyeonseok</first><last>Moon</last><affiliation>Samsung Electronics</affiliation></author>
+      <author id="seungyoon-lee" orcid="0000-0003-3683-2856"><first>Seungyoon</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author><first>Andrew</first><last>Matteson</last><affiliation>Uracle</affiliation></author>
+      <author id="heui-seok-lim" orcid="0000-0002-9269-1157"><first>Heuiseok</first><last>Lim</last></author>
+      <pages>30-43</pages>
+      <abstract>With the increasing utilization of multilingual text information, Cross-Lingual Information Retrieval (CLIR) has become a crucial research area. However, the impact of training data composition on CLIR and Mono-Lingual Information Retrieval (Mono-IR) performance remains underexplored. To investigate this data-centric aspect, we construct linguistically parallel Korean-English datasets and train multilingual retrieval models with various language combinations. Our experiments reveal that the language composition of training data significantly influence IR performance, exhibiting important inter-lingual correlations: Using specific language pairs improves CLIR performance, while declines Mono-IR performance. Our work demonstrates that simple weight-averaged model merging can effectively mitigate this trade-off, achieving strong CLIR results while preserving Mono-IR capabilities. Our findings highlight the effects of linguistic configuration of training data on both CLIR and Mono-IR, and present model merging as a viable strategy to optimize performance across these tasks.</abstract>
+      <url hash="5389ce21">2026.mellm-1.3</url>
+      <bibkey>jang-etal-2026-improving</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Query-Synergy: Leveraging High-Resource Languages for Improving Retrieval Performance Across Multiple Languages</title>
+      <author id="seongtae-hong" orcid="0009-0002-2073-7731"><first>Seongtae</first><last>Hong</last><affiliation>Korea University</affiliation></author>
+      <author id="jungseob-lee" orcid="0000-0002-9431-6342"><first>Jungseob</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author id="hyeonseok-moon" orcid="0000-0002-0841-4262"><first>Hyeonseok</first><last>Moon</last><affiliation>Samsung Electronics</affiliation></author>
+      <author id="seungyoon-lee" orcid="0000-0003-3683-2856"><first>Seungyoon</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author id="youngjoon-jang" orcid="0009-0005-3591-638X"><first>Youngjoon</first><last>Jang</last><affiliation>Korea University</affiliation></author>
+      <author id="heui-seok-lim" orcid="0000-0002-9269-1157"><first>Heuiseok</first><last>Lim</last></author>
+      <pages>44-51</pages>
+      <abstract>Multilingual embedding models often exhibit uneven representational quality, heavily favoring high-resource languages like English. However, conventional retrieval systems that rely exclusively on source-language queries fail to exploit the superior semantic expressiveness of these high-resource subspaces. To address this, we propose Query-Synergy, a training-free approach to improving retrieval performance using multilingual embeddings. Our method utilizes additional queries in English to complement source language queries and integrates similarity scores from both queries, effectively enhancing retrieval performance. We evaluate our approach across five languages (Arabic, Chinese, Greek, Thai, and Turkish) using four multilingual embedding models on two datasets. Our experiments show that this approach outperforms conventional source query retrieval methods, achieving superior nDCG scores across various configurations and translation settings. These results confirm that Query-Synergy is a simple yet effective method for retrieval across multiple languages.</abstract>
+      <url hash="3ad59ffe">2026.mellm-1.4</url>
+      <bibkey>hong-etal-2026-query</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>K</fixed-case>yrgyz Text Normalization: A Comparative Study of Neural and Rule-Based Approaches</title>
+      <author id="zarina-uvalieva" orcid="0009-0000-1079-5263"><first>Zarina</first><last>Uvalieva</last></author>
+      <author><first>Bektemir Kumarbai</first><last>Uulu</last><affiliation>BDigital</affiliation></author>
+      <author id="adilet-metinov" orcid="0009-0007-6400-4173"><first>Adilet</first><last>Metinov</last><affiliation>Bdigital LLC, Metin Institute for AI Research and Kyrgyz State Technical University</affiliation></author>
+      <author><first>Tynchtykbek</first><last>Tashbaltaev</last><affiliation>BDigital</affiliation></author>
+      <author><first>Nurtilek</first><last>Alibekov</last><affiliation>Bdigital LLC</affiliation></author>
+      <pages>52-62</pages>
+      <abstract>Text normalization, the task of converting noisy, informal text into a standardized form - is a fundamental preprocessing step for many NLP applications. Despite the growing need for Kyrgyz language processing tools, to the best of our knowledge, no prior work has addressed automatic text normalization for Kyrgyz, a morphologically rich, low-resource Turkic language. In this paper, we present the first systematic study of Kyrgyz text normalization. We collect a dataset of 1.67 million noisy–clean text pairs sourced from YouTube comments, Instagram posts, and Telegram channels, where users frequently write without punctuation, capitalization, or standard spelling. Pairs were annotated with Gemini 3 Pro; the 1,000-example test set was fully verified by two native Kyrgyz speakers with adjudication, and a random subset of the training data was spot-checked, while the full 1.67M training set was not verified exhaustively. For continual pre-training, we additionally use a 538 MB Kyrgyz corpus compiled from news portals and books. We evaluate five systems: a rule-based baseline, zero-shot mT5, a fine-tuned mT5-small model, a continually pre-trained mT5-small followed by fine-tuning, and zero-shot Gemma 4. Our experiments show that fine-tuned mT5-small achieves a CER of 0.0796, outperforming the rule-based baseline (CER 0.2029), zero-shot mT5 (CER 0.9887), and zero-shot Gemma 4 (CER 0.1620), a roughly 32× larger model in a fine-tuned vs. zero-shot setting. Human evaluation by two native Kyrgyz speakers confirms these results, with fine-tuned mT5-small rated as correct in 99.8% of cases. We further analyze why continual pre-training with span corruption does not improve over direct fine-tuning, finding hallucination in 35/40 of the inspected failure cases (87.5%, 95% Wilson CI [74%, 95%]).</abstract>
+      <url hash="fb246d8c">2026.mellm-1.5</url>
+      <bibkey>uvalieva-etal-2026-kyrgyz</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>H</fixed-case>alu<fixed-case>D</fixed-case>et: Multilingual Hallucination Detection via <fixed-case>LLM</fixed-case> Hidden State Probing</title>
+      <author><first>Riasad</first><last>Alvi</last></author>
+      <author><first>Nurul Labib</first><last>Sayeedi</last><affiliation>United International University</affiliation></author>
+      <author id="md-faiyaz-abdullah-sayeedi" orcid="0009-0007-3079-7806"><first>Md. Faiyaz Abdullah</first><last>Sayeedi</last><affiliation>Independent University, Bangladesh</affiliation></author>
+      <pages>63-74</pages>
+      <abstract>Hallucinations in Large Language Models (LLMs) represent a critical barrier to their reliable deployment, a vulnerability heavily exacerbated in non-English and resource-constrained contexts. Existing detection approaches that rely on output confidence heuristics or single-layer internal representations frequently fail to capture deep, complex factual inconsistencies across diverse languages. To address this, we introduce MultiHaluDet, a novel three-stage stacking framework that detects multilingual hallucinations by probing the full hidden state trajectories of frozen LLMs without requiring language-specific fine-tuning. Our method extracts sequential features across multiple layers and processes them via a hybrid architecture using multi-scale attention and self-attention pooling. By generating out-of-fold embeddings that feed into a calibrated classical classifier ensemble, MultiHaluDet captures both fine-grained and coarse-grained patterns of factual inconsistency. Extensive experiments demonstrate that our framework achieves state-of-the-art detection performance, reaching up to 98.55% AUROC on the English HaluEval and TriviaQA benchmarks using Mistral-7B and LLaMA2-7B architectures. Crucially, we rigorously evaluate our framework’s cross-lingual generalization across high (French), medium (Bangla), and low-resource (Amharic) languages. MultiHaluDet demonstrates exceptional representational robustness, consistently outperforming baselines and successfully transferring hallucination detection capabilities across typologically diverse linguistic tiers.</abstract>
+      <url hash="a4a6f57e">2026.mellm-1.6</url>
+      <bibkey>alvi-etal-2026-multihaludet</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>MFMDQ</fixed-case>wen: Multilingual Financial Misinformation Detection Based on Large Language Model</title>
+      <author id="zhiwei-liu" orcid="0000-0002-7015-5054"><first>Zhiwei</first><last>Liu</last></author>
+      <author><first>Yuyan</first><last>Wang</last><affiliation>University of Manchester</affiliation></author>
+      <author id="yuechen-jiang" orcid="0009-0001-7480-1041"><first>Yuechen</first><last>Jiang</last></author>
+      <author id="yupeng-cao" orcid="0000-0002-4024-2026"><first>Yupeng</first><last>Cao</last></author>
+      <author><first>Tianlei</first><last>Zhu</last></author>
+      <author id="xiaorui-guo" orcid="0009-0005-5317-1203"><first>Xiaorui</first><last>Guo</last></author>
+      <author id="zhiyang-deng" orcid="0009-0007-6960-2025"><first>Zhiyang</first><last>Deng</last></author>
+      <author id="zhiyuan-yao-2910" orcid="0000-0001-5436-2910"><first>Zhiyuan</first><last>Yao</last></author>
+      <author id="xiao-yang-liu" orcid="0000-0002-9532-1709"><first>Xiao-Yang</first><last>Liu</last><affiliation>Columbia University</affiliation></author>
+      <author id="jimin-huang" orcid="0000-0002-3501-3907"><first>Jimin</first><last>Huang</last><affiliation>University of Manchester and The Fin AI</affiliation></author>
+      <author id="sophia-ananiadou" orcid="0000-0002-4097-9191"><first>Sophia</first><last>Ananiadou</last><affiliation>University of Manchester</affiliation></author>
+      <pages>75-82</pages>
+      <abstract>Financial misinformation poses significant threats to financial market stability and individuals’ investment decisions. The multilingual environment and the inherent complexity of financial information present substantial challenges for Multilingual Financial Misinformation Detection (MFMD). Existing LLM-based approaches for financial misinformation detection primarily focus on English and a single financial misinformation detection task, which limits their ability to capture multilingual contexts and complex features. In this paper, we propose MFMDQwen, the first open-source LLM designed for MFMD tasks. Furthermore, we introduce MFMD4Instruction, the first instruction dataset supporting MFMD with LLMs, covering English, Chinese, Greek, and Bengali. We also construct MFMDBench, a benchmark dataset for evaluating the MFMD capabilities of LLMs. Experimental results on MFMDBench demonstrate that our model outperforms existing open-source LLMs.</abstract>
+      <url hash="fa0d212d">2026.mellm-1.7</url>
+      <bibkey>liu-etal-2026-mfmdqwen</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Multilingual Chain-of-Thought Compression via Cross-Lingual Distillation</title>
+      <author><first>Jiarui</first><last>Wan</last></author>
+      <author id="songming-zhang" orcid="0000-0003-0409-430X"><first>Songming</first><last>Zhang</last></author>
+      <author><first>Yufeng</first><last>Chen</last></author>
+      <pages>83-91</pages>
+      <abstract>Chain-of-thought reasoning improves the performance of large language models on complex tasks but often produces overly verbose outputs, leading to increased inference cost. This issue is exacerbated in multilingual settings, where differences in tokenization and linguistic structure result in inconsistent compression performance across languages. Existing methods are largely English-centric and tend to suffer from accuracy degradation, especially in low-resource languages.We propose <tex-math>\textbf{M}</tex-math>ultilingual <tex-math>\textbf{C}</tex-math>hain-of-thought Compression via Cross-lingual <tex-math>\textbf{D}</tex-math>istillation <tex-math>\textbf{(MCD)}</tex-math>, a unified framework that addresses these challenges through both data construction and optimization. MCD builds a cross-lingually aligned dataset using a translation-with-verification pipeline and difficulty-aware sampling, and employs a reinforcement training strategy that combines supervised fine-tuning with direct preference optimization to encourage concise yet sufficient reasoning.Experiments on multilingual mathematical benchmarks show that MCD consistently reduces reasoning length while maintaining competitive accuracy, and significantly improves robustness in low-resource languages.</abstract>
+      <url hash="55e76084">2026.mellm-1.8</url>
+      <bibkey>wan-etal-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>When Retrieval Hurts: Evidence Utilization, Script Fidelity, and Knowledge Conflicts in Multilingual <fixed-case>RAG</fixed-case></title>
+      <author><first>Varalekshmy M</first><last>Mohan</last></author>
+      <author><first>Swathi</first><last>Jayakumar</last></author>
+      <author><first>Gadha Saji</first><last>Menon</last><affiliation>NA</affiliation></author>
+      <author><first>Sachin</first><last>Kurup</last><affiliation>NA</affiliation></author>
+      <author><first>Veena</first><last>G</last><affiliation>Amrita Vishwa Vidyapeetham (Deemed University)</affiliation></author>
+      <author id="vani-kanjirangat" orcid="0000-0002-2526-1413"><first>Vani</first><last>Kanjirangat</last><affiliation>Dalle Molle Institute for Artificial Intelligence USI-SUPSI</affiliation></author>
+      <pages>92-107</pages>
+      <abstract>The problem of extractive multilingual QA with LLMs is characterized by complex interactions among retrieval mechanisms, knowledge source configurations, prompting techniques, and scripting biases. Despite high retrieval quality, multilingual RAG often degrades performance, revealing a gap between retrieved evidence and its effective utilization. To address this issue, this paper offers an extensive empirical study that examines these components by comparing retrieval-augmented generation (RAG) with a non-RAG baseline across 21 typologically diverse languages and 5 leading LLMs. Our analysis includes five prompting strategies and multiple retrieval configurations, which enable a unified evaluation across diverse linguistic settings. We have also observed an evidence utilization gap in RAG settings, where RAG underperforms despite high retrieval hit rates due to models’ inefficiency in leveraging the retrieved evidence. We also introduce lightweight inference-time metrics to better characterize retrieval usage and conflict patterns.We also highlight script fidelity as a crucial factor in our experiments, as non-Latin-script languages experience significant performance drops and increased hallucinations without proper grounding. Further, we analyzed generator language preferences, systematically examined conflicts, and identified mechanisms for the effective detection and resolution of conflicts. The study further details how prompting strategies affect language families and script types, offering a detailed analysis for optimizing future multilingual RAG settings.</abstract>
+      <url hash="d98814d4">2026.mellm-1.9</url>
+      <bibkey>mohan-etal-2026-retrieval</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>DIMAS</fixed-case>-<fixed-case>OMOP</fixed-case>: A Deliberative Intelligence-Based Multi-Agent System for <fixed-case>C</fixed-case>hinese Medical Text Standardization toward <fixed-case>OMOP</fixed-case></title>
+      <author><first>Hanlin</first><last>Lv</last><affiliation>NA</affiliation></author>
+      <author id="xiao-wang-5857" orcid="0000-0003-2774-5857"><first>Xiao</first><last>Wang</last><affiliation>BGI Research</affiliation></author>
+      <author id="kesong-wu" orcid="0009-0002-8604-6204"><first>Kesong</first><last>Wu</last><affiliation>The University of Queensland</affiliation></author>
+      <author><first>Lei</first><last>Li</last><affiliation>NA</affiliation></author>
+      <author><first>Lei</first><last>Wang</last><affiliation>NA</affiliation></author>
+      <pages>108-118</pages>
+      <abstract>Standardizing Chinese clinical imaging reports within the Observational Medical Outcomes Partnership (OMOP) framework is hindered by linguistic complexity and output inconsistency in existing methods. We propose DIMAS-OMOP, a Deliberative Intelligence-based Multi-Agent System designed for high-fidelity medical concept mapping toward OMOP standardization. Moving beyond single-model architectures, DIMAS-OMOP employs a hybrid three-stage workflow that integrates traditional natural language processing modules with selective Large Language Model reasoning and Retrieval-Augmented Generation. The core innovation lies in a hierarchical six-agent proposer-skeptic deliberation mechanism, complemented by a dynamic concept resolution approach and a four-dimensional quality control framework. Experimental results on 1,250 imaging reports demonstrate that DIMAS-OMOP achieves 95.2% mapping accuracy, significantly outperforming rule-based methods (+21.8 percentage points) and single-AI baselines (+8.1 percentage points). The system maintains a throughput of 1,200 reports/hour, with the multi-agent deliberation stage alone contributing an 8.9% relative accuracy gain. Furthermore, pilot deployment shows a 160.6% return on investment and a 31.5% increase in workflow efficiency. This study provides a novel, robust methodology for integrating unstructured non-English clinical data into the global Observational Health Data Sciences and Informatics (OHDSI) ecosystem through deliberative intelligence.</abstract>
+      <url hash="2ba507d0">2026.mellm-1.10</url>
+      <bibkey>lv-etal-2026-dimas</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Beyond Accuracy: A Structured Error Analysis of Multilingual <fixed-case>LLM</fixed-case>s on <fixed-case>M</fixed-case>arathi Script Variation and Syntax</title>
+      <author><first>Tejas</first><last>Patil</last><affiliation>Indian Institute of Information Technology, Vadodara</affiliation></author>
+      <author><first>Barnali</first><last>Chetia</last><affiliation>NA</affiliation></author>
+      <pages>119-126</pages>
+      <abstract>Evaluation of multilingual large language models has grown rapidly in recent years, yet Marathi, spoken by over 83 million people across India, has received almost no systematic probing beyond surface-level benchmark tests. Most existing multilingual evaluations either omit Marathi entirely or rely on machine-translated test sets that fail to capture the morphological complexity that defines the language. We evaluate four models, namely Llama-3.1-8B, Llama-3.3-70B, Mistral-7B, and Qwen3-32B, on our manually curated Marathi dataset across three probing dimensions: Devanagari versus Romanized script, Marathi-English code-mixing, and syntactic structures including SOV word order, vibhakti case markers, verb gender agreement, and postpositions. Models are tested under English and Marathi instruction conditions across translation, similarity, grammaticality, and case marker tasks. Translation quality is evaluated using both token-level F1 and BERTScore to capture paraphrase equivalence beyond surface word overlap. All models drop between 7.9% and 20.5% on Romanized input. The negative subjunctive marker nasta is ignored by every model. Vibhakti case markers are consistently replaced with Hindi equivalents, revealing that multilingual training has not produced separate internal representations for Hindi and Marathi despite their distinct morphological systems. These findings reveal structural gaps in how current multilingual LLMs handle morphologically rich, low-resource Indic languages and point to specific areas where dedicated Marathi pretraining data would most benefit future work.</abstract>
+      <url hash="486bccb4">2026.mellm-1.11</url>
+      <bibkey>patil-chetia-2026-beyond</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Cross-Lingual Sentiment Misalignment: Auditing Multilingual Language Models for Inversion Risk, Dialectal Representation, and Affective Stability</title>
+      <author id="nusrat-jahan-lia" orcid="0009-0002-5656-4860"><first>Nusrat Jahan</first><last>Lia</last></author>
+      <author id="shubhashis-roy-dipta" orcid="0000-0002-9176-1782"><first>Shubhashis</first><last>Roy Dipta</last></author>
+      <pages>127-139</pages>
+      <abstract>Recent advances in multilingual representation learning aim to bridge the performance gap between high- and low-resource languages, yet their ability to preserve affective meaning across languages remains underexplored, particularly for underrepresented languages like Bengali. This research addresses cross-lingual sentiment misalignment between Bengali and English by introducing a controlled benchmarking framework evaluating four multilingual transformer models on parallel Bengali-English sentence pairs, stratified by dialect, to assess their representational stability. We demonstrate that a compressed model architecture exhibits a 28.7% "Sentiment Inversion Rate," fundamentally misinterpreting positive semantics as negative (or vice versa). Consequently, we identify a cross-lingual sentiment skew that we call "Asymmetric Empathy", where models systematically dampen or artificially amplify the affective weight of Bengali text relative to its exact English counterpart. Finally, we expose a key vulnerability regarding dialectal representation: a "Modern Bias" in the regional model, which exhibits a 57% increase in alignment error when processing the formal Bengali register compared to modern colloquial text. As foundational encoders continue to serve as safety classifiers and reward models for LLM pipelines, cross-lingual reliability becomes a critical concern. We therefore advocate for the integration of "Affective Stability" metrics into future cross-lingual benchmarks to detect and penalize polarity inversions, particularly in low-resource settings.</abstract>
+      <url hash="5f97da3c">2026.mellm-1.12</url>
+      <bibkey>lia-roy-dipta-2026-cross</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>GAIA</fixed-case>-v2-<fixed-case>LILT</fixed-case>: Multilingual Adaptation of Agent Benchmark beyond Translation</title>
+      <author><first>Yunsu</first><last>Kim</last><affiliation>Lilt</affiliation></author>
+      <author id="kaden-uhlig" orcid="0009-0002-0867-6403"><first>Kaden</first><last>Uhlig</last><affiliation>Lilt</affiliation></author>
+      <author id="joern-wuebker" orcid="0000-0002-8780-5287"><first>Joern</first><last>Wuebker</last><affiliation>Lilt</affiliation></author>
+      <pages>140-148</pages>
+      <abstract>Agent benchmarks remain largely English-centric, while their multilingual versions are often built with machine translation (MT) and limited post-editing. We argue that, for agentic tasks, this minimal workflow can easily break benchmark validity through query-answer misalignment or culturally off-target context. We propose a refined workflow for adapting English benchmarks into multiple languages with explicit functional alignment, cultural alignment, and difficulty calibration using both automated checks and human review. Using this workflow, we introduce GAIA-v2-LILT, a re-audited multilingual extension of GAIA covering five non-English languages. In experiments, our workflow improves agent success rates by up to 32.7% over minimally translated versions, bringing the closest audited setting to within 3.1% of English performance while substantial gaps remain in many other cases. This indicates that a substantial share of the multilingual performance gap is benchmark-induced measurement error, motivating task-level alignment when adapting English benchmarks across languages. The data is available as part of the MAPS package. We also release the code used in our experiments.</abstract>
+      <url hash="9e110c9a">2026.mellm-1.13</url>
+      <bibkey>kim-etal-2026-gaia</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Do Thoughts Depth Affect Multilingual Reasoning?</title>
+      <author><first>Linjian</first><last>Yang</last><affiliation>Clemson University</affiliation></author>
+      <author><first>Xinyan</first><last>Wang</last></author>
+      <author id="kunpeng-liu" orcid="0000-0002-6053-5977"><first>Kunpeng</first><last>Liu</last><affiliation>Clemson University</affiliation></author>
+      <pages>149-158</pages>
+      <abstract>Chain-of-Thought (CoT) is commonly used to improve reasoning performance in large language models. We investigate its impact in multilingual contexts by systematically constraining reasoning steps across languages with varying resource levels. This study evaluates two models on two benchmarks with seven languages, comparing constrained CoT depth against zero-shot and free-CoT baselines. We demonstrate that increasing the number of reasoning steps does not consistently improve accuracy across various languages. While high-resource and mid-resource languages remain stable, low-resource languages often experience a decline in performance as the number of reasoning steps increases. We attribute this decline to error accumulation and reasoning noise, which are amplified under deeper reasoning in low-resource languages. These findings indicate that CoT is not inherently beneficial, but its effectiveness is significantly influenced by the interaction between reasoning steps and language resource availability.</abstract>
+      <url hash="e4812ac5">2026.mellm-1.14</url>
+      <bibkey>yang-etal-2026-thoughts</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>On the Limits of Model Merging for Multilinguality in Pre-Training</title>
+      <author id="seth-aycock" orcid="0009-0000-8380-4239"><first>Seth</first><last>Aycock</last></author>
+      <author id="fedor-vitiugin" orcid="0000-0003-4350-1828"><first>Fedor</first><last>Vitiugin</last><affiliation>University of Turku</affiliation></author>
+      <author><first>Aleksandr</first><last>Umnov</last><affiliation>Booking</affiliation></author>
+      <author id="christof-monz" orcid="0000-0003-1872-1888"><first>Christof</first><last>Monz</last><affiliation>University of Amsterdam, University of Amsterdam</affiliation></author>
+      <author><first>Khalil</first><last>Sima’an</last></author>
+      <pages>159-169</pages>
+      <abstract>Endowing models with consistent multilingual performance can be achieved by _mixing_ pre-training data, or post-training approaches such as language-specific model _merging_. In this work, we test whether merging can be applied to monolingually pre-trained models. We conduct a controlled study on the efficacy of mixed, merged, and monolingual pre-training setups. We find that while monolingual pre-training results in strong in-language performance, merging any combination of monolingual models leads to performance collapse due to interference. Our analysis suggests representational similarity is a prerequisite for model merging. We therefore conclude that the flexibility of merging in fine-tuning does not extend trivially to language-specific pre-training.</abstract>
+      <url hash="38eb92b0">2026.mellm-1.15</url>
+      <bibkey>aycock-etal-2026-limits</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>mm<fixed-case>PISA</fixed-case>-bench: Do <fixed-case>LLM</fixed-case>s Reason Equally Well Across 43 Languages?</title>
+      <author><first>Yerzhan</first><last>Sapenov</last></author>
+      <author id="jaromir-savelka" orcid="0000-0002-3674-5456"><first>Jaromir</first><last>Savelka</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>170-180</pages>
+      <abstract>We introduce <tex-math>\textit{mmPISA-bench}</tex-math>, a compact high-quality multilingual reasoning benchmark derived from the OECD Programme for International Student Assessment (PISA). The benchmark consists of 25 multiple-choice questions that require reasoning in order to be answered correctly. Each question is provided in official human translations to 43 languages and complemented with machine-translated counterparts (i.e., 2,150 data points in total). We evaluate two mainstream proprietary LLMs across languages, reasoning effort levels, and translation types in terms of their ability to answer the questions correctly.  Our results show that modern LLMs can reason effectively across all evaluated languages, achieve accuracy comparable to human test-takers, with some performance variations across covered languages. We further find that machine-translated questions do not degrade accuracy relative to official human translations which suggests that high-quality machine translation (synthetic data) might often be adequate for large-scale multilingual reasoning evaluations where official translations are not available. Finally, we analyze token usage and related inference cost and find that LLMs usage in some languages is simultaneously more expensive and less accurate.</abstract>
+      <url hash="8911399a">2026.mellm-1.16</url>
+      <bibkey>sapenov-savelka-2026-mmpisa</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Cross-Lingual Bias in Large Language Models: A Comparative Analysis of <fixed-case>E</fixed-case>nglish and <fixed-case>S</fixed-case>wahili</title>
+      <author><first>Ruolei</first><last>Zhang</last><affiliation>Independent</affiliation></author>
+      <author><first>Teddy</first><last>Njuguna</last><affiliation>NA</affiliation></author>
+      <author><first>Yue</first><last>Feng</last><affiliation>University of Birmingham</affiliation></author>
+      <pages>181-190</pages>
+      <abstract>Large language models are increasingly deployed in multilingual contexts, yet safety alignment and bias evaluation remain overwhelmingly English-centric. We investigate whether social biases generalise across languages by submitting 4,900 symmetric English–Swahili prompt pairs to GPT-5.2 and Gemini 2.5 Flash across nine demographic bias axes, yielding 19,600 completions evaluated for stereotype prevalence, sentiment, refusal behaviour, and cross-lingual semantic similarity. Our findings show that bias transforms rather than transfers: stereotype rates shifted by up to 12 percentage points on specific axes, Gemini’s neutral-sentiment rate doubled in Swahili, and GPT-5.2 refused 169 prompts in English and zero in Swahili, indicating safety mechanisms functionally anchored to English-language tokens. Over 55% of prompt pairs produced semantically dissimilar completions across both models. These reinforce the idea that English-only bias audits do not produce adequate coverage for multilingual deployment.</abstract>
+      <url hash="2bcea2fa">2026.mellm-1.17</url>
+      <bibkey>zhang-etal-2026-cross</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Polyglot-Lion: Efficient Multilingual <fixed-case>ASR</fixed-case> for <fixed-case>S</fixed-case>ingapore via Balanced Fine-Tuning of Qwen3-<fixed-case>ASR</fixed-case></title>
+      <author id="quy-anh-dang" orcid="0009-0006-0077-5502"><first>Quy-Anh</first><last>Dang</last><affiliation>Knovel Engineering Lab</affiliation></author>
+      <author><first>Chris</first><last>Ngo</last><affiliation>Knovel Engineering</affiliation></author>
+      <pages>191-200</pages>
+      <abstract>We present Polyglot-Lion, a family of compact multilingual automatic speech recognition (ASR) models tailored for the linguistic landscape of Singapore, covering English, Mandarin, Tamil, and Malay. Our models are obtained by fine-tuning Qwen3-ASR-0.6B and Qwen3-ASR-1.7B exclusively on publicly available speech corpora, using a balanced sampling strategy that equalizes the number of training utterances per language and deliberately omits language-tag conditioning so that the model learns to identify languages implicitly from audio. On 12 benchmarks spanning the four target languages, Polyglot-Lion-1.7B achieves an average error rate of 14.85, competitive with MERaLiON-2-10B-ASR (14.32) - a model 6x larger - while incurring a training cost of <tex-math>81 on a single RTX PRO 6000 GPU. Inference throughput is approximately 20x faster than MERaLiON at 0.10 s/sample versus 2.02 s/sample. These results demonstrate that linguistically balanced fine-tuning of moderate-scale pretrained models can yield deployment-ready multilingual ASR at a fraction of the cost of larger specialist systems.</tex-math></abstract>
+      <url hash="cb7e9ffa">2026.mellm-1.18</url>
+      <bibkey>dang-ngo-2026-polyglot</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>The Multilingual Curse at the Retrieval Layer: Evidence from <fixed-case>A</fixed-case>mharic</title>
+      <author><first>Yosef Worku</first><last>Alemneh</last><affiliation>NeoMatrix Ltd</affiliation></author>
+      <author id="kidist-amde-mekonnen" orcid="0009-0006-1702-9514"><first>Kidist Amde</first><last>Mekonnen</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="maarten-de-rijke" orcid="0000-0002-1086-0202"><first>Maarten de</first><last>Rijke</last></author>
+      <pages>201-210</pages>
+      <abstract>Multilingual retrieval increasingly underpins cross-lingual question answering and retrieval-augmented generation. Strong zero-shot scores on multilingual benchmarks are often taken as evidence that current encoders transfer reliably across many languages. We argue that this assumption breaks down for underrepresented, morphologically rich languages, and use Amharic as a diagnostic case. Under a shared passage retrieval protocol covering dense, late-interaction, learned sparse, and cross-encoder paradigms, we compare zero-shot multilingual retrievers, Amharic-fine-tuned multilingual retrievers, and monolingual Amharic retrievers. The strongest zero-shot multilingual retriever underperforms the strongest monolingual Amharic first-stage retriever by 23% relative MRR@10. Fine-tuning two recent multilingual embedding models on the same Amharic supervision yields 32–60% relative MRR@10 gains over zero-shot, but the best Amharic-fine-tuned multilingual model remains below the strongest monolingual Amharic retriever. These findings indicate that zero-shot multilingual retrieval is not a sufficient proxy for equitable information access in the LLM era: for underrepresented languages, retrieval must be evaluated and adapted in language rather than inferred from aggregate multilingual benchmarks. To foster future research, we publicly release our trained models, dataset, and codebase at https://github.com/rasyosef/amharic-neural-ir.</abstract>
+      <url hash="e604a154">2026.mellm-1.19</url>
+      <bibkey>alemneh-etal-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>S</fixed-case>hahi<fixed-case>E</fixed-case>motion: A Benchmark Dataset for <fixed-case>P</fixed-case>unjabi Shahmukhi Emotion Detection</title>
+      <author><first>Usman</first><last>Nawaz</last><affiliation>University of Palermo, Italy</affiliation></author>
+      <author><first>Muhammad Junaid</first><last>Iqbal</last><affiliation>University of Roma Tor Vergata</affiliation></author>
+      <author id="tahir-alyas" orcid="0000-0003-0938-3127"><first>Tahir</first><last>Alyas</last></author>
+      <author id="muhammad-asaf" orcid="0009-0008-6116-8823"><first>Muhammad</first><last>Asaf</last><affiliation>University of Calabria</affiliation></author>
+      <author id="shumayla-yaqoob" orcid="0000-0002-0696-5546"><first>Shumayla</first><last>Yaqoob</last><affiliation>Sohar university</affiliation></author>
+      <author><first>Usman Ahmed</first><last>Raza</last></author>
+      <author id="muhammad-amin-nadim" orcid="0000-0001-5106-0220"><first>Muhammad Amin</first><last>Nadim</last></author>
+      <author id="aftab-rafique" orcid="0000-0002-4328-3982"><first>Aftab</first><last>Rafique</last><affiliation>Muslim Youth University Islamabad</affiliation></author>
+      <author><first>Faisal</first><last>Rehman</last><affiliation>NA</affiliation></author>
+      <pages>211-220</pages>
+      <abstract>Emotion detection is an important text classification task with applications in sentiment analysis, social media monitoring, human-computer interaction, and affective language understanding. However, Punjabi written in the Shahmukhi script remains severely under-resourced for emotion detection, with limited benchmark-style resources available for supervised evaluation. This paper introduces ShahiEmotion, a new Punjabi Shahmukhi emotion detection dataset containing 30379 sentence-level instances annotated with seven emotion categories: sadness, surprise, happiness, anger, neutral, fear, and disgust. The dataset is designed to support research in a low-resource setting characterized by script-specific challenges, lexical variation, and substantial class imbalance. We establish baseline results using several pretrained transformer-based models and formulate emotion detection as a sentence-level classification task. In particular, we fine-tune multilingual BERT, multilingual DistilBERT, XLM-RoBERTa, and Urdu RoBERTa under the same training and evaluation setting using standard cross-entropy loss. Experimental results show that XLM-RoBERTa provides the strongest overall performance among the compared models. The best model achieves 77.95% accuracy, 58.47% macro-F1, and 77.60% weighted-F1 on the test set. The dataset, evaluation protocol, and baseline results introduced in this work are intended to support future research on Punjabi Shahmukhi emotion analysis and low-resource NLP.</abstract>
+      <url hash="642950df">2026.mellm-1.20</url>
+      <bibkey>nawaz-etal-2026-shahiemotion</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Evaluating Multilingual Tokenization under Worst-N Parity-Aware <fixed-case>BPE</fixed-case></title>
+      <author id="vani-kanjirangat" orcid="0000-0002-2526-1413"><first>Vani</first><last>Kanjirangat</last><affiliation>Dalle Molle Institute for Artificial Intelligence USI-SUPSI</affiliation></author>
+      <author id="david-kletz" orcid="0009-0009-2785-7067"><first>David</first><last>Kletz</last></author>
+      <author><first>Tanja</first><last>Samardzic</last><affiliation>University of Zurich and IDSIA USI-SUPSI</affiliation></author>
+      <author id="ljiljana-dolamic" orcid="0000-0002-0656-5315"><first>Ljiljana</first><last>Dolamic</last><affiliation>armasuisse</affiliation></author>
+      <author id="fabio-rinaldi" orcid="0000-0001-5718-5462"><first>Fabio</first><last>Rinaldi</last><affiliation>IDSIA</affiliation></author>
+      <pages>221-228</pages>
+      <abstract>Improving the fairness of a language model is a goal that applies at every level of the model. In this paper, we evaluate a method targeting a foundational level: tokenization.We present a multilingual evaluation of parity-aware tokenization under worst-<tex-math>N</tex-math> optimization, extending PA-BPE to jointly optimize over the <tex-math>N</tex-math> worst-compressed languages.We evaluate this formulation for <tex-math>N &gt; 1</tex-math> across vocabulary sizes of 16K and 32K on the languages from the flores+ benchmark, using metrics that capture both efficiency and structural alignment.Our results reveal that the effects of increasing <tex-math>N</tex-math> are inconsistent across metrics and do not lead to major gains. Efficiency-oriented and boundary-level metrics show a modest tendency to improve at higher values of <tex-math>N</tex-math>, while structural alignment metrics (such as AST alignment and boundary crossing) exhibit no clear pattern, suggesting that compression fairness and linguistic structure are mainly orthogonal objectives. Script-level analysis further reveals uneven effects across writing systems, with several non-Latin scripts showing greater sensitivity to increasing <tex-math>N</tex-math>.</abstract>
+      <url hash="a14d3b97">2026.mellm-1.21</url>
+      <bibkey>kanjirangat-etal-2026-evaluating</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>ML</fixed-case>ingual<fixed-case>FC</fixed-case>: Evaluating Jailbreak Vulnerabilities in Multilingual Vision-Language Models</title>
+      <author><first>Rishabh</first><last>Makwana</last></author>
+      <author id="mamta" orcid="0000-0003-3707-7610"><first>Mamta</first><last>Mamta</last><affiliation>King's College London, University of London</affiliation></author>
+      <author id="deeksha-varshney" orcid="0000-0002-2924-5373"><first>Deeksha</first><last>Varshney</last><affiliation>Indian Institute of Technology, Jodhpur, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <author><first>Oana</first><last>Cocarascu</last><affiliation>King's College London</affiliation></author>
+      <pages>229-239</pages>
+      <abstract>Vision-Language Models (VLMs) have demonstrated strong performance across multimodal tasks, yet their safety robustness remains an open challenge. While prior work has shown that structured visual prompts such as flowcharts can effectively jailbreak VLMs, existing studies are largely limited to English-centric settings. In this paper, we introduce MLingualFC, a multilingual multimodal benchmark designed to evaluate jailbreak vulnerabilities of VLMs across diverse languages using structured flowchart representations. MLingualFC encodes harmful instructions into flowchart images across five languages (Hindi, Punjabi, Spanish, Romanian, and German) We evaluate state-of-the-art multilingual VLMs, including Qwen2.5-VL, Gemma-4, and Pangea, under a black-box threat model. Our results reveal significant multilingual safety gaps. Flowchart-based attacks achieve high attack success rates (ASR) in case of Latin script languages, demonstrating that visual encoding of harmful content effectively bypasses safety alignment across languages. In contrast, non-Latin script languages such as Punjabi exhibit substantially lower ASR, suggesting potential limitations in visual text recognition rather than stronger safety alignment. These findings highlight that current VLM safety mechanisms fail to generalize across languages and modalities.</abstract>
+      <url hash="793452d5">2026.mellm-1.22</url>
+      <bibkey>makwana-etal-2026-mlingualfc</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>P</fixed-case>3<fixed-case>B</fixed-case>3: A Multi-Turn Conversational Benchmark for Measuring <fixed-case>E</fixed-case>uropean and <fixed-case>B</fixed-case>razilian <fixed-case>P</fixed-case>ortuguese Variety Bias in <fixed-case>LLM</fixed-case>s</title>
+      <author id="rafael-ferreira" orcid="0000-0002-2086-1356"><first>Rafael</first><last>Ferreira</last><affiliation>Universidade NOVA de Lisboa</affiliation></author>
+      <author><first>Inês</first><last>Vieira</last><affiliation>NOVA School of Science and Technology</affiliation></author>
+      <author><first>Inês</first><last>Calvo</last></author>
+      <author id="james-furtado" orcid="0009-0009-8976-3381"><first>James</first><last>Furtado</last></author>
+      <author><first>Iago</first><last>Paulo</last><affiliation>NOVA School of Science and Technology</affiliation></author>
+      <author id="diogo-gloria-silva" orcid="0000-0002-4420-7455"><first>Diogo</first><last>Glória-Silva</last><affiliation>Universidade NOVA de Lisboa</affiliation></author>
+      <author id="diogo-tavares" orcid="0000-0002-0147-369X"><first>Diogo</first><last>Tavares</last><affiliation>Universidade NOVA de Lisboa</affiliation></author>
+      <author><first>David</first><last>Semedo</last><affiliation>Universidade Nova de Lisboa</affiliation></author>
+      <author><first>Joao</first><last>Magalhaes</last><affiliation>Universidade Nova de Lisboa</affiliation></author>
+      <pages>240-248</pages>
+      <abstract>As Large Language Models (LLMs) become embedded in everyday communication, capturing regional linguistic variation is essential for reliable and equitable language use. In Portuguese, European (pt-PT) and Brazilian (pt-BR) varieties remain unevenly represented, with pt-BR dominating in data quantity, while LLM preference for Portuguese variants remains underexplored.To address this gap, we introduce P3B3, an expert-curated variety agnostic benchmark of conversational prompts, along with an evaluation framework for measuring variety bias and controllability.Experiments on several models show that most LLMs exhibit a strong bias toward pt-BR, with variation in controllability across models. These results highlight the need for more balanced multilingual representation across language varieties.</abstract>
+      <url hash="cbe203ae">2026.mellm-1.23</url>
+      <bibkey>ferreira-etal-2026-p3b3</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>SN</fixed-case>-<fixed-case>WER</fixed-case>: Script-Normalized <fixed-case>WER</fixed-case> for Multi-Script <fixed-case>I</fixed-case>ndic <fixed-case>ASR</fixed-case> Evaluation</title>
+      <author id="priyaranjan-pattnayak" orcid="0009-0005-8299-0208"><first>Priyaranjan</first><last>Pattnayak</last><affiliation>Oracle</affiliation></author>
+      <pages>249-256</pages>
+      <url hash="576eddbd">2026.mellm-1.24</url>
+      <bibkey>pattnayak-2026-sn</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Causal Localization of the <fixed-case>E</fixed-case>nglish Pivot in <fixed-case>LL</fixed-case>a<fixed-case>VA</fixed-case>: Mechanistic <fixed-case>VLM</fixed-case> Analysis and Training-Free Multilingual Steering</title>
+      <author><first>Abrar Zahin</first><last>Raihan</last></author>
+      <author><first>Aurchi</first><last>Chowdhury</last></author>
+      <pages>257-265</pages>
+      <abstract>Multilingual vision-language models (VLMs) consistently underperform on non-English visual queries, yet the internal mechanism behind this disparity remains unknown. As a focused case study on LLaVA-1.5-7B, we apply logit-lens analysis and causal activation patching to show that non-English visual queries are routed through an English-biased representational bottleneck in layers 5–17, extending the English-pivot phenomenon of Wendler et al. (2024) to the multimodal setting. Peak causal influence occurs at layer 8 (<tex-math>\overline{\text{AIE}} = 0.49</tex-math>, averaged across languages), with all measurable pivot signal running through text-token positions. Without meaningful visual content (blank-image condition), language-specific representations do not emerge at any layer, showing that the pivot is image-content-dependent rather than triggered by any visual input. Building on these findings, we derive training-free language-steering vectors at the mechanistically identified pivot layers, improving Russian VQA by +6.5 pp and Portuguese by +4.0 pp on MMMB without any fine-tuning — the latter surpassing the English baseline. Within this case study, our results are consistent with the English pivot being a structural property of the LLM backbone that multimodal pre-training does not mitigate; extending this mechanistic methodology to other VLMs and language families remains an important direction for future work.</abstract>
+      <url hash="6d497f52">2026.mellm-1.25</url>
+      <bibkey>raihan-chowdhury-2026-causal</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Multilingual Disparities in <fixed-case>LLM</fixed-case>-Based Safety Judgments: Evidence from Brand Safety Applications</title>
+      <author id="songjiang-liu" orcid="0009-0006-6669-5951"><first>Songjiang</first><last>Liu</last></author>
+      <author id="riley-grossman" orcid="0009-0009-1114-6375"><first>Riley</first><last>Grossman</last><affiliation>New Jersey Institute of Technology</affiliation></author>
+      <author id="mike-smith" orcid="0000-0002-7649-353X"><first>Mike</first><last>Smith</last><affiliation>Indiana University</affiliation></author>
+      <author id="cristian-borcea" orcid="0000-0003-0020-0910"><first>Cristian</first><last>Borcea</last><affiliation>New Jersey Institute of Technology</affiliation></author>
+      <author id="yi-chen-1643" orcid="0000-0003-3669-1643"><first>Yi</first><last>Chen</last><affiliation>New Jersey Institute of Technology</affiliation></author>
+      <pages>266-274</pages>
+      <abstract>Multilingual LLMs are increasingly used as context-aware judges in real-world information systems under the assumption that equivalent content receives equivalent judgments across languages. We examine this assumption through brand safety, a global application where automated ratings can affect advertisers’ reputations, publishers’ revenues, and users’ access to news. We construct a benchmark of LLM-generated safety ratings for 10,467 semantically aligned news articles across 13 languages. We find systematic cross-lingual disagreement appearing in more than 96% of cases where at least one language receives a non-zero risk rating. Suitability ratings differ significantly by language, controlling for run, category, and article. In the main model, English, German, and French content is generally rated more strictly, while Polish, Hungarian, Greek, Turkish, and Persian content is rated more leniently. Robustness checks with two additional LLMs show that significant language effects persist, though directional patterns vary by model. These findings show that multilingual LLM safety judgments can produce unequal outcomes for semantically equivalent content.</abstract>
+      <url hash="10d1c035">2026.mellm-1.26</url>
+      <bibkey>liu-etal-2026-multilingual</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Benchmarking Byte-Pair Encoding Tokenizers on Different Languages with Bits per Byte</title>
+      <author><first>Soham</first><last>Chowdhury</last></author>
+      <author><first>Warren</first><last>Woolf</last><affiliation>Stanford University</affiliation></author>
+      <pages>275-283</pages>
+      <abstract>Tokenization significantly affects the cross-lingual performance of language models, yet recent tokenizer variants such as SuperBPE and MorphBPE have not been systematically evaluated across typologically diverse languages. We conduct the first extrinsic cross-language comparison of BPE, SuperBPE, and MorphBPE tokenizers on English, Mandarin, and Hungarian, using bits per byte (BPB) normalized perplexity as our metric, with vocabulary sizes of 8K, 16K, and 32K. We find that SuperBPE matches BPE for English but underperforms by 0.01–0.06 BPB for Hungarian and Mandarin, suggesting that cross-whitespace merging is counterproductive for non-English languages. MorphBPE performs worse than BPE across all settings, with gaps of 0.02–0.04 BPB at the 32K vocabulary size. These results suggest that linguistic theory alone does not guarantee practical improvements in tokenizer design, and that standard BPE remains a surprisingly effective baseline across typologically diverse languages.</abstract>
+      <url hash="917177bc">2026.mellm-1.27</url>
+      <bibkey>chowdhury-woolf-2026-benchmarking</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Where Privacy Risk Lives in <fixed-case>E</fixed-case>nglish-Source Multilingual <fixed-case>RAG</fixed-case>: A Stage-Decomposed Audit Across Five Query Languages</title>
+      <author><first>Yanhang</first><last>Li</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Zhichao</first><last>Fan</last></author>
+      <author><first>Zexin</first><last>Zhuang</last></author>
+      <pages>284-293</pages>
+      <abstract>A common assumption holds that switching to a non-English language makes a multilingual RAG system easier to attack for personal information. On an English-source synthetic-PII corpus with five query languages and a two-stage defence (LLM input judge + regex output filter), the output-stage point estimates do not support that assumption: English has the highest observed unstructured-PII leak rate, and only English-vs-Swahili separates cleanly under our document-level bootstrap intervals. Once the input judge is added, residual leaks remain on Arabic and Swahili in this Qwen-mediated pipeline, and back-translating the query does not close the gap. Translator, judge, and generator share one model family, so we treat this as pipeline-conditional rather than a causal language ranking. As an oracle diagnostic on a separate n=17 multilingual-prompted-judge residual corner, attaching the gold corpus document to the input judge blocks 15/17 residual cells — a follow-up direction, not a deployed mitigation, since all BLOCK/ALLOW rates are on adversarial queries only and we measure no benign-query FPR or utility. The anonymous supplement contains code, corpora, queries, and per-trial JSONLs.</abstract>
+      <url hash="2619d5b7">2026.mellm-1.28</url>
+      <bibkey>li-etal-2026-privacy</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>The Broken Telephone Changes Tone: Examining Nuanced Linguistic Cues in <fixed-case>LLM</fixed-case> Chains-of-Translation</title>
+      <author id="quang-minh-nguyen" orcid="0009-0004-0323-9700"><first>Quang Minh</first><last>Nguyen</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Maida</first><last>Aizaz</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Braahmi</first><last>Padmakumar</last></author>
+      <pages>294-307</pages>
+      <abstract>As LLM-generated content proliferates online, texts are increasingly subject to repeated processing and translation by models, making it critical to understand how such iterative reprocessing reshapes language. Prior work has shown that this degrades factual content and reduces diversity, but the fine-grained linguistic shifts underlying these effects remain unexplored. We track changes in epistemic markers, grammatical voice, degree adverbs, and nominalisation density across 12 iterations of round-trip translation applied to 600 BBC News articles, varying intermediate language, translation model, and chain topology across 17 experimental configurations. We find a consistent epistemic shift: evidential and factive markers increase while hedges decline, potentially causing tentative claims to read as more certain. Concurrently, texts undergo register-level formalisation—informal degree adverbs give way to formal alternatives, active-voice density drops, by-phrase passives attrite disproportionately, and nominalisation density rises. We also record clear model-specific patterns for certain settings. These shifts erode the markers of source, register, and agency, offering a fine-grained account of the factual degradation reported in previous studies.</abstract>
+      <url hash="1966646b">2026.mellm-1.29</url>
+      <bibkey>nguyen-etal-2026-broken</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Group-Merger: A <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-based Framework for Multilingual Continual Learning</title>
+      <author><first>Weijian</first><last>yi</last></author>
+      <author id="hongliang-li" orcid="0009-0007-7950-5712"><first>Hongliang</first><last>Li</last></author>
+      <author id="jinan-xu" orcid="0000-0003-0170-626X"><first>Jinan</first><last>Xu</last><affiliation>Beijing Jiaotong University</affiliation></author>
+      <pages>308-316</pages>
+      <abstract>Multilingual continual learning (MCL) is crucial for enabling language models to adapt across diverse linguistic environments while retaining knowledge over time. Existing parameter isolation methods allocate language-specific modules but fail to leverage cross-lingual transfer, leading to inefficient parameter growth and poor generalization. Model merging based approaches suffer from severe performance degradation as the number of language-specific tasks increases, due to interference between linguistic and task-specific knowledge. To address these challenges, we propose <b>Group-Merger</b>, a framework that employs group-wise merging to balance parameter efficiency and continual learning performance. Our framework mitigates catastrophic forgetting across languages while enabling knowledge transfer. Extensive experiments on multilingual evaluation benchmarks demonstrate superior performance compared to existing methods.</abstract>
+      <url hash="c3566cc7">2026.mellm-1.30</url>
+      <bibkey>yi-etal-2026-group</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title>When <fixed-case>E</fixed-case>nglish Isn’t the Best Teacher: Source Language Effects in Cross-Lingual In-Context Learning</title>
+      <author><first>Fred</first><last>Philippy</last></author>
+      <author><first>Siwen</first><last>Guo</last></author>
+      <author><first>Jacques</first><last>Klein</last></author>
+      <author><first>Tegawendé</first><last>F. Bissyandé</last></author>
+      <pages>317-326</pages>
+      <abstract>Cross-lingual transfer in multilingual NLP has been widely explored in supervised fine-tuning contexts, where factors like data availability and linguistic similarity largely determine transfer quality. As the field shifts toward few-shot In-Context Learning (ICL), it is often presumed that insights from fine-tuning carry over unchanged. Yet this assumption has not been rigorously evaluated, leaving open the question of how to choose source languages for cross-lingual ICL. We conduct a broad empirical study of cross-lingual transfer in ICL spanning seven tasks, six models, and a typologically diverse set of languages. We further analyze language confusion, a key obstacle for generative tasks in cross-lingual ICL. Our results show that conventional fine-tuning-based expectations do not consistently apply in the ICL regime and point to alternative heuristics for selecting source languages effectively..</abstract>
+      <url hash="049fd73d">2026.mellm-1.31</url>
+      <bibkey>philippy-etal-2026-english</bibkey>
+      <doi>10.18653/v1/2026.mellm-1.31</doi>
+    </paper>
+  </volume>
+</collection>

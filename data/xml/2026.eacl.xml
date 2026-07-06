@@ -2276,7 +2276,7 @@
     <paper id="160">
       <title>Mapping the Course for Prompt-based Structured Prediction</title>
       <author><first>Matt</first><last>Pauk</last><affiliation>University of Colorado at Boulder</affiliation></author>
-      <author><first>Maria Leonor</first><last>Pacheco</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author id="maria-leonor-pacheco"><first>Maria Leonor</first><last>Pacheco</last><affiliation>University of Colorado at Boulder</affiliation></author>
       <pages>3483-3508</pages>
       <abstract>Large language models (LLMs) have demonstrated strong performance in a wide-range of language tasks without requiring task-specific fine-tuning. However, they remain prone to hallucinations and inconsistencies, and often struggle with complex reasoning, in part due to the limitations of autoregressive generation. We propose to address some of these issues, particularly for structured prediction, by combining LLMs with combinatorial inference to marry the predictive power of LLMs with the structural consistency provided by inference methods. We perform exhaustive experiments in an effort to understand which prompting strategies can best estimate confidence values for downstream symbolic inference, and find that, independent of prompting strategy, incorporating symbolic inference yields more consistent and accurate predictions than prompting alone. Finally, we show that calibration and fine-tuning with structured learning objectives further increases performance on challenging tasks, highlighting that structured learning remains valuable in the era of LLMs.</abstract>
       <url hash="a790924b">2026.eacl-long.160</url>
@@ -3696,7 +3696,7 @@
     </paper>
     <paper id="261">
       <title>Beyond Math: Stories as a Testbed for Memorization-Constrained Reasoning in <fixed-case>LLM</fixed-case>s</title>
-      <author><first>Yuxuan</first><last>Jiang</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
+      <author id="yuxuan-jiang"><first>Yuxuan</first><last>Jiang</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
       <author id="francis-ferraro" orcid="0000-0003-2413-9368"><first>Francis</first><last>Ferraro</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
       <pages>5590-5607</pages>
       <abstract>Memorization has been shown to greatly inflate Large Language Models’ (LLMs) performance on domains such as math and logic, where success should primarily rely on applying generalizable reasoning rules. In many real-world applications, however, memorization is not meant to be eliminated but selectively constrained—for example, in story understanding, where background knowledge must be integrated with narrative context. Drawing on the cognitive science distinction between “verbatim” (exact recall) and “gist” (semantic abstraction) memorization, we propose a two-tier framework for analyzing how LLMs reason under different degrees of memory access. The Inductive (prompt-guided) Setting softly steers models to reason through selective, context-relevant recall, while the Restrictive Setting imposes stronger constraints by limiting verbatim memory access. Evaluating GPT-4o, LLaMA3.3-70B, and DeepSeek V3 on six character-centric story understanding benchmarks, we find up to a 45.2% accuracy drop under the Restrictive Setting, revealing strong dependence on surface recall. By contrast, the Inductive Setting maintains performance, indicating that prompting can align LLMs toward memorization-constrained reasoning.</abstract>
@@ -3793,7 +3793,7 @@
     <paper id="268">
       <title>Steering Safely or Off a Cliff? Rethinking Specificity and Robustness in Inference-Time Interventions</title>
       <author><first>Navita</first><last>Goyal</last><affiliation>University of Maryland, College Park</affiliation></author>
-      <author><first>Hal Daumé</first><last>Iii</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Hal</first><last>Daumé III</last><affiliation>University of Maryland, College Park</affiliation></author>
       <pages>5723-5738</pages>
       <abstract>Model steering, which involves intervening on hidden representations at inference time, has emerged as a lightweight alternative to finetuning for precisely controlling large language models. While steering efficacy has been widely studied, evaluations of whether interventions alter *only* the intended property remain limited, especially with respect to unintended changes in behaviors related to the target property. We call this notion specificity. We propose a framework that distinguishes three dimensions of specificity: general (preserving fluency and unrelated abilities), control (preserving related control properties), and robustness (preserving control properties under distribution shifts). We study two safety-critical use cases: steering models to reduce overrefusal and faithfulness hallucinations, and show that while steering achieves high efficacy and largely maintains general and control specificity, it consistently fails to preserve robustness specificity. In the case of overrefusal steering, for example, all steering methods reduce overrefusal without harming general abilities and refusal on harmful queries; however, they substantially increase vulnerability to jailbreaks. Our work provides the first systematic evaluation of specificity in model steering, showing that standard efficacy and specificity checks are insufficient, because without robustness evaluation, steering methods may appear reliable even when they compromise model safety.</abstract>
       <url hash="a4c42051">2026.eacl-long.268</url>
@@ -4251,7 +4251,7 @@
       <author><first>Christian</first><last>Herold</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Amirhossein</first><last>Tebbifakhr</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Shahram</first><last>Khadivi</last><affiliation>eBay Inc.</affiliation></author>
-      <author><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University, Monash University and Monash University</affiliation></author>
+      <author id="gholamreza-haffari"><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University, Monash University and Monash University</affiliation></author>
       <pages>6371-6387</pages>
       <abstract>Naive joint training of large language models (LLMs) for multilingual preference alignment can suffer from negative interference. This is a known issue in multilingual training, where conflicting objectives degrade overall performance. However, the impact of this phenomenon in the context of multilingual preference alignment remains largely underexplored. To address this issue, we propose ConGrad, an effective and scalable filtering method that mitigates this interference by identifying and selecting preference samples that exhibit high cross-lingual affinity. Based on principles of multi-objective optimization, our approach computes an aggregated, cross-lingually beneficial gradient direction and uses this to filter for samples whose individual gradients align with this consensus direction. To ensure scalability for LLMs, we incorporate a sublinear gradient compression strategy that reduces memory overhead during gradient accumulation. We integrate ConGrad into a self-rewarding framework and evaluate on LLaMA3-8B and Gemma2-2B across 10 languages. Results show that ConGrad consistently outperforms strong baselines in both seen and unseen languages, with minimal alignment tax.</abstract>
       <url hash="83fa2993">2026.eacl-long.299</url>
@@ -5336,7 +5336,7 @@
     </paper>
     <paper id="375">
       <title>A Regex Minimization Benchmark: A <fixed-case>PSPACE</fixed-case>-Complete Challenge for Language Models</title>
-      <author><first>Hyundong</first><last>Jin</last><affiliation>Yonsei University</affiliation></author>
+      <author id="hyundong-jin"><first>Hyundong</first><last>Jin</last><affiliation>Yonsei University</affiliation></author>
       <author id="joonghyuk-hahn" orcid="0009-0000-5890-4916"><first>Joonghyuk</first><last>Hahn</last></author>
       <author><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
       <pages>8020-8048</pages>
@@ -8265,8 +8265,8 @@
     </paper>
     <paper id="38">
       <title>Adapting Vision-Language Models for <fixed-case>E</fixed-case>-commerce Understanding at Scale</title>
-      <author><first>Matteo</first><last>Nulli</last><affiliation>eBay Inc.</affiliation></author>
-      <author><first>Orshulevich</first><last>Vladimir</last></author>
+      <author id="matteo-nulli"><first>Matteo</first><last>Nulli</last><affiliation>eBay Inc.</affiliation></author>
+      <author><first>Vladimir</first><last>Orshulevich</last></author>
       <author><first>Tala</first><last>Bazazo</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Christian</first><last>Herold</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Michael</first><last>Kozielski</last><affiliation>Rheinisch Westfälische Technische Hochschule Aachen</affiliation></author>
