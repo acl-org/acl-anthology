@@ -35,10 +35,11 @@ import shutil
 import sys
 import PyPDF2
 
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from slugify import slugify
-from typing import Any, Dict, Iterator, Optional, List
+from typing import Any, Dict, Iterator, Optional, List, Tuple
 
 from acl_anthology import Anthology
 from acl_anthology.collections.types import PaperType, VolumeType
@@ -214,17 +215,208 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
     return " ".join(author[field] for field in fields if author.get(field) is not None)
 
 
+def latex_to_text(text: Optional[str]) -> Optional[str]:
+    """Convert a possibly-LaTeX string (e.g. a name with LaTeX-style diacritics
+    such as ``Sch\\"utze``) into plain Unicode text. Returns None if the input is
+    None."""
+    if text is None:
+        return None
+    return MarkupText.from_latex_maybe(text).as_text()
+
+
+# Repairs for common LaTeX quirks introduced by upstream export pipelines
+# (aclpub2, OpenReview, START, etc.) before the text is handed to
+# ``MarkupText.from_latex_maybe()``. Each entry is a ``(name, pattern, repl)``
+# tuple applied in order via ``re.sub``. Add new repairs here as additional
+# malformed-LaTeX patterns are discovered.
+#
+# - over_escaped_dollar: An intended literal dollar (``\$``, e.g. the currency
+#   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
+#   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
+#   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
+#
+# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
+#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
+#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
+#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
+#   content ``X`` so the text survives. (Non-nested braces only.)
+#
+# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
+#   contains hard line breaks that are not meaningful LaTeX; drop them so the
+#   text is flattened to a single line before parsing.
+LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
+    (
+        "over_escaped_dollar",
+        re.compile(r"\\\\\$"),
+        r"\\$",
+    ),
+    (
+        "texttt_unwrap",
+        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
+        r"\1",
+    ),
+    (
+        "strip_newlines",
+        re.compile(r"\n"),
+        "",
+    ),
+]
+
+
+def repair_latex(text: str) -> str:
+    """Apply known repairs for malformed/over-escaped LaTeX produced by upstream
+    export pipelines, so the text can be parsed correctly by
+    ``MarkupText.from_latex_maybe()``. See ``LATEX_REPAIRS`` for the individual
+    fixes."""
+    for _name, pattern, repl in LATEX_REPAIRS:
+        text = pattern.sub(repl, text)
+    return text
+
+
+def abstract_has_empty_markup(abstract: MarkupText) -> bool:
+    """Return True if the abstract contains an empty markup element, e.g. an
+    empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
+    expands to nothing.
+
+    The Anthology schema defines ``MarkupText = (text | b | i | url |
+    fixed-case | tex-math)+``, so a markup element with neither text nor child
+    elements is invalid and makes the XML fail schema validation at build time.
+    Such abstracts render without raising, so they must be detected explicitly.
+    """
+    root = abstract.to_xml()
+    for element in root.iter():
+        if element is root:
+            continue
+        if len(element) == 0 and not element.text:
+            return True
+    return False
+
+
+# Maps (slugified full name, number of spaces in the full name) -> set of
+# observed split points (i.e. the number of whitespace-delimited tokens in the
+# first name) seen in the existing Anthology data. Populated once in main() and
+# used by resegment_name() to align ingested name splits with existing ones.
+_name_split_index: Optional[Dict[Tuple[str, int], set]] = None
+
+
+def build_name_split_index(anthology: Anthology) -> Dict[Tuple[str, int], set]:
+    """Builds an index of how multi-token names are split into first/last in the
+    existing Anthology data.
+
+    aclpub2 (and other upstream sources) use heuristics to split a full name into
+    first and last name, which are sometimes wrong (e.g. splitting "Sang Won Kim"
+    as "Sang" / "Won Kim" instead of "Sang Won" / "Kim"). When a person already
+    exists in the Anthology with a particular split, we prefer to reuse that
+    split, to avoid creating spurious duplicate (and possibly verified) persons
+    (see acl-anthology issue #7567).
+
+    The index is keyed by the slugified full name together with the number of
+    spaces in the full name (so that, e.g., "Jean-Pierre Dupont" and
+    "Jean Pierre Dupont" -- which share a slug but differ in token count -- are
+    kept distinct). The value is the set of split points observed for that name.
+
+    Returns:
+        The index, which can be assigned to the module-level ``_name_split_index``.
+    """
+    index: Dict[Tuple[str, int], set] = defaultdict(set)
+    for name in anthology.people.by_name:
+        # Only Latin-script, multi-token names have an ambiguous split point.
+        if not name.first or name.script is not None:
+            continue
+        num_spaces = name.as_first_last().count(" ")
+        if num_spaces < 2:
+            continue
+        index[(name.slugify(), num_spaces)].add(len(name.first.split()))
+    return index
+
+
+def resegment_name(name: Name) -> Name:
+    """Re-splits a name's first/last segmentation to match an existing name in
+    the Anthology, if one with the same full form but a different split exists.
+
+    Does nothing if the name-split index has not been built, the name has no
+    first name, is a non-Latin-script variant, or has fewer than two spaces (no
+    ambiguity). The spelling and casing of the name are preserved; only the
+    boundary between first and last name may change.
+    """
+    if _name_split_index is None or not name.first or name.script is not None:
+        return name
+    full = name.as_first_last()
+    num_spaces = full.count(" ")
+    if num_spaces < 2:
+        return name
+    existing_split_points = _name_split_index.get((name.slugify(), num_spaces))
+    if not existing_split_points:
+        return name
+    current_split_point = len(name.first.split())
+    if current_split_point in existing_split_points:
+        return name
+    new_split_point = max(existing_split_points)
+    tokens = full.split()
+    resegmented = Name(
+        " ".join(tokens[:new_split_point]), " ".join(tokens[new_split_point:])
+    )
+    log.info(f"Resegmented name based on database match: {name} -> {resegmented}")
+    return resegmented
+
+
+def namespec_from(
+    first: Optional[str],
+    last: str,
+    orcid: Optional[str] = None,
+    openreview: Optional[str] = None,
+    affiliation: Optional[str] = None,
+) -> NameSpecification:
+    """Creates a NameSpecification from name parts, converting any LaTeX-style
+    diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning.
+    The OpenReview ID is only stored when no ORCID is available."""
+    raw_first, raw_last = first, last
+    first = latex_to_text(first.strip()) if first else None
+    last = latex_to_text(last.strip()) if last else ""
+    try:
+        name = Name(first or None, last)
+    except ValueError as e:
+        log.error(
+            f"Could not create name from first={raw_first!r} last={raw_last!r} "
+            f"(converted to first={first!r} last={last!r}): {e}"
+        )
+        raise
+    name = resegment_name(name)
+    kwargs: Dict[str, Any] = {"name": name}
+    if orcid:
+        kwargs["orcid"] = str(orcid)
+    if openreview:
+        kwargs["openreview"] = str(openreview)
+    if affiliation:
+        # Collapse internal whitespace (tabs, newlines, repeated spaces) to single
+        # spaces; stray tabs in affiliations otherwise produce invalid XML.
+        affiliation = " ".join(affiliation.split())
+        if affiliation:
+            kwargs["affiliation"] = affiliation
+    try:
+        return NameSpecification(**kwargs)
+    except ValueError as e:
+        if "orcid" in kwargs:
+            log.warning(
+                f"Dropping invalid ORCID '{kwargs['orcid']}' for author "
+                f"'{first} {last}': {e}"
+            )
+            del kwargs["orcid"]
+            if openreview:
+                kwargs["openreview"] = str(openreview)
+            return NameSpecification(**kwargs)
+        raise
+
+
 def namespec_from_author(author: Dict[str, Any]) -> NameSpecification:
     """Creates a NameSpecification from an author dictionary (aclpub2)."""
-    first_name = join_names(author).strip()
-    last_name = (author.get("last_name") or "").strip()
-    kwargs: Dict[str, Any] = {"name": Name(first_name if first_name else None, last_name)}
-    if "orcid" in author and author["orcid"]:
-        kwargs["orcid"] = str(author["orcid"])
-    affiliation = author.get("institution") or author.get("affiliation")
-    if affiliation:
-        kwargs["affiliation"] = affiliation
-    return NameSpecification(**kwargs)
+    return namespec_from(
+        first=join_names(author),
+        last=author.get("last_name") or "",
+        orcid=author.get("orcid"),
+        openreview=author.get("openreview"),
+        affiliation=author.get("institution") or author.get("affiliation"),
+    )
 
 
 def add_parent_event(
@@ -240,22 +432,26 @@ def add_parent_event(
 
     event = anthology.get_event(parent_event)
     if event is None:
-        print(f"No event node with id '{parent_event}' found", file=sys.stderr)
+        log.warning(f"No event node with id '{parent_event}' found")
         return
-    if volume := anthology.get_volume(volume_full_id) is None:
-        print(f"No such ingested volume {volume_full_id}", file=sys.stderr)
+    if (volume := anthology.get_volume(volume_full_id)) is None:
+        log.warning(f"No such ingested volume {volume_full_id}")
         return
 
+    # A derived/implicit event is never serialized: a collection only writes its
+    # event when one is explicitly defined on it. If the parent event isn't yet
+    # explicit, promote it to an explicit event on its collection so that the
+    # colocation is persisted to the XML.
+    if not event.is_explicit and event.collection.get_event() is None:
+        event = event.collection.create_event(id=event.id)
+
     if event in volume.get_events():
-        print(
-            f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping",
-            file=sys.stderr,
+        log.info(
+            f"Event {volume_full_id} already listed as colocated with {parent_event}, skipping"
         )
     else:
         event.add_colocated(volume_full_id)
-        print(
-            f"Created event entry in {parent_event} for {volume_full_id}", file=sys.stderr
-        )
+        log.info(f"Created event entry in {parent_event} for {volume_full_id}")
 
 
 def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> str:
@@ -318,9 +514,7 @@ def _aclpub_attachment_map(
             continue
         match = re.match(rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
         if match is None:
-            print(
-                f"* Warning: no attachment match for {attachment_file}", file=sys.stderr
-            )
+            log.warning(f"no attachment match for {attachment_file}")
             continue
         paper_num, type_, ext = match.groups()
         paper_num = int(paper_num)
@@ -415,7 +609,10 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
-        venue_name = venue_abbrev.lower()
+        # Use the registered venue slug (letters/digits only) for the venue tag
+        # and file paths; `anthology_venue_id` may contain hyphens/`+`/case
+        # (e.g. "LT-EDI", "CODI-CRAC") that don't match the venue key.
+        venue_name = venue_slug
         pdfs_dest_dir = Path(args.pdfs_dir) / venue_name
         attachments_dest_dir = Path(args.attachments_dir) / venue_name
         source_path = Path(source)
@@ -442,7 +639,9 @@ def read_ingest_metadata(
             "volume_full_id": f"{collection_id}-{volume_name}",
             "venue_name": venue_name,
             "venue_abbrev": venue_abbrev,
-            "volume_type": VolumeType.PROCEEDINGS,
+            "volume_type": (
+                VolumeType.JOURNAL if args.is_journal else VolumeType.PROCEEDINGS
+            ),
             "year": str(meta["year"]),
             "month": meta.get("month"),
             "publisher": meta.get("publisher"),
@@ -610,9 +809,21 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             attachments.append(
                 {"src": attach_src_path, "dest": attach_dest_path, "type": type_}
             )
-        abstract = paper.get("abstract")
-        if abstract is not None:
-            abstract = MarkupText.from_latex_maybe(abstract.replace("\n", ""))
+        try:
+            if (abstract := paper.get("abstract")) is not None:
+                abstract = MarkupText.from_latex_maybe(repair_latex(abstract))
+                # ensure the abstract can be rendered without error
+                _ = abstract.as_text()
+                _ = abstract.as_html()
+                # reject abstracts with empty markup elements (e.g. an empty
+                # <i/>), which are invalid per the schema and break the build
+                if abstract_has_empty_markup(abstract):
+                    raise ValueError("abstract contains an empty markup element")
+        except Exception as e:
+            log.warning(
+                f"Error parsing abstract for paper {paper_num} ({paper.get('title', 'Unknown Title')}): {e}"
+            )
+            abstract = None
         yield {
             "id": str(paper_num),
             "type": PaperType.PAPER,
@@ -707,8 +918,7 @@ def ingest(
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
-            value = paper.get(key)
-            if value:
+            if value := paper.get(key):
                 kwargs[key] = value
         paper_month = paper.get("month")
         if paper_month and paper_month != metadata["month"]:
@@ -785,13 +995,20 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     titles and abstracts."""
     if text is None:
         return None
-    markup = MarkupText.from_latex_maybe(text)
+    markup = MarkupText.from_latex_maybe(repair_latex(text))
     if is_title:
         elem = markup.to_xml()
         protect_fixedcase(elem)
-        return MarkupText.from_xml(elem)
-    else:
-        return markup
+        markup = MarkupText.from_xml(elem)
+    # Ensure the markup renders to HTML without error, so that invalid markup
+    # (e.g. malformed TeX-math) is caught here at ingestion rather than later
+    # breaking the website build in create_hugo_data.py.
+    try:
+        _ = markup.as_html(allow_url=not is_title)
+    except Exception as e:
+        snippet = text if len(text) <= 100 else text[:97] + "..."
+        log.warning(f"Error rendering markup to HTML for {snippet!r}: {e}")
+    return markup
 
 
 def namespec_from_bib(person) -> NameSpecification:
@@ -806,10 +1023,7 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    first_text = first_text.strip()
-    last_text = last_text.strip()
-
-    return NameSpecification(name=Name(first_text, last_text))
+    return namespec_from(first=first_text, last=last_text)
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
@@ -862,10 +1076,7 @@ def register_volume_with_sig(
     """Register an ingested volume with a SIG if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
-        print(
-            f"Warning: SIG '{sig_key}' not found; cannot register {volume.full_id}",
-            file=sys.stderr,
-        )
+        log.warning(f"SIG '{sig_key}' not found; cannot register {volume.full_id}")
         return
 
     sig = anthology.sigs[sig_key]
@@ -876,14 +1087,30 @@ def register_volume_with_sig(
 
 def main(args):
     setup_rich_logging()
+
+    # Validate all proceedings up front, before loading the (slow) Anthology.
+    formats: Dict[str, str] = {}
+    for source in args.proceedings:
+        if not Path(source).is_dir():
+            raise Exception(
+                f"Proceedings path does not exist or is not a directory: {source}"
+            )
+        format_ = detect_ingestion_format(source)
+        log.info(f"Detected {format_} format for {source}")
+        formats[source] = format_
+
     anthology = Anthology.from_within_repo()
 
     anthology.load_all()
 
+    # Build an index of existing name splits so that ingested names reuse the
+    # segmentation already present in the Anthology (see build_name_split_index).
+    global _name_split_index
+    _name_split_index = build_name_split_index(anthology)
+
     seen_volume_ids: set[str] = set()
     for source in args.proceedings:
-        format_ = detect_ingestion_format(source)
-        log.info(f"Detected {format_} format for {source}")
+        format_ = formats[source]
         metadata = read_ingest_metadata(anthology, source, format_, args)
         ingest(
             anthology=anthology,
@@ -915,7 +1142,7 @@ if __name__ == "__main__":
     )
     pdfs_path = Path.home() / "anthology-files" / "pdf"
     parser.add_argument(
-        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
+        "--pdfs-dir", default=pdfs_path, help="Root path for placement of PDF files"
     )
     attachments_path = Path.home() / "anthology-files" / "attachments"
     parser.add_argument(
@@ -932,6 +1159,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--parent-event",
+        "-p",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
     )

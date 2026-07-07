@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.alvr">
+  <volume id="main" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the 4th Workshop on Advances in Language and Vision Research (<fixed-case>ALVR</fixed-case>)</booktitle>
+      <editor><first>Qianqi</first><last>Yan</last></editor>
+      <editor><first>Syrielle</first><last>Montariol</last></editor>
+      <editor><first>Yue</first><last>Fan</last></editor>
+      <editor><first>Jing</first><last>Gu</last></editor>
+      <editor><first>Jiayi</first><last>Pan</last></editor>
+      <editor><first>Manling</first><last>Li</last></editor>
+      <editor><first>Parisa</first><last>Kordjamshidi</last></editor>
+      <editor><first>Alane</first><last>Suhr</last></editor>
+      <editor><first>Xin Eric</first><last>Wang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, USA</address>
+      <isbn>979-8-89176-398-2</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="f6b5919d">2026.alvr-main</url>
+      <venue>alvr</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.alvr-main</doi>
+    </meta>
+    <frontmatter>
+      <url hash="463a5fae">2026.alvr-main.0</url>
+      <bibkey>alvr-2026-main</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Thinking in Pictures: A Diagnostic Study of Visual vs. Textual Chain-of-Thought Reasoning in Vision-Language Models</title>
+      <author><first>Ben</first><last>Jenkins</last></author>
+      <pages>1-12</pages>
+      <abstract>Chain-of-thought (CoT) reasoning has become a standard technique for eliciting complex reasoning in large language models, and recent work has extended it to vision-language models (VLMs). However, virtually all multimodal CoT methods generate intermediate reasoning steps in natural language, even for inherently visual problems such as spatial reasoning, geometric manipulation, and object tracking. We ask a fundamental question: when should a VLM reason in words, and when should it reason in pictures? We present VisCoT-Diag, a diagnostic benchmark of 1,200 instances across five visual reasoning categories, and compare four CoT paradigms across four VLMs. Our results reveal a striking modality gap: textual CoT degrades performance by up to 17.5% on spatial transformation and 13.2% on multi-object tracking, while visual CoT yields gains of up to 23.1%. We identify three failure modes (spatial state collapse, transformation hallucination, tracking loss) and show that adaptive modality routing achieves 73.1% accuracy versus 68.9% for V-CoT-everywhere. We recommend practitioners use visual CoT for spatial tasks and textual CoT for compositional counting.</abstract>
+      <url hash="6371d798">2026.alvr-main.1</url>
+      <bibkey>jenkins-2026-thinking</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.1</doi>
+    </paper>
+    <paper id="2">
+      <title>A <fixed-case>Z</fixed-case>ipfian Analysis of Visual Token Distributions for <fixed-case>AI</fixed-case>-Generated Images</title>
+      <author id="andrew-shin" orcid="0000-0002-0969-9925"><first>Andrew</first><last>Shin</last><affiliation>Keio University</affiliation></author>
+      <pages>13-17</pages>
+      <abstract>The rapid evolution of text-to-image generation has blurred the perceptual boundary between natural and synthetic imagery. However, it remains questionable whether the statistical structure of generated visual content mirrors the information density of the physical visual world. Drawing upon principles from statistical linguistics, this study investigates the visual language of generative models through the lens of Zipfian dynamics. By analyzing a large-scale corpus of real and synthetic images, we uncover a fundamental divergence between visual syntax and semantics. We find that while generative models have successfully replicated the low-level physics of light, their high-level texture vocabulary exhibits distinct statistical signatures. Our analysis reveals a spectrum of entropy, identifying architectural fingerprints unique to each model. Furthermore, we investigate the relation ship between generated images and prompt complexity, and find that increasing the semantic specificity of text prompts systematically degrades the statistical realism of the generated output.</abstract>
+      <url hash="3121bb26">2026.alvr-main.2</url>
+      <bibkey>shin-2026-zipfian</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Semantically Aware Optimal Transport for Dense Label Transfer</title>
+      <author id="preeti" orcid="0009-0006-1705-5712"><first/><last>Preeti</last></author>
+      <author><first>Kiran</first><last>Ravish</last></author>
+      <author><first>Ankita</first><last>Kushwaha</last></author>
+      <author><first>Pawan</first><last>Kumar</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <pages>18-45</pages>
+      <abstract>Vision foundation models produce features that generalize across visual domains without fine-tuning, yet naively transferring labels through these feature spaces fails under large distribution shifts.We propose SAOT (**S**emantically **A**ware **O**ptimal **T**ransport), which learns a transport cost within a fused unbalanced optimal transport formulation for dense label transfer from frozen vision transformer features to new domains.SAOT combines a learnable appearance metric with semantic class-prototype priors, unbalanced transport for partial matching under distribution shift, and a block-sparse solver for tractable inference.We pair this with a two-stage decoder: an MLP trained on SAOT pseudo-labels, then refined via EMA-teacher self-training with class-balanced sampling.On GTA5<tex-math>\to</tex-math>Cityscapes with frozen DINOv2 ViT-L/14 features, SAOT+Decoder reaches 25.7% mIoU, a **3.8<tex-math>\times</tex-math>** improvement over nearest-neighbor transfer (6.7%), without any backbone adaptation.Per-class results show large gains on spatially coherent classes (road 90.3%, car 76.2%, building 71.5%), demonstrating that learned semantic transport costs capture domain-invariant structure even under severe synthetic-to-real shifts. On VOC train<tex-math>\to</tex-math>val with frozen ViT-B/16 features, the full pipeline reaches 47.5% mIoU, indicating that the approach extends beyond synthetic-to-real adaptation.</abstract>
+      <url hash="3365ab7a">2026.alvr-main.3</url>
+      <bibkey>preeti-etal-2026-semantically</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>C</fixed-case>o<fixed-case>SM</fixed-case>o<fixed-case>E</fixed-case>s: Compact Sparse Mixture of Experts</title>
+      <author><first>Patrick</first><last>Huber</last><affiliation>Facebook</affiliation></author>
+      <author><first>Akshat</first><last>Shrivastava</last></author>
+      <author id="ernie-chang" orcid="0009-0008-2376-4464"><first>Ernie</first><last>Chang</last><affiliation>Meta AI</affiliation></author>
+      <author><first>Chinnadhurai</first><last>Sankar</last><affiliation>Facebook</affiliation></author>
+      <author><first>Ahmed A</first><last>Aly</last><affiliation>Facebook</affiliation></author>
+      <author><first>Adithya</first><last>Sagar</last><affiliation>Cornell University</affiliation></author>
+      <pages>46-56</pages>
+      <abstract>Sparse Mixture of Expert (MoE) models are widely used foundation architectures at large scale, yet remain under-explored at smaller sizes. In this work, we introduce Compact Sparse Mixture of Experts (CoSMoEs) for on-device inference, addressing three key challenges: Quality, Memory, and Latency. On the quality front, we conduct a fair evaluation (removing confounding factors) and show that MoE architectures outperform dense models at on-device scale. We further propose weight-decomposed experts, which improve MoE performance beyond the standard formulation. On the memory and latency front, we address the prohibitively large parameter count of MoE models by improving expert offloading efficiency through a novel training-time loss, reducing inference latency for on-device deployment</abstract>
+      <url hash="ebb680d9">2026.alvr-main.4</url>
+      <bibkey>huber-etal-2026-cosmoes</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>G</fixed-case>raphic<fixed-case>W</fixed-case>eaver: Benchmarking Agentic Planning for Graphic Design Generation</title>
+      <author><first>Dayeon</first><last>Ki</last><affiliation>Microsoft and University of Maryland, College Park</affiliation></author>
+      <author id="tianyi-zhou" orcid="0000-0001-5348-0632"><first>Tianyi</first><last>Zhou</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="marine-carpuat" orcid="0000-0003-1693-0782"><first>Marine</first><last>Carpuat</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author id="gang-wu" orcid="0000-0002-8768-2571"><first>Gang</first><last>Wu</last><affiliation>Adobe Research</affiliation></author>
+      <author><first>Puneet</first><last>Mathur</last><affiliation>Adobe Systems</affiliation></author>
+      <author><first>Viswanathan</first><last>Swaminathan</last><affiliation>Adobe Systems</affiliation></author>
+      <pages>57-84</pages>
+      <abstract>Vision-language model (VLM)-powered agents are increasingly enabling new forms of automation across various human tasks. While prior work has primarily focused on well-defined problems with explicit goals, the capabilities of agents in creative graphic design, where goals are inherently open-ended and subjective, remain largely underexplored.To bridge this gap, we introduce GraphicWeaver, a planning benchmark for graphic design comprising 1,079 diverse user queries and associated images spanning four design categories.Comprehensive experiments with six models reveal that current VLM-based agents struggle to handle such complex planning tasks, which require taking into account both explicit design constraints specified in queries and implicit commonsense design principles. We attribute these failures to challenges in (1) retrieving appropriate parameters for tool usage, (2) understanding spatial relationships across design components, and (3) coordinating dependencies across agents. We envision GraphicWeaver as a challenging yet valuable testbed for advancing VLM agent planning in creative design contexts.</abstract>
+      <url hash="47b1dc7e">2026.alvr-main.5</url>
+      <bibkey>ki-etal-2026-graphicweaver</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.5</doi>
+    </paper>
+    <paper id="7">
+      <title>Scaling Vision–Language Models for Pharmaceutical Long-Form Video Reasoning on Industrial <fixed-case>G</fixed-case>en<fixed-case>AI</fixed-case> Platform</title>
+      <author><first>Suyash</first><last>Mishra</last><affiliation>F. Hoffmann-La Roche Ltd.</affiliation></author>
+      <author id="qiang-li-1792" orcid="0009-0000-2095-1792"><first>Qiang</first><last>Li</last><affiliation>Accenture</affiliation></author>
+      <author><first>Srikanth</first><last>Patil</last></author>
+      <author><first>Satyanarayan</first><last>Pati</last></author>
+      <author><first>Baddu</first><last>Narendra</last><affiliation>INVOLEAD SERVICES PVT LTD</affiliation></author>
+      <pages>85-104</pages>
+      <abstract>Vision Language Models (VLMs) have shown strong performance on multimodal reasoning tasks, yet most evaluations focus on short videos and assume unconstrained computational resources. In industrial settings such as pharmaceutical content understanding, practitioners must process long-form videos under strict GPU, latency, and cost constraints, where many existing approaches fail to scale. In this work, we present an industrial GenAI framework that processes over 200,000 PDFs, 25,326 videos across eight formats (e.g., MP4, M4V, etc.), and 888 multilingual audio files in more than 20 languages. Our study makes three contributions: (i) an industrial large-scale architecture for multimodal reasoning in pharmaceutical domains; (ii) empirical analysis of over 40 VLMs on two leading benchmarks (Video-MME and MMBench) and proprietary dataset of 25,326 videos across 14 disease areas; and (iii) four findings relevant to long-form video reasoning: the role of multimodality, attention mechanism trade-offs, temporal reasoning limits, and challenges of video splitting under GPU constraints. Results show 3–8X efficiency gains with SDPA attention on commodity GPUs, multimodality improving up to 8/12 task domains (especially length-dependent tasks), and clear bottlenecks in temporal alignment and keyframe detection across open- and closed-source VLMs. Rather than proposing a new "A+B" model, this paper characterizes practical limits, trade-offs, and failure patterns of current VLMs under realistic deployment constraints, and provide actionable guidance for both researchers and practitioners designing scalable multimodal systems for long-form video understanding in industrial domains.</abstract>
+      <url hash="16283a56">2026.alvr-main.7</url>
+      <bibkey>mishra-etal-2026-scaling</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.7</doi>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>PGGA</fixed-case>: A Plan-Grounded <fixed-case>GUI</fixed-case> Agent for Automated Device Support</title>
+      <author><first>Lei</first><last>Hsiung</last><affiliation>Dartmouth College</affiliation></author>
+      <author id="zhiyu-chen-lehigh" orcid="0000-0002-3096-7912"><first>Zhiyu</first><last>Chen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Seonhoon</first><last>Kim</last><affiliation>Amazon and NAVER</affiliation></author>
+      <author><first>Qun</first><last>Liu</last><affiliation>Amazon</affiliation></author>
+      <pages>105-114</pages>
+      <abstract>Current GUI agents struggle with multi-step digital device support. We investigate whether this failure is partly caused by a procedural knowledge deficit: agents often rely on zero-shot visual exploration instead of executing verified instructions. To address this, we introduce the Plan-Grounded GUI Agent (PGGA), framing interface navigation as a knowledge-execution problem by conditioning low-level actions on step-by-step text plans. Evaluated on our focused Device-Support Interaction Benchmark (DSIB), results reveal a sharp gap between knowing which operation to perform and grounding that operation on the screen: GTA1-7B reaches 99.59% Operation Accuracy with expert plans, but only 82.99% Element Accuracy and 45.61% Task Success Rate; without plans, its Task Success Rate is 0.00%. Our fine-tuned 2B-parameter PGGA achieves 54.39% Task Success Rate and 91.28% Element Accuracy when guided by expert plans, suggesting that explicit procedural grounding can substantially improve GUI execution when high-quality plans are available. Project Page: https://hsiung.cc/PGGA/</abstract>
+      <url hash="a602fd08">2026.alvr-main.9</url>
+      <bibkey>hsiung-etal-2026-pgga</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>CAFES</fixed-case>: A Collaborative Multi-Agent Framework for Multi-Granular Multimodal Essay Scoring</title>
+      <author><first>Jiamin</first><last>Su</last></author>
+      <author id="yibo-yan" orcid="0009-0006-2546-1403"><first>Yibo</first><last>Yan</last><affiliation>The Hong Kong University of Science and Technology and Alibaba</affiliation></author>
+      <author><first>Zhuoran</first><last>Gao</last></author>
+      <author><first>Han</first><last>Zhang</last></author>
+      <author id="xiang-liu" orcid="0009-0003-2639-1804"><first>Xiang</first><last>Liu</last></author>
+      <author id="huiyu-zhou" orcid="0009-0001-7715-8346"><first>Huiyu</first><last>Zhou</last><affiliation>Guangxi Zhuang Autonomous Region Information Center</affiliation></author>
+      <author id="xuming-hu" orcid="0000-0001-6075-4224"><first>Xuming</first><last>Hu</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou) and Hong Kong University of Science and Technology</affiliation></author>
+      <pages>115-138</pages>
+      <abstract>Automated Essay Scoring (AES) is crucial for modern education, particularly with the increasing prevalence of multimodal assessments. However, traditional AES methods struggle with evaluation generalizability and multimodal perception, while even recent Multimodal Large Language Model (MLLM)-based approaches can produce hallucinated justifications and scores misaligned with human judgment. To address the limitations, we introduce CAFES, the first collaborative multi-agent framework specifically designed for AES. It orchestrates three specialized agents: an Initial Scorer for rapid, trait-specific evaluations; a Feedback Pool Manager to aggregate detailed and evidence-grounded feedback; and a Reflective Scorer that iteratively refines scores based on this feedback to enhance human alignment. Extensive experiments, using widely adopted MLLMs, achieve an average relative improvement of 21% in Quadratic Weighted Kappa (QWK) against ground truth, with particularly strong gains in grammatical and lexical diversity. Our proposed CAFES paves the way for an intelligent multimodal AES system. The code and dataset are available at https://anonymous.4open.science/r/CAFES-C87F/.</abstract>
+      <url hash="6b6d4ce0">2026.alvr-main.10</url>
+      <bibkey>su-etal-2026-cafes</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>GM</fixed-case>-<fixed-case>PRM</fixed-case>: A Generative Multimodal Process Reward Model for Multimodal Mathematical Reasoning</title>
+      <author><first>Jianghangfan</first><last>Zhang</last><affiliation>Hong Kong Baptist University</affiliation></author>
+      <author id="yibo-yan" orcid="0009-0006-2546-1403"><first>Yibo</first><last>Yan</last><affiliation>The Hong Kong University of Science and Technology and Alibaba</affiliation></author>
+      <author><first>Kening</first><last>Zheng</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author id="xin-zou" orcid="0000-0003-4771-3836"><first>Xin</first><last>Zou</last><affiliation>AndesVL Team, OPPO AI Center and AI Thrust, The Hong Kong University of Science and Technology (Guangzhou)</affiliation></author>
+      <author><first>Song</first><last>Dai</last></author>
+      <author id="xuming-hu" orcid="0000-0001-6075-4224"><first>Xuming</first><last>Hu</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou) and Hong Kong University of Science and Technology</affiliation></author>
+      <pages>139-154</pages>
+      <abstract>Multimodal Large Language Models (MLLMs) demonstrate remarkable capabilities but often struggle with complex, multi-step mathematical reasoning, where minor errors in visual perception or logical deduction can lead to complete failure. While Process Reward Models (PRMs) offer step-by-step supervision, existing multimodal PRMs are limited to being binary verifiers that can identify but not correct errors, offering little explanatory power. To address these deficiencies, we introduce the **Generative Multimodal Process Reward Model (GM-PRM), a novel paradigm that transforms the PRM from a passive judge into an active reasoning collaborator**. Instead of a simple scalar score, GM-PRM provides a fine-grained, interpretable analysis of each reasoning step, evaluating its step intent, visual alignment, and logical soundness. More critically, GM-PRM is trained to generate a corrected version of the first erroneous step it identifies. This unique corrective capability enables our new test-time inference strategy, Refined Best-of-N (Refined-BoN). This framework actively enhances solution quality by using the PRM’s generated correction to guide the policy model toward a more promising reasoning trajectory, thereby improving the diversity and correctness of the solution pool. We demonstrate that GM-PRM achieves state-of-the-art results on multiple multimodal math benchmarks, significantly boosting policy model performance with remarkable data efficiency, requiring only a 20K-sample training dataset.</abstract>
+      <url hash="6b63ee9b">2026.alvr-main.11</url>
+      <bibkey>zhang-etal-2026-gm</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Look Where You’re Told: Instruction-Consistent Attention for <fixed-case>GUI</fixed-case> Grounding</title>
+      <author><first>Seonhoon</first><last>Kim</last><affiliation>Amazon and NAVER</affiliation></author>
+      <author id="zhiyu-chen-lehigh" orcid="0000-0002-3096-7912"><first>Zhiyu</first><last>Chen</last><affiliation>Amazon</affiliation></author>
+      <author><first>Xin</first><last>Li</last><affiliation>Amazon</affiliation></author>
+      <author><first>Qun</first><last>Liu</last><affiliation>Amazon</affiliation></author>
+      <pages>155-163</pages>
+      <abstract>Visual grounding in graphical user interface (GUI) requires accurate localization of UI elements from natural language instructions. Conventional coordinate generation approaches face inherent limitations, including sensitivity to resolution variations and lack of interpretability. Recently, coordinate-free attention-based methods have emerged as a promising alternative, but these methods supervise attention using only spatial location signals from ground-truth bounding boxes, without ensuring that the learned attention distributions reflect genuine semantic correspondence between the instruction and the attended visual regions. We propose Attention Cycle-Consistency (ACC), a self-supervised regularization framework that enforces bidirectional alignment between visual attention and instruction semantics. ACC introduces two complementary constraints: semantic consistency, which ensures attended visual regions contain sufficient information to reconstruct the original instruction, and spatial consistency, which requires attention distributions to remain invariant when cycled through instruction reconstruction. We further incorporate entropy regularization to encourage spatially concentrated attention. ACC is applicable as a lightweight, model-agnostic regularizer for attention-based coordinate-free grounding methods, adding zero computational overhead at inference as all auxiliary components are discarded after training.</abstract>
+      <url hash="29fa8252">2026.alvr-main.12</url>
+      <bibkey>kim-etal-2026-look</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.12</doi>
+    </paper>
+    <paper id="13">
+      <title>From Pixels to <fixed-case>BFS</fixed-case>: High Maze Accuracy Does Not Imply Visual Planning</title>
+      <author><first>Alberto Gonzalo</first><last>Rodriguez Salgado</last><affiliation>Data Lab, Volkswagen Group</affiliation></author>
+      <pages>164-179</pages>
+      <abstract>How do multimodal models solve visual spatial tasks—through genuine planning, or by brute-forcing solutions in token space? We introduce MazeBench, a benchmark of 110 procedurally generated maze images organized into nine controlled groups (diagnostic, grid scale, wall density, trap ablation, unreachable detection, and more), and evaluate 16 model configurations across four providers (OpenAI, Anthropic, Google, Alibaba) at multiple reasoning effort levels. GPT-5.4 solves 91% and Gemini 3.1 Pro 79%, but our analysis reveals these scores are misleading: models translate images into text grids and brute-force paths via serial enumeration, consuming 1,710–22,818 tokens per solve for a task humans do in seconds. Without added reasoning budgets, all configurations score only 2–12%; on 20x20 ultra-hard mazes, they hit token limits and give up. Qualitative analysis of model outputs confirms a universal two-stage strategy: image-to-grid translation followed by step-by-step path search in natural language—essentially BFS implemented in prose. A text-grid ablation shows Claude’s poor image performance (6%) jumps to 80% when given the correct grid directly, confirming vision quality, not reasoning ability, as the bottleneck for weaker models. Perhaps most striking, when we explicitly instruct models not to build a text grid and not to perform graph search—asking them to "reason visually, like a human"—they silently ignore the instruction and immediately fall back to the same grid-enumeration strategy. This suggests that brute-force token-level search is the dominant mechanism these models rely on for spatial planning in our setting.</abstract>
+      <url hash="280ab15e">2026.alvr-main.13</url>
+      <bibkey>rodriguez-salgado-2026-pixels</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.13</doi>
+    </paper>
+    <paper id="14">
+      <title>When Relations Break: Analyzing Relation Hallucination in Vision-Language Model Under Rotation and Noise</title>
+      <author><first>Philip Wootaek</first><last>Shin</last></author>
+      <author><first>Ajay Narayanan</first><last>Sridhar</last></author>
+      <author><first>Lakshmi Sivani</first><last>Devarapalli</last></author>
+      <author><first>Rui</first><last>Zhang</last><affiliation>Pennsylvania State University</affiliation></author>
+      <author id="jack-sampson" orcid="0009-0008-4990-8585"><first>Jack</first><last>Sampson</last><affiliation>Pennsylvania State University</affiliation></author>
+      <author id="vijaykrishnan-narayanan" orcid="0000-0001-6266-6068"><first>Vijaykrishnan</first><last>Narayanan</last><affiliation>Pennsylvania State University</affiliation></author>
+      <pages>180-185</pages>
+      <abstract>Vision–language models (VLMs) achieve strong multimodal performance but remain prone to relation hallucination, which requires accurate reasoning over inter-object interactions. We study the impact of visual perturbations, specifically rotation and noise, and show that even mild distortions significantly degrade relational reasoning across models and datasets. We further evaluate prompt-based augmentation and preprocessing strategies (orientation correction and denoising), finding that while they offer partial improvements, they do not fully resolve hallucinations. Our results reveal a gap between perceptual robustness and relational understanding, highlighting the need for more robust, geometry-aware VLMs.</abstract>
+      <url hash="097413a4">2026.alvr-main.14</url>
+      <bibkey>shin-etal-2026-relations</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>VLCE</fixed-case>: A Knowledge-Enhanced Framework for Image Description in Disaster Assessment</title>
+      <author id="md-mahfuzur-rahman" orcid="0009-0004-0382-6681"><first>Md. Mahfuzur</first><last>Rahman</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author id="marufa-kamal" orcid="0009-0009-4675-7248"><first>Marufa</first><last>Kamal</last><affiliation>BRAC University</affiliation></author>
+      <author id="fahad-rahman" orcid="0009-0004-1496-1977"><first>Fahad</first><last>Rahman</last><affiliation>United International University</affiliation></author>
+      <author id="sunzida-siddique" orcid="0009-0008-0005-2317"><first>Sunzida</first><last>Siddique</last><affiliation>Daffodil International University</affiliation></author>
+      <author><first>Ahmed Rafi</first><last>Hasan</last><affiliation>United International University</affiliation></author>
+      <author id="mohd-ariful-haque" orcid="0009-0000-4217-0209"><first>Mohd Ariful</first><last>Haque</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author><first>Kishor Datta</first><last>Gupta</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author><first>Roy</first><last>George</last><affiliation>Clark Atlanta University</affiliation></author>
+      <pages>186-198</pages>
+      <abstract>General-purpose vision-language models (VLMs) such as LLaVA and QwenVL produce descriptions of disaster imagery that lack domain-specific vocabulary and actionable detail. We propose the Vision-Language Caption Enhancer (), a framework that integrates external semantic knowledge from ConceptNet and WordNet into the caption generation process for post-disaster satellite and UAV imagery. operates in two stages: first, a baseline VLM generates an initial caption conditioned on YOLOv8 object detections; second, a knowledge-enriched sequential model, a CNN-LSTM or a hierarchical cross-modal Transformer, refines the caption using a vocabulary augmented with 1,566 domain-relevant terms extracted from knowledge graphs. We evaluate on two disaster benchmarks: xBD (satellite, 6,369 images, 3 damage classes) and RescueNet (UAV, 4,494 images, 12 damage classes), using CLIPScore for semantic alignment and InfoMetIC for informativeness. On RescueNet with the Transformer decoder, with knowledge graph enrichment produces captions preferred over QwenVL baselines in 95.33% of image pairs on InfoMetIC and 73.64% on CLIPScore. Qualitative analysis shows that without knowledge graph integration, generated captions exhibit hallucinations, word repetition, and semantic incoherence, whereas knowledge-enriched captions maintain factual consistency and domain-appropriate vocabulary. intended as a continuous, extensible monitor of differential framing under changing real-world inputs.</abstract>
+      <url hash="5ad2be9b">2026.alvr-main.15</url>
+      <bibkey>rahman-etal-2026-vlce</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Beyond Visual Similarity: Rule-Guided Multimodal Clustering with explicit domain rules</title>
+      <author><first>Kishor Datta</first><last>Gupta</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author id="mohd-ariful-haque" orcid="0009-0000-4217-0209"><first>Mohd Ariful</first><last>Haque</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author id="marufa-kamal" orcid="0009-0009-4675-7248"><first>Marufa</first><last>Kamal</last><affiliation>BRAC University</affiliation></author>
+      <author><first>Ahmed Rafi</first><last>Hasan</last><affiliation>United International University</affiliation></author>
+      <author id="md-mahfuzur-rahman" orcid="0009-0004-0382-6681"><first>Md. Mahfuzur</first><last>Rahman</last><affiliation>Clark Atlanta University</affiliation></author>
+      <author><first>Roy</first><last>George</last><affiliation>Clark Atlanta University</affiliation></author>
+      <pages>199-208</pages>
+      <abstract>Traditional clustering techniques often rely solely on similarity in the input data, limiting their ability to capture structural or semantic constraints that are critical in many domains. We introduce the Domain-Aware Rule-Triggered Variational Autoencoder (DART-VAE), a rule-guided multimodal clustering framework that incorporates domain-specific constraints directly into the representation learning process. DART-VAE extends the VAE architecture by embedding explicit rules, semantic representations, and data-driven features into a unified latent space, while enforcing constraint compliance through rule-consistency and violation penalties in the loss function. Unlike conventional clustering methods that rely only on visual similarity or apply rules as post-hoc filters, DART-VAE treats rules as first-class learning signals. The rules are generated by LLMs, structured into knowledge graphs, and enforced through a loss function combining reconstruction, KL divergence, consistency, and violation penalties. Experiments on aircraft and automotive datasets demonstrate that rule-guided clustering produces more operationally meaningful and interpretable clusters—for example, isolating UAVs, unifying stealth aircraft, or separating SUVs from sedans—while improving traditional clustering metrics. However, the framework faces challenges: LLM-generated rules may hallucinate or conflict, excessive rules risk overfitting, and scaling to complex domains increases computational and consistency difficulties. By combining rule encodings with learned representations, DART-VAE achieves more meaningful and consistent clustering outcomes than purely data-driven models, highlighting the utility of constraint-guided multimodal clustering for complex, knowledge-intensive settings.</abstract>
+      <url hash="ef376345">2026.alvr-main.16</url>
+      <bibkey>gupta-etal-2026-beyond</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.16</doi>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>C</fixed-case>hart<fixed-case>D</fixed-case>iff: A Large-Scale Benchmark for Comprehending Pairs of Charts</title>
+      <author><first>Rongtian</first><last>Ye</last><affiliation>Aalto University</affiliation></author>
+      <pages>209-229</pages>
+      <abstract>Charts are central to analytical reasoning, yet existing benchmarks for chart understanding focus almost exclusively on single-chart interpretation rather than comparative reasoning across multiple charts. To address this gap, we introduce ChartDiff, the first large-scale benchmark for cross-chart comparative summarization. ChartDiff consists of 8,541 chart pairs spanning diverse data sources, chart types, and visual styles, each annotated with LLM-generated and human-verified summaries describing differences in trends, fluctuations, and anomalies. Using ChartDiff, we evaluate general-purpose, chart-specialized, and pipeline-based models. Our results show that frontier general-purpose models achieve the highest GPT-based quality, while specialized and pipeline-based methods obtain higher ROUGE scores but lower human-aligned evaluation, revealing a clear mismatch between lexical overlap and actual summary quality. We further find that multi-series charts remain challenging across model families, whereas strong end-to-end models are relatively robust to differences in plotting libraries. Overall, our findings demonstrate that comparative chart reasoning remains a significant challenge for current vision-language models and position ChartDiff as a new benchmark for advancing research on multi-chart understanding.</abstract>
+      <url hash="0a457824">2026.alvr-main.19</url>
+      <bibkey>ye-2026-chartdiff</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Formal Machine Interpretation for the Semasiographic <fixed-case>M</fixed-case>ixtec Codices of Precolonial and Early Colonial Mesoamerica</title>
+      <author id="christopher-driggers-ellis" orcid="0009-0006-8063-7571"><first>Christopher</first><last>Driggers-Ellis</last><affiliation>University of Florida</affiliation></author>
+      <author><first>Gabriel</first><last>Ayoubi</last></author>
+      <author><first>Girish</first><last>Salunke</last><affiliation>NA</affiliation></author>
+      <author id="christan-grant" orcid="0000-0002-6684-3620"><first>Christan</first><last>Grant</last><affiliation>University of Florida</affiliation></author>
+      <pages>230-238</pages>
+      <abstract>The precolonial and early colonial Mixtec codices describe the history and stories of the region in a semasiographic medium that is full of symbolic representations and meant to be narrated.Recently, the community has introduced datasets of XML representations of related media, including Aztec codices and Mayan hieroglyphic script, in a step towards symbolic machine interpretation of these historic Mesoamerican artifacts.In this work, we propose formal symbolic machine interpretation of XML encodings representing facsimile images from the Mixtec Codex Zouche-Nuttal.We demonstrate the efficacy of symbolic machine interpretation from XML step-by-step, showing how our parser and interpreter process text capturing a scene from the Mixtec Codex Zouche-Nuttall.We hope our contribution and the example we provide motivate collaboration among the archaeological, historical, linguistic, and natural language processing research communities to apply machine interpretation to Mixtec codices and similar manuscripts.</abstract>
+      <url hash="204c96ff">2026.alvr-main.20</url>
+      <bibkey>driggers-ellis-etal-2026-formal</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.20</doi>
+    </paper>
+    <paper id="21">
+      <title>Temporal-Linguistic Adaptive Streaming for Continuous Sign Language Translation</title>
+      <author><first>Arshia</first><last>Kermani</last></author>
+      <author id="habib-irani" orcid="0009-0003-5035-9257"><first>Habib</first><last>Irani</last></author>
+      <author><first>Deautaun</first><last>Ross</last></author>
+      <author id="vangelis-metsis" orcid="0000-0002-7371-8887"><first>Vangelis</first><last>Metsis</last><affiliation>Texas State University</affiliation></author>
+      <pages>239-248</pages>
+      <abstract>Real-time sign language translation must generate text incrementally as signs arrive, yet existing streaming policies treat glosses as a flat token sequence and discard the temporal rhythm of signing. Inter-gloss pauses reliably mark sentence boundaries in continuous discourse, but policies such as Wait-k cause arbitrary cross-boundary fragmentation. We propose Temporal-Linguistic Adaptive Streaming (TLAS), which fuses a Temporal Pause Detector (TPD, tracking inter-gloss interval statistics via an exponential moving average) and a Linguistic Readiness Estimator (LRE, a trained neural head on a frozen T5 encoder) through an Adaptive Fusion Gate (AFG). A proactive timeout fires before the next gloss arrives when the inter-gloss gap exceeds a threshold, producing clean sentence segmentation without oracle boundary information. We also contribute a synthetic discourse dataset of 1,400 ASL discourse groups with LLM-generated per-gloss timestamps and introduce a continuous-stream evaluation paradigm requiring autonomous boundary detection from an unbroken gloss stream. Under such conditions, TLAS significantly outperforms current heuristic baselines, such as Wait-k, and methods relying solely on linguistic content.</abstract>
+      <url hash="95df713b">2026.alvr-main.21</url>
+      <bibkey>kermani-etal-2026-temporal</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.21</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>FADE</fixed-case>: Probing the Limits of <fixed-case>VLM</fixed-case>s on fine-grained <fixed-case>OCR</fixed-case></title>
+      <author><first>Deep</first><last>Shah</last><affiliation>Google</affiliation></author>
+      <author><first>Nehal</first><last>Kathrotia</last><affiliation>Google</affiliation></author>
+      <author id="sanket-badhe" orcid="0000-0002-1808-6602"><first>Sanket</first><last>Badhe</last></author>
+      <pages>249-259</pages>
+      <abstract>Multimodal Large Language Models (MLLMs) have achieved remarkable success in semantic visual reasoning, yet their capacity for fine-grained, low-level perception remains critically under-evaluated. This perceptual fragility limits their reliability in noisy, real-world environments where visual signals are degraded. Furthermore, existing benchmarks often entangle visual perception with language priors, masking these underlying deficits. To address this, we introduce the **FAint numeric Detection Evaluation (FADE)** dataset, a novel evaluation suite designed to probe the limits of zero-shot Optical Character Recognition (OCR) in frontier MLLMs. By embedding synthetic, strictly numerical sequences over cluttered natural backgrounds at varying levels of transparency (<tex-math>\alpha</tex-math>), FADE explicitly disentangles pure visual perception from semantic predictability. We evaluate state-of-the-art models including Gemini 3.0, Claude 4.5 Sonnet, and Gemma 3 against a specialized UNet segmentation baseline. Our results reveal a striking limitation in frontier architectures: while they achieve near-perfect transcription at high visibility, their performance collapses under high transparency. Conversely, the UNet pipeline maintains robust spatial grounding, significantly outperforming generalist models at the lowest visibility thresholds. FADE provides a reproducible dataset to expose and diagnose the perceptual breakage points of modern multimodal systems.</abstract>
+      <url hash="023a5562">2026.alvr-main.23</url>
+      <bibkey>shah-etal-2026-fade</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Efficient Visual Grounding in <fixed-case>VQA</fixed-case> via Question-Guided Sparse Attention</title>
+      <author><first/><last>Prasanth</last></author>
+      <pages>260-271</pages>
+      <abstract>Visual Question Answering (VQA) models process all image patches uniformlydespite questions typically requiring only a small subset of visual information.This inefficiency leads to unnecessary computation and can result in attentiondilution across irrelevant image regions. We propose <b>Question-GuidedSparse Attention (QGSA)</b>, a plug-and-play mechanism that dynamically selectsrelevant image patches conditioned on question semantics. Our approach introducesthree components: (1)a differentiable patch selector based on Gumbel-Softmaxreparameterisation that enables end-to-end training with hard patch selection atinference; (2)a self-supervised grounding loss that encourages spatialselectivity without bounding-box annotations, combining contrastive patchselection with patch–word alignment via a frozen CLIP encoder; and (3)anadaptive sparsity mechanism that adjusts the number of selected patches accordingto estimated question complexity. Experiments on SmolVLM-256M-Instruct andSmolVLM-500M-Instruct across three VQA benchmarks (VQA-RAD, A-OKVQA, RefCOCO)demonstrate that QGSA reduces cross-attention FLOPs by 91–99% across inputresolutions, achieving up to <tex-math>76\times</tex-math> theoretical speedup at 576px resolution, whilemaintaining <i>exact</i> accuracy parity with the dense baseline (<tex-math>\Delta=0.0</tex-math> ppon all datasets).Wall-clock parity with the dense baseline is reached at 336px; realisedend-to-end speedup requires larger models where cross-attention dominates totalcompute. QGSA consistently selects an average of <tex-math>k\approx17</tex-math> patches out of576 (256M model), up to <tex-math>k\approx18</tex-math> (500M model), yielding up to a <tex-math>34\times</tex-math>reduction in the visual token sequence. These small-scale results validate thefeasibility of question-conditioned sparse attention and provide a foundation forscaling to larger VLMs.</abstract>
+      <url hash="0e6d2610">2026.alvr-main.24</url>
+      <bibkey>prasanth-2026-efficient</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.24</doi>
+    </paper>
+    <paper id="26">
+      <title>Systematic Performance Degradation in <fixed-case>I</fixed-case>ndic Vision-Language Models: Evidence from <fixed-case>H</fixed-case>indi and <fixed-case>T</fixed-case>elugu</title>
+      <author><first>Rishikant</first><last>Chigrupaatii</last></author>
+      <author><first>Ponnada Sai Tulasi</first><last>Kanishka</last></author>
+      <author><first>Lalit Chandra</first><last>Routhu</last><affiliation>Warner Bros Discovery</affiliation></author>
+      <author><first>Martin</first><last>Patel</last></author>
+      <author><first>Sama Supratheek</first><last>Reddy</last></author>
+      <author id="divyam-gupta" orcid="0009-0001-1433-3207"><first>Divyam</first><last>Gupta</last></author>
+      <author id="rajiv-misra" orcid="0000-0002-4910-5749"><first>Rajiv</first><last>Misra</last><affiliation>Indian Institute of Technology, Patna</affiliation></author>
+      <author><first>Rohun</first><last>Tripathi</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></author>
+      <pages>272-277</pages>
+      <abstract>With 1.5 billion people speaking over 120 major languages, India exemplifies the challenges of multilingual AI evaluation. Current multilingual VLM benchmarks suffer from unverified auto-translations, narrow task coverage, small sample sizes, and lack of culturally grounded content. We present HinTel-AlignBench, a comprehensive evaluation framework and benchmark for Hindi and Telugu vision-language models with English-aligned samples. Our framework combines semi-automated translation with human verification to generate 4k QA pairs per language across five domains: adapted English datasets (VQAv2, RealWorldQA, CLEVR-Math) and native Indic sets (JEE for STEM, VAANI for cultural grounding). Evaluation of state-of-the-art open and closed-source VLMs reveals consistent performance regression from English to Indic languages, with average drops of 8.3 points for Hindi and 5.5 points for Telugu across four of five tasks. We identify key failure modes and establish reproducible baselines for multilingual multimodal evaluation.</abstract>
+      <url hash="67a43dcb">2026.alvr-main.26</url>
+      <bibkey>chigrupaatii-etal-2026-systematic</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.26</doi>
+    </paper>
+    <paper id="27">
+      <title>How Fragile Is Vision-Language Alignment? Mapping Concept Disruption Under Text-to-Image Personalization</title>
+      <author><first>Mujtaba</first><last>Hasan</last><affiliation>Indian Institute of Technology Delhi, Mathematics, Indian Institute of Technology, Delhi</affiliation></author>
+      <pages>278-286</pages>
+      <abstract>Text-to-image diffusion models learn a mapping from natural language to visual structure, but how robust is this mapping to perturbation? We use personalization—fine-tuning a model to learn a new face, object, or style—as a controlled stress test to probe the fragility of learned vision-language alignment. We find that fine-tuning for one concept systematically shifts the model’s ability to faithfully render unrelated concepts, and that this disruption follows structured, predictable patterns. To measure this fragility, we construct Concept Entanglement Maps: per-prompt, per-model disruption matrices that reveal which concepts are most affected and why. Using Stable Diffusion v1.5 as a controlled testbed, we evaluate 15 subjects across three personalization methods on 200 prompts and report three findings about the organization of vision-language alignment: (1) aggregate disruption is larger for vision-backbone and cross-attention perturbations than for text-embedding perturbations, despite the latter directly modifying the language representation; (2) abstract and compositional language is significantly more fragile than concrete, object-specific language; and (3) disruption does not follow semantic proximity—personalizing for a face does not preferentially disrupt other face-related prompts (<tex-math>p = 1.0</tex-math>), suggesting that alignment vulnerability is organized globally rather than purely by semantic category. These findings expose a structural vulnerability in current text-to-image personalization: the same cross-attention mechanism that enables compositional generalization also creates pathways through which local fine-tuning can propagate as global alignment shift.</abstract>
+      <url hash="aac49e8c">2026.alvr-main.27</url>
+      <bibkey>hasan-2026-fragile</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.27</doi>
+    </paper>
+    <paper id="28">
+      <title>The Compositional Grounding Gap: Why Vision-Language Models Fail at Relational Reasoning and How to Fix It</title>
+      <author><first>Kaustubh S.</first><last>Bukkapatnam</last></author>
+      <pages>287-293</pages>
+      <abstract>Large vision-language models (LVLMs) achieve strong performance on many multimodal tasks, yet consistently fail at compositional relational reasoning—distinguishing "the cat on the mat" from "the mat on the cat." We provide a formal explanation for this failure. We prove that any vision-language alignment operating on pooled (order-invariant) visual features contains compositional blind spots: semantically distinct scenes that map to identical representations. We show that the number of blind spots grows factorially with scene complexity, establishing a fundamental limit on pooled-feature architectures. Motivated by this analysis, we propose REGROUND, a training-free, test-time method that re-introduces spatial structure into alignment by performing relation-guided cross-attention over spatial visual tokens, directed by a lightweight parse of the text query. Without any fine-tuning, REGROUND improves compositional accuracy by +8.6 points on Winoground, +8.4 on ARO-Relation, +6.4 on SugarCrepe, and +8.4 on VSR when applied to LLaVA-1.5, and provides consistent gains across other LVLMs. Ablation studies confirm that each component—parse guidance, token-level attention, and relation masking—contributes significantly.</abstract>
+      <url hash="db62ad4c">2026.alvr-main.28</url>
+      <bibkey>bukkapatnam-2026-compositional</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.28</doi>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>H</fixed-case>allu<fixed-case>T</fixed-case>race: Causal Attribution and Source-Targeted Decoding for Hallucination in Large Vision-Language Models</title>
+      <author><first>Kaustubh S.</first><last>Bukkapatnam</last></author>
+      <pages>294-300</pages>
+      <abstract>Object hallucination in large vision-language models (LVLMs) is well-documented, but the mechanisms that produce it remain poorly understood. We introduce HALLUTRACE, a causal attribution framework that decomposes hallucination into three distinct sources: (VGF) visual grounding failure, where the visual encoder produces a representation insufficient to identify the target object; (LPD) language prior dominance, where the language model overrides a correct visual signal with a statistically-driven prediction; and (CMC) cross-modal conflict, where visual and linguistic signals are irreconcilably inconsistent and the model resolves the conflict incorrectly. We operationalise these sources via causal component ablations: intervening on fvis, fproj, and fLM independently and measuring the change in CHAIR score. Experiments on five LVLMs show that attribution patterns are object-category-specific and model-consistent: person/vehicle hallucinations are predominantly LPD (≥52%), food/furniture hallucinations are predominantly VGF (≥44%), and animal hallucinations split between VGF and CMC. Guided by these attributions, we design HAD (Hallucination-Aware Decoding), a unified decoding strategy that applies source-targeted interventions: visual signal amplification for VGF, language prior suppression for LPD, and contrastive re-weighting for CMC. HAD reduces CHAIRI by 3.7–5.6 points and improves POPE F1 by 1.9–3.1 points over LLaVA-1.5, outperforming VCD and ICD on all three benchmarks (CHAIR, POPE, MME) without any additional training. We further prove that the attribution-decoding correspondence is tight: the CHAIR improvement from HAD is linearly predictable from the VGF attribution share (r = 0.86, p &lt; 10−6), validating the causal framework.</abstract>
+      <url hash="139bd480">2026.alvr-main.29</url>
+      <bibkey>bukkapatnam-2026-hallutrace</bibkey>
+      <doi>10.18653/v1/2026.alvr-main.29</doi>
+    </paper>
+  </volume>
+</collection>

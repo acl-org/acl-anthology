@@ -1,6 +1,7 @@
 ---
 Title: What other resources are there based on the ACL Anthology?
-weight: 5
+category: info
+weight: 3
 ---
 
 The following papers provide overviews of the Anthology infrastructure at different points in time:

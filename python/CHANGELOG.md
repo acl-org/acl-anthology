@@ -4,7 +4,17 @@
 
 ### Added
 
+- Added support for recording OpenReview IDs for authors.
+- Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
+
+## [1.2.0] — 2026-05-21
+
+This release refactors internals of the library to improve modification tracking and dynamic updating of relevant attributes when data is modified.  The breaking changes here are mostly relevant if you are modifying data.
+
+### Added
+
 - Added `PersonIndex.remove_person()` to properly remove a Person from the index, and make `Person.merge_into()` call this. (fixes #8068)
+- `<paper>` elements can now have `<month>` and `<year>` tags.
 
 ### Changed
 
@@ -21,6 +31,11 @@
 - `PersonIndex.create` now deduplicates list of names (#7858)
 - `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
 - `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- `Paper.get_editors()` is deprecated in favor of `Paper.editors`.
+- `Paper.get_issue()` is deprecated in favor of `Paper.journal_issue`.
+- `{Paper|Volume}.get_journal_title()` is deprecated in favor of `.journal_title`.
+- `{Paper|Volume}.get_ingest_date()` is deprecated in favor of `.ingest_date`, which now always returns a `date` object instead of a string.
+- Fix a bug in `Name` where "script" attributes were not always preserved.
 
 ### Removed
 

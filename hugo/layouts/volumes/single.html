@@ -52,6 +52,18 @@
       </dd>
       {{ end }}
 
+      {{ if isset $paper "events" }}
+      <dt>{{ if gt (len $paper.events) 1 }}Events:{{ else }}Event:{{ end }}</dt>
+      <dd>
+        {{- $len := (len $paper.events) -}}
+        {{- range $index, $event := $paper.events -}}
+          {{ $name := index hugo.Data.events $event "title" }}
+          <a href="{{ relref $ (printf "/events/%s" ($event)) }}">{{- $name -}}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{- end -}}
+      </dd>
+      {{ end }}
+
       {{ if isset $paper "sigs" }}
       <dt>{{ if gt (len $paper.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>

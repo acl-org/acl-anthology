@@ -90,7 +90,7 @@
       <author><first>Iryna</first><last>Gurevych</last><affiliation>Institute for Computer Science, Artificial Intelligence and Technology, Mohamed bin Zayed University of Artificial Intelligence and Technische Universität Darmstadt</affiliation></author>
       <pages>77-94</pages>
       <abstract>Decomposition-based multi-hop retrieval methods rely on many autoregressive steps to break down complex queries, which breaks end-to-end differentiability and is computationally expensive. Decomposition-free methods tackle this, but current approaches struggle with longer multi-hop problems and generalization to out-of-distribution data. To address these challenges, we introduce GRITHopper-7B, a novel multi-hop dense retrieval model that achieves state-of-the-art performance on both in-distribution and out-of-distribution benchmarks. GRITHopper-7B combines generative and representational instruction tuning by integrating causal language modeling with dense retrieval training. Through controlled studies, we find that incorporating additional context after the retrieval process, referred to as post-retrieval language modeling, enhances dense retrieval performance. By including elements such as final answers during training, the model learns to better contextualize and retrieve relevant information. GRITHopper-7B offers a robust, scalable, and generalizable solution for multi-hop dense retrieval, and we release it to the community for future research and applications requiring complex reasoning and retrieval capabilities.</abstract>
-      <url hash="347dce77">2026.eacl-long.5</url>
+      <url hash="535afa84">2026.eacl-long.5</url>
       <attachment hash="1ce5a023" type="checklist">2026.eacl-long.5.checklist.pdf</attachment>
       <bibkey>erker-etal-2026-grithopper</bibkey>
       <doi>10.18653/v1/2026.eacl-long.5</doi>
@@ -239,7 +239,7 @@
     <paper id="17">
       <title>How Quantization Shapes Bias in Large Language Models</title>
       <author id="federico-marcuzzi" orcid="0000-0002-8141-8294"><first>Federico</first><last>Marcuzzi</last></author>
-      <author><first>Xuefei</first><last>Ning</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="xuefei-ning"><first>Xuefei</first><last>Ning</last><affiliation>Tsinghua University</affiliation></author>
       <author><first>Roy</first><last>Schwartz</last><affiliation>Hebrew University, Hebrew University of Jerusalem</affiliation></author>
       <author><first>Iryna</first><last>Gurevych</last><affiliation>Institute for Computer Science, Artificial Intelligence and Technology, Mohamed bin Zayed University of Artificial Intelligence and Technische Universität Darmstadt</affiliation></author>
       <pages>363-404</pages>
@@ -359,7 +359,7 @@
     </paper>
     <paper id="25">
       <title>Tailored Emotional <fixed-case>LLM</fixed-case>-Supporter: Enhancing Cultural Sensitivity</title>
-      <author><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="chen-cecilia-liu"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
       <author id="hiba-arnaout" orcid="0000-0003-1077-6278"><first>Hiba</first><last>Arnaout</last><affiliation>Technische Universität Darmstadt</affiliation></author>
       <author><first>Nils</first><last>Kovačić</last><affiliation>KTH Royal Institute of Technology</affiliation></author>
       <author><first>Dana</first><last>Atzil-Slonim</last><affiliation>Bar-Ilan University</affiliation></author>
@@ -866,10 +866,12 @@
       <author><first>Ravi</first><last>Tandon</last><affiliation>University of Arizona</affiliation></author>
       <pages>1319-1333</pages>
       <abstract>We present STAMP (Selective Task-Aware Mechanism for Text Privacy), a new framework for task-aware text privatization that achieves an improved privacy–utility trade-off. STAMP selectively allocates privacy budgets across tokens by jointly considering (i) each token’s importance to the downstream task (as measured via a task- or query-specific representation), and (ii) its privacy sensitivity (e.g., names, dates, identifiers). This token-level partitioning enables fine-grained, group-wise control over the level of noise applied to different parts of the input, balancing privacy protection with task relevance. To privatize individual token embeddings, we introduce the polar mechanism, which perturbs only the direction of embeddings on the unit sphere while preserving their magnitude. Decoding is performed via cosine nearest-neighbor search, aligning the perturbation geometry with the decoding geometry. Unlike isotropic noise mechanisms, the polar mechanism maintains semantic neighborhoods in the embedding space and better preserves downstream utility. Experimental evaluations on SQuAD, Yelp, and AG News datasets demonstrate that STAMP, when combined with the normalized polar mechanism, consistently achieves superior privacy–utility trade-offs across varying per-token privacy budgets.</abstract>
-      <url hash="cafaeded">2026.eacl-long.61</url>
+      <url hash="de15b0d2">2026.eacl-long.61</url>
       <attachment hash="13d194c0" type="checklist">2026.eacl-long.61.checklist.pdf</attachment>
       <bibkey>tian-etal-2026-stamp</bibkey>
       <doi>10.18653/v1/2026.eacl-long.61</doi>
+      <revision id="1" href="2026.eacl-long.61v1" hash="cafaeded"/>
+      <revision id="2" href="2026.eacl-long.61v2" hash="de15b0d2" date="2026-06-01">Correct figure rending issues.</revision>
     </paper>
     <paper id="62">
       <title>Deconstructing Instruction-Following: A New Benchmark for Granular Evaluation of Large Language Model Instruction Compliance Abilities</title>
@@ -1266,7 +1268,7 @@
     </paper>
     <paper id="90">
       <title>Respecting Temporal-Causal Consistency: Entity-Event Knowledge Graph for Retrieval-Augmented Generation</title>
-      <author><first>Ze Yu</first><last>Zhang</last><affiliation>national university of singaore, National University of Singapore</affiliation></author>
+      <author id="ze-yu-zhang"><first>Ze Yu</first><last>Zhang</last><affiliation>national university of singaore, National University of Singapore</affiliation></author>
       <author><first>Zitao</first><last>Li</last><affiliation>Zoom</affiliation></author>
       <author id="yaliang-li" orcid="0000-0002-4204-6096"><first>Yaliang</first><last>Li</last><affiliation>Alibaba Group</affiliation></author>
       <author><first>Bolin</first><last>Ding</last><affiliation>Alibaba Group</affiliation></author>
@@ -1531,7 +1533,7 @@
     <paper id="108">
       <title><fixed-case>P</fixed-case>icture<fixed-case>S</fixed-case>tories: Predicting the Task Adherence of Language Learner Answers to a Picture Story-Based Writing Task</title>
       <author><first>Marie</first><last>Bexte</last></author>
-      <author><first>Andrew</first><last>Caines</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="andrew-caines"><first>Andrew</first><last>Caines</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Diane</first><last>Nicholls</last><affiliation>Cambridge University Press and Assessment</affiliation></author>
       <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Torsten</first><last>Zesch</last><affiliation>Fernuniversität in Hagen</affiliation></author>
@@ -1832,7 +1834,7 @@
       <author><first>Manuel</first><last>Frank</last><affiliation>Research Collaborator, Munster Technological University</affiliation></author>
       <author id="haithem-afli" orcid="0000-0002-7449-4707"><first>Haithem</first><last>Afli</last><affiliation>Munster Technological University</affiliation></author>
       <pages>2832-2851</pages>
-      <abstract>Current evaluations of sentence embedding models typically rely on static test beds such as the Massive Text Embedding Benchmark (MTEB). While invaluable, repeated tuning on a fixed suite can inflate reported performance and obscure real-world robustness. We introduce the Paraphrasing Text Embedding Benchmark (PTEB), a dynamic protocol that stochastically generates meaning-preserving paraphrases at evaluation time and aggregates results across multiple runs. Using a cost-efficient LLM-based method grounded in semantic textual similarity gold ratings, we show that LLMs generate token-diverse but semantically preserving, paraphrases. Across 7 MTEB tasks, we validate our hypothesis that the performance of sentence encoders is sensitive to changes in token space even when semantics remain fixed. We also observe that smaller models are not disproportionately affected relative to larger ones. Our results are statistically robust over multiple runs and we extended our experiments to 3 multilingual datasets covering 10 languages. More generally, we aim to propose a new evaluation paradigm in NLP that relies less on static, pre-defined benchmarks but shifts towards dynamic, stochastic evaluation leveraging eval-time compute. We make the code to run PTEB publicly available.</abstract>
+      <abstract>Current sentence embedding evaluations typically rely on static test beds like the Massive Text Embedding Benchmark (MTEB). While invaluable, repeated tuning on a fixed suite can inflate reported scores and obscure real-world robustness. We introduce the Paraphrasing Text Embedding Benchmark (PTEB), a dynamic protocol that stochastically generates meaning-preserving paraphrases at evaluation time and aggregates results across multiple runs. Using a cost-efficient LLM-based method grounded in gold ratings and human validation, we show that LLMs generate token-diverse but semantically preserving paraphrases. Across 7 MTEB tasks, we validate our hypothesis that the performance of sentence encoders is sensitive to changes in token space even when semantics remain fixed. We also observe that smaller models are not disproportionately affected relative to larger ones. Our results are statistically robust over multiple runs spanning 20 datasets and 25 languages. More generally, we aim to propose a new evaluation paradigm in NLP that relies less on static, pre-defined benchmarks but shifts towards dynamic, stochastic evaluation leveraging eval-time compute. We make the code to run PTEB publicly available.</abstract>
       <url hash="0587f231">2026.eacl-long.130</url>
       <attachment hash="a94a3c7b" type="checklist">2026.eacl-long.130.checklist.pdf</attachment>
       <bibkey>frank-afli-2026-pteb</bibkey>
@@ -2011,9 +2013,9 @@
       <author><first>Benjamin</first><last>Elder</last><affiliation>International Business Machines</affiliation></author>
       <author><first>Anupama</first><last>Murthi</last><affiliation>IBM</affiliation></author>
       <author id="jungkoo-kang" orcid="0000-0002-9694-3710"><first>Jungkoo</first><last>Kang</last><affiliation>International Business Machines</affiliation></author>
-      <author><first>Ankita</first><last>Naik</last><affiliation>IBM, International Business Machines</affiliation></author>
-      <author><first>Kinjal</first><last>Basu</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Ankita Rajaram</first><last>Naik</last><affiliation>IBM, International Business Machines</affiliation></author>
       <author id="kiran-kate" orcid="0009-0003-9688-9245"><first>Kiran</first><last>Kate</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Kinjal</first><last>Basu</last><affiliation>International Business Machines</affiliation></author>
       <author><first>Danish</first><last>Contractor</last><affiliation>International Business Machines</affiliation></author>
       <pages>3092-3124</pages>
       <abstract>Large language models (LLMs) increasingly rely on external tools and APIs to execute complex tasks specified in natural language. Evaluating such <i/>tool-calling capabilities in realistic enterprise settings is challenging: APIs are often proprietary, heterogeneous, and difficult to share, limiting reproducible benchmarks. To address this, we introduce <b/>Live API Bench, a comprehensive benchmark constructed by transforming NL2SQL datasets into interactive API environments. Our pipeline converts SQL queries from BIRD-SQL into executable API sequences across three formulations—<i/>SLOT, <i/>SEL, and <i/>REST—covering minimal general-purpose operations, domain-specific multi-step tasks, and function-oriented RESTful interactions, respectively. The benchmark spans 11 databases with over 2,500 invocable tools, paired with human-authored queries, ground-truth API sequences, and verified final answers. Live API Bench enables systematic evaluation of core challenges in tool use, including error handling, sequential reasoning, parameter generation, response parsing, and robustness across diverse domains. We evaluate 10 LLMs and 4 ReACT agents, observing low task completion rates (7–47%), which improve modestly to 50% under interactive agent settings, highlighting substantial scope for improving LLM tool-calling performance. We release all code and data associated with this paper.</abstract>
@@ -2274,7 +2276,7 @@
     <paper id="160">
       <title>Mapping the Course for Prompt-based Structured Prediction</title>
       <author><first>Matt</first><last>Pauk</last><affiliation>University of Colorado at Boulder</affiliation></author>
-      <author><first>Maria Leonor</first><last>Pacheco</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author id="maria-leonor-pacheco"><first>Maria Leonor</first><last>Pacheco</last><affiliation>University of Colorado at Boulder</affiliation></author>
       <pages>3483-3508</pages>
       <abstract>Large language models (LLMs) have demonstrated strong performance in a wide-range of language tasks without requiring task-specific fine-tuning. However, they remain prone to hallucinations and inconsistencies, and often struggle with complex reasoning, in part due to the limitations of autoregressive generation. We propose to address some of these issues, particularly for structured prediction, by combining LLMs with combinatorial inference to marry the predictive power of LLMs with the structural consistency provided by inference methods. We perform exhaustive experiments in an effort to understand which prompting strategies can best estimate confidence values for downstream symbolic inference, and find that, independent of prompting strategy, incorporating symbolic inference yields more consistent and accurate predictions than prompting alone. Finally, we show that calibration and fine-tuning with structured learning objectives further increases performance on challenging tasks, highlighting that structured learning remains valuable in the era of LLMs.</abstract>
       <url hash="a790924b">2026.eacl-long.160</url>
@@ -2542,7 +2544,7 @@
       <title>When Can We Trust <fixed-case>LLM</fixed-case>s in Mental Health? Large-Scale Benchmarks for Reliable <fixed-case>LLM</fixed-case> Evaluation</title>
       <author id="abeer-badawi" orcid="0000-0002-0107-9457"><first>Abeer</first><last>Badawi</last><affiliation>York University and Vector Institute</affiliation></author>
       <author><first>Elahe</first><last>Rahimi</last></author>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
       <author><first>Sheri</first><last>Grach</last></author>
       <author><first>Lindsay</first><last>Bertrand</last></author>
       <author id="lames-danok" orcid="0009-0005-3975-2861"><first>Lames</first><last>Danok</last></author>
@@ -2926,7 +2928,7 @@
     </paper>
     <paper id="207">
       <title><fixed-case>B</fixed-case>e<fixed-case>D</fixed-case>iscov<fixed-case>ER</fixed-case>: The Benchmark of Discourse Understanding in the Era of Reasoning Language Models</title>
-      <author><first>Chuyuan</first><last>Li</last><affiliation>University of British Columbia</affiliation></author>
+      <author id="chuyuan-li"><first>Chuyuan</first><last>Li</last><affiliation>University of British Columbia</affiliation></author>
       <author><first>Giuseppe</first><last>Carenini</last><affiliation>, University of British Columbia</affiliation></author>
       <pages>4417-4479</pages>
       <abstract>We introduce BeDiscovER (Benchmark of Discourse Understanding in the Era of Reasoning Language Models), an up-to-date, comprehensive suite for evaluating the discourse-level knowledge of modern LLMs. BeDiscovER compiles 5 publicly available discourse tasks across discourse lexicon, (multi-)sentential, and documental levels, with in total 52 individual datasets. It covers both extensively studied tasks such as discourse parsing and temporal relation extraction, as well as some novel challenges such as discourse particle disambiguation (e.g., just), and also aggregates a shared-task on Discourse Relation Parsing and Treebanking for multilingual and multi-framework discourse relation classification. We evaluate open-source LLMs: Qwen3 series, DeepSeek-R1, and frontier reasoning model GPT-5-mini on BeDiscovER, and find that state-of-the-art models exhibits strong performance in arithmetic aspect of temporal reasoning, but they struggle with long-dependency reasoning and some subtle semantic and discourse phenomena, such as rhetorical relation classification.</abstract>
@@ -3048,15 +3050,15 @@
     </paper>
     <paper id="216">
       <title>Document-Level Zero-Shot Relation Extraction with Entity Side Information</title>
-      <author><first>Mohan</first><last>Raj</last></author>
+      <author id="mohan-raj-chanthran"><first>Mohan Raj</first><last>Chanthran</last></author>
       <author id="lay-ki-soon" orcid="0000-0002-8072-242X"><first>Lay-Ki</first><last>Soon</last><affiliation>Monash University</affiliation></author>
-      <author id="huey-fang-ong" orcid="0000-0002-3314-9333"><first>Huey Fang</first><last>Ong</last><affiliation>Monash University Malaysia</affiliation></author>
+      <author id="huey-fang-ong" orcid="0000-0002-3314-9333"><first>Ong</first><last>Huey Fang</last><affiliation>Monash University Malaysia</affiliation></author>
       <author><first>Bhawani</first><last>Selvaretnam</last><affiliation>Multimedia University</affiliation></author>
       <pages>4670-4680</pages>
       <abstract>Document-Level Zero-Shot Relation Extraction (DocZSRE) aims to predict unseen relation labels in text documents without prior training on specific relations. Existing approaches rely on Large Language Models (LLMs) to generate synthetic data for unseen labels, which poses challenges for low-resource languages like Malaysian English. These challenges include the incorporation of local linguistic nuances and the risk of factual inaccuracies in LLM-generated data. This paper introduces Document-Level Zero-Shot Relation Extraction with Entity Side Information (DocZSRE-SI) to address limitations in the existing DocZSRE approach. The DocZSRE-SI framework leverages Entity Side Information, such as Entity Mention Descriptions and Entity Mention Hypernyms, to perform ZSRE without depending on LLM-generated synthetic data. The proposed low-complexity model achieves an average improvement of 11.6% in the macro F1-Score compared to baseline models and existing benchmarks. By utilising Entity Side Information, DocZSRE-SI offers a robust and efficient alternative to error-prone, LLM-based methods, demonstrating significant advancements in handling low-resource languages and linguistic diversity in relation extraction tasks. This research provides a scalable and reliable solution for ZSRE, particularly in contexts like Malaysian English news articles, where traditional LLM-based approaches fall short.</abstract>
       <url hash="de68ad38">2026.eacl-long.216</url>
       <attachment hash="3c1767c3" type="checklist">2026.eacl-long.216.checklist.pdf</attachment>
-      <bibkey>raj-etal-2026-document</bibkey>
+      <bibkey>chanthran-etal-2026-document</bibkey>
       <doi>10.18653/v1/2026.eacl-long.216</doi>
     </paper>
     <paper id="217">
@@ -3631,7 +3633,7 @@
     </paper>
     <paper id="256">
       <title>Lost in Formatting: How Output Formats Skew <fixed-case>LLM</fixed-case> Performance on Information Extraction</title>
-      <author><first>Rishi</first><last>Ravikumar</last><affiliation>University of Manchester</affiliation></author>
+      <author id="rishi-ravikumar"><first>Rishi</first><last>Ravikumar</last><affiliation>University of Manchester</affiliation></author>
       <author><first>Nuhu</first><last>Ibrahim</last></author>
       <author><first>Riza</first><last>Batista-Navarro</last><affiliation>University of Manchester</affiliation></author>
       <pages>5498-5513</pages>
@@ -3694,7 +3696,7 @@
     </paper>
     <paper id="261">
       <title>Beyond Math: Stories as a Testbed for Memorization-Constrained Reasoning in <fixed-case>LLM</fixed-case>s</title>
-      <author><first>Yuxuan</first><last>Jiang</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
+      <author id="yuxuan-jiang"><first>Yuxuan</first><last>Jiang</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
       <author id="francis-ferraro" orcid="0000-0003-2413-9368"><first>Francis</first><last>Ferraro</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
       <pages>5590-5607</pages>
       <abstract>Memorization has been shown to greatly inflate Large Language Models’ (LLMs) performance on domains such as math and logic, where success should primarily rely on applying generalizable reasoning rules. In many real-world applications, however, memorization is not meant to be eliminated but selectively constrained—for example, in story understanding, where background knowledge must be integrated with narrative context. Drawing on the cognitive science distinction between “verbatim” (exact recall) and “gist” (semantic abstraction) memorization, we propose a two-tier framework for analyzing how LLMs reason under different degrees of memory access. The Inductive (prompt-guided) Setting softly steers models to reason through selective, context-relevant recall, while the Restrictive Setting imposes stronger constraints by limiting verbatim memory access. Evaluating GPT-4o, LLaMA3.3-70B, and DeepSeek V3 on six character-centric story understanding benchmarks, we find up to a 45.2% accuracy drop under the Restrictive Setting, revealing strong dependence on surface recall. By contrast, the Inductive Setting maintains performance, indicating that prompting can align LLMs toward memorization-constrained reasoning.</abstract>
@@ -3791,7 +3793,7 @@
     <paper id="268">
       <title>Steering Safely or Off a Cliff? Rethinking Specificity and Robustness in Inference-Time Interventions</title>
       <author><first>Navita</first><last>Goyal</last><affiliation>University of Maryland, College Park</affiliation></author>
-      <author><first>Hal Daumé</first><last>Iii</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Hal</first><last>Daumé III</last><affiliation>University of Maryland, College Park</affiliation></author>
       <pages>5723-5738</pages>
       <abstract>Model steering, which involves intervening on hidden representations at inference time, has emerged as a lightweight alternative to finetuning for precisely controlling large language models. While steering efficacy has been widely studied, evaluations of whether interventions alter *only* the intended property remain limited, especially with respect to unintended changes in behaviors related to the target property. We call this notion specificity. We propose a framework that distinguishes three dimensions of specificity: general (preserving fluency and unrelated abilities), control (preserving related control properties), and robustness (preserving control properties under distribution shifts). We study two safety-critical use cases: steering models to reduce overrefusal and faithfulness hallucinations, and show that while steering achieves high efficacy and largely maintains general and control specificity, it consistently fails to preserve robustness specificity. In the case of overrefusal steering, for example, all steering methods reduce overrefusal without harming general abilities and refusal on harmful queries; however, they substantially increase vulnerability to jailbreaks. Our work provides the first systematic evaluation of specificity in model steering, showing that standard efficacy and specificity checks are insufficient, because without robustness evaluation, steering methods may appear reliable even when they compromise model safety.</abstract>
       <url hash="a4c42051">2026.eacl-long.268</url>
@@ -4140,7 +4142,7 @@
     <paper id="292">
       <title><fixed-case>M</fixed-case>ed<fixed-case>QA</fixed-case>-<fixed-case>CS</fixed-case>: Objective Structured Clinical Examination (<fixed-case>OSCE</fixed-case>)-Style Benchmark for Evaluating <fixed-case>LLM</fixed-case> Clinical Skills</title>
       <author id="zonghai-yao" orcid="0000-0002-5707-8410"><first>Zonghai</first><last>Yao</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
-      <author><first>Zihao</first><last>Zhang</last><affiliation>Emory University</affiliation></author>
+      <author id="zihao-zhang"><first>Zihao</first><last>Zhang</last><affiliation>Emory University</affiliation></author>
       <author><first>Chaolong</first><last>Tang</last></author>
       <author><first>Xingyu</first><last>Bian</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
       <author><first>Youxia</first><last>Zhao</last><affiliation>GroupUltra</affiliation></author>
@@ -4162,7 +4164,7 @@
       <author><first>Santosh Srinath</first><last>K</last></author>
       <author><first>Mudit</first><last>Somani</last></author>
       <author><first>Varun Reddy</first><last>Padala</last></author>
-      <author><first>Prajna</first><last>Upadhyay</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
+      <author id="prajna-upadhyay"><first>Prajna Devi</first><last>Upadhyay</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
       <author><first>Abhijit</first><last>Das</last></author>
       <pages>6258-6275</pages>
       <abstract>Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting. This work proposes to employ a continual learning strategy using parts-of-speech (POS)-based code-switching along with a replay adapter strategy to mitigate the identified gap of catastrophic forgetting while training SLM from LLM. Experiments conducted on vision language tasks such as visual question answering and language modelling task exhibits the success of the proposed architecture.</abstract>
@@ -4190,7 +4192,7 @@
     <paper id="295">
       <title><fixed-case>LLM</fixed-case>s as Cultural Archives: Cultural Commonsense Knowledge Graph Extraction</title>
       <author id="junior-cedric-tonga" orcid="0009-0001-3500-9422"><first>Junior Cedric</first><last>Tonga</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
-      <author><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="chen-cecilia-liu"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Iryna</first><last>Gurevych</last><affiliation>Institute for Computer Science, Artificial Intelligence and Technology, Mohamed bin Zayed University of Artificial Intelligence and Technische Universität Darmstadt</affiliation></author>
       <author><first>Fajri</first><last>Koto</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>6289-6309</pages>
@@ -4231,7 +4233,7 @@
       <title><fixed-case>TR</fixed-case>e<fixed-case>X</fixed-case>: Tokenizer Regression for Optimal Data Mixture</title>
       <author><first>Inho</first><last>Won</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author><first>Hangyeol</first><last>Yoo</last></author>
-      <author><first>Minkyung</first><last>Cho</last></author>
+      <author id="minkyung-cho"><first>Minkyung</first><last>Cho</last></author>
       <author id="jungyeul-park" orcid="0000-0001-7828-6203"><first>Jungyeul</first><last>Park</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author><first>Hoyun</first><last>Song</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author id="kyungtae-lim" orcid="0000-0002-5818-1161"><first>KyungTae</first><last>Lim</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
@@ -4249,7 +4251,7 @@
       <author><first>Christian</first><last>Herold</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Amirhossein</first><last>Tebbifakhr</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Shahram</first><last>Khadivi</last><affiliation>eBay Inc.</affiliation></author>
-      <author><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University, Monash University and Monash University</affiliation></author>
+      <author id="gholamreza-haffari"><first>Gholamreza</first><last>Haffari</last><affiliation>Monash University, Monash University and Monash University</affiliation></author>
       <pages>6371-6387</pages>
       <abstract>Naive joint training of large language models (LLMs) for multilingual preference alignment can suffer from negative interference. This is a known issue in multilingual training, where conflicting objectives degrade overall performance. However, the impact of this phenomenon in the context of multilingual preference alignment remains largely underexplored. To address this issue, we propose ConGrad, an effective and scalable filtering method that mitigates this interference by identifying and selecting preference samples that exhibit high cross-lingual affinity. Based on principles of multi-objective optimization, our approach computes an aggregated, cross-lingually beneficial gradient direction and uses this to filter for samples whose individual gradients align with this consensus direction. To ensure scalability for LLMs, we incorporate a sublinear gradient compression strategy that reduces memory overhead during gradient accumulation. We integrate ConGrad into a self-rewarding framework and evaluate on LLaMA3-8B and Gemma2-2B across 10 languages. Results show that ConGrad consistently outperforms strong baselines in both seen and unseen languages, with minimal alignment tax.</abstract>
       <url hash="83fa2993">2026.eacl-long.299</url>
@@ -4424,7 +4426,7 @@
       <title>Continual Neural Topic Model</title>
       <author id="charu-karakkaparambil-james" orcid="0000-0001-6759-4112"><first>Charu</first><last>Karakkaparambil James</last></author>
       <author><first>Waleed</first><last>Mustafa</last><affiliation>Universität Kaiserslautern</affiliation></author>
-      <author><first>Marcio</first><last>Monteiro</last><affiliation>Rheinland-Pfälzische Technische Universität</affiliation></author>
+      <author id="marcio-monteiro"><first>Marcio</first><last>Monteiro</last><affiliation>Rheinland-Pfälzische Technische Universität</affiliation></author>
       <author><first>Marius</first><last>Kloft</last><affiliation>RPTU Kaiserslautern-Landau</affiliation></author>
       <author id="sophie-fellenz" orcid="0000-0002-5385-3926"><first>Sophie</first><last>Fellenz</last><affiliation>Universität Kaiserslautern</affiliation></author>
       <pages>6636-6658</pages>
@@ -4491,7 +4493,7 @@
       <title>Aligning Text, Code, and Vision: A Multi-Objective Reinforcement Learning Framework for Text-to-Visualization</title>
       <author><first>Mizanur</first><last>Rahman</last></author>
       <author><first>Mohammed Saidul</first><last>Islam</last><affiliation>York University</affiliation></author>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
       <author><first>Shafiq</first><last>Joty</last><affiliation>Nanyang Technological University and SalesForce.com</affiliation></author>
       <author id="enamul-hoque" orcid="0000-0002-9789-6645"><first>Enamul</first><last>Hoque</last><affiliation>York University</affiliation></author>
       <pages>6733-6750</pages>
@@ -4530,7 +4532,7 @@
       <author id="seunghyun-yoon" orcid="0000-0002-7262-3579"><first>Seunghyun</first><last>Yoon</last><affiliation>Adobe Research</affiliation></author>
       <author><first>Yunjae</first><last>Won</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <author><first>Hanseok</first><last>Oh</last><affiliation>Mila - Quebec Artificial Intelligence Institute</affiliation></author>
-      <author><first>Geewook</first><last>Kim</last><affiliation>University of Seoul, NAVER Cloud and KAIST</affiliation></author>
+      <author id="geewook-kim"><first>Geewook</first><last>Kim</last><affiliation>University of Seoul, NAVER Cloud and KAIST</affiliation></author>
       <author id="trung-bui" orcid="0000-0002-0871-349X"><first>Trung</first><last>Bui</last><affiliation>Adobe Research</affiliation></author>
       <author id="franck-dernoncourt" orcid="0000-0002-1119-1346"><first>Franck</first><last>Dernoncourt</last><affiliation>Adobe Research</affiliation></author>
       <author id="elias-stengel-eskin" orcid="0000-0002-6689-505X"><first>Elias</first><last>Stengel-Eskin</last><affiliation>University of Texas at Austin</affiliation></author>
@@ -5334,7 +5336,7 @@
     </paper>
     <paper id="375">
       <title>A Regex Minimization Benchmark: A <fixed-case>PSPACE</fixed-case>-Complete Challenge for Language Models</title>
-      <author><first>Hyundong</first><last>Jin</last><affiliation>Yonsei University</affiliation></author>
+      <author id="hyundong-jin"><first>Hyundong</first><last>Jin</last><affiliation>Yonsei University</affiliation></author>
       <author id="joonghyuk-hahn" orcid="0009-0000-5890-4916"><first>Joonghyuk</first><last>Hahn</last></author>
       <author><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
       <pages>8020-8048</pages>
@@ -5598,7 +5600,7 @@
       <title>Stop Taking Tokenizers for Granted: They Are Core Design Decisions in Large Language Models</title>
       <author><first>Sawsan</first><last>Alqahtani</last><affiliation>Princess Nourah Bint Abdulrahman University</affiliation></author>
       <author id="mir-tafseer-nayeem" orcid="0000-0002-4715-6059"><first>Mir Tafseer</first><last>Nayeem</last><affiliation>University of Alberta</affiliation></author>
-      <author><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
+      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
       <author><first>Tasnim</first><last>Mohiuddin</last><affiliation>Qatar Computing Research Institute</affiliation></author>
       <author><first>M Saiful</first><last>Bari</last><affiliation>Amazon</affiliation></author>
       <pages>8410-8432</pages>
@@ -5879,8 +5881,8 @@
     </paper>
     <paper id="21">
       <title>Measuring Linguistic Competence of <fixed-case>LLM</fixed-case>s on Indigenous Languages of the <fixed-case>A</fixed-case>mericas</title>
-      <author><first>Justin</first><last>Vasselli</last></author>
-      <author id="arturo-mp" orcid="0000-0002-4525-1861"><first>Arturo</first><last>Mp</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author id="justin-vasselli"><first>Justin</first><last>Vasselli</last></author>
+      <author id="arturo-martinez-peguero" orcid="0000-0002-4525-1861"><first>Arturo</first><last>Martínez Peguero</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
       <author><first>Frederikus</first><last>Hudi</last></author>
       <author><first>Haruki</first><last>Sakajo</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
       <author id="taro-watanabe" orcid="0000-0001-8349-3522"><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
@@ -6385,7 +6387,7 @@
     </paper>
     <paper id="6">
       <title><fixed-case>DELTA</fixed-case>: A Toolkit for Measuring Linguistic Diversity in Dependency-Parsed Corpora</title>
-      <author><first>Louis</first><last>Estève</last></author>
+      <author id="louis-esteve"><first>Louis</first><last>Estève</last></author>
       <author id="kaja-dobrovoljc" orcid="0000-0002-5909-7965"><first>Kaja</first><last>Dobrovoljc</last><affiliation>Faculty of Arts, University of Ljubljana and Jozef Stefan Institute</affiliation></author>
       <pages>75-85</pages>
       <abstract>Despite growing interest in measuring linguistic diversity on the one hand and the increasing availability of cross-linguistically comparable parsed corpora on the other, tools for systematically measuring the diversity of specific linguistic phenomena on such data remain limited. To address this gap, we present DELTA, an open-source framework that integrates dependency tree querying with diversity computation, enabling systematic measurement across multiple linguistic levels (e.g., lexis, morphology, syntax) and multiple diversity dimensions (variety, balance, disparity). The pipeline processes CoNLL-U formatted corpora through configurable workflows, treating the format as a general-purpose tabular structure independent of specific annotation conventions. We validate DELTA on Parallel Universal Dependencies multilingual dataset, demonstrating its capacity for corpus profiling and cross-corpus diversity comparison.</abstract>
@@ -6763,7 +6765,7 @@
     </paper>
     <paper id="34">
       <title><fixed-case>AI</fixed-case> for Climate Finance: Agentic Retrieval and Multi-Step Reasoning for Early Warning System Investments</title>
-      <author><first>Saeid</first><last>Vaghefi</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Ario Saeid</first><last>Vaghefi</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Aymane</first><last>Hachcham</last><affiliation>University of Zurich</affiliation></author>
       <author><first>Veronica</first><last>Grasso</last><affiliation>World Meteorological Organization</affiliation></author>
       <author><first>Nakiete</first><last>Msemo</last></author>
@@ -6788,12 +6790,12 @@
     </paper>
     <paper id="36">
       <title><fixed-case>S</fixed-case>mart<fixed-case>M</fixed-case>atch: Real-Time Semantic Retrieval for Translation Memory Systems</title>
-      <author id="ernesto-luis-estevanell-valladares" orcid="0000-0002-1168-1767"><first>Ernesto Luis</first><last>Estevanell Valladares</last><affiliation>Universidad de Alicante, Universidad de Alicante, Universidad de La Habana and Universidad de La Habana</affiliation></author>
+      <author id="ernesto-luis-estevanell-valladares" orcid="0000-0002-1168-1767"><first>Ernesto L.</first><last>Estevanell-Valladares</last><affiliation>Universidad de Alicante, Universidad de Alicante, Universidad de La Habana and Universidad de La Habana</affiliation></author>
       <author><first>Salima</first><last>Lamsiyah</last><affiliation>University of Luxemburg</affiliation></author>
       <author><first>Alicia</first><last>Picazo-Izquierdo</last></author>
       <author id="tharindu-ranasinghe" orcid="0000-0003-3207-3821"><first>Tharindu</first><last>Ranasinghe</last><affiliation>Lancaster University</affiliation></author>
       <author><first>Ruslan</first><last>Mitkov</last><affiliation>Lancaster University</affiliation></author>
-      <author id="rafael-munoz-9012" orcid="0000-0001-8127-9012"><first>Rafael</first><last>Munoz</last><affiliation>Universidad de Alicante</affiliation></author>
+      <author id="rafael-munoz" orcid="0000-0001-8127-9012"><first>Rafael</first><last>Muñoz</last><affiliation>Universidad de Alicante</affiliation></author>
       <pages>527-536</pages>
       <abstract>Translation Memory (TM) systems are core components of commercial computer-aided translation (CAT) tools. However, traditional fuzzy matching methods often fail to retrieve semantically relevant content when surface similarity is low. We introduce SmartMatch, an open-source interactive demo and evaluation toolkit for TM retrieval that connects modern sentence encoders (including LLM-derived representations) and strong lexical/fuzzy baselines with a vector database, and exposes the end-to-end retrieval pipeline through a web-based UI for qualitative inspection and preference logging. The demo allows users to (i) enter a query segment, (ii) switch retrieval backends and embedding models, (iii) inspect top-<tex-math>k</tex-math> retrieved matches with similarity scores and qualitative cues, and (iv) observe end-to-end latency in real time. We provide a reproducible benchmark on multilingual TM data, reporting retrieval quality using reference-based MT metrics (COMET, BERTScore, METEOR, chrF) together with coverage and latency/throughput trade-offs relevant to real-time CAT workflows. On DGT-TM, encoder-based retrieval achieves full coverage (100%) with millisecond-level latency (p50/p90 <tex-math>\leq</tex-math> 6–20 ms) and attains the strongest semantic-quality scores on the shared query set (e.g., BERTScore up to 0.91 at <tex-math>k{=}10</tex-math>), while BM25 remains a strong lightweight lexical baseline with very low latency. SmartMatch targets CAT researchers and tool builders and bridges recent advances in sentence encoders with the real-time constraints of translation memory retrieval.</abstract>
       <url hash="d7ba096c">2026.eacl-demo.36</url>
@@ -7096,7 +7098,7 @@
       <title>Constructing a Dataset for Hallucination Detection in <fixed-case>J</fixed-case>apanese Summarization with Fine-grained Faithfulness Labels</title>
       <author><first>Hikari</first><last>Tanaka</last></author>
       <author><first>Atsushi</first><last>Keyaki</last><affiliation>Hitotsubashi University</affiliation></author>
-      <author><first>Mamoru</first><last>Komachi</last><affiliation>Hitotsubashi University</affiliation></author>
+      <author id="mamoru-komachi"><first>Mamoru</first><last>Komachi</last><affiliation>Hitotsubashi University</affiliation></author>
       <pages>207-218</pages>
       <abstract>Large language models (LLMs) can generate fluent text, but the quality of generated content crucially depends on its consistency with the given input.This aspect is commonly referred to as faithfulness, which concerns whether the output is properly grounded in the input context.A major challenge related to faithfulness is that generated content may include information not supported by the input or may contradict it.This phenomenon is often referred to as hallucination, and increasing attention has been paid to automatic hallucination detection, which determines whether an LLM’s output is hallucinated.To evaluate the performance of hallucination detection systems, researchers use evaluation datasets with labels indicating the presence or absence of hallucinations.While such datasets have been developed for English and Chinese, Japanese evaluation resources for hallucination detection remain limited.Therefore, we constructed a Japanese evaluation dataset for hallucination detection in summarization by manually annotating sentence-level faithfulness labels in LLM-generated summaries of Japanese documents.We annotate 390 summaries (1,938 sentences) generated by three LLMs with sentence-level multi-label annotations for faithfulness with respect to the input document.The taxonomy extends a prior classification scheme and captures distinct patterns of model errors, enabling both binary hallucination detection and fine-grained error-type analysis of Japanese LLM summarization.</abstract>
       <url hash="5034bcfa">2026.eacl-srw.15</url>
@@ -7253,7 +7255,7 @@
     </paper>
     <paper id="29">
       <title>Communication as a Complex System: Modeling the Feedback Dynamics of Trust and Credibility</title>
-      <author><first>Swaptik</first><last>Chowdhury</last></author>
+      <author id="swaptik-chowdhury"><first>Swaptik</first><last>Chowdhury</last></author>
       <author id="samuel-d-allen" orcid="0000-0003-1482-1830"><first>Samuel D.</first><last>Allen</last><affiliation>RAND Corporation</affiliation></author>
       <author id="jung-hee-hyun" orcid="0000-0001-6960-9277"><first>Jung Hee</first><last>Hyun</last><affiliation>International Institute of Applied Systems Analysis</affiliation></author>
       <pages>406-415</pages>
@@ -7366,9 +7368,9 @@
     <paper id="39">
       <title>Text-to-Text Automatic Story Generation: A Survey</title>
       <author><first>Yuan</first><last>Ma</last><affiliation>Australian National University</affiliation></author>
-      <author id="hanna-suominen" orcid="0000-0002-4195-1641"><first>Hanna</first><last>Suominen</last><affiliation>Australian National University</affiliation></author>
-      <author><first>Patrik</first><last>Haslum</last><affiliation>Australian National University</affiliation></author>
       <author><first>Richard</first><last>Susilo</last><affiliation>Australian National University</affiliation></author>
+      <author><first>Patrik</first><last>Haslum</last><affiliation>Australian National University</affiliation></author>
+      <author id="hanna-suominen" orcid="0000-0002-4195-1641"><first>Hanna</first><last>Suominen</last><affiliation>Australian National University</affiliation></author>
       <pages>514-527</pages>
       <abstract>Automatic story generation aims to produce coherent, engaging, and contextually consistent narratives with minimal or no human involvement, thereby advancing research in computational creativity and applications in human language technologies. The emergence of large language models has progressed the task, enabling systems to generate multi-thousand-word stories under diverse constraints. Despite these advances, maintaining narrative coherence, character consistency, storyline diversity, and plot controllability in generating stories is still challenging. In this survey, we conduct a systematic review of research published over the past four years to examine the major trends and key limitations in story generation methods, model architectures, datasets, and evaluation methodologies. Based on this analysis of 57 included papers, we propose developing new evaluation metrics and creating more suitable datasets, together with ongoing improvement of narrative coherence and consistency, as well as their exploration in practical applications of story generation, as actions to support continued progress in automatic story generation.</abstract>
       <url hash="a661052a">2026.eacl-srw.39</url>
@@ -7381,7 +7383,7 @@
       <author><first>Daiki</first><last>Matsui</last><affiliation>Ehime University</affiliation></author>
       <author id="takashi-ninomiya" orcid="0000-0002-6411-9962"><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
       <author><first>Isao</first><last>Goto</last><affiliation>Ehime University</affiliation></author>
-      <author><first>Akihiro</first><last>Tamura</last><affiliation>Doshisha University</affiliation></author>
+      <author id="akihiro-tamura"><first>Akihiro</first><last>Tamura</last><affiliation>Doshisha University</affiliation></author>
       <pages>528-534</pages>
       <abstract>This study proposes a method for learning subword correspondences in parallel sentence pairs using the EM algorithm. Conventional neural machine translation typically employs subword segmentation models trained. However, since existing methods do not consider parallel relationships, inconsistencies in word segmentation between source and target languages may hinder translation model training. Our approach leverages direct modeling of subword correspondences in parallel corpora, thereby improving segmentation consistency across languages. Experiments across multiple machine translation tasks confirm that our proposed method improves translation accuracy for many tasks.</abstract>
       <url hash="33b4c29f">2026.eacl-srw.40</url>
@@ -7390,7 +7392,7 @@
     </paper>
     <paper id="41">
       <title>Thesis Proposal: Development of End-to-End Speech Translation Models for <fixed-case>I</fixed-case>ndian Languages</title>
-      <author><first/><last>Jamaluddin</last></author>
+      <author id="jamaluddin"><first/><last>Jamaluddin</last></author>
       <pages>535-543</pages>
       <abstract>Indian languages represent a highly multilingual and low-resource speech ecosystem, where the scarcity of high-quality parallel speech corpora significantly limits the development of speech-to-speech translation systems. Most existing approaches rely on cascaded pipelines that combine automatic speech recognition (ASR), machine translation (MT), and text-to-speech synthesis (TTS). While effective, these cascaded systems often suffer from cumulative error propagation, increased latency, and higher computational complexity, particularly in low-resource Indian languages. To address these challenges, my doctoral work proposes a novel sequence-to-sequence direct speech translation framework capable of translating speech from one Indian language to another without relying on intermediate text representations. Recent advances in deep learning, however, indicate that direct speech translation architectures can surpass conventional cascaded systems in both efficiency and translation quality, motivating the design of our fully end-to-end solution. We aim to release an initial dataset comprising at least 120,000 real speech samples within a 6–12 month timeframe.</abstract>
       <url hash="bcbbf8d0">2026.eacl-srw.41</url>
@@ -7571,11 +7573,12 @@
       <author id="veronika-bajt" orcid="0000-0002-6917-3255"><first>Veronika</first><last>Bajt</last></author>
       <pages>760-775</pages>
       <abstract>This thesis proposal addresses methodological gaps in applying NLP to social science by shifting from categorical classification to comparative scaling of grounded constructs. We first extend predictive capacity on existing specialized political datasets with prompt optimization and distillation approaches. We then develop an active learning framework for efficient comparative annotation to scale latent dimensions from large corpora. Finally, we apply this pipeline to measure benevolent sexism in Slovenian media and migration threat perception in parliamentary discourse. This work establishes a scalable workflow for moving NLP from ad-hoc classification to theoretically grounded comparative measurement.</abstract>
-      <url hash="e1070343">2026.eacl-srw.56</url>
+      <url hash="48f5ea9d">2026.eacl-srw.56</url>
       <bibkey>fijavz-etal-2026-thesis</bibkey>
       <doi>10.18653/v1/2026.eacl-srw.56</doi>
       <revision id="1" href="2026.eacl-srw.56v1" hash="900cc6de"/>
       <revision id="2" href="2026.eacl-srw.56v2" hash="e1070343" date="2026-04-02">Restore acknowledgments section.</revision>
+      <revision id="3" href="2026.eacl-srw.56v3" hash="48f5ea9d" date="2026-04-13">Add acknowledgment</revision>
     </paper>
     <paper id="57">
       <title>Energy Matching based Preference Learning for Diffusion Language Models</title>
@@ -7670,7 +7673,7 @@
       <author id="alisea-stroligo" orcid="0000-0001-8194-4799"><first>Alisea</first><last>Stroligo</last><affiliation>Universität Konstanz</affiliation></author>
       <author><first>Anna</first><last>Shamray</last></author>
       <author id="julian-schelb" orcid="0009-0002-8034-7364"><first>Julian</first><last>Schelb</last><affiliation>Universität Konstanz</affiliation></author>
-      <author><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
+      <author id="andreas-spitz"><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
       <pages>861-880</pages>
       <abstract>The use of large language models (LLMs) for generating responses to multiple-choice style questionnaires that were originally intended to be answered by humans is often a helpful or even necessary task, for example in persona simulation or during LLM alignment. Although the input and output versatility of generative LLMs is beneficial when adapting such questionnaires to machine use, it can be detrimental when mapping the generated text back to a closed set of possible answer options for evaluation or scoring. In this paper, we investigate the performance of smaller models for the classification of LLM outputs into the available answer options of multiple-choice questionnaires. We consider fine-tuned encoder-transformers as well as a rule-based approach on three datasets with differing answer option complexity. Surprisingly, we find that the best-performing neural approach still underperforms in comparison to our rule-based baseline, indicating that simple pattern-matching of answer options against LLM outputs might still be the most competitive solution for cleaning LLM responses to multiple-choice questionnaires.</abstract>
       <url hash="7c7c023f">2026.eacl-srw.64</url>
@@ -8262,8 +8265,8 @@
     </paper>
     <paper id="38">
       <title>Adapting Vision-Language Models for <fixed-case>E</fixed-case>-commerce Understanding at Scale</title>
-      <author><first>Matteo</first><last>Nulli</last><affiliation>eBay Inc.</affiliation></author>
-      <author><first>Orshulevich</first><last>Vladimir</last></author>
+      <author id="matteo-nulli"><first>Matteo</first><last>Nulli</last><affiliation>eBay Inc.</affiliation></author>
+      <author><first>Vladimir</first><last>Orshulevich</last></author>
       <author><first>Tala</first><last>Bazazo</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Christian</first><last>Herold</last><affiliation>eBay Inc.</affiliation></author>
       <author><first>Michael</first><last>Kozielski</last><affiliation>Rheinisch Westfälische Technische Hochschule Aachen</affiliation></author>

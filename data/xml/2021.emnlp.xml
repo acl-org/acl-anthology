@@ -1054,7 +1054,7 @@
     <paper id="77">
       <title>Contextualized Query Embeddings for Conversational Search</title>
       <author><first>Sheng-Chieh</first><last>Lin</last></author>
-      <author><first>Jheng-Hong</first><last>Yang</last></author>
+      <author id="jheng-hong-yang"><first>Jheng-Hong</first><last>Yang</last></author>
       <author><first>Jimmy</first><last>Lin</last></author>
       <pages>1004–1015</pages>
       <abstract>This paper describes a compact and effective model for low-latency passage retrieval in conversational search based on learned dense representations. Prior to our work, the state-of-the-art approach uses a multi-stage pipeline comprising conversational query reformulation and information retrieval modules. Despite its effectiveness, such a pipeline often includes multiple neural models that require long inference times. In addition, independently optimizing each module ignores dependencies among them. To address these shortcomings, we propose to integrate conversational query reformulation directly into a dense retrieval model. To aid in this goal, we create a dataset with pseudo-relevance labels for conversational search to overcome the lack of training data and to explore different training strategies. We demonstrate that our model effectively rewrites conversational queries as dense representations in conversational search and open-domain question answering datasets. Finally, after observing that our model learns to adjust the L2 norm of query token embeddings, we leverage this property for hybrid retrieval and to support error analysis.</abstract>
@@ -1171,7 +1171,7 @@
     </paper>
     <paper id="86">
       <title>Detecting Speaker Personas from Conversational Texts</title>
-      <author><first>Jia-Chen</first><last>Gu</last></author>
+      <author id="jia-chen-gu"><first>Jia-Chen</first><last>Gu</last></author>
       <author><first>Zhenhua</first><last>Ling</last></author>
       <author><first>Yu</first><last>Wu</last></author>
       <author><first>Quan</first><last>Liu</last></author>
@@ -1604,7 +1604,7 @@
     </paper>
     <paper id="119">
       <title>Sorting through the noise: Testing robustness of information processing in pre-trained language models</title>
-      <author><first>Lalchand</first><last>Pandia</last></author>
+      <author id="lalchand-pandia"><first>Lalchand</first><last>Pandia</last></author>
       <author><first>Allyson</first><last>Ettinger</last></author>
       <pages>1583–1596</pages>
       <abstract>Pre-trained LMs have shown impressive performance on downstream NLP tasks, but we have yet to establish a clear understanding of their sophistication when it comes to processing, retaining, and applying information presented in their input. In this paper we tackle a component of this question by examining robustness of models’ ability to deploy relevant context information in the face of distracting content. We present models with cloze tasks requiring use of critical context information, and introduce distracting content to test how robustly the models retain and use that critical information for prediction. We also systematically manipulate the nature of these distractors, to shed light on dynamics of models’ use of contextual cues. We find that although models appear in simple contexts to make predictions based on understanding and applying relevant facts from prior context, the presence of distracting but irrelevant content has clear impact in confusing model predictions. In particular, models appear particularly susceptible to factors of semantic similarity and word position. The findings are consistent with the conclusion that LM predictions are driven in large part by superficial contextual cues, rather than by robust representations of context meaning.</abstract>
@@ -2010,7 +2010,7 @@
       <title>Robust Retrieval Augmented Generation for Zero-shot Slot Filling</title>
       <author id="michael-glass"><first>Michael</first><last>Glass</last></author>
       <author><first>Gaetano</first><last>Rossiello</last></author>
-      <author><first>Md Faisal Mahbub</first><last>Chowdhury</last></author>
+      <author id="md-faisal-mahbub-chowdhury"><first>Md Faisal Mahbub</first><last>Chowdhury</last></author>
       <author id="alfio-gliozzo"><first>Alfio</first><last>Gliozzo</last></author>
       <pages>1939–1949</pages>
       <abstract>Automatically inducing high quality knowledge graphs from a given collection of documents still remains a challenging problem in AI. One way to make headway for this problem is through advancements in a related task known as slot filling. In this task, given an entity query in form of [Entity, Slot, ?], a system is asked to ‘fill’ the slot by generating or extracting the missing value exploiting evidence extracted from relevant passage(s) in the given document collection. The recent works in the field try to solve this task in an end-to-end fashion using retrieval-based language models. In this paper, we present a novel approach to zero-shot slot filling that extends dense passage retrieval with hard negatives and robust training procedures for retrieval augmented generation models. Our model reports large improvements on both T-REx and zsRE slot filling datasets, improving both passage retrieval and slot value generation, and ranking at the top-1 position in the KILT leaderboard. Moreover, we demonstrate the robustness of our system showing its domain adaptation capability on a new variant of the TACRED dataset for slot filling, through a combination of zero/few-shot learning. We release the source code and pre-trained models.</abstract>
@@ -3235,7 +3235,7 @@
     <paper id="236">
       <title>A Simple and Effective Positional Encoding for Transformers</title>
       <author><first>Pu-Chin</first><last>Chen</last></author>
-      <author><first>Henry</first><last>Tsai</last></author>
+      <author id="henry-tsai"><first>Henry</first><last>Tsai</last></author>
       <author><first>Srinadh</first><last>Bhojanapalli</last></author>
       <author><first>Hyung Won</first><last>Chung</last></author>
       <author><first>Yin-Wen</first><last>Chang</last></author>
@@ -3722,7 +3722,7 @@
       <author><first>Wonseok</first><last>Hwang</last></author>
       <author><first>Hyunji</first><last>Lee</last></author>
       <author><first>Jinyeong</first><last>Yim</last></author>
-      <author><first>Geewook</first><last>Kim</last></author>
+      <author id="geewook-kim"><first>Geewook</first><last>Kim</last></author>
       <author><first>Minjoon</first><last>Seo</last></author>
       <pages>3375–3383</pages>
       <abstract>A real-world information extraction (IE) system for semi-structured document images often involves a long pipeline of multiple modules, whose complexity dramatically increases its development and maintenance cost. One can instead consider an end-to-end model that directly maps the input to the target output and simplify the entire process. However, such generation approach is known to lead to unstable performance if not designed carefully. Here we present our recent effort on transitioning from our existing pipeline-based IE system to an end-to-end system focusing on practical challenges that are associated with replacing and deploying the system in real, large-scale production. By carefully formulating document IE as a sequence generation task, we show that a single end-to-end IE system can be built and still achieve competent performance.</abstract>
@@ -4213,7 +4213,7 @@
       <title><fixed-case>R</fixed-case>ock<fixed-case>NER</fixed-case>: A Simple Method to Create Adversarial Examples for Evaluating the Robustness of Named Entity Recognition Models</title>
       <author id="bill-yuchen-lin"><first>Bill Yuchen</first><last>Lin</last></author>
       <author><first>Wenyang</first><last>Gao</last></author>
-      <author><first>Jun</first><last>Yan</last></author>
+      <author id="jun-yan-usc"><first>Jun</first><last>Yan</last></author>
       <author><first>Ryan</first><last>Moreno</last></author>
       <author><first>Xiang</first><last>Ren</last></author>
       <pages>3728–3737</pages>
@@ -5086,7 +5086,7 @@
       <author><first>Liqun</first><last>Ma</last></author>
       <author><first>Junnan</first><last>Zhu</last></author>
       <author><first>Lu</first><last>Xiang</last></author>
-      <author><first>Yu</first><last>Zhou</last></author>
+      <author id="yu-zhou"><first>Yu</first><last>Zhou</last></author>
       <author><first>Jiajun</first><last>Zhang</last></author>
       <author id="chengqing-zong"><first>Chengqing</first><last>Zong</last></author>
       <pages>4436–4451</pages>
@@ -6787,10 +6787,10 @@
     </paper>
     <paper id="493">
       <title>Perhaps <fixed-case>PTLM</fixed-case>s Should Go to School – A Task to Assess Open Book and Closed Book <fixed-case>QA</fixed-case></title>
-      <author id="manuel-r-ciosici"><first>Manuel</first><last>Ciosici</last></author>
-      <author><first>Joe</first><last>Cecil</last></author>
+      <author id="manuel-r-ciosici"><first>Manuel R.</first><last>Ciosici</last></author>
+      <author id="joe-cecil"><first>Joe</first><last>Cecil</last></author>
+      <author id="alex-hedges"><first>Alex</first><last>Hedges</last></author>
       <author><first>Dong-Ho</first><last>Lee</last></author>
-      <author><first>Alex</first><last>Hedges</last></author>
       <author><first>Marjorie</first><last>Freedman</last></author>
       <author id="ralph-weischedel"><first>Ralph</first><last>Weischedel</last></author>
       <pages>6104–6111</pages>
@@ -6869,12 +6869,12 @@
       <title><fixed-case>G</fixed-case>up<fixed-case>S</fixed-case>hup: Summarizing Open-Domain Code-Switched Conversations</title>
       <author><first>Laiba</first><last>Mehnaz</last></author>
       <author><first>Debanjan</first><last>Mahata</last></author>
+      <author id="uma-sushmitha-gunturi"><first>Uma Sushmitha</first><last>Gunturi</last></author>
+      <author><first>Amardeep</first><last>Kumar</last></author>
       <author><first>Rakesh</first><last>Gosangi</last></author>
-      <author><first>Uma Sushmitha</first><last>Gunturi</last></author>
       <author><first>Riya</first><last>Jain</last></author>
       <author><first>Gauri</first><last>Gupta</last></author>
-      <author><first>Amardeep</first><last>Kumar</last></author>
-      <author><first>Isabelle G.</first><last>Lee</last></author>
+      <author><first>Isabelle</first><last>Lee</last></author>
       <author><first>Anish</first><last>Acharya</last></author>
       <author id="rajiv-shah"><first>Rajiv Ratn</first><last>Shah</last></author>
       <pages>6177–6192</pages>
@@ -8546,14 +8546,14 @@
     </paper>
     <paper id="623">
       <title>Uncertainty Measures in Neural Belief Tracking and the Effects on Dialogue Policy Performance</title>
-      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author id="carel-van-niekerk"><first>Carel</first><last>van Niekerk</last></author>
       <author><first>Andrey</first><last>Malinin</last></author>
       <author><first>Christian</first><last>Geishauser</last></author>
       <author><first>Michael</first><last>Heck</last></author>
       <author><first>Hsien-chin</first><last>Lin</last></author>
       <author><first>Nurul</first><last>Lubis</last></author>
       <author><first>Shutong</first><last>Feng</last></author>
-      <author id="milica-gasic"><first>Milica</first><last>Gasic</last></author>
+      <author id="milica-gasic"><first>Milica</first><last>Gašić</last></author>
       <pages>7901–7914</pages>
       <abstract>The ability to identify and resolve uncertainty is crucial for the robustness of a dialogue system. Indeed, this has been confirmed empirically on systems that utilise Bayesian approaches to dialogue belief tracking. However, such systems consider only confidence estimates and have difficulty scaling to more complex settings. Neural dialogue systems, on the other hand, rarely take uncertainties into account. They are therefore overconfident in their decisions and less robust. Moreover, the performance of the tracking task is often evaluated in isolation, without consideration of its effect on the downstream policy optimisation. We propose the use of different uncertainty measures in neural belief tracking. The effects of these measures on the downstream task of policy optimisation are evaluated by adding selected measures of uncertainty to the feature space of the policy and training policies through interaction with a user simulator. Both human and simulated user results show that incorporating these measures leads to improvements both of the performance and of the robustness of the downstream dialogue policy. This highlights the importance of developing neural dialogue belief trackers that take uncertainty into account.</abstract>
       <url hash="671b4403">2021.emnlp-main.623</url>
@@ -8713,7 +8713,7 @@
       <author><first>Xiaotian</first><last>Luo</last></author>
       <author><first>Chenghao</first><last>Dong</last></author>
       <author><first>Daichuan</first><last>Yang</last></author>
-      <author><first>Beidi</first><last>Luan</last></author>
+      <author id="beidi-luan"><first>Beidi</first><last>Luan</last></author>
       <author><first>Zhen</first><last>He</last></author>
       <pages>8055–8064</pages>
       <abstract>Joint extraction of entities and relations from unstructured texts to form factual triples is a fundamental task of constructing a Knowledge Base (KB). A common method is to decode triples by predicting entity pairs to obtain the corresponding relation. However, it is still challenging to handle this task efficiently, especially for the overlapping triple problem. To address such a problem, this paper proposes a novel efficient entities and relations extraction model called <b>TDEER</b>, which stands for <b>T</b>ranslating <b>D</b>ecoding Schema for Joint <b>E</b>xtraction of <b>E</b>ntities and <b>R</b>elations. Unlike the common approaches, the proposed translating decoding schema regards the relation as a translating operation from subject to objects, i.e., TDEER decodes triples as <tex-math>subject + relation \rightarrow objects</tex-math>. TDEER can naturally handle the overlapping triple problem, because the translating decoding schema can recognize all possible triples, including overlapping and non-overlapping triples. To enhance model robustness, we introduce negative samples to alleviate error accumulation at different stages. Extensive experiments on public datasets demonstrate that TDEER produces competitive results compared with the state-of-the-art (SOTA) baselines. Furthermore, the computation complexity analysis indicates that TDEER is more efficient than powerful baselines. Especially, the proposed TDEER is 2 times faster than the recent SOTA models. The code is available at <url>https://github.com/4AI/TDEER</url>.</abstract>
@@ -9092,7 +9092,7 @@
     </paper>
     <paper id="664">
       <title>An Empirical Investigation of Word Alignment Supervision for Zero-Shot Multilingual Neural Machine Translation</title>
-      <author><first>Alessandro</first><last>Raganato</last></author>
+      <author id="alessandro-raganato"><first>Alessandro</first><last>Raganato</last></author>
       <author><first>Raúl</first><last>Vázquez</last></author>
       <author><first>Mathias</first><last>Creutz</last></author>
       <author id="jorg-tiedemann"><first>Jörg</first><last>Tiedemann</last></author>
@@ -11206,7 +11206,7 @@
     </paper>
     <paper id="823">
       <title>A Root of a Problem: Optimizing Single-Root Dependency Parsing</title>
-      <author><first>Miloš</first><last>Stanojević</last></author>
+      <author id="milos-stanojevic"><first>Miloš</first><last>Stanojević</last></author>
       <author id="shay-b-cohen"><first>Shay B.</first><last>Cohen</last></author>
       <pages>10540–10557</pages>
       <abstract>We describe two approaches to single-root dependency parsing that yield significant speed ups in such parsing. One approach has been previously used in dependency parsers in practice, but remains undocumented in the parsing literature, and is considered a heuristic. We show that this approach actually finds the optimal dependency tree. The second approach relies on simple reweighting of the inference graph being input to the dependency parser and has an optimal running time. Here, we again show that this approach is fully correct and identifies the highest-scoring parse tree. Our experiments demonstrate a manyfold speed up compared to a previous graph-based state-of-the-art parser without any loss in accuracy or optimality.</abstract>
@@ -11644,7 +11644,7 @@
       <author><first>Kang-Min</first><last>Kim</last></author>
       <author><first>Seonhee</first><last>Cho</last></author>
       <author><first>Jun-Hyung</first><last>Park</last></author>
-      <author><first>Hyuntae</first><last>Park</last></author>
+      <author id="hyuntae-park"><first>Hyuntae</first><last>Park</last></author>
       <author><first>Hyuna</first><last>Kim</last></author>
       <author><first>Seongwon</first><last>Chung</last></author>
       <author><first>SangKeun</first><last>Lee</last></author>
@@ -11775,7 +11775,7 @@
     </paper>
     <paper id="18">
       <title>Press Freedom Monitor: Detection of Reported Press and Media Freedom Violations in <fixed-case>T</fixed-case>witter and News Articles</title>
-      <author><first>Tariq</first><last>Yousef</last></author>
+      <author id="tariq-yousef"><first>Tariq</first><last>Yousef</last></author>
       <author><first>Antje</first><last>Schlaf</last></author>
       <author><first>Janos</first><last>Borst</last></author>
       <author><first>Andreas</first><last>Niekler</last></author>
@@ -11856,7 +11856,7 @@
     <paper id="22">
       <title>Summary Explorer: Visualizing the State of the Art in Text Summarization</title>
       <author><first>Shahbaz</first><last>Syed</last></author>
-      <author><first>Tariq</first><last>Yousef</last></author>
+      <author id="tariq-yousef"><first>Tariq</first><last>Yousef</last></author>
       <author id="khalid-al-khatib"><first>Khalid</first><last>Al Khatib</last></author>
       <author><first>Stefan</first><last>Jänicke</last></author>
       <author><first>Martin</first><last>Potthast</last></author>

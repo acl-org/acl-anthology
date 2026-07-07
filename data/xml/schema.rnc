@@ -15,10 +15,13 @@ affiliation = element affiliation { text }
 Variant = element variant { attribute script { xsd:string }, (first? & last) }
 # Store bare 16-digit hyphenated ORCID iD with checksum (last char may be X)
 OrcidId = xsd:string { pattern="([0-9]{4}-){3}[0-9]{3}[0-9X]" }
+# OpenReview profile ID, e.g. "~Jane_Doe1" (names may contain Unicode letters)
+OpenReviewId = xsd:string { pattern="~\S+" }
 
 Person =
   attribute id { xsd:NCName }?,
   attribute orcid { OrcidId }?,
+  attribute openreview { OpenReviewId }?,
   (first? & last & Variant? & affiliation?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }

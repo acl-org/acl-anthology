@@ -10,6 +10,12 @@ body:
       value: >
         This form will report issues with author pages, such as when a single individual's papers are split across multiple author pages
         and should be merged, or papers by multiple individuals with the same name appear on the same page.
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > If you authored an **ACL 2026** publication submitted via OpenReview and wish to verify your author page with an ORCID iD, simply [add your ORCID link to your OpenReview profile](https://aclanthology.org/info/author-pages/#2-link-your-profiles-on-conference-management-systems-to-your-orcid-id) and it will appear on your Anthology page within a few weeks.
+        > To keep staff workloads manageable, please submit an issue here only if you need to change the papers listed on your author page.
   - type: checkboxes
     id: in_anth_check
     attributes:
@@ -33,7 +39,7 @@ body:
   - type: textarea
     id: name_pages_affected
     attributes:
-      label: Author Pages
+      label: Author Pages in the Anthology
       description: |
         Which author page(s) are affected by this correction? Please list the URL of every affected author page here.
       placeholder: ex. https://aclanthology.org/people/matt-post
@@ -56,7 +62,7 @@ body:
         Provide the name of the school or university where you have or will receive your highest degree (e.g.,
         current affiliation for students, Ph.D. institution for faculty and industry researchers). This will be used
         to form your author page ID, if needed.
-      placeholder: ex. Johns Hopkins University (https://www.jhu.edu/)
+      placeholder: ex. Johns Hopkins University
     validations:
       required: true
   - type: checkboxes
@@ -79,6 +85,7 @@ body:
         We may need further information to address your problem.
           - If you want to split author pages, **please provide a link to every paper of yours** in the Anthology (third party sites such as Google Scholar are not useful).
           - If you are asking to merge author pages, list all the pages to be merged.
+          - If the author page lists the correct papers and you are merely adding ORCID ID, write "verification".
     validations:
       required: true
   - type: input
@@ -96,6 +103,7 @@ body:
       label: OpenReview profile page URL
       description: |
         If you have an OpenReview profile page, please include it here and ensure the page has your ORCID link: [instructions](https://aclanthology.org/info/author-pages/).
+        If you do not have an OpenReview profile, put "none".
       placeholder: ex. https://openreview.net/profile?id=~Your_Name1
     validations:
-      required: false
+      required: true

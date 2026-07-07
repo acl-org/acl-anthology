@@ -30,13 +30,14 @@ Note: if you have non-staged changes, the script will try to stash them before s
 to the other branch.
 
 Usage:
-  process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [--close-old-issues] [ <issueid>... ]
+  process_bulk_metadata.py [-q] [--skip-validation] [--dry-run] [--no-branch] [--close-old-issues] [ <issueid>... ]
 
 Options:
     -h, --help               Show this help message
     -q, --quiet              Suppress output
     --skip-validation        Skip requirement of "approved" tag
     --dry-run                Dry run (do not create PRs or add issue comments)
+    --no-branch              Stay on the current branch
     --close-old-issues       Close old metadata requests with a comment (those without a JSON block)
     <issueid>                Specific issue IDs to process (default: all)
 
@@ -453,6 +454,7 @@ class AnthologyMetadataUpdater:
         skip_validation=False,
         dry_run=False,
         close_old_issues=False,
+        no_branch=False,
     ):
         """Process all metadata issues and create PR with changes."""
         # Get all open issues with required labels
@@ -460,7 +462,9 @@ class AnthologyMetadataUpdater:
             state="open", labels=["metadata", "correction"]
         )
 
-        current_branch, new_branch_name, today = self.prepare_and_switch_branch()
+        current_branch, new_branch_name, today = self.prepare_and_switch_branch(
+            no_branch=no_branch
+        )
 
         self.load_anthology()
 
@@ -597,7 +601,7 @@ class AnthologyMetadataUpdater:
                     return
             self.stats["closed_issues"] += 1
 
-    def prepare_and_switch_branch(self):
+    def prepare_and_switch_branch(self, no_branch: bool = False) -> Tuple[str, str, str]:
         # Create new branch off "master"
         base_branch = self.local_repo.head.reference
         # base_branch = self.local_repo.heads.master
@@ -606,8 +610,16 @@ class AnthologyMetadataUpdater:
         new_branch_name = f"bulk-corrections-{today}"
         # new_branch_name = f"bulk-corrections-debugging"
 
+        # store the current branch
+        current_branch = self.local_repo.head.reference.name
+
         # If the branch exists, use it, else create it
-        if new_branch_name in self.local_repo.heads:
+        if no_branch:
+            # Do not create or change to a new branch
+            log.info(f"Staying on branch {current_branch}")
+            new_branch_name = current_branch
+            return current_branch, new_branch_name, today
+        elif new_branch_name in self.local_repo.heads:
             ref = self.local_repo.heads[new_branch_name]
             log.info(f"Using existing branch {new_branch_name}")
         else:
@@ -615,8 +627,6 @@ class AnthologyMetadataUpdater:
             ref = self.local_repo.create_head(new_branch_name, base_branch)
             log.info(f"Created branch {new_branch_name} from {base_branch}")
 
-        # store the current branch
-        current_branch = self.local_repo.head.reference
         self.local_repo.git.stash(["push", f'-m "{datetime.now().isoformat()}"'])
 
         # switch to that branch
@@ -648,6 +658,7 @@ if __name__ == "__main__":
             skip_validation=args["--skip-validation"],
             dry_run=args["--dry-run"],
             close_old_issues=args["--close-old-issues"],
+            no_branch=args["--no-branch"],
         )
 
     for stat in updater.stats:

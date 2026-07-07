@@ -212,11 +212,11 @@ class Event:
     ) -> None:
         """Add a co-located volume to this event.
 
-        If the given volume is already co-located with this event and type_ is 'explicit', this will change its type to 'explicit'; otherwise, it will do nothing.
+        If the volume is already co-located with this event, calling this function can be used to make the connection explicit (i.e. written out to the XML); otherwise, this will do nothing.
 
         Parameters:
             volume: The ID or Volume object to co-locate with this event.
-            type_: Whether this volume is/should be explicitly linked in the XML or is inferred. (Defaults to 'explicit'.)
+            type_: Whether this volume is/should be explicitly linked in the XML or is inferred. (Defaults to 'explicit'; you probably don't want to change this.)
         """
         from .volume import Volume
 
@@ -225,12 +225,12 @@ class Event:
         else:
             volume_id = parse_id(volume)
 
-        if (
-            type_ == EventLink.EXPLICIT
-            and self.colocated_ids.get(volume_id) == EventLink.INFERRED
+        if volume_id in self.colocated_ids and (
+            type_ == EventLink.INFERRED  # never change an existing entry to "inferred"
+            or self.colocated_ids[volume_id]
+            == EventLink.EXPLICIT  # already set to "explicit"
         ):
-            self.colocated_ids[volume_id] = type_
-            return
+            return  # nothing to do
 
         self.colocated_ids[volume_id] = type_
         if type_ == EventLink.EXPLICIT:

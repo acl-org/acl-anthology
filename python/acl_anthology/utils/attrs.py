@@ -19,16 +19,29 @@ from __future__ import annotations
 import attrs
 from attrs import validators
 import datetime
-from typing import Any, Callable, Iterable, Optional, Sequence, TypeVar, TYPE_CHECKING
+from typing import (
+    Any,
+    Callable,
+    Generator,
+    Iterable,
+    Optional,
+    Sequence,
+    TypeAlias,
+    TypeVar,
+    TYPE_CHECKING,
+)
 import re
 
-from .ids import AnthologyIDTuple, build_id_from_tuple
+from ..constants import RE_ORCID
+from .ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
 
 if TYPE_CHECKING:
     import rich
     from ..collections import Paper, Volume, Event, Talk
     from ..people import NameSpecification
 
+
+ConvertableIntoDate: TypeAlias = datetime.date | datetime.datetime | str | None
 
 RE_WRAPPED_TYPE = re.compile(r"^([^\[]*)\[(.*)\]$")
 C = TypeVar("C", bound=attrs.AttrsInstance)
@@ -68,6 +81,22 @@ def validate_anthology_id_tuple(cls: Any, attr: attrs.Attribute[Any], value: Any
         AnthologyIDTuple,
         value,
     )
+
+
+def convert_orcid(value: object) -> Optional[str]:
+    """Convert an object potentially representing an ORCID."""
+    if value is None:
+        return None
+    value = str(value).upper()
+    # e.g. "https://orcid.org/0000-0002-1297-6794" -> "0000-0002-1297-6794"
+    if len(value) > 19 and (m := RE_ORCID.search(value)) is not None:
+        value = str(m.group(0))
+    return value
+
+
+def validate_orcid(_: Any, __: Any, value: Optional[str]) -> None:
+    if isinstance(value, str) and not is_valid_orcid(value):
+        raise ValueError(f"ORCID is not valid (wrong format or checksum): {value!r}")
 
 
 def auto_validate_types(
@@ -200,7 +229,7 @@ def int_to_str(value: Any) -> Any:
     return value
 
 
-def date_to_str(value: Any) -> Any:
+def date_to_str(value: ConvertableIntoDate) -> Any:
     """Convert a [date][datetime.date] or [datetime][datetime.datetime] object to str (in ISO format), and leave unchanged otherwise.
 
     Intended to be used as a converter for [attrs.field][].
@@ -262,34 +291,50 @@ def repr_item_ids(ids: Sequence[AnthologyIDTuple] | set[AnthologyIDTuple]) -> st
     return f"<{type(ids).__name__}[AnthologyIDTuple] with {len(ids)} item{'' if len(ids) == 1 else 's'} {lb}{', '.join(shown_ids)}{rb}>"
 
 
-def _repr(self: attrs.AttrsInstance) -> str:
-    fields = attrs.fields(type(self))
-    parts = []
-    for f in fields:
+def _convert_fields_for_repr(
+    self: attrs.AttrsInstance,
+) -> Generator[tuple[attrs.Attribute[Any], Optional[str], object]]:
+    for f in attrs.fields(type(self)):
         if not f.repr:
             continue
         if f.name == "id" and hasattr(self, "full_id"):
-            parts.append(f"full_id={getattr(self, 'full_id')!r}")
+            yield (f, "full_id", getattr(self, "full_id"))
             continue
-        elif f.name[0] == "_" and hasattr(self, f.name[1:]):
-            # Replace underscore attributes with their non-underscore versions
-            name = f.name[1:]
-        else:
-            name = f.name
 
-        value = getattr(self, name)
         if type(f.default) is attrs.Factory:
             default = (
                 f.default.factory(self) if f.default.takes_self else f.default.factory()
             )
         else:
             default = f.metadata.get("repr_omit_if", f.default)
-        if value != default:
-            value_r = f.repr(value) if callable(f.repr) else repr(value)
-            if f.metadata.get("repr_omits_field_name"):
-                parts.append(f"{value_r}")
-            else:
-                parts.append(f"{name}={value_r}")
+
+        if f.name[0] == "_" and hasattr(self, f.name[1:]):
+            # For underscore attributes, omit if their underscore version matches the default
+            if getattr(self, f.name) == default:
+                continue
+            # If not, replace them with their non-underscore versions
+            name = f.name[1:]
+        else:
+            name = f.name
+
+        value = getattr(self, name)
+        if value == default:
+            continue
+
+        if f.metadata.get("repr_omits_field_name"):
+            yield (f, None, value)
+        else:
+            yield (f, name, value)
+
+
+def _repr(self: attrs.AttrsInstance) -> str:
+    parts = []
+    for f, name, value in _convert_fields_for_repr(self):
+        value_r = f.repr(value) if callable(f.repr) else repr(value)
+        if name is None:
+            parts.append(value_r)
+        else:
+            parts.append(f"{name}={value_r}")
     return f"{type(self).__name__}({', '.join(parts)})"
 
 
@@ -304,37 +349,19 @@ class _PreformattedRepr:
 def _rich_repr(self: attrs.AttrsInstance) -> rich.repr.Result:
     from ..text import MarkupText
 
-    fields = attrs.fields(type(self))
-    for f in fields:
-        if not f.repr:
-            continue
-        if f.name == "id" and hasattr(self, "full_id"):
-            yield "full_id", getattr(self, "full_id")
-            continue
-        elif f.name[0] == "_" and hasattr(self, f.name[1:]):
-            # Replace underscore attributes with their non-underscore versions
-            name = f.name[1:]
-        else:
-            name = f.name
-
-        value = getattr(self, name)
-        if type(f.default) is attrs.Factory:
-            default = (
-                f.default.factory(self) if f.default.takes_self else f.default.factory()
-            )
-        else:
-            default = f.metadata.get("repr_omit_if", f.default)
-        if callable(f.repr) and value != default:
+    for f, name, value in _convert_fields_for_repr(self):
+        if callable(f.repr):
             # If we don't use the _PreformattedRepr hack, Rich renders the repr
             # as a string, which is not what we want
             value = _PreformattedRepr(f.repr(value))
         elif isinstance(value, MarkupText):
             if not value.contains_markup:
                 value = value._content
-        if f.metadata.get("repr_omits_field_name") and value != default:
+
+        if name is None:
             yield value
         else:
-            yield name, value, default
+            yield name, value
 
 
 def attach_custom_repr(cls: type[C]) -> type[C]:

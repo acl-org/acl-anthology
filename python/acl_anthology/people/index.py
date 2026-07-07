@@ -61,12 +61,9 @@ class PersonIndex(SlottedDict[Person]):
     Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
 
     Info:
-        All information about persons is currently derived from [name specifications][acl_anthology.people.name.NameSpecification] on volumes and papers, and not stored explicitly. This means:
+        Information about which items resolve to which person is currently inferred dynamically from [name specifications][acl_anthology.people.name.NameSpecification], and not stored explicitly. This means that loading this index currently requires parsing the entire Anthology data.
 
-        1. Loading this index requires parsing the entire Anthology data.
-        2. Nothing in this index should be modified to make changes to Anthology data; change the information on papers instead.
-
-        See the [guide on accessing author/editor information](../guide/accessing-authors.md) for more information.
+        For more information on how and where to correct mistakes in item resolution, see the [guide on modifying data](../guide/modifying-data.md).
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
@@ -192,6 +189,8 @@ class PersonIndex(SlottedDict[Person]):
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
         """
+        from ..collections import Paper, Volume
+
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
@@ -205,9 +204,11 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
-            if hasattr(item, "authors"):
+            if isinstance(item, Volume):
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
+            elif isinstance(item, Paper):
                 coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
+                coauthors.update(self._resolve_namespec(ns).id for ns in item._editors)
         del coauthors[person.id]
         return coauthors
 
@@ -314,10 +315,10 @@ class PersonIndex(SlottedDict[Person]):
                         context = paper
                         name_specs = (
                             # Associate explicitly given authors/editors with the paper
-                            it.chain(paper.authors, paper.editors)
+                            it.chain(paper.authors, paper._editors)
                             # For frontmatter, also associate the volume editors with it
                             if not paper.is_frontmatter
-                            else paper.get_editors()
+                            else paper.editors
                         )
                         self._add_to_index(
                             name_specs, paper.full_id_tuple, during_build=True
@@ -601,7 +602,7 @@ class PersonIndex(SlottedDict[Person]):
             return name_spec
 
         if (person := self.get_by_orcid(name_spec.orcid)) is not None:
-            name_spec.id = person.id
+            name_spec._id = person.id
             # Make sure the name used here is listed for this person
             person.add_name(name_spec.name)
         else:
@@ -617,7 +618,7 @@ class PersonIndex(SlottedDict[Person]):
                     is_explicit=True,
                 )
             )
-            name_spec.id = pid
+            name_spec._id = pid
 
         return name_spec
 

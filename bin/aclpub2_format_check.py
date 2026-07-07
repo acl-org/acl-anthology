@@ -115,13 +115,33 @@ def main(args):
     if not (
         conference_details_path := rootdir / "inputs" / "conference_details.yml"
     ).exists():
-        logger.error(f"x File '{conference_details_path}' does not exist")
+        logger.fatal(f"x File '{conference_details_path}' does not exist")
+        sys.exit(1)
     elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
 
     conference_details = yaml.safe_load(conference_details_path.read_text())
     anthology_venue_id = str(conference_details.get("anthology_venue_id", ""))
+    if "volume_name" not in conference_details:
+        logger.fatal(f"x No 'volume_name' found in '{conference_details_path}'")
+        sys.exit(1)
     volume_name = str(conference_details["volume_name"])
+
+    # every required field must be present and non-blank
+    required_fields = [
+        "book_title",
+        "event_name",
+        "anthology_venue_id",
+        "volume_name",
+        "start_date",
+        "location",
+        "editors",
+        "publisher",
+    ]
+    for field in required_fields:
+        value = conference_details.get(field)
+        if value is None or (isinstance(value, str) and not value.strip()):
+            logger.error(f"No (or blank) '{field}' found in '{conference_details_path}'")
 
     # every volume needs editors
     if "editors" not in conference_details:
@@ -145,6 +165,7 @@ def main(args):
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
         logger.fatal(f"File '{papers_path}' not found")
+        sys.exit(1)
     elif args.verbose:
         logger.info(f"✓ Found {papers_path}")
 

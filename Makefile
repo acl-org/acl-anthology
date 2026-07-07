@@ -73,7 +73,7 @@ endif
 
 # hugo version check
 HUGO_VERSION_MIN=154
-HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
+HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\([0-9]*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
@@ -176,6 +176,15 @@ mirror:
 .PHONY: mirror-no-attachments
 mirror-no-attachments:
 	uv run python bin/create_mirror.py --only-papers data/xml/*xml
+
+# Syncs the PDF and attachment hierarchies to the live server.
+# Override the local base directory with SYNC_BASEDIR=/path/to/files.
+SYNC_BASEDIR ?= ~/anthology-files
+SYNC_DEST := anthologizer@aclanthology.org:anthology-files
+
+.PHONY: sync
+sync:
+	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_DEST)
 
 .PHONY: test-scripts
 test-scripts:

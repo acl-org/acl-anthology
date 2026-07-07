@@ -116,7 +116,7 @@ def paper_to_dict(paper):
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "ingest_date": paper.get_ingest_date().isoformat(),
+        "ingest_date": paper.ingest_date.isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
@@ -129,7 +129,7 @@ def paper_to_dict(paper):
         "citation_acl": paper.to_citation(),
         "year": paper.year,
     }
-    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.get_editors()]
+    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
@@ -143,8 +143,8 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "issue", "journal", "note", "month"):
-        # TODO: Keys 'issue' and 'journal' are currently unused on Hugo templates
+    for key in ("doi", "journal_issue", "journal_title", "note", "month"):
+        # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
@@ -252,12 +252,12 @@ def volume_to_dict(volume):
         data["shortbooktitle"] = volume.shorttitle.as_text()
     if volume.editors:
         data["editor"] = [person_to_dict(ns.resolve().id, ns) for ns in volume.editors]
-    if events := volume.get_events():
-        data["events"] = [event.id for event in events if event.is_explicit]
+    if volume.type != VolumeType.JOURNAL and (events := volume.get_events()):
+        data["events"] = sorted(event.id for event in events)
     if sigs := volume.get_sigs():
-        data["sigs"] = [sig.acronym for sig in sigs]
+        data["sigs"] = sorted(sig.acronym for sig in sigs)
     if volume.type == VolumeType.JOURNAL:
-        data["meta_journal_title"] = volume.get_journal_title()
+        data["meta_journal_title"] = volume.journal_title
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:
@@ -292,9 +292,9 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                         volume_data[key] = value
                 if events := volume.get_events():
                     # TODO: This information is currently not used on paper templates
-                    volume_data["events"] = [
+                    volume_data["events"] = sorted(
                         event.id for event in events if event.is_explicit
-                    ]
+                    )
 
                 # Now build the data for every paper
                 for paper in volume.papers():
@@ -346,7 +346,8 @@ def export_people(anthology, builddir, dryrun):
             cname = person.canonical_name
             papers = sorted(
                 person.papers(),
-                key=lambda paper: paper.year,
+                # TODO: Sort by month as well? Converting from string first?
+                key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
             data = {
@@ -362,6 +363,8 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (
                         -item[1],
                         anthology.people[item[0]].canonical_name.last,
+                        anthology.people[item[0]].canonical_name.as_last_first(),
+                        anthology.people[item[0]].id,
                     ),
                 ),
                 "venues": sorted(
@@ -406,7 +409,10 @@ def export_people(anthology, builddir, dryrun):
             if len(ids) > 1:
                 target_id = sorted(
                     ids,
-                    key=lambda pid: len(list(anthology.people[pid].anthology_items())),
+                    key=lambda pid: (
+                        len(list(anthology.people[pid].anthology_items())),
+                        pid,
+                    ),
                 )[-1]
             else:
                 target_id = list(ids)[0]
@@ -414,6 +420,9 @@ def export_people(anthology, builddir, dryrun):
                 people[target_id]["aliases"].append(slug)
             else:
                 people[target_id]["aliases"] = [slug]
+        for person in people.values():
+            if "aliases" in person:
+                person["aliases"].sort()
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
@@ -443,13 +452,22 @@ def export_venues(anthology, builddir, dryrun):
         if venue.type is not None:
             data["type"] = venue.type
         data["volumes_by_year"] = {}
-        for volume in venue.volumes():
+        sorted_volumes = sorted(
+            venue.volumes(),
+            key=lambda volume: (
+                volume.year,
+                volume.parent.id,
+                # Follow order of volumes within a collection
+                list(volume.parent.keys()).index(volume.id),
+            ),
+        )
+        for volume in sorted_volumes:
             year, volume_id = volume.year, volume.full_id
             try:
                 data["volumes_by_year"][year].append(volume_id)
             except KeyError:
                 data["volumes_by_year"][year] = [volume_id]
-        data["years"] = sorted(list(data["volumes_by_year"].keys()))
+        data["years"] = list(data["volumes_by_year"].keys())
         all_venues[venue_id] = data
 
     if not dryrun:
@@ -501,6 +519,16 @@ def export_events(anthology, builddir, dryrun):
                 sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
+
+        # List venues for each volume in this event
+        data["vol_venues"] = {}
+        for vol_id in data["volumes"]:
+            vol = anthology.get(vol_id)
+            data["vol_venues"][vol_id] = []
+            for venue in vol.venues():
+                if venue.acronym.lower() == "ws":
+                    continue
+                data["vol_venues"][vol_id].append(venue.id)
 
         if event.title is not None:
             data["title"] = event.title.as_text()
