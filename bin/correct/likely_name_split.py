@@ -111,7 +111,7 @@ class NameSplitter:
             # Short-circuit names that are already split
             # comma in "William Baumgartner, Jr." does not count as a split
             surname, given_names = name.split(",")
-            return (surname.strip(), given_names.strip())
+            return Name(given_names.strip(), surname.strip())
 
         words = name.split(" ")
         best_score = -inf
@@ -174,10 +174,10 @@ if __name__ == "__main__":
         if name.first is None:
             continue
 
-    # find our prediction of split
-    best = splitter.best_split(name)
+        # find our prediction of split
+        best = splitter.best_split(name)
 
-    # if current split does not match our prediction
-    if best != name:
-        # print suggested replacement
-        print(name.as_last_first(), "  ==>  ", best.as_last_first())
+        # if current split does not match our prediction
+        if best != name:
+            # print suggested replacement
+            print(name.as_last_first(), "  ==>  ", best.as_last_first())
