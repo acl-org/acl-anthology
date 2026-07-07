@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check required labels
         id: check-labels
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const issue = context.payload.issue;
@@ -23,7 +23,7 @@ jobs:
       - name: Parse JSON from issue body
         id: parse-json
         if: steps.check-labels.outputs.has_required_labels == 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const issue = context.payload.issue;
@@ -50,7 +50,7 @@ jobs:
 
       - name: Create comment
         if: steps.check-labels.outputs.has_required_labels == 'true' && steps.parse-json.outputs.valid_json == 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const anthology_id = '${{ steps.parse-json.outputs.anthology_id }}';

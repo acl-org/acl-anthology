@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked --verbose
       - name: Cache pre-commit hooks based on pre-commit config
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}

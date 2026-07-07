@@ -89,7 +89,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Update preview link in PR description
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const branch = context.ref.replace('refs/heads/', '');

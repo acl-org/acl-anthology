@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Leave a comment and reset approval status
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const { issue, repository } = context.payload;

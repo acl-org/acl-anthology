@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create post-ingestion tracking issues
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const prTitle = context.payload.pull_request.title;
