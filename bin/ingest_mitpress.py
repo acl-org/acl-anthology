@@ -31,8 +31,8 @@ from pathlib import Path
 from typing import Any, Optional
 
 import requests
-from PyPDF2 import PdfReader, PdfWriter
-from PyPDF2.generic import ArrayObject, DecodedStreamObject, NameObject
+from pypdf import PdfReader, PdfWriter
+from pypdf.generic import ArrayObject, DecodedStreamObject, NameObject
 
 from acl_anthology import Anthology
 from acl_anthology.files import PDFReference

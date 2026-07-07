@@ -33,7 +33,7 @@ import yaml
 import re
 import shutil
 import sys
-import PyPDF2
+import pypdf
 
 from collections import defaultdict
 from datetime import datetime
@@ -187,7 +187,7 @@ def add_page_numbers(
             )
 
         with open(paper_need_read_path, "rb") as pdf:
-            pdf_reader = PyPDF2.PdfReader(pdf)
+            pdf_reader = pypdf.PdfReader(pdf)
             num_of_pages = len(pdf_reader.pages)
             start = end + 1
             end = start + num_of_pages - 1
@@ -970,7 +970,7 @@ def check_for_anonymous_pdf(source_path: str) -> None:
     """
     source = Path(source_path)
     with open(source, "rb") as pdf:
-        pdf_reader = PyPDF2.PdfReader(pdf)
+        pdf_reader = pypdf.PdfReader(pdf)
         # Check for "Anonymous [XXX] submission" string on first page
         text = pdf_reader.pages[0].extract_text() or ""
         if ANONYMOUS_PATTERN.search(text) is not None:
