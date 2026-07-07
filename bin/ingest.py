@@ -961,7 +961,7 @@ def ingest(
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
-ANONYMOUS_PATTERN = re.compile(r"\bAnonymous\s+[A-Za-z]+\s+submission\b")
+ANONYMOUS_PATTERN = re.compile(r"\bAnonymous\s+[\w-]+\s+submission\b")
 
 
 def check_for_anonymous_pdf(source_path: str) -> None:
