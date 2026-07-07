@@ -23,7 +23,9 @@ import logging as log
 from math import log as LOG
 from math import inf
 
-from acl_anthology.anthology import Anthology
+from acl_anthology import Anthology
+from acl_anthology.exceptions import NameSpecResolutionWarning
+from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
 
@@ -102,7 +104,9 @@ class NameSplitter:
     # takes "Maria Victoria Lopez Gonzalez"
     # returns ("Lopez Gonzalez", "Maria Victoria")
     # uses counts of words in first and last names in current database
-    def best_split(self, name):
+    def best_split(self, nameobj):
+        name = nameobj.as_first_last()
+
         if "," in name and "Jr." not in name:
             # Short-circuit names that are already split
             # comma in "William Baumgartner, Jr." does not count as a split
@@ -138,9 +142,9 @@ class NameSplitter:
 
             if first_score + last_score > best_score:
                 best_score = first_score + last_score
-                best = (last, first)
+                best = (first, last)
             # end of loop over split points
-        return best
+        return Name.from_(best)
 
 
 if __name__ == "__main__":
@@ -157,21 +161,23 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
+    with warnings.catch_warnings(category=NameSpecResolutionWarning, action="ignore"):
         anthology = Anthology.from_within_repo()
-        splitter = NameSplitter(anthology)
+        anthology.load_all()
 
-        # for all names currently in anthology,
-        # see if they match what we predict
-        for person in anthology.people.values():
-            name = person.canonical_name
-            if name.first is None:
-                continue
+    splitter = NameSplitter(anthology)
 
-            # find our prediction of split
-            best = splitter.best_split(name.first + " " + name.last)
+    # for all names currently in anthology,
+    # see if they match what we predict
+    for person in anthology.people.values():
+        name = person.canonical_name
+        if name.first is None:
+            continue
 
-            # if current split does not match our prediction
-            if not (best[0] == name.last and best[1] == name.first):
-                # print suggested replacement
-                print(name.last, ",", name.first, "  ==>  ", best[0], ",", best[1])
+    # find our prediction of split
+    best = splitter.best_split(name)
+
+    # if current split does not match our prediction
+    if best != name:
+        # print suggested replacement
+        print(name.as_last_first(), "  ==>  ", best.as_last_first())
