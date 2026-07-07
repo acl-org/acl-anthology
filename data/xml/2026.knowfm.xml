@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.knowfm">
+  <volume id="1" type="proceedings" ingest-date="2026-06-26">
+    <meta>
+      <booktitle>Proceedings of the 4th Workshop on Towards Knowledgeable Foundation Models (<fixed-case>K</fixed-case>now<fixed-case>FM</fixed-case> 2026)</booktitle>
+      <editor><first>Canyu</first><last>Chen</last></editor>
+      <editor><first>Yuji</first><last>Zhang</last></editor>
+      <editor><first>Zoey Sha</first><last>Li</last></editor>
+      <editor><first>Zihan</first><last>Wang</last></editor>
+      <editor><first>Qineng</first><last>Wang</last></editor>
+      <editor><first>Jinyan</first><last>Su</last></editor>
+      <editor><first>Priyanka</first><last>Kargupta</last></editor>
+      <editor><first>Sara Vera</first><last>Marjanović</last></editor>
+      <editor><first>Jeff Z.</first><last>Pan</last></editor>
+      <editor><first>Mohit</first><last>Bansal</last></editor>
+      <editor><first>Isabelle</first><last>Augenstein</last></editor>
+      <editor><first>Jiawei</first><last>Han</last></editor>
+      <editor><first>Heng</first><last>Ji</last></editor>
+      <editor><first>Manling</first><last>Li</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>San Diego, California, United States</address>
+      <isbn>979-8-89176-403-3</isbn>
+      <month>July</month>
+      <year>2026</year>
+      <url hash="008e86bd">2026.knowfm-1</url>
+      <venue>knowfm</venue>
+      <venue>ws</venue>
+      <doi>10.18653/v1/2026.knowfm-1</doi>
+    </meta>
+    <frontmatter>
+      <url hash="353fd968">2026.knowfm-1.0</url>
+      <bibkey>knowfm-2026-1</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <title>Annotation Frameworks Shape Model Knowledge: Safety Alignment in Large Language Models</title>
+      <author id="wajdi-zaghouani" orcid="0000-0003-1521-5568" openreview="~Wajdi_Zaghouani2"><first>Wajdi</first><last>Zaghouani</last><affiliation>Northwestern University</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>Large language models (LLMs) are commonly described as acquiringknowledge through large scale pretraining on textual corpora.This view underestimates the epistemic consequences of post trainingsafety mechanisms. Modern LLMs undergo extensive safety alignmentvia curated datasets, human annotations, and reinforcement learningfrom human feedback (RLHF), processes that do not merely constrainoutputs but actively reshape how propositional and proceduralknowledge is accessed and expressed. We propose a conceptualframework in which safety alignment functions as a systematic formof knowledge editing at scale. Annotation frameworks used toconstruct safety datasets act as normative ontologies that partitionlanguage into categories of acceptable and unacceptable content, andalignment training propagates these distinctions into model behaviour.We introduce the Safety Knowledge Pipeline (SKP), a four stageframework describing how pretraining knowledge is progressivelyfiltered, reframed, and constrained through annotation and alignmentmechanisms. We identify three mechanisms of knowledge modification,suppression, reframing, and substitution, each with distinctdiagnostic signals, and we operationalise them in a cross lingualevaluation protocol. Throughout, we distinguish carefully betweenbehavioural claims that follow from prior empirical literature andrepresentational claims that remain open hypotheses. Case studiesspanning harmful instruction queries, hate speech annotation inArabic dialects, and culturally variable discourse illustrate theframework. We further discuss how treating annotator disagreementas a training signal rather than noise can mitigate the culturallyhegemonic effects of current alignment pipelines.</abstract>
+      <url hash="4f16e6b0">2026.knowfm-1.1</url>
+      <bibkey>zaghouani-2026-annotation-frameworks</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Blind Single-Layer Activation Edits Show a Break/Fix Asymmetry in Factual Recall</title>
+      <author id="zacharie-bugaud" orcid="0009-0006-6903-5043" openreview="~Zacharie_Bugaud1"><first>Zacharie</first><last>Bugaud</last><affiliation>Astera Institute</affiliation></author>
+      <pages>13-24</pages>
+      <abstract>Can factual errors in language models be repaired by editing a single hidden activation at inference time?We compare blind edits, which are not told the correct answer, with oracle edits that receive answer-specific information.On Pythia-6.9B, with corruption replicated on Pythia-1B and GPT-2 XL, we find a strong break/fix asymmetry: single-layer perturbations easily corrupt correct factual recall, flipping 74-100% of initially correct answers, but blind repair is much harder.On EntityConfusion, twelve blind non-gradient interventions from four families fail to repair stable hallucinations in the strict single-layer setting; relaxed multi-layer or multi-head variants improve net accuracy by only <tex-math>+3</tex-math> percentage points.Blind gradient optimization repairs more errors, but often breaks already-correct answers.In contrast, oracle edits given the correct answer repair many more hallucinations, fixing 68% at the default layer and up to 82% at a better layer.These results suggest that the main barrier is not whether factual recall can be steered, but whether a blind method can identify the right target-specific direction.TriviaQA is a boundary case: blind confidence maximization outperforms the single-token oracle, but the comparison is complicated because evaluation accepts multiple aliases.</abstract>
+      <url hash="56a5b4c5">2026.knowfm-1.2</url>
+      <bibkey>bugaud-2026-blind</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>What Does Alignment Cost? The Structural Brittleness of Chain-of-Thought Reasoning</title>
+      <author openreview="~Joanna_Hao1"><first>Joanna</first><last>Hao</last><affiliation>University of Alberta</affiliation></author>
+      <author openreview="~Shanduojiao_Jiang1"><first>Shanduojiao</first><last>Jiang</last><affiliation>Department of Computer Science, University of Illinois, Urbana Champaign</affiliation></author>
+      <author openreview="~Sai_Asish_Nakka1"><first>Sai Asish</first><last>Nakka</last><affiliation>Pennsylvania State University</affiliation></author>
+      <pages>25-33</pages>
+      <abstract>While Chain-of-Thought (CoT) prompting enables Large Language Models to explicitly justify their predictions, the extent to which these textual rationales faithfully reflect internal computation remains unclear. We investigate the circuit-level impact of alignment by performing a strict within-family comparison of the 1B-parameter Llama 3 architecture (Base vs. Instruct). Executing dynamic circuit discovery and dual-direction resample ablation on unconstrained CoT traces across synthetic mathematical primitives and a GSM8K proxy, we find that foundation models possess highly redundant, self-repairing computational networks; completely corrupting their primary reasoning circuits yields a minimal performance drop (2.92%) due to the dynamic compensation of backup heads (the Hydra Effect). In contrast, the instruction-tuned model exhibits reduced structural redundancy, suffering more than double the degradation (6.79%) under identical perturbation. We formalize our observation as an "Alignment Tax on Redundancy": optimizing for human-preference compliance repurposes dormant backup circuits, centralizing mathematical routing and rendering the aligned model’s reasoning pathways significantly more vulnerable to internal perturbation.</abstract>
+      <url hash="c4d1200a">2026.knowfm-1.3</url>
+      <bibkey>hao-etal-2026-alignment</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>b<fixed-case>LL</fixed-case>e<fixed-case>QA</fixed-case>: Benchmarking <fixed-case>LLM</fixed-case>s for Grounded Legal Question-Answering in <fixed-case>F</fixed-case>rench and <fixed-case>D</fixed-case>utch</title>
+      <author id="nikolay-banar" orcid="0000-0001-9517-5791" openreview="~Nikolay_Banar1"><first>Nikolay</first><last>Banar</last><affiliation>Universiteit Antwerpen</affiliation></author>
+      <author id="ehsan-lotfi" orcid="0000-0002-1820-8008" openreview="~Ehsan_Lotfi1"><first>Ehsan</first><last>Lotfi</last><affiliation>Universiteit Antwerpen</affiliation></author>
+      <author id="jens-van-nooten" orcid="0000-0002-0165-5709" openreview="~Jens_Van_Nooten1"><first>Jens</first><last>Van Nooten</last><affiliation>University of Antwerp</affiliation></author>
+      <author openreview="~Marija_Kliocaite1"><first>Marija</first><last>Kliocaite</last><affiliation>Universiteit Antwerpen</affiliation></author>
+      <author id="walter-daelemans" orcid="0000-0002-9832-7890" openreview="~Walter_Daelemans1"><first>Walter</first><last>Daelemans</last><affiliation>University of Antwerp</affiliation></author>
+      <pages>34-59</pages>
+      <abstract>Retrieval-augmented generation (RAG) systems can play an important role in making law more accessible. However, large and reliable resources for training and benchmarking such systems remain scarce, especially for under-resourced languages like Dutch. To address this gap, and building on previous work (Louis et al., 2024), we introduce bLLeQA, a bilingual parallel question-answering dataset grounded in Belgian legal resources, both in French and Dutch. The dataset contains aligned questions, answers, and supporting articles in both languages, enabling evaluation of both retrieval and end-to-end RAG pipelines. Using bLLeQA, we benchmark the full RAG pipeline in a zero-shot setting, covering retrieval, citation extraction, refusal behavior, and generation quality. Our experiments show that open-weight models are competitive with proprietary models in retrieval and citation extraction, but lag behind in generation quality in the RAG pipeline. Across all models, refusal capability remains weak, meaning that models do not reliably detect when the provided supporting sources are incomplete. In addition, the end-to-end RAG setup still yields a substantial share of flawed responses, reaching 20% even in the best-case scenario.</abstract>
+      <url hash="eb481a22">2026.knowfm-1.4</url>
+      <bibkey>banar-etal-2026-blleqa</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>VLA</fixed-case>-Forget: Vision-Language-Action Unlearning for Embodied Foundation Models</title>
+      <author id="ravi-ranjan" orcid="0009-0004-5790-3179" openreview="~Ravi_Ranjan1"><first>Ravi</first><last>Ranjan</last><affiliation>Florida International University</affiliation></author>
+      <author id="agoritsa-polyzou" orcid="0000-0001-8630-7131" openreview="~Agoritsa_Polyzou1"><first>Agoritsa</first><last>Polyzou</last><affiliation>Florida International University</affiliation></author>
+      <pages>60-77</pages>
+      <abstract>Vision-language-action (VLA) models are emerging as embodied foundation models for robotic manipulation, but their deployment introduces a new unlearning challenge: removing unsafe, spurious, or privacy-sensitive behaviors without degrading perception, language grounding, and action control. In OpenVLA-style policies, behavior is produced through a fused visual encoder, a cross-modal projector, and a language backbone that predicts tokenized robot actions, so undesirable knowledge can be distributed across perception, alignment, and reasoning/action layers rather than confined to a single module. Consequently, partial unlearning applied only to the vision stack or only to the language backbone is often insufficient, while conventional unlearning baselines designed for standalone vision or language models may leave residual forgetting or incur unnecessary utility loss in embodied settings. We propose VLA-Forget, a hybrid unlearning framework that combines ratio-aware selective editing for perception and cross-modal specificity with layer-selective reasoning/action unlearning for utility-preserving forgetting. VLA-Forget jointly optimizes three objectives: targeted forgetting, perceptual preservation, and reasoning retention, through staged updates over the visual encoder, projector, and upper action-generating transformer blocks. Across forget-set behavior probes and retain-task evaluations, VLA-Forget improves forgetting efficacy by 10%, preserves perceptual specificity by 22%, retains reasoning and task success by 9%, and reduces post-quantization recovery by 55% relative to strong unlearning baselines.</abstract>
+      <url hash="57bbab9b">2026.knowfm-1.5</url>
+      <bibkey>ranjan-polyzou-2026-vla</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Overcoming the Impedance Mismatch: A Theoretical Roadmap for Fusing Foundation Models and Knowledge Graphs</title>
+      <author id="sahil-rajesh-dhayalkar" orcid="0009-0002-2571-2904" openreview="~Sahil_Rajesh_Dhayalkar1"><first>Sahil Rajesh</first><last>Dhayalkar</last><affiliation>Brain Corporation</affiliation></author>
+      <pages>78-89</pages>
+      <abstract>Modern artificial intelligence remains fundamentally divided between the continuous, probabilistic spaces of Foundation Models and the discrete, deterministic structures of Knowledge Graphs. While Retrieval-Augmented Generation (RAG) attempts to connect them by serializing graph data into text, we argue this lexical bridging is merely a superficial patch. In this paper, we formalize the underlying structural and geometric friction as the <i>Impedance Mismatch</i>. By categorizing current neuro-symbolic integration strategies into a three-tiered hierarchy, we demonstrate that neither surface-level prompt injection nor continuous representation alignment can preserve the strict logical motifs required for reliable multi-hop reasoning. We define the specific mathematical limits, such as the Lexical Bottleneck and Topological Collapse, that show current architectures will eventually hallucinate or conflate semantic nodes. To achieve true semantic fusion, we propose a rigorous theoretical roadmap. We advocate for natively internalizing discrete symbolic structures through Structured Residual Streams, utilizing Vector Symbolic Architectures for latent sub-graph injection, and performing model updates via Orthogonal Subspace Editing. This actionable framework paves the way for models that seamlessly fuse the precision of symbolic logic with the expressivity of parametric memory.</abstract>
+      <url hash="2ef983da">2026.knowfm-1.6</url>
+      <bibkey>dhayalkar-2026-overcoming</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>LLM</fixed-case>-<fixed-case>M</fixed-case>em<fixed-case>C</fixed-case>luster: Empowering Large Language Models with Dynamic Memory for Text Clustering</title>
+      <author id="yuanjie-zhu" orcid="0009-0004-9852-3770" openreview="~Yuanjie_Zhu1"><first>Yuanjie</first><last>Zhu</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author id="liangwei-yang" orcid="0000-0001-5660-766X" openreview="~Liangwei_Yang1"><first>Liangwei</first><last>Yang</last><affiliation>SalesForce.com</affiliation></author>
+      <author id="ke-xu-8090" orcid="0009-0001-2311-8090" openreview="~Ke_Xu24"><first>Ke</first><last>Xu</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author id="weizhi-zhang" orcid="0000-0003-4067-7588" openreview="~Weizhi_Zhang1"><first>Weizhi</first><last>Zhang</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author openreview="~Zihe_Song2"><first>Zihe</first><last>Song</last><affiliation>University of Illinois at Chicago</affiliation></author>
+      <author id="jindong-wang" orcid="0000-0002-4833-0880" openreview="~Jindong_Wang4"><first>Jindong</first><last>Wang</last><affiliation>William &amp; Mary</affiliation></author>
+      <author id="philip-s-yu" orcid="0000-0002-3491-5968" openreview="~Philip_S._Yu1"><first>Philip S.</first><last>Yu</last><affiliation>University of Illinois Chicago</affiliation></author>
+      <pages>90-104</pages>
+      <abstract>Large Language Models (LLMs) are reshaping unsupervised learning by offering an unprecedented ability to perform text clustering based on their deep semantic understanding. However, their direct application is fundamentally limited by a lack of stateful memory for iterative refinement and the difficulty of managing cluster granularity. As a result, existing methods often rely on complex pipelines with external modules, sacrificing a truly end-to-end approach. We introduce LLM-MemCluster, a novel framework that reconceptualizes clustering as a fully LLM-native task. It leverages a Dynamic Memory to instill state awareness and a Dual-Prompt Strategy to enable the model to reason about and determine the number of clusters. Evaluated on several benchmark datasets, our tuning-free framework significantly and consistently outperforms strong baselines. LLM-MemCluster presents an effective, interpretable, and truly end-to-end paradigm for LLM-based text clustering.</abstract>
+      <url hash="5ed96d16">2026.knowfm-1.7</url>
+      <bibkey>zhu-etal-2026-llm</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Test-Time Training for Zero-Resource Dense Retrieval Reranking</title>
+      <author id="shiyan-liu" orcid="0009-0000-5658-5229" openreview="~Shiyan_Liu2"><first>Shiyan</first><last>Liu</last><affiliation>Huazhong University of Science and Technology</affiliation></author>
+      <author openreview="~Yichen_Li18"><first>Yichen</first><last>Li</last><affiliation>Wuhan University of Technology</affiliation></author>
+      <pages>105-114</pages>
+      <abstract>Dense retrievers excel at first-stage candidate generation but lack effective reranking in zero-resource settings. Existing approaches face a fundamental dilemma: cross-encoders deliver strong reranking quality but require costly supervised training and incur high latency, while unsupervised BM25 reranking consistently degrades dense retrieval performance on most of BEIR benchmarks. We propose DART (Dense Adaptive Reranking at Test-time), which resolves this dilemma by adapting the scoring function at inference time. For each query, the top-ranked documents serve as pseudo-positive examples and the bottom-ranked as pseudo-negative examples, providing noisy but readily available supervision to adapt a bilinear scoring matrix <tex-math>W</tex-math> via a small number of gradient updates. We further introduce a confidence-weighted margin loss and a cross-query momentum buffer that warm-starts adaptation across queries. On six BEIR benchmarks, DART achieves a mean per-dataset relative NDCG@10 gain of +2.1% over the dense retrieval baseline with under 10ms additional latency per query, demonstrating a powerful capability for zero-shot performance enhancement and cross-domain generalization.</abstract>
+      <url hash="12be3210">2026.knowfm-1.8</url>
+      <bibkey>liu-li-2026-test</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Multimodal Generative Engine Optimization: Rank Manipulation for Vision–Language Model Rankers</title>
+      <author id="yixuan-du" orcid="0009-0008-6504-9936" openreview="~Yixuan_Du2"><first>Yixuan</first><last>Du</last><affiliation>Georgetown University</affiliation></author>
+      <author openreview="~Chenxiao_Yu1"><first>Chenxiao</first><last>Yu</last><affiliation>University of Southern California</affiliation></author>
+      <author id="haoyan-xu" orcid="0009-0008-7691-2926" openreview="~Haoyan_Xu2"><first>Haoyan</first><last>Xu</last><affiliation>University of Southern California</affiliation></author>
+      <author id="ziyi-wang" orcid="0009-0006-4821-1255" openreview="~Ziyi_Wang31"><first>Ziyi</first><last>Wang</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author id="yue-zhao" orcid="0000-0003-3401-4921" openreview="~Yue_Zhao13"><first>Yue</first><last>Zhao</last><affiliation>University of Southern California</affiliation></author>
+      <author id="xiyang-hu" orcid="0000-0001-7269-3828" openreview="~Xiyang_Hu1"><first>Xiyang</first><last>Hu</last><affiliation>Arizona State University</affiliation></author>
+      <pages>115-128</pages>
+      <abstract>Vision-Language Models (VLMs) integrate visual and textual knowledge into unified representations that increasingly underpin modern retrieval and recommendation systems. However, it remains unclear how reliably these models utilize their cross-modal knowledge when ranking multimodal items, and whether their knowledge grounding can be subverted. In this paper, we expose a fundamental vulnerability in how VLMs apply multimodal knowledge for product ranking: through Multimodal Generative Engine Optimization (MGEO), we show that an adversary can manipulate a VLM’s ranking decisions by jointly crafting imperceptible image perturbations and fluent textual suffixes that exploit the model’s internal cross-modal knowledge coupling. Using an alternating optimization strategy, MGEO targets the deep interactions between visual and linguistic representations within the VLM, achieving rank manipulations that substantially exceed those of unimodal attacks and heuristic baselines powered by strong commercial models. Our findings reveal that surface-level content quality is insufficient for rank promotion; instead, direct alignment with the model’s internal knowledge utilization mechanism is required. These results raise important questions on the faithfulness and robustness of knowledge grounding in multimodal foundation models, and motivate future work on defense mechanisms for multimodal retrieval systems.</abstract>
+      <url hash="275f4169">2026.knowfm-1.9</url>
+      <bibkey>du-etal-2026-multimodal</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Beyond Retrieval: Bi-Temporal State Arbitration for Longitudinal Healthcare Agents</title>
+      <author id="jianing-zhao" orcid="0009-0005-0821-6046" openreview="~Jianing_Zhao6"><first>Jianing</first><last>Zhao</last><affiliation>Tsinghua University</affiliation></author>
+      <author id="xiaoquan-zhi" orcid="0009-0004-4198-383X" openreview="~Xiaoquan_Zhi1"><first>Xiaoquan</first><last>Zhi</last><affiliation>Tianjin University</affiliation></author>
+      <author openreview="~Xinqiang_Yu2"><first>Xinqiang</first><last>Yu</last><affiliation>Tianjin University</affiliation></author>
+      <pages>129-137</pages>
+      <abstract>Longitudinal healthcare agents require persistent state tracking under temporal uncertainty. In domains like chronic disease management, patient states—medications, symptoms, and vital signs—evolve continuously over months. Existing memory architectures for Large Language Models (LLMs) are inherently retrieval-centric: they treat memory as a static repository of past interactions, failing to resolve conflicting or superseded information when queried for the current patient state. We propose a shift to state-centric memory. Our framework introduces (1) a bi-temporal state representation that decouples event time from ingestion time and tracks temporal validity windows, (2) an incremental state arbitration mechanism using four operators—SUPPORT, REFINE, SUPERSEDE, and BRANCH-CONFLICT—to handle evolving medical facts without destructive overwriting, and (3) a confidence-thresholded evidence escalation layer for robust, efficient memory access. Evaluated on a longitudinal diabetes management suite as a representative biomedical state tracking task, our method achieves a Unique-F1 of 0.85 and Conflict-F1 of 0.98, substantially improves upon long-context LLMs (0.38 / 0.89) and standard vector memory (0.30 / 0.60), demonstrating that agentic AI in longitudinal biomedical settings requires continuous, evidence-grounded arbitration rather than simple retrieval.</abstract>
+      <url hash="de00150d">2026.knowfm-1.10</url>
+      <bibkey>zhao-etal-2026-beyond-retrieval</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>RSCE</fixed-case>: Training-Free Residual Stream Encoding for Persistent Context Amortization</title>
+      <author openreview="~Adam_Kamel1"><first>Adam</first><last>Kamel</last><affiliation>University of Waterloo</affiliation></author>
+      <author openreview="~Eric_Xu2"><first>Eric</first><last>Xu</last><affiliation>University of Waterloo</affiliation></author>
+      <pages>138-146</pages>
+      <abstract>A central question in the knowledge lifecycle of language models ishow externally injected signals interact with parametric memoryaccumulated during pretraining. We address this through ResidualStream Context Encoding (RSCE), a training-free method that encodesa context document <tex-math>ctx</tex-math> into a single vector <tex-math>C \in \mathbb{R}^{d_M}</tex-math>via mean-pooling residual stream activations at a calibratedintermediate layer, then injects <tex-math>C</tex-math> as an additive shift at querytime. This replaces <tex-math>O(|T(ctx)|)</tex-math> attention prefill with an <tex-math>O(1)</tex-math>operation and reveals a previously undescribed <i>dual-pathwayinterference</i> effect: vector injection alone suppresses parametricrecall <i>below</i> the question-only baseline across four of fivetested architectures. This finding—absent in behavioral activationsteering—provides mechanistic evidence that LLMs maintain separatecontextual-retrieval and parametric-recall pathways that compete whenexternally injected signals are semantically rich but token-precisiondeficient. A dual-channel design pairing <tex-math>C</tex-math> with a compact explicitfact block <tex-math>F</tex-math> resolves this tension. We evaluate five decoder-onlyarchitectures (7B–70B) on multi-document QA (LongBench, <tex-math>n=108</tex-math>)and six on cross-file code completion (RepoBench-C), comparingagainst LongLLMLingua and EHPC. At extreme compression (<tex-math>\sim</tex-math>99%token reduction), RSCE Vec+F is competitive with EHPC on smallerarchitectures (LLaMA-8B F1 0.333 vs. EHPC 0.334; DeepSeek-14Bboth 0.214) while both substantially outperform LongLLMLingua.RSCE is the only method achieving 81% compression at 100%operational reliability on code.</abstract>
+      <url hash="6da2834c">2026.knowfm-1.11</url>
+      <bibkey>kamel-xu-2026-rsce</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Tricking Open-World Object Recognition Models: Uncertainty in Out-of-Distribution Detection</title>
+      <author openreview="~Wout_Teillers1"><first>Wout</first><last>Teillers</last><affiliation>University of Groningen</affiliation></author>
+      <author openreview="~Matias_Valdenegro-Toro1"><first>Matias</first><last>Valdenegro-Toro</last><affiliation>University of Groningen</affiliation></author>
+      <pages>147-164</pages>
+      <abstract>Object recognition models are well studied on benchmark datasets, typically focusing on performance in retrieving objects that exist in images. However, in real-life scenarios there is no prior knowledge of an object’s existence, and current research fails to assess model performance in these situations. This research aims to shed light on this problem by testing three Open-World models, YOLO-World, Grounding Dino and GPT-4o, on the LVIS, Open Images, and JUS datasets. We design an experiment where models are confronted with impossible prompts by instructing them to retrieve non-existing objects. This allows us to observe the models’ uncertainty performance. Overall, GPT-4o performed poorest with regard to object recognition and uncertainty estimation. GPT-4o showed to be highly overconfident. In contrast, YOLO-World and Grounding Dino are slightly underconfident, but they are superior in their uncertainty calibration in comparison to GPT-4o. However, all three models occasionally assign high confident predictions to non-existing objects. Showing that improvement can still be made to the uncertainty estimation of these models when confronted with impossible prompts.</abstract>
+      <url hash="1971040a">2026.knowfm-1.12</url>
+      <bibkey>teillers-valdenegro-toro-2026-tricking</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Knowledge Localization and Editability in Small Language Models: A Multi-Stage Experimental Study</title>
+      <author openreview="~Pranamya_Nilesh_Deshpande1"><first>Pranamya Nilesh</first><last>Deshpande</last><affiliation>Gokhale Education Society's R. H. Sapat College of Engineering, Management Studies and Research</affiliation></author>
+      <author openreview="~Aiswarya_Konavoor1"><first>Aiswarya</first><last>Konavoor</last><affiliation>Togo AI Labs</affiliation></author>
+      <author openreview="~Sreedath_Panat1"><first>Sreedath</first><last>Panat</last><affiliation>Vizuara AI Labs</affiliation></author>
+      <pages>165-172</pages>
+      <abstract>The internal mechanisms by which transformer-based language models encode and retrieve factual knowledge remain poorly understood, particularly for small language models (SLMs) operating in the 2–3 billion parameter range. This paper presents a systematic, multi-stage empirical investigation into knowledge localization, compression effects, and knowledge editability across four SLMs—Gemma-2B, Llama-3.2-3B-Instruct, Qwen-2.5-3B-Instruct, and Phi-2—with Meta-Llama-3-8B serving as a large-model baseline. Stage 1 employs causal tracing with activation patching on the CounterFact dataset (~450–500 validated facts per model) to identify the layer or layers most causally responsible for factual recall. Stage 2 compares knowledge density, layer concentration, and redundancy between the 2–3B models and the 8B baseline to quantify the structural effects of model compression on knowledge storage. Stage 3 applies the Rank-One Model Editing (ROME) algorithm at the causally identified layers to assess whether localized knowledge can be reliably overwritten. Our results demonstrate that (i) factual knowledge in SLMs concentrates in upper-to-final transformer layers, with Llama-3B exhibiting extreme concentration in layer 28; (ii) compressed models store knowledge more densely per parameter but with substantially lower redundancy (Llama-3B: 0.047 vs. Llama-8B: 0.468); and (iii) editing success correlates strongly with architectural concentration rather than model size, with Llama-3B achieving 85.7% editing success versus 33% for Gemma-2B. These findings carry direct implications for interpretability, model editing, and the design of future small language model architectures.</abstract>
+      <url hash="41029466">2026.knowfm-1.13</url>
+      <bibkey>deshpande-etal-2026-knowledge</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>One Retrieval to Cover Them All: Co-occurrence-Aware Knowledge Base Reorganization for Session-Level <fixed-case>RAG</fixed-case></title>
+      <author id="shivam-ratnakar" orcid="0009-0004-6807-4222" openreview="~Shivam_Ratnakar1"><first>Shivam</first><last>Ratnakar</last><affiliation>University of Southern California</affiliation></author>
+      <author openreview="~Yixuan_Zhu5"><first>Yixuan</first><last>Zhu</last><affiliation>University of Southern California</affiliation></author>
+      <author openreview="~Cecilia_Cheng1"><first>Cecilia</first><last>Cheng</last><affiliation>University of Southern California</affiliation></author>
+      <author openreview="~Chaya_Vijayakumar1"><first>Chaya</first><last>Vijayakumar</last><affiliation>University of Southern California</affiliation></author>
+      <pages>173-182</pages>
+      <abstract>RAG systems retrieve documents optimized for answering *one query at a time*. Yet enterprise users arrive with *sessions*, that is, coherent episodes of related questions that span semantically distant parts of the knowledge base. We show that a single retrieval call over a standard knowledge base covers only 41% of a user’s session-level information need. To close this gap, we reorganize the KB offline using co-occurrence-aware clustering and expand retrieval candidates through cluster neighborhoods at query time. On WixQA (6,221 enterprise support articles), our method raises single-query session coverage to 58% (+17% absolute; 95% CI: [14.1, 20.4]), reduces retrieval calls to 70% coverage by 34%, and compresses the KB to 20% of its original size, all consistently across four embedding models and six functional domains. We argue that session-level coverage, not single-query recall, should be the primary metric for enterprise RAG evaluation.</abstract>
+      <url hash="d96bb38f">2026.knowfm-1.14</url>
+      <bibkey>ratnakar-etal-2026-one</bibkey>
+      <doi>10.18653/v1/2026.knowfm-1.14</doi>
+    </paper>
+  </volume>
+</collection>

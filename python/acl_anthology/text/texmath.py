@@ -17,7 +17,7 @@ import pkgutil
 from attrs import define, field
 from lxml import etree
 from TexSoup import TexSoup
-from TexSoup.data import TexCmd, TexText, TexGroup
+from TexSoup.data import TexCmd, TexText, TexGroup, TexMathModeEnv
 from typing import Literal, Tuple, Union, overload
 
 from ..utils.logging import get_logger
@@ -159,8 +159,15 @@ class _TexMath:
                 # Otherwise, just parse it normally
                 else:
                     self._parse(code.contents, trg)
+            elif isinstance(code, TexMathModeEnv):
+                # Nested math-mode delimiters (e.g. a stray "$" inside an
+                # already-math expression); the delimiters are redundant, so
+                # just parse the contents in the current context.
+                self._parse(code.contents, trg)
             else:
-                log.error(f"TeX-math parser got unhandled element: {type(code)}")
+                raise ValueError(
+                    f"TeX-math parser got unhandled element of type {type(code).__name__}: {code!r}"
+                )
 
     def _parse_command(self, code: TexCmd, trg: etree._Element) -> None:
         args = list(code.args)

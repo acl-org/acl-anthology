@@ -41,6 +41,8 @@ Usage:
     add_revision [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
 `-e` denotes erratum instead of revision.
+`-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
+`-R` also works on whole volumes (e.g. 2026.silkroadnlp-1), which cannot carry revisions.
 
 List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
@@ -52,16 +54,20 @@ import filetype
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
+import urllib.parse
 from datetime import datetime
 from pathlib import Path
 
+import requests
 from git.repo.base import Repo
 from github import Github, GithubException
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import PaperErratum, PaperRevision
+from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
+from acl_anthology.collections.volume import Volume
 from acl_anthology.files import FileReference, PDFReference
 from acl_anthology.utils.ids import parse_id
 
@@ -77,7 +83,8 @@ def _get_github_repo(repo_name):
     token = _get_github_token()
     if not token:
         print(
-            "-> FATAL: set GITHUB_TOKEN or GH_TOKEN before using --issue",
+            "-> FATAL: no GitHub token found. Set GITHUB_TOKEN or GH_TOKEN, or "
+            "configure Git Credential Manager (gcm) for github.com before using --issue",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -93,12 +100,55 @@ def _get_github_repo(repo_name):
         sys.exit(1)
 
 
+def _get_token_from_git_credential(host="github.com"):
+    """Retrieve a GitHub token from Git Credential Manager via `git credential fill`.
+
+    After a successful fill, the credential is handed back to
+    `git credential approve` so the configured helper (e.g. gcm) persists it.
+    Without this step the credential protocol treats the fill as unconfirmed,
+    causing gcm to re-run its interactive sign-in on every invocation.
+    """
+    request = f"protocol=https\nhost={host}\n\n"
+    try:
+        result = subprocess.run(
+            ["git", "credential", "fill"],
+            input=request,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+    credential = result.stdout
+    token = None
+    for line in credential.splitlines():
+        if line.startswith("password="):
+            token = line[len("password=") :].strip() or None
+
+    if token:
+        # Confirm the credential so the helper stores it and future runs are
+        # served from the cache instead of prompting to sign in again.
+        try:
+            subprocess.run(
+                ["git", "credential", "approve"],
+                input=credential,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
+
+    return token
+
+
 def _get_github_token():
     for env_var in GITHUB_TOKEN_ENV_VARS:
         token = os.environ.get(env_var)
         if token:
             return token
-    return None
+    return _get_token_from_git_credential()
 
 
 def _parse_issue_form_sections(body):
@@ -120,6 +170,78 @@ def _extract_first_url(value):
     if match:
         return match.group(1).rstrip(TRAILING_URL_CHARS)
     return None
+
+
+GOOGLE_DRIVE_HOSTS = ("drive.google.com", "docs.google.com")
+
+
+def _extract_google_drive_id(url):
+    """Return the file ID from a Google Drive share URL, or None if it isn't one."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.netloc not in GOOGLE_DRIVE_HOSTS:
+        return None
+    # e.g. https://drive.google.com/file/d/<ID>/view
+    match = re.search(r"/d/([^/]+)", parsed.path)
+    if match:
+        return match.group(1)
+    # e.g. https://drive.google.com/open?id=<ID> or /uc?id=<ID>
+    query = urllib.parse.parse_qs(parsed.query)
+    if "id" in query:
+        return query["id"][0]
+    return None
+
+
+def download_google_drive_file(url, dest):
+    """Download a file shared from Google Drive.
+
+    A plain fetch of a Drive share link returns an HTML viewer/interstitial page
+    rather than the file itself. This resolves the file ID and follows the
+    large-file confirmation form so the actual bytes are written to ``dest``.
+
+    Returns True if ``url`` was a Google Drive URL (and was downloaded), or
+    False if it is not a Drive URL and should be handled by the caller.
+    """
+    file_id = _extract_google_drive_id(url)
+    if file_id is None:
+        return False
+
+    session = requests.Session()
+    response = session.get(
+        "https://drive.google.com/uc",
+        params={"id": file_id, "export": "download"},
+        stream=True,
+    )
+
+    if "text/html" in response.headers.get("Content-Type", ""):
+        # Large files return an interstitial page with a confirmation form.
+        text = response.text
+        action_match = re.search(r'action="([^"]+)"', text)
+        if action_match:
+            action = action_match.group(1).replace("&amp;", "&")
+            params = dict(re.findall(r'name="([^"]+)"\s+value="([^"]*)"', text))
+            response = session.get(action, params=params, stream=True)
+        else:
+            token = next(
+                (
+                    value
+                    for key, value in response.cookies.items()
+                    if key.startswith("download_warning")
+                ),
+                None,
+            )
+            if token:
+                response = session.get(
+                    "https://drive.google.com/uc",
+                    params={"id": file_id, "export": "download", "confirm": token},
+                    stream=True,
+                )
+
+    response.raise_for_status()
+    with open(dest, "wb") as handle:
+        for chunk in response.iter_content(chunk_size=32768):
+            if chunk:
+                handle.write(chunk)
+    return True
 
 
 def fetch_issue_revision_metadata(
@@ -212,6 +334,7 @@ def add_revision(
     if needs_initial_revision:
         v1_name = f"{paper.full_id}{change_letter}1"
         v1_path = pdf_dir / f"{v1_name}.pdf"
+        print(f"-> Archiving original {paper.full_id} -> {v1_path}", file=sys.stderr)
         paper.pdf.download(v1_path)
         validate_file_type(v1_path)
         paper.revisions += (
@@ -255,30 +378,53 @@ def add_revision(
     return paper.collection.path
 
 
-def update_frontmatter(
-    anthology: Anthology,
-    anth_id: str,
+def replace_pdf(
+    item: Paper | Volume,
     pdf_path: Path,
+    label: str = "PDF",
+    explanation: str | None = None,
+    archive: bool = False,
 ) -> Path | None:
-    """Update a frontmatter PDF in place, replacing the file and updating the checksum.
+    """Replace a paper's or volume's canonical PDF in place, updating the checksum.
 
-    Frontmatter does not support <revision> entries, so we simply overwrite the
-    canonical PDF and record the new checksum.
+    This overwrites {anthology_id}.pdf and records the new checksum without
+    creating any <revision> or <erratum> entries. It is used for frontmatter and
+    whole volumes (neither of which can carry revisions) and for the --replace
+    flag, where a bad file simply needs to be swapped out.
+
+    When ``archive`` is set, the pre-replacement PDF is preserved as
+    {anthology_id}.orig (only if one isn't already there, so the true original
+    survives repeated replacements) and, if an ``explanation`` is given, it is
+    logged to a parallel {anthology_id}.README. Both sit alongside the PDF under
+    ANTHOLOGY_FILES_DIR so they are synced.
     """
-    paper = anthology.get_paper(anth_id)
-    if paper is None:
-        print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
-        sys.exit(1)
-
-    pdf_dir = resolve_pdf_dir(paper.full_id)
-    canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
+    pdf_dir = resolve_pdf_dir(item.full_id)
+    canonical_pdf = pdf_dir / f"{item.full_id}.pdf"
 
     pdf_dir.mkdir(parents=True, exist_ok=True)
+
+    if archive:
+        orig_path = pdf_dir / f"{item.full_id}.orig"
+        if item.pdf is not None and not orig_path.exists():
+            print(
+                f"-> Archiving original {item.full_id} -> {orig_path}",
+                file=sys.stderr,
+            )
+            item.pdf.download(orig_path)
+            os.chmod(orig_path, 0o600)
+        if explanation:
+            readme_path = pdf_dir / f"{item.full_id}.README"
+            print(f"-> Logging description -> {readme_path}", file=sys.stderr)
+            readme_path.write_text(explanation.strip() + "\n")
+
     copy_file(pdf_path, canonical_pdf)
-    paper.pdf = PDFReference.from_file(canonical_pdf)
-    paper.collection.save()
-    print(f"-> Updated frontmatter PDF and checksum for {paper.full_id}", file=sys.stderr)
-    return paper.collection.path
+    item.pdf = PDFReference.from_file(canonical_pdf)
+    item.collection.save()
+    print(
+        f"-> Replaced {label} and updated checksum for {item.full_id}",
+        file=sys.stderr,
+    )
+    return item.collection.path
 
 
 def normalize_id(id):
@@ -344,7 +490,8 @@ def main(args):
     if pdf_url.lower().startswith("http"):
         _, temp_path_str = tempfile.mkstemp(suffix=".pdf")
         temp_path = pdf_path = Path(temp_path_str)
-        FileReference(name=pdf_url).download(pdf_path)
+        if not download_google_drive_file(pdf_url, pdf_path):
+            FileReference(name=pdf_url).download(pdf_path)
     else:
         pdf_path = Path(pdf_url)
         if not pdf_path.is_file():
@@ -354,14 +501,48 @@ def main(args):
     pdf_path = Path(pdf_path)
     validate_file_type(pdf_path)
 
-    _, _, paper_id = parse_id(anthology_id)
+    _, volume_id, paper_id = parse_id(anthology_id)
+    is_volume = paper_id is None and volume_id is not None
     is_frontmatter = paper_id == "0"
 
-    if is_frontmatter:
-        collection_path = update_frontmatter(
-            anthology,
-            anthology_id,
+    if is_volume and not args.replace:
+        print(
+            f"-> FATAL: {anthology_id} is a volume; volumes do not support "
+            "revisions. Use -R to replace the volume PDF.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if is_volume:
+        volume = anthology.get_volume(anthology_id)
+        if volume is None:
+            print(
+                f"-> FATAL: volume ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        collection_path = replace_pdf(
+            volume,
             pdf_path,
+            label="volume PDF",
+            explanation=explanation_text,
+            archive=True,
+        )
+    elif is_frontmatter or args.replace:
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        label = "frontmatter PDF" if is_frontmatter else "PDF"
+        collection_path = replace_pdf(
+            paper,
+            pdf_path,
+            label=label,
+            explanation=explanation_text if args.replace else None,
+            archive=args.replace,
         )
     else:
         # build a list of the checksums of all revisions for the paper
@@ -407,6 +588,10 @@ def main(args):
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
             if is_frontmatter:
                 msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+            elif is_volume:
+                msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
+            elif args.replace:
+                msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
             else:
                 msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
             if explanation_text:
@@ -435,6 +620,12 @@ if __name__ == "__main__":
         "-e",
         action="store_true",
         help="This is an erratum instead of a revision.",
+    )
+    parser.add_argument(
+        "--replace",
+        "-R",
+        action="store_true",
+        help="Replace the paper's PDF in place (update checksum) without recording a revision.",
     )
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
