@@ -1,15 +1,9 @@
 """Tests for bin/ingest.py."""
 
 import logging
-import sys
 from pathlib import Path
 
 import pytest
-
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
-# bin/ingest.py imports the `fixedcase` package that lives under bin/.
-sys.path.insert(0, str(ROOT / "bin"))
 
 from bin.ingest import check_for_anonymous_pdf  # noqa: E402
 
