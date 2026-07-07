@@ -32,13 +32,13 @@ By default, the script computes a `git diff` against a base revision (default
 `origin/master`) to discover which volumes were *added* and how many new
 entries were added to `data/yaml/people.yaml`. This is how it is run from CI:
 
-    ./bin/ingestion_stats.py --base origin/master
+    ./bin/analysis/ingestion_stats.py --base origin/master
 
 The base revision can be changed with `--base`. Volumes can also be passed
 explicitly as full volume IDs, which overrides volume detection from the diff
 (the people.yaml diff is still computed against the base):
 
-    ./bin/ingestion_stats.py 2025.acl-long 2025.acl-short 2025.findings-acl
+    ./bin/analysis/ingestion_stats.py 2025.acl-long 2025.acl-short 2025.findings-acl
 
 The report is intended to be posted as a (single, updatable) PR comment.
 """
@@ -81,7 +81,7 @@ def get_diff(base: str, datadir: Path) -> List[str]:
     Returns:
         The diff output as a list of lines.
     """
-    repo_root = Path(__file__).resolve().parent.parent
+    repo_root = Path(__file__).resolve().parent.parent.parent
     xml_dir = (datadir / "xml").as_posix()
     people_yaml = (datadir / "yaml" / "people.yaml").as_posix()
     result = subprocess.run(
@@ -313,7 +313,7 @@ def main() -> None:
     parser.add_argument(
         "--datadir",
         type=Path,
-        default=Path(__file__).parent / ".." / "data",
+        default=Path(__file__).parent / ".." / ".." / "data",
         help="Path to the Anthology data directory. Default: %(default)s.",
     )
     args = parser.parse_args()

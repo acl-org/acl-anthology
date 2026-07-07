@@ -7,7 +7,7 @@ The event must be specified explicitly. By default, this includes both the
 event's own collection volumes and the volumes listed as colocated with the
 event:
 
-    ./bin/count_author_papers.py --event acl-2026 \
+    ./bin/analysis/count_author_papers.py --event acl-2026 \
         --output build/acl-2026-author-paper-counts.tsv
 
 Use --main-only to restrict the count to the event's collection volumes, or
@@ -143,7 +143,7 @@ def main() -> None:
     parser.add_argument(
         "--datadir",
         type=Path,
-        default=Path(__file__).resolve().parent.parent / "data",
+        default=Path(__file__).resolve().parent.parent.parent / "data",
         help="Path to the Anthology data directory. Default: %(default)s.",
     )
     parser.add_argument(
