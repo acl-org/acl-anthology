@@ -1013,14 +1013,8 @@ def test_add_fields_to_people_data(index, tmp_path):
     assert (
         """  "marcel-bollmann": {
     "names": [
-      {
-        "first": "Marcel",
-        "last": "Bollmann"
-      },
-      {
-        "first": "Marc Marcel",
-        "last": "Bollmann"
-      }
+      {"first": "Marcel", "last": "Bollmann"},
+      {"first": "Marc Marcel", "last": "Bollmann"}
     ],
     "degree": "Ruhr-Universität Bochum",
     "orcid": "0000-0003-2598-8150"
@@ -1047,10 +1041,7 @@ def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
     assert (
         """  "preslav-nakov": {
     "names": [
-      {
-        "first": "Preslav",
-        "last": "Nakov"
-      }
+      {"first": "Preslav", "last": "Nakov"}
     ],
     "orcid": "0000-0002-3600-1510"
   }"""
@@ -1078,10 +1069,7 @@ def test_add_person_to_people_data_via_create_person(index, tmp_path):
     assert (
         """  "preslav-nakov": {
     "names": [
-      {
-        "first": "Preslav",
-        "last": "Nakov"
-      }
+      {"first": "Preslav", "last": "Nakov"}
     ],
     "orcid": "0000-0002-3600-1510"
   }"""

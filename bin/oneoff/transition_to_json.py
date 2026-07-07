@@ -40,6 +40,7 @@ from lxml.builder import E
 import msgspec
 import os
 from pathlib import Path
+import re
 import yaml
 
 try:
@@ -53,11 +54,52 @@ from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.xml import indent
 
 
-def write_json(filename, data):
+_NAMES_ARRAY_RE: re.Pattern[bytes] = re.compile(
+    rb'("names":\s*\[\n)(.*?)(\n[ \t]*\])',
+    re.DOTALL,
+)
+"""Regex to match "names": [ ... ] blocks (non-greedy, across newlines)."""
+
+
+_OBJ_RE: re.Pattern[bytes] = re.compile(
+    rb"\{\n(?P<body>.*?)\n[ \t]*\}",
+    re.DOTALL,
+)
+"""Regex to match individual dictionary objects.  Assumes that there are no nested dicts/lists as values."""
+
+
+_PAIR_RE: re.Pattern[bytes] = re.compile(
+    rb"""
+    "(?:[^"\\]|\\.)*"   # the key: a JSON string, respecting \" escapes
+    :\s*                # colon, then optional whitespace before the value
+    "(?:[^"\\]|\\.)*"   # the value: also a JSON string, same escape handling
+    """,
+    re.VERBOSE,
+)
+"""Regex to extract key/value pairs from a dictionary object body.  Assumes that values will always be strings."""
+
+
+def _collapse_obj(m: re.Match[bytes]) -> bytes:
+    """Collapse all dictionaries within an object to a single line."""
+    pairs = _PAIR_RE.findall(m.group("body"))
+    return b"{" + b", ".join(pairs) + b"}"
+
+
+def _collapse_names_array(m: re.Match[bytes]) -> bytes:
+    """Collapse all dictionaries within a names array to a single line."""
+    prefix, body, suffix = m.group(1), m.group(2), m.group(3)
+    return prefix + _OBJ_RE.sub(_collapse_obj, body) + suffix
+
+
+def write_json(filename, data, flatten_names=False):
     target_path = anthology.datadir / "json" / filename
+    encoded = msgspec.json.encode(data)
+    pretty = msgspec.json.format(encoded)
+    if flatten_names:
+        pretty = _NAMES_ARRAY_RE.sub(_collapse_names_array, pretty)
+
     with open(target_path, "wb") as f:
-        encoded = msgspec.json.encode(data)
-        f.write(msgspec.json.format(encoded))
+        f.write(pretty)
         f.write(b"\n")
 
     log.info(f"Wrote {target_path}")
@@ -94,7 +136,7 @@ def convert_people_yaml(anthology):
                 new_values[key] = values[key]
         new_data[pid] = new_values
 
-    write_json("people.json", new_data)
+    write_json("people.json", new_data, flatten_names=True)
 
 
 def convert_venues_yaml(anthology):

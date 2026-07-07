@@ -36,6 +36,7 @@ from ..exceptions import (
 )
 from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
+from ..utils.json import collapse_names
 from ..utils.logging import get_logger
 from . import Person, Name, NameLink, NameSpecification
 
@@ -777,6 +778,8 @@ class PersonIndex(SlottedDict[Person]):
             }
             data[person.id] = {k: v for k, v in attrib.items() if v}
 
+        encoded = json.format(json.encode(data))
+        encoded = collapse_names(encoded)
         with open(path, "wb") as f:
-            f.write(json.format(json.encode(data)))
+            f.write(encoded)
             f.write(b"\n")
