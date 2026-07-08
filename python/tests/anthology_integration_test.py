@@ -34,12 +34,6 @@ def pytest_generate_tests(metafunc):
             "full_anthology_collection_id",
             [xmlpath.name[:-4] for xmlpath in sorted(DATADIR.glob("xml/*.xml"))],
         )
-    # Discovers all SIG YAML files in DATADIR and parametrizes tests
-    if "full_anthology_sig_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_sig_id",
-            [yamlpath.name[:-5] for yamlpath in sorted(DATADIR.glob("yaml/sigs/*.yaml"))],
-        )
 
 
 @pytest.fixture(scope="module")
@@ -71,23 +65,6 @@ def test_anthology_from_within_repo(tmp_path):
 def test_full_anthology_should_validate_schema(full_anthology):
     for collection in full_anthology.collections.values():
         collection.validate_schema()
-
-
-@pytest.mark.integration
-@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
-def test_full_anthology_roundtrip_people_data(full_anthology, tmp_path):
-    full_anthology.people.build()
-    data_in = full_anthology.people.path
-    data_out = tmp_path / "people.json"
-    full_anthology.people.save(data_out)
-    assert data_out.is_file()
-    with (
-        open(data_in, "r", encoding="utf-8") as f,
-        open(data_out, "r", encoding="utf-8") as g,
-    ):
-        expected = f.read()
-        out = g.read()
-    assert out == expected
 
 
 @pytest.mark.integration
@@ -124,28 +101,18 @@ def test_full_anthology_roundtrip_xml(
             assert exp_lines == out_lines
 
 
-@pytest.mark.integration
-def test_full_anthology_roundtrip_venue_data(full_anthology, tmp_path):
-    full_anthology.venues.load()
-    data_in = full_anthology.venues.path
-    data_out = tmp_path / "venues.json"
-    full_anthology.venues.save(data_out)
-    assert data_out.is_file()
-    with (
-        open(data_in, "r", encoding="utf-8") as f,
-        open(data_out, "r", encoding="utf-8") as g,
-    ):
-        expected = f.read()
-        out = g.read()
-    assert out == expected
+all_json_indices = ("venues", "sigs", "people")
 
 
 @pytest.mark.integration
-def test_full_anthology_roundtrip_sig_data(full_anthology, tmp_path):
-    full_anthology.sigs.load()
-    data_in = full_anthology.sigs.path
-    data_out = tmp_path / "sigs.json"
-    full_anthology.sigs.save(data_out)
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
+@pytest.mark.parametrize("index_name", all_json_indices)
+def test_full_anthology_roundtrip_json(full_anthology, tmp_path, index_name):
+    index = getattr(full_anthology, index_name)
+    index.load()
+    data_in = index.path
+    data_out = tmp_path / f"{index_name}.json"
+    index.save(data_out)
     assert data_out.is_file()
     with (
         open(data_in, "r", encoding="utf-8") as f,
