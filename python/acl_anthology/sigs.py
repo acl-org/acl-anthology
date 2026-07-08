@@ -18,7 +18,7 @@ from attrs import define, field, validators as v, asdict
 from collections import defaultdict
 from msgspec import json
 from pathlib import Path
-from typing import Iterator, Optional, TYPE_CHECKING
+from typing import Any, Iterator, Optional, TYPE_CHECKING
 import sys
 
 if sys.version_info >= (3, 13):
@@ -134,7 +134,7 @@ class SIGIndex(SlottedDict[SIG]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `sigs.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
-        is_data_loaded: A flag indicating whether the venue YAML files have been loaded.
+        is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
@@ -171,6 +171,36 @@ class SIGIndex(SlottedDict[SIG]):
 
         self.build()
         self.is_data_loaded = True
+
+    def create(self, id: str, acronym: str, name: str, **kwargs: Any) -> SIG:
+        """Create a new venue and add it to the index.
+
+        Parameters:
+            id: The ID of the new SIG.
+            acronym: The acronym of the new SIG.
+            name: The name of the new SIG.
+            **kwargs: Any valid optional attribute of [SIG][acl_anthology.sigs.SIG], with the exception of `item_ids`, which cannot be set.
+
+        Returns:
+            The created [SIG][acl_anthology.sigs.SIG] object.
+
+        Raises:
+            KeyError: If an invalid attribute is supplied in `**kwargs`.
+        """
+        if "item_ids" in kwargs:
+            raise KeyError(
+                "Cannot specify `item_ids` for SIG; add its ID to the volume(s) instead."
+            )  # pragma: no cover
+
+        kwargs["parent"] = self
+        sig = SIG(id=id, acronym=acronym, name=name, **kwargs)
+        self.data[id] = sig
+        return sig
+
+    def reset(self) -> None:
+        """Reset the index."""
+        self.data = {}
+        self.is_data_loaded = False
 
     def build(self) -> None:
         """Load the entire Anthology data and build an index of SIGs.

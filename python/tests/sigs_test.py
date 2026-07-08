@@ -25,6 +25,16 @@ def test_sig_defaults():
     assert sig.url is None
 
 
+def test_sigindex_create(anthology):
+    index = anthology.sigs
+    sig = index.create(id="sigfake", acronym="SIGFAKE", name="Fake Interest Group")
+    assert "sigfake" in index
+    assert index["sigfake"] is sig
+    assert sig.acronym == "SIGFAKE"
+    assert sig.name == "Fake Interest Group"
+    assert len(sig.external_meetings) == 0
+
+
 def test_sigindex_sigsem(anthology):
     index = SIGIndex(anthology)
     sig = index.get("sigsem")
