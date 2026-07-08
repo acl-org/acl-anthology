@@ -183,7 +183,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 ## Ingesting new proceedings
 
-Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or YAML) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
+Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or JSON) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
 
 ### New collections, volumes, and papers
 
@@ -328,11 +328,12 @@ the gory details), it's best to ensure that:
 
 Volumes can be connected to venues by modifying the volume's `venue_ids` list.
 New venues can be added by calling
-[`VenueIndex.create()`][acl_anthology.venues.VenueIndex.create], which will also
-create a corresponding YAML file upon saving.  Afterwards, the ID used when
-instantiating the venue can be used in a volume's `venue_ids`.
+[`VenueIndex.create()`][acl_anthology.venues.VenueIndex.create].  Afterwards,
+the ID used when instantiating the venue can be used in a volume's `venue_ids`.
 
-{==TODO: connecting to SIGs; we may want to refactor how SIGs are represented before introducing this functionality.==}
+Volumes can be connected to SIGs in exactly the same way, by modifying the
+volume's `sig_ids` list.  New SIGs can be added by calling
+[`SIGIndex.create()`][acl_anthology.sigs.SIGIndex.create].
 
 
 ## Saving changes
@@ -342,7 +343,7 @@ instantiating the venue can be used in a volume's `venue_ids`.
     Call [`anthology.save_all()`][acl_anthology.anthology.Anthology.save_all] to save all metadata changes.
 
 Calling [`save_all()`][acl_anthology.anthology.Anthology.save_all] will write
-XML and YAML files to the Anthology's data directory, with the following
+XML and JSON files to the Anthology's data directory, with the following
 caveats:
 
 - **Collections will track if they have been modified** to prevent writing XML
@@ -359,6 +360,6 @@ caveats:
     non-destructive through [integration tests on the entire Anthology
     data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
 
-- **YAML files will always be written**.  Serializing all YAML files is much
+- **JSON files will always be written**.  Serializing all JSON files is much
   faster than serializing all XML files, so they are written unconditionally,
   without tracking changes.

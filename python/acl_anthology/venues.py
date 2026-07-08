@@ -115,7 +115,7 @@ class VenueIndex(SlottedDict[Venue]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `venues.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
-        is_data_loaded: A flag indicating whether the venue YAML files have been loaded and the index has been built.
+        is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
@@ -130,10 +130,10 @@ class VenueIndex(SlottedDict[Venue]):
         return self.parent.datadir / Path(VENUE_INDEX_FILE)
 
     def load(self) -> None:
-        """Load and parse the `venues/*.yaml` files.
+        """Load and parse the `venues.json` file.
 
         Raises:
-            KeyError: If a mandatory key is missing in a YAML file.
+            KeyError: If a mandatory key is missing in a venue entry.
         """
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
@@ -156,7 +156,7 @@ class VenueIndex(SlottedDict[Venue]):
             id: The ID of the new venue.
             acronym: The acronym of the new venue.
             name: The name of the new venue.
-            **kwargs: Any valid optional attribute of [Venue][acl_anthology.venues.Venue], with the exception of `path`, which is automatically set based on the venue ID, as well as `item_ids` and `oldstyle_letter`, which cannot be set.
+            **kwargs: Any valid optional attribute of [Venue][acl_anthology.venues.Venue], with the exception of `item_ids` and `oldstyle_letter`, which cannot be set.
 
         Returns:
             The created [Venue][acl_anthology.venues.Venue] object.
@@ -187,7 +187,7 @@ class VenueIndex(SlottedDict[Venue]):
         """Load the entire Anthology data and build an index of venues.
 
         Raises:
-            ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in the venue YAML files).
+            ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in `venues.json`).
         """
         if self.no_item_ids:
             return

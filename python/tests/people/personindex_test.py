@@ -1051,7 +1051,7 @@ def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
 
 def test_add_person_to_people_data_via_create_person(index, tmp_path):
     index.load()
-    data_out = tmp_path / "people.create_person.yaml"
+    data_out = tmp_path / "people.create_person.json"
 
     # Modifications
     index.create(
