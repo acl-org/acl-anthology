@@ -19,7 +19,6 @@ from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.sigs import SIG
 from acl_anthology.utils import xml
 
 # Map from [repo]/python/tests to [repo]/data
@@ -142,21 +141,19 @@ def test_full_anthology_roundtrip_venue_data(full_anthology, tmp_path):
 
 
 @pytest.mark.integration
-def test_full_anthology_roundtrip_sig_yaml(
-    full_anthology, full_anthology_sig_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the SIG YAML files
-    sig = full_anthology.sigs[full_anthology_sig_id]
-    outfile = tmp_path / f"{full_anthology_sig_id}.yaml"
-    # Save SIG (it's already loaded when accessing it)
-    sig.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = SIG.load_from_yaml(full_anthology.sigs, outfile)
-    # Test for logical equivalence only, ignoring order of meetings for now
-    for attrib in ("id", "acronym", "name", "url"):
-        assert getattr(out, attrib) == getattr(sig, attrib)
-    assert set(out.meetings) == set(sig.meetings)
+def test_full_anthology_roundtrip_sig_data(full_anthology, tmp_path):
+    full_anthology.sigs.load()
+    data_in = full_anthology.sigs.path
+    data_out = tmp_path / "sigs.json"
+    full_anthology.sigs.save(data_out)
+    assert data_out.is_file()
+    with (
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected
 
 
 @pytest.mark.integration

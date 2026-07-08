@@ -360,15 +360,24 @@ class Volume(SlottedDict[Paper]):
         raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def get_sigs(self) -> list[SIG]:
-        """
-        Returns:
-            A list of SIGs associated with this volume.
-        """
-        return [self.root.sigs[sig] for sig in self.sig_ids]
+        return self.sigs()
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""
         yield from self.data.values()
+
+    def sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs associated with this volume.
+        """
+        try:
+            return [self.root.sigs[sig] for sig in self.sig_ids]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
+            )
+            raise exc
 
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
@@ -376,7 +385,7 @@ class Volume(SlottedDict[Paper]):
             return [self.root.venues[vid] for vid in self.venue_ids]
         except KeyError as exc:
             exc.add_note(
-                f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
             )
             raise exc
 

@@ -104,7 +104,7 @@ def test_venueindex_noindex(anthology, caplog):
     assert not any("XML data file" in rec.message for rec in caplog.records)
 
 
-def test_venueindex_data_roundtrip(anthology, tmp_path):
+def test_venueindex_roundtrip_data(anthology, tmp_path):
     index = anthology.venues
     index.load()
     data_in = index.path
