@@ -46,7 +46,7 @@ class Venue:
 
     Attributes:
         id: The venue ID, e.g. "acl".
-        parent: The parent Anthology instance to which this venue belongs.
+        parent: The parent VenueIndex instance to which this venue belongs.
         acronym: The venue's acronym, e.g. "ACL".
         name: The venue's name.  Should _not_ contain any indications of specific events; i.e., "Workshop on...", _not_ "The 1st Workshop on..."
         is_acl: True if this is a venue organized or sponsored by the ACL.
@@ -61,7 +61,7 @@ class Venue:
         validator=v.matches_re(RE_VENUE_ID),
         metadata={"repr_omits_field_name": True},
     )
-    parent: Anthology = field(repr=False, eq=False)
+    parent: VenueIndex = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     is_acl: bool = field(default=False, converter=bool)
@@ -78,6 +78,11 @@ class Venue:
     # volumes.
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent
+
     @deprecated("Venue.save() is deprecated in favor of VenueIndex.save()")
     def save(self, path: Optional[StrPath] = None) -> None:
         """Saves this venue."""
@@ -86,12 +91,12 @@ class Venue:
                 "Providing a 'path' argument to Venue.save() has no effect anymore"
             )
 
-        self.parent.venues.save()
+        self.parent.save()
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes associated with this venue."""
         for anthology_id in self.item_ids:
-            volume = self.parent.get_volume(anthology_id)
+            volume = self.root.get_volume(anthology_id)
             if volume is None:
                 raise ValueError(
                     f"Venue {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
@@ -139,7 +144,7 @@ class VenueIndex(SlottedDict[Venue]):
             data = json.decode(f.read())
 
         for venue_id, params in data.items():
-            self.data[venue_id] = Venue(id=venue_id, parent=self.parent, **params)
+            self.data[venue_id] = Venue(id=venue_id, parent=self, **params)
 
         self.build()
         self.is_data_loaded = True
@@ -168,7 +173,7 @@ class VenueIndex(SlottedDict[Venue]):
                 "Cannot specify a new venue with an old-style letter."
             )  # pragma: no cover
 
-        kwargs["parent"] = self.parent
+        kwargs["parent"] = self
         venue = Venue(id=id, acronym=acronym, name=name, **kwargs)
         self.data[id] = venue
         return venue
