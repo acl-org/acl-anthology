@@ -276,8 +276,8 @@
     const container = document.getElementById('authorsContainer');
     var authors = "";
     for (authorRow of container.children) {
-      const first = authorRow.children[1].children[0].value;
-      const last = authorRow.children[2].children[0].value;
+      const first = authorRow.children[1].children[0].value.trim();
+      const last = authorRow.children[2].children[0].value.trim();
       authors += first + "  " + last + "; "
     }
     document.getElementById("paperAuthorList").textContent = authors.slice(0, -2);
