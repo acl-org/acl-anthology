@@ -276,8 +276,8 @@
     const container = document.getElementById('authorsContainer');
     var authors = "";
     for (authorRow of container.children) {
-      const first = authorRow.children[1].children[0].value;
-      const last = authorRow.children[2].children[0].value;
+      const first = authorRow.children[1].children[0].value.trim();
+      const last = authorRow.children[2].children[0].value.trim();
       authors += first + "  " + last + "; "
     }
     document.getElementById("paperAuthorList").textContent = authors.slice(0, -2);
@@ -316,16 +316,16 @@
       return;
     }
 
-    const newTitle = document.getElementById("paperTitle").value;
-    const newAbstract = document.getElementById("paperAbstract").value;
+    const newTitle = document.getElementById("paperTitle").value.trim();
+    const newAbstract = document.getElementById("paperAbstract").value.trim();
 
     const authorRows = document.querySelectorAll("#authorsContainer .author-row");
     const newAuthors = [];
     authorRows.forEach(row => {
       const inputs = row.querySelectorAll("input");
       newAuthors.push({
-        "first": inputs[0].value,
-        "last": inputs[1].value,
+        "first": inputs[0].value.trim(),
+        "last": inputs[1].value.trim(),
         "id": inputs[2].value
       });
     });
