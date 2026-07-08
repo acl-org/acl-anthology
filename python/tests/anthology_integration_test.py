@@ -20,7 +20,6 @@ from pathlib import Path
 
 from acl_anthology import Anthology
 from acl_anthology.sigs import SIG
-from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
 # Map from [repo]/python/tests to [repo]/data
@@ -35,15 +34,6 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             "full_anthology_collection_id",
             [xmlpath.name[:-4] for xmlpath in sorted(DATADIR.glob("xml/*.xml"))],
-        )
-    # Discovers all venue YAML files in DATADIR and parametrizes tests
-    if "full_anthology_venue_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_venue_id",
-            [
-                yamlpath.name[:-5]
-                for yamlpath in sorted(DATADIR.glob("yaml/venues/*.yaml"))
-            ],
         )
     # Discovers all SIG YAML files in DATADIR and parametrizes tests
     if "full_anthology_sig_id" in metafunc.fixturenames:
@@ -136,19 +126,19 @@ def test_full_anthology_roundtrip_xml(
 
 
 @pytest.mark.integration
-def test_full_anthology_roundtrip_venue_yaml(
-    full_anthology, full_anthology_venue_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the venue YAML files
-    venue = full_anthology.venues[full_anthology_venue_id]
-    outfile = tmp_path / f"{full_anthology_venue_id}.yaml"
-    # Save venue (it's already loaded when accessing it)
-    venue.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = Venue.load_from_yaml(outfile, full_anthology)
-    # Test for logical equivalence only
-    assert out == venue
+def test_full_anthology_roundtrip_venue_data(full_anthology, tmp_path):
+    full_anthology.venues.load()
+    data_in = full_anthology.venues.path
+    data_out = tmp_path / "venues.json"
+    full_anthology.venues.save(data_out)
+    assert data_out.is_file()
+    with (
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected
 
 
 @pytest.mark.integration
