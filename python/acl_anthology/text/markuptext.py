@@ -23,6 +23,7 @@ from functools import total_ordering
 from lxml import etree
 from typing import Optional, SupportsIndex, TYPE_CHECKING
 from xml.sax.saxutils import escape as xml_escape
+import re
 
 if TYPE_CHECKING:
     import rich
@@ -45,12 +46,26 @@ MARKUP_LATEX_CMDS = defaultdict(
         "i": "\\textit{{{text}}}",
         "u": "\\underline{{{text}}}",
         "sc": "\\textsc{{{text}}}",
-        "br": "\n\n",
+        "par": "\\par ",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
     },
 )
 
+
+def protect_par(element: etree._Element) -> None:
+    # Mark <par/> paragraph breaks with a sentinel character so they survive
+    # whitespace normalization (which strips newlines from the source),
+    # then restore them as paragraph breaks.
+    changed = False
+    for sub in element.iterfind(".//par"):
+        sub.text = "\ue000"
+        changed = True
+    return changed
+
+def unprotect_par(text: str, replacement: str) -> str:
+    text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
+    return text.replace("\ue000", replacement)
 
 def markup_to_latex(element: etree._Element) -> str:
     tag = str(element.tag)
@@ -165,15 +180,10 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
-        # Mark <par/> paragraph breaks with a sentinel character so they survive
-        # whitespace normalization (which strips newlines from the source),
-        # then restore them as paragraph breaks.
-        for sub in element.iterfind(".//par"):
-            sub.text = "\ue000"
+        protect_par(element)
         text = etree.tostring(element, encoding="unicode", method="text")
         text = remove_extra_whitespace(text)
-        text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
-        self._text = text.replace("\ue000", "\n\n")
+        self._text = unprotect_par(text, "\n\n")
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
@@ -214,15 +224,22 @@ class MarkupText:
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
             elif sub.tag == "par":
                 # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
+                if (prevnode := sub.getprevious()) and prevnode.tail:
+                    # remove whitespace before <par/>
+                    assert False,repr(prevnode.tail)
+                    prevnode.tail = prevnode.tail.rstrip()
                 sub.tag = "br"
-                another = etree.fromstring("<br/>")
-                sub.addnext(another)
+                another = etree.Element("br")
                 another.tail = sub.tail
-                sub.tail = ""
+                sub.tail = None
+                sub.addnext(another)
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
 
         self._html = remove_extra_whitespace(stringify_children(element))
+
+        # remove whitespace before or after <br/>
+        self._html = re.sub(r"\s*((<br/>)+)\s*", r"\1", self._html)
         return self._html
 
     def as_latex(self) -> str:
@@ -237,6 +254,9 @@ class MarkupText:
         else:
             latex = markup_to_latex(self._content)
         self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
+
+        # remove whitespace before \par
+        self._latex = re.sub(r"\s*\\par", r"\\par", self._latex)
         return self._latex
 
     def as_xml(self) -> str:

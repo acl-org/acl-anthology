@@ -110,15 +110,15 @@ test_cases_markup = (
         {
             "text": "Paragraph one.\n\nParagraph two.",
             "html": "Paragraph one.<br/><br/>Paragraph two.",
-            "latex": "Paragraph one.\n\nParagraph two.",
+            "latex": "Paragraph one.\\par Paragraph two.",
         },
     ),
     (
-        "Taking a <par>break",
+        "Taking a <par/>break",
         {
             "text": "Taking a\n\nbreak",
             "html": "Taking a<br/><br/>break",
-            "latex": "Taking a\n\nbreak",
+            "latex": "Taking a\\par break",
         },
     ),
     (
@@ -126,15 +126,15 @@ test_cases_markup = (
         {
             "text": "Taking a\n\nbreak",
             "html": "Taking a<br/><br/>break",
-            "latex": "Taking a\n\nbreak",
+            "latex": "Taking a\\par break",
         },
     ),
     (
-        "Taking a <par>     break",
+        "Taking a <par/>    break",
         {
             "text": "Taking a\n\nbreak",
             "html": "Taking a<br/><br/>break",
-            "latex": "Taking a\n\nbreak",
+            "latex": "Taking a\\par break",
         },
     ),
     (  # New tags nested inside other markup
@@ -308,7 +308,7 @@ test_cases_markup_no_url = (
     ),
     (  # <a href> is rendered as a plain <span>, dropping the href
         'Code at <a href="https://github.com/foo/bar">our repository</a>.',
-        'Code at <span class="acl-markup-url">our repository</span>.',
+        'Code at <span>our repository</span>.',
     ),
 )
 
