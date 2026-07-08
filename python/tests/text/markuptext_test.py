@@ -93,7 +93,7 @@ test_cases_markup = (
         'Code at <a href="https://github.com/foo/bar">our repository</a>.',
         {
             "text": "Code at our repository.",
-            "html": 'Code at <a href="https://github.com/foo/bar" class="acl-markup-url">our repository</a>.',
+            "html": 'Code at <a href="https://github.com/foo/bar">our repository</a>.',
             "latex": "Code at \\href{https://github.com/foo/bar}{our repository}.",
         },
     ),
@@ -101,7 +101,7 @@ test_cases_markup = (
         'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
         {
             "text": "See the emphasized link now",
-            "html": 'See <a href="https://example.org" class="acl-markup-url">the <i>emphasized</i> link</a> now',
+            "html": 'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
             "latex": "See \\href{https://example.org}{the \\textit{emphasized} link} now",
         },
     ),

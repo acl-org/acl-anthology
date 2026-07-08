@@ -218,6 +218,7 @@ class MarkupText:
                 another = etree.fromstring("<br/>")
                 sub.addnext(another)
                 another.tail = sub.tail
+                sub.tail = ""
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
 
