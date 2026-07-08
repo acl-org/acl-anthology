@@ -105,20 +105,36 @@ test_cases_markup = (
             "latex": "See \\href{https://example.org}{the \\textit{emphasized} link} now",
         },
     ),
-    (  # Single line break <br/>
-        "First line<br/>second line",
-        {
-            "text": "First line\nsecond line",
-            "html": "First line<br/>second line",
-            "latex": "First line\\\\second line",
-        },
-    ),
-    (  # Paragraph break expressed as two consecutive <br/>
-        "Paragraph one.<br/><br/>Paragraph two.",
+    (  # Paragraph break <par/>
+        "Paragraph one.<par/>Paragraph two.",
         {
             "text": "Paragraph one.\n\nParagraph two.",
             "html": "Paragraph one.<br/><br/>Paragraph two.",
-            "latex": "Paragraph one.\\\\\\\\Paragraph two.",
+            "latex": "Paragraph one.\n\nParagraph two.",
+        },
+    ),
+    (
+        "Taking a <par>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\n\nbreak",
+        },
+    ),
+    (
+        "Taking a<par/>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\n\nbreak",
+        },
+    ),
+    (
+        "Taking a <par>     break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\n\nbreak",
         },
     ),
     (  # New tags nested inside other markup

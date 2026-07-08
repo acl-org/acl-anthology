@@ -45,7 +45,7 @@ MARKUP_LATEX_CMDS = defaultdict(
         "i": "\\textit{{{text}}}",
         "u": "\\underline{{{text}}}",
         "sc": "\\textsc{{{text}}}",
-        "br": "\\\\",
+        "br": "\n\n",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
     },
@@ -165,15 +165,15 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
-        # Mark <br/> line breaks with a sentinel character so they survive
+        # Mark <par/> paragraph breaks with a sentinel character so they survive
         # whitespace normalization (which strips newlines from the source),
-        # then restore them as newlines.
-        for sub in element.iterfind(".//br"):
+        # then restore them as paragraph breaks.
+        for sub in element.iterfind(".//par"):
             sub.text = "\ue000"
         text = etree.tostring(element, encoding="unicode", method="text")
         text = remove_extra_whitespace(text)
         text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
-        self._text = text.replace("\ue000", "\n")
+        self._text = text.replace("\ue000", "\n\n")
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
@@ -202,7 +202,6 @@ class MarkupText:
                 if not allow_url:
                     sub.tag = "span"
                     sub.attrib.pop("href", None)
-                sub.set("class", "acl-markup-url")
             elif sub.tag == "sc":
                 sub.tag = "span"
                 sub.set("style", "font-variant: small-caps")
@@ -213,9 +212,12 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
-            elif sub.tag == "br":
-                # A line break; keep as an HTML <br> element
-                pass
+            elif sub.tag == "par":
+                # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
+                sub.tag = "br"
+                another = etree.fromstring("<br/>")
+                sub.addnext(another)
+                another.tail = sub.tail
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
 
