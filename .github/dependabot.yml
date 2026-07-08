@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+    allow:
+      - dependency-type: "direct"  # Prefer direct dependency updates for active maintenance
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
