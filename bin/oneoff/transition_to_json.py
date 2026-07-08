@@ -52,6 +52,7 @@ from acl_anthology import Anthology
 from acl_anthology.sigs import SIGMeeting
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.xml import indent
+from acl_anthology.venues import Venue
 
 
 _NAMES_ARRAY_RE: re.Pattern[bytes] = re.compile(
@@ -141,12 +142,14 @@ def convert_people_yaml(anthology):
 
 def convert_venues_yaml(anthology):
     venues = {}
+    key_order = [attr.name for attr in Venue.__attrs_attrs__]
 
     # Nothing changes about the data format, but we gather all YAML files into one dict
     for yaml_path in sorted(anthology.datadir.glob("yaml/venues/*.yaml")):
         venue_id = yaml_path.name[:-5]
         with open(yaml_path, "r", encoding="utf-8") as f:
-            venues[venue_id] = yaml.load(f, Loader=Loader)
+            data = yaml.load(f, Loader=Loader)
+            venues[venue_id] = {k: data[k] for k in key_order if k in data}
 
     write_json("venues.json", venues)
 
