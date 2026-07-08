@@ -168,17 +168,16 @@ def convert_sigs_yaml(anthology):
         return data
 
     for sig in sorted(anthology.sigs.values(), key=lambda s: s.acronym):
-        sigs[sig.id] = {
-            "acronym": sig.acronym,
-            "name": sig.name,
-            "external_meetings": [
-                sigmeeting_to_dict(meeting)
-                for meeting in sig.meetings
-                if isinstance(meeting, SIGMeeting)
-            ],
-        }
+        sigs[sig.id] = {"acronym": sig.acronym, "name": sig.name}
         if sig.url:
             sigs[sig.id]["url"] = sig.url
+        external_meetings = [
+            sigmeeting_to_dict(meeting)
+            for meeting in sig.meetings
+            if isinstance(meeting, SIGMeeting)
+        ]
+        if external_meetings:
+            sigs[sig.id]["external_meetings"] = external_meetings
         for volume in sig.volumes():
             collections_to_update[volume.collection.path].append((volume.id, sig.id))
 
