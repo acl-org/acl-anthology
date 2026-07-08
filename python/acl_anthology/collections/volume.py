@@ -373,7 +373,7 @@ class Volume(SlottedDict[Paper]):
         """
         try:
             return [self.root.sigs[sig] for sig in self.sig_ids]
-        except KeyError as exc:
+        except KeyError as exc:  # pragma: no cover
             exc.add_note(
                 f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
             )
@@ -383,7 +383,7 @@ class Volume(SlottedDict[Paper]):
         """A list of venues associated with this volume."""
         try:
             return [self.root.venues[vid] for vid in self.venue_ids]
-        except KeyError as exc:
+        except KeyError as exc:  # pragma: no cover
             exc.add_note(
                 f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
             )

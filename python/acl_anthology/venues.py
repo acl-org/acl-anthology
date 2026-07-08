@@ -84,7 +84,7 @@ class Venue:
         return self.parent.parent
 
     @deprecated("Venue.save() is deprecated in favor of VenueIndex.save()")
-    def save(self, path: Optional[StrPath] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:  # pragma: no cover
         """Saves this venue."""
         if path is None:
             raise UserWarning(
@@ -97,7 +97,7 @@ class Venue:
         """Returns an iterator over all volumes associated with this venue."""
         for anthology_id in self.item_ids:
             volume = self.root.get_volume(anthology_id)
-            if volume is None:
+            if volume is None:  # pragma: no cover
                 raise ValueError(
                     f"Venue {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )

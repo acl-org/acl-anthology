@@ -87,7 +87,7 @@ class SIG:
         return by_year
 
     @deprecated("SIG.save() is deprecated in favor of SIGIndex.save()")
-    def save(self, path: Optional[StrPath] = None) -> None:
+    def save(self, path: Optional[StrPath] = None) -> None:  # pragma: no cover
         """Saves this SIG."""
         if path is None:
             raise UserWarning(
@@ -100,7 +100,7 @@ class SIG:
         """Iterate over all volumes that are associated with this SIG."""
         for anthology_id in self.item_ids:
             volume = self.root.get_volume(anthology_id)
-            if volume is None:
+            if volume is None:  # pragma: no cover
                 raise ValueError(
                     f"SIG {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
@@ -244,7 +244,7 @@ class SIGIndex(SlottedDict[SIG]):
             f.write(b"\n")
 
     @deprecated("SIGIndex.by_volume() is deprecated; use Volume.sigs() instead")
-    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
+    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:  # pragma: no cover
         """Find SIGs associated with a volume."""
         if not isinstance(volume, Volume):
             if (vol := self.parent.get_volume(volume)) is None:
