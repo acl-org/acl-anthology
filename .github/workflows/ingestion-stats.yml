@@ -50,7 +50,7 @@ jobs:
           # workflow_dispatch) fall back to the fetched master branch.
           BASE_REF: ${{ github.event.pull_request.base.sha || 'origin/master' }}
         run: |
-          uv run --project python --locked python bin/ingestion_stats.py \
+          uv run --project python --locked python bin/analysis/ingestion_stats.py \
             --base "${BASE_REF}" \
             --datadir data \
             > stats.md
