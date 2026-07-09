@@ -1,20 +1,22 @@
 # default namespace = ""
 
 # Text formatting
-b = element b { MarkupText }
-i = element i { MarkupText }
-u = element u { MarkupText }
-sc = element sc { MarkupText }  # small caps
+b = element b { InlineMarkup+ }
+i = element i { InlineMarkup+ }
+u = element u { InlineMarkup+ }
+sc = element sc { InlineMarkup+ }  # small caps
 a = element a {
-  attribute href { xsd:anyURI } & MarkupText
+  attribute href { xsd:anyURI } & InlineMarkup+
 }
 url = element url {
   attribute type { xsd:NCName }? & xsd:anyURI
 }
 par = element par { empty }  # paragraph break
-fixed-case = element fixed-case { MarkupText }
+fixed-case = element fixed-case { InlineMarkup+ }
 tex-math = element tex-math { text }
-MarkupText = (text | b | i | u | sc | a | url | par | fixed-case | tex-math )+
+InlineMarkup = text | b | i | u | sc | a | url | fixed-case | tex-math
+InlineMarkupText = InlineMarkup+
+MarkupText = (InlineMarkup | par)+
 
 # Authors
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
@@ -52,7 +54,7 @@ Revision = element revision {
 
 Talk = element talk {
   attribute type { xsd:string }?,
-  (element title { MarkupText }
+  (element title { InlineMarkupText }
    & element speaker { Person }*
    & url?
   )
@@ -91,7 +93,7 @@ Paper = element paper {
      }?
    & element note { text }?
    & element pages { text }?
-   & element title { MarkupText }
+   & element title { InlineMarkupText }
    & url-with-checksum?
    & element video {
        attribute href { xsd:anyURI },
@@ -104,8 +106,8 @@ Paper = element paper {
    )
 }
 Meta = element meta {
-  (element booktitle { MarkupText }
-   & element shortbooktitle { MarkupText }?
+  (element booktitle { InlineMarkupText }
+   & element shortbooktitle { InlineMarkupText }?
    & element editor { Person }*
    & element publisher { text }?
    & element address { text }?
@@ -140,7 +142,7 @@ Volume = element volume {
 Event = element event {
   attribute id { xsd:string },
   (element meta {
-    (element title { MarkupText }?
+    (element title { InlineMarkupText }?
      & element location { text }?
      & element dates { text }?
     )
