@@ -57,11 +57,9 @@ def protect_par(element: etree._Element) -> None:
     # Mark <par/> paragraph breaks with a sentinel character so they survive
     # whitespace normalization (which strips newlines from the source),
     # then restore them as paragraph breaks.
-    changed = False
     for sub in element.iterfind(".//par"):
         sub.text = "\ue000"
         changed = True
-    return changed
 
 
 def unprotect_par(text: str, replacement: str) -> str:
