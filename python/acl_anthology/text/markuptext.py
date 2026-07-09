@@ -59,7 +59,6 @@ def protect_par(element: etree._Element) -> None:
     # then restore them as paragraph breaks.
     for sub in element.iterfind(".//par"):
         sub.text = "\ue000"
-        changed = True
 
 
 def unprotect_par(text: str, replacement: str) -> str:
