@@ -53,17 +53,22 @@ MARKUP_LATEX_CMDS = defaultdict(
 )
 
 
-def protect_par(element: etree._Element) -> None:
+def protect_par(element: etree._Element) -> bool:
     # Mark <par/> paragraph breaks with a sentinel character so they survive
     # whitespace normalization (which strips newlines from the source),
     # then restore them as paragraph breaks.
+    changed = False
     for sub in element.iterfind(".//par"):
         sub.text = "\ue000"
+        changed = True
+    return changed
+
+
+RE_PAR_PLACEHOLDER = re.compile(r"\s*\ue000\s*")
 
 
 def unprotect_par(text: str, replacement: str) -> str:
-    text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
-    return text.replace("\ue000", replacement)
+    return RE_PAR_PLACEHOLDER.sub(replacement, text)
 
 
 def markup_to_latex(element: etree._Element) -> str:
@@ -179,10 +184,10 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
-        protect_par(element)
+        has_par = protect_par(element)
         text = etree.tostring(element, encoding="unicode", method="text")
         text = remove_extra_whitespace(text)
-        self._text = unprotect_par(text, "\n\n")
+        self._text = unprotect_par(text, "\n\n") if has_par else text
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
