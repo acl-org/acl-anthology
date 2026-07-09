@@ -63,9 +63,11 @@ def protect_par(element: etree._Element) -> None:
         changed = True
     return changed
 
+
 def unprotect_par(text: str, replacement: str) -> str:
     text = text.replace(" \ue000", "\ue000").replace("\ue000 ", "\ue000")
     return text.replace("\ue000", replacement)
+
 
 def markup_to_latex(element: etree._Element) -> str:
     tag = str(element.tag)
@@ -224,10 +226,6 @@ class MarkupText:
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
             elif sub.tag == "par":
                 # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
-                if (prevnode := sub.getprevious()) and prevnode.tail:
-                    # remove whitespace before <par/>
-                    assert False,repr(prevnode.tail)
-                    prevnode.tail = prevnode.tail.rstrip()
                 sub.tag = "br"
                 another = etree.Element("br")
                 another.tail = sub.tail

@@ -308,7 +308,7 @@ test_cases_markup_no_url = (
     ),
     (  # <a href> is rendered as a plain <span>, dropping the href
         'Code at <a href="https://github.com/foo/bar">our repository</a>.',
-        'Code at <span>our repository</span>.',
+        "Code at <span>our repository</span>.",
     ),
 )
 
