@@ -59,7 +59,7 @@ def test_configure_event_updates_existing_event_and_copies_handbook(tmp_path):
         ),
     )
 
-    destination = event_files_dir / "2026.acl.handbook.pdf"
+    destination = event_files_dir / "handbooks" / "acl" / "2026.acl.handbook.pdf"
     assert destination.read_bytes() == b"handbook"
     assert event.title == "64th Annual Meeting"
     assert event.location == "San Diego, California, United States"
@@ -89,5 +89,6 @@ def test_configure_event_creates_event_and_supports_dry_run(tmp_path):
     )
 
     collection.create_event.assert_called_once_with()
-    assert not (event_files_dir / "2026.acl.handbook.pdf").exists()
+    destination = event_files_dir / "handbooks" / "acl" / "2026.acl.handbook.pdf"
+    assert not destination.exists()
     assert event.links["handbook"].checksum is None

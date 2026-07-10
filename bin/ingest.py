@@ -481,7 +481,13 @@ def configure_event(collection: Collection, args: argparse.Namespace) -> None:
         source = Path(args.event_handbook)
         if not source.is_file():
             raise FileNotFoundError(f"Not a file: {source}")
-        destination = Path(args.event_files_dir) / f"{collection.id}.handbook.pdf"
+        venue_id = collection.id.split(".", maxsplit=1)[-1]
+        destination = (
+            Path(args.event_files_dir)
+            / "handbooks"
+            / venue_id
+            / f"{collection.id}.handbook.pdf"
+        )
         maybe_copy(str(source), str(destination), dry_run=args.dry_run)
         links["handbook"] = EventFileReference(destination.name)
     if links != event.links:
@@ -1223,7 +1229,7 @@ if __name__ == "__main__":
         "--event-files-dir",
         type=Path,
         default=Path.home() / "anthology-files",
-        help="Root path for event files such as handbooks",
+        help="Root path containing handbooks/{venue}",
     )
     parser.add_argument(
         "--dry-run",
