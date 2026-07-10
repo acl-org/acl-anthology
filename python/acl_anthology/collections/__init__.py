@@ -19,9 +19,10 @@ from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume
 from .types import EventLink, PaperDeletionType, PaperType, VolumeType
-from .paper import Paper
+from .paper import Award, Paper
 
 __all__ = [
+    "Award",
     "BibkeyIndex",
     "Collection",
     "CollectionIndex",

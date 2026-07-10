@@ -49,7 +49,7 @@ from rich.progress import (
 import shutil
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import PaperDeletionType
+from acl_anthology.collections.paper import Award, PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
@@ -174,7 +174,14 @@ def paper_to_dict(paper):
             if attachment[0] != "mrf"  # exclude <mrf>
         ]
     if paper.awards:
-        data["award"] = paper.awards
+        data["award"] = [
+            (
+                {"name": award.name, "reasoning": award.reasoning}
+                if isinstance(award, Award)
+                else award
+            )
+            for award in paper.awards
+        ]
     if paper.deletion:
         match paper.deletion.type:
             case PaperDeletionType.RETRACTED:

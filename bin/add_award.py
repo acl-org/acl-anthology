@@ -42,7 +42,7 @@ from pathlib import Path
 import logging as log
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Collection
+from acl_anthology.collections import Award, Collection
 from acl_anthology.utils.logging import setup_rich_logging
 
 
@@ -51,7 +51,10 @@ def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
         log.error(f"Couldn't find paper: {paper_id}")
         return
 
-    if title.lower() in (award.lower() for award in paper.awards):
+    award_names = (
+        award.name if isinstance(award, Award) else award for award in paper.awards
+    )
+    if title.lower() in (name.lower() for name in award_names if name is not None):
         log.warning(f"Award '{title}' already listed for {paper_id}, skipping")
         return
 

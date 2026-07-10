@@ -1,0 +1,6 @@
+{{- if reflect.IsMap . -}}
+  {{- $name := .name | default "Award" -}}
+  <span class="align-middle me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $name }}: {{ .reasoning }}" aria-label="{{ $name }}"><i class="fas fa-award"></i></span>
+{{- else -}}
+  <span class="align-middle me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ . }}" aria-label="{{ . }}"><i class="fas fa-award"></i></span>
+{{- end -}}

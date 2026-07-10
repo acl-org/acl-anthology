@@ -24,6 +24,7 @@ from acl_anthology.utils.xml import indent
 from lxml import etree
 
 from acl_anthology.collections.paper import (
+    Award,
     Paper,
     PaperDeletionType,
     PaperDeletionNotice,
@@ -376,6 +377,31 @@ def test_paper_roundtrip_xml(xml):
     out = paper.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_paper_structured_awards():
+    xml = """<paper id="9">
+  <title>Award-winning paper</title>
+  <award>Legacy Award</award>
+  <award><name>Named Award</name><reasoning>Groundbreaking work.</reasoning></award>
+  <award><reasoning>Important work.</reasoning></award>
+  <bibkey>nn-1900-award</bibkey>
+</paper>"""
+    paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
+
+    assert paper.awards == (
+        "Legacy Award",
+        Award(name="Named Award", reasoning="Groundbreaking work."),
+        Award(reasoning="Important work."),
+    )
+    assert [
+        etree.tostring(element, encoding="unicode")
+        for element in paper.to_xml().findall("award")
+    ] == [
+        "<award>Legacy Award</award>",
+        "<award><name>Named Award</name><reasoning>Groundbreaking work.</reasoning></award>",
+        "<award><reasoning>Important work.</reasoning></award>",
+    ]
 
 
 def test_paper_from_xml_invalid_tag():

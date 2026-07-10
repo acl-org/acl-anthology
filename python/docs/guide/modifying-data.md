@@ -69,6 +69,10 @@ how it will be converted & stored internally:
 >>> paper.awards = ["Best paper award"]
 >>> paper.awards                           # stored as a tuple
 ('Best paper award',)
+>>> from acl_anthology.collections import Award
+>>> paper.awards = [Award(name="Best paper award", reasoning="A foundational contribution.")]
+>>> paper.awards
+(Award(name='Best paper award', reasoning='A foundational contribution.'),)
 >>> person = anthology.get_person("marcel-bollmann")
 >>> person.orcid = "https://orcid.org/0000-0003-2598-8150"
 >>> person.orcid                           # stored without URL prefix

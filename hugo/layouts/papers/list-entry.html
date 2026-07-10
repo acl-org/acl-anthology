@@ -20,7 +20,7 @@
     </span>
     <span class="d-inline d-sm-block text-nowrap">
       {{- range $paper.award -}}
-      <span class="align-middle me-1" data-bs-toggle=tooltip data-bs-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
+      {{- partial "award_icon.html" . -}}
       {{- end -}}
       {{- range $paper.attachment -}}
       <a class="badge text-bg-attachment align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ .type | humanize }}" aria-label="Open {{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>

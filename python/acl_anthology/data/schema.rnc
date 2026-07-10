@@ -105,7 +105,11 @@ Paper = element paper {
    & element language { xsd:language }?
    & element month { text }?
    & element year { xsd:gYear }?
-   & element award { text }*
+  & element award {
+     text
+     | (element name { text }?,
+       element reasoning { text })
+    }*
    )
 }
 Meta = element meta {
