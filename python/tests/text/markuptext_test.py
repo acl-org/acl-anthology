@@ -73,6 +73,78 @@ test_cases_markup = (
             "latex": "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         },
     ),
+    (  # Markup <u> (underline)
+        "This <u>NER</u> system",
+        {
+            "text": "This NER system",
+            "html": "This <u>NER</u> system",
+            "latex": "This \\underline{NER} system",
+        },
+    ),
+    (  # Markup <sc> (small caps)
+        "The <sc>let-alone</sc> construction",
+        {
+            "text": "The let-alone construction",
+            "html": 'The <span style="font-variant: small-caps">let-alone</span> construction',
+            "latex": "The \\textsc{let-alone} construction",
+        },
+    ),
+    (  # Hyperlinked text <a href>
+        'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+        {
+            "text": "Code at our repository.",
+            "html": 'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+            "latex": "Code at \\href{https://github.com/foo/bar}{our repository}.",
+        },
+    ),
+    (  # Hyperlinked text containing nested markup (conversion recurses)
+        'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
+        {
+            "text": "See the emphasized link now",
+            "html": 'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
+            "latex": "See \\href{https://example.org}{the \\textit{emphasized} link} now",
+        },
+    ),
+    (  # Paragraph break <par/>
+        "Paragraph one.<par/>Paragraph two.",
+        {
+            "text": "Paragraph one.\n\nParagraph two.",
+            "html": "Paragraph one.<br/><br/>Paragraph two.",
+            "latex": "Paragraph one.\\par Paragraph two.",
+        },
+    ),
+    (
+        "Taking a <par/>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (
+        "Taking a<par/>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (
+        "Taking a <par/>    break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (  # New tags nested inside other markup
+        "<b><u>important</u></b> and <i><sc>scoped</sc></i>",
+        {
+            "text": "important and scoped",
+            "html": '<b><u>important</u></b> and <i><span style="font-variant: small-caps">scoped</span></i>',
+            "latex": "\\textbf{\\underline{important}} and \\textit{\\textsc{scoped}}",
+        },
+    ),
     (  # XML entity
         "Workshop on Topic A &amp; B",
         {
@@ -229,6 +301,27 @@ def test_markup_from_xml(inp, out):
     assert markup.contains_markup == ("<" in out["html"])
 
 
+test_cases_markup_no_url = (
+    (  # <url> is rendered as a plain <span>, not a hyperlink
+        "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
+        'The source code will be available at <span class="acl-markup-url">https://github.com/zhang-yu-wei/MTP-CLNN</span>.',
+    ),
+    (  # <a href> is rendered as a plain <span>, dropping the href
+        'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+        "Code at <span>our repository</span>.",
+    ),
+)
+
+
+@pytest.mark.parametrize("inp, html", test_cases_markup_no_url)
+def test_markup_as_html_without_url(inp, html):
+    element = etree.fromstring(f"<title>{inp}</title>")
+    markup = MarkupText.from_xml(element)
+    assert markup.as_html(allow_url=False) == html
+    # The XML representation should be unaffected by the rendering option
+    assert markup.as_xml() == inp
+
+
 def test_markup_from_simple_string():
     text = "Some ASCII text without markup"
     markup = MarkupText.from_string(text)
@@ -279,9 +372,21 @@ test_cases_markup_from_latex = (
         "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
     ),
-    (  # \href currently only keeps the text, not the link
-        "\\href{http://www.overleaf.com}{Overleaf}",
-        "Overleaf",
+    (  # \underline becomes <u>
+        "An \\underline{underlined} word",
+        "An <u>underlined</u> word",
+    ),
+    (  # \uline (ulem) also becomes <u>
+        "An \\uline{underlined} word",
+        "An <u>underlined</u> word",
+    ),
+    (  # \textsc becomes <sc>
+        "The \\textsc{small caps} text",
+        "The <sc>small caps</sc> text",
+    ),
+    (  # \href becomes <a href>, keeping the URL and recursing into the text
+        "See \\href{https://example.org}{the \\textit{linked} text} here",
+        'See <a href="https://example.org">the <i>linked</i> text</a> here',
     ),
     (  # Special characters do _not_ get <fixed-case> even when they’re in braces
         "Workshop on Topic A {\\&} B",
@@ -376,7 +481,7 @@ test_cases_markup_from_latex = (
         "A <tex-math>\\log 25</tex-math> increase",
     ),
     (  # Unhandled TeX commands are converted by Latex2Text’s rules
-        "An \\textsc{unhandled} command",
+        "An \\textrm{unhandled} command",
         "An unhandled command",
     ),
     (
