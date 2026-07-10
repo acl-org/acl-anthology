@@ -577,23 +577,23 @@ def main(args):
         temp_path.unlink()
 
     """
-    If a Github issue was passed as an argument, do the following.
-    Create a commit with the message "Add revision for {anthology_id} (closes {issue})"
-    Use the Github module to create the brnach (if not existing), change to it,
-    and create the commit.
+    If a Github issue or manual replacement was passed, create a commit.
     """
-    if args.issue and collection_path is not None:
+    if (args.issue or args.replace) and collection_path is not None:
         repo = Repo(".", search_parent_directories=True)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
-            if is_frontmatter:
-                msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
-            elif is_volume:
-                msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
-            elif args.replace:
-                msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
+            if args.issue:
+                if is_frontmatter:
+                    msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+                elif is_volume:
+                    msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
+                elif args.replace:
+                    msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
+                else:
+                    msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
             else:
-                msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
+                msg = f"Replace PDF for {anthology_id}."
             if explanation_text:
                 msg += f"\n\n{explanation_text}"
             repo.index.commit(msg)
