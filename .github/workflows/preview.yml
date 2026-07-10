@@ -70,6 +70,9 @@ jobs:
 #      run: |
 #        git diff --name-only $GITHUB_REF origin/master
 #        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+    - name: Download NLTK data
+      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
     - name: preview
       shell: bash
       env:
