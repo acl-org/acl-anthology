@@ -147,7 +147,7 @@ comprise:
   Each venue has its own YAML file that contains venue-specific information
   such as acronym, full name and URL.
 
-+ An author index ([`people.yaml`](data/yaml/people.yaml)) that defines all
++ An author index ([`people.json`](data/json/people.json)) that defines all
   [verified authors](hugo/content/info/verification.md), together with metadata
   such as ORCID iDs and all [known name variants](hugo/content/info/names.md).
 

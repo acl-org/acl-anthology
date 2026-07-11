@@ -6,6 +6,17 @@
 
 - Added support for recording OpenReview IDs for authors.
 - Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
+- Added `SIGIndex.create()`, in analogy to `VenueIndex.create()`.
+
+### Changed
+
+- **All YAML data files have been replaced with JSON data files.**  This speeds up loading these files significantly.
+  - There are no longer individual data files for venues and SIGs, but instead a single `venues.json` and `sigs.json`, respectively.
+  - `SIG.save()` and `Venue.save()` are deprecated as there are no individual venue or SIG data files anymore; use `.save()` on their index instead.
+- SIGs now link associated volumes via `<sig>` tags in the XML, rather than in their data files, in analogy to how venues work.  This means:
+  - `SIGIndex.reverse` (for reverse-indexing of Volume–SIG) is no longer necessary and has been removed.
+  - `SIGIndex.by_volume()` is deprecated in favor of simply calling `Volume.sigs()`, in analogy to `Volume.venues()`.
+- `Venue.parent` now points to the `VenueIndex`, not the `Anthology`.  Use `Venue.root` for that, if needed.
 
 ## [1.2.0] — 2026-05-21
 

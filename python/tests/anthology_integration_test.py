@@ -19,8 +19,6 @@ from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.sigs import SIG
-from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
 # Map from [repo]/python/tests to [repo]/data
@@ -35,21 +33,6 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(
             "full_anthology_collection_id",
             [xmlpath.name[:-4] for xmlpath in sorted(DATADIR.glob("xml/*.xml"))],
-        )
-    # Discovers all venue YAML files in DATADIR and parametrizes tests
-    if "full_anthology_venue_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_venue_id",
-            [
-                yamlpath.name[:-5]
-                for yamlpath in sorted(DATADIR.glob("yaml/venues/*.yaml"))
-            ],
-        )
-    # Discovers all SIG YAML files in DATADIR and parametrizes tests
-    if "full_anthology_sig_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_sig_id",
-            [yamlpath.name[:-5] for yamlpath in sorted(DATADIR.glob("yaml/sigs/*.yaml"))],
         )
 
 
@@ -82,23 +65,6 @@ def test_anthology_from_within_repo(tmp_path):
 def test_full_anthology_should_validate_schema(full_anthology):
     for collection in full_anthology.collections.values():
         collection.validate_schema()
-
-
-@pytest.mark.integration
-@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
-def test_full_anthology_roundtrip_people_yaml(full_anthology, tmp_path):
-    full_anthology.people.build()
-    yaml_in = full_anthology.people.path
-    yaml_out = tmp_path / "people.yaml"
-    full_anthology.people.save(yaml_out)
-    assert yaml_out.is_file()
-    with (
-        open(yaml_in, "r", encoding="utf-8") as f,
-        open(yaml_out, "r", encoding="utf-8") as g,
-    ):
-        expected = f.read()
-        out = g.read()
-    assert out == expected
 
 
 @pytest.mark.integration
@@ -135,38 +101,26 @@ def test_full_anthology_roundtrip_xml(
             assert exp_lines == out_lines
 
 
-@pytest.mark.integration
-def test_full_anthology_roundtrip_venue_yaml(
-    full_anthology, full_anthology_venue_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the venue YAML files
-    venue = full_anthology.venues[full_anthology_venue_id]
-    outfile = tmp_path / f"{full_anthology_venue_id}.yaml"
-    # Save venue (it's already loaded when accessing it)
-    venue.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = Venue.load_from_yaml(outfile, full_anthology)
-    # Test for logical equivalence only
-    assert out == venue
+all_json_indices = ("venues", "sigs", "people")
 
 
 @pytest.mark.integration
-def test_full_anthology_roundtrip_sig_yaml(
-    full_anthology, full_anthology_sig_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the SIG YAML files
-    sig = full_anthology.sigs[full_anthology_sig_id]
-    outfile = tmp_path / f"{full_anthology_sig_id}.yaml"
-    # Save SIG (it's already loaded when accessing it)
-    sig.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = SIG.load_from_yaml(full_anthology.sigs, outfile)
-    # Test for logical equivalence only, ignoring order of meetings for now
-    for attrib in ("id", "acronym", "name", "url"):
-        assert getattr(out, attrib) == getattr(sig, attrib)
-    assert set(out.meetings) == set(sig.meetings)
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
+@pytest.mark.parametrize("index_name", all_json_indices)
+def test_full_anthology_roundtrip_json(full_anthology, tmp_path, index_name):
+    index = getattr(full_anthology, index_name)
+    index.load()
+    data_in = index.path
+    data_out = tmp_path / f"{index_name}.json"
+    index.save(data_out)
+    assert data_out.is_file()
+    with (
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected
 
 
 @pytest.mark.integration
