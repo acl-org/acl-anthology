@@ -13,8 +13,20 @@
         <li class="nav-item">
           <a class="nav-link" href={{ relref . "/posts" }}>News<span class="visually-hidden">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="visually-hidden">(current)</span></a>
+        <li class="nav-item dropdown d-flex align-items-center">
+          <a class="nav-link pe-1" href="#">About</a><a class="nav-link ps-0" href="#" id="faqDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open FAQ menu"><i class="fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu" aria-labelledby="faqDropdown">
+            <!--<li><h6 class="dropdown-header">Category</h6></li>-->
+            <li><a class="dropdown-item" href="{{ relref . "/posts" }}">Announcements</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/news" }}">Communication Channels</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/related-work" }}">Related Work</a></li>
+            <!-- Stats -->
+            <li><a class="dropdown-item" href="{{ relref . "/faq/copyright" }}">Copyright</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/credits" }}">Credits</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/volunteer" }}">Volunteer</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/feedback" }}">Feedback</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="visually-hidden">(current)</span></a>
