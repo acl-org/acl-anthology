@@ -215,15 +215,6 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
     return " ".join(author[field] for field in fields if author.get(field) is not None)
 
 
-def latex_to_text(text: Optional[str]) -> Optional[str]:
-    """Convert a possibly-LaTeX string (e.g. a name with LaTeX-style diacritics
-    such as ``Sch\\"utze``) into plain Unicode text. Returns None if the input is
-    None."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text).as_text()
-
-
 # Repairs for common LaTeX quirks introduced by upstream export pipelines
 # (aclpub2, OpenReview, START, etc.) before the text is handed to
 # ``MarkupText.from_latex_maybe()``. Each entry is a ``(name, pattern, repl)``
@@ -371,8 +362,8 @@ def namespec_from(
     diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning.
     The OpenReview ID is only stored when no ORCID is available."""
     raw_first, raw_last = first, last
-    first = latex_to_text(first.strip()) if first else None
-    last = latex_to_text(last.strip()) if last else ""
+    first = first.strip() if first else None
+    last = last.strip() if last else ""
     try:
         name = Name(first or None, last)
     except ValueError as e:

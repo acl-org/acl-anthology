@@ -361,6 +361,18 @@ def test_name_case_normalize(before, after):
     assert name.case_normalize() == Name(*after)
 
 
+test_cases_name_latex_normalize = (
+    (("Marcel", "Bollmann"), ("Marcel", "Bollmann")),
+    (("Hinrich", 'Sch\\"utze'), ("Hinrich", "Schütze")),
+)
+
+
+@pytest.mark.parametrize("before, after", test_cases_name_latex_normalize)
+def test_name_latex_normalize(before, after):
+    name = Name(*before)
+    assert name.latex_normalize() == Name(*after)
+
+
 def test_namespec_root_is_anthology(parent):
     from acl_anthology import Anthology
 

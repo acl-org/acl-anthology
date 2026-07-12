@@ -30,6 +30,7 @@ except ImportError:  # pragma: no cover
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
+from ..text import MarkupText
 from ..utils.attrs import (
     attach_custom_repr,
     track_namespec_modifications,
@@ -196,8 +197,8 @@ class Name:
         Arguments:
             force: Always case-normalize, without checking the current casing.
 
-        Raises:
-            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        Returns:
+            The case-normalized Name.
         """
         if self.script is not None:
             # Non-Latin script variants are left unchanged;
@@ -222,6 +223,20 @@ class Name:
             last = re.sub(pattern, substitute, last)
 
         return self.__class__(first, last)
+
+    def latex_normalize(self) -> Name:
+        """Normalize LaTeX commands in the name.
+
+        Returns:
+            The LaTeX-normalized Name.
+        """
+        first = (
+            MarkupText.from_latex_maybe(self.first).as_text()
+            if self.first is not None
+            else None
+        )
+        last = MarkupText.from_latex_maybe(self.last).as_text()
+        return self.__class__(first, last, script=self.script)
 
     @cache
     def slugify(self) -> str:
@@ -488,12 +503,25 @@ class NameSpecification:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
 
-    def case_normalize(self, force: bool = False) -> Self:
-        """Try to heuristically normalize the casing of the name.
+    def normalize(
+        self, casing: bool = True, latex: bool = True, skip_setter: bool = False
+    ) -> Self:
+        """Heuristically normalize the name.
 
-        See [acl_anthology.people.name.Name.case_normalize][].
+        Arguments:
+            casing: If set to False, do not [case-normalize][acl_anthology.people.name.Name.case_normalize].
+            latex: If set to False, do not [LaTeX-normalize][acl_anthology.people.name.Name.latex_normalize].
+            skip_setter: If True, bypass the setter which dynamically updates affected objects. Set during ingestion; you probably do not want to set this manually.
         """
-        self.name = self.name.case_normalize(force=force)
+        name = self.name
+        if latex:
+            name = name.latex_normalize()
+        if casing:
+            name = name.case_normalize()
+        if skip_setter:
+            self._name = name
+        else:
+            self.name = name
         return self
 
     def resolve(self) -> Person:
