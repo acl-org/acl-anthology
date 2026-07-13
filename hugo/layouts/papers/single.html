@@ -580,7 +580,14 @@
             . }}</a>{{ end }}</dd>
         {{ range $paper.award }}
         <dt>Award:</dt>
+        {{ if reflect.IsMap . }}
+        <dd>
+          <div><i class="fas fa-award"></i>&nbsp;<strong>{{ with .name }}{{ . }}{{ else }}Award{{ end }}</strong></div>
+          <div class="mt-1">{{ .reasoning }}</div>
+        </dd>
+        {{ else }}
         <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
+        {{ end }}
         {{ end }}
         <!--
         <dt>Bibtype:</dt>

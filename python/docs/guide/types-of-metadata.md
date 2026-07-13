@@ -16,7 +16,7 @@ paper = anthology.get("2022.acl-long.220")
 paper.bibkey           # is 'kitaev-etal-2022-learned'
 paper.doi              # is '10.18653/v1/2022.acl-long.220'
 paper.year             # is '2022'
-paper.awards           # is ['Best Paper']
+paper.awards           # is ('Best Paper',)
 ```
 
 However, many of them are optional, and can be `None` or empty.
@@ -28,6 +28,19 @@ paper.language         # is None
 
 When modifying metadata fields, most of them will [perform input validation
 and/or conversion](modifying-data.md#modifying-publications).
+
+Awards can also include the reasoning provided by the award committee.  These
+are represented by [`Award`][acl_anthology.collections.paper.Award] objects;
+the award name is optional when only the reasoning is known:
+
+```python
+from acl_anthology.collections import Award
+
+paper.awards = (
+  Award(name="Best Paper", reasoning="A foundational contribution."),
+  Award(reasoning="Recognized for its lasting influence."),
+)
+```
 
 ## Markup text
 

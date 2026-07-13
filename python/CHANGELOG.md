@@ -6,7 +6,7 @@
 
 - Added support for recording OpenReview IDs for authors.
 - Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
-- Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
+- Added structured paper awards with an optional name and required reasoning.
 
 ## [1.2.0] — 2026-05-21
 
