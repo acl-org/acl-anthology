@@ -19,27 +19,26 @@ Please see our [extensive developer documentation](https://acl-anthology.readthe
 Quick access via an interactive Python shell can be achieved by cloning the repository and running
 `just python repl` from the repository root directory.
 
-In addition to the documentation, there are many examples of using the module in the scripts our `bin` directory.
+In addition to the documentation, there are many examples of using the module in the scripts in our `bin` directory.
 
 ### Website software
 
 The ACL Anthology is built from open-source software.
 The Anthology website uses the [Hugo](https://gohugo.io/) framework to generate a static website that makes heavy use of the [Bootstrap](https://getbootstrap.com/) library for a modern design. We use [Font Awesome](https://fontawesome.com/) for icon fonts.
-[Font Awesome](https://fontawesome.com/) is used as the icon font.
 
 The script [create_hugo_data.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_data.py)
 generates JSON data structures to build our static site.
 
 ### Data organization
 
-All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our Github repository.
+All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our GitHub repository.
 In the `xml` directory are the files that contain all the Anthology metadata, in a format described below.
 The `yaml` directory contains further information about authors and venues.
 
 ### Authoritative XML format
 
 The Anthology site is generated from an authoritative XML file format containing information about events, volumes, papers, and authors.
-This data is stored in [the official repository on Github](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
+This data is stored in [the official repository on GitHub](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
 Here is a simplified fragment of a complete XML file ([P18.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P18.xml)—this file defines the *collection* of volumes from the ACL 2018 main conference).
 The full file contains much more information.
 
