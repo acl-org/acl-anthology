@@ -89,6 +89,14 @@ test_cases_markup = (
             "latex": "The \\textsc{let-alone} construction",
         },
     ),
+    (  # Markup <tt> (typewriter text)
+        "The <tt>nltk</tt> package",
+        {
+            "text": "The nltk package",
+            "html": "The <tt>nltk</tt> package",
+            "latex": "The \\texttt{nltk} package",
+        },
+    ),
     (  # Hyperlinked text <a href>
         'Code at <a href="https://github.com/foo/bar">our repository</a>.',
         {
@@ -383,6 +391,10 @@ test_cases_markup_from_latex = (
     (  # \textsc becomes <sc>
         "The \\textsc{small caps} text",
         "The <sc>small caps</sc> text",
+    ),
+    (  # \texttt becomes <tt>
+        "The \\texttt{typewriter} text",
+        "The <tt>typewriter</tt> text",
     ),
     (  # \href becomes <a href>, keeping the URL and recursing into the text
         "See \\href{https://example.org}{the \\textit{linked} text} here",
