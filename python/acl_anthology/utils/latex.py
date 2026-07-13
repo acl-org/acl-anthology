@@ -296,6 +296,7 @@ LATEX_MACRO_TO_XMLTAG = {
     "underline": "u",
     "uline": "u",
     "textsc": "sc",
+    "texttt": "tt",
     "url": "url",
 }
 """A mapping of LaTeX macros to Anthology XML tags."""

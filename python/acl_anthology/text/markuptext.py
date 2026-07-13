@@ -46,6 +46,7 @@ MARKUP_LATEX_CMDS = defaultdict(
         "i": "\\textit{{{text}}}",
         "u": "\\underline{{{text}}}",
         "sc": "\\textsc{{{text}}}",
+        "tt": "\\texttt{{{text}}}",
         "par": "\\par ",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",

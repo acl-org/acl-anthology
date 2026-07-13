@@ -5,6 +5,7 @@ b = element b { InlineMarkup+ }
 i = element i { InlineMarkup+ }
 u = element u { InlineMarkup+ }
 sc = element sc { InlineMarkup+ }  # small caps
+tt = element tt { InlineMarkup+ }
 a = element a {
   attribute href { xsd:anyURI } & InlineMarkup+
 }
@@ -14,7 +15,7 @@ url = element url {
 par = element par { empty }  # paragraph break
 fixed-case = element fixed-case { InlineMarkup+ }
 tex-math = element tex-math { text }
-InlineMarkup = text | b | i | u | sc | a | url | fixed-case | tex-math
+InlineMarkup = text | b | i | u | sc | tt | a | url | fixed-case | tex-math
 InlineMarkupText = InlineMarkup+
 MarkupText = (InlineMarkup | par)+
 
