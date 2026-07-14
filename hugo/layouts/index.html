@@ -6,12 +6,12 @@
 
     const filterInput = directory.querySelector("[data-venue-filter]");
     const clearButton = directory.querySelector("[data-clear-filter]");
-    const decadeButtons = Array.from(directory.querySelectorAll("[data-decade-filter]"));
+    const periodButtons = Array.from(directory.querySelectorAll("[data-period-filter]"));
     const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
     const venueGroups = Array.from(directory.querySelectorAll("[data-venue-group]"));
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
-    let activeDecade = "all";
+    let activePeriod = "recent";
 
     function applyFilters() {
       const query = filterInput.value.trim().toLowerCase();
@@ -24,9 +24,11 @@
         let matchingYears = 0;
 
         yearLinks.forEach(function (link) {
-          const decadeMatches = activeDecade === "all" || link.dataset.decade === activeDecade;
-          link.hidden = !decadeMatches;
-          if (decadeMatches) matchingYears += 1;
+          const periodMatches = activePeriod === "all"
+            || (activePeriod === "recent" && link.dataset.recent === "true")
+            || link.dataset.decade === activePeriod;
+          link.hidden = !periodMatches;
+          if (periodMatches) matchingYears += 1;
         });
 
         const rowMatches = textMatches && matchingYears > 0;
@@ -46,7 +48,7 @@
 
       clearButton.hidden = query.length === 0;
       emptyState.hidden = visibleVenues > 0;
-      status.textContent = visibleVenues + " venues · " + visibleYears + " years shown";
+      status.textContent = visibleVenues + " venues · " + visibleYears + " year links shown";
     }
 
     filterInput.addEventListener("input", applyFilters);
@@ -63,10 +65,10 @@
       applyFilters();
     });
 
-    decadeButtons.forEach(function (button) {
+    periodButtons.forEach(function (button) {
       button.addEventListener("click", function () {
-        activeDecade = button.dataset.decadeFilter;
-        decadeButtons.forEach(function (candidate) {
+        activePeriod = button.dataset.periodFilter;
+        periodButtons.forEach(function (candidate) {
           const isActive = candidate === button;
           candidate.classList.toggle("is-active", isActive);
           candidate.setAttribute("aria-pressed", isActive.toString());
@@ -94,48 +96,36 @@
 <main class="acl-home">
   <section class="acl-home-intro" aria-labelledby="acl-home-title">
     <div class="acl-home-intro__copy">
-      <p class="acl-home-eyebrow">Open access &middot; {{ $stats.oldest_year }}&ndash;present</p>
-      <h1 id="acl-home-title">ACL Anthology</h1>
-      <p class="acl-home-summary">The open archive for research in computational linguistics, speech, and natural language processing.</p>
+      <h1 id="acl-home-title">Welcome to the ACL Anthology!</h1>
+      <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ lang.FormatNumberCustom 0 $stats.paper_count }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
     </div>
 
-    <div class="acl-home-search-panel">
-      <form class="acl-home-search" action="{{ relURL "search/" }}" method="get" role="search">
-        <label for="acl-home-search">Search the Anthology</label>
-        <div class="acl-home-search__control">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <input id="acl-home-search" name="q" type="search" placeholder="Title, author, venue, or Anthology ID" autocomplete="off">
-          <button type="submit"><span>Search</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
-        </div>
-      </form>
-
-      <dl class="acl-home-stats" aria-label="Anthology collection statistics">
-        <div>
-          <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }}</dt>
-          <dd>papers</dd>
-        </div>
-        <div>
-          <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
-          <dd>volumes</dd>
-        </div>
-        <div>
-          <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
-          <dd>years covered</dd>
-        </div>
-      </dl>
-    </div>
+    <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+      <div>
+        <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
+        <dd>volumes</dd>
+      </div>
+      <div>
+        <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
+        <dd>venues</dd>
+      </div>
+      <div>
+        <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
+        <dd>years covered</dd>
+      </div>
+    </dl>
   </section>
 
   <nav class="acl-home-actions" aria-label="Anthology resources">
-    <a href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
+    <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
       <i class="fas fa-user-edit" aria-hidden="true"></i>
       <span>Info for authors</span>
     </a>
-    <a href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
+    <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
       <i class="fas fa-database" aria-hidden="true"></i>
       <span>Access data</span>
     </a>
-    <a href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
+    <a class="acl-home-action--feedback" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
       <i class="far fa-comment-alt" aria-hidden="true"></i>
       <span>Give feedback</span>
     </a>
@@ -143,11 +133,7 @@
 
   <section class="acl-venue-directory" data-venue-directory aria-labelledby="venue-directory-title">
     <header class="acl-directory-header">
-      <div>
-        <p class="acl-home-eyebrow">Proceedings index</p>
-        <h2 id="venue-directory-title">Browse by venue and year</h2>
-      </div>
-      <p>Every top-level venue and available year is listed below. Event pages provide access to all associated volumes.</p>
+      <h2 id="venue-directory-title">Browse by venue and year</h2>
     </header>
 
     <div class="acl-directory-tools">
@@ -162,24 +148,25 @@
         </div>
       </div>
 
-      <fieldset class="acl-decade-filter">
-        <legend>Years</legend>
-        <div class="acl-decade-filter__rail" aria-label="Filter venues by decade">
-          <button class="is-active" type="button" data-decade-filter="all" aria-pressed="true">All years</button>
+      <fieldset class="acl-period-filter">
+        <legend>Show</legend>
+        <div class="acl-period-filter__rail" aria-label="Choose years to show">
+          <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Recent</button>
           {{ range $decades }}
-          <button type="button" data-decade-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
+          <button type="button" data-period-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
           {{ end }}
+          <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
         </div>
       </fieldset>
     </div>
 
     <div class="acl-directory-meta">
-      <p data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; {{ $stats.venue_year_count }} years shown</p>
+      <p data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
       <a href="{{ ($.Site.GetPage "/volumes").RelPermalink }}">View the complete volume list <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     </div>
 
     {{ range $isACL := slice true false }}
-    <section class="acl-venue-group" data-venue-group aria-labelledby="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">
+    <section class="acl-venue-group {{ cond $isACL "acl-venue-group--acl" "acl-venue-group--other" }}" data-venue-group aria-labelledby="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">
       <header class="acl-venue-group__header">
         <h3 id="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">{{ cond $isACL "ACL venues" "Other venues" }}</h3>
         <span>{{ cond $isACL "ACL conferences, journals, and chapters" "Partner conferences, journals, and archives" }}</span>
@@ -197,19 +184,19 @@
             </a>
           </h4>
           <div class="acl-venue-years" aria-label="Available years for {{ $venue.acronym }}">
-            {{ range $year := collections.Reverse $venue.years }}
+            {{ range $yearIndex, $year := collections.Reverse $venue.years }}
               {{ $eventID := printf "%s-%s" $venue.slug $year }}
               {{ $event := index hugo.Data.events $eventID }}
               {{ $volumes := index $venue.volumes_by_year $year }}
               {{ $decade := printf "%s0" (slicestr $year 0 3) }}
               {{ if and $event $event.volumes }}
-            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
+            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 3 }}" title="{{ $event.title }}">{{ $year }}</a>
               {{ else }}
                 {{ $yearURL := $venuePage.RelPermalink }}
                 {{ if eq (len $volumes) 1 }}
                   {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
                 {{ end }}
-            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 3 }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
               {{ end }}
             {{ end }}
           </div>
