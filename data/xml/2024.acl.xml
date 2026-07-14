@@ -855,7 +855,7 @@
       <author><first>Yining</first><last>Lu</last><affiliation>University of Notre Dame</affiliation></author>
       <author><first>Hanjie</first><last>Chen</last><affiliation>Rice University</affiliation></author>
       <author><first>Daniel</first><last>Khashabi</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
+      <author id="benjamin-van-durme"><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
       <author><first>Anqi</first><last>Liu</last><affiliation>Johns Hopkins University, California Institute of Technology and University of Illinois, Chicago</affiliation></author>
       <pages>1070-1087</pages>
       <abstract>Free-text rationales play a pivotal role in explainable NLP, bridging the knowledge and reasoning gaps behind a model’s decision-making. However, due to the diversity of potential reasoning paths and a corresponding lack of definitive ground truth, their evaluation remains a challenge. Existing metrics rely on the degree to which a rationale <i>supports</i> a target label, but we find these fall short in evaluating rationales that inadvertently <i>leak the label</i>. To address this problem, we propose RORA, a RObust free-text RAtionale evaluation against label leakage. RORA quantifies the new information supplied by a rationale to justify the label. This is achieved by assessing the conditional <tex-math>\mathcal{V}</tex-math>-information (Hewitt et al., 2021) with a predictive family robust against leaky features that can be exploited by a small model. RORA consistently outperforms existing approaches in evaluating human-written, synthetic, or model-generated rationales, particularly demonstrating robustness against label leakage. We also show that RORA aligns well with human judgment, providing a more reliable and accurate measurement across diverse free-text rationales.</abstract>
@@ -7482,7 +7482,7 @@
       <author><first>Corby</first><last>Rosset</last></author>
       <author><first>Ethan C.</first><last>Chau</last><affiliation>Microsoft</affiliation></author>
       <author><first>Nikhil</first><last>Rao</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
+      <author id="benjamin-van-durme"><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
       <pages>9961-9975</pages>
       <abstract>Transformer-based language models (LMs) are inefficient in long contexts. We propose Dodo, a solution for context compression. Instead of one vector per token in a standard transformer model, Dodo represents text with a dynamic number of hidden states at each layer, reducing the cost of self-attention to a fraction of typical time and space. Moreover, off-the-shelf models such as LLaMA can be adapted to Dodo by efficient parameter tuning methods such as LoRA. In use, Dodo can act as either an autoregressive LM or a context compressor for downstream tasks. We demonstrate through experiments in language modeling, question answering, and summarization that Dodo retains capabilities in these tasks, while drastically reducing the overhead during decoding. For example, in the autoencoding task, Dodo shrinks context at a 20x compression ratio with a BLEU score of 98% for reconstruction, achieving nearly lossless encoding.</abstract>
       <url hash="08931032">2024.acl-long.536</url>
@@ -7923,7 +7923,7 @@
       <author><first>Boshi</first><last>Wang</last><affiliation>Ohio State University</affiliation></author>
       <author><first>Hao</first><last>Fang</last><affiliation>Microsoft</affiliation></author>
       <author id="jason-eisner"><first>Jason</first><last>Eisner</last><affiliation>Microsoft and Johns Hopkins University</affiliation></author>
-      <author><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
+      <author id="benjamin-van-durme"><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
       <author><first>Yu</first><last>Su</last><affiliation>Ohio State University and Microsoft</affiliation></author>
       <pages>10583-10604</pages>
       <abstract>Tools are essential for large language models (LLMs) to acquire up-to-date information and take consequential actions in external environments. Existing work on tool-augmented LLMs primarily focuses on the broad coverage of tools and the flexibility of adding new tools. However, a critical aspect that has surprisingly been understudied is simply how accurately an LLM uses tools for which it has been trained. We find that existing LLMs, including GPT-4 and open-source LLMs specifically fine-tuned for tool use, only reach a correctness rate in the range of 30% to 60%, far from reliable use in practice. We propose a biologically inspired method for tool-augmented LLMs, simulated trial and error (STE), that orchestrates three key mechanisms for successful tool use behaviors in the biological system: trial and error, imagination, and memory. Specifically, STE leverages an LLM’s ‘imagination’ to simulate plausible scenarios for using a tool, after which the LLM interacts with the tool to learn from its execution feedback. Both short-term and long-term memory are employed to improve the depth and breadth of the exploration, respectively. Comprehensive experiments on ToolBench show that STE substantially improves tool learning for LLMs under both in-context learning and fine-tuning settings, bringing a boost of 46.7% to Mistral-Instruct-7B and enabling it to outperform GPT-4. We also show effective continual learning of tools via a simple experience replay strategy.</abstract>
@@ -10431,7 +10431,7 @@
       <author><first>Helia</first><last>Hashemi</last></author>
       <author id="jason-eisner"><first>Jason</first><last>Eisner</last><affiliation>Microsoft and Johns Hopkins University</affiliation></author>
       <author><first>Corby</first><last>Rosset</last></author>
-      <author><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
+      <author id="benjamin-van-durme"><first>Benjamin</first><last>Van Durme</last><affiliation>Johns Hopkins University, Johns Hopkins University, Johns Hopkins University and Microsoft</affiliation></author>
       <author><first>Chris</first><last>Kedzie</last><affiliation>Rasa Technologies, Inc.</affiliation></author>
       <pages>13806-13834</pages>
       <abstract>This paper introduces a framework for the automated evaluation of natural language texts. A manually constructed rubric describes how to assess multiple dimensions of interest. To evaluate a text, a large language model (LLM) is prompted with each rubric question and produces a distribution over potential responses. The LLM predictions often fail to agree well with human judges—indeed, the humans do not fully agree with one another. However, the multiple LLM distributions can be _combined_ to _predict_ each human judge’s annotations on all questions, including a summary question that assesses overall quality or relevance. LLM-Rubric accomplishes this by training a small feed-forward neural network that includes both judge-specific and judge-independent parameters. When evaluating dialogue systems in a human-AI information-seeking task, we find that LLM-Rubric with 9 questions (assessing dimensions such as naturalness, conciseness, and citation quality) predicts human judges’ assessment of overall user satisfaction, on a scale of 1–4, with RMS error &lt; 0.5, a 2× improvement over the uncalibrated baseline.</abstract>
@@ -13826,7 +13826,7 @@ These changes do not affect the experimental results or the main conclusions of 
       <author><first>Mamadou</first><last>Keita</last></author>
       <author><first>Elysabhete</first><last>Ibrahim</last></author>
       <author><first>Habibatou</first><last>Alfari</last></author>
-      <author><first>Christopher</first><last>Homan</last></author>
+      <author id="christopher-m-homan"><first>Christopher</first><last>Homan</last></author>
       <pages>1-9</pages>
       <abstract>Machine translation (MT) is a rapidly expanding field that has experienced significant advancements in recent years with the development of models capable of translating multiple languages with remarkable accuracy. However, the representation of African languages in this field still needs improvement due to linguistic complexities and limited resources. This applies to the Zarma language, a dialect of Songhay (of the Nilo-Saharan language family) spoken by over 5 million people across Niger and neighboring countries (Lewis et al., 2016). This paper introduces Feriji, the first robust French-Zarma parallel corpus and glossary designed for MT. The corpus, containing 61,085 sentences in Zarma and 42,789 in French, and a glossary of 4,062 words represents a significant step in addressing the need for more resources for Zarma. We fine-tune three large language models on our dataset, obtaining a BLEU score of 30.06 on the best-performing model. We further evaluate the models on human judgments of fluency, comprehension, and readability and the importance and impact of the corpus and models. Our contributions help to bridge a significant language gap and promote an essential and overlooked indigenous African language.</abstract>
       <url hash="95b1c655">2024.acl-srw.1</url>
@@ -14478,5 +14478,14 @@ These changes do not affect the experimental results or the main conclusions of 
       <volume-id>2024.textgraphs-1</volume-id>
       <volume-id>2024.wassa-1</volume-id>
     </colocated>
+    <meta>
+      <title>62nd Annual Meeting of the Association for Computational Linguistics</title>
+      <location>Bangkok, Thailand</location>
+      <dates>August 11–16, 2024</dates>
+    </meta>
+    <links>
+      <url type="website">https://2024.aclweb.org</url>
+      <url type="handbook">2024.acl.handbook.pdf</url>
+    </links>
   </event>
 </collection>

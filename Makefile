@@ -184,7 +184,7 @@ SYNC_DEST := anthologizer@aclanthology.org:anthology-files
 
 .PHONY: sync
 sync:
-	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_DEST)
+	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
 
 # Archive ingestion materials with:
 #   make archive DIR=~/Downloads/2026-07-13-brigap
