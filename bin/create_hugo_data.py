@@ -265,10 +265,36 @@ def volume_to_dict(volume):
     return data
 
 
-def export_papers_and_volumes(anthology, builddir, dryrun):
+def homepage_stats(anthology):
+    """Compute collection statistics displayed on the homepage."""
+    volumes = list(anthology.volumes())
+    top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
+
+    return {
+        "paper_count": sum(1 for _ in anthology.papers()),
+        "volume_count": len(volumes),
+        "venue_count": len(top_level_venues),
+        "venue_year_count": sum(
+            len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
+        ),
+        "oldest_year": min(volume.year for volume in volumes),
+        "newest_year": max(volume.year for volume in volumes),
+    }
+
+
+def export_homepage_stats(anthology, builddir, dryrun):
+    data = homepage_stats(anthology)
+    if not dryrun:
+        with open(f"{builddir}/data/homepage.json", "wb") as f:
+            f.write(ENCODER.encode(data))
+    return data
+
+
+def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
     all_volumes = {}
     with make_progress() as progress:
-        paper_count = sum(1 for _ in anthology.papers())
+        if paper_count is None:
+            paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
         for collection in anthology.collections.values():
             collection_papers = {}
@@ -588,7 +614,10 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
             if not check_directory(target_dir, clean=clean):
                 return
 
-    export_papers_and_volumes(anthology, builddir, dryrun)
+    stats = export_homepage_stats(anthology, builddir, dryrun)
+    export_papers_and_volumes(
+        anthology, builddir, dryrun, paper_count=stats["paper_count"]
+    )
     export_people(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)

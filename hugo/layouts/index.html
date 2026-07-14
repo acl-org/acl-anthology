@@ -86,36 +86,15 @@
 {{ end }}
 
 {{ define "main" }}
-{{ $stats := newScratch }}
-{{ $stats.Set "paper_count" 0 }}
-{{ $stats.Set "venue_count" 0 }}
-{{ $stats.Set "venue_year_count" 0 }}
-{{ $stats.Set "oldest_year" (now.Format "2006" | int) }}
-
-{{ range hugo.Data.papers }}
-  {{ $stats.Add "paper_count" (len .) }}
-{{ end }}
-{{ range hugo.Data.events }}
-  {{ $year := .year | int }}
-  {{ if lt $year ($stats.Get "oldest_year") }}
-    {{ $stats.Set "oldest_year" $year }}
-  {{ end }}
-{{ end }}
-{{ range hugo.Data.venues }}
-  {{ if .is_toplevel }}
-    {{ $stats.Add "venue_count" 1 }}
-    {{ $stats.Add "venue_year_count" (len .years) }}
-  {{ end }}
-{{ end }}
-
-{{ $currentYear := now.Format "2006" | int }}
+{{ $stats := hugo.Data.homepage }}
+{{ $currentYear := $stats.newest_year | int }}
 {{ $currentDecade := mul (div $currentYear 10) 10 }}
 {{ $decades := seq $currentDecade -10 1950 }}
 
 <main class="acl-home">
   <section class="acl-home-intro" aria-labelledby="acl-home-title">
     <div class="acl-home-intro__copy">
-      <p class="acl-home-eyebrow">Open access &middot; {{ $stats.Get "oldest_year" }}&ndash;present</p>
+      <p class="acl-home-eyebrow">Open access &middot; {{ $stats.oldest_year }}&ndash;present</p>
       <h1 id="acl-home-title">ACL Anthology</h1>
       <p class="acl-home-summary">The open archive for research in computational linguistics, speech, and natural language processing.</p>
     </div>
@@ -132,15 +111,15 @@
 
       <dl class="acl-home-stats" aria-label="Anthology collection statistics">
         <div>
-          <dt>{{ lang.FormatNumberCustom 0 ($stats.Get "paper_count") }}</dt>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }}</dt>
           <dd>papers</dd>
         </div>
         <div>
-          <dt>{{ lang.FormatNumberCustom 0 (len hugo.Data.volumes) }}</dt>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
           <dd>volumes</dd>
         </div>
         <div>
-          <dt>{{ $stats.Get "oldest_year" }}&ndash;{{ $currentYear }}</dt>
+          <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
           <dd>years covered</dd>
         </div>
       </dl>
@@ -195,7 +174,7 @@
     </div>
 
     <div class="acl-directory-meta">
-      <p data-filter-status aria-live="polite">{{ $stats.Get "venue_count" }} venues &middot; {{ $stats.Get "venue_year_count" }} years shown</p>
+      <p data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; {{ $stats.venue_year_count }} years shown</p>
       <a href="{{ ($.Site.GetPage "/volumes").RelPermalink }}">View the complete volume list <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     </div>
 
