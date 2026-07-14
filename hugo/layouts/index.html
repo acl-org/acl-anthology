@@ -1,4 +1,83 @@
 {{ define "javascript" }}
+<script>
+  (function () {
+    const directory = document.querySelector("[data-venue-directory]");
+    if (!directory) return;
+
+    const filterInput = directory.querySelector("[data-venue-filter]");
+    const clearButton = directory.querySelector("[data-clear-filter]");
+    const decadeButtons = Array.from(directory.querySelectorAll("[data-decade-filter]"));
+    const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
+    const venueGroups = Array.from(directory.querySelectorAll("[data-venue-group]"));
+    const status = directory.querySelector("[data-filter-status]");
+    const emptyState = directory.querySelector("[data-filter-empty]");
+    let activeDecade = "all";
+
+    function applyFilters() {
+      const query = filterInput.value.trim().toLowerCase();
+      let visibleVenues = 0;
+      let visibleYears = 0;
+
+      venueRows.forEach(function (row) {
+        const textMatches = row.dataset.venueSearch.includes(query);
+        const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
+        let matchingYears = 0;
+
+        yearLinks.forEach(function (link) {
+          const decadeMatches = activeDecade === "all" || link.dataset.decade === activeDecade;
+          link.hidden = !decadeMatches;
+          if (decadeMatches) matchingYears += 1;
+        });
+
+        const rowMatches = textMatches && matchingYears > 0;
+        row.hidden = !rowMatches;
+        if (rowMatches) {
+          visibleVenues += 1;
+          visibleYears += matchingYears;
+        }
+      });
+
+      venueGroups.forEach(function (group) {
+        const hasVisibleRows = Array.from(group.querySelectorAll("[data-venue-row]")).some(function (row) {
+          return !row.hidden;
+        });
+        group.hidden = !hasVisibleRows;
+      });
+
+      clearButton.hidden = query.length === 0;
+      emptyState.hidden = visibleVenues > 0;
+      status.textContent = visibleVenues + " venues · " + visibleYears + " years shown";
+    }
+
+    filterInput.addEventListener("input", applyFilters);
+    filterInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && filterInput.value) {
+        filterInput.value = "";
+        applyFilters();
+      }
+    });
+
+    clearButton.addEventListener("click", function () {
+      filterInput.value = "";
+      filterInput.focus();
+      applyFilters();
+    });
+
+    decadeButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activeDecade = button.dataset.decadeFilter;
+        decadeButtons.forEach(function (candidate) {
+          const isActive = candidate === button;
+          candidate.classList.toggle("is-active", isActive);
+          candidate.setAttribute("aria-pressed", isActive.toString());
+        });
+        applyFilters();
+      });
+    });
+
+    applyFilters();
+  }());
+</script>
 {{ end }}
 
 {{ define "meta" }}
@@ -7,137 +86,178 @@
 {{ end }}
 
 {{ define "main" }}
-<div class="row justify-content-center">
-  {{ $.Scratch.Set "paper_count" 0 }}
-  {{ range hugo.Data.papers }}
-  {{ $.Scratch.Add "paper_count" (len .) }}
+{{ $stats := newScratch }}
+{{ $stats.Set "paper_count" 0 }}
+{{ $stats.Set "venue_count" 0 }}
+{{ $stats.Set "venue_year_count" 0 }}
+{{ $stats.Set "oldest_year" (now.Format "2006" | int) }}
+
+{{ range hugo.Data.papers }}
+  {{ $stats.Add "paper_count" (len .) }}
+{{ end }}
+{{ range hugo.Data.events }}
+  {{ $year := .year | int }}
+  {{ if lt $year ($stats.Get "oldest_year") }}
+    {{ $stats.Set "oldest_year" $year }}
   {{ end }}
+{{ end }}
+{{ range hugo.Data.venues }}
+  {{ if .is_toplevel }}
+    {{ $stats.Add "venue_count" 1 }}
+    {{ $stats.Add "venue_year_count" (len .years) }}
+  {{ end }}
+{{ end }}
 
-  <div class="col-12 col-xl-2">
-    <aside class="card acl-greeting fw-light mb-3">
-      <div class="card-body">
-        The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ lang.FormatNumberCustom 0 ($.Scratch.Get "paper_count") }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.
-      </div>
-    </aside>
-    <div class="row">
-      <div class="col-4 col-xl-12 mb-2">
-        <a class="btn btn-info w-100" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">Info for authors</a>
-      </div>
-      <div class="col-4 col-xl-12 mb-2">
-        <a class="btn btn-warning w-100" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">Access data</a>
-      </div>
-      <div class="col-4 col-xl-12 mb-2">
-        <a class="btn btn-success w-100" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
-      </div>
+{{ $currentYear := now.Format "2006" | int }}
+{{ $currentDecade := mul (div $currentYear 10) 10 }}
+{{ $decades := seq $currentDecade -10 1950 }}
+
+<main class="acl-home">
+  <section class="acl-home-intro" aria-labelledby="acl-home-title">
+    <div class="acl-home-intro__copy">
+      <p class="acl-home-eyebrow">Open access &middot; {{ $stats.Get "oldest_year" }}&ndash;present</p>
+      <h1 id="acl-home-title">ACL Anthology</h1>
+      <p class="acl-home-summary">The open archive for research in computational linguistics, speech, and natural language processing.</p>
     </div>
-  </div>
-  <div class="col-12 col-xl-9">
-    <main role="main">
-    <h6>ACL Events</h6>
-    {{/* ACL EVENTS */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{/* Get the current year */}}
-    {{ $current_year := now.Format "2006" | int }}
-    {{/* The number of columns needed for the current year block */}}
-    {{ $num_cols := add (mod $current_year 10) 1 }}
-    {{ $all_years := seq $current_year -1 1974 }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <div class="table-responsive">
-    <table class="table table-hover table-sm small text-nowrap acl-event-table">
-      <thead>
-        <tr class="text-center border-start border-end">
-          <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
-          <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-start" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-start" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-start" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-start" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-start" scope="col" colspan="16">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
+    <div class="acl-home-search-panel">
+      <form class="acl-home-search" action="{{ relURL "search/" }}" method="get" role="search">
+        <label for="acl-home-search">Search the Anthology</label>
+        <div class="acl-home-search__control">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input id="acl-home-search" name="q" type="search" placeholder="Title, author, venue, or Anthology ID" autocomplete="off">
+          <button type="submit"><span>Search</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </form>
+
+      <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+        <div>
+          <dt>{{ lang.FormatNumberCustom 0 ($stats.Get "paper_count") }}</dt>
+          <dd>papers</dd>
+        </div>
+        <div>
+          <dt>{{ lang.FormatNumberCustom 0 (len hugo.Data.volumes) }}</dt>
+          <dd>volumes</dd>
+        </div>
+        <div>
+          <dt>{{ $stats.Get "oldest_year" }}&ndash;{{ $currentYear }}</dt>
+          <dd>years covered</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <nav class="acl-home-actions" aria-label="Anthology resources">
+    <a href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
+      <i class="fas fa-user-edit" aria-hidden="true"></i>
+      <span>Info for authors</span>
+    </a>
+    <a href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
+      <i class="fas fa-database" aria-hidden="true"></i>
+      <span>Access data</span>
+    </a>
+    <a href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
+      <i class="far fa-comment-alt" aria-hidden="true"></i>
+      <span>Give feedback</span>
+    </a>
+  </nav>
+
+  <section class="acl-venue-directory" data-venue-directory aria-labelledby="venue-directory-title">
+    <header class="acl-directory-header">
+      <div>
+        <p class="acl-home-eyebrow">Proceedings index</p>
+        <h2 id="venue-directory-title">Browse by venue and year</h2>
+      </div>
+      <p>Every top-level venue and available year is listed below. Event pages provide access to all associated volumes.</p>
+    </header>
+
+    <div class="acl-directory-tools">
+      <div class="acl-venue-filter">
+        <label for="acl-venue-filter">Filter venues</label>
+        <div class="acl-venue-filter__control">
+          <i class="fas fa-filter" aria-hidden="true"></i>
+          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Name or acronym" autocomplete="off">
+          <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <fieldset class="acl-decade-filter">
+        <legend>Years</legend>
+        <div class="acl-decade-filter__rail" aria-label="Filter venues by decade">
+          <button class="is-active" type="button" data-decade-filter="all" aria-pressed="true">All years</button>
+          {{ range $decades }}
+          <button type="button" data-decade-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
+          {{ end }}
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="acl-directory-meta">
+      <p data-filter-status aria-live="polite">{{ $stats.Get "venue_count" }} venues &middot; {{ $stats.Get "venue_year_count" }} years shown</p>
+      <a href="{{ ($.Site.GetPage "/volumes").RelPermalink }}">View the complete volume list <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+    {{ range $isACL := slice true false }}
+    <section class="acl-venue-group" data-venue-group aria-labelledby="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">
+      <header class="acl-venue-group__header">
+        <h3 id="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">{{ cond $isACL "ACL venues" "Other venues" }}</h3>
+        <span>{{ cond $isACL "ACL conferences, journals, and chapters" "Partner conferences, journals, and archives" }}</span>
+      </header>
+
+      <div class="acl-venue-list">
         {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
-        {{ if (and $venue.is_toplevel $venue.is_acl) }}
-        <tr class="text-center border-start border-end">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ $venue.name }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{ $event := printf "%s-%s" $venue.slug $year }}
-          {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-start" "" }}">
-            {{- with index hugo.Data.events $event -}}
-              {{- with index hugo.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-              {{- end -}}
-            {{- end -}}
-          </td>
-          {{ end }}
-        </tr>
+        {{ if and $venue.is_toplevel (eq $venue.is_acl $isACL) }}
+        {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
+        <article class="acl-venue-row" data-venue-row data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+          <h4>
+            <a href="{{ $venuePage.RelPermalink }}">
+              <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
+              <span class="acl-venue-row__name">{{ $venue.name }}</span>
+            </a>
+          </h4>
+          <div class="acl-venue-years" aria-label="Available years for {{ $venue.acronym }}">
+            {{ range $year := collections.Reverse $venue.years }}
+              {{ $eventID := printf "%s-%s" $venue.slug $year }}
+              {{ $event := index hugo.Data.events $eventID }}
+              {{ $volumes := index $venue.volumes_by_year $year }}
+              {{ $decade := printf "%s0" (slicestr $year 0 3) }}
+              {{ if and $event $event.volumes }}
+            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
+              {{ else }}
+                {{ $yearURL := $venuePage.RelPermalink }}
+                {{ if eq (len $volumes) 1 }}
+                  {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
+                {{ end }}
+            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </article>
         {{ end }}
         {{ end }}
-        {{/* SIGs */}}
-        <tr class="text-center border-start border-end">
-          <th scope="row">SIGs</th>
-          <td class="border-start" colspan="{{ len $all_years }}">
-          {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
-          {{ $len := len $sig_pages }}
-          {{ range $index, $page := $sig_pages}}
-            <a href="{{ $page.RelPermalink }}" title="{{ $page.Title }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
-          {{ end }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+      </div>
+    </section>
+    {{ end }}
 
-    <h6 class="pt-4">Non-ACL Events</h6>
-    {{/* NON-ACL EVENTS */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{/* Adjust this range at the beginning of each year */}}
-    {{ $all_years := seq $current_year -1 1986 | append (slice 1984 1982 1980 1978 1975 1973 1969 1967 1965) }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
+    <section class="acl-sig-directory" aria-labelledby="acl-sig-title">
+      <div>
+        <p class="acl-home-eyebrow">Research communities</p>
+        <h3 id="acl-sig-title">Special Interest Groups</h3>
+      </div>
+      <div class="acl-sig-directory__links">
+        {{ $sigPages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
+        {{ range $sigPages }}
+        <a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Params.short_acronym }}</a>
+        {{ end }}
+      </div>
+    </section>
 
-    <div class="table-responsive">
-    <table class="table table-hover table-sm small text-nowrap acl-event-table">
-      <thead>
-        <tr class="text-center border-start border-end">
-          <th class="border-start" scope="col" style="width: 8rem;">Venue</th>
-          <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-start" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-start" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-start" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-start" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-start" scope="col" colspan="13">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
-        {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
-        {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
-        <tr class="text-center border-start border-end">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}" title="{{ $venue.name }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{ $event := printf "%s-%s" $venue.slug $year }}
-          <td class="{{ cond (in $border_years $year) "border-start" "" }}">
-            {{- with index hugo.Data.events $event -}}
-              {{- with index hugo.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-              {{- end -}}
-            {{- end -}}
-          </td>
-          {{ end }}
-        </tr>
-        {{ end }}
-        {{ end }}
-      </tbody>
-    </table>
+    <div class="acl-directory-empty" data-filter-empty hidden>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <p>No venues match these filters.</p>
     </div>
-  </main>
-  </div>
-</div>
+  </section>
+</main>
 {{ end }}
