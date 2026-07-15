@@ -1,8 +1,8 @@
 /* Custom styles for main homepage */
 
-$acl-logo-red: #ed1c24;
+$acl-link-blue: #446e9b;
 $acl-black: #202124;
-$acl-soft-red: #fff1f2;
+$acl-soft-blue: #eef4f8;
 $acl-soft-gray: #f3f3f3;
 
 .acl-news {
@@ -26,7 +26,7 @@ $acl-soft-gray: #f3f3f3;
   --acl-home-muted: #5f6368;
   --acl-home-line: #d9d9d9;
   --acl-home-paper: #f7f7f7;
-  --acl-home-red: #{$acl-logo-red};
+  --acl-home-accent: #{$acl-link-blue};
   max-width: 60rem;
   margin: 0 auto 3rem;
   color: var(--acl-home-ink);
@@ -38,7 +38,7 @@ $acl-soft-gray: #f3f3f3;
 
 .acl-home-intro {
   padding: 1.3rem 1.83rem 1.4rem;
-  border-top: .3rem solid $acl-logo-red;
+  border-top: .3rem solid #777;
   border-radius: .375rem;
   background: $white;
   box-shadow: 0 .22rem .7rem rgba($acl-black, .1);
@@ -52,15 +52,15 @@ $acl-soft-gray: #f3f3f3;
   line-height: 1.6;
 
   a {
-    color: darken($acl-logo-red, 8%);
+    color: $acl-link-blue;
     font-weight: 550;
     text-decoration: underline;
-    text-decoration-color: rgba($acl-logo-red, .45);
+    text-decoration-color: rgba($acl-link-blue, .45);
     text-underline-offset: .15rem;
 
     &:hover,
     &:focus-visible {
-      color: darken($acl-logo-red, 16%);
+      color: darken($acl-link-blue, 12%);
       text-decoration-color: currentColor;
     }
   }
@@ -72,7 +72,7 @@ $acl-soft-gray: #f3f3f3;
   gap: 1.08rem;
   margin: 1.2rem 0 0;
   padding: 1rem 0 0;
-  border-top: 1px solid rgba($acl-logo-red, .25);
+  border-top: 1px solid var(--acl-home-line);
 
   div {
     min-width: 0;
@@ -133,13 +133,13 @@ $acl-soft-gray: #f3f3f3;
   color: $acl-black !important;
 
   i {
-    color: darken($acl-logo-red, 10%);
+    color: $acl-link-blue;
   }
 
   &:hover,
   &:focus-visible {
-    border-color: $acl-logo-red !important;
-    background: $acl-soft-red;
+    border-color: $acl-link-blue !important;
+    background: $acl-soft-blue;
     color: $acl-black !important;
   }
 }
@@ -147,7 +147,7 @@ $acl-soft-gray: #f3f3f3;
 .acl-recent-events {
   margin-bottom: .85rem;
   border: 1px solid var(--acl-home-line);
-  border-top: .18rem solid $acl-logo-red;
+  border-top: .18rem solid #777;
   border-radius: .35rem;
   background: $white;
   overflow: hidden;
@@ -185,9 +185,9 @@ $acl-soft-gray: #f3f3f3;
 
     &:hover,
     &:focus-visible {
-      border-color: $acl-logo-red;
-      background: rgba($acl-logo-red, .08);
-      color: darken($acl-logo-red, 16%);
+      border-color: $acl-link-blue;
+      background: $acl-soft-blue;
+      color: darken($acl-link-blue, 12%);
       text-decoration: underline;
       text-underline-offset: .12rem;
     }
@@ -248,13 +248,13 @@ $acl-soft-gray: #f3f3f3;
 
     &:hover,
     &:focus-visible {
-      color: var(--acl-home-red);
+      color: var(--acl-home-accent);
     }
   }
 
   &:focus-within {
-    border-color: $acl-logo-red;
-    box-shadow: 0 0 0 .2rem rgba($acl-logo-red, .16);
+    border-color: $acl-link-blue;
+    box-shadow: 0 0 0 .2rem rgba($acl-link-blue, .16);
   }
 }
 
@@ -290,8 +290,8 @@ $acl-soft-gray: #f3f3f3;
 
     &:hover,
     &:focus-visible {
-      border-color: $acl-logo-red;
-      background: rgba($acl-logo-red, .07);
+      border-color: $acl-link-blue;
+      background: $acl-soft-blue;
     }
 
     &.is-active {
@@ -335,7 +335,7 @@ $acl-soft-gray: #f3f3f3;
 }
 
 .acl-venue-group--acl .acl-venue-group__header {
-  border-top: .18rem solid $acl-logo-red;
+  border-top: .18rem solid #777;
   background: $acl-soft-gray;
   color: $acl-black;
 
@@ -400,7 +400,7 @@ $acl-soft-gray: #f3f3f3;
 
     &:hover .acl-venue-row__acronym,
     &:focus-visible .acl-venue-row__acronym {
-      color: darken($acl-logo-red, 10%);
+      color: $acl-link-blue;
       text-decoration: underline;
       text-underline-offset: .2rem;
     }
@@ -477,7 +477,7 @@ $acl-soft-gray: #f3f3f3;
 
 .acl-home-eyebrow {
   margin: 0 0 .25rem;
-  color: darken($acl-logo-red, 10%);
+  color: $acl-link-blue;
   font-size: .77rem;
   font-weight: 650;
 }
@@ -488,7 +488,7 @@ $acl-soft-gray: #f3f3f3;
   gap: 1.33rem;
   margin: .92rem 0 1.75rem;
   padding: 1.05rem 1.15rem;
-  border-top: .18rem solid $acl-logo-red;
+  border-top: .18rem solid #777;
   border-right: 1px solid var(--acl-home-line);
   border-bottom: 1px solid var(--acl-home-line);
   border-left: 1px solid var(--acl-home-line);
@@ -518,7 +518,7 @@ $acl-soft-gray: #f3f3f3;
 
     &:hover,
     &:focus-visible {
-      color: darken($acl-logo-red, 12%);
+      color: darken($acl-link-blue, 12%);
       text-decoration: underline;
       text-underline-offset: .15rem;
     }
@@ -535,7 +535,7 @@ $acl-soft-gray: #f3f3f3;
 
   i {
     margin-bottom: .75rem;
-    color: var(--acl-home-red);
+    color: var(--acl-home-accent);
   }
 
   p {
