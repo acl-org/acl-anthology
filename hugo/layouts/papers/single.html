@@ -130,7 +130,7 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
-    document.getElementById("paperPDF").href = "{{ $paper.pdf }}";
+    document.getElementById("paperPDF").href = "{{ or $paper.pdf $paper.external }}";
     document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
     document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
 
@@ -394,7 +394,11 @@
       {{ with $paper.pdf }}
       <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
       {{ else }}
+      {{ with $paper.external }}
+      <a href="{{ . }}">{{ $paper.title_html | safeHTML }} <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i></a>
+      {{ else }}
       {{ $paper.title_html | safeHTML }}
+      {{ end }}
       {{ end }}
     </h2>
     {{ with $paper.author }}
@@ -449,7 +453,7 @@
             <div class="mb-3">
               <label class="form-label d-block">Verification against PDF</label>
               <small class="form-text text-muted d-block mb-2">Ensure that the new title/authors match the snapshot below. (If there
-                is no snapshot or it is too small, consult <a href="#" id="paperPDF">the PDF</a>.)</small>
+                is no snapshot or it is too small, consult <a href="#" id="paperPDF">{{ if $paper.external }}the external publication <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>{{ else }}the PDF{{ end }}</a>.)</small>
               <div style="max-height:150px;" class="overflow-hidden w-100" style="text-align: center;">
                 <a id="paperSnapshot" href="#"><img id="paperSnapshotImg" src=""
                     style="min-width: 80%; max-width: 100%"></a>
@@ -573,8 +577,8 @@
         <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
         <dt>Language:</dt>
         <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
-        <dt>URL:</dt>
-        <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
+        <dt>{{ if $paper.external }}External URL:{{ else }}URL:{{ end }}</dt>
+        <dd><a href="{{ $paper.url }}">{{ $paper.url }}{{ if $paper.external }} <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>{{ end }}</a></dd>
         <dt>DOI:</dt>
         <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{
             . }}</a>{{ end }}</dd>
@@ -664,6 +668,11 @@
         <i class="far fa-file-pdf"></i><span class="ps-2">PDF</span>
       </a>
       {{ end }}
+      {{ end }}
+      {{ with $paper.external }}
+      <a class="btn btn-primary" href="{{ . }}" title="Open external publication for '{{ $paper.title | htmlEscape }}'">
+        <i class="fas fa-external-link-alt"></i><span class="ps-2">External</span>
+      </a>
       {{ end }}
       {{ if and (not $paper.retracted) (not $paper.removed) ($paper.bibtex) }}
       <a class="btn btn-secondary" title="Open dialog for exporting citations" data-bs-toggle="modal"
