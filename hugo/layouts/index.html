@@ -172,10 +172,10 @@
       <fieldset class="acl-period-filter">
         <div class="acl-period-filter__rail" aria-label="Choose years to show">
           <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Recent</button>
+          <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
           {{ range $decades }}
           <button type="button" data-period-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
           {{ end }}
-          <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
         </div>
       </fieldset>
     </div>
