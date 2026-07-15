@@ -35,7 +35,7 @@
   padding: 1.3rem 1.83rem 1.4rem;
   border-top: .3rem solid $cyan;
   border-radius: .375rem;
-  background: #edf7fb;
+  background: $white;
   box-shadow: 0 .22rem .7rem rgba(#284f62, .1);
 }
 
@@ -121,63 +121,69 @@
 }
 
 .acl-home-action--authors {
-  border-color: rgba($cyan, .45) !important;
-  background: rgba($cyan, .11);
+  border-color: $cyan !important;
+  background: $cyan;
+  color: $white !important;
 
   i {
-    color: darken($cyan, 13%);
+    color: $white;
   }
 
   &:hover,
   &:focus-visible {
-    border-color: $cyan !important;
-    background: rgba($cyan, .18);
+    border-color: darken($cyan, 10%) !important;
+    background: darken($cyan, 10%);
+    color: $white !important;
   }
 }
 
 .acl-home-action--data {
-  border-color: rgba($orange, .45) !important;
-  background: rgba($orange, .1);
+  border-color: $yellow !important;
+  background: $yellow;
+  color: #212529 !important;
 
   i {
-    color: darken($orange, 13%);
+    color: #212529;
   }
 
   &:hover,
   &:focus-visible {
-    border-color: $orange !important;
-    background: rgba($orange, .17);
+    border-color: darken($yellow, 8%) !important;
+    background: darken($yellow, 8%);
+    color: #212529 !important;
   }
 }
 
 .acl-home-action--feedback {
-  border-color: rgba($green, .55) !important;
-  background: rgba($green, .12);
+  border-color: $green !important;
+  background: $green;
+  color: #212529 !important;
 
   i {
-    color: darken($green, 22%);
+    color: #212529;
   }
 
   &:hover,
   &:focus-visible {
-    border-color: darken($green, 8%) !important;
-    background: rgba($green, .2);
+    border-color: darken($green, 10%) !important;
+    background: darken($green, 10%);
+    color: #212529 !important;
   }
 }
 
 .acl-recent-events {
   margin-bottom: .85rem;
-  border: 1px solid rgba($cyan, .35);
+  border: 1px solid $cyan;
   border-radius: .35rem;
-  background: rgba($cyan, .07);
+  background: $white;
   overflow: hidden;
 
   h2 {
     margin: 0;
     padding: .55rem .85rem;
-    border-bottom: 1px solid rgba($cyan, .25);
-    background: rgba($cyan, .08);
-    color: #405562;
+    border-bottom: 1px solid $cyan;
+    background: $cyan;
+    color: $white;
     font-size: .9rem;
     font-weight: 600;
     letter-spacing: 0;
@@ -221,8 +227,9 @@
   gap: .9rem;
   margin-bottom: .6rem;
   padding: .9rem .97rem;
+  border: 1px solid var(--acl-home-line);
   border-radius: .35rem;
-  background: var(--acl-home-paper);
+  background: $white;
 }
 
 .acl-venue-filter__control {
@@ -355,12 +362,24 @@
 
 .acl-venue-group--acl .acl-venue-group__header {
   border-top: .18rem solid $blue;
-  background: rgba($blue, .09);
+  background: $blue;
+  color: $white;
+
+  h3,
+  span {
+    color: $white;
+  }
 }
 
 .acl-venue-group--other .acl-venue-group__header {
   border-top: .18rem solid $orange;
-  background: rgba($orange, .09);
+  background: $orange;
+  color: #212529;
+
+  h3,
+  span {
+    color: #212529;
+  }
 }
 
 .acl-venue-list {
@@ -435,7 +454,8 @@
     min-height: 1.75rem;
     padding: .17rem .38rem;
     border-radius: .25rem;
-    background: rgba($blue, .08);
+    border: 1px solid rgba($blue, .5);
+    background: $white;
     color: darken($blue, 6%);
     font-size: .8rem;
     font-variant-numeric: tabular-nums;
@@ -443,8 +463,9 @@
 
     &:hover,
     &:focus-visible {
-      background: rgba($blue, .17);
-      color: darken($blue, 15%);
+      border-color: $blue;
+      background: $blue;
+      color: $white;
       text-decoration: underline;
       text-underline-offset: .12rem;
     }
@@ -488,8 +509,11 @@
   margin: .92rem 0 1.75rem;
   padding: 1.05rem 1.15rem;
   border-top: .18rem solid darken($green, 10%);
+  border-right: 1px solid rgba($green, .7);
+  border-bottom: 1px solid rgba($green, .7);
+  border-left: 1px solid rgba($green, .7);
   border-radius: .35rem;
-  background: rgba($green, .09);
+  background: $white;
 
   h3 {
     margin: 0;
