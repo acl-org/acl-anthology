@@ -135,18 +135,16 @@
   </nav>
 
   <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
-    <p class="acl-directory-status" data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
-
     <div class="acl-directory-tools">
       <div class="acl-venue-filter">
-        <label for="acl-venue-filter">Filter venues</label>
         <div class="acl-venue-filter__control">
           <i class="fas fa-filter" aria-hidden="true"></i>
-          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Filter..." autocomplete="off">
+          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Filter..." autocomplete="off" aria-label="Filter venues">
           <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
         </div>
+        <p class="acl-directory-status" data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
       </div>
 
       <fieldset class="acl-period-filter">
