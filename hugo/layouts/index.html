@@ -235,10 +235,9 @@
     {{ end }}
 
     <section class="acl-sig-directory" aria-labelledby="acl-sig-title">
-      <div>
-        <p class="acl-home-eyebrow">Research communities</p>
-        <h3 id="acl-sig-title">Special Interest Groups</h3>
-      </div>
+      <header class="acl-sig-directory__header">
+        <h3 id="acl-sig-title">ACL Special Interest Groups</h3>
+      </header>
       <div class="acl-sig-directory__links">
         {{ $sigPages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
         {{ range $sigPages }}
