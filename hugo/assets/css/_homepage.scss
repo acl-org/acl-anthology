@@ -489,6 +489,30 @@
   }
 }
 
+@include media-breakpoint-up(lg) {
+  .acl-home {
+    display: grid;
+    grid-template-columns: minmax(17rem, 22rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 2.5rem;
+    max-width: 74rem;
+  }
+
+  .acl-home-aside,
+  .acl-venue-directory {
+    min-width: 0;
+  }
+
+  .acl-home-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .acl-home-actions {
+    grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 0;
+  }
+}
+
 @include media-breakpoint-down(md) {
   .acl-home-intro {
     padding: 1.7rem 1.75rem 1.4rem;

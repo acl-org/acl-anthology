@@ -114,45 +114,47 @@
 {{ $decades := seq $currentDecade -10 1950 }}
 
 <main class="acl-home">
-  <section class="acl-home-intro" aria-label="ACL Anthology">
-    <div class="acl-home-intro__copy">
-      <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
-    </div>
+  <div class="acl-home-aside">
+    <section class="acl-home-intro" aria-label="ACL Anthology">
+      <div class="acl-home-intro__copy">
+        <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
+      </div>
 
-    <dl class="acl-home-stats" aria-label="Anthology collection statistics">
-      <div>
-        <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
-        <dd>papers</dd>
-      </div>
-      <div>
-        <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
-        <dd>volumes</dd>
-      </div>
-      <div>
-        <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
-        <dd>venues</dd>
-      </div>
-      <div>
-        <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
-        <dd>years covered</dd>
-      </div>
-    </dl>
-  </section>
+      <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+        <div>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
+          <dd>papers</dd>
+        </div>
+        <div>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
+          <dd>volumes</dd>
+        </div>
+        <div>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
+          <dd>venues</dd>
+        </div>
+        <div>
+          <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
+          <dd>years covered</dd>
+        </div>
+      </dl>
+    </section>
 
-  <nav class="acl-home-actions" aria-label="Anthology resources">
-    <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
-      <i class="fas fa-user-edit" aria-hidden="true"></i>
-      <span>Info for authors</span>
-    </a>
-    <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
-      <i class="fas fa-database" aria-hidden="true"></i>
-      <span>Access data</span>
-    </a>
-    <a class="acl-home-action--feedback" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
-      <i class="far fa-comment-alt" aria-hidden="true"></i>
-      <span>Give feedback</span>
-    </a>
-  </nav>
+    <nav class="acl-home-actions" aria-label="Anthology resources">
+      <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
+        <i class="fas fa-user-edit" aria-hidden="true"></i>
+        <span>Info for authors</span>
+      </a>
+      <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
+        <i class="fas fa-database" aria-hidden="true"></i>
+        <span>Access data</span>
+      </a>
+      <a class="acl-home-action--feedback" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
+        <i class="far fa-comment-alt" aria-hidden="true"></i>
+        <span>Give feedback</span>
+      </a>
+    </nav>
+  </div>
 
   <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
     <div class="acl-directory-tools">
