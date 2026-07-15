@@ -1,5 +1,10 @@
 /* Custom styles for main homepage */
 
+$acl-logo-red: #ed1c24;
+$acl-black: #202124;
+$acl-soft-red: #fff1f2;
+$acl-soft-gray: #f3f3f3;
+
 .acl-news {
   .acl-news-date {
     margin-bottom: .5rem;
@@ -17,11 +22,11 @@
 }
 
 .acl-home {
-  --acl-home-ink: #263746;
-  --acl-home-muted: #5f6f7a;
-  --acl-home-line: #d8e2e8;
-  --acl-home-paper: #f5f8fa;
-  --acl-home-red: #b83d39;
+  --acl-home-ink: #{$acl-black};
+  --acl-home-muted: #5f6368;
+  --acl-home-line: #d9d9d9;
+  --acl-home-paper: #f7f7f7;
+  --acl-home-red: #{$acl-logo-red};
   max-width: 60rem;
   margin: 0 auto 3rem;
   color: var(--acl-home-ink);
@@ -33,29 +38,29 @@
 
 .acl-home-intro {
   padding: 1.3rem 1.83rem 1.4rem;
-  border-top: .3rem solid $cyan;
+  border-top: .3rem solid $acl-logo-red;
   border-radius: .375rem;
   background: $white;
-  box-shadow: 0 .22rem .7rem rgba(#284f62, .1);
+  box-shadow: 0 .22rem .7rem rgba($acl-black, .1);
 }
 
 .acl-home-summary {
   max-width: 50rem;
   margin: 0;
-  color: #405562;
+  color: #343434;
   font-size: .97rem;
   line-height: 1.6;
 
   a {
-    color: darken($blue, 8%);
+    color: darken($acl-logo-red, 8%);
     font-weight: 550;
     text-decoration: underline;
-    text-decoration-color: rgba($blue, .4);
+    text-decoration-color: rgba($acl-logo-red, .45);
     text-underline-offset: .15rem;
 
     &:hover,
     &:focus-visible {
-      color: darken($blue, 16%);
+      color: darken($acl-logo-red, 16%);
       text-decoration-color: currentColor;
     }
   }
@@ -67,14 +72,14 @@
   gap: 1.08rem;
   margin: 1.2rem 0 0;
   padding: 1rem 0 0;
-  border-top: 1px solid rgba($blue, .2);
+  border-top: 1px solid rgba($acl-logo-red, .25);
 
   div {
     min-width: 0;
   }
 
   dt {
-    color: #244d68;
+    color: $acl-black;
     font-size: 1.22rem;
     font-variant-numeric: tabular-nums;
     font-weight: 650;
@@ -111,7 +116,7 @@
     &:hover,
     &:focus-visible {
       color: var(--acl-home-ink);
-      box-shadow: 0 .2rem .55rem rgba(#263746, .1);
+      box-shadow: 0 .2rem .55rem rgba($acl-black, .12);
     }
   }
 
@@ -120,60 +125,29 @@
   }
 }
 
-.acl-home-action--authors {
-  border-color: $cyan !important;
-  background: $cyan;
-  color: $white !important;
-
-  i {
-    color: $white;
-  }
-
-  &:hover,
-  &:focus-visible {
-    border-color: darken($cyan, 10%) !important;
-    background: darken($cyan, 10%);
-    color: $white !important;
-  }
-}
-
-.acl-home-action--data {
-  border-color: $yellow !important;
-  background: $yellow;
-  color: #212529 !important;
-
-  i {
-    color: #212529;
-  }
-
-  &:hover,
-  &:focus-visible {
-    border-color: darken($yellow, 8%) !important;
-    background: darken($yellow, 8%);
-    color: #212529 !important;
-  }
-}
-
+.acl-home-action--authors,
+.acl-home-action--data,
 .acl-home-action--feedback {
-  border-color: $green !important;
-  background: $green;
-  color: #212529 !important;
+  border-color: #aaa !important;
+  background: $white;
+  color: $acl-black !important;
 
   i {
-    color: #212529;
+    color: darken($acl-logo-red, 10%);
   }
 
   &:hover,
   &:focus-visible {
-    border-color: darken($green, 10%) !important;
-    background: darken($green, 10%);
-    color: #212529 !important;
+    border-color: $acl-logo-red !important;
+    background: $acl-soft-red;
+    color: $acl-black !important;
   }
 }
 
 .acl-recent-events {
   margin-bottom: .85rem;
-  border: 1px solid $cyan;
+  border: 1px solid var(--acl-home-line);
+  border-top: .18rem solid $acl-logo-red;
   border-radius: .35rem;
   background: $white;
   overflow: hidden;
@@ -181,9 +155,9 @@
   h2 {
     margin: 0;
     padding: .55rem .85rem;
-    border-bottom: 1px solid $cyan;
-    background: $cyan;
-    color: $white;
+    border-bottom: 1px solid var(--acl-home-line);
+    background: $acl-soft-gray;
+    color: $acl-black;
     font-size: .9rem;
     font-weight: 600;
     letter-spacing: 0;
@@ -202,18 +176,18 @@
     align-items: center;
     min-height: 2.05rem;
     padding: .25rem .65rem;
-    border: 1px solid rgba($blue, .25);
+    border: 1px solid #c9c9c9;
     border-radius: 1rem;
     background: $white;
-    color: darken($blue, 7%);
+    color: #3f3f3f;
     font-size: .89rem;
     font-weight: 600;
 
     &:hover,
     &:focus-visible {
-      border-color: $blue;
-      background: rgba($blue, .08);
-      color: darken($blue, 15%);
+      border-color: $acl-logo-red;
+      background: rgba($acl-logo-red, .08);
+      color: darken($acl-logo-red, 16%);
       text-decoration: underline;
       text-underline-offset: .12rem;
     }
@@ -279,8 +253,8 @@
   }
 
   &:focus-within {
-    border-color: $blue;
-    box-shadow: 0 0 0 .2rem rgba($blue, .16);
+    border-color: $acl-logo-red;
+    box-shadow: 0 0 0 .2rem rgba($acl-logo-red, .16);
   }
 }
 
@@ -308,7 +282,7 @@
     border: 1px solid #c8d3d9;
     border-radius: .3rem;
     background: $white;
-    color: darken($blue, 5%);
+    color: $acl-black;
     font-size: .82rem;
     font-variant-numeric: tabular-nums;
     font-weight: 550;
@@ -316,13 +290,13 @@
 
     &:hover,
     &:focus-visible {
-      border-color: $blue;
-      background: rgba($blue, .07);
+      border-color: $acl-logo-red;
+      background: rgba($acl-logo-red, .07);
     }
 
     &.is-active {
-      border-color: $blue;
-      background: $blue;
+      border-color: #666;
+      background: #666;
       color: $white;
     }
   }
@@ -361,24 +335,30 @@
 }
 
 .acl-venue-group--acl .acl-venue-group__header {
-  border-top: .18rem solid $blue;
-  background: $blue;
-  color: $white;
+  border-top: .18rem solid $acl-logo-red;
+  background: $acl-soft-gray;
+  color: $acl-black;
 
-  h3,
+  h3 {
+    color: $acl-black;
+  }
+
   span {
-    color: $white;
+    color: var(--acl-home-muted);
   }
 }
 
 .acl-venue-group--other .acl-venue-group__header {
-  border-top: .18rem solid $orange;
-  background: $orange;
-  color: #212529;
+  border-top: .18rem solid #777;
+  background: $acl-soft-gray;
+  color: $acl-black;
 
-  h3,
+  h3 {
+    color: $acl-black;
+  }
+
   span {
-    color: #212529;
+    color: var(--acl-home-muted);
   }
 }
 
@@ -403,7 +383,7 @@
   }
 
   &:hover {
-    background: #f8fbfc;
+    background: #fafafa;
   }
 
   h4 {
@@ -420,7 +400,7 @@
 
     &:hover .acl-venue-row__acronym,
     &:focus-visible .acl-venue-row__acronym {
-      color: darken($blue, 8%);
+      color: darken($acl-logo-red, 10%);
       text-decoration: underline;
       text-underline-offset: .2rem;
     }
@@ -428,7 +408,7 @@
 }
 
 .acl-venue-row__acronym {
-  color: #2b5877;
+  color: #3f3f3f;
   font-size: .89rem;
   font-weight: 700;
 }
@@ -454,17 +434,17 @@
     min-height: 1.75rem;
     padding: .17rem .38rem;
     border-radius: .25rem;
-    border: 1px solid rgba($blue, .5);
+    border: 1px solid #c7c7c7;
     background: $white;
-    color: darken($blue, 6%);
+    color: #444;
     font-size: .8rem;
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
     &:hover,
     &:focus-visible {
-      border-color: $blue;
-      background: $blue;
+      border-color: #666;
+      background: #666;
       color: $white;
       text-decoration: underline;
       text-underline-offset: .12rem;
@@ -490,14 +470,14 @@
 
   &:hover,
   &:focus-visible {
-    background: rgba($blue, .1);
-    color: darken($blue, 12%);
+    background: $acl-soft-gray;
+    color: $acl-black;
   }
 }
 
 .acl-home-eyebrow {
   margin: 0 0 .25rem;
-  color: darken($green, 23%);
+  color: darken($acl-logo-red, 10%);
   font-size: .77rem;
   font-weight: 650;
 }
@@ -508,10 +488,10 @@
   gap: 1.33rem;
   margin: .92rem 0 1.75rem;
   padding: 1.05rem 1.15rem;
-  border-top: .18rem solid darken($green, 10%);
-  border-right: 1px solid rgba($green, .7);
-  border-bottom: 1px solid rgba($green, .7);
-  border-left: 1px solid rgba($green, .7);
+  border-top: .18rem solid $acl-logo-red;
+  border-right: 1px solid var(--acl-home-line);
+  border-bottom: 1px solid var(--acl-home-line);
+  border-left: 1px solid var(--acl-home-line);
   border-radius: .35rem;
   background: $white;
 
@@ -532,13 +512,13 @@
 
   a {
     padding: .17rem .32rem;
-    color: darken($blue, 7%);
+    color: $acl-black;
     font-size: .83rem;
     font-weight: 550;
 
     &:hover,
     &:focus-visible {
-      color: darken($blue, 16%);
+      color: darken($acl-logo-red, 12%);
       text-decoration: underline;
       text-underline-offset: .15rem;
     }
