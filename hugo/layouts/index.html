@@ -35,7 +35,7 @@
 
         const moreButton = row.querySelector("[data-venue-more]");
         if (moreButton) {
-          moreButton.hidden = activePeriod === "all" || expanded;
+          moreButton.hidden = matchingYears >= yearLinks.length;
         }
 
         const rowMatches = textMatches && matchingYears > 0;
