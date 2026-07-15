@@ -274,12 +274,13 @@ def volume_to_dict(volume):
 def homepage_stats(anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
-    top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
+    all_venues = list(anthology.venues.values())
+    top_level_venues = [venue for venue in all_venues if venue.is_toplevel]
 
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
         "volume_count": len(volumes),
-        "venue_count": len(top_level_venues),
+        "venue_count": len(all_venues),
         "venue_year_count": sum(
             len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
         ),
