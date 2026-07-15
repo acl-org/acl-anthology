@@ -33,7 +33,9 @@ Options:
 """
 
 from docopt import docopt
+from calendar import monthrange
 from collections import Counter
+from datetime import date
 from functools import cache
 import logging as log
 import msgspec
@@ -50,6 +52,7 @@ import shutil
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
+from acl_anthology.collections.types import EventLink
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
@@ -271,7 +274,64 @@ def volume_to_dict(volume):
     return data
 
 
-def homepage_stats(anthology):
+def subtract_months(value, months):
+    """Return a date shifted back by a number of calendar months."""
+    month_index = value.year * 12 + value.month - 1 - months
+    year, zero_based_month = divmod(month_index, 12)
+    month = zero_based_month + 1
+    day = min(value.day, monthrange(year, month)[1])
+    return date(year, month, day)
+
+
+def recent_top_level_events(anthology, current_date=None):
+    """Return top-level events ingested within the past three months."""
+    current_date = current_date or date.today()
+    cutoff = subtract_months(current_date, 3)
+    recent_events = []
+
+    explicitly_colocated_ids = {
+        volume_id
+        for event in anthology.events.values()
+        for volume_id, link_type in event.colocated_ids.items()
+        if link_type == EventLink.EXPLICIT
+    }
+
+    for event in anthology.events.values():
+        venue_id, year = event.id.rsplit("-", 1)
+        venue = anthology.venues.get(venue_id)
+        if venue_id == "ws" or venue is None or not venue.is_toplevel:
+            continue
+
+        own_volume_ids = {
+            volume_id
+            for volume_id, link_type in event.colocated_ids.items()
+            if link_type == EventLink.INFERRED
+        }
+        if own_volume_ids & explicitly_colocated_ids:
+            continue
+
+        ingest_date = max(
+            (volume.ingest_date for volume in event.volumes()), default=None
+        )
+        if ingest_date is None or not cutoff <= ingest_date <= current_date:
+            continue
+
+        recent_events.append(
+            {
+                "id": event.id,
+                "label": f"{venue.acronym} {year}",
+                "ingest_date": ingest_date.isoformat(),
+            }
+        )
+
+    return sorted(
+        recent_events,
+        key=lambda event: (event["ingest_date"], event["label"]),
+        reverse=True,
+    )
+
+
+def homepage_stats(anthology, current_date=None):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -286,6 +346,7 @@ def homepage_stats(anthology):
         ),
         "oldest_year": min(volume.year for volume in volumes),
         "newest_year": max(volume.year for volume in volumes),
+        "recent_events": recent_top_level_events(anthology, current_date),
     }
 
 

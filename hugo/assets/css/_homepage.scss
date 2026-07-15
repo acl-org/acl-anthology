@@ -164,6 +164,55 @@
   }
 }
 
+.acl-recent-events {
+  margin-bottom: .75rem;
+  border: 1px solid rgba($cyan, .35);
+  border-radius: .35rem;
+  background: rgba($cyan, .07);
+  overflow: hidden;
+
+  h2 {
+    margin: 0;
+    padding: .4rem .7rem;
+    border-bottom: 1px solid rgba($cyan, .25);
+    background: rgba($cyan, .08);
+    color: #405562;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.25;
+  }
+}
+
+.acl-recent-events__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  padding: .55rem .7rem .65rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: .15rem .55rem;
+    border: 1px solid rgba($blue, .25);
+    border-radius: 1rem;
+    background: $white;
+    color: darken($blue, 7%);
+    font-size: .8rem;
+    font-weight: 600;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $blue;
+      background: rgba($blue, .08);
+      color: darken($blue, 15%);
+      text-decoration: underline;
+      text-underline-offset: .12rem;
+    }
+  }
+}
+
 .acl-directory-tools {
   display: grid;
   grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.7fr);

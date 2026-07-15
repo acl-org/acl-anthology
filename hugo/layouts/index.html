@@ -157,6 +157,17 @@
   </div>
 
   <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
+    {{ with $stats.recent_events }}
+    <section class="acl-recent-events" aria-labelledby="acl-recent-events-title">
+      <h2 id="acl-recent-events-title">Recently ingested events</h2>
+      <div class="acl-recent-events__links">
+        {{ range . }}
+        <a href="{{ relref $ (printf "/events/%s" .id) }}" title="Ingested {{ .ingest_date }}">{{ .label }}</a>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
     <div class="acl-directory-tools">
       <div class="acl-venue-filter">
         <div class="acl-venue-filter__control">
