@@ -73,8 +73,13 @@ folder) to start a REPL with this `anthology` object already instantiated.
 
 This package uses [**uv**](https://docs.astral.sh/uv/) for project management.
 Development is easiest with the [**just**](https://github.com/casey/just)
-command runner; running `just -l` will list all available recipes, while `just
--n <recipe>` will print the commands that the recipe would run.
+command runner.
+
+Running `just -l` will list all available recipes in the current directory,
+while `just -n <recipe>` will print the commands that the recipe would run.
+
+Given below are example `just` commands that can be run inside the `python/`
+folder (or with `just python` from the repository root).
 
 ### Running checks, pre-commit hooks, and tests
 

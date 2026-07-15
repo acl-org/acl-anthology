@@ -195,8 +195,11 @@ def paper_to_dict(paper):
         else:
             data["pages"] = page_first
     if paper.pdf is not None:
-        data["pdf"] = paper.pdf.url
-        data["thumbnail"] = paper.thumbnail.url
+        if paper.pdf.is_local:
+            data["pdf"] = paper.pdf.url
+            data["thumbnail"] = paper.thumbnail.url
+        else:
+            data["external"] = paper.pdf.url
     if paper.errata:
         data["erratum"] = [
             {
@@ -261,7 +264,10 @@ def volume_to_dict(volume):
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:
-        data["pdf"] = volume.pdf.url
+        if volume.pdf.is_local:
+            data["pdf"] = volume.pdf.url
+        else:
+            data["external"] = volume.pdf.url
     return data
 
 
