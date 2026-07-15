@@ -21,15 +21,22 @@
       venueRows.forEach(function (row) {
         const textMatches = row.dataset.venueSearch.includes(query);
         const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
+        const expanded = row.dataset.expanded === "true";
         let matchingYears = 0;
 
         yearLinks.forEach(function (link) {
-          const periodMatches = activePeriod === "all"
+          const periodMatches = expanded
+            || activePeriod === "all"
             || (activePeriod === "recent" && link.dataset.recent === "true")
             || link.dataset.decade === activePeriod;
           link.hidden = !periodMatches;
           if (periodMatches) matchingYears += 1;
         });
+
+        const moreButton = row.querySelector("[data-venue-more]");
+        if (moreButton) {
+          moreButton.hidden = activePeriod === "all" || expanded;
+        }
 
         const rowMatches = textMatches && matchingYears > 0;
         row.hidden = !rowMatches;
@@ -68,6 +75,9 @@
     periodButtons.forEach(function (button) {
       button.addEventListener("click", function () {
         activePeriod = button.dataset.periodFilter;
+        venueRows.forEach(function (row) {
+          row.dataset.expanded = "false";
+        });
         periodButtons.forEach(function (candidate) {
           const isActive = candidate === button;
           candidate.classList.toggle("is-active", isActive);
@@ -75,6 +85,16 @@
         });
         applyFilters();
       });
+    });
+
+    directory.addEventListener("click", function (event) {
+      const moreButton = event.target.closest("[data-venue-more]");
+      if (!moreButton) return;
+      const row = moreButton.closest("[data-venue-row]");
+      if (row) {
+        row.dataset.expanded = "true";
+        applyFilters();
+      }
     });
 
     applyFilters();
@@ -192,6 +212,7 @@
             <a href="{{ $yearURL }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 3 }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
               {{ end }}
             {{ end }}
+            <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
           </div>
         </article>
         {{ end }}
