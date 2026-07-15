@@ -134,17 +134,15 @@
     </a>
   </nav>
 
-  <section class="acl-venue-directory" data-venue-directory aria-labelledby="venue-directory-title">
-    <header class="acl-directory-header">
-      <h2 id="venue-directory-title">Browse by venue and year</h2>
-    </header>
+  <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
+    <p class="acl-directory-status" data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
 
     <div class="acl-directory-tools">
       <div class="acl-venue-filter">
         <label for="acl-venue-filter">Filter venues</label>
         <div class="acl-venue-filter__control">
           <i class="fas fa-filter" aria-hidden="true"></i>
-          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Name or acronym" autocomplete="off">
+          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Filter..." autocomplete="off">
           <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
@@ -152,7 +150,6 @@
       </div>
 
       <fieldset class="acl-period-filter">
-        <legend>Show</legend>
         <div class="acl-period-filter__rail" aria-label="Choose years to show">
           <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Recent</button>
           {{ range $decades }}
@@ -161,11 +158,6 @@
           <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
         </div>
       </fieldset>
-    </div>
-
-    <div class="acl-directory-meta">
-      <p data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
-      <a href="{{ ($.Site.GetPage "/volumes").RelPermalink }}">View the complete volume list <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     </div>
 
     {{ range $isACL := slice true false }}

@@ -39,15 +39,6 @@
   box-shadow: 0 .25rem .8rem rgba(#284f62, .1);
 }
 
-.acl-home-intro h1 {
-  margin: 0;
-  color: #244d68;
-  font-size: 2.25rem;
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: 0;
-}
-
 .acl-home-summary {
   max-width: 50rem;
   margin: .85rem 0 0;
@@ -72,7 +63,7 @@
 
 .acl-home-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
   margin: 1.4rem 0 0;
   padding: 1.15rem 0 0;
@@ -101,7 +92,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .75rem;
-  margin: 1rem 0 3rem;
+  margin: 1rem 0 1.5rem;
 
   a {
     display: flex;
@@ -173,22 +164,10 @@
   }
 }
 
-.acl-directory-header {
-  margin-bottom: 1rem;
-
-  h2 {
-    margin: 0;
-    color: var(--acl-home-ink);
-    font-size: 1.75rem;
-    font-weight: 650;
-    line-height: 1.25;
-    letter-spacing: 0;
-  }
-}
-
 .acl-directory-tools {
   display: grid;
   grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.7fr);
+  align-items: end;
   gap: 1rem;
   margin-bottom: .65rem;
   padding: 1rem 1.1rem;
@@ -196,13 +175,9 @@
   background: var(--acl-home-paper);
 }
 
-.acl-venue-filter > label,
-.acl-period-filter legend {
+.acl-venue-filter > label {
   display: block;
-  float: none;
-  width: auto;
   margin: 0 0 .4rem;
-  padding: 0;
   color: #4e606b;
   font-size: .8rem;
   font-weight: 650;
@@ -305,35 +280,10 @@
   }
 }
 
-.acl-directory-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.4rem;
+.acl-directory-status {
+  margin: 0 0 .5rem;
   color: var(--acl-home-muted);
   font-size: .86rem;
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    color: darken($blue, 7%);
-    font-weight: 550;
-
-    i {
-      margin-left: .3rem;
-      font-size: .72rem;
-    }
-
-    &:hover,
-    &:focus-visible {
-      color: darken($blue, 16%);
-      text-decoration: underline;
-      text-underline-offset: .2rem;
-    }
-  }
 }
 
 .acl-venue-group {
@@ -559,17 +509,14 @@
     padding: 1.35rem 1.25rem 1.2rem;
   }
 
-  .acl-home-intro h1 {
-    font-size: 1.85rem;
-  }
-
   .acl-home-summary {
     font-size: 1rem;
     line-height: 1.58;
   }
 
   .acl-home-stats {
-    gap: .65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
 
     dt {
       font-size: 1.05rem;
@@ -595,18 +542,8 @@
     }
   }
 
-  .acl-directory-header h2 {
-    font-size: 1.55rem;
-  }
-
   .acl-directory-tools {
     padding: .9rem;
-  }
-
-  .acl-directory-meta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: .35rem;
   }
 
   .acl-venue-group__header {
