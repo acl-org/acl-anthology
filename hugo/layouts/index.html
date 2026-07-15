@@ -96,10 +96,14 @@
 <main class="acl-home">
   <section class="acl-home-intro" aria-label="ACL Anthology">
     <div class="acl-home-intro__copy">
-      <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It currently hosts {{ lang.FormatNumberCustom 0 $stats.paper_count }} papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
+      <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
     </div>
 
     <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+      <div>
+        <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
+        <dd>papers</dd>
+      </div>
       <div>
         <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
         <dd>volumes</dd>
@@ -110,7 +114,7 @@
       </div>
       <div>
         <dt>{{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }}</dt>
-        <dd>years covered</dd>
+        <dd>years</dd>
       </div>
     </dl>
   </section>
