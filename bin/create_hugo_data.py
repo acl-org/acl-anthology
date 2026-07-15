@@ -280,7 +280,7 @@ def homepage_stats(anthology):
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
         "volume_count": len(volumes),
-        "venue_count": len(top_level_venues),
+        "venue_count": len(all_venues),
         "venue_year_count": sum(
             len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
         ),

@@ -24,7 +24,7 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
 
     assert stats["paper_count"] == sum(1 for _ in anthology.papers())
     assert stats["volume_count"] == sum(1 for _ in anthology.volumes())
-    assert stats["venue_count"] == len(top_level_venues)
+    assert stats["venue_count"] == len(anthology.venues)
     assert stats["venue_year_count"] == sum(
         len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
     )
