@@ -186,6 +186,10 @@
                 searchable: normalize([row[0], row[3], row[4]].join(" ")),
               };
             });
+          })
+          .catch(function (error) {
+            indexCache.delete(bucket);
+            throw error;
           });
         indexCache.set(bucket, request);
       }
