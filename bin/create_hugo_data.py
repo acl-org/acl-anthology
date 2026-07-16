@@ -434,9 +434,7 @@ AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
 
 def author_stats(people):
     """Compute statistics for the author index."""
-    verified_count = sum(
-        is_verified_person_id(person_id) for person_id in people.keys()
-    )
+    verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
     return {
         "author_count": len(people),
         "verified_author_count": verified_count,

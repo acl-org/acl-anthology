@@ -103,9 +103,7 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     with open(tmp_path / "data" / "people_stats.json") as f:
         assert json.load(f) == expected_stats
     index_dir = tmp_path / "static" / "people" / "index"
-    assert {path.stem for path in index_dir.glob("*.json")} == set(
-        AUTHOR_INDEX_BUCKETS
-    )
+    assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
 
