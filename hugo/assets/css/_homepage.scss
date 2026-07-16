@@ -492,12 +492,12 @@ $acl-soft-gray: #f3f3f3;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.92rem;
+  min-width: 3.03rem;
   min-height: 1.75rem;
-  padding: .17rem .47rem;
-  border: 0;
+  padding: .17rem .38rem;
+  border: 1px solid #c7c7c7;
   border-radius: .25rem;
-  background: transparent;
+  background: $white;
   color: var(--acl-home-muted);
   font-size: .92rem;
   font-weight: 700;
@@ -506,8 +506,9 @@ $acl-soft-gray: #f3f3f3;
 
   &:hover,
   &:focus-visible {
-    background: $acl-soft-gray;
-    color: $acl-black;
+    border-color: #666;
+    background: #666;
+    color: $white;
   }
 }
 
@@ -618,7 +619,6 @@ $acl-soft-gray: #f3f3f3;
   }
 
   .acl-venue-years {
-    justify-content: flex-start;
     max-width: none;
   }
 }
