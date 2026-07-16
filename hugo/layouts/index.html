@@ -57,9 +57,10 @@
 
       clearButton.hidden = query.length === 0;
       emptyState.hidden = visibleVenues > 0;
+      noun = visibleVenues === 1 ? "venue" : "venues";
       status.textContent = hasQuery
-        ? visibleVenues + " venues matched"
-        : visibleVenues + " top-level venues";
+        ? visibleVenues + " " + noun + " matched"
+        : visibleVenues + " top-level " + noun;
     }
 
     filterInput.addEventListener("input", applyFilters);
@@ -176,7 +177,7 @@
       <div class="acl-venue-filter">
         <div class="acl-venue-filter__control">
           <i class="fas fa-filter" aria-hidden="true"></i>
-          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search venues..." autocomplete="off" aria-label="Filter venues">
+          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search all venues..." autocomplete="off" aria-label="Filter venues">
           <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
