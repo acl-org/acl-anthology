@@ -15,10 +15,12 @@
 
     function applyFilters() {
       const query = filterInput.value.trim().toLowerCase();
+      const hasQuery = query.length > 0;
       let visibleVenues = 0;
       let visibleYears = 0;
 
       venueRows.forEach(function (row) {
+        const isTopLevel = row.dataset.venueTopLevel === "true";
         const textMatches = row.dataset.venueSearch.includes(query);
         const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
         const expanded = row.dataset.expanded === "true";
@@ -38,7 +40,7 @@
           moreButton.hidden = matchingYears >= yearLinks.length;
         }
 
-        const rowMatches = textMatches && matchingYears > 0;
+        const rowMatches = (hasQuery || isTopLevel) && textMatches && matchingYears > 0;
         row.hidden = !rowMatches;
         if (rowMatches) {
           visibleVenues += 1;
@@ -172,7 +174,7 @@
       <div class="acl-venue-filter">
         <div class="acl-venue-filter__control">
           <i class="fas fa-filter" aria-hidden="true"></i>
-          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Filter..." autocomplete="off" aria-label="Filter venues">
+          <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search venues..." autocomplete="off" aria-label="Filter venues">
           <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
@@ -200,9 +202,9 @@
 
       <div class="acl-venue-list">
         {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
-        {{ if and $venue.is_toplevel (eq $venue.is_acl $isACL) }}
+        {{ if eq $venue.is_acl $isACL }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-        <article class="acl-venue-row" data-venue-row data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+        <article class="acl-venue-row" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
           <h4>
             <a href="{{ $venuePage.RelPermalink }}">
               <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
