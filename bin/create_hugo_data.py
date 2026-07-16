@@ -41,6 +41,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+import re
 from rich.progress import (
     Progress,
     TextColumn,
@@ -49,6 +50,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
+import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
@@ -427,6 +429,63 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
             f.write(ENCODER.encode(all_volumes))
 
 
+AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
+
+
+def author_stats(people):
+    """Compute statistics for the author index."""
+    verified_count = sum(
+        is_verified_person_id(person_id) for person_id in people.keys()
+    )
+    return {
+        "author_count": len(people),
+        "verified_author_count": verified_count,
+        "unverified_author_count": len(people) - verified_count,
+        "orcid_author_count": sum(
+            bool(person.get("orcid")) for person in people.values()
+        ),
+    }
+
+
+def author_search_index(people):
+    """Build compact author-search buckets keyed by name-token initial."""
+    buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
+
+    for person_id, person in people.items():
+        variants = " ".join(
+            variant["full"] for variant in person.get("variant_entries", [])
+        )
+        orcid = person.get("orcid", "")
+        row = [person["full"], person_id, len(person["papers"]), orcid, variants]
+        searchable = " ".join((person["full"], variants, orcid))
+        bucket_keys = set()
+        for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
+            initial = token[0].casefold()
+            bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
+
+        for bucket in bucket_keys or {"other"}:
+            buckets[bucket].append(row)
+
+    for rows in buckets.values():
+        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
+
+    return buckets
+
+
+def export_author_index(people, builddir):
+    """Write aggregate and browser-search data for the author index."""
+    with open(f"{builddir}/data/people_stats.json", "wb") as f:
+        f.write(ENCODER.encode(author_stats(people)))
+
+    index_dir = f"{builddir}/static/people/index"
+    if os.path.isdir(index_dir):
+        shutil.rmtree(index_dir)
+    os.makedirs(index_dir)
+    for bucket, rows in author_search_index(people).items():
+        with open(f"{index_dir}/{bucket}.json", "wb") as f:
+            f.write(ENCODER.encode(rows))
+
+
 def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -522,6 +581,7 @@ def export_people(anthology, builddir, dryrun):
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
                 f.write(ENCODER.encode(people))
+            export_author_index(people, builddir)
             progress.update(task, advance=100)
 
 

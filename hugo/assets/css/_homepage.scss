@@ -98,6 +98,19 @@ $acl-section-header-line-height: 1.25;
     color: var(--acl-home-muted);
     font-size: .81rem;
     line-height: 1.4;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: #bfc3c7;
+      text-underline-offset: .13rem;
+
+      &:hover,
+      &:focus-visible {
+        color: darken($acl-logo-red, 10%);
+        text-decoration-color: currentColor;
+      }
+    }
   }
 }
 

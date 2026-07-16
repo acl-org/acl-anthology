@@ -11,6 +11,10 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
+    AUTHOR_INDEX_BUCKETS,
+    author_search_index,
+    author_stats,
+    export_author_index,
     export_homepage_stats,
     homepage_stats,
     paper_to_dict,
@@ -50,6 +54,60 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
 
     with open(data_dir / "homepage.json") as f:
         assert json.load(f) == homepage_stats(anthology)
+
+
+def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
+    people = {
+        "ada-lovelace": {
+            "full": "Ada Lovelace",
+            "papers": ["paper-1"],
+            "orcid": "0000-0000-0000-0001",
+            "variant_entries": [{"full": "Augusta Ada King"}],
+        },
+        "elodie-durand": {
+            "full": "Élodie Durand",
+            "papers": ["paper-2"],
+        },
+        "wei-zhang/unverified": {
+            "full": "Wei Zhang",
+            "papers": ["paper-3", "paper-4"],
+        },
+    }
+
+    expected_stats = {
+        "author_count": 3,
+        "verified_author_count": 2,
+        "unverified_author_count": 1,
+        "orcid_author_count": 1,
+    }
+    assert author_stats(people) == expected_stats
+
+    index = author_search_index(people)
+    ada_row = [
+        "Ada Lovelace",
+        "ada-lovelace",
+        1,
+        "0000-0000-0000-0001",
+        "Augusta Ada King",
+    ]
+    assert ada_row in index["a"]
+    assert ada_row in index["k"]
+    assert ada_row in index["l"]
+    assert ada_row in index["other"]
+    assert any(row[0] == "Élodie Durand" for row in index["e"])
+    assert any(row[0] == "Wei Zhang" for row in index["z"])
+
+    (tmp_path / "data").mkdir()
+    export_author_index(people, tmp_path)
+
+    with open(tmp_path / "data" / "people_stats.json") as f:
+        assert json.load(f) == expected_stats
+    index_dir = tmp_path / "static" / "people" / "index"
+    assert {path.stem for path in index_dir.glob("*.json")} == set(
+        AUTHOR_INDEX_BUCKETS
+    )
+    with open(index_dir / "l.json") as f:
+        assert ada_row in json.load(f)
 
 
 def test_subtract_months_clamps_to_end_of_month():
