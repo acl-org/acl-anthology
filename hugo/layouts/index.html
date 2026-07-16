@@ -57,7 +57,9 @@
 
       clearButton.hidden = query.length === 0;
       emptyState.hidden = visibleVenues > 0;
-      status.textContent = visibleVenues + " venues";
+      status.textContent = hasQuery
+        ? visibleVenues + " venues matched"
+        : visibleVenues + " top-level venues";
     }
 
     filterInput.addEventListener("input", applyFilters);
