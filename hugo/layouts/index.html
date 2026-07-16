@@ -134,7 +134,7 @@
           <dd>venues</dd>
         </div>
         <div>
-          <dt>{{ add (sub $stats.newest_year $stats.oldest_year) 1 }}</dt>
+          <dt>{{ add (sub (int $stats.newest_year) (int $stats.oldest_year)) 1 }}</dt>
           <dd>years ({{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }})</dd>
         </div>
       </dl>
