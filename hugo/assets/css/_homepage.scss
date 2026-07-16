@@ -3,7 +3,6 @@
 $acl-link-blue: #446e9b;
 $acl-black: #202124;
 $acl-soft-blue: #eef4f8;
-$acl-soft-yellow: #fff8e1;
 $acl-soft-gray: #f3f3f3;
 
 .acl-news {
@@ -126,31 +125,55 @@ $acl-soft-gray: #f3f3f3;
   }
 }
 
-.acl-home-action--authors,
-.acl-home-action--data,
-.acl-home-action--feedback {
-  border-color: #aaa !important;
-  background: $white;
-  color: $acl-black !important;
+.acl-home-action--authors {
+  border-color: $cyan !important;
+  background: $cyan;
+  color: $white !important;
+
+  i {
+    color: $white;
+  }
 
   &:hover,
   &:focus-visible {
-    border-color: $acl-link-blue !important;
-    background: $acl-soft-blue;
-    color: $acl-black !important;
+    border-color: darken($cyan, 10%) !important;
+    background: darken($cyan, 10%);
+    color: $white !important;
   }
 }
 
-.acl-home-action--authors i {
-  color: $cyan;
+.acl-home-action--data {
+  border-color: $yellow !important;
+  background: $yellow;
+  color: #212529 !important;
+
+  i {
+    color: #212529;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: darken($yellow, 8%) !important;
+    background: darken($yellow, 8%);
+    color: #212529 !important;
+  }
 }
 
-.acl-home-action--data i {
-  color: $yellow;
-}
+.acl-home-action--feedback {
+  border-color: $green !important;
+  background: $green;
+  color: #212529 !important;
 
-.acl-home-action--feedback i {
-  color: $green;
+  i {
+    color: #212529;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: darken($green, 10%) !important;
+    background: darken($green, 10%);
+    color: #212529 !important;
+  }
 }
 
 .acl-recent-events {
@@ -165,7 +188,7 @@ $acl-soft-gray: #f3f3f3;
     margin: 0;
     padding: .55rem .85rem;
     border-bottom: 1px solid var(--acl-home-line);
-    background: $acl-soft-yellow;
+    background: $acl-soft-gray;
     color: $acl-black;
     font-size: .9rem;
     font-weight: 600;
@@ -345,7 +368,7 @@ $acl-soft-gray: #f3f3f3;
 
 .acl-venue-group--acl .acl-venue-group__header {
   border-top: .18rem solid #777;
-  background: $acl-soft-blue;
+  background: $acl-soft-gray;
   color: $acl-black;
 
   h3 {
@@ -359,7 +382,7 @@ $acl-soft-gray: #f3f3f3;
 
 .acl-venue-group--other .acl-venue-group__header {
   border-top: .18rem solid #777;
-  background: $acl-soft-blue;
+  background: $acl-soft-gray;
   color: $acl-black;
 
   h3 {
@@ -498,7 +521,7 @@ $acl-soft-gray: #f3f3f3;
     margin: 0;
     padding: .55rem .85rem;
     border-bottom: 1px solid var(--acl-home-line);
-    background: $acl-soft-yellow;
+    background: $acl-soft-gray;
     color: $acl-black;
     font-size: .9rem;
     font-weight: 600;
