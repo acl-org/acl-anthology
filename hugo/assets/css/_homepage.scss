@@ -7,6 +7,9 @@ $acl-soft-blue: #e5f5fb;
 $acl-soft-yellow: #fff7e1;
 $acl-soft-green: #f2f8e6;
 $acl-soft-gray: #f3f3f3;
+$acl-section-header-padding: .55rem .85rem;
+$acl-section-header-font-size: .9rem;
+$acl-section-header-line-height: 1.25;
 
 .acl-news {
   .acl-news-date {
@@ -190,14 +193,14 @@ $acl-soft-gray: #f3f3f3;
 
   h2 {
     margin: 0;
-    padding: .55rem .85rem;
+    padding: $acl-section-header-padding;
     border-bottom: 1px solid var(--acl-home-line);
     background: $acl-soft-yellow;
     color: $acl-black;
-    font-size: .9rem;
+    font-size: $acl-section-header-font-size;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 1.25;
+    line-height: $acl-section-header-line-height;
   }
 }
 
@@ -354,20 +357,23 @@ $acl-soft-gray: #f3f3f3;
   align-items: baseline;
   justify-content: space-between;
   gap: 1.33rem;
-  padding: .68rem .9rem;
+  padding: $acl-section-header-padding;
+  border-bottom: 1px solid var(--acl-home-line);
   border-radius: .35rem .35rem 0 0;
 
   h3 {
     margin: 0;
     color: var(--acl-home-ink);
-    font-size: 1.03rem;
-    font-weight: 630;
+    font-size: $acl-section-header-font-size;
+    font-weight: 600;
     letter-spacing: 0;
+    line-height: $acl-section-header-line-height;
   }
 
   span {
     color: var(--acl-home-muted);
     font-size: .82rem;
+    line-height: $acl-section-header-line-height;
   }
 }
 
@@ -525,14 +531,14 @@ $acl-soft-gray: #f3f3f3;
 .acl-sig-directory__header {
   h3 {
     margin: 0;
-    padding: .55rem .85rem;
+    padding: $acl-section-header-padding;
     border-bottom: 1px solid var(--acl-home-line);
     background: $acl-soft-green;
     color: $acl-black;
-    font-size: .9rem;
+    font-size: $acl-section-header-font-size;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 1.25;
+    line-height: $acl-section-header-line-height;
   }
 }
 
@@ -671,12 +677,8 @@ $acl-soft-gray: #f3f3f3;
   }
 
   .acl-venue-group__header {
-    display: block;
-
     span {
-      display: block;
-      margin-top: .2rem;
-      line-height: 1.35;
+      display: none;
     }
   }
 
