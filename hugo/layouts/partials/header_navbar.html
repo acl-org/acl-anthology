@@ -38,8 +38,11 @@
   </div>
 </nav>
 {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
-<div role="alert" class="alert alert-danger preview-banner text-center">
-  This page is part of a <b>temporary preview</b> of a proposed change that may be incomplete or contain mistakes.
-  It is <b>not official</b> and will be removed when the change is merged or abandoned.
+<div class="{{ default "container" (index .Params "css_container") }} preview-banner-container{{ if .IsHome }} preview-banner-container--home{{ end }}">
+  <button type="button" class="alert alert-danger preview-banner text-center fade show" data-bs-dismiss="alert">
+    This page is part of a <b>temporary preview</b> of a proposed change that may be incomplete or contain mistakes.
+    It is <b>not official</b> and will be removed when the change is merged or abandoned.
+    (Click to dismiss.)
+  </button>
 </div>
 {{ end }}

@@ -86,8 +86,29 @@ $theme-colors: map-merge($theme-colors,
 @import 'papers';
 @import 'texmath';
 
+.preview-banner-container {
+  position: relative;
+}
+
+.preview-banner-container--home {
+  width: calc(100% - #{$grid-gutter-width});
+  max-width: 74rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .preview-banner {
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem;
   border: .25rem dashed var(--bs-alert-color);
+  cursor: pointer;
+  font: inherit;
+
+  &:focus-visible {
+    outline: .2rem solid $cyan;
+    outline-offset: .15rem;
+  }
 }
 
 /* Some space improvements on smaller displays */
