@@ -339,6 +339,7 @@ def homepage_stats(anthology, current_date=None):
 
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
+        "author_count": len(anthology.people),
         "volume_count": len(volumes),
         "venue_count": len(all_venues),
         "venue_year_count": sum(

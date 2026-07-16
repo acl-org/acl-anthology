@@ -131,6 +131,10 @@
           <dd>papers</dd>
         </div>
         <div>
+          <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
+          <dd>authors</dd>
+        </div>
+        <div>
           <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
           <dd>volumes</dd>
         </div>
@@ -140,7 +144,7 @@
         </div>
         <div>
           <dt>{{ add (sub (int $stats.newest_year) (int $stats.oldest_year)) 1 }}</dt>
-          <dd>years ({{ $stats.oldest_year }}&ndash;{{ $stats.newest_year }})</dd>
+          <dd>years</dd>
         </div>
       </dl>
     </section>
