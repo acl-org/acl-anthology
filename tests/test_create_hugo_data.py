@@ -59,7 +59,12 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
 
 
 def test_affiliation_map_aggregates_by_ror_id_not_coordinates(monkeypatch):
-    coordinates = {"lat": 40.71427, "lon": -74.00597, "sector": "academic"}
+    coordinates = {
+        "lat": 40.71427,
+        "lon": -74.00597,
+        "sector": "academic",
+        "coordinate_source": "ror-geonames",
+    }
     geocache = {
         "Columbia University": {
             **coordinates,
@@ -103,6 +108,7 @@ def test_affiliation_map_aggregates_by_ror_id_not_coordinates(monkeypatch):
     assert points["Columbia University"]["count"] == 2
     assert points["Columbia University"]["aliases"] == 2
     assert points["New York University"]["count"] == 2
+    assert points["Columbia University"]["coordinate_source"] == "ror-geonames"
     assert data["located_points"] == 2
     assert data["sector_totals"]["academic"] == 4
 

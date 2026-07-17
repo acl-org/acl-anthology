@@ -221,6 +221,10 @@
             (point.aliases === 2 ? "" : "s") +
             ")</span>"
           : "";
+      var coordinateNote =
+        point.coordinate_source === "ror-geonames"
+          ? " \u00b7 approximate city location"
+          : "";
       marker.bindPopup(
         '<span class="acl-map-popup__name">' +
           escapeHtml(point.label) +
@@ -232,6 +236,7 @@
           (point.count === 1 ? "" : "s") +
           " \u00b7 " +
           point.sector +
+            coordinateNote +
           "</span>"
       );
     });

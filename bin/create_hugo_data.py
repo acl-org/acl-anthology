@@ -755,11 +755,11 @@ def load_affiliation_geocache():
     """Load committed affiliation -> coordinates data. The build only READS these
     files; it never contacts a geocoding service.
 
-    Coordinates and sectors come from bin/geocode_affiliations.py
-    (data/geo/affiliation_geocache.json, matched against ROR). Manual corrections
-    in data/geo/affiliation_overrides.json take precedence, since some prominent
-    organizations (especially companies with generic names like "Amazon") are
-    ambiguous in ROR or resolve to the wrong place.
+    Organization identities and sectors come from ROR; coordinates use linked
+    Wikidata institution points with ROR GeoNames localities as explicit fallbacks.
+    Manual corrections in data/geo/affiliation_overrides.json take precedence,
+    since some prominent organizations (especially companies with generic names
+    like "Amazon") are ambiguous in ROR or resolve to the wrong place.
     """
     geo_dir = os.path.join(SCRIPTDIR, "..", "data", "geo")
     cache = {}
@@ -855,6 +855,9 @@ def export_affiliation_map(anthology, builddir, dryrun):
                 "count": count,
                 "aliases": len(members),
                 "sector": sector,
+                "coordinate_source": hit.get(
+                    "coordinate_source", hit.get("source", "unknown")
+                ),
             }
         )
     points.sort(key=lambda point: (-point["count"], point["label"]))
