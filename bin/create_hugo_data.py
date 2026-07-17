@@ -780,7 +780,9 @@ def load_affiliation_geocache():
             cache.update(json.load(f))
     except FileNotFoundError:
         pass
-    return cache
+    # Keys beginning with "_" are in-file documentation (each JSON file carries a
+    # "_comment" describing its provenance), not affiliation entries.
+    return {key: value for key, value in cache.items() if not key.startswith("_")}
 
 
 def export_affiliation_map(anthology, builddir, dryrun):
