@@ -154,9 +154,18 @@
       minZoom: 1,
       maxZoom: 12,
       scrollWheelZoom: true,
+      wheelPxPerZoomLevel: 90,
+      zoomSnap: 0.5,
+      dragging: true,
+      doubleClickZoom: true,
+      touchZoom: true,
+      boxZoom: true,
+      keyboard: true,
+      zoomControl: true,
       worldCopyJump: true,
-      fadeAnimation: false,
-      zoomAnimation: false,
+      preferCanvas: true,
+      maxBounds: [[-85, -180], [85, 180]],
+      maxBoundsViscosity: 0.5,
     }).setView([28, 8], 2);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
