@@ -204,17 +204,19 @@
         fillOpacity: 0.5,
       }).addTo(map);
       markers.push(marker);
-      var nearby =
-        point.institutions > 1
+      var aliases =
+        point.aliases > 1
           ? " <span class=\"acl-map-popup__nearby\">(+" +
-            (point.institutions - 1) +
-            " nearby)</span>"
+            (point.aliases - 1) +
+            " name variant" +
+            (point.aliases === 2 ? "" : "s") +
+            ")</span>"
           : "";
       marker.bindPopup(
         '<span class="acl-map-popup__name">' +
           escapeHtml(point.label) +
           "</span>" +
-          nearby +
+          aliases +
           '<span class="acl-map-popup__count">' +
           numberFormat.format(point.count) +
           " paper" +

@@ -792,16 +792,17 @@ def export_affiliation_map(anthology, builddir, dryrun):
     Counting is per *paper*, not per author: within a paper each institution is
     counted at most once (the set of affiliations, not the multiset), so a paper
     with many co-authors from the same institution does not inflate its point.
-    Distinct affiliation strings that resolve to the same location (e.g. minor
-    spelling variants, or a department vs. its university) are merged and, thanks
-    to the per-paper de-duplication below, still only count once per paper.
+    Distinct affiliation strings that resolve to the same ROR organization are
+    merged and, thanks to the per-paper de-duplication below, still only count once
+    per paper. Coordinates are presentation data, not organization identifiers:
+    ROR commonly gives every organization in a city the same GeoNames centroid.
     """
     geocache = load_affiliation_geocache()
     sectors = ("academic", "industry", "government", "other")
 
     string_paper_counts = Counter()  # affiliation string -> number of papers
-    location_paper_counts = Counter()  # (lat, lon) -> number of papers
-    location_members = {}  # (lat, lon) -> {affiliation string: sector}
+    organization_paper_counts = Counter()  # organization identity -> papers
+    organization_members = {}  # organization identity -> {affiliation: cache hit}
     total_papers = 0
     papers_with_affiliation = 0
 
@@ -817,34 +818,42 @@ def export_affiliation_map(anthology, builddir, dryrun):
                     strings.add(norm)
         if strings:
             papers_with_affiliation += 1
-        paper_locations = set()
+        paper_organizations = set()
         for norm in strings:
             string_paper_counts[norm] += 1
             hit = geocache.get(norm)
             if not hit:
                 continue
-            key = (round(hit["lat"], 4), round(hit["lon"], 4))
-            paper_locations.add(key)
-            location_members.setdefault(key, {})[norm] = hit.get("sector", "other")
-        # Count each distinct location at most once for this paper.
-        for key in paper_locations:
-            location_paper_counts[key] += 1
+            # Only ROR identity can safely merge different affiliation strings.
+            # Unidentified/manual entries remain distinct by normalized string.
+            key = (
+                ("ror", hit["ror_id"])
+                if hit.get("ror_id")
+                else ("affiliation", norm)
+            )
+            paper_organizations.add(key)
+            organization_members.setdefault(key, {})[norm] = hit
+        # Count each distinct organization at most once for this paper.
+        for key in paper_organizations:
+            organization_paper_counts[key] += 1
 
     points = []
     sector_totals = {sector: 0 for sector in sectors}
-    for (lat, lon), members in location_members.items():
-        count = location_paper_counts[(lat, lon)]
+    for key, members in organization_members.items():
+        count = organization_paper_counts[key]
         # Label the point after the string that appears on the most papers.
         label = max(members, key=lambda norm: (string_paper_counts[norm], norm))
-        sector = members[label] if members[label] in sectors else "other"
+        hit = members[label]
+        sector = hit.get("sector", "other")
+        sector = sector if sector in sectors else "other"
         sector_totals[sector] += count
         points.append(
             {
                 "label": label,
-                "lat": lat,
-                "lon": lon,
+                "lat": round(hit["lat"], 4),
+                "lon": round(hit["lon"], 4),
                 "count": count,
-                "institutions": len(members),
+                "aliases": len(members),
                 "sector": sector,
             }
         )
