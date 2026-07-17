@@ -37,6 +37,7 @@ from calendar import monthrange
 from collections import Counter
 from datetime import date
 from functools import cache
+import json
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -750,6 +751,105 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
+def load_affiliation_geocache():
+    """Load committed affiliation -> coordinates data. The build only READS these
+    files; it never contacts a geocoding service.
+
+    Coordinates and sectors come from bin/geocode_affiliations.py
+    (data/geo/affiliation_geocache.json, matched against ROR). Manual corrections
+    in data/geo/affiliation_overrides.json take precedence, since some prominent
+    organizations (especially companies with generic names like "Amazon") are
+    ambiguous in ROR or resolve to the wrong place.
+    """
+    geo_dir = os.path.join(SCRIPTDIR, "..", "data", "geo")
+    cache = {}
+    try:
+        with open(
+            os.path.join(geo_dir, "affiliation_geocache.json"), encoding="utf-8"
+        ) as f:
+            cache = json.load(f)
+    except FileNotFoundError:
+        log.warning(
+            "No affiliation geocache found; the affiliation map will be empty. "
+            "Run bin/geocode_affiliations.py to populate it."
+        )
+    try:
+        with open(
+            os.path.join(geo_dir, "affiliation_overrides.json"), encoding="utf-8"
+        ) as f:
+            cache.update(json.load(f))
+    except FileNotFoundError:
+        pass
+    return cache
+
+
+def export_affiliation_map(anthology, builddir, dryrun):
+    """Aggregate author affiliations from <author> tags and join them with cached
+    coordinates to produce the data for the world map on the statistics page.
+
+    Distinct affiliation strings that resolve to the same location (e.g. minor
+    spelling variants) are merged into a single point whose size reflects the
+    combined number of author listings.
+    """
+    geocache = load_affiliation_geocache()
+    counts = Counter()
+    total_author_slots = 0
+    for paper in anthology.papers():
+        for namespec in paper.authors:
+            total_author_slots += 1
+            if namespec.affiliation:
+                # Whitespace-normalized string is the shared geocache key.
+                norm = " ".join(namespec.affiliation.split())
+                if norm:
+                    counts[norm] += 1
+
+    sectors = ("academic", "industry", "government", "other")
+    groups = {}
+    for norm, count in counts.items():
+        hit = geocache.get(norm)
+        if not hit:
+            continue
+        sector = hit.get("sector", "other")
+        key = (round(hit["lat"], 4), round(hit["lon"], 4))
+        groups.setdefault(key, []).append((norm, count, sector))
+
+    points = []
+    geocoded_slots = 0
+    sector_totals = {sector: 0 for sector in sectors}
+    for (lat, lon), members in groups.items():
+        members.sort(key=lambda m: (-m[1], m[0]))
+        total = sum(count for _, count, _ in members)
+        # The dominant (largest) institution at this spot sets its sector.
+        sector = members[0][2] if members[0][2] in sectors else "other"
+        geocoded_slots += total
+        sector_totals[sector] += total
+        points.append(
+            {
+                "label": members[0][0],
+                "lat": lat,
+                "lon": lon,
+                "count": total,
+                "institutions": len(members),
+                "sector": sector,
+            }
+        )
+    points.sort(key=lambda point: (-point["count"], point["label"]))
+
+    data = {
+        "author_slots_with_affiliation": sum(counts.values()),
+        "total_author_slots": total_author_slots,
+        "geocoded_author_slots": geocoded_slots,
+        "distinct_affiliations": len(counts),
+        "located_points": len(points),
+        "sector_totals": sector_totals,
+        "points": points,
+    }
+    if not dryrun:
+        with open(f"{builddir}/data/affiliation_map.json", "wb") as f:
+            f.write(ENCODER.encode(data))
+    return data
+
+
 def export_anthology(anthology, builddir, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
@@ -775,6 +875,7 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
+    export_affiliation_map(anthology, builddir, dryrun)
 
 
 if __name__ == "__main__":

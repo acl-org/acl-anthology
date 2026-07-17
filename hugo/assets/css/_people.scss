@@ -453,125 +453,6 @@ $acl-people-soft-red: #fff0f0;
   color: #5d656a;
 }
 
-.acl-people-histogram {
-  margin: 2.6rem 0 0;
-  padding: 1.5rem 1.6rem 1.35rem;
-  border: 1px solid #cfd7db;
-  border-top: .28rem solid $cyan;
-  border-radius: .375rem;
-  background: $white;
-  box-shadow: 0 .2rem .65rem rgba($acl-people-ink, .08);
-}
-
-.acl-people-histogram__heading {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-
-  h2 {
-    margin: 0;
-    font-size: 1.27rem;
-    font-weight: 650;
-    line-height: 1.25;
-  }
-
-  p {
-    margin: .25rem 0 0;
-    color: var(--acl-people-muted);
-    font-size: .84rem;
-    line-height: 1.45;
-  }
-
-  > i {
-    display: inline-grid;
-    flex: 0 0 2.35rem;
-    width: 2.35rem;
-    height: 2.35rem;
-    border-radius: .3rem;
-    background: $acl-people-soft-blue;
-    color: darken($cyan, 18%);
-    place-items: center;
-  }
-}
-
-.acl-people-histogram__figure {
-  margin: 0;
-}
-
-.acl-people-histogram__bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 1px;
-  height: 13rem;
-  margin: 0;
-  padding: 0 0 1.6rem;
-  border-bottom: 1px solid var(--acl-people-line);
-  list-style: none;
-}
-
-.acl-people-histogram__bar {
-  position: relative;
-  display: flex;
-  flex: 1 1 0;
-  align-items: flex-end;
-  min-width: 0;
-  height: 100%;
-}
-
-.acl-people-histogram__column {
-  width: 100%;
-  height: var(--bar-height, 0);
-  border-radius: .12rem .12rem 0 0;
-  background: linear-gradient(to top, darken($cyan, 16%), $cyan);
-}
-
-.acl-people-histogram__bar:not(.is-empty) .acl-people-histogram__column {
-  min-height: 2px;
-}
-
-.acl-people-histogram__bar:hover .acl-people-histogram__column {
-  background: darken($cyan, 26%);
-}
-
-.acl-people-histogram__tick {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-top: .4rem;
-  color: var(--acl-people-muted);
-  font-size: .68rem;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  white-space: nowrap;
-  transform: translateX(-50%);
-
-  &.is-endpoint {
-    color: $acl-people-ink;
-    font-weight: 650;
-  }
-}
-
-.acl-people-histogram__bar:first-child .acl-people-histogram__tick {
-  left: 0;
-  transform: none;
-}
-
-.acl-people-histogram__bar:last-child .acl-people-histogram__tick {
-  right: 0;
-  left: auto;
-  transform: none;
-}
-
-.acl-people-histogram__caption {
-  max-width: 46rem;
-  margin: 1.3rem 0 0;
-  color: var(--acl-people-muted);
-  font-size: .8rem;
-  line-height: 1.5;
-}
-
 @include media-breakpoint-down(md) {
   .acl-people-index__body {
     grid-template-columns: minmax(0, 1fr);
@@ -580,10 +461,6 @@ $acl-people-soft-red: #fff0f0;
 
   .acl-author-resources {
     max-width: none;
-  }
-
-  .acl-people-histogram {
-    padding: 1.25rem 1.15rem 1.15rem;
   }
 }
 
@@ -650,17 +527,5 @@ $acl-people-soft-red: #fff0f0;
 
   .acl-author-result__badge {
     min-width: 4.5rem;
-  }
-
-  .acl-people-histogram__heading > i {
-    display: none;
-  }
-
-  .acl-people-histogram__bars {
-    height: 10rem;
-  }
-
-  .acl-people-histogram__tick:not(.is-endpoint) {
-    display: none;
   }
 }
