@@ -40,11 +40,10 @@
       <div>
         <h2 id="affiliation-map-heading">Where authors work</h2>
         <p>Institutions named in author affiliations,<sup><a href="#fn-affiliations">1</a></sup>
-          sized by author listings and coloured by sector.<sup><a href="#fn-sectors">2</a></sup>
-          {{ lang.FormatNumberCustom 0 .located_points }} locations cover
-          {{ lang.FormatNumberCustom 0 .geocoded_author_slots }} listings
-          ({{ math.Round (mul (div (float .geocoded_author_slots) .author_slots_with_affiliation) 100) }}%
-          of those that name an affiliation).</p>
+          sized by the number of papers with an author there and coloured by
+          sector.<sup><a href="#fn-sectors">2</a></sup> Each paper counts an institution at
+          most once, so large single-institution collaborations don&rsquo;t dominate. Shows
+          {{ lang.FormatNumberCustom 0 .located_points }} locations.</p>
       </div>
       <i class="fas fa-globe-americas" aria-hidden="true"></i>
     </div>
@@ -63,8 +62,8 @@
     </ul>
 
     {{ with .points }}
-    <div class="acl-stats__toplist" aria-label="Top institutions by author listings">
-      <h3>Most-listed institutions</h3>
+    <div class="acl-stats__toplist" aria-label="Top institutions by number of papers">
+      <h3>Top institutions by papers</h3>
       <ol>
         {{ range first 12 . }}
         <li><span class="acl-stats__toplist-name">{{ .label }}</span>
@@ -120,16 +119,18 @@
     <ol>
       <li id="fn-affiliations">Affiliations come from the <code>&lt;affiliation&gt;</code> field on
         author metadata, which the Anthology only began capturing for recent (aclpub2-era)
-        proceedings. {{ lang.FormatNumberCustom 0 .author_slots_with_affiliation }} of
-        {{ lang.FormatNumberCustom 0 .total_author_slots }} author listings
-        ({{ math.Round (mul (div (float .author_slots_with_affiliation) .total_author_slots) 100) }}%)
-        include one, so coverage skews toward recent years.</li>
+        proceedings. {{ lang.FormatNumberCustom 0 .papers_with_affiliation }} of
+        {{ lang.FormatNumberCustom 0 .total_papers }} papers
+        ({{ math.Round (mul (div (float .papers_with_affiliation) .total_papers) 100) }}%)
+        name at least one affiliation, so coverage skews toward recent years.</li>
       <li id="fn-sectors">Institution names are matched <em>offline</em> against the
         <a href="https://ror.org" rel="noopener">Research Organization Registry (ROR)</a>, which
         supplies coordinates and organization type. Only affiliations appearing at least 5 times are
         matched; ambiguous company names use a small manual overrides table. ROR types are collapsed
         into academic (education), industry (company), government, and other (non-profits, research
-        institutes, healthcare, and the rest). Map tiles &copy;
+        institutes, healthcare, and the rest). Circle size and sector totals count distinct papers
+        per institution (the set of affiliations on each paper), not individual author listings.
+        Map tiles &copy;
         <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors.</li>
       <li id="fn-histogram">&ldquo;New authors by year&rdquo; counts each author page once, in the
         year of its earliest Anthology paper.</li>
@@ -216,7 +217,7 @@
           nearby +
           '<span class="acl-map-popup__count">' +
           numberFormat.format(point.count) +
-          " author listing" +
+          " paper" +
           (point.count === 1 ? "" : "s") +
           " \u00b7 " +
           point.sector +

@@ -789,48 +789,61 @@ def export_affiliation_map(anthology, builddir, dryrun):
     """Aggregate author affiliations from <author> tags and join them with cached
     coordinates to produce the data for the world map on the statistics page.
 
+    Counting is per *paper*, not per author: within a paper each institution is
+    counted at most once (the set of affiliations, not the multiset), so a paper
+    with many co-authors from the same institution does not inflate its point.
     Distinct affiliation strings that resolve to the same location (e.g. minor
-    spelling variants) are merged into a single point whose size reflects the
-    combined number of author listings.
+    spelling variants, or a department vs. its university) are merged and, thanks
+    to the per-paper de-duplication below, still only count once per paper.
     """
     geocache = load_affiliation_geocache()
-    counts = Counter()
-    total_author_slots = 0
+    sectors = ("academic", "industry", "government", "other")
+
+    string_paper_counts = Counter()  # affiliation string -> number of papers
+    location_paper_counts = Counter()  # (lat, lon) -> number of papers
+    location_members = {}  # (lat, lon) -> {affiliation string: sector}
+    total_papers = 0
+    papers_with_affiliation = 0
+
     for paper in anthology.papers():
+        total_papers += 1
+        # The set (not multiset) of whitespace-normalized affiliation strings on
+        # this paper; the normalized string is the shared geocache key.
+        strings = set()
         for namespec in paper.authors:
-            total_author_slots += 1
             if namespec.affiliation:
-                # Whitespace-normalized string is the shared geocache key.
                 norm = " ".join(namespec.affiliation.split())
                 if norm:
-                    counts[norm] += 1
-
-    sectors = ("academic", "industry", "government", "other")
-    groups = {}
-    for norm, count in counts.items():
-        hit = geocache.get(norm)
-        if not hit:
-            continue
-        sector = hit.get("sector", "other")
-        key = (round(hit["lat"], 4), round(hit["lon"], 4))
-        groups.setdefault(key, []).append((norm, count, sector))
+                    strings.add(norm)
+        if strings:
+            papers_with_affiliation += 1
+        paper_locations = set()
+        for norm in strings:
+            string_paper_counts[norm] += 1
+            hit = geocache.get(norm)
+            if not hit:
+                continue
+            key = (round(hit["lat"], 4), round(hit["lon"], 4))
+            paper_locations.add(key)
+            location_members.setdefault(key, {})[norm] = hit.get("sector", "other")
+        # Count each distinct location at most once for this paper.
+        for key in paper_locations:
+            location_paper_counts[key] += 1
 
     points = []
-    geocoded_slots = 0
     sector_totals = {sector: 0 for sector in sectors}
-    for (lat, lon), members in groups.items():
-        members.sort(key=lambda m: (-m[1], m[0]))
-        total = sum(count for _, count, _ in members)
-        # The dominant (largest) institution at this spot sets its sector.
-        sector = members[0][2] if members[0][2] in sectors else "other"
-        geocoded_slots += total
-        sector_totals[sector] += total
+    for (lat, lon), members in location_members.items():
+        count = location_paper_counts[(lat, lon)]
+        # Label the point after the string that appears on the most papers.
+        label = max(members, key=lambda norm: (string_paper_counts[norm], norm))
+        sector = members[label] if members[label] in sectors else "other"
+        sector_totals[sector] += count
         points.append(
             {
-                "label": members[0][0],
+                "label": label,
                 "lat": lat,
                 "lon": lon,
-                "count": total,
+                "count": count,
                 "institutions": len(members),
                 "sector": sector,
             }
@@ -838,10 +851,8 @@ def export_affiliation_map(anthology, builddir, dryrun):
     points.sort(key=lambda point: (-point["count"], point["label"]))
 
     data = {
-        "author_slots_with_affiliation": sum(counts.values()),
-        "total_author_slots": total_author_slots,
-        "geocoded_author_slots": geocoded_slots,
-        "distinct_affiliations": len(counts),
+        "total_papers": total_papers,
+        "papers_with_affiliation": papers_with_affiliation,
         "located_points": len(points),
         "sector_totals": sector_totals,
         "points": points,
