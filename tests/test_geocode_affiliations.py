@@ -20,9 +20,7 @@ def test_preferred_external_id_uses_unambiguous_ror_link():
         ]
     }
 
-    assert (
-        geocode_affiliations.preferred_external_id(record, "wikidata") == "Q49088"
-    )
+    assert geocode_affiliations.preferred_external_id(record, "wikidata") == "Q49088"
 
 
 def test_coordinate_from_wikidata_entity_prefers_preferred_earth_claim():

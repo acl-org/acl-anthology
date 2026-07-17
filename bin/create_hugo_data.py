@@ -826,11 +826,7 @@ def export_affiliation_map(anthology, builddir, dryrun):
                 continue
             # Only ROR identity can safely merge different affiliation strings.
             # Unidentified/manual entries remain distinct by normalized string.
-            key = (
-                ("ror", hit["ror_id"])
-                if hit.get("ror_id")
-                else ("affiliation", norm)
-            )
+            key = ("ror", hit["ror_id"]) if hit.get("ror_id") else ("affiliation", norm)
             paper_organizations.add(key)
             organization_members.setdefault(key, {})[norm] = hit
         # Count each distinct organization at most once for this paper.

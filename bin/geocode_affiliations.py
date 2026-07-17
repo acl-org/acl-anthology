@@ -154,9 +154,7 @@ def coordinate_from_wikidata_entity(entity: dict) -> tuple[float, float] | None:
         coordinates.append((claim.get("rank") == "preferred", coordinate))
     if not coordinates:
         return None
-    preferred = {
-        coordinate for is_preferred, coordinate in coordinates if is_preferred
-    }
+    preferred = {coordinate for is_preferred, coordinate in coordinates if is_preferred}
     candidates = preferred or {coordinate for _, coordinate in coordinates}
     return candidates.pop() if len(candidates) == 1 else None
 
@@ -175,13 +173,17 @@ def fetch_wikidata_coordinates(
     coordinates = {}
     for start in range(0, len(identifiers), 50):
         batch = identifiers[start : start + 50]
-        url = WIKIDATA_API_URL + "?" + urlencode(
-            {
-                "action": "wbgetentities",
-                "ids": "|".join(batch),
-                "props": "claims",
-                "format": "json",
-            }
+        url = (
+            WIKIDATA_API_URL
+            + "?"
+            + urlencode(
+                {
+                    "action": "wbgetentities",
+                    "ids": "|".join(batch),
+                    "props": "claims",
+                    "format": "json",
+                }
+            )
         )
         with urlopen(Request(url, headers={"User-Agent": USER_AGENT})) as response:
             entities = json.load(response).get("entities", {})
@@ -455,9 +457,7 @@ def main() -> None:
         if isinstance(entry, dict) and entry.get("wikidata_id")
     }
     wikidata_coordinates.update(
-        fetch_wikidata_coordinates(
-            linked_wikidata_ids - wikidata_coordinates.keys()
-        )
+        fetch_wikidata_coordinates(linked_wikidata_ids - wikidata_coordinates.keys())
     )
     coordinate_sources = apply_wikidata_coordinates(cache, wikidata_coordinates)
     save_cache(cache)
