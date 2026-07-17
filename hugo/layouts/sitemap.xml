@@ -3,10 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages }}
   <url>
-    <loc>{{ .Permalink }}</loc>{{ if not .Lastmod.IsZero }}
-    <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}{{ with .Sitemap.ChangeFreq }}
-    <changefreq>{{ . }}</changefreq>{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
-    <priority>{{ .Sitemap.Priority }}</priority>{{ end }}
+    <loc>{{ .Permalink }}</loc>
+    {{- $lastmod := .Lastmod -}}
+    {{- if .Lastmod.IsZero -}}
+      {{- if not .Date.IsZero -}}
+        {{- $lastmod = .Date -}} {{/* Fallback 1: Use Page creation date */}}
+      {{- else -}}
+        {{- $lastmod = now -}} {{/* Fallback 2: Use build execution time */}}
+      {{- end -}}
+    {{- end }}
+    <lastmod>{{ safeHTML ( $lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>
+    {{ with .Sitemap.ChangeFreq }}<changefreq>{{ . }}</changefreq>{{ end }}
+    {{ if ge .Sitemap.Priority 0.0 }}<priority>{{ .Sitemap.Priority }}</priority>{{ end }}
   </url>
   {{ end }}
   {{ range hugo.Data.volumes }}
