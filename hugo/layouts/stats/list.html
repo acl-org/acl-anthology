@@ -10,8 +10,7 @@
   <header class="acl-stats__header">
     <p class="acl-stats__label">Anthology insights</p>
     <h1>{{ .Title }}</h1>
-    <p>Exploratory statistics computed from Anthology metadata. These views are
-      approximate, evolving, and — especially for author affiliations — far from complete.</p>
+    <p>Exploratory statistics computed from Anthology metadata, mostly ingested from Open Review metadata. These views are incomplete and approximate.</p>
   </header>
 
   {{ with $home }}
@@ -155,7 +154,8 @@
       maxZoom: 12,
       scrollWheelZoom: false,
       worldCopyJump: true,
-      attributionControl: true,
+      fadeAnimation: false,
+      zoomAnimation: false,
     }).setView([28, 8], 2);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -228,6 +228,7 @@
       map.fitBounds(L.featureGroup(markers).getBounds(), {
         padding: [24, 24],
         maxZoom: 5,
+        animate: false,
       });
     }
   })();
