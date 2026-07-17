@@ -16,6 +16,7 @@ from bin.create_hugo_data import (
     author_stats,
     export_author_index,
     export_homepage_stats,
+    first_paper_year_histogram,
     homepage_stats,
     paper_to_dict,
     recent_top_level_events,
@@ -63,14 +64,17 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             "papers": ["paper-1"],
             "orcid": "0000-0000-0000-0001",
             "variant_entries": [{"full": "Augusta Ada King"}],
+            "first_year": 2018,
         },
         "elodie-durand": {
             "full": "Élodie Durand",
             "papers": ["paper-2"],
+            "first_year": 2019,
         },
         "wei-zhang/unverified": {
             "full": "Wei Zhang",
             "papers": ["paper-3", "paper-4"],
+            "first_year": 2021,
         },
     }
 
@@ -79,6 +83,12 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         "verified_author_count": 2,
         "unverified_author_count": 1,
         "orcid_author_count": 1,
+        "first_paper_year_hist": [
+            {"year": 2018, "count": 1},
+            {"year": 2019, "count": 1},
+            {"year": 2020, "count": 0},
+            {"year": 2021, "count": 1},
+        ],
     }
     assert author_stats(people) == expected_stats
 
@@ -106,6 +116,25 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
+
+
+def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
+    people = {
+        "a": {"first_year": 2005},
+        "b": {"first_year": 2005},
+        "c": {"first_year": 2008},
+        "editor-only": {"full": "No Papers"},  # no first_year -> excluded
+    }
+    assert first_paper_year_histogram(people) == [
+        {"year": 2005, "count": 2},
+        {"year": 2006, "count": 0},
+        {"year": 2007, "count": 0},
+        {"year": 2008, "count": 1},
+    ]
+
+
+def test_first_paper_year_histogram_is_empty_without_debut_years():
+    assert first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
 
 
 def test_subtract_months_clamps_to_end_of_month():

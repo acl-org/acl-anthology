@@ -432,6 +432,28 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
 AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
 
 
+def first_paper_year_histogram(people):
+    """Count authors by the year of their first paper.
+
+    Returns a year-ordered list of ``{"year", "count"}`` entries spanning every
+    year between the earliest and latest debut. Years in which no author
+    published a first paper are included with a count of zero so the histogram
+    forms a continuous timeline. Authors without any papers (and therefore
+    without a ``first_year``) are ignored.
+    """
+    counts = Counter(
+        person["first_year"]
+        for person in people.values()
+        if person.get("first_year") is not None
+    )
+    if not counts:
+        return []
+    return [
+        {"year": year, "count": counts.get(year, 0)}
+        for year in range(min(counts), max(counts) + 1)
+    ]
+
+
 def author_stats(people):
     """Compute statistics for the author index."""
     verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
@@ -442,6 +464,7 @@ def author_stats(people):
         "orcid_author_count": sum(
             bool(person.get("orcid")) for person in people.values()
         ),
+        "first_paper_year_hist": first_paper_year_histogram(people),
     }
 
 
@@ -526,6 +549,9 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
+            if debut_years:
+                data["first_year"] = min(debut_years)
             if len(person.names) > 1:
                 data["variant_entries"] = []
                 diff_script_variants = []
