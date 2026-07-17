@@ -4,6 +4,7 @@
 {{ $verification := .Site.GetPage "/info/verification.md" }}
 {{ $orcid := .Site.GetPage "/info/orcid.md" }}
 {{ $names := .Site.GetPage "/info/names.md" }}
+{{ $statsPage := .Site.GetPage "/stats" }}
 
 <main class="acl-people-index" data-author-directory
       data-index-base="{{ "people/index/" | relURL }}"
@@ -132,6 +133,17 @@
       </nav>
     </aside>
   </div>
+
+  {{ with $statsPage }}
+  <a class="acl-people-more" href="{{ .RelPermalink }}">
+    <span class="acl-people-more__icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span>
+    <span class="acl-people-more__text">
+      <strong>Explore author statistics</strong>
+      <small>New authors per year, plus a world map of author affiliations</small>
+    </span>
+    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+  </a>
+  {{ end }}
 </main>
 {{ end }}
 
