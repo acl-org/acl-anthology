@@ -352,6 +352,12 @@ test_cases_name_case_normalize = (
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
     (("ken", "mcguire"), ("Ken", "McGuire")),
+    (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+    (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+    ((None, "S.b.priya"), (None, "S.B.Priya")),
+    (("Shri", "Sashmitha.s"), ("Shri", "Sashmitha.S")),
+    ((None, "Translated.net"), (None, "Translated.net")),
+    ((None, "Weifeng.liu"), (None, "Weifeng.liu")),
 )
 
 

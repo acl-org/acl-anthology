@@ -84,8 +84,18 @@ _LAST_NAME_LOWERCASE_REGEX = re.compile(
     flags=re.IGNORECASE,
 )
 
+_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
+_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
+    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
+)
+
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
 """Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
+
+
+def _normalize_dotted_initials(part: str) -> str:
+    part = _DOTTED_INITIAL_COMPONENT_REGEX.sub(lambda match: match.group().upper(), part)
+    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), part)
 
 
 @define(frozen=True)
@@ -103,8 +113,11 @@ class Name:
 
     Examples:
         >>> Name("Yang", "Liu")
+        Name('Yang', 'Liu')
         >>> Name(last="Liu", first="Yang")
+        Name('Yang', 'Liu')
         >>> Name(None, "Mausam")
+        Name(None, 'Mausam')
     """
 
     first: Optional[str] = field(
@@ -191,13 +204,31 @@ class Name:
     def case_normalize(self, force: bool = False) -> Name:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
+        By default, this changes the name if it is currently all-lowercased or
+        all-uppercased. Dotted initial-like forms are also normalized in
+        otherwise mixed-case names.
+
+        Examples:
+            Normalize a name that is entirely uppercase:
+
+            >>> Name("MARCEL", "BOLLMANN").case_normalize()
+            Name('Marcel', 'Bollmann')
+
+            Repair dotted initials in an otherwise mixed-case name:
+
+            >>> Name("John C.s.", "Lui").case_normalize()
+            Name('John C.S.', 'Lui')
 
         Arguments:
-            force: Always case-normalize, without checking the current casing.
+            force: Apply title-casing even when the full name is mixed-case.
+                Dotted-initial normalization is always applied.
 
-        Raises:
-            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        Returns:
+            The original object when no changes are needed; otherwise, a new
+            instance of the same concrete class with normalized name parts.
+
+        Note:
+            Names with a `script` attribute are returned unchanged.
         """
         if self.script is not None:
             # Non-Latin script variants are left unchanged;
@@ -207,8 +238,15 @@ class Name:
         first, last = self.first, self.last
         firstlast = self.as_first_last()
 
+        if first is not None:
+            first = _normalize_dotted_initials(first)
+        last = _normalize_dotted_initials(last)
+
         if not (force or firstlast.islower() or firstlast.isupper()):
-            return self
+            if first == self.first and last == self.last:
+                return self
+            # Name is frozen, so return a normalized instance of the same class.
+            return self.__class__(first, last)
 
         if first is not None:
             first = first.title()
