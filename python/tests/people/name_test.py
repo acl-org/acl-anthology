@@ -255,7 +255,6 @@ test_cases_slugify = (
             ("James", "O'Neill"),
             ("James", "OʼNeill"),
             ("James", "O’Neill"),
-            ("James", "O`Neill"),
         ],
         True,
     ),
@@ -340,6 +339,8 @@ def test_name_validity():
     Name("B.L. B. LT", "B.L")
     with pytest.raises(ValueError):
         Name.from_string("Hal Daum?")
+    with pytest.raises(ValueError):
+        Name.from_string("C`ecile Fabre")
     with pytest.raises(ValueError):
         Name.from_string("Mausam .")
     with pytest.raises(ValueError):

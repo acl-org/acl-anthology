@@ -100,9 +100,8 @@ EM_DASH = "\u2014"
 
 
 def is_bad_punct(c: str) -> bool:
-    if c in "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()`":
+    if c in "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()":
         return False
-        # TODO: some tests allow ` as synonym of '. maybe remove it
     elif unicodedata.category(c).startswith(("P", "S")):
         return True
     return False
