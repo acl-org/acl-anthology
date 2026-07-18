@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field, setters, validators as v
+from attrs import Attribute, define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
@@ -99,26 +99,8 @@ EN_DASH = "\u2013"
 EM_DASH = "\u2014"
 
 
-def is_bad_punct(c):
-    if c in {
-        "'",
-        "’",
-        ".",
-        ",",
-        "‘",
-        '"',
-        "“",
-        "”",
-        "„",
-        "-",
-        EN_DASH,
-        EM_DASH,
-        "&",
-        "/",
-        "(",
-        ")",
-        "`",
-    }:
+def is_bad_punct(c: str) -> bool:
+    if c in "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()`":
         return False
         # TODO: some tests allow ` as synonym of '. maybe remove it
     elif unicodedata.category(c).startswith(("P", "S")):
@@ -126,7 +108,7 @@ def is_bad_punct(c):
     return False
 
 
-def is_valid_name_part(instance, attribute, value: str):
+def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) -> bool:
     """Is it a valid first or last name?"""
     if not value:
         return True
