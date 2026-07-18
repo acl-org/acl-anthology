@@ -19,6 +19,7 @@ from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
+import unicodedata
 from slugify import slugify
 from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
@@ -84,18 +85,66 @@ _LAST_NAME_LOWERCASE_REGEX = re.compile(
     flags=re.IGNORECASE,
 )
 
-_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
-_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
-    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
-)
-
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
 """Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
 
 
-def _normalize_dotted_initials(part: str) -> str:
-    part = _DOTTED_INITIAL_COMPONENT_REGEX.sub(lambda match: match.group().upper(), part)
-    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), part)
+RE_NAME = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
+# first and last names should not start with punctuation, should not end with comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace
+# would be better to use regex module with \p{P} for all Unicode punctuation, but I don't know if we want the extra dependency
+
+RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. ?[a-z]\b")
+
+EN_DASH = "\u2013"
+EM_DASH = "\u2014"
+
+
+def is_bad_punct(c):
+    if c in {
+        "'",
+        "’",
+        ".",
+        ",",
+        "‘",
+        '"',
+        "“",
+        "”",
+        "„",
+        "-",
+        EN_DASH,
+        EM_DASH,
+        "&",
+        "/",
+        "(",
+        ")",
+        "`",
+    }:
+        return False
+        # TODO: some tests allow ` as synonym of '. maybe remove it
+    elif unicodedata.category(c).startswith(("P", "S")):
+        return True
+    return False
+
+
+def is_valid_name_part(instance, attribute, value: str):
+    """Is it a valid first or last name?"""
+    if not value:
+        return True
+    elif not RE_NAME.fullmatch(value):
+        raise ValueError(f"Invalid {attribute.name} name: {value}")
+    elif RE_NAME_UNDERCAPITALIZED.search(value):
+        raise ValueError(
+            f"Invalid {attribute.name} name (initial should be capitalized): {value}"
+        )
+    else:
+        for c in set(value) - {" "}:
+            if c.isdigit() or is_bad_punct(c):
+                if c.isdigit() and " 3rd" in value and attribute.name == "last":
+                    continue
+                raise ValueError(
+                    f"Invalid {attribute.name} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                )
+    return True
 
 
 @define(frozen=True)
@@ -121,9 +170,10 @@ class Name:
     """
 
     first: Optional[str] = field(
-        eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
+        eq=lambda x: x if x else None,
+        validator=(v.optional(v.instance_of(str)), v.optional(is_valid_name_part)),
     )
-    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1), is_valid_name_part))
     script: Optional[str] = field(
         default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
@@ -237,10 +287,6 @@ class Name:
 
         first, last = self.first, self.last
         firstlast = self.as_first_last()
-
-        if first is not None:
-            first = _normalize_dotted_initials(first)
-        last = _normalize_dotted_initials(last)
 
         if not (force or firstlast.islower() or firstlast.isupper()):
             if first == self.first and last == self.last:

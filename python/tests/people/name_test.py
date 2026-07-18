@@ -332,6 +332,48 @@ def test_name_from_any():
         Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?
 
 
+def test_name_validity():
+    Name("Hal", "Daumé III")
+    Name("Hal", "Daumé 3rd")
+    Name("Jan", "Hajic jr.")
+    Name("Jan", "Hajic, jr.")
+    Name("B.L. B. LT", "B.L")
+    with pytest.raises(ValueError):
+        Name.from_string("Hal Daum?")
+    with pytest.raises(ValueError):
+        Name.from_string("Mausam .")
+    with pytest.raises(ValueError):
+        Name.from_string("Mausam -")
+    with pytest.raises(ValueError):
+        Name.from_string("Mausam _")
+    with pytest.raises(ValueError):
+        Name("Noor-e-", "Hira")
+    with pytest.raises(ValueError):
+        Name.from_string("Sir C3PO")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie Lynn_Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("b.l. Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("B.l. Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("B. l. Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("B.l Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("B.     Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie.lynn Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie Webber,")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie .Webber")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie Webber1")
+    with pytest.raises(ValueError):
+        Name.from_string("Bonnie Webber*")
+
+
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
@@ -352,12 +394,6 @@ test_cases_name_case_normalize = (
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
     (("ken", "mcguire"), ("Ken", "McGuire")),
-    (("John C.s.", "Lui"), ("John C.S.", "Lui")),
-    (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
-    ((None, "S.b.priya"), (None, "S.B.Priya")),
-    (("Shri", "Sashmitha.s"), ("Shri", "Sashmitha.S")),
-    ((None, "Translated.net"), (None, "Translated.net")),
-    ((None, "Weifeng.liu"), (None, "Weifeng.liu")),
 )
 
 
