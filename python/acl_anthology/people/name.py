@@ -90,23 +90,34 @@ LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).up
 
 
 RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
-r"""Regex for valid first and last names.
+r"""Regex that partially checks validity of first and last names:
 
 First and last names should not start with punctuation, should not end with a
 comma or hyphen, and should not contain whitespace unless it is a space
-surrounded on both sides by non-whitespace. It would be better to use the
+surrounded on both sides by non-whitespace. (It would be better to use the
 ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add
-an extra dependency.
+an extra dependency.)
+
+Used by ``is_valid_name_part()``.
 """
 
-RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. ?[a-z]\b")
+RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
+"""First and last names should not contain a lowercase initial after/before a dot,
+or any lowercase character immediately following a dot.
+(Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
+"""
 
 EN_DASH = "\u2013"
 EM_DASH = "\u2014"
 
+VALID_NAME_PUNCT = "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()"
+"""Punctuation characters allowed in names."""
 
-def is_bad_punct(c: str) -> bool:
-    if c in "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()":
+
+def _is_bad_punct(c: str) -> bool:
+    """Check for invalid punctuation/symbol characters in a first or last name.
+    ``VALID_NAME_PUNCT`` is the whitelist of valid punctuation characters."""
+    if c in VALID_NAME_PUNCT:
         return False
     elif unicodedata.category(c).startswith(("P", "S")):
         return True
@@ -114,7 +125,11 @@ def is_bad_punct(c: str) -> bool:
 
 
 def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) -> bool:
-    """Is it a valid first or last name?"""
+    """Is it a valid first or last name? Returns true iff it matches ``RE_NAME_VALID``,
+    does not contain punctuation/symbols apart from the ones in ``VALID_NAME_PUNCT``,
+    does not contain digits (except '3rd' in a last name), and does not contain
+    a lowercase initial with a dot or a lowercase character immediately after a dot
+    (exception: 'v.' which can be short for 'von')."""
     if not value:
         return True
     elif not RE_NAME_VALID.fullmatch(value):
@@ -125,7 +140,7 @@ def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) ->
         )
     else:
         for c in set(value) - {" "}:
-            if c.isdigit() or is_bad_punct(c):
+            if c.isdigit() or _is_bad_punct(c):
                 if c.isdigit() and " 3rd" in value and attribute.name == "last":
                     continue
                 raise ValueError(
@@ -146,6 +161,9 @@ class Name:
             only have a single name, but cannot be omitted.
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
+
+    First and last names are validated by ``is_valid_name_part()``. Impermissible punctuation or digits,
+    excessive whitespace, or lowercase characters in a few contexts will trigger a `ValueError` on instantiation.
 
     Examples:
         >>> Name("Yang", "Liu")

@@ -331,48 +331,46 @@ def test_name_from_any():
         Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?
 
 
-def test_name_validity():
-    Name("Hal", "Daumé III")
-    Name("Hal", "Daumé 3rd")
-    Name("Jan", "Hajic jr.")
-    Name("Jan", "Hajic, jr.")
-    Name("B.L. B. LT", "B.L")
+test_cases_valid_names = [
+    ("Hal", "Daumé III"),
+    ("Hal", "Daumé 3rd"),
+    ("Jan", "Hajic jr."),
+    ("Jan", "Hajic, jr."),
+    ("B.L. B. LT", "B.L"),
+]
+
+
+@pytest.mark.parametrize("first, last", test_cases_valid_names)
+def test_name_valid(first, last):
+    Name(first, last)
+
+
+test_cases_invalid_names = [
+    ("Hal", "Daum?"),
+    ("C`ecile", "Fabre"),
+    ("Mausam", "."),
+    ("Mausam", "-"),
+    ("Mausam", "_"),
+    ("Noor-e-", "Hira"),
+    ("Sir", "C3PO"),
+    ("Bonnie", "Lynn_Webber"),
+    ("b.", "Webber"),
+    ("Jonathan q.", "Arbuckle"),
+    ("B.l.", "Webber"),
+    ("B. l.", "Webber"),
+    ("B.     ", "Webber"),
+    ("Bonnie.lynn", "Webber"),
+    ("Bonnie", "Webber,"),
+    ("Bonnie", ".Webber"),
+    ("Bonnie", "Webber1"),
+    ("Bonnie", "Webber*"),
+]
+
+
+@pytest.mark.parametrize("first, last", test_cases_invalid_names)
+def test_name_invalid(first, last):
     with pytest.raises(ValueError):
-        Name.from_string("Hal Daum?")
-    with pytest.raises(ValueError):
-        Name.from_string("C`ecile Fabre")
-    with pytest.raises(ValueError):
-        Name.from_string("Mausam .")
-    with pytest.raises(ValueError):
-        Name.from_string("Mausam -")
-    with pytest.raises(ValueError):
-        Name.from_string("Mausam _")
-    with pytest.raises(ValueError):
-        Name("Noor-e-", "Hira")
-    with pytest.raises(ValueError):
-        Name.from_string("Sir C3PO")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie Lynn_Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("b.l. Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("B.l. Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("B. l. Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("B.l Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("B.     Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie.lynn Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie Webber,")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie .Webber")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie Webber1")
-    with pytest.raises(ValueError):
-        Name.from_string("Bonnie Webber*")
+        Name(first, last)
 
 
 def test_name_as_bibtex():
