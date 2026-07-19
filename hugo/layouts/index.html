@@ -55,12 +55,15 @@
         group.hidden = !hasVisibleRows;
       });
 
+      function inflect(count) {
+        return "venue" + (count === 1 ? "" : "s");
+      }
+
       clearButton.hidden = query.length === 0;
       emptyState.hidden = visibleVenues > 0;
-      noun = visibleVenues === 1 ? "venue" : "venues";
       status.textContent = hasQuery
-        ? visibleVenues + " " + noun + " matched"
-        : visibleVenues + " top-level " + noun;
+        ? visibleVenues + " " + inflect(visibleVenues) + " matched"
+        : visibleVenues + " top-level " + inflect(visibleVenues);
     }
 
     filterInput.addEventListener("input", applyFilters);
