@@ -241,9 +241,8 @@ class Name:
     def case_normalize(self, force: bool = False) -> Name:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this changes the name if it is currently all-lowercased or
-        all-uppercased. Dotted initial-like forms are also normalized in
-        otherwise mixed-case names.
+        By default, this changes the name only if it is currently all-lowercased
+        or all-uppercased.
 
         Examples:
             Normalize a name that is entirely uppercase:
@@ -251,14 +250,8 @@ class Name:
             >>> Name("MARCEL", "BOLLMANN").case_normalize()
             Name('Marcel', 'Bollmann')
 
-            Repair dotted initials in an otherwise mixed-case name:
-
-            >>> Name("John C.s.", "Lui").case_normalize()
-            Name('John C.S.', 'Lui')
-
         Arguments:
             force: Apply title-casing even when the full name is mixed-case.
-                Dotted-initial normalization is always applied.
 
         Returns:
             The original object when no changes are needed; otherwise, a new
@@ -276,10 +269,7 @@ class Name:
         firstlast = self.as_first_last()
 
         if not (force or firstlast.islower() or firstlast.isupper()):
-            if first == self.first and last == self.last:
-                return self
-            # Name is frozen, so return a normalized instance of the same class.
-            return self.__class__(first, last)
+            return self
 
         if first is not None:
             first = first.title()
