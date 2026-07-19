@@ -1,0 +1,45 @@
+name: Link revision Anthology ID
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  link-anthology-id:
+    if: contains(github.event.issue.labels.*.name, 'revision')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Link Anthology ID
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const sectionPattern = /(^### Anthology ID[ \t]*\r?\n\r?\n)([^\r\n]+)(?=\r?\n|$)/m;
+            const match = body.match(sectionPattern);
+
+            if (!match) {
+              core.notice('The issue does not contain an Anthology ID section.');
+              return;
+            }
+
+            const anthologyId = match[2].trim();
+            if (!/^[A-Za-z0-9][A-Za-z0-9.-]*$/.test(anthologyId)) {
+              core.notice(`Not linking unexpected Anthology ID: ${anthologyId}`);
+              return;
+            }
+
+            const linkedBody = body.replace(
+              sectionPattern,
+              `${match[1]}[${anthologyId}](https://aclanthology.org/${anthologyId}/)`,
+            );
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: linkedBody,
+            });
