@@ -333,9 +333,7 @@ class Name:
             A corresponding Name object.
 
         Note:
-            This will work for `<author>` and `<editor>` tags as well, but those
-            are more efficiently parsed within
-            [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
+            This will work for `<author>` and `<editor>` tags as well, but those are more efficiently parsed within [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
         """
         first: Optional[str] = None
         last: Optional[str] = None
