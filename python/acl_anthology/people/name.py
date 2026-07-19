@@ -90,21 +90,17 @@ LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).up
 
 
 RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
-r"""Regex that partially checks validity of first and last names:
+r"""Regex that partially checks validity of first and last names.
 
-First and last names should not start with punctuation, should not end with a
-comma or hyphen, and should not contain whitespace unless it is a space
-surrounded on both sides by non-whitespace. (It would be better to use the
-``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add
-an extra dependency.)
+First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
 
-Used by ``is_valid_name_part()``.
+Used by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part].
 """
 
 RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
-"""First and last names should not contain a lowercase initial after/before a dot,
-or any lowercase character immediately following a dot.
-(Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
+"""Regex that checks for spurious lowercase characters in a name.
+
+First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
 """
 
 EN_DASH = "\u2013"
@@ -116,7 +112,9 @@ VALID_NAME_PUNCT = "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()"
 
 def _is_bad_punct(c: str) -> bool:
     """Check for invalid punctuation/symbol characters in a first or last name.
-    ``VALID_NAME_PUNCT`` is the whitelist of valid punctuation characters."""
+
+    [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT] is the whitelist of valid punctuation characters.
+    """
     if c in VALID_NAME_PUNCT:
         return False
     elif unicodedata.category(c).startswith(("P", "S")):
@@ -125,11 +123,11 @@ def _is_bad_punct(c: str) -> bool:
 
 
 def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) -> bool:
-    """Is it a valid first or last name? Returns true iff it matches ``RE_NAME_VALID``,
-    does not contain punctuation/symbols apart from the ones in ``VALID_NAME_PUNCT``,
-    does not contain digits (except '3rd' in a last name), and does not contain
-    a lowercase initial with a dot or a lowercase character immediately after a dot
-    (exception: 'v.' which can be short for 'von')."""
+    """Check if attribute is a valid first or last name.  Intended to be used as an attrs validator.
+
+    Returns:
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+    """
     if not value or value.isalpha():
         # If all characters are alphabetic, it is guaranteed to be valid.
         # Empirically this applies to 80% of names. This test short-circuits the slower checks.
@@ -159,13 +157,11 @@ class Name:
         Name objects are _frozen_, meaning they are immutable.  This allows them to be used as dictionary keys, but means that in order to change a name somewhere, you need to replace it with a new `Name` instance.
 
     Attributes:
-        first: First name part. Can be given as `None` for people who
-            only have a single name, but cannot be omitted.
+        first: First name part. Can be given as `None` for people who only have a single name, but cannot be omitted.
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
-    First and last names are validated by ``is_valid_name_part()``. Impermissible punctuation or digits,
-    excessive whitespace, or lowercase characters in a few contexts will trigger a `ValueError` on instantiation.
+    First and last names are validated by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts will trigger a `ValueError` on instantiation.
 
     Examples:
         >>> Name("Yang", "Liu")
