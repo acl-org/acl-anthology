@@ -89,9 +89,15 @@ LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).up
 """Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
 
 
-RE_NAME = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
-# first and last names should not start with punctuation, should not end with comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace
-# would be better to use regex module with \p{P} for all Unicode punctuation, but I don't know if we want the extra dependency
+RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
+r"""Regex for valid first and last names.
+
+First and last names should not start with punctuation, should not end with a
+comma or hyphen, and should not contain whitespace unless it is a space
+surrounded on both sides by non-whitespace. It would be better to use the
+``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add
+an extra dependency.
+"""
 
 RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. ?[a-z]\b")
 
@@ -111,7 +117,7 @@ def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) ->
     """Is it a valid first or last name?"""
     if not value:
         return True
-    elif not RE_NAME.fullmatch(value):
+    elif not RE_NAME_VALID.fullmatch(value):
         raise ValueError(f"Invalid {attribute.name} name: {value}")
     elif RE_NAME_UNDERCAPITALIZED.search(value):
         raise ValueError(
