@@ -14,14 +14,14 @@
 
 from __future__ import annotations
 
-from attrs import Attribute, define, field, setters, validators as v
+from attrs import define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
 import unicodedata
 from slugify import slugify
-from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
+from typing import Any, Literal, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -122,8 +122,10 @@ def _is_bad_punct(c: str) -> bool:
     return False
 
 
-def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) -> bool:
-    """Check if attribute is a valid first or last name.  Intended to be used as an attrs validator.
+def _is_valid_name_part(
+    attribute: Literal["first", "last"], value: str, error: bool = False
+) -> bool:
+    """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
 
     Returns:
         True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
@@ -133,18 +135,24 @@ def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) ->
         # Empirically this applies to 80% of names. This test short-circuits the slower checks.
         return True
     elif not RE_NAME_VALID.fullmatch(value):
-        raise ValueError(f"Invalid {attribute.name} name: {value}")
+        if not error:
+            return False
+        raise ValueError(f"Invalid {attribute} name: {value}")
     elif RE_NAME_UNDERCAPITALIZED.search(value):
+        if not error:
+            return False
         raise ValueError(
-            f"Invalid {attribute.name} name (initial should be capitalized): {value}"
+            f"Invalid {attribute} name (initial should be capitalized): {value}"
         )
     else:
         for c in set(value) - {" "}:
             if c.isdigit() or _is_bad_punct(c):
-                if c.isdigit() and " 3rd" in value and attribute.name == "last":
+                if c.isdigit() and " 3rd" in value and attribute == "last":
                     continue
+                if not error:
+                    return False
                 raise ValueError(
-                    f"Invalid {attribute.name} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                    f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
                 )
     return True
 
@@ -161,7 +169,7 @@ class Name:
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
-    First and last names are validated by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts will trigger a `ValueError` on instantiation.
+    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
 
     Examples:
         >>> Name("Yang", "Liu")
@@ -174,9 +182,9 @@ class Name:
 
     first: Optional[str] = field(
         eq=lambda x: x if x else None,
-        validator=(v.optional(v.instance_of(str)), v.optional(is_valid_name_part)),
+        validator=v.optional(v.instance_of(str)),
     )
-    last: str = field(validator=(v.instance_of(str), v.min_len(1), is_valid_name_part))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
         default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
@@ -299,6 +307,16 @@ class Name:
             last = re.sub(pattern, substitute, last)
 
         return self.__class__(first, last)
+
+    def is_valid(self, error: bool = False) -> bool:
+        """Check if the name has valid first and last names. (The first name is allowed to be None.) If `error` is True, raises a `ValueError`.
+
+        Returns:
+            True _iff_ the name parts match [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], do not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], do not contain digits (except '3rd' in a last name), and do not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        """
+        return _is_valid_name_part(
+            "first", self.first or "", error=error
+        ) and _is_valid_name_part("last", self.last, error=error)
 
     @cache
     def slugify(self) -> str:

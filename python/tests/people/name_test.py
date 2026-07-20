@@ -342,7 +342,7 @@ test_cases_valid_names = [
 
 @pytest.mark.parametrize("first, last", test_cases_valid_names)
 def test_name_valid(first, last):
-    Name(first, last)
+    assert Name(first, last).is_valid()
 
 
 test_cases_invalid_names = [
@@ -369,8 +369,9 @@ test_cases_invalid_names = [
 
 @pytest.mark.parametrize("first, last", test_cases_invalid_names)
 def test_name_invalid(first, last):
+    assert not Name(first, last).is_valid()
     with pytest.raises(ValueError):
-        Name(first, last)
+        Name(first, last).is_valid(error=True)
 
 
 def test_name_as_bibtex():
