@@ -10,17 +10,46 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav flex-grow-1 pe-md-2">
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/posts" }}>News<span class="visually-hidden">(current)</span></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open About menu">About<i class="ps-1 fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+            <li><a class="dropdown-item" href="{{ relref . "/posts" }}">Announcements</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/news" }}">Communication channels</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/related-work" }}">Related work</a></li>
+            <!-- Stats -->
+            <li><a class="dropdown-item" href="{{ relref . "/faq/copyright" }}">Copyright</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/credits" }}">Credits</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/volunteer" }}">Volunteer</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/development" }}">Development</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/feedback" }}">Feedback</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="visually-hidden">(current)</span></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="usingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open Using menu">Using<i class="ps-1 fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu" aria-labelledby="usingDropdown">
+            <li><a class="dropdown-item" href="{{ relref . "/faq/bib" }}">Citing papers</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/linking" }}">Links in the Anthology</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/api" }}">Data access</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq" }}">All FAQs</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Details</h6></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/ids" }}">Anthology identifiers</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/names" }}">Names</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/orcid" }}">ORCID iDs</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/doi" }}">DOIs</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/verification" }}">Verified authors</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/info/corrections.md" }}>Corrections<span class="visually-hidden">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span class="visually-hidden">(current)</span></a>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" id="contribDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open Contributions menu">Contributions<i class="ps-1 fas fa-caret-down"></i></a>
+          <ul class="dropdown-menu" aria-labelledby="contribDropdown">
+            <li><a class="dropdown-item" href="{{ relref . "/info/contrib" }}">Submissions</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/corrections" }}">Corrections</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/author-pages" }}">Author pages</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/faq/attachments" }}">Attachments</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href={{ relref . "/stats" }}>Statistics<span class="visually-hidden">(current)</span></a>

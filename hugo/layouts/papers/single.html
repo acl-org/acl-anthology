@@ -278,9 +278,13 @@
     for (authorRow of container.children) {
       const first = authorRow.children[1].children[0].value.trim();
       const last = authorRow.children[2].children[0].value.trim();
-      authors += first + "  " + last + "; "
+      var firstHTML = document.createElement('span');
+      var lastHTML = document.createElement('b');
+      firstHTML.textContent = first;
+      lastHTML.textContent = last;
+      authors += firstHTML.innerHTML.trim() + "  " + lastHTML.outerHTML.trim() + "; "
     }
-    document.getElementById("paperAuthorList").textContent = authors.slice(0, -2);
+    document.getElementById("paperAuthorList").innerHTML = "<span>" + authors.slice(0, -2) + "</span>";
   }
 
   // Drag & Drop functions for authors
