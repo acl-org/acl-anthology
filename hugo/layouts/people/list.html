@@ -8,6 +8,7 @@
 
 <main class="acl-people-index" data-author-directory
       data-index-base="{{ "people/index/" | relURL }}"
+  data-index-bucket-counts="{{ $stats.search_bucket_counts | jsonify }}"
       data-people-base="{{ "people/" | relURL }}">
   <header class="acl-people-index__header">
     <div>
@@ -207,6 +208,29 @@
       }
       return indexCache.get(bucket);
     }
+
+    const bucketCounts = JSON.parse(directory.dataset.indexBucketCounts);
+    let bucketTotal = 0;
+    for (const bucket in bucketCounts) {
+      bucketTotal += bucketCounts[bucket];
+    }
+    let bucketOffset = Math.floor(Math.random() * bucketTotal);
+    let placeholderBucket = "other";
+    for (const bucket in bucketCounts) {
+      bucketOffset -= bucketCounts[bucket];
+      if (bucketOffset < 0) {
+        placeholderBucket = bucket;
+        break;
+      }
+    }
+    loadBucket(placeholderBucket)
+      .then(function (entries) {
+        const entry = entries[Math.floor(Math.random() * entries.length)];
+        if (entry) {
+          input.placeholder = "e.g., " + entry.row[0] + " or 0000-0002-...";
+        }
+      })
+      .catch(function () {});
 
     function isVerified(row) {
       return !row[1].endsWith("/unverified");
