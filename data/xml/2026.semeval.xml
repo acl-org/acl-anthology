@@ -7,6 +7,7 @@
       <editor><first>Debanjan</first><last>Ghosh</last></editor>
       <editor><first>Kai</first><last>North</last></editor>
       <editor><first>Mamoru</first><last>Komachi</last></editor>
+      <editor><first>Marcos</first><last>Zampieri</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
       <address>San Diego, California, USA</address>
       <isbn>979-8-89176-414-9</isbn>
@@ -305,8 +306,8 @@
     </paper>
     <paper id="25">
       <title><fixed-case>CITD</fixed-case>@<fixed-case>UIT</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 2: Temporal Mixture-of-Experts for Longitudinal Valence and Arousal Prediction from Ecological Essays</title>
-      <author id="son-phuong" orcid="0009-0005-4805-0431"><first>Son</first><last>Phuong</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City</affiliation></author>
-      <author id="my-ngo" orcid="0009-0001-6459-8481"><first>My</first><last>Ngo</last></author>
+      <author id="son-phuong" orcid="0009-0005-4805-0431"><first>Son The</first><last>Phuong</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City</affiliation></author>
+      <author id="my-ngo" orcid="0009-0001-6459-8481"><first>My Thuy-Tra</first><last>Ngo</last></author>
       <author id="tri-minh-dao" orcid="0009-0000-3683-7484"><first>Tri</first><last>Minh Dao</last></author>
       <author id="duc-vu-nguyen" orcid="0000-0003-0072-2524"><first>Duc-Vu</first><last>Nguyen</last><affiliation>University of Information Technology, Vietnam National University Ho Chi Minh City</affiliation></author>
       <pages>167-175</pages>
@@ -902,7 +903,7 @@
     </paper>
     <paper id="74">
       <title><fixed-case>SU</fixed-case> <fixed-case>NLP</fixed-case> 29 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: <fixed-case>D</fixed-case>yna<fixed-case>O</fixed-case>rd - Hybrid Dynamic Ordinal Regression with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-Fine-Tuned <fixed-case>D</fixed-case>e<fixed-case>BERT</fixed-case>a-v3</title>
-      <author><first>Musab</first><last>Khan</last><affiliation>Sabancı Üniversitesi</affiliation></author>
+      <author><first>Musab Ahmed</first><last>Khan</last><affiliation>Sabancı Üniversitesi</affiliation></author>
       <pages>514-521</pages>
       <abstract>We describe our system submitted to SemEval-2026 Task 5 on rating the plausibility of word senses in ambiguous sentences within narrative contexts. The task requires predicting human-perceived plausibility scores on a 1-5 scale for candidate word meanings embedded in short stories, posing challenges such as limited training data and the ordinal nature of target labels. Our approach combines a DeBERTa-v3-large encoder with Low-Rank Adaptation (LoRA) and a dynamically weighted hybrid CORAL-MSE loss for ordinal regression. This formulation adapts the contribution of ranking and regression objectives during training, prioritizing ordinal consistency early and regression refinement in later epochs.We analyze the contributions of dynamic loss weighting to overall system performance.</abstract>
       <url hash="83050067">2026.semeval-1.74</url>
@@ -1128,12 +1129,13 @@
     </paper>
     <paper id="94">
       <title><fixed-case>D</fixed-case>uluth at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 6: <fixed-case>D</fixed-case>e<fixed-case>BERT</fixed-case>a with <fixed-case>LLM</fixed-case>-Augmented Data for Unmasking Political Question Evasions</title>
+      <author><first>Shujauddin</first><last>Syed</last></author>
       <author><first>Ted</first><last>Pedersen</last><affiliation>University of Minnesota, Duluth</affiliation></author>
       <pages>650-657</pages>
       <abstract>This paper presents the Duluth approach toSemEval-2026 Task 6 on CLARITY: Unmask-ing Political Question Evasions. We addressTask 1 (clarity-level classification) and Task 2(evasion-level classification), both of which in-volve classifying question–answer pairs fromU.S. presidential interviews using a two-leveltaxonomy of response clarity. Our system isbased on DeBERTa-V3-base, extended withfocal loss, layer-wise learning rate decay, andboolean discourse features. To address classimbalance in the training data, we augmentminority classes using synthetic examples gen-erated by Gemini 3 and Claude Sonnet 4.5. Ourbest configuration achieved a Macro F1 of 0.76on the Task 1 evaluation set, placing 8th outof 40 teams. The top-ranked system (TeleAI)achieved 0.89, while the mean score across par-ticipants was 0.70. Error analysis reveals thatthe dominant source of misclassification is con-fusion between Ambivalent and Clear Replyresponses, a pattern that mirrors disagreementsamong human annotators. Our findings demon-strate that LLM-based data augmentation canmeaningfully improve minority-class recall onnuanced political discourse tasks.</abstract>
       <url hash="e6d53218">2026.semeval-1.94</url>
       <attachment hash="f5ada07b" type="SupplementaryMaterial">2026.semeval-1.94.SupplementaryMaterial.zip</attachment>
-      <bibkey>pedersen-2026-duluth</bibkey>
+      <bibkey>syed-pedersen-2026-duluth</bibkey>
       <doi>10.18653/v1/2026.semeval-1.94</doi>
     </paper>
     <paper id="95">
@@ -1181,8 +1183,6 @@
       <pages>686-698</pages>
       <abstract>We present a lightweight, feature-based regression system for predicting \textbf{valence} (pleasantness) and \textbf{arousal} (activation) from longitudinal language data. The language data ranges from longer free-form ecological essays to short affect-word, organized by user and time, reflecting natural variation in affective expression and experience. Our approach combines three complementary signals: (i) sentence-level semantic embeddings, (ii) psycholinguistic category features capturing affect- and function-related word usage, (iii) similarity measures between the language data with archetypal sentences, and (iv) trainable user-embeddings to account for between-user differences. The resulting feature vector is passed to a multi-layer perceptron trained to jointly predict valence and arousal. Our design provides a strong and interpretable baseline by making it possible to isolate the contribution of semantic, psycholinguistic, similarity, and user-specific signals. We further analyze our model’s predictions to identify which feature groups are most informative and where errors are concentrated across users and input types.</abstract>
       <url hash="ce29760f">2026.semeval-1.98</url>
-      <attachment hash="c0e48644" type="SupplementaryMaterial">2026.semeval-1.98.SupplementaryMaterial.zip</attachment>
-      <attachment hash="9dc5a9b9" type="SupplementaryMaterial">2026.semeval-1.98.SupplementaryMaterial.zip</attachment>
       <bibkey>zhang-etal-2026-mcmaster</bibkey>
       <doi>10.18653/v1/2026.semeval-1.98</doi>
     </paper>
@@ -1627,7 +1627,7 @@
     <paper id="137">
       <title><fixed-case>Y</fixed-case>oung<fixed-case>DSMLKZ</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: <fixed-case>MIL</fixed-case>-<fixed-case>U</fixed-case>ni<fixed-case>X</fixed-case>coder with Meta-Stacking and Handcrafted Features for <fixed-case>AI</fixed-case>-Generated Code Detection</title>
       <author id="yeraly-gainulla" orcid="0009-0005-9673-781X"><first>Yeraly</first><last>Gainulla</last><affiliation>Aqbobek Lyceum</affiliation></author>
-      <author><first>Agzam</first><last>Shamsadinov</last><affiliation>National School of Physics &amp; Math</affiliation></author>
+      <author id="agzam-shamsadinov"><first>Agzam</first><last>Shamsadinov</last><affiliation>National School of Physics &amp; Math</affiliation></author>
       <pages>994-999</pages>
       <abstract>We propose and validate a multi-view ensemble framework for 4-class AI-generated code detection (Human, AI, Hybrid, Adversarial) in realistic long-form repositories. Our system, Team YoungDSMLKZ, ranked 1st out of 50+ teams in SemEval-2026 Task 13 Subtask C with a macro F1 of 0.7855 (+5.2 over runner-up). The framework combines: (i) a Dynamic Multiple Instance Learning (MIL) pipeline over UniXcoder chunks for O(N)-scalable long-context detection, (ii) transformer-based meta-stacking (UniXcoder and ModernBERT), and (iii) an XGBoost classifier on 200+ handcrafted stylometric features. Evidence localization analysis shows that 62.4% of decisive AI-detection signals reside beyond the standard 512-token window, validating the MIL design.</abstract>
       <url hash="d089675e">2026.semeval-1.137</url>
@@ -1652,7 +1652,7 @@
       <doi>10.18653/v1/2026.semeval-1.138</doi>
     </paper>
     <paper id="139">
-      <title><fixed-case>HABIBTAZ</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 11: Disentangling Formal Logic from Content via Synthetic Training and Multi-Objective Optimization</title>
+      <title><fixed-case>HABIB_TAZ</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 11: Disentangling Formal Logic from Content via Synthetic Training and Multi-Objective Optimization</title>
       <author id="abdullah-shaikh" orcid="0009-0009-9864-9986"><first>Abdullah</first><last>Shaikh</last><affiliation>Habib University</affiliation></author>
       <author id="zain-naqi" orcid="0009-0006-6741-1981"><first>Zain</first><last>Naqi</last><affiliation>Habib University</affiliation></author>
       <author id="taha-zahid" orcid="0009-0000-1431-4930"><first>Taha</first><last>Zahid</last><affiliation>Habib University</affiliation></author>
@@ -1663,7 +1663,7 @@
       <url hash="9e8fc5a9">2026.semeval-1.139</url>
       <attachment hash="4cdfc885" type="SupplementaryMaterial">2026.semeval-1.139.SupplementaryMaterial.zip</attachment>
       <attachment hash="fe9d5780" type="SupplementaryMaterial">2026.semeval-1.139.SupplementaryMaterial.zip</attachment>
-      <bibkey>shaikh-etal-2026-habibtaz</bibkey>
+      <bibkey>shaikh-etal-2026-habib</bibkey>
       <doi>10.18653/v1/2026.semeval-1.139</doi>
     </paper>
     <paper id="140">
@@ -1913,6 +1913,9 @@
       <author><first>Matthieu</first><last>Pereira</last><affiliation>Télécom Paris</affiliation></author>
       <author><first>Nathan</first><last>Boucneau</last><affiliation>Télécom Paris</affiliation></author>
       <author><first>Paul</first><last>Cintra</last><affiliation>Télécom Paris</affiliation></author>
+      <author><first>Guillaume</first><last>Gadek</last></author>
+      <author><first>Louis</first><last>Lefebvre</last></author>
+      <author><first>Matthieu</first><last>Labeau</last></author>
       <pages>1169-1174</pages>
       <abstract>This paper describes HYPOLDET, the system submitted by team pfr821 to SemEval-2026 Task 9 (Polarization Detection, Subtask 1), a binary classification task over 22 typologically diverse languages. Our approach combines three complementary contributions. We first extend XLM-RoBERTa-Large with a custom transformer encoder layer and a learned attention-based pooling mechanism (Hybrid Architecture), allowing the model to aggregate token-level signals beyond the [CLS] representation. We then augment training data through a targeted LLM-based synthetic generation pipeline (Grok API), producing culturally grounded examples for low-resource and imbalanced languages. Finally, we address class imbalance at the training level through an imbalance-aware regime combining a per-language balanced batch sampler, weighted focal loss, and label smoothing. Our best single model achieves an unweighted macro-averaged F1 of 0.796, and a lightweight ensemble reaches 0.798, ranking in the top 10 for 7 languages and 2nd place for Hausa.</abstract>
       <url hash="fcd57dce">2026.semeval-1.160</url>
@@ -2026,11 +2029,12 @@
     <paper id="169">
       <title>Königsberg at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: Beyond Language Models: A Low-Resource Feature-Driven and Data-Flow Embedding Approach for Machine-Generated Code Detection</title>
       <author id="shahir-habib" orcid="0009-0008-4262-693X"><first>Shahir</first><last>Habib</last><affiliation>Jadavpur University</affiliation></author>
+      <author><first>Dipankar</first><last>Das</last></author>
       <pages>1288-1297</pages>
       <abstract>The rise of Large Language Models (LLMs)has increased the need for reliable detection ofmachine-generated code. This paper presentsa low-resource, hybrid detection frameworkdeveloped for for SemEval-2026 Task 13 ,designed to operate efficiently without the computational overhead of end-to-end fine-tuningof large models. Our approach combines(i) comprehensive feature extraction pipelinethat calculates interpretable software metricscapturing stylistic and structural properties ofcode, and (ii) we leverage the semantic capabilities of GraphCodeBERT by extractingfrozen embeddings from its pre-trained encoder to model semantic and data-flow information while preserving generalizability. Thisfusion enables efficient detection of machinegenerated code across multiple programminglanguages (Python, C++, Java, and Go) andimproves robustness under out-of-distributionsettings. This feature-driven fusion offers acompetitive, computation-efficient alternativeto purely LLM-based fully fine-tuned models,achieving an F1-score of 38.26.</abstract>
       <url hash="d55cb2d9">2026.semeval-1.169</url>
       <attachment hash="abf458ce" type="SupplementaryMaterial">2026.semeval-1.169.SupplementaryMaterial.zip</attachment>
-      <bibkey>habib-2026-konigsberg</bibkey>
+      <bibkey>habib-das-2026-konigsberg</bibkey>
       <doi>10.18653/v1/2026.semeval-1.169</doi>
     </paper>
     <paper id="170">
@@ -2140,7 +2144,7 @@
     <paper id="179">
       <title>Team <fixed-case>BOBW</fixed-case> (Best Of Both Worlds) at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: Modular Cross-Attention Encoders for Dimensional Aspect-Based Sentiment Analysis</title>
       <author id="michal-rynowiecki" orcid="0009-0005-2368-7110"><first>Michal</first><last>Rynowiecki</last><affiliation>IT University of Copenhagen</affiliation></author>
-      <author><first>Rob</first><last>Van Der Goot</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <author><first>Rob</first><last>van der Goot</last><affiliation>IT University of Copenhagen</affiliation></author>
       <pages>1385-1390</pages>
       <abstract>This paper presents our system for SemEval-2026 Task 3, which identifies four-part opiniondetails in product reviews. We used a sequenceof pairs of BERT encoder models connectedby cross-attention layers. The cross-attentionmechanism provided marginally better resultsthan a self-attention equivalent, failing to show-case a significant improvement. Error propaga-tion through the pipeline hurt the correctness ofthe outputs, with certain stages collapsing thescores. The pipeline architecture’s performancewas largely independent of model size, sug-gesting that small modular encoders for down-stream tasks are an efficient alternative to largedecoder models. Our best model got a cF1score of 0.53 on restaurant data and 0.26 onlaptop data.</abstract>
       <url hash="e1687fa1">2026.semeval-1.179</url>
@@ -2367,19 +2371,21 @@
     <paper id="197">
       <title><fixed-case>PFW</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 6: Multi-Seed <fixed-case>D</fixed-case>e<fixed-case>BERT</fixed-case>a Ensembles for Political Response Clarity and Evasion Classification</title>
       <author><first>Taleef</first><last>Tamsal</last><affiliation>Purdue Fort Wayne</affiliation></author>
+      <author><first>Jonathan</first><last>Rusert</last></author>
       <pages>1518-1525</pages>
       <abstract>This paper describes the PFW system for SemEval-2026 Task 6 (CLARITY), which addresses the classification of response clarity and evasion techniques in political interview question-answer pairs. Rather than relying on large language model prompting, we pursue a competitive non-LLM approach based on fine-tuning DeBERTa-xlarge and DeBERTa-v3-large with a multi-seed ensemble strategy: 5-fold cross-validation with 10 random seeds yields 50 models per architecture, combined through simple logit averaging. Our system achieves a macro F1 of 0.76 on Subtask 1 (clarity-level classification) and 0.50 on Subtask 2 (evasion-type classification). We also find that three post-hoc optimization techniques—learned ensemble weights, thresh old calibration, and hierarchical masking— each improve out-of-fold performance yet degrade evaluation scores by 0.02–0.10 F1. This pattern should be interpreted cautiously: the 237-sample evaluation set likely contributes substantial variance, and two of the three degradations fall within the ±0.06 95% CI expected from sampling noise. Still, the consistent directional pattern across all three prediction-level interventions provides suggestive evidence for an optimization paradox, highlighting the risk of overfitting to cross-validation predictions when evaluation data is limited. Our code is publicly available at https://github.com/ Taleef7/semeval-2026-task6.</abstract>
       <url hash="e1f396ed">2026.semeval-1.197</url>
-      <bibkey>tamsal-2026-pfw</bibkey>
+      <bibkey>tamsal-rusert-2026-pfw</bibkey>
       <doi>10.18653/v1/2026.semeval-1.197</doi>
     </paper>
     <paper id="198">
       <title><fixed-case>PFW</fixed-case> Task 8 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: Lightweight Tri-Fusion Retrieval with Prompt-Engineered Faithful Generation for Multi-Turn <fixed-case>RAG</fixed-case></title>
       <author><first>Taleef</first><last>Tamsal</last><affiliation>Purdue Fort Wayne</affiliation></author>
+      <author><first>Jonathan</first><last>Rusert</last></author>
       <pages>1526-1532</pages>
       <abstract>We describe PFW Task 8’s system for SemEval 2026 Task 8 (MTRAGEval), a benchmark for multi-turn retrieval-augmented generation across four English-language corpora. Our submission combines BM25, SPLADE-v3, and Jina Embeddings v4 with weighted reciprocal rank fusion for retrieval, plus zero-shot GPT 4o/GPT-4o-mini prompting for generation. Officially, our system ranks 6th of 26 on Task B (H = 0.756), 14th of 29 on Task C (H = 0.533), and 20th of 38 on Task A (nDCG@5 = 0.433). For the camera-ready analysis, we re-run retrieval at the official nDCG@5 cutoff, strengthen the prompt ablation with per-domain statistics and exact tests, and analyze official outputs by answerability and domain. On a balanced 100-example development sample, explicit citation-format instructions—not chain of-thought alone—raise citation use from 4% to 93%, and a fixed-context Task C control improves from H = 0.463 with GPT-4o-mini to H = 0.523 with GPT-4o. Official analytics also show near-perfect UNANSWERABLE handling (H = 0.990) but weak behavior on UNDERSPECIFIED turns, where the system answers or refuses instead of clarifying. Our code is publicly available.</abstract>
       <url hash="d110aa80">2026.semeval-1.198</url>
-      <bibkey>tamsal-2026-pfw-task</bibkey>
+      <bibkey>tamsal-rusert-2026-pfw-task</bibkey>
       <doi>10.18653/v1/2026.semeval-1.198</doi>
     </paper>
     <paper id="199">
@@ -2509,10 +2515,10 @@
     <paper id="210">
       <title><fixed-case>D</fixed-case>eep<fixed-case>S</fixed-case>emantics at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Label-Wise Optimization with Adaptive Focal Loss for Polarization Manifestation Identification</title>
       <author><first>Eliasse</first><last>Tiao</last><affiliation>African Institute for Mathematical Sciences</affiliation></author>
-      <author><first>Josue</first><last>Edou</last><affiliation>African Institute for Mathematical Sciences</affiliation></author>
-      <author><first>Mahugnon</first><last>Gohouede</last><affiliation>African Institute for Mathematical Sciences (AIMS)</affiliation></author>
+      <author><first>Josue R.</first><last>Edou</last><affiliation>African Institute for Mathematical Sciences</affiliation></author>
+      <author><first>Mahugnon A. L.</first><last>Gohouede</last><affiliation>African Institute for Mathematical Sciences (AIMS)</affiliation></author>
       <pages>1632-1640</pages>
-      <abstract>In this paper, we present our system for SemEval-2026 Task 9, which focuses on the fine-grained identification of polarization manifestations in multilingual social media content.Our approach combines transformer-based encoders (RoBERTa-base for English and Afro-XLM-R-small for Hausa) within aOne-vs-Rest (OvR) framework, complemented by controlled oversampling, Adaptive Focal Loss, and label-wise threshold optimization. To mitigate severe class imbalance and label sparsity, we adopt language-specific optimization strategies supported by pairwise χ2 independence analysis.Our system achieves macro-F1 scores of 0.464 in English and 0.192 in Hausa on the official test sets, ranking 5th in Hausa and 14th in English on the official leaderboard.</abstract>
+      <abstract>In this paper, we present our system for SemEval-2026 Task 9, which focuses on the fine-grained identification of polarization manifestations in multilingual social media content. Our approach combines transformer-based encoders (RoBERTa-base for English and Afro-XLM-R-small for Hausa) within a One-vs-Rest (OvR) framework, complemented by controlled oversampling, Adaptive Focal Loss, and label-wise threshold optimization. To mitigate severe class imbalance and label sparsity, we adopt language-specific optimization strategies supported by pairwise χ2 independence analysis. Our system achieves macro-F1 scores of 0.464 in English and 0.192 in Hausa on the official test sets, ranking 5th in Hausa and 14th in English on the official leaderboard.</abstract>
       <url hash="3c55c3ba">2026.semeval-1.210</url>
       <attachment hash="94888e0c" type="SupplementaryMaterial">2026.semeval-1.210.SupplementaryMaterial.zip</attachment>
       <attachment hash="19de5a98" type="SupplementaryMaterial">2026.semeval-1.210.SupplementaryMaterial.zip</attachment>
@@ -2582,8 +2588,8 @@
     </paper>
     <paper id="216">
       <title><fixed-case>R</fixed-case>agu<fixed-case>T</fixed-case>eam at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: Meno and <fixed-case>F</fixed-case>riends in a Judge-Orchestrated <fixed-case>LLM</fixed-case> Ensemble for Faithful Multi-Turn Response Generation</title>
-      <author id="roman-derunets" orcid="0009-0008-5894-7041"><first>Roman</first><last>Derunets</last><affiliation>Novosibirsk State University</affiliation></author>
       <author id="ivan-bondarenko" orcid="0000-0002-0457-0698"><first>Ivan</first><last>Bondarenko</last><affiliation>NSU</affiliation></author>
+      <author id="roman-derunets" orcid="0009-0008-5894-7041"><first>Roman</first><last>Derunets</last><affiliation>Novosibirsk State University</affiliation></author>
       <author><first>Oleg</first><last>Sedukhin</last><affiliation>Novosibirsk State University</affiliation></author>
       <author><first>Mikhail</first><last>Komarov</last><affiliation>Novosibirsk State University</affiliation></author>
       <author><first>Ivan</first><last>Chernov</last><affiliation>NSU</affiliation></author>
@@ -2592,7 +2598,7 @@
       <abstract>This paper describes our first-place submission to Task B (generation with reference passages) of the SemEval-2026 Task 8 MTRAGEval shared task on multi-turn retrieval-augmented generation. We propose a heterogeneous ensemble of seven LLMs organised into two groups with distinct prompting strategies, and use a GPT-4o-mini judge to select the best candidate response for each instance. Our system ranked first among 26 teams, achieving a conditioned harmonic mean score of 0.78 and substantially outperforming the strongest organiser baseline (0.64). Ablation experiments show that diversity across model families, scales, and prompting strategies is critical: the ensemble consistently outperforms any individual model. We also include Meno-Lite-0.1, a 7B domain-adapted model with a favourable cost–performance trade-off, and present an analysis of MTRAGEval that highlights annotation limitations and directions for benchmark improvement.</abstract>
       <url hash="1b5db700">2026.semeval-1.216</url>
       <attachment hash="95767e0b" type="SupplementaryMaterial">2026.semeval-1.216.SupplementaryMaterial.zip</attachment>
-      <bibkey>derunets-etal-2026-raguteam</bibkey>
+      <bibkey>bondarenko-etal-2026-raguteam</bibkey>
       <doi>10.18653/v1/2026.semeval-1.216</doi>
     </paper>
     <paper id="217">
@@ -2707,11 +2713,12 @@
     </paper>
     <paper id="226">
       <title><fixed-case>REGLAT</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Enhancing <fixed-case>A</fixed-case>rabic Online Polarization Detection Using <fixed-case>A</fixed-case>ra<fixed-case>BERT</fixed-case> and Synonym Replacement Augmentation</title>
-      <author><first>Ahmed</first><last>Fetouh</last><affiliation>Benha Faculty of Computers and Artificial Intelligence</affiliation></author>
-      <author id="mariam-labib" orcid="0000-0003-1403-049X"><first>Mariam</first><last>Francies</last><affiliation>Computer Engineering, Elsewedy University of Technology, Cairo, Egypt</affiliation></author>
+      <author><first>Ahmed M.</first><last>Fetouh</last><affiliation>Benha Faculty of Computers and Artificial Intelligence</affiliation></author>
+      <author><first>Rahmath</first><last>Mohammed</last><affiliation>Prince Sattam Bin Abdulaziz University</affiliation></author>
+      <author><first>Omer</first><last>Dawood</last></author>
+      <author id="mariam-labib" orcid="0000-0003-1403-049X"><first>Mariam</first><last>Labib</last><affiliation>Computer Engineering, Elsewedy University of Technology, Cairo, Egypt</affiliation></author>
       <author id="nsrin-ashraf" orcid="0000-0001-5336-6362"><first>Nsrin</first><last>Ashraf</last><affiliation>Benha University</affiliation></author>
       <author id="hamada-nayel" orcid="0000-0002-2768-4639"><first>Hamada</first><last>Nayel</last><affiliation>Benha University</affiliation></author>
-      <author><first>Rahmath</first><last>Mohammed</last><affiliation>Prince Sattam Bin Abdulaziz University</affiliation></author>
       <pages>1779-1783</pages>
       <abstract>In this paper, we present our system, which was submitted to SemEval-2026 Task 9 (Subtask 1: Polarization Detection) and focuses on binary classification of polarized content in Arabic social media text. To address Arabic linguistic variations, we propose a single-model approach that combines fine-tuned AraBERT with synonym-based data augmentation. On the Arabic bind set, our method achieves a competitive macro F1-score of 0.831 and an accuracy of 0.833. Among the 45 participating teams, our system ranked 11th overall, with a performance gap of 0.018 macro F1 from the top-ranked team (0.8488). The results show that a fine-tuned AraBERT with synonym replacement is a strong, simple, and reproducible baseline that outperforms more complex setups in dealing with Arabic attitude polarization nuances.</abstract>
       <url hash="caad010b">2026.semeval-1.226</url>
@@ -2885,7 +2892,7 @@
     </paper>
     <paper id="240">
       <title><fixed-case>NCL</fixed-case>-<fixed-case>BU</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: Fine-tuning <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a for Multilingual Dimensional Sentiment Regression</title>
-      <author><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="tong-wu"><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
       <author id="nicolay-rusnachenko" orcid="0000-0002-9750-5499"><first>Nicolay</first><last>Rusnachenko</last><affiliation>Bournemouth University</affiliation></author>
       <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>1911-1918</pages>
@@ -2900,7 +2907,7 @@
       <author id="denis-laschenko" orcid="0009-0000-8669-2930"><first>Denis</first><last>Laschenko</last><affiliation>TUM</affiliation></author>
       <author id="albert-korotyk" orcid="0009-0005-5444-1383"><first>Albert</first><last>Korotyk</last><affiliation>Technical University of Munich</affiliation></author>
       <pages>1919-1929</pages>
-      <abstract>The Dimensional ABSA (DimABSA) sharedtask extends traditional aspect-based sentimentanalysis from categorical polarity to continuousvalence–arousal (VA) prediction. We presentour system for all three subtasks: DimensionalAspect Sentiment Regression (DimASR),Dimensional Aspect Sentiment Triplet Extrac-tion (DimASTE), and Dimensional AspectSentiment Quad Prediction (DimASQP).Due to the cascading nature of the differentsubtasks, we built a modular interlockingpipeline that uses classical Machine Learningand NLP methods.Experiments across domains show consistentgains in regression accuracy and structuredextraction performance. Our results demon-strate the effectiveness of distribution-awareregression, retrieval-augmented generation, andcontrastive prototype learning for dimensionalsentiment analysis.</abstract>
+      <abstract>The Dimensional ABSA (DimABSA) shared task extends traditional aspect-based sentiment analysis from categorical polarity to continuous valence–arousal (VA) prediction. We present our system for all three subtasks: Dimensional Aspect Sentiment Regression (DimASR), Dimensional Aspect Sentiment Triplet Extraction (DimASTE), and Dimensional Aspect Sentiment Quad Prediction (DimASQP). Due to the cascading nature of the different subtasks, we built a modular interlocking pipeline that uses classical Machine Learning and NLP methods. Experiments across domains show consistent gains in regression accuracy and structured extraction performance. Our results demonstrate the effectiveness of distribution-aware regression, retrieval-augmented generation, and contrastive prototype learning for dimensional sentiment analysis.</abstract>
       <url hash="cbf1d2aa">2026.semeval-1.241</url>
       <attachment hash="b75d499b" type="SupplementaryMaterial">2026.semeval-1.241.SupplementaryMaterial.zip</attachment>
       <bibkey>laschenko-korotyk-2026-sokratum</bibkey>
@@ -2908,7 +2915,7 @@
     </paper>
     <paper id="242">
       <title><fixed-case>NCL</fixed-case>-<fixed-case>U</fixed-case>o<fixed-case>R</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: Embedding-Based Methods, Fine-Tuning, and <fixed-case>LLM</fixed-case>s for Word Sense Plausibility Rating</title>
-      <author><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="tong-wu"><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
       <author><first>Thanet</first><last>Markchom</last><affiliation>University of Reading</affiliation></author>
       <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>1930-1937</pages>
@@ -3232,13 +3239,13 @@
     </paper>
     <paper id="269">
       <title>Team Habib Disambiguators at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: Assessing Semantic Plausibility using Regularized Transformer Fine-Tuning</title>
-      <author><first>Zohaib</first><last>Aslam</last><affiliation>Habib University</affiliation></author>
       <author><first>Ahsan</first><last>Siddiqui</last><affiliation>Habib University</affiliation></author>
+      <author><first>Zohaib</first><last>Aslam</last><affiliation>Habib University</affiliation></author>
       <author><first>Ayesha</first><last>Enayet</last><affiliation>Habib University</affiliation></author>
       <pages>2126-2129</pages>
       <abstract>This paper presents a system for SemEval-2026 Task 5: Rating Plausibility of Word Senses in Ambiguous Sentences through Narrative Understanding. The task involves predicting the plausibility of a specific word sense within a short story where context provided by the ending resolves a deliberate ambiguity. We model this as a regression problem, fine-tuning a DeBERTa-v3 transformer to predict the distribution of human judgments rather than a single hard label. To address the challenge of limited training data and potential overfitting, we employ R-Drop (Consistency Regularization) to enforce prediction stability across dropout masks and Layer-wise Learning Rate Decay (LLRD) to preserve the model’s pre-trained linguistic knowledge. Our experiments demonstrate that treating plausibility as a soft-label distribution, combined with aggressive regularization, improves generalization on ambiguous samples. The submitted system achieves a Spearman correlation of 0.56 and an Accuracy (within SD) of 0.74 on the official test set.</abstract>
       <url hash="d12f0019">2026.semeval-1.269</url>
-      <bibkey>aslam-etal-2026-team</bibkey>
+      <bibkey>siddiqui-etal-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.269</doi>
     </paper>
     <paper id="270">
@@ -3256,12 +3263,12 @@
     <paper id="271">
       <title><fixed-case>AI</fixed-case>-Monitors at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 4: A Hybrid Embedding and <fixed-case>LLM</fixed-case> Ensemble for Narrative Similarity</title>
       <author><first>Vishnu</first><last>Tripathi</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Azad</first><last>-</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, Indiaa</affiliation></author>
       <author><first>Prakhar</first><last>Joshi</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Pragyananda</first><last>Sahoo</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
+      <author><first>Azad</first><last>Singh</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, Indiaa</affiliation></author>
+      <author><first>Pragyanand</first><last>Saho</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
       <author><first>Gaurav</first><last>Kumar</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Piyush</first><last>Arora</last><affiliation>American Express AI Labs</affiliation></author>
       <author><first>Neel</first><last>Mani</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
+      <author><first>Piyush</first><last>Arora</last><affiliation>American Express AI Labs</affiliation></author>
       <pages>2139-2148</pages>
       <abstract>Narrative similarity requires reasoning over the deeper structural properties of stories - shared themes, causal progression, and outcomes - rather than surface-level lexical overlap. We describe AI-Monitors, our system for SemEval-2026 Task 4 (Track A), which determines which of two candidate stories is more narratively similar to a given anchor. We explore a progression of approaches - from embedding-based similarity to structured LLM prompting and ensemble construction - guided by four hypotheses about where narrative reasoning gains can be found. The final system achieves 75\% test accuracy on 400 instances, ranking 3rd out of 47 systems and approaching the individual human annotator ceiling of 78\%.Our key findings are: i) structured few-shot prompting substantially outperforms dense embedding similarity; ii) selecting ensemble components by how differently they make errors - rather than by accuracy alone - produces stronger predictions; and iii) how you describe an example to the model affects its predictions.</abstract>
       <url hash="08f8d29e">2026.semeval-1.271</url>
@@ -3281,12 +3288,10 @@
     <paper id="273">
       <title><fixed-case>T</fixed-case>eam<fixed-case>L</fixed-case>asse at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: A Hybrid Generative-Discriminative Framework for Dimensional Aspect-Based Sentiment Analysis</title>
       <author><first>Lasse</first><last>Strothe</last><affiliation>TUM</affiliation></author>
-      <author><first>Shaghayegh</first><last>Kolli</last><affiliation>Technical university of munich</affiliation></author>
-      <author><first>Jana</first><last>Diesner</last><affiliation>Technical university of munich</affiliation></author>
       <pages>2155-2162</pages>
       <abstract>In this paper, we present our system for SemEval-2026 Task 3 Track A: Dimensional Aspect-Based Sentiment Analysis (DimABSA). The core objective is to extract structural sentiment elements—such as aspects, opinions, and categories—from text and predict their corresponding continuous Valence-Arousal (VA) scores. The primary challenge lies in simultaneously handling structural extraction and continuous numerical regression across highly imbalanced datasets encompassing multiple languages and domains. To address this complexity, we propose a decoupled, two-stage hybrid generative-discriminative framework. A generative Large Language Model first extracts structured sentiment tuples, while an encoder-based language model performs the continuous VA regression. To foster cross-lingual and cross-domain generalization, we train our models using a targeted data balancing mechanism.</abstract>
       <url hash="ac79ded1">2026.semeval-1.273</url>
-      <bibkey>strothe-etal-2026-teamlasse</bibkey>
+      <bibkey>strothe-2026-teamlasse</bibkey>
       <doi>10.18653/v1/2026.semeval-1.273</doi>
     </paper>
     <paper id="274">
@@ -3365,8 +3370,6 @@
       <author><first>Leonie</first><last>Süß</last><affiliation>Technical University of Munich</affiliation></author>
       <author><first>Umut</first><last>Yıldırır</last><affiliation>Technical University of Munich</affiliation></author>
       <author><first>Qiyan</first><last>Zhai</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Shaghayegh</first><last>Kolli</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Jana</first><last>Diesner</last><affiliation>Technical University of Munich</affiliation></author>
       <pages>2216-2227</pages>
       <abstract>We describe our system for SemEval-2026 Task 6 (CLARITY), which addresses automatic detection of evasive responses in political interviews. We adopt an LLM-first approach built around two core contributions: (i) an iterative prompt repair loop that diagnoses classification errors on concrete failure examples and applies prompt revisions and (ii) a configurable end-to-end Java Pipeline that supports multiple LLM providers, strategies, and systematic experimentation.</abstract>
       <url hash="8994f8f3">2026.semeval-1.280</url>
@@ -3569,16 +3572,16 @@
       <doi>10.18653/v1/2026.semeval-1.296</doi>
     </paper>
     <paper id="297">
-      <title><fixed-case>IR</fixed-case>e<fixed-case>LIIT</fixed-case>(<fixed-case>BHU</fixed-case>) at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Detecting Multilingual, Multicultural and Multievent Online Polarization</title>
+      <title><fixed-case>IR</fixed-case>e<fixed-case>L_IIT</fixed-case>(<fixed-case>BHU</fixed-case>) at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Detecting Multilingual, Multicultural and Multievent Online Polarization</title>
       <author><first>Soumadip</first><last>Majumder</last><affiliation>Indian Institute of Technology (BHU) Varanasi</affiliation></author>
       <author><first>Arjun</first><last>Mukherjee</last><affiliation>Indian Institute of Technology(BHU), Varanasi</affiliation></author>
       <author id="krishna-tewari" orcid="0009-0005-6599-9956"><first>Krishna</first><last>Tewari</last><affiliation>Indian Institute of Technology (BHU) Varanasi</affiliation></author>
       <author><first>Sanjaya</first><last>Lenka</last><affiliation>Indian Institute of Technology (BHU) Varanasi</affiliation></author>
       <author><first>Sukomal</first><last>Pal</last><affiliation>Indian Institute of Technology (BHU) Varanasi</affiliation></author>
       <pages>2354-2358</pages>
-      <abstract>This paper presents the IReLIIT(BHU) submission to SemEval-2026 Task 9 for the Chinese language track. We participated in all three subtasks: binary polarization detection,multi-label polarization type classification, and multi-label manifestation identification. Our approach is based on a unified transformer based framework with cross-validation, prediction aggregation, and threshold optimization to improve robustness across tasks. On the official evaluation, our systems achieved Macro-F1 scores of 0.9081, 0.7962, and 0.6484 for Subtasks 1, 2, and 3, respectively on test data.</abstract>
+      <abstract>This paper presents the IReL_IIT(BHU) submission to SemEval-2026 Task 9 for the Chinese language track. We participated in all three subtasks: binary polarization detection,multi-label polarization type classification, and multi-label manifestation identification. Our approach is based on a unified transformer based framework with cross-validation, prediction aggregation, and threshold optimization to improve robustness across tasks. On the official evaluation, our systems achieved Macro-F1 scores of 0.9081, 0.7962, and 0.6484 for Subtasks 1, 2, and 3, respectively on test data.</abstract>
       <url hash="1873767b">2026.semeval-1.297</url>
-      <bibkey>majumder-etal-2026-ireliit</bibkey>
+      <bibkey>majumder-etal-2026-irel</bibkey>
       <doi>10.18653/v1/2026.semeval-1.297</doi>
     </paper>
     <paper id="298">
@@ -3652,11 +3655,11 @@
     </paper>
     <paper id="304">
       <title><fixed-case>MALTO</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: Detecting Human, <fixed-case>AI</fixed-case>, and Hybrid Code via Hard Negative Mining and Curriculum-Driven Ensembles</title>
-      <author id="huseyin-arslan" orcid="0009-0009-6957-820X"><first>Hüseyin</first><last>Arslan</last><affiliation>Politecnico di Torino</affiliation></author>
+      <author id="huseyin-arslan" orcid="0009-0009-6957-820X"><first>Hüseyin Arda</first><last>Arslan</last><affiliation>Politecnico di Torino</affiliation></author>
       <author id="evren-ayberk-munis" orcid="0009-0001-3088-9934"><first>Evren Ayberk</first><last>Munis</last><affiliation>Politecnico Di Torino</affiliation></author>
       <author id="timofei-khudonogov" orcid="0009-0001-9673-9242"><first>Timofei</first><last>Khudonogov</last><affiliation>Politecnico di Torino</affiliation></author>
-      <author id="mert-akgun" orcid="0009-0001-7880-0417"><first>Mert</first><last>Akgun</last><affiliation>Politecnico di Torino</affiliation></author>
-      <author id="murat-besli" orcid="0009-0007-7750-007X"><first>Murat</first><last>Besli</last><affiliation>Student</affiliation></author>
+      <author id="mert-akgun" orcid="0009-0001-7880-0417"><first>Mert</first><last>Akgün</last><affiliation>Politecnico di Torino</affiliation></author>
+      <author id="murat-besli" orcid="0009-0007-7750-007X"><first>Murat</first><last>Beşli</last><affiliation>Student</affiliation></author>
       <author id="ayhan-meherrem" orcid="0009-0008-5959-0160"><first>Ayhan</first><last>Meherrem</last><affiliation>Politecnico di Torino</affiliation></author>
       <author id="claudio-savelli" orcid="0009-0005-1108-1170"><first>Claudio</first><last>Savelli</last><affiliation>Politecnico di Torino</affiliation></author>
       <author id="flavio-giobergia" orcid="0000-0001-8806-7979"><first>Flavio</first><last>Giobergia</last><affiliation>Politecnico di Torino</affiliation></author>
@@ -3882,7 +3885,7 @@
       <author><first>Yusser</first><last>Al Ghussin</last><affiliation>DFKI, Saarland University</affiliation></author>
       <author><first>Daniil</first><last>Gurgurov</last><affiliation>DFKI</affiliation></author>
       <author><first>Yasser</first><last>Hamidullah</last><affiliation>DFKI</affiliation></author>
-      <author><first>Josef</first><last>Van Genabith</last><affiliation>DFKI</affiliation></author>
+      <author><first>Josef</first><last>van Genabith</last><affiliation>DFKI</affiliation></author>
       <author><first>Cristina</first><last>España-Bonet</last><affiliation>BSC/DFKI GmbH</affiliation></author>
       <author><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
       <pages>2548-2563</pages>
@@ -4019,7 +4022,7 @@
     <paper id="334">
       <title>The Classics at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: Combining Transformer Models and <fixed-case>LLM</fixed-case>-Generated Annotations for Dimensional Aspect-Based Sentiment Analysis</title>
       <author id="rafif-alshawi" orcid="0009-0003-5045-8204"><first>Rafif</first><last>Alshawi</last><affiliation>Higher School of Economics</affiliation></author>
-      <author id="amit-raj" orcid="0009-0005-7347-9141"><first>Amit Raj</first><last>-</last><affiliation>HSE University</affiliation></author>
+      <author id="amit-raj" orcid="0009-0005-7347-9141"><first>Amit</first><last>Raj</last><affiliation>HSE University</affiliation></author>
       <author id="aleksey-kudelya" orcid="0009-0008-5280-703X"><first>Aleksey</first><last>Kudelya</last><affiliation>HSE University</affiliation></author>
       <author id="alexander-shirnin" orcid="0009-0007-1842-1988"><first>Alexander</first><last>Shirnin</last><affiliation>HSE University</affiliation></author>
       <pages>2648-2656</pages>
@@ -4069,7 +4072,7 @@
       <author><first>Wei</first><last>Liu</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
       <author><first>Michael</first><last>Strube</last><affiliation>Heidelberg Institute for Theoretical Studies</affiliation></author>
       <pages>2679-2688</pages>
-      <abstract>We first use Qwen2.5-32B-Instruct model to generate hard negatives from threenarrative dimensions. We then train a Qwen3-Embedding-8B model with a multi-negativecontrastive objective and use self-distllation.</abstract>
+      <abstract>Narrative text embedding is the basis for machines to understand and represent stories. However, it is challenging because it depends on similarities in theme, course of action, and outcomes. To target this challenge, we present a task-aligned system for SemEval-2026 Task 4 Track B. We first use Qwen2.5-32B-Instruct model to generate hard negatives from three narrative dimensions. We then train a Qwen3-Embedding-8B model with a multi-negative contrastive objective and use a teacher model that has the same architecture as the training model. The model achieves the best result in the current training phase by introducing "soft label" via KL Divergence.</abstract>
       <url hash="b138f095">2026.semeval-1.338</url>
       <bibkey>zhou-etal-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.338</doi>
@@ -4951,15 +4954,15 @@
     </paper>
     <paper id="412">
       <title><fixed-case>REGLAT</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 12: Multi-Strategy Ensemble Reasoning for Event Causality Identification</title>
-      <author id="mariam-labib" orcid="0000-0003-1403-049X"><first>Mariam</first><last>Francies</last><affiliation>Computer Engineering, Elsewedy University of Technology, Cairo, Egypt</affiliation></author>
+      <author id="mariam-labib" orcid="0000-0003-1403-049X"><first>Mariam</first><last>Labib</last><affiliation>Computer Engineering, Elsewedy University of Technology, Cairo, Egypt</affiliation></author>
       <author id="nsrin-ashraf" orcid="0000-0001-5336-6362"><first>Nsrin</first><last>Ashraf</last><affiliation>Benha University</affiliation></author>
-      <author><first>Ahmed</first><last>Fetouh</last><affiliation>Benha Faculty of Computers and Artificial Intelligence</affiliation></author>
+      <author><first>Ahmed M.</first><last>Fetouh</last><affiliation>Benha Faculty of Computers and Artificial Intelligence</affiliation></author>
       <author><first>Asad</first><last>Khalil</last><affiliation>Mr</affiliation></author>
       <author id="hamada-nayel" orcid="0000-0002-2768-4639"><first>Hamada</first><last>Nayel</last><affiliation>Benha University</affiliation></author>
       <pages>3310-3315</pages>
-      <abstract>This paper describes the multi-strategy ensemble approach that has been used to develop the model submitted to the Abductive Event Reasoning shared task. The proposed model combines semantic similarity, causal pattern recognition, and Large Language Models (LLMs) to identify causal relationships between news events and their causes. Our system achieved competitive performance by integrating semantic embedding-based similarity, explicit causal pattern matching, keyword overlap analysis, temporal alignment scoring, and LLM-enhanced reasoning. Our system achieved accuracies of 65.4\% and 43.2\% on the development set using the LLM-enhanced configuration and the non-LLM ensemble, respectively. The final score using the test set on the leaderboard is 0.3.</abstract>
+      <abstract>This paper describes the multi-strategy ensemble approach that has been used to develop the model submitted to the Abductive Event Reasoning shared task. The proposed model combines semantic similarity, causal pattern recognition, and Large Language Models (LLMs) to identify causal relationships between news events and their causes. Our system achieved competitive performance by integrating semantic embedding-based similarity, explicit causal pattern matching, keyword overlap analysis, temporal alignment scoring, and LLM-enhanced reasoning. Our system achieved accuracies of 65.4% and 43.2% on the development set using the LLM-enhanced configuration and the non-LLM ensemble, respectively. The final score using the test set on the leaderboard is 0.3.</abstract>
       <url hash="7d915bc3">2026.semeval-1.412</url>
-      <bibkey>francies-etal-2026-reglat</bibkey>
+      <bibkey>labib-etal-2026-reglat-semeval</bibkey>
       <doi>10.18653/v1/2026.semeval-1.412</doi>
     </paper>
     <paper id="413">
@@ -5055,7 +5058,7 @@
       <author><first>Amol</first><last>Vijayachandran</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Ananth</first><last>Rajesh</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Siddharth</first><last>Mago</last><affiliation>IIIT Hyderabad</affiliation></author>
-      <author><first>Maitreya</first><last>Chitale</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author><first>Maitreya Prafulla</first><last>Chitale</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Aparajitha</first><last>Allamraju</last><affiliation>IIIT Hyderabad</affiliation></author>
       <pages>3382-3393</pages>
       <abstract>Narrative similarity extends beyond standard semantic tasks, requiring alignment of temporal, causal, and emotional structures. We present StoryNet, a framework that represents stories as heterogeneous graphs with character, event, and theme nodes. Stories are decomposed into structured narrative facets using large language models, and similarity is evaluated through both weighted semantic facet comparison and a graph neural network trained with contrastive learning. We analyze how integrating symbolic structure with learned graph representations compares to purely embedding-based baselines.</abstract>
@@ -5427,14 +5430,14 @@
       <title><fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 2: Predicting Variation in Emotional Valence and Arousal over Time from Ecological Essays</title>
       <author><first>Nikita</first><last>Soni</last><affiliation>Stony Brook University</affiliation></author>
       <author id="h-andrew-schwartz" orcid="0000-0002-6383-3339"><first>H. Andrew</first><last>Schwartz</last><affiliation>Stony Brook University</affiliation></author>
-      <author id="ryan-boyd" orcid="0000-0002-1876-6050"><first>Ryan</first><last>Boyd</last><affiliation>University of Texas at Dallas</affiliation></author>
+      <author id="ryan-boyd" orcid="0000-0002-1876-6050"><first>Ryan L.</first><last>Boyd</last><affiliation>University of Texas at Dallas</affiliation></author>
       <author><first>Phi Long</first><last>Bui</last><affiliation>Vanderbilt University, Stanford University</affiliation></author>
       <author id="syeda-mahwish" orcid="0000-0002-2154-5179"><first>Syeda</first><last>Mahwish</last><affiliation>Cornell University</affiliation></author>
-      <author><first>August</first><last>Nilsson</last><affiliation>OsloMet</affiliation></author>
+      <author><first>August Håkan</first><last>Nilsson</last><affiliation>OsloMet</affiliation></author>
       <author><first>Adithya</first><last>V Ganesan</last><affiliation>Stony Brook University</affiliation></author>
       <author id="lyle-ungar" orcid="0000-0003-2047-1443"><first>Lyle</first><last>Ungar</last><affiliation>University of Pennsylvania</affiliation></author>
       <author><first>Niranjan</first><last>Balasubramanian</last><affiliation>Stony Brook University</affiliation></author>
-      <author id="saif-mohammad" orcid="0000-0003-2716-7516"><first>Saif</first><last>Mohammad</last><affiliation>National Research Council Canada</affiliation></author>
+      <author id="saif-mohammad" orcid="0000-0003-2716-7516"><first>Saif M.</first><last>Mohammad</last><affiliation>National Research Council Canada</affiliation></author>
       <pages>3731-3752</pages>
       <abstract>We present our shared task on predicting variation in emotional valence and arousal over time from ecological essays. The shared task uses a longitudinal dataset collected over 7 data collection phases of 14-day each spanning from 2021 to 2024, consisting of real-time essays and feeling words (e.g., happy, calm, sad, etc.) written in English by U.S. service-industry workers about “how they are feeling”. Each text is associated with self-reported valence (V) (0 - 4, highly negative to highly positive affect) and arousal (A) (0 - 2, low to high energy) scores. The shared task consists of three parts, Subtask (1): Longitudinal Affect Assessment, Subtask (2): Forecasting Variation in Affect as a (2a): \textit{state change}, and (2b): \textit{disposition change}.The task attracted over 200 member registrations on Codabench, receiving official system submissions from 31 teams (total 104 team members), of which 28 teams (with 90 team members) submitted system description papers making it to our leaderboard. We discuss baseline results along with findings from 28 systems, highlighting the best-performing systems, a deeper analysis of performance on essays versus feeling words, and assessments for authors seen versus unseen during training. The datasets for this task are publicly available.</abstract>
       <url hash="1c6eb600">2026.semeval-1.451</url>
@@ -5537,7 +5540,7 @@
       <title><fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 7: Everyday Knowledge Across Diverse Languages and Cultures</title>
       <author id="nedjma-ousidhoum" orcid="0000-0003-3015-4759"><first>Nedjma</first><last>Ousidhoum</last><affiliation>Cardiff University</affiliation></author>
       <author><first>Junho</first><last>Myung</last><affiliation>KAIST</affiliation></author>
-      <author id="carla-perez-almendros" orcid="0000-0001-9360-4011"><first>Carla</first><last>Perez Almendros</last><affiliation>Cardiff University</affiliation></author>
+      <author id="carla-perez-almendros" orcid="0000-0001-9360-4011"><first>Carla</first><last>Perez-Almendros</last><affiliation>Cardiff University</affiliation></author>
       <author><first>Jiho</first><last>Jin</last><affiliation>KAIST</affiliation></author>
       <author><first>Amr</first><last>Keleg</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author><first>Meriem</first><last>Beloucif</last><affiliation>Uppsala University</affiliation></author>
@@ -5547,8 +5550,24 @@
       <author><first>Naomi</first><last>Baes</last><affiliation>University of Melbourne</affiliation></author>
       <author><first>James</first><last>Barry</last><affiliation>IBM Research</affiliation></author>
       <author><first>Joanne</first><last>Boisson</last><affiliation>Cardiff University</affiliation></author>
-      <author id="nancy-chen" orcid="0000-0003-0872-5877"><first>Nancy</first><last>Chen</last><affiliation>Institute for Infocomm Research, A*STAR</affiliation></author>
-      <author><first>Christine</first><last>De Kock</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="nancy-chen" orcid="0000-0003-0872-5877"><first>Nancy F.</first><last>Chen</last><affiliation>Institute for Infocomm Research, A*STAR</affiliation></author>
+      <author><first>Christine</first><last>de Kock</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Aleksandra</first><last>Edwards</last></author>
+      <author><first>Joseba</first><last>Fernandez de Landa</last></author>
+      <author><first>Mohamed</first><last>Fazli Imam</last></author>
+      <author><first>Huda</first><last>Hakami</last></author>
+      <author><first>Shu-Kai</first><last>Hsieh</last></author>
+      <author><first>Joseph Marvin</first><last>Imperial</last></author>
+      <author><first>Roy Ka-Wei</first><last>Lee</last></author>
+      <author><first>Zhengyuan</first><last>Liu</last></author>
+      <author><first>Chenyang</first><last>Lyu</last></author>
+      <author><first>Younes</first><last>Samih</last></author>
+      <author><first>Johan</first><last>Sjons</last></author>
+      <author><first>Bryan</first><last>Tan</last></author>
+      <author><first>Asahi</first><last>Ushio</last></author>
+      <author><first>Weihua</first><last>Zheng</last></author>
+      <author><first>Alice</first><last>Oh</last></author>
+      <author><first>Jose</first><last>Camacho-Collados</last></author>
       <pages>3823-3837</pages>
       <abstract>We present our shared task on evaluating the adaptability of LLMs and NLP systems across multiple languages and cultures. The task data consist of an extended version of our manually constructed BLEnD benchmark (Myung et al., 2024), covering more than 30 language–culture pairs, predominantly representing low-resource languages spoken across multiple continents. As the task is designed strictly for evaluation, participants were not permitted to use the data for training, fine-tuning, few-shot learning, or any other form of model modification.Our task includes two tracks: (a) Short-Answer Questions (SAQ) and (b) Multiple-Choice Questions (MCQ). Participants were required to predict labels and were allowed to submit any NLP system and adopt diverse modelling strategies, provided that the benchmark was used solely for evaluation. The task attracted more than 140 registered participants, and we received final submissions from 62 teams, along with 19 system description papers.We report the results and present an analysis of the best-performing systems and the most commonly adopted approaches. Furthermore, we discuss shared insights into open questions and challenges related to evaluation, misalignment, and methodological perspectives on model behaviour in low-resource languages and for under-represented cultures. Our data and resources are available at https://github.com/BLEnD-SemEval2026/SemEval-2026-Task-7.</abstract>
       <url hash="d8dfa12b">2026.semeval-1.455</url>

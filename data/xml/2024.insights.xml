@@ -90,7 +90,7 @@
       <author><first>Minh Duc</first><last>Bui</last><affiliation>University of Mainz</affiliation></author>
       <author><first>Fabian</first><last>Schmidt</last><affiliation>University of Wuerzburg</affiliation></author>
       <author><first>Goran</first><last>Glavaš</last><affiliation>University of Würzburg</affiliation></author>
-      <author><first>Katharina</first><last>Von Der Wense</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>University of Colorado Boulder</affiliation></author>
       <pages>41-47</pages>
       <abstract>Compared to standard language model (LM) pretraining (i.e., from scratch), Knowledge Distillation (KD) entails an additional forward pass through a teacher model that is typically substantially larger than the target student model. As such, KD in LM pretraining materially slows down throughput of pretraining instances vis-a-vis pretraining from scratch. Scaling laws of LM pretraining suggest that smaller models can close the gap to larger counterparts if trained on more data (i.e., processing more tokens)—and under a fixed computation budget, smaller models are able to process more data than larger models. We thus hypothesize that KD might, in fact, be suboptimal to pretraining from scratch for obtaining smaller LMs, when appropriately accounting for the compute budget. To test this, we compare pretraining from scratch against several KD strategies for masked language modeling (MLM) in a fair experimental setup, with respect to amount of computation as well as pretraining data. Downstream results on GLUE, however, do not confirm our hypothesis: while pretraining from scratch performs comparably to ordinary KD under a fixed computation budget, more sophisticated KD strategies, namely TinyBERT and MiniLM, outperform it by a notable margin. We further find that KD yields larger gains over pretraining from scratch when the data can be repeated under the fixed computation budget.</abstract>
       <url hash="fb002cbf">2024.insights-1.6</url>
@@ -205,7 +205,7 @@
     <paper id="15">
       <title>Harnessing the Power of Multiple Minds: Lessons Learned from <fixed-case>LLM</fixed-case> Routing</title>
       <author><first>Kv Aditya</first><last>Srivatsa</last><affiliation>MBZUAI</affiliation></author>
-      <author><first>Kaushal</first><last>Maurya</last><affiliation>MBZUAI</affiliation></author>
+      <author id="kaushal-maurya"><first>Kaushal Kumar</first><last>Maurya</last><affiliation>MBZUAI</affiliation></author>
       <author><first>Ekaterina</first><last>Kochmar</last><affiliation>MBZUAI</affiliation></author>
       <pages>124-134</pages>
       <abstract>With the rapid development of LLMs, it is natural to ask how to harness their capabilities efficiently. In this paper, we explore whether it is feasible to direct each input query to a single most suitable LLM. To this end, we propose LLM routing for challenging reasoning tasks. Our extensive experiments suggest that such routing shows promise but is not feasible in all scenarios, so more robust approaches should be investigated to fill this gap.</abstract>
@@ -241,7 +241,7 @@
     <paper id="18">
       <title>Multi-Task Learning with Adapters for Plausibility Prediction: Bridging the Gap or Falling into the Trenches?</title>
       <author><first>Annerose</first><last>Eichel</last><affiliation>University of Stuttgart</affiliation></author>
-      <author id="sabine-schulte-im-walde"><first>Sabine</first><last>Schulte Im Walde</last><affiliation>University of Stuttgart</affiliation></author>
+      <author id="sabine-schulte-im-walde"><first>Sabine</first><last>Schulte im Walde</last><affiliation>University of Stuttgart</affiliation></author>
       <pages>154-168</pages>
       <abstract>We present a multi-task learning approach to predicting semantic plausibility by leveraging 50+ adapters categorized into 17 tasks within an efficient training framework. Across four plausibility datasets in English of varying size and linguistic constructions, we compare how models provided with knowledge from a range of NLP tasks perform in contrast to models without external information. Our results show that plausibility prediction benefits from complementary knowledge (e.g., provided by syntactic tasks) are significant but non-substantial, while performance may be hurt when injecting knowledge from an unsuitable task. Similarly important, we find that knowledge transfer may be hindered by class imbalance, and demonstrate the positive yet minor effect of balancing training data, even at the expense of size.</abstract>
       <url hash="ee9a8358">2024.insights-1.18</url>

@@ -293,6 +293,10 @@ LATEX_MACRO_TO_XMLTAG = {
     "sl": "i",
     "textbf": "b",
     "bf": "b",
+    "underline": "u",
+    "uline": "u",
+    "textsc": "sc",
+    "texttt": "tt",
     "url": "url",
 }
 """A mapping of LaTeX macros to Anthology XML tags."""
@@ -317,6 +321,7 @@ LW_CONTEXT.add_context_category(
     prepend=True,
     macros=[
         MacroSpec("href", "{{"),
+        MacroSpec("uline", "{"),
     ],
 )
 
@@ -345,9 +350,8 @@ L2T_CONTEXT.add_context_category(
     "common macros",
     prepend=True,
     macros=[
-        # \href: drop the URL but keep the text – we could append the URL in a
-        # <url> tag, but this cannot be done here, we would have to add this to
-        # _parse_nodelist_to_element as another special case
+        # \href: when converting to plain text, drop the URL but keep the
+        # text. (parse_latex_to_xml handles \href specially to keep the URL.)
         MacroTextSpec("href", simplify_repl=r"%(2)s")
     ],
 )
@@ -417,6 +421,18 @@ def _parse_nodelist_to_element(
             elif node.macroname == "\\":
                 # Special case: explicit linebreak \\
                 append_text(element, "\n")
+            elif node.macroname == "href":
+                # Hyperlink: the first argument is the URL (kept as an
+                # attribute), the second is the link text (recursed into <a>)
+                subelem = etree.SubElement(element, "a")
+                urlarg, textarg = node.nodeargd.argnlist
+                url = urlarg.latex_verbatim().strip()
+                if url.startswith("{") and url.endswith("}"):
+                    url = url[1:-1]
+                subelem.set("href", url)
+                _parse_nodelist_to_element(
+                    [textarg], subelem, use_fixed_case, in_macro=True
+                )
             else:
                 # This macro either represents a special characters, such as
                 # \v{c} or \"I, or is some other macro we do not explicitly

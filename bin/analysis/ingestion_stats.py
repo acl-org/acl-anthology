@@ -24,6 +24,7 @@ The report includes:
     the ingested volumes, i.e. first-time Anthology authors),
   - the number of new entries added to `data/yaml/people.yaml`,
   - a histogram of papers by number of authors,
+  - the top ten authors by paper counts within the ingested volumes,
   - the number of single-author papers written by those new authors,
   - the percentage of paper-author instances (by token) that have an ORCID iD.
 
@@ -31,13 +32,13 @@ By default, the script computes a `git diff` against a base revision (default
 `origin/master`) to discover which volumes were *added* and how many new
 entries were added to `data/yaml/people.yaml`. This is how it is run from CI:
 
-    ./bin/ingestion_stats.py --base origin/master
+    ./bin/analysis/ingestion_stats.py --base origin/master
 
 The base revision can be changed with `--base`. Volumes can also be passed
 explicitly as full volume IDs, which overrides volume detection from the diff
 (the people.yaml diff is still computed against the base):
 
-    ./bin/ingestion_stats.py 2025.acl-long 2025.acl-short 2025.findings-acl
+    ./bin/analysis/ingestion_stats.py 2025.acl-long 2025.acl-short 2025.findings-acl
 
 The report is intended to be posted as a (single, updatable) PR comment.
 """
@@ -80,7 +81,7 @@ def get_diff(base: str, datadir: Path) -> List[str]:
     Returns:
         The diff output as a list of lines.
     """
-    repo_root = Path(__file__).resolve().parent.parent
+    repo_root = Path(__file__).resolve().parent.parent.parent
     xml_dir = (datadir / "xml").as_posix()
     people_yaml = (datadir / "yaml" / "people.yaml").as_posix()
     result = subprocess.run(
@@ -190,9 +191,16 @@ def compute_stats(
     # ingested set (i.e. they are first-time authors).
     people_papers: Dict = defaultdict(list)
     for paper in papers:
-        for author in paper.authors:
-            person = author.resolve()
+        for person in {author.resolve() for author in paper.authors}:
             people_papers[person].append(paper)
+
+    top_authors = sorted(
+        (
+            (person.canonical_name.as_first_last(), len(author_papers), person.id)
+            for person, author_papers in people_papers.items()
+        ),
+        key=lambda item: (-item[1], item[0].casefold(), item[2]),
+    )[:10]
 
     def is_new_person(person) -> bool:
         return all(paper.parent.full_id in volume_set for paper in person.papers())
@@ -217,6 +225,7 @@ def compute_stats(
         "num_author_instances_with_orcid": num_author_instances_with_orcid,
         "pct_author_instances_with_orcid": pct_author_instances_with_orcid,
         "author_count_hist": author_count_hist,
+        "top_authors": top_authors,
     }
 
 
@@ -259,6 +268,14 @@ def format_report(stats: Dict) -> str:
     )
     lines.append("")
 
+    top_authors = stats["top_authors"]
+    if top_authors:
+        author_counts = ", ".join(
+            f"{author} ({count})" for author, count, _person_id in top_authors
+        )
+        lines.append(f"Top ten authors by paper counts: {author_counts}")
+        lines.append("")
+
     lines.append("### Papers by number of authors")
     lines.append("")
     hist = stats["author_count_hist"]
@@ -296,7 +313,7 @@ def main() -> None:
     parser.add_argument(
         "--datadir",
         type=Path,
-        default=Path(__file__).parent / ".." / "data",
+        default=Path(__file__).parent / ".." / ".." / "data",
         help="Path to the Anthology data directory. Default: %(default)s.",
     )
     args = parser.parse_args()

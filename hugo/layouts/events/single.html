@@ -14,20 +14,32 @@
 
   {{/* Get the event and iterate through all the volumes associated with it */}}
   {{ $volumes := index $event "volumes" }}
+  {{ if $event.links }}
+  <nav class="d-grid d-sm-flex gap-2 mb-3 mb-lg-4" aria-label="Event resources">
+    {{ range $event.links }}
+      {{ range $label, $link := . }}
+        {{ $link_class := "btn-outline-secondary" }}
+        {{ $link_icon := "fas fa-link" }}
+        {{ $link_label := $label }}
+        {{ if eq (lower $label) "website" }}
+          {{ $link_class = "btn-outline-primary" }}
+          {{ $link_icon = "fas fa-globe" }}
+        {{ else if eq (lower $label) "handbook" }}
+          {{ $link_class = "btn-primary" }}
+          {{ $link_icon = "far fa-file-pdf" }}
+          {{ $link_label = "Conference handbook" }}
+        {{ end }}
+        <a class="btn {{ $link_class }} d-flex align-items-center justify-content-center gap-2" href="{{ $link }}">
+          <i class="{{ $link_icon }}" aria-hidden="true"></i>
+          <span>{{ $link_label }}</span>
+          {{ if eq (lower $label) "website" }}<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>{{ end }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+  {{ end }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
-      {{ if $event.links }}
-      <h4 class="card-title">Links</h4>
-      <ul class="list-ps-responsive">
-        {{ range $event.links }}
-          {{ range $label, $link := . }}
-        <li>
-          <a class="align-middle" href="{{ $link }}">{{ $label }}</a>
-        </li>
-          {{ end }}
-        {{ end }}
-      </ul>
-      {{ end }}
       <h4 class="card-title">Volumes</h4>
       <ul class="list-ps-responsive">
         {{ range $volumes }}
@@ -73,6 +85,10 @@
       <span class="d-block me-2 list-button-row">
       {{- with $volume.pdf -}}
       <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
+      <br class="d-none d-sm-inline-block" />
+      {{- end -}}
+      {{- with $volume.external -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external proceedings" aria-label="Open external proceedings"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
       {{- $bibfile := printf "volumes/%s.bib" . -}}

@@ -23,6 +23,7 @@ from functools import total_ordering
 from lxml import etree
 from typing import Optional, SupportsIndex, TYPE_CHECKING
 from xml.sax.saxutils import escape as xml_escape
+import re
 
 if TYPE_CHECKING:
     import rich
@@ -43,10 +44,32 @@ MARKUP_LATEX_CMDS = defaultdict(
         "fixed-case": "{{{text}}}",
         "b": "\\textbf{{{text}}}",
         "i": "\\textit{{{text}}}",
+        "u": "\\underline{{{text}}}",
+        "sc": "\\textsc{{{text}}}",
+        "tt": "\\texttt{{{text}}}",
+        "par": "\\par ",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
     },
 )
+
+
+def protect_par(element: etree._Element) -> bool:
+    # Mark <par/> paragraph breaks with a sentinel character so they survive
+    # whitespace normalization (which strips newlines from the source),
+    # then restore them as paragraph breaks.
+    changed = False
+    for sub in element.iterfind(".//par"):
+        sub.text = "\ue000"
+        changed = True
+    return changed
+
+
+RE_PAR_PLACEHOLDER = re.compile(r"\s*\ue000\s*")
+
+
+def unprotect_par(text: str, replacement: str) -> str:
+    return RE_PAR_PLACEHOLDER.sub(replacement, text)
 
 
 def markup_to_latex(element: etree._Element) -> str:
@@ -60,6 +83,11 @@ def markup_to_latex(element: etree._Element) -> str:
         text += markup_to_latex(nested_element)
         if nested_element.tail:
             text += latex_encode(nested_element.tail)
+
+    if tag == "a":
+        # Hyperlinks carry their target in the href attribute
+        href = element.get("href", "")
+        return f"\\href{{{href}}}{{{text}}}"
 
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
     return text
@@ -157,8 +185,10 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
+        has_par = protect_par(element)
         text = etree.tostring(element, encoding="unicode", method="text")
-        self._text = remove_extra_whitespace(text)
+        text = remove_extra_whitespace(text)
+        self._text = unprotect_par(text, "\n\n") if has_par else text
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
@@ -183,6 +213,13 @@ class MarkupText:
                 else:
                     sub.tag = "span"
                 sub.set("class", "acl-markup-url")
+            elif sub.tag == "a":
+                if not allow_url:
+                    sub.tag = "span"
+                    sub.attrib.pop("href", None)
+            elif sub.tag == "sc":
+                sub.tag = "span"
+                sub.set("style", "font-variant: small-caps")
             elif sub.tag == "fixed-case":
                 sub.tag = "span"
                 sub.set("class", "acl-fixed-case")
@@ -190,9 +227,20 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
+            elif sub.tag == "par":
+                # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
+                sub.tag = "br"
+                another = etree.Element("br")
+                another.tail = sub.tail
+                sub.tail = None
+                sub.addnext(another)
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
+
         self._html = remove_extra_whitespace(stringify_children(element))
+
+        # remove whitespace before or after <br/>
+        self._html = re.sub(r"\s*((<br/>)+)\s*", r"\1", self._html)
         return self._html
 
     def as_latex(self) -> str:
@@ -207,6 +255,9 @@ class MarkupText:
         else:
             latex = markup_to_latex(self._content)
         self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
+
+        # remove whitespace before \par
+        self._latex = re.sub(r"\s*\\par", r"\\par", self._latex)
         return self._latex
 
     def as_xml(self) -> str:

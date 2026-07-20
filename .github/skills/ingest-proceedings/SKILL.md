@@ -176,28 +176,22 @@ Do **not** pass `-w` or `--parent-event`.
 
 ```bash
 cd {{REPO}}
-{{PY}} bin/ingest.py "<ROOT>"
+{{PY}} bin/ingest.py "<ROOT>" \
+  --event-title "64th Annual Meeting of the Association for Computational Linguistics" \
+  --event-location "San Diego, California, United States" \
+  --event-dates "July 2–7, 2026" \
+  --event-website "https://2026.aclweb.org" \
+  --event-handbook "/path/to/acl-2026-handbook.pdf"
 git add data && git commit -m "Ingested <name>"     # only on success
 ```
 
-Then give the event its own **`<event>` block with when/where it happened** so
-the event page is populated (and so colocated workshops have something to attach
-to). Create it explicitly on the collection via the public API:
-
-```python
-from acl_anthology import Anthology
-a = Anthology.from_within_repo(); a.load_all()
-coll = a.get_collection("2026.acl")
-ev = coll.create_event(             # id defaults to "<venue>-<year>", e.g. acl-2026
-    title="Annual Meeting of the Association for Computational Linguistics",
-    location="San Diego, California, USA",
-    dates="July 3–8, 2026",
-)
-a.save_all()
-```
-
-This writes `<event id="acl-2026"><meta><title/><location/><dates/></meta>…` into
-`data/xml/2026.acl.xml`. Colocated workshops later append `<colocated>` entries.
+The event options create or update the collection's **`<event>` block**, which
+populates the event page and gives colocated workshops something to attach to.
+`--event-handbook` copies the supplied PDF to
+`~/anthology-files/handbooks/<venue>/<collection-id>.handbook.pdf` by default
+and adds a handbook link; override the root with `--event-files-dir`. Colocated
+workshops later append `<colocated>` entries without replacing the event
+metadata.
 
 ### 3b. Colocated workshop
 Pass `-w` (adds the `ws` venue tag) and `--parent-event` (colocates under the
