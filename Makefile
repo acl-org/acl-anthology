@@ -91,7 +91,7 @@ sitemap: build/.sitemap
 
 build/.sitemap: build/.hugo
 	uv run python bin/split_sitemap.py build/website/$(ANTHOLOGYDIR)/sitemap.xml
-	@rm -f build/website/$(ANTHOLOGYDIR)/sitemap_*.xml.gz
+	@rm -f build/website/$(ANTHOLOGYDIR)/sitemap.xml build/website/$(ANTHOLOGYDIR)/sitemap_*.xml.gz
 	@gzip -9n build/website/$(ANTHOLOGYDIR)/sitemap_*.xml
 	@bin/create_sitemapindex.sh `ls build/website/$(ANTHOLOGYDIR)/ | grep 'sitemap_.*xml.gz'` > build/website/$(ANTHOLOGYDIR)/sitemapindex.xml
 	@touch build/.sitemap
@@ -247,6 +247,7 @@ preview:
 	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" bin/aclanthology.org/preview-robots.txt anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/robots.txt; \
 	else \
 	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
 	  exit 1; \

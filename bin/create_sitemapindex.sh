@@ -17,12 +17,17 @@
 # Creates a sitemapindex.xml from a list of sitemap files
 # Usage: create_sitemapindex.sh [sitemap files] > sitemapindex.xml
 
+set -euo pipefail
+
+base_url="${ANTHOLOGY_PREFIX:-https://aclanthology.org}"
+base_url="${base_url%/}"
+
 echo '<?xml version="1.0" encoding="UTF-8"?>'
 echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
 for f in "$@"; do
 	echo '  <sitemap>'
-    echo '    <loc>https://aclanthology.org/'$f'</loc>'
+	printf '    <loc>%s/%s</loc>\n' "$base_url" "$f"
 	echo '  </sitemap>'
 done
 echo '</sitemapindex>'
