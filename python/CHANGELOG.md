@@ -7,7 +7,7 @@
 - Added support for recording OpenReview IDs for authors.
 - Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
 - Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
-- `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
+- Validate author names on instantiation of `Name`.
 
 ## [1.2.0] — 2026-05-21
 
