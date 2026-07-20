@@ -63,7 +63,7 @@ from pathlib import Path
 
 import requests
 from git.repo.base import Repo
-from github import Github, GithubException
+from github import Auth, Github, GithubException
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
@@ -89,7 +89,7 @@ def _get_github_repo(repo_name):
         )
         sys.exit(1)
 
-    client = Github(token)
+    client = Github(auth=Auth.Token(token))
     try:
         return client.get_repo(repo_name)
     except GithubException as exc:
