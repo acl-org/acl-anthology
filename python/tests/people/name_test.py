@@ -379,6 +379,17 @@ def test_name_as_bibtex():
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
 
 
+test_cases_initial_case_normalize = (
+    (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+    (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+    ((None, "S.b.priya"), (None, "S.B.Priya")),
+    (("Shri", "Sashmitha.s"), ("Shri", "Sashmitha.S")),
+    (("b.", "Webber"), ("B.", "Webber")),
+    (("Jonathan q.", "Arbuckle"), ("Jonathan Q.", "Arbuckle")),
+    (("B. l.", "Webber"), ("B. L.", "Webber")),
+)
+
+
 test_cases_name_case_normalize = (
     (("marcel", "bollmann"), ("Marcel", "Bollmann")),
     (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
@@ -394,6 +405,10 @@ test_cases_name_case_normalize = (
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
     (("ken", "mcguire"), ("Ken", "McGuire")),
+    *test_cases_initial_case_normalize,
+    (("Johann v.", "Hahn"), ("Johann v.", "Hahn")),
+    ((None, "Translated.net"), (None, "Translated.net")),
+    ((None, "Weifeng.liu"), (None, "Weifeng.liu")),
 )
 
 

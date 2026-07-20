@@ -85,8 +85,25 @@ _LAST_NAME_LOWERCASE_REGEX = re.compile(
     flags=re.IGNORECASE,
 )
 
+_LOWERCASE_INITIAL_REGEX = re.compile(r"\b[a-uw-z](?=\.)")
+"""Matches lowercase one-letter initials followed by a period, excluding `v.`."""
+
+_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
+"""Matches lowercase one-letter components after a period in dotted names."""
+
+_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
+    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
+)
+"""Matches whitespace-delimited dotted tokens beginning with an initial, such as `S.B.priya`."""
+
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
 """Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
+
+
+def _normalize_initials(part: str) -> str:
+    part = _LOWERCASE_INITIAL_REGEX.sub(lambda match: match.group().upper(), part)
+    part = _DOTTED_INITIAL_COMPONENT_REGEX.sub(lambda match: match.group().upper(), part)
+    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), part)
 
 
 RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
@@ -265,8 +282,9 @@ class Name:
     def case_normalize(self, force: bool = False) -> Name:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this changes the name only if it is currently all-lowercased
-        or all-uppercased.
+        By default, this changes the name if it is currently all-lowercased or
+        all-uppercased. Lowercase initials are also normalized in otherwise
+        mixed-case names.
 
         Examples:
             Normalize a name that is entirely uppercase:
@@ -274,8 +292,14 @@ class Name:
             >>> Name("MARCEL", "BOLLMANN").case_normalize()
             Name('Marcel', 'Bollmann')
 
+            Repair initials in an otherwise mixed-case name:
+
+            >>> Name("John C.s.", "Lui").case_normalize()
+            Name('John C.S.', 'Lui')
+
         Arguments:
             force: Apply title-casing even when the full name is mixed-case.
+                Initial normalization is always applied.
 
         Returns:
             The original object when no changes are needed; otherwise, a new
@@ -292,8 +316,14 @@ class Name:
         first, last = self.first, self.last
         firstlast = self.as_first_last()
 
+        if first is not None:
+            first = _normalize_initials(first)
+        last = _normalize_initials(last)
+
         if not (force or firstlast.islower() or firstlast.isupper()):
-            return self
+            if first == self.first and last == self.last:
+                return self
+            return self.__class__(first, last)
 
         if first is not None:
             first = first.title()
