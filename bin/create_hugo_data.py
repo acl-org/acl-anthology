@@ -37,7 +37,6 @@ from calendar import monthrange
 from collections import Counter
 from datetime import date
 from functools import cache
-import json
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -751,126 +750,6 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
-def load_affiliation_geocache():
-    """Load committed affiliation -> coordinates data. The build only READS these
-    files; it never contacts a geocoding service.
-
-    Organization identities and sectors come from ROR; coordinates use linked
-    Wikidata institution points with ROR GeoNames localities as explicit fallbacks.
-    Manual corrections in data/geo/affiliation_overrides.json take precedence,
-    since some prominent organizations (especially companies with generic names
-    like "Amazon") are ambiguous in ROR or resolve to the wrong place.
-    """
-    geo_dir = os.path.join(SCRIPTDIR, "..", "data", "geo")
-    cache = {}
-    try:
-        with open(
-            os.path.join(geo_dir, "affiliation_geocache.json"), encoding="utf-8"
-        ) as f:
-            cache = json.load(f)
-    except FileNotFoundError:
-        log.warning(
-            "No affiliation geocache found; the affiliation map will be empty. "
-            "Run bin/geocode_affiliations.py to populate it."
-        )
-    try:
-        with open(
-            os.path.join(geo_dir, "affiliation_overrides.json"), encoding="utf-8"
-        ) as f:
-            cache.update(json.load(f))
-    except FileNotFoundError:
-        pass
-    # Keys beginning with "_" are in-file documentation (each JSON file carries a
-    # "_comment" describing its provenance), not affiliation entries.
-    return {key: value for key, value in cache.items() if not key.startswith("_")}
-
-
-def export_affiliation_map(anthology, builddir, dryrun):
-    """Aggregate author affiliations from <author> tags and join them with cached
-    coordinates to produce the data for the world map on the statistics page.
-
-    Counting is per *paper*, not per author: within a paper each institution is
-    counted at most once (the set of affiliations, not the multiset), so a paper
-    with many co-authors from the same institution does not inflate its point.
-    Distinct affiliation strings that resolve to the same ROR organization are
-    merged and, thanks to the per-paper de-duplication below, still only count once
-    per paper. Coordinates are presentation data, not organization identifiers:
-    ROR commonly gives every organization in a city the same GeoNames centroid.
-    """
-    geocache = load_affiliation_geocache()
-    sectors = ("academic", "industry", "government", "other")
-
-    string_paper_counts = Counter()  # affiliation string -> number of papers
-    organization_paper_counts = Counter()  # organization identity -> papers
-    organization_members = {}  # organization identity -> {affiliation: cache hit}
-    total_papers = 0
-    papers_with_affiliation = 0
-
-    for paper in anthology.papers():
-        total_papers += 1
-        # The set (not multiset) of whitespace-normalized affiliation strings on
-        # this paper; the normalized string is the shared geocache key.
-        strings = set()
-        for namespec in paper.authors:
-            if namespec.affiliation:
-                norm = " ".join(namespec.affiliation.split())
-                if norm:
-                    strings.add(norm)
-        if strings:
-            papers_with_affiliation += 1
-        paper_organizations = set()
-        for norm in strings:
-            string_paper_counts[norm] += 1
-            hit = geocache.get(norm)
-            if not hit:
-                continue
-            # Only ROR identity can safely merge different affiliation strings.
-            # Unidentified/manual entries remain distinct by normalized string.
-            key = ("ror", hit["ror_id"]) if hit.get("ror_id") else ("affiliation", norm)
-            paper_organizations.add(key)
-            organization_members.setdefault(key, {})[norm] = hit
-        # Count each distinct organization at most once for this paper.
-        for key in paper_organizations:
-            organization_paper_counts[key] += 1
-
-    points = []
-    sector_totals = {sector: 0 for sector in sectors}
-    for key, members in organization_members.items():
-        count = organization_paper_counts[key]
-        # Label the point after the string that appears on the most papers.
-        label = max(members, key=lambda norm: (string_paper_counts[norm], norm))
-        hit = members[label]
-        sector = hit.get("sector", "other")
-        sector = sector if sector in sectors else "other"
-        sector_totals[sector] += count
-        points.append(
-            {
-                "label": label,
-                "lat": round(hit["lat"], 4),
-                "lon": round(hit["lon"], 4),
-                "count": count,
-                "aliases": len(members),
-                "sector": sector,
-                "coordinate_source": hit.get(
-                    "coordinate_source", hit.get("source", "unknown")
-                ),
-            }
-        )
-    points.sort(key=lambda point: (-point["count"], point["label"]))
-
-    data = {
-        "total_papers": total_papers,
-        "papers_with_affiliation": papers_with_affiliation,
-        "located_points": len(points),
-        "sector_totals": sector_totals,
-        "points": points,
-    }
-    if not dryrun:
-        with open(f"{builddir}/data/affiliation_map.json", "wb") as f:
-            f.write(ENCODER.encode(data))
-    return data
-
-
 def export_anthology(anthology, builddir, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
@@ -896,7 +775,6 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
-    export_affiliation_map(anthology, builddir, dryrun)
 
 
 if __name__ == "__main__":

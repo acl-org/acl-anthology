@@ -4,7 +4,6 @@
 {{ $verification := .Site.GetPage "/info/verification.md" }}
 {{ $orcid := .Site.GetPage "/info/orcid.md" }}
 {{ $names := .Site.GetPage "/info/names.md" }}
-{{ $statsPage := .Site.GetPage "/stats" }}
 
 <main class="acl-people-index" data-author-directory
       data-index-base="{{ "people/index/" | relURL }}"
@@ -134,15 +133,44 @@
     </aside>
   </div>
 
-  {{ with $statsPage }}
-  <a class="acl-people-more" href="{{ .RelPermalink }}">
-    <span class="acl-people-more__icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span>
-    <span class="acl-people-more__text">
-      <strong>Explore author statistics</strong>
-      <small>New authors per year, plus a world map of author affiliations</small>
-    </span>
-    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-  </a>
+  {{ with $stats.first_paper_year_hist }}
+  {{ $peak := index (sort . "count" "desc") 0 }}
+  {{ $maxCount := $peak.count }}
+  {{ $first := index . 0 }}
+  {{ $latest := index (last 1 .) 0 }}
+  <section class="acl-people-histogram" aria-labelledby="author-histogram-heading">
+    <div class="acl-people-histogram__heading">
+      <div>
+        <h2 id="author-histogram-heading">New authors by year</h2>
+        <p>Each author page is counted once, in the year its earliest paper appeared.</p>
+      </div>
+      <i class="fas fa-chart-bar" aria-hidden="true"></i>
+    </div>
+
+    <figure class="acl-people-histogram__figure">
+      <ol class="acl-people-histogram__bars">
+        {{ range . }}
+        {{ $height := 0 }}
+        {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
+        <li class="acl-people-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
+            style="--bar-height: {{ $height }}%;"
+            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}">
+          <span class="acl-people-histogram__column" aria-hidden="true"></span>
+          {{ if or (eq (mod .year 10) 0) (eq .year $first.year) (eq .year $latest.year) }}
+          <span class="acl-people-histogram__tick{{ if or (eq .year $first.year) (eq .year $latest.year) }} is-endpoint{{ end }}" aria-hidden="true">{{ .year }}</span>
+          {{ end }}
+          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors</span>
+        </li>
+        {{ end }}
+      </ol>
+      <figcaption class="acl-people-histogram__caption">
+        Authors are placed in the year of their first Anthology paper
+        ({{ $first.year }}&ndash;{{ $latest.year }}). The busiest debut year so far is
+        {{ $peak.year }}, with {{ lang.FormatNumberCustom 0 $peak.count }} new authors;
+        the most recent year keeps growing as new volumes are ingested.
+      </figcaption>
+    </figure>
+  </section>
   {{ end }}
 </main>
 {{ end }}

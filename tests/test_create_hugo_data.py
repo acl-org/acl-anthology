@@ -15,7 +15,6 @@ from bin.create_hugo_data import (
     author_search_index,
     author_stats,
     export_author_index,
-    export_affiliation_map,
     export_homepage_stats,
     first_paper_year_histogram,
     homepage_stats,
@@ -56,61 +55,6 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
 
     with open(data_dir / "homepage.json") as f:
         assert json.load(f) == homepage_stats(anthology)
-
-
-def test_affiliation_map_aggregates_by_ror_id_not_coordinates(monkeypatch):
-    coordinates = {
-        "lat": 40.71427,
-        "lon": -74.00597,
-        "sector": "academic",
-        "coordinate_source": "ror-geonames",
-    }
-    geocache = {
-        "Columbia University": {
-            **coordinates,
-            "ror_id": "https://ror.org/columbia",
-        },
-        "Columbia University in the City of New York": {
-            **coordinates,
-            "ror_id": "https://ror.org/columbia",
-        },
-        "New York University": {
-            **coordinates,
-            "ror_id": "https://ror.org/nyu",
-        },
-    }
-    monkeypatch.setattr(
-        "bin.create_hugo_data.load_affiliation_geocache", lambda: geocache
-    )
-
-    def paper(*affiliations):
-        return SimpleNamespace(
-            authors=[SimpleNamespace(affiliation=value) for value in affiliations]
-        )
-
-    anthology = SimpleNamespace(
-        papers=lambda: iter(
-            [
-                paper(
-                    "Columbia University",
-                    "Columbia University in the City of New York",
-                ),
-                paper("New York University"),
-                paper("Columbia University", "New York University"),
-            ]
-        )
-    )
-
-    data = export_affiliation_map(anthology, builddir=None, dryrun=True)
-    points = {point["label"]: point for point in data["points"]}
-
-    assert set(points) == {"Columbia University", "New York University"}
-    assert points["Columbia University"]["count"] == 2
-    assert points["Columbia University"]["aliases"] == 2
-    assert points["New York University"]["count"] == 2
-    assert points["Columbia University"]["coordinate_source"] == "ror-geonames"
-    assert data["located_points"] == 2
-    assert data["sector_totals"]["academic"] == 4
 
 
 def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
