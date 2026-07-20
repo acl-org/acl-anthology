@@ -111,7 +111,11 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     export_author_index(people, tmp_path)
 
     with open(tmp_path / "data" / "people_stats.json") as f:
-        assert json.load(f) == expected_stats
+        exported_stats = json.load(f)
+    assert exported_stats.pop("search_bucket_counts") == {
+        bucket: len(rows) for bucket, rows in index.items()
+    }
+    assert exported_stats == expected_stats
     index_dir = tmp_path / "static" / "people" / "index"
     assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
     with open(index_dir / "l.json") as f:

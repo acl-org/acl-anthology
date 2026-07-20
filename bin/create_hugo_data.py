@@ -495,14 +495,19 @@ def author_search_index(people):
 
 def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author index."""
+    search_index = author_search_index(people)
+    stats = author_stats(people)
+    stats["search_bucket_counts"] = {
+        bucket: len(rows) for bucket, rows in search_index.items()
+    }
     with open(f"{builddir}/data/people_stats.json", "wb") as f:
-        f.write(ENCODER.encode(author_stats(people)))
+        f.write(ENCODER.encode(stats))
 
     index_dir = f"{builddir}/static/people/index"
     if os.path.isdir(index_dir):
         shutil.rmtree(index_dir)
     os.makedirs(index_dir)
-    for bucket, rows in author_search_index(people).items():
+    for bucket, rows in search_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
 
