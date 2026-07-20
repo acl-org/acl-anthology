@@ -559,9 +559,7 @@ def test_volume_create_paper_with_new_explicit_author(name, anthology):
         authors=authors,
     )
     assert (person := anthology.people.get_by_orcid("0000-0002-9659-1532")) is not None
-    assert person.canonical_name == Name.from_(
-        "Tånnander, Christina"
-    )  # always the case-normalized version
+    assert person.canonical_name == Name.from_(name)
     assert paper.authors[0].id == "christina-tannander"
     assert paper.authors[0].resolve() is person
     assert person.item_ids == set([paper.full_id_tuple])

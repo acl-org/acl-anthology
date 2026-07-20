@@ -34,6 +34,7 @@ import re
 import shutil
 import sys
 import PyPDF2
+import unicodedata
 
 from collections import defaultdict
 from datetime import datetime
@@ -56,6 +57,95 @@ from acl_anthology.utils import setup_rich_logging
 from fixedcase.protect import protect as protect_fixedcase
 
 ARCHIVAL_DEFAULT = True
+
+LAST_NAME_LOWERCASE_PREFIXES = {
+    "al",
+    "bin",
+    "bint",
+    "da",
+    "de",
+    "del",
+    "de la",
+    "dela",
+    "della",
+    "di",
+    "dos",
+    "du",
+    "el",
+    "la",
+    "le",
+    "van",
+    "van den",
+    "van der",
+    "von",
+    "von der",
+}
+_LAST_NAME_LOWERCASE_REGEX = re.compile(
+    f"^({'|'.join(sorted(LAST_NAME_LOWERCASE_PREFIXES, key=lambda value: -len(value)))}) ",
+    flags=re.IGNORECASE,
+)
+_LAST_NAME_CAPITALIZATION_RULES = (
+    (r"^Mc([a-z])", lambda match: "Mc" + match.group(1).upper()),
+)
+_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
+_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
+    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
+)
+_VALID_NAME_PART_REGEX = re.compile(
+    r"[^ '\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?"
+)
+_UNDERCAPITALIZED_INITIAL_REGEX = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
+_VALID_NAME_PUNCTUATION = "'’.,‘\"“”„-–—&/()"
+
+
+def normalize_name_part(value: str) -> str:
+    """Repair dotted initials in a first- or last-name component."""
+    value = _DOTTED_INITIAL_COMPONENT_REGEX.sub(
+        lambda match: match.group().upper(), value
+    )
+    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), value)
+
+
+def validate_name_part(value: str, part: str) -> None:
+    """Reject malformed first- or last-name input before it enters the Anthology."""
+    if not value or value.isalpha():
+        return
+    if not _VALID_NAME_PART_REGEX.fullmatch(value):
+        raise ValueError(f"Invalid {part} name: {value}")
+    if _UNDERCAPITALIZED_INITIAL_REGEX.search(value):
+        raise ValueError(f"Invalid {part} name (initial should be capitalized): {value}")
+    for character in set(value) - {" "}:
+        is_bad_punctuation = (
+            character not in _VALID_NAME_PUNCTUATION
+            and unicodedata.category(character).startswith(("P", "S"))
+        )
+        if character.isdigit() or is_bad_punctuation:
+            if character.isdigit() and " 3rd" in value and part == "last":
+                continue
+            raise ValueError(
+                f"Invalid {part} name (bad character): {value!r} "
+                f"({character}, \\u{hex(ord(character))})"
+            )
+
+
+def normalize_name(first: Optional[str], last: str) -> Tuple[Optional[str], str]:
+    """Normalize and validate name parts supplied by an ingestion source."""
+    first = normalize_name_part(first) if first is not None else None
+    last = normalize_name_part(last)
+    full_name = f"{first} {last}" if first else last
+
+    if full_name.islower() or full_name.isupper():
+        first = first.title() if first is not None else None
+        last = last.title()
+        if match := _LAST_NAME_LOWERCASE_REGEX.match(last):
+            last = match.group(0).lower() + last[match.end() :]
+        for pattern, substitute in _LAST_NAME_CAPITALIZATION_RULES:
+            last = re.sub(pattern, substitute, last)
+
+    if first is not None:
+        validate_name_part(first, "first")
+    validate_name_part(last, "last")
+    return first, last
 
 
 def read_meta(path: str) -> Dict[str, Any]:
@@ -376,6 +466,7 @@ def namespec_from(
     first = latex_to_text(first.strip()) if first else None
     last = latex_to_text(last.strip()) if last else ""
     try:
+        first, last = normalize_name(first, last)
         name = Name(first or None, last)
     except ValueError as e:
         log.error(

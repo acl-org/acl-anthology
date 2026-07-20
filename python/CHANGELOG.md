@@ -7,7 +7,14 @@
 - Added support for recording OpenReview IDs for authors.
 - Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
 - Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
-- Validate author names on instantiation of `Name`.
+
+### Changed
+
+- Name casing normalization and validation now happen in `bin/ingest.py`; the library preserves supplied name data unchanged.
+
+### Removed
+
+- Removed `Name.case_normalize()` and `NameSpecification.case_normalize()`.
 
 ## [1.2.0] — 2026-05-21
 

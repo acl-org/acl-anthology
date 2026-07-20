@@ -331,75 +331,9 @@ def test_name_from_any():
         Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?
 
 
-test_cases_valid_names = [
-    ("Hal", "Daumé III"),
-    ("Hal", "Daumé 3rd"),
-    ("Jan", "Hajic jr."),
-    ("Jan", "Hajic, jr."),
-    ("B.L. B. LT", "B.L"),
-]
-
-
-@pytest.mark.parametrize("first, last", test_cases_valid_names)
-def test_name_valid(first, last):
-    Name(first, last)
-
-
-test_cases_invalid_names = [
-    ("Hal", "Daum?"),
-    ("C`ecile", "Fabre"),
-    ("Mausam", "."),
-    ("Mausam", "-"),
-    ("Mausam", "_"),
-    ("Noor-e-", "Hira"),
-    ("Sir", "C3PO"),
-    ("Bonnie", "Lynn_Webber"),
-    ("b.", "Webber"),
-    ("Jonathan q.", "Arbuckle"),
-    ("B.l.", "Webber"),
-    ("B. l.", "Webber"),
-    ("B.     ", "Webber"),
-    ("Bonnie.lynn", "Webber"),
-    ("Bonnie", "Webber,"),
-    ("Bonnie", ".Webber"),
-    ("Bonnie", "Webber1"),
-    ("Bonnie", "Webber*"),
-]
-
-
-@pytest.mark.parametrize("first, last", test_cases_invalid_names)
-def test_name_invalid(first, last):
-    with pytest.raises(ValueError):
-        Name(first, last)
-
-
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
-
-
-test_cases_name_case_normalize = (
-    (("marcel", "bollmann"), ("Marcel", "Bollmann")),
-    (("MARCEL", "BOLLMANN"), ("Marcel", "Bollmann")),
-    (
-        ("MIRYAM", "DE LHONEUX"),
-        ("Miryam", "de Lhoneux"),
-    ),  # heuristic for last name particle
-    (
-        ("simon", "von der weide"),
-        ("Simon", "von der Weide"),
-    ),  # heuristic for multi-part last name particle
-    (("marc-andre", "hackforth-jones"), ("Marc-Andre", "Hackforth-Jones")),
-    (("james", "o'neill"), ("James", "O'Neill")),
-    (("JAMES", "O’NEILL"), ("James", "O’Neill")),
-    (("ken", "mcguire"), ("Ken", "McGuire")),
-)
-
-
-@pytest.mark.parametrize("before, after", test_cases_name_case_normalize)
-def test_name_case_normalize(before, after):
-    name = Name(*before)
-    assert name.case_normalize() == Name(*after)
 
 
 def test_namespec_root_is_anthology(parent):

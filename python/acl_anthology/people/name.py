@@ -14,14 +14,13 @@
 
 from __future__ import annotations
 
-from attrs import Attribute, define, field, setters, validators as v
+from attrs import define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
-import unicodedata
 from slugify import slugify
-from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
+from typing import Any, Iterable, Optional, cast, TypeAlias, TYPE_CHECKING
 import yaml
 
 try:
@@ -53,102 +52,6 @@ SLUGIFY_REPLACEMENTS = (
 """Custom replacement rules for name slugs."""
 
 
-LAST_NAME_LOWERCASE_PREFIXES = {
-    "al",
-    "bin",
-    "bint",
-    "da",
-    "de",
-    "del",
-    "de la",
-    "dela",
-    "della",
-    "di",
-    "dos",
-    "du",
-    "el",
-    "la",
-    "le",
-    "van",
-    "van den",
-    "van der",
-    "von",
-    "von der",
-}
-"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
-
-# Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
-# are reverse-sorted by length so that it is always the longest string that
-# matches (e.g. so that "von der Weide" matches "von der", not just "von").
-_LAST_NAME_LOWERCASE_REGEX = re.compile(
-    f"^({'|'.join(sorted(LAST_NAME_LOWERCASE_PREFIXES, key=lambda s: -len(s)))}) ",
-    flags=re.IGNORECASE,
-)
-
-LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
-"""Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
-
-
-RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
-r"""Regex that partially checks validity of first and last names.
-
-First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
-
-Used by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part].
-"""
-
-RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
-"""Regex that checks for spurious lowercase characters in a name.
-
-First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
-"""
-
-EN_DASH = "\u2013"
-EM_DASH = "\u2014"
-
-VALID_NAME_PUNCT = "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()"
-"""Punctuation characters allowed in names."""
-
-
-def _is_bad_punct(c: str) -> bool:
-    """Check for invalid punctuation/symbol characters in a first or last name.
-
-    [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT] is the whitelist of valid punctuation characters.
-    """
-    if c in VALID_NAME_PUNCT:
-        return False
-    elif unicodedata.category(c).startswith(("P", "S")):
-        return True
-    return False
-
-
-def is_valid_name_part(instance: Name, attribute: Attribute[Any], value: str) -> bool:
-    """Check if attribute is a valid first or last name.  Intended to be used as an attrs validator.
-
-    Returns:
-        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
-    """
-    if not value or value.isalpha():
-        # If all characters are alphabetic, it is guaranteed to be valid.
-        # Empirically this applies to 80% of names. This test short-circuits the slower checks.
-        return True
-    elif not RE_NAME_VALID.fullmatch(value):
-        raise ValueError(f"Invalid {attribute.name} name: {value}")
-    elif RE_NAME_UNDERCAPITALIZED.search(value):
-        raise ValueError(
-            f"Invalid {attribute.name} name (initial should be capitalized): {value}"
-        )
-    else:
-        for c in set(value) - {" "}:
-            if c.isdigit() or _is_bad_punct(c):
-                if c.isdigit() and " 3rd" in value and attribute.name == "last":
-                    continue
-                raise ValueError(
-                    f"Invalid {attribute.name} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
-                )
-    return True
-
-
 @define(frozen=True)
 class Name:
     """A person's name.
@@ -161,8 +64,6 @@ class Name:
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
-    First and last names are validated by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts will trigger a `ValueError` on instantiation.
-
     Examples:
         >>> Name("Yang", "Liu")
         Name('Yang', 'Liu')
@@ -174,9 +75,9 @@ class Name:
 
     first: Optional[str] = field(
         eq=lambda x: x if x else None,
-        validator=(v.optional(v.instance_of(str)), v.optional(is_valid_name_part)),
+        validator=v.optional(v.instance_of(str)),
     )
-    last: str = field(validator=(v.instance_of(str), v.min_len(1), is_valid_name_part))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
         default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
@@ -253,52 +154,6 @@ class Name:
         if self.first and len(self.first) > len(self.last):
             score += 0.5
         return score
-
-    def case_normalize(self, force: bool = False) -> Name:
-        """Try to heuristically normalize the casing of the name.
-
-        By default, this changes the name only if it is currently all-lowercased
-        or all-uppercased.
-
-        Examples:
-            Normalize a name that is entirely uppercase:
-
-            >>> Name("MARCEL", "BOLLMANN").case_normalize()
-            Name('Marcel', 'Bollmann')
-
-        Arguments:
-            force: Apply title-casing even when the full name is mixed-case.
-
-        Returns:
-            The original object when no changes are needed; otherwise, a new
-            instance of the same concrete class with normalized name parts.
-
-        Note:
-            Names with a `script` attribute are returned unchanged.
-        """
-        if self.script is not None:
-            # Non-Latin script variants are left unchanged;
-            # should never trigger, but just in case...
-            return self  # pragma: no cover
-
-        first, last = self.first, self.last
-        firstlast = self.as_first_last()
-
-        if not (force or firstlast.islower() or firstlast.isupper()):
-            return self
-
-        if first is not None:
-            first = first.title()
-        last = last.title()
-        # Prefixes
-        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
-            print(m)
-            last = m.group(0).lower() + last[m.end() :]
-        # Other normalization rules
-        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
-            last = re.sub(pattern, substitute, last)
-
-        return self.__class__(first, last)
 
     @cache
     def slugify(self) -> str:
@@ -562,14 +417,6 @@ class NameSpecification:
         if not self.name.first:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
-
-    def case_normalize(self, force: bool = False) -> Self:
-        """Try to heuristically normalize the casing of the name.
-
-        See [acl_anthology.people.name.Name.case_normalize][].
-        """
-        self.name = self.name.case_normalize(force=force)
-        return self
 
     def resolve(self) -> Person:
         """Resolve this name specification to a natural person.
