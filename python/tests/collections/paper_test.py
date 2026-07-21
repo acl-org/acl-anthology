@@ -16,6 +16,7 @@ import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
 from acl_anthology.files import AttachmentReference, PDFReference
 from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
@@ -199,6 +200,12 @@ def test_paper_ingest_date_inherits_from_parent_volume(anthology):
     assert paper.ingest_date == value
     paper.ingest_date = value
     assert paper._ingest_date == value.isoformat()
+
+
+def test_paper_unknown_ingest_date(anthology):
+    paper = anthology.get_paper("L06-1067")
+    value = paper.ingest_date
+    assert value == UNKNOWN_INGEST_DATE
 
 
 test_cases_language = (
