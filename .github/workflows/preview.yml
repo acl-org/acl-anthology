@@ -15,6 +15,11 @@ concurrency:
   group: preview-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   preview:
     if: github.repository == 'acl-org/acl-anthology'
@@ -91,7 +96,7 @@ jobs:
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
-    - name: Update preview link in PR description
+    - name: Notify ingestion reviewers of preview
       uses: actions/github-script@v6
       with:
         script: |
@@ -104,11 +109,15 @@ jobs:
           });
           if (prs.length === 0) return;
           const pr = prs[0];
+          if (!/^ingest\b/i.test(pr.title)) return;
+
           const body = pr.body || '';
           const previewUrl = 'https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}';
+          const previewHeading = 'Navigate to the preview site and check the following:';
+          const linkedPreviewHeading = `Navigate to [the preview](${previewUrl}) site and check the following:`;
           const updated = body.replace(
-            'Navigate to the preview site (it will be generated after the first build)',
-            `Navigate to the [preview site](${previewUrl})`
+            previewHeading,
+            linkedPreviewHeading
           );
           if (updated !== body) {
             await github.rest.pulls.update({
@@ -116,5 +125,70 @@ jobs:
               repo: context.repo.repo,
               pull_number: pr.number,
               body: updated,
+            });
+          }
+
+          const lines = updated.split(/\r?\n/);
+          const blockStart = lines.findIndex(line => line.trim() === linkedPreviewHeading);
+          if (blockStart === -1) return;
+
+          let blockEnd = blockStart + 1;
+          while (blockEnd < lines.length && lines[blockEnd].trim() !== '') {
+            blockEnd += 1;
+          }
+          const previewBlock = lines.slice(blockStart, blockEnd).join('\n');
+
+          const result = await github.graphql(
+            `query($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $number) {
+                  closingIssuesReferences(first: 20) {
+                    nodes {
+                      number
+                      repository {
+                        name
+                        owner {
+                          login
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }`,
+            {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              number: pr.number,
+            }
+          );
+
+          const marker = `<!-- ingestion-preview-pr-${pr.number} -->`;
+          const commentBody = [
+            'A preview has been generated that requires your attention.',
+            '',
+            previewBlock,
+            '',
+            marker,
+          ].join('\n');
+
+          for (const issue of result.repository.pullRequest.closingIssuesReferences.nodes) {
+            const issueOwner = issue.repository.owner.login;
+            const issueRepo = issue.repository.name;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: issueOwner,
+              repo: issueRepo,
+              issue_number: issue.number,
+              per_page: 100,
+            });
+            if (comments.some(comment => (comment.body || '').includes(marker))) {
+              continue;
+            }
+
+            await github.rest.issues.createComment({
+              owner: issueOwner,
+              repo: issueRepo,
+              issue_number: issue.number,
+              body: commentBody,
             });
           }

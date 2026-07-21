@@ -1,4 +1,4 @@
-name: Create post-ingestion issues for ACL events
+name: Create selected post-ingestion issues
 
 on:
   pull_request_target:
@@ -9,21 +9,21 @@ jobs:
     if: >-
       github.event.pull_request.merged == true
       && startsWith(github.event.pull_request.title, 'ingest')
-      && contains(github.event.pull_request.body, '- [x] This is an ACL event')
     runs-on: ubuntu-latest
     steps:
       - name: Create post-ingestion tracking issues
         uses: actions/github-script@v6
         with:
           script: |
-            const prTitle = context.payload.pull_request.title;
-            const prNumber = context.payload.pull_request.number;
+            const prTitle = context.payload.pull_request.title.replace(/^ingest\s+/i, '');
+            const prBody = context.payload.pull_request.body || '';
             const prUrl = context.payload.pull_request.html_url;
             const commonHeader = `Merged PR: ${prUrl}`;
 
             const issues = [
               {
-                title: `Add DOIs for ${prTitle}`,
+                checklistItem: 'Create DOIs',
+                title: `Create DOIs for ${prTitle}`,
                 body: [
                   commonHeader,
                   '',
@@ -36,17 +36,19 @@ jobs:
                 labels: ['DOI'],
               },
               {
-                title: `Copy videos for ${prTitle}`,
+                checklistItem: 'Ingest videos',
+                title: `Ingest videos for ${prTitle}`,
                 body: [
                   commonHeader,
                   '',
                   '## Video tasks',
                   '',
-                  '- [ ] Copy over the videos from',
+                  '- [ ] Ingest the videos from',
                 ].join('\n'),
                 labels: ['videos'],
               },
               {
+                checklistItem: 'Add awards',
                 title: `Add awards for ${prTitle}`,
                 body: [
                   commonHeader,
@@ -60,6 +62,10 @@ jobs:
             ];
 
             for (const issue of issues) {
+              if (!prBody.includes(`- [x] ${issue.checklistItem}`)) {
+                continue;
+              }
+
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,

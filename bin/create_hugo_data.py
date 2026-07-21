@@ -54,6 +54,7 @@ from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.types import EventLink
 from acl_anthology.collections.volume import VolumeType
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
@@ -119,7 +120,6 @@ def paper_to_dict(paper):
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "ingest_date": paper.ingest_date.isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
@@ -132,6 +132,8 @@ def paper_to_dict(paper):
         "citation_acl": paper.to_citation(),
         "year": paper.year,
     }
+    if paper.ingest_date != UNKNOWN_INGEST_DATE:
+        data["ingest_date"] = paper.ingest_date.isoformat()
     editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
