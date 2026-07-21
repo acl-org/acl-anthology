@@ -1052,9 +1052,7 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     return markup
 
 
-def namespec_from_bib(
-    person, orcid: Optional[str] = None
-) -> NameSpecification:
+def namespec_from_bib(person, orcid: Optional[str] = None) -> NameSpecification:
     """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
@@ -1078,9 +1076,7 @@ def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
     orcids = {}
     with open(path) as instream:
         for line in instream:
-            match = re.fullmatch(
-                r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip()
-            )
+            match = re.fullmatch(r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip())
             if match is not None and match[2]:
                 orcids[int(match[1])] = match[2]
     return orcids
@@ -1122,9 +1118,7 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
         "language": bibentry.fields.get("language"),
         "authors": [
             namespec_from_bib(person, orcids.get(index))
-            for index, person in enumerate(
-                bibentry.persons.get("author", []), start=1
-            )
+            for index, person in enumerate(bibentry.persons.get("author", []), start=1)
         ],
         "editors": [
             namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
