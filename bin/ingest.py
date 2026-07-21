@@ -1052,7 +1052,9 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     return markup
 
 
-def namespec_from_bib(person) -> NameSpecification:
+def namespec_from_bib(
+    person, orcid: Optional[str] = None
+) -> NameSpecification:
     """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
@@ -1064,11 +1066,28 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    return namespec_from(first=first_text, last=last_text)
+    return namespec_from(first=first_text, last=last_text, orcid=orcid)
+
+
+def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
+    """Parse an ACLPUB .orc sidecar into 1-based author-indexed ORCIDs."""
+    path = Path(orcfilename)
+    if not path.is_file():
+        return {}
+
+    orcids = {}
+    with open(path) as instream:
+        for line in instream:
+            match = re.fullmatch(
+                r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip()
+            )
+            if match is not None and match[2]:
+                orcids[int(match[1])] = match[2]
+    return orcids
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
-    """Parse a single-entry BibTeX file into structured metadata."""
+    """Parse a BibTeX entry and its optional ACLPUB .orc sidecar."""
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
@@ -1088,6 +1107,8 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
     if page_range is not None:
         page_range = page_range.replace("--", "-")
 
+    orcids = read_orc_file(Path(bibfilename).with_suffix(".orc"))
+
     return {
         "title": normalize_latex(bibentry.fields.get("title")),
         "booktitle": normalize_latex(bibentry.fields.get("booktitle")),
@@ -1100,7 +1121,10 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
-            namespec_from_bib(person) for person in bibentry.persons.get("author", [])
+            namespec_from_bib(person, orcids.get(index))
+            for index, person in enumerate(
+                bibentry.persons.get("author", []), start=1
+            )
         ],
         "editors": [
             namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
