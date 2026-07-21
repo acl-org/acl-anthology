@@ -282,9 +282,7 @@ class Name:
     def case_normalize(self, force: bool = False) -> Name:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this changes the name if it is currently all-lowercased or
-        all-uppercased. Lowercase initials are also normalized in otherwise
-        mixed-case names.
+        By default, this changes the name if it is currently all-lowercased or all-uppercased. Lowercase initials are also normalized in otherwise mixed-case names.
 
         Examples:
             Normalize a name that is entirely uppercase:
@@ -298,12 +296,10 @@ class Name:
             Name('John C.S.', 'Lui')
 
         Arguments:
-            force: Apply title-casing even when the full name is mixed-case.
-                Initial normalization is always applied.
+            force: Apply title-casing even when the full name is mixed-case. Initial normalization is always applied.
 
         Returns:
-            The original object when no changes are needed; otherwise, a new
-            instance of the same concrete class with normalized name parts.
+            The original object when no changes are needed; otherwise, a new instance of the same concrete class with normalized name parts.
 
         Note:
             Names with a `script` attribute are returned unchanged.
