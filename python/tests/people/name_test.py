@@ -255,7 +255,6 @@ test_cases_slugify = (
             ("James", "O'Neill"),
             ("James", "OʼNeill"),
             ("James", "O’Neill"),
-            ("James", "O`Neill"),
         ],
         True,
     ),
@@ -332,9 +331,63 @@ def test_name_from_any():
         Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?
 
 
+test_cases_valid_names = [
+    ("Hal", "Daumé III"),
+    ("Hal", "Daumé 3rd"),
+    ("Jan", "Hajic jr."),
+    ("Jan", "Hajic, jr."),
+    ("B.L. B. LT", "B.L"),
+]
+
+
+@pytest.mark.parametrize("first, last", test_cases_valid_names)
+def test_name_valid(first, last):
+    assert Name(first, last).is_valid()
+
+
+test_cases_invalid_names = [
+    ("Hal", "Daum?"),
+    ("C`ecile", "Fabre"),
+    ("Mausam", "."),
+    ("Mausam", "-"),
+    ("Mausam", "_"),
+    ("Noor-e-", "Hira"),
+    ("Sir", "C3PO"),
+    ("Bonnie", "Lynn_Webber"),
+    ("b.", "Webber"),
+    ("Jonathan q.", "Arbuckle"),
+    ("B.l.", "Webber"),
+    ("B. l.", "Webber"),
+    ("B.     ", "Webber"),
+    ("Bonnie.lynn", "Webber"),
+    ("Bonnie", "Webber,"),
+    ("Bonnie", ".Webber"),
+    ("Bonnie", "Webber1"),
+    ("Bonnie", "Webber*"),
+]
+
+
+@pytest.mark.parametrize("first, last", test_cases_invalid_names)
+def test_name_invalid(first, last):
+    assert not Name(first, last).is_valid()
+    with pytest.raises(ValueError):
+        Name(first, last).is_valid(error=True)
+
+
 def test_name_as_bibtex():
     n1 = Name.from_string("André Rieu")
     assert n1.as_bibtex() == "Rieu, Andr{\\'e}"
+
+
+test_cases_initial_case_normalize = (
+    (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+    (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+    ((None, "S.b.priya"), (None, "S.B.Priya")),
+    (("Shri", "Sashmitha.s"), ("Shri", "Sashmitha.S")),
+    (("b.", "Webber"), ("B.", "Webber")),
+    (("Jonathan q.", "Arbuckle"), ("Jonathan Q.", "Arbuckle")),
+    (("B. l.", "Webber"), ("B. L.", "Webber")),
+)
 
 
 test_cases_name_case_normalize = (
@@ -352,6 +405,10 @@ test_cases_name_case_normalize = (
     (("james", "o'neill"), ("James", "O'Neill")),
     (("JAMES", "O’NEILL"), ("James", "O’Neill")),
     (("ken", "mcguire"), ("Ken", "McGuire")),
+    *test_cases_initial_case_normalize,
+    (("Johann v.", "Hahn"), ("Johann v.", "Hahn")),
+    ((None, "Translated.net"), (None, "Translated.net")),
+    ((None, "Weifeng.liu"), (None, "Weifeng.liu")),
 )
 
 
