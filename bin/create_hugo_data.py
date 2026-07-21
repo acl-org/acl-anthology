@@ -350,10 +350,6 @@ def export_people(anthology, builddir, dryrun):
         people = {}
         for person_id, person in anthology.people.items():
             cname = person.canonical_name
-            try:
-                cname.is_valid(error=True)
-            except ValueError as e:
-                log.error(e)
             papers = sorted(
                 person.papers(),
                 # TODO: Sort by month as well? Converting from string first?
@@ -388,10 +384,6 @@ def export_people(anthology, builddir, dryrun):
                 data["variant_entries"] = []
                 diff_script_variants = []
                 for n in person.names[1:]:
-                    try:
-                        n.is_valid(error=True)
-                    except ValueError as e:
-                        log.error(e)
                     data["variant_entries"].append(
                         {"first": n.first, "last": n.last, "full": n.as_full()}
                     )

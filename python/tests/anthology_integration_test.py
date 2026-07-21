@@ -86,6 +86,42 @@ def test_full_anthology_should_validate_schema(full_anthology):
 
 @pytest.mark.integration
 @pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
+def test_full_anthology_should_have_valid_names(full_anthology):
+    errors = []
+
+    def validate_name(name, source):
+        try:
+            name.is_valid(error=True)
+        except ValueError as exc:
+            errors.append(f"{source}: {exc}")
+
+    def validate_namespec(namespec, source):
+        validate_name(namespec.name, source)
+        for variant in namespec.variants:
+            validate_name(variant, f"{source} variant")
+
+    for volume in full_anthology.volumes():
+        for namespec in volume.namespecs:
+            validate_namespec(namespec, volume.full_id)
+        for paper in volume.papers():
+            for namespec in paper.namespecs:
+                validate_namespec(namespec, paper.full_id)
+
+    for collection in full_anthology.collections.values():
+        if collection.event is not None:
+            for talk in collection.event.talks:
+                for namespec in talk.speakers:
+                    validate_namespec(namespec, f"{collection.id} talk {talk.title}")
+
+    for person_id, person in full_anthology.people.items():
+        for name in person.names:
+            validate_name(name, f"Person {person_id}")
+
+    assert not errors, "\n".join(errors)
+
+
+@pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
 def test_full_anthology_roundtrip_people_yaml(full_anthology, tmp_path):
     full_anthology.people.build()
     yaml_in = full_anthology.people.path
