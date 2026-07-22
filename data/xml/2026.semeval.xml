@@ -146,7 +146,7 @@
     </paper>
     <paper id="11">
       <title><fixed-case>Q</fixed-case>uad<fixed-case>AI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: Ensemble Learning of Hybrid <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a and <fixed-case>LLM</fixed-case>s for Dimensional Aspect-Based Sentiment Analysis</title>
-      <author><first>A.j.w.</first><last>De Vink</last><affiliation>Leiden University</affiliation></author>
+      <author><first>A.J.W.</first><last>de Vink</last><affiliation>Leiden University</affiliation></author>
       <author id="filippos-ventirozos" orcid="0000-0001-9876-4794"><first>Filippos Karolos</first><last>Ventirozos</last><affiliation>Manchester Metropolitan University</affiliation></author>
       <author><first>Natalia</first><last>Amat-Lefort</last><affiliation>Leiden University</affiliation></author>
       <author id="lifeng-han" orcid="0000-0002-3221-2185"><first>Lifeng</first><last>Han</last><affiliation>The University of Manchester</affiliation></author>
@@ -2371,19 +2371,21 @@
     <paper id="197">
       <title><fixed-case>PFW</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 6: Multi-Seed <fixed-case>D</fixed-case>e<fixed-case>BERT</fixed-case>a Ensembles for Political Response Clarity and Evasion Classification</title>
       <author><first>Taleef</first><last>Tamsal</last><affiliation>Purdue Fort Wayne</affiliation></author>
+      <author><first>Jonathan</first><last>Rusert</last></author>
       <pages>1518-1525</pages>
       <abstract>This paper describes the PFW system for SemEval-2026 Task 6 (CLARITY), which addresses the classification of response clarity and evasion techniques in political interview question-answer pairs. Rather than relying on large language model prompting, we pursue a competitive non-LLM approach based on fine-tuning DeBERTa-xlarge and DeBERTa-v3-large with a multi-seed ensemble strategy: 5-fold cross-validation with 10 random seeds yields 50 models per architecture, combined through simple logit averaging. Our system achieves a macro F1 of 0.76 on Subtask 1 (clarity-level classification) and 0.50 on Subtask 2 (evasion-type classification). We also find that three post-hoc optimization techniques—learned ensemble weights, thresh old calibration, and hierarchical masking— each improve out-of-fold performance yet degrade evaluation scores by 0.02–0.10 F1. This pattern should be interpreted cautiously: the 237-sample evaluation set likely contributes substantial variance, and two of the three degradations fall within the ±0.06 95% CI expected from sampling noise. Still, the consistent directional pattern across all three prediction-level interventions provides suggestive evidence for an optimization paradox, highlighting the risk of overfitting to cross-validation predictions when evaluation data is limited. Our code is publicly available at https://github.com/ Taleef7/semeval-2026-task6.</abstract>
       <url hash="e1f396ed">2026.semeval-1.197</url>
-      <bibkey>tamsal-2026-pfw</bibkey>
+      <bibkey>tamsal-rusert-2026-pfw</bibkey>
       <doi>10.18653/v1/2026.semeval-1.197</doi>
     </paper>
     <paper id="198">
       <title><fixed-case>PFW</fixed-case> Task 8 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: Lightweight Tri-Fusion Retrieval with Prompt-Engineered Faithful Generation for Multi-Turn <fixed-case>RAG</fixed-case></title>
       <author><first>Taleef</first><last>Tamsal</last><affiliation>Purdue Fort Wayne</affiliation></author>
+      <author><first>Jonathan</first><last>Rusert</last></author>
       <pages>1526-1532</pages>
       <abstract>We describe PFW Task 8’s system for SemEval 2026 Task 8 (MTRAGEval), a benchmark for multi-turn retrieval-augmented generation across four English-language corpora. Our submission combines BM25, SPLADE-v3, and Jina Embeddings v4 with weighted reciprocal rank fusion for retrieval, plus zero-shot GPT 4o/GPT-4o-mini prompting for generation. Officially, our system ranks 6th of 26 on Task B (H = 0.756), 14th of 29 on Task C (H = 0.533), and 20th of 38 on Task A (nDCG@5 = 0.433). For the camera-ready analysis, we re-run retrieval at the official nDCG@5 cutoff, strengthen the prompt ablation with per-domain statistics and exact tests, and analyze official outputs by answerability and domain. On a balanced 100-example development sample, explicit citation-format instructions—not chain of-thought alone—raise citation use from 4% to 93%, and a fixed-context Task C control improves from H = 0.463 with GPT-4o-mini to H = 0.523 with GPT-4o. Official analytics also show near-perfect UNANSWERABLE handling (H = 0.990) but weak behavior on UNDERSPECIFIED turns, where the system answers or refuses instead of clarifying. Our code is publicly available.</abstract>
       <url hash="d110aa80">2026.semeval-1.198</url>
-      <bibkey>tamsal-2026-pfw-task</bibkey>
+      <bibkey>tamsal-rusert-2026-pfw-task</bibkey>
       <doi>10.18653/v1/2026.semeval-1.198</doi>
     </paper>
     <paper id="199">
@@ -2890,7 +2892,7 @@
     </paper>
     <paper id="240">
       <title><fixed-case>NCL</fixed-case>-<fixed-case>BU</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 3: Fine-tuning <fixed-case>XLM</fixed-case>-<fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a for Multilingual Dimensional Sentiment Regression</title>
-      <author><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="tong-wu"><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
       <author id="nicolay-rusnachenko" orcid="0000-0002-9750-5499"><first>Nicolay</first><last>Rusnachenko</last><affiliation>Bournemouth University</affiliation></author>
       <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>1911-1918</pages>
@@ -2913,7 +2915,7 @@
     </paper>
     <paper id="242">
       <title><fixed-case>NCL</fixed-case>-<fixed-case>U</fixed-case>o<fixed-case>R</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: Embedding-Based Methods, Fine-Tuning, and <fixed-case>LLM</fixed-case>s for Word Sense Plausibility Rating</title>
-      <author><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="tong-wu"><first>Tong</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
       <author><first>Thanet</first><last>Markchom</last><affiliation>University of Reading</affiliation></author>
       <author><first>Huizhi(elly)</first><last>Liang</last><affiliation>Newcastle University</affiliation></author>
       <pages>1930-1937</pages>
@@ -3261,12 +3263,12 @@
     <paper id="271">
       <title><fixed-case>AI</fixed-case>-Monitors at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 4: A Hybrid Embedding and <fixed-case>LLM</fixed-case> Ensemble for Narrative Similarity</title>
       <author><first>Vishnu</first><last>Tripathi</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Azad</first><last>-</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, Indiaa</affiliation></author>
       <author><first>Prakhar</first><last>Joshi</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Pragyananda</first><last>Sahoo</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
+      <author><first>Azad</first><last>Singh</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, Indiaa</affiliation></author>
+      <author><first>Pragyanand</first><last>Saho</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
       <author><first>Gaurav</first><last>Kumar</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
-      <author><first>Piyush</first><last>Arora</last><affiliation>American Express AI Labs</affiliation></author>
       <author><first>Neel</first><last>Mani</last><affiliation>Centre for Artificial Intelligence &amp; Research (CAIR), Swami Rama Himalayan University (SRHU), Dehradun, Uttarakhand, India</affiliation></author>
+      <author><first>Piyush</first><last>Arora</last><affiliation>American Express AI Labs</affiliation></author>
       <pages>2139-2148</pages>
       <abstract>Narrative similarity requires reasoning over the deeper structural properties of stories - shared themes, causal progression, and outcomes - rather than surface-level lexical overlap. We describe AI-Monitors, our system for SemEval-2026 Task 4 (Track A), which determines which of two candidate stories is more narratively similar to a given anchor. We explore a progression of approaches - from embedding-based similarity to structured LLM prompting and ensemble construction - guided by four hypotheses about where narrative reasoning gains can be found. The final system achieves 75\% test accuracy on 400 instances, ranking 3rd out of 47 systems and approaching the individual human annotator ceiling of 78\%.Our key findings are: i) structured few-shot prompting substantially outperforms dense embedding similarity; ii) selecting ensemble components by how differently they make errors - rather than by accuracy alone - produces stronger predictions; and iii) how you describe an example to the model affects its predictions.</abstract>
       <url hash="08f8d29e">2026.semeval-1.271</url>
@@ -5056,7 +5058,7 @@
       <author><first>Amol</first><last>Vijayachandran</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Ananth</first><last>Rajesh</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Siddharth</first><last>Mago</last><affiliation>IIIT Hyderabad</affiliation></author>
-      <author><first>Maitreya</first><last>Chitale</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author><first>Maitreya Prafulla</first><last>Chitale</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Aparajitha</first><last>Allamraju</last><affiliation>IIIT Hyderabad</affiliation></author>
       <pages>3382-3393</pages>
       <abstract>Narrative similarity extends beyond standard semantic tasks, requiring alignment of temporal, causal, and emotional structures. We present StoryNet, a framework that represents stories as heterogeneous graphs with character, event, and theme nodes. Stories are decomposed into structured narrative facets using large language models, and similarity is evaluated through both weighted semantic facet comparison and a graph neural network trained with contrastive learning. We analyze how integrating symbolic structure with learned graph representations compares to purely embedding-based baselines.</abstract>
