@@ -1,0 +1,254 @@
+{{ define "meta" }}
+<link rel="stylesheet" href="{{ relURL "vendor/leaflet/leaflet.css" }}">
+{{ end }}
+
+{{ define "main" }}
+{{ $map := hugo.Data.affiliation_map }}
+{{ $home := hugo.Data.homepage }}
+{{ $people := hugo.Data.people_stats }}
+<main class="acl-stats">
+  <header class="acl-stats__header">
+    <p class="acl-stats__label">Anthology insights</p>
+    <h1>{{ .Title }}</h1>
+    <p>Exploratory statistics computed from Anthology metadata, mostly ingested from Open Review metadata. These views are incomplete and approximate.</p>
+  </header>
+
+  {{ with $home }}
+  <dl class="acl-stats__summary" aria-label="Collection totals">
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 .paper_count }}</dt>
+      <dd>papers</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 .author_count }}</dt>
+      <dd>authors</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 .volume_count }}</dt>
+      <dd>volumes</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 .venue_count }}</dt>
+      <dd>venues</dd>
+    </div>
+  </dl>
+  {{ end }}
+
+  {{ with $map }}
+  <section class="acl-stats__section" aria-labelledby="affiliation-map-heading">
+    <div class="acl-stats__section-head">
+      <div>
+        <h2 id="affiliation-map-heading">Where authors work</h2>
+        <p>Institutions named in author affiliations,<sup><a href="#fn-affiliations">1</a></sup>
+          sized by the number of papers with an author there and coloured by
+          sector.<sup><a href="#fn-sectors">2</a></sup> Each paper counts an institution at
+          most once, so large single-institution collaborations don&rsquo;t dominate. Shows
+          {{ lang.FormatNumberCustom 0 .located_points }} located institutions.</p>
+      </div>
+      <i class="fas fa-globe-americas" aria-hidden="true"></i>
+    </div>
+
+    <div id="affiliation-map" class="acl-affiliation-map"
+         aria-label="World map of author affiliations; see the ranked list below for the data"></div>
+
+    <ul class="acl-map-legend">
+      {{ range slice (slice "academic" "Academic") (slice "industry" "Industry") (slice "government" "Government") (slice "other" "Other") }}
+      <li>
+        <span class="acl-map-legend__dot acl-map-legend__dot--{{ index . 0 }}" aria-hidden="true"></span>
+        {{ index . 1 }}
+        <span class="acl-map-legend__count">{{ lang.FormatNumberCustom 0 (index $map.sector_totals (index . 0)) }}</span>
+      </li>
+      {{ end }}
+    </ul>
+
+    {{ with .points }}
+    <div class="acl-stats__toplist" aria-label="Top institutions by number of papers">
+      <h3>Top institutions by papers</h3>
+      <ol>
+        {{ range first 12 . }}
+        <li><span class="acl-stats__toplist-name">{{ .label }}</span>
+          <span class="acl-stats__toplist-count">{{ lang.FormatNumberCustom 0 .count }}</span></li>
+        {{ end }}
+      </ol>
+      <noscript>
+        <p class="acl-stats__note">The interactive map requires JavaScript; the ranked list above still works without it.</p>
+      </noscript>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+
+  {{ with $people }}{{ with .first_paper_year_hist }}
+  {{ $peak := index (sort . "count" "desc") 0 }}
+  {{ $maxCount := $peak.count }}
+  {{ $first := index . 0 }}
+  {{ $latest := index (last 1 .) 0 }}
+  <section class="acl-stats__section" aria-labelledby="histogram-heading">
+    <div class="acl-stats__section-head">
+      <div>
+        <h2 id="histogram-heading">New authors by year</h2>
+        <p>Each author page counted once, in the year of its earliest
+          paper.<sup><a href="#fn-histogram">3</a></sup> The busiest debut year so far is
+          {{ $peak.year }} ({{ lang.FormatNumberCustom 0 $peak.count }} new authors); the most
+          recent year keeps growing as volumes are ingested.</p>
+      </div>
+      <i class="fas fa-chart-bar" aria-hidden="true"></i>
+    </div>
+    <figure class="acl-histogram">
+      <ol class="acl-histogram__bars">
+        {{ range . }}
+        {{ $height := 0 }}
+        {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
+        <li class="acl-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
+            style="--bar-height: {{ $height }}%;"
+            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}">
+          <span class="acl-histogram__column" aria-hidden="true"></span>
+          {{ if or (eq (mod .year 10) 0) (eq .year $first.year) (eq .year $latest.year) }}
+          <span class="acl-histogram__tick{{ if or (eq .year $first.year) (eq .year $latest.year) }} is-endpoint{{ end }}" aria-hidden="true">{{ .year }}</span>
+          {{ end }}
+          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors</span>
+        </li>
+        {{ end }}
+      </ol>
+    </figure>
+  </section>
+  {{ end }}{{ end }}
+
+  {{ with $map }}
+  <section class="acl-stats__footnotes" aria-label="Notes and sources">
+    <ol>
+      <li id="fn-affiliations">Affiliations come from the <code>&lt;affiliation&gt;</code> field on
+        author metadata, which the Anthology only began capturing for recent (aclpub2-era)
+        proceedings. {{ lang.FormatNumberCustom 0 .papers_with_affiliation }} of
+        {{ lang.FormatNumberCustom 0 .total_papers }} papers
+        ({{ math.Round (mul (div (float .papers_with_affiliation) .total_papers) 100) }}%)
+        name at least one affiliation, so coverage skews toward recent years.</li>
+      <li id="fn-sectors">Institution names are matched <em>offline</em> against the
+        <a href="https://ror.org" rel="noopener">Research Organization Registry (ROR)</a>, which
+        supplies coordinates and organization type. Only affiliations appearing at least 5 times are
+        matched; ambiguous company names use a small manual overrides table. ROR types are collapsed
+        into academic (education), industry (company), government, and other (non-profits, research
+        institutes, healthcare, and the rest). Circle size and sector totals count distinct papers
+        per institution (the set of affiliations on each paper), not individual author listings.
+        Map tiles &copy;
+        <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors.</li>
+      <li id="fn-histogram">&ldquo;New authors by year&rdquo; counts each author page once, in the
+        year of its earliest Anthology paper.</li>
+    </ol>
+  </section>
+  {{ end }}
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+{{ with hugo.Data.affiliation_map }}{{ with .points }}
+<script src="{{ relURL "vendor/leaflet/leaflet.js" }}"></script>
+<script>
+  window.aclAffiliationPoints = {{ . | jsonify | safeJS }};
+  (function () {
+    var el = document.getElementById("affiliation-map");
+    var points = window.aclAffiliationPoints;
+    if (!el || typeof L === "undefined" || !points || !points.length) return;
+
+    var map = L.map(el, {
+      minZoom: 1,
+      maxZoom: 12,
+      scrollWheelZoom: true,
+      wheelPxPerZoomLevel: 90,
+      zoomSnap: 0.5,
+      dragging: true,
+      doubleClickZoom: true,
+      touchZoom: true,
+      boxZoom: true,
+      keyboard: true,
+      zoomControl: true,
+      worldCopyJump: true,
+      preferCanvas: true,
+      maxBounds: [[-85, -180], [85, 180]],
+      maxBoundsViscosity: 0.5,
+    }).setView([28, 8], 2);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    var numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
+    var maxCount = points.reduce(function (max, point) {
+      return Math.max(max, point.count);
+    }, 1);
+
+    function radiusFor(count) {
+      // sqrt keeps circle AREA roughly proportional to the listing count
+      return Math.max(3, Math.min(40, 3 + 37 * Math.sqrt(count / maxCount)));
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        }[character];
+      });
+    }
+
+    var SECTOR_COLORS = {
+      academic: "#1a73e8",
+      industry: "#e8710a",
+      government: "#188038",
+      other: "#80868b",
+    };
+    var markers = [];
+    points.forEach(function (point) {
+      var color = SECTOR_COLORS[point.sector] || SECTOR_COLORS.other;
+      var marker = L.circleMarker([point.lat, point.lon], {
+        radius: radiusFor(point.count),
+        color: color,
+        weight: 1,
+        fillColor: color,
+        fillOpacity: 0.5,
+      }).addTo(map);
+      markers.push(marker);
+      var aliases =
+        point.aliases > 1
+          ? " <span class=\"acl-map-popup__nearby\">(+" +
+            (point.aliases - 1) +
+            " name variant" +
+            (point.aliases === 2 ? "" : "s") +
+            ")</span>"
+          : "";
+      var coordinateNote =
+        point.coordinate_source === "ror-geonames"
+          ? " \u00b7 approximate city location"
+          : "";
+      marker.bindPopup(
+        '<span class="acl-map-popup__name">' +
+          escapeHtml(point.label) +
+          "</span>" +
+          aliases +
+          '<span class="acl-map-popup__count">' +
+          numberFormat.format(point.count) +
+          " paper" +
+          (point.count === 1 ? "" : "s") +
+          " \u00b7 " +
+          point.sector +
+            coordinateNote +
+          "</span>"
+      );
+    });
+
+    if (markers.length) {
+      map.fitBounds(L.featureGroup(markers).getBounds(), {
+        padding: [24, 24],
+        maxZoom: 5,
+        animate: false,
+      });
+    }
+  })();
+</script>
+{{ end }}{{ end }}
+{{ end }}

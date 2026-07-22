@@ -1,0 +1,408 @@
+/* Custom styles for the statistics page */
+
+$acl-stats-ink: #202124;
+$acl-stats-muted: #5f6368;
+$acl-stats-line: #d9d9d9;
+$acl-stats-red: #ed1c24;
+
+.acl-stats {
+  max-width: 70rem;
+  margin: 0 auto 3rem;
+  color: $acl-stats-ink;
+}
+
+.acl-stats__header {
+  padding: .7rem 0 1.35rem;
+  border-bottom: .3rem solid #b00;
+
+  h1 {
+    margin: 0;
+    font-size: 2.15rem;
+    font-weight: 650;
+    line-height: 1.15;
+  }
+
+  p:last-child {
+    max-width: 46rem;
+    margin: .55rem 0 0;
+    color: $acl-stats-muted;
+    font-size: .98rem;
+    line-height: 1.55;
+  }
+}
+
+.acl-stats__label {
+  margin: 0 0 .28rem;
+  color: darken($acl-stats-red, 8%);
+  font-size: .78rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.acl-stats__summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 1.6rem 0 2.4rem;
+  padding: 0;
+  border-bottom: 1px solid $acl-stats-line;
+
+  div {
+    min-width: 0;
+    padding: 1.05rem 1.1rem 1.12rem;
+  }
+
+  div + div {
+    border-left: 1px solid $acl-stats-line;
+  }
+
+  dt {
+    color: $acl-stats-ink;
+    font-size: 1.45rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 680;
+    line-height: 1.15;
+  }
+
+  dd {
+    margin: .2rem 0 0;
+    color: $acl-stats-muted;
+    font-size: .8rem;
+    line-height: 1.35;
+  }
+}
+
+.acl-stats__section {
+  margin-top: 2.6rem;
+  padding: 1.5rem 1.6rem 1.6rem;
+  border: 1px solid #cfd7db;
+  border-top: .28rem solid $cyan;
+  border-radius: .375rem;
+  background: $white;
+  box-shadow: 0 .2rem .65rem rgba($acl-stats-ink, .08);
+}
+
+.acl-stats__section-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.27rem;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  p {
+    max-width: 52rem;
+    margin: .3rem 0 0;
+    color: $acl-stats-muted;
+    font-size: .86rem;
+    line-height: 1.5;
+  }
+
+  > i {
+    display: inline-grid;
+    flex: 0 0 2.35rem;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: .3rem;
+    background: #e5f5fb;
+    color: darken($cyan, 18%);
+    place-items: center;
+  }
+}
+
+.acl-affiliation-map {
+  position: relative;
+  z-index: 0; // contain Leaflet's internal z-index stack
+  height: 32rem;
+  border: 1px solid #cfd7db;
+  border-radius: .3rem;
+  background: #eaf1f5;
+
+  .leaflet-container {
+    font: inherit;
+    border-radius: .3rem;
+  }
+}
+
+.acl-map-popup__name {
+  display: block;
+  font-weight: 650;
+}
+
+.acl-map-popup__nearby {
+  color: $acl-stats-muted;
+}
+
+.acl-map-popup__count {
+  display: block;
+  margin-top: .15rem;
+  color: $acl-stats-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.acl-stats__toplist {
+  margin-top: 1.4rem;
+
+  h3 {
+    margin: 0 0 .6rem;
+    font-size: .95rem;
+    font-weight: 650;
+  }
+
+  ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2.2rem;
+    margin: 0;
+    padding: 0;
+    counter-reset: toplist;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .4rem 0;
+    border-bottom: 1px solid #edf0f1;
+    counter-increment: toplist;
+  }
+
+  li::before {
+    content: counter(toplist) ".";
+    flex: 0 0 1.5rem;
+    color: $acl-stats-muted;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.acl-stats__toplist-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-size: .86rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.acl-stats__toplist-count {
+  flex: 0 0 auto;
+  color: $acl-stats-ink;
+  font-size: .84rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.acl-stats__note {
+  margin: .8rem 0 0;
+  color: $acl-stats-muted;
+  font-size: .82rem;
+}
+
+.acl-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.25rem;
+  margin: .9rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .82rem;
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    color: $acl-stats-ink;
+  }
+}
+
+.acl-map-legend__dot {
+  display: inline-block;
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+  opacity: .9;
+}
+
+.acl-map-legend__dot--academic {
+  background: #1a73e8;
+}
+
+.acl-map-legend__dot--industry {
+  background: #e8710a;
+}
+
+.acl-map-legend__dot--government {
+  background: #188038;
+}
+
+.acl-map-legend__dot--other {
+  background: #80868b;
+}
+
+.acl-map-legend__count {
+  color: $acl-stats-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.acl-stats__footnotes {
+  margin-top: 2.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid $acl-stats-line;
+  color: $acl-stats-muted;
+  font-size: .78rem;
+  line-height: 1.55;
+
+  ol {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  li {
+    margin-bottom: .45rem;
+  }
+
+  li:target {
+    color: $acl-stats-ink;
+  }
+
+  code {
+    font-size: .95em;
+  }
+}
+
+/* First-paper-year histogram (shared visual, lives on the stats page) */
+.acl-histogram {
+  margin: 0;
+}
+
+.acl-histogram__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 13rem;
+  margin: 0;
+  padding: 0 0 1.6rem;
+  border-bottom: 1px solid $acl-stats-line;
+  list-style: none;
+}
+
+.acl-histogram__bar {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: flex-end;
+  min-width: 0;
+  height: 100%;
+}
+
+.acl-histogram__column {
+  width: 100%;
+  height: var(--bar-height, 0);
+  border-radius: .12rem .12rem 0 0;
+  background: linear-gradient(to top, darken($cyan, 16%), $cyan);
+}
+
+.acl-histogram__bar:not(.is-empty) .acl-histogram__column {
+  min-height: 2px;
+}
+
+.acl-histogram__bar:hover .acl-histogram__column {
+  background: darken($cyan, 26%);
+}
+
+.acl-histogram__tick {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: .4rem;
+  color: $acl-stats-muted;
+  font-size: .68rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateX(-50%);
+
+  &.is-endpoint {
+    color: $acl-stats-ink;
+    font-weight: 650;
+  }
+}
+
+.acl-histogram__bar:first-child .acl-histogram__tick {
+  left: 0;
+  transform: none;
+}
+
+.acl-histogram__bar:last-child .acl-histogram__tick {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+@include media-breakpoint-down(md) {
+  .acl-stats__section {
+    padding: 1.25rem 1.15rem 1.3rem;
+  }
+
+  .acl-stats__toplist ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .acl-stats {
+    margin-bottom: 2rem;
+  }
+
+  .acl-stats__header h1 {
+    font-size: 1.8rem;
+  }
+
+  .acl-stats__summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    div {
+      padding: .9rem .75rem .95rem;
+    }
+
+    div + div {
+      border-left: 0;
+    }
+
+    div:nth-child(even) {
+      border-left: 1px solid $acl-stats-line;
+    }
+
+    div:nth-child(n + 3) {
+      border-top: 1px solid $acl-stats-line;
+    }
+
+    dt {
+      font-size: 1.25rem;
+    }
+  }
+
+  .acl-stats__section-head > i {
+    display: none;
+  }
+
+  .acl-affiliation-map {
+    height: 24rem;
+  }
+
+  .acl-histogram__bars {
+    height: 10rem;
+  }
+
+  .acl-histogram__tick:not(.is-endpoint) {
+    display: none;
+  }
+}

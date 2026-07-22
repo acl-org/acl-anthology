@@ -1,0 +1,363 @@
+{{ define "main" }}
+{{ $stats := hugo.Data.people_stats }}
+{{ $authorPages := .Site.GetPage "/info/author-pages.md" }}
+{{ $verification := .Site.GetPage "/info/verification.md" }}
+{{ $orcid := .Site.GetPage "/info/orcid.md" }}
+{{ $names := .Site.GetPage "/info/names.md" }}
+{{ $statsPage := .Site.GetPage "/stats" }}
+
+<main class="acl-people-index" data-author-directory
+      data-index-base="{{ "people/index/" | relURL }}"
+  data-index-bucket-counts="{{ $stats.search_bucket_counts | jsonify }}"
+      data-people-base="{{ "people/" | relURL }}">
+  <header class="acl-people-index__header">
+    <div>
+      <p class="acl-people-index__label">Author directory</p>
+      <h1>{{ .Title }}</h1>
+      <p>The Anthology groups publications into author pages using submitted names, name variants, and ORCID iDs.</p>
+    </div>
+    <a class="acl-people-index__verify" href="{{ $authorPages.RelPermalink }}#how-to-get-your-author-page-verified">
+      <i class="fas fa-user-check" aria-hidden="true"></i>
+      <span>Verify your author page</span>
+    </a>
+  </header>
+
+  <dl class="acl-people-stats" aria-label="Author index statistics">
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
+      <dd>author pages</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.verified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">verified authors</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.orcid_author_count }}</dt>
+      <dd><a href="{{ $orcid.RelPermalink }}">with ORCID iDs</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.unverified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">unverified pages</a></dd>
+    </div>
+  </dl>
+
+  <div class="acl-people-index__body">
+    <section class="acl-author-search" aria-labelledby="author-search-heading">
+      <div class="acl-author-search__heading">
+        <div>
+          <h2 id="author-search-heading">Find an author</h2>
+          <p>Search canonical names, published name variants, or ORCID iDs.</p>
+        </div>
+        <i class="fas fa-users" aria-hidden="true"></i>
+      </div>
+
+      <form role="search" data-author-search>
+        <label for="author-search-input">Author name or ORCID iD</label>
+        <div class="acl-author-search__field">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input id="author-search-input" type="search" inputmode="search"
+                 autocomplete="off" autocapitalize="none" spellcheck="false"
+                 placeholder="e.g., Matt Post or 0000-0002-..."
+                 aria-describedby="author-search-status"
+                 aria-controls="author-search-results"
+                 data-author-search-input>
+          <button type="button" title="Clear search" aria-label="Clear author search"
+                  data-author-search-clear hidden>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <button class="visually-hidden" type="submit">Open first result</button>
+      </form>
+
+      <p class="acl-author-search__status" id="author-search-status"
+        role="status" aria-live="polite" data-author-search-status>Enter at least two characters.</p>
+      <ul class="acl-author-results" id="author-search-results"
+          aria-label="Author search results" data-author-search-results hidden></ul>
+      <noscript>
+        <p class="acl-author-search__fallback">JavaScript is required for the local index. You can still use the <a href="{{ "search/" | relURL }}">site search</a>.</p>
+      </noscript>
+    </section>
+
+    <aside class="acl-author-resources" aria-labelledby="author-resources-heading">
+      <h2 id="author-resources-heading">Author page essentials</h2>
+      <nav aria-label="Author page help">
+        <a href="{{ $authorPages.RelPermalink }}#how-to-get-your-author-page-verified">
+          <span class="acl-author-resources__icon acl-author-resources__icon--green">
+            <i class="fas fa-user-check" aria-hidden="true"></i>
+          </span>
+          <span>
+            <strong>Get verified</strong>
+            <small>Connect papers to your identity</small>
+          </span>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
+        <a href="{{ $verification.RelPermalink }}">
+          <span class="acl-author-resources__icon acl-author-resources__icon--blue">
+            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          </span>
+          <span>
+            <strong>Verification explained</strong>
+            <small>Verified and unverified pages</small>
+          </span>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
+        <a href="{{ $orcid.RelPermalink }}">
+          <span class="acl-author-resources__icon acl-author-resources__icon--yellow">
+            <i class="fab fa-orcid" aria-hidden="true"></i>
+          </span>
+          <span>
+            <strong>Use your ORCID iD</strong>
+            <small>Keep future papers connected</small>
+          </span>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
+        <a href="{{ $authorPages.RelPermalink }}#how-to-remove-papers-from-your-author-page">
+          <span class="acl-author-resources__icon acl-author-resources__icon--red">
+            <i class="fas fa-edit" aria-hidden="true"></i>
+          </span>
+          <span>
+            <strong>Fix an author page</strong>
+            <small>Add, remove, or merge papers</small>
+          </span>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
+        <a href="{{ $names.RelPermalink }}">
+          <span class="acl-author-resources__icon acl-author-resources__icon--gray">
+            <i class="fas fa-project-diagram" aria-hidden="true"></i>
+          </span>
+          <span>
+            <strong>How names are grouped</strong>
+            <small>Person IDs and name variants</small>
+          </span>
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </a>
+      </nav>
+    </aside>
+  </div>
+
+  {{ with $statsPage }}
+  <a class="acl-people-more" href="{{ .RelPermalink }}">
+    <span class="acl-people-more__icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></span>
+    <span class="acl-people-more__text">
+      <strong>Explore author statistics</strong>
+      <small>New authors per year, plus a world map of author affiliations</small>
+    </span>
+    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+  </a>
+  {{ end }}
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+<script>
+  (function () {
+    const directory = document.querySelector("[data-author-directory]");
+    if (!directory) return;
+
+    const form = directory.querySelector("[data-author-search]");
+    const input = directory.querySelector("[data-author-search-input]");
+    const clearButton = directory.querySelector("[data-author-search-clear]");
+    const status = directory.querySelector("[data-author-search-status]");
+    const results = directory.querySelector("[data-author-search-results]");
+    const indexCache = new Map();
+    const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
+    const resultLimit = 20;
+    const idleStatus = "Enter at least two characters.";
+    let searchVersion = 0;
+    let inputTimer;
+
+    function normalize(value) {
+      return value
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase();
+    }
+
+    function cleanQuery(value) {
+      return value.trim().replace(/^https?:\/\/(?:www\.)?orcid\.org\//i, "");
+    }
+
+    function bucketFor(query) {
+      const firstWordCharacter = normalize(query).match(/\w/);
+      const initial = firstWordCharacter ? firstWordCharacter[0] : "";
+      return initial >= "a" && initial <= "z" ? initial : "other";
+    }
+
+    function loadBucket(bucket) {
+      if (!indexCache.has(bucket)) {
+        const url = directory.dataset.indexBase + bucket + ".json";
+        const request = fetch(url, { headers: { Accept: "application/json" } })
+          .then(function (response) {
+            if (!response.ok) throw new Error("Author index request failed");
+            return response.json();
+          })
+          .then(function (rows) {
+            return rows.map(function (row) {
+              return {
+                row: row,
+                name: normalize(row[0]),
+                searchable: normalize([row[0], row[3], row[4]].join(" ")),
+              };
+            });
+          })
+          .catch(function (error) {
+            indexCache.delete(bucket);
+            throw error;
+          });
+        indexCache.set(bucket, request);
+      }
+      return indexCache.get(bucket);
+    }
+
+    const bucketCounts = JSON.parse(directory.dataset.indexBucketCounts);
+    let bucketTotal = 0;
+    for (const bucket in bucketCounts) {
+      bucketTotal += bucketCounts[bucket];
+    }
+    let bucketOffset = Math.floor(Math.random() * bucketTotal);
+    let placeholderBucket = "other";
+    for (const bucket in bucketCounts) {
+      bucketOffset -= bucketCounts[bucket];
+      if (bucketOffset < 0) {
+        placeholderBucket = bucket;
+        break;
+      }
+    }
+    loadBucket(placeholderBucket)
+      .then(function (entries) {
+        const entry = entries[Math.floor(Math.random() * entries.length)];
+        if (entry) {
+          input.placeholder = "e.g., " + entry.row[0] + " or 0000-0002-...";
+        }
+      })
+      .catch(function () {});
+
+    function isVerified(row) {
+      return !row[1].endsWith("/unverified");
+    }
+
+    function matchRank(entry, query) {
+      if (entry.name === query) return 0;
+      if (entry.name.startsWith(query)) return 1;
+      if (entry.name.split(/\s+/).some(function (token) { return token.startsWith(query); })) return 2;
+      return 3;
+    }
+
+    function authorUrl(personId) {
+      const path = personId.split("/").map(encodeURIComponent).join("/");
+      return directory.dataset.peopleBase + path + "/";
+    }
+
+    function makeResult(entry) {
+      const row = entry.row;
+      const verified = isVerified(row);
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const identity = document.createElement("span");
+      const name = document.createElement("strong");
+      const meta = document.createElement("small");
+      const badge = document.createElement("span");
+      const arrow = document.createElement("i");
+
+      link.href = authorUrl(row[1]);
+      identity.className = "acl-author-result__identity";
+      name.textContent = row[0];
+      meta.textContent = numberFormat.format(row[2]) + (row[2] === 1 ? " paper" : " papers");
+      badge.className = "acl-author-result__badge "
+        + (verified ? "acl-author-result__badge--verified" : "acl-author-result__badge--unverified");
+      badge.textContent = verified ? "Verified" : "Unverified";
+      arrow.className = "fas fa-arrow-right";
+      arrow.setAttribute("aria-hidden", "true");
+
+      if (row[3]) {
+        const orcidIcon = document.createElement("i");
+        orcidIcon.className = "fab fa-orcid acl-author-result__orcid";
+        orcidIcon.title = "ORCID iD " + row[3];
+        name.append(" ", orcidIcon);
+      }
+
+      identity.append(name, meta);
+      link.append(identity, badge, arrow);
+      item.append(link);
+      return item;
+    }
+
+    function resetResults() {
+      searchVersion += 1;
+      status.textContent = idleStatus;
+      results.replaceChildren();
+      results.hidden = true;
+    }
+
+    async function search() {
+      const query = cleanQuery(input.value);
+      const normalizedQuery = normalize(query);
+      const version = ++searchVersion;
+
+      clearButton.hidden = input.value.length === 0;
+      if (normalizedQuery.length < 2) {
+        resetResults();
+        return;
+      }
+
+      status.textContent = "Searching authors...";
+      results.hidden = true;
+
+      try {
+        const entries = await loadBucket(bucketFor(query));
+        if (version !== searchVersion) return;
+
+        const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+        const matches = entries.filter(function (entry) {
+          return tokens.every(function (token) { return entry.searchable.includes(token); });
+        });
+
+        matches.sort(function (left, right) {
+          return matchRank(left, normalizedQuery) - matchRank(right, normalizedQuery)
+            || Number(isVerified(right.row)) - Number(isVerified(left.row))
+            || right.row[2] - left.row[2]
+            || left.row[0].localeCompare(right.row[0]);
+        });
+
+        const visibleMatches = matches.slice(0, resultLimit);
+        results.replaceChildren(...visibleMatches.map(makeResult));
+        results.hidden = visibleMatches.length === 0;
+
+        if (matches.length === 0) {
+          status.textContent = "No author pages match \"" + query + "\".";
+        } else if (matches.length > resultLimit) {
+          status.textContent = "Showing " + resultLimit + " of "
+            + numberFormat.format(matches.length) + " matching authors.";
+        } else {
+          status.textContent = numberFormat.format(matches.length) + " matching "
+            + (matches.length === 1 ? "author." : "authors.");
+        }
+      } catch (error) {
+        if (version !== searchVersion) return;
+        results.hidden = true;
+        status.textContent = "Author search is temporarily unavailable.";
+      }
+    }
+
+    input.addEventListener("input", function () {
+      clearTimeout(inputTimer);
+      clearButton.hidden = input.value.length === 0;
+      inputTimer = setTimeout(search, 120);
+    });
+
+    clearButton.addEventListener("click", function () {
+      clearTimeout(inputTimer);
+      input.value = "";
+      clearButton.hidden = true;
+      resetResults();
+      input.focus();
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const firstResult = results.querySelector("a");
+      if (firstResult) firstResult.click();
+    });
+  })();
+</script>
+{{ end }}

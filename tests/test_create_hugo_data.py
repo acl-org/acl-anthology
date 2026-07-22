@@ -1,20 +1,259 @@
 """Tests for bin/create_hugo_data.py."""
 
+import json
 import sys
+from datetime import date
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from bin.create_hugo_data import paper_to_dict
+from bin.create_hugo_data import (
+    AUTHOR_INDEX_BUCKETS,
+    author_search_index,
+    author_stats,
+    export_author_index,
+    export_affiliation_map,
+    export_homepage_stats,
+    first_paper_year_histogram,
+    homepage_stats,
+    paper_to_dict,
+    recent_top_level_events,
+    subtract_months,
+)
 
 from acl_anthology import Anthology, config
+from acl_anthology.collections.types import EventLink
 
 
 @pytest.fixture(scope="module")
 def anthology():
     return Anthology.from_within_repo()
+
+
+def test_homepage_stats_are_computed_from_anthology(anthology):
+    stats = homepage_stats(anthology)
+    top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
+
+    assert stats["paper_count"] == sum(1 for _ in anthology.papers())
+    assert stats["author_count"] == len(anthology.people)
+    assert stats["volume_count"] == sum(1 for _ in anthology.volumes())
+    assert stats["venue_count"] == len(anthology.venues)
+    assert stats["venue_year_count"] == sum(
+        len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
+    )
+    assert stats["oldest_year"] == "1952"
+    assert stats["newest_year"] == max(volume.year for volume in anthology.volumes())
+
+
+def test_homepage_stats_are_exported(anthology, tmp_path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+
+    export_homepage_stats(anthology, tmp_path, dryrun=False)
+
+    with open(data_dir / "homepage.json") as f:
+        assert json.load(f) == homepage_stats(anthology)
+
+
+def test_affiliation_map_aggregates_by_ror_id_not_coordinates(monkeypatch):
+    coordinates = {
+        "lat": 40.71427,
+        "lon": -74.00597,
+        "sector": "academic",
+        "coordinate_source": "ror-geonames",
+    }
+    geocache = {
+        "Columbia University": {
+            **coordinates,
+            "ror_id": "https://ror.org/columbia",
+        },
+        "Columbia University in the City of New York": {
+            **coordinates,
+            "ror_id": "https://ror.org/columbia",
+        },
+        "New York University": {
+            **coordinates,
+            "ror_id": "https://ror.org/nyu",
+        },
+    }
+    monkeypatch.setattr(
+        "bin.create_hugo_data.load_affiliation_geocache", lambda: geocache
+    )
+
+    def paper(*affiliations):
+        return SimpleNamespace(
+            authors=[SimpleNamespace(affiliation=value) for value in affiliations]
+        )
+
+    anthology = SimpleNamespace(
+        papers=lambda: iter(
+            [
+                paper(
+                    "Columbia University",
+                    "Columbia University in the City of New York",
+                ),
+                paper("New York University"),
+                paper("Columbia University", "New York University"),
+            ]
+        )
+    )
+
+    data = export_affiliation_map(anthology, builddir=None, dryrun=True)
+    points = {point["label"]: point for point in data["points"]}
+
+    assert set(points) == {"Columbia University", "New York University"}
+    assert points["Columbia University"]["count"] == 2
+    assert points["Columbia University"]["aliases"] == 2
+    assert points["New York University"]["count"] == 2
+    assert points["Columbia University"]["coordinate_source"] == "ror-geonames"
+    assert data["located_points"] == 2
+    assert data["sector_totals"]["academic"] == 4
+
+
+def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
+    people = {
+        "ada-lovelace": {
+            "full": "Ada Lovelace",
+            "papers": ["paper-1"],
+            "orcid": "0000-0000-0000-0001",
+            "variant_entries": [{"full": "Augusta Ada King"}],
+            "first_year": 2018,
+        },
+        "elodie-durand": {
+            "full": "Élodie Durand",
+            "papers": ["paper-2"],
+            "first_year": 2019,
+        },
+        "wei-zhang/unverified": {
+            "full": "Wei Zhang",
+            "papers": ["paper-3", "paper-4"],
+            "first_year": 2021,
+        },
+    }
+
+    expected_stats = {
+        "author_count": 3,
+        "verified_author_count": 2,
+        "unverified_author_count": 1,
+        "orcid_author_count": 1,
+        "first_paper_year_hist": [
+            {"year": 2018, "count": 1},
+            {"year": 2019, "count": 1},
+            {"year": 2020, "count": 0},
+            {"year": 2021, "count": 1},
+        ],
+    }
+    assert author_stats(people) == expected_stats
+
+    index = author_search_index(people)
+    ada_row = [
+        "Ada Lovelace",
+        "ada-lovelace",
+        1,
+        "0000-0000-0000-0001",
+        "Augusta Ada King",
+    ]
+    assert ada_row in index["a"]
+    assert ada_row in index["k"]
+    assert ada_row in index["l"]
+    assert ada_row in index["other"]
+    assert any(row[0] == "Élodie Durand" for row in index["e"])
+    assert any(row[0] == "Wei Zhang" for row in index["z"])
+
+    (tmp_path / "data").mkdir()
+    export_author_index(people, tmp_path)
+
+    with open(tmp_path / "data" / "people_stats.json") as f:
+        exported_stats = json.load(f)
+    assert exported_stats.pop("search_bucket_counts") == {
+        bucket: len(rows) for bucket, rows in index.items()
+    }
+    assert exported_stats == expected_stats
+    index_dir = tmp_path / "static" / "people" / "index"
+    assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
+    with open(index_dir / "l.json") as f:
+        assert ada_row in json.load(f)
+
+
+def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
+    people = {
+        "a": {"first_year": 2005},
+        "b": {"first_year": 2005},
+        "c": {"first_year": 2008},
+        "editor-only": {"full": "No Papers"},  # no first_year -> excluded
+    }
+    assert first_paper_year_histogram(people) == [
+        {"year": 2005, "count": 2},
+        {"year": 2006, "count": 0},
+        {"year": 2007, "count": 0},
+        {"year": 2008, "count": 1},
+    ]
+
+
+def test_first_paper_year_histogram_is_empty_without_debut_years():
+    assert first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
+
+
+def test_subtract_months_clamps_to_end_of_month():
+    assert subtract_months(date(2026, 5, 31), 3) == date(2026, 2, 28)
+
+
+def test_recent_top_level_events_use_three_month_cutoff():
+    def event(event_id, ingest_date, colocated_ids=None):
+        volume_id = (event_id, "1", None)
+        volume = SimpleNamespace(ingest_date=ingest_date)
+        return SimpleNamespace(
+            id=event_id,
+            colocated_ids=colocated_ids or {volume_id: EventLink.INFERRED},
+            volumes=lambda: iter([volume]),
+        )
+
+    parent = event(
+        "parent-2026",
+        date(2026, 7, 14),
+        {
+            ("parent-2026", "1", None): EventLink.INFERRED,
+            ("child-2026", "1", None): EventLink.EXPLICIT,
+        },
+    )
+
+    anthology = SimpleNamespace(
+        events={
+            "new-2026": event("new-2026", date(2026, 7, 14)),
+            "cutoff-2025": event("cutoff-2025", date(2026, 4, 15)),
+            "old-2024": event("old-2024", date(2026, 4, 14)),
+            "future-2027": event("future-2027", date(2026, 7, 16)),
+            "ws-2026": event("ws-2026", date(2026, 7, 14)),
+            "parent-2026": parent,
+            "child-2026": event("child-2026", date(2026, 7, 14)),
+        },
+        venues={
+            "new": SimpleNamespace(acronym="NEW", is_toplevel=True),
+            "cutoff": SimpleNamespace(acronym="CUT", is_toplevel=True),
+            "old": SimpleNamespace(acronym="OLD", is_toplevel=True),
+            "future": SimpleNamespace(acronym="FUT", is_toplevel=True),
+            "ws": SimpleNamespace(acronym="WS", is_toplevel=True),
+            "parent": SimpleNamespace(acronym="PARENT", is_toplevel=True),
+            "child": SimpleNamespace(acronym="CHILD", is_toplevel=True),
+        },
+    )
+
+    assert recent_top_level_events(anthology, date(2026, 7, 15)) == [
+        {
+            "id": "parent-2026",
+            "label": "PARENT 2026",
+            "ingest_date": "2026-07-14",
+        },
+        {"id": "new-2026", "label": "NEW 2026", "ingest_date": "2026-07-14"},
+        {
+            "id": "cutoff-2025",
+            "label": "CUT 2025",
+            "ingest_date": "2026-04-15",
+        },
+    ]
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
