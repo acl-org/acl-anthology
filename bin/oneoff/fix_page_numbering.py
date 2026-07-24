@@ -18,7 +18,7 @@ import os
 
 from acl_anthology import Anthology
 from pathlib import Path
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 
 
 def main(args):
