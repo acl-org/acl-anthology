@@ -236,16 +236,8 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
 #   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
-#
-# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
-#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
-#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
-#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
-#   content ``X`` so the text survives. (Non-nested braces only.)
-#
-# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
-#   contains hard line breaks that are not meaningful LaTeX; drop them so the
-#   text is flattened to a single line before parsing.
+# TODO: do we still need this?
+# TODO: I think deleting newlines was causing no space between some sentences in abstracts
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
@@ -253,14 +245,14 @@ LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
         r"\\$",
     ),
     (
-        "texttt_unwrap",
-        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
-        r"\1",
+        "blank_line_to_newpar",
+        re.compile(r"\n\n"),
+        "<par/>",
     ),
     (
-        "strip_newlines",
-        re.compile(r"\n"),
-        "",
+        "newline_to_space",
+        re.compile(r"\n\s*"),
+        " ",
     ),
 ]
 
@@ -851,7 +843,8 @@ def iter_aclpub2_papers(metadata: Dict[str, Any]) -> Iterator[Dict[str, Any]]:
             )
         try:
             if (abstract := paper.get("abstract")) is not None:
-                abstract = MarkupText.from_latex_maybe(repair_latex(abstract))
+                # TODO: why not call normalize_latex()?
+                abstract = MarkupText.from_rich_string(repair_latex(abstract))
                 # ensure the abstract can be rendered without error
                 _ = abstract.as_text()
                 _ = abstract.as_html()
