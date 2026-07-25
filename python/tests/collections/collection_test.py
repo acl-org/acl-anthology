@@ -24,7 +24,7 @@ from acl_anthology.collections import (
     EventLink,
     VolumeType,
 )
-from acl_anthology.people import NameSpecification
+from acl_anthology.people import Name, NameSpecification
 from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
 
@@ -181,6 +181,27 @@ def test_collection_create_volume_should_parse_markup(collection_index):
     collection = collection_index.get("2022.acl")
     volume = collection.create_volume("infinity", title="Special issue on $\\infty$")
     assert volume.title.as_text() == "Special issue on ∞"
+
+
+@pytest.mark.parametrize(
+    "before, after",
+    (
+        (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+        (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+        ((None, "S.b.priya"), (None, "S.B.Priya")),
+    ),
+)
+def test_collection_create_volume_case_normalizes_editor_names(
+    before, after, collection_index
+):
+    collection = collection_index.get("2022.acl")
+    editors = (NameSpecification(Name(*before)),)
+    volume = collection.create_volume(
+        "initials",
+        title="Volume with normalized editor initials",
+        editors=editors,
+    )
+    assert volume.editors[0].name == editors[0].name == Name(*after)
 
 
 def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):
