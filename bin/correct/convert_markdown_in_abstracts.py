@@ -26,16 +26,23 @@ i = 0
 for paper in anthology.papers():
     if paper.abstract is not None:
         text = paper.abstract.as_xml()
+        #text = text.replace('<tex-math>', '<code type="tex-math">').replace('</tex-math>', '</code>')
         html = md.render(text).strip()
         if html.startswith('<p>'):
             html = html[3:]
         if html.endswith('</p>'):
             html = html[:-4]
         html = html.replace('&quot;', '"').replace('&amp;', '&')
+        html = html.replace('<strong>', '<b>').replace('</strong>', '</b>')
+        html = html.replace('<em>', '<i>').replace('</em>', '</i>')
         html = re.sub(r'</p>\s*<p>', '<par/>', html)
         if html!=text:
-            paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
-            i += 1
+            try:
+                paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
+                i += 1
+            except etree.XMLSyntaxError as e:
+                print(str(e))
+                print(html)
     if i>=10:
         break
 
