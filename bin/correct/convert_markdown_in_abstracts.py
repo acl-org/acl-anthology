@@ -44,6 +44,7 @@ for paper in anthology.papers():
         html = html.replace('<strong>', '<b>').replace('</strong>', '</b>')
         html = html.replace('<em>', '<i>').replace('</em>', '</i>')
         html = re.sub(r'</p>\s*<p>', '<par/>', html)
+        html = re.sub(r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html)
 
         # restore LaTeX
         html = re.sub(r'<tex-math></tex-math>', lambda m: maths.pop(0), html)
