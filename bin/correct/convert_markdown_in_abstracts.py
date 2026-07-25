@@ -31,10 +31,10 @@ for paper in anthology.papers():
 
         # strip out latex so Markdown parser doesn't treat _ as italics etc.
         maths = re.findall(r'<tex-math>.+?</tex-math>', text)
-        text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
+        protected_text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
 
         # Markdown -> HTML
-        html = md.render(text).strip()
+        html = md.render(protected_text).strip()
 
         if html.startswith('<p>'):
             html = html[3:]
@@ -55,7 +55,7 @@ for paper in anthology.papers():
             except etree.XMLSyntaxError as e:
                 log.error(str(e))
                 log.info(html)
-    if i>=10:
+    if i>=50:
         break
 
 anthology.save_all()
