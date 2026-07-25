@@ -14,6 +14,8 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 from markdown_it import MarkdownIt
 
+setup_rich_logging()
+
 md = (MarkdownIt("commonmark", {'breaks': False, 'html': True, 'linkify': True, 'typographer': True})
         .disable("code").disable("fence").disable("heading").disable("hr").disable("lheading").disable("list")
         .disable("reference").disable("entity").disable("image"))
@@ -41,8 +43,8 @@ for paper in anthology.papers():
                 paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
                 i += 1
             except etree.XMLSyntaxError as e:
-                print(str(e))
-                print(html)
+                log.error(str(e))
+                log.info(html)
     if i>=10:
         break
 
