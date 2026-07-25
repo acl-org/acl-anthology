@@ -78,39 +78,83 @@
   </section>
   {{ end }}
 
-  {{ with $people }}{{ with .first_paper_year_hist }}
-  {{ $peak := index (sort . "count" "desc") 0 }}
-  {{ $maxCount := $peak.count }}
-  {{ $first := index . 0 }}
-  {{ $latest := index (last 1 .) 0 }}
-  <section class="acl-stats__section" aria-labelledby="histogram-heading">
+  {{ with $people }}{{ with .career_year_hists }}
+  {{ $careerViews := slice
+      (dict "key" "first" "label" "First paper" "description" "The year of each author's earliest Anthology paper.")
+      (dict "key" "last" "label" "Most recent paper" "description" "The year of each author's most recent Anthology paper. Recent counts will grow as new volumes are ingested.")
+      (dict "key" "peak" "label" "Peak publication year" "description" "The year in which each author published the most papers. When multiple years tie, the later of the two middle years is used.")
+  }}
+  <section class="acl-stats__section" aria-labelledby="career-histogram-heading">
     <div class="acl-stats__section-head">
       <div>
-        <h2 id="histogram-heading">New authors by year</h2>
-        <p>Each author page counted once, in the year of its earliest
-          paper.<sup><a href="#fn-histogram">3</a></sup> The busiest debut year so far is
-          {{ $peak.year }} ({{ lang.FormatNumberCustom 0 $peak.count }} new authors); the most
-          recent year keeps growing as volumes are ingested.</p>
+        <h2 id="career-histogram-heading">Author careers over time</h2>
+        <p>Each author page appears once in each view.<sup><a href="#fn-careers">3</a></sup>
+          Years before 2020 are grouped by decade; later years are shown individually.</p>
       </div>
       <i class="fas fa-chart-bar" aria-hidden="true"></i>
     </div>
-    <figure class="acl-histogram">
-      <ol class="acl-histogram__bars">
+    <ul class="nav nav-tabs acl-career-tabs" id="career-year-tabs" role="tablist">
+      {{ range $viewIndex, $view := $careerViews }}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link{{ if eq $viewIndex 0 }} active{{ end }}" id="career-{{ $view.key }}-tab"
+                data-bs-toggle="tab" data-bs-target="#career-{{ $view.key }}" type="button" role="tab"
+                aria-controls="career-{{ $view.key }}" aria-selected="{{ if eq $viewIndex 0 }}true{{ else }}false{{ end }}">
+          {{ $view.label }}
+        </button>
+      </li>
+      {{ end }}
+    </ul>
+    <div class="tab-content acl-career-content" id="career-year-tab-content">
+      {{ range $viewIndex, $view := $careerViews }}
+      {{ $histogram := index $people.career_year_hists $view.key }}
+      {{ $peak := index (sort $histogram "count" "desc") 0 }}
+      {{ $maxCount := $peak.count }}
+      {{ $first := index $histogram 0 }}
+      {{ $latest := index (last 1 $histogram) 0 }}
+      <div class="tab-pane fade{{ if eq $viewIndex 0 }} show active{{ end }}" id="career-{{ $view.key }}"
+           role="tabpanel" aria-labelledby="career-{{ $view.key }}-tab" tabindex="0">
+        <p class="acl-career-content__description">{{ $view.description }}</p>
+        <figure class="acl-histogram" aria-label="Authors grouped by {{ lower $view.label }}">
+          <ol class="acl-histogram__bars">
+            {{ range $histogram }}
+            {{ $height := 0 }}
+            {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
+            <li class="acl-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
+                style="--bar-height: {{ $height }}%;"
+                title="{{ .period }}: {{ lang.FormatNumberCustom 0 .count }} author{{ if ne .count 1 }}s{{ end }}">
+              <span class="acl-histogram__column" aria-hidden="true"></span>
+              <span class="acl-histogram__tick{{ if or (eq .period $first.period) (eq .period $latest.period) }} is-endpoint{{ end }}" aria-hidden="true">{{ .period }}</span>
+              <span class="visually-hidden">{{ .period }}: {{ lang.FormatNumberCustom 0 .count }} authors</span>
+            </li>
+            {{ end }}
+          </ol>
+        </figure>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}{{ end }}
+
+  {{ with $people }}{{ with .longest_publishing_authors }}
+  <section class="acl-stats__section" aria-labelledby="longevity-heading">
+    <div class="acl-stats__section-head">
+      <div>
+        <h2 id="longevity-heading">Longest-publishing authors</h2>
+        <p>Authors with the most distinct publication years in the Anthology.<sup><a href="#fn-careers">3</a></sup>
+          The list includes everyone tied with the 100th author.</p>
+      </div>
+      <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    </div>
+    <div class="acl-stats__toplist acl-stats__toplist--authors">
+      <ol>
         {{ range . }}
-        {{ $height := 0 }}
-        {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
-        <li class="acl-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
-            style="--bar-height: {{ $height }}%;"
-            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}">
-          <span class="acl-histogram__column" aria-hidden="true"></span>
-          {{ if or (eq (mod .year 10) 0) (eq .year $first.year) (eq .year $latest.year) }}
-          <span class="acl-histogram__tick{{ if or (eq .year $first.year) (eq .year $latest.year) }} is-endpoint{{ end }}" aria-hidden="true">{{ .year }}</span>
-          {{ end }}
-          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors</span>
+        <li>
+          <span class="acl-stats__toplist-name">{{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" .id)) }}</span>
+          <span class="acl-stats__toplist-count">{{ .active_year_count }} years</span>
         </li>
         {{ end }}
       </ol>
-    </figure>
+    </div>
   </section>
   {{ end }}{{ end }}
 
@@ -132,8 +176,10 @@
         per institution (the set of affiliations on each paper), not individual author listings.
         Map tiles &copy;
         <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> contributors.</li>
-      <li id="fn-histogram">&ldquo;New authors by year&rdquo; counts each author page once, in the
-        year of its earliest Anthology paper.</li>
+      <li id="fn-careers">Career statistics use publication years represented on each author page.
+        Longevity is the number of distinct years with at least one paper, not the span between the
+        first and last paper. Peak year maximizes the number of papers in a year; ties use the median
+        tied year, choosing the later year when there are two middle values.</li>
     </ol>
   </section>
   {{ end }}

@@ -278,7 +278,35 @@ $acl-stats-red: #ed1c24;
   }
 }
 
-/* First-paper-year histogram (shared visual, lives on the stats page) */
+/* Author career histograms */
+.acl-career-tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .nav-link {
+    color: $acl-stats-muted;
+    font-size: .84rem;
+    white-space: nowrap;
+  }
+
+  .nav-link.active {
+    color: $acl-stats-ink;
+    font-weight: 650;
+  }
+}
+
+.acl-career-content {
+  padding-top: 1rem;
+}
+
+.acl-career-content__description {
+  min-height: 2.6rem;
+  margin: 0 0 .8rem;
+  color: $acl-stats-muted;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
 .acl-histogram {
   margin: 0;
 }
@@ -345,6 +373,10 @@ $acl-stats-red: #ed1c24;
   right: 0;
   left: auto;
   transform: none;
+}
+
+.acl-stats__toplist--authors {
+  margin-top: 0;
 }
 
 @include media-breakpoint-down(md) {

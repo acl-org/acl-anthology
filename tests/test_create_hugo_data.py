@@ -12,13 +12,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
     AUTHOR_INDEX_BUCKETS,
+    author_career_stats,
     author_search_index,
     author_stats,
+    career_year_histogram,
     export_author_index,
     export_affiliation_map,
     export_homepage_stats,
     first_paper_year_histogram,
     homepage_stats,
+    longest_publishing_authors,
     paper_to_dict,
     recent_top_level_events,
     subtract_months,
@@ -121,16 +124,25 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             "orcid": "0000-0000-0000-0001",
             "variant_entries": [{"full": "Augusta Ada King"}],
             "first_year": 2018,
+            "last_year": 2018,
+            "peak_year": 2018,
+            "active_year_count": 1,
         },
         "elodie-durand": {
             "full": "Élodie Durand",
             "papers": ["paper-2"],
             "first_year": 2019,
+            "last_year": 2020,
+            "peak_year": 2020,
+            "active_year_count": 2,
         },
         "wei-zhang/unverified": {
             "full": "Wei Zhang",
             "papers": ["paper-3", "paper-4"],
             "first_year": 2021,
+            "last_year": 2021,
+            "peak_year": 2021,
+            "active_year_count": 1,
         },
     }
 
@@ -144,6 +156,32 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             {"year": 2019, "count": 1},
             {"year": 2020, "count": 0},
             {"year": 2021, "count": 1},
+        ],
+        "career_year_hists": {
+            "first": [
+                {"period": "2010s", "count": 2},
+                {"period": "2020", "count": 0},
+                {"period": "2021", "count": 1},
+            ],
+            "last": [
+                {"period": "2010s", "count": 1},
+                {"period": "2020", "count": 1},
+                {"period": "2021", "count": 1},
+            ],
+            "peak": [
+                {"period": "2010s", "count": 1},
+                {"period": "2020", "count": 1},
+                {"period": "2021", "count": 1},
+            ],
+        },
+        "longest_publishing_authors": [
+            {"id": "elodie-durand", "name": "Élodie Durand", "active_year_count": 2},
+            {"id": "ada-lovelace", "name": "Ada Lovelace", "active_year_count": 1},
+            {
+                "id": "wei-zhang/unverified",
+                "name": "Wei Zhang",
+                "active_year_count": 1,
+            },
         ],
     }
     assert author_stats(people) == expected_stats
@@ -195,6 +233,55 @@ def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers(
 
 def test_first_paper_year_histogram_is_empty_without_debut_years():
     assert first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
+
+
+def test_author_career_stats_uses_later_middle_peak_year_for_ties():
+    papers = [
+        SimpleNamespace(year=year)
+        for year in ("2001", "2002", "2002", "2005", "2005", "2008", "unknown")
+    ]
+
+    assert author_career_stats(papers) == {
+        "first_year": 2001,
+        "last_year": 2008,
+        "peak_year": 2005,
+        "active_year_count": 4,
+    }
+
+
+def test_career_year_histogram_groups_pre_2020_years_by_decade():
+    people = {
+        "a": {"peak_year": 1998},
+        "b": {"peak_year": 2012},
+        "c": {"peak_year": 2021},
+        "d": {"peak_year": 2023},
+    }
+
+    assert career_year_histogram(people, "peak_year") == [
+        {"period": "1990s", "count": 1},
+        {"period": "2000s", "count": 0},
+        {"period": "2010s", "count": 1},
+        {"period": "2020", "count": 0},
+        {"period": "2021", "count": 1},
+        {"period": "2022", "count": 0},
+        {"period": "2023", "count": 1},
+    ]
+
+
+def test_longest_publishing_authors_includes_ties_at_limit():
+    people = {
+        f"author-{number}": {
+            "full": f"Author {number:03}",
+            "active_year_count": 102 - number,
+        }
+        for number in range(1, 102)
+    }
+    people["author-101"]["active_year_count"] = 2
+
+    leaders = longest_publishing_authors(people, limit=100)
+
+    assert len(leaders) == 101
+    assert leaders[-1]["active_year_count"] == 2
 
 
 def test_subtract_months_clamps_to_end_of_month():

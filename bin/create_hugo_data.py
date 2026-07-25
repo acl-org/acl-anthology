@@ -457,6 +457,74 @@ def first_paper_year_histogram(people):
     ]
 
 
+def author_career_stats(papers):
+    """Summarize an author's publication years."""
+    year_counts = Counter(
+        int(paper.year) for paper in papers if paper.year and paper.year.isdigit()
+    )
+    if not year_counts:
+        return {}
+
+    peak_count = max(year_counts.values())
+    peak_years = sorted(
+        year for year, count in year_counts.items() if count == peak_count
+    )
+    return {
+        "first_year": min(year_counts),
+        "last_year": max(year_counts),
+        "peak_year": peak_years[len(peak_years) // 2],
+        "active_year_count": len(year_counts),
+    }
+
+
+def career_year_histogram(people, year_key):
+    """Count authors by a career year, grouping years before 2020 by decade."""
+    years = [
+        person[year_key] for person in people.values() if person.get(year_key) is not None
+    ]
+    if not years:
+        return []
+
+    period_starts = []
+    if min(years) < 2020:
+        period_starts.extend(range((min(years) // 10) * 10, 2020, 10))
+    if max(years) >= 2020:
+        period_starts.extend(range(max(2020, min(years)), max(years) + 1))
+
+    counts = Counter((year // 10) * 10 if year < 2020 else year for year in years)
+    return [
+        {
+            "period": f"{period}s" if period < 2020 else str(period),
+            "count": counts.get(period, 0),
+        }
+        for period in period_starts
+    ]
+
+
+def longest_publishing_authors(people, limit=100):
+    """Return the longest-publishing authors, including ties at the limit."""
+    authors = sorted(
+        (
+            {
+                "id": person_id,
+                "name": person["full"],
+                "active_year_count": person["active_year_count"],
+            }
+            for person_id, person in people.items()
+            if person.get("active_year_count") is not None
+        ),
+        key=lambda author: (
+            -author["active_year_count"],
+            author["name"].casefold(),
+            author["id"],
+        ),
+    )
+    if len(authors) <= limit:
+        return authors
+    cutoff = authors[limit - 1]["active_year_count"]
+    return [author for author in authors if author["active_year_count"] >= cutoff]
+
+
 def author_stats(people):
     """Compute statistics for the author index."""
     verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
@@ -468,6 +536,11 @@ def author_stats(people):
             bool(person.get("orcid")) for person in people.values()
         ),
         "first_paper_year_hist": first_paper_year_histogram(people),
+        "career_year_hists": {
+            year_key: career_year_histogram(people, f"{year_key}_year")
+            for year_key in ("first", "last", "peak")
+        },
+        "longest_publishing_authors": longest_publishing_authors(people),
     }
 
 
@@ -557,9 +630,7 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
-            debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
-            if debut_years:
-                data["first_year"] = min(debut_years)
+            data.update(author_career_stats(papers))
             if len(person.names) > 1:
                 data["variant_entries"] = []
                 diff_script_variants = []
