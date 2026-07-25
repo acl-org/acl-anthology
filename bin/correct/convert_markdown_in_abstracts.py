@@ -3,6 +3,7 @@ import logging as log
 from docopt import docopt
 import re
 from typing import Optional, Tuple
+from lxml import etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
@@ -30,10 +31,10 @@ for paper in anthology.papers():
             html = html[3:]
         if html.endswith('</p>'):
             html = html[:-4]
-        html = html.replace('&quot;', '"')
+        html = html.replace('&quot;', '"').replace('&amp;', '&')
         html = re.sub(r'</p>\s*<p>', '<par/>', html)
         if html!=text:
-            paper.abstract = html
+            paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
             i += 1
     if i>=10:
         break
