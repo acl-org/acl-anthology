@@ -28,8 +28,14 @@ i = 0
 for paper in anthology.papers():
     if paper.abstract is not None:
         text = paper.abstract.as_xml()
-        #text = text.replace('<tex-math>', '<code type="tex-math">').replace('</tex-math>', '</code>')
+
+        # strip out latex so Markdown parser doesn't treat _ as italics etc.
+        maths = re.findall(r'<tex-math>.+?</tex-math>', text)
+        text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
+
+        # Markdown -> HTML
         html = md.render(text).strip()
+
         if html.startswith('<p>'):
             html = html[3:]
         if html.endswith('</p>'):
@@ -38,6 +44,10 @@ for paper in anthology.papers():
         html = html.replace('<strong>', '<b>').replace('</strong>', '</b>')
         html = html.replace('<em>', '<i>').replace('</em>', '</i>')
         html = re.sub(r'</p>\s*<p>', '<par/>', html)
+
+        # restore LaTeX
+        html = re.sub(r'<tex-math></tex-math>', lambda m: maths.pop(0), html)
+
         if html!=text:
             try:
                 paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
