@@ -285,6 +285,10 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
         for key, value in attribs:
             elem.set(key, value)
 
+    # If element contains markup, we do NOT recurse into its children and stop here
+    if elem.tag in TAGS_WITH_MARKUP:
+        return
+
     # Sort child elements to match order in reference, if element allows reordering
     if elem.tag in TAGS_WITH_UNORDERED_CHILDREN:
         # Follow tag order in reference, with keys new in elem coming last

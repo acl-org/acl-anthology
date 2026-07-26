@@ -10,6 +10,10 @@
 - Added `Name.is_valid()` to check the basic validity of first and last names.
 - `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
 
+### Changed
+
+- Fixed a bug with `xml.ensure_minimal_diff` that would sometimes break with markup-containing tags.
+
 ## [1.2.0] — 2026-05-21
 
 This release refactors internals of the library to improve modification tracking and dynamic updating of relevant attributes when data is modified.  The breaking changes here are mostly relevant if you are modifying data.
