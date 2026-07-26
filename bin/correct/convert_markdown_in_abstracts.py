@@ -32,6 +32,8 @@ def process_md_in_xml(text: str) -> str:
     protected_text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
     # linkification doesn't recognize <url> so convert temporarily to <a>
     protected_text = re.sub(r'<url>([^<]+)</url>', r'<a href="\1">\1</a>', protected_text)
+    # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
+    protected_text = re.sub(r'([。，！？；：）】》]|[.,!?;:)]+[’”]+)', r'<span>\1</span>', protected_text)
 
     # (not really Markdown but) process LaTeX-style quotes
     protected_text = protected_text.replace('``', '“').replace("''", '”')
@@ -50,6 +52,7 @@ def process_md_in_xml(text: str) -> str:
     html = html.replace('<em>', '<i>').replace('</em>', '</i>')
     html = re.sub(r'</p>\s*<p>', '<par/>', html)
     html = re.sub(r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html)
+    html = re.sub(r'<span>(.+?)</span>', r'\1', html)
 
     # restore LaTeX
     html = re.sub(r'<tex-math></tex-math>', lambda m: maths.pop(0), html)
@@ -64,6 +67,15 @@ assert test_out1=="The “<b>code</b> and <b>data</b>” are ‘available’ at 
 test_in2 = "Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
 test_out2 = process_md_in_xml(test_in2)
 assert test_out2=="Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>.", test_out2
+
+test_in3 = "“本文将TicomR开放供研究使用,http://github.com/Tshor/TicomR。”"
+test_out3 = process_md_in_xml(test_in3)
+assert test_out3=="“本文将TicomR开放供研究使用,<url>http://github.com/Tshor/TicomR</url>。”", test_out3
+
+test_in4 = "Our data and code are available at https://github.com/sjtu-compling/llm-pragmatics.”"
+test_out4 = process_md_in_xml(test_in4)
+assert test_out4=="Our data and code are available at <url>https://github.com/sjtu-compling/llm-pragmatics</url>.”", test_out4
+
 
 anthology = Anthology.from_within_repo()
 
