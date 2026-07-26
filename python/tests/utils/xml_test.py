@@ -205,6 +205,11 @@ test_cases_assert_equals = (
         "<title><i>Italics</i><b>Bold</b></title>",
         False,
     ),
+    (  # Formatting markup differences are not logically equivalent
+        "<abstract><b>Important</b> message</abstract>",
+        "<abstract>Important message</abstract>",
+        False,
+    ),
 )
 
 
@@ -387,6 +392,16 @@ test_cases_ensure_minimal_diff = (
              <bibkey>feng-etal-2022-legal</bibkey>
              <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
            </paper>""",
+    ),
+    # Requires TAGS_WITH_MARKUP to include <tex-math>
+    ("<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+     "<abstract><tex-math>a</tex-math> xxx</abstract>",
+     "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+    ),
+    # Requires TAGS_WITH_MARKUP to include <par/>
+    ("<abstract>a<par/><b>xxx</b></abstract>",
+     "<abstract>a<par/>xxx</abstract>",
+     "<abstract>a<par/><b>xxx</b></abstract>",
     ),
 )
 
