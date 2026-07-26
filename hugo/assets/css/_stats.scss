@@ -331,34 +331,8 @@ $acl-stats-red: #ed1c24;
   height: 100%;
 }
 
-.acl-histogram__bar.is-decade {
-  flex-grow: 10;
-}
-
-.acl-histogram__bar.is-year-start {
-  margin-left: .75rem;
-
-  &::before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -.45rem;
-    border-left: 1px dashed #aeb8bd;
-    content: "";
-  }
-}
-
-.acl-histogram__transition {
-  position: absolute;
-  top: -.15rem;
-  left: .2rem;
-  padding: 0 .22rem;
-  background: $white;
-  color: $acl-stats-muted;
-  font-size: .62rem;
-  font-weight: 650;
-  line-height: 1.2;
-  text-transform: uppercase;
+.acl-histogram__bar.is-decade-start:not(:first-child) {
+  margin-left: .35rem;
 }
 
 .acl-histogram__column {
@@ -417,7 +391,7 @@ $acl-stats-red: #ed1c24;
   transform: none;
 }
 
-.acl-histogram__bar.is-year:not(.is-year-start):not(:last-child) .acl-histogram__tick {
+.acl-histogram__bar:not(.is-decade-start):not(:last-child) .acl-histogram__tick {
   display: none;
 }
 
@@ -480,15 +454,16 @@ $acl-stats-red: #ed1c24;
     height: 10rem;
   }
 
-  .acl-histogram__bar.is-decade {
-    flex-grow: 5;
-  }
-
   .acl-histogram__tick:not(.is-endpoint) {
     display: none;
   }
 
-  .acl-histogram__bar.is-year-start .acl-histogram__tick {
+  .acl-histogram__bar:first-child .acl-histogram__tick,
+  .acl-histogram__bar.is-decade-start .acl-histogram__tick {
     display: block;
+  }
+
+  .acl-histogram__bar.is-decade-start:nth-last-child(-n + 8) .acl-histogram__tick {
+    display: none;
   }
 }

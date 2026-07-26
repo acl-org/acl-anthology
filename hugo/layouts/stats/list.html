@@ -79,7 +79,6 @@
   {{ end }}
 
   {{ with $people }}{{ with .career_year_hists }}
-  {{ $annualStart := 2010 }}
   {{ $careerViews := slice
       (dict "key" "first" "label" "First paper" "description" "The year of each author's earliest Anthology paper.")
       (dict "key" "last" "label" "Most recent paper" "description" "The year of each author's most recent Anthology paper. Recent counts will grow as new volumes are ingested.")
@@ -90,8 +89,7 @@
       <div>
         <h2 id="career-histogram-heading">Author careers over time</h2>
         <p>Each author page appears once in each view.<sup><a href="#fn-careers">3</a></sup>
-          Years before {{ $annualStart }} are grouped by decade; later years are shown individually,
-          with the annual average for each decade overlaid.</p>
+          Each year is shown individually, with the annual average for each decade overlaid.</p>
       </div>
       <i class="fas fa-chart-bar" aria-hidden="true"></i>
     </div>
@@ -110,35 +108,20 @@
       {{ range $viewIndex, $view := $careerViews }}
       {{ $annualHistogram := index $people.career_year_hists $view.key }}
       {{ $decadeCounts := newScratch }}
-      {{ $annualDecadeCounts := newScratch }}
-      {{ $annualDecadeYears := newScratch }}
+      {{ $decadeYears := newScratch }}
       {{ range $annualHistogram }}
         {{ $year := int .year }}
         {{ $decade := mul (div $year 10) 10 }}
         {{ $decadeKey := printf "%d" $decade }}
-        {{ if lt $year $annualStart }}
-          {{ $decadeCounts.Add $decadeKey .count }}
-        {{ else }}
-          {{ $annualDecadeCounts.Add $decadeKey .count }}
-          {{ $annualDecadeYears.Add $decadeKey 1 }}
-        {{ end }}
+        {{ $decadeCounts.Add $decadeKey .count }}
+        {{ $decadeYears.Add $decadeKey 1 }}
       {{ end }}
       {{ $histogram := slice }}
-      {{ $firstYear := int (index $annualHistogram 0).year }}
-      {{ if lt $firstYear $annualStart }}
-        {{ $firstDecade := mul (div $firstYear 10) 10 }}
-        {{ range $decade := seq $firstDecade 10 (sub $annualStart 10) }}
-          {{ $decadeKey := printf "%d" $decade }}
-          {{ $histogram = $histogram | append (dict "period" (printf "%ds" $decade) "count" ($decadeCounts.Get $decadeKey) "is_decade" true) }}
-        {{ end }}
-      {{ end }}
       {{ range $annualHistogram }}
         {{ $year := int .year }}
-        {{ if ge $year $annualStart }}
-          {{ $decadeKey := printf "%d" (mul (div $year 10) 10) }}
-          {{ $decadeAverage := div (float ($annualDecadeCounts.Get $decadeKey)) ($annualDecadeYears.Get $decadeKey) }}
-          {{ $histogram = $histogram | append (dict "period" (printf "%d" $year) "count" .count "decade_average" $decadeAverage "is_decade" false) }}
-        {{ end }}
+        {{ $decadeKey := printf "%d" (mul (div $year 10) 10) }}
+        {{ $decadeAverage := div (float ($decadeCounts.Get $decadeKey)) ($decadeYears.Get $decadeKey) }}
+        {{ $histogram = $histogram | append (dict "period" (printf "%d" $year) "count" .count "decade_average" $decadeAverage "is_decade_start" (eq (mod $year 10) 0)) }}
       {{ end }}
       {{ $peak := index (sort $histogram "count" "desc") 0 }}
       {{ $maxCount := $peak.count }}
@@ -154,10 +137,9 @@
             {{ $averageHeight := 0 }}
             {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
             {{ with .decade_average }}{{ if gt $maxCount 0 }}{{ $averageHeight = mul (div (float .) $maxCount) 100 }}{{ end }}{{ end }}
-            <li class="acl-histogram__bar{{ if .is_decade }} is-decade{{ else }} is-year{{ end }}{{ if eq .period (printf "%d" $annualStart) }} is-year-start{{ end }}{{ if eq .count 0 }} is-empty{{ end }}"
+            <li class="acl-histogram__bar{{ if .is_decade_start }} is-decade-start{{ end }}{{ if eq .count 0 }} is-empty{{ end }}"
                 style="--bar-height: {{ $height }}%; --average-height: {{ $averageHeight }}%;"
                 title="{{ .period }}: {{ lang.FormatNumberCustom 0 .count }} author{{ if ne .count 1 }}s{{ end }}{{ with .decade_average }}; decade average: {{ lang.FormatNumberCustom 1 . }}{{ end }}">
-              {{ if eq .period (printf "%d" $annualStart) }}<span class="acl-histogram__transition" aria-hidden="true">annual</span>{{ end }}
               <span class="acl-histogram__column" aria-hidden="true"></span>
               {{ with .decade_average }}<span class="acl-histogram__average" aria-hidden="true"></span>{{ end }}
               <span class="acl-histogram__tick{{ if or (eq .period $first.period) (eq .period $latest.period) }} is-endpoint{{ end }}" aria-hidden="true">{{ .period }}</span>
