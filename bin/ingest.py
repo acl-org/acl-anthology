@@ -237,15 +237,10 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
 #
-# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
-#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
-#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
-#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
-#   content ``X`` so the text survives. (Non-nested braces only.)
+# - double_newlines_to_par_break: \n\n is assumed to signal a paragraph break.
 #
-# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
-#   contains hard line breaks that are not meaningful LaTeX; drop them so the
-#   text is flattened to a single line before parsing.
+# - clean_whitespace: whitespace sequences (including single newlines) are
+#   converted to a single space.
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
@@ -253,14 +248,14 @@ LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
         r"\\$",
     ),
     (
-        "texttt_unwrap",
-        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
-        r"\1",
+        "double_newlines_to_par_break",
+        re.compile("\n\n"),
+        "<par/>",
     ),
     (
-        "strip_newlines",
-        re.compile(r"\n"),
-        "",
+        "clean_whitespace",
+        re.compile(r"\s+"),
+        " ",
     ),
 ]
 
