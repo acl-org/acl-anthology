@@ -478,26 +478,17 @@ def author_career_stats(papers):
 
 
 def career_year_histogram(people, year_key):
-    """Count authors by a career year, grouping years before 2020 by decade."""
+    """Count authors by career year as a continuous annual series."""
     years = [
         person[year_key] for person in people.values() if person.get(year_key) is not None
     ]
     if not years:
         return []
 
-    period_starts = []
-    if min(years) < 2020:
-        period_starts.extend(range((min(years) // 10) * 10, 2020, 10))
-    if max(years) >= 2020:
-        period_starts.extend(range(max(2020, min(years)), max(years) + 1))
-
-    counts = Counter((year // 10) * 10 if year < 2020 else year for year in years)
+    counts = Counter(years)
     return [
-        {
-            "period": f"{period}s" if period < 2020 else str(period),
-            "count": counts.get(period, 0),
-        }
-        for period in period_starts
+        {"year": year, "count": counts.get(year, 0)}
+        for year in range(min(years), max(years) + 1)
     ]
 
 

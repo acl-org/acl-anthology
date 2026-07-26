@@ -159,19 +159,22 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         ],
         "career_year_hists": {
             "first": [
-                {"period": "2010s", "count": 2},
-                {"period": "2020", "count": 0},
-                {"period": "2021", "count": 1},
+                {"year": 2018, "count": 1},
+                {"year": 2019, "count": 1},
+                {"year": 2020, "count": 0},
+                {"year": 2021, "count": 1},
             ],
             "last": [
-                {"period": "2010s", "count": 1},
-                {"period": "2020", "count": 1},
-                {"period": "2021", "count": 1},
+                {"year": 2018, "count": 1},
+                {"year": 2019, "count": 0},
+                {"year": 2020, "count": 1},
+                {"year": 2021, "count": 1},
             ],
             "peak": [
-                {"period": "2010s", "count": 1},
-                {"period": "2020", "count": 1},
-                {"period": "2021", "count": 1},
+                {"year": 2018, "count": 1},
+                {"year": 2019, "count": 0},
+                {"year": 2020, "count": 1},
+                {"year": 2021, "count": 1},
             ],
         },
         "longest_publishing_authors": [
@@ -249,23 +252,21 @@ def test_author_career_stats_uses_later_middle_peak_year_for_ties():
     }
 
 
-def test_career_year_histogram_groups_pre_2020_years_by_decade():
+def test_career_year_histogram_returns_continuous_annual_counts():
     people = {
         "a": {"peak_year": 1998},
         "b": {"peak_year": 2012},
+        "b2": {"peak_year": 2012},
         "c": {"peak_year": 2021},
         "d": {"peak_year": 2023},
     }
 
-    assert career_year_histogram(people, "peak_year") == [
-        {"period": "1990s", "count": 1},
-        {"period": "2000s", "count": 0},
-        {"period": "2010s", "count": 1},
-        {"period": "2020", "count": 0},
-        {"period": "2021", "count": 1},
-        {"period": "2022", "count": 0},
-        {"period": "2023", "count": 1},
-    ]
+    histogram = career_year_histogram(people, "peak_year")
+
+    assert histogram[0] == {"year": 1998, "count": 1}
+    assert histogram[-1] == {"year": 2023, "count": 1}
+    assert histogram[2012 - 1998] == {"year": 2012, "count": 2}
+    assert histogram[2022 - 1998] == {"year": 2022, "count": 0}
 
 
 def test_longest_publishing_authors_includes_ties_at_limit():
