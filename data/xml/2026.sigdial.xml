@@ -1,0 +1,692 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.sigdial">
+  <volume id="1" type="proceedings" ingest-date="2026-07-21">
+    <meta>
+      <booktitle>Proceedings of the 27th Annual Meeting of the Special Interest Group on Discourse and Dialogue</booktitle>
+      <editor><first>Jinho D.</first><last>Choi</last></editor>
+      <editor><first>Yun-Nung</first><last>Chen</last></editor>
+      <editor><first>Kotaro</first><last>Funakoshi</last></editor>
+      <editor><first>Ali</first><last>Emami</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Atlanta, Georgia, USA</address>
+      <month>August</month>
+      <year>2026</year>
+      <url hash="7e03255f">2026.sigdial-1</url>
+      <venue>sigdial</venue>
+    </meta>
+    <frontmatter>
+      <url hash="5bf37269">2026.sigdial-1.0</url>
+      <bibkey>sigdial-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>D</fixed-case>ialogue<fixed-case>S</fixed-case>idon: Recovering Full-Duplex Dialogue Tracks from In-the-Wild Dialogue Audio</title>
+      <author><first>Wataru</first><last>Nakata</last></author>
+      <author id="yuki-saito-2613" orcid="0000-0002-7967-2613"><first>Yuki</first><last>Saito</last></author>
+      <author><first>Kazuki</first><last>Yamauchi</last></author>
+      <author><first>Emiru</first><last>Tsunoo</last></author>
+      <author><first>Hiroshi</first><last>Saruwatari</last></author>
+      <pages>1-12</pages>
+      <abstract>Full-duplex dialogue audio, in which each speaker is recorded on a separate track, is an important resource for spoken dialogue research, but is difficult to collect at scale. Most in-the-wild two-speaker dialogue is available only as degraded monaural mixtures, making it unsuitable for systems requiring clean speaker-wise signals. We propose DialogueSidon, a model for joint restoration and separation of degraded monaural two-speaker dialogue audio. DialogueSidon combines a variational autoencoder (VAE) operates on the speech self-supervised learning (SSL) model feature, which compresses SSL model features into a compact latent space, with a diffusion-based latent predictor that recovers speaker-wise latent representations from the degraded mixture. Experiments on English, multilingual, and in-the-wild dialogue datasets show that DialogueSidon substantially improves intelligibility and separation quality over a baseline, while also achieving much faster inference.</abstract>
+      <url hash="ab0a41c2">2026.sigdial-1.1</url>
+      <bibkey>nakata-etal-2026-dialoguesidon</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Rethinking Binary Evaluation of Turn-Taking under Inherent Ambiguity</title>
+      <author><first>Yunosuke</first><last>Kubo</last></author>
+      <author><first>Kenta</first><last>Yamamoto</last></author>
+      <author id="ryu-takeda" orcid="0009-0007-0518-6245"><first>Ryu</first><last>Takeda</last></author>
+      <author id="kazunori-komatani" orcid="0000-0002-6052-600X"><first>Kazunori</first><last>Komatani</last></author>
+      <pages>13-24</pages>
+      <abstract>Turn-taking prediction models output probabilities of turn shifts, yet they are typically evaluated by thresholding these probabilities into binary decisions and comparing them against corpus-observed labels. This practice implicitly treats corpus-observed turn shifts as definitive ground truth, even though under inherent turn-taking ambiguity they reflect one realized interactional outcome among multiple plausible outcomes, rather than a uniquely correct binary label. We argue that binary evaluation is a practical simplification rather than a theoretical necessity. Instead, predicted probabilities should be evaluated at the distributional level without being reduced to binary decisions. To this end, we propose a distribution-based evaluation framework that compares model output distributions with reference distributions and measures their divergence using the Wasserstein distance. We further show how discrepancies between model predictions and corpus-observed turn shifts can be used as a basis for training-data refinement. Experiments on Japanese conversational data, using linguistic information alone, showed that the proposed refinement reduced distributional divergence, indicating better alignment between predicted probabilities and the reference distributions. The refinement also improved balanced accuracy in a supplementary binary evaluation.</abstract>
+      <url hash="a3fdf2d1">2026.sigdial-1.2</url>
+      <bibkey>kubo-etal-2026-rethinking</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Tinker Tales: A Tangible Dialogue System for Child–<fixed-case>AI</fixed-case> Co-Creative Storytelling</title>
+      <author id="nayoung-choi" orcid="0009-0002-7082-3777"><first>Nayoung</first><last>Choi</last></author>
+      <author><first>Jiseung</first><last>Hong</last></author>
+      <author><first>Peace</first><last>Cyebukayire</last></author>
+      <author><first>Ikseon</first><last>Choi</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>25-50</pages>
+      <abstract>Conversational AI agents are increasingly explored as creative partners, yet how conversation design shapes child–AI dialogue in co-creative settings remains underexplored. We present Tinker Tales, a tangible dialogue system for child–AI collaborative storytelling, in which educational frameworks—narrative development and social-emotional learning—are instantiated as conversation design, shaping how the agent engages children across four narrative stages. The system combines a physical storytelling board, NFC-embedded toys, and a mobile app mediating multimodal interaction through tangible manipulation and voice-based dialogue. We conducted a home-based user study with 10 children (ages 6–8) across two conversation design conditions varying in how the agent structured elaboration, with and without educational scaffolding. Our findings show that prompt framing shapes the form and consistency of children’s narrative contributions, structuring how they participate in co-creative dialogue with AI.</abstract>
+      <url hash="fa06160f">2026.sigdial-1.3</url>
+      <bibkey>choi-etal-2026-tinker</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Suppressing Unnecessary Clarification Requests for Unknown Word Acquisition in Spoken Dialogue Using Syllable-Based <fixed-case>ASR</fixed-case> Confidence</title>
+      <author><first>Takumi</first><last>Furuta</last></author>
+      <author id="ryu-takeda" orcid="0009-0007-0518-6245"><first>Ryu</first><last>Takeda</last></author>
+      <author id="kazunori-komatani" orcid="0000-0002-6052-600X"><first>Kazunori</first><last>Komatani</last></author>
+      <pages>51-61</pages>
+      <abstract>Clarification requests are a promising way for spoken dialogue systems to acquire unknown words from users, but asking too often can burden users. Because unknown words are not in the system’s vocabulary, utterances must first be represented as syllable sequences, which are then segmented into words. In this setting, syllable-based automatic speech recognition (S-ASR) errors can cause utterances containing only known words to appear to contain unknown words, leading to unnecessary clarification requests. To address this issue within a stream-based active learning framework, we extend the reinforcement learning policy state with recognition reliability features. Specifically, we incorporate two confidence measures derived from S-ASR to make clarification request selection sensitive to S-ASR errors. We further incorporate segmentation confidence over N-best hypotheses to reduce the impact of minor S-ASR errors. Experiments using pre-recorded speech data showed that the number of clarification requests on utterances affected by S-ASR errors was reduced by 1.34. The area under the learning curve for word segmentation also numerically increased by 0.07.</abstract>
+      <url hash="f1faa18e">2026.sigdial-1.4</url>
+      <bibkey>furuta-etal-2026-suppressing</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Towards Conversational Patient History-Taking: Voice-Interactive <fixed-case>AI</fixed-case> Agents for Pre-visit Dementia Diagnostic Interviews</title>
+      <author><first>Andrew G.</first><last>Breithaupt</last></author>
+      <author id="nayoung-choi" orcid="0009-0002-7082-3777"><first>Nayoung</first><last>Choi</last></author>
+      <author><first>James D.</first><last>Finch</last></author>
+      <author><first>Jeanne M.</first><last>Powell</last></author>
+      <author><first>Arin L.</first><last>Nelson</last></author>
+      <author><first>Oz A.</first><last>Alon</last></author>
+      <author><first>Howard J.</first><last>Rosen</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>62-78</pages>
+      <abstract>Patient history-taking is a critical yet time-intensive component of clinical diagnosis, frequently hindered by time-constrained clinical visits. We present an LLM-based voice-interactive conversational system for conducting semi-structured diagnostic interviews with older adults suspected of Alzheimer’s disease and related dementias (ADRD). The system features conditional conversation branching over specialist-developed interview scripts and interaction adaptations tailored for older adults. In a within-subjects study with 30 participants from a cognitive neurology clinic, we compare two LLM prompting strategies through dialogue analysis, assess user experience, and evaluate symptom elicitation against routine specialist interviews. Our findings reveal that prompting strategy distinctly shapes both conversational dynamics and symptom coverage. Together with high sensitivity scores and positive user experience ratings, these results demonstrate the feasibility and clinical potential of LLM-based conversational agents for scalable, patient-centered history-taking in ADRD care.</abstract>
+      <url hash="45971d04">2026.sigdial-1.5</url>
+      <bibkey>breithaupt-etal-2026-towards</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>C</fixed-case>lar<fixed-case>V</fixed-case>is: A Dataset of Clarification Requests and Grounding in Collaborative Data Visualization Dialogues</title>
+      <author id="abari-bhattacharya" orcid="0000-0003-3647-3363"><first>Abari</first><last>Bhattacharya</last></author>
+      <author id="barbara-di-eugenio" orcid="0000-0003-1706-2577"><first>Barbara</first><last>Di Eugenio</last></author>
+      <pages>79-90</pages>
+      <abstract>Clarification Requests (CRs) play a crucial role in human communication. However, existing datasets are often limited to single-turn clarifications or simulated tasks. We present a novel task-oriented dialogue dataset, ClarVis, of CRs collected from real-time multi-user collaborative data-exploration sessions, where users analyze data together while interacting with a visualization-generating conversational assistant. This dataset fills important gaps in current CR datasets by identifying naturally occurring CRs grounded by real-world modalities like hearing, vision, and actions in the physical environment. Our dataset includes 6.3K utterances across collaborative tasks, where each CR is annotated with a grounding modality - Auditory (A), Visual (V), or Kinesthetic (K) - that captures the context the clarification pertains to. Further, we establish benchmark tasks for CR identification and grounding-modality classification, and evaluate them with traditional machine learning models as well as instruction-tuned large language models. The results highlight both the learnability and the difficulty of these tasks, and position ClarVis as a useful resource for studying clarifications in collaborative dialogue settings.</abstract>
+      <url hash="966cfd8a">2026.sigdial-1.6</url>
+      <bibkey>bhattacharya-di-eugenio-2026-clarvis</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Accuracy and Satisfaction in Multi-Turn <fixed-case>LLM</fixed-case> Dialogues for <fixed-case>NFR</fixed-case> Assessment</title>
+      <author><first>Ali</first><last>Pourghasemi Fatideh</last></author>
+      <author><first>Wilder</first><last>Baldwin</last></author>
+      <author><first>Maria</first><last>Dhakal</last></author>
+      <author><first>Collin</first><last>McMillan</last></author>
+      <author id="sepideh-ghanavati" orcid="0000-0001-7972-667X"><first>Sepideh</first><last>Ghanavati</last></author>
+      <pages>91-106</pages>
+      <abstract>LLM-based dialogue assistants have become mainstream tools for software developers, yet current evaluation benchmarks focus exclusively on functional correctness. This leaves a critical gap in assessing the quality and accuracy of these conversations when handling Non-Functional Requirements (NFRs), which are inherently vague, context-dependent, and involve many parts of a program. Evaluating how well these systems support collaborative reasoning about NFRs requires methods that go beyond single-turn accuracy to capture both the correctness of the system’s outputs and the quality of the multi-turn interaction. In this paper, we investigate the accuracy and quality of multi-turn conversations between developers and an LLM-based agent in the domain of Health Insurance Portability and Accountability Act (HIPAA) regulatory compliance, a representative case of regulatory NFRs. We hired 49 programmers to interact with GitHub Copilot to assess 148 HIPAA-derived NFRs against the iTrust codebase, a system designed to comply with HIPAA regulations, across three dimensions: requirement satisfaction level, reasoning, and code localization. We find that developers tend to agree with LLM assessments, but accuracy against expert ground truth is low. We model user satisfaction and find that longer system responses and more information-providing turns negatively affect user satisfaction, whereas proactive interactions positively affect it. Our findings provide insights for designing LLM-based dialogue systems that support NFR assessment.</abstract>
+      <url hash="407e8751">2026.sigdial-1.7</url>
+      <bibkey>pourghasemi-fatideh-etal-2026-accuracy</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Breaking the Script: Do Role-Playing Agents Maintain Goal Alignment under Distraction?</title>
+      <author><first>Dongxu</first><last>Lu</last></author>
+      <author id="albert-gatt" orcid="0000-0001-6388-8244"><first>Albert</first><last>Gatt</last></author>
+      <author id="johan-jeuring" orcid="0000-0001-5645-7681"><first>Johan</first><last>Jeuring</last></author>
+      <pages>107-123</pages>
+      <abstract>As large language models (LLMs) are increasingly deployed as role-playing agents in educational and professional training simulations, their susceptibility to user-induced distraction threatens their pedagogical utility. We formalise goal-competing distraction as a controlled evaluation paradigm and introduce a simulation framework that captures both immediate reactions and multi-turn trajectories under targeted distraction, using an LLM-based user simulator. Building upon this framework, we evaluate agent behaviour across three models: Gemini-2.0-Flash, Llama-3.3-70B-Instruct, and Llama-3.1-8B-Instruct. Our findings reveal a critical trade-off dependent on model scale. While larger models tend to remain socially responsive and more frequently engage with distractor topics, the smaller model shows rigid goal adherence by resisting and rejecting distraction. Although redirection is the most common initial response, subsequent trajectories diverge substantially. The inclusion of explicit dialogue state demonstrates model-dependent effects, acting as a stabilising anchor for smaller models but providing limited benefit for larger ones. These results suggest that maintaining goal alignment in role-playing agents requires explicitly managing the trade-off between conversational responsiveness and goal adherence.</abstract>
+      <url hash="d688a0fc">2026.sigdial-1.8</url>
+      <bibkey>lu-etal-2026-breaking</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>A</fixed-case>rg<fixed-case>A</fixed-case>ssist: <fixed-case>LLM</fixed-case>-based Argument Synthesis for Insurance Disputes</title>
+      <author><first>Anubhav</first><last>Sinha</last></author>
+      <author><first>Nitin</first><last>Ramrakhiyani</last></author>
+      <author id="sachin-pawar" orcid="0000-0002-6531-7127"><first>Sachin</first><last>Pawar</last></author>
+      <author><first>Isha</first><last>Narang</last></author>
+      <author><first>Manoj</first><last>Apte</last></author>
+      <pages>124-138</pages>
+      <abstract>Access to timely and affordable dispute resolution is a major challenge for industries such as insurance, finance, and consumer goods, where legal disputes between suppliers and consumers are frequent and often complex. We present "ArgAssist", an LLM-based system for structured argumentative discourse generation that forms a core component of an alternative dispute resolution (ADR) platform that we are building. ArgAssist assists parties involved in a dispute (such as insurer and insured in an insurance dispute) by synthesizing discourse-structured legal arguments, represented as claims supported by typed premises grounded in case information. ArgAssist first generates "base" arguments using an LLM, which are then strengthened by grounding them in relevant prior cases and statutes to ensure legal soundness and contextual coherence. We introduce a novel evaluation metric for assessing the quality of generated arguments and demonstrate ArgAssist’s effectiveness on two real-world datasets in the insurance domain. Our results show that explicitly modeling argumentative discourse structure and grounding significantly improves alignment with expert-authored legal arguments.</abstract>
+      <url hash="17dd1dcd">2026.sigdial-1.9</url>
+      <bibkey>sinha-etal-2026-argassist</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Detecting Experiential Intertextuality Across Migration Routes: Beyond Surface Similarity in <fixed-case>F</fixed-case>rench Narratives</title>
+      <author><first>Sakayo</first><last>Toadoum Sari</last></author>
+      <author><first>Nelly</first><last>Robin</last></author>
+      <author><first>Michelle</first><last>Auzanneau</last></author>
+      <author><first>Lakhdar</first><last>Sais</last></author>
+      <author><first>Véronique</first><last>Petit</last></author>
+      <author><first>Marie</first><last>Veniard</last></author>
+      <author><first>Said</first><last>Jabbour</last></author>
+      <author><first>Fabien</first><last>Delorme</last></author>
+      <pages>139-150</pages>
+      <abstract>Migrants traversing geographically distinct routes such as the Trans-Saharan and Balkan corridors often recount strikingly parallel lived experiences: police violence, smuggler exploitation, dangerous crossings, and family separation. We introduce the task of experiential intertextuality detection: automatically identifying shared experiential echoes across migration narratives without requiring annotated training data. From 108 French migration narratives spanning both corridors, we automatically generate sentence pairs and score them using annotation-free methods: lexical baselines, sentence embeddings, POS-based structural features, a migration-specific theme lexicon, context-aware narrative features, and zero-shot LLM scoring with Qwen2.5-7B and Mistral-7B under three prompting strategies. We validate all methods against 816 expertannotated intertextuality judgments (interannotator Krippendorff’s α=0.27). Our results reveal that all surface, structural, and embedding methods correlate only weakly with expert judgments (r≤0.30); Qwen2.5-7B zero-shot achieves the best single-method correlation (r=0.38); few-shot examples degrade Qwen but dramatically improve Mistral; narrative position significantly predicts intertextuality, with departure-phase pairs showing the highest experiential echoes; and a supervised hybrid combining all 31 features achieves r=0.45, a 21% improvement over the best individual method.</abstract>
+      <url hash="1596b14b">2026.sigdial-1.10</url>
+      <bibkey>toadoum-sari-etal-2026-detecting</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Conversational Grounding in Large Language Models: Evaluation Methods, Challenges and Future Directions</title>
+      <author><first>Michelle</first><last>Elizabeth</last></author>
+      <author><first>Gwénolé</first><last>Lecorvé</last></author>
+      <author id="lina-m-rojas-barahona-4695" orcid="0009-0009-8439-4695"><first>Lina M.</first><last>Rojas Barahona</last></author>
+      <author><first>Magalie</first><last>Ochs</last></author>
+      <pages>151-163</pages>
+      <abstract>Conversational grounding is the collaborative process through which speakers establish and maintain mutual understanding. It is essential for the success of a dialogue. While it is inherent in human conversations, it remains a challenge for instruction-following Large Language Models (LLM). This paper surveys how conversational grounding is evaluated in task-oriented dialogue in the current era of LLMs. First, we focus on how conversational grounding is modelled explicitly — using dialogue acts and by modelling the participant mental state. Then, we review collaborative tasks that enable the evaluation of conversational grounding implicitly at the global level based on outcomes. Finally, we highlight the limitations of evaluation, notably the current methodology and metrics used, and outline research directions in conversational grounding and its evaluation.</abstract>
+      <url hash="12fbae5f">2026.sigdial-1.11</url>
+      <bibkey>elizabeth-etal-2026-conversational</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Sensor-Augmented Voice Activity Projection for Enhancing Turn-Taking Prediction</title>
+      <author><first>Satoki</first><last>Hamanaka</last></author>
+      <author><first>Yasue</first><last>Kishino</last></author>
+      <author><first>Yuiko</first><last>Tsunomori</last></author>
+      <author><first>Shin</first><last>Mizutani</last></author>
+      <author id="yuya-chiba-7981" orcid="0009-0007-9064-7981"><first>Yuya</first><last>Chiba</last></author>
+      <author><first>Tadashi</first><last>Okoshi</last></author>
+      <author><first>Jin</first><last>Nakazawa</last></author>
+      <pages>164-169</pages>
+      <abstract>Voice Activity Projection (VAP) has been actively studied to enable natural turn-taking in spoken dialogue systems, relying primarily on acoustic features. Visual cues such as head movements are also known to contribute to turn-taking prediction; however, camera-based approaches are affected by placement and lighting conditions and are not always reliably available to dialogue systems. As a camera-independent approach for directly capturing head motion, earable devices offer a promising solution. In this study, we propose Sensor-Augmented VAP, a framework that integrates in-ear inertial measurement unit (IMU) signals with a pre-trained VAP model via a lightweight residual fusion module. To validate our proposed method, we collected a dataset pairing conversational audio with in-ear IMU data, comprising 12 dyadic Japanese dialogues recorded using microphones and earbuds. Experiments in speaker-independent and speaker-dependent settings demonstrate that IMU fusion consistently improves weighted F1 score for shift detection and reduces VAP loss over the audio-only baseline. These results confirm that head-motion cues are effective for enhancing turn-taking prediction.</abstract>
+      <url hash="a13f118b">2026.sigdial-1.12</url>
+      <bibkey>hamanaka-etal-2026-sensor</bibkey>
+    </paper>
+    <paper id="13">
+      <title>A Dialogue System for Second Language Learning with Dynamic Adaptation to In-Dialogue Difficulty Changes</title>
+      <author><first>Taku</first><last>Morioka</last></author>
+      <author><first>Junya</first><last>Takayama</last></author>
+      <author><first>Tomoyuki</first><last>Kajiwara</last></author>
+      <pages>170-187</pages>
+      <abstract>We propose a dialogue system for second language learning that dynamically adjusts the difficulty of its utterances by adapting to changes in the learner’s utterance difficulty across dialogue topics. Recent studies have advanced second language learning dialogue systems based on large language models (LLMs) grounded in the Input Hypothesis. However, although learners’ language proficiency varies based on their familiarity with a given topic, conventional fixed-difficulty dialogue systems do not adequately account for this variability. In this study, we propose a dialogue system for second language learning that minimizes the difficulty gap between the system and a user model. The user model dynamically varies utterance difficulty based on the topic during dialogue. Our LLM-based dialogue system controls utterance difficulty by prompt engineering and Direct Preference Optimization (DPO). Experimental results in both Japanese and English demonstrate that the proposed method is effective in tracking utterance difficulty for second language learners.</abstract>
+      <url hash="ce443d2c">2026.sigdial-1.13</url>
+      <bibkey>morioka-etal-2026-dialogue</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Ping-Ponder: Concurrent Dual-Agent Spoken Dialogue via Shared Belief State</title>
+      <author><first>Akiko</first><last>Masaki-Kato</last></author>
+      <author><first>Gulzar</first><last>Haris</last></author>
+      <pages>188-204</pages>
+      <abstract>Maintaining responsiveness while performing complex task reasoning remains a fundamental challenge in spoken dialogue systems. Existing dual-agent approaches separate conversation from reasoning but typically run the two sequentially, beginning reasoning only after the necessary user information is collected, causing substantial planning latency. We propose Ping-Ponder, a dual-agent framework in which two agents operate concurrently through a shared belief state. The conversational agent (Ping) handles real-time spoken interaction while incrementally extracting intent from user utterances and updating the shared belief state. The reasoning agent (Ponder) begins planning and knowledge retrieval as soon as partial intent information becomes available, without waiting for complete slot filling, and incrementally updates the belief state with intermediate results. This allows Ping to continue eliciting missing information while promptly presenting candidate plans generated by Ponder. In a paired single-operator case study, the proposed approach reduces average planning-phase latency by 93% in English (from 7.1s to 0.5s) and 87% in Japanese (from 7.3s to 1.0s) compared with a sequential dual-agent baseline. In a larger replay study on two spoken task-oriented corpora, the same ordering holds under controlled conditions: Ping-Ponder maintains time-to-first-response parity with the blocking baseline while reducing planning-phase latency on planning-triggered turns by 31–32%, with no evidence of degraded reference-based response quality under an LLM judge; human-perceived conversational quality remains to be tested in a user study. These results suggest that concurrent processing through a shared belief state is a promising direction for reconciling responsiveness and reasoning capability in spoken dialogue systems.</abstract>
+      <url hash="273c4994">2026.sigdial-1.14</url>
+      <bibkey>masaki-kato-haris-2026-ping</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Rethinking Role-Playing Evaluation: Anonymous Benchmarking and A Systematic Study of Personality Effects</title>
+      <author><first>Ji-Lun</first><last>Peng</last></author>
+      <author><first>Yun-Nung</first><last>Chen</last></author>
+      <pages>205-218</pages>
+      <abstract>Large Language Models (LLMs) have shown remarkable potential in developing role-playing agents (RPAs). However, current evaluation frameworks rely heavily on well-known fictional characters, raising a critical concern: models may be leveraging their internal training memory of these characters rather than demonstrating role-playing capabilities. This reliance often leads to significant performance degradation when RPAs encounter unseen or out-of-distribution personas. To address this, we propose a more rigorous evaluation protocol designed to decouple role-playing proficiency from character recognition. Our experiments across multiple benchmarks demonstrate that anonymizing characters degrades performance, confirming that name exposure provides implicit cues that mask a model’s true capability. To mitigate this, we investigate diverse personality augmentation as a method to enhance role fidelity in anonymous settings. We systematically analyze the impact of various personality-description methods on agent behavior and consistency. Our results show that incorporating personality information consistently improves RPA performance. This work establishes a more equitable evaluation standard and validates a scalable, personality-enhanced framework for constructing robust RPAs.</abstract>
+      <url hash="6c35ff76">2026.sigdial-1.15</url>
+      <bibkey>peng-chen-2026-rethinking</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>I</fixed-case> Understand How You Feel: Enhancing Deeper Emotional Support Through Multilingual Emotional Validation in Dialogue System</title>
+      <author><first>Zi Haur</first><last>Pang</last></author>
+      <author id="yahui-fu" orcid="0000-0001-8379-5993"><first>Yahui</first><last>Fu</last></author>
+      <author id="koji-inoue" orcid="0000-0002-2929-2559"><first>Koji</first><last>Inoue</last></author>
+      <author id="tatsuya-kawahara" orcid="0000-0002-2686-2296"><first>Tatsuya</first><last>Kawahara</last></author>
+      <pages>219-236</pages>
+      <abstract>Emotional validation - explicitly acknowledging that a user’s feelings make sense - has proven therapeutic value but has received little computational attention. The emotional validation in dialogue systems can be decomposed into (i) validating response identification, (ii) validation timing detection, and (iii) validating response generation. To support research on all three subtasks, we release M-EDESConv, a 120k English–Japanese multilingual corpus created through hybrid manual–automatic annotation, and M-TESC, a multilingual spoken-dialogue test set. For timing detection, we propose MEGUMI, a Multilingual Emotion-aware Gated Unit for Mutual Integration, that fuses frozen XLM-RoBERTa semantics with language-specific emotion encoders via cross-modal attention and gated fusion. MEGUMI shows superior performance on both the M-EDESConv and M-TESC datasets, both objectively and subjectively. Finally, our EmoValidBench benchmarks of GPT-4.1 Nano and Llama-3.1 8B indicate that current LLMs generate contextually similar, diverse validating responses, but emotional understanding remains a major area for improvement.</abstract>
+      <url hash="3512b3c9">2026.sigdial-1.16</url>
+      <bibkey>pang-etal-2026-understand</bibkey>
+    </paper>
+    <paper id="17">
+      <title>For What Reason? Interpreting Models’ Encoding of Causation and Antithesis</title>
+      <author><first>Abhidip</first><last>Bhattacharyya</last></author>
+      <author id="shira-wein" orcid="0000-0002-1062-0866"><first>Shira</first><last>Wein</last></author>
+      <pages>237-253</pages>
+      <abstract>Discourse relations provide document structure, critical to language understanding and enabling language model performance and ethicality. In this work, we investigate how instruction-tuned Transformer models (LLaMA and Mistral) encode discourse relations, with a focus on the somewhat opposed relations on causation and antithesis. Framing the task as a next-token prediction task and applying a suite of interpretability techniques to test model internals, our findings show that certain early layers make predictive decisions at mid-sequence tokens, while some mid-level layers finalize their decisions closer to the last token. Most of the remaining layers primarily propagate earlier decisions rather than actively influencing them. Additionally, we observe that some layers exhibit a preference for one answer over alternatives, suggesting asymmetric representation of discourse-based reasoning.</abstract>
+      <url hash="dd073a0b">2026.sigdial-1.17</url>
+      <bibkey>bhattacharyya-wein-2026-reason</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>C</fixed-case>ross<fixed-case>O</fixed-case>racle: An Agentic Framework for Real-Time Expert Personas with Parallelized Acoustic Synthesis</title>
+      <author><first>Yash Raj</first><last>Singh</last></author>
+      <pages>254-257</pages>
+      <abstract>We present CrossOracle, a production-deployed spoken dialogue system for real-time Hinglish (Hindi-English code-switched) voice interaction across eleven Expert Persona identities. The system addresses the latency bottleneck of cascaded ASR-LLM-TTS pipelines through three contributions: (1) a parallelized First-In-First-Stream TTS worker that overlaps synthesis with ongoing LLM generation, mathematically ensuring gapless audio playback; (2) a language-aware semantic boundary heuristic that flushes text chunks at Hindi danda and Latin punctuation boundaries, preserving prosodic integrity across code-switched utterances; and (3) a deterministic AbortController-based barge-in protocol that resolves user interruptions in under 1 ms. Empirical evaluation of live conversational logs demonstrates a mean TTS Real-Time Factor of 0.107 and a 100% barge-in resolution rate. The live system is deployed at crossoracle.io and supports persona switching, custom persona creation from natural language descriptions, and robust Hinglish ASR error tolerance via a Devanagari ratio mishear filter. The demonstration invites attendees to hold unscripted Hinglish conversations, stress-test the barge-in protocol, and construct novel personas on-the-fly.</abstract>
+      <url hash="cccf600b">2026.sigdial-1.18</url>
+      <bibkey>singh-2026-crossoracle</bibkey>
+    </paper>
+    <paper id="19">
+      <title>From Felt Sense to Words: Construction and Analysis of a Focusing Dialogue Dataset for Verbalization</title>
+      <author><first>Yuiko</first><last>Tsunomori</last></author>
+      <author id="yuya-chiba-7981" orcid="0009-0007-9064-7981"><first>Yuya</first><last>Chiba</last></author>
+      <author><first>Yosuke</first><last>Koshikawa</last></author>
+      <pages>258-270</pages>
+      <abstract>Verbalization, the process of expressing one’s internal states in words, has been shown to deepen self-understanding and improve well-being. However, this can be difficult to achieve for some individuals. One approach to supporting verbalization is Focusing-Oriented Psychotherapy. Focusing facilitates verbalization by guiding a speaker’s attention to their felt sense, an internal state that has not yet been verbalized, and helping them to find the words that appropriately express this felt sense through dialogue. Toward developing Focusing dialogue systems that support user verbalization, we constructed a dataset containing Focusing dialogues between professionally trained listeners and speakers. This dataset consists of 50 dialogues (762 minutes, 17,986 utterances) and contains ratings of verbalization progress, subjective evaluations, and dialogue act (DA) annotations. To clarify the characteristics of Focusing dialogues, we analyzed associations among verbalization progress, subjective evaluations, and DA usage. Based on these analyses, we discussed design implications for Focusing dialogue systems.</abstract>
+      <url hash="dbac9371">2026.sigdial-1.19</url>
+      <bibkey>tsunomori-etal-2026-felt</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Retrieving Responses Useful as References in Counseling via <fixed-case>LLM</fixed-case>-Generated Structurally Analogous Dialogues</title>
+      <author><first>Yu</first><last>Nakagawa</last></author>
+      <author><first>Nozomu</first><last>Ikeda</last></author>
+      <author id="kotaro-funakoshi" orcid="0000-0002-4529-4634"><first>Kotaro</first><last>Funakoshi</last></author>
+      <author><first>Manabu</first><last>Okumura</last></author>
+      <pages>271-292</pages>
+      <abstract>Retrieving past similar dialogues to assist response generation in the present context is a promising approach to addressing the shortage of highly experienced professionals in various domains, such as user support and mental health counseling. However, unlike traditional retrieval, this task requires finding dialogue histories that lead to useful subsequent responses—a property we define as referenceability—rather than relying solely on superficial topic matching. Learning this property directly is difficult due to the impracticality of manually annotating large-scale data. To address this, we propose a framework that leverages large language models to generate pseudo-similar counseling dialogues with strict message-level correspondence to original sessions. We then use these generated dialogues as weak supervision for contrastive learning of an embedding model. By pairing original dialogue histories with their generated counterparts, the model learns to pull together histories that share referenceable subsequent counselor responses, even if their explicit situations differ. Experimental results show that our fine-tuned model significantly improves retrieval performance, increasing Hit@1 from 0.167 to 0.500 and MRR from 0.232 to 0.576. Human evaluations also confirm that the model retrieves more referenceable responses, improving the average score from 2.22 to 2.66.</abstract>
+      <url hash="2e3541ab">2026.sigdial-1.20</url>
+      <bibkey>nakagawa-etal-2026-retrieving</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Embodied Multi-Agent Coordination by Aligning World Models Through Dialogue</title>
+      <author id="vardhan-dongre" orcid="0000-0002-7507-3648"><first>Vardhan</first><last>Dongre</last></author>
+      <author id="dilek-hakkani-tur" orcid="0000-0001-5246-2117"><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>293-306</pages>
+      <abstract>Effective collaboration between embodied agents requires more than acting in a shared environment, it demands communication grounded in each agent’s evolving understanding of the world. When agents can only partially observe their surroundings, coordination without communication is provably hard, but communication can, in principle, bridge this gap by allowing agents to share observations and align their world models. In this work, we examine whether LLM-based embodied agents actually realize the ability to communicate. We extend PARTNR, a benchmark for collaborative household robotics, with a natural-language dialogue channel that enables two agents with partial observability to communicate during task execution. To evaluate whether dialogue leads to genuine world-model alignment rather than superficial coordination, we propose a framework for measuring world-model alignment defined over per-agent world graphs: observation convergence (do private world models align over time?), information novelty (do messages convey what the partner lacks?), and belief-sensitive messaging (do agents model what their partner knows?). Our experiments across three LLMs reveal that dialogue reduces action conflicts 40–83 percentage points but degrades task success relative to silent coordination. Using our metrics, we characterize the gap between superficial coordination and genuine world-model alignment, and identify where current models fall on this spectrum.</abstract>
+      <url hash="90ffe04c">2026.sigdial-1.21</url>
+      <bibkey>dongre-hakkani-tur-2026-embodied</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>S</fixed-case>aga<fixed-case>QA</fixed-case>: A Multi-hop Reasoning Benchmark for Long-form Narrative Understanding in <fixed-case>TV</fixed-case> Series</title>
+      <author><first>Galann</first><last>Pennec</last></author>
+      <author><first>Zhengyuan</first><last>Liu</last></author>
+      <author><first>Nicholas</first><last>Asher</last></author>
+      <author id="philippe-muller" orcid="0000-0002-6765-4020"><first>Philippe</first><last>Muller</last></author>
+      <author id="nancy-chen" orcid="0000-0003-0872-5877"><first>Nancy</first><last>Chen</last></author>
+      <pages>307-326</pages>
+      <abstract>We introduce SagaQA, a long-form video benchmark for multi-hop reasoning over full-length TV series. Existing video reasoning benchmarks often emphasize local understanding of adjacent frames or clips. SagaQA addresses this gap by requiring high-level comprehension of extended multimodal narratives in entire TV shows. A distinguishing feature of SagaQA is the granularity of its reasoning steps. Our dataset necessitates long-range reasoning hops to connect information across completely different episodes. This requires models to reason over entire events and actions, demanding a deep understanding of the show’s narration and progression at a multimodal level. Motivated by recent progress in agentic methods, we further study how different planning strategies handle such complex reasoning. We categorize these approaches into three classes—parallel, sequential, and hybrid planners—and evaluate their ability to generate coherent and complete reasoning plans. Our results on SagaQA suggest that hybrid planners consistently produce higher-quality plans and exhibit stronger capabilities for complex, high-level narrative understanding in TV shows.</abstract>
+      <url hash="a332af24">2026.sigdial-1.22</url>
+      <bibkey>pennec-etal-2026-sagaqa</bibkey>
+    </paper>
+    <paper id="23">
+      <title>How Ethos and Pathos Appeals Resonate in Reader Interpretations of Social Media Messages</title>
+      <author id="ewelina-gajewska" orcid="0009-0006-6012-4787"><first>Ewelina</first><last>Gajewska</last></author>
+      <author><first>Katarzyna</first><last>Budzynska</last></author>
+      <author><first>Jarosław A.</first><last>Chudziak</last></author>
+      <author><first>Liesbeth</first><last>Allein</last></author>
+      <pages>327-341</pages>
+      <abstract>Rhetorical strategies and their influence on audiences are often studied through social media posts and comments. However, this focus overlooks the "universal audience", which is the majority of readers who remain silent and do not explicitly express how a message affects them. This study investigates how two classical modes of persuasion, ethos and pathos, resonate in the silent audience’s interpretations of meaning. Using a dataset of social media sentences paired with human-written interpretations, we label both sources for ethos and pathos and assess whether these rhetorical appeals are preserved. Our analyses show that interpretations diverge from the original sentences in 30% of cases, with rhetorically charged content eliciting greater variability than neutral content. We further find that ethos and pathos in original sentences can predict audience attitudes toward the author, underscoring the subtle ways rhetoric shapes perception beyond visible engagement.</abstract>
+      <url hash="240ac413">2026.sigdial-1.23</url>
+      <bibkey>gajewska-etal-2026-ethos</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>GBC</fixed-case>: Gradient-Based Connections for Optimizing Multi-Agent Systems</title>
+      <author><first>Xiaocheng</first><last>Yang</last></author>
+      <author><first>Abdulrahman</first><last>Alrabah</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tür</last></author>
+      <author><first>Gokhan</first><last>Tur</last></author>
+      <pages>342-356</pages>
+      <abstract>Multi-agent systems (MAS) built on large language models (LLMs) provide a promising framework for solving complex tasks through role specialization and structured interaction. However, their performance is often limited by miscoordination and, more fundamentally, the lack of fine-grained credit assignment across agents. Existing approaches typically rely on coarse-grained feedback, making it difficult to identify which agents or interaction steps are responsible for errors. We propose Gradient-Based Connections (GBC), an approach for fine-grained attribution and optimization of multi-agent systems. GBC models a MAS as a computational graph and introduces gradient-based connection weights to quantify the influence of each agent’s output on downstream agents at the token level. By constructing an attribution graph and propagating task-specific loss signals backward, our method enables precise identification of error sources and targeted prompt optimization. We further develop AgentChord, an efficient implementation that leverages prefix-based gradient computation. Experiments on MultiWOZ and τ-bench show that GBC improves multi-agent performance and outperforms strong single-agent and multi-agent baselines, and higher attribution quality is associated with greater optimization effectiveness. Code is available at: https://github.com/yxc-cyber/AgentChord.</abstract>
+      <url hash="3979e6f6">2026.sigdial-1.24</url>
+      <bibkey>yang-etal-2026-gbc</bibkey>
+    </paper>
+    <paper id="25">
+      <title>A <fixed-case>F</fixed-case>rench <fixed-case>OSCE</fixed-case> Dialogue Dataset and Controllable Virtual Patient System for Clinical Training</title>
+      <author id="doria-bonzi" orcid="0009-0008-2648-3967"><first>Doria</first><last>Bonzi</last></author>
+      <author id="tom-bourgeade" orcid="0000-0002-0247-3130"><first>Tom</first><last>Bourgeade</last></author>
+      <author><first>Fabrice</first><last>Lefèvre</last></author>
+      <author><first>Irina</first><last>Illina</last></author>
+      <pages>357-374</pages>
+      <abstract>The clinical and communication skills of medical students are commonly assessed through Objective Structured Clinical Examinations (OSCEs), which consist of brief scenario-driven simulations of doctor-patient interactions. However, training is often limited by the low availability of human standardized patients, motivating the development of realistic virtual patients (VPs). To address this gap, we introduce a French OSCE dialogue dataset comprising 240 real student–patient training interactions. We build upon it a controllable LLM-based pipeline to generate synthetic OSCE dialogues. The pipeline integrates modular components, such as retrieval-based grounding and a reflection loop, to ensure patient fidelity, coherence, and realism. Additionally, we propose a multi-level evaluation framework assessing patient simulation quality, student performance, and linguistic quality, using an LLM-as-a-Judge approach. Experiments suggest that controllability modules generally improve patient fidelity and student evaluation consistency. Finally, we also implement an interactive prototype in which students can practice with a VP and receive automatic feedback.</abstract>
+      <url hash="60f19905">2026.sigdial-1.25</url>
+      <bibkey>bonzi-etal-2026-french</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Do <fixed-case>LLM</fixed-case>s Use Relational Structure in <fixed-case>KG</fixed-case>-Grounded Dialogue? Evidence from Entity and Relation Perturbation</title>
+      <author><first>Dominic</first><last>Okonkwo</last></author>
+      <author><first>Ismailcem Budak</first><last>Arpinar</last></author>
+      <pages>375-384</pages>
+      <abstract>Knowledge graph-grounded dialogue systems are built on the assumption that large language models leverage not only entity identity but also the typed relational structure connecting entities. We present the first controlled perturbation study to directly test this assumption, comparing model responses under three conditions: intact KG triples, relation-shuffled triples with entities preserved, and entity-only context. We evaluate six models across three families on two datasets, OpenDialKG and WoW-KG, a new corpus we construct by augmenting Wizard of Wikipedia with Wikidata triples. We introduce the Relation Sensitivity Score (RSS), a behavioral metric quantifying response divergence under relation perturbation. We find that RSS is significantly lower than the divergence from removing relations entirely across all twelve model-dataset combinations (Wilcoxon p &lt; 0.001), with RSS-to-divergence ratios ranging from 0.821 to 0.978. Two mechanisms explain this pattern: entity salience, where the model already knows enough about the entity that the relation label becomes irrelevant (Spearman ρ = -0.108, p &lt; 0.001), and surface-form confusion, where a shuffled label’s wording alone pulls the response off course despite being invalid. Neither mechanism improves with model scale. We then asked human raters to confirm these findings, and the results agree: valid-KG responses are preferred in 53% of turns vs. 8% for shuffled-KG responses, yet raters cannot identify the corrupted condition in 58% of turns overall and 95% of low-sensitivity turns. These results show that relational structure is systematically underutilized in current KG-grounded dialogue under zero-shot prompting, with direct implications for how such systems are designed and evaluated.</abstract>
+      <url hash="af550c4c">2026.sigdial-1.26</url>
+      <bibkey>okonkwo-arpinar-2026-llms</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>D</fixed-case>i<fixed-case>PS</fixed-case>: Dialogue Policy Selection for High-Stakes Persuasion Agents</title>
+      <author><first>Tianyi</first><last>Zhang</last></author>
+      <author><first>Mousumi</first><last>Das</last></author>
+      <author><first>Abrar</first><last>Anwar</last></author>
+      <author><first>Jesse</first><last>Thomason</last></author>
+      <author id="david-traum" orcid="0000-0003-3473-9586"><first>David</first><last>Traum</last></author>
+      <pages>385-402</pages>
+      <abstract>Large Language Models (LLMs) often struggle with persuasion in high-stakes scenarios. People’s individual personalities and concerns require tailored strategies rather than a one-size-fits-all approach. To address this challenge, we focus on a fire-rescue scenario in which an operator must persuade a resident to evacuate as a high-stakes persuasion domain and propose Dialogue Policy Selection (DiPS), a Q-learning framework to dynamically select persuasion strategies adapted to the evolving conversational context. Specifically, we train a critic, trained to maximize the chance of evacuation success, to select a persuasion policy at each turn based on the resident’s recent utterances. We then evaluate DiPS against multiple baselines in both simulated and real human interactions. We find that DiPS achieves higher evacuation success than a zero-shot LLM and generic RAG-augmented approach.</abstract>
+      <url hash="badb4cba">2026.sigdial-1.27</url>
+      <bibkey>zhang-etal-2026-dips</bibkey>
+    </paper>
+    <paper id="28">
+      <title>From Propositional to Perceptual Asymmetry: Extending <fixed-case>FPO</fixed-case> to Asymmetric Partial Information Dialogue</title>
+      <author id="yifan-zhu-7275" orcid="0009-0000-6597-7275"><first>Yifan</first><last>Zhu</last></author>
+      <author id="kyeongmin-rim" orcid="0000-0001-8688-4086"><first>Kyeongmin</first><last>Rim</last></author>
+      <author id="james-pustejovsky" orcid="0000-0003-2233-9761"><first>James</first><last>Pustejovsky</last></author>
+      <pages>403-413</pages>
+      <abstract>Frictive Policy Optimization treats friction in collaborative dialogue – misalignment, misunderstanding, repair – as an epistemic signal essential to common-ground construction, rather than noise to be minimized. However, FPO and its implementations have assumed shared perceptual contexts, where friction arises from differently interpreted propositions over the same scene, which we define as propositional asymmetry. We extend FPO to perceptual asymmetry, where participants hold asymmetric partial information and the same referring expression yields different denotations depending on whose information state grounds the reference. We evaluate this through cross-corpora analysis and LLM probing on referentially asymmetric dialogue tasks, primarily the HCRC MapTask. We find that FPO’s friction functional is empirically valid only when evaluated from within each participant’s information horizon: different landmark configurations produce qualitatively distinct grounding failure modes, with a small class of ambiguous configurations driving a disproportionate share of misunderstandings through trajectories that appear successful but silently diverge. The LLM probe confirms that having the right perspective matters more than having all perspectives: the informed single viewpoint outperforms omniscient access to both participants’ contexts. We propose two annotation refinements: subtype decomposition of pending grounding states and accommodation-aware alignment classification.</abstract>
+      <url hash="598730d5">2026.sigdial-1.28</url>
+      <bibkey>zhu-etal-2026-propositional</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Disentangling Annotator Skill from Verifier Strictness in Cross-Verified Dialogue Annotation</title>
+      <author><first>Zihao</first><last>Tao</last></author>
+      <author><first>John A.</first><last>Prado</last></author>
+      <author><first>Ignazio Steven</first><last>LaManna</last></author>
+      <author><first>Ryan</first><last>Puterbaugh</last></author>
+      <author><first>Mim</first><last>Datta</last></author>
+      <author id="julia-hirschberg" orcid="0000-0003-0689-7616"><first>Julia</first><last>Hirschberg</last></author>
+      <pages>414-422</pages>
+      <abstract>Some dialogue corpus projects use a verify-after-annotation workflow: a second team member reviews a submitted file and records corrections. The resulting correction count mixes two signals, annotator accuracy and verifier strictness. We separate these signals for RASwDA, an audio-anchored re-alignment of 1,045 Switchboard file sides (105,005 corrections across 977 change logs) produced by five team members in 2024-2025. Verification is crossed: each of three identified annotators was checked by four different verifiers, with overlap in both directions. A cross-classified mixed-effects model on per-file corrections-per-interval assigns 10.8% of the variance to annotator identity, while the verifier random effect collapses to zero (singular fit, stable across seven leave-one-out and response-choice refits). Thus, for this boundary-realignment task, we find no detectable verifier identity effect once annotator identity, batch, and file length are controlled. Boundary placement, not label selection, accounts for 58.5% of corrections corpus-wide. This helps explain why verifier-specific strictness has little room to appear: timestamp adjustments are anchored in the audio, while DA-label changes account for only 3.0% of corrections. We release the action-typed change logs so other projects can run the same annotator-verifier decomposition on their own verification data.</abstract>
+      <url hash="71808530">2026.sigdial-1.29</url>
+      <bibkey>tao-etal-2026-disentangling</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Beyond Supervised Clarification: Input Rewriting with <fixed-case>LLM</fixed-case>s for Dialogue Discourse Parsing</title>
+      <author><first>Yiming</first><last>Liu</last></author>
+      <author><first>Ziyue</first><last>Zhang</last></author>
+      <author><first>Zhichao</first><last>Xu</last></author>
+      <author><first>Xin</first><last>Yu</last></author>
+      <author><first>Yingheng</first><last>Tang</last></author>
+      <author id="tianyu-jiang" orcid="0009-0003-6019-2075"><first>Tianyu</first><last>Jiang</last></author>
+      <author id="jie-cao" orcid="0000-0001-8268-954X"><first>Jie</first><last>Cao</last></author>
+      <pages>423-439</pages>
+      <abstract>Rewriting inputs to improve frozen downstream models has become a common strategy in modern NLP pipelines. Prior work on incremental dialogue discourse parsing (DDP) shows that supervised clarification models can rewrite fragmentary or underspecified utterances—such as resolving ellipsis or references—to improve parsing accuracy. In this work, we revisit this idea under realistic deployment conditions, where no clarification supervision is available and the clarifier must rely on zero-shot prompting or feedback from a frozen parser. Across three Segmented Discourse Representation Theory (SDRT) datasets and multiple parsers, we find that last-utterance clarification is far less reliable than suggested by supervised settings. Parser-agnostic rewriting often introduces more regressions than repairs, as edits that enable fixes also disrupt discourse cues relied upon by the parser. A best-of-8 rewriting analysis further reveals a practical ceiling: a large fraction of errors are not repairable through input rewriting alone. A parser-aware clarifier trained with GRPO reduces regressions by up to 37% by learning conservative abstention, yet still fails to produce selectivity-aware clarifications that consistently improve parsing. Together, these findings recast clarification as a selective intervention problem. We identify <b>rewritability prediction</b>—deciding whether an utterance is repairable before intervention—as the key missing capability for input-side optimization of frozen discourse parsers, and a critical direction for improving agentic pipelines more broadly.[Data and code are available at &lt;https://github.com/ounlp/Clarification-for-DDP&gt;.]</abstract>
+      <url hash="6e68dfd3">2026.sigdial-1.30</url>
+      <bibkey>liu-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Weakly Supervised Temporal Modeling of Latent Dynamics in Dyadic Conversations</title>
+      <author id="tahiya-chowdhury" orcid="0000-0001-7219-2150"><first>Tahiya</first><last>Chowdhury</last></author>
+      <pages>440-452</pages>
+      <abstract>Conversations in collaborative settings involve evolving social and cognitive dynamics such as coordination, cognitive load, and participation asymmetry, which are not directly observable but manifest through interactional behavior over time. Prior work has largely relied on static summaries or post-hoc labels, limiting our ability to capture how these dynamics unfold during interaction. We model dyadic conversation as a partially observable temporal process and propose a weakly supervised framework for tracking latent conversational state from interaction and acoustic behavioral signals. Using a dataset of remote dyadic conversations (53 dyads) over 9 collaborative tasks with task-level annotations, we segment interactions into fixed temporal windows of 30 seconds and extract 34 features capturing interactional features (turn-taking, floor control) and speaker-relative acoustic measures. We compare static models (Ridge, Random Forest), sequential neural models (GRU with pooling and attention), and two strategies for temporal trajectory modeling of latent states. Static interaction features remain the strongest predictor for both temporal demand (correlation = 0.254) and mental demand (correlation = 0.217); but we do not claim temporal modeling improves prediction accuracy over static baselines. More importantly, temporal modeling reveals interpretable latent trajectory structures – escalation, convergence, and participation imbalance, which are not observable in aggregated summary features alone and can vary systematically by task type and cognitive demand level. These findings provide a step toward dynamic, interpretable representations of conversational state in human conversations.</abstract>
+      <url hash="2b4c0238">2026.sigdial-1.31</url>
+      <bibkey>chowdhury-2026-weakly</bibkey>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>LLM</fixed-case>s Out-of-the-Box Do Not Generate Context-Appropriate Word Order in <fixed-case>R</fixed-case>ussian</title>
+      <author><first>Alina</first><last>Shabaeva</last></author>
+      <author><first>John Frederick</first><last>Bailyn</last></author>
+      <author id="owen-rambow" orcid="0000-0003-2054-039X"><first>Owen</first><last>Rambow</last></author>
+      <pages>453-472</pages>
+      <abstract>In this paper, we examine whether LLMs can generate context-appropriate word order in Russian. Using a new corpus of movie scripts in Russian, with a particular focus on dialogues, we investigate how various semantic, morphosyntactic, and discourse features influence word order choice. We show that traditional machine learning can use these features to model different word order fairly well. We also examine whether LLM dialogue partners can generate context-appropriate word order in Russian. With both zero- and few-shot prompting, LLMs fail to generate word orders beyond the default subject-verb-object. Instead, in order to generate context-appropriate word orders, LLMs need to be fine-tuned or given explicit word order suggestions from a traditional machine learning method.</abstract>
+      <url hash="3b03825c">2026.sigdial-1.32</url>
+      <bibkey>shabaeva-etal-2026-llms</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Chronological Thinking in Full-Duplex Spoken Dialogue Language Models</title>
+      <author id="donghang-wu" orcid="0009-0004-3597-8284"><first>Donghang</first><last>Wu</last></author>
+      <author><first>Haoyang</first><last>Zhang</last></author>
+      <author><first>Chen</first><last>Chen</last></author>
+      <author><first>Tianyu</first><last>Zhang</last></author>
+      <author><first>Fei</first><last>Tian</last></author>
+      <author><first>Xuerui</first><last>Yang</last></author>
+      <author><first>Gang</first><last>Yu</last></author>
+      <author><first>Hexin</first><last>Liu</last></author>
+      <author><first>Nana</first><last>Hou</last></author>
+      <author><first>Yuchen</first><last>Hu</last></author>
+      <author><first>Eng Siong</first><last>Chng</last></author>
+      <pages>473-485</pages>
+      <abstract>Recent advances in spoken dialogue language models (SDLMs) reflect growing interest in shifting from turn-based to full-duplex systems, where the models continuously perceive user speech streams while generating responses. This simultaneous listening and speaking design enables real-time interaction and the agent can handle dynamic conversational behaviors like user barge-in. However, during the listening phase, existing systems keep the agent idle by repeatedly predicting the silence token, which departs from human behavior: we usually engage in lightweight thinking during conversation rather than remaining absent-minded. Inspired by this, we propose Chronological Thinking, an on-the-fly conversational thinking mechanism that aims to improve response quality in full-duplex SDLMs. Specifically, chronological thinking presents a paradigm shift from conventional LLM thinking approaches, such as Chain-of-Thought, purpose-built for streaming acoustic input. (1) Strictly causal: the agent reasons incrementally while listening, updating internal hypotheses only from past audio with no lookahead. (2) No additional latency: reasoning is amortized during the listening window; once the user stops speaking, the agent halts thinking and begins speaking without further delay. Experiments demonstrate the effectiveness of chronological thinking through both objective metrics and human evaluations show consistent improvements in response quality. Furthermore, chronological thinking robustly handles conversational dynamics and attains competitive performance on full-duplex interaction metrics.</abstract>
+      <url hash="47a07d3d">2026.sigdial-1.33</url>
+      <bibkey>wu-etal-2026-chronological</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Exploring Retrieval Augmented Generation Approaches for Natural Language Question Understanding</title>
+      <author><first>Christoph</first><last>Kowalski</last></author>
+      <author><first>Amelie Sophie</first><last>Robrecht-Hilbig</last></author>
+      <author><first>Vincent</first><last>Emmerling</last></author>
+      <author id="stefan-kopp" orcid="0000-0002-4047-9277"><first>Stefan</first><last>Kopp</last></author>
+      <pages>486-496</pages>
+      <abstract>Language-based interactive AI systems are required to provide adaptive explanations in order to create transparency and interpretability. A cornerstone ability for this is to respond to user questions. We target the problem of Natural Language Question Understanding (NLQU), which refers to interpreting a user question and mapping it to semantic representations (items in a structured knowledge base) that are relevant to address the underlying user’s knowledge gap and hence to answer the question. In contrast to pure Q&amp;A systems that aim to directly map questions to answers, NLQU enables a dialog agent to employ different explanation strategies, including explaining prerequisite knowledge, adapting explanation speed, or identifying and repairing misunderstandings. This paper explores the use of modern Large Language Models (LLMs) along with Retrieval Augmented Generation (RAG) for NLQU. We present a RAG-based NLQU component, evaluate different approaches against a synthetic dataset, and test the final component on a natural language question dataset from a human-human explanation study. Different LLM models, prompts, and hyperparameters are tested and compared to a baseline method.</abstract>
+      <url hash="a057c4ee">2026.sigdial-1.34</url>
+      <bibkey>kowalski-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="35">
+      <title>Tree-Based Interview Topic Guidance for Collecting Target Information under Adaptive Topic continuation/switching</title>
+      <author><first>Fuminori</first><last>Nagasawa</last></author>
+      <author><first>Ekai</first><last>Hashimoto</last></author>
+      <author><first>Shun</first><last>Shiramatsu</last></author>
+      <pages>497-515</pages>
+      <abstract>Interview-style dialogue for service recommendation must both elicit users’ underlying needs and collect information required for recommendation. We propose a Question Tree–based guidance method that steers dialogue toward target information while allowing externally controlled topic continuation and switching. The Question Tree represents questions as nodes linked by parent–child derivational relations. For each user response, the system generates deepening and target-approaching question candidates, appends suitable candidates to the tree, and selects the next question from child or sibling nodes according to the required topic-control action. Selection uses a weighted combination of sentence-embedding similarity to the current dialogue context and to the target information. We evaluated the method in LLM-based dialogue simulations with externally controlled continuation and switching. The combined method increased the mean target-information collection rate from 10.8% to 26.6% after 10 turns and reduced cross-session variability, without a statistically significant difference from the baseline in the limited human naturalness evaluation. These results indicate that explicit tree-based topic guidance can support information collection when combined with external topic-adaptation modules.</abstract>
+      <url hash="adc01a7d">2026.sigdial-1.35</url>
+      <bibkey>nagasawa-etal-2026-tree</bibkey>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>COCORELI</fixed-case>: Enforcing Execution Preconditions for Reliable Collaborative Instruction Following</title>
+      <author><first>Swarnadeep</first><last>Bhar</last></author>
+      <author><first>Omar</first><last>Naim</last></author>
+      <author><first>Eleni</first><last>Metheniti</last></author>
+      <author><first>Loïc</first><last>Cabannes</last></author>
+      <author><first>Bastien</first><last>Navarri</last></author>
+      <author><first>Morteza</first><last>Kamaladdini Ezzabady</last></author>
+      <author><first>Nicholas</first><last>Asher</last></author>
+      <pages>516-535</pages>
+      <abstract>Autonomous agents executing human instructions must operate reliably even when instructions are incomplete. While recent approaches improve detection of missing information, detection alone is insufficient: agents often proceed to execution even after recognizing underspecification, leading to incorrect or unsafe actions. We identify this failure as arising from a lack of coupling between detection and execution, and propose that reliable behavior requires enforcing missing information as a precondition for action. We instantiate this principle in Cocoreli, a modular architecture that represents task structure, tracks missing information, and blocks execution until required details are resolved through targeted clarification. In Cocoreli, detection and prevention are structurally coupled: detecting a missing parameter simultaneously blocks execution. We evaluate Cocoreli in a controlled construction environment isolating underspecification and sequential execution. Cocoreli makes execution reliable by imposing explicit task structure: instructions are represented as parameterized executable objects and execution under unresolved specifications is blocked by construction, eliminating hallucinated actions. In contrast, chain-of-thought, prompt-chaining, and ReAct-style reasoning may still execute under incomplete specifications despite high detection rates. The same representation supports abstraction and reuse, and generalizes to API workflow tasks on ToolBench. These results show that reliable collaborative execution <fixed-case>under underspecified instructions </fixed-case>requires architectural enforcement, not just model capability.</abstract>
+      <url hash="ef62c330">2026.sigdial-1.36</url>
+      <bibkey>bhar-etal-2026-cocoreli</bibkey>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>S</fixed-case>tage<fixed-case>P</fixed-case>ilot: Stage-Level Planning for Long-Horizon Dialogue Simulation in Cybergrooming</title>
+      <author><first>Heajun</first><last>An</last></author>
+      <author><first>Qi</first><last>Zhang</last></author>
+      <author><first>Minqian</first><last>Liu</last></author>
+      <author><first>Xinyi</first><last>Zhang</last></author>
+      <author><first>Sang Won</first><last>Lee</last></author>
+      <author><first>Lifu</first><last>Huang</last></author>
+      <author><first>Pamela</first><last>Wisniewski</last></author>
+      <author><first>Jin-Hee</first><last>Cho</last></author>
+      <pages>536-552</pages>
+      <abstract>Cybergrooming is an evolving threat to youth, requiring proactive educational interventions. We address this by modeling dialogue progression as a structured planning problem over stage-wise interactions. We propose StagePilot, a dialogue framework that separates stage-level planning from response generation, in which the model selects the next stage under constrained transitions and generates responses conditioned on it, enabling coherent and realistic progression. Reinforcement learning is used to learn stage-level policies from offline data, optimizing for both emotional alignment and goal-consistent progression. Our empirical experiments show that StagePilot generates more structured, coherent dialogue trajectories and reduces conversational stagnation compared to baselines; notably, the IQL+AWAC variant reaches the final stage more often while maintaining over 70% positive or neutral responses, yielding a 43% relative improvement.</abstract>
+      <url hash="1754c359">2026.sigdial-1.37</url>
+      <bibkey>an-etal-2026-stagepilot</bibkey>
+    </paper>
+    <paper id="38">
+      <title>Generation of Dialogue Breakdown Repair Utterance in Non-task Oriented Conversation</title>
+      <author id="kazuya-tsubokura" orcid="0009-0007-0981-1714"><first>Kazuya</first><last>Tsubokura</last></author>
+      <author><first>Yurie</first><last>Iribe</last></author>
+      <author id="norihide-kitaoka" orcid="0000-0003-2028-8585"><first>Norihide</first><last>Kitaoka</last></author>
+      <pages>553-558</pages>
+      <abstract>Recent advances in large language models (LLMs) have significantly improved the response quality of dialogue systems. However, the issue of dialogue breakdowns where systems produce utterances that confuse users, such as those containing misinformation or lacking common sense still persists. Since such breakdowns can negatively affect users’ impressions of dialogue systems, it is essential to appropriately repair the flow of conversation. Nevertheless, no existing method can robustly handle a wide range of breakdown types. To address this issue, this study aims to develop a dialogue breakdown repair generation system that can robustly handle various types of dialogue breakdowns. Specifically, we train an LLM using the Dialogue Breakdown Repair Corpus, which contains repair utterances corresponding to diverse breakdown scenarios. As a result, we construct a model specialized in generating repair utterances for various breakdown types and demonstrate that it achieves higher accuracy than existing models.</abstract>
+      <url hash="1f79d24c">2026.sigdial-1.38</url>
+      <bibkey>tsubokura-etal-2026-generation</bibkey>
+    </paper>
+    <paper id="39">
+      <title>From Sound to Symptom: Real-Time Respiratory Signal Understanding for Conversational Healthcare Agents</title>
+      <author id="tanmay-laud" orcid="0009-0008-8970-9679"><first>Tanmay</first><last>Laud</last></author>
+      <author><first>Herprit</first><last>Mahal</last></author>
+      <author><first>Subhabrata</first><last>Mukherjee</last></author>
+      <pages>559-564</pages>
+      <abstract>Cough events during live spoken conversations carry clinically valuable respiratory signals, yet existing dialogue systems treat them as acoustic noise to be discarded. We present HealthCUES (Clinical Understanding from Embodied Sounds), a streaming pipeline for paralinguistic respiratory monitoring in real-time conversational agents, a capability that, to the best of our knowledge, is absent from all prior systems. HealthCUES processes audio through a rolling buffer aligned with dialogue turn boundaries, enabling sub-second event detection without interrupting conversational flow. Beyond binary cough detection, the system provides fine-grained analytics: (i) differentiation between coughing and throat clearing, (ii) cough subtype classification (dry, wet, barking, whooping) with confidence scores, and (iii) temporal duration estimation with start–end boundaries. To prevent alert fatigue, HealthCUES introduces dialogue-aware gating mechanisms that modulate triggering based on conversational context. The system leverages Qwen3-Omni, a multimodal large language model (MLLM), with constrained structured outputs, decomposing cough analysis into parallel prediction tasks for independent prompt optimization. Evaluation on 847 in-house conversational audio segments demonstrates 93% F1 for cough detection, 0.75 weighted-F1 for wet/dry subtype classification, and average end-to-end latency of 340ms; external validation on the AMI meeting corpus confirms robust cough, throat-clearing, and speech separation in the presence of speech (0.91 macro-F1). A user study with licensed healthcare professionals confirms the clinical relevance of subtype information and the system’s utility in telehealth workflows.</abstract>
+      <url hash="3ce46e0f">2026.sigdial-1.39</url>
+      <bibkey>laud-etal-2026-sound</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Interpretable Satisfaction Modeling in Sales Dialogues: A Metrics-based Approach Validated Against Text-based Model</title>
+      <author><first>Natalia</first><last>Krawczyk</last></author>
+      <author><first>Alicja</first><last>Kasicka</last></author>
+      <author><first>Bartosz</first><last>Przybył</last></author>
+      <author><first>Justyna</first><last>Gromada</last></author>
+      <pages>565-584</pages>
+      <abstract>Understanding drivers of customer satisfaction in sales conversations is crucial for dialogue system optimization and customer experience improvement, yet existing neural approaches lack interpretability. We introduce a sales action annotation framework that tracks offers, cross-sells, and customer decisions in sales dialogues. From these structured annotations, we derive interpretable metrics spanning conversion rates, timing and negotiation patterns, and sales outcomes to predict user satisfaction. We validate our metrics-based regression model against a transformer-based text-embedding baseline on 5200 simulated phone sales dialogues. Our interpretable model achieves strong performance (<tex-math>R^2</tex-math>=0.87 vs. 0.92 for the baseline) with full transparency, identifying key satisfaction drivers with practical implications for dialogue design: purchase completion, conversation efficiency, and negotiation patterns.</abstract>
+      <url hash="e03b093a">2026.sigdial-1.40</url>
+      <bibkey>krawczyk-etal-2026-interpretable</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Adaptive Emotion Management in Human-robot Dialogue using Online Group Relative Policy Optimization</title>
+      <author><first>Anna</first><last>Manaseryan</last></author>
+      <author><first>Casey</first><last>Kennington</last></author>
+      <pages>585-596</pages>
+      <abstract>Emotion expression is essential for human-robot interaction, yet current systems rely on static models that cannot adapt to individual users. We present an online reinforcement learning framework that adapts robot emotional behavior policy during live dialogue using binary human feedback. The system integrates a DeBERTa-v3-base emotion classifier and applies Group Relative Policy Optimization (GRPO) in a human-robot dialogue system. At each dialogue turn, the classifier samples a group of emotion candidates and the selected emotion is passed to a generative model that synthesizes a novel robot emotional behavior. We evaluate the system in three experiments: (1) offline supervised fine-tuning followed by GRPO on synthetic dialogue data, (2) a live GRPO training with a human teacher and (3) a final experiment with human participants. Results indicate that the robot was perceived as responsive and emotionally consistent, with high ratings for personality coherence and contextual appropriateness of emotional behaviors. Results further show that online GRPO with human feedback enables effective real-time emotion adaptation in embodied interaction.</abstract>
+      <url hash="75617fc2">2026.sigdial-1.41</url>
+      <bibkey>manaseryan-kennington-2026-adaptive</bibkey>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>P</fixed-case>ersona<fixed-case>K</fixed-case>it (<fixed-case>PK</fixed-case>): A Plug-and-Play Platform for User Testing Diverse Roles in Simulated Full-Duplex Dialogue</title>
+      <author><first>Hyunbae</first><last>Jeon</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>597-601</pages>
+      <abstract>As spoken dialogue systems take on diverse personas—authoritative instructors, uncooperative merchants, distracted workers—they need distinct, human-like turn-taking to stay immersive. Yet current full-duplex systems default to a rigid "always-yield" policy during overlap, undermining character consistency for non-submissive roles, and evaluating persona-specific alternatives through user studies demands substantial real-time engineering. We present PersonaKit (PK), an open-source, low-latency web platform that simulates full-duplex turn-taking pragmatics—via a cascade pipeline and prompt-level control rather than a jointly trained speak-while-listening model. Through intuitive JSON configurations, researchers define personas, specify probabilistic interruption handling (yield, hold, bridge, override), and auto-deploy comparative A/B surveys. An in-the-wild evaluation with 8 personas shows that PK is an extensible, end-to-end framework for studying complex sociolinguistic behaviors in next-generation spoken agents.</abstract>
+      <url hash="f1c6a9d3">2026.sigdial-1.42</url>
+      <bibkey>jeon-choi-2026-personakit</bibkey>
+    </paper>
+    <paper id="43">
+      <title>Question Types for Knowledge Acquisition in <fixed-case>LLM</fixed-case>-based Dialogue Systems: Experiments with Simulated and Human Users</title>
+      <author id="kazunori-komatani" orcid="0000-0002-6052-600X"><first>Kazunori</first><last>Komatani</last></author>
+      <author id="ryu-takeda" orcid="0009-0007-0518-6245"><first>Ryu</first><last>Takeda</last></author>
+      <author id="mikio-nakano" orcid="0000-0001-6057-3132"><first>Mikio</first><last>Nakano</last></author>
+      <pages>602-613</pages>
+      <abstract>To acquire knowledge from users through dialogue, systems must decide not only what to ask but also how to ask it. Since users may not always be willing to answer such questions, question formulation affects both user experience and the information obtained. Prior work has examined question types in controlled, template-based settings, but it remains unclear whether similar effects are observed in LLM-based dialogues. We investigated the effects of question type on knowledge acquisition through experiments with both an LLM-based user simulator and crowdsourced human participants. We compared three question types: implicit questions, explicit questions, and wh-questions. The results showed no substantial differences in user annoyance among the question types. In contrast, the question types differed in how well they elicited correct responses: wh-questions were less effective, whereas implicit and explicit questions performed comparably. The findings suggest that candidate-guided question forms are useful when the system has a plausible candidate answer, whereas wh-questions may be appropriate when the system lacks sufficient confidence to ask a more specific question.</abstract>
+      <url hash="dbe95789">2026.sigdial-1.43</url>
+      <bibkey>komatani-etal-2026-question</bibkey>
+    </paper>
+    <paper id="44">
+      <title><fixed-case>TRACER</fixed-case>: Early Failure Detection for Task-Oriented Dialogue</title>
+      <author><first>Erfan</first><last>Nourbakhsh</last></author>
+      <author><first>Rocky</first><last>Slavin</last></author>
+      <author><first>Ke</first><last>Yang</last></author>
+      <author><first>Anthony</first><last>Rios</last></author>
+      <pages>614-635</pages>
+      <abstract>Task-oriented dialogue systems often fail before the final breakdown is obvious, but most evaluation only measures failure after the conversation has already gone wrong. We present TRACER, a method for early failure detection in task-oriented dialogue. TRACER predicts from a partial dialogue whether the full conversation will eventually fail by combining simple trajectory signals from belief-state changes with text representations of the evolving dialogue state. We evaluate the method in both oracle and generated belief-state settings, and test how well it works when only 25%, 50%, 75%, or 100% of the dialogue is visible. Across these settings, TRACER detects useful failure signals well before the end of the conversation and outperforms heuristic, classical, and single-stream baselines. These results suggest that early failure detection can provide a practical warning signal for dialogue systems before the interaction fully breaks down. Source code can be found here: <url>https://github.com/erfan-nourbakhsh/TRACER</url>.</abstract>
+      <url hash="9c244477">2026.sigdial-1.44</url>
+      <bibkey>nourbakhsh-etal-2026-tracer</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Relex: A Common Denominator for Connectives and Discourse Relations in <fixed-case>F</fixed-case>rench</title>
+      <author><first>Fatou</first><last>Sow</last></author>
+      <author><first>Yannick</first><last>Toussaint</last></author>
+      <author id="mathieu-constant" orcid="0000-0002-9910-594X"><first>Mathieu</first><last>Constant</last></author>
+      <pages>636-648</pages>
+      <abstract>The lack of sufficiently large French resources linking discourse connectives to the relations they express in context hinders the training of models that map connectives to their discourse relations. We address this gap by introducing two complementary datasets: a large-scale, semi-automatically annotated corpus and a manually validated dataset. Both resources annotate connectives and their discourse relations according to the French lexicon LEXCONN. Relying on the large-scale corpus, we train Relex, a CamemBERT-based model fine-tuned to predict, among 19 relation types, the relation expressed by a connective. Despite being trained on a fixed inventory of connectives, Relex extends to previously unseen connectives and achieves an F1 score of 0.59.</abstract>
+      <url hash="f57e05dd">2026.sigdial-1.45</url>
+      <bibkey>sow-etal-2026-relex</bibkey>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>M</fixed-case>eme<fixed-case>B</fixed-case>uddy: Dialog-Style Audio Representations for Engaging Non-Visual Meme Experiences</title>
+      <author><first>Chirag</first><last>Bhansali</last></author>
+      <author><first>Vikas</first><last>Ashok</last></author>
+      <author id="hae-na-lee" orcid="0000-0002-2183-1722"><first>Hae-Na</first><last>Lee</last></author>
+      <pages>649-667</pages>
+      <abstract>Image memes are a pervasive form of online communication, widely used to convey humor, opinions, and cultural references. Prior work has explored making memes accessible to blind users, primarily through auto-generated descriptive captions. While these approaches improve comprehensibility and sometimes incorporate prosodic or emotional cues, they often fail to capture the humor, narrative structure, and contextual nuances that make memes engaging. We present MemeBuddy, a system that models memes as dialog, generating structured, multi-turn audio representations using role-based speakers. MemeBuddy reinterprets a meme as a conversation between two speakers, integrating extracted meme text with contextual knowledge implicitly inferred by a multimodal LLM (e.g., recognition of common meme templates and cultural references) to convey intent, timing, and implicit meaning through conversational interaction. We evaluate MemeBuddy in a user study with 14 blind participants. Results show that dialog-style meme representations consistently improve engagement and user satisfaction compared to caption-style descriptions, while maintaining comparable comprehension.</abstract>
+      <url hash="f70bfcc7">2026.sigdial-1.46</url>
+      <bibkey>bhansali-etal-2026-memebuddy</bibkey>
+    </paper>
+    <paper id="47">
+      <title>On the Structure of Address in Multi-Party Dialogue: From Discrete Labels to Continuous Levels</title>
+      <author id="taiga-mori" orcid="0000-0001-6993-5726"><first>Taiga</first><last>Mori</last></author>
+      <author id="koji-inoue" orcid="0000-0002-2929-2559"><first>Koji</first><last>Inoue</last></author>
+      <author id="divesh-lala" orcid="0009-0005-3181-6410"><first>Divesh</first><last>Lala</last></author>
+      <author id="tatsuya-kawahara" orcid="0000-0002-2686-2296"><first>Tatsuya</first><last>Kawahara</last></author>
+      <pages>668-679</pages>
+      <abstract>In multi-party dialogues between a dialogue system and multiple users, identifying to whom an utterance is addressed is a key challenge. Prior work has typically treated addressee detection as a multi-class classification task, selecting a single label representing an individual participant or the group. This formulation assumes that address is inherently discrete and has primarily been used for predicting turn-taking. In this paper, we revisit this assumption by analyzing address as a continuous phenomenon. Using a multi-party human dialogue corpus annotated by multiple annotators, we construct both binary address labels derived from majority-vote addressee labels and continuous address levels inferred from annotator judgments using a latent-variable model. We then examine how these representations relate to turn-taking as well as listener behaviors, including gaze and backchannels. Our results show that, in addition to turn-taking, both gaze and backchannels are associated with address. Furthermore, models using continuous address levels achieve better predictive fit than those using discrete labels, suggesting that address may exhibit graded structure. Finally, we discuss the future directions of addressee detection research based on the findings of this study.</abstract>
+      <url hash="b4170c40">2026.sigdial-1.47</url>
+      <bibkey>mori-etal-2026-structure</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Bridging Talk and Thought: Understanding Dialogue Dynamics Across Collaborative Problem-Solving Contexts</title>
+      <author><first>Zhengyuan</first><last>Liu</last></author>
+      <author><first>Stella</first><last>Yin</last></author>
+      <author id="min-yen-kan" orcid="0000-0001-8507-3716"><first>Min-Yen</first><last>Kan</last></author>
+      <author id="nancy-chen" orcid="0000-0003-0872-5877"><first>Nancy</first><last>Chen</last></author>
+      <pages>680-693</pages>
+      <abstract>We present a conceptual framework for analyzing dialogue in collaborative problem-solving contexts, with an emphasis on the emerging dynamics of human-AI and multi-agent collaboration. As intelligent systems become active agents capable of autonomous reasoning and strategic cooperation, understanding the dialogic interaction during collaborative problem solving is increasingly important for optimizing and evaluating such partnerships. Our framework addresses key limitations in current analytical approaches through a hierarchical two-layer coding scheme that integrates cognitive and non-cognitive problem solving with metacognitive regulatory mechanisms. We demonstrate its effectiveness and generalizability across nine datasets spanning multiple domains, and provide insights into how humans and agents coordinate their knowledge, skills, and efforts to solve complex problems, showing in particular that metacognitive regulation can be an essential discriminator of deeper collaboration.</abstract>
+      <url hash="79ffebee">2026.sigdial-1.48</url>
+      <bibkey>liu-etal-2026-bridging</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue</title>
+      <author id="nan-li-4788" orcid="0009-0001-5559-4788"><first>Nan</first><last>Li</last></author>
+      <author id="albert-gatt" orcid="0000-0001-6388-8244"><first>Albert</first><last>Gatt</last></author>
+      <author id="massimo-poesio" orcid="0000-0001-8469-2072"><first>Massimo</first><last>Poesio</last></author>
+      <pages>694-710</pages>
+      <abstract>In collaborative dialogue, shared perception does not guarantee shared interpretation. Mutual understanding must be established through interaction. We investigate whether vision-language models (VLMs) can distinguish what could be shared from what has been shared between dialogue participants through grounding. We formulate this as an interpretation-matching task on 13,077 annotated reference expressions from HCRC MapTask dialogues, and evaluate VLMs under systematically controlled manipulations of dialogue context and map-information access. Our results show that providing authentic map images improves overall performance but shifts models toward over-predicting alignment. Textual descriptions of the same map content reproduce this bias, while non-informative images suppress alignment predictions entirely, indicating that the bias is driven by task-relevant map content, not the visual channel. This improvement comes at the cost of degraded accuracy on non-aligned cases. Calibration analysis and reference-chain tracking further suggest that models rely on static referential cues on the maps rather than tracking how grounding unfolds through dialogue history. We observe these patterns most clearly in Qwen3-VL-8B-Instruct and, to varying degrees, in four additional models from two architecture families. In models that exhibit the bias, map content, whether presented visually or textually, is treated as evidence of mutual understanding, conflating potential with established common ground.</abstract>
+      <url hash="808b6204">2026.sigdial-1.49</url>
+      <bibkey>li-etal-2026-seeing-sharing</bibkey>
+    </paper>
+    <paper id="50">
+      <title>Evaluation of Paralinguistic-Aware Spoken Dialogue Systems using Next-Utterance Classification</title>
+      <author><first>Kouki</first><last>Miyazawa</last></author>
+      <author><first>Yoshinao</first><last>Sato</last></author>
+      <pages>711-719</pages>
+      <abstract>In spoken dialogues, paralinguistic cues frequently convey crucial information not captured by linguistic content alone. However, conventional spoken dialogue systems (SDSs), which typically comprise a cascade of an automatic speech recognition model and a large language model (LLM), lack the ability to recognize paralinguistic cues. Relying solely on transcribed text, paralinguistic-agnostic SDSs often cause dialogue breakdowns. To address this difficulty, integrating a paralinguistic recognition model into SDSs is essential. Therefore, this study focuses on evaluating such paralinguistic-aware SDSs. To this end, we propose a corpus-based evaluation method utilizing next-utterance classification as an automated alternative to human evaluation. Specifically, an LLM is tasked with predicting the dialogue act of the subsequent utterance given a transcribed dialogue history, comparing scenarios with and without paralinguistic attitude classes. Our experiments demonstrate that incorporating a paralinguistic attitude recognition model improves prediction performance, as measured by the mean reciprocal rank. Furthermore, we assessed the alignment of our proposed corpus-based evaluation method with subjective human evaluations. The results confirmed the validity of the proposed method as a reliable proxy for human evaluation, demonstrating its correlation with human rankings and agreement with human preferences in pairwise comparisons. Taken together, this work highlights that integrating paralinguistic recognition is a crucial step toward realizing more robust and natural spoken dialogue systems.</abstract>
+      <url hash="2f20d5fb">2026.sigdial-1.50</url>
+      <bibkey>miyazawa-sato-2026-evaluation</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Better Scores, Worse Grounding: Hidden Regressions after Fine-Tuning in Dialogue Fact Verification</title>
+      <author><first>Hyunkyung</first><last>Park</last></author>
+      <author id="arkaitz-zubiaga" orcid="0000-0003-4583-3623"><first>Arkaitz</first><last>Zubiaga</last></author>
+      <pages>720-737</pages>
+      <abstract>In dialogue fact verification (DFV), responses often depend on prior turns for correct interpretation, yet systems are still judged mainly by aggregate benchmark scores. We study a hidden grounding regression: aggregate Macro-F1 improves after fine-tuning while previously correct, context-dependent pronoun cases become newly wrong and show stronger premise-side sensitivity than cases that remain correct. On three referent-annotated audit sets constructed from DialFact and FaithDial, we audit six encoder-only verifiers before and after matched source-specific fine-tuning through prediction-transition analysis and the Premise-Preference Score (PPS), a control-adjusted masking diagnostic. Fine-tuning improves Macro-F1 across the six-model/three-evaluation-set panel, yet newly regressed cases show stronger premise-side sensitivity than stable-correct cases under PPS in 17 of 18 evaluated comparisons, indicating that aggregate gains can conceal regressions on a controlled dialogue-grounding audit.</abstract>
+      <url hash="539a3ad3">2026.sigdial-1.51</url>
+      <bibkey>park-zubiaga-2026-better</bibkey>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>LLM</fixed-case>s and their Limited Theory of Mind: Evaluating Mental State Annotations in Situated Dialogue</title>
+      <author><first>Katharine</first><last>Kowalyshyn</last></author>
+      <author id="matthias-scheutz" orcid="0000-0002-0064-2789"><first>Matthias</first><last>Scheutz</last></author>
+      <pages>738-756</pages>
+      <abstract>Effective human teams excel at maintaining a consistent shared mental model (SMM) that reflects the shared understanding of individual team members about the task and what remains to be done. We present a novel, two-step framework that leverages large language models (LLMs) both as (1) annotators of team dialogues to track the team’s SMM and (2) as automated discrepancy detectors among individuals’ mental states as they are represented in individual mental models. We define an SMM coherence evaluation framework for this use case and apply it to six dialogues in a previously published team corpus, ultimately producing a dataset of human and LLM SMM annotations, a reproducible evaluation framework for SMM coherence, and an empirical assessment of LLM-based discrepancy detection. Our results reveal that while LLMs exhibit apparent coherence on straightforward natural-language annotation tasks, they systematically err in scenarios requiring spatial reasoning or disambiguation of transcription-level disfluencies.</abstract>
+      <url hash="7a58ec0c">2026.sigdial-1.52</url>
+      <bibkey>kowalyshyn-scheutz-2026-llms</bibkey>
+    </paper>
+    <paper id="53">
+      <title>Enhancing Operational Safety via Agentic Dialogue Hazard Identification Analysis</title>
+      <author id="sanjay-das" orcid="0009-0005-4259-1915"><first>Sanjay</first><last>Das</last></author>
+      <author><first>Ran</first><last>Elgedawy</last></author>
+      <author><first>Ethan</first><last>Seefried</last></author>
+      <author><first>Ryan</first><last>Burchfield</last></author>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <pages>757-772</pages>
+      <abstract>Operational safety in high-stakes domains such as industrial process control, autonomous, and safety-critical systems demand reliable hazard identification. While large language models (LLMs) have shown promise in automating safety analysis tasks, single-turn, monolithic inference is brittle: it lacks the self-correction, deliberation, and contextual refinement that safety engineers apply iteratively. In this paper, we introduce HAZDIAL, a framework that investigates whether structured agentic dialogue (multi-agent, multi-turn interactions) improves the quality of NLP-based hazard identification over single-pass baselines. We systematically compare two dialogue modalities: adversarial debate and constructive discussion, and propose an genetic algorithm-based agentic interaction optimization. We evaluate all configurations against a curated golden dataset using standard classification metrics (accuracy, precision, recall, F1) and a novel dialogue metrics. This work advances the intersection of dialogue systems, multi-agent reasoning, and AI safety, providing empirical evidence for dialogue-driven hazard analysis.</abstract>
+      <url hash="01b3514a">2026.sigdial-1.53</url>
+      <bibkey>das-etal-2026-enhancing</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Building Task-Oriented Dialogue Systems via Instruction Guidance without Annotated Data</title>
+      <author><first>Henry</first><last>Gao</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>773-785</pages>
+      <abstract>Task-oriented dialogue (TOD) systems conventionally rely on supervised fine-tuning over large datasets, an approach that is both resource-intensive and difficult to generalize across domains. We investigate whether large language models (LLMs) can serve as effective TOD agents without any fine-tuning, relying solely on in-context prompting and unstructured conversational logs. To this end, we propose a two-stage framework in which an LLM first induces structured procedural instructions from raw multi-turn dialogues, then leverages these instructions to generate goal-oriented interactions. An iterative refinement loop further improves instruction quality by evaluating intermediate dialogue outputs and propagating feedback to update the instructions. To address limitations inherent in existing evaluation protocols, we introduce an interactive evaluation framework centered on a constrained user simulator with access to ground-truth task goals. This design enables flexible assessment of task success beyond fixed dialogue trajectories, more faithfully reflecting the conditions of real-world deployment. Experiments demonstrate that the proposed approach produces coherent and task-effective dialogues without any annotated data. Using Gemma-3-27b-it as the backbone, our system achieves a dialogue state F1 of 86.3%, outperforming GALAXY (84.3%) and MARS (84.6%).</abstract>
+      <url hash="c7226729">2026.sigdial-1.54</url>
+      <bibkey>gao-choi-2026-building</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Bounded Conversational Memory with Hybrid Retrieval and Evidence Highlighting for Multi-Session Dialogue Systems</title>
+      <author><first>Manasa</first><last>Mudunuri</last></author>
+      <author><first>Chandra Kiran</first><last>Guntupalli</last></author>
+      <author><first>Mario Michael</first><last>Kubek</last></author>
+      <author><first>Shiraj</first><last>Pokharel</last></author>
+      <author><first>Murray</first><last>Patterson</last></author>
+      <pages>786-794</pages>
+      <abstract>Across independent sessions, dialogue systems built on large language models do not retain prior context unless an external memory layer organizes and retrieves it. Most memory sys- tems treat this as a retrieval problem, assuming that surfacing the right past content is the pri- mary lever for accuracy. We report evidence that this view is incomplete: holding retrieval fixed, how retrieved context is organized and presented to the model is an independent and substantial driver of answer accuracy. We demonstrate this with the Context Persistence Protocol (CPP), a modular memory layer that groups dialogue into topically coherent seg- ments, retrieves them with hybrid lexical and semantic search, and highlights the single most informative sentence in each segment before generation. Across two long-term memory benchmarks, CPP attains session-level retrieval scores that are identical to those of an un- bounded flat-retrieval baseline on LoCoMo and slightly lower on LongMemEval, yet it answers substantially more questions correctly, with the largest gains on multi-hop reasoning. These results suggest that the organization and presentation of retrieved context, rather than retrieval coverage alone, is a major driver of the difference.</abstract>
+      <url hash="0089c082">2026.sigdial-1.55</url>
+      <bibkey>mudunuri-etal-2026-bounded</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Too Polite to Disagree: Understanding Sycophancy Propagation in Multi-Agent Systems</title>
+      <author><first>Vira</first><last>Kasprova</last></author>
+      <author><first>Amruta</first><last>Parulekar</last></author>
+      <author><first>Abdulrahman</first><last>AlRabah</last></author>
+      <author><first>Krishna</first><last>Agaram</last></author>
+      <author><first>Ritwik</first><last>Garg</last></author>
+      <author><first>Sagar</first><last>Jha</last></author>
+      <author id="nimet-beyza-bozdag" orcid="0009-0009-8078-3562"><first>Nimet Beyza</first><last>Bozdag</last></author>
+      <author id="dilek-hakkani-tur" orcid="0000-0001-5246-2117"><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>795-814</pages>
+      <abstract>Large language models (LLMs) often exhibit sycophancy: agreement with user stance even when it conflicts with the model’s opinion. While prior work has mostly studied this in single-agent settings, it remains underexplored in collaborative multi-agent systems. We ask whether awareness of other agents’ sycophancy levels influences discussion outcomes. To investigate this, we run controlled experiments with six open-source LLMs, providing agents with peer sycophancy rankings that estimate each peer’s tendency toward sycophancy. These rankings are based on scores calculated using various static (pre-discussion) and dynamic (online) strategies. We find that providing sycophancy priors reduces the influence of sycophancy-prone peers, mitigates error-cascades, and improves final discussion accuracy by an absolute 10.5%. Thus, this is a lightweight and efficient way to reduce model sycophancy during discussions and subsequently improve downstream accuracy.</abstract>
+      <url hash="940021f3">2026.sigdial-1.56</url>
+      <bibkey>kasprova-etal-2026-polite</bibkey>
+    </paper>
+    <paper id="57">
+      <title>When the Database Fails: Prompting <fixed-case>LLM</fixed-case> Dialogue Agents for Safe Recovery in Task-Oriented Dialogue</title>
+      <author id="mohammad-alijanpour-shalmani" orcid="0009-0007-9937-6874"><first>Mohammad</first><last>Alijanpour Shalmani</last></author>
+      <author><first>Alale</first><last>Rezvani Boroujeni</last></author>
+      <author><first>Jiann S.</first><last>Yuan</last></author>
+      <pages>815-820</pages>
+      <abstract>Large language models used in task-oriented dialogue often produce fluent but unsafe responses when backend database calls fail, return empty results, or surface mismatched information, inventing venues, confirmations, or booking details not grounded in the database. We study a lightweight prompting-based recovery approach that improves robustness without retraining or additional model calls. We compare three response strategies, including a guided recovery prompt conditioned on structured database status, across six open-weight model families (DeepSeek-R1, Gemma-2, Llama-3, Mistral, Phi-3, and Qwen-2.5) and four database conditions: empty result, wrong-domain retrieval, API error, and clean retrieval. Using fault-injected benchmarks built on two structurally different datasets, MultiWOZ 2.2 (5 domains) and SGD (20 domains), we find that naive agents hallucinate on 30.5% of failure turns on MultiWOZ and 20.9% on SGD. Our Guided-Retry strategy reduces hallucination by 50% on MultiWOZ (30.5→15.3%) and by 42% on SGD (20.9→12.2%) without retraining. However, residual hallucination remains substantial (6–37% across models), with wrong-domain failures the hardest case. Results are consistent across both datasets and all six model families, and human annotation shows substantial agreement while supporting the validity of the automatic commitment-safety metric.</abstract>
+      <url hash="88b690e0">2026.sigdial-1.57</url>
+      <bibkey>alijanpour-shalmani-etal-2026-database</bibkey>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>MTD</fixed-case>iag: A Multi-Turn Diagnostic Dataset Towards Clinically Meaningful <fixed-case>LLM</fixed-case> Evaluation</title>
+      <author><first>Pia</first><last>Chouayfati</last></author>
+      <author><first>Alexander M.</first><last>Fichtl</last></author>
+      <author><first>Miriam</first><last>Anschütz</last></author>
+      <author><first>George</first><last>Doumat</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>821-840</pages>
+      <abstract>Clinical diagnosis is fundamentally interactive and incremental, yet the dominant paradigm for evaluating Large Language Models (LLMs) in medicine remains static QA benchmarks or template-based dialogues. These benchmarks say little about whether a model can serve as a diagnostic agent in a dynamic clinical encounter, with LLMs showing significant accuracy and reliability degradation in multi-turn settings. To address this issue, we present MTDiag, a large multi-turn diagnostic dialogue dataset constructed from three heterogeneous sources: DDXPlus, MIMIC-IV, and published case reports (AJCR), covering common ED presentations as well as long-tail rare and atypical conditions. All cases are normalized into a canonical PatientVector schema anchored in the most comprehensive and widely-adopted medical knowledge bases (UMLS concept identifiers, with ICD-10 diagnosis codes). We release the PatientVector schema, a UserLM-8B-based utterance-generation pipeline, and the physician-validated dataset that converts structured clinical evidence into natural-language utterances. Importantly, we introduce and motivate clinical knowledge-grounded metrics for evaluating LLMs as diagnostic agents, beyond diagnostic accuracy, for the task of multi-turn differential diagnosis.</abstract>
+      <url hash="0fad3c0a">2026.sigdial-1.58</url>
+      <bibkey>chouayfati-etal-2026-mtdiag</bibkey>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>PERSONAJUDGE</fixed-case>: Simulating Individual Human Preference Judgments with Evaluator-Specific Demonstration Data</title>
+      <author><first>Zeyu</first><last>He</last></author>
+      <author><first>Xuan</first><last>Qi</last></author>
+      <author><first>Subramanian</first><last>Chidambaram</last></author>
+      <author><first>Zhichao</first><last>Xu</last></author>
+      <author><first>Vinayak</first><last>Arannil</last></author>
+      <author><first>Lydia</first><last>Chilton</last></author>
+      <author><first>Alex C.</first><last>Williams</last></author>
+      <pages>841-862</pages>
+      <abstract>Large language models increasingly serve as judges in AI evaluation, but current approaches rely on consensus preferences that ignore individual evaluator variation. We propose a novel simulation approach that combines categorical judgments with evaluator-specific auxiliary data—retrospective reasoning traces and interface telemetry—to enable LLM-based simulation of individual evaluators via in-context learning. We conduct a systematic empirical study of this approach using multi-facet data from 32 trained annotators across 4,200 preference judgments in a 4 × 4 × 4 factorial design. Our key findings: (1) The simulation approach achieves up to 9.9 percentage point improvements over the Base Judge; (2) Reasoning traces provide the largest gains with higher collection efforts, while interface telemetry often hurts rather than helps performance despite being cheaper to collect. (3) Simulation difficulty is systematic, predicted by an evaluator’s neutral usage (most clearly on Helpfulness) and divergence from consensus; the neutral-usage tendency—rather than simulatability itself—is the cross-task-stable property (r = 0.728). These results establish both the potential and limits of evaluator-specific auxiliary data for personalized evaluation, offering methodological insights for scaling individual aware AI assessment.</abstract>
+      <url hash="ea26922c">2026.sigdial-1.59</url>
+      <bibkey>he-etal-2026-personajudge</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Fractional Decay <fixed-case>KV</fixed-case>-Cache: Ownership-Aware Memory Management for Improved Inference Relevancy in Dialog Systems</title>
+      <author><first>Sukanta</first><last>Ganguly</last></author>
+      <pages>863-870</pages>
+      <abstract>Key-value (KV) caching is essential for efficient autoregressive inference in transformer based dialog systems, yet existing strategies treat all cached entries uniformly or apply coarse eviction heuristics that fail to adapt as dialog topics evolve. We propose Fractional Decay KV-Cache (FD-KVC), a novel algorithm that maintains a dual-channel scoring mechanism for each cached KV pair: a cumulative attention channel that tracks aggregate importance (akin to H2O), and a recency-weighted relevance channel governed by temporal decay and reinforcement-inspired updates. The combination enables FD-KVC to both preserve historically important tokens and rapidly adapt when dialog topics shift. An adaptive learning rate driven by an ownership loss function ensures convergence without oscillation. FD-KVC operates entirely on CPU with negligible overhead. Across five diverse multi-turn dialog scenarios with 600 dialogs each, FD-KVC outperforms H2O, the state-of-the-art heavy-hitter baseline, by +6.7% on composite late-turn alignment, with improvements of +127% on topic-shift, +87% on gradual evolution, and +30% on mixed-topic dialogs. FD-KVC adapts to new topics 3.6×faster than H2O and achieves the highest topic diversity (80.6%) across all methods. Ablation studies confirm the contribution of each component.</abstract>
+      <url hash="fb3c0fab">2026.sigdial-1.60</url>
+      <bibkey>ganguly-2026-fractional</bibkey>
+    </paper>
+    <paper id="61">
+      <title>A Reinforcement Learning-Based Facilitator for Simulated Group Motivational Interviewing</title>
+      <author><first>Alafate</first><last>Abulimiti</last></author>
+      <author><first>Vladislav</first><last>Maraev</last></author>
+      <author><first>Agnès</first><last>Helme-Guizon</last></author>
+      <author><first>Catherine</first><last>Pelachaud</last></author>
+      <pages>871-890</pages>
+      <abstract>Motivational Interviewing (MI) is a widely validated approach to behavior change, but existing virtual MI agents operate only in one-on-one settings, ignoring the cost-effectiveness and peer-support dynamics of group MI. We present a simulation environment and reinforcement learning (RL) based dialogue manager for group MI, in which a discrete Soft-Actor-Critic (SAC) policy selects therapist dialogue acts and a large language model generates utterances, with two LLM-prompted patient agents as interlocutors. Our model supports adaptation to different participant profiles. We compared our dialogue manager with four LLM-based ones at the dialogue acts level. We observed that RL yields a significantly different therapist policy, which showed the tendency to generate more directive acts and adapt to varying group compositions. Participant profile adaptation was the strongest in groups containing an open-to-change participant.</abstract>
+      <url hash="eda37983">2026.sigdial-1.61</url>
+      <bibkey>abulimiti-etal-2026-reinforcement</bibkey>
+    </paper>
+  </volume>
+</collection>
