@@ -26,6 +26,7 @@ def process_md_in_xml(text: str) -> str:
     # strip out latex so Markdown parser doesn't treat _ as italics etc.
     maths = re.findall(r'<tex-math>.+?</tex-math>', text)
     protected_text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
+    protected_text = protected_text.replace("GLR*", r"GLR\*")
     # linkification doesn't recognize <url> so convert temporarily to <a>
     protected_text = re.sub(r'<url>([^<]+)</url>', r'<a href="\1">\1</a>', text)
 
