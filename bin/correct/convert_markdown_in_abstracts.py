@@ -73,9 +73,9 @@ test_in3 = "“本文将TicomR开放供研究使用,http://github.com/Tshor/Tico
 test_out3 = process_md_in_xml(test_in3)
 assert test_out3=="“本文将TicomR开放供研究使用,<url>http://github.com/Tshor/TicomR</url>。”", test_out3
 
-test_in4 = "Our data and code are available at https://github.com/sjtu-compling/llm-pragmatics.”"
+test_in4 = "Our data and code for O*NET and A*esque are available at https://github.com/sjtu-compling/llm-pragmatics.”"
 test_out4 = process_md_in_xml(test_in4)
-assert test_out4=="Our data and code are available at <url>https://github.com/sjtu-compling/llm-pragmatics</url>.”", test_out4
+assert test_out4=="Our data and code for O*NET and A*esque are available at <url>https://github.com/sjtu-compling/llm-pragmatics</url>.”", test_out4
 
 
 anthology = Anthology.from_within_repo()
@@ -89,7 +89,7 @@ for paper in anthology.papers():
 
         html = process_md_in_xml(text)
 
-        if html!=text not in text:
+        if html!=text:
             try:
                 paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
                 i += 1
