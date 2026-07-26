@@ -331,6 +331,36 @@ $acl-stats-red: #ed1c24;
   height: 100%;
 }
 
+.acl-histogram__bar.is-decade {
+  flex-grow: 10;
+}
+
+.acl-histogram__bar.is-year-start {
+  margin-left: .75rem;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -.45rem;
+    border-left: 1px dashed #aeb8bd;
+    content: "";
+  }
+}
+
+.acl-histogram__transition {
+  position: absolute;
+  top: -.15rem;
+  left: .2rem;
+  padding: 0 .22rem;
+  background: $white;
+  color: $acl-stats-muted;
+  font-size: .62rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
 .acl-histogram__column {
   width: 100%;
   height: var(--bar-height, 0);
@@ -344,6 +374,18 @@ $acl-stats-red: #ed1c24;
 
 .acl-histogram__bar:hover .acl-histogram__column {
   background: darken($cyan, 26%);
+}
+
+.acl-histogram__average {
+  position: absolute;
+  right: -1px;
+  bottom: var(--average-height, 0);
+  left: 0;
+  z-index: 1;
+  height: 4px;
+  background: rgba($acl-stats-ink, .28);
+  pointer-events: none;
+  transform: translateY(50%);
 }
 
 .acl-histogram__tick {
@@ -373,6 +415,10 @@ $acl-stats-red: #ed1c24;
   right: 0;
   left: auto;
   transform: none;
+}
+
+.acl-histogram__bar.is-year:not(.is-year-start):not(:last-child) .acl-histogram__tick {
+  display: none;
 }
 
 .acl-stats__toplist--authors {
@@ -434,7 +480,15 @@ $acl-stats-red: #ed1c24;
     height: 10rem;
   }
 
+  .acl-histogram__bar.is-decade {
+    flex-grow: 5;
+  }
+
   .acl-histogram__tick:not(.is-endpoint) {
     display: none;
+  }
+
+  .acl-histogram__bar.is-year-start .acl-histogram__tick {
+    display: block;
   }
 }
