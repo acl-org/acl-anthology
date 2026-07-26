@@ -22,6 +22,10 @@ md = (MarkdownIt("commonmark", {'breaks': False, 'html': True, 'linkify': True, 
         .disable("reference").disable("entity").disable("image"))
 """Markdown processor. (OpenReview follows the CommonMark specification but does not support images or inline HTML.)"""
 
+assert md.linkify
+md.linkify.set({"fuzzy_link": False, "fuzzy_email": False, "fuzzy_ip": False})
+
+
 def process_md_in_xml(text: str) -> str:
     # strip out latex so Markdown parser doesn't treat _ as italics etc.
     maths = re.findall(r'<tex-math>.+?</tex-math>', text)
@@ -53,13 +57,13 @@ def process_md_in_xml(text: str) -> str:
     return html
 
 
-test_case = "The ``**code** and __data__'' are 'available' at the authors' repo, https://github.com/Junjie-Ye/RoTBench."
+test_in1 = "The ``**code** and __data__'' are 'available' at the authors' github.com repo, https://github.com/Junjie-Ye/RoTBench."
+test_out1 = process_md_in_xml(test_in1)
+assert test_out1=="The “<b>code</b> and <b>data</b>” are ‘available’ at the authors’ github.com repo, <url>https://github.com/Junjie-Ye/RoTBench</url>.", test_out1
 
-assert process_md_in_xml(test_case)=="The “<b>code</b> and <b>data</b>” are ‘available’ at the authors’ repo, <url>https://github.com/Junjie-Ye/RoTBench</url>."
-
-test_case2 = "Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
-
-assert process_md_in_xml(test_case2)=="Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
+test_in2 = "Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
+test_out2 = process_md_in_xml(test_in2)
+assert test_out2=="Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>.", test_out2
 
 anthology = Anthology.from_within_repo()
 
