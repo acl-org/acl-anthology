@@ -28,8 +28,6 @@ TAGS_WITH_MARKUP = {
     "tt",
     "par",
     "a",
-    "url",
-    "tex-math",
     "fixed-case",
     "title",
     "abstract",

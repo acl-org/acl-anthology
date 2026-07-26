@@ -393,17 +393,22 @@ test_cases_ensure_minimal_diff = (
              <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
            </paper>""",
     ),
-    # Requires TAGS_WITH_MARKUP to include <tex-math>
+    # Added markup after <tex-math>
     (
         "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
         "<abstract><tex-math>a</tex-math> xxx</abstract>",
         "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
     ),
-    # Requires TAGS_WITH_MARKUP to include <par/>
+    # Test <par/>
     (
         "<abstract>a<par/><b>xxx</b></abstract>",
         "<abstract>a<par/>xxx</abstract>",
         "<abstract>a<par/><b>xxx</b></abstract>",
+    ),
+    (
+        "<abstract><i>a</i><par/><b>xxx</b></abstract>",
+        "<abstract><i>a</i>\n<b>xxx</b></abstract>",
+        "<abstract><i>a</i><par/><b>xxx</b></abstract>",
     ),
 )
 
