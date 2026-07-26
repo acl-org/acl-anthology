@@ -83,7 +83,7 @@ for paper in anthology.papers():
             except etree.XMLSyntaxError as e:
                 log.error(str(e))
                 log.info(html)
-    if i>=50:
+    if i>=200:
         break
 
 anthology.save_all()
