@@ -49,7 +49,7 @@ for paper in anthology.papers():
         # restore LaTeX
         html = re.sub(r'<tex-math></tex-math>', lambda m: maths.pop(0), html)
 
-        if html!=text:
+        if html!=text and 'A*esque' not in text:
             try:
                 paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
                 i += 1
