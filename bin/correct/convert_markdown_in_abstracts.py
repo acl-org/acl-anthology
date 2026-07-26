@@ -26,9 +26,8 @@ def process_md_in_xml(text: str) -> str:
     # strip out latex so Markdown parser doesn't treat _ as italics etc.
     maths = re.findall(r'<tex-math>.+?</tex-math>', text)
     protected_text = re.sub(r'<tex-math>.+?</tex-math>', '<tex-math></tex-math>', text)
-    protected_text = protected_text.replace("GLR*", r"GLR\*")
     # linkification doesn't recognize <url> so convert temporarily to <a>
-    protected_text = re.sub(r'<url>([^<]+)</url>', r'<a href="\1">\1</a>', text)
+    protected_text = re.sub(r'<url>([^<]+)</url>', r'<a href="\1">\1</a>', protected_text)
 
     # (not really Markdown but) process LaTeX-style quotes
     protected_text = protected_text.replace('``', '“').replace("''", '”')
@@ -57,6 +56,10 @@ def process_md_in_xml(text: str) -> str:
 test_case = "The ``**code** and __data__'' are 'available' at the authors' repo, https://github.com/Junjie-Ye/RoTBench."
 
 assert process_md_in_xml(test_case)=="The “<b>code</b> and <b>data</b>” are ‘available’ at the authors’ repo, <url>https://github.com/Junjie-Ye/RoTBench</url>."
+
+test_case2 = "Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
+
+assert process_md_in_xml(test_case2)=="Given a context-free grammar <tex-math>G</tex-math> and a sentence <tex-math>S</tex-math>, find and parse <tex-math>S'</tex-math> – the largest subset of words of <tex-math>S</tex-math>, such that <tex-math>S' \\in L(G)</tex-math>."
 
 anthology = Anthology.from_within_repo()
 
