@@ -1,0 +1,76 @@
+{{ define "main" }}
+{{ $fellows := hugo.Data.fellows.people }}
+{{ $timeline := hugo.Data.fellows.timeline }}
+{{ $chart_width := mul (add (sub $timeline.last_year $timeline.first_year) 1) $timeline.bar_width }}
+{{ $baseline := add $timeline.chart_height 2 }}
+{{ $chart_height := add $baseline 17 }}
+
+<main class="acl-fellows">
+  <header class="acl-fellows-header">
+    <h1>{{ .Title }}</h1>
+    <div class="acl-fellows-intro">{{ .Content }}</div>
+  </header>
+
+  <div class="acl-fellows-scale" aria-hidden="true">
+    <span>Publication timeline for verified author pages</span>
+    <span>{{ $timeline.first_year }}&ndash;{{ $timeline.last_year }}</span>
+    <span>0&ndash;{{ $timeline.max_count }} papers per year</span>
+  </div>
+
+  <div class="acl-fellows-list">
+    {{ range $fellows }}
+    {{ $fellow := . }}
+    <article class="acl-fellow-row">
+      <div class="acl-fellow-portrait">
+        {{ with .photo }}
+          {{ $photo_url := cond (hasPrefix . "http") . (relURL .) }}
+          <img src="{{ $photo_url }}" alt="{{ default (printf "Portrait of %s" $fellow.name) $fellow.photo_alt }}" loading="lazy" decoding="async">
+        {{ else }}
+          <img class="acl-fellow-mark" src="{{ relURL "images/acl-logo-square.svg" }}" alt="">
+          <span aria-hidden="true">{{ .initials }}</span>
+        {{ end }}
+      </div>
+
+      <div class="acl-fellow-copy">
+        <p class="acl-fellow-cohort">{{ .year }} ACL Fellow</p>
+        <h2><a href="{{ relref $ (printf "/people/%s" .id) }}">{{ .name }}</a></h2>
+        <p class="acl-fellow-reason">{{ .reason }}</p>
+        {{ with .photo_source }}
+        <a class="acl-fellow-credit" href="{{ . }}" rel="external noopener">{{ default "Photo source" $fellow.photo_credit }}</a>
+        {{ end }}
+      </div>
+
+      {{ if .timeline_available }}
+      <figure class="acl-fellow-timeline">
+        <figcaption>
+          <span>Publications per year</span>
+          {{ with .peak_year }}<span>Peak: {{ . }}</span>{{ end }}
+        </figcaption>
+        <svg viewBox="0 0 {{ $chart_width }} {{ $chart_height }}" role="img" aria-labelledby="timeline-title-{{ .id | anchorize }} timeline-desc-{{ .id | anchorize }}" preserveAspectRatio="none">
+          <title id="timeline-title-{{ .id | anchorize }}">{{ .name }} publications by year</title>
+          <desc id="timeline-desc-{{ .id | anchorize }}">Annual paper counts from {{ $timeline.first_year }} through {{ $timeline.last_year }}, on a shared scale of zero to {{ $timeline.max_count }} papers.</desc>
+          {{ range $timeline.ticks }}
+          {{ $x := add (mul .index $timeline.bar_width) 2 }}
+          <line class="acl-timeline-grid" x1="{{ $x }}" y1="0" x2="{{ $x }}" y2="{{ $baseline }}" />
+          <text class="acl-timeline-label" x="{{ $x }}" y="{{ sub $chart_height 2 }}" text-anchor="middle">{{ .year }}</text>
+          {{ end }}
+          <line class="acl-timeline-axis" x1="0" y1="{{ $baseline }}" x2="{{ $chart_width }}" y2="{{ $baseline }}" />
+          {{ range $index, $publication := .publications }}
+            {{ if $publication.count }}
+            <rect class="acl-timeline-bar{{ if eq $publication.year $fellow.peak_year }} acl-timeline-bar-peak{{ end }}" x="{{ add (mul $index $timeline.bar_width) 1 }}" y="{{ sub $baseline $publication.height }}" width="4" height="{{ $publication.height }}">
+              <title>{{ $publication.year }}: {{ $publication.count }} paper{{ if ne $publication.count 1 }}s{{ end }}</title>
+            </rect>
+            {{ end }}
+          {{ end }}
+        </svg>
+      </figure>
+      {{ else }}
+      <div class="acl-fellow-timeline acl-fellow-timeline-unavailable">
+        <p>Publication timeline pending author-page verification.</p>
+      </div>
+      {{ end }}
+    </article>
+    {{ end }}
+  </div>
+</main>
+{{ end }}
