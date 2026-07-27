@@ -25,6 +25,7 @@
       <abstract>We report on the morphological tagging of Old Serbian in the Universal Dependencies framework. To facilitate the manual annotation, we pre-processed the data with the Old Church Slavonic 2.12 UDPipe model. The decision was based on the known similarity of these two languages as well as on the declared performance of this model compared to other models for historical varieties of Slavic languages. With over 3,000 manually annotated tokens, we evaluated the performance of the relevant pre-trained UDPipe2 models of historical Slavic languages. Besides, we also trained and evaluated custom models with UDPipe1 containing the annotated Old Serbian data. We have found that: (1) for this particular domain and amount of training data, the most suitable model is UD Old East Slavic – Birchbark 2.12, although its declared performance is much lower than that of Old Church Slavonic; (2) even 3,000 tokens of Old Serbian increase the performance of UDPipe1 models almost to the level of the Birchbark 2.12 model. The dataset is publicly available at https://doi.org/10.5281/zenodo.19317842.</abstract>
       <url hash="19172a2a">2026.lt4hala-1.1</url>
       <bibkey>polomac-cinkova-2026-morphological</bibkey>
+      <doi>10.63317/47f9i6wdkxtq</doi>
     </paper>
     <paper id="2">
       <title>Tracing Morph Origins in <fixed-case>C</fixed-case>zech: A Computational Approach to Morph-Level Etymology</title>
@@ -34,6 +35,7 @@
       <abstract>Modern languages remain connected to ancient ones in multiple ways, including through etymology; for instance, Latin is among the most influential sources of borrowings in (modern) Czech, whether transmitted directly or mediated through other languages. This work focuses on predicting the etymological origin of individual morphs in Czech words. Given morphologically segmented Czech sentences, the task is to determine for each morph whether it is native or borrowed, and if borrowed, to identify the languages through which it entered Czech. Although some linguists have examined etymology at the level of individual morphs rather than whole words (Arkadiev et al., 2015), to our knowledge, no computational work has yet addressed this level of analysis. We created a manually annotated dataset of 300 Czech sentences comprising around 10,000 morphs with morph-level etymology labels, and trained supervised models using character-based and structural features. Our best lightweight system is a feed-forward neural network with a single hidden layer, trained on data augmented with entries from an etymological dictionary, reaching 96.2% F1 on the test set. We also developed and tested several prompting variants for large language models; the best model Claude-Opus-4.5, achieved 97.8% F1. We release the code, prompts, and dataset as open source at https://github.com/ampapacek/MorphemeOrigin.</abstract>
       <url hash="8ca73bc1">2026.lt4hala-1.2</url>
       <bibkey>papacek-zabokrtsky-2026-tracing</bibkey>
+      <doi>10.63317/4h8ckod8kvq6</doi>
     </paper>
     <paper id="3">
       <title>Uncovering Work from Words: <fixed-case>LLM</fixed-case>-Based Information Extraction from Historical Petitions</title>
@@ -44,6 +46,7 @@
       <abstract>We investigate the extraction and normalisation of phrases describing work from 18th-century Swedish petitions using four LLMs: GPT-4o, Llama-3 70B/8B, and Mixtral-8x7B. Performance is evaluated across four configurations: isolated extraction, isolated normalisation, a staged pipeline, and a combined multitasking setup, using both full and filtered texts (with formal greetings and closing sections removed). While exact phrase matching remains low (F1 &lt; .10), token-level and semantic similarity scores suggest that models consistently locate relevant topical regions. Semantic similarity scores must however be interpreted with caution, since they are often only marginally higher than an average baseline. Results reveal a "multitasking paradox": combined extraction and normalisation improves phrase location for high-parameter models but degrades normalisation precision. Furthermore, normalisation benefits from the context of a staged pipeline compared to isolated tasks, while text filtering has only marginal effects. Despite a tendency towards over-prediction, qualitative analysis suggests that models can detect plausible work-related expressions missed by human annotators. These findings illustrate the challenges of historical extraction and suggest that hybrid human–machine workflows are a promising approach for enhancing coverage and interpretability in cultural heritage research.</abstract>
       <url hash="3666b0e6">2026.lt4hala-1.3</url>
       <bibkey>lindqvist-etal-2026-uncovering</bibkey>
+      <doi>10.63317/57hodtwzt9vf</doi>
     </paper>
     <paper id="4">
       <title>Extracting Volcanological Knowledge from Historical Texts: A Language-Technology Pipeline for Diachronic Geovisualization</title>
@@ -55,6 +58,7 @@
       <abstract>This paper presents the first results of the CorVo project, a transdisciplinary project combining volcanology and computational linguistics to extract and structure volcanological knowledge from historical documents concerning Mount Vesuvius. We introduce the CorVo corpus, a multilingual diachronic corpus of 180 digitized texts (16th–20th centuries), selected to represent the main eruptive scenarios of the volcano. The digitization workflow integrates image pre-processing, OCR, and LLM-based post-correction to address challenges posed by degraded pages, historical typefaces, and orthographic variation. A domain-aware information extraction pipeline was developed to identify both standard toponyms and fine-grained spatial entities, which are typically overlooked by traditional NER systems. Extracted entities undergo human-in-the-loop validation and georeferencing through a dedicated annotation interface supporting multiple spatial geometries. The resulting dataset enables temporally normalized diachronic geovisualization of the textual-spatial footprint of Vesuvian eruptions across centuries.</abstract>
       <url hash="32e92945">2026.lt4hala-1.4</url>
       <bibkey>marini-etal-2026-extracting</bibkey>
+      <doi>10.63317/3ikuq72uxg2t</doi>
     </paper>
     <paper id="5">
       <title>When Lexicographic Quotations Become a Corpus: To Deduplicate or Not to Deduplicate?</title>
@@ -67,6 +71,7 @@
       <abstract>Historical dictionaries are increasingly reused as sources for diachronic language corpora. In this context, lexicographic quotations represent a valuable yet challenging type of data, as they are both editorially curated and diachronically representative. A major issue in their computational reuse is the presence of duplicate and near-duplicate quotations. This paper addresses quotation deduplication in corpora derived from lexicographic resources. We introduce QRD (Quotation Reuse Detection), a multi-stage pipeline designed to identify, compare, and cluster quotations based on graded similarity rather than binary matching. The approach combines string-based similarity measures, iterative threshold analysis, and clustering, enabling both quantitative and qualitative investigation of quotation reuse. Our results show that deduplication in this context cannot be reduced to the automatic elimination of redundant data. The variability observed in the quotations - ranging from OCR-related noise to substantial editorial variation - reflects both technical and structural factors and calls for a more nuanced approach. QRD supports the identification of OCR-related errors and reveals patterns of textual reuse underlying the compilation of the dictionary. We argue that quotation deduplication should be conceived primarily as a task of identification and clustering. This perspective reframes deduplication from a data-cleaning operation into an analytical methodology for historically and editorially curated textual resources.</abstract>
       <url hash="0054cbc6">2026.lt4hala-1.5</url>
       <bibkey>favaro-etal-2026-lexicographic</bibkey>
+      <doi>10.63317/4jcig5tk645s</doi>
     </paper>
     <paper id="6">
       <title>A New State-of-the-Art <fixed-case>BERT</fixed-case> Model for <fixed-case>J</fixed-case>udeo-<fixed-case>A</fixed-case>rabic</title>
@@ -80,6 +85,7 @@
       <abstract>We present JABERT, the first BERT model pretrained specifically for historical Judeo-Arabic texts. We demonstrate that JABERT outperforms Arabic and multilingual models on the downstream task of Judeo-Arabic homograph disambiguation. Furthermore, in order to test the latter, we have curated and annotated the first Judeo-Arabic homograph test set. We release both JABERT and the Judeo-Arabic homograph test to the public for unrestricted use.</abstract>
       <url hash="b7b426f3">2026.lt4hala-1.6</url>
       <bibkey>rosensweig-etal-2026-new</bibkey>
+      <doi>10.63317/52qpsk7c5bfc</doi>
     </paper>
     <paper id="7">
       <title><fixed-case>BER</fixed-case>eshi<fixed-case>T</fixed-case>: an <fixed-case>A</fixed-case>ncient <fixed-case>H</fixed-case>ebrew Model based on <fixed-case>D</fixed-case>icta<fixed-case>BERT</fixed-case></title>
@@ -90,6 +96,7 @@
       <abstract>This project addresses the general absence of Natural Language Processing (NLP) tools when it comes to historical languages as a subset of low-resource languages that is relevant to an array of academic disciplines from linguistics to textual criticism. In particular, we train an Ancient Hebrew language model, BEReshiT, as well as BEReshiT-morph, a submodel for morphological annotation. BEReshiT is achieved through the fine-tuning of DictaBERT, a state-of-the-art model for Modern Hebrew that has also proved useful in Biblical Hebrew tasks. Layer freezing is applied in order to achieve maximal results and gain insight about the adaptation process. In the context of an elaborate cloze test, BEReshiT demonstrates increased performance and notions of the Ancient Hebrew language compared to the source model as well as a selection of additional relevant models. The submodel BEReshiT-morph performs highly on tasks of morphological classification, reaching an F1 score of 0.97 for part-of-speech (POS) tagging. We will release the main and morphological models as well as the datasets used at training and evaluation.</abstract>
       <url hash="c2510dca">2026.lt4hala-1.7</url>
       <bibkey>nikolova-stoupak-etal-2026-bereshit</bibkey>
+      <doi>10.63317/4j3oje5q7bcd</doi>
     </paper>
     <paper id="8">
       <title>Automatic Detection of Metaphorical Expressions in Classical <fixed-case>J</fixed-case>apanese Using <fixed-case>WLSP</fixed-case>-Enhanced <fixed-case>BERT</fixed-case></title>
@@ -103,6 +110,7 @@
       <abstract>Metaphor detection is a fundamental task in natural language processing, yet research on historical languages remains limited. While progress has been made in modern Japanese metaphor detection, classical Japanese texts present unique challenges due to their distinct vocabulary, grammar, and metaphorical patterns. This paper addresses this gap by applying a BERT-based metaphor detection method enhanced with semantic classification information from the Word List by Semantic Principles (WLSP) to classical Japanese texts. We evaluate our approach on CHJ-Metaphor, a newly available corpus featuring metaphor annotations for three medieval Japanese works from the Corpus of Historical Japanese (CHJ). Our method achieves an F1-score of 82.18 through 5-fold cross-validation. Notably, qualitative analysis by domain experts reveals that our model successfully identifies genuine metaphors overlooked during manual annotation, demonstrating its potential as a tool for improving annotation quality in large-scale corpus construction. These results confirm the effectiveness of WLSP-enhanced approaches for metaphor detection in classical Japanese and suggest promising directions for applying similar techniques to other historical languages.</abstract>
       <url hash="caae8178">2026.lt4hala-1.8</url>
       <bibkey>zhu-etal-2026-automatic</bibkey>
+      <doi>10.63317/2ptf9cfgpkgz</doi>
     </paper>
     <paper id="9">
       <title>Domain-Aware Error Correction for Citation <fixed-case>NER</fixed-case> in Medieval <fixed-case>H</fixed-case>ebrew Responsa</title>
@@ -115,6 +123,7 @@
       <abstract>Citation identification in historical and ancient texts poses challenges that extend beyond surface-level pattern recognition, including implicit references, morphological fusion, and discourse-driven ambiguity. In this work, we address citation Named Entity Recognition (NER) in medieval Hebrew Responsa literature using a modular, LLM-based correction pipeline. Rather than treating large language models as end-to-end predictors, we leverage them as structured components: an initial prompt-based expert tagger, complementary LLM judges for systematic error detection, and domain-aware correction grounded in philological regularities. Our approach requires no end-to-end fine-tuning and only minimal labeled supervision (a small validation set for training a lightweight error-detection classifier), narrowing the performance gap to strong supervised models trained on domain-specific data. The results suggest that explicit error handling and interpretability-driven design offer a promising direction for historical NLP in low-resource settings.</abstract>
       <url hash="14e5ba81">2026.lt4hala-1.9</url>
       <bibkey>liebeskind-etal-2026-domain</bibkey>
+      <doi>10.63317/5euewaq3i8b5</doi>
     </paper>
     <paper id="10">
       <title>From Lemmas to Links: A Lemma Bank for <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek</title>
@@ -125,6 +134,7 @@
       <abstract>This paper introduces the Greek Lemmabank, the core component of the Linking Greek knowledge base, developed according to Linked Open Data principles. Addressing the fragmentation of existing Ancient Greek resources, the lemmabank adopts a descriptive, ontology-driven approach inspired by LiLa (Linking Latin). Lemmas are modelled as canonical forms within an OntoLex-Lemon–compliant framework, preserving alternative canonical solutions and dialectal variation while enabling interoperable linking across heterogeneous datasets. The resource is populated by integrating data from the Ancient Greek WordNet and the Liddell–Scott–Jones lexicon, with additional normalisation and harmonisation to the Universal Dependencies tagset. The resulting dataset establishes a lemma-centric infrastructure for interlinking corpora, lexica, and NLP tools for Ancient Greek.</abstract>
       <url hash="585d4a74">2026.lt4hala-1.10</url>
       <bibkey>swaelens-etal-2026-lemmas</bibkey>
+      <doi>10.63317/3s7ttskswwnj</doi>
     </paper>
     <paper id="11">
       <title>Across Generations: A Comparative Analysis of <fixed-case>NER</fixed-case> for <fixed-case>L</fixed-case>atin Inscriptions from Classical Machine Learning to <fixed-case>LLM</fixed-case>s</title>
@@ -134,6 +144,7 @@
       <abstract>Latin epigraphic texts are a challenging type of historical data for natural language processing (NLP). They are often fragmentary, contain inconsistent spelling, and follow complex Roman naming conventions. This paper investigates Named Entity Recognition (NER) for this domain by comparing several approaches, including feature-based Support Vector Machines, neural models such as BiLSTM and TreeLSTM, pre-trained language models like LatinBERT, fine-tuned Transformer models based on BERT, and large language models used with prompting and supervised fine-tuning. We introduce a manually annotated dataset of 1,000 inscriptions from the Epigraphik-Datenbank Clauss-Slaby, labelled with a fine-grained BIO scheme that captures the internal structure of Roman personal names. Results show that the fine-tuned BERT model achieves the highest performance, with a weighted F1 score of 91.1% and a macro F1 of 68.7%, and clearly outperforms other methods. Additional linguistic features, such as part-of-speech tags and dependency information, yield only limited improvements, likely due to the irregular nature of inscriptional texts. This work provides a new benchmark for NER on Latin inscriptions and offers practical insights into applying modern NLP techniques to historical, non-standardised language.</abstract>
       <url hash="b69fb903">2026.lt4hala-1.11</url>
       <bibkey>cui-strobel-2026-across</bibkey>
+      <doi>10.63317/2g99sovd35pj</doi>
     </paper>
     <paper id="12">
       <title><fixed-case>POS</fixed-case> Tagging with Generative <fixed-case>LLM</fixed-case>s for Historical <fixed-case>G</fixed-case>ermanic Low-Resource Languages: An Evaluation Against Fine-Tuned <fixed-case>BERT</fixed-case></title>
@@ -144,6 +155,7 @@
       <abstract>Part-of-Speech (POS) tagging is a fundamental task in Natural Language Processing, yet its performance on historical low-resource languages is still underexplored, particularly in the context of large generative models. While recent studies have demonstrated strong results for Large Language Models (LLMs) on modern languages and contemporary low-resource settings, their effectiveness for historical varieties remains unclear. Moreover, genre-specific structural variation, which may substantially affect tagging performance, has received limited attention. This study evaluates the zero- and few-shot POS tagging performance of two generative models on four historical Germanic low-resource languages across two literary genres. Their performance is benchmarked against fine-tuned BERT models. To contextualize the performance on historical data, the models are also evaluated on two modern languages. The results show that fine-tuned encoder models consistently outperform generative models across all settings. The performance of the LLMs on historical languages is substantially lower compared to that on modern languages, suggesting limited representation of these varieties in pretraining data. Furthermore, error analysis reveals structural output inconsistencies in LLM predictions that require additional post-processing. These findings highlight the limitations of zero- and few-shot generative models for historical low-resource POS tagging and underline the importance of task-specific fine-tuning.</abstract>
       <url hash="b26832ac">2026.lt4hala-1.12</url>
       <bibkey>miani-etal-2026-pos</bibkey>
+      <doi>10.63317/2r9n7btigbd6</doi>
     </paper>
     <paper id="13">
       <title>From Manuscript to Model: Developing <fixed-case>HTR</fixed-case> for Medieval <fixed-case>G</fixed-case>reek</title>
@@ -155,6 +167,7 @@
       <abstract>We develop and evaluate manuscript-specific text line detection (TLD) and handwritten text recognition (HTR) models for two 14th-century Medieval Greek manuscripts, Vat. gr. 2228 and Phil. gr. 130, comprising 1,356 handwritten pages. From these, we curate and document 36 pages with complete, manually curated text line annotations, together with 10 additional pages with layout annotations only for TLD, forming two manuscript-specific ground truth (GT) datasets. To ensure representative evaluation despite limited annotations, validation splits are optimized for character coverage and distributional similarity using Jensen-Shannon divergence. Using the Transkribus platform, we train manuscript-specific TLD models from scratch and manuscript-specific HTR models, comparing HTR training from scratch with fine-tuning of a publicly available Medieval Greek base model. TLD achieves validation pixel-wise misclassification rates of 5.42% for Vat. gr. 2228 and 8.76% for the more layout-variable Phil. gr. 130. For HTR, fine-tuning consistently outperforms training from scratch. On validation pages with manually curated text line annotations, Vat. gr. 2228 reaches 5.13% character error rate (CER) and 23.66% word error rate (WER), while Phil. gr. 130 reaches 27.13% CER and 65.72% WER after continued training. A supplementary held-out evaluation on Vat. gr. 2228 shows that the fine-tuned model reaches 5.97% CER and 23.52% WER on test pages with manually corrected line polygons, degrading to 12.12% CER and 44.21% WER under automatic TLD-based segmentation. The study also provides a reproducible workflow and evaluation protocol for Medieval Greek HTR under low-resource conditions.</abstract>
       <url hash="8a041a05">2026.lt4hala-1.13</url>
       <bibkey>andersen-etal-2026-manuscript</bibkey>
+      <doi>10.63317/47tkobv5mgbu</doi>
     </paper>
     <paper id="14">
       <title><fixed-case>I</fixed-case>, <fixed-case>RE</fixed-case>:Claudius 256: Towards Linking Classical <fixed-case>L</fixed-case>atin Person Mentions to a Domain-specific Knowledge Base</title>
@@ -170,6 +183,7 @@
       <abstract>This paper considers Named Entity Linking for person mentions from classical Latin texts to a domain-specific, German language knowledge base, namely Paulys RealencyclopΣdie. Following a methodology similar to (anonymous_reference), we train a transformer-based, retrieval and ranking model (BLINK) first on a general, Wikipedia-derived dataset and subsequently on a more specific dataset, gathered from various sources, linking to our target knowledge base. Results show that while BLINK performs well on mention-entity pairs linked to entities seen during training, it performs significantly worse on mention-entity pairs linking to unseen entities. We provide a detailed error analysis, propose possible exploitation strategies for a human-in-the-loop approach, and identify directions for future improvement.</abstract>
       <url hash="6237b476">2026.lt4hala-1.14</url>
       <bibkey>beersmans-etal-2026-claudius</bibkey>
+      <doi>10.63317/3db3992kjxgv</doi>
     </paper>
     <paper id="15">
       <title>Capturing <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Sense Induction with Automatic Pipelines</title>
@@ -184,6 +198,7 @@
       <abstract>While the study of diachronic semantic change has advanced alongside recent computational developments, structured lexical resources that reflect semantic evolution remain scarce for many languages, including Ancient Chinese. By systematizing the diachronic transformations within the Chinese Text Project (ctext, a large corpus of Ancient Chinese), we aim to bridge the gap between traditional philological inquiry and contemporary computational linguistics. This study proposes a pipeline that extracts contextualized embeddings from GujiBERT-fan, a language model pre-trained on pre-modern Chinese, and applies dynamic hierarchical clustering to identify distinct senses across historical periods. The pipeline operates at two levels: a global clustering that aggregates data across all periods to capture the full semantic space, and local clustering within each dynasty to reveal period-specific usage patterns. We test the pipeline with a pilot study on the character 手 (shǒu, "hand") across eight dynastic periods, covering over 185,000 occurrences. The results show that the pipeline can capture the diachronic shift from concrete to abstract senses, demonstrating its potential as a scalable method for mapping semantic evolution in historical languages.</abstract>
       <url hash="d2862081">2026.lt4hala-1.15</url>
       <bibkey>tseng-etal-2026-capturing</bibkey>
+      <doi>10.63317/4ku4whfwarht</doi>
     </paper>
     <paper id="16">
       <title>A Computational Evaluation of Syllabic Hypotheses for <fixed-case>R</fixed-case>ongorongo: Evidence from N-gram Analysis</title>
@@ -192,6 +207,7 @@
       <abstract>The study evaluates the hypothesis that the Rongorongo script of Easter Island functions as a syllabic substitution cipher where one symbol uniquely corresponds to one syllable. Using a genetic algorithm with a fitness function based on Rapa Nui n-gram statistics, we establish a performance baseline on controlled texts. Results show a strong correlation (0.75) between the algorithm’s fitness score and decipherment accuracy, identifying a "noise threshold" at 2,500,000 points. We further demonstrate that cross-corpus genre variance significantly impacts recovery rates, with accuracy dropping by more than half when mismatched linguistic statistics are applied. Application to the CEIPP transliteration yields scores well below the noise threshold (1.0M–1.3M), suggesting a lack of a simple syllabic signal. However, testing the rongopy transliteration produces scores in the "gray zone" (up to 2.7M) and reveals stable mappings for high-frequency glyphs 200 and 006. The consistency of these results across independent inscriptions suggests that while a pure syllabic model is insufficient, specific structural simplifications of the script may capture latent linguistic patterns.</abstract>
       <url hash="580c655c">2026.lt4hala-1.16</url>
       <bibkey>korovina-2026-computational</bibkey>
+      <doi>10.63317/2os436inpm37</doi>
     </paper>
     <paper id="17">
       <title>Building a Corpus and Database for Rare and Undeciphered Scripts</title>
@@ -204,6 +220,7 @@
       <abstract>Historical sources written in rare or undeciphered scripts represent an immense but underexploited part of the world’s cultural and linguistic heritage. Their study is often hindered by fragmentary preservation, non-standard symbol systems, and the absence of interoperable digital resources. While recent advances in imaging, transcription, and computational analysis have improved access to historical texts, most tools rely on large quantities of labeled data and standardized encodings, requirements that are rarely met for rare or unknown writing systems. This paper presents the design and methodology of a new corpus and database dedicated to rare and undeciphered scripts worldwide. The resource integrates high-quality images, transliterations, transcriptions, linguistic annotations, and metadata within a unified data model tailored for low-resource and non-standard scripts. By adhering to FAIR principles and existing standards for linguistic and cultural heritage data, the database enables reproducible, interdisciplinary research across philology, linguistics, cryptology, and computer science. The paper outlines the data collection and digitization workflow, describes the metadata and database architecture, and demonstrates applications in analysis and decipherment.</abstract>
       <url hash="6de57cf1">2026.lt4hala-1.17</url>
       <bibkey>megyesi-etal-2026-building</bibkey>
+      <doi>10.63317/3w96kx3i86uo</doi>
     </paper>
     <paper id="18">
       <title>A Layered Annotation Workflow for <fixed-case>S</fixed-case>emitic Epigraphy</title>
@@ -214,6 +231,7 @@
       <abstract>This paper presents a layered annotation workflow for the historical linguistic study of Semitic epigraphic texts. Using a curated Phoenician corpus primarily based on Kanaanäische und Aramäische Inschriften (KAI), the system models inscriptions as multi-layered objects that encode graphemic, morphosyntactic, phonological, semantic, and contextual information as independently queryable layers. Annotation is embedded in a structured editorial workflow supporting peer review, expert validation, version tracking, and the representation of variant readings and uncertainty. A case study demonstrates how recurring formulaic constructions can be modeled as morphosyntactic configurations retrievable across inscriptions. Although the current corpus is limited in scope, the data model is language-agnostic, designed for extension to other Semitic epigraphic traditions.</abstract>
       <url hash="6c252355">2026.lt4hala-1.18</url>
       <bibkey>bernstein-etal-2026-layered</bibkey>
+      <doi>10.63317/5h3xy7mbk7rj</doi>
     </paper>
     <paper id="19">
       <title>Overview of the Dependency Parsing Task at <fixed-case>E</fixed-case>va<fixed-case>L</fixed-case>atin 2026</title>
@@ -224,6 +242,7 @@
       <abstract>This paper presents the organization, methodology, and outcomes of the Dependency Parsing shared task held within the fourth edition of EvaLatin, a campaign dedicated to the evaluation of Natural Language Processing tools for Latin. EvaLatin aims to promote and advance research in language technologies for Latin, fostering the development of robust and linguistically informed computational approaches. The paper provides a detailed description of the data released for the shared task. It also outlines the evaluation framework and metrics adopted for assessing system performance. The results achieved by participating teams are reported and comparatively analyzed, highlighting strengths, limitations, and emerging trends in current approaches to Latin dependency parsing. Finally, the paper discusses the main challenges posed by the task and suggests directions for future research in the field.</abstract>
       <url hash="46cf772a">2026.lt4hala-1.19</url>
       <bibkey>iurescia-etal-2026-overview</bibkey>
+      <doi>10.63317/2j3y8jv8ktyd</doi>
     </paper>
     <paper id="20">
       <title><fixed-case>THIVLVC</fixed-case>: Retrieval Augmented Dependency Parsing for <fixed-case>L</fixed-case>atin</title>
@@ -234,6 +253,7 @@
       <abstract>We describe THIVLVC, a two-stage system for the EvaLatin 2026 Dependency Parsing task. Given a Latin sentence, we retrieve structurally similar entries from the CIRCSE treebank using sentence length and POS <tex-math>n</tex-math>-gram similarity, then prompt a large language model to refine the baseline parse from UDPipe using the retrieved examples and UD annotation guidelines. We submit two configurations: one without retrieval and one with retrieval (RAG). On poetry (Seneca), THIVLVC improves CLAS by +17 points over the UDPipe baseline; on prose (Thomas Aquinas), the gain is +1.5 CLAS. A double-blind error analysis of 300 divergences between our system and the gold standard reveals that, among unanimous annotator decisions, 53.3% favour THIVLVC, showing annotation inconsistencies both within and across treebanks.</abstract>
       <url hash="77807fb0">2026.lt4hala-1.20</url>
       <bibkey>pommeret-etal-2026-thivlvc</bibkey>
+      <doi>10.63317/2q8twojtotyb</doi>
     </paper>
     <paper id="21">
       <title>Overview of the Named Entity Recognition Task at <fixed-case>E</fixed-case>va<fixed-case>L</fixed-case>atin 2026</title>
@@ -244,6 +264,7 @@
       <abstract>This paper describes the organisation and results of the Named Entity Recognition and Classification (NERC) shared task, conducted as part of EvaLatin 2026. The fourth edition of this evaluation campaign for Natural Language Processing on Latin features two shared tasks, i.e. Dependency Parsing and NERC. After introducing the objective of the task and presenting the Ancient Named Entities Special Interest Group, which aims to address the specific challenges that this task presents, this overview details the annotation tagset, the data provided to the participants and their format. The evaluation metrics and the scorer are also described. Finally, the methodology used by each participating team and their results are presented and discussed.</abstract>
       <url hash="d055cc29">2026.lt4hala-1.21</url>
       <bibkey>boano-etal-2026-overview</bibkey>
+      <doi>10.63317/2yxsiapdo7ux</doi>
     </paper>
     <paper id="22">
       <title>Transfer Learning for Named Entity Recognition of Classical <fixed-case>L</fixed-case>atin through <fixed-case>LLM</fixed-case> Prompting</title>
@@ -252,6 +273,7 @@
       <abstract>With the increase in digitized resources of Classical Latin texts and modern breakthroughs of Large Language Models (LLMs), I contribute to ancient language research by participating in EvaLatin 2026. This paper describes Team uOttawa’s system description and results for the Named Entity Recognition (NER) shared task. The task is divided into two subtasks: coarse-grained NER with 11 classes and fine-grained NER with 28 classes, each evaluated under strict and fuzzy regimes. Through prompt engineering of commercial LLMs gemini-2.5-pro and claude-sonnet-4-5, I show that the underrepresented ancient Latin language can take advantage of cross-lingual transfer learning by using advancements made by the wider LLM development community. Overall, the methods discussed in this report demonstrate very strong results, placing first in both NER subtasks and achieving the best scores across all evaluation metrics and regimes among all submissions.</abstract>
       <url hash="ac51730a">2026.lt4hala-1.22</url>
       <bibkey>chan-2026-transfer</bibkey>
+      <doi>10.63317/5eszd7yy3gfm</doi>
     </paper>
     <paper id="23">
       <title>Overview of <fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an2026: The First International Evaluation of <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese <fixed-case>OCR</fixed-case> and Layout Analysis</title>
@@ -272,6 +294,7 @@
       <abstract>Ancient Chinese documents are vital for historical research, necessitating high-precision character recognition and layout analysis for digitization. This paper introduces EvaHan2026, the inaugural international shared task for simultaneous optical character recognition and layout parsing of ancient texts. The evaluation framework comprehensively assesses model performance across diverse calligraphic styles and complex structures, including main body text, interlinear annotations, and illustrations. Among thirteen participating teams, four successfully completed all tasks within the closed track. Experimental results reveal that character recognition accuracy reached 97.36% on engraved texts (Test Set A) and 95.71% on handwritten texts (Test Set C) when accounting for character variants. For layout recognition in complex layouts (Test Set B), the best team achieved a peak mean Average Precision (mAP) of 59.41% and an Intersection over Union (loU) of 76.38%. Our analysis indicates that calligraphic variability, layout density, and character variants significantly modulate system performance. Consequently, enhancing robustness within complex layouts and developing synergistic models that integrate textual and structural information remain primary challenges for intelligent interpretation of ancient writings .</abstract>
       <url hash="8b5bf6c3">2026.lt4hala-1.23</url>
       <bibkey>wang-etal-2026-overview</bibkey>
+      <doi>10.63317/3a35qx3n2fg9</doi>
     </paper>
     <paper id="24">
       <title>A Multi-Stage System for <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese <fixed-case>OCR</fixed-case> and Layout Understanding in the <fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an2026 Shared Task</title>
@@ -281,6 +304,7 @@
       <abstract>This paper presents a multi-stage system for the EvaHan2026 shared task, addressing the complex challenges of ancient Chinese optical character recognition (OCR) and layout understanding. For text recognition (Tasks A and C), we adopt parameter-efficient LoRA fine-tuning on the Qwen2.5-VL-7B-Instruct vision-language model (VLM). By directly processing full-resolution long-column images, we preserve critical spatial and contextual integrity without heuristic region cropping. For document layout analysis (Task B), we propose a novel hybrid perception-reasoning paradigm. Instead of relying solely on scaling visual detectors, we decouple localization and understanding: utilizing a YOLO-based ensemble for precise spatial bounding, and casting the VLM as a semantic verifier to eliminate spurious detections. Evaluated on the official unseen test set, our system achieves substantial improvements over the provided baselines, obtaining a 0.0441 Character Error Rate (CER) for printed OCR, a 0.0793 CER for handwritten OCR (including variants), and a 0.5118 mAP@[0.5:0.95] for layout detection. These results demonstrate that integrating VLM-based semantic reasoning into traditional visual detection pipelines is highly effective for multimodal historical document analysis.</abstract>
       <url hash="fb28adfe">2026.lt4hala-1.24</url>
       <bibkey>liang-liu-2026-multi</bibkey>
+      <doi>10.63317/4tmmz89iawet</doi>
     </paper>
     <paper id="25">
       <title>A Multi-Modal Recognition Framework for Ancient Books Integrating <fixed-case>D</fixed-case>o<fixed-case>RA</fixed-case>-<fixed-case>DPO</fixed-case> Text Recognition and <fixed-case>YOLO</fixed-case> Layout Analysis</title>
@@ -291,6 +315,7 @@
       <abstract>The digitization and intelligent analysis of ancient Chinese documents face significant challenges due to diverse scripts, complex layouts, and the prevalence of rare characters. We present a comprehensive multi-modal recognition framework developed for the closed-modality track of the EvaHan 2026 Ancient Chinese Document Multi-Modal Recognition Shared Task. Our approach integrates two specialized pipelines to address these complexities. For text recognition (Tasks A and C), we propose a high-precision OCR system based on the domain-adapted Xunzi_Qwen2_VL_7B_Instruct, leveraging DoRA within a two-stage progressive curriculum learning strategy. To further refine character accuracy, DPO is incorporated alongside a dual-adapter architecture for rare character error localization and correction. For layout detection (Task B), we implement DocLayout-YOLO, enhanced by domain-specific pre-training and Mosaic augmentation to achieve efficient NMS-free element detection. Furthermore, a multi-round robust inference strategy, featuring automatic retry mechanisms and multi-prompt brute-force search, is introduced to handle stubborn and degraded samples effectively. Experimental results demonstrate that our proposed framework achieves superior performance across all evaluation metrics, highlighting its robustness and effectiveness in the digital preservation of ancient Chinese heritage.</abstract>
       <url hash="b3fba50c">2026.lt4hala-1.25</url>
       <bibkey>zhang-etal-2026-multi-modal</bibkey>
+      <doi>10.63317/58pv4t9t8hmt</doi>
     </paper>
     <paper id="26">
       <title><fixed-case>B</fixed-case>eijing Normal University at <fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an 2026: Enhancing <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Character Recognition and Layout Analysis via <fixed-case>VLM</fixed-case> Fine-Tuning and Linguistic Post-Processing</title>
@@ -300,6 +325,7 @@
       <abstract>This paper describes the system submitted by the Beijing Normal University (BNU) team for the EvaHan 2026 shared task. We participated in Task A (Printed Text Recognition), Task B (Layout Element Analysis), and Task C (Handwritten Character Recognition). For text recognition (Tasks A and C), we proposed a hybrid pipeline combining supervised fine-tuning (SFT) of Vision-Language Models (VLMs) with a linguistic rule-based post-processing module. In the Open Track, we further explored the use of a general-purpose VLM to correct semantic errors while maintaining visual fidelity to ancient variant characters. For Task B, we adopted a method integrating a VLM with structured prompting strategies. Our system consistently surpassed the official baselines, achieving an F1 score of 94.53% in Task A and 91.33% in Task C, while demonstrating enhanced localization precision in Task B.</abstract>
       <url hash="c3b1aa56">2026.lt4hala-1.26</url>
       <bibkey>yin-zhao-2026-beijing</bibkey>
+      <doi>10.63317/25kr52s65n9t</doi>
     </paper>
     <paper id="27">
       <title>A Dual-Modality Framework for Ancient Document Layout Analysis and Text Recognition</title>
@@ -310,6 +336,7 @@
       <abstract>The digital preservation of ancient Chinese literature requires robust capabilities spanning layout analysis and text recognition. This paper presents a comprehensive framework addressing two fundamental challenges: (1) Layout Element Analysis (Task B) for detecting page elements (text, image, book_edge, seal) amidst degradation, nested structures, and extreme class imbalance; and (2) Text Recognition (Tasks A &amp; C) for end-to-end transcription of printed and handwritten classical documents. For layout analysis, we propose a dual-modality solution. The Closed Modality formulates this as a sequence-to-sequence problem using Vision-Language Models (VLMs), introducing spatial discretization tokenization and a Frequency-Aware Sequential Curriculum Learning framework with dynamic memory replay. The Open Modality presents HistLayout-DETR, a set prediction architecture integrating an Augmented Morphological Encoder and a Polygon Boundary Refinement head. For text recognition, we formulate OCR as a domain-constrained visual language generation task using Qwen2.5-VL with LoRA fine-tuning. We employ structured prompts encoding reading order and Traditional Chinese character preservation across domains. Extensive experiments on the EvaHan 2026 dataset validate our framework’s superiority. In layout analysis, our curriculum-guided paradigm achieves a Macro F1 of 0.7992 and mAP@[.5:.95] of 0.5438. In text recognition, we achieve CERs of 0.0271 on printed and 0.0433 on handwritten texts.</abstract>
       <url hash="56610fca">2026.lt4hala-1.27</url>
       <bibkey>fan-etal-2026-dual</bibkey>
+      <doi>10.63317/4snk2mjgyxyd</doi>
     </paper>
     <paper id="28">
       <title><fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an 2026 Ancient Books Multimodal <fixed-case>OCR</fixed-case> and Layout Analysis System Technical Report</title>
@@ -318,6 +345,7 @@
       <abstract>This paper introduces our system proposal and experimental results for the 5th International Evaluation of Ancient Chinese Information Processing (EvaHan 2026). This evaluation focuses on ancient books OCR tasks using multimodal large language models, including three subtasks: Printed Text Recognition (Task A), Layout Element Analysis (Task B), and Handwritten Text Recognition (Task C). To address core challenges such as numerous variant characters, complex handwritten ligatures, dense layout elements, and annotation noise, we propose a Supervised Fine-tuning (SFT) scheme based on data synthesis augmentation and multi-stage curriculum learning. We also optimized the data preprocessing workflow, resolving key issues like repetition mark recognition and annotation quality improvement. We completed a 9:1 train-validation split on the official dataset and verified the effectiveness of our methods through 6 groups of comparative experiments. Finally, we selected the model with the best comprehensive performance for submission. The code and synthetic dataset are available at https://github.com/zhengningch/EvaHan2026-data.</abstract>
       <url hash="5255521d">2026.lt4hala-1.28</url>
       <bibkey>zheng-2026-evahan</bibkey>
+      <doi>10.63317/3n7j6t59tuhs</doi>
     </paper>
     <paper id="29">
       <title>A Parameter-Efficient and Data-Centric Framework for <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Text Recognition and Layout Analysis</title>
@@ -326,6 +354,7 @@
       <abstract>This paper presents the system developed for the EvaHan 2026 shared task on Ancient Chinese OCR and Layout Analysis. Participating in the Closed Track, we propose a highly parameter-efficient, data-centric framework based on the Qwen2.5-VL-7B-Instruct multimodal large language model (MLLM). While the official baseline utilizes the same backbone architecture, our approach significantly outperforms it by integrating orientation-aware image preprocessing and expert-constrained adaptive prompt engineering. We employed Low-Rank Adaptation (LoRA) with a minimal rank configuration (Rank=16) to train three independent, task-specific adapters. Our system achieved exceptional results, recording an Overall score of 0.9703 and an F1-score of 97.19% on printed text recognition (Task A)—effectively halving the baseline’s Character Error Rate. On handwritten texts (Task C), we maintained a highly competitive 90.18% F1-score. Furthermore, our model achieved significant progress in layout analysis (Task B), surpassing the baseline’s Macro F1 by 172% (0.4162 vs. 0.1530) and mAP by 37%. These results underscore that embedding explicit document structure and semantic constraints into MLLMs is more effective than simply scaling model parameters.</abstract>
       <url hash="91bd7916">2026.lt4hala-1.29</url>
       <bibkey>meng-2026-parameter</bibkey>
+      <doi>10.63317/4inrcp772rid</doi>
     </paper>
     <paper id="30">
       <title><fixed-case>LVLM</fixed-case> Optimization for <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Book Image Analysis with Task-specific Augmentation and Instruction Tuning</title>
@@ -340,6 +369,7 @@
       <abstract>Ancient Chinese text digitization faces challenges like variant characters and complex layouts. Based on the EvaHan 2026 tasks, this study proposes an LVLM-based framework for printed/handwritten text recognition and layout analysis. To effectively adapt the Qwen2.5-VL-7B-Instruct model, our methodology innovates through a dual-level optimization strategy: distinct augmentation strategies are developed for OCR and layout tasks, while task-specific prompt templates are engineered to decouple text transcription from coordinate prediction. This combined approach significantly enhances overall task proficiency, achieving Character Error Rates of 0.0372 (printed) and 0.0823 (handwritten), alongside a mean average Precision of 0.2933 for layout analysis. Results show general LVLMs underperform in zero-shot ancient text tasks, but fine-tuning with tailored strategies significantly boosts performance and highlights their potential.</abstract>
       <url hash="57670c68">2026.lt4hala-1.30</url>
       <bibkey>xia-etal-2026-lvlm</bibkey>
+      <doi>10.63317/3w5rwjqr49n7</doi>
     </paper>
     <paper id="31">
       <title>Data-Centric Strategies for <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Text Recognition: Augmentation, Annotation Refinement, and Style Transfer in <fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an 2026</title>
@@ -353,6 +383,7 @@
       <abstract>This paper describes our system for the EvaHan 2026 shared task. We design and experiment with data-centric strategies across three subtasks: printed text OCR (Task A), layout element analysis (Task B), and handwritten text OCR (Task C). Our approach employs systematic data augmentation using 17 transformation strategies, comprehensive manual annotation refinement for layout analysis, and style transfer augmentation for handwritten texts. We use pre-trained Qwen2.5-VL-7B-Instruct with LoRA fine-tuning as the base model. According to the evaluation metrics adopted by the organizers, our system achieves 27.5% and 4.5% CER reduction over official baselines for Tasks A and C respectively. Manual annotation refinement for Task B achieves 205% improvement in Micro F1 and 258% improvement in Macro F1 on the validation set, demonstrating that annotation quality is the primary bottleneck for layout analysis in closed-modality settings.</abstract>
       <url hash="f804b771">2026.lt4hala-1.31</url>
       <bibkey>chengfei-etal-2026-data</bibkey>
+      <doi>10.63317/37nbejfdy2es</doi>
     </paper>
     <paper id="32">
       <title><fixed-case>A</fixed-case>nanda<fixed-case>S</fixed-case>ky: A Vision–Language Model for Line-Level Transcription of Historical Sinographic Documents</title>
@@ -364,6 +395,7 @@
       <abstract>We present AnandaSky, a vision–language model for line-level transcription of historical sinographic documents. The model combines a compact high-resolution visual encoder with global attention, 10px patches, uncompressed visual prefix and a Qwen3-0.6B autoregressive decoder. It is trained at scale on 4M annotated lines from documents produced in China and Korea between the 8th and 20th centuries. Across in-domain and held-out public benchmarks, AnandaSky achieves sub-1% CER on five of eight datasets, sets a new state of the art on MTHv2 with 0.92% CER, and shows strong transfer to unseen collections. For EvaHan 2026, full fine-tuning on the organizers’ data to match task-specific annotation conventions reduces CER relative to the official baseline by 5.2% on prints and 12.1% on manuscripts, despite using one-tenth as many parameters.</abstract>
       <url hash="b2e020ed">2026.lt4hala-1.32</url>
       <bibkey>brisson-etal-2026-anandasky</bibkey>
+      <doi>10.63317/3pk7cv8hxzod</doi>
     </paper>
     <paper id="33">
       <title>Multimodal Ancient Document Parsing: Technical Report for <fixed-case>E</fixed-case>va<fixed-case>H</fixed-case>an2026 Competition</title>
@@ -375,6 +407,7 @@
       <abstract>We present the multimodal Optical Character Recognition (OCR) and layout analysis methods developed for the EvaHan 2026 competition. Our approach is built upon the Qwen2.5-VL-7B-Instruct architecture and integrates two core strategies: (1) a reinforcement learning alignment pipeline utilizing Direct Preference Optimization (DPO) and Group Relative Policy Optimization (GRPO) to explicitly mitigate hallucination and coordinate instability; and (2) a four-stage curriculum learning framework that synthesizes domain-specific historical artifacts to enhance open-modality generalization. Using this approach, we achieve competitive results, notably reaching a Character Error Rate (CER) of 0.0303 on printed texts (Task A) and 0.0552 on handwritten manuscripts (Task C), as well as an Average Intersection over Union (IoU) of 0.7638 on layout element analysis (Task B).</abstract>
       <url hash="c27b8d82">2026.lt4hala-1.33</url>
       <bibkey>he-etal-2026-multimodal</bibkey>
+      <doi>10.63317/2cfum2ozgjrs</doi>
     </paper>
     <paper id="34">
       <title>Multi-Task Learning Trade-offs in Vision–Language Models for <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese <fixed-case>OCR</fixed-case>: An Empirical Analysis of Parameter-Efficient Adaptation</title>
@@ -384,6 +417,7 @@
       <abstract>This study evaluates the efficacy of multi-task adaptation in large-scale vision–language models (VLMs), specifically Qwen2.5-VL, for the simultaneous recognition and structural parsing of historical Chinese documents within the EvaHan2026 benchmark. Utilizing a parameter-efficient fine-tuning (PEFT) strategy via LoRA (rank 64), our framework demonstrates superior performance in layout analysis (Task B), achieving an mAP of 0.2802—a 39.6% improvement over the competitive baseline—and a Macro F1 of 0.3609. Conversely, a pronounced performance-utility trade-off is observed in printed OCR (Task A), where the character error rate (CER) escalates from 0.0618 to 0.1100 (+78% relative). This divergence highlights a critical catastrophic forgetting effect induced by gradient interference during multi-task optimization. While handwritten OCR (Task C) remains relatively stable (CER of 0.0963), our findings suggest that although unified VLM architectures excel at high-level structural detection, they encounter significant parameter capacity bottlenecks when concurrently optimizing fine-grained character-level transcription. This analysis highlights the optimization challenges when balancing spatial detection and character recognition in a unified framework.</abstract>
       <url hash="ee341f01">2026.lt4hala-1.34</url>
       <bibkey>shu-zhou-2026-multi</bibkey>
+      <doi>10.63317/5hvjskashyjv</doi>
     </paper>
     <paper id="35">
       <title>Building Character(s): Synthetic Data and In-Context Learning Strategies for Few-Shot <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Recognition</title>
@@ -398,6 +432,7 @@
       <abstract>Ancient Chinese character recognition remains challenging due to severe character imbalance, graphic variants, peculiar layout, degraded printing, and limited annotated data. This paper presents our system for EvaHan 2026, combining synthetic data generation and in-context learning (ICL) across three tasks: line-level text recognition (printed and handwritten) and page layout detection. We introduce UltraGlyph, a synthetic data pipeline recombining glyphs from real data with font-generated characters to improve rare-character coverage, producing 234,528 line images for foundation-model pretraining. We benchmark CRNN, transformer-based OCR, and a suite of vision–language models under a variant-aware ICL framework. On printed text, dedicated OCR systems and top VLMs reach comparable comprehensive scores with around 97% of accuracy; on cursive handwriting, performance drops significantly and is bounded above by 95%, with the best result achieved by Qwen2.5-VL-72B in zero-shot. For layout analysis, YOLO12s achieves the best score with a mAP50 of 75%.</abstract>
       <url hash="f95e4280">2026.lt4hala-1.35</url>
       <bibkey>atzori-etal-2026-building</bibkey>
+      <doi>10.63317/5d9tsvd7kdoq</doi>
     </paper>
     <paper id="36">
       <title>The <fixed-case>UD</fixed-case>_<fixed-case>L</fixed-case>atin-<fixed-case>PROIEL</fixed-case> as Linked Open Data: Integrating a <fixed-case>L</fixed-case>atin Treebank into the <fixed-case>L</fixed-case>i<fixed-case>L</fixed-case>a Knowledge Base</title>
@@ -409,6 +444,7 @@
       <abstract>This paper presents the steps taken to integrate data from the UD_Latin-PROIEL treebank into the LiLa Knowledge Base of interoperable linguistic resources for Latin. It describes how the lexical, morphological, syntactic, and citation information from the source was modeled using the Linked Open Data principles as adopted by the LiLa Knowledge Base. The process of linking tokens to the LiLa collection of Latin lemmas is detailed, addressing challenges such as ambiguities, new lemmas, and errors encountered in the source. The outcome is a syntactically annotated textual resource that is interoperable with the (meta)data of other Latin linguistic resources linked within the LiLa Knowledge Base. This integration enables new ways of analyzing linguistic information and using the content as a starting point to explore connections with other interlinked resources. A use case demonstrates this interoperability.</abstract>
       <url hash="b1672bd5">2026.lt4hala-1.36</url>
       <bibkey>dezotti-etal-2026-ud</bibkey>
+      <doi>10.63317/2bc3z8ew38n3</doi>
     </paper>
     <paper id="37">
       <title>Language Models for the Restoration of <fixed-case>L</fixed-case>atin Legal Manuscripts</title>
@@ -421,6 +457,7 @@
       <abstract>The collection of historical notarial documentation from Bologna is a valuable source, providing deep insights into the city’s institutional, legal, and socio-economic history. However, many of these manuscripts have sustained physical damage during centuries of conservation, rendering the text incomplete. To address this, we explored the restoration of these Latin notary documents using encoder-based pre-trained language models (PLMs) under the assumption that the length of missing text is known by estimation from the physical damage. We address the structural misalignment between the physical lacuna of the manuscript and the subword tokenization schemes of PLMs by designing an iterative decoding strategy to align model predictions with the known physical dimensions of lacuna. We also compared the efficacy of monolingual versus multilingual pre-training. Our strategy significantly outperforms baselines consist of standard decoding methods. Furthermore, stratified analysis across different text sections reveals that while monolingual models achieve better performance in general, multilingual models show a suggestive advantage in lexically dense segments, though this finding is not statistically significant. Overall, the best performance achieved by our method is a Hit@1 rate of 35.47% in the short-span setting and 18.75% in the long-span setting. While fully autonomous restoration remains an open challenge, our system provides a useful assistive tool for paleographers.</abstract>
       <url hash="dd065c77">2026.lt4hala-1.37</url>
       <bibkey>zhang-etal-2026-language-models</bibkey>
+      <doi>10.63317/5g8oqsnzp537</doi>
     </paper>
     <paper id="38">
       <title>Evaluating Hierarchical Aggregation and <fixed-case>LLM</fixed-case>-Based Matching for Synset Selection in <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek</title>
@@ -434,6 +471,7 @@
       <abstract>This paper presents a structured framework for WordNet synset selection applied to Ancient Greek lexical material. Starting from synonym definitions extracted from the Liddell–Scott–Jones (LSJ) lexicon, we compare two strategies: hierarchy-driven aggregation via bounded hypernym trees and LLM-based definitional matching with pairwise ranking. Graded human evaluation shows that structure-aware methods provide a robust baseline, particularly for nouns and verbs, while LLM-based reranking does not consistently improve performance, especially for highly ploysemous groups of synonyms. Beyond supporting the development of an Ancient Greek WordNet, the study highlights the methodological portability of the framework to other languages and lexical resources.</abstract>
       <url hash="464f24a2">2026.lt4hala-1.38</url>
       <bibkey>brigada-villa-etal-2026-evaluating</bibkey>
+      <doi>10.63317/29d5dhmeqrn6</doi>
     </paper>
     <paper id="39">
       <title>Miktub: A Manuscript Dataset of Historical <fixed-case>M</fixed-case>altese for Handwritten Text Recognition</title>
@@ -443,6 +481,7 @@
       <abstract>The digitisation of handwritten historical material is essential for preserving cultural heritage and enabling search and computational analysis. For Maltese, historical handwritten resources are scarce, and, to the best of current knowledge, no public handwritten text recognition (HTR) dataset for historical Maltese exists. We introduce a Manuscript Dataset of Historical Maltese (Miktub), collected from the Data Provider: 35 scanned pages transcribed by specialists and converted into a line-level HTR dataset. A key challenge was robust line extraction from heterogeneous pages; fully automatic line segmentation was insufficient, so we developed a semi-automatic pipeline combining horizontal projection profiling with lightweight post-processing and manual refinement to maximise line fidelity. We provide two annotation variants, including a corrected/standardised version (Miktub-COR) designed to improve consistency, accessibility, and downstream learning stability. We benchmark two strong public HTR models, HTR-VT and VAN, and report the best test performance of 4.68% character error rate (CER) and 13.59% word error rate (WER) on Miktub-COR with VAN. We will release Miktub publicly upon acceptance, along with scripts and splits, to support historical Maltese-language technology research.</abstract>
       <url hash="119234b9">2026.lt4hala-1.39</url>
       <bibkey>koppens-borg-2026-miktub</bibkey>
+      <doi>10.63317/4g7kcupa8ezp</doi>
     </paper>
     <paper id="40">
       <title>Smelling the Past: Investigating Historical Models for Olfactory Event Extraction</title>
@@ -452,6 +491,7 @@
       <abstract>In this paper, we present a series of experiments using historical language models to investigate the impact of pretraining on data that more closely resembles the task domain, focusing on the case study of automatic olfactory event extraction. We tested historical and contemporary pretrained models on the task of extracting olfactory events using a benchmark spanning several centuries. The aim of our research is not only to assess whether historical models can improve performance on this diachronically oriented task, but also to gain deeper insight into the factors influencing model performance through a detailed analysis of performance patterns. We examine potential sources of variation and previously proposed hypotheses to account for lower performance observed in this task, thereby offering a more comprehensive understanding of model behavior in this context.</abstract>
       <url hash="e34fd65d">2026.lt4hala-1.40</url>
       <bibkey>paccosi-koolen-2026-smelling</bibkey>
+      <doi>10.63317/4otmsnawg3kr</doi>
     </paper>
     <paper id="41">
       <title>Contemporizing 20-th Century <fixed-case>E</fixed-case>stonian</title>
@@ -460,6 +500,7 @@
       <abstract>The paper describes a contemporization effort of a 1.9 million word corpus of Estonian parliament minutes from 100 years ago. The paper describes the corpus of Asutaw Kogu (the Constitutional Assembly) and the main differences of language that require one to contemporize it for modern researchers. The effort is implemented as a work flow that combines a freely available speller lexicon, hand-crafted transformation rules and various corpus-based word lists into finite state transducers. Evaluation on a 53,000 token subset of the corpus showed that 0.02% of text tokens ended up with an incorrect contemporary form, corresponding to 0.05% of the corpus vocabulary. However, if we count only the tokens that actually need changing in the contemporization process, we see that 0.12% end up being incorrect, corresponding to 0.15% of the corpus vocabulary. An additional experiment with generative AI showed that using it as a contemporization tool results in a content-preserving, but more formal version of the original minutes.</abstract>
       <url hash="dc04c0fc">2026.lt4hala-1.41</url>
       <bibkey>kaalep-2026-contemporizing</bibkey>
+      <doi>10.63317/346u5zcjzsbs</doi>
     </paper>
     <paper id="42">
       <title>Cost-Aware Pre-Annotation Strategies for Nested <fixed-case>NER</fixed-case> in Historical <fixed-case>L</fixed-case>atin Notarial Deeds</title>
@@ -471,6 +512,7 @@
       <abstract>Manual annotation for Named Entity Recognition in historical documents remains expensive and time-consuming, particularly for complex nested entity structures in domain-specific texts such as Latin notarial deeds. Active learning frameworks like the Humanities Entity Recognizer (HER) reduce annotation requirements by iteratively selecting informative samples for expert annotation, but existing sentence-based sampling strategies create unpredictable annotation costs when sentence lengths vary dramatically. We extend the HER to support nested entities through composite BIO label encoding and introduce token-budgeted sample selection to address annotation cost variability. Under token-budgeting, each annotation iteration targets a fixed token budget rather than a fixed sentence count, while Active Curriculum Learning ensures diverse sentence length representation in initial samples. Experiments on seventeenth-century Latin notarial deeds from Malta’s Notarial Registers Archive demonstrate that token-budgeted sampling achieves comparable macro-span F1 to sentence-based sampling while exhibiting more stable learning trajectories across iterations. Additional experiments examining entity-level performance reveal systematic variation by semantic granularity, with higher-level categorical entities achieving stronger recognition than role-based middle-level entities, which depend on discourse context. Our results demonstrate that controlling sample selection at the token level rather than sentence level provides more predictable annotation planning for active learning in historical document corpora with heavy-tailed sentence length distributions.</abstract>
       <url hash="6f0e83b1">2026.lt4hala-1.42</url>
       <bibkey>ellul-etal-2026-cost</bibkey>
+      <doi>10.63317/3i3oqfx2dqoe</doi>
     </paper>
     <paper id="43">
       <title>From Lemmatization to Legal Terminology: Assessing an Hybrid Pipeline on Justinian’s Digest</title>
@@ -480,6 +522,7 @@
       <abstract>This paper evaluates a hybrid NLP pipeline for supporting the extraction of Roman legal terminology from Jus- tinian’s Digest. Our goal is not to optimize lemmatization in isolation, but to assess whether integrating a Large Language Model (GPT-4o-mini) as a post-processing component improves lemma quality in ways that are critical for downstream glossary construction. Using LatinPipe as a baseline (F1 = 95.05), we test the integration of GPT-4o-mini under three experimental settings (zero-shot with and without prior lemma information, and few-shot prompting) against a manually annotated gold standard of 3,703 sentences and an expert-validated list of legal Latin technical terms. Results show improvement across all settings, with the best performance achieved in the few-shot configuration. Our analysis shows that the hybrid configuration produces selective improvements, significantly more likely for frequent lemmas and verbs forms, suggesting that the LLM layer primarily assists in resolving morphologically ambiguous inflected forms. Although our experimental conditions may not hold in real-world scenarios, we argue that the main contribution of this work is methodological: demonstrating how evaluation can be aligned with downstream terminological goals, rather than proposing a general-purpose solution to domain-specific lemmatization.</abstract>
       <url hash="70739347">2026.lt4hala-1.43</url>
       <bibkey>marongiu-sassolini-2026-lemmatization</bibkey>
+      <doi>10.63317/4x2mcetz9f5r</doi>
     </paper>
     <paper id="44">
       <title><fixed-case>U</fixed-case>ppsala<fixed-case>NLP</fixed-case> at <fixed-case>E</fixed-case>va<fixed-case>L</fixed-case>atin 2026: Multilingual parsing for <fixed-case>L</fixed-case>atin</title>
@@ -488,6 +531,7 @@
       <abstract>We describe the UppsalaNLP submission to the EvaLatin dependency parsing shared task. We explore using an out-of-the-box parser in combination with multi-treebank training on Latin and multilingual training on other ancient languages. Adding additional languages yields only small gains, but the results vary across treebanks and genres, with the largest positive effect for poetry. Our systems perform best in the shared task for prose but are less competitive for poetry, indicating the need for genre adaptation.</abstract>
       <url hash="a24c89d8">2026.lt4hala-1.44</url>
       <bibkey>stymne-2026-uppsalanlp</bibkey>
+      <doi>10.63317/57u2jdmxj3ut</doi>
     </paper>
     <paper id="45">
       <title>Contextual Probing for Low-Resource Named Entity Recognition in <fixed-case>L</fixed-case>atin</title>
@@ -501,6 +545,7 @@
       <abstract>Named Entity Recognition (NER) for low-resource languages remains challenging due to limited annotated data and linguistic characteristics such as rich morphology and flexible word order. In this work, we propose a probing-based method that leverages the contextual knowledge encoded in pretrained language models to detect entities. Our approach uses a substitution strategy in which words in a sentence are replaced, one by one, with candidate entities of predefined entity types, referred to as probes. By measuring how well the probes of a certain entity type fit the surrounding context of the replaced word, we estimate the compatibility between the replaced word and the entity type. The resulting compatibility scores can be used either as a standalone zero-shot NER model or as an auxiliary feature during NER model decoding. We evaluate our method on the Latin dataset provided in the Fourth Workshop on Language Technologies for Historical and Ancient Languages (LT4HALA). Our system ranked second in the coarse-grained NER task. For the fine-grained NER task, where no training data were available, we relied exclusively on the proposed scoring method without any model training and achieved third place. These results demonstrate that contextual probing can provide an effective signal for NER in low-resource settings.</abstract>
       <url hash="69ae7118">2026.lt4hala-1.45</url>
       <bibkey>trusca-etal-2026-contextual</bibkey>
+      <doi>10.63317/4xfc9y3we5j9</doi>
     </paper>
     <paper id="46">
       <title>Classificatio Sine Iactu – That Is, Zero-Shot <fixed-case>NERC</fixed-case> in <fixed-case>L</fixed-case>atin</title>
@@ -511,6 +556,7 @@
       <abstract>This paper presents a zero-shot approach to Named-Entity Recognition and Classification (NERC) in Latin, applied to the EvaLatin shared task. Given the novelty and granularity of the annotation guidelines, which preclude the use of existing annotated resources, we employ the zero-shot model GLiNER2, a general information extraction system capable of CPU-efficient inference, within a cross-lingual pipeline. Latin texts are first translated into English via the Google Translate API, processed by the model, and the resulting annotations are aligned back to the original Latin using word-alignment techniques. Rule-based post-processing addresses labelling inconsistencies and low-confidence predictions. We evaluate two model variants, a large monolingual and a multilingual model, under both strict and fuzzy evaluation. The large model delivers the best results for the coarse-grained task (F1: 0.590 fuzzy), while the multilingual model outperforms it on the fine-grained task (F1: 0.432 fuzzy). Results indicate that multilingual embeddings confer an advantage for fine-grained semantic distinctions, that English embeddings introduce systematic bias in cross-lingual transfer, and that zero-shot NER represents a viable, reproducible baseline for low-resource historical languages. Fine-tuning on guideline-compliant annotated data remains a priority for future work.</abstract>
       <url hash="7ec3274c">2026.lt4hala-1.46</url>
       <bibkey>ripoll-alberola-etal-2026-classificatio</bibkey>
+      <doi>10.63317/4zrvjjxzw5yr</doi>
     </paper>
     <paper id="47">
       <title>Extending omnes flores for the <fixed-case>E</fixed-case>va<fixed-case>L</fixed-case>atin 2026 Dependency Parsing Tasks</title>
@@ -520,6 +566,7 @@
       <abstract>omnes flores is an NLP framework based on Universal Dependencies (UD) that utilizes multilingual Large Language Models (LLMs), and its default model is trained on data from 40 UD languages comprising 40 treebanks. For the EvaLatin 2026 Dependency Parsing Tasks, we extended the training data of omnes flores by incorporating six public Latin treebanks from UD and trained a dependency parsing model using the extended training data. The dependency parser of omnes flores normally takes a list of word FORM values as input. However, since the EvaLatin 2026 test data includes an UPOS column, we investigated whether incorporating both FORM and UPOS during both training and inference could improve parsing accuracy. Our experiments show that training using both FORM and UPOS improves performance by 0.5-1.0 LAS points on Prose compared with training using only FORM, but decreases performance by 5 points on Poetry.</abstract>
       <url hash="6744d193">2026.lt4hala-1.47</url>
       <bibkey>matsuda-asahara-2026-extending</bibkey>
+      <doi>10.63317/5nmhkkp3qheh</doi>
     </paper>
     <paper id="48">
       <title>Pre-Editorial Normalization for Automatically Transcribed Medieval Manuscripts in <fixed-case>O</fixed-case>ld <fixed-case>F</fixed-case>rench and <fixed-case>L</fixed-case>atin</title>
@@ -532,6 +579,7 @@
       <abstract>Recent advances in Automatic Text Recognition (ATR) have improved access to historical archives, yet a methodological divide persists between palaeographic transcriptions and normalized digital editions. While ATR models trained on more palaeographically-oriented datasets such as CATMuS have shown greater generalizability, their raw outputs remain poorly compatible with most readers and downstream NLP tools, thus creating a usability gap. On the other hand, ATR models trained to produce normalized outputs have been shown to struggle to adapt to new domains and tend to over-normalize and hallucinate. We introduce the task of Pre-Editorial Normalization (PEN), which consists in normalizing graphemic ATR output according to editorial conventions, which has the advantage of keeping an intermediate step with palaeographic fidelity while providing a normalized version for practical usability. We present a new dataset derived from the CoMMA corpus and aligned with digitized Old French and Latin editions using passim. We also produce a manually corrected gold-standard evaluation set. We benchmark this resource using ByT5-based sequence-to-sequence models on normalization and pre-annotation tasks. Our contributions include the formal definition of PEN, a 4.66M-sample silver training corpus, a 1.8k-sample gold evaluation set, and a normalization model achieving a 6.7% CER, substantially outperforming previous models for this task</abstract>
       <url hash="0017817d">2026.lt4hala-1.48</url>
       <bibkey>clerice-etal-2026-pre</bibkey>
+      <doi>10.63317/3oc8ht2umo8o</doi>
     </paper>
     <paper id="49">
       <title><fixed-case>O</fixed-case>ld<fixed-case>BERT</fixed-case>ur: Named Entity Recognition for Medieval <fixed-case>I</fixed-case>celandic</title>
@@ -542,6 +590,7 @@
       <abstract>We present OldBERTur, a Named Entity Recognition (NER) model for Old Icelandic available in two variations, one for normalised texts, and one for diplomatic texts. Using a BERT-based model architecture, we fine-tune an existing BERT language model, and due to training data scarcity, we employ multiple training configurations, including pre-training domain adaptation, sentence-level data resampling, and modern Icelandic data augmentation; achieving a 93 F1 score for normalised texts, and 79 for diplomatic texts. We find that additional training configurations, such as resampling entity-annotated Old Icelandic texts, significantly improve performance in low-resource settings, while the effectiveness of added training configurations diminishes as the available training data increases. Our models can be used to automatically identify and classify person and location names in texts sourced from the rich Icelandic medieval literary tradition. Our models, along with their data and code, are made publicly available to allow for reuse and future research into medieval Scandinavian NLP and beyond.</abstract>
       <url hash="cec3cb9c">2026.lt4hala-1.49</url>
       <bibkey>henningsson-etal-2026-oldbertur</bibkey>
+      <doi>10.63317/36mey5zik2id</doi>
     </paper>
     <paper id="50">
       <title>Neural Machine Translation for <fixed-case>C</fixed-case>optic-<fixed-case>F</fixed-case>rench: Strategies for Low-Resource Ancient Languages</title>
@@ -551,6 +600,7 @@
       <abstract>This paper presents the first systematic study of strategies for translating Coptic into French. Our comprehensive pipeline systematically evaluates: pivot versus direct translation, the impact of pre-training, the benefits of multi-version fine-tuning, and model robustness to noise. Utilizing aligned biblical corpora, we demonstrate that fine-tuning with a stylistically-varied and noise-aware training corpus significantly enhances translation quality. Our findings provide crucial practical insights for developing translation tools for historical languages in general.</abstract>
       <url hash="2f190228">2026.lt4hala-1.50</url>
       <bibkey>chaoui-khoury-2026-neural</bibkey>
+      <doi>10.63317/5asa4khfm6hq</doi>
     </paper>
   </volume>
 </collection>
