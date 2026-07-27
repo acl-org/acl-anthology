@@ -49,7 +49,7 @@ from rich.progress import (
 import shutil
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import Award, PaperDeletionType
+from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
@@ -177,12 +177,7 @@ def paper_to_dict(paper):
         ]
     if paper.awards:
         data["award"] = [
-            (
-                {"name": award.name, "reasoning": award.reasoning}
-                if isinstance(award, Award)
-                else award
-            )
-            for award in paper.awards
+            {"name": award.name, "reasoning": award.reasoning} for award in paper.awards
         ]
     if paper.deletion:
         match paper.deletion.type:

@@ -370,7 +370,6 @@ test_cases_xml = (
   <attachment hash="12345678" type="software">2023.fake-software</attachment>
   <attachment hash="12345690" type="software">2023.extra-software</attachment>
   <video href="2023.fake-video.mp4"/>
-  <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
   <bibkey>why-would-you-cite-this</bibkey>
 </paper>
@@ -386,29 +385,29 @@ def test_paper_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
-def test_paper_structured_awards():
+def test_paper_awards():
     xml = """<paper id="9">
   <title>Award-winning paper</title>
-  <award>Legacy Award</award>
-  <award><name>Named Award</name><reasoning>Groundbreaking work.</reasoning></award>
-  <award><reasoning>Important work.</reasoning></award>
+    <award name="Named Award">Groundbreaking work.</award>
+    <award name="Current Award"/>
   <bibkey>nn-1900-award</bibkey>
 </paper>"""
     paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
 
     assert paper.awards == (
-        "Legacy Award",
         Award(name="Named Award", reasoning="Groundbreaking work."),
-        Award(reasoning="Important work."),
+        Award(name="Current Award"),
     )
     assert [
         etree.tostring(element, encoding="unicode")
         for element in paper.to_xml().findall("award")
     ] == [
-        "<award>Legacy Award</award>",
-        "<award><name>Named Award</name><reasoning>Groundbreaking work.</reasoning></award>",
-        "<award><reasoning>Important work.</reasoning></award>",
+        '<award name="Named Award">Groundbreaking work.</award>',
+        '<award name="Current Award"/>',
     ]
+
+    paper.awards = ["String Award"]
+    assert paper.awards == (Award(name="String Award"),)
 
 
 def test_paper_from_xml_invalid_tag():

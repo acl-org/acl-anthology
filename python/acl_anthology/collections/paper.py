@@ -69,29 +69,27 @@ log = get_logger()
 @attach_custom_repr
 @define(field_transformer=auto_validate_types, frozen=True, kw_only=True)
 class Award:
-    """A structured award citation for a paper."""
+    """An award received by a paper."""
 
-    name: Optional[str] = field(default=None)
-    """The name of the award, if provided."""
+    name: str = field()
+    """The name of the award."""
 
-    reasoning: str = field()
-    """The reason the paper received the award."""
+    reasoning: Optional[str] = field(default=None)
+    """The reason the paper received the award, if provided."""
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Award:
-        """Instantiates a structured award from an ``<award>`` block."""
-        name = element.findtext("name")
-        reasoning = element.findtext("reasoning")
-        if reasoning is None:  # pragma: no cover - rejected by the schema
-            raise ValueError("A structured award must include <reasoning>")
-        return cls(name=name, reasoning=reasoning)
+        """Instantiates an award from an ``<award>`` block."""
+        name = element.get("name")
+        if name is None:
+            raise ValueError("An award must have a name")
+        return cls(name=name, reasoning=element.text or None)
 
     def to_xml(self) -> etree._Element:
-        """Returns a structured ``<award>`` block."""
-        award = etree.Element("award")
-        if self.name is not None:
-            award.append(E.name(self.name))
-        award.append(E.reasoning(self.reasoning))
+        """Returns an ``<award>`` block."""
+        award = etree.Element("award", attrib={"name": self.name})
+        if self.reasoning is not None:
+            award.text = self.reasoning
         return award
 
 
@@ -253,12 +251,14 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
-def _into_award_tuple(value: Iterable[str | Award]) -> tuple[str | Award, ...]:
+def _into_award_tuple(value: Iterable[str | Award]) -> tuple[Award, ...]:
     if isinstance(value, str):
         raise TypeError(
             "Expected Iterable[str | Award], got str; this is most likely a mistake"
         )
-    return tuple(value)
+    return tuple(
+        Award(name=award) if isinstance(award, str) else award for award in value
+    )
 
 
 def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -> str:
@@ -312,7 +312,7 @@ class Paper:
     Attributes: Tuple Attributes:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
-        awards: Awards this paper has received, represented by either their names or structured [`Award`][acl_anthology.collections.paper.Award] objects; can be empty.
+        awards: Awards this paper has received, represented by [`Award`][acl_anthology.collections.paper.Award] objects; can be empty.
         errata: Errata for this paper; can be empty.
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
@@ -357,7 +357,7 @@ class Paper:
             track_modifications,
         ],
     )
-    awards: tuple[str | Award, ...] = field(default=(), converter=_into_award_tuple)
+    awards: tuple[Award, ...] = field(default=(), converter=_into_award_tuple)
     _editors: tuple[NameSpecification, ...] = field(
         default=(),
         converter=into_namespec_tuple,
@@ -858,10 +858,7 @@ class Paper:
             elif tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
-                if len(element):
-                    kwargs["awards"].append(Award.from_xml(element))
-                else:
-                    kwargs["awards"].append(str(element.text or ""))
+                kwargs["awards"].append(Award.from_xml(element))
             elif tag == "erratum":
                 if "errata" not in kwargs:
                     kwargs["errata"] = []
@@ -948,10 +945,7 @@ class Paper:
         for video in self.videos:
             paper.append(video.to_xml("video"))
         for award in self.awards:
-            if isinstance(award, Award):
-                paper.append(award.to_xml())
-            else:
-                paper.append(E.award(award))
+            paper.append(award.to_xml())
         if self.deletion is not None:
             paper.append(self.deletion.to_xml())
         paper.append(E.bibkey(self.bibkey))

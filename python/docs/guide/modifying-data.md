@@ -68,7 +68,7 @@ how it will be converted & stored internally:
 ```pycon
 >>> paper.awards = ["Best paper award"]
 >>> paper.awards                           # stored as a tuple
-('Best paper award',)
+(Award(name='Best paper award'),)
 >>> from acl_anthology.collections import Award
 >>> paper.awards = [Award(name="Best paper award", reasoning="A foundational contribution.")]
 >>> paper.awards
