@@ -6,16 +6,13 @@
 {{ $chart_height := add $baseline 17 }}
 
 <main class="acl-fellows">
-  <header class="acl-fellows-header">
-    <h1>{{ .Title }}</h1>
-    <div class="acl-fellows-intro">{{ .Content }}</div>
-  </header>
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+  </article>
 
-  <div class="acl-fellows-scale" aria-hidden="true">
-    <span>Publication timeline for verified author pages</span>
-    <span>{{ $timeline.first_year }}&ndash;{{ $timeline.last_year }}</span>
-    <span>0&ndash;{{ $timeline.max_count }} papers per year</span>
-  </div>
 
   <div class="acl-fellows-list">
     {{ range $fellows }}
@@ -43,8 +40,7 @@
       {{ if .timeline_available }}
       <figure class="acl-fellow-timeline">
         <figcaption>
-          <span>Publications per year</span>
-          {{ with .peak_year }}<span>Peak: {{ . }}</span>{{ end }}
+          <span>Publication history</span>
         </figcaption>
         <svg viewBox="0 0 {{ $chart_width }} {{ $chart_height }}" role="img" aria-labelledby="timeline-title-{{ .id | anchorize }} timeline-desc-{{ .id | anchorize }}" preserveAspectRatio="none">
           <title id="timeline-title-{{ .id | anchorize }}">{{ .name }} publications by year</title>
