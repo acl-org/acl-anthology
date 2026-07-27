@@ -45,7 +45,7 @@ def process_md_in_xml(text: str) -> str:
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
     protected_text = re.sub(
-        r"([。，！？；：）】》]|[.,!?;:)]*[’”]+)", r"<span>\1</span>", protected_text
+        r"([。，！？；：）】》]|[.,!?;:)]*[’”‘“]+)", r"<span>\1</span>", protected_text
     )
     protected_text = protected_text.replace("O*NET", "O\\*NET").replace(
         "A*esque", "A\\*esque"
@@ -72,6 +72,7 @@ def process_md_in_xml(text: str) -> str:
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
+    html = html.replace("&lt;<url>", "<url>").replace("&gt;</url>", "</url>")
     html = re.sub(r"<span>(.+?)</span>", r"\1", html)
 
     # restore LaTeX
@@ -107,6 +108,12 @@ assert (
     test_out4
     == "Our data and code for O*NET and A*esque are available at <url>https://github.com/sjtu-compling/llm-pragmatics</url>.”"
 ), test_out4
+
+test_in5 = "See code at &lt;https://github.com/sjtu-compling/llm-pragmatics&gt;."
+test_out5 = process_md_in_xml(test_in5)
+assert (
+    test_out5 == "See code at <url>https://github.com/sjtu-compling/llm-pragmatics</url>."
+), test_out5
 
 
 anthology = Anthology.from_within_repo()
