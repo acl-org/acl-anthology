@@ -236,26 +236,11 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
 #   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
-#
-# - double_newlines_to_par_break: \n\n is assumed to signal a paragraph break.
-#
-# - clean_whitespace: whitespace sequences (including single newlines) are
-#   converted to a single space.
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
         re.compile(r"\\\\\$"),
         r"\\$",
-    ),
-    (
-        "double_newlines_to_par_break",
-        re.compile("\n\n"),
-        "<par/>",
-    ),
-    (
-        "clean_whitespace",
-        re.compile(r"\s+"),
-        " ",
     ),
 ]
 
