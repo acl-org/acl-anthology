@@ -45,7 +45,7 @@ def process_md_in_xml(text: str) -> str:
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
     protected_text = re.sub(
-        r"([。，！？；：）】》]|[.,!?;:)]+[’”]+)", r"<span>\1</span>", protected_text
+        r"([。，！？；：）】》]|[.,!?;:)]*[’”]+)", r"<span>\1</span>", protected_text
     )
     protected_text = protected_text.replace("O*NET", "O\\*NET").replace(
         "A*esque", "A\\*esque"
