@@ -67,7 +67,7 @@ def process_md_in_xml(text: str) -> str:
     html = html.replace("<em>", "<i>").replace("</em>", "</i>")
     html = re.sub(r"</p>\s*<p>", "<par/>", html)
     html = re.sub(  # linked text is URL + period. move period after
-        r'(<a href="([^"]+)">\2)\.</a>', r'\1</a>.', html
+        r'(<a href="([^"]+)">\2)\.</a>', r"\1</a>.", html
     )
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
