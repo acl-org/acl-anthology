@@ -394,14 +394,16 @@ test_cases_ensure_minimal_diff = (
            </paper>""",
     ),
     # Requires TAGS_WITH_MARKUP to include <tex-math>
-    ("<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
-     "<abstract><tex-math>a</tex-math> xxx</abstract>",
-     "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+    (
+        "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+        "<abstract><tex-math>a</tex-math> xxx</abstract>",
+        "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
     ),
     # Requires TAGS_WITH_MARKUP to include <par/>
-    ("<abstract>a<par/><b>xxx</b></abstract>",
-     "<abstract>a<par/>xxx</abstract>",
-     "<abstract>a<par/><b>xxx</b></abstract>",
+    (
+        "<abstract>a<par/><b>xxx</b></abstract>",
+        "<abstract>a<par/>xxx</abstract>",
+        "<abstract>a<par/><b>xxx</b></abstract>",
     ),
 )
 
