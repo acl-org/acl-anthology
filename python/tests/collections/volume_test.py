@@ -490,6 +490,24 @@ def test_volume_create_paper_explicit(anthology):
     assert paper.bibkey == "bollmann-2022-the-awesome"
 
 
+@pytest.mark.parametrize(
+    "before, after",
+    (
+        (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+        (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+        ((None, "S.b.priya"), (None, "S.B.Priya")),
+    ),
+)
+def test_volume_create_paper_case_normalizes_author_names(before, after, anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    authors = (NameSpec(Name(*before)),)
+    paper = volume.create_paper(
+        title="Paper with normalized author initials",
+        authors=authors,
+    )
+    assert paper.authors[0].name == authors[0].name == Name(*after)
+
+
 def test_volume_create_paper_with_duplicate_id_should_fail(anthology):
     volume = anthology.get_volume("2022.acl-long")
     authors = (NameSpec("Bollmann, Marcel"),)

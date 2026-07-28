@@ -42,10 +42,12 @@ from slugify import slugify
 from typing import Any, Dict, Iterator, Optional, List, Tuple
 
 from acl_anthology import Anthology
+from acl_anthology.collections import Collection
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.collections.volume import Volume
 from acl_anthology.files import (
     AttachmentReference,
+    EventFileReference,
     PDFReference,
 )
 from acl_anthology.people import Name, NameSpecification
@@ -443,6 +445,44 @@ def add_parent_event(
     else:
         event.add_colocated(volume_full_id)
         log.info(f"Created event entry in {parent_event} for {volume_full_id}")
+
+
+def configure_event(collection: Collection, args: argparse.Namespace) -> None:
+    """Create or update event metadata supplied on the command line."""
+    values = {
+        "title": args.event_title,
+        "location": args.event_location,
+        "dates": args.event_dates,
+    }
+    if not any(values.values()) and not args.event_website and not args.event_handbook:
+        return
+
+    event = collection.get_event()
+    if event is None:
+        event = collection.create_event()
+
+    for field_name, value in values.items():
+        if value is not None:
+            setattr(event, field_name, value)
+
+    links = dict(event.links)
+    if args.event_website:
+        links["website"] = EventFileReference(args.event_website)
+    if args.event_handbook:
+        source = Path(args.event_handbook)
+        if not source.is_file():
+            raise FileNotFoundError(f"Not a file: {source}")
+        venue_id = collection.id.split(".", maxsplit=1)[-1]
+        destination = (
+            Path(args.event_files_dir)
+            / "handbooks"
+            / venue_id
+            / f"{collection.id}.handbook.pdf"
+        )
+        maybe_copy(str(source), str(destination), dry_run=args.dry_run)
+        links["handbook"] = EventFileReference(destination.name)
+    if links != event.links:
+        event.links = links
 
 
 def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> str:
@@ -948,6 +988,7 @@ def ingest(
             volume_obj,
             metadata.get("booktitle"),
         )
+    configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
@@ -1002,7 +1043,7 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     return markup
 
 
-def namespec_from_bib(person) -> NameSpecification:
+def namespec_from_bib(person, orcid: Optional[str] = None) -> NameSpecification:
     """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
@@ -1014,11 +1055,26 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    return namespec_from(first=first_text, last=last_text)
+    return namespec_from(first=first_text, last=last_text, orcid=orcid)
+
+
+def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
+    """Parse an ACLPUB .orc sidecar into 1-based author-indexed ORCIDs."""
+    path = Path(orcfilename)
+    if not path.is_file():
+        return {}
+
+    orcids = {}
+    with open(path) as instream:
+        for line in instream:
+            match = re.fullmatch(r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip())
+            if match is not None and match[2]:
+                orcids[int(match[1])] = match[2]
+    return orcids
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
-    """Parse a single-entry BibTeX file into structured metadata."""
+    """Parse a BibTeX entry and its optional ACLPUB .orc sidecar."""
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
@@ -1038,6 +1094,8 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
     if page_range is not None:
         page_range = page_range.replace("--", "-")
 
+    orcids = read_orc_file(Path(bibfilename).with_suffix(".orc"))
+
     return {
         "title": normalize_latex(bibentry.fields.get("title")),
         "booktitle": normalize_latex(bibentry.fields.get("booktitle")),
@@ -1050,7 +1108,8 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
-            namespec_from_bib(person) for person in bibentry.persons.get("author", [])
+            namespec_from_bib(person, orcids.get(index))
+            for index, person in enumerate(bibentry.persons.get("author", []), start=1)
         ],
         "editors": [
             namespec_from_bib(person) for person in bibentry.persons.get("editor", [])
@@ -1153,6 +1212,33 @@ if __name__ == "__main__":
         "-p",
         default=None,
         help="Event ID (e.g., naacl-2025) workshop was colocated with",
+    )
+    parser.add_argument(
+        "--event-title",
+        help="Full title for the event associated with the ingested collection",
+    )
+    parser.add_argument(
+        "--event-location",
+        help="Location for the event associated with the ingested collection",
+    )
+    parser.add_argument(
+        "--event-dates",
+        help="Date range for the event associated with the ingested collection",
+    )
+    parser.add_argument(
+        "--event-website",
+        help="Website URL for the event associated with the ingested collection",
+    )
+    parser.add_argument(
+        "--event-handbook",
+        type=Path,
+        help="Path to the event handbook PDF to copy and link",
+    )
+    parser.add_argument(
+        "--event-files-dir",
+        type=Path,
+        default=Path.home() / "anthology-files",
+        help="Root path containing handbooks/{venue}",
     )
     parser.add_argument(
         "--dry-run",
