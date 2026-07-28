@@ -53,6 +53,7 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
 
 def test_subtract_months_clamps_to_end_of_month():
     assert subtract_months(date(2026, 5, 31), 3) == date(2026, 2, 28)
+    assert subtract_months(date(2024, 5, 31), 3) == date(2024, 2, 29)
 
 
 def test_recent_top_level_events_use_three_month_cutoff():
