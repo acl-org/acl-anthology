@@ -12,7 +12,7 @@
 
 ### Changed
 
-- Fixed a bug with `xml.ensure_minimal_diff` that would sometimes break with markup-containing tags.
+- Fixed a bug with `xml.ensure_minimal_diff()` that would sometimes break with markup-containing tags.
 
 ## [1.2.0] — 2026-05-21
 
