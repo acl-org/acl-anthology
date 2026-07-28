@@ -30,7 +30,7 @@
       <author><first>Christian</first><last>Hänig</last></author>
       <pages>1-11</pages>
       <abstract>Verifying the eligibility of securities as collateral is a key responsibility of the Deutsche Bundesbank. However, manually verifying these assets against legal and financial criteria within lengthy, semi-structured, and often bilingual prospectuses is a resource-intensive task. While previous efforts utilized traditional Named Entity Recognition (NER) for information extraction, these methods often struggle with OCR noise, linguistic variance, and rigid span-based constraints, as well as requiring manual annotation of documents to generate adequate training data for all the required annotation types. In this paper, we present the first case study applying Large Language Models (LLMs) to the eligibility examination process, shifting the paradigm toward a generative Information Extraction pipeline. Our approach decomposes the task into extraction, normalization, and interpretation, allowing for greater flexibility in handling noisy text and interleaved German-English content. We further introduce a value-based evaluation methodology using LLM-as-a-judge, which offers a more semantic assessment than offset-based metrics. Our results demonstrate that LLM-based systems achieve high precision (up to 91%) in document-level eligibility, exhibiting a conservative operating profile that minimizes false acceptance.</abstract>
-      <url hash="013b75f6">2026.fnp-1.1</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-01</url>
       <bibkey>hamotskyi-etal-2026-llm</bibkey>
       <doi>10.63317/3dpiow9bkvmm</doi>
     </paper>
@@ -42,7 +42,7 @@
       <author><first>Djamé</first><last>Seddah</last></author>
       <pages>12-27</pages>
       <abstract>Vision-language models (VLMs) perform well on many document understanding tasks, yet their reliability in specialized, non-English domains remains underexplored. This gap is especially critical in finance, where documents mix dense regulatory text, numerical tables, and visual charts, and where extraction errors can have real-world consequences. We introduce SCRIBE FINANCE, the first multimodal benchmark for evaluating French financial document understanding. The dataset contains 1,204 expert-validated questions spanning text extraction, table comprehension, chart interpretation, and multi-turn conversational reasoning, drawn from real investment prospectuses, KIDs, and PRIIPs. We evaluate six open-weight VLMs (8B–124B parameters) using an LLM-as-judge protocol. While models achieve strong performance on text and table tasks (85–90% accuracy), they struggle with chart interpretation (34–62%). Most notably, multi-turn dialogue reveals a sharp failure mode: early mistakes propagate across turns, driving accuracy down to roughly 50% regardless of model size. These results show that current VLMs are effective for well-defined extraction tasks but remain brittle in interactive, multi-step financial analysis. SCRIBE FINANCE offers a challenging benchmark to measure and drive progress in this high-stakes setting.</abstract>
-      <url hash="23620897">2026.fnp-1.2</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-02</url>
       <bibkey>mouilleron-etal-2026-tables</bibkey>
       <doi>10.63317/3bk8fk9sek7b</doi>
     </paper>
@@ -53,7 +53,7 @@
       <author id="murathan-kurfali" orcid="0000-0002-7020-8275"><first>Murathan</first><last>Kurfali</last></author>
       <pages>28-38</pages>
       <abstract>We present CFQA, a Chinese financial question answering benchmark constructed from 50 publicly listed companies’ annual reports spanning 2023–2025. The benchmark comprises 500 questions, derived by applying 10 question templates to each source document, and covers five categories: fact extraction, enumeration, comparative calculation, judgment verification, and reasoning analysis. All gold-standard answers are manually annotated and grounded in the source reports. To illustrate benchmark utility, we evaluate a retrieval-augmented generation (RAG) system against a no-retrieval baseline, and introduce a rule-based consistency detector that distinguishes fabricated content from other error types. RAG improves average answer accuracy from 7.53% to 8.07%, with the most consistent gains observed in fact extraction and judgment verification tasks for domain-adapted models. Crucially, by decoupling exact-match accuracy from evidence-support judgments, our detector reveals that despite low absolute scores, RAG architectures successfully constrain model confabulation, exhibiting remarkably low true fabrication rates. However, performance gains in higher-order cognitive tasks, such as comparative calculation and reasoning analysis, remain non-significant across evaluated models, highlighting the boundaries of current retrieval-augmented systems in complex financial reasoning. The dataset, annotation guidelines, and evaluation code are publicly released.</abstract>
-      <url hash="a49f1705">2026.fnp-1.3</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-03</url>
       <bibkey>zhu-etal-2026-cfqa</bibkey>
       <doi>10.63317/4e6fhrncfrbu</doi>
     </paper>
@@ -67,7 +67,7 @@
       <author><first>Gabriel</first><last>Martinez Vidiri</last></author>
       <pages>39-48</pages>
       <abstract>Financial enterprise AI systems deployed in high-stakes settings require responses that are verifiable, traceable, and auditable. We introduce a modular, model- and data-agnostic inference-time control framework, together with a deployment-aware evaluation strategy for verifiable financial enterprise question answering. Our method enforces faithfulness at inference time without retraining or changes to retrieval infrastructure. We deploy our method in a production financial enterprise assistant and evaluate it using a combination of intrinsic faithfulness metrics, baseline comparisons, and real-world user feedback. Our approach improves groundedness by 29% over baselines, reduces hallucinations to near-zero levels, and achieves near-perfect document-span traceability. Together, our results demonstrate that modular pipeline design combined with detailed, deployment-aware evaluation provides a practical and effective path toward verifiable financial enterprise QA systems.</abstract>
-      <url hash="85000600">2026.fnp-1.4</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-04</url>
       <bibkey>kabra-etal-2026-verifiable</bibkey>
       <doi>10.63317/25dqodqmcsa4</doi>
     </paper>
@@ -80,7 +80,7 @@
       <author id="matthew-purver" orcid="0000-0003-2297-1273"><first>Matthew</first><last>Purver</last></author>
       <pages>49-58</pages>
       <abstract>Environmental, Social, and Governance (ESG) considerations are increasingly integral to assessing corporate performance, reputation, and long-term sustainability. Yet, reliable ESG ratings remain limited for smaller companies and emerging markets. We introduce the first publicly available Slovene ESG sentiment dataset and a suite of models for automatic ESG sentiment detection. The dataset, derived from the MaCoCu Slovene news collection, combines large language model (LLM)-assisted filtering with human annotation of company-related ESG content. We evaluate the performance of monolingual (SloBERTa) and multilingual (XLM-R) models, embedding-based classifiers (TabPFN), hierarchical ensemble architectures, and large language models. Results show that LLMs achieve the strongest performance on Environmental (Gemma3-27B, F1-macro: 0.61) and Social aspects (gpt-oss 20B, F1-macro: 0.45), while fine-tuned SloBERTa is the best model on Governance classification (F1-macro: 0.54). We then show in a small case study how the best-preforming classifier (gpt-oss) can be applied to investigate ESG aspects for selected companies across a long time frame.</abstract>
-      <url hash="4ac88157">2026.fnp-1.5</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-05</url>
       <bibkey>dodig-etal-2026-environmental</bibkey>
       <doi>10.63317/2j2jz8zyoh4t</doi>
     </paper>
@@ -91,7 +91,7 @@
       <author id="christoph-weisser" orcid="0000-0003-0616-1027"><first>Christoph</first><last>Weisser</last></author>
       <pages>59-77</pages>
       <abstract>By capturing the prevailing sentiment and market mood, textual data has become increasingly vital for forecasting commodity prices, particularly in metal markets. However, the effectiveness of lightweight, finetuned large language models (LLMs) in extracting predictive signals for aluminum prices—and the specific market conditions under which these signals are most informative—remains under-explored. This study generates monthly sentiment scores from English and Chinese news headlines (Reuters, Dow Jones Newswires, and China News Service) and integrates them with traditional tabular data, including base metal indices, exchange rates, inflation rates, and energy prices. We evaluate the predictive performance and economic utility of these models through long-short simulations on the Shanghai Metal Exchange from 2007 to 2024. Our results demonstrate that during periods of high volatility, Long Short-Term Memory (LSTM) models incorporating sentiment data from a finetuned Qwen3 model (Sharpe ratio 1.04) significantly outperform baseline models using tabular data alone (Sharpe ratio 0.23). Subsequent analysis elucidates the nuanced roles of news sources, topics, and event types in aluminum price forecasting</abstract>
-      <url hash="8dd66900">2026.fnp-1.6</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-06</url>
       <bibkey>paredes-amorin-etal-2026-news</bibkey>
       <doi>10.63317/59x9shp32g6h</doi>
     </paper>
@@ -105,7 +105,7 @@
       <author><first>Hervé</first><last>Blanchon</last></author>
       <pages>78-86</pages>
       <abstract>We present a new resource for Machine Translation (MT), namely a training and evaluation dataset containing parallel sections issued from authentic documents in the financial domain. We cover five language pairs: English-French, English-Spanish, English-German, English-Italian and French-Spanish. The total number of parallel sections is 122k and the number of tokens is 118M (source and target combined). MT has improved greatly in recent years, but certain phenomena still cause errors, particularly when context spans beyond a single sentence. Errors can lead to mistranslated pronouns, incorrect gender or number agreement, and inconsistent terminology, which can be especially problematic in high-stakes domains like finance. We therefore construct the dataset at document level (rather than sentence-level alignment) and also produce fine-grained annotations of context-sensitive phenomena. The annotation was performed using preexisting tools and custom scripts. The annotated phenomena are: formality, gender, terminology consistency, verb form and sentence reordering. This aims to improve document-level evaluation of MT models by enabling evaluation solely on texts containing a particular phenomenon of interest. Our primary contribution is the creation and public release of Flipper, a multilingual document-level parallel dataset in the financial domain, designed to support both training and targeted evaluation of context-sensitive machine translation.</abstract>
-      <url hash="4ac28754">2026.fnp-1.7</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-07</url>
       <bibkey>nakhle-etal-2026-flipper</bibkey>
       <doi>10.63317/22f2djwbns96</doi>
     </paper>
@@ -116,7 +116,7 @@
       <author id="antonio-moreno-sandoval-2216" orcid="0000-0002-9029-2216"><first>Antonio</first><last>Moreno-Sandoval</last></author>
       <pages>87-97</pages>
       <abstract>This paper explores bidirectional financial Machine Translation (MT) between Spanish and English, focusing on the specialized domain of annual reports from IBEX 35 companies. Fine-tuned models are compared against zero-shot scenarios through a series of experiments, testing factors such as prompting strategies and model size. On the one hand, this work studies a combination of existing fine-tuning strategies aimed at improving the adaptability of MT models to variable-sized contexts, and, on the other hand, it analyzes the limitations detected in current evaluation metrics. Results are mixed: fine-tuned models show an improvement in both short and long-context scenarios in traditional metrics, while zero-shot predictions are clearly favored by neural metrics. In fact, reference-free assessment of the source and the human reference received worse scores than the off-the-shelf prediction models. Consequently, fine-tuning on the human-made dataset hardly improves the neural metrics against zero-shot generations. This suggests that neural metrics tend to favor the fluency of MT generations and literalness over creativity, among other technical limitations regarding long-context adaptability. From a practical standpoint, the low Translation Edit Rate (TER) scores suggest that specialized fine-tuning remains the most viable path for companies to implement efficient Machine Translation Post-Editing (MTPE) workflows, given the stylistic alignment.</abstract>
-      <url hash="02f131b1">2026.fnp-1.8</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-08</url>
       <bibkey>torterolo-orta-etal-2026-translategemma</bibkey>
       <doi>10.63317/4mfhxunsaksk</doi>
     </paper>
@@ -129,7 +129,7 @@
       <author><first>Benjamin</first><last>Saefken</last></author>
       <pages>98-105</pages>
       <abstract>Financial news plays a central role in shaping investor sentiment and short-term dynamics in commodity markets. Many downstream financial applications—such as commodity price prediction or sentiment modeling—therefore rely on the ability to automatically identify news articles that are relevant to specific assets. However, obtaining large labeled corpora for financial text classification tasks is costly, and transformer-based classifiers such as RoBERTa often degrade significantly in low-data regimes. Our results show that appropriately prompted out-of-the-box large language models (LLMs) achieve strong performance even in low-data regimes. Furthermore, we propose LabelFusion, a hybrid architecture that combines the output of a prompt-engineered LLM with contextual embeddings produced by a fine-tuned RoBERTa encoder through a lightweight multilayer perceptron (MLP) voting layer. Evaluated on a ten-class multi-label subset of the Reuters-21578 corpus, LabelFusion achieves a macro F1 score of 96.0% and an accuracy of 92.3% when trained on the full dataset, outperforming both standalone RoBERTa (F1 94.6%) and the standalone LLM (F1 93.9%). In low- to mid-data regimes, however, the LLM alone proves surprisingly competitive, achieving an F1 score of 75.9% even in a zero-shot setting and consistently outperforming LabelFusion until approximately 80% of the training data is available. These results suggest that LLM-only prompting represents the preferred strategy under annotation constraints, whereas LabelFusion becomes the most effective solution once sufficient labeled data is available to train the encoder component. The code is available in an anonymized repository.</abstract>
-      <url hash="a6eeb6bb">2026.fnp-1.9</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-09</url>
       <bibkey>schlee-etal-2026-labelfusion</bibkey>
       <doi>10.63317/5k4dk6iczjq5</doi>
     </paper>
@@ -141,7 +141,7 @@
       <author id="takehito-utsuro" orcid="0000-0003-4072-1833"><first>Takehito</first><last>Utsuro</last></author>
       <pages>106-113</pages>
       <abstract>This paper proposes an LLM-as-a-Judge evaluation framework of stock price fluctuation articles automatically generated based on financial news, corporate disclosures, and stock price fluctuation data. This automatic article generation framework emulates the workflow of human financial journalists by analyzing recent stock price fluctuations and incorporating relevant causal factors extracted from textual and numerical information. In particular, the generation process utilizes news articles and numerical stock price data, including price fluctuation ranges over the past three days. Based on those automatically generated stock price fluctuation articles, this study places particular emphasis on the LLM-as-a-Judge evaluation methodology. We conduct an item wise human evaluation and compare it with the LLM-as-a-Judge automatic metric. We analyze the correlation among these evaluation methods to assess their reliability. Furthermore, through comparisons between zero-shot and few-shot prompting, we examine the effectiveness of the proposed framework and the validity of LLM based evaluation for assessing factual and causal consistency in financial text generation.</abstract>
-      <url hash="b873a6de">2026.fnp-1.10</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-10</url>
       <bibkey>kosai-etal-2026-llm</bibkey>
       <doi>10.63317/3axxq3b2dynj</doi>
     </paper>
@@ -155,7 +155,7 @@
       <author><first>Sofía</first><last>Roseti</last></author>
       <pages>114-124</pages>
       <abstract>The Financial Document Causality Detection shared task (FinCausal) is a competition organized within the Financial Narrative Processing (FNP) workshop series. It aims to identify the causal relationship between a question and its answer in a given financial context. The dataset is built from real annual reports drafted by Spanish IBEX 35 companies and several UK companies. The task includes two subtasks, one in English and one in Spanish. It is formulated as an Extractive Question-Answering (EQA) task in which, given a context (C) and a question (Q), participants must extract the verbatim answer span (A). The 2026 edition introduces several changes to increase task difficulty, including the reformulation of 10% of the questions to require deeper reasoning and a stronger emphasis on multi-step causal chains with three or more elements, achieved by removing overly simple cases and adding 500 new complex fragments per language. Another innovation is the adoption of an LLM-as-a-judge metric on a 1–5 scale, based on a rubric designed to align better with human preferences than Semantic Answer Similarity (SAS) and Exact Match (EM). This edition was hosted as part of the LREC conference in Palma de Mallorca, Spain.</abstract>
-      <url hash="291ec6fc">2026.fnp-1.11</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-11</url>
       <bibkey>moreno-sandoval-etal-2026-financial</bibkey>
       <doi>10.63317/4zb72h45pvk2</doi>
     </paper>
@@ -166,7 +166,7 @@
       <author><first>Arif Dwi</first><last>Laksito</last></author>
       <pages>125-131</pages>
       <abstract>This paper describes our approach to the FinCausal 2026 shared task, which addresses causal question answering from financial documents in English and Spanish. We investigated the effectiveness of fine-tuned generative models combined with Retrieval-Augmented Generation (RAG). Our approach compares five retrieval strategies across base and fine-tuned GPT-models (GPT-4.1-mini). RAG-based few-shot selection showed better performance than random sampling, particularly for the base model. In the FinCausal 2026 official run, this approach was ranked first in both the English and Spanish subtasks, obtaining LLM scores of 4.8140 and 4.8131 out of 5, respectively.</abstract>
-      <url hash="ded359c4">2026.fnp-1.12</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-12</url>
       <bibkey>alqarni-etal-2026-sheffield</bibkey>
       <doi>10.63317/3w3pbwvmc2mm</doi>
     </paper>
@@ -177,7 +177,7 @@
       <author><first>Christian</first><last>Hänig</last></author>
       <pages>132-138</pages>
       <abstract>This paper describes team HSA_CORAL’s submission to the FinCausal 2026 shared task on extracting cause–effect relations from financial narratives via extractive question answering in English and Spanish. We compare three modeling families: (i) encoder-only token tagging with multilingual BERT, (ii) encoder–decoder generation with multilingual BART, and (iii) decoder-only LLMs (Llama 3.1 and GPT variants) using prompt refinement, few-shot demonstrations, and supervised fine-tuning. Across settings, prompting and few-shot examples yield competitive performance, but supervised fine-tuning is the main driver of improvement. Our best system, GPT-4.1 Mini fine-tuned on combined English and Spanish training data, achieves the highest (tied) score on English (score 4.8140) and ranks third on Spanish (score 4.7753) under the shared task’s LLM-as-a-judge metric. Overall, the results highlight the value of task-specific adaptation and multilingual fine-tuning for cross-lingual transfer in financial causality QA.</abstract>
-      <url hash="aa958b11">2026.fnp-1.13</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-13</url>
       <bibkey>gautam-etal-2026-causal</bibkey>
       <doi>10.63317/4v9j8247boo3</doi>
     </paper>
@@ -189,7 +189,7 @@
       <author><first>Vicent</first><last>Santamarta</last></author>
       <pages>139-145</pages>
       <abstract>Financial causality detection,the task of identifying and extracting verbatim causal spans from financial narratives, remains a challenging problem in Natural Language Processing (NLP). Large Language Models (LLMs), while powerful reasoners, frequently paraphrase source text or produce imprecise span boundaries when used in zero-shot extraction settings, leading to poor Exact Match scores. In this paper, we present VERSA, our system for the FinCausal 2026 Shared Task, a multi-agent pipeline that integrates two complementary inference strategies: Rephrase-and-Respond (RaR) and Recursive Self-Aggregation (RSA). The pipeline decomposes the extraction task into five sequential stages, each handled by a specialised agent: (1) causal structure analysis, (2) question reformulation via RaR, (3) diverse candidate population generation, (4) iterative refinement through RSA, and (5) verbatim validation with word-boundary alignment. We evaluate our approach on both the English and Spanish subsets of the FinCausal 2026 dataset. An ablation study demonstrates the individual and combined ontributions of RaR and RSA, showing that the full pipeline substantially outperforms a zero-shot baseline in Exact Match and token-level F1.</abstract>
-      <url hash="24b79afc">2026.fnp-1.14</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-14</url>
       <bibkey>jay-etal-2026-versa</bibkey>
       <doi>10.63317/523w58xpfhbz</doi>
     </paper>
@@ -199,7 +199,7 @@
       <author><first>Roman</first><last>Kern</last></author>
       <pages>146-151</pages>
       <abstract>We present SpanDiffusion, a continuous diffusion approach to extractive causal question answering for the FinCausal 2026 shared task. SpanDiffusion uses two Gaussian masks, continuous signals with peaks at the answer start and end positions, and learns to denoise them from pure noise through a dedicated transformer conditioned on frozen DeBERTa-v3-large embeddings with LoRA adapters (1.6M parameters). By replacing Denoising Diffusion Probabilistic Models (DDPM) with flow matching (rectified flow), we reduce denoising to only 20 Euler steps at inference. A systematic ablation across six diffusion variants and a span-classification baseline shows that LoRA adaptation is the dominant factor (+34 Exact Match points), followed by flow matching (+5.5 EM). However, the standard span classifier (85.8% EM) outperforms our best diffusion model (83.0% EM), suggesting that the denoiser does not yet justify its added complexity. We discuss tradeoffs between the interpretability of diffusion trajectories and classification accuracy.</abstract>
-      <url hash="299a2766">2026.fnp-1.15</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-15</url>
       <bibkey>niess-kern-2026-spandiffusion</bibkey>
       <doi>10.63317/4bm7v3ccgmjy</doi>
     </paper>
@@ -210,7 +210,7 @@
       <author><first>Youssef</first><last>Lamrani Alaoui</last></author>
       <pages>152-159</pages>
       <abstract>This paper investigates the application of generative Large Language Models (LLMs) for strict verbatim span extraction. We evaluate our methodology within the FinCausal 2026 shared task. Because generative LLMs optimize next-token probability rather than strict boundaries, they naturally suffer from over-generation and boundary drift in extraction tasks. To address this, we introduce a generalized structural training constraint, extending prompt repetition from a purely inference-time heuristic to a training-time supervision framework. By incorporating duplicated prompts directly into Supervised Fine-Tuning (SFT), we hypothesize that this encourages the model to internalize a form of unidirectional cross-reading behavior, leading to stronger alignment between generated spans and the source context for exact extraction. Evaluating on open-weights (Qwen2.5-14B-Instruct-1M) and proprietary (GPT-4.1-Nano) architectures, we find this soft attention constraint improves Exact Match scores for open models and helps balance cross-lingual performance disparities. Conversely, the proprietary model exhibited sensitivity to prompt duplication, achieving its highest score without repetition. Ultimately, our deterministic SFT approach secured 4th place in the Spanish subtask (4.73) and 6th place in the English subtask (4.70), indicating the viability of structurally simple, natively fine-tuned models compared to complex multi-stage pipelines.</abstract>
-      <url hash="b7387b01">2026.fnp-1.16</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-16</url>
       <bibkey>attak-etal-2026-improving</bibkey>
       <doi>10.63317/2d873tuemyhc</doi>
     </paper>
@@ -225,7 +225,7 @@
       <pages>160-168</pages>
       <abstract>This paper presents the LeedsMEng26 system for the FinCausal 2026 shared task (CITATION) on financial causality detection in narrative texts. The task is formulated as extractive question answering over English and Spanish financial reports, where systems must return a verbatim span from the context that answers an abstractive question about a cause or an effect. We propose a two-stage pipeline consisting of candidate span generation followed by span verification and boundary refinement under a strict extractiveness constraint. We evaluate both an extractive RoBERTa-based baseline and instruction-tuned large language models. Results show that Qwen-2.5-1.5B-Instruct is a stronger candidate generator than the RoBERTa baseline, and that a second-stage verifier further improves answer boundary accuracy and overall adequacy. Our best configuration, Qwen-2.5-1.5B-Instruct with Gemini-2.5-flash refinement, achieved an adequacy score of 4.7000 for English and 4.6143 for Spanish. These findings suggest that a modular generation-and-verification pipeline is effective for extractive financial causality detection.
  <fixed-case>Financial Narrative Processing, Causality Detection, Natural Language Processing, Question Answering, Multilingual NLP, Financial Text Analytics</fixed-case></abstract>
-      <url hash="4b63cc46">2026.fnp-1.17</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-17</url>
       <bibkey>shahrouri-etal-2026-leedsmeng26</bibkey>
       <doi>10.63317/4aaj7cwvpjxy</doi>
     </paper>
@@ -235,7 +235,7 @@
       <author><first>Chindukuri</first><last>Mallikarjuna</last></author>
       <pages>169-174</pages>
       <abstract>In this paper we present a novel methodology that harnesses the power of prompt tuning applied directly to Gemma3-12B, a state-of-the-art generative large language model to enhance performance on complex natural language processing challenges. Instead of relying solely on extensive retraining, our approach leverages carefully crafted input prompts to steer the pre-trained Gemma-12B towards generating outputs with superior contextual accuracy and interpretability. Our experimental evaluation employed a composite LLM Score metric that quantifies both semantic coherence and relevance; under this framework, our system (Team Name: Sarang) achieved a score of 4.54, ranking 9th in the shared task. Furthermore, in the competitive task evaluation, our method demonstrated the potential of prompt tuning as a viable alternative to traditional fine-tuning approaches. This study not only demonstrates the practical benefits of integrating prompt engineering with large language models but also opens avenues for future research aimed at further optimizing model performance in domain-specific applications.</abstract>
-      <url hash="c929d312">2026.fnp-1.18</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-18</url>
       <bibkey>trivedi-mallikarjuna-2026-financial</bibkey>
       <doi>10.63317/24xxkstbkeqa</doi>
     </paper>
@@ -246,7 +246,7 @@
       <author><first>Sonal</first><last>Dabral</last></author>
       <pages>175-180</pages>
       <abstract>Understanding why financial outcomes occur is as important as knowing what they are. Annual reports and regulatory filings are rich with causal reasoning, yet extracting that reasoning automatically remains a difficult problem — one that sits at the intersection of domain expertise, linguistic nuance, and machine comprehension. In this paper, we describe our participation in the English subtask of the Financial Document Causality Detection shared task, FinCausal 2026, where systems are asked to identify verbatim causal spans from financial paragraphs in response to abstractive causal questions. Our approach is grounded in the intuition that a small, well-adapted model with the right inductive biases can outperform a larger but unfocused one. We fine-tune Qwen2.5-4B-Instruct on 2,000 domain-annotated instances using QLoRA, a parameter-efficient technique that enables meaningful adaptation under modest computational resources. Before training, we reformat all instances into the Qwen ChatML instruction template to align the model’s generation behaviour with the verbatim extraction requirement of the task. At inference time, we further guide the model by retrieving the most causally relevant sentence from the context using TF-IDF cosine similarity, providing an explicit local signal before generation. Outputs are produced via greedy decoding to ensure deterministic, source-grounded predictions. Under the official LLM-as-a-judge evaluation framework — which scores responses on a 1–5 adequacy scale based on semantic correctness rather than lexical overlap — our system achieves a score of 4.76 out of 5, placing 4th out of nine teams on the English leaderboard. Our results suggest that combining instruction-tuned fine-tuning with lightweight retrieval is a practical and effective strategy for causal reasoning in specialised financial text.</abstract>
-      <url hash="8f23ecfa">2026.fnp-1.19</url>
+      <url>https://lrec.elra.info/lrec2026-ws-fnp-19</url>
       <bibkey>sarda-etal-2026-qraft</bibkey>
       <doi>10.63317/4a9pbop2c9nc</doi>
     </paper>
