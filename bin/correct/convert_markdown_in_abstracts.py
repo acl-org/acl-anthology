@@ -1,3 +1,29 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# Copyright 2026 Nathan Schneider (@nschneid)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Iterates over papers in the database and performs cleanup on abstracts,
+most notably converting from Markdown to XML markup, applying smart quotes,
+and linkifying URLs.
+
+Exits after 200 abstracts have been modified so the diff can be manually
+reviewed in batches.
+"""
+
 import logging as log
 import re
 from lxml import etree
