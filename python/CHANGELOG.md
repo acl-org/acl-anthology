@@ -6,9 +6,15 @@
 
 - Added support for recording OpenReview IDs for authors.
 - Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
+- Added `Name.latex_normalize()` to parse LaTeX in names.
+- Added `NameSpecification.normalize()` to call both LaTeX and case normalization (and potentially others in the future, if we have them), and use this for ingesting new namespecs.
 - Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
 - Added `Name.is_valid()` to check the basic validity of first and last names.
 - `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
+
+### Removed
+
+- Removed `NameSpecification.case_normalize()` in favor of `.normalize()`.
 
 ## [1.2.0] — 2026-05-21
 
