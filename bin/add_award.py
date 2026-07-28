@@ -42,7 +42,7 @@ from pathlib import Path
 import logging as log
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Award, Collection
+from acl_anthology.collections import Collection
 from acl_anthology.utils.logging import setup_rich_logging
 
 
