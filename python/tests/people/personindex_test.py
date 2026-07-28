@@ -880,7 +880,7 @@ def test_namespec_add_id_affects_name_resolution(anthology):
     assert item_id in person2.item_ids
 
 
-def test_namespec_case_normalize_affects_person_names_unverified(anthology):
+def test_namespec_normalize_affects_person_names_unverified(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a person with all-lowercase name
     item_id = ("2022.naloma", "1", "4")
@@ -890,8 +890,8 @@ def test_namespec_case_normalize_affects_person_names_unverified(anthology):
     assert namespec.name == Name("mihalis", "yannakakis")
     assert person.names == [Name("mihalis", "yannakakis")]
 
-    # Case-normalizing should update the person's name
-    namespec.case_normalize()
+    # Normalizing should update the person's name
+    namespec.normalize()
     assert namespec.name == Name("Mihalis", "Yannakakis")
     assert (
         Name("Mihalis", "Yannakakis") in person.names
