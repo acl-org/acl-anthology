@@ -82,6 +82,7 @@ def process_md_in_xml(text: str) -> str:
     # characters that occur in some old volumes
     protected_text = protected_text.replace("\u0091", "‘").replace("\u0092", "’")
     protected_text = protected_text.replace("\u0093", "“").replace("\u0094", "”")
+    protected_text = protected_text.replace("\u0096", "–")  # en dash
     protected_text = re.sub(r"(?<!\w)`(.+?)'(?!\w)", r"‘\1’", protected_text)
     # unescape &lt; and &gt; if acting as Markdown delimiters of a URL
     protected_text = re.sub(r"&lt;(\S+\.\S+)&gt;", r"<\1>", protected_text)
