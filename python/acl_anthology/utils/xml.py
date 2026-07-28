@@ -26,7 +26,6 @@ TAGS_WITH_MARKUP = {
     "u",
     "sc",
     "tt",
-    "par",
     "a",
     "fixed-case",
     "title",
