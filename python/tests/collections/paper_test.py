@@ -409,6 +409,14 @@ def test_paper_awards():
     paper.awards = ["String Award"]
     assert paper.awards == (Award(name="String Award"),)
 
+    with pytest.raises(TypeError, match=r"Expected Iterable\[str \| Award\]"):
+        setattr(paper, "awards", "String Award")
+
+
+def test_award_from_xml_without_name():
+    with pytest.raises(ValueError, match="An award must have a name"):
+        Award.from_xml(etree.fromstring("<award/>"))
+
 
 def test_paper_from_xml_invalid_tag():
     xml = """<paper id="9">
