@@ -247,6 +247,7 @@ preview:
 	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
+	  printf '%s\n' 'User-agent: *' 'Disallow: /' | ssh -o StrictHostKeyChecking=accept-new anthologizer@aclanthology.org 'cat > /var/www/preview.aclanthology.org/robots.txt'; \
 	else \
 	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
 	  exit 1; \
