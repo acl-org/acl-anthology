@@ -24,7 +24,7 @@ from lxml import etree
 from pathlib import Path
 from acl_anthology.text import MarkupText
 
-DATADIR = Path(__file__).with_suffix("")  # == test_abstract_ingest/
+DATADIR = Path(__file__).with_name("test_abstract_ingest")
 
 
 def _load_cases():
@@ -63,4 +63,6 @@ def test_abstract_latex_to_xml(latex_input, expected_xml):
     markup = MarkupText.from_latex_maybe(latex_input)
     element = markup.to_xml("abstract")
     result = etree.tostring(element, encoding="unicode")
-    assert result == expected_xml, f"Word-level diff (- got, + expected):\n{_word_diff(result, expected_xml)}"
+    assert result == expected_xml, (
+        f"Word-level diff (- got, + expected):\n{_word_diff(result, expected_xml)}"
+    )
