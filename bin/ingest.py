@@ -227,31 +227,11 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
 #   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
-#
-# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
-#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
-#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
-#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
-#   content ``X`` so the text survives. (Non-nested braces only.)
-#
-# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
-#   contains hard line breaks that are not meaningful LaTeX; drop them so the
-#   text is flattened to a single line before parsing.
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
         re.compile(r"\\\\\$"),
         r"\\$",
-    ),
-    (
-        "texttt_unwrap",
-        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
-        r"\1",
-    ),
-    (
-        "strip_newlines",
-        re.compile(r"\n"),
-        "",
     ),
 ]
 
