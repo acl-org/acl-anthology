@@ -71,7 +71,9 @@ def process_md_in_xml(text: str) -> str:
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
     protected_text = re.sub(
-        r"([。，！？；：）】》]|[.,!?;:\]\}]*[’”‘“]+|[\]\}][.,!?;:])", r"<span>\1</span>", protected_text
+        r"([。，！？；：）】》]|[.,!?;:\]\}]*[’”‘“]+|[\]\}][.,!?;:])",
+        r"<span>\1</span>",
+        protected_text,
     )
     protected_text = protected_text.replace("O*NET", "O\\*NET").replace(
         "A*esque", "A\\*esque"
@@ -103,7 +105,9 @@ def process_md_in_xml(text: str) -> str:
     )
     for url in re.findall(r'<a href="([^"]+)"', html):
         if "%" in url:
-            log.warning(f"URL with %-encoding: {url}")  # sometimes extra punctuation characters are gobbled up into the URL
+            log.warning(
+                f"URL with %-encoding: {url}"
+            )  # sometimes extra punctuation characters are gobbled up into the URL
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
@@ -152,13 +156,15 @@ assert (
 test_in6 = "Our <b>code</b> and <sc>dataset</sc> are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: &lt;https://llm-as-a-judge.github.io&gt;]."
 test_out6 = process_md_in_xml(test_in6)
 assert (
-    test_out6 == "Our <b>code</b> and <sc>dataset</sc> are available at: <url>https://github.com/David-Li0406/ToolPRMBench</url>[More resources on LLM-as-a-judge are on the website: <url>https://llm-as-a-judge.github.io</url>]."
+    test_out6
+    == "Our <b>code</b> and <sc>dataset</sc> are available at: <url>https://github.com/David-Li0406/ToolPRMBench</url>[More resources on LLM-as-a-judge are on the website: <url>https://llm-as-a-judge.github.io</url>]."
 ), test_out6
 
 test_in7 = "The collected papers are available in [link here](https://github.com/FairyFali/Graph4LLM-Survey)."
 test_out7 = process_md_in_xml(test_in7)
 assert (
-    test_out7 == 'The collected papers are available in <a href="https://github.com/FairyFali/Graph4LLM-Survey">link here</a>.'
+    test_out7
+    == 'The collected papers are available in <a href="https://github.com/FairyFali/Graph4LLM-Survey">link here</a>.'
 ), test_out7
 
 
