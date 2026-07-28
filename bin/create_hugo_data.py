@@ -33,7 +33,6 @@ Options:
 """
 
 from docopt import docopt
-from calendar import monthrange
 from collections import Counter
 from datetime import date
 from functools import cache
@@ -41,6 +40,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+from dateutil.relativedelta import relativedelta
 from rich.progress import (
     Progress,
     TextColumn,
@@ -277,12 +277,12 @@ def volume_to_dict(volume):
 
 
 def subtract_months(value, months):
-    """Return a date shifted back by a number of calendar months."""
-    month_index = value.year * 12 + value.month - 1 - months
-    year, zero_based_month = divmod(month_index, 12)
-    month = zero_based_month + 1
-    day = min(value.day, monthrange(year, month)[1])
-    return date(year, month, day)
+    """Subtract calendar months, clamping to the target month's last day.
+
+    For example, subtracting three months from May 31 returns February 28
+    (or February 29 in a leap year).
+    """
+    return value - relativedelta(months=months)
 
 
 def recent_top_level_events(anthology, current_date=None):
