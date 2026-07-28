@@ -71,7 +71,7 @@ def process_md_in_xml(text: str) -> str:
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
     protected_text = re.sub(
-        r"([。，！？；：）】》]|[.,!?;:)]*[’”‘“]+)", r"<span>\1</span>", protected_text
+        r"([。，！？；：）】》]|[.,!?;:\]\}]*[’”‘“]+|[\]\}][.,!?;:])", r"<span>\1</span>", protected_text
     )
     protected_text = protected_text.replace("O*NET", "O\\*NET").replace(
         "A*esque", "A\\*esque"
@@ -80,6 +80,8 @@ def process_md_in_xml(text: str) -> str:
     # (not really Markdown but) process LaTeX-style quotes
     protected_text = protected_text.replace("``", "“").replace("''", "”")
     protected_text = re.sub(r"(?<!\w)`(.+?)'(?!\w)", r"‘\1’", protected_text)
+    # unescape &lt; and &gt; if acting as Markdown delimiters of a URL
+    protected_text = re.sub(r"&lt;(\S+\.\S+)&gt;", r"<\1>", protected_text)
 
     # Markdown -> HTML
     html = md.render(protected_text).strip()
@@ -93,7 +95,7 @@ def process_md_in_xml(text: str) -> str:
     html = html.replace("<em>", "<i>").replace("</em>", "</i>")
     html = re.sub(r"</p>\s*<p>", "<par/>", html)
     html = re.sub(  # linked text is URL + period. move period after
-        r'(<a href="([^"]+)">\2)(&gt;)?\.</a>', r"\1</a>.", html
+        r'(<a href="([^"]+)">\2)\.</a>', r"\1</a>.", html
     )
     for url in re.findall(r'<a href="([^"]+)"', html):
         if "%" in url:
@@ -101,11 +103,7 @@ def process_md_in_xml(text: str) -> str:
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
-    html = html.replace("&lt;<url>", "<url>").replace("&gt;</url>", "</url>")
     html = re.sub(r"<span>(.+?)</span>", r"\1", html)
-
-    if "</url>&gt" in html or "&gt;</url>" in html or "&gt;.</url>" in html:
-        log.error(f"Trailing angle bracket remains, fix manually: {html}")
 
     # restore LaTeX
     html = re.sub(r"<tex-math></tex-math>", lambda m: maths.pop(0), html)
@@ -147,11 +145,18 @@ assert (
     test_out5 == "See code at <url>https://github.com/sjtu-compling/llm-pragmatics</url>."
 ), test_out5
 
-test_in6 = "Our code and dataset are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: <https://llm-as-a-judge.github.io>]."
+test_in6 = "Our <b>code</b> and <i>dataset</i> are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: &lt;https://llm-as-a-judge.github.io&gt;]."
 test_out6 = process_md_in_xml(test_in6)
 assert (
-    test_out6 == "Our code and dataset are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: <https://llm-as-a-judge.github.io>]."
-)
+    test_out6 == "Our <b>code</b> and <i>dataset</i> are available at: <url>https://github.com/David-Li0406/ToolPRMBench</url>[More resources on LLM-as-a-judge are on the website: <url>https://llm-as-a-judge.github.io</url>]."
+), test_out6
+
+test_in7 = "The collected papers are available in [link here](https://github.com/FairyFali/Graph4LLM-Survey)."
+test_out7 = process_md_in_xml(test_in7)
+assert (
+    test_out7 == 'The collected papers are available in <a href="https://github.com/FairyFali/Graph4LLM-Survey">link here</a>.'
+), test_out7
+
 
 anthology = Anthology.from_within_repo()
 
