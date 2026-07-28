@@ -37,7 +37,7 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
     assert stats["venue_year_count"] == sum(
         len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
     )
-    assert stats["oldest_year"] == "1952"
+    assert stats["oldest_year"] == min(volume.year for volume in anthology.volumes())
     assert stats["newest_year"] == max(volume.year for volume in anthology.volumes())
 
 
