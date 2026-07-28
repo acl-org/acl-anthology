@@ -145,10 +145,10 @@ assert (
     test_out5 == "See code at <url>https://github.com/sjtu-compling/llm-pragmatics</url>."
 ), test_out5
 
-test_in6 = "Our <b>code</b> and <i>dataset</i> are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: &lt;https://llm-as-a-judge.github.io&gt;]."
+test_in6 = "Our <b>code</b> and <sc>dataset</sc> are available at: https://github.com/David-Li0406/ToolPRMBench[More resources on LLM-as-a-judge are on the website: &lt;https://llm-as-a-judge.github.io&gt;]."
 test_out6 = process_md_in_xml(test_in6)
 assert (
-    test_out6 == "Our <b>code</b> and <i>dataset</i> are available at: <url>https://github.com/David-Li0406/ToolPRMBench</url>[More resources on LLM-as-a-judge are on the website: <url>https://llm-as-a-judge.github.io</url>]."
+    test_out6 == "Our <b>code</b> and <sc>dataset</sc> are available at: <url>https://github.com/David-Li0406/ToolPRMBench</url>[More resources on LLM-as-a-judge are on the website: <url>https://llm-as-a-judge.github.io</url>]."
 ), test_out6
 
 test_in7 = "The collected papers are available in [link here](https://github.com/FairyFali/Graph4LLM-Survey)."
