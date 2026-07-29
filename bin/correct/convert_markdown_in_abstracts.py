@@ -107,10 +107,16 @@ def process_md_in_xml(text: str) -> str:
         r'(<a href="([^"]+)">\2)\.</a>', r"\1</a>.", html
     )
     for url in re.findall(r'<a href="([^"]+)"', html):
-        if "%" in url:
+        if '.' not in url:
+            log.error(f"Invalid URL (no dot): {url}")
+        elif "%" in url:
             log.warning(
                 f"URL with %-encoding: {url}"
             )  # sometimes extra punctuation characters are gobbled up into the URL
+        elif not url.startswith(('http://', 'https://', 'www.', 'github.com', 'tinyurl.com', 'anonymous.4open.science')):
+            log.warning(
+                f"URL has uncommon prefix: {url}"
+            )
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
