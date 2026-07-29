@@ -12,6 +12,10 @@
 - Added `Name.is_valid()` to check the basic validity of first and last names.
 - `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
 
+### Changed
+
+- Fixed a bug with `xml.ensure_minimal_diff()` that would sometimes break with markup-containing tags.
+
 ### Removed
 
 - Removed `NameSpecification.case_normalize()` in favor of `.normalize()`.
