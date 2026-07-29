@@ -67,6 +67,9 @@ def process_md_in_xml(text: str) -> str:
     # strip out latex so Markdown parser doesn't treat _ as italics etc.
     maths = re.findall(r"<tex-math>.+?</tex-math>", text)
     protected_text = re.sub(r"<tex-math>.+?</tex-math>", "<tex-math></tex-math>", text)
+    # fix bad space inside URL
+    protected_text = protected_text.replace("https: //", "https://").replace("http: //", "http://")
+    protected_text = protected_text.replace("https: <url>//", "<url>https://").replace("http: <url>//", "<url>http://")
     # linkification doesn't recognize <url> so convert temporarily to <a>
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
