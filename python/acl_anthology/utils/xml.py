@@ -23,13 +23,6 @@ from xml.sax.saxutils import escape as xml_escape
 TAGS_WITH_MARKUP = {
     "b",
     "i",
-    "u",
-    "sc",
-    "tt",
-    "par",
-    "a",
-    "url",
-    "tex-math",
     "fixed-case",
     "title",
     "abstract",
