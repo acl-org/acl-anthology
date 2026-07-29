@@ -68,8 +68,12 @@ def process_md_in_xml(text: str) -> str:
     maths = re.findall(r"<tex-math>.+?</tex-math>", text)
     protected_text = re.sub(r"<tex-math>.+?</tex-math>", "<tex-math></tex-math>", text)
     # fix bad space inside URL
-    protected_text = protected_text.replace("https: //", "https://").replace("http: //", "http://")
-    protected_text = protected_text.replace("https: <url>//", "<url>https://").replace("http: <url>//", "<url>http://")
+    protected_text = protected_text.replace("https: //", "https://").replace(
+        "http: //", "http://"
+    )
+    protected_text = protected_text.replace("https: <url>//", "<url>https://").replace(
+        "http: <url>//", "<url>http://"
+    )
     # linkification doesn't recognize <url> so convert temporarily to <a>
     protected_text = re.sub(r"<url>([^<]+)</url>", r'<a href="\1">\1</a>', protected_text)
     # CJK punctuation, regular punctuation + curly quotes: wrap in <span> so it doesn't end up in a linkified URL
@@ -107,16 +111,23 @@ def process_md_in_xml(text: str) -> str:
         r'(<a href="([^"]+)">\2)\.</a>', r"\1</a>.", html
     )
     for url in re.findall(r'<a href="([^"]+)"', html):
-        if '.' not in url:
+        if "." not in url:
             log.error(f"Invalid URL (no dot): {url}")
         elif "%" in url:
             log.warning(
                 f"URL with %-encoding: {url}"
             )  # sometimes extra punctuation characters are gobbled up into the URL
-        elif not url.startswith(('http://', 'https://', 'www.', 'github.com', 'tinyurl.com', 'anonymous.4open.science')):
-            log.warning(
-                f"URL has uncommon prefix: {url}"
+        elif not url.startswith(
+            (
+                "http://",
+                "https://",
+                "www.",
+                "github.com",
+                "tinyurl.com",
+                "anonymous.4open.science",
             )
+        ):
+            log.warning(f"URL has uncommon prefix: {url}")
     html = re.sub(
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
