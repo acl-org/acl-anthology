@@ -257,7 +257,7 @@ class AnthologyMetadataUpdater:
                 continue
             ex = json_block[key]
             bigtree = etree.fromstring(
-                f'''<collection id="dummy"><volume id="1" type="proceedings">
+                f"""<collection id="dummy"><volume id="1" type="proceedings">
                 <meta>
                         <booktitle>Dummy Vol Title</booktitle>
                         <venue>acl</venue><year>2000</year>
@@ -266,7 +266,7 @@ class AnthologyMetadataUpdater:
                     <title>Dummy Paper Title</title>
                     <abstract>{ex}</abstract>
                     <bibkey>dummy</bibkey>
-                </paper></volume></collection>'''
+                </paper></volume></collection>"""
             )
             try:
                 self.anthology.relaxng.assertValid(bigtree)
