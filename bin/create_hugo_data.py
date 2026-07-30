@@ -34,13 +34,11 @@ Options:
 
 from docopt import docopt
 from collections import Counter
-from datetime import date
 from functools import cache
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
-from dateutil.relativedelta import relativedelta
 from rich.progress import (
     Progress,
     TextColumn,
@@ -276,64 +274,29 @@ def volume_to_dict(volume):
     return data
 
 
-def subtract_months(value, months):
-    """Subtract calendar months, clamping to the target month's last day.
-
-    For example, subtracting three months from May 31 returns February 28
-    (or February 29 in a leap year).
-    """
-    return value - relativedelta(months=months)
-
-
-def recent_top_level_events(anthology, current_date=None):
-    """Return top-level events ingested within the past three months."""
-    current_date = current_date or date.today()
-    cutoff = subtract_months(current_date, 3)
-    recent_events = []
-
-    explicitly_colocated_ids = {
+def explicitly_colocated_volume_ids(anthology):
+    """Return volumes explicitly attached to a parent event."""
+    return {
         volume_id
         for event in anthology.events.values()
         for volume_id, link_type in event.colocated_ids.items()
         if link_type == EventLink.EXPLICIT
     }
 
-    for event in anthology.events.values():
-        venue_id, year = event.id.rsplit("-", 1)
-        venue = anthology.venues.get(venue_id)
-        if venue_id == "ws" or venue is None or not venue.is_toplevel:
-            continue
 
-        own_volume_ids = {
-            volume_id
-            for volume_id, link_type in event.colocated_ids.items()
-            if link_type == EventLink.INFERRED
-        }
-        if own_volume_ids & explicitly_colocated_ids:
-            continue
-
-        ingest_date = max(
-            (volume.ingest_date for volume in event.volumes()), default=None
-        )
-        if ingest_date is None or not cutoff <= ingest_date <= current_date:
-            continue
-
-        recent_events.append(
-            {
-                "id": event.id,
-                "label": f"{venue.acronym} {year}",
-                "ingest_date": ingest_date.isoformat(),
-            }
-        )
-
-    return sorted(
-        recent_events,
-        key=lambda event: (event["ingest_date"], event["label"]),
-        reverse=True,
+def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
+    """Return the latest ingest date excluding volumes owned by a parent event."""
+    return max(
+        (
+            volume.ingest_date
+            for volume in volumes
+            if volume.full_id_tuple not in explicitly_colocated_ids
+        ),
+        default=UNKNOWN_INGEST_DATE,
     )
 
 
-def homepage_stats(anthology, current_date=None):
+def homepage_stats(anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -348,7 +311,6 @@ def homepage_stats(anthology, current_date=None):
         ),
         "oldest_year": min(volume.year for volume in volumes),
         "newest_year": max(volume.year for volume in volumes),
-        "recent_events": recent_top_level_events(anthology, current_date),
     }
 
 
@@ -526,7 +488,7 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
-def venue_to_dict(venue_id, venue):
+def venue_to_dict(venue_id, venue, explicitly_colocated_ids):
     data = {
         "acronym": venue.acronym,
         "is_acl": venue.is_acl,
@@ -561,18 +523,20 @@ def venue_to_dict(venue_id, venue):
         except KeyError:
             data["volumes_by_year"][year] = [volume_id]
     data["years"] = list(data["volumes_by_year"].keys())
-    data["latest_ingest_date"] = max(
-        (volume.ingest_date for volume in sorted_volumes),
-        default=UNKNOWN_INGEST_DATE,
+    data["latest_ingest_date"] = latest_owned_ingest_date(
+        sorted_volumes, explicitly_colocated_ids
     ).isoformat()
     return data
 
 
 def export_venues(anthology, builddir, dryrun):
     all_venues = {}
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
-        all_venues[venue_id] = venue_to_dict(venue_id, venue)
+        all_venues[venue_id] = venue_to_dict(
+            venue_id, venue, explicitly_colocated_ids
+        )
 
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:

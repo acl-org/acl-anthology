@@ -11,16 +11,17 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
+    explicitly_colocated_volume_ids,
     export_homepage_stats,
     homepage_stats,
+    latest_owned_ingest_date,
     paper_to_dict,
-    recent_top_level_events,
-    subtract_months,
     venue_to_dict,
 )
 
 from acl_anthology import Anthology, config
 from acl_anthology.collections.types import EventLink
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
 
 
 @pytest.fixture(scope="module")
@@ -52,71 +53,45 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
         assert json.load(f) == homepage_stats(anthology)
 
 
-def test_subtract_months_clamps_to_end_of_month():
-    assert subtract_months(date(2026, 5, 31), 3) == date(2026, 2, 28)
-    assert subtract_months(date(2024, 5, 31), 3) == date(2024, 2, 29)
-
-
-def test_recent_top_level_events_use_three_month_cutoff():
-    def event(event_id, ingest_date, colocated_ids=None):
-        volume_id = (event_id, "1", None)
-        volume = SimpleNamespace(ingest_date=ingest_date)
-        return SimpleNamespace(
-            id=event_id,
-            colocated_ids=colocated_ids or {volume_id: EventLink.INFERRED},
-            volumes=lambda: iter([volume]),
-        )
-
-    parent = event(
-        "parent-2026",
-        date(2026, 7, 14),
-        {
-            ("parent-2026", "1", None): EventLink.INFERRED,
-            ("child-2026", "1", None): EventLink.EXPLICIT,
-        },
-    )
-
+def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():
+    own_id = ("parent-2026", "1", None)
+    child_id = ("child-2026", "1", None)
     anthology = SimpleNamespace(
         events={
-            "new-2026": event("new-2026", date(2026, 7, 14)),
-            "cutoff-2025": event("cutoff-2025", date(2026, 4, 15)),
-            "old-2024": event("old-2024", date(2026, 4, 14)),
-            "future-2027": event("future-2027", date(2026, 7, 16)),
-            "ws-2026": event("ws-2026", date(2026, 7, 14)),
-            "parent-2026": parent,
-            "child-2026": event("child-2026", date(2026, 7, 14)),
-        },
-        venues={
-            "new": SimpleNamespace(acronym="NEW", is_toplevel=True),
-            "cutoff": SimpleNamespace(acronym="CUT", is_toplevel=True),
-            "old": SimpleNamespace(acronym="OLD", is_toplevel=True),
-            "future": SimpleNamespace(acronym="FUT", is_toplevel=True),
-            "ws": SimpleNamespace(acronym="WS", is_toplevel=True),
-            "parent": SimpleNamespace(acronym="PARENT", is_toplevel=True),
-            "child": SimpleNamespace(acronym="CHILD", is_toplevel=True),
+            "parent-2026": SimpleNamespace(
+                colocated_ids={
+                    own_id: EventLink.INFERRED,
+                    child_id: EventLink.EXPLICIT,
+                }
+            )
         },
     )
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    own_volume = SimpleNamespace(full_id_tuple=own_id, ingest_date=date(2026, 6, 1))
+    child_volume = SimpleNamespace(
+        full_id_tuple=child_id, ingest_date=date(2026, 7, 1)
+    )
 
-    assert recent_top_level_events(anthology, date(2026, 7, 15)) == [
-        {
-            "id": "parent-2026",
-            "label": "PARENT 2026",
-            "ingest_date": "2026-07-14",
-        },
-        {"id": "new-2026", "label": "NEW 2026", "ingest_date": "2026-07-14"},
-        {
-            "id": "cutoff-2025",
-            "label": "CUT 2025",
-            "ingest_date": "2026-04-15",
-        },
-    ]
+    assert explicitly_colocated_ids == {child_id}
+    assert latest_owned_ingest_date(
+        [own_volume, child_volume], explicitly_colocated_ids
+    ) == date(2026, 6, 1)
+    assert latest_owned_ingest_date(
+        [child_volume], explicitly_colocated_ids
+    ) == UNKNOWN_INGEST_DATE
 
 
-def test_venue_data_uses_latest_volume_ingest_date(anthology):
-    venue = anthology.venues["acl"]
-    data = venue_to_dict("acl", venue)
+def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
+    venue = anthology.venues["iwslt"]
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    data = venue_to_dict("iwslt", venue, explicitly_colocated_ids)
 
     assert data["latest_ingest_date"] == max(
+        volume.ingest_date
+        for volume in venue.volumes()
+        if volume.full_id_tuple not in explicitly_colocated_ids
+    ).isoformat()
+    assert data["latest_ingest_date"] < max(
         volume.ingest_date for volume in venue.volumes()
     ).isoformat()
 

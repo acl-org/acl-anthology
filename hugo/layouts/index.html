@@ -8,7 +8,6 @@
     const clearButton = directory.querySelector("[data-clear-filter]");
     const periodButtons = Array.from(directory.querySelectorAll("[data-period-filter]"));
     const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
-    const venueGroups = Array.from(directory.querySelectorAll("[data-venue-group]"));
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
@@ -54,10 +53,6 @@
       let visibleVenues = 0;
       let visibleYears = 0;
 
-      venueGroups.forEach(function (group) {
-        group.hidden = false;
-      });
-
       venueRows.forEach(function (row) {
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const textMatches = row.dataset.venueSearch.includes(query);
@@ -93,13 +88,6 @@
           visibleVenues += 1;
           visibleYears += matchingYears;
         }
-      });
-
-      venueGroups.forEach(function (group) {
-        const hasVisibleRows = Array.from(group.querySelectorAll("[data-venue-row]")).some(function (row) {
-          return !row.hidden;
-        });
-        group.hidden = !hasVisibleRows;
       });
 
       function inflect(count) {
@@ -231,21 +219,10 @@
   </div>
 
   <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
-    {{ with $stats.recent_events }}
-    <section class="acl-recent-events" aria-labelledby="acl-recent-events-title">
-      <h2 id="acl-recent-events-title">Recently ingested events</h2>
-      <div class="acl-recent-events__links">
-        {{ range . }}
-        <a href="{{ relref $ (printf "/events/%s" .id) }}" title="Ingested {{ .ingest_date }}">{{ .label }}</a>
-        {{ end }}
-      </div>
-    </section>
-    {{ end }}
-
     <section class="acl-venue-group" data-venue-group aria-labelledby="acl-venues-title">
       <header class="acl-venue-group__header">
         <h3 id="acl-venues-title">
-          Venues
+          Events
           <span class="acl-venue-legend">(<span class="acl-venue-legend__marker" aria-hidden="true">&bull;</span> = ACL)</span>
         </h3>
       </header>
@@ -307,6 +284,11 @@
         </article>
         {{ end }}
       </div>
+
+      <div class="acl-directory-empty" data-filter-empty hidden>
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <p>No venues match these filters.</p>
+      </div>
     </section>
 
     <section class="acl-sig-directory" aria-labelledby="acl-sig-title">
@@ -321,10 +303,6 @@
       </div>
     </section>
 
-    <div class="acl-directory-empty" data-filter-empty hidden>
-      <i class="fas fa-search" aria-hidden="true"></i>
-      <p>No venues match these filters.</p>
-    </div>
   </section>
 </main>
 {{ end }}
