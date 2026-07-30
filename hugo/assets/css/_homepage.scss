@@ -90,7 +90,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.875rem;
-  margin: .87rem 0 1.42rem;
+  margin: .87rem 0 .5rem;
 
   a {
     display: flex;
@@ -157,8 +157,8 @@
   display: grid;
   grid-template-columns: minmax(22rem, 1fr) minmax(0, 1fr);
   align-items: start;
-  gap: .9rem;
-  padding: .9rem .97rem;
+  gap: .5rem;
+  padding: .5rem .75rem;
   border-bottom: 1px solid var(--acl-home-line);
   background: $white;
 }
@@ -174,20 +174,20 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  min-height: 2.48rem;
+  min-height: 2.15rem;
   border: 1px solid #aebdc5;
   border-radius: .3rem;
   background: $white;
 
   > i {
-    margin-left: .75rem;
+    margin-left: .65rem;
     color: var(--acl-home-muted);
     font-size: .8rem;
   }
 
   input {
     min-width: 0;
-    padding: .45rem .62rem;
+    padding: .3rem .5rem;
     border: 0;
     outline: 0;
     background: transparent;
@@ -203,8 +203,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.33rem;
-    height: 2.33rem;
+    width: 2rem;
+    height: 2rem;
     padding: 0;
     border: 0;
     background: transparent;
@@ -231,18 +231,18 @@
 
 .acl-period-filter__rail {
   display: flex;
-  gap: .28rem;
+  gap: .22rem;
   min-width: 0;
   overflow-x: auto;
-  padding-bottom: .2rem;
+  padding-bottom: .1rem;
   scroll-snap-type: x proximity;
   scrollbar-color: #aebdc5 transparent;
   scrollbar-width: thin;
 
   button {
     flex: 0 0 auto;
-    min-height: 2.48rem;
-    padding: .4rem .65rem;
+    min-height: 2.15rem;
+    padding: .3rem .55rem;
     border: 1px solid #c8d3d9;
     border-radius: .3rem;
     background: $white;
@@ -329,8 +329,8 @@
   grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 1fr);
   align-items: center;
   gap: .7rem;
-  min-height: 2.78rem;
-  padding: .57rem .8rem;
+  min-height: 2.1rem;
+  padding: .25rem .7rem;
   border-bottom: 1px solid #e5ecef;
 
   &:last-child {
@@ -342,6 +342,7 @@
   }
 
   h4 {
+    min-width: 0;
     margin: 0;
     font-size: inherit;
     line-height: 1.32;
@@ -351,6 +352,7 @@
     display: grid;
     grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: .7rem;
+    min-width: 0;
     color: $blue;
 
     &:hover .acl-venue-row__acronym,
@@ -389,16 +391,20 @@
 }
 
 .acl-venue-row__name {
+  min-width: 0;
+  overflow: hidden;
   color: $blue;
   font-size: .83rem;
   font-weight: 430;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .acl-venue-years {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  gap: .28rem;
+  gap: .22rem;
   min-width: 0;
   overflow: hidden;
 
@@ -406,9 +412,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 3.03rem;
-    min-height: 1.75rem;
-    padding: .17rem .38rem;
+    min-width: 2.75rem;
+    min-height: 1.5rem;
+    padding: .1rem .3rem;
     border-radius: .25rem;
     border: 1px solid #c7c7c7;
     background: $white;
@@ -435,9 +441,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 3.03rem;
-  min-height: 1.75rem;
-  padding: .17rem .38rem;
+  min-width: 2.75rem;
+  min-height: 1.5rem;
+  padding: .1rem .3rem;
   border: 1px solid #c7c7c7;
   border-radius: .25rem;
   background: $white;
@@ -548,7 +554,7 @@
 
   .acl-directory-tools {
     grid-template-columns: 1fr;
-    gap: .9rem;
+    gap: .5rem;
   }
 
   .acl-venue-filter {
@@ -590,7 +596,7 @@
 
   .acl-home-actions {
     gap: 1rem;
-    margin-bottom: 2.17rem;
+    margin-bottom: .5rem;
 
     a {
       padding-right: .15rem;
@@ -601,11 +607,11 @@
   }
 
   .acl-directory-tools {
-    padding: .82rem;
+    padding: .5rem .75rem;
   }
 
   .acl-venue-row {
-    padding: .63rem .68rem;
+    padding: .3rem .6rem;
   }
 
   .acl-venue-row__acronym {
