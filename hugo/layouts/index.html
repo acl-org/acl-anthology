@@ -154,9 +154,8 @@
           scheduleFilters();
         }
       }).observe(directory);
-    } else {
-      window.addEventListener("resize", scheduleFilters);
     }
+    window.addEventListener("resize", scheduleFilters);
 
     if (document.fonts) {
       document.fonts.ready.then(scheduleFilters);
