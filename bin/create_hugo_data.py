@@ -526,45 +526,53 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
+def venue_to_dict(venue_id, venue):
+    data = {
+        "acronym": venue.acronym,
+        "is_acl": venue.is_acl,
+        "is_toplevel": venue.is_toplevel,
+        "name": venue.name,
+        # Note: 'slug' was produced with a separate function in the old
+        # library, but in practice it's always just the venue_id — maybe we
+        # can refactor this in the depending code as well to just use the
+        # venue_id, and get rid of this attribute
+        "slug": venue_id,
+    }
+    if venue.oldstyle_letter is not None:
+        data["oldstyle_letter"] = venue.oldstyle_letter
+    if venue.url is not None:
+        data["url"] = venue.url
+    if venue.type is not None:
+        data["type"] = venue.type
+    data["volumes_by_year"] = {}
+    sorted_volumes = sorted(
+        venue.volumes(),
+        key=lambda volume: (
+            volume.year,
+            volume.parent.id,
+            # Follow order of volumes within a collection
+            list(volume.parent.keys()).index(volume.id),
+        ),
+    )
+    for volume in sorted_volumes:
+        year, volume_id = volume.year, volume.full_id
+        try:
+            data["volumes_by_year"][year].append(volume_id)
+        except KeyError:
+            data["volumes_by_year"][year] = [volume_id]
+    data["years"] = list(data["volumes_by_year"].keys())
+    data["latest_ingest_date"] = max(
+        (volume.ingest_date for volume in sorted_volumes),
+        default=UNKNOWN_INGEST_DATE,
+    ).isoformat()
+    return data
+
+
 def export_venues(anthology, builddir, dryrun):
     all_venues = {}
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
-        data = {
-            "acronym": venue.acronym,
-            "is_acl": venue.is_acl,
-            "is_toplevel": venue.is_toplevel,
-            "name": venue.name,
-            # Note: 'slug' was produced with a separate function in the old
-            # library, but in practice it's always just the venue_id — maybe we
-            # can refactor this in the depending code as well to just use the
-            # venue_id, and get rid of this attribute
-            "slug": venue_id,
-        }
-        if venue.oldstyle_letter is not None:
-            data["oldstyle_letter"] = venue.oldstyle_letter
-        if venue.url is not None:
-            data["url"] = venue.url
-        if venue.type is not None:
-            data["type"] = venue.type
-        data["volumes_by_year"] = {}
-        sorted_volumes = sorted(
-            venue.volumes(),
-            key=lambda volume: (
-                volume.year,
-                volume.parent.id,
-                # Follow order of volumes within a collection
-                list(volume.parent.keys()).index(volume.id),
-            ),
-        )
-        for volume in sorted_volumes:
-            year, volume_id = volume.year, volume.full_id
-            try:
-                data["volumes_by_year"][year].append(volume_id)
-            except KeyError:
-                data["volumes_by_year"][year] = [volume_id]
-        data["years"] = list(data["volumes_by_year"].keys())
-        all_venues[venue_id] = data
+        all_venues[venue_id] = venue_to_dict(venue_id, venue)
 
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:

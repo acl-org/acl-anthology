@@ -12,6 +12,41 @@
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
+    let resizeFrame;
+
+    function fitRecentYears(row, yearLinks, moreButton) {
+      const years = row.querySelector(".acl-venue-years");
+      yearLinks.forEach(function (link) {
+        link.hidden = false;
+      });
+      moreButton.hidden = false;
+
+      const gap = parseFloat(getComputedStyle(years).columnGap) || 0;
+      const availableWidth = years.clientWidth;
+      const moreWidth = moreButton.getBoundingClientRect().width;
+      const allYearsWidth = yearLinks.reduce(function (width, link, index) {
+        return width + link.getBoundingClientRect().width + (index > 0 ? gap : 0);
+      }, 0);
+
+      if (allYearsWidth <= availableWidth) {
+        moreButton.hidden = true;
+        return yearLinks.length;
+      }
+
+      const yearWidth = Math.max(0, availableWidth - moreWidth - gap);
+      let usedWidth = 0;
+      let visibleYears = 0;
+      yearLinks.forEach(function (link, index) {
+        const nextWidth = link.getBoundingClientRect().width + (index > 0 ? gap : 0);
+        const fits = usedWidth + nextWidth <= yearWidth;
+        link.hidden = !fits;
+        if (fits) {
+          usedWidth += nextWidth;
+          visibleYears += 1;
+        }
+      });
+      return visibleYears;
+    }
 
     function applyFilters() {
       const query = filterInput.value.trim().toLowerCase();
@@ -19,28 +54,40 @@
       let visibleVenues = 0;
       let visibleYears = 0;
 
+      venueGroups.forEach(function (group) {
+        group.hidden = false;
+      });
+
       venueRows.forEach(function (row) {
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const textMatches = row.dataset.venueSearch.includes(query);
+        const rowMatchesText = (hasQuery || isTopLevel) && textMatches;
+        row.hidden = !rowMatchesText;
+        if (!rowMatchesText) return;
+
         const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
         const expanded = row.dataset.expanded === "true";
+        const moreButton = row.querySelector("[data-venue-more]");
+        const isCompact = activePeriod === "recent" && !expanded;
         let matchingYears = 0;
 
-        yearLinks.forEach(function (link) {
-          const periodMatches = expanded
-            || activePeriod === "all"
-            || (activePeriod === "recent" && link.dataset.recent === "true")
-            || link.dataset.decade === activePeriod;
-          link.hidden = !periodMatches;
-          if (periodMatches) matchingYears += 1;
-        });
-
-        const moreButton = row.querySelector("[data-venue-more]");
-        if (moreButton) {
-          moreButton.hidden = matchingYears >= yearLinks.length;
+        row.classList.toggle("is-year-expanded", !isCompact);
+        if (isCompact && moreButton) {
+          matchingYears = fitRecentYears(row, yearLinks, moreButton);
+        } else {
+          yearLinks.forEach(function (link) {
+            const periodMatches = expanded
+              || activePeriod === "all"
+              || link.dataset.decade === activePeriod;
+            link.hidden = !periodMatches;
+            if (periodMatches) matchingYears += 1;
+          });
+          if (moreButton) {
+            moreButton.hidden = matchingYears >= yearLinks.length;
+          }
         }
 
-        const rowMatches = (hasQuery || isTopLevel) && textMatches && matchingYears > 0;
+        const rowMatches = matchingYears > 0;
         row.hidden = !rowMatches;
         if (rowMatches) {
           visibleVenues += 1;
@@ -104,6 +151,28 @@
         applyFilters();
       }
     });
+
+    function scheduleFilters() {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(applyFilters);
+    }
+
+    if ("ResizeObserver" in window) {
+      let directoryWidth = 0;
+      new ResizeObserver(function (entries) {
+        const nextWidth = entries[0].contentRect.width;
+        if (nextWidth !== directoryWidth) {
+          directoryWidth = nextWidth;
+          scheduleFilters();
+        }
+      }).observe(directory);
+    } else {
+      window.addEventListener("resize", scheduleFilters);
+    }
+
+    if (document.fonts) {
+      document.fonts.ready.then(scheduleFilters);
+    }
 
     applyFilters();
   }());
@@ -196,18 +265,19 @@
       </fieldset>
     </div>
 
-    {{ range $isACL := slice true false }}
-    <section class="acl-venue-group {{ cond $isACL "acl-venue-group--acl" "acl-venue-group--other" }}" data-venue-group aria-labelledby="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">
+    <section class="acl-venue-group" data-venue-group aria-labelledby="acl-venues-title">
       <header class="acl-venue-group__header">
-        <h3 id="{{ cond $isACL "acl-venues-title" "other-venues-title" }}">{{ cond $isACL "ACL venues" "Other venues" }}</h3>
-        <span>{{ cond $isACL "ACL conferences, workshops, and journals" "Other conferences, workshops, and journals" }}</span>
+        <h3 id="acl-venues-title">
+          Venues
+          <span class="acl-venue-legend">(<span class="acl-venue-legend__marker" aria-hidden="true">&check;</span> = ACL)</span>
+        </h3>
       </header>
 
       <div class="acl-venue-list">
-        {{ range $venue := sort hugo.Data.venues "slug" "asc" }}
-        {{ if eq $venue.is_acl $isACL }}
+        {{ range $venue := sort (sort hugo.Data.venues "slug" "asc") "latest_ingest_date" "desc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-        <article class="acl-venue-row" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+        <article class="acl-venue-row{{ if $venue.is_acl }} acl-venue-row--acl{{ end }}" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+          <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&check;{{ end }}</span>
           <h4>
             <a href="{{ $venuePage.RelPermalink }}">
               <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
@@ -221,23 +291,21 @@
               {{ $volumes := index $venue.volumes_by_year $year }}
               {{ $decade := printf "%s0" (slicestr $year 0 3) }}
               {{ if and $event $event.volumes }}
-            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 4 }}" title="{{ $event.title }}">{{ $year }}</a>
+            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
               {{ else }}
                 {{ $yearURL := $venuePage.RelPermalink }}
                 {{ if eq (len $volumes) 1 }}
                   {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
                 {{ end }}
-            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 4 }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
               {{ end }}
             {{ end }}
             <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
           </div>
         </article>
         {{ end }}
-        {{ end }}
       </div>
     </section>
-    {{ end }}
 
     <section class="acl-sig-directory" aria-labelledby="acl-sig-title">
       <header class="acl-sig-directory__header">

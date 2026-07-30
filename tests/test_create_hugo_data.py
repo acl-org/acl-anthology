@@ -16,6 +16,7 @@ from bin.create_hugo_data import (
     paper_to_dict,
     recent_top_level_events,
     subtract_months,
+    venue_to_dict,
 )
 
 from acl_anthology import Anthology, config
@@ -109,6 +110,15 @@ def test_recent_top_level_events_use_three_month_cutoff():
             "ingest_date": "2026-04-15",
         },
     ]
+
+
+def test_venue_data_uses_latest_volume_ingest_date(anthology):
+    venue = anthology.venues["acl"]
+    data = venue_to_dict("acl", venue)
+
+    assert data["latest_ingest_date"] == max(
+        volume.ingest_date for volume in venue.volumes()
+    ).isoformat()
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
