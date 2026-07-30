@@ -61,6 +61,34 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
+def _update_sigs(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update objects depending on a volume's `sig_ids`.
+
+    This will:
+    - Update `SIG.item_ids` for SIGs linked to or unlinked from a volume
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    sig_index = volume.root.sigs
+    old_value = getattr(volume, attr.name)
+    for sig in set(old_value) - set(value):
+        # SIGs that are being removed from this volume
+        if sig_index.is_data_loaded:
+            sig_index[sig].item_ids.discard(volume.full_id_tuple)
+
+    for sig in set(value) - set(old_value):
+        # SIGs that are being added to this volume
+        if sig_index.is_data_loaded:
+            try:
+                # Update SIG.item_ids
+                sig_index[sig].item_ids.add(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting SIG that doesn't exist: {sig}")
+    return value
+
+
 def _update_venues(
     volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
 ) -> tuple[str, ...]:
@@ -183,7 +211,7 @@ class Volume(SlottedDict[Paper]):
         on_setattr=[
             setters.convert,
             setters.validate,
-            # _update_venues,  # TODO: _update_sigs
+            _update_sigs,
             track_modifications,
         ],
     )

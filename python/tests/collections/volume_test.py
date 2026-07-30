@@ -349,6 +349,41 @@ def test_volume_change_id(anthology):
     volume.id = "long"
 
 
+def test_volume_add_sig_updates_sig(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    sigdat = anthology.sigs["sigdat"]
+    assert volume.full_id_tuple not in sigdat.item_ids
+
+    # Add a SIG to this volume
+    volume.sig_ids = ("sigdat",)
+
+    # SIG should be updated
+    assert volume.full_id_tuple in sigdat.item_ids
+
+
+def test_volume_remove_sig_updates_sig(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    sigdat = anthology.sigs["sigdat"]
+    sigsem = anthology.sigs["sigsem"]
+    assert volume.full_id_tuple in sigdat.item_ids
+    assert volume.full_id_tuple in sigsem.item_ids
+
+    # Remove a SIG from this volume
+    volume.sig_ids = ("sigsem",)
+
+    # SIGs should be updated
+    assert volume.full_id_tuple in sigsem.item_ids
+    assert volume.full_id_tuple not in sigdat.item_ids
+
+
+def test_volume_add_sig_raises(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    anthology.sigs.load()
+    with pytest.raises(ValueError):
+        # Adding a SIG to this volume that doesn't exist
+        volume.sig_ids += ("doesntexist",)
+
+
 def test_volume_add_venue_updates_venue(anthology):
     volume = anthology.get_volume("2022.naloma-1")
     nlma = anthology.venues["nlma"]
