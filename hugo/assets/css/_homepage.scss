@@ -377,9 +377,9 @@
 
 .acl-venue-row {
   display: grid;
-  grid-template-columns: 1rem minmax(10rem, 1fr) minmax(9rem, 1fr);
+  grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 1fr);
   align-items: center;
-  gap: .5rem .7rem;
+  gap: .7rem;
   min-height: 2.78rem;
   padding: .57rem .8rem;
   border-bottom: 1px solid #e5ecef;
@@ -400,7 +400,7 @@
 
   h4 a {
     display: grid;
-    grid-template-columns: 5.5rem minmax(0, 1fr);
+    grid-template-columns: 6.5rem minmax(0, 1fr);
     gap: .7rem;
     color: $blue;
 
@@ -415,15 +415,20 @@
   }
 }
 
+.acl-venue-row__label {
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+  min-width: 0;
+}
+
 .acl-venue-row__acl-marker {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1rem;
-  height: 1.175rem;
+  flex: 0 0 .45rem;
+  width: .45rem;
   color: $acl-logo-red;
   font-size: 1rem;
   line-height: 1;
+  text-align: center;
 }
 
 .acl-venue-row__acronym {
@@ -604,21 +609,8 @@
   }
 
   .acl-venue-row {
-    position: relative;
     grid-template-columns: max-content minmax(0, 1fr);
     gap: .5rem;
-  }
-
-  .acl-venue-row__acl-marker {
-    position: absolute;
-    top: 50%;
-    left: .8rem;
-    width: .6rem;
-    transform: translateY(-50%);
-  }
-
-  .acl-venue-row h4 {
-    padding-left: 1.15rem;
   }
 
   .acl-venue-row h4 a {
@@ -667,10 +659,6 @@
 
   .acl-venue-row {
     padding: .63rem .68rem;
-  }
-
-  .acl-venue-row__acl-marker {
-    left: .68rem;
   }
 
   .acl-venue-row__acronym {

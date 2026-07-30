@@ -276,11 +276,13 @@
       <div class="acl-venue-list">
         {{ range $venue := sort (sort hugo.Data.venues "slug" "asc") "latest_ingest_date" "desc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-        <article class="acl-venue-row{{ if $venue.is_acl }} acl-venue-row--acl{{ end }}" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
-          <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&bull;{{ end }}</span>
+        <article class="acl-venue-row" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
           <h4>
             <a href="{{ $venuePage.RelPermalink }}">
-              <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
+              <span class="acl-venue-row__label">
+                <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&bull;{{ end }}</span>
+                <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
+              </span>
               <span class="acl-venue-row__name">{{ $venue.name }}</span>
             </a>
           </h4>
