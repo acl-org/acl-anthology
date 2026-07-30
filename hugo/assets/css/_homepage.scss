@@ -203,7 +203,7 @@
 
 .acl-directory-tools {
   display: grid;
-  grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.7fr);
+  grid-template-columns: minmax(22rem, 1fr) minmax(0, 1fr);
   align-items: start;
   gap: .9rem;
   margin-bottom: .6rem;
@@ -211,6 +211,13 @@
   border: 1px solid var(--acl-home-line);
   border-radius: .35rem;
   background: $white;
+}
+
+.acl-venue-filter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: .75rem;
 }
 
 .acl-venue-filter__control {
@@ -312,9 +319,10 @@
 }
 
 .acl-directory-status {
-  margin: .45rem 0 0;
+  margin: 0;
   color: var(--acl-home-muted);
   font-size: .82rem;
+  white-space: nowrap;
 }
 
 .acl-venue-group {
@@ -663,6 +671,11 @@
 }
 
 @media (max-width: 340px) {
+  .acl-home-intro {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
   .acl-home-actions {
     gap: .25rem;
 
@@ -673,12 +686,16 @@
   }
 
   .acl-home-stats {
+    div {
+      gap: .1rem;
+    }
+
     dt {
-      font-size: .72rem;
+      font-size: .68rem;
     }
 
     dd {
-      font-size: .63rem;
+      font-size: .55rem;
     }
   }
 }
