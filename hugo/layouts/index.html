@@ -150,16 +150,13 @@
 
     <nav class="acl-home-actions" aria-label="Anthology resources">
       <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
-        <i class="fas fa-user-edit" aria-hidden="true"></i>
-        <span>Info for authors</span>
+        <span>Author pages</span>
       </a>
       <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
-        <i class="fas fa-database" aria-hidden="true"></i>
-        <span>Access data</span>
+        <span>API &amp; data</span>
       </a>
-      <a class="acl-home-action--feedback" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">
-        <i class="far fa-comment-alt" aria-hidden="true"></i>
-        <span>Give feedback</span>
+      <a class="acl-home-action--feedback" href="{{ relref $ "/faq" }}">
+        <span>Feedback</span>
       </a>
     </nav>
   </div>
@@ -190,7 +187,7 @@
 
       <fieldset class="acl-period-filter">
         <div class="acl-period-filter__rail" aria-label="Choose years to show">
-          <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Recent</button>
+          <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Latest</button>
           <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
           {{ range $decades }}
           <button type="button" data-period-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
@@ -224,13 +221,13 @@
               {{ $volumes := index $venue.volumes_by_year $year }}
               {{ $decade := printf "%s0" (slicestr $year 0 3) }}
               {{ if and $event $event.volumes }}
-            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 3 }}" title="{{ $event.title }}">{{ $year }}</a>
+            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 4 }}" title="{{ $event.title }}">{{ $year }}</a>
               {{ else }}
                 {{ $yearURL := $venuePage.RelPermalink }}
                 {{ if eq (len $volumes) 1 }}
                   {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
                 {{ end }}
-            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 3 }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" data-recent="{{ lt $yearIndex 4 }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
               {{ end }}
             {{ end }}
             <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
