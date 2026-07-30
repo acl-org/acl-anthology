@@ -68,17 +68,16 @@ def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():
     )
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     own_volume = SimpleNamespace(full_id_tuple=own_id, ingest_date=date(2026, 6, 1))
-    child_volume = SimpleNamespace(
-        full_id_tuple=child_id, ingest_date=date(2026, 7, 1)
-    )
+    child_volume = SimpleNamespace(full_id_tuple=child_id, ingest_date=date(2026, 7, 1))
 
     assert explicitly_colocated_ids == {child_id}
     assert latest_owned_ingest_date(
         [own_volume, child_volume], explicitly_colocated_ids
     ) == date(2026, 6, 1)
-    assert latest_owned_ingest_date(
-        [child_volume], explicitly_colocated_ids
-    ) == UNKNOWN_INGEST_DATE
+    assert (
+        latest_owned_ingest_date([child_volume], explicitly_colocated_ids)
+        == UNKNOWN_INGEST_DATE
+    )
 
 
 def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
@@ -86,14 +85,18 @@ def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     data = venue_to_dict("iwslt", venue, explicitly_colocated_ids)
 
-    assert data["latest_ingest_date"] == max(
-        volume.ingest_date
-        for volume in venue.volumes()
-        if volume.full_id_tuple not in explicitly_colocated_ids
-    ).isoformat()
-    assert data["latest_ingest_date"] < max(
-        volume.ingest_date for volume in venue.volumes()
-    ).isoformat()
+    assert (
+        data["latest_ingest_date"]
+        == max(
+            volume.ingest_date
+            for volume in venue.volumes()
+            if volume.full_id_tuple not in explicitly_colocated_ids
+        ).isoformat()
+    )
+    assert (
+        data["latest_ingest_date"]
+        < max(volume.ingest_date for volume in venue.volumes()).isoformat()
+    )
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):

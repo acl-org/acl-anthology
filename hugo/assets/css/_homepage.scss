@@ -350,7 +350,7 @@
 
   h4 a {
     display: grid;
-    grid-template-columns: 6.5rem minmax(0, 1fr);
+    grid-template-columns: max-content minmax(0, 1fr);
     gap: .7rem;
     min-width: 0;
     color: $blue;
@@ -371,6 +371,7 @@
   align-items: baseline;
   gap: .45rem;
   min-width: 0;
+  white-space: nowrap;
 }
 
 .acl-venue-row__acl-marker {
@@ -387,7 +388,6 @@
   color: $blue;
   font-size: .89rem;
   font-weight: 700;
-  overflow-wrap: anywhere;
 }
 
 .acl-venue-row__name {

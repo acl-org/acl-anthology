@@ -534,9 +534,7 @@ def export_venues(anthology, builddir, dryrun):
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
-        all_venues[venue_id] = venue_to_dict(
-            venue_id, venue, explicitly_colocated_ids
-        )
+        all_venues[venue_id] = venue_to_dict(venue_id, venue, explicitly_colocated_ids)
 
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:
