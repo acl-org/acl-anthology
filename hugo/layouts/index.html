@@ -71,14 +71,15 @@
           matchingYears = fitRecentYears(row, yearLinks, moreButton);
         } else {
           yearLinks.forEach(function (link) {
-            const periodMatches = expanded
-              || activePeriod === "all"
+            const periodMatches = activePeriod === "all"
+              || (activePeriod === "recent" && expanded)
               || link.dataset.decade === activePeriod;
             link.hidden = !periodMatches;
             if (periodMatches) matchingYears += 1;
           });
           if (moreButton) {
-            moreButton.hidden = matchingYears >= yearLinks.length;
+            moreButton.hidden = activePeriod !== "recent"
+              || matchingYears >= yearLinks.length;
           }
         }
 

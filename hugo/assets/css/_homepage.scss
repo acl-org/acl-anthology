@@ -47,12 +47,12 @@
   line-height: 1.6;
 
   a {
-    color: $blue;
+    color: darken($acl-logo-red, 8%);
     font-weight: 550;
 
     &:hover,
     &:focus-visible {
-      color: darken($blue, 10%);
+      color: darken($acl-logo-red, 16%);
       text-decoration: underline;
     }
   }
@@ -276,6 +276,7 @@
 }
 
 .acl-venue-group {
+  --acl-directory-header-bg: #{$acl-soft-yellow};
   margin-bottom: 1.72rem;
   overflow: hidden;
   border: 1px solid var(--acl-home-line);
@@ -290,7 +291,7 @@
   gap: 1.33rem;
   padding: $acl-section-header-padding;
   border-bottom: 1px solid var(--acl-home-line);
-  background: $white;
+  background: var(--acl-directory-header-bg, #{$white});
 
   h3 {
     display: flex;
@@ -393,7 +394,7 @@
 .acl-venue-row__name {
   min-width: 0;
   overflow: hidden;
-  color: $blue;
+  color: var(--acl-home-muted);
   font-size: .83rem;
   font-weight: 430;
   text-overflow: ellipsis;
@@ -461,6 +462,7 @@
 }
 
 .acl-sig-directory {
+  --acl-directory-header-bg: #{$acl-soft-green};
   margin: .92rem 0 1.75rem;
   border: 1px solid var(--acl-home-line);
   border-radius: .35rem;
