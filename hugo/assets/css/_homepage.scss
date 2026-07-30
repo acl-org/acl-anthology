@@ -415,9 +415,8 @@
     min-width: 2.75rem;
     min-height: 1.5rem;
     padding: .1rem .3rem;
-    border: .5px solid #c7c7c7;
-    border-radius: .25rem;
-    background: $white;
+    border: .5px solid transparent;
+    background: transparent;
     color: $blue;
     font-size: .8rem;
     font-variant-numeric: tabular-nums;
@@ -425,10 +424,9 @@
 
     &:hover,
     &:focus-visible {
-      border-color: $acl-muted-blue;
-      background: $acl-soft-blue;
       color: darken($blue, 10%);
-      text-decoration: none;
+      text-decoration: underline;
+      text-underline-offset: .15rem;
     }
   }
 }
