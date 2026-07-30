@@ -364,7 +364,8 @@
 
 .acl-venue-legend__marker {
   color: $acl-logo-red;
-  font-weight: 700;
+  font-size: 1rem;
+  line-height: 0;
 }
 
 .acl-venue-list {
@@ -421,10 +422,8 @@
   width: 1rem;
   height: 1.175rem;
   color: $acl-logo-red;
-  font-size: .78rem;
-  font-weight: 700;
+  font-size: 1rem;
   line-height: 1;
-  text-align: center;
 }
 
 .acl-venue-row__acronym {
@@ -612,12 +611,13 @@
 
   .acl-venue-row__acl-marker {
     position: absolute;
-    top: .57rem;
+    top: 50%;
     left: .8rem;
     width: .6rem;
+    transform: translateY(-50%);
   }
 
-  .acl-venue-row--acl h4 {
+  .acl-venue-row h4 {
     padding-left: 1.15rem;
   }
 
@@ -649,29 +649,6 @@
     line-height: 1.55;
   }
 
-  .acl-home-stats {
-    grid-template-columns: repeat(4, auto);
-    justify-content: space-evenly;
-    gap: 0;
-
-    div {
-      display: flex;
-      align-items: baseline;
-      gap: .18rem;
-      white-space: nowrap;
-    }
-
-    dt {
-      font-size: .78rem;
-    }
-
-    dd {
-      margin: 0;
-      font-size: .68rem;
-      line-height: 1;
-    }
-  }
-
   .acl-home-actions {
     gap: 1rem;
     margin-bottom: 2.17rem;
@@ -693,7 +670,6 @@
   }
 
   .acl-venue-row__acl-marker {
-    top: .63rem;
     left: .68rem;
   }
 
@@ -724,17 +700,4 @@
     }
   }
 
-  .acl-home-stats {
-    div {
-      gap: .1rem;
-    }
-
-    dt {
-      font-size: .68rem;
-    }
-
-    dd {
-      font-size: .55rem;
-    }
-  }
 }

@@ -269,7 +269,7 @@
       <header class="acl-venue-group__header">
         <h3 id="acl-venues-title">
           Venues
-          <span class="acl-venue-legend">(<span class="acl-venue-legend__marker" aria-hidden="true">&check;</span> = ACL)</span>
+          <span class="acl-venue-legend">(<span class="acl-venue-legend__marker" aria-hidden="true">&bull;</span> = ACL)</span>
         </h3>
       </header>
 
@@ -277,7 +277,7 @@
         {{ range $venue := sort (sort hugo.Data.venues "slug" "asc") "latest_ingest_date" "desc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
         <article class="acl-venue-row{{ if $venue.is_acl }} acl-venue-row--acl{{ end }}" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
-          <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&check;{{ end }}</span>
+          <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&bull;{{ end }}</span>
           <h4>
             <a href="{{ $venuePage.RelPermalink }}">
               <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
