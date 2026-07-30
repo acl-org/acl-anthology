@@ -140,12 +140,9 @@ comprise:
   metadata.  Their format is defined in a RELAX NG schema
   [`schema.rnc`](data/xml/schema.rnc) in the same directory.
 
-+ The JSON data files (in [`json/`](data/json), defining:
-
++ The JSON data files (in [`json/`](data/json)), defining:
   - Special Interest Groups (SIGs) ([`sigs.json`](data/json/sigs.json))
-
   - Venues ([`venues.json`](data/json/venues.json))
-
   - [Verified](hugo/content/info/verification.md) authors
     ([`people.json`](data/json/people.json)), with metadata such as ORCID iDs
     and all [known name variants](hugo/content/info/names.md)
