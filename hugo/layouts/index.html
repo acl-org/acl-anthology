@@ -269,14 +269,15 @@
               {{ $event := index hugo.Data.events $eventID }}
               {{ $volumes := index $venue.volumes_by_year $year }}
               {{ $decade := printf "%s0" (slicestr $year 0 3) }}
+              {{ $isNewlyIngested := in $venue.newly_ingested_years $year }}
               {{ if and $event $event.volumes }}
-            <a href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
+            <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
               {{ else }}
                 {{ $yearURL := $venuePage.RelPermalink }}
                 {{ if eq (len $volumes) 1 }}
                   {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
                 {{ end }}
-            <a href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+            <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
               {{ end }}
             {{ end }}
             <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>

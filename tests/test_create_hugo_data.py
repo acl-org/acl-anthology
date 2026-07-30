@@ -15,6 +15,7 @@ from bin.create_hugo_data import (
     export_homepage_stats,
     homepage_stats,
     latest_owned_ingest_date,
+    newly_ingested_years,
     paper_to_dict,
     venue_to_dict,
 )
@@ -80,6 +81,18 @@ def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():
     )
 
 
+def test_newly_ingested_years_uses_45_day_window():
+    current_date = date(2026, 7, 30)
+    volumes = [
+        SimpleNamespace(year="2023", ingest_date=date(2026, 6, 14)),
+        SimpleNamespace(year="2024", ingest_date=date(2026, 6, 15)),
+        SimpleNamespace(year="2025", ingest_date=date(2026, 7, 31)),
+        SimpleNamespace(year="2026", ingest_date=current_date),
+    ]
+
+    assert newly_ingested_years(volumes, current_date) == ["2024", "2026"]
+
+
 def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
     venue = anthology.venues["iwslt"]
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
@@ -97,6 +110,7 @@ def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
         data["latest_ingest_date"]
         < max(volume.ingest_date for volume in venue.volumes()).isoformat()
     )
+    assert data["newly_ingested_years"] == newly_ingested_years(venue.volumes())
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):

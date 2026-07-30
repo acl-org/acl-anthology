@@ -357,7 +357,12 @@
     color: $blue;
 
     &:hover .acl-venue-row__acronym,
-    &:focus-visible .acl-venue-row__acronym,
+    &:focus-visible .acl-venue-row__acronym {
+      color: $acl-black;
+      text-decoration: underline;
+      text-underline-offset: .2rem;
+    }
+
     &:hover .acl-venue-row__name,
     &:focus-visible .acl-venue-row__name {
       color: darken($blue, 10%);
@@ -386,7 +391,7 @@
 
 .acl-venue-row__acronym {
   min-width: 0;
-  color: $blue;
+  color: $acl-black;
   font-size: .89rem;
   font-weight: 700;
 }
@@ -428,6 +433,21 @@
       color: darken($blue, 10%);
       text-decoration: underline;
       text-underline-offset: .15rem;
+    }
+
+    &.acl-venue-years__new {
+      border-color: $blue;
+      border-radius: .25rem;
+      background: $blue;
+      color: $white;
+
+      &:hover,
+      &:focus-visible {
+        border-color: darken($blue, 10%);
+        background: darken($blue, 10%);
+        color: $white;
+        text-decoration: none;
+      }
     }
   }
 }

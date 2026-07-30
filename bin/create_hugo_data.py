@@ -34,6 +34,7 @@ Options:
 
 from docopt import docopt
 from collections import Counter
+from datetime import date, timedelta
 from functools import cache
 import logging as log
 import msgspec
@@ -296,6 +297,19 @@ def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
     )
 
 
+def newly_ingested_years(volumes, current_date=None):
+    """Return years containing a volume ingested within the past 45 days."""
+    current_date = current_date or date.today()
+    cutoff = current_date - timedelta(days=45)
+    return sorted(
+        {
+            volume.year
+            for volume in volumes
+            if cutoff <= volume.ingest_date <= current_date
+        }
+    )
+
+
 def homepage_stats(anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
@@ -523,6 +537,7 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids):
         except KeyError:
             data["volumes_by_year"][year] = [volume_id]
     data["years"] = list(data["volumes_by_year"].keys())
+    data["newly_ingested_years"] = newly_ingested_years(sorted_volumes)
     data["latest_ingest_date"] = latest_owned_ingest_date(
         sorted_volumes, explicitly_colocated_ids
     ).isoformat()
