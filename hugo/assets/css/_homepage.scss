@@ -276,7 +276,8 @@
 }
 
 .acl-venue-group {
-  --acl-directory-header-bg: #{$acl-soft-yellow};
+  --acl-directory-header-bg: #{$blue};
+  --acl-directory-header-ink: #{$white};
   margin-bottom: 1.72rem;
   overflow: hidden;
   border: 1px solid var(--acl-home-line);
@@ -298,7 +299,7 @@
     align-items: baseline;
     gap: .5rem;
     margin: 0;
-    color: var(--acl-home-ink);
+    color: var(--acl-directory-header-ink, var(--acl-home-ink));
     font-size: $acl-section-header-font-size;
     font-weight: 600;
     letter-spacing: 0;
@@ -308,7 +309,10 @@
 }
 
 .acl-venue-legend {
-  color: var(--acl-home-muted);
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  color: var(--acl-directory-header-ink, var(--acl-home-muted));
   font-size: .72rem;
   font-weight: 400;
   line-height: $acl-section-header-line-height;
@@ -319,6 +323,16 @@
   color: $acl-logo-red;
   font-size: 1rem;
   line-height: 0;
+}
+
+.acl-venue-legend__new {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.25rem;
+  padding: 0 .3rem;
+  font-size: .65rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .acl-venue-list {
@@ -436,20 +450,23 @@
     }
 
     &.acl-venue-years__new {
-      border-color: $blue;
-      border-radius: .25rem;
-      background: $blue;
-      color: $white;
-
       &:hover,
       &:focus-visible {
-        border-color: darken($blue, 10%);
-        background: darken($blue, 10%);
-        color: $white;
+        border-color: darken($yellow, 8%);
+        background: darken($yellow, 8%);
+        color: $acl-black;
         text-decoration: none;
       }
     }
   }
+}
+
+.acl-venue-years a.acl-venue-years__new,
+.acl-venue-legend__new {
+  border: .5px solid $yellow;
+  border-radius: .25rem;
+  background: $yellow;
+  color: $acl-black;
 }
 
 .acl-venue-row.is-year-expanded .acl-venue-years {
@@ -482,7 +499,8 @@
 }
 
 .acl-sig-directory {
-  --acl-directory-header-bg: #{$acl-soft-green};
+  --acl-directory-header-bg: #{$green};
+  --acl-directory-header-ink: #{$acl-black};
   margin: .92rem 0 1.75rem;
   border: 1px solid var(--acl-home-line);
   border-radius: .35rem;
