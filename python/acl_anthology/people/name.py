@@ -19,11 +19,13 @@ from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
+import unicodedata
 from slugify import slugify
-from typing import Any, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
+from typing import Any, Literal, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
+from ..text import MarkupText
 from ..utils.attrs import (
     attach_custom_repr,
     track_namespec_modifications,
@@ -78,8 +80,93 @@ _LAST_NAME_LOWERCASE_REGEX = re.compile(
     flags=re.IGNORECASE,
 )
 
+_LOWERCASE_INITIAL_REGEX = re.compile(r"\b[a-uw-z](?=\.)")
+"""Matches lowercase one-letter initials followed by a period, excluding `v.`."""
+
+_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
+"""Matches lowercase one-letter components after a period in dotted names."""
+
+_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
+    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
+)
+"""Matches whitespace-delimited dotted tokens beginning with an initial, such as `S.B.priya`."""
+
 LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
 """Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
+
+
+def _normalize_initials(part: str) -> str:
+    part = _LOWERCASE_INITIAL_REGEX.sub(lambda match: match.group().upper(), part)
+    part = _DOTTED_INITIAL_COMPONENT_REGEX.sub(lambda match: match.group().upper(), part)
+    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), part)
+
+
+RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
+r"""Regex that partially checks validity of first and last names.
+
+First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
+
+Used by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part].
+"""
+
+RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
+"""Regex that checks for spurious lowercase characters in a name.
+
+First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
+"""
+
+EN_DASH = "\u2013"
+EM_DASH = "\u2014"
+
+VALID_NAME_PUNCT = "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()"
+"""Punctuation characters allowed in names."""
+
+
+def _is_bad_punct(c: str) -> bool:
+    """Check for invalid punctuation/symbol characters in a first or last name.
+
+    [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT] is the whitelist of valid punctuation characters.
+    """
+    if c in VALID_NAME_PUNCT:
+        return False
+    elif unicodedata.category(c).startswith(("P", "S")):
+        return True
+    return False
+
+
+def _is_valid_name_part(
+    attribute: Literal["first", "last"], value: str, error: bool = False
+) -> bool:
+    """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
+
+    Returns:
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+    """
+    if not value or value.isalpha():
+        # If all characters are alphabetic, it is guaranteed to be valid.
+        # Empirically this applies to 80% of names. This test short-circuits the slower checks.
+        return True
+    elif not RE_NAME_VALID.fullmatch(value):
+        if not error:
+            return False
+        raise ValueError(f"Invalid {attribute} name: {value}")
+    elif RE_NAME_UNDERCAPITALIZED.search(value):
+        if not error:
+            return False
+        raise ValueError(
+            f"Invalid {attribute} name (initial should be capitalized): {value}"
+        )
+    else:
+        for c in set(value) - {" "}:
+            if c.isdigit() or _is_bad_punct(c):
+                if c.isdigit() and " 3rd" in value and attribute == "last":
+                    continue
+                if not error:
+                    return False
+                raise ValueError(
+                    f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                )
+    return True
 
 
 @define(frozen=True)
@@ -90,19 +177,24 @@ class Name:
         Name objects are _frozen_, meaning they are immutable.  This allows them to be used as dictionary keys, but means that in order to change a name somewhere, you need to replace it with a new `Name` instance.
 
     Attributes:
-        first: First name part. Can be given as `None` for people who
-            only have a single name, but cannot be omitted.
+        first: First name part. Can be given as `None` for people who only have a single name, but cannot be omitted.
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
+    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
+
     Examples:
         >>> Name("Yang", "Liu")
+        Name('Yang', 'Liu')
         >>> Name(last="Liu", first="Yang")
+        Name('Yang', 'Liu')
         >>> Name(None, "Mausam")
+        Name(None, 'Mausam')
     """
 
     first: Optional[str] = field(
-        eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
+        eq=lambda x: x if x else None,
+        validator=v.optional(v.instance_of(str)),
     )
     last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
@@ -185,13 +277,27 @@ class Name:
     def case_normalize(self, force: bool = False) -> Name:
         """Try to heuristically normalize the casing of the name.
 
-        By default, this *only* changes the name if it is currently all-lowercased or all-uppercased.
+        By default, this changes the name if it is currently all-lowercased or all-uppercased. Lowercase initials are also normalized in otherwise mixed-case names.
+
+        Examples:
+            Normalize a name that is entirely uppercase:
+
+            >>> Name("MARCEL", "BOLLMANN").case_normalize()
+            Name('Marcel', 'Bollmann')
+
+            Repair initials in an otherwise mixed-case name:
+
+            >>> Name("John C.s.", "Lui").case_normalize()
+            Name('John C.S.', 'Lui')
 
         Arguments:
-            force: Always case-normalize, without checking the current casing.
+            force: Apply title-casing even when the full name is mixed-case. Initial normalization is always applied.
 
-        Raises:
-            ValueError: If the name's script attribute is set, indicating a non-Latin script name.
+        Returns:
+            The original object when no changes are needed; otherwise, a new instance of the same concrete class with normalized name parts.
+
+        Note:
+            Names with a `script` attribute are returned unchanged.
         """
         if self.script is not None:
             # Non-Latin script variants are left unchanged;
@@ -201,8 +307,14 @@ class Name:
         first, last = self.first, self.last
         firstlast = self.as_first_last()
 
+        if first is not None:
+            first = _normalize_initials(first)
+        last = _normalize_initials(last)
+
         if not (force or firstlast.islower() or firstlast.isupper()):
-            return self
+            if first == self.first and last == self.last:
+                return self
+            return self.__class__(first, last)
 
         if first is not None:
             first = first.title()
@@ -216,6 +328,30 @@ class Name:
             last = re.sub(pattern, substitute, last)
 
         return self.__class__(first, last)
+
+    def latex_normalize(self) -> Name:
+        """Normalize LaTeX commands in the name.
+
+        Returns:
+            The LaTeX-normalized Name.
+        """
+        first = (
+            MarkupText.from_latex_maybe(self.first).as_text()
+            if self.first is not None
+            else None
+        )
+        last = MarkupText.from_latex_maybe(self.last).as_text()
+        return self.__class__(first, last, script=self.script)
+
+    def is_valid(self, error: bool = False) -> bool:
+        """Check if the name has valid first and last names. (The first name is allowed to be None.) If `error` is True, raises a `ValueError`.
+
+        Returns:
+            True _iff_ the name parts match [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], do not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], do not contain digits (except '3rd' in a last name), and do not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        """
+        return _is_valid_name_part(
+            "first", self.first or "", error=error
+        ) and _is_valid_name_part("last", self.last, error=error)
 
     @cache
     def slugify(self) -> str:
@@ -250,9 +386,7 @@ class Name:
             A corresponding Name object.
 
         Note:
-            This will work for `<author>` and `<editor>` tags as well, but those
-            are more efficiently parsed within
-            [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
+            This will work for `<author>` and `<editor>` tags as well, but those are more efficiently parsed within [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
         """
         first: Optional[str] = None
         last: Optional[str] = None
@@ -495,12 +629,25 @@ class NameSpecification:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
 
-    def case_normalize(self, force: bool = False) -> Self:
-        """Try to heuristically normalize the casing of the name.
+    def normalize(
+        self, casing: bool = True, latex: bool = True, skip_setter: bool = False
+    ) -> Self:
+        """Heuristically normalize the name.
 
-        See [acl_anthology.people.name.Name.case_normalize][].
+        Arguments:
+            casing: If set to False, do not [case-normalize][acl_anthology.people.name.Name.case_normalize].
+            latex: If set to False, do not [LaTeX-normalize][acl_anthology.people.name.Name.latex_normalize].
+            skip_setter: If True, bypass the setter which dynamically updates affected objects. Set during ingestion; you probably do not want to set this manually.
         """
-        self.name = self.name.case_normalize(force=force)
+        name = self.name
+        if latex:
+            name = name.latex_normalize()
+        if casing:
+            name = name.case_normalize()
+        if skip_setter:
+            self._name = name
+        else:
+            self.name = name
         return self
 
     def resolve(self) -> Person:

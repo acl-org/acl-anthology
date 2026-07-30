@@ -8,6 +8,11 @@
         pdf
       </a>
       {{- end -}}
+      {{- with $paper.external -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external publication" aria-label="Open external publication">
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+      </a>
+      {{- end -}}
       {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
       <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX" aria-label="Export to BibTeX">
         bib

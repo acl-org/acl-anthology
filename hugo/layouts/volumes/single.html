@@ -10,7 +10,11 @@
     {{ with $paper.pdf }}
       <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
     {{ else }}
-      {{ $paper.title_html | safeHTML }}
+      {{ with $paper.external }}
+        <a href="{{ . }}">{{ $paper.title_html | safeHTML }} <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i></a>
+      {{ else }}
+        {{ $paper.title_html | safeHTML }}
+      {{ end }}
     {{ end }}
   </h2>
   {{ with $paper.editor }}
@@ -79,8 +83,8 @@
 
       <dt>Publisher:</dt>
       <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
-      <dt>URL:</dt>
-      <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
+      <dt>{{ if $paper.external }}External URL:{{ else }}URL:{{ end }}</dt>
+      <dd><a href="{{ $paper.url }}">{{ $paper.url }}{{ if $paper.external }} <i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>{{ end }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
       {{ with $paper.isbn }}
@@ -119,6 +123,11 @@
       {{ with $paper.pdf }}
       <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(full)</small></span>
+      </a>
+      {{ end }}
+      {{ with $paper.external }}
+      <a class="btn btn-primary" href="{{ . }}" title="Open external publication for '{{ $paper.title | htmlEscape }}'">
+        <i class="fas fa-external-link-alt"></i><span class="ps-2">External</span>
       </a>
       {{ end }}
       {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
