@@ -184,16 +184,16 @@ SYNC_DEST := anthologizer@aclanthology.org:anthology-files
 
 .PHONY: sync
 sync:
-	rsync -azve ssh --remove-source-files --exclude .DS_Store $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_DEST)
+	rsync -azve ssh --remove-source-files --exclude .DS_Store $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
 
 .PHONY: test-scripts
 test-scripts:
 	uv run python -m pytest tests/ -v
 
-# Sometimes after a merge conflict the entries in people.yaml
+# Sometimes after a merge conflict the entries in people.json
 # get miss-sorted. This corrects that by reloading and saving the file.
-.PHONY: normalize
-normalize: venv/bin/activate
+.PHONY: resave_people_json
+resave_people_json: venv/bin/activate
 	. $(VENV) && python3 -c "from acl_anthology import Anthology; anth = Anthology.from_within_repo(); anth.people.load(); anth.people.save()"
 
 .PHONY: clean

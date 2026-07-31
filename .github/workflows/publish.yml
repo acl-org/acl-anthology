@@ -42,6 +42,9 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v3
+    - name: Download NLTK data
+      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
     - name: build
       env:
         ANTHOLOGY_PREFIX: https://aclanthology.org
