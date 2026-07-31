@@ -22,15 +22,10 @@ import re
 import unicodedata
 from slugify import slugify
 from typing import Any, Literal, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
-import yaml
-
-try:
-    from yaml import CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Dumper  # type: ignore
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
+from ..text import MarkupText
 from ..utils.attrs import (
     attach_custom_repr,
     track_namespec_modifications,
@@ -334,6 +329,20 @@ class Name:
 
         return self.__class__(first, last)
 
+    def latex_normalize(self) -> Name:
+        """Normalize LaTeX commands in the name.
+
+        Returns:
+            The LaTeX-normalized Name.
+        """
+        first = (
+            MarkupText.from_latex_maybe(self.first).as_text()
+            if self.first is not None
+            else None
+        )
+        last = MarkupText.from_latex_maybe(self.last).as_text()
+        return self.__class__(first, last, script=self.script)
+
     def is_valid(self, error: bool = False) -> bool:
         """Check if the name has valid first and last names. (The first name is allowed to be None.) If `error` is True, raises a `ValueError`.
 
@@ -440,6 +449,19 @@ class Name:
             return cls.from_string(name)
         else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
+
+    def to_dict(self) -> dict[str, str]:
+        """
+        Returns:
+            A dictionary representing this name.
+        """
+        if self.first is not None:
+            d = {"first": self.first, "last": self.last}
+        else:
+            d = {"last": self.last}
+        if self.script is not None:
+            d["script"] = self.script
+        return d
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
@@ -607,12 +629,25 @@ class NameSpecification:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
 
-    def case_normalize(self, force: bool = False) -> Self:
-        """Try to heuristically normalize the casing of the name.
+    def normalize(
+        self, casing: bool = True, latex: bool = True, skip_setter: bool = False
+    ) -> Self:
+        """Heuristically normalize the name.
 
-        See [acl_anthology.people.name.Name.case_normalize][].
+        Arguments:
+            casing: If set to False, do not [case-normalize][acl_anthology.people.name.Name.case_normalize].
+            latex: If set to False, do not [LaTeX-normalize][acl_anthology.people.name.Name.latex_normalize].
+            skip_setter: If True, bypass the setter which dynamically updates affected objects. Set during ingestion; you probably do not want to set this manually.
         """
-        self.name = self.name.case_normalize(force=force)
+        name = self.name
+        if latex:
+            name = name.latex_normalize()
+        if casing:
+            name = name.case_normalize()
+        if skip_setter:
+            self._name = name
+        else:
+            self.name = name
         return self
 
     def resolve(self) -> Person:
@@ -691,21 +726,3 @@ class NameSpecification:
         for variant in self.variants:
             elem.append(variant.to_xml())
         return elem
-
-
-class _YAMLName(yaml.YAMLObject):
-    """YAMLObject representing names.
-
-    This exists to serialize names in "flow" style (i.e. one-liner `{first: ..., last: ...}`) without having to force flow style on the entire YAML document.
-    """
-
-    yaml_dumper = Dumper
-    yaml_tag = "tag:yaml.org,2002:map"  # serialize like a dictionary
-    yaml_flow_style = True  # force flow style
-
-    def __init__(self, name: Name) -> None:
-        if name.first is not None:
-            self.first = name.first
-        self.last = name.last
-        if name.script is not None:
-            self.script = name.script

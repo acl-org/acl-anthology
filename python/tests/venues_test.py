@@ -14,8 +14,6 @@
 
 import logging
 import pytest
-from pathlib import Path
-from unittest.mock import patch
 
 from acl_anthology.venues import VenueIndex, Venue
 
@@ -23,11 +21,10 @@ all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma", "ws")
 
 
 def test_venue_defaults():
-    venue = Venue("foo", None, "FOO", "Workshop on Foobar", Path("foo.yaml"))
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar")
     assert venue.id == "foo"
     assert venue.acronym == "FOO"
     assert venue.name == "Workshop on Foobar"
-    assert venue.path.name == "foo.yaml"
     assert not venue.is_acl
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None
@@ -36,7 +33,7 @@ def test_venue_defaults():
 
 
 def test_venue_set_itemids():
-    venue = Venue("foo", None, "FOO", "Workshop on Foobar", Path("foo.yaml"))
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar")
     venue.item_ids = [("2099.foo", "long", None), ("2099.foo", "short", None)]
 
     with pytest.raises(TypeError):
@@ -44,35 +41,6 @@ def test_venue_set_itemids():
 
     with pytest.raises(TypeError):
         venue.item_ids = "$§§$§$"
-
-
-def test_venue_save(tmp_path, anthology_stub):
-    path = tmp_path / "foo.yaml"
-    venue = Venue("foo", anthology_stub, "FOO", "Workshop on Foobar", path)
-    venue.save()
-    assert path.is_file()
-    with open(path, "r", encoding="utf-8") as f:
-        out = f.read()
-    expected = """acronym: FOO
-name: Workshop on Foobar
-"""
-    assert out == expected
-
-
-@pytest.mark.parametrize("venue_id", all_toy_venue_ids)
-def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
-    yaml_in = anthology_stub.datadir / "yaml" / "venues" / f"{venue_id}.yaml"
-    venue = Venue.load_from_yaml(yaml_in, anthology_stub)
-    yaml_out = tmp_path / f"{venue_id}.yaml"
-    venue.save(yaml_out)
-    assert yaml_out.is_file()
-    with (
-        open(yaml_in, "r", encoding="utf-8") as f,
-        open(yaml_out, "r", encoding="utf-8") as g,
-    ):
-        expected = f.read()
-        out = g.read()
-    assert out == expected
 
 
 def test_venueindex_create(anthology):
@@ -85,7 +53,6 @@ def test_venueindex_create(anthology):
     assert venue.acronym == "ACLA"
     assert venue.name == "ACL Anthology Workshop"
     assert venue.is_acl
-    assert venue.path.name == "acla.yaml"
 
 
 def test_venueindex_create_with_invalid_id(anthology):
@@ -137,9 +104,17 @@ def test_venueindex_noindex(anthology, caplog):
     assert not any("XML data file" in rec.message for rec in caplog.records)
 
 
-def test_venueindex_save(anthology):
-    index = VenueIndex(anthology)
+def test_venueindex_roundtrip_data(anthology, tmp_path):
+    index = anthology.venues
     index.load()
-    with patch.object(Venue, "save") as mock:
-        index.save()
-        assert mock.call_count == len(index)
+    data_in = index.path
+    data_out = tmp_path / "venues.json"
+    index.save(data_out)
+    assert data_out.is_file()
+    with (
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected

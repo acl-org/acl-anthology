@@ -1,11 +1,6 @@
 """Tests for bin/create_hugo_data.py."""
 
-import sys
-from pathlib import Path
-
 import pytest
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import paper_to_dict
 
