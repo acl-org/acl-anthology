@@ -22,36 +22,40 @@
       return Math.min(elementRect.right, textRect.right);
     }
 
-    function getYearTrackWidth(row) {
-      // Start after this row's visible venue text; the right edge remains shared.
-      const rowStyle = getComputedStyle(row);
-      const rowRect = row.getBoundingClientRect();
+    function getYearTrackWidth(rows) {
+      if (rows.length === 0) return 0;
+
+      // Start every row after the rightmost visible venue label.
+      const rowStyle = getComputedStyle(rows[0]);
+      const rowRect = rows[0].getBoundingClientRect();
       const gap = parseFloat(rowStyle.columnGap) || 0;
       const paddingRight = parseFloat(rowStyle.paddingRight) || 0;
       const venueRight = Math.max(
-        getVisibleTextRight(row.querySelector(".acl-venue-row__label")),
-        getVisibleTextRight(row.querySelector(".acl-venue-row__name"))
+        ...rows.map(function (row) {
+          return Math.max(
+            getVisibleTextRight(row.querySelector(".acl-venue-row__label")),
+            getVisibleTextRight(row.querySelector(".acl-venue-row__name"))
+          );
+        })
       );
       return Math.max(0, rowRect.right - paddingRight - venueRight - gap);
     }
 
-    function fitRecentYears(row, yearLinks, moreButton) {
-      const years = row.querySelector(".acl-venue-years");
-      yearLinks.forEach(function (link) {
-        link.hidden = false;
+    function getYearSlotLayout(rows, availableWidth) {
+      let gap = 0;
+      let slotWidth = 0;
+      rows.forEach(function (row) {
+        const years = row.querySelector(".acl-venue-years");
+        const moreButton = row.querySelector("[data-venue-more]");
+        const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
+        yearLinks.forEach(function (link) {
+          link.hidden = false;
+          slotWidth = Math.max(slotWidth, link.getBoundingClientRect().width);
+        });
+        moreButton.hidden = false;
+        gap = Math.max(gap, parseFloat(getComputedStyle(years).columnGap) || 0);
+        slotWidth = Math.max(slotWidth, moreButton.getBoundingClientRect().width);
       });
-      moreButton.hidden = false;
-
-      const gap = parseFloat(getComputedStyle(years).columnGap) || 0;
-      const availableWidth = getYearTrackWidth(row);
-      const moreWidth = moreButton.getBoundingClientRect().width;
-      // Reserve equal slots from the right edge, then fill newest-first from the left.
-      const slotWidth = Math.max(
-        moreWidth,
-        ...yearLinks.map(function (link) {
-          return link.getBoundingClientRect().width;
-        })
-      );
       const slotCount = Math.max(
         1,
         Math.floor((availableWidth + gap) / (slotWidth + gap))
@@ -60,14 +64,19 @@
         availableWidth,
         slotCount * slotWidth + Math.max(0, slotCount - 1) * gap
       );
-      years.style.width = stripWidth + "px";
+      return { slotCount: slotCount, stripWidth: stripWidth };
+    }
 
-      if (yearLinks.length <= slotCount) {
+    function fitRecentYears(row, yearLinks, moreButton, slotLayout) {
+      const years = row.querySelector(".acl-venue-years");
+      years.style.width = slotLayout.stripWidth + "px";
+
+      if (yearLinks.length <= slotLayout.slotCount) {
         moreButton.hidden = true;
         return yearLinks.length;
       }
 
-      const visibleYears = Math.max(0, slotCount - 1);
+      const visibleYears = Math.max(0, slotLayout.slotCount - 1);
       yearLinks.forEach(function (link, index) {
         link.hidden = index >= visibleYears;
       });
@@ -80,12 +89,34 @@
       let visibleVenues = 0;
       let visibleYears = 0;
 
-      venueRows.forEach(function (row) {
+      const matchingRows = venueRows.filter(function (row) {
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const textMatches = row.dataset.venueSearch.includes(query);
         const rowMatchesText = (hasQuery || isTopLevel) && textMatches;
         row.hidden = !rowMatchesText;
-        if (!rowMatchesText) return;
+        if (!rowMatchesText) return false;
+
+        if (activePeriod === "recent" || activePeriod === "all") return true;
+        const hasMatchingYear = Array.from(row.querySelectorAll("[data-decade]")).some(
+          function (link) {
+            return link.dataset.decade === activePeriod;
+          }
+        );
+        row.hidden = !hasMatchingYear;
+        return hasMatchingYear;
+      });
+
+      const yearTrackWidth = getYearTrackWidth(matchingRows);
+      const compactRows = activePeriod === "recent"
+        ? matchingRows.filter(function (row) {
+          return row.dataset.expanded !== "true";
+        })
+        : [];
+      const slotLayout = compactRows.length > 0
+        ? getYearSlotLayout(compactRows, yearTrackWidth)
+        : null;
+
+      matchingRows.forEach(function (row) {
 
         const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
         const expanded = row.dataset.expanded === "true";
@@ -95,9 +126,9 @@
 
         row.classList.toggle("is-year-expanded", !isCompact);
         if (isCompact && moreButton) {
-          matchingYears = fitRecentYears(row, yearLinks, moreButton);
+          matchingYears = fitRecentYears(row, yearLinks, moreButton, slotLayout);
         } else {
-          row.querySelector(".acl-venue-years").style.width = getYearTrackWidth(row) + "px";
+          row.querySelector(".acl-venue-years").style.width = yearTrackWidth + "px";
           yearLinks.forEach(function (link) {
             const periodMatches = activePeriod === "all"
               || (activePeriod === "recent" && expanded)
@@ -111,9 +142,7 @@
           }
         }
 
-        const rowMatches = matchingYears > 0;
-        row.hidden = !rowMatches;
-        if (rowMatches) {
+        if (matchingYears > 0) {
           visibleVenues += 1;
           visibleYears += matchingYears;
         }
