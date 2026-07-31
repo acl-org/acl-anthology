@@ -33,7 +33,7 @@ import yaml
 import re
 import shutil
 import sys
-import PyPDF2
+import pypdf
 
 from collections import defaultdict
 from datetime import datetime
@@ -189,7 +189,7 @@ def add_page_numbers(
             )
 
         with open(paper_need_read_path, "rb") as pdf:
-            pdf_reader = PyPDF2.PdfReader(pdf)
+            pdf_reader = pypdf.PdfReader(pdf)
             num_of_pages = len(pdf_reader.pages)
             start = end + 1
             end = start + num_of_pages - 1
@@ -217,15 +217,6 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
     return " ".join(author[field] for field in fields if author.get(field) is not None)
 
 
-def latex_to_text(text: Optional[str]) -> Optional[str]:
-    """Convert a possibly-LaTeX string (e.g. a name with LaTeX-style diacritics
-    such as ``Sch\\"utze``) into plain Unicode text. Returns None if the input is
-    None."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text).as_text()
-
-
 # Repairs for common LaTeX quirks introduced by upstream export pipelines
 # (aclpub2, OpenReview, START, etc.) before the text is handed to
 # ``MarkupText.from_latex_maybe()``. Each entry is a ``(name, pattern, repl)``
@@ -236,31 +227,11 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
 #   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
-#
-# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
-#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
-#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
-#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
-#   content ``X`` so the text survives. (Non-nested braces only.)
-#
-# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
-#   contains hard line breaks that are not meaningful LaTeX; drop them so the
-#   text is flattened to a single line before parsing.
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
         re.compile(r"\\\\\$"),
         r"\\$",
-    ),
-    (
-        "texttt_unwrap",
-        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
-        r"\1",
-    ),
-    (
-        "strip_newlines",
-        re.compile(r"\n"),
-        "",
     ),
 ]
 
@@ -373,8 +344,8 @@ def namespec_from(
     diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning.
     The OpenReview ID is only stored when no ORCID is available."""
     raw_first, raw_last = first, last
-    first = latex_to_text(first.strip()) if first else None
-    last = latex_to_text(last.strip()) if last else ""
+    first = first.strip() if first else None
+    last = last.strip() if last else ""
     try:
         name = Name(first or None, last)
     except ValueError as e:
@@ -955,6 +926,7 @@ def ingest(
             "editors": paper.get("editors", []),
         }
         if paper.get("pdf_src") and paper.get("pdf_dest"):
+            check_for_anonymous_pdf(paper["pdf_src"])
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
@@ -1001,7 +973,23 @@ def ingest(
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
-def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
+ANONYMOUS_PATTERN = re.compile(r"\bAnonymous\s+[\w-]+\s+submission\b")
+
+
+def check_for_anonymous_pdf(source_path: str) -> None:
+    """
+    Checks for signs of anonymous PDFs and outputs a warning; does nothing otherwise.
+    """
+    source = Path(source_path)
+    with open(source, "rb") as pdf:
+        pdf_reader = pypdf.PdfReader(pdf)
+        # Check for "Anonymous [XXX] submission" string on first page
+        text = pdf_reader.pages[0].extract_text() or ""
+        if ANONYMOUS_PATTERN.search(text) is not None:
+            log.warning(f"Potentially anonymous PDF: {source}")
+
+
+def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False) -> None:
     """Copies the file if it's different from the target."""
     source = Path(source_path)
     dest = Path(dest_path)
@@ -1052,7 +1040,7 @@ def normalize_latex(text: Optional[str], is_title: bool = True) -> Optional[Mark
     return markup
 
 
-def namespec_from_bib(person) -> NameSpecification:
+def namespec_from_bib(person, orcid: Optional[str] = None) -> NameSpecification:
     """Creates a NameSpecification from a pybtex Person object."""
     first_text = " ".join(person.first_names + person.middle_names)
     last_text = " ".join(person.prelast_names + person.last_names)
@@ -1064,11 +1052,26 @@ def namespec_from_bib(person) -> NameSpecification:
         last_text = first_text
         first_text = ""
 
-    return namespec_from(first=first_text, last=last_text)
+    return namespec_from(first=first_text, last=last_text, orcid=orcid)
+
+
+def read_orc_file(orcfilename: Path | str) -> Dict[int, str]:
+    """Parse an ACLPUB .orc sidecar into 1-based author-indexed ORCIDs."""
+    path = Path(orcfilename)
+    if not path.is_file():
+        return {}
+
+    orcids = {}
+    with open(path) as instream:
+        for line in instream:
+            match = re.fullmatch(r"Author\{(\d+)\}\{Orcid\}\s*:\s*(\S*)", line.strip())
+            if match is not None and match[2]:
+                orcids[int(match[1])] = match[2]
+    return orcids
 
 
 def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str, Any]]:
-    """Parse a single-entry BibTeX file into structured metadata."""
+    """Parse a BibTeX entry and its optional ACLPUB .orc sidecar."""
 
     try:
         bibdata = pybtex.database.input.bibtex.Parser().parse_file(bibfilename)
@@ -1088,6 +1091,8 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
     if page_range is not None:
         page_range = page_range.replace("--", "-")
 
+    orcids = read_orc_file(Path(bibfilename).with_suffix(".orc"))
+
     return {
         "title": normalize_latex(bibentry.fields.get("title")),
         "booktitle": normalize_latex(bibentry.fields.get("booktitle")),
@@ -1100,7 +1105,8 @@ def read_bib_entry(bibfilename: Path | str, paper_id: str) -> Optional[Dict[str,
         "doi": bibentry.fields.get("doi"),
         "language": bibentry.fields.get("language"),
         "authors": [
-            namespec_from_bib(person) for person in bibentry.persons.get("author", [])
+            namespec_from_bib(person, orcids.get(index))
+            for index, person in enumerate(bibentry.persons.get("author", []), start=1)
         ],
         "editors": [
             namespec_from_bib(person) for person in bibentry.persons.get("editor", [])

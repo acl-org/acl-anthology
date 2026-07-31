@@ -13,7 +13,7 @@ are some rules of thumb when making modifications to the data:
    the object in question has an explicit representation in the Anthology data.
     - This includes collections, volumes, papers, events.
     - It also includes persons where `Person.is_explicit == True`, as those have
-      an explicit representation in `people.yaml`.
+      an explicit representation in `people.json`.
 3. **Saving data is always non-destructive.**  In XML files, it will also avoid
    introducing unnecessary changes (e.g. no needless reordering of tags).
 4. Affected indices and their child objects **should automatically update** on relevant changes.
@@ -140,7 +140,7 @@ Changing an item's attribute might affect various indices.  As a rule of thumb, 
 
 ## Modifying people
 
-A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was instantiated from a name specification without an ID).  To make modifications to persons, it is important to remember that:
+A person can be _explicit_ (has an entry in `people.json`) or _inferred_ (was instantiated from a name specification without an ID).  To make modifications to persons, it is important to remember that:
 
 1. Only an _explicit_ person's attributes can be meaningfully modified.
 
@@ -148,15 +148,15 @@ A person can be _explicit_ (has an entry in `people.yaml`) or _inferred_ (was in
 
 ??? info "A note on terminology"
 
-    Within the library, the term **explicit** refers to a person that has an entry in `people.yaml`, whereas **inferred** refers to a person that was instantiated automatically while loading the XML data files (and has no entry in `people.yaml`).
+    Within the library, the term **explicit** refers to a person that has an entry in `people.json`, whereas **inferred** refers to a person that was instantiated automatically while loading the XML data files (and has no entry in `people.json`).
 
     Currently, all inferred persons have IDs ending with `/unverified`, while IDs of explicit persons _must not_ end with `/unverified`.  (More specifically, they may not even contain a slash.)
 
-    In practice, this means that "inferred" persons are currently equivalent to "unverified" persons, but the library intentionally uses terminology that is agnostic to the semantics of the ID.  If the semantics of whom we consider "(un)verified" change, the terminology in the library needn't change, as it only refers to the technical aspect of where the ID came from (`people.yaml` vs. implicit instantiation).
+    In practice, this means that "inferred" persons are currently equivalent to "unverified" persons, but the library intentionally uses terminology that is agnostic to the semantics of the ID.  If the semantics of whom we consider "(un)verified" change, the terminology in the library needn't change, as it only refers to the technical aspect of where the ID came from (`people.json` vs. implicit instantiation).
 
 ### Creating a new person
 
-Manually creating a new person (that will get saved to `people.yaml` and can
+Manually creating a new person (that will get saved to `people.json` and can
 have an ORCID and other metadata) can be done in two ways:
 
 1. By calling [`PersonIndex.create()`][acl_anthology.people.index.PersonIndex.create].  The returned Person is _not_ linked to any papers/volumes, but you can set their ID afterwards on name specifications.
@@ -167,7 +167,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 **Situation:** An author has published under multiple names, and therefore two separate persons get instantiated for them (let's call them `p1` and `p2`).  We want to merge them into a single person.
 
-1. If neither person is _explicit_ yet: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.yaml` with all current names of `p1` add the new ID to all papers and volumes currently inferred to belong to either `p1`.
+1. If neither person is _explicit_ yet: Call [`p1.make_explicit()`][acl_anthology.people.person.Person.make_explicit].  This will create an entry in `people.json` with all current names of `p1` add the new ID to all papers and volumes currently inferred to belong to either `p1`.
 
 2. `p1` can now assumed to be explicit.  If `p2` is not explicit, call [`p2.merge_into(p1)`][acl_anthology.people.person.Person.merge_into].  This will add all of `p2`'s names to `p1` and set `p1`'s ID on all papers and volumes currently inferred to belong to `p2`.
 
@@ -183,7 +183,7 @@ have an ORCID and other metadata) can be done in two ways:
 
 ## Ingesting new proceedings
 
-Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or YAML) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
+Proceedings can be ingested almost entirely via functionality from this library; in particular, no data files (XML or JSON) need to be saved manually.  _(The only functionality that is currently not part of this library is the fixed-caser for paper titles, which is described below.)_
 
 ### New collections, volumes, and papers
 
@@ -278,7 +278,7 @@ NameSpecification(Name("Marcel", "Bollmann"), orcid="0000-0003-2598-8150")
 ```
 
 If an ORCID is supplied, the NameSpecification also needs to have an explicit ID
-referring to an entry in `people.yaml`.  **The library can add an ID
+referring to an entry in `people.json`.  **The library can add an ID
 automatically** as long as you supply the author/editor list to the `create_`
 function, so there is typically **no need to call `create()`** during
 ingestion!
@@ -296,8 +296,8 @@ ingestion!
 
     ...the name specification will automatically be updated with an ID referring to this person in one of two ways:
 
-    - If a person with this ORCID already exists in `people.yaml`, their ID will be filled in.
-    - If a person with this ORCID does not exist in `people.yaml`, a new entry with this ORCID will be added to `people.yaml` with an auto-generated person ID.  The ID is a slug of the person's name; if necessary to avoid an ID clash, the last four digits of their ORCID will be appended.
+    - If a person with this ORCID already exists in `people.json`, their ID will be filled in.
+    - If a person with this ORCID does not exist in `people.json`, a new entry with this ORCID will be added to `people.json` with an auto-generated person ID.  The ID is a slug of the person's name; if necessary to avoid an ID clash, the last four digits of their ORCID will be appended.
 
 
 ### New events
@@ -328,11 +328,12 @@ the gory details), it's best to ensure that:
 
 Volumes can be connected to venues by modifying the volume's `venue_ids` list.
 New venues can be added by calling
-[`VenueIndex.create()`][acl_anthology.venues.VenueIndex.create], which will also
-create a corresponding YAML file upon saving.  Afterwards, the ID used when
-instantiating the venue can be used in a volume's `venue_ids`.
+[`VenueIndex.create()`][acl_anthology.venues.VenueIndex.create].  Afterwards,
+the ID used when instantiating the venue can be used in a volume's `venue_ids`.
 
-{==TODO: connecting to SIGs; we may want to refactor how SIGs are represented before introducing this functionality.==}
+Volumes can be connected to SIGs in exactly the same way, by modifying the
+volume's `sig_ids` list.  New SIGs can be added by calling
+[`SIGIndex.create()`][acl_anthology.sigs.SIGIndex.create].
 
 
 ## Saving changes
@@ -342,7 +343,7 @@ instantiating the venue can be used in a volume's `venue_ids`.
     Call [`anthology.save_all()`][acl_anthology.anthology.Anthology.save_all] to save all metadata changes.
 
 Calling [`save_all()`][acl_anthology.anthology.Anthology.save_all] will write
-XML and YAML files to the Anthology's data directory, with the following
+XML and JSON files to the Anthology's data directory, with the following
 caveats:
 
 - **Collections will track if they have been modified** to prevent writing XML
@@ -359,6 +360,6 @@ caveats:
     non-destructive through [integration tests on the entire Anthology
     data](https://github.com/acl-org/acl-anthology/blob/master/python/tests/anthology_integration_test.py).
 
-- **YAML files will always be written**.  Serializing all YAML files is much
+- **JSON files will always be written**.  Serializing all JSON files is much
   faster than serializing all XML files, so they are written unconditionally,
   without tracking changes.

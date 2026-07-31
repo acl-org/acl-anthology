@@ -87,6 +87,10 @@
       <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
+      {{- with $volume.external -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external proceedings" aria-label="Open external proceedings"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      <br class="d-none d-sm-inline-block" />
+      {{- end -}}
       {{- $bibfile := printf "volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
       <a class="badge text-bg-secondary align-middle me-1" href="{{ relURL $bibfile }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>

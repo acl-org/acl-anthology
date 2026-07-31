@@ -241,12 +241,13 @@ class Anthology:
 
         Note:
             - **Calling this function should normally not be necessary, as indices (and their child objects) update automatically when making changes.**
-            - Any modifications to data stored directly by the indices (i.e. stored in the YAML files, rather than inferred from the XML) need to be saved before calling this, or they will be lost.
+            - Any modifications to data stored directly by the indices (i.e. stored in the JSON files, rather than inferred from the XML) need to be saved before calling this, or they will be lost.
             - This will not update any Event, Person, or Venue objects you may have already obtained, but any objects returned by an index after the reset will reflect the new data.
         """
         self.events.reset()
         self.people.reset()
         self.venues.reset()
+        self.sigs.reset()
         return self
 
     @property

@@ -23,6 +23,10 @@ from xml.sax.saxutils import escape as xml_escape
 TAGS_WITH_MARKUP = {
     "b",
     "i",
+    "u",
+    "sc",
+    "tt",
+    "a",
     "fixed-case",
     "title",
     "abstract",
@@ -279,6 +283,10 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
         elem.attrib.clear()
         for key, value in attribs:
             elem.set(key, value)
+
+    # If element contains markup, we do NOT recurse into its children and stop here
+    if elem.tag in TAGS_WITH_MARKUP:
+        return
 
     # Sort child elements to match order in reference, if element allows reordering
     if elem.tag in TAGS_WITH_UNORDERED_CHILDREN:
