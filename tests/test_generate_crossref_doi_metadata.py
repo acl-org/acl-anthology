@@ -1,12 +1,8 @@
 """Regression tests for bin/generate_crossref_doi_metadata.py."""
 
-import sys
 from pathlib import Path
 
 import pytest
-
-# Ensure the bin directory is importable
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.generate_crossref_doi_metadata import (
     classify_input,

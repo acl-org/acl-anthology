@@ -14,27 +14,30 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
-from collections import ChainMap, defaultdict
+from attrs import define, field, validators as v, asdict
+from collections import defaultdict
+from msgspec import json
 from pathlib import Path
-from typing import Iterator, Optional, TYPE_CHECKING
-import yaml
+from typing import Any, Iterator, Optional, TYPE_CHECKING
+import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .collections import Volume
 from .containers import SlottedDict
-from .utils import ids
-from .utils.attrs import attach_custom_repr
-from .utils.ids import AnthologyID, AnthologyIDTuple
-
-try:
-    from yaml import CLoader as Loader, CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Loader, Dumper  # type: ignore
+from .utils.attrs import attach_custom_repr, repr_item_ids
+from .utils.ids import AnthologyID, AnthologyIDTuple, build_id_from_tuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
     from .anthology import Anthology
     from .collections.volume import Volume
+
+
+SIG_INDEX_FILE = "json/sigs.json"
 
 
 @attach_custom_repr
@@ -43,23 +46,26 @@ class SIG:
     """A special interest group (SIG).
 
     Attributes:
-        parent: The parent SIGIndex instance.
         id: The SIG ID, e.g. "sigsem".
+        parent: The parent SIGIndex instance.
         acronym: The SIG's acronym or short name, e.g. "SIGSEM".
         name: The SIG's full name.
-        path: The path of the YAML file representing this SIG.
         url: A website URL for the SIG.
+        external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
+        item_ids: An unordered set of volume IDs associated with this venue.
     """
 
-    parent: SIGIndex = field(repr=False, eq=False)
     id: str = field(converter=str, metadata={"repr_omits_field_name": True})
+    parent: SIGIndex = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
-    path: Path = field(converter=Path, eq=False)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    meetings: list[str | SIGMeeting] = field(
+    external_meetings: list[SIGMeeting] = field(
         factory=list,
         repr=lambda x: f"<list[str | SIGMeeting] with {len(x)} item{'' if len(x) == 1 else 's'}>",
+    )
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, converter=set, repr=repr_item_ids, eq=False
     )
 
     @property
@@ -73,95 +79,32 @@ class SIG:
         Returns:
             A dictionary where keys are strings representing years, and values are meetings of this SIG in that year.
         """
-        by_year = defaultdict(list)
-        for meeting in self.meetings:
-            year = ids.infer_year(meeting) if isinstance(meeting, str) else meeting.year
-            by_year[year].append(meeting)
+        by_year: dict[str, list[str | SIGMeeting]] = defaultdict(list)
+        for volume in self.volumes():
+            by_year[volume.year].append(volume.full_id)
+        for meeting in self.external_meetings:
+            by_year[meeting.year].append(meeting)
         return by_year
+
+    @deprecated("SIG.save() is deprecated in favor of SIGIndex.save()")
+    def save(self, path: Optional[StrPath] = None) -> None:  # pragma: no cover
+        """Saves this SIG."""
+        if path is None:
+            raise UserWarning(
+                "Providing a 'path' argument to SIG.save() has no effect anymore"
+            )
+
+        self.parent.save()
 
     def volumes(self) -> Iterator[Volume]:
         """Iterate over all volumes that are associated with this SIG."""
-        for meeting in self.meetings:
-            if isinstance(meeting, str):
-                volume = self.root.get_volume(meeting)
-                if volume is None:
-                    raise KeyError(
-                        f"SIG '{self.acronym}' lists volume '{meeting}' which doesn't exist"
-                    )
-                yield volume
-
-    @classmethod
-    def load_from_yaml(cls, parent: SIGIndex, path: StrPath) -> SIG:
-        """Instantiates a SIG from its YAML file.
-
-        Arguments:
-            parent: The parent SIGIndex instance.
-            path: The YAML file defining this SIG.
-
-        Warning:
-            Currently assumes that files are named `{sig_id}.yaml`.
-        """
-        path = Path(path)
-        sig_id = path.name[:-5]
-        with open(path, "r", encoding="utf-8") as f:
-            kwargs = yaml.load(f, Loader=Loader)
-        sig = cls(
-            parent,
-            id=sig_id,
-            acronym=kwargs["ShortName"],
-            name=kwargs["Name"],
-            path=path,
-            url=kwargs.get("URL"),
-        )
-        for year, meetings in ChainMap(*kwargs["Meetings"]).items():
-            for meeting in meetings:
-                if isinstance(meeting, str):
-                    sig.meetings.append(meeting)
-                else:
-                    sig.meetings.append(
-                        SIGMeeting(
-                            str(year),
-                            meeting["Name"],
-                            url=meeting.get("URL"),
-                        )
-                    )
-        return sig
-
-    def save(self, path: Optional[StrPath] = None) -> None:
-        """Saves this SIG as a YAML file.
-
-        Arguments:
-            path: The filename to save to. If None, defaults to `self.path`.
-        """
-        if path is None:
-            self.root._warn_if_in_default_path()
-            path = self.path
-        values = {
-            "Name": self.name,
-            "ShortName": self.acronym,
-        }
-        values_meetings = []
-        if self.url:
-            values["URL"] = self.url
-        if self.meetings:
-            meetings_by_year = sorted(
-                self.get_meetings_by_year().items(), key=lambda x: x[0], reverse=True
-            )
-            for year, meetings in meetings_by_year:
-                year_meetings = []
-                for meeting in meetings:
-                    if isinstance(meeting, str):
-                        value: str | dict[str, str] = meeting
-                    else:
-                        value = {"Name": meeting.name}
-                        if meeting.url is not None:
-                            value["URL"] = meeting.url
-                    year_meetings.append(value)
-                values_meetings.append({int(year): year_meetings})
-        with open(path, "w", encoding="utf-8") as f:
-            yaml.dump(values, f, Dumper=Dumper, width=999)
-            if values_meetings:
-                yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)
+        for anthology_id in self.item_ids:
+            volume = self.root.get_volume(anthology_id)
+            if volume is None:  # pragma: no cover
+                raise ValueError(
+                    f"SIG {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
+                )
+            yield volume
 
 
 @attach_custom_repr
@@ -189,49 +132,123 @@ class SIGIndex(SlottedDict[SIG]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        is_data_loaded: A flag indicating whether the venue YAML files have been loaded.
+        path: The path to `sigs.json`.
+        no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
+        is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    reverse: dict[AnthologyIDTuple, set[str]] = field(
-        init=False, repr=False, factory=lambda: defaultdict(set)
-    )
+    path: Path = field(init=False)
+    no_item_ids: bool = field(repr=False, default=False)
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
 
+    @path.default
+    def _path(self) -> Path:
+        return self.parent.datadir / Path(SIG_INDEX_FILE)
+
     def load(self) -> None:
-        """Loads and parses the `sigs/*.yaml` files.
+        """Load and parse the `sigs.json` file.
 
         Raises:
-            KeyError: If a mandatory key is missing in a YAML file.
+            KeyError: If a mandatory key is missing in a SIG entry.
         """
+        # This function exists so we can later add the option to read the index
+        # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
             return
-        for yamlpath in self.parent.datadir.glob("yaml/sigs/*.yaml"):
-            sig = SIG.load_from_yaml(self, yamlpath)
-            self.data[sig.id] = sig
 
-            for meeting in sig.meetings:
-                if isinstance(meeting, str):
-                    volume_fid = ids.parse_id(meeting)
-                    self.reverse[volume_fid].add(sig.id)
+        with open(self.path, "rb") as f:
+            data = json.decode(f.read())
 
+        for sig_id, params in data.items():
+            if "external_meetings" in params:
+                params["external_meetings"] = [
+                    SIGMeeting(**meeting) for meeting in params["external_meetings"]
+                ]
+            self.data[sig_id] = SIG(id=sig_id, parent=self, **params)
+
+        self.build()
         self.is_data_loaded = True
 
-    def save(self) -> None:
-        """Save all SIG metadata to `sigs/*.yaml` files."""
-        for sig in self.values():
-            sig.save()
+    def create(self, id: str, acronym: str, name: str, **kwargs: Any) -> SIG:
+        """Create a new venue and add it to the index.
 
-    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:
+        Parameters:
+            id: The ID of the new SIG.
+            acronym: The acronym of the new SIG.
+            name: The name of the new SIG.
+            **kwargs: Any valid optional attribute of [SIG][acl_anthology.sigs.SIG], with the exception of `item_ids`, which cannot be set.
+
+        Returns:
+            The created [SIG][acl_anthology.sigs.SIG] object.
+
+        Raises:
+            KeyError: If an invalid attribute is supplied in `**kwargs`.
+        """
+        if "item_ids" in kwargs:
+            raise KeyError(
+                "Cannot specify `item_ids` for SIG; add its ID to the volume(s) instead."
+            )  # pragma: no cover
+
+        kwargs["parent"] = self
+        sig = SIG(id=id, acronym=acronym, name=name, **kwargs)
+        self.data[id] = sig
+        return sig
+
+    def reset(self) -> None:
+        """Reset the index."""
+        self.data = {}
+        self.is_data_loaded = False
+
+    def build(self) -> None:
+        """Load the entire Anthology data and build an index of SIGs.
+
+        Raises:
+            ValueError: If a volume lists a SIG ID that doesn't exist (i.e., isn't defined in `sigs.json`).
+        """
+        if self.no_item_ids:
+            return
+        for volume in self.parent.volumes():
+            for sig_id in volume.sig_ids:
+                try:
+                    self.data[sig_id].item_ids.add(volume.full_id_tuple)
+                except KeyError:  # pragma: no cover
+                    raise ValueError(
+                        f"Volume {volume.full_id} lists associated SIG {sig_id}, which doesn't exist"
+                    )
+
+    def save(self, path: Optional[StrPath] = None) -> None:
+        """Save the `sigs.json` file.
+
+        Arguments:
+            path: The filename to save to. If None, defaults to the parent Anthology's `sigs.json` file.
+        """
+        if path is None:  # pragma: no cover
+            self.parent._warn_if_in_default_path()
+            path = self.path
+
+        data = {}
+        for sig_id, venue in self.items():
+            # Serialize everything except "id", "item_ids", "parent" and default values
+            data[sig_id] = asdict(
+                venue,
+                filter=lambda a, v: a.name not in ("id", "item_ids", "parent")
+                and v != a.default
+                and not (isinstance(v, list) and len(v) == 0),
+            )
+
+        with open(path, "wb") as f:
+            f.write(json.format(json.encode(data)))
+            f.write(b"\n")
+
+    @deprecated("SIGIndex.by_volume() is deprecated; use Volume.sigs() instead")
+    def by_volume(self, volume: Volume | AnthologyID) -> list[SIG]:  # pragma: no cover
         """Find SIGs associated with a volume."""
-        if not self.is_data_loaded:
-            self.load()
+        if not isinstance(volume, Volume):
+            if (vol := self.parent.get_volume(volume)) is None:
+                raise ValueError(f"Volume {volume} doesn't exist")
+            volume = vol
 
-        if isinstance(volume, Volume):
-            volume_fid = volume.full_id_tuple
-        else:
-            volume_fid = ids.parse_id(volume)
-
-        return [self.data[sig_id] for sig_id in self.reverse[volume_fid]]
+        return volume.sigs()

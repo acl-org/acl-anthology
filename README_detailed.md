@@ -61,7 +61,7 @@ for installation instructions.
 ### Step 1: Prepare the data for site generation
 
 The data sources for the Anthology reside in the [`data/`](data/) directory.
-XML files contain the authoritative paper metadata, and additional YAML files
+XML files contain the authoritative paper metadata, and additional JSON files
 document information about authors, venues, and special interest groups (SIGs).
 Before the Anthology website can be generated, all this information needs to be
 converted and preprocessed for the static site generator.  Some derived
@@ -140,16 +140,12 @@ comprise:
   metadata.  Their format is defined in a RELAX NG schema
   [`schema.rnc`](data/xml/schema.rnc) in the same directory.
 
-+ YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
-  URLs, and associated venues for all Special Interest Groups (SIGs).
-
-+ YAML files that define venues (in [`yaml/venues/`](data/yaml/venues)).
-  Each venue has its own YAML file that contains venue-specific information
-  such as acronym, full name and URL.
-
-+ An author index ([`people.yaml`](data/yaml/people.yaml)) that defines all
-  [verified authors](hugo/content/info/verification.md), together with metadata
-  such as ORCID iDs and all [known name variants](hugo/content/info/names.md).
++ The JSON data files (in [`json/`](data/json)), defining:
+  - Special Interest Groups (SIGs) ([`sigs.json`](data/json/sigs.json))
+  - Venues ([`venues.json`](data/json/venues.json))
+  - [Verified](hugo/content/info/verification.md) authors
+    ([`people.json`](data/json/people.json)), with metadata such as ORCID iDs
+    and all [known name variants](hugo/content/info/names.md)
 
 **The `acl_anthology` Python library** under [`python/`](python/) is responsible
 for parsing and interpreting all these data files, and **is the recommended way
@@ -237,7 +233,7 @@ The following criteria are checked automatically (via [pre-commit
 hooks](.pre-commit-config.yaml) that are run within GitHub workflows) and
 enforced for all changes pushed to the Anthology:
 
-1. YAML files need to be syntactically well-formed.
+1. JSON files need to be syntactically well-formed.
 2. XML files need to follow the schema definition in
    [`schema.rnc`](data/xml/schema.rnc).
 3. Files should end in exactly one newline, and lines should not have trailing
