@@ -56,6 +56,17 @@ endif
 # Easiest if the server can just serve them from /anthology-files.
 ANTHOLOGYFILES ?= /var/www/anthology-files
 
+# Local GROBID service used by bin/extract_pdf_metadata.py. The full image uses
+# the more accurate header and affiliation models; override GROBID_IMAGE with
+# grobid/grobid:$(GROBID_VERSION)-crf for the smaller CRF-only image.
+GROBID_VERSION ?= 0.9.0
+GROBID_IMAGE ?= grobid/grobid:$(GROBID_VERSION)-full
+GROBID_CONTAINER ?= acl-anthology-grobid
+GROBID_PORT ?= 8070
+GROBID_URL ?= http://localhost:$(GROBID_PORT)
+GROBID_PLATFORM ?= linux/amd64
+GROBID_STARTUP_TIMEOUT ?= 300
+
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
@@ -189,6 +200,67 @@ sync:
 .PHONY: test-scripts
 test-scripts:
 	uv run python -m pytest tests/ -v
+
+# Start a reusable local GROBID service for PDF metadata extraction. The image
+# is amd64-only; Docker Desktop provides emulation on Apple Silicon.
+.PHONY: grobid
+grobid:
+	@if ! command -v docker >/dev/null 2>&1; then \
+	    echo "FATAL    Docker is required to run GROBID."; \
+	    echo "         Install Docker Desktop: https://docs.docker.com/desktop/"; \
+	    exit 1; \
+	fi
+	@if ! docker info >/dev/null 2>&1; then \
+	    echo "FATAL    Docker is installed, but its daemon is not running."; \
+	    echo "         Start Docker Desktop, then run 'make grobid' again."; \
+	    exit 1; \
+	fi
+	@existing_image="$$(docker inspect --format '{{.Config.Image}}' "$(GROBID_CONTAINER)" 2>/dev/null || true)"; \
+	replaced_container=false; \
+	if [[ -n "$$existing_image" && "$$existing_image" != "$(GROBID_IMAGE)" ]]; then \
+	    echo "INFO     Replacing $(GROBID_CONTAINER) ($$existing_image) with $(GROBID_IMAGE)..."; \
+	    docker rm -f "$(GROBID_CONTAINER)" >/dev/null; \
+	    existing_image=""; \
+	    replaced_container=true; \
+	fi; \
+	if [[ "$$replaced_container" != true ]] && curl -fsS "$(GROBID_URL)/api/isalive" 2>/dev/null | grep -qx true; then \
+	    echo "INFO     GROBID is already ready at $(GROBID_URL)."; \
+	    exit 0; \
+	fi; \
+	if [[ -n "$$existing_image" ]]; then \
+	    if [[ "$$(docker inspect --format '{{.State.Running}}' "$(GROBID_CONTAINER)")" != true ]]; then \
+	        echo "INFO     Starting existing GROBID container..."; \
+	        docker start "$(GROBID_CONTAINER)" >/dev/null; \
+	    else \
+	        echo "INFO     Waiting for the running GROBID container..."; \
+	    fi; \
+	else \
+	    echo "INFO     Pulling and starting $(GROBID_IMAGE)..."; \
+	    docker run --detach \
+	        --name "$(GROBID_CONTAINER)" \
+	        --platform "$(GROBID_PLATFORM)" \
+	        --init \
+	        --ulimit core=0 \
+	        --publish "$(GROBID_PORT):8070" \
+	        "$(GROBID_IMAGE)" >/dev/null; \
+	fi; \
+	echo "INFO     Waiting for GROBID to become ready..."; \
+	for attempt in $$(seq 1 "$(GROBID_STARTUP_TIMEOUT)"); do \
+	    if curl -fsS "$(GROBID_URL)/api/isalive" 2>/dev/null | grep -qx true; then \
+	        version="$$(curl -fsS "$(GROBID_URL)/api/version" 2>/dev/null || true)"; \
+	        echo "INFO     GROBID $${version:-unknown} is ready at $(GROBID_URL)."; \
+	        exit 0; \
+	    fi; \
+	    if [[ "$$(docker inspect --format '{{.State.Running}}' "$(GROBID_CONTAINER)" 2>/dev/null)" != true ]]; then \
+	        echo "FATAL    GROBID stopped before becoming ready. Recent logs:"; \
+	        docker logs --tail 50 "$(GROBID_CONTAINER)"; \
+	        exit 1; \
+	    fi; \
+	    sleep 1; \
+	done; \
+	echo "FATAL    GROBID did not become ready within $(GROBID_STARTUP_TIMEOUT) seconds. Recent logs:"; \
+	docker logs --tail 50 "$(GROBID_CONTAINER)"; \
+	exit 1
 
 # Sometimes after a merge conflict the entries in people.yaml
 # get miss-sorted. This corrects that by reloading and saving the file.
