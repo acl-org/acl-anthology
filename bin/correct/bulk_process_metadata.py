@@ -257,11 +257,22 @@ class AnthologyMetadataUpdater:
                 continue
             ex = json_block[key]
             bigtree = etree.fromstring(
-                f'<collection id="dummy"><volume id="1" type="proceedings"><meta><booktitle>{ex}</booktitle><venue>acl</venue><year>2000</year></meta></volume></collection>'
+                f"""<collection id="dummy"><volume id="1" type="proceedings">
+                <meta>
+                        <booktitle>Dummy Vol Title</booktitle>
+                        <venue>acl</venue><year>2000</year>
+                </meta>
+                <paper id="1">
+                    <title>Dummy Paper Title</title>
+                    <abstract>{ex}</abstract>
+                    <bibkey>dummy</bibkey>
+                </paper></volume></collection>"""
             )
-            is_valid = self.anthology.relaxng.validate(bigtree)
-            if not is_valid:
+            try:
+                self.anthology.relaxng.assertValid(bigtree)
+            except etree.DocumentInvalid as e:
                 log.warning(f"-> Value for {key} is not valid XML according to schema")
+                log.warning(e)
                 return False
 
         return True
