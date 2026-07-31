@@ -342,7 +342,7 @@
 
 .acl-venue-row {
   display: grid;
-  grid-template-columns: minmax(10rem, 1fr) minmax(9rem, 1fr);
+  grid-template-columns: minmax(10rem, min(50%, 32rem)) minmax(9rem, 1fr);
   align-items: center;
   gap: .7rem;
   min-height: 2.1rem;
@@ -425,6 +425,9 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  justify-self: end;
+  width: 100%;
+  max-width: 100%;
   gap: .22rem;
   min-width: 0;
   overflow: hidden;

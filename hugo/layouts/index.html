@@ -15,6 +15,7 @@
 
     function fitRecentYears(row, yearLinks, moreButton) {
       const years = row.querySelector(".acl-venue-years");
+      years.style.width = "100%";
       yearLinks.forEach(function (link) {
         link.hidden = false;
       });
@@ -23,26 +24,30 @@
       const gap = parseFloat(getComputedStyle(years).columnGap) || 0;
       const availableWidth = years.clientWidth;
       const moreWidth = moreButton.getBoundingClientRect().width;
-      const allYearsWidth = yearLinks.reduce(function (width, link, index) {
-        return width + link.getBoundingClientRect().width + (index > 0 ? gap : 0);
-      }, 0);
+      const slotWidth = Math.max(
+        moreWidth,
+        ...yearLinks.map(function (link) {
+          return link.getBoundingClientRect().width;
+        })
+      );
+      const slotCount = Math.max(
+        1,
+        Math.floor((availableWidth + gap) / (slotWidth + gap))
+      );
+      const stripWidth = Math.min(
+        availableWidth,
+        slotCount * slotWidth + Math.max(0, slotCount - 1) * gap
+      );
+      years.style.width = stripWidth + "px";
 
-      if (allYearsWidth <= availableWidth) {
+      if (yearLinks.length <= slotCount) {
         moreButton.hidden = true;
         return yearLinks.length;
       }
 
-      const yearWidth = Math.max(0, availableWidth - moreWidth - gap);
-      let usedWidth = 0;
-      let visibleYears = 0;
+      const visibleYears = Math.max(0, slotCount - 1);
       yearLinks.forEach(function (link, index) {
-        const nextWidth = link.getBoundingClientRect().width + (index > 0 ? gap : 0);
-        const fits = usedWidth + nextWidth <= yearWidth;
-        link.hidden = !fits;
-        if (fits) {
-          usedWidth += nextWidth;
-          visibleYears += 1;
-        }
+        link.hidden = index >= visibleYears;
       });
       return visibleYears;
     }
@@ -70,6 +75,7 @@
         if (isCompact && moreButton) {
           matchingYears = fitRecentYears(row, yearLinks, moreButton);
         } else {
+          row.querySelector(".acl-venue-years").style.width = "100%";
           yearLinks.forEach(function (link) {
             const periodMatches = activePeriod === "all"
               || (activePeriod === "recent" && expanded)
