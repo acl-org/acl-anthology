@@ -1,0 +1,80 @@
+name: Tag & publish to PyPI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'python/pyproject.toml'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.find-pypi-version.outputs.version }}
+      is-new: ${{ steps.check-for-version-tag.outputs.is-new }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0   # need tag history to compare against
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: 3.14
+
+      - name: Read acl-anthology version
+        id: find-pypi-version
+        working-directory: python
+        run: |
+          echo "version=$(uv version --short)" >> "$GITHUB_OUTPUT"
+
+      - name: Check if this version is already tagged
+        id: check-for-version-tag
+        run: |
+          if git rev-parse "py-v${{ steps.find-pypi-version.outputs.version }}" >/dev/null 2>&1; then
+            echo "is-new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "is-new=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify CHANGELOG.md was updated
+        if: steps.check-for-version-tag.outputs.is-new == 'true'
+        working-directory: python
+        run: |
+          VERSION="${{ steps.find-pypi-version.outputs.version }}"
+          if ! head -n 10 CHANGELOG.md | grep -qF "[$VERSION]"; then
+            echo "::error::CHANGELOG.md does not mention [$VERSION] in its first 10 lines."
+            echo "Expected a heading like: ## [$VERSION] — ..."
+            exit 1
+          fi
+
+  release:
+    needs: check
+    if: needs.check.outputs.is-new == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      id-token: write   # required for trusted publishing
+      contents: write   # for pushing a new tag
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "py-v${{ needs.check.outputs.version }}"
+          git push origin "py-v${{ needs.check.outputs.version }}"
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: 3.14
+
+      - name: Build wheel
+        working-directory: python
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish
