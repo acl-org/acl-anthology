@@ -366,7 +366,7 @@
 
   h4 a {
     display: grid;
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: 7rem minmax(0, 1fr);
     gap: .7rem;
     min-width: 0;
     color: $blue;
@@ -392,7 +392,6 @@
   align-items: baseline;
   gap: .45rem;
   min-width: 0;
-  white-space: nowrap;
 }
 
 .acl-venue-row__acl-marker {
@@ -409,6 +408,7 @@
   color: $acl-black;
   font-size: .89rem;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
 .acl-venue-row__name {
@@ -424,7 +424,7 @@
 .acl-venue-years {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: .22rem;
   min-width: 0;
   overflow: hidden;
@@ -588,7 +588,7 @@
   }
 
   .acl-venue-row {
-    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-columns: 7rem minmax(0, 1fr);
     gap: .75rem;
   }
 
