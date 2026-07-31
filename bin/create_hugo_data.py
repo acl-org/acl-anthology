@@ -65,6 +65,18 @@ from acl_anthology.utils.text import (
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+HOMEPAGE_FLAGSHIP_VENUES = (
+    "acl",
+    "aacl",
+    "cl",
+    "coling",
+    "eacl",
+    "emnlp",
+    "findings",
+    "lrec",
+    "naacl",
+    "tacl",
+)
 
 
 def check_directory(cdir, clean=False):
@@ -297,7 +309,7 @@ def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
     )
 
 
-def newly_ingested_years(volumes, current_date=None):
+def newly_ingested_years(volumes, current_date=None, excluded_volume_ids=frozenset()):
     """Return years containing a volume ingested within the past 45 days."""
     current_date = current_date or date.today()
     cutoff = current_date - timedelta(days=45)
@@ -305,9 +317,34 @@ def newly_ingested_years(volumes, current_date=None):
         {
             volume.year
             for volume in volumes
-            if cutoff <= volume.ingest_date <= current_date
+            if (
+                (
+                    not excluded_volume_ids
+                    or volume.full_id_tuple not in excluded_volume_ids
+                )
+                and cutoff <= volume.ingest_date <= current_date
+            )
         }
     )
+
+
+def homepage_venue_group(venue_id, newly_ingested_owned_years):
+    """Return the venue's ordered homepage group number."""
+    if venue_id == "ws":
+        return 4
+    if newly_ingested_owned_years:
+        return 1
+    if venue_id in HOMEPAGE_FLAGSHIP_VENUES:
+        return 2
+    return 3
+
+
+def homepage_venue_sort_key(venue_id, acronym, homepage_group):
+    """Return the venue's sort key within its ordered homepage group."""
+    if homepage_group == 2:
+        position = HOMEPAGE_FLAGSHIP_VENUES.index(venue_id)
+        return f"{homepage_group}:{position:02d}:{venue_id}"
+    return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
 def homepage_stats(anthology):
@@ -502,7 +539,7 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
-def venue_to_dict(venue_id, venue, explicitly_colocated_ids):
+def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
     data = {
         "acronym": venue.acronym,
         "is_acl": venue.is_acl,
@@ -537,7 +574,16 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids):
         except KeyError:
             data["volumes_by_year"][year] = [volume_id]
     data["years"] = list(data["volumes_by_year"].keys())
-    data["newly_ingested_years"] = newly_ingested_years(sorted_volumes)
+    data["newly_ingested_years"] = newly_ingested_years(sorted_volumes, current_date)
+    newly_ingested_owned_years = newly_ingested_years(
+        sorted_volumes,
+        current_date,
+        excluded_volume_ids=explicitly_colocated_ids,
+    )
+    data["homepage_group"] = homepage_venue_group(venue_id, newly_ingested_owned_years)
+    data["homepage_sort_key"] = homepage_venue_sort_key(
+        venue_id, venue.acronym, data["homepage_group"]
+    )
     data["latest_ingest_date"] = latest_owned_ingest_date(
         sorted_volumes, explicitly_colocated_ids
     ).isoformat()

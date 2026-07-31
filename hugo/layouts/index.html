@@ -11,7 +11,6 @@
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
-    let resizeFrame;
 
     function getVisibleTextRight(element) {
       if (!element || getComputedStyle(element).display === "none") return 0;
@@ -91,8 +90,9 @@
 
       const matchingRows = venueRows.filter(function (row) {
         const isTopLevel = row.dataset.venueTopLevel === "true";
+        const isRecentlyUpdated = row.dataset.homepageGroup === "1";
         const textMatches = row.dataset.venueSearch.includes(query);
-        const rowMatchesText = (hasQuery || isTopLevel) && textMatches;
+        const rowMatchesText = (hasQuery || isTopLevel || isRecentlyUpdated) && textMatches;
         row.hidden = !rowMatchesText;
         if (!rowMatchesText) return false;
 
@@ -148,6 +148,18 @@
         }
       });
 
+      let previousGroup = null;
+      venueRows.forEach(function (row) {
+        row.classList.remove("acl-venue-row--group-start");
+        if (row.hidden) return;
+        const group = row.dataset.homepageGroup;
+        row.classList.toggle(
+          "acl-venue-row--group-start",
+          previousGroup !== null && group !== previousGroup
+        );
+        previousGroup = group;
+      });
+
       function inflect(count) {
         return "venue" + (count === 1 ? "" : "s");
       }
@@ -156,7 +168,7 @@
       emptyState.hidden = visibleVenues > 0;
       status.textContent = hasQuery
         ? visibleVenues + " " + inflect(visibleVenues) + " matched"
-        : visibleVenues + " top-level " + inflect(visibleVenues);
+        : visibleVenues + " " + inflect(visibleVenues) + " shown";
     }
 
     filterInput.addEventListener("input", applyFilters);
@@ -198,26 +210,20 @@
       }
     });
 
-    function scheduleFilters() {
-      // ResizeObserver and window resize may fire together; run one layout pass per frame.
-      cancelAnimationFrame(resizeFrame);
-      resizeFrame = requestAnimationFrame(applyFilters);
-    }
-
     if ("ResizeObserver" in window) {
       let directoryWidth = 0;
       new ResizeObserver(function (entries) {
         const nextWidth = entries[0].contentRect.width;
         if (nextWidth !== directoryWidth) {
           directoryWidth = nextWidth;
-          scheduleFilters();
+          applyFilters();
         }
       }).observe(directory);
     }
-    window.addEventListener("resize", scheduleFilters);
+    window.addEventListener("resize", applyFilters);
 
     if (document.fonts) {
-      document.fonts.ready.then(scheduleFilters);
+      document.fonts.ready.then(applyFilters);
     }
 
     applyFilters();
@@ -310,14 +316,14 @@
       </div>
 
       <div class="acl-venue-list">
-        {{ range $venue := sort (sort hugo.Data.venues "slug" "asc") "latest_ingest_date" "desc" }}
+        {{ range $venue := sort hugo.Data.venues "homepage_sort_key" "asc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-        <article class="acl-venue-row" data-venue-row data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+        <article class="acl-venue-row" data-venue-row data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
           <h4>
             <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
               <span class="acl-venue-row__label">
                 <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&bull;{{ end }}</span>
-                <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
+                <span class="acl-venue-row__acronym">{{ cond (eq $venue.slug "ws") "Workshops" $venue.acronym }}</span>
               </span>
               <span class="acl-venue-row__name">{{ $venue.name }}</span>
             </a>

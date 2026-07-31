@@ -13,6 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from bin.create_hugo_data import (
     explicitly_colocated_volume_ids,
     export_homepage_stats,
+    homepage_venue_group,
+    homepage_venue_sort_key,
     homepage_stats,
     latest_owned_ingest_date,
     newly_ingested_years,
@@ -93,6 +95,26 @@ def test_newly_ingested_years_uses_45_day_window():
     assert newly_ingested_years(volumes, current_date) == ["2024", "2026"]
 
 
+def test_homepage_venue_groups_are_prioritized():
+    assert homepage_venue_group("updated", ["2026"]) == 1
+    assert homepage_venue_group("acl", []) == 2
+    assert homepage_venue_group("other", []) == 3
+    assert homepage_venue_group("ws", ["2026"]) == 4
+
+
+def test_homepage_venue_sort_keys_follow_requested_order():
+    flagships = ["acl", "aacl", "cl", "emnlp", "findings", "lrec", "naacl", "tacl"]
+
+    assert (
+        sorted(
+            flagships,
+            key=lambda venue_id: homepage_venue_sort_key(venue_id, venue_id.upper(), 2),
+        )
+        == flagships
+    )
+    assert homepage_venue_sort_key("starsem", "*SEM", 3) == "3:sem:starsem"
+
+
 def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
     venue = anthology.venues["iwslt"]
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
@@ -111,6 +133,25 @@ def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
         < max(volume.ingest_date for volume in venue.volumes()).isoformat()
     )
     assert data["newly_ingested_years"] == newly_ingested_years(venue.volumes())
+
+
+def test_homepage_group_excludes_parent_event_updates(anthology):
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    current_date = date(2026, 7, 30)
+    acl = venue_to_dict(
+        "acl", anthology.venues["acl"], explicitly_colocated_ids, current_date
+    )
+    iwslt = venue_to_dict(
+        "iwslt", anthology.venues["iwslt"], explicitly_colocated_ids, current_date
+    )
+    ws = venue_to_dict(
+        "ws", anthology.venues["ws"], explicitly_colocated_ids, current_date
+    )
+
+    assert acl["homepage_group"] == 1
+    assert iwslt["newly_ingested_years"] == ["2026"]
+    assert iwslt["homepage_group"] == 3
+    assert ws["homepage_group"] == 4
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
