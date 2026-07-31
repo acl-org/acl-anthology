@@ -230,7 +230,7 @@ class SIGIndex(SlottedDict[SIG]):
             path = self.path
 
         data = {}
-        for sig_id, venue in self.items():
+        for sig_id, venue in sorted(self.items(), key=lambda x: x[0]):
             # Serialize everything except "id", "item_ids", "parent" and default values
             data[sig_id] = asdict(
                 venue,
