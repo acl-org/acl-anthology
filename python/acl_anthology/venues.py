@@ -15,14 +15,15 @@
 from __future__ import annotations
 
 from attrs import define, field, validators as v, asdict
+from msgspec import json
 from pathlib import Path
 from typing import Any, Iterator, Optional, TYPE_CHECKING
-import yaml
+import sys
 
-try:
-    from yaml import CLoader as Loader, CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Loader, Dumper  # type: ignore
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
@@ -35,6 +36,9 @@ if TYPE_CHECKING:
     from .collections import Volume
 
 
+VENUE_INDEX_FILE = "json/venues.json"
+
+
 @attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Venue:
@@ -42,10 +46,9 @@ class Venue:
 
     Attributes:
         id: The venue ID, e.g. "acl".
-        parent: The parent Anthology instance to which this venue belongs.
+        parent: The parent VenueIndex instance to which this venue belongs.
         acronym: The venue's acronym, e.g. "ACL".
         name: The venue's name.  Should _not_ contain any indications of specific events; i.e., "Workshop on...", _not_ "The 1st Workshop on..."
-        path: The path of the YAML file representing this venue.
         is_acl: True if this is a venue organized or sponsored by the ACL.
         is_toplevel: True if this venue appears on the ACL Anthology's front page.
         item_ids: An unordered set of volume IDs associated with this venue.
@@ -58,10 +61,9 @@ class Venue:
         validator=v.matches_re(RE_VENUE_ID),
         metadata={"repr_omits_field_name": True},
     )
-    parent: Anthology = field(repr=False, eq=False)
+    parent: VenueIndex = field(repr=False, eq=False)
     acronym: str = field(converter=str)
     name: str = field(converter=str)
-    path: Path = field(converter=Path, eq=False)
     is_acl: bool = field(default=False, converter=bool)
     is_toplevel: bool = field(default=False, converter=bool)
     item_ids: set[AnthologyIDTuple] = field(
@@ -76,46 +78,26 @@ class Venue:
     # volumes.
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
 
-    @classmethod
-    def load_from_yaml(cls, path: StrPath, parent: Anthology) -> Venue:
-        """Instantiates a venue from its YAML file.
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent
 
-        Arguments:
-            path: The YAML file defining this venue.
-            parent: The parent Anthology instance.
-
-        Warning:
-            Currently assumes that files are named `{venue_id}.yaml`.
-        """
-        path = Path(path)
-        venue_id = path.name[:-5]
-        with open(path, "r", encoding="utf-8") as f:
-            kwargs = yaml.load(f, Loader=Loader)
-        return cls(venue_id, parent=parent, path=path, **kwargs)
-
-    def save(self, path: Optional[StrPath] = None) -> None:
-        """Saves this venue as a YAML file.
-
-        Arguments:
-            path: The filename to save to. If None, defaults to `self.path`.
-        """
+    @deprecated("Venue.save() is deprecated in favor of VenueIndex.save()")
+    def save(self, path: Optional[StrPath] = None) -> None:  # pragma: no cover
+        """Saves this venue."""
         if path is None:
-            self.parent._warn_if_in_default_path()
-            path = self.path
-        # Serialize everything except "id", "item_ids", "path", "parent" and default values
-        values = asdict(
-            self,
-            filter=lambda a, v: a.name not in ("id", "item_ids", "parent", "path")
-            and v != a.default,
-        )
-        with open(path, "w", encoding="utf-8") as f:
-            yaml.dump(values, f, Dumper=Dumper)
+            raise UserWarning(
+                "Providing a 'path' argument to Venue.save() has no effect anymore"
+            )
+
+        self.parent.save()
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes associated with this venue."""
         for anthology_id in self.item_ids:
-            volume = self.parent.get_volume(anthology_id)
-            if volume is None:
+            volume = self.root.get_volume(anthology_id)
+            if volume is None:  # pragma: no cover
                 raise ValueError(
                     f"Venue {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
@@ -131,29 +113,39 @@ class VenueIndex(SlottedDict[Venue]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        path: The path to `venues.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
-        is_data_loaded: A flag indicating whether the venue YAML files have been loaded and the index has been built.
+        is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
+    path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
 
+    @path.default
+    def _path(self) -> Path:
+        return self.parent.datadir / Path(VENUE_INDEX_FILE)
+
     def load(self) -> None:
-        """Load and parse the `venues/*.yaml` files.
+        """Load and parse the `venues.json` file.
 
         Raises:
-            KeyError: If a mandatory key is missing in a YAML file.
+            KeyError: If a mandatory key is missing in a venue entry.
         """
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
             return
-        for yamlpath in self.parent.datadir.glob("yaml/venues/*.yaml"):
-            venue = Venue.load_from_yaml(yamlpath, self.parent)
-            self.data[venue.id] = venue
+
+        with open(self.path, "rb") as f:
+            data = json.decode(f.read())
+
+        for venue_id, params in data.items():
+            self.data[venue_id] = Venue(id=venue_id, parent=self, **params)
+
         self.build()
         self.is_data_loaded = True
 
@@ -164,7 +156,7 @@ class VenueIndex(SlottedDict[Venue]):
             id: The ID of the new venue.
             acronym: The acronym of the new venue.
             name: The name of the new venue.
-            **kwargs: Any valid optional attribute of [Venue][acl_anthology.venues.Venue], with the exception of `path`, which is automatically set based on the venue ID, as well as `item_ids` and `oldstyle_letter`, which cannot be set.
+            **kwargs: Any valid optional attribute of [Venue][acl_anthology.venues.Venue], with the exception of `item_ids` and `oldstyle_letter`, which cannot be set.
 
         Returns:
             The created [Venue][acl_anthology.venues.Venue] object.
@@ -181,8 +173,7 @@ class VenueIndex(SlottedDict[Venue]):
                 "Cannot specify a new venue with an old-style letter."
             )  # pragma: no cover
 
-        kwargs["parent"] = self.parent
-        kwargs["path"] = self.parent.datadir / "yaml" / "venues" / f"{id}.yaml"
+        kwargs["parent"] = self
         venue = Venue(id=id, acronym=acronym, name=name, **kwargs)
         self.data[id] = venue
         return venue
@@ -196,7 +187,7 @@ class VenueIndex(SlottedDict[Venue]):
         """Load the entire Anthology data and build an index of venues.
 
         Raises:
-            ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in the venue YAML files).
+            ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in `venues.json`).
         """
         if self.no_item_ids:
             return
@@ -209,7 +200,25 @@ class VenueIndex(SlottedDict[Venue]):
                         f"Volume {volume.full_id} lists associated venue {venue_id}, which doesn't exist"
                     )
 
-    def save(self) -> None:
-        """Saves all venue metadata to `venues/*.yaml` files."""
-        for venue in self.values():
-            venue.save()
+    def save(self, path: Optional[StrPath] = None) -> None:
+        """Save the `venues.json` file.
+
+        Arguments:
+            path: The filename to save to. If None, defaults to the parent Anthology's `venues.json` file.
+        """
+        if path is None:  # pragma: no cover
+            self.parent._warn_if_in_default_path()
+            path = self.path
+
+        data = {}
+        for venue_id, venue in self.items():
+            # Serialize everything except "id", "item_ids", "parent" and default values
+            data[venue_id] = asdict(
+                venue,
+                filter=lambda a, v: a.name not in ("id", "item_ids", "parent")
+                and v != a.default,
+            )
+
+        with open(path, "wb") as f:
+            f.write(json.format(json.encode(data)))
+            f.write(b"\n")

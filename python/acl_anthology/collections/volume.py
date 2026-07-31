@@ -61,6 +61,34 @@ if TYPE_CHECKING:
     from . import Collection, Event
 
 
+def _update_sigs(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update objects depending on a volume's `sig_ids`.
+
+    This will:
+    - Update `SIG.item_ids` for SIGs linked to or unlinked from a volume
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    sig_index = volume.root.sigs
+    old_value = getattr(volume, attr.name)
+    for sig in set(old_value) - set(value):
+        # SIGs that are being removed from this volume
+        if sig_index.is_data_loaded:
+            sig_index[sig].item_ids.discard(volume.full_id_tuple)
+
+    for sig in set(value) - set(old_value):
+        # SIGs that are being added to this volume
+        if sig_index.is_data_loaded:
+            try:
+                # Update SIG.item_ids
+                sig_index[sig].item_ids.add(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting SIG that doesn't exist: {sig}")
+    return value
+
+
 def _update_venues(
     volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
 ) -> tuple[str, ...]:
@@ -174,6 +202,16 @@ class Volume(SlottedDict[Paper]):
             setters.validate,
             attach_parent,
             _update_person_itemids,
+            track_modifications,
+        ],
+    )
+    sig_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_sigs,
             track_modifications,
         ],
     )
@@ -350,23 +388,32 @@ class Volume(SlottedDict[Paper]):
         raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def get_sigs(self) -> list[SIG]:
-        """
-        Returns:
-            A list of SIGs associated with this volume.
-        """
-        return self.root.sigs.by_volume(self.full_id_tuple)
+        return self.sigs()
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""
         yield from self.data.values()
 
+    def sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs associated with this volume.
+        """
+        try:
+            return [self.root.sigs[sig] for sig in self.sig_ids]
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
+            )
+            raise exc
+
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
         try:
             return [self.root.venues[vid] for vid in self.venue_ids]
-        except KeyError as exc:
+        except KeyError as exc:  # pragma: no cover
             exc.add_note(
-                f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
             )
             raise exc
 
@@ -470,6 +517,7 @@ class Volume(SlottedDict[Paper]):
             ),  # 'type' required by schema
             "parent": parent,
             "editors": [],
+            "sig_ids": [],
             "venue_ids": [],
         }
         if (ingest_date := volume.get("ingest-date")) is not None:
@@ -497,6 +545,8 @@ class Volume(SlottedDict[Paper]):
                 kwargs["editors"].append(NameSpecification.from_xml(element))
             elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "sig":
+                kwargs["sig_ids"].append(str(element.text))
             elif tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
@@ -533,6 +583,8 @@ class Volume(SlottedDict[Paper]):
                 meta.append(getattr(E, tag)(value))
         if self.pdf is not None:
             meta.append(self.pdf.to_xml("url"))
+        for sig in self.sig_ids:
+            meta.append(E.sig(sig))
         for venue in self.venue_ids:
             meta.append(E.venue(venue))
         for tag in (

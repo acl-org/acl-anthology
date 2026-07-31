@@ -11,6 +11,18 @@
 - Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
 - Added `Name.is_valid()` to check the basic validity of first and last names.
 - `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
+- Added `SIGIndex.create()`, in analogy to `VenueIndex.create()`.
+
+### Changed
+
+- Fixed a bug with `xml.ensure_minimal_diff()` that would sometimes break with markup-containing tags.
+- **All YAML data files have been replaced with JSON data files.**  This speeds up loading these files significantly.
+  - There are no longer individual data files for venues and SIGs, but instead a single `venues.json` and `sigs.json`, respectively.
+  - `SIG.save()` and `Venue.save()` are deprecated as there are no individual venue or SIG data files anymore; use `.save()` on their index instead.
+- SIGs now link associated volumes via `<sig>` tags in the XML, rather than in their data files, in analogy to how venues work.  This means:
+  - `SIGIndex.reverse` (for reverse-indexing of Volume–SIG) is no longer necessary and has been removed.
+  - `SIGIndex.by_volume()` is deprecated in favor of simply calling `Volume.sigs()`, in analogy to `Volume.venues()`.
+- `Venue.parent` now points to the `VenueIndex`, not the `Anthology`.  Use `Venue.root` for that, if needed.
 
 ### Removed
 
