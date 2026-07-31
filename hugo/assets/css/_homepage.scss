@@ -342,9 +342,8 @@
 
 .acl-venue-row {
   display: grid;
-  grid-template-columns: minmax(10rem, min(50%, 32rem)) minmax(9rem, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: .7rem;
   min-height: 2.1rem;
   padding: .25rem .7rem;
   border-bottom: 1px solid #e5ecef;
@@ -358,6 +357,9 @@
   }
 
   h4 {
+    grid-column: 1;
+    grid-row: 1;
+    width: min(50%, 32rem);
     min-width: 0;
     margin: 0;
     font-size: inherit;
@@ -366,7 +368,7 @@
 
   h4 a {
     display: grid;
-    grid-template-columns: 7rem minmax(0, 1fr);
+    grid-template-columns: max-content minmax(0, 1fr);
     gap: .7rem;
     min-width: 0;
     color: $blue;
@@ -392,6 +394,7 @@
   align-items: baseline;
   gap: .45rem;
   min-width: 0;
+  white-space: nowrap;
 }
 
 .acl-venue-row__acl-marker {
@@ -408,7 +411,6 @@
   color: $acl-black;
   font-size: .89rem;
   font-weight: 700;
-  overflow-wrap: anywhere;
 }
 
 .acl-venue-row__name {
@@ -422,6 +424,8 @@
 }
 
 .acl-venue-years {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -591,8 +595,11 @@
   }
 
   .acl-venue-row {
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    gap: .75rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .acl-venue-row h4 {
+    width: max-content;
   }
 
   .acl-venue-row h4 a {
@@ -604,7 +611,7 @@
   }
 
   .acl-venue-years {
-    grid-column: 2;
+    grid-column: 1;
     max-width: none;
   }
 }
