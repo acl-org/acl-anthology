@@ -70,7 +70,7 @@ LAST_NAME_LOWERCASE_PREFIXES = {
     "von",
     "von der",
 }
-"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
+"""Strings that tend to be lowercased when prefixing a last name; used for [`Name.case_normalize()`][acl_anthology.people.name.Name.case_normalize]."""
 
 # Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
 # are reverse-sorted by length so that it is always the longest string that
@@ -106,7 +106,7 @@ r"""Regex that partially checks validity of first and last names.
 
 First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
 
-Used by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part].
+Used by [`Name.is_valid()`][acl_anthology.people.name.Name.is_valid].
 """
 
 RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
@@ -181,7 +181,7 @@ class Name:
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
-    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
+    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.Name.is_valid]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
 
     Examples:
         >>> Name("Yang", "Liu")

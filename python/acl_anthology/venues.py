@@ -211,7 +211,7 @@ class VenueIndex(SlottedDict[Venue]):
             path = self.path
 
         data = {}
-        for venue_id, venue in self.items():
+        for venue_id, venue in sorted(self.items(), key=lambda x: x[0]):
             # Serialize everything except "id", "item_ids", "parent" and default values
             data[venue_id] = asdict(
                 venue,

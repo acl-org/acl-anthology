@@ -760,7 +760,7 @@ class PersonIndex(SlottedDict[Person]):
             path = self.path
 
         data = {}
-        for person in self.values():
+        for _, person in sorted(self.items(), key=lambda x: x[0]):
             if not person.is_explicit:
                 continue
 
