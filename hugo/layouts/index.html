@@ -13,17 +13,39 @@
     let activePeriod = "recent";
     let resizeFrame;
 
+    function getVisibleTextRight(element) {
+      if (!element || getComputedStyle(element).display === "none") return 0;
+      const elementRect = element.getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const textRect = range.getBoundingClientRect();
+      return Math.min(elementRect.right, textRect.right);
+    }
+
+    function getYearTrackWidth(row) {
+      // Start after this row's visible venue text; the right edge remains shared.
+      const rowStyle = getComputedStyle(row);
+      const rowRect = row.getBoundingClientRect();
+      const gap = parseFloat(rowStyle.columnGap) || 0;
+      const paddingRight = parseFloat(rowStyle.paddingRight) || 0;
+      const venueRight = Math.max(
+        getVisibleTextRight(row.querySelector(".acl-venue-row__label")),
+        getVisibleTextRight(row.querySelector(".acl-venue-row__name"))
+      );
+      return Math.max(0, rowRect.right - paddingRight - venueRight - gap);
+    }
+
     function fitRecentYears(row, yearLinks, moreButton) {
       const years = row.querySelector(".acl-venue-years");
-      years.style.width = "100%";
       yearLinks.forEach(function (link) {
         link.hidden = false;
       });
       moreButton.hidden = false;
 
       const gap = parseFloat(getComputedStyle(years).columnGap) || 0;
-      const availableWidth = years.clientWidth;
+      const availableWidth = getYearTrackWidth(row);
       const moreWidth = moreButton.getBoundingClientRect().width;
+      // Reserve equal slots from the right edge, then fill newest-first from the left.
       const slotWidth = Math.max(
         moreWidth,
         ...yearLinks.map(function (link) {
@@ -75,7 +97,7 @@
         if (isCompact && moreButton) {
           matchingYears = fitRecentYears(row, yearLinks, moreButton);
         } else {
-          row.querySelector(".acl-venue-years").style.width = "100%";
+          row.querySelector(".acl-venue-years").style.width = getYearTrackWidth(row) + "px";
           yearLinks.forEach(function (link) {
             const periodMatches = activePeriod === "all"
               || (activePeriod === "recent" && expanded)
@@ -148,6 +170,7 @@
     });
 
     function scheduleFilters() {
+      // ResizeObserver and window resize may fire together; run one layout pass per frame.
       cancelAnimationFrame(resizeFrame);
       resizeFrame = requestAnimationFrame(applyFilters);
     }
