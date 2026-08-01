@@ -287,7 +287,7 @@
       <header class="acl-directory-section__header">
         <h3 id="acl-venues-title">Events</h3>
         <div class="acl-venue-legend" aria-label="Events legend">
-          <span><span class="acl-venue-legend__marker" aria-hidden="true">&bull;</span> ACL</span>
+          <span><span class="acl-venue-legend__marker" aria-hidden="true">&#9642;</span> ACL</span>
           <span class="acl-venue-legend__new" title="Volume ingested within the past 45 days">NEW</span>
         </div>
       </header>
@@ -322,7 +322,7 @@
           <h4>
             <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
               <span class="acl-venue-row__label">
-                <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&bull;{{ end }}</span>
+                <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&#9642;{{ end }}</span>
                 <span class="acl-venue-row__acronym">{{ cond (eq $venue.slug "ws") "Workshops" $venue.acronym }}</span>
               </span>
               <span class="acl-venue-row__name">{{ $venue.name }}</span>
