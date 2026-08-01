@@ -6,6 +6,9 @@ on:
       - master
     paths:
       - 'python/pyproject.toml'
+  pull_request:   # to run the "check" step already on PRs
+    paths:
+      - 'python/pyproject.toml'
   workflow_dispatch:
 
 jobs:
@@ -51,7 +54,7 @@ jobs:
 
   release:
     needs: check
-    if: needs.check.outputs.is-new == 'true'
+    if: needs.check.outputs.is-new == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -60,13 +63,6 @@ jobs:
       contents: write   # for pushing a new tag
     steps:
       - uses: actions/checkout@v5
-
-      - name: Create and push tag
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "py-v${{ needs.check.outputs.version }}"
-          git push origin "py-v${{ needs.check.outputs.version }}"
 
       - uses: astral-sh/setup-uv@v7
         with:
@@ -78,3 +74,10 @@ jobs:
 
       - name: Publish to PyPI
         run: uv publish
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "py-v${{ needs.check.outputs.version }}"
+          git push origin "py-v${{ needs.check.outputs.version }}"
