@@ -35,7 +35,7 @@ jobs:
       - name: Check if this version is already tagged
         id: check-for-version-tag
         run: |
-          if git rev-parse "py-v${{ steps.find-pypi-version.outputs.version }}" >/dev/null 2>&1; then
+          if git rev-parse "test-py-v${{ steps.find-pypi-version.outputs.version }}" >/dev/null 2>&1; then
             echo "is-new=false" >> "$GITHUB_OUTPUT"
           else
             echo "is-new=true" >> "$GITHUB_OUTPUT"
@@ -73,11 +73,11 @@ jobs:
         run: uv build
 
       - name: Publish to PyPI
-        run: uv publish
+        run: uv publish --index testpypi
 
       - name: Create and push tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "py-v${{ needs.check.outputs.version }}"
-          git push origin "py-v${{ needs.check.outputs.version }}"
+          git tag "test-py-v${{ needs.check.outputs.version }}"
+          git push origin "test-py-v${{ needs.check.outputs.version }}"
