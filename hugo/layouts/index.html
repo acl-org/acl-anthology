@@ -107,13 +107,8 @@
       });
 
       const yearTrackWidth = getYearTrackWidth(matchingRows);
-      const compactRows = activePeriod === "recent"
-        ? matchingRows.filter(function (row) {
-          return row.dataset.expanded !== "true";
-        })
-        : [];
-      const slotLayout = compactRows.length > 0
-        ? getYearSlotLayout(compactRows, yearTrackWidth)
+      const slotLayout = activePeriod === "recent" && matchingRows.length > 0
+        ? getYearSlotLayout(matchingRows, yearTrackWidth)
         : null;
 
       matchingRows.forEach(function (row) {
@@ -128,7 +123,9 @@
         if (isCompact && moreButton) {
           matchingYears = fitRecentYears(row, yearLinks, moreButton, slotLayout);
         } else {
-          row.querySelector(".acl-venue-years").style.width = yearTrackWidth + "px";
+          row.querySelector(".acl-venue-years").style.width = activePeriod === "recent"
+            ? slotLayout.stripWidth + "px"
+            : yearTrackWidth + "px";
           yearLinks.forEach(function (link) {
             const periodMatches = activePeriod === "all"
               || (activePeriod === "recent" && expanded)
