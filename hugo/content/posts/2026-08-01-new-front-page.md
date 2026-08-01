@@ -7,7 +7,7 @@ description: >
 
 Today we are introducing a new front page for the ACL Anthology.
 
-The old front page linked directly to the completely history of events for selected venues, but had a number of issues: it was unwieldy to navigate, didn't draw attention to current or recent events, and was showing its age. 
+The old front page linked directly to the complete history of events for selected venues, but had a number of issues: among others, it was unwieldy to navigate, didn't draw attention to current or recent events, and more generally was showing its age.
 
 <div class="row g-3 my-4">
   <figure class="col-md-6 mb-0">
@@ -33,4 +33,4 @@ At the same time, it had a recognizable appearance. Our redesign introduces the 
 
 This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158).
 
-The Anthology is run by volunteers from the NLP community. As always, we welcome [your feedback](https://aclanthology.org/faq/#feedback).
+The Anthology is run by volunteers from the NLP community. This includes the staff that maintains this infrastructure, and also the many people who contribute the volumes that constitute its extensive open resources. As always, we welcome [your feedback](https://aclanthology.org/faq/#feedback).
