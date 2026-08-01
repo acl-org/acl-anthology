@@ -245,6 +245,8 @@
 {{ $currentYear := $stats.newest_year | int }}
 {{ $currentDecade := mul (div $currentYear 10) 10 }}
 {{ $decades := seq $currentDecade -10 1950 }}
+{{ $recentPostCutoff := now.AddDate 0 0 -45 }}
+{{ $recentPosts := sort (where (where .Site.RegularPages "Section" "posts") "Date" ">=" $recentPostCutoff) "Date" "desc" }}
 
 <main class="acl-home">
   <div class="acl-home-aside">
@@ -284,6 +286,18 @@
         <span>Feedback</span>
       </a>
     </nav>
+
+    {{ with $recentPosts }}
+    <section class="acl-home-news" aria-labelledby="acl-home-news-title">
+      <header class="acl-directory-section__header">
+        <h3 id="acl-home-news-title">Recent posts</h3>
+      </header>
+      <ul class="acl-home-news__list">{{ range . }}<li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+        </li>{{ end }}</ul>
+    </section>
+    {{ end }}
   </div>
 
   <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">

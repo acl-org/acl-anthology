@@ -1,8 +1,8 @@
 ---
-title: A new front page for the ACL Anthology
+title: An updated landing page
 date: "2026-08-01"
 description: >
-    A visual update for the ACL Anthology landing page
+    A modernized, compacter, mobile-friendly update to our home page
 ---
 
 Today we are introducing a new front page for the ACL Anthology.

@@ -153,6 +153,50 @@
   }
 }
 
+.acl-home-news {
+  --acl-directory-header-bg: #{$acl-soft-yellow};
+  --acl-directory-header-ink: #{$acl-black};
+  margin-block: .92rem;
+  overflow: hidden;
+  border: 1px solid var(--acl-home-line);
+  border-top: .18rem solid $yellow;
+  border-radius: .35rem;
+  background: $white;
+}
+
+.acl-home-news__list {
+  margin: 0;
+  padding: .62rem .85rem .7rem;
+  list-style: none;
+
+  li + li {
+    margin-top: .55rem;
+    padding-top: .55rem;
+    border-top: 1px solid var(--acl-home-line);
+  }
+
+  a {
+    display: block;
+    color: $blue;
+    font-size: .86rem;
+    font-weight: 600;
+
+    &:hover,
+    &:focus-visible {
+      color: darken($blue, 10%);
+      text-decoration: underline;
+      text-underline-offset: .15rem;
+    }
+  }
+
+  time {
+    display: block;
+    margin-top: .12rem;
+    color: var(--acl-home-muted);
+    font-size: .72rem;
+  }
+}
+
 .acl-directory-tools {
   display: grid;
   grid-template-columns: minmax(22rem, 1fr) minmax(0, 1fr);
