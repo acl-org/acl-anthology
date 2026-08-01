@@ -58,7 +58,7 @@ jobs:
     if: needs.check.outputs.is-new == 'true' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
-      name: pypi
+      name: testpypi
     permissions:
       id-token: write   # required for trusted publishing
       contents: write   # for pushing a new tag
