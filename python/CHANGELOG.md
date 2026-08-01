@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.1dev1] — 2026-08-01
+## [0.0.1.dev1] — 2026-08-01
 
 This exists just for testing with TestPyPI.
 
