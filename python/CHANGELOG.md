@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.0.1dev1] — 2026-08-01
+
+This exists just for testing with TestPyPI.
+
 ## [1.3.0] — 2026-07-31
 
 ### Added
