@@ -25,6 +25,7 @@ jobs:
       - uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: 3.14
+          ignore-nothing-to-cache: true
 
       - name: Read acl-anthology version
         id: find-pypi-version
