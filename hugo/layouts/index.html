@@ -12,6 +12,10 @@
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
 
+    function normalizeSearchText(value) {
+      return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+    }
+
     function getVisibleTextRight(element) {
       if (!element || getComputedStyle(element).display === "none") return 0;
       const elementRect = element.getBoundingClientRect();
@@ -83,15 +87,18 @@
     }
 
     function applyFilters() {
-      const query = filterInput.value.trim().toLowerCase();
+      const rawQuery = filterInput.value.trim();
+      const query = normalizeSearchText(rawQuery);
       const hasQuery = query.length > 0;
+      const showAllVenues = rawQuery === "*";
       let visibleVenues = 0;
       let visibleYears = 0;
 
       const matchingRows = venueRows.filter(function (row) {
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const isRecentlyUpdated = row.dataset.homepageGroup === "1";
-        const textMatches = row.dataset.venueSearch.includes(query);
+        const textMatches = showAllVenues
+          || normalizeSearchText(row.dataset.venueSearch).includes(query);
         const rowMatchesText = (hasQuery || isTopLevel || isRecentlyUpdated) && textMatches;
         row.hidden = !rowMatchesText;
         if (!rowMatchesText) return false;
@@ -164,8 +171,8 @@
       clearButton.hidden = query.length === 0;
       emptyState.hidden = visibleVenues > 0;
       status.textContent = hasQuery
-        ? visibleVenues + " " + inflect(visibleVenues) + " matched"
-        : visibleVenues + " " + inflect(visibleVenues) + " shown";
+        ? visibleVenues + " matches"
+        : visibleVenues + " " + inflect(visibleVenues);
     }
 
     filterInput.addEventListener("input", applyFilters);
@@ -293,7 +300,7 @@
         <div class="acl-venue-filter">
           <div class="acl-venue-filter__control">
             <i class="fas fa-filter" aria-hidden="true"></i>
-            <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search all {{ lang.FormatNumberCustom 0 $stats.venue_count }} venues..." autocomplete="off" aria-label="Filter venues">
+            <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search {{ lang.FormatNumberCustom 0 $stats.venue_count }} names..." autocomplete="off" aria-label="Filter venues">
             <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
               <i class="fas fa-times" aria-hidden="true"></i>
             </button>
