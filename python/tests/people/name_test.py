@@ -337,6 +337,9 @@ test_cases_valid_names = [
     ("Jan", "Hajic jr."),
     ("Jan", "Hajic, jr."),
     ("B.L. B. LT", "B.L"),
+    ("Bonnie", "Lynn-Webber"),
+    ("Jun-U", "Park"),
+    ("I-Hsin", "Chung"),
 ]
 
 
@@ -354,6 +357,7 @@ test_cases_invalid_names = [
     ("Noor-e-", "Hira"),
     ("Sir", "C3PO"),
     ("Bonnie", "Lynn_Webber"),
+    ("Bonnie", "Lynn - Webber"),
     ("b.", "Webber"),
     ("Jonathan q.", "Arbuckle"),
     ("B.l.", "Webber"),
