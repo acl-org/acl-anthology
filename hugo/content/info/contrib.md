@@ -101,7 +101,7 @@ You can choose one yourself, but it will require confirmation from the Anthology
 If you are submitting a new venue, please be sure to also include the following information:
 
 - **Venue name**. Each venue has a name.
-   These names are attached to the venue identifier and stored in [our database](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).
+   These names are attached to the venue identifier and stored in [our database](https://github.com/acl-org/acl-anthology/blob/master/data/json/venues.json).
    If your venue is new, please enter the venue name.
    Note: similar to the caveat about about the venue identifier, this is the name of the venue, not a particular meeting of the venue.
    When submitting a new venue to the Anthology, please make sure *not* to put the year or meeting number in the venue name.
