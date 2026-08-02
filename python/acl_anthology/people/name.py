@@ -115,6 +115,9 @@ RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
 First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
 """
 
+RE_NAME_OVERSPACED = re.compile(r"( |^)[a-z] [a-z]( |$)")
+"""Regex that checks for overspacing of characters in a name. Detects multiple isolated lowercase characters in sequence."""
+
 EN_DASH = "\u2013"
 EM_DASH = "\u2014"
 
@@ -140,7 +143,7 @@ def _is_valid_name_part(
     """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
 
     Returns:
-        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain two consecutive isolated lowercase letters, and does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
     """
     if not value or value.isalpha():
         # If all characters are alphabetic, it is guaranteed to be valid.
@@ -155,6 +158,12 @@ def _is_valid_name_part(
             return False
         raise ValueError(
             f"Invalid {attribute} name (initial should be capitalized): {value}"
+        )
+    elif RE_NAME_OVERSPACED.search(value):
+        if not error:
+            return False
+        raise ValueError(
+            f"Invalid {attribute} name (multiple lowercase letters in isolation): {value}"
         )
     else:
         for c in set(value) - {" "}:

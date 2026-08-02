@@ -364,6 +364,7 @@ test_cases_invalid_names = [
     ("Bonnie", ".Webber"),
     ("Bonnie", "Webber1"),
     ("Bonnie", "Webber*"),
+    ("Zhi", "H o n g"),
 ]
 
 
