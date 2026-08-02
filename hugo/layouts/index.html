@@ -7,6 +7,10 @@
     const filterInput = directory.querySelector("[data-venue-filter]");
     const clearButton = directory.querySelector("[data-clear-filter]");
     const periodButtons = Array.from(directory.querySelectorAll("[data-period-filter]"));
+    const venueSectionHeaders = Array.from(
+      directory.querySelectorAll("[data-venue-section-header]")
+    );
+    const venueSearchHeader = directory.querySelector("[data-venue-search-header]");
     const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
@@ -152,16 +156,14 @@
         }
       });
 
-      let previousGroup = null;
-      venueRows.forEach(function (row) {
-        row.classList.remove("acl-venue-row--group-start");
-        if (row.hidden) return;
-        const group = row.dataset.homepageGroup;
-        row.classList.toggle(
-          "acl-venue-row--group-start",
-          previousGroup !== null && group !== previousGroup
-        );
-        previousGroup = group;
+      venueSearchHeader.hidden = !hasQuery;
+      venueSectionHeaders.forEach(function (header) {
+        header.hidden = hasQuery || !venueRows.some(function (row) {
+          const group = row.dataset.homepageGroup === "4"
+            ? "3"
+            : row.dataset.homepageGroup;
+          return !row.hidden && group === header.dataset.venueSectionHeader;
+        });
       });
 
       function inflect(count) {
@@ -334,8 +336,16 @@
       </div>
 
       <div class="acl-venue-list">
+        <div class="acl-venue-section-header" data-venue-search-header hidden>Search results</div>
+        {{ $previousHomepageGroup := 0 }}
         {{ range $venue := sort hugo.Data.venues "homepage_sort_key" "asc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
+        {{ $homepageGroup := int $venue.homepage_group }}
+        {{ if and (le $homepageGroup 3) (ne $homepageGroup $previousHomepageGroup) }}
+        <div class="acl-venue-section-header" data-venue-section-header="{{ $homepageGroup }}">
+          {{- if eq $homepageGroup 1 }}Recently updated{{ else if eq $homepageGroup 2 }}Flagship venues{{ else }}Other major venues{{ end -}}
+        </div>
+        {{ end }}
         <article class="acl-venue-row" data-venue-row data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
           <h4>
             <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
@@ -366,6 +376,7 @@
             <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
           </div>
         </article>
+        {{ $previousHomepageGroup = $homepageGroup }}
         {{ end }}
       </div>
 
