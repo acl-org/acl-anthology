@@ -32,10 +32,10 @@ import yaml
 from anthology.utils import infer_year
 
 try:
-    from yaml import CLoader as Loader
+    from yaml import CSafeLoader as Loader
     from yaml import CSafeDumper as Dumper
 except ImportError:
-    from yaml import Loader
+    from yaml import SafeLoader as Loader
     from yaml import SafeDumper as Dumper
 
 data = None
