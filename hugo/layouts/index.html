@@ -20,13 +20,71 @@
       return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
     }
 
-    function getVisibleTextRight(element) {
+    // Filtering runs on every keystroke. Cache immutable DOM references and
+    // normalized text so the hot path only needs to update visibility.
+    const venueData = new Map(venueRows.map(function (row) {
+      return [row, {
+        searchText: normalizeSearchText(row.dataset.venueSearch),
+        label: row.querySelector(".acl-venue-row__label"),
+        name: row.querySelector(".acl-venue-row__name"),
+        years: row.querySelector(".acl-venue-years"),
+        yearLinks: Array.from(row.querySelectorAll("[data-decade]")),
+        moreButton: row.querySelector("[data-venue-more]")
+      }];
+    }));
+    let venueTextEnds = new Map();
+    let yearSlotMetrics;
+
+    function getVisibleTextEnd(element, rowLeft) {
       if (!element || getComputedStyle(element).display === "none") return 0;
       const elementRect = element.getBoundingClientRect();
       const range = document.createRange();
       range.selectNodeContents(element);
       const textRect = range.getBoundingClientRect();
-      return Math.min(elementRect.right, textRect.right);
+      return Math.min(elementRect.right, textRect.right) - rowLeft;
+    }
+
+    function refreshVenueTextEnds() {
+      // Text extents change with fonts and responsive layout, not with the
+      // query. Measure every row when layout changes, then reuse the results.
+      const hiddenRows = venueRows.filter(function (row) {
+        return row.hidden;
+      });
+      hiddenRows.forEach(function (row) {
+        row.hidden = false;
+      });
+      venueTextEnds = new Map(venueRows.map(function (row) {
+        const rowLeft = row.getBoundingClientRect().left;
+        const data = venueData.get(row);
+        return [row, Math.max(
+          getVisibleTextEnd(data.label, rowLeft),
+          getVisibleTextEnd(data.name, rowLeft)
+        )];
+      }));
+      hiddenRows.forEach(function (row) {
+        row.hidden = true;
+      });
+    }
+
+    function refreshYearSlotMetrics() {
+      // Every year link and ellipsis uses the same fixed CSS width and gap, so
+      // one visible row supplies the shared slot geometry for all venues.
+      const row = venueRows.find(function (candidate) {
+        return !candidate.hidden;
+      });
+      if (!row) return;
+      const data = venueData.get(row);
+      const yearLink = data.yearLinks.find(function (link) {
+        return !link.hidden;
+      });
+      if (!yearLink || data.moreButton.hidden) return;
+      yearSlotMetrics = {
+        gap: parseFloat(getComputedStyle(data.years).columnGap) || 0,
+        slotWidth: Math.max(
+          yearLink.getBoundingClientRect().width,
+          data.moreButton.getBoundingClientRect().width
+        )
+      };
     }
 
     function getYearTrackWidth(rows) {
@@ -37,32 +95,17 @@
       const rowRect = rows[0].getBoundingClientRect();
       const gap = parseFloat(rowStyle.columnGap) || 0;
       const paddingRight = parseFloat(rowStyle.paddingRight) || 0;
-      const venueRight = Math.max(
+      const venueRight = rowRect.left + Math.max(
         ...rows.map(function (row) {
-          return Math.max(
-            getVisibleTextRight(row.querySelector(".acl-venue-row__label")),
-            getVisibleTextRight(row.querySelector(".acl-venue-row__name"))
-          );
+          return venueTextEnds.get(row);
         })
       );
       return Math.max(0, rowRect.right - paddingRight - venueRight - gap);
     }
 
-    function getYearSlotLayout(rows, availableWidth) {
-      let gap = 0;
-      let slotWidth = 0;
-      rows.forEach(function (row) {
-        const years = row.querySelector(".acl-venue-years");
-        const moreButton = row.querySelector("[data-venue-more]");
-        const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
-        yearLinks.forEach(function (link) {
-          link.hidden = false;
-          slotWidth = Math.max(slotWidth, link.getBoundingClientRect().width);
-        });
-        moreButton.hidden = false;
-        gap = Math.max(gap, parseFloat(getComputedStyle(years).columnGap) || 0);
-        slotWidth = Math.max(slotWidth, moreButton.getBoundingClientRect().width);
-      });
+    function getYearSlotLayout(availableWidth) {
+      const gap = yearSlotMetrics.gap;
+      const slotWidth = yearSlotMetrics.slotWidth;
       const slotCount = Math.max(
         1,
         Math.floor((availableWidth + gap) / (slotWidth + gap))
@@ -77,16 +120,14 @@
     function fitRecentYears(row, yearLinks, moreButton, slotLayout) {
       const years = row.querySelector(".acl-venue-years");
       years.style.width = slotLayout.stripWidth + "px";
-
-      if (yearLinks.length <= slotLayout.slotCount) {
-        moreButton.hidden = true;
-        return yearLinks.length;
-      }
-
-      const visibleYears = Math.max(0, slotLayout.slotCount - 1);
+      const hasOverflow = yearLinks.length > slotLayout.slotCount;
+      const visibleYears = hasOverflow
+        ? Math.max(0, slotLayout.slotCount - 1)
+        : yearLinks.length;
       yearLinks.forEach(function (link, index) {
-        link.hidden = index >= visibleYears;
+        link.hidden = hasOverflow && index >= visibleYears;
       });
+      moreButton.hidden = !hasOverflow;
       return visibleYears;
     }
 
@@ -99,16 +140,17 @@
       let visibleYears = 0;
 
       const matchingRows = venueRows.filter(function (row) {
+        const data = venueData.get(row);
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const isRecentlyUpdated = row.dataset.homepageGroup === "1";
         const textMatches = showAllVenues
-          || normalizeSearchText(row.dataset.venueSearch).includes(query);
+          || data.searchText.includes(query);
         const rowMatchesText = (hasQuery || isTopLevel || isRecentlyUpdated) && textMatches;
         row.hidden = !rowMatchesText;
         if (!rowMatchesText) return false;
 
         if (activePeriod === "recent" || activePeriod === "all") return true;
-        const hasMatchingYear = Array.from(row.querySelectorAll("[data-decade]")).some(
+        const hasMatchingYear = data.yearLinks.some(
           function (link) {
             return link.dataset.decade === activePeriod;
           }
@@ -119,14 +161,15 @@
 
       const yearTrackWidth = getYearTrackWidth(matchingRows);
       const slotLayout = activePeriod === "recent" && matchingRows.length > 0
-        ? getYearSlotLayout(matchingRows, yearTrackWidth)
+        ? getYearSlotLayout(yearTrackWidth)
         : null;
 
       matchingRows.forEach(function (row) {
 
-        const yearLinks = Array.from(row.querySelectorAll("[data-decade]"));
+        const data = venueData.get(row);
+        const yearLinks = data.yearLinks;
         const expanded = row.dataset.expanded === "true";
-        const moreButton = row.querySelector("[data-venue-more]");
+        const moreButton = data.moreButton;
         const isCompact = activePeriod === "recent" && !expanded;
         let matchingYears = 0;
 
@@ -134,7 +177,7 @@
         if (isCompact && moreButton) {
           matchingYears = fitRecentYears(row, yearLinks, moreButton, slotLayout);
         } else {
-          row.querySelector(".acl-venue-years").style.width = activePeriod === "recent"
+          data.years.style.width = activePeriod === "recent"
             ? slotLayout.stripWidth + "px"
             : yearTrackWidth + "px";
           yearLinks.forEach(function (link) {
@@ -228,17 +271,25 @@
         const nextWidth = entries[0].contentRect.width;
         if (nextWidth !== directoryWidth) {
           directoryWidth = nextWidth;
-          applyFilters();
+          refreshLayout();
         }
       }).observe(directory);
     }
-    window.addEventListener("resize", applyFilters);
+    window.addEventListener("resize", refreshLayout);
 
     if (document.fonts) {
-      document.fonts.ready.then(applyFilters);
+      document.fonts.ready.then(refreshLayout);
     }
 
-    applyFilters();
+    function refreshLayout() {
+      // Resize and font loading invalidate geometry caches; ordinary filtering
+      // does not, which keeps input handling free of repeated layout reads.
+      refreshVenueTextEnds();
+      refreshYearSlotMetrics();
+      applyFilters();
+    }
+
+    refreshLayout();
   }());
 </script>
 {{ end }}
