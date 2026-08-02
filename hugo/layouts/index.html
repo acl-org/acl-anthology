@@ -394,7 +394,7 @@
 
       <div class="acl-venue-list">
         <div class="acl-venue-section-header" data-venue-search-header hidden>
-          Search results (<span class="acl-venue-section-count" data-venue-section-count>0</span>)
+          Search results &bull; <span class="acl-venue-section-count" data-venue-section-count>0</span>
         </div>
         {{ $previousHomepageGroup := 0 }}
         {{ range $venue := sort hugo.Data.venues "homepage_sort_key" "asc" }}
@@ -402,10 +402,10 @@
         {{ $homepageGroup := int $venue.homepage_group }}
         {{ if and (le $homepageGroup 3) (ne $homepageGroup $previousHomepageGroup) }}
         <div class="acl-venue-section-header" data-venue-section-header="{{ $homepageGroup }}">
-          {{- if eq $homepageGroup 1 }}Recently updated{{ else if eq $homepageGroup 2 }}Flagship venues{{ else }}Other major venues{{ end }} (<span class="acl-venue-section-count" data-venue-section-count>0</span>)
+          {{- if eq $homepageGroup 1 }}Recently updated{{ else if eq $homepageGroup 2 }}Flagship venues{{ else }}Other major venues{{ end }} &bull; <span class="acl-venue-section-count" data-venue-section-count>0</span>
         </div>
         {{ end }}
-        <article class="acl-venue-row" data-venue-row data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+        <article class="acl-venue-row{{ if eq $venue.type "journal" }} acl-venue-row--journal{{ end }}" data-venue-row data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
           <h4>
             <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
               <span class="acl-venue-row__label">
