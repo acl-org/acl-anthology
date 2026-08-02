@@ -143,7 +143,7 @@ def _is_valid_name_part(
     """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
 
     Returns:
-        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain a hyphen next to a space, does not contain two consecutive isolated lowercase letters, and does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain a hyphen next to a space, does not contain two consecutive isolated lowercase letters, does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
     """
     if not value or value.isalpha():
         # If all characters are alphabetic, it is guaranteed to be valid.
