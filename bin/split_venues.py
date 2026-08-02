@@ -23,10 +23,10 @@ Takes each venue and writes its data to a new file under venues/
 import yaml
 
 try:
-    from yaml import CLoader as Loader
+    from yaml import CSafeLoader as Loader
     from yaml import CSafeDumper as Dumper
 except ImportError:
-    from yaml import Loader
+    from yaml import SafeLoader as Loader
     from yaml import SafeDumper as Dumper
 
 with open("venues.yaml") as f:
