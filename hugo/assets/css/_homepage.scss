@@ -1,5 +1,6 @@
-/* Custom styles for main homepage */
+@use "sass:math";
 
+/* Custom styles for main homepage */
 
 .acl-news {
   .acl-news-date {
@@ -14,6 +15,25 @@
 
   a {
     font-weight: $font-weight-bold;
+  }
+}
+
+.acl-old-home {
+  .acl-greeting {
+    .card-body:not(:last-of-type) {
+      border-bottom: $border-width solid $border-color;
+
+      @include media-breakpoint-down(lg) {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+        margin-bottom: -.5rem !important;
+      }
+    }
+  }
+
+  .acl-event-table {
+    border: math.div($border-width, 2) solid $border-color;
+    font-size: .8rem;
   }
 }
 

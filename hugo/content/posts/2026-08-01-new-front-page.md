@@ -5,9 +5,9 @@ description: >
     A modernized, compacter, mobile-friendly update to our home page
 ---
 
-Today we are introducing a new front page for the ACL Anthology.
+Today we are introducing a new landing page for the ACL Anthology.
 
-The old front page linked directly to the complete history of events for selected venues, but had a number of issues: among others, it was unwieldy to navigate, didn't draw attention to current or recent events, and more generally was showing its age.
+[The old front page]({{<ref "/old" >}}) was organized around a "matrix view," which contained a complete history of events for a selected list of venues. However, it had a number of issues: it was unwieldy to navigate, didn't draw attention to current or recent events and hid others entirely, and was difficult to navigate on mobile devices. It was really showing its age.
 
 <div class="row g-3 my-4">
   <figure class="col-md-6 mb-0">
@@ -20,7 +20,7 @@ The old front page linked directly to the complete history of events for selecte
   </figure>
 </div>
 
-At the same time, it had a recognizable appearance. Our redesign introduces the following changes:
+At the same time, it had a recognizable appearance and useful interface. Our redesign introduces the following changes:
 
 - The appearance is distinctly new, but preserves the Anthology's unique look and compact presentation of information.
 - It introduces a new venue ordering and search box. New events are grouped at the top, followed by flagship venues, and then all others. Any venue can be quickly found via the filter (`*` will show the complete list).
@@ -31,6 +31,6 @@ At the same time, it had a recognizable appearance. Our redesign introduces the 
   <figcaption class="small text-muted mt-2">Mobile view</figcaption>
 </figure>
 
-This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158).
+This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158). We will continue to maintain [the old version]({{<ref "/old" >}}) for those who prefer it.
 
 The Anthology is run by volunteers from the NLP community. This includes the staff that maintains this infrastructure, and also the many people who contribute the volumes that constitute its extensive open resources. As always, we welcome [your feedback](https://aclanthology.org/faq/#feedback).
