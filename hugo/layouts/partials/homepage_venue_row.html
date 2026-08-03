@@ -1,0 +1,44 @@
+{{ $page := .page }}
+{{ $venue := .venue }}
+{{ $venuePage := $page.Site.GetPage (printf "/venues/%s" $venue.slug) }}
+{{ $isWorkshopIndex := eq $venue.slug "ws" }}
+<article class="acl-venue-row{{ if eq $venue.type "journal" }} acl-venue-row--journal{{ end }}" data-venue-row{{ if $isWorkshopIndex }} data-workshop-row{{ end }}{{ if .workshopChild }} data-workshop-child{{ end }} data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
+  <h4>
+    {{ if $isWorkshopIndex }}
+    <button id="acl-workshop-toggle" class="acl-workshop-toggle" type="button" data-workshop-toggle aria-expanded="false" aria-controls="acl-workshop-panel" aria-label="Show workshop venues" title="Show workshop venues">
+      <span class="acl-venue-row__label">
+        <span class="acl-venue-row__acl-marker" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+        <span class="acl-venue-row__acronym">Workshops</span>
+      </span>
+      <span class="acl-venue-row__name">{{ $venue.name }}</span>
+    </button>
+    {{ else }}
+    <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
+      <span class="acl-venue-row__label">
+        <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&#9642;{{ end }}</span>
+        <span class="acl-venue-row__acronym">{{ $venue.acronym }}</span>
+      </span>
+      <span class="acl-venue-row__name">{{ $venue.name }}</span>
+    </a>
+    {{ end }}
+  </h4>
+  <div class="acl-venue-years" aria-label="Available years for {{ $venue.acronym }}">
+    {{ range $yearIndex, $year := collections.Reverse $venue.years }}
+      {{ $eventID := printf "%s-%s" $venue.slug $year }}
+      {{ $event := index hugo.Data.events $eventID }}
+      {{ $volumes := index $venue.volumes_by_year $year }}
+      {{ $decade := printf "%s0" (slicestr $year 0 3) }}
+      {{ $isNewlyIngested := in $venue.newly_ingested_years $year }}
+      {{ if and $event $event.volumes }}
+    <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ relref $page (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
+      {{ else }}
+        {{ $yearURL := $venuePage.RelPermalink }}
+        {{ if eq (len $volumes) 1 }}
+          {{ $yearURL = relref $page (printf "/volumes/%s" (index $volumes 0)) }}
+        {{ end }}
+    <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
+      {{ end }}
+    {{ end }}
+    <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
+  </div>
+</article>

@@ -12,9 +12,13 @@
     );
     const venueSearchHeader = directory.querySelector("[data-venue-search-header]");
     const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
+    const workshopRow = directory.querySelector("[data-workshop-row]");
+    const workshopToggle = directory.querySelector("[data-workshop-toggle]");
+    const workshopPanel = directory.querySelector("[data-workshop-panel]");
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
+    let workshopsExpanded = false;
 
     function normalizeSearchText(value) {
       return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
@@ -47,6 +51,8 @@
     function refreshVenueTextEnds() {
       // Text extents change with fonts and responsive layout, not with the
       // query. Measure every row when layout changes, then reuse the results.
+      const panelWasHidden = workshopPanel.hidden;
+      workshopPanel.hidden = false;
       const hiddenRows = venueRows.filter(function (row) {
         return row.hidden;
       });
@@ -64,6 +70,7 @@
       hiddenRows.forEach(function (row) {
         row.hidden = true;
       });
+      workshopPanel.hidden = panelWasHidden;
     }
 
     function refreshYearSlotMetrics() {
@@ -143,9 +150,13 @@
         const data = venueData.get(row);
         const isTopLevel = row.dataset.venueTopLevel === "true";
         const isRecentlyUpdated = row.dataset.homepageGroup === "1";
+        const isWorkshopChild = row.hasAttribute("data-workshop-child");
         const textMatches = showAllVenues
           || data.searchText.includes(query);
-        const rowMatchesText = (hasQuery || isTopLevel || isRecentlyUpdated) && textMatches;
+        const rowMatchesText = (
+          hasQuery || isTopLevel || isRecentlyUpdated
+          || (isWorkshopChild && workshopsExpanded)
+        ) && textMatches;
         row.hidden = !rowMatchesText;
         if (!rowMatchesText) return false;
 
@@ -158,6 +169,14 @@
         row.hidden = !hasMatchingYear;
         return hasMatchingYear;
       });
+
+      const matchingWorkshopRows = matchingRows.filter(function (row) {
+        return row.hasAttribute("data-workshop-child");
+      });
+      const workshopPanelVisible = (
+        hasQuery || (workshopsExpanded && !workshopRow.hidden)
+      ) && matchingWorkshopRows.length > 0;
+      workshopPanel.hidden = !workshopPanelVisible;
 
       const yearTrackWidth = getYearTrackWidth(matchingRows);
       const slotLayout = activePeriod === "recent" && matchingRows.length > 0
@@ -203,7 +222,7 @@
       venueSearchHeader.querySelector("[data-venue-section-count]").textContent = visibleVenues;
       const venueCountsByGroup = { "1": 0, "2": 0, "3": 0 };
       venueRows.forEach(function (row) {
-        if (row.hidden) return;
+        if (row.hidden || row.hasAttribute("data-workshop-child")) return;
         const group = row.dataset.homepageGroup === "4"
           ? "3"
           : row.dataset.homepageGroup;
@@ -214,6 +233,14 @@
         header.hidden = hasQuery || count === 0;
         header.querySelector("[data-venue-section-count]").textContent = count;
       });
+
+      workshopToggle.setAttribute("aria-expanded", workshopPanelVisible.toString());
+      workshopToggle.setAttribute(
+        "aria-label",
+        (workshopPanelVisible ? "Hide" : "Show") + " workshop venues"
+      );
+      workshopToggle.title = (workshopPanelVisible ? "Hide" : "Show")
+        + " workshop venues";
 
       function inflect(count) {
         return "venue" + (count === 1 ? "" : "s");
@@ -256,6 +283,13 @@
     });
 
     directory.addEventListener("click", function (event) {
+      const clickedWorkshopToggle = event.target.closest("[data-workshop-toggle]");
+      if (clickedWorkshopToggle) {
+        workshopsExpanded = !workshopsExpanded;
+        applyFilters();
+        return;
+      }
+
       const moreButton = event.target.closest("[data-venue-more]");
       if (!moreButton) return;
       const row = moreButton.closest("[data-venue-row]");
@@ -400,42 +434,25 @@
         {{ range $venue := sort hugo.Data.venues "homepage_sort_key" "asc" }}
         {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
         {{ $homepageGroup := int $venue.homepage_group }}
+        {{ $isWorkshopIndex := eq $venue.slug "ws" }}
+        {{ if or $venue.is_toplevel (eq $homepageGroup 1) }}
         {{ if and (le $homepageGroup 3) (ne $homepageGroup $previousHomepageGroup) }}
         <div class="acl-venue-section-header" data-venue-section-header="{{ $homepageGroup }}">
           {{- if eq $homepageGroup 1 }}Recently updated{{ else if eq $homepageGroup 2 }}Flagship venues{{ else }}Other major venues{{ end }} &middot; <span class="acl-venue-section-count" data-venue-section-count>0</span>
         </div>
         {{ end }}
-        <article class="acl-venue-row{{ if eq $venue.type "journal" }} acl-venue-row--journal{{ end }}" data-venue-row data-homepage-group="{{ $venue.homepage_group }}" data-venue-top-level="{{ cond $venue.is_toplevel "true" "false" }}" data-venue-search="{{ lower (printf "%s %s %s" $venue.acronym $venue.name $venue.slug) }}">
-          <h4>
-            <a href="{{ $venuePage.RelPermalink }}" title="{{ $venue.name }}">
-              <span class="acl-venue-row__label">
-                <span class="acl-venue-row__acl-marker"{{ if $venue.is_acl }} aria-label="ACL venue" title="ACL venue"{{ else }} aria-hidden="true"{{ end }}>{{ if $venue.is_acl }}&#9642;{{ end }}</span>
-                <span class="acl-venue-row__acronym">{{ cond (eq $venue.slug "ws") "Workshops" $venue.acronym }}</span>
-              </span>
-              <span class="acl-venue-row__name">{{ $venue.name }}</span>
-            </a>
-          </h4>
-          <div class="acl-venue-years" aria-label="Available years for {{ $venue.acronym }}">
-            {{ range $yearIndex, $year := collections.Reverse $venue.years }}
-              {{ $eventID := printf "%s-%s" $venue.slug $year }}
-              {{ $event := index hugo.Data.events $eventID }}
-              {{ $volumes := index $venue.volumes_by_year $year }}
-              {{ $decade := printf "%s0" (slicestr $year 0 3) }}
-              {{ $isNewlyIngested := in $venue.newly_ingested_years $year }}
-              {{ if and $event $event.volumes }}
-            <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ relref $ (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
-              {{ else }}
-                {{ $yearURL := $venuePage.RelPermalink }}
-                {{ if eq (len $volumes) 1 }}
-                  {{ $yearURL = relref $ (printf "/volumes/%s" (index $volumes 0)) }}
-                {{ end }}
-            <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ $yearURL }}" data-decade="{{ $decade }}" title="{{ $venue.name }} ({{ $year }})">{{ $year }}</a>
-              {{ end }}
+        {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $venue) }}
+        {{ if $isWorkshopIndex }}
+        <section id="acl-workshop-panel" class="acl-workshop-panel" data-workshop-panel aria-labelledby="acl-workshop-toggle" hidden>
+          {{ range $workshopVenue := sort hugo.Data.venues "acronym" "asc" }}
+            {{ if and (not $workshopVenue.is_toplevel) (ne (int $workshopVenue.homepage_group) 1) }}
+          {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $workshopVenue "workshopChild" true) }}
             {{ end }}
-            <button class="acl-venue-years__more" type="button" data-venue-more aria-label="Show all years for {{ $venue.acronym }}" title="Show all years">&hellip;</button>
-          </div>
-        </article>
+          {{ end }}
+        </section>
+        {{ end }}
         {{ $previousHomepageGroup = $homepageGroup }}
+        {{ end }}
         {{ end }}
       </div>
 

@@ -443,7 +443,8 @@
     line-height: 1.32;
   }
 
-  h4 a {
+  h4 a,
+  h4 .acl-workshop-toggle {
     display: grid;
     grid-template-columns: max-content minmax(0, 1fr);
     align-items: baseline;
@@ -464,6 +465,29 @@
       text-decoration: underline;
       text-underline-offset: .2rem;
     }
+  }
+}
+
+.acl-workshop-toggle {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  .acl-venue-row__acl-marker {
+    color: $blue;
+    font-size: .62rem;
+  }
+
+  .acl-venue-row__acl-marker i {
+    transition: transform .16s ease;
+  }
+
+  &[aria-expanded="true"] .acl-venue-row__acl-marker i {
+    transform: rotate(90deg);
   }
 }
 
@@ -589,6 +613,14 @@
   }
 }
 
+.acl-workshop-panel {
+  border-bottom: 1px solid #e5ecef;
+
+  .acl-venue-row:last-child {
+    border-bottom: 0;
+  }
+}
+
 .acl-sig-directory {
   --acl-directory-header-bg: #{$acl-soft-green};
   --acl-directory-header-ink: #{$acl-black};
@@ -685,7 +717,8 @@
     width: 6rem;
   }
 
-  .acl-venue-row h4 a {
+  .acl-venue-row h4 a,
+  .acl-venue-row h4 .acl-workshop-toggle {
     display: block;
   }
 
