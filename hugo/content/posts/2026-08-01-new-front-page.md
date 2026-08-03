@@ -11,11 +11,11 @@ Today we are introducing a new landing page for the ACL Anthology.
 
 <div class="row g-3 my-4">
   <figure class="col-md-6 mb-0">
-    <img src="{{< ref "/images/2026-08-01/front-page-old.png" >}}" alt="Old page" class="img-fluid border" />
+    <img src="../../images/2026-08-01/front-page-old.png" alt="Old page" class="img-fluid border" />
     <figcaption class="small text-muted mt-2">Before: comprehensive, static, and of unbounded width.</figcaption>
   </figure>
   <figure class="col-md-6 mb-0">
-    <img src="{{< ref "/images/2026-08-01/front-page-new.png" >}}" alt="New page" class="img-fluid border" />
+    <img src="../../images/2026-08-01/front-page-new.png" alt="New page" class="img-fluid border" />
     <figcaption class="small text-muted mt-2">After: dynamic, compact, and with more direct access to venues and recent events.</figcaption>
   </figure>
 </div>
@@ -27,7 +27,7 @@ At the same time, it had a recognizable appearance and useful interface. Our red
 - The content fits within the horizontal screen space, including on mobile devices.
 
 <figure class="my-4 text-center">
-  <img src="{{< ref "/images/2026-08-01/front-page-mobile.jpg" >}}" alt="Mobile view" class="img-fluid border" style="width: 390px;" />
+  <img src="../../images/2026-08-01/front-page-mobile.jpg" alt="Mobile view" class="img-fluid border" style="width: 390px;" />
   <figcaption class="small text-muted mt-2">Mobile view</figcaption>
 </figure>
 
