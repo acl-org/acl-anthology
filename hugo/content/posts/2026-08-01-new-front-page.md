@@ -23,8 +23,8 @@ Today we are introducing a new landing page for the ACL Anthology.
 At the same time, it had a recognizable appearance and provided direct access to many proceedings. Our redesign introduces the following changes:
 
 - The appearance is distinctly new, but preserves the Anthology's unique look.
-- It introduces a new venue grouping that first highlights venues with recent additions. This is followed by flagship venues, which includes ACL's main conferences and journals and additional large, international, general-topic venues. Finally, other major venues are listed in alphabetic order.
-- We introduce a new filter that allows users to surfae any of the 515 venues ingested in the Anthology. Users of the Anthology can also filter displayed years by decades. By default, the most recent years of each venue are shown, up to the available width.
+- It introduces a new venue grouping that first highlights venues with recent additions. This is followed by flagship venues, which includes ACL's main conferences and journals, along with large, international, general-topic venues. Finally, other major venues are listed.
+- We introduce a new filter that allows users to surface any of the 515 venues ingested in the Anthology. Users of the Anthology can also filter displayed years by decades. By default, the most recent years of each venue are shown, up to the available width.
 - The content fits within the horizontal screen space, including on mobile devices.
 
 This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158) and informal feedback from others in the NLP community. We will continue to maintain [the old version]({{<ref "/old" >}}) for those who prefer it.
