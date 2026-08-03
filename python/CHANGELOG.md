@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## Changed
+
+- `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+
+## [1.3.0] — 2026-07-31
+
 ### Added
 
 - Added support for recording OpenReview IDs for authors.

@@ -888,7 +888,7 @@
       <author><first>Erfan</first><last>Nourbakhsh</last><affiliation>University of Texas at San Antonio</affiliation></author>
       <author><first>Rocky</first><last>Slavin</last><affiliation>University of Texas at San Antonio</affiliation></author>
       <author><first>Ke</first><last>Yang</last><affiliation>University of Texas at San Antonio</affiliation></author>
-      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author id="anthony-rios"><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
       <pages>890-910</pages>
       <abstract>Medical question answering is a high-stakes setting where factual errors can have serious consequences. Retrieval-augmented generation (RAG) is widely viewed as a promising solution, and prior work has reported substantial gains for large medical QA models. We revisit this assumption across a broad range of open-weight instruction-tuned models spanning 7B to 72B parameters. Across five models, ten biomedical QA datasets, four retrieval methods, and four retrieval corpora, we find that retrieval yields only small and inconsistent improvements over a no-retrieval baseline, typically within 1–2 points. In contrast, the choice of backbone model has a much larger effect than the choice of retriever or corpus, and expert and layman retrieval sources perform similarly in most settings. These results suggest that the main bottleneck is not retrieval quality alone, but the model’s limited ability to use retrieved evidence effectively.</abstract>
       <url hash="e6b209bc">2026.bionlp-1.72</url>
@@ -954,7 +954,7 @@
     <paper id="77">
       <title>Expert-Guided Schema-Based Structured Extraction from <fixed-case>CONSORT</fixed-case> Diagrams Using Vision-Language Models</title>
       <author><first>Damian</first><last>Stachura</last><affiliation>Evidence Prime</affiliation></author>
-      <author><first>Bartosz</first><last>Przechera</last><affiliation>Evidence Prime</affiliation></author>
+      <author id="bartosz-przechera"><first>Bartosz</first><last>Przechera</last><affiliation>Evidence Prime</affiliation></author>
       <author><first>Monika</first><last>Opałek</last><affiliation>Evidence Prime</affiliation></author>
       <author><first>Ewelina</first><last>Sadowska</last><affiliation>Evidence Prime</affiliation></author>
       <author><first>Ewa</first><last>Borowiack</last><affiliation>Evidence Prime</affiliation></author>
@@ -1041,8 +1041,8 @@
     </paper>
     <paper id="84">
       <title><fixed-case>I</fixed-case>ndic<fixed-case>M</fixed-case>ed<fixed-case>D</fixed-case>ialog: A Parallel Multi-Turn Medical Dialogue Dataset for Accessible Healthcare in <fixed-case>I</fixed-case>ndic Languages</title>
-      <author id="shubham-kumar-nigam" orcid="0000-0003-2564-7866"><first>Shubham</first><last>Nigam</last><affiliation>University of Birmingham</affiliation></author>
-      <author><first>Suparnojit</first><last>Sarkar</last><affiliation>Heritage Institute of Technology Kolkata</affiliation></author>
+      <author id="shubham-kumar-nigam" orcid="0000-0003-2564-7866"><first>Shubham Kumar</first><last>Nigam</last><affiliation>University of Birmingham</affiliation></author>
+      <author id="suparnojit-sarkar"><first>Suparnojit</first><last>Sarkar</last><affiliation>Heritage Institute of Technology Kolkata</affiliation></author>
       <author id="piyush-patel" orcid="0009-0001-9629-6410"><first>Piyush</first><last>Patel</last><affiliation>Madan Mohan Malaviya University of Technology</affiliation></author>
       <pages>1041-1055</pages>
       <abstract>We present IndicMedDialog, a parallel multi-turn medical dialogue dataset spanning English and nine Indic languages (Assamese, Bengali, Gujarati, Hindi, Marathi, Punjabi, Tamil, Telugu, and Urdu). The dataset extends the MDDial corpus with LLM-generated synthetic consultations, translated using TranslateGemma, verified by native speakers, and refined through a script-aware post-processing pipeline to correct phonetic, lexical, and character-spacing errors introduced during automatic translation. Building on this dataset, we fine-tune IndicMedLM via parameter-efficient adaptation (LoRA) of a quantized small language model, incorporating an optional patient pre-context to personalise multi-turn symptom elicitation. We evaluate IndicMedLM against zero-shot multilingual baselines across ten languages and conduct systematic error analysis, identifying five failure modes: Instruction Drift, Label Collapse, Cross-Domain Confusion, Tokenization Failure, and Paraphrase-over-Label Generation. Results show strong post-processed diagnostic accuracy in Hindi, Marathi, and Bengali, while Assamese, Tamil, and Telugu remain in an extreme failure tier attributable to base-model tokenizer gaps, a finding with direct patient safety implications. Medical expert evaluation confirms the clinical plausibility and safety of the generated consultations.</abstract>

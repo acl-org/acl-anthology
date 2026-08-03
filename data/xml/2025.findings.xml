@@ -5202,7 +5202,7 @@
     <paper id="386">
       <title>Unmasking Database Vulnerabilities: Zero-Knowledge Schema Inference Attacks in Text-to-<fixed-case>SQL</fixed-case> Systems</title>
       <author id="dorde-klisura" orcid="0000-0001-5086-6222"><first>Đorđe</first><last>Klisura</last></author>
-      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author id="anthony-rios"><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
       <pages>6969-6991</pages>
       <abstract>Text-to-SQL systems empower users to interact with databases using natural language, automatically translating queries into executable SQL code. However, their reliance on database schema information for SQL generation exposes them to significant security vulnerabilities, particularly schema inference attacks that can lead to unauthorized data access or manipulation. In this paper, we introduce a novel zero-knowledge framework for reconstructing the underlying database schema of text-to-SQL models without any prior knowledge of the database. Our approach systematically probes text-to-SQL models with specially crafted questions and leverages a surrogate GPT-4 model to interpret the outputs, effectively uncovering hidden schema elements—including tables, columns, and data types. We demonstrate that our method achieves high accuracy in reconstructing table names, with F1 scores of up to .99 for generative models and .78 for fine-tuned models, underscoring the severity of schema leakage risks. We also show that our attack can steal prompt information in non-text-to-SQL models. Furthermore, we propose a simple protection mechanism for generative models and empirically show its limitations in mitigating these attacks.</abstract>
       <url hash="dd0b84b8">2025.findings-naacl.386</url>
@@ -18027,7 +18027,7 @@
     <paper id="829">
       <title>Do Large Language Models Know Folktales? A Case Study of Yokai in <fixed-case>J</fixed-case>apanese Folktales</title>
       <author><first>Ayuto</first><last>Tsutsumi</last></author>
-      <author><first>Yuu</first><last>Jinnai</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <author id="yuu-jinnai"><first>Yuu</first><last>Jinnai</last><affiliation>CyberAgent, Inc.</affiliation></author>
       <pages>16124-16146</pages>
       <abstract>Although Large Language Models (LLMs) have demonstrated strong language understanding and generation abilities across various languages, their cultural knowledge is often limited to English-speaking communities, which can marginalize the cultures of non-English communities. To address the problem, the evaluation of the cultural awareness of the LLMs and the methods to develop culturally aware LLMs have been investigated. In this study, we focus on evaluating knowledge of folktales, a key medium for conveying and circulating culture. In particular, we focus on Japanese folktales, specifically on knowledge of Yokai. Yokai are supernatural creatures originating from Japanese folktales that continue to be popular motifs in art and entertainment today. Yokai have long served as a medium for cultural expression, making them an ideal subject for assessing the cultural awareness of LLMs. We introduce YokaiEval, a benchmark dataset consisting of 809 multiple-choice questions (each with four options) designed to probe knowledge about yokai. We evaluate the performance of 31 Japanese and multilingual LLMs on this dataset. The results show that models trained with Japanese language resources achieve higher accuracy than English-centric models, with those that underwent continued pretraining in Japanese, particularly those based on Llama-3, performing especially well.</abstract>
       <url hash="268e1a86">2025.findings-acl.829</url>
@@ -21882,7 +21882,7 @@
       <title>Entriever: Energy-based Retriever for Knowledge-Grounded Dialog Systems</title>
       <author><first>Yucheng</first><last>Cai</last></author>
       <author><first>Ke</first><last>Li</last><affiliation>Tsinghua University</affiliation></author>
-      <author id="yi-huang-2998"><first>Yi</first><last>Huang</last><affiliation>Tsinghua University and China Mobile Research Institute</affiliation></author>
+      <author id="yi-huang-tsinghua"><first>Yi</first><last>Huang</last><affiliation>Tsinghua University and China Mobile Research Institute</affiliation></author>
       <author id="junlan-feng" orcid="0000-0001-5292-2945"><first>Junlan</first><last>Feng</last></author>
       <author><first>Zhijian</first><last>Ou</last><affiliation>Tsinghua University</affiliation></author>
       <pages>21462-21474</pages>
@@ -39113,7 +39113,7 @@
     </paper>
     <paper id="903">
       <title>Annotation-Efficient Language Model Alignment via Diverse and Representative Response Texts</title>
-      <author><first>Yuu</first><last>Jinnai</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <author id="yuu-jinnai"><first>Yuu</first><last>Jinnai</last><affiliation>CyberAgent, Inc.</affiliation></author>
       <author id="ukyo-honda" orcid="0000-0002-4894-9886"><first>Ukyo</first><last>Honda</last><affiliation>CyberAgent, Inc.</affiliation></author>
       <pages>16616-16659</pages>
       <abstract>Preference optimization is a standard approach to fine-tuning large language models to align with human preferences. The quantity, diversity, and representativeness of the preference dataset are critical to the effectiveness of preference optimization. However, obtaining a large amount of preference annotations is difficult in many applications. This raises the question of how to use the limited annotation budget to create an effective preference dataset. To this end, we propose Annotation-Efficient Preference Optimization (AEPO). Instead of exhaustively annotating preference over all available response texts, AEPO selects a subset of responses that maximizes diversity and representativeness from the available responses and then annotates preference over the selected ones. In this way, AEPO focuses the annotation budget on labeling preferences over a smaller but informative subset of responses. We evaluate the performance of preference learning using AEPO on three datasets and show that it outperforms the baselines with the same annotation budget.</abstract>
@@ -45945,7 +45945,7 @@
     <paper id="1371">
       <title>Does It Run and Is That Enough? Revisiting Text-to-Chart Generation with a Multi-Agent Approach</title>
       <author id="james-ford" orcid="0009-0008-1122-1534"><first>James</first><last>Ford</last><affiliation>University of Texas at San Antonio</affiliation></author>
-      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author id="anthony-rios"><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
       <pages>25160-25173</pages>
       <abstract>Large language models can translate natural-language chart descriptions into runnable code, yet approximately 15% of the generated scripts still fail to execute, even after supervised fine-tuning and reinforcement learning. We investigate whether this persistent error rate stems from model limitations or from reliance on a single-prompt design. To explore this, we propose a lightweight multi-agent pipeline that separates drafting, execution, repair, and judgment, using only an off-the-shelf GPT-4o-mini model. On the Text2Chart31 benchmark, our system reduces execution errors to 4.5% within three repair iterations, outperforming the strongest fine-tuned baseline by nearly 5 percentage points while requiring significantly less compute. Similar performance is observed on the ChartX benchmark, with an error rate of 4.6%, demonstrating strong generalization. Under current benchmarks, execution success appears largely solved. However, manual review reveals that 6 out of 100 sampled charts contain hallucinations, and an LLM-based accessibility audit shows that only 33.3% (Text2Chart31) and 7.2% (ChartX) of generated charts satisfy basic colorblindness guidelines. These findings suggest that future work should shift focus from execution reliability toward improving chart aesthetics, semantic fidelity, and accessibility.</abstract>
       <url hash="dec07581">2025.findings-emnlp.1371</url>
@@ -47518,7 +47518,7 @@
     </paper>
     <paper id="87">
       <title>Standardizing Heterogeneous Corpora with <fixed-case>DUUR</fixed-case>: A Dual Data- and Process-Oriented Approach to Enhancing <fixed-case>NLP</fixed-case> Pipeline Integration</title>
-      <author id="leon-lukas-hammerla" orcid="0009-0009-2333-9705"><first>Leon Lukas</first><last>Hammerla</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
+      <author id="leon-lukas-hammerla" orcid="0009-0009-2333-9705"><first>Leon</first><last>Hammerla</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
       <author><first>Alexander</first><last>Mehler</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
       <author id="giuseppe-abrami" orcid="0000-0002-7084-4909"><first>Giuseppe</first><last>Abrami</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
       <pages>1410-1425</pages>
@@ -47540,7 +47540,7 @@
     </paper>
     <paper id="89">
       <title><fixed-case>D</fixed-case>-Neg: Syntax-Aware Graph Reasoning for Negation Detection</title>
-      <author id="leon-lukas-hammerla" orcid="0009-0009-2333-9705"><first>Leon Lukas</first><last>Hammerla</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
+      <author id="leon-lukas-hammerla" orcid="0009-0009-2333-9705"><first>Leon</first><last>Hammerla</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
       <author id="andy-lucking" orcid="0000-0002-5070-2233"><first>Andy</first><last>Lücking</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main and Université Paris Diderot</affiliation></author>
       <author><first>Carolin</first><last>Reinert</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
       <author><first>Alexander</first><last>Mehler</last><affiliation>Johann Wolfgang Goethe Universität Frankfurt am Main</affiliation></author>
