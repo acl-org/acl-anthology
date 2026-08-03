@@ -20,6 +20,57 @@
     let activePeriod = "recent";
     let workshopsExpanded = false;
 
+    function updatePeriodButtons() {
+      periodButtons.forEach(function (button) {
+        const isActive = button.dataset.periodFilter === activePeriod;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive.toString());
+      });
+    }
+
+    function loadURLState() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedPeriod = params.get("year");
+      const requestedWorkshops = params.get("workshops");
+
+      filterInput.value = params.get("venue") || "";
+      activePeriod = periodButtons.some(function (button) {
+        return button.dataset.periodFilter === requestedPeriod;
+      }) ? requestedPeriod : "recent";
+      workshopsExpanded = requestedWorkshops === "1"
+        || requestedWorkshops === "true";
+      updatePeriodButtons();
+    }
+
+    function updateURLState() {
+      const url = new URL(window.location.href);
+
+      if (filterInput.value) {
+        url.searchParams.set("venue", filterInput.value);
+      } else {
+        url.searchParams.delete("venue");
+      }
+      if (activePeriod === "recent") {
+        url.searchParams.delete("year");
+      } else {
+        url.searchParams.set("year", activePeriod);
+      }
+      if (workshopsExpanded) {
+        url.searchParams.set("workshops", "1");
+      } else {
+        url.searchParams.delete("workshops");
+      }
+
+      const query = url.searchParams.toString();
+      window.history.replaceState(
+        window.history.state,
+        "",
+        url.pathname + (query ? "?" + query : "") + url.hash
+      );
+    }
+
+    loadURLState();
+
     function normalizeSearchText(value) {
       return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
     }
@@ -253,10 +304,14 @@
         : visibleVenues + " " + inflect(visibleVenues);
     }
 
-    filterInput.addEventListener("input", applyFilters);
+    filterInput.addEventListener("input", function () {
+      updateURLState();
+      applyFilters();
+    });
     filterInput.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && filterInput.value) {
         filterInput.value = "";
+        updateURLState();
         applyFilters();
       }
     });
@@ -264,6 +319,7 @@
     clearButton.addEventListener("click", function () {
       filterInput.value = "";
       filterInput.focus();
+      updateURLState();
       applyFilters();
     });
 
@@ -273,11 +329,8 @@
         venueRows.forEach(function (row) {
           row.dataset.expanded = "false";
         });
-        periodButtons.forEach(function (candidate) {
-          const isActive = candidate === button;
-          candidate.classList.toggle("is-active", isActive);
-          candidate.setAttribute("aria-pressed", isActive.toString());
-        });
+        updatePeriodButtons();
+        updateURLState();
         applyFilters();
       });
     });
@@ -286,6 +339,7 @@
       const clickedWorkshopToggle = event.target.closest("[data-workshop-toggle]");
       if (clickedWorkshopToggle) {
         workshopsExpanded = !workshopsExpanded;
+        updateURLState();
         applyFilters();
         return;
       }
@@ -310,6 +364,10 @@
       }).observe(directory);
     }
     window.addEventListener("resize", refreshLayout);
+    window.addEventListener("popstate", function () {
+      loadURLState();
+      refreshLayout();
+    });
 
     if (document.fonts) {
       document.fonts.ready.then(refreshLayout);
