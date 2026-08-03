@@ -12,25 +12,21 @@ Today we are introducing a new landing page for the ACL Anthology.
 <div class="row g-3 my-4">
   <figure class="col-md-6 mb-0">
     <img src="../../images/2026-08-01/front-page-old.png" alt="Old page" class="img-fluid border" />
-    <figcaption class="small text-muted mt-2">Before: comprehensive, static, and of unbounded width.</figcaption>
+    <figcaption class="small text-muted mt-2">The old matrix view presented complete histories of some venues with unwieldy horizontal scrolling.</figcaption>
   </figure>
   <figure class="col-md-6 mb-0">
     <img src="../../images/2026-08-01/front-page-new.png" alt="New page" class="img-fluid border" />
-    <figcaption class="small text-muted mt-2">After: dynamic, compact, and with more direct access to venues and recent events.</figcaption>
+    <figcaption class="small text-muted mt-2">The new page highlights recent and flagship venues and allows direct venue searching and filtering by year.</figcaption>
   </figure>
 </div>
 
-At the same time, it had a recognizable appearance and useful interface. Our redesign introduces the following changes:
+At the same time, it had a recognizable appearance and provided direct access to many proceedings. Our redesign introduces the following changes:
 
-- The appearance is distinctly new, but preserves the Anthology's unique look and compact presentation of information.
-- It introduces a new venue ordering and search box. New events are grouped at the top, followed by flagship venues, and then all others. Any venue can be quickly found via the filter (`*` will show the complete list).
+- The appearance is distinctly new, but preserves the Anthology's unique look.
+- It introduces a new venue grouping that first highlights venues with recent additions. This is followed by flagship venues, which includes ACL's main conferences and journals and additional large, international, general-topic venues. Finally, other major venues are listed in alphabetic order.
+- We introduce a new filter that allows users to surfae any of the 515 venues ingested in the Anthology. Users of the Anthology can also filter displayed years by decades. By default, the most recent years of each venue are shown, up to the available width.
 - The content fits within the horizontal screen space, including on mobile devices.
 
-<figure class="my-4 text-center">
-  <img src="../../images/2026-08-01/front-page-mobile.jpg" alt="Mobile view" class="img-fluid border" style="width: 390px;" />
-  <figcaption class="small text-muted mt-2">Mobile view</figcaption>
-</figure>
-
-This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158). We will continue to maintain [the old version]({{<ref "/old" >}}) for those who prefer it.
+This result is the outcome of [an extensive design discussion](https://github.com/acl-org/acl-anthology/pull/9158) and informal feedback from others in the NLP community. We will continue to maintain [the old version]({{<ref "/old" >}}) for those who prefer it.
 
 The Anthology is run by volunteers from the NLP community. This includes the staff that maintains this infrastructure, and also the many people who contribute the volumes that constitute its extensive open resources. As always, we welcome [your feedback](https://aclanthology.org/faq/#feedback).
