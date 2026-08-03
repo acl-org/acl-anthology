@@ -5,6 +5,7 @@
 ## Changed
 
 - `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+- Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
 
 ## [1.3.0] — 2026-07-31
 
@@ -18,7 +19,6 @@
 - Added `Name.is_valid()` to check the basic validity of first and last names.
 - `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
 - Added `SIGIndex.create()`, in analogy to `VenueIndex.create()`.
-- Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
 
 ### Changed
 
