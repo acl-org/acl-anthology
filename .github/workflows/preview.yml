@@ -78,10 +78,25 @@ jobs:
     - name: Download NLTK data
       # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
       run: uv run python -c "import nltk; nltk.download('punkt_tab')"
+    - name: find pull request
+      id: pull_request
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const branch = context.ref.replace('refs/heads/', '');
+          const { data: pullRequests } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            head: `${context.repo.owner}:${branch}`,
+            state: 'open',
+          });
+          return pullRequests[0]?.html_url || '';
     - name: preview
       shell: bash
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+        HUGO_PARAMS_PREVIEWPRURL: ${{ steps.pull_request.outputs.result }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
     - uses: mshick/add-pr-comment@v2
