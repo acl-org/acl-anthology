@@ -22,12 +22,6 @@ import re
 import unicodedata
 from slugify import slugify
 from typing import Any, Literal, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
-import yaml
-
-try:
-    from yaml import CDumper as Dumper
-except ImportError:  # pragma: no cover
-    from yaml import Dumper  # type: ignore
 
 from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
 from ..exceptions import AnthologyException
@@ -76,7 +70,7 @@ LAST_NAME_LOWERCASE_PREFIXES = {
     "von",
     "von der",
 }
-"""Strings that tend to be lowercased when prefixing a last name; used for [`NameSpecification.case_normalize()`][acl_anthology.people.name.NameSpecification.case_normalize]."""
+"""Strings that tend to be lowercased when prefixing a last name; used for [`Name.case_normalize()`][acl_anthology.people.name.Name.case_normalize]."""
 
 # Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
 # are reverse-sorted by length so that it is always the longest string that
@@ -112,7 +106,7 @@ r"""Regex that partially checks validity of first and last names.
 
 First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
 
-Used by [`is_valid_name_part()`][acl_anthology.people.name.is_valid_name_part].
+Used by [`Name.is_valid()`][acl_anthology.people.name.Name.is_valid].
 """
 
 RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
@@ -120,6 +114,9 @@ RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
 
 First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
 """
+
+RE_NAME_OVERSPACED = re.compile(r"( |^)[a-z] [a-z]( |$)| -|- ")
+"""Regex that checks for overspacing of characters in a name. Detects hyphens bordering spaces, and multiple isolated lowercase characters in sequence."""
 
 EN_DASH = "\u2013"
 EM_DASH = "\u2014"
@@ -146,32 +143,31 @@ def _is_valid_name_part(
     """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
 
     Returns:
-        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain a hyphen next to a space, does not contain two consecutive isolated lowercase letters, does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
     """
+    msg = ""
     if not value or value.isalpha():
         # If all characters are alphabetic, it is guaranteed to be valid.
         # Empirically this applies to 80% of names. This test short-circuits the slower checks.
         return True
     elif not RE_NAME_VALID.fullmatch(value):
-        if not error:
-            return False
-        raise ValueError(f"Invalid {attribute} name: {value}")
+        msg = f"Invalid {attribute} name: {value}"
     elif RE_NAME_UNDERCAPITALIZED.search(value):
-        if not error:
-            return False
-        raise ValueError(
-            f"Invalid {attribute} name (initial should be capitalized): {value}"
-        )
+        msg = f"Invalid {attribute} name (initial should be capitalized): {value}"
+    elif RE_NAME_OVERSPACED.search(value):
+        msg = f"Invalid {attribute} name (hyphen next to space or multiple isolated lowercase letters): {value}"
     else:
         for c in set(value) - {" "}:
             if c.isdigit() or _is_bad_punct(c):
                 if c.isdigit() and " 3rd" in value and attribute == "last":
                     continue
-                if not error:
-                    return False
-                raise ValueError(
-                    f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
-                )
+                msg = f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                break
+
+    if msg:
+        if not error:
+            return False
+        raise ValueError(msg)
     return True
 
 
@@ -187,7 +183,7 @@ class Name:
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
-    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.is_valid_name_part]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
+    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.Name.is_valid]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
 
     Examples:
         >>> Name("Yang", "Liu")
@@ -456,6 +452,19 @@ class Name:
         else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
 
+    def to_dict(self) -> dict[str, str]:
+        """
+        Returns:
+            A dictionary representing this name.
+        """
+        if self.first is not None:
+            d = {"first": self.first, "last": self.last}
+        else:
+            d = {"last": self.last}
+        if self.script is not None:
+            d["script"] = self.script
+        return d
+
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
         Arguments:
@@ -719,21 +728,3 @@ class NameSpecification:
         for variant in self.variants:
             elem.append(variant.to_xml())
         return elem
-
-
-class _YAMLName(yaml.YAMLObject):
-    """YAMLObject representing names.
-
-    This exists to serialize names in "flow" style (i.e. one-liner `{first: ..., last: ...}`) without having to force flow style on the entire YAML document.
-    """
-
-    yaml_dumper = Dumper
-    yaml_tag = "tag:yaml.org,2002:map"  # serialize like a dictionary
-    yaml_flow_style = True  # force flow style
-
-    def __init__(self, name: Name) -> None:
-        if name.first is not None:
-            self.first = name.first
-        self.last = name.last
-        if name.script is not None:
-            self.script = name.script

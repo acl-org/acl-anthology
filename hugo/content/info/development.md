@@ -33,7 +33,7 @@ generates JSON data structures to build our static site.
 
 All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our GitHub repository.
 In the `xml` directory are the files that contain all the Anthology metadata, in a format described below.
-The `yaml` directory contains further information about authors and venues.
+The `json` directory contains further information about authors, venues, and SIGs.
 
 ### Authoritative XML format
 
