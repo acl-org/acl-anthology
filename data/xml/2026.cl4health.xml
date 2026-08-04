@@ -1,0 +1,650 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.cl4health">
+  <volume id="1" type="proceedings" ingest-date="2026-07-24">
+    <meta>
+      <booktitle>Proceedings of the Third Workshop on Patient-Oriented Language Processing (<fixed-case>CL</fixed-case>4<fixed-case>H</fixed-case>ealth) @ <fixed-case>LREC</fixed-case> 2026</booktitle>
+      <editor><first>Deepak</first><last>Gupta</last></editor>
+      <editor><first>Paul</first><last>Thompson</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Dina</first><last>Demner-Fushman</last></editor>
+      <publisher>ELRA Language Resources Association (ELRA)</publisher>
+      <address>Palma, Mallorca (Spain)</address>
+      <month>May</month>
+      <year>2026</year>
+      <url hash="44180dea">2026.cl4health-1</url>
+      <venue>cl4health</venue>
+      <venue>ws</venue>
+      <doi>10.63317/27dvnfohyyan</doi>
+    </meta>
+    <frontmatter>
+      <url hash="56aefb65">2026.cl4health-1.0</url>
+      <bibkey>cl4health-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>FHIRP</fixed-case>ath-<fixed-case>QA</fixed-case>: Executable Question Answering over <fixed-case>FHIR</fixed-case> Electronic Health Records</title>
+      <author><first>Michael</first><last>Frew</last></author>
+      <author><first>Nishit</first><last>Bheda</last></author>
+      <author><first>Bryan</first><last>Tripp</last></author>
+      <pages>1-14</pages>
+      <abstract>Though patients are increasingly granted digital access to their electronic health records (EHRs), existing interfaces may not support precise, trustworthy answers to patient-specific questions. Large language models (LLM) show promise in clinical question answering (QA), but retrieval-based approaches are computationally inefficient, prone to hallucination, and difficult to deploy over real-life EHRs. This work introduces FHIRPath-QA, the first open dataset and benchmark for patient-specific QA that includes open-standard FHIRPath queries over real-world clinical data. A text-to-FHIRPath QA paradigm is proposed that shifts reasoning from free-text generation to FHIRPath query synthesis. For o4-mini, this reduced average token usage by 391<tex-math>\times</tex-math> relative to retrieval-first prompting (629,829 vs 1,609 tokens per question) and lowered failure rates from 0.36 to 0.09 on clinician-phrased questions. Built on MIMIC-IV on FHIR Demo, the dataset pairs over 14k natural language questions in patient and clinician phrasing with validated FHIRPath queries and answers. Empirically, the evaluated LLMs achieve at most 42% accuracy, highlighting the challenge of the task, but benefit strongly from supervised fine-tuning, with query synthesis accuracy improving from 27% to 79% for 4o-mini. These results highlight that text-to-FHIRPath synthesis has the potential to serve as a practical foundation for safe, efficient, and interoperable consumer health applications, and the FHIRPath-QA dataset and benchmark serve as a starting point for future research on the topic. The full dataset and generation code can be accessed on <a href="https://github.com/mooshifrew/fhirpath-qa">GitHub</a>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-01</url>
+      <bibkey>frew-etal-2026-fhirpath</bibkey>
+      <doi>10.63317/5q8qi6jqnz56</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>COACH</fixed-case> Meets <fixed-case>QUORUM</fixed-case>: A Framework and Pipeline for Aligning User, Expert, and Developer Perspectives in <fixed-case>LLM</fixed-case>-Generated Health Counselling</title>
+      <author><first>Yee Man</first><last>Ng</last></author>
+      <author><first>Bram</first><last>van Dijk</last></author>
+      <author><first>Pieter</first><last>Beynen</last></author>
+      <author><first>Otto</first><last>Boekesteijn</last></author>
+      <author><first>Joris</first><last>Jansen</last></author>
+      <author><first>Gerard</first><last>van Oortmerssen</last></author>
+      <author><first>Max J.</first><last>van Duijn</last></author>
+      <author><first>Marco</first><last>Spruit</last></author>
+      <pages>15-25</pages>
+      <abstract>Systems that collect data on sleep, mood, and activities can provide valuable lifestyle counselling to populations affected by chronic disease and its consequences. Such systems are, however, challenging to develop; in addition to reliably extracting patterns from user-specific data, systems should contextualise these patterns with validated medical knowledge to ensure the quality of counselling and generate counselling that is relevant to a real user. We present QUORUM, an evaluation framework that unifies these developer-, expert-, and user-centric perspectives, and show with a real case study that it meaningfully tracks convergence and divergence in stakeholder perspectives. We also present COACH, a Large Language Model-driven pipeline to generate personalised lifestyle counselling for our Healthy Chronos use case, a diary app for cancer patients and survivors. Applying our framework indicates that, overall, users, medical experts, and developers converge on the view that the generated counselling is relevant, of good quality, and reliable. However, stakeholders also diverge on the tone of the counselling, sensitivity to errors in pattern-extraction, and potential hallucinations. These findings highlight the importance of multi-stakeholder evaluation for consumer health language technologies and illustrate how a unified evaluation framework can support trustworthy, patient-centered NLP systems in real-world settings.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-02</url>
+      <bibkey>ng-etal-2026-coach</bibkey>
+      <doi>10.63317/4x7koa8w32ny</doi>
+    </paper>
+    <paper id="3">
+      <title>Addressing Domain Shift in Health Coaching Note Analysis through Factorized Synthetic Data Generation</title>
+      <author><first>Michael</first><last>Tänzer</last></author>
+      <author><first>Iva</first><last>Bojic</last></author>
+      <author><first>Ashwini Yuvraj</first><last>Lawate</last></author>
+      <author><first>Andy Hau Yan</first><last>Ho</last></author>
+      <author><first>Andy</first><last>Khong</last></author>
+      <pages>26-40</pages>
+      <abstract>Automatic extraction of behavioral goals from health coaching notes is essential for scalable monitoring of coaching programs, yet training data is scarce and exhibits substantial domain shift across programs. We collect and annotate 157 notes from a coaching program and show that models trained on the only existing public corpus, SMARTSpan (173 notes), suffer a drop of up to 30 points in exact-match F1 when transferred to our data. To address this, we propose a factorized synthetic data generation pipeline that decomposes note variation into three largely independent axes, health coach documentation structure, patient goal content, and patient persona, extracts empirical priors from a small in-domain seed set, and samples from them to produce diverse synthetic notes with embedded goal-span labels validated via cycle-consistency filtering. In low-resource experiments with only 57 in-domain training notes, our approach outperforms rephrasing and backtranslation baselines on both exact-match and partial-match F1. Ablation analysis demonstrates that augmentation must target the in-domain distribution to be effective, and a human evaluation confirms that synthetic notes are structurally faithful, with detection driven by surface artifacts rather than content or organizational flaws.All code and generated data will be published at GitHub repository: <url>https://github.com/Michael-Tanzer/cl4health-factorized-augmentation</url>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-03</url>
+      <bibkey>tanzer-etal-2026-addressing</bibkey>
+      <doi>10.63317/3a5koirj2a6s</doi>
+    </paper>
+    <paper id="4">
+      <title>Scalable Generation of Adult-Oriented Therapeutic Reading Texts for <fixed-case>R</fixed-case>ussian Aphasia Rehabilitation</title>
+      <author><first>Anastasia</first><last>Kolmogorova</last></author>
+      <author><first>Anastasia</first><last>Margolina</last></author>
+      <author><first>Alina</first><last>Telnova</last></author>
+      <author><first>Igor</first><last>Ilchenko</last></author>
+      <pages>41-49</pages>
+      <abstract>Texts are widely used in aphasia rehabilitation to support the recovery of comprehension and narrative planning. In routine practice, clinical impact depends strongly on patient motivation and on the availability of age-appropriate reading materials: adults are often offered child-oriented texts, which can be perceived as demeaning and may reduce engagement. We present a controllable generation pipeline for building a repository of Russian therapeutic reading texts for adult aphasia therapy. An anonymized repository with code and data is available at <url>https://github.com/z00logist/aphasia-exercises-generation</url>. The pipeline conditions each story on an explicit semantic triplet (12 topics-10 archetypes-11 objects) and enforces three clinically motivated complexity regimes (Basic/Intermediate/Advanced). Using batched prompting, we generate 1,296 unique stories. We evaluate the corpus with classical linguistic metrics and a LLM-as-a-judge protocol (18 binary criteria); on a stratified sample of 198 stories, overall rubric compliance is 80.0%. Surface metrics show a monotonic increase in lexical and syntactic complexity across regimes, and Basic texts closely match a small clinical anchor set of 10 therapist-authored texts. Judge-based analysis indicates near-perfect adherence to high-level narrative constraints but persistent limitations in fine-grained phonotactic control, motivating hybrid neuro-symbolic enforcement.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-04</url>
+      <bibkey>kolmogorova-etal-2026-scalable</bibkey>
+      <doi>10.63317/479o7hjnn332</doi>
+    </paper>
+    <paper id="5">
+      <title>An Open-Resource Knowledge Augmentation for Biomedical Lay Summarization</title>
+      <author><first>João Pedro</first><last>Veloso</last></author>
+      <author><first>Evelin</first><last>Amorim</last></author>
+      <pages>50-60</pages>
+      <abstract>Automatic summarization aims to generate concise versions of texts while retaining relevant information. Summaries can be either extractive, using direct excerpts, or abstractive, rephrasing content to convey the same meaning. Lay summarization applies abstractive techniques to simplify complex texts, such as scientific literature, for broader audiences, thereby promoting public understanding of specialized knowledge. Prior work shows that knowledge augmentation improves lay summarization. Still, biomedical applications often rely on closed resources like the Unified Medical Language System (UMLS), which require expert curation and are costly to scale. We propose a four-step approach that leverages keyword extraction and DBpedia, an open general domain knowledge base, ideal to bridge the gap between expert and lay knowledge. First, we extract keywords from biomedical texts using YAKE!, a well-established unsupervised method. Second, we query DBpedia using these keywords to retrieve relevant concept entries. Third, we construct a graph of concepts for each document based on cosine similarity between DBpedia entries. Finally, we combine each graph with the original abstract to train a summarization model. Our method achieves competitive performance compared to UMLS-based systems in the eLife dataset (ROUGE-1: 58.44 vs. 60.26, ROUGE-L: 43.45 vs. 45.45), demonstrating that open-resource approaches can provide viable alternatives to licensed knowledge bases while maintaining accessibility for resource-constrained organizations.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-05</url>
+      <bibkey>veloso-amorim-2026-open</bibkey>
+      <doi>10.63317/3tu5fbwrdd3x</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>T</fixed-case>ab<fixed-case>M</fixed-case>ed<fixed-case>QA</fixed-case>: From Structured Data to Question-Answer Datasets in Early Clinical Decision-Making</title>
+      <author><first>Gabriel</first><last>Iturra Bocaz</last></author>
+      <author><first>Petra</first><last>Galuščáková</last></author>
+      <author><first>Sol Gedde</first><last>Vedde</last></author>
+      <author><first>Alvaro</first><last>Fernandez-Quilez</last></author>
+      <pages>61-71</pages>
+      <abstract>The rising adoption of Large Language Models (LLMs) and Retrieval Augmented Generation (RAG) in clinical general practice demands datasets that capture realistic early-stage clinical decision-making, where experts must decide on follow-up actions based on sparse, structured patient data. Existing medical Question–Answering (QA) resources primarily address post-diagnostic or specialist settings and rarely reflect how General Practitioners (GPs) document and justify early decisions based on clinical observations from Electronic Health Records (EHRs) and grounded on clinical guidelines. We present TabMedQA, a framework for synthesizing QA collections that emulate how GPs formulate and document decisions in encounter notes during early patient assessments. TabMedQA leverages instruction-tuned LLMs, guided by disease-specific clinical guidelines, to generate full encounter notes composed of a guideline-grounded justification and a corresponding follow-up recommendation directly from structured EHR inputs. The framework further supports RAG-based evaluation, simulating how GPs might consult previous patient encounters to inform new consultations. We demonstrate the application and resulting resource use of TabMedQA on prostate cancer using the publicly available PI-CAI collection and release the resulting PI-CAI QA collection, resource generation templates, and TabMedQA code. To the best of our knowledge, TabMedQA provides the first open framework for creating guideline-grounded, EHR-based QA collections that enable the generation and holistic evaluation of LLM-produced clinical encounter notes, bridging decision-making accuracy with clinical encounter quality in general practice</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-06</url>
+      <bibkey>iturra-bocaz-etal-2026-tabmedqa</bibkey>
+      <doi>10.63317/3mfh3jirq8wh</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>S</fixed-case>impli<fixed-case>MED</fixed-case>: Automatic Simplification of Cardiology Discharge Reports Using Large Language Models</title>
+      <author><first>Lucas</first><last>Molino-Piñar</last></author>
+      <author><first>Manuel Carlos</first><last>Díaz Galiano</last></author>
+      <author><first>María-Teresa</first><last>Martín-Valdivia</last></author>
+      <author><first>Jose Angel</first><last>Urbano-Moral</last></author>
+      <author><first>Elena</first><last>Sola-Garcia</last></author>
+      <pages>72-81</pages>
+      <abstract>Medical discharge reports frequently contain highly technical language that creates significant communication barriers between healthcare professionals and patients, potentially compromising treatment adherence and post-discharge care quality. In this paper, we present SimpliMED, a modular system designed to automatically simplify cardiology discharge reports using Large Language Models (LLMs) and advanced Natural Language Processing techniques (NLP). Our architecture integrates section-based preprocessing with specialized prompts, explicit handling of medical abbreviations, and therapeutic explanations of medications to enhance accessibility. We evaluate our system using a corpus of 307 anonymized cardiology discharge reports from a Spanish medical center. For abbreviation detection, our fine-tuned Small Language Model (SLM) achieves an F1-score of 0.90, significantly outperforming regex-based approaches (F1: 0.67). For medication recognition, we achieve F1-scores of 0.91 for commercial names and 0.70 for active principles. We also contribute a therapeutic dictionary containing 14,611 medications with patient-friendly explanations extracted from the Spanish Agency of Medicines. Expert evaluation by two cardiologists yields an overall quality score of 75%, with highest performance for admission reason (91%) and current illness (75%) sections. While results demonstrate the potential of LLM-based medical text simplification for Spanish clinical language, we identify areas requiring further development before clinical deployment.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-07</url>
+      <bibkey>molino-pinar-etal-2026-simplimed</bibkey>
+      <doi>10.63317/53snqjnk47xn</doi>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>D</fixed-case>utch Metaphor Extraction from Cancer Patients’ Interviews and Forum Data Using <fixed-case>LLM</fixed-case>s and Human in the Loop</title>
+      <author><first>Lifeng</first><last>Han</last></author>
+      <author><first>David</first><last>Lindevelt</last></author>
+      <author><first>Sander</first><last>Puts</last></author>
+      <author><first>Erik</first><last>van Mulligen</last></author>
+      <author><first>Suzan</first><last>Verberne</last></author>
+      <pages>82-95</pages>
+      <abstract>Metaphors and Metaphorical Languages (MLs) play an important role in healthcare for the information communication between clinicians, patients, and patients’ family members. In this work, we focus on the Dutch language and cancer patients’ data. We extract the metaphors used by patients using two data resources: 1) cancer patient storytelling interview data, 2) online forum, data including cancer patients’ posts, comments, and questions to professionals. We investigate how current state of the art LLMs and perform on this task by exploring different prompting strategies such as Chain of Thought, few-shot learning, and self-prompting. With human in the loop, we verify the extracted metaphors and collect the output as a corpus, named “<b>HealthQuote.NL</b>”. We believe the extracted metaphors can be useful for supporting better patient care, e.g. shared decision making, helping communication between patients and clinicians, patient health literacy, etc. It can also be integrated into the design of a care path. We share our prompts and resources at <url>https://github.com/4dpicture/HealthQuote.NL</url></abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-08</url>
+      <bibkey>han-etal-2026-dutch</bibkey>
+      <doi>10.63317/2fxa2v4tn93y</doi>
+    </paper>
+    <paper id="9">
+      <title>Compressed Representations of Patient Records: A Comparative Study of Template-Based and <fixed-case>LLM</fixed-case>-Based Methods for Clinical Data Summarization and Visualization</title>
+      <author><first>Andreas</first><last>Stöckl</last></author>
+      <author><first>Oliver</first><last>Krauss</last></author>
+      <author><first>Sophie</first><last>Bauernfeind</last></author>
+      <pages>96-106</pages>
+      <abstract>Electronic Health Records (EHRs) contain comprehensive patient information that is often voluminous and challenging to review efficiently. This paper presents a systematic evaluation of multiple methods for compressing patient records into standardized, comparable formats. Four compression approaches are implemented and compared: two template-based methods (structured extraction, extractive key-phrase) and two LLM-based methods (LLM, and hybrid LLM with 8 different models). Using a synthetic cohort of 75 patient records generated with realistic clinical patterns, each method is evaluated on information preservation (diagnosis, medication, allergy, lab value recall, and vital accuracy), compression efficiency, and output quality. Across methods, diagnosis recall ranged from 0.637 to 1.000, with medication and allergy recall consistently exceeding 0.880. In the test setup, the template-based approach yielded the highest compression ratio (7.6×), while the hybrid methods provided the most balanced trade-off between compression and clinical utility. These results suggest that combining structured extraction with LLM-generated summaries can be an effective strategy for scenarios requiring both compact representations and contextual clinical information.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-09</url>
+      <bibkey>stockl-etal-2026-compressed</bibkey>
+      <doi>10.63317/4ph9cddo4vbn</doi>
+    </paper>
+    <paper id="10">
+      <title>Medical Text Rewriting for Non-Experts: A Guideline-Driven <fixed-case>LLM</fixed-case> Approach</title>
+      <author><first>Mana</first><last>Kuramoto</last></author>
+      <author><first>Hiroyuki</first><last>Nagai</last></author>
+      <author><first>Keiko</first><last>Yamada</last></author>
+      <author><first>Hiroo</first><last>Ide</last></author>
+      <author><first>Masayo</first><last>Hayakawa</last></author>
+      <author><first>Tomohiro</first><last>Nishiyama</last></author>
+      <author><first>Shoko</first><last>Wakamiya</last></author>
+      <author><first>Eiji</first><last>Aramaki</last></author>
+      <pages>107-116</pages>
+      <abstract>Medical research is highly specialized, making it difficult for patients and general readers to understand recent findings.Traditionally, text simplification, replacing technical terms with more accessible expressions, has been employed. However, this approach alone is limited in addressing a lack of background knowledge and often results in the loss of important information.Therefore, this study defines “rewriting for non-experts” as a rewriting process that, in addition to simplification, supplements essential background knowledge such as the significance of the research and reasons it is needed and proposes a method for implementing this process using large language models (LLMs).To verify the effectiveness of the proposed approach, a quantitative evaluation using automatic metrics was conducted. The results showed that the method combining the guidelines for human text creation with few-shot examples of reference texts achieved the highest scores.The expansion of the guidelines is planned as part of future work to enable the rewriting of scientific and technological information in a form that is accessible to a broader audience.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-10</url>
+      <bibkey>kuramoto-etal-2026-medical</bibkey>
+      <doi>10.63317/37xq8q3m7grc</doi>
+    </paper>
+    <paper id="11">
+      <title>Patient-Specific Care Pathway Visualisation for Medical Nursing Staff</title>
+      <author><first>Sophie</first><last>Bauernfeind</last></author>
+      <author><first>Selina</first><last>Adlberger</last></author>
+      <author><first>Oliver</first><last>Krauss</last></author>
+      <author><first>Andreas</first><last>Stöckl</last></author>
+      <pages>117-131</pages>
+      <abstract>Nursing staff are increasingly confronted with extensive and detailed patient documentation, requiring much time to read through numerous possible care measures. Combined with rising patient loads, this underscores the need for a clearer and more immediately accessible overview of each patient’s situation. Patient-specific care pathway visualisations offer a promising approach to reduce cognitive load, support faster decision-making, and improve situational awareness. This work investigates two Artificial intelligence (AI)-assisted methods for generating such visualisations: (1) simple image generation based on structured textual prompts, and (2) automated code generation that produces graph-based representations of clinical pathways. Using a dataset of synthetic patient profiles and seven defined care pathways, evaluating multiple state-of-the-art foundation models. The results highlight clear differences between models and approaches, particularly in language sensitivity, structural consistency, and the level of detail achievable. Image-based outputs provided visually rich overviews but frequently introduced subtle logical inconsistencies, while code-based methods produced verifiable and structurally coherent pathways yet varied in their ability to preserve contextual and psychosocial information. Together, these findings indicate that AI-assisted visualisation can effectively support—but not yet fully automate—patient-specific pathway generation, and they point toward hybrid solutions that combine visual accessibility with logical robustness.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-11</url>
+      <bibkey>bauernfeind-etal-2026-patient</bibkey>
+      <doi>10.63317/5gskdj7g5ceg</doi>
+    </paper>
+    <paper id="12">
+      <title>What Makes a Good Doctor Response? A Study on Text-Based Telemedicine</title>
+      <author><first>Adrian</first><last>Cosma</last></author>
+      <author><first>Cosmin</first><last>Dumitrache</last></author>
+      <author><first>Emilian</first><last>Radoi</last></author>
+      <pages>132-138</pages>
+      <abstract>Text-based telemedicine has become an increasingly used mode of care, requiring clinicians to deliver medical advice clearly and effectively in writing. As platforms increasingly rely on patient ratings and feedback, clinicians face growing pressure to maintain satisfaction scores, even though these evaluations often reflect communication quality more than clinical accuracy. We analyse patient satisfaction signals in Romanian text-based telemedicine. Using a sample of anonymised text-based telemedicine consultations, we model feedback as a binary outcome, treating thumbs-up responses as positive and grouping negative or absent feedback into the other class. We extract from doctor responses interpretable, predominantly language-agnostic features (e.g., length, structural characteristics, readability proxies), along with Romanian LIWC psycholinguistic features and politeness/hedging markers where available. We train a classifier with a time-based split and perform SHAP-based analyses, which indicate that metadata dominates prediction, functioning as a strong prior, while characteristics of the response text provide a smaller but actionable signal. In subgroup correlation analyses, politeness and hedging are consistently associated with positive patient feedback, whereas lexical diversity shows a negative association.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-12</url>
+      <bibkey>cosma-etal-2026-makes</bibkey>
+      <doi>10.63317/4wkjb5c9ooef</doi>
+    </paper>
+    <paper id="13">
+      <title>Datasets for a Chatbot for Clinical Trial Search</title>
+      <author><first>Yumeng</first><last>Yang</last></author>
+      <author><first>Ethan</first><last>Ludmir</last></author>
+      <author><first>Kirk</first><last>Roberts</last></author>
+      <pages>139-148</pages>
+      <abstract>Matching patients to clinical trials is a critical bottleneck hindered by complex eligibility criteria. While conversational AI offers a promising solution, its safe deployment depends on high-quality, domain specific data. This paper introduces three benchmark datasets designed to support the development and evaluation of conversational agents for clinical trial pre-screening. First, a manually-annotated paired-criterion dataset provides a gold standard for structuring raw criteria, which we used to objectively group 12,596 criteria. Second, we curated a human-authored question benchmark to validate the clinical fidelity and patient-centric clarity of questions generated by a medical LLM, ensuring the AI’s dialogue is accurate and understandable. Third, we constructed a human-validated assessment corpus of criterion-question-answer tuples with human-labeled outcomes to evaluate criterion classification based on a patient’s answer to a generated question. The primary contribution of this work is a foundational set of benchmark datasets, designed to support and evaluate key components for a chatbot for clinical trial search.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-13</url>
+      <bibkey>yang-etal-2026-datasets</bibkey>
+      <doi>10.63317/3pk9cracmxy7</doi>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>H</fixed-case>ealth<fixed-case>T</fixed-case>rajectory: Patient Journey Summaries and Visualizations for Patient-Clinician Communication Support</title>
+      <author><first>Rohmah</first><last>Hidayah</last></author>
+      <author><first>Tomohiro</first><last>Nishiyama</last></author>
+      <author><first>Shoko</first><last>Wakamiya</last></author>
+      <author><first>Eiji</first><last>Aramaki</last></author>
+      <pages>149-158</pages>
+      <abstract>In recent years, patient narratives have been used to understand subjective experiences that are not recorded in clinical notes. However, narratives tend to be long and unstructured, requiring summarization. However, text-based summaries often require a lot of clarification from patients and make it difficult for clinicians to review events and changes in symptoms over time. In this study, we expanded the summary output by presenting a visualization of the patient’s journey to facilitate communication between patients and medical staff. Referring to the widespread use of LLM for summarization, we compared GPT-4.1 and Gemini-2.5-pro, and used Gemini-3-pro-image-preview for visualization. Data was collected from DIPEx-Japan, then the quality of the summaries was evaluated quantitatively and the visualizations qualitatively. Quantitative evaluation using BLEU and ROUGE metrics showed that Gemini-2.5-pro achieved higher summary scores than GPT-4.1, and Japanese summaries scored higher than English ones. Conversely, English performed better than Japanese in temporal expression extraction using precision, recall, and F1 metrics, and the Gemini-2.5-pro model consistently outperformed GPT-4.1. In qualitative evaluation using the pairwise method, the timetable-based model was far superior with an overall win rate of 0.865 in Japanese and 0.969 in English compared to the baseline.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-14</url>
+      <bibkey>hidayah-etal-2026-healthtrajectory</bibkey>
+      <doi>10.63317/5p5zhpr2wknb</doi>
+    </paper>
+    <paper id="15">
+      <title>Medical-<fixed-case>FLAVORS</fixed-case>-<fixed-case>AECC</fixed-case>: <fixed-case>S</fixed-case>panish Oncological Metaphors Dataset</title>
+      <author><first>Lucia</first><last>Pitarch</last></author>
+      <author><first>Jordi</first><last>Bernad</last></author>
+      <author><first>Sergio LUIS</first><last>Ojeda Trueba</last></author>
+      <author><first>Alec</first><last>Sánchez-Montero</last></author>
+      <author><first>Maxim</first><last>Ionov</last></author>
+      <author><first>Emma</first><last>Anglés-Herrero</last></author>
+      <author><first>Ángel Óscar</first><last>Corona Beomont</last></author>
+      <author><first>Gemma</first><last>Bel-Enguix</last></author>
+      <pages>159-170</pages>
+      <abstract>Metaphors play a central role in cancer narratives, helping patients and practitioners articulate complex experiences and technical concepts. While cancer metaphors in English have been extensively studied, Spanish remains underexplored in this regard, despite its global importance and rich cultural variation. This paper presents a new dataset of Spanish cancer metaphors designed to address these gaps. The resource comprises over 80K annotated words drawn from diverse forum posts, with detailed documentation of lexical units, contextual versus basic meanings, and inter-annotator agreements. To construct the dataset, we adapted the Metaphor Identification Procedure (MIP) for Spanish medical discourse, proposing methodological refinements to challenges such as defining lexical units or domain-specific Basic Meaning labels.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-15</url>
+      <bibkey>pitarch-etal-2026-medical</bibkey>
+      <doi>10.63317/5dfcbwok85xr</doi>
+    </paper>
+    <paper id="16">
+      <title>A Synthetic Conversational Dataset for Type 2 Diabetes Management</title>
+      <author><first>Stergios</first><last>Ntanavaras</last></author>
+      <author><first>Maaike</first><last>de Boer</last></author>
+      <author><first>Piek T.J.M.</first><last>Vossen</last></author>
+      <pages>171-181</pages>
+      <abstract>Access to real patient-doctor conversations in the medical domain is often restricted due to privacy concerns, making it difficult to build robust conversational AI systems. To address this, we present a novel methodology for generating a high-quality synthetic dataset designed for conversational triple extraction in Type 2 Diabetes management. Using structured prompting with GPT-4, we generated 16 demographically and medically diverse diabetic personas, and 256 multi-turn conversations between these personas and a caretaker agent, simulating realistic and context-rich interactions. The conversations incorporate critical properties such as personalization, empathy, contextual awareness, and medically grounded advice, as validated through both LLM-based and human expert evaluations. These synthetic conversations are further annotated with Subject-Predicate-Object (SPO) labels at the token level, integrating both manual and LLM-automated methods, forming the foundation for downstream tasks like triple extraction. Our work demonstrates the feasibility of using generative AI to simulate healthcare conversations at scale, offering a solution for data-scarce domains.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-16</url>
+      <bibkey>ntanavaras-etal-2026-synthetic</bibkey>
+      <doi>10.63317/3cbhekpxj33y</doi>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>I</fixed-case>talian Medical Term Simplification: From Patient Information Leaflets to Simplified Language Resources</title>
+      <author><first>Maria Pia</first><last>di Buono</last></author>
+      <pages>182-189</pages>
+      <abstract>Terminological simplification in patient information leaflets (PILs) is implemented through a variety of linguistic strategies. Although these strategies help improve text comprehensibility, their overall impact remains limited. The complexity of PILs is still influenced by multiple factors, including frequent cross-referential terminology, the presence of subordinate clauses, lengthy sentences, and the use of domain-specific terms. This paper introduces I-MTS (Italian Medical Term Simplification), the first resource specifically developed for medical term simplification in Italian. I-MTS is designed to support research on lexical simplification and to facilitate the automatic adaptation of medical texts for non-expert audiences, thereby enhancing the readability and accessibility of health information in Italian.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-17</url>
+      <bibkey>di-buono-2026-italian</bibkey>
+      <doi>10.63317/27j5nmzxz6u7</doi>
+    </paper>
+    <paper id="18">
+      <title>Evaluating Professional Acceptability of <fixed-case>LLM</fixed-case>-Generated Systematic Review Summaries in Healthcare: Psychiatrists’ Perspectives</title>
+      <author><first>Paul</first><last>Thompson</last></author>
+      <author><first>Artemis</first><last>Boulogeorgou</last></author>
+      <author><first>Fotini</first><last>Kaponi</last></author>
+      <author><first>Efstathia</first><last>Soufleri</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>190-206</pages>
+      <abstract>Cochrane systematic reviews evaluate the effectiveness and safety of medical interventions. Patients can benefit from clinicians’ integration of outcomes of these reviews into their daily practices. However, systematic reviews are usually long documents; even their abstracts can extend to 1000 words, making rapid appraisal challenging for busy health professionals. Large language models (LLMs) offer potential to further distil these abstracts. Nevertheless, generating high-quality, clinician-oriented summaries in this context is non-trivial. They must comprehensively cover the original abstract, while remaining accurate and <i>professionally acceptable</i>, i.e., retaining all clinically important details. To address this challenge, we have developed a novel dataset, PsycSumEval, comprising summaries generated by four different LLMs for 115 Cochrane abstracts concerning mental health. Psychiatrists evaluated each summary across nine content dimensions, assigning scores and providing free-text justifications that highlight inaccuracies and missing details. The corpus provides fine-grained insight into how psychiatrists assess professional acceptability of compressed medical evidence. Rather than treating agreement as a merely statistical endpoint, we capture structured expert judgments alongside their rationales, enabling transparent analysis of where professional norms are stable and where interpretive latitude persists. We contribute both a rigorous evaluation dataset and an explicit model of expert acceptability criteria for medical evidence summarisation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-18</url>
+      <bibkey>thompson-etal-2026-evaluating</bibkey>
+      <doi>10.63317/4exjqeuaw9ti</doi>
+    </paper>
+    <paper id="19">
+      <title>Reasoning, Contrastive, and In-Context Strategies for Opioid Use Stage Detection on Social Media</title>
+      <author><first>Vinu</first><last>Ekanayake</last></author>
+      <author><first>Ramakanth</first><last>Kavuluru</last></author>
+      <pages>207-222</pages>
+      <abstract>The opioid epidemic has ravaged the US for the past two decades and is still a persistent threat. During the same time, the increasing use of social media has created a new avenue for people to share their journeys regarding opioid use. In this context, research in automatically determining opioid use stages (e.g., misuse, addiction, recovery) based on self disclosures in social media posts is gaining traction. In this paper, using a recent benchmark, we assess different supervised strategies for identifying self-disclosed opioid use stages from Reddit posts. We consider distilled reasoning traces from DeepSeek R1 (an open weights reasoning model), supervised contrastive learning (SCL), and few-shot in-context learning (ICL) with GPT-5 to conduct a variety of experiments with encoder and encoder-decoder models. We also conduct direct zero-shot (ZS) experiments with GPT 5 and GPT 5.2. Across different models and datasets, our strategies provide improvements in performance with some nuances that are too subtle to elaborate in the abstract. A surprising finding is that ZS results with GPT-5 are better than all supervised results, which ushers a new frontier for LLM-based classification of opioid use in social media posts. Our code is available for reuse and replication: <url>https://github.com/bionlproc/Opioid-Stage</url>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-19</url>
+      <bibkey>ekanayake-kavuluru-2026-reasoning</bibkey>
+      <doi>10.63317/4eyh8vc3atun</doi>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>F</fixed-case>ood<fixed-case>B</fixed-case>ench-<fixed-case>QA</fixed-case>: Overview of the Shared Task on Grounded Food and Nutrition Question Answering</title>
+      <author><first>Tome</first><last>Eftimov</last></author>
+      <author><first>Ana</first><last>Gjorgjevikj</last></author>
+      <author><first>Matej</first><last>Martinc</last></author>
+      <author><first>Gjorgjina</first><last>Cenikj</last></author>
+      <author><first>Sašo</first><last>Džeroski</last></author>
+      <author><first>Barbara</first><last>Koroušič Seljak</last></author>
+      <pages>223-233</pages>
+      <abstract>We present the results of the FoodBench-QA 2026 shared task at the CL4Health workshop, collocated with LREC 2026. FoodBench-QA challenges systems to answer food and nutrition questions using evidence from food composition databases and food-related ontologies. The shared task comprises three main tasks: nutrient estimation from recipe ingredients, evaluated using EU Regulation 1169/2011 tolerance thresholds; FSA traffic-light classification for fat, salt, saturates, and sugars; and food named entity recognition and linking to three ontologies, namely Hansard Taxonomy, FoodOn, and SNOMED CT. We received submissions from five participating teams across all tasks. For nutrient estimation, the best system achieved accuracy rates of 93.57% for protein, 86.50% for sugars, 84.65% for fat, and 86.26% for saturates. For FSA traffic-light prediction, the best macro F1 scores ranged from 0.65 to 0.90 across different nutrient-color combinations. For named entity linking, the best systems achieved macro F1 scores between 60.71% and 80.89% for natural text and 87.75% and 95.75% for artificial NEL datasets, depending on the ontology.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-20</url>
+      <bibkey>eftimov-etal-2026-foodbench</bibkey>
+      <doi>10.63317/3mtt98s2wcu7</doi>
+    </paper>
+    <paper id="21">
+      <title>Overview of the <fixed-case>CT</fixed-case>-<fixed-case>DEB</fixed-case>’26 Shared Task on Predicting Dosing Errors in Interventional Clinical Trials</title>
+      <author><first>Sohrab</first><last>Ferdowsi</last></author>
+      <author><first>Félicien</first><last>Hêche</last></author>
+      <author><first>Anthony</first><last>Yazdani</last></author>
+      <author><first>Edward</first><last>Choi</last></author>
+      <author><first>Sara</first><last>Sansaloni-Pastor</last></author>
+      <author><first>Douglas</first><last>Teodoro</last></author>
+      <pages>234-244</pages>
+      <abstract>Dosing errors represent an important source of medication-related risk in interventional clinical trials, potentially affecting both participant safety and the validity of study outcomes. Despite their importance, systematic methods for predicting dosing error risk from trial design information remain largely unexplored. To address this gap, we organized the Clinical Trial Dosing Error Benchmark 2026 (CT-DEB’26) shared task, hosted at the CL4Health workshop at LREC 2026. The task focuses on predicting the risk of dosing errors in interventional clinical trials using heterogeneous information extracted from ClinicalTrials.gov, including structured protocol metadata and long-form textual descriptions. The released benchmark dataset contains over 42<fixed-case>,</fixed-case>000 clinical trial records spanning multiple study phases and therapeutic areas, annotated with binary labels indicating a significant high rate of dosing errors. Participants were asked to develop ML models capable of estimating trial-level dosing error risk, evaluated primarily using the ROC-AUC metric under strong class imbalance. The shared task was conducted in two phases and attracted 15 submissions in the development stage and 4 submissions in the final evaluation phase. This paper provides an overview of the shared task, describing the dataset construction, evaluation protocol, and participating systems. In addition, we present a schema-aware CatBoost baseline that leverages structured trial metadata and simple textual statistics, achieving ROC-AUC scores of 0.8606 and 0.8624 on the Phase 1 and Phase 2 leaderboards, respectively. We further summarize the approaches proposed by participating teams, which explore both feature-engineering pipelines and transformer-based text representations. The results highlight the importance of structured trial design variables and hybrid modeling strategies combining tabular and textual information. Finally, we discuss limitations of the benchmark and outline future directions for applying natural language processing and ML to improve medication safety in clinical trial design.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-21</url>
+      <bibkey>ferdowsi-etal-2026-overview</bibkey>
+      <doi>10.63317/566x9bzd8sr3</doi>
+    </paper>
+    <paper id="22">
+      <title>Overview of the <fixed-case>CRF</fixed-case> 2026 Shared Task on Clinical Case Report Forms Filling</title>
+      <author><first>Pietro</first><last>Ferrazzi</last></author>
+      <author><first>Soumitra</first><last>Ghosh</last></author>
+      <author><first>Alberto</first><last>Lavelli</last></author>
+      <author><first>Bernardo</first><last>Magnini</last></author>
+      <pages>245-254</pages>
+      <abstract>Case Report Forms (CRFs) are structured instruments widely used in clinical research to systematically collect patient information according to predefined protocols. In practice, CRFs are often manually completed by clinicians based on patients’ clinical reports, a process that is time-consuming and prone to inconsistencies. Despite their central role in medical studies, automatic population of CRFs from clinical narratives remains largely underexplored in the Natural Language Processing community, partly due to the scarcity of publicly available datasets. In this paper, we present the CRF Filling Shared Task, organized at the CL4Health Workshop at LREC 2026, which aims to advance research on automatic extraction of structured clinical information from unstructured patient notes. The task consists of assigning the correct value to a set of predefined CRF items given a clinical note. The target dataset is derived from a real-world CRF for dyspnea assessment, comprising 134 medical items with predefined value sets. The task is provided in two languages, Italian and English. We describe the dataset, the task formulation, and the evaluation framework, and discuss the participating systems and their results. By introducing this shared task, we aim to stimulate research on clinically applicable NLP systems for structured data extraction in healthcare.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-22</url>
+      <bibkey>ferrazzi-etal-2026-overview</bibkey>
+      <doi>10.63317/5povebgppvtb</doi>
+    </paper>
+    <paper id="23">
+      <title>Overview of the <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026 Shared Task on Grounded Question Answering from Electronic Health Records</title>
+      <author><first>Sarvesh</first><last>Soni</last></author>
+      <author><first>Dina</first><last>Demner-Fushman</last></author>
+      <pages>255-267</pages>
+      <abstract>We present an overview of the ArchEHR-QA 2026 Shared Task on grounded question answering from electronic health records (EHRs), organized at the CL4Health Workshop at LREC 2026. The 2026 task decomposes grounded EHR question answering (QA) into four complementary subtasks: question interpretation, evidence identification, answer generation, and evidence alignment. We evaluated submitted systems for the text-generation subtasks (question interpretation and answer generation) using lexical, semantic, and grounding-sensitive automatic metrics, and for the evidence-centric subtasks (evidence identification and evidence alignment) using precision, recall, and F1. The shared task received 198 submitted runs from 43 teams, and 17 teams additionally provided system descriptions for this overview. The highest-ranked systems differed across subtasks, and gains over the organizer baseline were largest on the evidence-centric subtasks. Across submitted system descriptions, prompt-based large language model (LLM) pipelines were dominant, whereas task-specific fine-tuning was rare; retrieval, self-consistency, and ensembling were especially common in the strongest evidence-centric systems. In this paper, we describe the task design, data, evaluation protocol, baselines, participation, official results, and common system characteristics, and discuss implications for developing clinically faithful and transparent QA systems.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-23</url>
+      <bibkey>soni-demner-fushman-2026-overview</bibkey>
+      <doi>10.63317/3nmxw7vuu7mn</doi>
+    </paper>
+    <paper id="24">
+      <title>Structured Radiology Intelligence: Extracting Structured Data from <fixed-case>MRI</fixed-case> Reports Using <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Sushvin</first><last>Marimuthu</last></author>
+      <author><first>Parameswari</first><last>Krishnamurthy</last></author>
+      <author><first>Dipti Misra</first><last>Sharma</last></author>
+      <author><first>Goldwin</first><last>H</last></author>
+      <author><first>Anu</first><last>Eapen</last></author>
+      <author><first>Betty</first><last>Simon</last></author>
+      <author><first>Anuradha</first><last>Chandramohan</last></author>
+      <pages>268-280</pages>
+      <abstract>This study presents efforts focused on extracting and structuring doctor notes, specifically Magnetic Resonance Imaging (MRI) reports, into a standardized format using large language models (LLMs). We introduce a novel benchmark dataset comprising of 55 clinically relevant variables given by doctors, making it the first of its kind in the automated processing of unstructured medical texts. The annotations to the dataset were generated using a systematic prompt-tuning approach that was manually validated. It was then evaluated across three experimental stages: baseline, intermediate, and fine-tuned. Each stage assessed the impact of different prompt strategies on the performance of various LLMs (LLaMA, Qwen, and DeepSeek). Among the models tested, LLaMA 3.1 8B Instruct consistently achieved the highest composite Score in both the intermediate and final phases, resulting in an 18.42% improvement in performance.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-24</url>
+      <bibkey>marimuthu-etal-2026-structured</bibkey>
+      <doi>10.63317/4vob5zztrfso</doi>
+    </paper>
+    <paper id="25">
+      <title>Useful to Whom? A Persona-Driven Evaluation of Knowledge-Adapted Health Question Reformulation via <fixed-case>LLM</fixed-case> Simulation</title>
+      <author><first>Jooyeon</first><last>Lee</last></author>
+      <author><first>Luan Huy</first><last>Pham</last></author>
+      <author><first>Özlem</first><last>Uzuner</last></author>
+      <pages>281-295</pages>
+      <abstract>Automatic metrics such as F1 and BERTScore are often insufficient for evaluating user-centric generative tasks like Consumer Health Question (CHQ) reformulation. A high F1-score may not correlate with user satisfaction, especially when the user’s knowledge level (UKL) dictates their needs. We propose a robust, Persona-Driven Evaluation Framework (PDEF), grounded in cognitive science and health literacy literature, to measure persona-specific utility. This framework assesses reformulations from the perspectives of a ‘Layperson’ (requiring foundational context) and an ‘Expert’ (requiring efficient, precise answers). We apply this framework to a set of reformulated questions generated by LLMs, and test the robustness of our evaluation by using three state-of-the-art LLMs (GPT-4o, Llama 3.3, and Mistral Large) as the evaluators. Our results reveal a significant disconnect between automatic metrics and user-perceived quality: the model with the highest F1-score (0.6134) was consistently outperformed in user preference by a Pipelined model, with experts preferring the latter by a statistically significant margin (p &lt; 0.001). Furthermore, our persona-driven ablation analysis provides robust evidence that specific architectural components, specifically UKL inference and Entailment logic, are linked to significant gains in persona-driven utility for Layperson cohorts. This work demonstrates the critical need for user-centric evaluation and shows that its findings are generalizable across different LLM architectures.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-25</url>
+      <bibkey>lee-etal-2026-useful</bibkey>
+      <doi>10.63317/2gh4zdzvdgft</doi>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>M</fixed-case>ed<fixed-case>G</fixed-case>ore: An Approach and a Dataset for Identification of Sensitive Medical Images</title>
+      <author><first>Soumya</first><last>Gayen</last></author>
+      <author><first>Rory</first><last>Mulcahey</last></author>
+      <author><first>Russell</first><last>Loane</last></author>
+      <author><first>Dina</first><last>Demner-Fushman</last></author>
+      <author><first>Deepak</first><last>Gupta</last></author>
+      <pages>296-306</pages>
+      <abstract>Medical images are invaluable in illustrating health issues for the patients. While biomedical publications are a good source of such images, some of the images are not appropriate for the patient viewing without a warning. To enable development of automated tools for selection of patient-safe images and generation of warnings, we created a dataset MedGore of over 78,000 sensitive medical images and 183,000 non-sensitive images published in the biomedical literature. The sensitive content includes gore, severe disease, nudity, surgical openings, internal organs, and other medical images of this nature. The set of the manually identified seed 300 images was expanded using a combination of human curation and a nearest neighbor clustering algorithm. The quality of the automatically labeled images was evaluated manually, yielding a total of more than 4,000 doubly-manually annotated images. The automatically labeled images proved to approach the utility of the manually labeled images for training the models in our experiments that validated the dataset in the task of labeling unseen images using the image features, the figure captions or both.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-26</url>
+      <bibkey>gayen-etal-2026-medgore</bibkey>
+      <doi>10.63317/5f7uiuto4ph5</doi>
+    </paper>
+    <paper id="27">
+      <title>Diagnostic Reasoning with Large Language Models for a Rare Disease: Case Study of Primary Ciliary Dyskinesia</title>
+      <author><first>Swati</first><last>Rajwal</last></author>
+      <author><first>Mary Ellen M.</first><last>Fain</last></author>
+      <author><first>Lokesh</first><last>Guglani</last></author>
+      <author><first>Abeed</first><last>Sarker</last></author>
+      <pages>307-319</pages>
+      <abstract>Primary ciliary dyskinesia (PCD) is a rare pediatric lung disease that is frequently underdiagnosed due to nonspecific early symptoms and limited clinical exposure. We investigate whether large language models (LLMs) can support early diagnostic reasoning using real-world pediatric pulmonology notes written before the final diagnosis. We curated 58 de-identified first-visit notes (28 confirmed PCD, 30 controls) and evaluated five open-source LLMs using a standardized zero-shot prompt to produce structured outputs, including PCD evaluation recommendations, justifications, and suggested tests. Quantitative performance was assessed against expert-validated labels using sensitivity, specificity, and accuracy, and a clinician qualitatively reviewed all explanations and testing recommendations for clinical soundness. Sensitivity ranged from 0.48 to 1.00 and specificity from 0.10 to 0.48 (excluding uncertain outputs), with a best accuracy of 0.75. A majority-vote ensemble of five open-source LLMs achieved perfect sensitivity (1.00) with accuracy of 0.73. While models often identified clinically relevant signals in unstructured notes, explanations and testing recommendations were frequently only partially sound. These findings suggest LLMs may serve as cautious early screening aids for rare disease suspicion, but not as standalone diagnostic tools. This work further highlights the need for larger, multi-site evaluation on longitudinal clinical text.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-27</url>
+      <bibkey>rajwal-etal-2026-diagnostic</bibkey>
+      <doi>10.63317/3zvnibnkbvsc</doi>
+    </paper>
+    <paper id="28">
+      <title>Beyond One-Size-Fits-All: Multi-Agent Refinement Framework for Persona-Based Biomedical Summarization</title>
+      <author><first>Rohan Charudatt</first><last>Salvi</last></author>
+      <author><first>Chirag</first><last>Chawla</last></author>
+      <author><first>Md. Shad</first><last>Akhtar</last></author>
+      <author><first>Shweta</first><last>Yadav</last></author>
+      <pages>320-332</pages>
+      <abstract>Lay summarization aims to make biomedical research accessible to non-experts, but most approaches assume a uniform audience, overlooking variation in medical literacy and information needs. We present MAPS (Multi-Agent Persona-based Summarization), a framework that generates persona-specific summaries through iterative cross-agent feedback. Human evaluation shows MAPS improves quality over single-agent baselines, while automatic metrics fail to capture these gains. LLM-based judges also exhibit limited sensitivity, assigning inflated scores and misdetecting errors. These findings highlight the need for improved evaluation methods for persona-based summarization.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-28</url>
+      <bibkey>salvi-etal-2026-beyond</bibkey>
+      <doi>10.63317/22uei8f8k9za</doi>
+    </paper>
+    <paper id="29">
+      <title>Automated Detection of Dosing Errors in Clinical Trial Narratives: A Multi-Modal Feature Engineering Approach with <fixed-case>L</fixed-case>ight<fixed-case>GBM</fixed-case></title>
+      <author><first>Mohammad</first><last>AL-Smadi</last></author>
+      <pages>333-343</pages>
+      <abstract>Clinical trials require strict adherence to medication protocols, yet dosing errors remain a persistent challenge affecting patient safety and trial integrity. We present an automated system for detecting dosing errors in unstructured clinical trial narratives using gradient boosting with comprehensive multi-modal feature engineering. Our approach combines 3,451 features spanning traditional NLP (TF-IDF, character n-grams), dense semantic embeddings (all-MiniLM-L6-v2), domain-specific medical patterns, and transformer-based scores (BiomedBERT, DeBERTa-v3), used to train a LightGBM model. Features are extracted from nine complementary text fields (median 5,400 characters per sample) ensuring complete coverage across all 42,112 clinical trial narratives. On the CT-DEB benchmark dataset with severe class imbalance (4.9% positive rate), we achieve 0.8725 test ROC-AUC through 5-fold ensemble averaging (cross-validation: 0.8833 ± 0.0091 AUC). Systematic ablation studies reveal that removing sentence embeddings causes the largest performance degradation (2.39%), demonstrating their critical role despite contributing only 37.07% of total feature importance. Feature efficiency analysis demonstrates that selecting the top 500-1000 features yields optimal performance (0.886-0.887 AUC), outperforming the full 3,451-feature set (0.879 AUC) through effective noise reduction. Our findings highlight the importance of feature selection as a regularization technique and demonstrate that sparse lexical features remain complementary to dense representations for specialized clinical text classification under severe class imbalance.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-29</url>
+      <bibkey>al-smadi-2026-automated</bibkey>
+      <doi>10.63317/2kuc94aqpqj8</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>C</fixed-case>ares<fixed-case>AI</fixed-case> at <fixed-case>CT</fixed-case>-<fixed-case>DEB</fixed-case>’26: Detecting Dosing Errors In Clinical Trials Using Domain-Specific Transformer Embeddings and Classification Models</title>
+      <author><first>Leon</first><last>Hamnett</last></author>
+      <author><first>Favour</first><last>Igwezeke</last></author>
+      <author><first>Joseph Itopa</first><last>Abubakar</last></author>
+      <author><first>Mary Adetutu</first><last>Adewunmi</last></author>
+      <pages>344-361</pages>
+      <abstract>Medication errors, particularly dosing errors in clinical trials (CT), can lead to patient harm, adverse drug events and worse patient outcomes. Dosing errors are preventable, and early identification can improve trial integrity and mitigate subsequent clinical and financial burden. This study aims to detect dosing errors within CT protocols by evaluating text representations of trial information using transformer-based language models trained on biomedical corpora. CT textual data was encoded using several models, including ClinicalBERT, PubMedBERT, BioBERT, and MedCPT, and integrated with categorical features. These text embeddings were used as input to classical machine learning models and neural network architectures within an experimental framework. Performance was primarily assessed using ROC-AUC with respect to predicting dosage error. Under a logistic regression baseline, BioBERT consistently outperformed alternative encoders, achieving an ROC-AUC of 0.794, a 3.95 % improvement over the ClinicalBERT baseline. Combining multiple embeddings did not yield improvements, indicating that domain alignment outweighs representational stacking. Gradient boosting models, support vector classifiers, logistic regression, and residual neural networks achieved the strongest performance for predicting dosage error, achieving ROC-AUCs: 0.821 to 0.853. Overall, the integration of domain-specific transformer embeddings with structured metadata enables discrimination of trials meeting a predefined elevated dosing error risk criterion, advancing safety monitoring and supporting informed regulatory decision-making.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-30</url>
+      <bibkey>hamnett-etal-2026-caresai</bibkey>
+      <doi>10.63317/4nqo2dmobwrq</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>CGU</fixed-case>-<fixed-case>ILAL</fixed-case>ab at <fixed-case>F</fixed-case>ood<fixed-case>B</fixed-case>ench-<fixed-case>QA</fixed-case> 2026: Comparing Traditional and <fixed-case>LLM</fixed-case>-based Approaches for Recipe Nutrient Estimation</title>
+      <author><first>Wei-Chun</first><last>Chen</last></author>
+      <author><first>Yu-Xuan</first><last>Chen</last></author>
+      <author><first>I-Fang</first><last>Chung</last></author>
+      <author><first>Ying-Jia</first><last>Lin</last></author>
+      <pages>362-368</pages>
+      <abstract>Accurate nutrient estimation from unstructured recipe text is an important yet challenging problem in dietary monitoring, due to ambiguous ingredient terminology and highly variable quantity expressions. We systematically evaluate models spanning a wide range of representational capacity, from lexical matching methods (TF-IDF with Ridge Regression), to deep semantic encoders (DeBERTa-v3), to generative reasoning with large language models (LLMs). Under the strict tolerance criteria defined by EU Regulation 1169/2011, our empirical results reveal a clear trade-off between predictive accuracy and computational efficiency. The TF-IDF baseline achieves moderate nutrient estimation performance with near-instantaneous inference, whereas the DeBERTa-v3 encoder performs poorly under task-specific data scarcity. In contrast, few-shot LLM inference (e.g., Gemma-3-27B) and a hybrid LLM refinement pipeline (TF-IDF combined with Gemini 2.5 Flash) deliver higher accuracy across all nutrient categories. These improvements likely arise from the ability of LLMs to leverage pre-trained world knowledge to resolve ambiguous terminology and normalize non-standard units, which remain difficult for purely lexical approaches. However, these gains come at the cost of substantially higher inference latency, highlighting a practical deployment trade-off between real-time efficiency and nutritional precision in dietary monitoring systems.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-31</url>
+      <bibkey>chen-etal-2026-cgu</bibkey>
+      <doi>10.63317/34pmiwmf83xc</doi>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>FCP</fixed-case>rofiler: Structured and Deterministic Pipeline for Recipe-Level Nutrient Estimation</title>
+      <author><first>Siyoon</first><last>Kim</last></author>
+      <pages>369-374</pages>
+      <abstract>Food and nutrition question answering involves resolving ambiguous ingredient terminology and diverse household measurement expressions, and converting them into representations compatible with nutrient databases. In FoodBench-QA, recipe-level nutrient estimation requires consistent handling of heterogeneous and imprecise measurement descriptions. We propose FoodComponentProfiler (FCProfiler), a deterministic pipeline that treats nutrient estimation as a structured measurement resolution problem. The pipeline is composed of multiple stages, including parsing, normalization, unit canonicalization, gram conversion, and nutrient estimation, with each step designed to remain transparent and traceable. Unit canonicalization combines rule-based standards with data-driven unit expansion from large-scale recipe corpora, enabling broader coverage of real-world measurement variations. Gram conversion grounds quantities in ingredient-specific portion information, enabling accurate and traceable mass computation. Experimental results show that accurate nutrient estimation mainly depends on reliable unit normalization and ingredient-specific measurement conversion. Additionally, FCProfiler achieves performance comparable to FoodyLLM, demonstrating that explicit measurement grounding serves as an effective alternative to implicit reasoning. The proposed methodology preserves interpretability while maintaining strong performance in food and nutrition question answering.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-32</url>
+      <bibkey>kim-2026-fcprofiler</bibkey>
+      <doi>10.63317/5p463oxyiaeo</doi>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>D</fixed-case>oc<fixed-case>UA</fixed-case> at <fixed-case>CRF</fixed-case> Filling 2026: <fixed-case>LLM</fixed-case> <fixed-case>S</fixed-case>truct<fixed-case>C</fixed-case>ore — Schema-Guided Reasoning Condensation and Deterministic Compilation</title>
+      <author><first>Serhii</first><last>Zabolotnii</last></author>
+      <pages>375-383</pages>
+      <abstract>Automatically filling Case Report Forms (CRFs) from clinical notes is challenging due to noisy language, strict output contracts, and the high cost of false positives. We describe our CL4Health 2026 submission for Dyspnea CRF filling (134 items) using a contract-driven two-stage design grounded in Schema-Guided Reasoning (SGR) (Abdullin, 2025). The key task property is extreme sparsity: the majority of fields are unknown, and official scoring penalizes both empty values and unsupported predictions. We shift from a single-step “LLM predicts 134 fields” approach to a decomposition where (i) Stage 1 produces a stable SGR-style JSON summary with exactly 9 domain keys, and (ii) Stage 2 is a fully deterministic, 0-LLM compiler that parses the Stage 1 summary, canonicalizes item names (optionally using a UMLS alias map with 134/134 coverage), normalizes predictions to the official controlled vocabulary (13 categories), applies evidence-gated false-positive filters, and expands the output into the required 134-item format. On the dev80 split, the best teacher configuration (Mistral Large 3 Stage 1 → Stage 2 deterministic) achieves macro-F1 0.6543 (EN) and 0.6905 (IT); on the hidden test200, the submitted English variant scores 0.63 on Codabench. The pipeline is language-agnostic: Italian results match or exceed English with no language-specific engineering.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-33</url>
+      <bibkey>zabolotnii-2026-docua</bibkey>
+      <doi>10.63317/4ar36j4w3vrk</doi>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>GREYC</fixed-case> at <fixed-case>CRF</fixed-case> Filling 2026: Rewrite Before You Extract - Rewriting Clinical Notes for Automated <fixed-case>CRF</fixed-case></title>
+      <author><first>Jesus</first><last>Lovon-Melgarejo</last></author>
+      <author><first>Jérémie</first><last>Pantin</last></author>
+      <author><first>Gaël</first><last>Dias</last></author>
+      <pages>384-389</pages>
+      <abstract>This paper describes the system we submitted to the CRF:filling 2026 shared task. We propose a modular, LLM-based framework including an LLM as rewriter, which enhances the original clinical note from the perspective of each target CRF item; an LLM extractor, which retrieves the relevant value using a k-shot prompting strategy; and an LLM as a judge, which determines whether the clinical note contains evidence to support a given answer, defaulting to ’unknown’ otherwise. We evaluated our system on the English portion of the dataset; our complete framework achieves a macro-F1 of 0.64 on the development set. Our analysis reveals that while the rewriting step effectively generates correct factual information, it also increases false positives. The judge component mitigates this by adopting a conservative prediction strategy that substantially reduces false positives at the cost of a moderate reduction in true positives, yielding higher precision and better alignment with the shared task metric. On the test set, a light version of our system ranked 21 out of 32 public submissions, achieving a macro-F1 of 0.45.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-34</url>
+      <bibkey>lovon-melgarejo-etal-2026-greyc</bibkey>
+      <doi>10.63317/323qntyvhp3m</doi>
+    </paper>
+    <paper id="35">
+      <title>Innov8rs at <fixed-case>CRF</fixed-case> Filling 2026: An Iterative Multi-<fixed-case>LLM</fixed-case> Ensemble Pipeline with Dynamic Few-Shot Retrieval and Data-Driven Precision Filtering</title>
+      <author><first>Samminga Sainath</first><last>Rao</last></author>
+      <author><first>Sumit</first><last>Mishra</last></author>
+      <author><first>Chanchal</first><last>Suman</last></author>
+      <pages>390-394</pages>
+      <abstract>In this paper, we present the technical report on the CL4Health 2026 Shared Task on Case Report Form (CRF) filling for our team Innov8rs. The paper explains the complete development of our system for the CL4Health 2026 Shared Task. We describe every phase of our system – from initial catastrophic failures with small models producing over 4,800 false positives, through prompt engineering breakthroughs, to our final multi-LLM ensemble combining Gemini 2.5 Flash and Llama 3.3 70B with dynamic TF-IDF-based few-shot retrieval. The main contribution of this work is a data-driven precision filter that suppresses predictions for CRF items with historically high false-positive rates. This single intervention reduced false positives from 816 to 171 on the English development set, boosting macro-F1 from 0.541 to 0.703. We document the engineering challenges of multi-API-key rotation across 11 Google API keys and 2 Groq keys, the design of four distinct ensemble strategies, and the critical analysis of why development-calibrated filters suffered from distribution shift on test data (final test F1: 0.47).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-35</url>
+      <bibkey>rao-etal-2026-innov8rs</bibkey>
+      <doi>10.63317/2eg7dfwaf4o5</doi>
+    </paper>
+    <paper id="36">
+      <title>Aurum at <fixed-case>CRF</fixed-case> Filling 2026: Modular <fixed-case>DSP</fixed-case>y Extractors with Qwen3-Max for Multilingual <fixed-case>CRF</fixed-case> Filling</title>
+      <author><first>Vinay Babu</first><last>Ulli</last></author>
+      <author><first>Jyoti</first><last>Kumari</last></author>
+      <author><first>Anindita</first><last>Mondal</last></author>
+      <pages>395-401</pages>
+      <abstract>This paper describes the submission by Team Aurum to the CL4Health @ LREC 2026 Shared Task on Case Report Form (CRF) Filling from dyspnea patient clinical notes. Extracting 134 structured clinical fields using a single Large Language Model (LLM) call often leads to schema-following errors, hallucination, and poor attention over complex instructions. To address this, we propose a modular extraction pipeline built with DSPy, which decomposes the 134 CRF fields into 14 specialized, domain-specific extractors (e.g., Medical History, Lab Values, Acute Diagnoses). We conducted extensive experiments across multiple multilingual LLMs, including Llama4 Maverik, GPT-4o, GPT-4o Mini, DeepSeek-V3, Gemma-3-12B-Instruct, and Qwen-series models. Among these, Qwen3-Max (Thinking) with our optimized v2 prompts achieved the best performance on the development set with a Macro-F1 of 0.70, outperforming other evaluated models such as GPT-4o (0.68) and DeepSeek-V3 (0.66). Prompt optimization resulted in measurable gains, improving Qwen3-Max performance from 0.67 to 0.70. Using this configuration, our pipeline achieved an official Codabench Test Macro-F1 score of 0.68 in English and 0.67 in Italian, securing the 1st place ranking overall in the shared task.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-36</url>
+      <bibkey>ulli-etal-2026-aurum</bibkey>
+      <doi>10.63317/4h5ugiqk5eht</doi>
+    </paper>
+    <paper id="37">
+      <title>sebis at <fixed-case>CRF</fixed-case> Filling 2026: A Two-Stage Local <fixed-case>LLM</fixed-case> Pipeline for Medical <fixed-case>CRF</fixed-case> Filling</title>
+      <author><first>Katharina</first><last>Sommer</last></author>
+      <author><first>Tristan</first><last>Till</last></author>
+      <author><first>Florian</first><last>Matthes</last></author>
+      <pages>402-411</pages>
+      <abstract>The extraction of structured clinical information from unstructured EHR notes is a persistent bottleneck in healthcare informatics. While large language models (LLMs) offer high performance, their deployment in clinical settings is hindered by privacy risks, inference costs, and the tendency to hallucinate beyond textual evidence. We address these challenges for the CL4Health 2026 Case Report Form (CRF) filling task by proposing a fully local, domain-adapted pipeline using the MedGemma-27B model. Our two-stage architecture, which separates binary presence classification from value extraction, enforces strict adherence to textual evidence and ensures deterministic outputs for negated, uncertain, or unknown states. By leveraging item-specific, few-shot in-context learning without external API calls or fine-tuning, our approach achieves a macro-F1 score of 0.55 on the official English test track. This result secures second place among all locally-hosted, open-source submissions. Our work demonstrates that privacy-preserving, on-premise LLM pipelines can achieve near-competitive performance with proprietary frontier models, providing a practical, data-sovereign framework for clinical NLP.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-37</url>
+      <bibkey>sommer-etal-2026-sebis</bibkey>
+      <doi>10.63317/2prmobstjfcg</doi>
+    </paper>
+    <paper id="38">
+      <title>Polimi at <fixed-case>CRF</fixed-case> Filling 2026: Prompt-Based Information Extraction from <fixed-case>I</fixed-case>talian Clinical Notes</title>
+      <author><first>Vittorio</first><last>Torri</last></author>
+      <author><first>Francesca</first><last>Ieva</last></author>
+      <pages>412-427</pages>
+      <abstract>In this paper we describe the system developed by the Polimi team for the CRF Filling Shared Task 2026, which focuses on extracting structured variables from clinical notes. The task is challenging due to scarce annotations, heterogeneous clinical language, and the sparsity of the 134 items to be extracted. Our approach relies on prompt-based information extraction using locally deployed open-weight Large Language Models (LLMs). We focused on the Italian subset of the dataset. The pipeline performs zero-shot extraction using task-specific prompts augmented with a glossary of abbreviations derived from unlabeled notes. To improve reliability and reduce hallucinations, the extraction schema is decomposed into multiple prompts targeting groups of variables, whose outputs are merged and refined through deterministic post-processing rules to normalize values and recover missing labels. During development we explored verification stages based on LLM-based prediction validation and synthetic example generation, but these strategies did not improve performance and were not included in the final system. On the development set, the best configuration based on Mistral Small 3.2 24B Instruct achieved an F1-score of 67.51%. On the official test set, our system ranked third overall and second among systems evaluated on the Italian subset, achieving an F1-score of 63%.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-38</url>
+      <bibkey>torri-ieva-2026-polimi</bibkey>
+      <doi>10.63317/5moj6trbujsb</doi>
+    </paper>
+    <paper id="39">
+      <title>Cohere Labs Community at <fixed-case>F</fixed-case>ood<fixed-case>B</fixed-case>ench-<fixed-case>QA</fixed-case> 2026: The Cake Makes the Ingredients</title>
+      <author><first>Ravi</first><last>Ranjan</last></author>
+      <author><first>Roshan</first><last>Santhosh</last></author>
+      <author><first>Lucien</first><last>Carroll</last></author>
+      <pages>428-433</pages>
+      <abstract>People intuitively ask natural language dialogue systems for advice on nutrition and dietary guidelines, but systems based on prompted text generation are susceptible to fabricating details, which could be hazardous to non-specialist users. The FoodBench-QA shared task grounds answers in knowledge bases with linked ontologies, in order to evaluate and mitigate fabrication of nutrition information. Our system treats nutrient estimation and entity linking not as a generative problem (predicting numbers from scratch), but as a retrieval problem. We operate on the hypothesis that for structured data like food composition, finding a “real” recipe that is 95% similar is more likely to approximate the correct values than letting the language model fabricate values from sparse context. Our system performed well on food safety labeling from recipe ingredients alone, and it did not benefit from the additional information of recipe titles. In the NER and NEL tasks, our system handled the recipe-focused FCD corpus well, but suffered from poor recall on scientific abstracts and the artificial dataset. These results show the importance of basing information retrieval and question answering in data that is well-matched to the target data.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-39</url>
+      <bibkey>ranjan-etal-2026-cohere</bibkey>
+      <doi>10.63317/4mxctoq6yb8s</doi>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>H</fixed-case>i<fixed-case>TZ</fixed-case>-<fixed-case>IXA</fixed-case> at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Evidence Alignment Through Self-Consistency and Prompt Curation in Memory-Constrained Environments</title>
+      <author><first>Xabier</first><last>Irastortza-Urbieta</last></author>
+      <author><first>Maite</first><last>Oronoz</last></author>
+      <author><first>Alicia</first><last>Pérez</last></author>
+      <pages>434-440</pages>
+      <abstract>The development of question-answering systems capable of grounding their answers in Electronic Health Records could provide patients with faithful assistance while reducing the clinical workload. The ArchEHR-QA 2026 Shared Task was organized to advance progress in this context. In this paper, we present our strategies for addressing this shared task, which are focused primarily on evidence alignment and, to a lesser extent, on evidence identification. Our approaches rely exclusively on open-source models with up to 8 billion parameters, aiming to produce systems suitable for environments with memory constraints. We experimented with methods based on embedding models, prompt curation, self-consistency, and combination of LLMs. We concluded that prompt curation together with an effective post-processing step was crucial for creating stable systems, while self-consistency yielded considerable gains in performance. The results of our approaches suggest that small LLMs can substantially improve their accuracy in the evidence alignment task via simple and affordable techniques.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-40</url>
+      <bibkey>irastortza-urbieta-etal-2026-hitz</bibkey>
+      <doi>10.63317/3zuhjyhh6vy9</doi>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>BIT</fixed-case>.<fixed-case>UA</fixed-case>-<fixed-case>AAUBS</fixed-case> at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Evaluating Open-Source and Proprietary <fixed-case>LLM</fixed-case>s via Prompting in Low-Resource <fixed-case>QA</fixed-case></title>
+      <author><first>Richard A. A.</first><last>Jonker</last></author>
+      <author><first>Alexander</first><last>Christiansen</last></author>
+      <author><first>Alexandros</first><last>Maniatis</last></author>
+      <author><first>Rúben</first><last>Garrido</last></author>
+      <author><first>Rogério Braunschweiger de Freitas</first><last>Lima</last></author>
+      <author><first>Roman</first><last>Jurowetzki</last></author>
+      <author><first>Sérgio</first><last>Matos</last></author>
+      <pages>441-454</pages>
+      <abstract>This paper presents the joint participation of the BIT.UA and AAUBS groups in the ArchEHR-QA 2026 shared task, which focuses on clinical question answering and evidence grounding in a low-resource setting. Due to the absence of training data and the strict data privacy constraints inherent to the healthcare domain (e.g. GDPR), we investigate the capabilities of Large Language Models (LLMs) without weight updates. We evaluate several state-of-the-art proprietary models and locally deployable open-source alternatives using various prompt engineering strategies, including task decomposition, Chain-of-Thought, and in-context learning. Furthermore, we explore majority voting and LLM-as-a-judge ensembling techniques to maximize predictive robustness. Our results demonstrate that while proprietary models exhibit strong resilience to prompt variations, domain-adapted open-source models (such as MedGemma 3 27B) achieve highly competitive performance when paired with the right prompt. Overall, our prompt-based approach proved highly effective, securing 1st place in Subtask 4 (evidence citation alignment) and 3rd place in Subtask 3 (patient-friendly answer generation). All code, results, and prompts are available on our GitHub repository: <url>https://github.com/bioinformatics-ua/ArchEHR-QA-2026</url>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-41</url>
+      <bibkey>jonker-etal-2026-bit</bibkey>
+      <doi>10.63317/4xzogwhepa32</doi>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>W</fixed-case>is<fixed-case>P</fixed-case>er<fixed-case>M</fixed-case>ed at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Retrieval-Augmented Prompting for Grounded <fixed-case>EHR</fixed-case> Question Answering</title>
+      <author><first>Jan-Henning</first><last>Büns</last></author>
+      <author><first>Tabea Margareta Grace</first><last>Pakull</last></author>
+      <author><first>Hendrik</first><last>Damm</last></author>
+      <author><first>Bohao</first><last>Chu</last></author>
+      <author><first>Christoph M.</first><last>Friedrich</last></author>
+      <author><first>Felix</first><last>Nensa</last></author>
+      <author><first>Elisabeth</first><last>Livingstone</last></author>
+      <author><first>Peter A.</first><last>Horn</last></author>
+      <author><first>Norbert</first><last>Fuhr</last></author>
+      <pages>455-468</pages>
+      <abstract>ArchEHR-QA is a grounded question-answering (QA) task for electronic health records (EHRs) comprising four subtasks: (1) question rewriting, (2) evidence identification, (3) grounded answer generation, and (4) answer-evidence alignment. In this work, we present a modular pipeline centered on retrieval-augmented generation (RAG). For Subtask 1, RAG few-shot prompting outperformed both PEFT and prompt-only baselines on the development set; however, Claude few-shot proved substantially more robust on the test set, ranking 6th out of 13 participating teams (score: 26.94). For Subtask 2, a union ensemble of open-weight LLMs (GPT-OSS-120B and Qwen3-30B-A3B) achieved a 56.7 micro-F1, rivaling the proprietary Claude Opus 4.6 while demonstrating higher recall (53.6). For Subtask 3, our RAG few-shot approach using Claude Opus 4.5 achieved the 1st place out of 13 participating teams (score: 36.33). Finally, for Subtask 4, a zero-shot Claude Opus 4.6 configuration ranked 2nd out of 16 participating teams (score: 81.3).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-42</url>
+      <bibkey>buns-etal-2026-wispermed</bibkey>
+      <doi>10.63317/5bb4gnhkbqjq</doi>
+    </paper>
+    <paper id="43">
+      <title>sebis at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: How Much Can You Do Locally? Evaluating Grounded <fixed-case>EHR</fixed-case> <fixed-case>QA</fixed-case> on a Single Notebook</title>
+      <author><first>Ibrahim Ebrar</first><last>Yurt</last></author>
+      <author><first>Fabian Tobias</first><last>Karl</last></author>
+      <author><first>Tejaswi</first><last>Choppa</last></author>
+      <author><first>Florian</first><last>Matthes</last></author>
+      <pages>469-481</pages>
+      <abstract>Clinical question answering over electronic health records (EHRs) can help clinicians and patients access relevant medical information more efficiently. However, many recent approaches rely on large cloud-based models, which are difficult to deploy in clinical environments due to privacy constraints and computational requirements. In this work, we investigate how far grounded EHR question answering can be pushed when restricted to a single notebook. We participate in all four subtasks of the ArchEHR-QA 2026 shared task and evaluate several approaches designed to run on commodity hardware. All experiments are conducted locally without external APIs or cloud infrastructure. Our results show that such systems can achieve competitive performance on the shared task leaderboards. In particular, our submissions perform above average in two subtasks, and we observe that smaller models can approach the performance of much larger systems when properly configured. These findings suggest that privacy-preserving EHR QA systems running fully locally are feasible with current models and commodity hardware. The source code is available at <url>https://github.com/ibrahimey/ArchEHR-QA-2026</url>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-43</url>
+      <bibkey>yurt-etal-2026-sebis</bibkey>
+      <doi>10.63317/3mbfiuod7bfc</doi>
+    </paper>
+    <paper id="44">
+      <title><fixed-case>M</fixed-case>ed<fixed-case>E</fixed-case>vi-<fixed-case>NS</fixed-case> at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Using Clinical Reasoning Principles to Improve Zero-shot Capabilities of Large Language Models in Evidence Alignment</title>
+      <author><first>Mengxuan</first><last>Sun</last></author>
+      <author><first>Nicolay</first><last>Rusnachenko</last></author>
+      <pages>482-486</pages>
+      <abstract>The ArchEHR-QA shared task focuses on grounded question answering using patient EHR data. For the given clinical interpretation of the patient question, note excerpt (E) and answer text (A), subtask 4 (evidence alignment) aims to cite supporting sentences from E for each sentence in A. In this paper, we propose a prompt-engineering methodology that features clinical-reasoning principles in related alignment. We adopt this methodology for GPT-5.2 in zero-shot learning mode. According to our experiments on ArchEHR-QA, incorporating clinical reasoning principles into the prompt improves F 1overall by +2.0%. Our final submission resulted in 77.4% by F 1overall, which positions us at 10th out of 16 teams. Our code is publicly available: <url>https://github.com/nicolay-r/ArchEHR-QA-2026-Task-4-MedEvi-NS</url></abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-44</url>
+      <bibkey>sun-rusnachenko-2026-medevi</bibkey>
+      <doi>10.63317/2uoe94adhkng</doi>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>UIC</fixed-case>-<fixed-case>AIH</fixed-case>ealth4<fixed-case>A</fixed-case>ll at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Answer-First Evidence Grounding for Clinical Question Answering</title>
+      <author><first>Mohammad</first><last>Arvan</last></author>
+      <author><first>Hossein</first><last>Haeri</last></author>
+      <author><first>Natalie</first><last>Parde</last></author>
+      <author><first>Rebecca</first><last>Feinstein</last></author>
+      <pages>487-496</pages>
+      <abstract>We describe the UIC-AIHealth4All system for ArchEHR-QA 2026, a shared task on grounded question answering from electronic health records. We participated in Subtasks 2 (evidence identification), 3 (answer generation), and 4 (answer-evidence alignment). For Subtasks 2 and 3, we propose an answer-first pipeline in which the model generates candidate answers citing specific note sentences before classifying the full evidence set, exploiting the asymmetry between judging relevance in the abstract versus relative to a generated answer. For Subtask 4, we apply self-consistency voting over five independent model calls, retaining links by vote threshold. Our pipeline ranked third on evidence identification (Strict Micro F1 62.90), ninth on answer generation (Overall 31.90), and fifth on answer-evidence alignment (F1 79.81). A post-hoc linguistic analysis of 45 stylistic features reveals that model outputs remain 3.2 Flesch-Kincaid grade levels harder to read than clinician-authored references despite matching their word and sentence counts, suggesting readability warrants explicit optimization in clinical NLP systems. Code and prompts are available at <url>https://github.com/mo-arvan/archehr-qa-2026-uic-aihealth4all</url>.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-45</url>
+      <bibkey>arvan-etal-2026-uic</bibkey>
+      <doi>10.63317/3skgjregbmtf</doi>
+    </paper>
+    <paper id="46">
+      <title>tt501 at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Few-Shot Prompting with Retrieval-Augmented Generation for Grounded Clinical <fixed-case>EHR</fixed-case> Question Answering</title>
+      <author><first>Tai Tan</first><last>Tran</last></author>
+      <pages>497-505</pages>
+      <abstract>We present the ArchEHR-QA 2026 shared task system of team tt501, which addresses evidence identification (Subtask 2), answer generation (Subtask 3), and evidence alignment (Subtask 4) from electronic health record notes. Our approach relies entirely on prompt engineering with xAI’s Grok models, without any task-specific fine-tuning or external knowledge. For evidence identification we compare a hybrid BM25 plus large language model (LLM) reranker with a full-context chain-of-thought ensemble and refinement step, finding that full-note reasoning yields higher recall and F1. For answer generation we implement a retrieval-augmented generation pipeline that conditions on predicted evidence sentences and few-shot examples, improving lexical and semantic faithfulness over a zero-shot baseline. For evidence alignment we design a recall-oriented few-shot prompt enriched with explicit rationales that teach the model how to map each answer sentence back to its supporting note sentences. We report official shared task results and analyse the impact of these design choices across the three subtasks.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-46</url>
+      <bibkey>tran-2026-tt501</bibkey>
+      <doi>10.63317/2tjqwa7c7nqf</doi>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>H</fixed-case>ealth<fixed-case>NLP</fixed-case>_<fixed-case>R</fixed-case>etrievers at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Cascaded <fixed-case>LLM</fixed-case> Pipeline for Grounded Clinical Question Answering</title>
+      <author><first>Md Biplob</first><last>Hosen</last></author>
+      <author><first>Md Alomgeer</first><last>Hussein</last></author>
+      <author><first>Md Akmol</first><last>Masud</last></author>
+      <author><first>Omar</first><last>Faruque</last></author>
+      <author><first>Tera L</first><last>Reynolds</last></author>
+      <author><first>Lujie Karen</first><last>Chen</last></author>
+      <pages>506-514</pages>
+      <abstract>Patient portals now give individuals direct access to their electronic health records (EHRs), yet access alone does not ensure patients understand or act on the complex clinical information contained in these records. The ArchEHR-QA 2026 shared task addresses this challenge by focusing on grounded question answering over EHRs, and this paper presents the system developed by the HealthNLP_Retrievers team for this task. The proposed approach uses a multi stage cascaded pipeline powered by the Gemini 2.5 pro large language model to interpret patient authored questions and retrieve relevant evidence from lengthy clinical notes. Our architecture comprises four integrated modules. (1) A few shot query reformulation unit which summarizes verbose patient queries; (2) A heuristic based evidence scorer which ranks clinical sentences to prioritize recall; (3) A grounded response generator which synthesizes professional caliber answers restricted strictly to identified evidence; (4) A high precision many to many alignment framework which links generated answers to supporting clinical sentences. This cascaded approach achieved highly competitive results. Across the individual tracks, the system ranked 1st in question interpretation (Subtask 1), 5th in answer generation, 7th in evidence identification, and 9th in answer evidence alignment. These results show that integrating large language models within a structured multi stage pipeline improves grounding, precision, and the professional quality of patient oriented health communication. To support reproducibility, our source code is publicly available in our GitHub repository.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-47</url>
+      <bibkey>hosen-etal-2026-healthnlp</bibkey>
+      <doi>10.63317/49k2p9jar95c</doi>
+    </paper>
+    <paper id="48">
+      <title><fixed-case>Y</fixed-case>ale-<fixed-case>DM</fixed-case>-Lab at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Deterministic Grounding and Multi-Pass Evidence Alignment for <fixed-case>EHR</fixed-case> Question Answering</title>
+      <author><first>Elyas</first><last>Irankhah</last></author>
+      <author><first>Samah</first><last>Fodeh</last></author>
+      <pages>515-523</pages>
+      <abstract>We describe the Yale-DM-Lab system for the ArchEHR-QA 2026 shared task. The task studies patient-authored questions about hospitalization records and contains four subtasks (ST): clinician-interpreted question reformulation, evidence sentence identification, answer generation, and evidence–answer alignment. ST1 uses a dual-model pipeline with Claude Sonnet 4 and GPT-4o to reformulate patient questions into clinician-interpreted questions. ST2–ST4 rely on Azure-hosted model ensembles (o3, GPT-5.2, GPT-5.1, and DeepSeek-R1) combined with few-shot prompting and voting strategies. Our experiments show three main findings. First, model diversity and ensemble voting consistently improve performance compared to single-model baselines. Second, the full clinician answer paragraph is provided as additional prompt context for evidence alignment. Third, results on the development set show that alignment accuracy is mainly limited by reasoning. The best scores on the development set reach 88.81 micro F1 on ST4, 65.72 macro F1 on ST2, 34.01 on ST3, and 33.05 on ST1.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-48</url>
+      <bibkey>irankhah-fodeh-2026-yale</bibkey>
+      <doi>10.63317/2wd3di8agfag</doi>
+    </paper>
+    <paper id="49">
+      <title>Razreshili at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Evidence Alignment via <fixed-case>LLM</fixed-case> Prompting and Cross-Encoder Fine-tuning</title>
+      <author><first>Arina</first><last>Zemchyk</last></author>
+      <pages>524-529</pages>
+      <abstract>We describe our system for Subtask 4 (Evidence Alignment) of the ArchEHR-QA 2026 shared task, which requires aligning each sentence of a clinician-authored answer to the supporting sentence(s) in a clinical note excerpt derived from MIMIC. The task is challenging due to many-to-many alignment structure, answer sentences with no note support, and the semantic gap between clinical note language and answer paraphrases. We explore two approaches: few-shot chain-of-thought prompting with Qwen2.5-7B-Instruct and LoRA fine-tuning of a cross-encoder with combined InfoNCE and BCE loss. Our best system achieves a micro F1 of 67.93 on the test set.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-49</url>
+      <bibkey>zemchyk-2026-razreshili</bibkey>
+      <doi>10.63317/5mop8iu8k9ej</doi>
+    </paper>
+    <paper id="50">
+      <title>Neural at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: One Method Fits All: Unified Prompt Optimization for Clinical <fixed-case>QA</fixed-case> over <fixed-case>EHR</fixed-case>s</title>
+      <author><first>Abrar</first><last>Majeedi</last></author>
+      <author><first>Viswanatha Reddy</first><last>Gajjala</last></author>
+      <author><first>Sai Prasanna Teja Reddy</first><last>Bogireddy</last></author>
+      <author><first>Siddhant</first><last>Rai</last></author>
+      <pages>530-538</pages>
+      <abstract>Automated question answering (QA) over electronic health records (EHRs) demands precise evidence retrieval, faithful answer generation, and explicit grounding of answers in clinical notes. In this work, we present <i>Neural1.5</i>, our method for the ArchEHR-QA 2026 shared task at CL4Health@LREC 2026, which comprises of four subtasks: question interpretation, evidence identification, answer generation, and evidence alignment. Our approach decouples the task into independent, modular stages and employs DSPy’s MIPROv2 optimizer to automatically discover high-performing prompts, jointly tuning instructions and few-shot demonstrations for each stage. Within every stage, self-consistency voting over multiple stochastic inference runs suppresses spurious errors and improves reliability, while stage-specific verification mechanisms (e.g., self-reflection and chain-of-verification for alignment) further refine output quality. Among all teams that participated in all four subtasks, our method ranks second overall (mean rank 4.00), placing 4th, 1st, 4th, and 7th on Subtasks 1–4, respectively. These results demonstrate that systematic, per-stage prompt optimization combined with self-consistency mechanisms is a cost-effective alternative to model fine-tuning for multi-faceted clinical QA.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-50</url>
+      <bibkey>majeedi-etal-2026-neural</bibkey>
+      <doi>10.63317/52yxj7aduxxg</doi>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>O</fixed-case>pti<fixed-case>M</fixed-case>ed at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: <fixed-case>GEPA</fixed-case> Prompt Optimization and Multi-Agent Majority Voting for <fixed-case>EHR</fixed-case>-Grounded Question Answering</title>
+      <author><first>Feras</first><last>AlMannaa</last></author>
+      <author><first>Talia</first><last>Tseriotou</last></author>
+      <author><first>Maria</first><last>Liakata</last></author>
+      <pages>539-550</pages>
+      <abstract>Despite the demonstrated promise of Large Language Models in medical question answering, existing work largely addresses closed-form, exam-style tasks and overlooks complex open-ended questions requiring reasoning over noisy, long clinical documents. In this work, we present our system, OptiMed, submitted to the ArchEHR-QA 2026 shared task on grounded clinical question answering over EHR notes. We combine GEPA, an evolutionary prompt optimization framework, with multi-agent majority voting across five diverse LLMs and a structured clinical abstraction strategy for question interpretation. OptiMed ranked 1st overall among teams completing all four subtasks with an average score of 52.0, achieving top AlignScore in both Question Interpretation and Answer Generation, reflecting strong factual grounding. GEPA optimization proved effective for structured tasks with sufficient development data, but failed to generalize on complex generative tasks under very limited number of supervisions. Multi-agent majority voting consistently lifted performance in evidence-oriented subtasks. Prompt analysis attributes GEPA’s gains to role prompting and procedural decomposition and failures to over-specification under limited supervision.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-51</url>
+      <bibkey>almannaa-etal-2026-optimed</bibkey>
+      <doi>10.63317/5gyu3jbn755r</doi>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>TAMU</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Grounded Clinical <fixed-case>QA</fixed-case> with Evidence Identification and Intent-Aware Answer Generation</title>
+      <author><first>Xinqi</first><last>Su</last></author>
+      <author><first>Rongrong</first><last>Wang</last></author>
+      <author><first>Sunyang</first><last>Fu</last></author>
+      <author><first>Hongfang</first><last>Liu</last></author>
+      <author><first>Ruihong</first><last>Huang</last></author>
+      <pages>551-564</pages>
+      <abstract>Electronic Health Records (EHRs) contain rich clinical information and provide an important data source for medical question answering. However, generating reliable answers grounded in patient-specific clinical evidence remains challenging. In this work, we participate in the ArchEHR-QA 2026 shared task and focus on Subtask 2 (Evidence Identification) and Subtask 3 (Answer Generation). For evidence identification, we explore both traditional learning-to-rank methods and large language models (LLMs), and propose a two-stage LLM framework that improves prediction stability through few-shot prompting and self-reflection reasoning. For answer generation, we design an intent-aware few-shot prompting framework to generate concise answers grounded in clinical evidence. Experimental results show that our approach achieves strong performance despite limited training data. On the official leaderboard, our system ranks 5th in Subtask 2 and 2nd in Subtask 3. These results demonstrate that combining evidence-driven reasoning with the generative capabilities of LLMs is an effective approach for EHR-based clinical question answering.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-52</url>
+      <bibkey>su-etal-2026-tamu</bibkey>
+      <doi>10.63317/55c9e7av4wry</doi>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>G</fixed-case>igit<fixed-case>AI</fixed-case> at <fixed-case>A</fixed-case>rch<fixed-case>EHR</fixed-case>-<fixed-case>QA</fixed-case> 2026: Prompting Strategies and Constitutional <fixed-case>AI</fixed-case> for Clinical Question Answering</title>
+      <author><first>Saran</first><last>Krishnasamy</last></author>
+      <author><first>Inez</first><last>Wihardjo</last></author>
+      <pages>565-577</pages>
+      <abstract>Answering patient questions from electronic health records requires identifying relevant evidence in lengthy clinical notes and generating faithful, patient-friendly answers. We present a systematic study of LLM prompting strategies for both tasks, evaluating 21 evidence identification methods and 13 answer generation methods across 7 language models. For evidence identification, we find that LLM prompting outperforms traditional retrieval (BM25, SBERT, BioLinkBERT) by 19 F1 points, and that prompt framing alone controls precision–recall trade-offs: inclusive framing achieves 90% recall on dev while balanced framing reaches 67% precision. For answer generation, we introduce a Constitutional AI pipeline that critiques and revises answers against five clinical faithfulness principles, improving BLEU and ROUGE over the constrained baseline. Our analysis reveals that chain-of-thought effectiveness is strongly model-dependent, and that simple well-designed prompts outperform complex multi-step pipelines. We evaluate our approaches on the ArchEHR-QA 2026 shared task at CL4Health, achieving 58.0 F1 for evidence identification and 31.8 overall for answer generation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-cl4health-53</url>
+      <bibkey>krishnasamy-wihardjo-2026-gigitai-archehr</bibkey>
+      <doi>10.63317/57f49ajj4svw</doi>
+    </paper>
+  </volume>
+</collection>
