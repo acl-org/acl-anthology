@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.readi">
+  <volume id="1" type="proceedings" ingest-date="2026-07-24">
+    <meta>
+      <booktitle>Proceedings of the Joint Workshop on Readability and Text Simplification (<fixed-case>READI</fixed-case>x<fixed-case>TSAR</fixed-case>) @ <fixed-case>LREC</fixed-case> 2026</booktitle>
+      <editor><first>Matthew</first><last>Shardlow</last></editor>
+      <editor><first>Thomas</first><last>François</last></editor>
+      <editor><first>Raquel</first><last>Amaro</last></editor>
+      <editor><first>Jorge</first><last>Baptista</last></editor>
+      <editor><first>Rémi</first><last>Cardon</last></editor>
+      <editor><first>Eugénio</first><last>Ribeiro</last></editor>
+      <editor><first>Horacio</first><last>Saggion</last></editor>
+      <editor><first>Regina</first><last>Stodden</last></editor>
+      <editor><first>Amalia</first><last>Todirascu</last></editor>
+      <editor><first>Rodrigo</first><last>Wilkens</last></editor>
+      <publisher>ELRA Language Resources Association (ELRA)</publisher>
+      <address>Palma, Mallorca (Spain)</address>
+      <month>May</month>
+      <year>2026</year>
+      <url hash="fb2c4880">2026.readi-1</url>
+      <venue>readi</venue>
+      <venue>tsar</venue>
+      <venue>ws</venue>
+      <doi>10.63317/3odyoa9tpigg</doi>
+    </meta>
+    <frontmatter>
+      <url hash="de81d270">2026.readi-1.0</url>
+      <bibkey>readi-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Revisiting <fixed-case>G</fixed-case>erman Complex Word Identification: Contextualized <fixed-case>LLM</fixed-case>s and Feature Injection</title>
+      <author id="thorben-schomacker" orcid="0009-0002-3577-341X"><first>Thorben</first><last>Schomacker</last></author>
+      <author id="seid-muhie-yimam" orcid="0000-0002-8289-388X"><first>Seid Muhie</first><last>Yimam</last></author>
+      <author><first>Chris</first><last>Biemann</last></author>
+      <author><first>Marina</first><last>Tropmann-Frick</last></author>
+      <pages>1-11</pages>
+      <abstract>Complex word identification (CWI) is essential in text simplification, yet work on German CWI remains comparatively limited. To address this gap, we investigate the capabilities of three state-of-the-art LLMs and compare them to previously proposed baseline systems. We fine-tune the LLMs in three setups: (i) using the target expression only, (ii) using the target expression together with its sentence-level context, and (iii) using the context and injection of classical machine learning features. Our results show that while pretrained-only LLMs fall short, fine-tuned LLMs set new benchmarks for both binary and probabilistic CWI. In addition, embedding the target in its context sentence improves performance, whereas feature injection has no clearly measurable effect. All models in this paper are trained on the probabilistic CWI task and additionally evaluated on the binary task; thus, we publish a single model that supports both evaluation views We released all accompanying resources (<url>https://github.com/tschomacker/german-cwi-llm</url>) and model checkpoints (<url>https://huggingface.co/collections/tschomacker/german-cwi-llm</url>).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-01</url>
+      <bibkey>schomacker-etal-2026-revisiting</bibkey>
+      <doi>10.63317/4z33nthezmjs</doi>
+    </paper>
+    <paper id="2">
+      <title>Book Complexity Level Assignment in <fixed-case>F</fixed-case>rench and <fixed-case>P</fixed-case>ortuguese</title>
+      <author id="jorge-baptista" orcid="0000-0003-4603-4364"><first>Jorge</first><last>Baptista</last></author>
+      <author><first>David</first><last>Antunes</last></author>
+      <author><first>Wafa</first><last>Aissa</last></author>
+      <author><first>Julien</first><last>Zakhia Doueihi</last></author>
+      <author><first>Hanh Trang</first><last>Tran Pham</last></author>
+      <author><first>Eugénio</first><last>Ribeiro</last></author>
+      <author><first>Thomas</first><last>François</last></author>
+      <author><first>Raquel</first><last>Amaro</last></author>
+      <pages>12-25</pages>
+      <abstract>Selecting reading materials that are appropriate for adults with low literacy skills remains a central challenge in Adult Learning contexts. This challenge becomes particularly acute when the unit of analysis is not a short passage but a full book or long-form text, where internal heterogeneity in lexical, syntactic, and discourse-level properties make global readability estimation non-trivial. In practice, librarians, educators, and publishers often need to make decisions about the suitability of books for specific learner populations without access to complete texts, relying instead on partial excerpts or limited samples, and personal intuition.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-02</url>
+      <bibkey>baptista-etal-2026-book</bibkey>
+      <doi>10.63317/3j3kwqx57g8u</doi>
+    </paper>
+    <paper id="3">
+      <title>Taming <fixed-case>CATS</fixed-case>: Controllable Automatic Text Simplification through Instruction Fine-Tuning with Control Tokens</title>
+      <author id="hanna-hubarava" orcid="0000-0002-5218-8557"><first>Hanna</first><last>Hubarava</last></author>
+      <author><first>Yingqiang</first><last>Gao</last></author>
+      <pages>26-48</pages>
+      <abstract>Controllable Automatic Text Simplification (CATS) produces user-tailored outputs, yet controllability is often treated as a decoding problem and evaluated with metrics that are not reflective to the measure of control. We observe that controllability in ATS is significantly constrained by data and evaluation. To this end, we introduce a domain-agnostic CATS framework based on instruction fine-tuning with discrete control tokens, steering open-source models to target readability levels and compression rates. Across three model families with different model sizes (Llama, Mistral, Qwen; 1-14B) and four domains (medicine, public administration, news, encyclopedic text), we find that smaller models (1-3B) can be competitive, but reliable controllability strongly depends on whether the training data encodes sufficient variation in the target attribute. Readability control (FKGL, ARI, Dale-Chall) is learned consistently, whereas compression control underperforms due to limited signal variability in the existing corpora. We further show that standard simplification and similarity metrics are insufficient for measuring control, motivating error-based measures for target-output alignment. Finally, our sampling and stratification experiments demonstrate that naive splits can introduce distributional mismatch that undermines both training and evaluation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-03</url>
+      <bibkey>hubarava-gao-2026-taming</bibkey>
+      <doi>10.63317/2zbasvvoqiae</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>PLABA</fixed-case>-<fixed-case>EVAL</fixed-case>: A Multi-Dimensional, In-Context Sentence Readability Dataset for Medical Text</title>
+      <author><first>Kexin</first><last>Bian</last></author>
+      <author><first>Su-Youn</first><last>Yoon</last></author>
+      <author><first>Mamoru</first><last>Komachi</last></author>
+      <pages>49-60</pages>
+      <abstract>We present an in-context framework for assessing readability that separates reading difficulty into multiple subjective dimensions. Participants read biomedical abstracts with full-document access and provide sentence-level ratings of Processing Ease and Perceived Understanding, followed by an open-book multiple-choice comprehension check. Using this protocol, we release PLABA-EVAL, a dataset of 78 biomedical abstracts and expert plain-language adaptations (609 sentences), annotated by three independent raters per document. Analyses show that Ease and Understanding are strongly related but not interchangeable, and that perceived understanding aligns more closely with open-book comprehension performance. We provide baseline linguistic analyses for both dimensions, illustrating how the dataset supports work on readability, simplification, and sentence-level difficulty modeling.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-04</url>
+      <bibkey>bian-etal-2026-plaba</bibkey>
+      <doi>10.63317/2y6bctu9etkj</doi>
+    </paper>
+    <paper id="5">
+      <title>Automatic Extraction of Textual and Phonemic Complexity for <fixed-case>F</fixed-case>rench Cued Speech</title>
+      <author id="magali-norre" orcid="0009-0006-4485-7016"><first>Magali</first><last>Norré</last></author>
+      <author id="brigitte-bigi" orcid="0000-0003-1834-6918"><first>Brigitte</first><last>Bigi</last></author>
+      <author id="nuria-gala-0723" orcid="0000-0003-2987-0723"><first>Núria</first><last>Gala</last></author>
+      <author><first>Ludivine Javourey</first><last>Drevet</last></author>
+      <author id="thomas-francois" orcid="0000-0001-9415-7639"><first>Thomas</first><last>François</last></author>
+      <pages>61-73</pages>
+      <abstract>This article presents the results of an analysis of a written corpus with the view of automatically generating it in French Cued Speech (CS). CS is a communication system developed for people with hearing impairment to complement speech reading at the phonetic level using hands. This visual communication mode uses handshapes in different positions near the face in combination with the mouthshape (called ’cues’ or ’keys’) to make the phonemes of spoken language look different from each other. Despite many studies demonstrating its benefits, there are few resources available for learning and practicing it, especially in French. As part of a wider project aimed at creating an online learning platform with automatically generated videos using an augmented reality system displaying a virtual coding, we propose to identify, extract, and analyze 41 textual and phonemic features that might be more complex to (de)code in French CS. For the automatic extraction of complexity, several tools are used: FABRA for readability, SPPAS for phonetization and CS key generation. The results show some strong correlations between readability features, few between phonemic variables, and few between the two types. An initial model is proposed for selecting texts to be recorded for learning French CS.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-05</url>
+      <bibkey>norre-etal-2026-automatic</bibkey>
+      <doi>10.63317/2efggr7hkgst</doi>
+    </paper>
+    <paper id="6">
+      <title>Can <fixed-case>LLM</fixed-case>s Control Readability? A Multi-Dimensional Evaluation Framework for <fixed-case>CEFR</fixed-case>-Controlled <fixed-case>A</fixed-case>rabic Generation</title>
+      <author id="nour-rabih" orcid="0009-0002-7101-0401"><first>Nour</first><last>Rabih</last></author>
+      <author id="chatrine-qwaider" orcid="0009-0001-4402-9193"><first>Chatrine</first><last>Qwaider</last></author>
+      <author><first>Ted</first><last>Briscoe</last></author>
+      <pages>74-88</pages>
+      <abstract>While Large Language Models (LLMs) can generate fluent Arabic text, their ability to reliably control readability levels remains unclear. We propose a multi-dimensional evaluation framework for Common European Framework of Reference for Language (CEFR)-controlled Arabic text generation, assessing whether instruction-following LLMs can serve as reliable generators for adaptive language learning. Our framework integrates controlled prompting, automatic readability prediction using a validated Taha-19 model, lexical constraint validation, and syntactic complexity profiling. Results show that structured prompting substantially improves CEFR alignment. In particular, CEFR-guided prompting with lexical constraints achieves the highest conformity to reference linguistic profiles (0.91 cosine similarity) and near-perfect agreement with predicted readability levels (0.99), while unconstrained prompting exhibits weak control. These findings establish an empirical foundation for integrating readability-aware Arabic text generation into adaptive educational systems.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-06</url>
+      <bibkey>rabih-etal-2026-llms</bibkey>
+      <doi>10.63317/48v7mxywgfja</doi>
+    </paper>
+    <paper id="7">
+      <title>Lexical Conditioning of Model’s Distribution through Uncertainty-gated Soft-Mixing of Probabilities</title>
+      <author id="michele-papucci" orcid="0000-0003-4251-7254"><first>Michele</first><last>Papucci</last></author>
+      <author id="giulia-venturi" orcid="0000-0001-5849-0979"><first>Giulia</first><last>Venturi</last></author>
+      <author id="felice-dellorletta" orcid="0000-0003-3454-9387"><first>Felice</first><last>Dell’Orletta</last></author>
+      <pages>89-100</pages>
+      <abstract>We present Uncertainty-Gated Lexical Decoding (UGLD), a decoding-time framework for fine-grained lexical control in Large Language Models (LLMs) that explicitly addresses the trade-off between controllability and fluency. UGLD adaptively scales intervention through an entropy-based gating mechanism derived from the model’s predictive distribution, activating control when uncertainty is high and limiting interference when predictions are confident. The method supports both promotion toward and against predefined vocabularies. We evaluate UGLD in Italian on two open-weight LLMs (ANITA 8B and Qwen 3 4B) across paraphrasing and free-text generation settings, considering Simple Vocabulary Conditioning and Jargon Reduction scenarios. Automatic evaluation shows consistent improvements in lexical coverage over standard decoding strategies, while human evaluation confirms that fluency is preserved under controlled intervention.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-07</url>
+      <bibkey>papucci-etal-2026-lexical</bibkey>
+      <doi>10.63317/5hgiz64xsj6s</doi>
+    </paper>
+    <paper id="8">
+      <title>A Comparative Study of Multilingual Fine-tuning and Prompting for Automatic Text Readability Classification in <fixed-case>G</fixed-case>alician</title>
+      <author id="sandra-rodriguez-rey" orcid="0000-0002-4864-7255"><first>Sandra Rodríguez</first><last>Rey</last></author>
+      <author><first>Marcos</first><last>Garcia</last></author>
+      <pages>101-120</pages>
+      <abstract>Despite advancements in automatic readability assessment, low-resource languages such as Galician remain under-explored. This study addresses this gap by presenting a comparative study of readability assessment techniques in Galician, including fine-tuning of encoder models as well as prompting strategies using large generative models. Due to the scarcity of native Galician resources, neural machine translation was employed to generate synthetic Galician data. The analysis begins with BERT-based monolingual models trained on the synthetic data. For multilingual models, the impact of using original versus translated data was compared in order to assess the effects of translation-based augmentation. Finally, several LLMs were evaluated using zero-shot and few-shot prompting methods. The results indicate that generative models are not yet competitive with encoder models tuned for text classification in Galician, and that data generated through machine translation improves the performance of monolingual models but has little effect on multilingual models.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-08</url>
+      <bibkey>rey-garcia-2026-comparative</bibkey>
+      <doi>10.63317/4tnwhe3r9579</doi>
+    </paper>
+    <paper id="9">
+      <title>Plan-Guided Text Simplification with Extended Contexts</title>
+      <author><first>Pascal</first><last>Mathas</last></author>
+      <author id="jan-bakker" orcid="0009-0002-9085-8491"><first>Jan</first><last>Bakker</last></author>
+      <author id="jaap-kamps" orcid="0000-0002-6614-0087"><first>Jaap</first><last>Kamps</last></author>
+      <pages>121-129</pages>
+      <abstract>In this paper, we investigate the impact of increasing context lengths (one to five paragraphs) on plan-following accuracy in plan-guided text simplification. Plan-guided models simplify text according to sentence-level operation labels such as copy, rephrase, split, and delete. Previous work fine-tunes BART with target reading-level and sentence-level operation tokens to perform this task. We find that BART’s plan-following accuracy on Newsela-auto drops significantly as context increases from one to five paragraphs. This means that the model becomes less reliable with longer contexts, and the quality of its outputs decreases. To address this, we propose replacing the fine-tuned BART models with a prompting-based approach using instruction-tuned Qwen models. We find that this approach not only maintains robust plan-following across all context lengths, but even at the longest context length still exceeds BART’s performance at the shortest. We further provide ablations on model size and model family, showing that a minimum model capacity is required for the approach to work and that it transfers across LLM families.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-09</url>
+      <bibkey>mathas-etal-2026-plan</bibkey>
+      <doi>10.63317/2gk3wxp2d525</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>LLM</fixed-case>-Generated Stories for Students with Significant Cognitive Disabilities: Promise, Gaps, and Evaluation Framework</title>
+      <author><first>Pragati</first><last>Maheshwary</last></author>
+      <author><first>Ananya</first><last>Ganesh</last></author>
+      <author><first>Shamya</first><last>Karumbaiah</last></author>
+      <pages>130-141</pages>
+      <abstract>Students with significant cognitive disabilities (SCD) require specially designed accessible stories for reading comprehension assessments, yet creating such content is labor-intensive and difficult to scale. This preliminary study investigates whether large language models (LLMs) can generate short accessible stories for alternate assessment system. Using an 8-fold cross-validation design, we generated 120 stories with GPT-4o via one-shot prompting with human-written exemplars and evaluated them against a test set comprising 7 expert-human written stories as baselines across three dimensions: simplicity, fluency &amp; coherence, and thematic adherence. Cross-validation results show that generated stories meet surface-level simplicity targets, with approximately two-thirds falling within the human baseline range for readability metrics. However, generated stories exhibited a systematic coherence gap where only 5% fell within the human range for adjacent sentence similarity, a pattern consistent across all folds. Thematic adherence was moderate, with adequate diversity across stories. These findings suggest LLMs can serve as a drafting tool within accessible content generation pipelines, but human expert review remains essential to ensure coherence, testability, and alignment with quality standards required for high-stakes alternate assessments.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-10</url>
+      <bibkey>maheshwary-etal-2026-llm</bibkey>
+      <doi>10.63317/3b9f4txwp2n2</doi>
+    </paper>
+    <paper id="11">
+      <title>Evaluating Transformer Model Family Representations Through Automated Essay Scoring</title>
+      <author><first>Akchay</first><last>Ozten</last></author>
+      <author><first>Rodrigo</first><last>Wilkens</last></author>
+      <pages>142-150</pages>
+      <abstract>Large Language Models have become central to Automated Essay Scoring (AES), typically through fine-tuned transformer encoders or prompt-based applications of decoder models. However, the representational capacity of decoder models as frozen embedding extractors remains largely unexplored. In this paper, we present a controlled comparison between encoder and decoder transformer embeddings for prompt-agnostic AES. Using regression models, we evaluate frozen representations across two English datasets. We analyzed scaling effects and the impact of integrating explicit linguistic features in hybrid configurations. Our results show that decoder embeddings consistently outperform encoder embeddings in embedding-only settings, with gains generalizing across holistic essay scoring and proficiency prediction. Scaling effects are modest, and hybrid models that combine contextual embeddings with linguistic features yield further improvements. Notably, frozen decoder embeddings achieve performance competitive with a fine-tuned BERT. These findings highlight the importance of representation-level properties in essay scoring.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-11</url>
+      <bibkey>ozten-wilkens-2026-evaluating</bibkey>
+      <doi>10.63317/35ytj3qcrwv4</doi>
+    </paper>
+    <paper id="12">
+      <title>Proficiency-Controlled Text Simplification in <fixed-case>E</fixed-case>uropean <fixed-case>P</fixed-case>ortuguese: A Preliminary Study using Prompting Approaches</title>
+      <author id="eugenio-ribeiro" orcid="0000-0001-7147-8675"><first>Eugénio</first><last>Ribeiro</last></author>
+      <author><first>David</first><last>Antunes</last></author>
+      <author><first>Nuno</first><last>Mamede</last></author>
+      <author id="jorge-baptista" orcid="0000-0003-4603-4364"><first>Jorge</first><last>Baptista</last></author>
+      <pages>151-163</pages>
+      <abstract>This paper presents a preliminary study on proficiency-controlled text simplification in European Portuguese using multiple prompting strategies. We focus on the iRead4Skills dataset, which defines four complexity levels targeted at adult native speakers with low literacy. Specifically, we simplify 40 texts from the highest complexity level into three easier levels (plain, easy, and very easy), corresponding approximately to Common European Framework of Reference for Languages (CEFR) levels B1, A2, and A1. We evaluate zero-shot and few-shot prompting configurations, exploring the impact of CEFR anchoring, explicit meaning-preservation instructions, and example-based guidance. Automatic evaluation relies on a fine-tuned proficiency classifier and semantic similarity metrics, including BERTScore and document embeddings. The results show that while exact target-level accuracy remains below 40%, target-or-below accuracy reaches up to 61.39%, indicating that the model generally simplifies texts but struggles to consistently match precise proficiency targets. Human evaluation confirms the overall trends observed automatically, while highlighting the subjectivity inherent to proficiency assessment and meaning preservation. Our findings suggest that prompt engineering alone is insufficient for robust proficiency control in European Portuguese, motivating future work on model adaptation and improved evaluation protocols.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-12</url>
+      <bibkey>ribeiro-etal-2026-proficiency</bibkey>
+      <doi>10.63317/4sw76nrnosj6</doi>
+    </paper>
+    <paper id="13">
+      <title>Automatic Text Simplification for <fixed-case>F</fixed-case>rench Medical Documents with <fixed-case>LLM</fixed-case>s: The Role of Target Audience and Genre</title>
+      <author id="remi-cardon" orcid="0000-0002-7858-3504"><first>Rémi</first><last>Cardon</last></author>
+      <author><first>A. Seza</first><last>Doğruöz</last></author>
+      <pages>164-180</pages>
+      <abstract>Medical information is hard for non-specialists to understand, despite its importance for treatment success. Automatic text simplification (ATS) rewrites complex documents into simpler versions, with effectiveness measured through ATS evaluation metrics and readability metrics. A key challenge in ATS is calibrating simplification to match the reading abilities of specific target audiences, as different populations have different comprehension needs. Since socio-demographic factors such as education level and health literacy are known to correlate with reading abilities, we hypothesize that large language models (LLMs) may be able to adjust their simplification strategies when provided with descriptions of target audiences. In this study, we investigate how LLMs simplify French medical documents when prompted with socio-demographic characteristics of target patients. We compare this approach with prompts based on language proficiency levels (CEFR) to determine whether LLMs respond differently to explicit proficiency levels versus implicit audience descriptions. Our experiments with five LLMs on three types of French medical documents show that CEFR prompts produce greater readability variation (particularly for Llama-3.1-8B), while socio-demographic factors yield more homogeneous outputs. Text genre also considerably impacts LLM outputs for ATS.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-13</url>
+      <bibkey>cardon-dogruoz-2026-automatic</bibkey>
+      <doi>10.63317/32b2v7b42kyb</doi>
+    </paper>
+    <paper id="14">
+      <title>A Learner-Oriented Annotated Resource of <fixed-case>F</fixed-case>rench Multiword Expressions for Text Adaptation in Foreign Language Reading</title>
+      <author><first>Anna</first><last>Kalinina</last></author>
+      <author><first>Thomas</first><last>François</last></author>
+      <author><first>Hélène</first><last>Vassiliadou</last></author>
+      <author id="amalia-todirascu" orcid="0000-0002-3092-3549"><first>Amalia</first><last>Todirascu</last></author>
+      <pages>181-192</pages>
+      <abstract>This article presents a learner-oriented annotated lexical resource of French multiword expressions (MWEs) designed to support text adaptation in foreign language reading. MWEs, including idioms and collocations, pose major comprehension challenges for learners because their meaning often cannot be inferred compositionally or depends on conventional lexical constraints. To address this issue, the study extends the existing verbal MWE database by integrating nominal and verbal MWEs annotated according to a linguistically grounded typology distinguishing idioms, opaque collocations, and transparent collocations. The resource was developed through a multi-step methodology combining automatic extraction from pedagogical corpora, manual annotation using decision-tree-based guidelines, and CEFR level assignment based on corpus distribution. The resulting dataset includes approximately 2,700 expressions enriched with detailed linguistic and learner-relevant metadata. Annotation campaigns involving native and non-native annotators showed moderate agreement, reflecting the gradient nature of phraseological opacity. By linking phraseological complexity with learner proficiency, this resource provides a reproducible framework for modeling MWE difficulty. It offers valuable support for text adaptation, readability assessment, and the development of NLP-based educational tools, contributing to improved accessibility of French texts for language learners.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-14</url>
+      <bibkey>kalinina-etal-2026-learner</bibkey>
+      <doi>10.63317/47m6wxhoqpej</doi>
+    </paper>
+    <paper id="15">
+      <title>A Meta-evaluation of Automatic Metrics for Elaborative Simplification</title>
+      <author><first>Abdullah</first><last>Alshatti</last></author>
+      <author id="steven-schockaert" orcid="0000-0002-9256-2881"><first>Steven</first><last>Schockaert</last></author>
+      <author id="fernando-alva-manchego" orcid="0000-0001-6218-8377"><first>Fernando</first><last>Alva-Manchego</last></author>
+      <pages>193-209</pages>
+      <abstract>Elaborative simplification aims to improve the readability of texts by adding content that helps the readers. However, evaluating these elaborations remains challenging due to their subjective nature and the lack of suitable annotated datasets. To support the evaluation of elaborative simplification models, we introduce a new dataset with human ratings of elaborations generated by Large Language Models (LLMs), focusing on two quality criteria: cohesion and informativeness. Using these human judgments as a reference, we conduct a meta-evaluation of existing automatic evaluation approaches, with a focus on LLM-as-a-judge strategies. Our experiments suggest that evaluations made by smaller LLMs correlate poorly with human judgments, while larger models with structured prompting exhibit higher agreement. Informativeness evaluation proved to be challenging due to its subjectivity, as evidenced by the low inter-annotator agreement compared to cohesion.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-15</url>
+      <bibkey>alshatti-etal-2026-meta</bibkey>
+      <doi>10.63317/3bhnb2uoif7o</doi>
+    </paper>
+    <paper id="16">
+      <title>Readability Measures in Automatic Text Simplification: Is Simplification Quality a Coherent Construct?</title>
+      <author id="remi-cardon" orcid="0000-0002-7858-3504"><first>Rémi</first><last>Cardon</last></author>
+      <author><first>A. Seza</first><last>Doğruöz</last></author>
+      <pages>210-226</pages>
+      <abstract>Readability is a central concept in automatic text simplification (ATS), yet the two fields have largely developed in parallel, with limited cross-fertilization. While prior work has studied correlations between automatic evaluation metrics and human judgment in ATS, the correlations between these two aspects and readability measures have not received systematic attention. We address this gap by investigating to what extent readability measures align with both human judgment and automatic metrics in ATS. Using two English datasets annotated with human judgments (SimplicityDA at the sentence level and D-Wikipedia at the document level), we compute 1,066 linguistic features (covering lexical diversity, lexical sophistication, syntactic sophistication, and cohesion) and eight traditional readability formulas, and correlate them against human scores and standard ATS metrics (BLEU, SARI, BERTScore, LENS, D-SARI). Our results show that readability measures correlate poorly with both human judgment and automatic metrics across both levels. The meaning preservation criterion consistently yields the highest correlation values, while simplicity and fluency criteria remain low. We also find systematic differences between sentence-level and document-level simplification in terms of which features are most informative: type-token ratio features are predictive at the sentence level but not at the document level, while corpus-frequency features show the opposite pattern. These findings point to a broader issue: ATS lacks a shared theoretical construct for simplification quality, and the three main approaches to its assessment (human judgment, readability measures, and automatic metrics) do not consistently converge.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-16</url>
+      <bibkey>cardon-dogruoz-2026-readability</bibkey>
+      <doi>10.63317/4gagp6meyztv</doi>
+    </paper>
+    <paper id="17">
+      <title>Language Proficiency as a Recoverable Dimension in Multilingual <fixed-case>LLM</fixed-case> Embeddings</title>
+      <author><first>Rodrigo</first><last>Wilkens</last></author>
+      <pages>227-242</pages>
+      <abstract>Understanding whether proficiency is encoded as structured knowledge rather than inferred from surface correlates is critical for interpreting and applying LLMs in educational contexts. We investigate whether multilingual large language model (LLM) embeddings encode language proficiency as a structured recoverable dimension rather than merely supporting predictive classification. Using the UniversalCEFR benchmark, which spans 13 languages and the full proficiency range from A1 to C2, we evaluate the frozen LLM embedding space in two complementary ways. First, we test whether proficiency levels can be predicted directly from frozen embeddings across languages and model variants. The results show that embeddings without task-specific fine-tuning consistently support CEFR classification. Variation in results is strongly associated with the amount of annotated data and language family, suggesting that data availability and cross-linguistic structure matter more than architectural differences. Second, we examine how CEFR levels are organized inside embedding space. We find that texts from lower to higher proficiency levels align along a consistent ordered direction, with higher levels systematically positioned further along this gradient. Distances between levels increase proportionally to their ordinal gap (e.g., A1 vs. C2 is farther apart than B1 vs. B2), indicating a continuous proficiency continuum rather than arbitrary clusters. Together, these findings show that CEFR is not only predictable from multilingual LLM embeddings but is also internally structured as an ordered representational dimension.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-readixtsar-17</url>
+      <bibkey>wilkens-2026-language</bibkey>
+      <doi>10.63317/3zrv8qescsdg</doi>
+    </paper>
+  </volume>
+</collection>
