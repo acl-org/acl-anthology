@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.nslp">
+  <volume id="1" type="proceedings" ingest-date="2026-07-24">
+    <meta>
+      <booktitle>Proceedings of Natural Scientific Language Processing (<fixed-case>NSLP</fixed-case>) @ <fixed-case>LREC</fixed-case> 2026</booktitle>
+      <editor><first>Georg</first><last>Rehm</last></editor>
+      <editor><first>Stefan</first><last>Dietze</last></editor>
+      <editor><first>Danilo</first><last>Dessi</last></editor>
+      <editor><first>Diana</first><last>Maynard</last></editor>
+      <editor><first>Sonja</first><last>Schimmler</last></editor>
+      <publisher>ELRA Language Resources Association (ELRA)</publisher>
+      <address>Palma, Mallorca (Spain)</address>
+      <month>May</month>
+      <year>2026</year>
+      <url hash="88271b6d">2026.nslp-1</url>
+      <venue>nslp</venue>
+      <venue>ws</venue>
+      <doi>10.63317/44i27tid8nim</doi>
+    </meta>
+    <frontmatter>
+      <url hash="74937802">2026.nslp-1.0</url>
+      <bibkey>nslp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>A</fixed-case>stro<fixed-case>C</fixed-case>oncepts: A Large-Scale Multi-Label Classification Corpus for Astrophysics</title>
+      <author><first>Atilla Kaan</first><last>Alkan</last></author>
+      <author><first>Felix</first><last>Grezes</last></author>
+      <author><first>Sergi</first><last>Blanco-Cuaresma</last></author>
+      <author><first>Jennifer Lynn</first><last>Bartlett</last></author>
+      <author><first>Daniel</first><last>Chivvis</last></author>
+      <author><first>Anna</first><last>Kelbert</last></author>
+      <author><first>Kelly</first><last>Lockhart</last></author>
+      <author><first>Alberto</first><last>Accomazzi</last></author>
+      <pages>1-12</pages>
+      <abstract>Scientific multi-label text classification suffers from extreme class imbalance, where specialized terminology exhibits severe power-law distributions that challenge standard classification approaches. Existing scientific corpora lack comprehensive controlled vocabularies, focusing instead on broad categories and limiting systematic study of extreme imbalance. We introduce AstroConcepts, a corpus of English abstracts from 21,702 published astrophysics papers, labeled with 2,367 concepts from the Unified Astronomy Thesaurus. The corpus exhibits severe label imbalance, with 76 % of concepts having fewer than 50 training examples. By releasing this resource, we enable systematic study of extreme class imbalance in scientific domains and establish strong baselines across traditional, neural, and vocabulary-constrained LLM methods. Our evaluation reveals three key patterns that provide new insights into scientific text classification. First, vocabulary-constrained LLMs achieve competitive performance relative to domain-adapted models in astrophysics classification, suggesting a potential for parameter-efficient approaches. Second, domain adaptation yields relatively larger improvements for rare, specialized terminology, although absolute performance remains limited across all methods. Third, we propose frequency-stratified evaluation to reveal performance patterns that are hidden by aggregate scores, thereby making robustness assessment central to scientific multi-label evaluation. These results offer actionable insights for scientific NLP and establish benchmarks for research on extreme imbalance.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-01</url>
+      <bibkey>alkan-etal-2026-astroconcepts</bibkey>
+      <doi>10.63317/2ttvfgprer93</doi>
+    </paper>
+    <paper id="2">
+      <title>Benchmarking <fixed-case>LLM</fixed-case>s for <fixed-case>ARR</fixed-case> Area Assignment: Evidence and Implications for Assignment Strategies</title>
+      <author><first>Eileen</first><last>Bingert</last></author>
+      <author><first>Diego</first><last>Alves</last></author>
+      <author><first>Stefania</first><last>Degaetano-Ortlieb</last></author>
+      <pages>13-24</pages>
+      <abstract>We study how large language models (LLMs) perform at assigning ACL Rolling Review (ARR) areas from paper titles/abstracts. Using 558 papers (ACL/EACL/NAACL, 2020 to 2025), we compare multiple LLMs and prompting schemes (zero/few-shot; with/without ARR keywords; each-category variants) and analyze per-area scores, error overlap, and confusion matrices. One-shot prompting (with OpenAI-gpt-oss-20b) tends to perform best, while injecting ARR keywords often lowers accuracy. Task-bounded areas (e.g., MT, IE, QA, Summarization) are predicted more reliably, whereas broad, cross-cutting labels (e.g., Resources and Evaluation, NLP Applications) are frequently conflated, indicating taxonomy ambiguity rather than solely model limitations. We recommend hierarchical or primary-plus-secondary labels to reduce ambiguity and improve reviewer matching. Our dataset, methods, and findings offer a reproducible baseline for area selection support in ACL workflows.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-02</url>
+      <bibkey>bingert-etal-2026-benchmarking</bibkey>
+      <doi>10.63317/4jbm8o3us4c8</doi>
+    </paper>
+    <paper id="3">
+      <title>Benchmarking Retrieval-Augmented Generation for Scientific Knowledge <fixed-case>QA</fixed-case> in <fixed-case>E</fixed-case>uropean <fixed-case>P</fixed-case>ortuguese</title>
+      <author><first>Jose</first><last>Matos</last></author>
+      <author><first>Catarina</first><last>Silva</last></author>
+      <author><first>Hugo</first><last>Goncalo Oliveira</last></author>
+      <pages>25-31</pages>
+      <abstract>Retrieval-Augmented Generation (RAG) enables grounding of model outputs in external evidence, but its impact on European Portuguese (pt-PT) scientific question answering (QA) remains unclear. We present a controlled evaluation of RAG on pt-PT knowledge QA across different scientific domains using the Portuguese test split of the Global MMLU Lite dataset. As external evidence, we use a Portuguese scientific literature knowledge base containing over 32,000 documents converted to Markdown. We benchmark five instruction-tuned small language models (4-12B) and compare closed-book baselines against 16 RAG configurations that vary by: (i) dense retriever specialization (multilingual vs. Portuguese-specific), (ii) reranking (on/off), and (iii) number of retrieved chunks (k ∈ <fixed-case>1, 3, 5, 10</fixed-case>). Results suggest that RAG gains are model-dependent. Some models improve consistently, others are highly sensitive to retrieval choices, and some degrade under retrieval noise, especially at larger values of k. Findings highlight the importance of model-specific retrieval tuning and ensuring that the retriever and reranker languages and domains align when deploying RAG systems for Portuguese natural scientific language processing.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-03</url>
+      <bibkey>matos-etal-2026-benchmarking</bibkey>
+      <doi>10.63317/3muergicuxwk</doi>
+    </paper>
+    <paper id="4">
+      <title>Beyond Abstracts: A Biomedical <fixed-case>M</fixed-case>e<fixed-case>SH</fixed-case> Indexing Corpus Incorporating Summarized Methods Sections</title>
+      <author><first>Sujoy</first><last>Datta</last></author>
+      <author><first>Robert E.</first><last>Mercer</last></author>
+      <author><first>Xindi</first><last>Wang</last></author>
+      <pages>32-43</pages>
+      <abstract>Automated Medical Subject Heading (MeSH) indexing systems rely predominantly on titles and abstracts, while human indexers at the National Library of Medicine examine full-text articles—particularly Methods sections—that often contain crucial experimental terminology absent from abstracts. This information asymmetry limits model performance and prevents detection of methodologically-grounded MeSH descriptors. We introduce a novel biomedical MeSH indexing corpus comprising over one million English biomedical articles, each annotated with title, abstract, journal metadata, publication year, expert-curated MeSH terms, and—uniquely—extractive summaries of Methods sections. Using LLaMA 3 with an iterative re-prompting strategy, we generated high-fidelity summaries. To avoid label leakage, evaluation labels are inferred using journal-specific MeSH frequency profiles rather than gold annotations. This publicly accessible dataset addresses a critical gap in full-text MeSH indexing research. Building upon this resource, we propose an extended multi-channel neural architecture that incorporates Methods-derived representations. Empirical results demonstrate consistent performance gains across both example-based and label-based evaluations, indicating better retrieval of infrequent terms. These findings highlight that procedural knowledge in the Methods section encodes critical semantic cues overlooked by title-abstract only models.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-04</url>
+      <bibkey>datta-etal-2026-beyond</bibkey>
+      <doi>10.63317/4iw4aavrxi9o</doi>
+    </paper>
+    <paper id="5">
+      <title>Challenges and Opportunities for <fixed-case>NSLP</fixed-case> in Scientific Publishing – A Case Study</title>
+      <author><first>Thomas</first><last>Kleinbauer</last></author>
+      <author><first>Michael</first><last>Didas</last></author>
+      <author><first>Michael</first><last>Wagner</last></author>
+      <pages>44-48</pages>
+      <abstract>Research software is not always meant to reach production-grade quality. The same requirements, for instance, regarding performance, security, or reliability that are imposed on professional software do not necessarily apply in the lab. However, recent years have seen an increased interest to bring cutting-edge research results into production. Specialized natural language processing, such as NSLP, is no exception. In this paper, we discuss three real-life challenges in scientific publishing as they relate to NSLP, and also highlight the potential NSLP has to offer in overcoming these challenges. Specifically, we identify issues related to the elicitation of metadata – particularly with respect to what we term the /metadata externality problem –, privacy and data protection laws, and software reliability. This is not a research paper; rather than introducing novel research results, our intention is to contribute to the academic discourse in the NSLP community by providing the perspective of a potential end-user.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-05</url>
+      <bibkey>kleinbauer-etal-2026-challenges</bibkey>
+      <doi>10.63317/2mao8u4u3jbv</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>C</fixed-case>limate<fixed-case>C</fixed-case>heck 2026: Scientific Fact-Checking and Disinformation Narrative Classification of Climate-related Claims</title>
+      <author><first>Raia</first><last>Abu Ahmad</last></author>
+      <author><first>Max</first><last>Upravitelev</last></author>
+      <author><first>Aida</first><last>Usmanova</last></author>
+      <author><first>Veronika</first><last>Solopova</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>49-65</pages>
+      <abstract>Automatically verifying climate-related claims against scientific literature is a challenging task, complicated by the specialised nature of scholarly evidence and the diversity of rhetorical strategies underlying climate disinformation. ClimateCheck 2026 is the second iteration of a shared task addressing this challenge, expanding on the 2025 edition with tripled training data and a new disinformation narrative classification task. Running from January to February 2026 on the CodaBench platform, the competition attracted 20 registered participants and 8 leaderboard submissions, with systems combining dense retrieval pipelines, cross-encoder ensembles, and large language models with structured hierarchical reasoning. In addition to standard evaluation metrics (Recall@K and Binary Preference), we adapt an automated framework to assess retrieval quality under incomplete annotations, exposing systematic biases in how conventional metrics rank systems. A cross-task analysis further reveals that not all climate disinformation is equally verifiable, potentially implicating how future fact-checking systems should be designed.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-06</url>
+      <bibkey>abu-ahmad-etal-2026-climatecheck</bibkey>
+      <doi>10.63317/3chh989hkiop</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>C</fixed-case>limate<fixed-case>S</fixed-case>ense at <fixed-case>C</fixed-case>limate<fixed-case>C</fixed-case>heck 2026</title>
+      <author><first>Thibault</first><last>Ehrhart</last></author>
+      <author><first>Gregoire</first><last>Burel</last></author>
+      <author><first>Raphael</first><last>Troncy</last></author>
+      <pages>66-77</pages>
+      <abstract>This paper describes our submission to the ClimateCheck 2026 shared task on scientific fact-checking of climate-related claims (Task 1) and disinformation narrative classification (Task 2). For Task 1, we use a three-stage pipeline combining BM25 retrieval over 394,269 scientific abstracts, ensemble re-ranking with five fine-tuned BGE cross-encoders aggregated via Reciprocal Rank Fusion, and zero-shot claim verification using the gpt-oss-120b model. For Task 2, we use a zero-shot approach with a custom prompt based on the CARDS taxonomy and the gpt 5.2 model. Our system outperforms the organizers’ baseline across all subtasks. Furthermore, we achieve the best result for the Task 1.1 (retrieval score of 0.466), and Task 1.2 (verification score of 1.183 - F1 + Recall@5), and the third best result for Task 2 (Macro F1 of 0.583).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-07</url>
+      <bibkey>ehrhart-etal-2026-climatesense</bibkey>
+      <doi>10.63317/36dhusfu9vmk</doi>
+    </paper>
+    <paper id="8">
+      <title>Comparing <fixed-case>LLM</fixed-case>-Based Knowledge Graph Extraction Approaches on Literary Studies in <fixed-case>S</fixed-case>panish: A Case Study on Orbis Tertius</title>
+      <author><first>Federico</first><last>Cortes</last></author>
+      <pages>78-87</pages>
+      <abstract>Knowledge graph construction from scholarly text increasingly relies on large language models, yet different extraction architectures produce different graphs. Literary studies poses particular challenges: meaning is interpretive rather than factual, and the boundaries of relevant knowledge are determined by hermeneutic frameworks rather than empirical verification. We compare two LLM-based extraction frameworks—entity-anchored extraction (KGGen) and open extraction with schema canonicalization (EDC)—on 472 Spanish-language literary studies articles from Orbis Tertius (1996–2024). Despite fundamental architectural differences, both methods converge on key findings: cultural framing dominates literary discourse by 2.2–2.5× over textual framing (p &lt; .001), and core author networks remain consistent across approaches. The methods diverge in entity composition: KGGen captures more proper names (40.7% vs. 18.7%), while EDC captures more abstract concepts (42.8%) and preserves Spanish predicates with 21,025 semantic definitions. Convergent findings across architecturally different methods merit higher confidence, and we identify methodological considerations for knowledge graph construction from humanities scholarship.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-08</url>
+      <bibkey>cortes-2026-comparing</bibkey>
+      <doi>10.63317/5kjis3dy8i7k</doi>
+    </paper>
+    <paper id="9">
+      <title>Demystifying Funding: Reconstructing a Unified Dataset of the <fixed-case>UK</fixed-case> Funding Lifecycle</title>
+      <author><first>William</first><last>Thorne</last></author>
+      <author><first>Rupert</first><last>Shepherd</last></author>
+      <author><first>Diana</first><last>Maynard</last></author>
+      <pages>88-96</pages>
+      <abstract>We present a reconstruction of UKRI’s Gateway to Research (GtR) database that links funding opportunities to their resulting project proposals through panel meeting outcomes. Unlike existing work that focuses primarily on funded projects and their outcomes, we close the complete funding lifecycle by integrating three previously disconnected data sources: the GtR project database, UKRI funding opportunities, and competitive funding decision records across UKRI’s research councils. We describe the technical challenges of data collection, including navigating inconsistent publication formats and restricted access to panel decisions. The resulting dataset enables a holistic interrogation of the entire funding process, from opportunity announcement to research outcomes. We release the database and associated code.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-09</url>
+      <bibkey>thorne-etal-2026-demystifying</bibkey>
+      <doi>10.63317/2dqfnwsvr8as</doi>
+    </paper>
+    <paper id="10">
+      <title>Do Lexical and Contextual Coreference Resolution Systems Degrade Differently under Mention Noise? An Empirical Study on Scientific Software Mentions</title>
+      <author><first>Atilla Kaan</first><last>Alkan</last></author>
+      <author><first>Felix</first><last>Grezes</last></author>
+      <author><first>Jennifer Lynn</first><last>Bartlett</last></author>
+      <author><first>Anna</first><last>Kelbert</last></author>
+      <author><first>Kelly</first><last>Lockhart</last></author>
+      <author><first>Alberto</first><last>Accomazzi</last></author>
+      <pages>97-107</pages>
+      <abstract>We present our participation in the SOMD 2026 shared task on cross-document software mention coreference resolution, where our systems ranked second across all three subtasks. We compare two fine-tuning-free approaches: Fuzzy Matching (FM), a lexical string-similarity method, and Context Aware Representations (CAR), which combines mention-level and document-level embeddings. Both achieve competitive performance across all subtasks (CoNLL F<fixed-case>1</fixed-case> of 0.94–0.96), with CAR consistently outperforming FM by 1 point on the official test set, consistent with the high surface regularity of software names, which reduces the need for complex semantic reasoning. A controlled noise-injection study reveals complementary failure modes: as boundary noise increases, CAR loses only 0.07 F<fixed-case>1</fixed-case> points from clean to fully corrupted input, compared to 0.20 for FM, whereas under mention substitution, FM degrades more gracefully (0.52 vs. 0.63). Our inference-time analysis shows that FM scales superlinearly with corpus size, whereas CAR scales approximately linearly, making CAR the more efficient choice at large scale. These findings suggest that system selection should be informed by both the noise profile of the upstream mention detector and the scale of the target corpus. We release our code to support future work on this underexplored task.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-10</url>
+      <bibkey>alkan-etal-2026-lexical</bibkey>
+      <doi>10.63317/2f5gzhatrnue</doi>
+    </paper>
+    <paper id="11">
+      <title>Do We Need Bigger Models for Science? Task-Aware Retrieval with Small Language Models</title>
+      <author><first>Florian</first><last>Kelber</last></author>
+      <author><first>Matthias</first><last>Jobst</last></author>
+      <author><first>Yuni</first><last>Susanti</last></author>
+      <author><first>Michael</first><last>Färber</last></author>
+      <pages>108-118</pages>
+      <abstract>Scientific knowledge discovery increasingly relies on large language models, yet many existing scholarly assistants depend on proprietary systems with tens or hundreds of billions of parameters. Such reliance limits reproducibility and accessibility for the research community. In this work, we ask a simple question: do we need bigger models for scientific applications? Specifically, we investigate to what extent carefully designed retrieval pipelines can compensate for reduced model scale in scientific applications. We design a lightweight retrieval-augmented framework that performs task-aware routing to select specialized retrieval strategies based on the input query. The system further integrates evidence from full-text scientific papers and structured scholarly metadata, and employs compact instruction-tuned language models to generate responses with citations. We evaluate the framework across several scholarly tasks, focusing on scholarly question answering (QA), including single- and multi-document scenarios, as well as biomedical QA under domain shift and scientific text compression. Our findings demonstrate that retrieval and model scale are complementary rather than interchangeable. While retrieval design can partially compensate for smaller models, model capacity remains important for complex reasoning tasks. This work highlights retrieval and task-aware design as key factors for building practical and reproducible scholarly assistants.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-11</url>
+      <bibkey>kelber-etal-2026-need</bibkey>
+      <doi>10.63317/2cuutd9tnnhp</doi>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>E</fixed-case>arly<fixed-case>S</fixed-case>ci<fixed-case>R</fixed-case>ev: A Dataset of Early-Stage Scientific Revisions Extracted from <fixed-case>L</fixed-case>a<fixed-case>T</fixed-case>e<fixed-case>X</fixed-case> Writing Traces</title>
+      <author><first>Léane</first><last>Jourdan</last></author>
+      <author><first>Julien</first><last>Aubert-Béduchaud</last></author>
+      <author><first>Yannis</first><last>Chupin</last></author>
+      <author><first>Marah</first><last>Baccari</last></author>
+      <author><first>Florian</first><last>Boudin</last></author>
+      <pages>119-126</pages>
+      <abstract>Scientific writing is an iterative process that generates rich revision traces, yet publicly available resources typically expose only final or near-final versions of papers. This limits empirical study of revision behaviour and evaluation of large language models (LLMs) for scientific writing. We introduce EarlySciRev, a dataset of early-stage scientific text revisions automatically extracted from arXiv LaTeX source files. Our key observation is that commented-out text in LaTeX often preserves discarded or alternative formulations written by the authors themselves. By aligning commented segments with nearby final text, we extract paragraph-level candidate revision pairs and apply LLM-based filtering to retain genuine revisions. Starting from 1.28M candidate pairs, our pipeline yields 578k validated revision pairs, grounded in authentic early drafting traces. We additionally provide a human-annotated benchmark for revision detection. EarlySciRev complements existing resources focused on late-stage revisions or synthetic rewrites and supports research on scientific writing dynamics, revision modelling, and LLM-assisted editing.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-12</url>
+      <bibkey>jourdan-etal-2026-earlyscirev</bibkey>
+      <doi>10.63317/4fpwcgmuqk8x</doi>
+    </paper>
+    <paper id="13">
+      <title>Enhancing Factuality and Transparency in Generative Models for Biomedical Question Answering</title>
+      <author><first>Ankita</first><last>Behura</last></author>
+      <author><first>Siting</first><last>Liang</last></author>
+      <author><first>Daniel</first><last>Sonntag</last></author>
+      <pages>127-139</pages>
+      <abstract>Biomedical Question Answering (BQA) systems are vital for providing clinicians and researchers with efficient access to large amount of biomedical scientific studies. Existing automated BQA models, however, often rely on complex hybrid architectures to handle diverse question and answer formats, leading to inefficiency and high complexity. While domain-specific generative language models like BioBART offer a unified and simplified alternative capable of producing fluent human-like responses, they are prone to hallucination and lack interpretability, undermining their trustworthiness in critical healthcare domains. To address these limitations, this work introduces an enhanced model that augments BioBART with a pointer network for accurate token copying and a novel Keyphrase Filter (KPF) to guide attention toward critical information during generation. Experimental results on the BioASQ challenge demonstrate that the proposed Pointer-KPF model significantly outperforms the baseline BioBART, particularly on metrics for ideal answers. Furthermore, our evaluation shows that the model enhances transparency: pointer-guided attention heatmaps reveal improved input-output alignment, while keyphrase scores act as saliency maps to identify the most influential input segments. This approach not only reduces hallucination by strengthening textual grounding but also provides crucial insights into the model’s reasoning, thereby increasing confidence and trust in its outputs.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-13</url>
+      <bibkey>behura-etal-2026-enhancing</bibkey>
+      <doi>10.63317/3uxg7miycis4</doi>
+    </paper>
+    <paper id="14">
+      <title>Enhancing Scholarly Knowledge Graphs via Domain-Specific Entity Detection and Linking</title>
+      <author><first>Nicolau</first><last>Duran-Silva</last></author>
+      <author><first>César A.</first><last>Parra-Rojas</last></author>
+      <author><first>Pablo</first><last>Accuosto</last></author>
+      <author><first>Julian</first><last>Moreno-Schneider</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>140-154</pages>
+      <abstract>Navigating scholarly content presents important challenges due to the fragmented and heterogeneous nature of research production and outputs. Scholarly Knowledge Graphs offer an efficient means to integrate diverse data sources and consolidate knowledge across outputs in a structured manner. This representation, combined with the grounding of unstructured textual data to well-defined research-related concepts, has great potential for enhancing knowledge discovery and supporting researchers navigating through vast amounts of scientific information. Knowledge extraction capabilities are commonly limited by the availability of large collections of annotated data supporting named-entity recognition (NER) and linking (EL), and the enormous effort that their elaboration entails for domain experts. Recent advances in natural language processing and generative artificial intelligence provide valuable opportunities to reduce the data annotation toll and produce high-quality NER with minimal expert involvement. Here, we present a pipeline for domain-specific NER and EL, leveraging LLMs and knowledge from experts in a human-in-the-loop approach to streamline the annotation process, along with transformer-based models and few-shot techniques. While the application focuses on showcasing four specific domains, the pipeline is designed to be flexible and domain agnostic for scientific fields.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-14</url>
+      <bibkey>duran-silva-etal-2026-enhancing</bibkey>
+      <doi>10.63317/43szrv2r8njb</doi>
+    </paper>
+    <paper id="15">
+      <title>Evaluating Generative Large Language Models for <fixed-case>P</fixed-case>ortuguese Scientific Information Extraction</title>
+      <author><first>Tomás</first><last>Pinto</last></author>
+      <author><first>Catarina</first><last>Silva</last></author>
+      <author><first>Hugo</first><last>Goncalo Oliveira</last></author>
+      <pages>155-167</pages>
+      <abstract>Scientific Information Extraction (IE), which identifies entities and their relations from scientific texts, is essential for building Scientific Knowledge Graphs (SciKGs) that encode structured knowledge and enable applications such as semantic search, question answering, and literature reasoning. Large Language Models (LLMs) have shown strong capabilities in processing unstructured text, yet most advances focus on English, with limited exploration for less-resourced languages like Portuguese. The reliability of generative LLMs, including Portuguese-targeted models like the sovereign AMALIA, for structured extraction of scientific knowledge from literature text remains underexplored. We evaluate low- to mid-scale generative LLMs (8–12B parameters) on scientific Named Entity Recognition (NER) and Relation Extraction (RE), using a Portuguese-translated dataset of computer science article abstracts. Overall, our results show moderate performance and indicate that the adaptation strategy has a greater impact than model choice: prompting yields unstable performance and poor RE scores, while fine-tuning consistently improves both NER and RE and reduces cross-model variability. These findings suggest that, at this scale, prompting alone is insufficient for SciKG construction and underscore the need for supervised adaptation. We provide a detailed error analysis and outline directions for advancing Portuguese scientific IE.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-15</url>
+      <bibkey>pinto-etal-2026-evaluating</bibkey>
+      <doi>10.63317/5inv25yddbgv</doi>
+    </paper>
+    <paper id="16">
+      <title>From Slides to Chatbots: Enhancing Large Language Models with University Course Materials</title>
+      <author><first>Tu Anh</first><last>Dinh</last></author>
+      <author><first>Philipp Nicolas</first><last>Schumacher</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <pages>168-179</pages>
+      <abstract>Large Language Models (LLMs) have advanced rapidly in recent years. One application of LLMs is to support student learning in educational settings. However, prior work has shown that LLMs still struggle to answer questions accurately within university-level computer science courses. In this work, we investigate how incorporating university course materials can enhance LLM performance in this setting. A key challenge lies in leveraging diverse course materials such as lecture slides and transcripts, which differ substantially from typical textual corpora: slides also contain visual elements like images and formulas, while transcripts contain spoken, less structured language. We compare two strategies, Retrieval-Augmented Generation (RAG) and Continual Pre-Training (CPT), to extend LLMs with course-specific knowledge. For lecture slides, we further explore a multi-modal RAG approach, where we present the retrieved content to the generator in image form. Our experiments reveal that, given the relatively small size of university course materials, RAG is more effective and efficient than CPT. Moreover, incorporating slides as images in the multi-modal setting significantly improves performance over text-only retrieval. These findings highlight practical strategies for developing AI assistants that better support learning and teaching, and we hope they inspire similar efforts in other educational contexts.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-16</url>
+      <bibkey>dinh-etal-2026-slides</bibkey>
+      <doi>10.63317/5bjdtya4ui69</doi>
+    </paper>
+    <paper id="17">
+      <title>Generating Research Data Metadata from Their Accompanying <fixed-case>README</fixed-case> Files</title>
+      <author><first>Kotaro</first><last>Sekido</last></author>
+      <author><first>Yu</first><last>Watanabe</last></author>
+      <author><first>Koichiro</first><last>Ito</last></author>
+      <author><first>Shigeki</first><last>Matsubara</last></author>
+      <pages>180-185</pages>
+      <abstract>Software repositories have conventionally been used for software development. Recently, they have also served as research data repositories. Research data published in such repositories are frequently accompanied by README files; however, the data frequently lack structured metadata. To address this issue, this paper investigates the feasibility of generating research data metadata from their accompanying README files. First, we analyze the occurrence patterns of metadata-related information in README files. The results of this analysis demonstrated that README files could serve as valuable resources for metadata generation. We then performed an experiment on extracting metadata-related information from README files using large language models (LLMs) and evaluated their performance. The experimental results demonstrated that LLMs could extract metadata-related information with high performance.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-17</url>
+      <bibkey>sekido-etal-2026-generating</bibkey>
+      <doi>10.63317/27oe6uwv2fws</doi>
+    </paper>
+    <paper id="18">
+      <title>Identifying Implicit Research Data References in Paper Citations</title>
+      <author><first>Koshi</first><last>Motegi</last></author>
+      <author><first>Koichiro</first><last>Ito</last></author>
+      <author><first>Shigeki</first><last>Matsubara</last></author>
+      <pages>186-192</pages>
+      <abstract>To encourage the public release of research data under open science, it is beneficial to establish mechanisms for evaluating research data based on metrics such as citation counts. In scholarly papers, authors sometimes cite papers that report the creation or release of research data instead of citing the research data themselves. In this paper, as a step toward computing citation counts of research data, we investigate the feasibility of identifying paper citations that refer to research data. We conducted an identification experiment using large language models and evaluated their performance.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-18</url>
+      <bibkey>motegi-etal-2026-identifying</bibkey>
+      <doi>10.63317/2g9fq97f2h2j</doi>
+    </paper>
+    <paper id="19">
+      <title>Improving Completeness in Deep Research Agents through Targeted Enrichment</title>
+      <author><first>Jesse</first><last>Wonnink</last></author>
+      <author><first>Jakub</first><last>Zavrel</last></author>
+      <author><first>Paul</first><last>Groth</last></author>
+      <pages>193-205</pages>
+      <abstract>Deep research agents, AI systems that autonomously gather, synthesize, and report on complex topics, represent a significant advance in information synthesis, yet ensuring the completeness of their outputs remains an open challenge. A key bottleneck is query generation: current systems decompose research questions into subqueries via prompt engineering alone, offering no formal guarantees on diversity or coverage, which leads to redundant retrieval and gaps in the resulting reports. This paper presents HERO (High Enrichment Retrieval Orchestrator), a hierarchical deep research architecture that addresses this limitation through two complementary mechanisms. First, submodular optimization via a facility location objective provides mathematically grounded control over the relevance–diversity trade-off during query selection, replacing ad-hoc generation with provably diverse query sets. Second, a hierarchical enrichment stage independently analyzes each subquery pipeline’s intermediate synthesis for information gaps and issues targeted follow-up queries, enabling adaptive depth without cross-pipeline interference. We evaluate HERO across academic (ScholarQABench) and general-domain (DeepResearchGym) benchmarks. HERO achieves state-of-the-art coverage (Key Point Recall: 67.63), grounding (Citation F1: 91.57), and presentation quality on DeepResearchGym, and the highest scores on multi-paper synthesis tasks in ScholarQABench.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-19</url>
+      <bibkey>wonnink-etal-2026-improving</bibkey>
+      <doi>10.63317/5pjfdths5wey</doi>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>M</fixed-case>io<fixed-case>FFA</fixed-case>n: An Annotation Software for Formula Formalization with <fixed-case>LLM</fixed-case> Automation Capabilities</title>
+      <author><first>Nicolas</first><last>Sibuet Ruiz</last></author>
+      <author><first>Horacio</first><last>Saggion</last></author>
+      <author><first>Riccardo</first><last>Rossi</last></author>
+      <pages>206-217</pages>
+      <abstract>The automatic translation of mathematical expressions in scientific literature into executable symbolic code—a process we refer to as Formula Formalization—is hindered by a severe scarcity of high-quality, ground-truth datasets specialized for technical scientific domains. In this paper, we present MioFFAn, an open-source, document-centric, and customizable framework designed to facilitate rapid annotation for this task. Building upon the MioGatto architecture, we extend existing features to overcome structural limitations and pivot its scope by introducing specific functionalities for Formula Formalization, such as selection of equations of interest and aided symbolic code specification. By allowing users to configure custom taxonomies and properties for identified symbols, and compatible symbolic operators, we ensure the framework is adaptable to diverse specialized scientific fields. Furthermore, MioFFAn is designed to incorporate partial automation via Large Language Models. By defining a modular set of automated sub-tasks with strict output formats, we enable researchers to iteratively refine automation capabilities and evaluate competing strategies using standard NLP metrics. We specify the current automation methodology and perform a preliminary evaluation that demonstrates to efficacy of this human-in-the-loop approach.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-20</url>
+      <bibkey>sibuet-ruiz-etal-2026-mioffan</bibkey>
+      <doi>10.63317/4s56b6f4i3u9</doi>
+    </paper>
+    <paper id="21">
+      <title>Normalizing Section Names and Structure of Scientific Articles</title>
+      <author><first>Nicolau</first><last>Duran-Silva</last></author>
+      <author><first>Julian</first><last>Moreno-Schneider</last></author>
+      <author><first>César A.</first><last>Parra-Rojas</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>218-224</pages>
+      <abstract>The growing amount of scientific literature has increased the need for automatic methods that can retrieve, process, and exploit scholarly content. In this work, we explore section name normalization and hierarchy prediction for scientific articles using a two-level taxonomy. We compare independent, sequential classification models, and generative large language models on the SASC dataset. Results show that classification approaches, particularly sequential models that employ document-level context, consistently outperform generative methods. Incorporating section content is essential for fine-grained classification, while generative models remain limited in zero-shot settings. Our experiments highlight the importance of structure-aware modelling for large-scale scholarly document processing, and the importance of section normalization for the development of advanced research mapping and research assessment tools.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-21</url>
+      <bibkey>duran-silva-etal-2026-normalizing</bibkey>
+      <doi>10.63317/5ftk2fxxf7jd</doi>
+    </paper>
+    <paper id="22">
+      <title>Retrieval-Augmented <fixed-case>LLM</fixed-case>s and Encoder Models for Multi-Label Climate Disinformation Narrative Classification</title>
+      <author><first>Neda</first><last>Foroutan</last></author>
+      <author><first>Alexandra</first><last>Tsiakalou</last></author>
+      <author><first>Vera</first><last>Schmitt</last></author>
+      <pages>225-234</pages>
+      <abstract>The detection of climate misinformation narratives remains challenging due to label imbalance, hierarchical taxonomies, and the multi-label nature of real-world claims. Developing models that can reliably assign fine-grained narrative categories is therefore essential for scalable analysis of climate disinformation. We present our approach to multi-label climate misinformation narrative classification for ClimateCheck@NSLP 2026 Task 2. The task requires assigning one or more narrative categories, defined by the hierarchical CARDS taxonomy, to climate-related claims. We investigate both encoder-based transformers and decoder-only large language models (LLMs), comparing fine-tuning BERT-based models with prompt-based and retrieval-augmented instruction tuning strategies with Qwen3 model. To address data scarcity and label imbalance, we explore targeted augmentation using external CARDS-based resources as well as semantic similarity filtering. Our experiments show that augmentation improves encoder-based models, with ModernBERT achieving competitive performance at low computational cost. However, the strongest results are obtained using retrieval-augmented instruction tuning with Qwen3, which narrows the candidate narrative space prior to prediction. This approach achieves a Macro-F1 score of 59.72% on the official test set, securing second place on the leaderboard. These findings demonstrate the effectiveness of retrieval-guided LLM adaptation for structured multi-label narrative classification while highlighting the continued relevance of efficient encoder-based models.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-22</url>
+      <bibkey>foroutan-etal-2026-retrieval</bibkey>
+      <doi>10.63317/2sxk32q2vrqz</doi>
+    </paper>
+    <paper id="23">
+      <title>The Linguist’s Lie Detector: Linguistic Knowledge in Large Language Models</title>
+      <author><first>Lucía</first><last>Catalán Gris</last></author>
+      <author><first>Kim</first><last>Gerdes</last></author>
+      <author><first>John S. Y.</first><last>Lee</last></author>
+      <pages>235-246</pages>
+      <abstract>We present a benchmark and evaluation pipeline for assessing how well large language models (LLMs) handle linguistic knowledge. Starting from a curated subcorpus of 11 syntax-focused articles published in Glossa: A Journal of General Linguistics (2016–2026), we design a pipeline that (1) segments article text into sentences, (2) extracts atomic, verifiable statements, and (3) classifies them into linguistic categories (language-specific, typological, theoretical, citation, or structural). Each stage is evaluated against human gold annotations produced by three annotators, with inter-annotator agreement measured via Krippendorff’s α and Cohen’s κ. We compare several LLMs on extraction and classification, using BERTScore-style similarity for extraction and macro F1 for classification. Finally, we generate contradictions of the true linguistic statements and test whether LLMs can distinguish true from false claims. On a challenge set of 705 linguistic statements, we compare eight LLMs, with Gemini 3 Flash achieving the highest F1 score of 0.66, indicating that current models possess limited but non-trivial linguistic knowledge.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-23</url>
+      <bibkey>catalan-gris-etal-2026-linguists</bibkey>
+      <doi>10.63317/2f7zobe6yo7h</doi>
+    </paper>
+    <paper id="24">
+      <title>The Software Mention Detection and Coreference Resolution Shared Task 2026</title>
+      <author><first>Sharmila</first><last>Upadhyaya</last></author>
+      <author><first>Wolfgang</first><last>Otto</last></author>
+      <author><first>Julia</first><last>Matela</last></author>
+      <author><first>Frank</first><last>Krüger</last></author>
+      <author><first>Stefan</first><last>Dietze</last></author>
+      <pages>247-254</pages>
+      <abstract>Software is referenced in research papers in many different ways: full names, abbreviations, misspellings, versioned names, or indirect references via websites and citations. This makes it hard to link mentions to a single software entity, which in turn limits large-scale analyses and knowledge graph construction. The Software Mention Detection and Coreference Resolution (SOMD) shared task 2026, organized at the Natural Scientific Language Processing (NSLP) workshop at LREC 2026, focuses on clustering software mentions that refer to the same software entity. We provide three subtasks covering gold mentions, automatically extracted mentions, and mentions sampled at scale from large-scale publications. Systems are evaluated with established coreference metrics (MUC, B<tex-math>^3</tex-math>, CEAFe) and their CoNLL average. This paper describes the task setup, datasets, evaluation, baseline, and the observed patterns in participant submissions, and outlines future directions for scalable software mention coreference resolution. The shared task was concluded with total five registered participants, with total 43 submissions for all subtasks. Finally, two system papers were submitted with competitive performance against baselines.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-24</url>
+      <bibkey>upadhyaya-etal-2026-software</bibkey>
+      <doi>10.63317/3koortigjkfr</doi>
+    </paper>
+    <paper id="25">
+      <title>Towards Efficient Self-Explainable Climate-Related Claim Verification with Generative Models</title>
+      <author><first>Siting</first><last>Liang</last></author>
+      <author><first>Omar</first><last>Adjali</last></author>
+      <author><first>Daniel</first><last>Sonntag</last></author>
+      <pages>255-260</pages>
+      <abstract>In this work, we present an empirical investigation into two self-explanatory inference paradigms using pre-trained language models with different sizes, based on our participation in the <b>ClimateCheck@NSLP 2026</b> shared task on climate-related claim verification. This task aims to address the increasing amount of climate misinformation and disinformation on social media, emphasizing the importance of basing claims on reliable scientific evidence. Our study investigates the impact of different explanation strategies on entailment-based verification performance in scientific claim verification, while analyzing the trade-off between reasoning complexity and computational efficiency.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-25</url>
+      <bibkey>liang-etal-2026-towards</bibkey>
+      <doi>10.63317/5kn3aoyqc7rx</doi>
+    </paper>
+    <paper id="26">
+      <title>Transferring Scientific <fixed-case>E</fixed-case>nglish Pre-Trained Language Models to Multiple Languages Using Cross-Lingual Transfer</title>
+      <author><first>Nikolas Ching-Pu</first><last>Rauscher</last></author>
+      <author><first>Fabio</first><last>Barth</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>261-269</pages>
+      <abstract>In this paper, we present a pipeline for domain-adaptive pre-training and cross-lingual transfer of scientific language models from English to non-English languages. Starting from the multilingual scientific corpus SciLaD, we construct a cleaned English pre-training split and continually pre-train a T5-base encoder–decoder model, resulting in EN-T5-Sci. Our model achieves consistent zero-shot improvements on the Global-MMLU English benchmark, outperforming its base model, with particularly strong gains in STEM and Social Sciences. Despite its moderate size, it performs comparably to the much larger BLOOM model on scientific categories. Building on EN-T5-Sci, we transfer scientific knowledge to German, Japanese, Russian, Polish, Spanish, and Portuguese using the WECHSEL method. Our approach reinitializes language-specific embedding layers via aligned static embeddings while retaining the pre-trained Transformer weights, yielding six monolingual scientific T5 models. In zero-shot evaluation in each respective language, the transferred models generally outperform monolingual baselines. These results demonstrate that scientific domain knowledge acquired through English pre-training can be effectively transferred across languages, enabling competitive non-English scientific language models without training large multilingual systems from scratch.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-26</url>
+      <bibkey>rauscher-etal-2026-transferring</bibkey>
+      <doi>10.63317/43tu6dfduwvw</doi>
+    </paper>
+    <paper id="27">
+      <title>Transformer Encoders with Heuristic-Guided Contrastive Learning for Software Coreference Resolution</title>
+      <author><first>Mahmoud</first><last>Hassan</last></author>
+      <author><first>Dipendra</first><last>Yadav</last></author>
+      <pages>270-276</pages>
+      <abstract>This paper describes our system submitted to the Software Mention Detection and Coreference Resolution (SOMD) 2026 shared task, specifically for Subtask 1 (cross-document coreference resolution over gold-standard mentions) and Subtask 2 (cross-document coreference resolution over predicted mentions). The proposed approach employs a SciBERT architecture trained with Supervised Contrastive (SupCon) loss to generate dense mention representations, which are then clustered using Hierarchical Agglomerative Clustering (HAC) with average linkage. Software-aware heuristics are integrated to exploit domain-specific signals such as software name canonicalization and developer disambiguation to adjust pairwise similarity scores before clustering. The system achieved strong performance, with a CoNLL F1 score of 92.18% on coreference resolution over gold-standard mentions and 91.87% on coreference resolution over predicted mentions, showing significant performance of our approach in this area for human annotated and automated systems respectively</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-27</url>
+      <bibkey>hassan-yadav-2026-transformer</bibkey>
+      <doi>10.63317/4zfmki62nojg</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>U</fixed-case>ni<fixed-case>C</fixed-case>ite: A Dataset and Unified Hierarchical Taxonomy for Multi-Dimensional Citation Analysis</title>
+      <author><first>Amina</first><last>Mourky</last></author>
+      <author><first>Elena</first><last>Leitner</last></author>
+      <author><first>Julian</first><last>Moreno-Schneider</last></author>
+      <author><first>Raia</first><last>Abu Ahmad</last></author>
+      <author><first>Ekaterina</first><last>Borisova</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>277-288</pages>
+      <abstract>Research in Citation Context Analysis (CCA) has produced numerous taxonomic schemes that vary from three to 12+ categories, with different granularities and no mappings between frameworks, severely limiting systematic comparison and progress. Despite decades of study, CCA methods have largely relied on fragmented frameworks that treat citation tasks independently, ignoring systematic relationships between function classification, sentiment analysis, and importance assessment. To address these research gaps, we present three integrated contributions. First, we develop UniCite, a two-level taxonomy (six primary functions, 12 subcategories, two orthogonal dimensions) that systematically integrates three existing schemes. Second, we develop a comprehensive dataset of 4,017 citations combining established resources with 1,547 newly extracted citations from 2018-2024 publications, all manually annotated under our unified framework. Third, we demonstrate systematic task relationships through multi-task learning, achieving 21.1% relative improvement in subfunction classification over single-task approaches.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-28</url>
+      <bibkey>mourky-etal-2026-unicite</bibkey>
+      <doi>10.63317/472sud9pm8t5</doi>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>X</fixed-case>plai<fixed-case>NLP</fixed-case> @ <fixed-case>C</fixed-case>limate<fixed-case>C</fixed-case>heck 2026 Task 2: Comparing Hierarchical Approaches for Fine-Grained Climate Disinformation Narrative Classification</title>
+      <author><first>Arthur</first><last>Hilbert</last></author>
+      <author><first>Jing</first><last>Yang</last></author>
+      <author><first>Vera</first><last>Schmitt</last></author>
+      <pages>289-296</pages>
+      <abstract>We present our submission to Task 2 of the ClimateCheck 2026 shared task on Disinformation Narrative Classification which requires assigning climate-contrarian claims to fine-grained disinformation narratives. Using Qwen3-8B as a fixed backbone, we systematically compare data augmentation, prompt engineering and reinforcement learning techniques. Our experiments show that structured reasoning, particularly a chain-of-thought (CoT) prompting strategy aligned with the taxonomy’s hierarchical structure, substantially improves Macro-F1 over both zero-shot baselines and augmentation-based fine-tuning. Our best configuration achieves <tex-math>\sim</tex-math>0.625 Macro-F1, ranking first in Task 2. Our findings demonstrate that carefully designed hierarchical prompting can rival more complex training interventions in low-resource, highly imbalanced narrative classification settings.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-nslp-29</url>
+      <bibkey>hilbert-etal-2026-xplainlp</bibkey>
+      <doi>10.63317/4ufq9w234tkf</doi>
+    </paper>
+  </volume>
+</collection>

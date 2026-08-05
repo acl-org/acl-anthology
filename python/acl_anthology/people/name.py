@@ -115,6 +115,9 @@ RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
 First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
 """
 
+RE_NAME_OVERSPACED = re.compile(r"( |^)[a-z] [a-z]( |$)| -|- ")
+"""Regex that checks for overspacing of characters in a name. Detects hyphens bordering spaces, and multiple isolated lowercase characters in sequence."""
+
 EN_DASH = "\u2013"
 EM_DASH = "\u2014"
 
@@ -140,32 +143,31 @@ def _is_valid_name_part(
     """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
 
     Returns:
-        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain a hyphen next to a space, does not contain two consecutive isolated lowercase letters, does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
     """
+    msg = ""
     if not value or value.isalpha():
         # If all characters are alphabetic, it is guaranteed to be valid.
         # Empirically this applies to 80% of names. This test short-circuits the slower checks.
         return True
     elif not RE_NAME_VALID.fullmatch(value):
-        if not error:
-            return False
-        raise ValueError(f"Invalid {attribute} name: {value}")
+        msg = f"Invalid {attribute} name: {value}"
     elif RE_NAME_UNDERCAPITALIZED.search(value):
-        if not error:
-            return False
-        raise ValueError(
-            f"Invalid {attribute} name (initial should be capitalized): {value}"
-        )
+        msg = f"Invalid {attribute} name (initial should be capitalized): {value}"
+    elif RE_NAME_OVERSPACED.search(value):
+        msg = f"Invalid {attribute} name (hyphen next to space or multiple isolated lowercase letters): {value}"
     else:
         for c in set(value) - {" "}:
             if c.isdigit() or _is_bad_punct(c):
                 if c.isdigit() and " 3rd" in value and attribute == "last":
                     continue
-                if not error:
-                    return False
-                raise ValueError(
-                    f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
-                )
+                msg = f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                break
+
+    if msg:
+        if not error:
+            return False
+        raise ValueError(msg)
     return True
 
 
