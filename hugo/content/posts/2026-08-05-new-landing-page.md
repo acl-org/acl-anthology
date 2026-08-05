@@ -1,6 +1,6 @@
 ---
 title: An updated landing page
-date: "2026-08-06"
+date: "2026-08-05"
 description: >
     A modernized, compacter, mobile-friendly update to our home page
 ---
@@ -11,11 +11,11 @@ Today we are introducing a new landing page for the ACL Anthology.
 
 <div class="row g-3 my-4">
   <figure class="col-md-6 mb-0">
-    <img src="../../images/2026-08-01/front-page-old.png" alt="Old page" class="img-fluid border" />
+    <img src="../../images/2026-08-05/front-page-old.png" alt="Old page" class="img-fluid border" />
     <figcaption class="small text-muted mt-2">The old matrix view presented complete histories of some venues with unwieldy horizontal scrolling.</figcaption>
   </figure>
   <figure class="col-md-6 mb-0">
-    <img src="../../images/2026-08-01/front-page-new.png" alt="New page" class="img-fluid border" />
+    <img src="../../images/2026-08-05/front-page-new.png" alt="New page" class="img-fluid border" />
     <figcaption class="small text-muted mt-2">The new page highlights recent and flagship venues and allows direct venue searching and filtering by year.</figcaption>
   </figure>
 </div>
