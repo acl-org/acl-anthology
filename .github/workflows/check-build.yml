@@ -39,5 +39,9 @@ jobs:
       run: uv run --locked pytest -m "integration"
       working-directory: ./python
 
+    - name: Download NLTK data
+      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
+
     - name: Build website
       run: make check site

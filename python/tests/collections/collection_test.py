@@ -24,7 +24,7 @@ from acl_anthology.collections import (
     EventLink,
     VolumeType,
 )
-from acl_anthology.people import NameSpecification
+from acl_anthology.people import Name, NameSpecification
 from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
 
@@ -183,6 +183,27 @@ def test_collection_create_volume_should_parse_markup(collection_index):
     assert volume.title.as_text() == "Special issue on ∞"
 
 
+@pytest.mark.parametrize(
+    "before, after",
+    (
+        (("John C.s.", "Lui"), ("John C.S.", "Lui")),
+        (("Santosh", "T.y.s.s"), ("Santosh", "T.Y.S.S")),
+        ((None, "S.b.priya"), (None, "S.B.Priya")),
+    ),
+)
+def test_collection_create_volume_case_normalizes_editor_names(
+    before, after, collection_index
+):
+    collection = collection_index.get("2022.acl")
+    editors = (NameSpecification(Name(*before)),)
+    volume = collection.create_volume(
+        "initials",
+        title="Volume with normalized editor initials",
+        editors=editors,
+    )
+    assert volume.editors[0].name == editors[0].name == Name(*after)
+
+
 def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):
     collection = collection_index.get("L06")
     with pytest.raises(ValueError):
@@ -331,6 +352,33 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
 
     # Nev volume should be added to existing venue
     assert volume.full_id_tuple in anthology.venues["acl"].item_ids
+
+
+@pytest.mark.parametrize(
+    "pre_load, reset",
+    (
+        (True, True),
+        (True, False),
+        (False, False),
+        (False, True),
+    ),
+)
+def test_collection_create_volume_should_update_sig(anthology, pre_load, reset):
+    if pre_load:
+        anthology.venues.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        sig_ids=["sigdat"],
+    )
+
+    if reset:
+        anthology.reset_indices()
+
+    # Nev volume should be added to existing venue
+    assert volume.full_id_tuple in anthology.sigs["sigdat"].item_ids
 
 
 def test_collection_create_event_oldstyle_ids(collection_index):

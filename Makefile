@@ -184,16 +184,60 @@ SYNC_DEST := anthologizer@aclanthology.org:anthology-files
 
 .PHONY: sync
 sync:
-	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_DEST)
+	rsync -azve ssh --remove-source-files --exclude .DS_Store $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
+
+# Archive ingestion materials with:
+#   make archive DIR=~/Downloads/2026-07-13-brigap
+DROPBOX_REMOTE ?= dropbox
+
+.PHONY: archive
+archive:
+	@set -euo pipefail; \
+	source_dir="$(DIR)"; \
+	if [[ -z "$$source_dir" ]]; then \
+	  echo "ERROR    Specify the ingestion directory with DIR=PATH"; \
+	  echo "Usage:    make archive DIR=~/Downloads/2026-07-13-brigap"; \
+	  exit 2; \
+	fi; \
+	if [[ "$$source_dir" == "~/"* ]]; then \
+	  source_dir="$$HOME/$${source_dir#\~/}"; \
+	fi; \
+	if [[ ! -d "$$source_dir" ]]; then \
+	  echo "ERROR    Directory does not exist: $$source_dir"; \
+	  exit 2; \
+	fi; \
+	basename="$$(basename "$${source_dir%/}")"; \
+	if [[ ! "$$basename" =~ ^([0-9]{4})([-_.]|$$) ]]; then \
+	  echo "ERROR    Cannot infer year from directory name: $$basename"; \
+	  echo "         Expected the basename to begin with a four-digit year."; \
+	  exit 2; \
+	fi; \
+	year="$${BASH_REMATCH[1]}"; \
+	if ! command -v rclone >/dev/null 2>&1; then \
+	  echo "ERROR    rclone is not installed."; \
+	  echo "         On macOS: brew install rclone"; \
+	  echo "         Then run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	if ! rclone listremotes | grep -Fqx '$(DROPBOX_REMOTE):'; then \
+	  echo "ERROR    rclone remote '$(DROPBOX_REMOTE):' does not exist."; \
+	  echo "         Run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	destination="$(DROPBOX_REMOTE):Anthology/ingests/$$year/$$basename"; \
+	echo "INFO     Archiving $$source_dir to $$destination"; \
+	rclone copy "$$source_dir" "$$destination" --progress
 
 .PHONY: test-scripts
 test-scripts:
 	uv run python -m pytest tests/ -v
 
-# Sometimes after a merge conflict the entries in people.yaml
+# Sometimes after a merge conflict the entries in people.json
 # get miss-sorted. This corrects that by reloading and saving the file.
-.PHONY: normalize
-normalize: venv/bin/activate
+.PHONY: resave_people_json
+resave_people_json: venv/bin/activate
 	. $(VENV) && python3 -c "from acl_anthology import Anthology; anth = Anthology.from_within_repo(); anth.people.load(); anth.people.save()"
 
 .PHONY: clean

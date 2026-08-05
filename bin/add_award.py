@@ -55,7 +55,7 @@ def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
         log.warning(f"Award '{title}' already listed for {paper_id}, skipping")
         return
 
-    paper.awards.append(title)
+    paper.awards += (title,)
     return paper.parent.parent
 
 

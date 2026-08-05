@@ -1,14 +1,11 @@
 """Tests for bin/add_dois.py."""
 
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch, MagicMock
 import shutil
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.generate_crossref_doi_metadata import classify_input, DOI_PREFIX
 from bin.add_dois import (
@@ -107,9 +104,9 @@ def test_add_doi_429_then_success():
 def temp_anthology(tmp_path):
     """Create a temporary anthology with a copy of W10.xml for write testing."""
     data_copy = tmp_path / "data"
-    # Copy just the needed XML and YAML files
+    # Copy just the needed XML and JSON files
     shutil.copytree(DATADIR / "xml", data_copy / "xml")
-    shutil.copytree(DATADIR / "yaml", data_copy / "yaml")
+    shutil.copytree(DATADIR / "json", data_copy / "json")
     return Anthology(datadir=data_copy)
 
 

@@ -26,14 +26,12 @@ Additionally, there are two main types of __corrections to author pages__. For t
 Corrections to **metadata** do not require changing the PDF.
 These kinds of corrections bring the information presented in the Anthology in line with the authoritative PDF.
 
-A request to change paper metadata can be submitted in two ways.
+To submit a metadata correction to Anthology staff:
 
-- _Have us do the work_. You can submit an issue to Anthology staff.
-   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
-   -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
-      Please be sure to include a link to the paper page in the Anthology in your email. These are typically
-      processed on a monthly basis, in batches of corrections.
-- _Make the change yourself_. [Follow the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections) to make the changes yourself and create a pull request against the Anthology repository. These are typically processed every few days, as we see them.
+-  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [2023.nlposs-1.10](https://aclanthology.org/2023.nlposs-1.10/)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a GitHub issue template with a JSON data block. We process these semiautomatically on a weekly basis.
+-  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+Please be sure to include a link to the paper page in the Anthology in your email. These are typically
+processed on a monthly basis, in batches of corrections.
 
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 
@@ -42,7 +40,7 @@ Metadata changes are generally accepted if they are consistent with the PDF, whi
 Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
 
 We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
-In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding Github issue or via email.
+In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding GitHub issue or via email.
 
 ### PDF corrections
 
@@ -65,7 +63,7 @@ Please take note of the following points regarding revisions and retractions.
 
 #### Revisions and errata
 
-For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Crevision&template=03-revision-or-errata.yml&title=Paper+Revision%7Breplace+with+Anthology+ID%7D).
+For requests to change paper *content* (either a revision or an erratum), again, please [file a GitHub issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Crevision&template=03-revision-or-errata.yml&title=Paper+Revision%7Breplace+with+Anthology+ID%7D).
 **Please note the following**:
 
 - Be sure to attach the revised PDF to the issue.
