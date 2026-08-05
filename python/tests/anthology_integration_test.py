@@ -83,6 +83,12 @@ def test_full_anthology_should_have_valid_names(full_anthology):
 
 
 @pytest.mark.integration
+def test_full_anthology_paper_year_should_match_volume_year(full_anthology):
+    for paper in full_anthology.papers():
+        assert paper.year == paper.parent.year, paper
+
+
+@pytest.mark.integration
 @pytest.mark.parametrize("minimal_diff", (True, False))
 def test_full_anthology_roundtrip_xml(
     full_anthology, full_anthology_collection_id, tmp_path, minimal_diff
