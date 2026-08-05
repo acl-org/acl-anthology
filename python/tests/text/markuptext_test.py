@@ -546,6 +546,14 @@ def test_markup_from_latex(inp, out):
             "Text \\textbf{with \\textit{nested\n\nmarkup}} end",
             "Text <b>with <i>nested</i></b><par/><b><i>markup</i></b> end",
         ),
+        (
+            "Text \\textit{\n\nsecond paragraph}",
+            "Text <par/><i>second paragraph</i>",
+        ),
+        (
+            "Text \\textit{first paragraph\n\n}",
+            "Text <i>first paragraph</i><par/>",
+        ),
     ),
 )
 def test_markup_from_latex_normalizes_line_breaks(inp, xml):
