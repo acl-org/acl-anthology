@@ -186,6 +186,50 @@ SYNC_DEST := anthologizer@aclanthology.org:anthology-files
 sync:
 	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
 
+# Archive ingestion materials with:
+#   make archive DIR=~/Downloads/2026-07-13-brigap
+DROPBOX_REMOTE ?= dropbox
+
+.PHONY: archive
+archive:
+	@set -euo pipefail; \
+	source_dir="$(DIR)"; \
+	if [[ -z "$$source_dir" ]]; then \
+	  echo "ERROR    Specify the ingestion directory with DIR=PATH"; \
+	  echo "Usage:    make archive DIR=~/Downloads/2026-07-13-brigap"; \
+	  exit 2; \
+	fi; \
+	if [[ "$$source_dir" == "~/"* ]]; then \
+	  source_dir="$$HOME/$${source_dir#\~/}"; \
+	fi; \
+	if [[ ! -d "$$source_dir" ]]; then \
+	  echo "ERROR    Directory does not exist: $$source_dir"; \
+	  exit 2; \
+	fi; \
+	basename="$$(basename "$${source_dir%/}")"; \
+	if [[ ! "$$basename" =~ ^([0-9]{4})([-_.]|$$) ]]; then \
+	  echo "ERROR    Cannot infer year from directory name: $$basename"; \
+	  echo "         Expected the basename to begin with a four-digit year."; \
+	  exit 2; \
+	fi; \
+	year="$${BASH_REMATCH[1]}"; \
+	if ! command -v rclone >/dev/null 2>&1; then \
+	  echo "ERROR    rclone is not installed."; \
+	  echo "         On macOS: brew install rclone"; \
+	  echo "         Then run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	if ! rclone listremotes | grep -Fqx '$(DROPBOX_REMOTE):'; then \
+	  echo "ERROR    rclone remote '$(DROPBOX_REMOTE):' does not exist."; \
+	  echo "         Run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	destination="$(DROPBOX_REMOTE):Anthology/ingests/$$year/$$basename"; \
+	echo "INFO     Archiving $$source_dir to $$destination"; \
+	rclone copy "$$source_dir" "$$destination" --progress
+
 .PHONY: test-scripts
 test-scripts:
 	uv run python -m pytest tests/ -v
