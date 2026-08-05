@@ -307,8 +307,12 @@
         const group = row.dataset.homepageGroup;
         if (group in venueCountsByGroup) venueCountsByGroup[group] += 1;
       });
-      venueCountsByGroup["4"] = collectionIDs.filter(function (id) {
-        return !collectionRows.get(id).hidden;
+      venueCountsByGroup["4"] = venueRows.filter(function (row) {
+        if (!row.hasAttribute("data-venue-collection-child")) return false;
+        if (activePeriod === "recent" || activePeriod === "all") return true;
+        return venueData.get(row).yearLinks.some(function (link) {
+          return link.dataset.decade === activePeriod;
+        });
       }).length;
       venueSectionHeaders.forEach(function (header) {
         const count = venueCountsByGroup[header.dataset.venueSectionHeader];
