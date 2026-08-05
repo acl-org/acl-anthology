@@ -444,7 +444,7 @@
   }
 
   h4 a,
-  h4 .acl-workshop-toggle {
+  h4 .acl-venue-collection-toggle {
     display: grid;
     grid-template-columns: max-content minmax(0, 1fr);
     align-items: baseline;
@@ -468,7 +468,7 @@
   }
 }
 
-.acl-workshop-toggle {
+.acl-venue-collection-toggle {
   width: 100%;
   padding: 0;
   border: 0;
@@ -489,6 +489,15 @@
   &[aria-expanded="true"] .acl-venue-row__acl-marker i {
     transform: rotate(90deg);
   }
+}
+
+.acl-venue-collection-count {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  color: var(--acl-home-muted);
+  font-size: .75rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .acl-venue-row__label {
@@ -614,7 +623,7 @@
   }
 }
 
-.acl-workshop-panel {
+.acl-venue-collection-panel {
   border-bottom: 1px solid #e5ecef;
 
   .acl-venue-row:last-child {
@@ -719,7 +728,7 @@
   }
 
   .acl-venue-row h4 a,
-  .acl-venue-row h4 .acl-workshop-toggle {
+  .acl-venue-row h4 .acl-venue-collection-toggle {
     display: block;
   }
 

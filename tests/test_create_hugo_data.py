@@ -135,6 +135,20 @@ def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
     assert data["newly_ingested_years"] == newly_ingested_years(venue.volumes())
 
 
+def test_venue_data_classifies_workshops(anthology):
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+
+    workshop = venue_to_dict(
+        "aaas", anthology.venues["aaas"], explicitly_colocated_ids
+    )
+    other = venue_to_dict(
+        "bcs", anthology.venues["bcs"], explicitly_colocated_ids
+    )
+
+    assert workshop["is_workshop"] is True
+    assert other["is_workshop"] is False
+
+
 def test_homepage_group_excludes_parent_event_updates(anthology):
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     current_date = date(2026, 7, 30)

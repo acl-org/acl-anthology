@@ -567,6 +567,7 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
             list(volume.parent.keys()).index(volume.id),
         ),
     )
+    data["is_workshop"] = any(volume.is_workshop for volume in sorted_volumes)
     for volume in sorted_volumes:
         year, volume_id = volume.year, volume.full_id
         try:
