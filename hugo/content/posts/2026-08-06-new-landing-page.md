@@ -1,6 +1,6 @@
 ---
 title: An updated landing page
-date: "2026-08-01"
+date: "2026-08-06"
 description: >
     A modernized, compacter, mobile-friendly update to our home page
 ---
