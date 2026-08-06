@@ -5,6 +5,7 @@
 ## Changed
 
 - `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+- LaTeX line breaks are now normalized as whitespace, while blank lines are converted to `<par/>` paragraph breaks.
 
 ## [1.3.0] — 2026-07-31
 

@@ -6,7 +6,12 @@ from pathlib import Path
 from unittest.mock import MagicMock
 from types import SimpleNamespace
 
-from bin.ingest import check_for_anonymous_pdf, configure_event
+from acl_anthology.text import MarkupText
+from bin.ingest import (
+    abstract_has_empty_markup,
+    check_for_anonymous_pdf,
+    configure_event,
+)
 
 DATADIR = Path(__file__).resolve().parent / "data"
 
@@ -28,6 +33,16 @@ CLEAN_PDFS = [
     "D18-1202.pdf",
     "2020.conll-1.33.pdf",
 ]
+
+
+def test_abstract_paragraph_is_not_empty_markup():
+    abstract = MarkupText.from_latex("First paragraph.\n\nSecond paragraph.")
+    assert not abstract_has_empty_markup(abstract)
+
+
+def test_abstract_empty_inline_markup_is_rejected():
+    abstract = MarkupText.from_latex(r"Text with \textit{} empty markup")
+    assert abstract_has_empty_markup(abstract)
 
 
 @pytest.mark.parametrize("filename", ANONYMOUS_PDFS)
