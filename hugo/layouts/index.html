@@ -1,6 +1,32 @@
 {{ define "javascript" }}
 <script>
   (function () {
+    const introToggle = document.querySelector("[data-home-intro-toggle]");
+    const introContents = Array.from(
+      document.querySelectorAll("[data-home-intro-content]")
+    );
+    if (introToggle && introContents.length > 0) {
+      const mobileIntro = window.matchMedia("(max-width: 575.98px)");
+
+      function setIntroExpanded(expanded) {
+        introContents.forEach(function (content) {
+          content.hidden = !expanded;
+        });
+        introToggle.setAttribute("aria-expanded", expanded.toString());
+      }
+
+      function updateIntroMode(event) {
+        introToggle.hidden = !event.matches;
+        setIntroExpanded(!event.matches);
+      }
+
+      introToggle.addEventListener("click", function () {
+        setIntroExpanded(introToggle.getAttribute("aria-expanded") !== "true");
+      });
+      mobileIntro.addEventListener("change", updateIntroMode);
+      updateIntroMode(mobileIntro);
+    }
+
     const directory = document.querySelector("[data-venue-directory]");
     if (!directory) return;
 
@@ -452,31 +478,35 @@
 <main class="acl-home">
   <div class="acl-home-aside">
     <section class="acl-home-intro" aria-label="ACL Anthology">
-      <div class="acl-home-intro__copy">
+      <button class="acl-home-intro__toggle" type="button" data-home-intro-toggle aria-expanded="true" aria-controls="acl-home-intro-content acl-home-actions{{ with $recentPosts }} acl-home-news{{ end }}" hidden>
+        <span>About the ACL Anthology</span>
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+      </button>
+      <div id="acl-home-intro-content" class="acl-home-intro__content" data-home-intro-content>
         <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
-      </div>
 
-      <dl class="acl-home-stats" aria-label="Anthology collection statistics">
-        <div>
-          <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
-          <dd>papers</dd>
-        </div>
-        <div>
-          <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
-          <dd>volumes</dd>
-        </div>
-        <div>
-          <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
-          <dd>venues</dd>
-        </div>
-        <div>
-          <dt>{{ add (sub (int $stats.newest_year) (int $stats.oldest_year)) 1 }}</dt>
-          <dd>years</dd>
-        </div>
-      </dl>
+        <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
+            <dd>papers</dd>
+          </div>
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
+            <dd>volumes</dd>
+          </div>
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
+            <dd>venues</dd>
+          </div>
+          <div>
+            <dt>{{ add (sub (int $stats.newest_year) (int $stats.oldest_year)) 1 }}</dt>
+            <dd>years</dd>
+          </div>
+        </dl>
+      </div>
     </section>
 
-    <nav class="acl-home-actions" aria-label="Anthology resources">
+    <nav id="acl-home-actions" class="acl-home-actions" data-home-intro-content aria-label="Anthology resources">
       <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
         <span>Author pages</span>
       </a>
@@ -489,7 +519,7 @@
     </nav>
 
     {{ with $recentPosts }}
-    <section class="acl-home-news" aria-labelledby="acl-home-news-title">
+    <section id="acl-home-news" class="acl-home-news" data-home-intro-content aria-labelledby="acl-home-news-title">
       <header class="acl-directory-section__header">
         <h3 id="acl-home-news-title">Recent posts</h3>
       </header>
