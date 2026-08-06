@@ -69,7 +69,7 @@
 {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
 <div class="{{ default "container" (index .Params "css_container") }} preview-banner-container{{ if .IsHome }} preview-banner-container--home{{ end }}">
   <div class="alert alert-danger alert-dismissible preview-banner text-center fade show" role="alert">
-    This page is part of a <b>temporary preview</b> {{ with .Site.Params.previewprurl }}<a class="alert-link" href="{{ . }}">of a proposed change</a>{{ else }}of a proposed change{{ end }} that may be incomplete or contain mistakes.
+    This page is part of a <b>temporary preview</b> of {{ with .Site.Params.previewprurl }}<a class="alert-link" href="{{ . }}">a proposed change</a>{{ else }}a proposed change{{ end }} that may be incomplete or contain mistakes.
     It is <b>not official</b> and will be removed when the change is merged or abandoned.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss preview notice"></button>
   </div>
