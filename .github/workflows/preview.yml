@@ -51,7 +51,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -97,7 +97,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Notify ingestion reviewers of preview
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const branch = context.ref.replace('refs/heads/', '');

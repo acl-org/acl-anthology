@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: Print event details
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
@@ -21,7 +21,7 @@ jobs:
           echo "PR Title: $PR_TITLE"
           echo "Starts with 'ingest': ${{ startsWith(env.PR_TITLE, 'ingest') }}"
       - name: Log from GitHub script
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             console.log('This is a test log.');
@@ -30,7 +30,7 @@ jobs:
             console.log('PR Title:', context.payload.pull_request.title);
             console.log('Starts with "ingest":', context.payload.pull_request.title.startsWith('ingest'));
       - name: Add review checklist
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
