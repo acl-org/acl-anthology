@@ -1,7 +1,7 @@
 # Builds a preview of all non-master branches and publishes them
 # to https://aclanthology.org/previews/BRANCHNAME
 
-name: preview
+name: Create website preview
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
     - name: install uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@v9.0.0
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -51,7 +51,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -112,7 +112,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Notify ingestion reviewers of preview
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const branch = context.ref.replace('refs/heads/', '');

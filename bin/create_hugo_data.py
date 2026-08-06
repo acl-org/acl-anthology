@@ -190,7 +190,9 @@ def paper_to_dict(paper):
             if attachment[0] != "mrf"  # exclude <mrf>
         ]
     if paper.awards:
-        data["award"] = paper.awards
+        data["award"] = [
+            {"name": award.name, "reasoning": award.reasoning} for award in paper.awards
+        ]
     if paper.deletion:
         match paper.deletion.type:
             case PaperDeletionType.RETRACTED:
