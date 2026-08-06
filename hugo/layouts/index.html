@@ -140,14 +140,23 @@
       });
     }
 
+    function lengthToPx(value, context) {
+      const probe = document.createElement("div");
+      probe.style.cssText = "position:absolute;visibility:hidden;height:0;width:" + value;
+      context.appendChild(probe);
+      const px = probe.getBoundingClientRect().width;
+      probe.remove();
+      return px;
+    }
+
     function refreshYearSlotMetrics() {
-      const rail = venueRows[0] && venueData.get(venueRows[0]).years;
+      const rail = directory.querySelector(".acl-venue-years");
       if (!rail) return;
       const style = getComputedStyle(rail);
-      yearSlotMetrics = {
-        gap: parseFloat(style.columnGap) || 0,
-        slotWidth: parseFloat(style.getPropertyValue("--acl-year-width")) || 44
-      };
+      const declared = style.getPropertyValue("--acl-year-width").trim();
+      const slotWidth = declared ? lengthToPx(declared, rail) : 0;
+      if (!(slotWidth > 1)) return;
+      yearSlotMetrics = { gap: parseFloat(style.columnGap) || 0, slotWidth: slotWidth };
     }
 
     function getYearTrackWidth(rows) {
