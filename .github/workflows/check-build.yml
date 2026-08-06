@@ -1,4 +1,4 @@
-name: check-build
+name: Check website build
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ jobs:
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
     - name: Install uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@v9.0.0
     - name: Install other dependencies
       run: |
         sudo apt-get update

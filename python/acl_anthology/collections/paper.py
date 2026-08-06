@@ -48,7 +48,6 @@ from ..utils.attrs import (
     date_to_str,
     int_to_str,
     into_namespec_tuple,
-    into_str_tuple,
     track_modifications,
     ConvertableIntoDate,
 )
@@ -65,6 +64,33 @@ if TYPE_CHECKING:
     from . import Event, Volume, Collection
 
 log = get_logger()
+
+
+@attach_custom_repr
+@define(field_transformer=auto_validate_types, frozen=True, kw_only=True)
+class Award:
+    """An award received by a paper."""
+
+    name: str = field()
+    """The name of the award."""
+
+    reasoning: Optional[str] = field(default=None)
+    """The reason the paper received the award, if provided."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> Award:
+        """Instantiates an award from an ``<award>`` block."""
+        name = element.get("name")
+        if name is None:
+            raise ValueError("An award must have a name")
+        return cls(name=name, reasoning=element.text or None)
+
+    def to_xml(self) -> etree._Element:
+        """Returns an ``<award>`` block."""
+        award = etree.Element("award", attrib={"name": self.name})
+        if self.reasoning is not None:
+            award.text = self.reasoning
+        return award
 
 
 @attach_custom_repr
@@ -225,6 +251,16 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
+def _into_award_tuple(value: Iterable[str | Award]) -> tuple[Award, ...]:
+    if isinstance(value, str):
+        raise TypeError(
+            "Expected Iterable[str | Award], got str; this is most likely a mistake"
+        )
+    return tuple(
+        Award(name=award) if isinstance(award, str) else award for award in value
+    )
+
+
 def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -> str:
     """Update the bibkey in [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
 
@@ -276,7 +312,7 @@ class Paper:
     Attributes: Tuple Attributes:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
-        awards: Names of awards this has paper has received; can be empty.
+        awards: Awards this paper has received, represented by [`Award`][acl_anthology.collections.paper.Award] objects; can be empty.
         errata: Errata for this paper; can be empty.
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
@@ -320,7 +356,7 @@ class Paper:
             track_modifications,
         ],
     )
-    awards: tuple[str, ...] = field(default=(), converter=into_str_tuple)
+    awards: tuple[Award, ...] = field(default=(), converter=_into_award_tuple)
     _editors: tuple[NameSpecification, ...] = field(
         default=(),
         converter=into_namespec_tuple,
@@ -809,7 +845,7 @@ class Paper:
             elif tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
-                kwargs["awards"].append(element.text)
+                kwargs["awards"].append(Award.from_xml(element))
             elif tag == "erratum":
                 if "errata" not in kwargs:
                     kwargs["errata"] = []
@@ -896,7 +932,7 @@ class Paper:
         for video in self.videos:
             paper.append(video.to_xml("video"))
         for award in self.awards:
-            paper.append(E.award(award))
+            paper.append(award.to_xml())
         if self.deletion is not None:
             paper.append(self.deletion.to_xml())
         paper.append(E.bibkey(self.bibkey))
