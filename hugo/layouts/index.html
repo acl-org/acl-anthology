@@ -141,23 +141,12 @@
     }
 
     function refreshYearSlotMetrics() {
-      // Every year link and ellipsis uses the same fixed CSS width and gap, so
-      // one visible row supplies the shared slot geometry for all venues.
-      const row = venueRows.find(function (candidate) {
-        return !candidate.hidden;
-      });
-      if (!row) return;
-      const data = venueData.get(row);
-      const yearLink = data.yearLinks.find(function (link) {
-        return !link.hidden;
-      });
-      if (!yearLink || data.moreButton.hidden) return;
+      const rail = venueRows[0] && venueData.get(venueRows[0]).years;
+      if (!rail) return;
+      const style = getComputedStyle(rail);
       yearSlotMetrics = {
-        gap: parseFloat(getComputedStyle(data.years).columnGap) || 0,
-        slotWidth: Math.max(
-          yearLink.getBoundingClientRect().width,
-          data.moreButton.getBoundingClientRect().width
-        )
+        gap: parseFloat(style.columnGap) || 0,
+        slotWidth: parseFloat(style.getPropertyValue("--acl-year-width")) || 44
       };
     }
 

@@ -539,7 +539,30 @@
   font-style: italic;
 }
 
+$acl-year-width: 2.75rem;  /* width of a "year" cell */
+
+@mixin acl-year-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 0 $acl-year-width;
+  width: $acl-year-width;
+  max-width: $acl-year-width;
+  min-height: 1.5rem;
+  padding: .1rem .3rem;
+  border: 1px solid transparent;   // was .5px on links
+  border-radius: .25rem;
+  font: inherit;                   // must come first — resets the UA button font
+  font-size: .8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  overflow: hidden;
+}
+
 .acl-venue-years {
+  --acl-year-width: #{$acl-year-width};
   grid-column: 1;
   grid-row: 1;
   display: flex;
@@ -553,19 +576,9 @@
   overflow: hidden;
 
   a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    min-width: 2.75rem;
-    min-height: 1.5rem;
-    padding: .1rem .3rem;
-    border: .5px solid transparent;
+    @include acl-year-slot;
     background: transparent;
     color: $blue;
-    font-size: .8rem;
-    font-variant-numeric: tabular-nums;
-    font-weight: 600;
 
     &:hover,
     &:focus-visible {
@@ -588,7 +601,7 @@
 
 .acl-venue-years a.acl-venue-years__new,
 .acl-venue-legend__new {
-  border: .5px solid $yellow;
+  border: 1px solid $yellow;
   border-radius: .25rem;
   background: $yellow;
   color: $acl-black;
@@ -599,19 +612,11 @@
 }
 
 .acl-venue-years__more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.75rem;
-  min-height: 1.5rem;
-  padding: .1rem .3rem;
-  border: 1px solid #c7c7c7;
-  border-radius: .25rem;
+  @include acl-year-slot;
+  appearance: none;                // Safari's default button appearance
+  border-color: #c7c7c7;
   background: $white;
   color: var(--acl-home-muted);
-  font-size: .92rem;
-  font-weight: 700;
-  line-height: 1;
   cursor: pointer;
 
   &:hover,
