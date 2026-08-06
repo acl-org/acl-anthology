@@ -430,7 +430,7 @@
 {{ $workshopVenues := slice }}
 {{ range $venue := hugo.Data.venues }}
   {{ if and (not $venue.is_toplevel) (ne (int $venue.homepage_group) 1) }}
-    {{ if $venue.is_workshop }}
+    {{ if eq $venue.type "workshop" }}
       {{ $workshopVenues = $workshopVenues | append $venue }}
     {{ else }}
       {{ $otherVenues = $otherVenues | append $venue }}
