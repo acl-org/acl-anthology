@@ -288,7 +288,6 @@ class Paper:
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
-        year: The year of publication. If not set on the paper, this is inherited from the parent volume.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
         type: The paper's type, currently used to mark frontmatter and backmatter.
@@ -373,11 +372,6 @@ class Paper:
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
-    _year: Optional[str] = field(
-        default=None,
-        converter=converters.optional(int_to_str),
-        validator=v.optional(v.matches_re(r"^[0-9]{4}$")),
-    )
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self._editors):
@@ -500,14 +494,8 @@ class Paper:
 
     @property
     def year(self) -> str:
-        """The year of publication. Uses the paper's own year if set, otherwise inherited from the parent Volume."""
-        if self._year is None:
-            return self.parent.year
-        return self._year
-
-    @year.setter
-    def year(self, value: Optional[str]) -> None:
-        self._year = value
+        """The year of publication. Inherited from the parent Volume."""
+        return self.parent.year
 
     @property
     def editors(self) -> tuple[NameSpecification, ...]:
@@ -807,7 +795,6 @@ class Paper:
                 "month",
                 "note",
                 "pages",
-                "year",
             ):
                 kwargs[tag] = element.text
             elif tag in ("author", "editor"):
@@ -890,7 +877,7 @@ class Paper:
             paper.append(E.issue(self._journal_issue))
         if self._journal_title is not None:
             paper.append(E.journal(self._journal_title))
-        for tag in ("language", "month", "note", "year"):
+        for tag in ("language", "month", "note"):
             if hasattr(self, f"_{tag}"):
                 value = getattr(self, f"_{tag}")
             else:

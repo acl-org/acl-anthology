@@ -156,7 +156,6 @@ def test_paper_change_id(anthology):
         "ingest_date",
         "type",
         "month",
-        "year",
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
@@ -178,7 +177,6 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
     (
         "editors",
         "month",
-        "year",
         "journal_title",
         "journal_issue",
     ),
@@ -334,7 +332,6 @@ test_cases_xml = (
   <url hash="166bd6c1">J89-1009</url>
   <issue>42</issue>
   <month>June</month>
-  <year>1989</year>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
@@ -490,7 +487,7 @@ test_cases_paper_to_bibtex = (
     volume = "15",
     number = "3",
     month = aug,
-    year = "1988",
+    year = "1989",
     url = "https://aclanthology.org/J89-3004/"
 }""",
     ),
