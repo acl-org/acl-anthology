@@ -5,6 +5,11 @@
 ## Changed
 
 - `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+- Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
+
+## Removed
+
+- Removed support for setting `year` on the Paper level; can only be set on Volume now.
 
 ## [1.3.0] — 2026-07-31
 
