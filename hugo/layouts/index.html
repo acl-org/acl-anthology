@@ -22,6 +22,11 @@
     const collectionPanels = new Map(collectionIDs.map(function (id) {
       return [id, directory.querySelector('[data-venue-collection-panel="' + id + '"]')];
     }));
+    const collectionChildren = new Map(collectionIDs.map(function (id) {
+      return [id, venueRows.filter(function (row) {
+        return row.dataset.venueCollectionChild === id;
+      })];
+    }));
     const status = directory.querySelector("[data-filter-status]");
     const emptyState = directory.querySelector("[data-filter-empty]");
     let activePeriod = "recent";
@@ -242,7 +247,15 @@
         const matchingChildren = matchingRows.filter(function (row) {
           return row.dataset.venueCollectionChild === id;
         });
-        if (!parentRow.hasAttribute("data-venue-row")) parentRow.hidden = hasQuery;
+        const hasChildrenInPeriod = collectionChildren.get(id).some(function (row) {
+          if (activePeriod === "recent" || activePeriod === "all") return true;
+          return venueData.get(row).yearLinks.some(function (link) {
+            return link.dataset.decade === activePeriod;
+          });
+        });
+        if (!parentRow.hasAttribute("data-venue-row")) {
+          parentRow.hidden = hasQuery || !hasChildrenInPeriod;
+        }
         const panelVisible = (
           hasQuery || (collectionExpanded[id] && !parentRow.hidden)
         ) && matchingChildren.length > 0;
