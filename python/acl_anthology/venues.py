@@ -74,6 +74,9 @@ class Venue:
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
     )
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    # TODO: Should we reconsider 'type'? Currently used to designate journals
+    # at the venue level; but journals are also marked on the individual
+    # volumes.
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
 
     @property
