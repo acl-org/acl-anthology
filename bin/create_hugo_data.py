@@ -33,6 +33,7 @@ Options:
 """
 
 from docopt import docopt
+from calendar import monthrange
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
@@ -40,6 +41,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+import re
 from rich.progress import (
     Progress,
     TextColumn,
@@ -48,6 +50,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
+import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
@@ -288,7 +291,6 @@ def volume_to_dict(volume):
             data["external"] = volume.pdf.url
     return data
 
-
 def explicitly_colocated_volume_ids(anthology):
     """Return volumes explicitly attached to a parent event."""
     return {
@@ -297,6 +299,57 @@ def explicitly_colocated_volume_ids(anthology):
         for volume_id, link_type in event.colocated_ids.items()
         if link_type == EventLink.EXPLICIT
     }
+
+
+def subtract_months(value, months):
+    """Return a date shifted back by a number of calendar months."""
+    month_index = value.year * 12 + value.month - 1 - months
+    year, zero_based_month = divmod(month_index, 12)
+    month = zero_based_month + 1
+    day = min(value.day, monthrange(year, month)[1])
+    return date(year, month, day)
+
+
+def recent_top_level_events(anthology, current_date=None):
+    """Return top-level events ingested within the past three months."""
+    current_date = current_date or date.today()
+    cutoff = subtract_months(current_date, 3)
+    recent_events = []
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+
+    for event in anthology.events.values():
+        venue_id, year = event.id.rsplit("-", 1)
+        venue = anthology.venues.get(venue_id)
+        if venue_id == "ws" or venue is None or not venue.is_toplevel:
+            continue
+
+        own_volume_ids = {
+            volume_id
+            for volume_id, link_type in event.colocated_ids.items()
+            if link_type == EventLink.INFERRED
+        }
+        if own_volume_ids & explicitly_colocated_ids:
+            continue
+
+        ingest_date = max(
+            (volume.ingest_date for volume in event.volumes()), default=None
+        )
+        if ingest_date is None or not cutoff <= ingest_date <= current_date:
+            continue
+
+        recent_events.append(
+            {
+                "id": event.id,
+                "label": f"{venue.acronym} {year}",
+                "ingest_date": ingest_date.isoformat(),
+            }
+        )
+
+    return sorted(
+        recent_events,
+        key=lambda event: (event["ingest_date"], event["label"]),
+        reverse=True,
+    )
 
 
 def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
@@ -349,7 +402,7 @@ def homepage_venue_sort_key(venue_id, acronym, homepage_group):
     return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
-def homepage_stats(anthology):
+def homepage_stats(anthology, current_date=None):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -357,6 +410,7 @@ def homepage_stats(anthology):
 
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
+        "author_count": len(anthology.people),
         "volume_count": len(volumes),
         "venue_count": len(all_venues),
         "venue_year_count": sum(
@@ -364,6 +418,7 @@ def homepage_stats(anthology):
         ),
         "oldest_year": min(volume.year for volume in volumes),
         "newest_year": max(volume.year for volume in volumes),
+        "recent_events": recent_top_level_events(anthology, current_date),
     }
 
 
@@ -443,6 +498,161 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
             f.write(ENCODER.encode(all_volumes))
 
 
+AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
+
+
+def search_bucket_keys(searchable: str) -> set[str]:
+    """Return initial-character buckets for all searchable tokens."""
+    bucket_keys = set()
+    for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
+        initial = token[0].casefold()
+        bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
+    return bucket_keys or {"other"}
+
+
+def paper_search_bucket_keys(title: str) -> set[str]:
+    """Return three-character ASCII prefixes for a paper title's tokens."""
+    normalized = "".join(
+        char
+        for char in unicodedata.normalize("NFKD", title)
+        if not unicodedata.combining(char)
+    ).casefold()
+    bucket_keys = set()
+    for token in re.findall(r"\w+", normalized):
+        if token[0].isascii() and token[0].isalnum():
+            bucket_keys.add(token[:3])
+        else:
+            bucket_keys.add("other")
+    return bucket_keys or {"other"}
+
+
+def first_paper_year_histogram(people):
+    """Count authors by the year of their first paper.
+
+    Returns a year-ordered list of ``{"year", "count"}`` entries spanning every
+    year between the earliest and latest debut. Years in which no author
+    published a first paper are included with a count of zero so the histogram
+    forms a continuous timeline. Authors without any papers (and therefore
+    without a ``first_year``) are ignored.
+    """
+    counts = Counter(
+        person["first_year"]
+        for person in people.values()
+        if person.get("first_year") is not None
+    )
+    if not counts:
+        return []
+    return [
+        {"year": year, "count": counts.get(year, 0)}
+        for year in range(min(counts), max(counts) + 1)
+    ]
+
+
+def author_stats(people):
+    """Compute statistics for the author index."""
+    verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
+    return {
+        "author_count": len(people),
+        "verified_author_count": verified_count,
+        "unverified_author_count": len(people) - verified_count,
+        "orcid_author_count": sum(
+            bool(person.get("orcid")) for person in people.values()
+        ),
+        "first_paper_year_hist": first_paper_year_histogram(people),
+    }
+
+
+def author_search_index(people):
+    """Build compact author-search buckets keyed by name-token initial."""
+    buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
+
+    for person_id, person in people.items():
+        variants = " ".join(
+            variant["full"] for variant in person.get("variant_entries", [])
+        )
+        orcid = person.get("orcid", "")
+        row = [person["full"], person_id, len(person["papers"]), orcid, variants]
+        searchable = " ".join((person["full"], variants, orcid))
+        for bucket in search_bucket_keys(searchable):
+            buckets[bucket].append(row)
+
+    for rows in buckets.values():
+        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
+
+    return buckets
+
+
+def paper_search_index(papers, people):
+    """Build compact paper-search buckets keyed by title-token prefix."""
+    buckets = {}
+
+    for paper in papers:
+        if paper.is_frontmatter:
+            continue
+
+        displayed_authors = [namespec.name.as_full() for namespec in paper.authors]
+        displayed_author_set = set(displayed_authors)
+        searchable_authors = set()
+        for namespec in paper.authors:
+            person = people.get(namespec.resolve().id)
+            if person is None:
+                continue
+            if person["full"] not in displayed_author_set:
+                searchable_authors.add(person["full"])
+            if orcid := person.get("orcid"):
+                searchable_authors.add(orcid)
+            searchable_authors.update(
+                variant["full"]
+                for variant in person.get("variant_entries", [])
+                if variant["full"] not in displayed_author_set
+            )
+
+        title = paper.title.as_text()
+        author_search = " ".join(sorted(searchable_authors, key=str.casefold))
+        row = [
+            title,
+            paper.full_id,
+            paper.year,
+            ", ".join(displayed_authors),
+            author_search,
+        ]
+        for bucket in paper_search_bucket_keys(title):
+            buckets.setdefault(bucket, []).append(row)
+
+    for rows in buckets.values():
+        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
+
+    return dict(sorted(buckets.items()))
+
+
+def export_author_index(people, builddir, papers=()):
+    """Write aggregate and browser-search data for the author directory."""
+    author_index = author_search_index(people)
+    paper_index = paper_search_index(papers, people)
+    stats = author_stats(people)
+    stats["search_bucket_counts"] = {
+        bucket: len(rows) for bucket, rows in author_index.items()
+    }
+    stats["paper_search_bucket_counts"] = {
+        bucket: len(rows) for bucket, rows in paper_index.items()
+    }
+    with open(f"{builddir}/data/people_stats.json", "wb") as f:
+        f.write(ENCODER.encode(stats))
+
+    index_dir = f"{builddir}/static/people/index"
+    if os.path.isdir(index_dir):
+        shutil.rmtree(index_dir)
+    os.makedirs(index_dir)
+    for bucket, rows in author_index.items():
+        with open(f"{index_dir}/{bucket}.json", "wb") as f:
+            f.write(ENCODER.encode(rows))
+    paper_index_dir = f"{index_dir}/papers"
+    os.makedirs(paper_index_dir)
+    for bucket, rows in paper_index.items():
+        with open(f"{paper_index_dir}/{bucket}.json", "wb") as f:
+            f.write(ENCODER.encode(rows))
+
+
 def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -485,6 +695,9 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
+            if debut_years:
+                data["first_year"] = min(debut_years)
             if len(person.names) > 1:
                 data["variant_entries"] = []
                 diff_script_variants = []
@@ -538,6 +751,7 @@ def export_people(anthology, builddir, dryrun):
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
                 f.write(ENCODER.encode(people))
+            export_author_index(people, builddir, anthology.papers())
             progress.update(task, advance=100)
 
 
