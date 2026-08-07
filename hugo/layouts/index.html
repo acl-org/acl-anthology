@@ -12,16 +12,16 @@
         introContents.forEach(function (content) {
           content.hidden = !expanded;
         });
+        introToggle.hidden = expanded;
         introToggle.setAttribute("aria-expanded", expanded.toString());
       }
 
       function updateIntroMode(event) {
-        introToggle.hidden = !event.matches;
         setIntroExpanded(!event.matches);
       }
 
       introToggle.addEventListener("click", function () {
-        setIntroExpanded(introToggle.getAttribute("aria-expanded") !== "true");
+        setIntroExpanded(true);
       });
       mobileIntro.addEventListener("change", updateIntroMode);
       updateIntroMode(mobileIntro);
@@ -480,7 +480,6 @@
     <section class="acl-home-intro" aria-label="ACL Anthology">
       <button class="acl-home-intro__toggle" type="button" data-home-intro-toggle aria-expanded="true" aria-controls="acl-home-intro-content acl-home-actions{{ with $recentPosts }} acl-home-news{{ end }}" hidden>
         <span>About the ACL Anthology</span>
-        <i class="fas fa-chevron-right" aria-hidden="true"></i>
       </button>
       <div id="acl-home-intro-content" class="acl-home-intro__content" data-home-intro-content>
         <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>

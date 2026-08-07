@@ -765,36 +765,22 @@ $acl-year-width: 2.75rem;  /* width of a "year" cell */
   }
 
   .acl-home-intro__toggle {
-    display: flex;
+    display: block;
     width: 100%;
     min-height: 2.5rem;
-    align-items: center;
-    justify-content: space-between;
     padding: 0;
     border: 0;
     background: transparent;
     color: #343434;
+    cursor: pointer;
     font-size: .93rem;
     font-weight: 600;
     text-align: left;
-
-    i {
-      margin-left: .75rem;
-      color: var(--acl-home-muted);
-    }
-
-    &[aria-expanded="true"] i {
-      transform: rotate(90deg);
-    }
 
     &:focus-visible {
       outline: 2px solid var(--acl-home-accent);
       outline-offset: .2rem;
     }
-  }
-
-  .acl-home-intro__content:not([hidden]) {
-    margin-top: .65rem;
   }
 
   .acl-home-summary {
