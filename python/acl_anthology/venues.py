@@ -54,6 +54,7 @@ class Venue:
         item_ids: An unordered set of volume IDs associated with this venue.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
+        type: The venue classification, currently "journal" or "workshop".
     """
 
     id: str = field(
