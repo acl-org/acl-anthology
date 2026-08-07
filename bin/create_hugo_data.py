@@ -35,7 +35,7 @@ Options:
 from docopt import docopt
 from calendar import monthrange
 from collections import Counter
-from datetime import date
+from datetime import date, timedelta
 from functools import cache
 import logging as log
 import msgspec
@@ -68,6 +68,18 @@ from acl_anthology.utils.text import (
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+HOMEPAGE_FLAGSHIP_VENUES = (
+    "acl",
+    "aacl",
+    "cl",
+    "coling",
+    "eacl",
+    "emnlp",
+    "findings",
+    "lrec",
+    "naacl",
+    "tacl",
+)
 
 
 def check_directory(cdir, clean=False):
@@ -181,7 +193,9 @@ def paper_to_dict(paper):
             if attachment[0] != "mrf"  # exclude <mrf>
         ]
     if paper.awards:
-        data["award"] = paper.awards
+        data["award"] = [
+            {"name": award.name, "reasoning": award.reasoning} for award in paper.awards
+        ]
     if paper.deletion:
         match paper.deletion.type:
             case PaperDeletionType.RETRACTED:
@@ -277,6 +291,15 @@ def volume_to_dict(volume):
             data["external"] = volume.pdf.url
     return data
 
+def explicitly_colocated_volume_ids(anthology):
+    """Return volumes explicitly attached to a parent event."""
+    return {
+        volume_id
+        for event in anthology.events.values()
+        for volume_id, link_type in event.colocated_ids.items()
+        if link_type == EventLink.EXPLICIT
+    }
+
 
 def subtract_months(value, months):
     """Return a date shifted back by a number of calendar months."""
@@ -292,13 +315,7 @@ def recent_top_level_events(anthology, current_date=None):
     current_date = current_date or date.today()
     cutoff = subtract_months(current_date, 3)
     recent_events = []
-
-    explicitly_colocated_ids = {
-        volume_id
-        for event in anthology.events.values()
-        for volume_id, link_type in event.colocated_ids.items()
-        if link_type == EventLink.EXPLICIT
-    }
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
 
     for event in anthology.events.values():
         venue_id, year = event.id.rsplit("-", 1)
@@ -333,6 +350,56 @@ def recent_top_level_events(anthology, current_date=None):
         key=lambda event: (event["ingest_date"], event["label"]),
         reverse=True,
     )
+
+
+def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
+    """Return the latest ingest date excluding volumes owned by a parent event."""
+    return max(
+        (
+            volume.ingest_date
+            for volume in volumes
+            if volume.full_id_tuple not in explicitly_colocated_ids
+        ),
+        default=UNKNOWN_INGEST_DATE,
+    )
+
+
+def newly_ingested_years(volumes, current_date=None, excluded_volume_ids=frozenset()):
+    """Return years containing a volume ingested within the past 45 days."""
+    current_date = current_date or date.today()
+    cutoff = current_date - timedelta(days=45)
+    return sorted(
+        {
+            volume.year
+            for volume in volumes
+            if (
+                (
+                    not excluded_volume_ids
+                    or volume.full_id_tuple not in excluded_volume_ids
+                )
+                and cutoff <= volume.ingest_date <= current_date
+            )
+        }
+    )
+
+
+def homepage_venue_group(venue_id, newly_ingested_owned_years):
+    """Return the venue's ordered homepage group number."""
+    if venue_id == "ws":
+        return 4
+    if newly_ingested_owned_years:
+        return 1
+    if venue_id in HOMEPAGE_FLAGSHIP_VENUES:
+        return 2
+    return 3
+
+
+def homepage_venue_sort_key(venue_id, acronym, homepage_group):
+    """Return the venue's sort key within its ordered homepage group."""
+    if homepage_group == 2:
+        position = HOMEPAGE_FLAGSHIP_VENUES.index(venue_id)
+        return f"{homepage_group}:{position:02d}:{venue_id}"
+    return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
 def homepage_stats(anthology, current_date=None):
@@ -688,45 +755,63 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
+def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
+    data = {
+        "acronym": venue.acronym,
+        "is_acl": venue.is_acl,
+        "is_toplevel": venue.is_toplevel,
+        "name": venue.name,
+        # Note: 'slug' was produced with a separate function in the old
+        # library, but in practice it's always just the venue_id — maybe we
+        # can refactor this in the depending code as well to just use the
+        # venue_id, and get rid of this attribute
+        "slug": venue_id,
+    }
+    if venue.oldstyle_letter is not None:
+        data["oldstyle_letter"] = venue.oldstyle_letter
+    if venue.url is not None:
+        data["url"] = venue.url
+    if venue.type is not None:
+        data["type"] = venue.type
+    data["volumes_by_year"] = {}
+    sorted_volumes = sorted(
+        venue.volumes(),
+        key=lambda volume: (
+            volume.year,
+            volume.parent.id,
+            # Follow order of volumes within a collection
+            list(volume.parent.keys()).index(volume.id),
+        ),
+    )
+    for volume in sorted_volumes:
+        year, volume_id = volume.year, volume.full_id
+        try:
+            data["volumes_by_year"][year].append(volume_id)
+        except KeyError:
+            data["volumes_by_year"][year] = [volume_id]
+    data["years"] = list(data["volumes_by_year"].keys())
+    data["newly_ingested_years"] = newly_ingested_years(sorted_volumes, current_date)
+    newly_ingested_owned_years = newly_ingested_years(
+        sorted_volumes,
+        current_date,
+        excluded_volume_ids=explicitly_colocated_ids,
+    )
+    data["homepage_group"] = homepage_venue_group(venue_id, newly_ingested_owned_years)
+    data["homepage_sort_key"] = homepage_venue_sort_key(
+        venue_id, venue.acronym, data["homepage_group"]
+    )
+    data["latest_ingest_date"] = latest_owned_ingest_date(
+        sorted_volumes, explicitly_colocated_ids
+    ).isoformat()
+    return data
+
+
 def export_venues(anthology, builddir, dryrun):
     all_venues = {}
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
-        data = {
-            "acronym": venue.acronym,
-            "is_acl": venue.is_acl,
-            "is_toplevel": venue.is_toplevel,
-            "name": venue.name,
-            # Note: 'slug' was produced with a separate function in the old
-            # library, but in practice it's always just the venue_id — maybe we
-            # can refactor this in the depending code as well to just use the
-            # venue_id, and get rid of this attribute
-            "slug": venue_id,
-        }
-        if venue.oldstyle_letter is not None:
-            data["oldstyle_letter"] = venue.oldstyle_letter
-        if venue.url is not None:
-            data["url"] = venue.url
-        if venue.type is not None:
-            data["type"] = venue.type
-        data["volumes_by_year"] = {}
-        sorted_volumes = sorted(
-            venue.volumes(),
-            key=lambda volume: (
-                volume.year,
-                volume.parent.id,
-                # Follow order of volumes within a collection
-                list(volume.parent.keys()).index(volume.id),
-            ),
-        )
-        for volume in sorted_volumes:
-            year, volume_id = volume.year, volume.full_id
-            try:
-                data["volumes_by_year"][year].append(volume_id)
-            except KeyError:
-                data["volumes_by_year"][year] = [volume_id]
-        data["years"] = list(data["volumes_by_year"].keys())
-        all_venues[venue_id] = data
+        all_venues[venue_id] = venue_to_dict(venue_id, venue, explicitly_colocated_ids)
 
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:

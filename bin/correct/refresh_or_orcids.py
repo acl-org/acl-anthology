@@ -20,6 +20,10 @@ For NameSpecs that list an OpenReview ID but not an ORCID iD,
 query OpenReview to see if that profile now has an ORCID iD.
 If so, add it to the database, verifying the author if not already verified.
 
+Warns if an author ID already exists and is being ORCID-suffixed.
+If the reason is a legacy-verified author (with no ORCID yet),
+they should be merged using verify_author.py.
+
 See also fetch_orcid_from_openreview.py, which applies to a single user.
 """
 

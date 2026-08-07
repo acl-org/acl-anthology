@@ -51,7 +51,8 @@ def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
         log.error(f"Couldn't find paper: {paper_id}")
         return
 
-    if title.lower() in (award.lower() for award in paper.awards):
+    award_names = (award.name for award in paper.awards)
+    if title.lower() in (name.lower() for name in award_names if name is not None):
         log.warning(f"Award '{title}' already listed for {paper_id}, skipping")
         return
 

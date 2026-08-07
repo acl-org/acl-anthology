@@ -354,6 +354,33 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
     assert volume.full_id_tuple in anthology.venues["acl"].item_ids
 
 
+@pytest.mark.parametrize(
+    "pre_load, reset",
+    (
+        (True, True),
+        (True, False),
+        (False, False),
+        (False, True),
+    ),
+)
+def test_collection_create_volume_should_update_sig(anthology, pre_load, reset):
+    if pre_load:
+        anthology.venues.load()  # otherwise we test creation, not updating
+
+    collection = anthology.collections.create("2000.empty")
+    volume = collection.create_volume(
+        "1",
+        title=MarkupText.from_string("Empty volume"),
+        sig_ids=["sigdat"],
+    )
+
+    if reset:
+        anthology.reset_indices()
+
+    # Nev volume should be added to existing venue
+    assert volume.full_id_tuple in anthology.sigs["sigdat"].item_ids
+
+
 def test_collection_create_event_oldstyle_ids(collection_index):
     collection = collection_index.get("L06")
 
