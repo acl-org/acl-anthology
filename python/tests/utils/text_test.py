@@ -36,6 +36,7 @@ test_cases_clean_unicode = (
     ("break\u00adable", "breakable"),  # soft hyphen
     ("break‐able", "break-able"),  # dash
     ("bı́r", "bír"),  # combining diacritic on ı vs. composed character í
+    ("Aslı", "Aslı"),  # dotless ı as final character
     ("afﬁrm", "affirm"),  # ligature
     ("see： here", "see: here"),  # wide colon
     ("fn²", "fn²"),  # unchanged
