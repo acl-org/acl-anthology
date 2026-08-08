@@ -1,4 +1,4 @@
-name: ingestion-stats
+name: Compute ingestion statistics
 
 # Computes statistics about an ingestion (new papers, new authors, a histogram
 # of papers by number of authors, and single-author papers by new authors) and
@@ -31,13 +31,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           # Need the base commit available locally to diff against it.
           fetch-depth: 0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v9.0.0
 
       - name: Install system dependencies
         run: |

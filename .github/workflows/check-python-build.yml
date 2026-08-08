@@ -1,4 +1,4 @@
-name: Python library
+name: Test Python library
 
 on:
   push:
@@ -29,16 +29,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       # Setup all dependencies
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install uv and set python version
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v9.0.0
         with:
           python-version: ${{ matrix.python-version }}
           working-directory: python
       - name: Install dependencies
         run: uv sync --locked --verbose
       - name: Cache pre-commit hooks based on pre-commit config
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}

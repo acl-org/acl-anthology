@@ -337,6 +337,9 @@ test_cases_valid_names = [
     ("Jan", "Hajic jr."),
     ("Jan", "Hajic, jr."),
     ("B.L. B. LT", "B.L"),
+    ("Bonnie", "Lynn-Webber"),
+    ("Jun-U", "Park"),
+    ("I-Hsin", "Chung"),
 ]
 
 
@@ -354,6 +357,7 @@ test_cases_invalid_names = [
     ("Noor-e-", "Hira"),
     ("Sir", "C3PO"),
     ("Bonnie", "Lynn_Webber"),
+    ("Bonnie", "Lynn - Webber"),
     ("b.", "Webber"),
     ("Jonathan q.", "Arbuckle"),
     ("B.l.", "Webber"),
@@ -364,6 +368,7 @@ test_cases_invalid_names = [
     ("Bonnie", ".Webber"),
     ("Bonnie", "Webber1"),
     ("Bonnie", "Webber*"),
+    ("Zhi", "H o n g"),
 ]
 
 
@@ -416,6 +421,18 @@ test_cases_name_case_normalize = (
 def test_name_case_normalize(before, after):
     name = Name(*before)
     assert name.case_normalize() == Name(*after)
+
+
+test_cases_name_latex_normalize = (
+    (("Marcel", "Bollmann"), ("Marcel", "Bollmann")),
+    (("Hinrich", 'Sch\\"utze'), ("Hinrich", "Schütze")),
+)
+
+
+@pytest.mark.parametrize("before, after", test_cases_name_latex_normalize)
+def test_name_latex_normalize(before, after):
+    name = Name(*before)
+    assert name.latex_normalize() == Name(*after)
 
 
 def test_namespec_root_is_anthology(parent):

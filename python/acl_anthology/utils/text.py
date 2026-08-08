@@ -59,7 +59,7 @@ def clean_unicode(s: str) -> str:
     start = 0
     while (idx := s.find("ı", start)) > -1:
         # bug: we should only be looking for accents above, not below
-        if unicodedata.category(s[idx + 1]) == "Mn":
+        if idx + 1 < len(s) and unicodedata.category(s[idx + 1]) == "Mn":
             s = f"{s[:idx]}i{s[idx + 1 :]}"
         start = idx + 1
 
