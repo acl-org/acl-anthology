@@ -1,0 +1,195 @@
+.acl-fellows-scale {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin: 0 0 .5rem;
+  color: $gray-600;
+  font-size: .72rem;
+
+  span:first-child {
+    margin-right: auto;
+    color: $gray-800;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+.acl-fellows-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $gray-300;
+  list-style: none;
+}
+
+.acl-fellow-row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(19rem, .9fr) minmax(25rem, 1.15fr);
+  gap: 1.25rem;
+  align-items: center;
+  min-height: 9.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid $gray-300;
+
+  &:hover {
+    background: tint-color($cyan, 97%);
+  }
+}
+
+.acl-fellow-portrait {
+  position: relative;
+  display: grid;
+  width: 5.5rem;
+  overflow: hidden;
+  border: 1px solid $gray-300;
+  border-radius: .2rem;
+  place-items: center;
+  background-color: tint-color($blue, 88%);
+  aspect-ratio: 3 / 4;
+
+  > img:not(.acl-fellow-mark) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  > span {
+    position: relative;
+    color: darken($blue, 15%);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+}
+
+.acl-fellow-mark {
+  position: absolute;
+  width: 78%;
+  opacity: .08;
+}
+
+.acl-fellow-copy {
+  min-width: 0;
+
+  h2 {
+    margin: .15rem 0 .4rem;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+}
+
+.acl-fellow-cohort {
+  margin: 0;
+  color: darken($green, 20%);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.acl-fellow-reason {
+  margin: 0;
+  color: $gray-700;
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+.acl-fellow-credit {
+  display: inline-block;
+  margin-top: .35rem;
+  color: $gray-600;
+  font-size: .65rem;
+  text-decoration: underline;
+}
+
+.acl-fellow-timeline {
+  min-width: 0;
+  margin: 0;
+
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .2rem;
+    color: $gray-600;
+    font-size: .68rem;
+
+    span:first-child {
+      color: $gray-800;
+      font-weight: 600;
+    }
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 5rem;
+    overflow: visible;
+  }
+}
+
+.acl-fellow-timeline-unavailable {
+  display: grid;
+  min-height: 5rem;
+  border-bottom: 1px solid $gray-300;
+  place-items: center;
+
+  p {
+    margin: 0;
+    color: $gray-600;
+    font-size: .75rem;
+  }
+}
+
+.acl-timeline-grid {
+  stroke: $gray-200;
+  stroke-width: .5;
+}
+
+.acl-timeline-axis {
+  stroke: $gray-400;
+  stroke-width: .75;
+}
+
+.acl-timeline-label {
+  fill: $gray-600;
+  font-size: 5px;
+}
+
+.acl-timeline-bar {
+  fill: rgba($blue, .72);
+}
+
+.acl-timeline-bar-peak {
+  fill: darken($green, 14%);
+}
+
+@include media-breakpoint-down(lg) {
+  .acl-fellows-scale {
+    display: none;
+  }
+
+  .acl-fellow-row {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  .acl-fellow-portrait {
+    width: 5rem;
+  }
+
+  .acl-fellow-timeline {
+    grid-column: 1 / -1;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .acl-fellow-row {
+    gap: .85rem;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+  }
+
+  .acl-fellow-portrait {
+    width: 4.25rem;
+  }
+
+  .acl-fellow-timeline svg {
+    height: 4.5rem;
+  }
+}
