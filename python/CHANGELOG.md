@@ -5,6 +5,7 @@
 ## Changed
 
 - `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+- Fix bug in `clean_unicode()` for strings ending in dotless ı.
 - Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
 
 ## Removed
