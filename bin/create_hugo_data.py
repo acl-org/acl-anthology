@@ -291,6 +291,7 @@ def volume_to_dict(volume):
             data["external"] = volume.pdf.url
     return data
 
+
 def explicitly_colocated_volume_ids(anthology):
     """Return volumes explicitly attached to a parent event."""
     return {

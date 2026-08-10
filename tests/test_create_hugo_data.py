@@ -401,6 +401,7 @@ def test_homepage_group_excludes_parent_event_updates(anthology):
     assert iwslt["homepage_group"] == 3
     assert ws["homepage_group"] == 4
 
+
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
     data = paper_to_dict(anthology.get_paper("1998.amta-papers.1"))
 
