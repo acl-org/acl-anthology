@@ -42,7 +42,8 @@ Usage:
 
 `-e` denotes erratum instead of revision.
 `-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
-`-R` also works on whole volumes (e.g. 2026.silkroadnlp-1), which cannot carry revisions.
+Replacement mode is selected automatically for frontmatter and whole volumes
+(e.g. 2026.silkroadnlp-1), which cannot carry revisions.
 
 List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
@@ -504,14 +505,7 @@ def main(args):
     _, volume_id, paper_id = parse_id(anthology_id)
     is_volume = paper_id is None and volume_id is not None
     is_frontmatter = paper_id == "0"
-
-    if is_volume and not args.replace:
-        print(
-            f"-> FATAL: {anthology_id} is a volume; volumes do not support "
-            "revisions. Use -R to replace the volume PDF.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    replace_in_place = args.replace or is_volume or is_frontmatter
 
     if is_volume:
         volume = anthology.get_volume(anthology_id)
@@ -528,7 +522,7 @@ def main(args):
             explanation=explanation_text,
             archive=True,
         )
-    elif is_frontmatter or args.replace:
+    elif replace_in_place:
         paper = anthology.get_paper(anthology_id)
         if paper is None:
             print(
@@ -541,8 +535,8 @@ def main(args):
             paper,
             pdf_path,
             label=label,
-            explanation=explanation_text if args.replace else None,
-            archive=args.replace,
+            explanation=explanation_text,
+            archive=True,
         )
     else:
         # build a list of the checksums of all revisions for the paper
@@ -579,7 +573,7 @@ def main(args):
     """
     If a Github issue or manual replacement was passed, create a commit.
     """
-    if (args.issue or args.replace) and collection_path is not None:
+    if (args.issue or replace_in_place) and collection_path is not None:
         repo = Repo(".", search_parent_directories=True)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
@@ -588,7 +582,7 @@ def main(args):
                     msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
                 elif is_volume:
                     msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
-                elif args.replace:
+                elif replace_in_place:
                     msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
                 else:
                     msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
