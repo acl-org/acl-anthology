@@ -169,10 +169,20 @@ def load_fellows(anthology, path):
             if person is None:
                 log.error(f"Unknown person ID for ACL Fellow: {person_id}")
                 continue
+            if person is None:
+                # Some fellow entries intentionally use /unverified IDs; if that
+                # record is absent, fall back to the corresponding verified ID.
+                fallback_person_id = person_id.removesuffix("/unverified")
+                if fallback_person_id != person_id:
+                    person = anthology.get_person(fallback_person_id)
+                if person is None:
+                    log.error(f"Unresolvable person ID for ACL Fellow: {person_id}")
+                    continue
 
             canonical_name = person.canonical_name
             papers = list(person.papers())
             publication_counts = author_publications_by_year(papers)
+            timeline_available = person.is_explicit and "/unverified" not in person_id
             fellow = {
                 "_cohort_order": cohort_order,
                 "_publication_counts": publication_counts,
@@ -183,9 +193,9 @@ def load_fellows(anthology, path):
                     if part
                 ),
                 "name": canonical_name.as_full(),
-                "peak_year": author_peak_year(papers) if person.is_explicit else None,
+                "peak_year": author_peak_year(papers) if timeline_available else None,
                 "reason": reason.strip(),
-                "timeline_available": person.is_explicit,
+                "timeline_available": timeline_available,
                 "year": year,
             }
             for key in ("photo", "photo_alt", "photo_credit", "photo_source"):
