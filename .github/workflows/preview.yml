@@ -1,7 +1,7 @@
 # Builds a preview of all non-master branches and publishes them
 # to https://aclanthology.org/previews/BRANCHNAME
 
-name: preview
+name: Create website preview
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
     - name: install uv
-      uses: astral-sh/setup-uv@v7
+      uses: astral-sh/setup-uv@v9.0.0
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -51,7 +51,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -78,10 +78,25 @@ jobs:
     - name: Download NLTK data
       # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
       run: uv run python -c "import nltk; nltk.download('punkt_tab')"
+    - name: find pull request
+      id: pull_request
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const branch = context.ref.replace('refs/heads/', '');
+          const { data: pullRequests } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            head: `${context.repo.owner}:${branch}`,
+            state: 'open',
+          });
+          return pullRequests[0]?.html_url || '';
     - name: preview
       shell: bash
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+        HUGO_PARAMS_PREVIEWPRURL: ${{ steps.pull_request.outputs.result }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
     - uses: mshick/add-pr-comment@v2
@@ -97,7 +112,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Notify ingestion reviewers of preview
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           const branch = context.ref.replace('refs/heads/', '');
