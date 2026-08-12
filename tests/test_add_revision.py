@@ -6,7 +6,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from bin.add_revision import main, normalize_id
+from acl_anthology.files import PDFReference
+from bin.add_revision import add_revision, main, normalize_id
 
 
 @pytest.mark.parametrize(
@@ -22,6 +23,49 @@ from bin.add_revision import main, normalize_id
 )
 def test_normalize_id(value: str, expected: str) -> None:
     assert normalize_id(value) == expected
+
+
+def test_add_revision_preserves_remote_pdf_reference(tmp_path: Path) -> None:
+    anthology_id = "2026.example-1.2"
+    revised_pdf = tmp_path / "revision.pdf"
+    revised_pdf.write_bytes(b"revised")
+    pdf_dir = tmp_path / "pdf"
+    remote_pdf = PDFReference(name="https://example.org/original.pdf")
+    anthology = MagicMock()
+    paper = MagicMock()
+    paper.full_id = anthology_id
+    paper.pdf = remote_pdf
+    paper.revisions = ()
+    paper.errata = ()
+    paper.collection.path = tmp_path / "2026.example.xml"
+    anthology.get_paper.return_value = paper
+
+    def download(reference: PDFReference, destination: Path) -> None:
+        assert reference.name == anthology_id
+        assert reference.url == f"https://aclanthology.org/{anthology_id}.pdf"
+        Path(destination).write_bytes(b"original")
+
+    with (
+        patch("bin.add_revision.resolve_pdf_dir", return_value=pdf_dir),
+        patch("bin.add_revision.validate_file_type"),
+        patch.object(PDFReference, "download", autospec=True, side_effect=download),
+    ):
+        add_revision(
+            anthology,
+            anthology_id,
+            revised_pdf,
+            "Corrected references.",
+            date="2026-08-12",
+        )
+
+    assert (pdf_dir / f"{anthology_id}v1.pdf").read_bytes() == b"original"
+    assert (pdf_dir / f"{anthology_id}v2.pdf").read_bytes() == b"revised"
+    assert (pdf_dir / f"{anthology_id}.pdf").read_bytes() == b"revised"
+    assert paper.pdf is remote_pdf
+    assert [revision.pdf.name for revision in paper.revisions] == [
+        f"{anthology_id}v1",
+        f"{anthology_id}v2",
+    ]
 
 
 def test_main_uses_erratum_type_from_issue(tmp_path: Path) -> None:

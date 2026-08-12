@@ -31,6 +31,8 @@ The PDFs are then shuffled as follows:
 
 A variant of this is applied for subsequent revisions (v3, v4, etc.).
 For errata, we create a file {anthology_id}e1.pdf, {anthology_id}e2.pdf, etc., but do not overwrite the original paper, since errata are separate documents.
+For externally hosted papers, the original is retrieved from the Anthology-hosted
+copy when available, and the top-level external URL is preserved.
 
 Usage:
 
@@ -337,7 +339,20 @@ def add_revision(
         v1_name = f"{paper.full_id}{change_letter}1"
         v1_path = pdf_dir / f"{v1_name}.pdf"
         print(f"-> Archiving original {paper.full_id} -> {v1_path}", file=sys.stderr)
-        paper.pdf.download(v1_path)
+        original_pdf = paper.pdf
+        if not original_pdf.is_local:
+            anthology_pdf = PDFReference(name=paper.full_id)
+            try:
+                anthology_pdf.download(v1_path)
+            except (requests.RequestException, ValueError) as exc:
+                print(
+                    f"-> Anthology-hosted copy unavailable ({exc}); trying "
+                    f"{original_pdf.url}",
+                    file=sys.stderr,
+                )
+                original_pdf.download(v1_path)
+        else:
+            original_pdf.download(v1_path)
         validate_file_type(v1_path)
         paper.revisions += (
             PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path)),
@@ -362,7 +377,8 @@ def add_revision(
             ),
         )
         copy_file(pdf_path, canonical_pdf)
-        paper.pdf = PDFReference.from_file(canonical_pdf)
+        if paper.pdf.is_local:
+            paper.pdf = PDFReference.from_file(canonical_pdf)
     else:
         paper.errata += (
             PaperErratum(
