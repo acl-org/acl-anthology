@@ -480,10 +480,7 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        venue = anthology.venues.create(
-            id=venue_slug, acronym=venue_abbrev, name=venue_title
-        )
-        venue.save()
+        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
     return venue_slug
 
 
