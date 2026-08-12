@@ -6,7 +6,22 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from bin.add_revision import main
+from bin.add_revision import main, normalize_id
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ("2026.example-1.2", "2026.example-1.2"),
+        ("2026.example-1.2/", "2026.example-1.2"),
+        (
+            "[2026.example-1.2](https://aclanthology.org/2026.example-1.2/)",
+            "2026.example-1.2",
+        ),
+    ],
+)
+def test_normalize_id(value: str, expected: str) -> None:
+    assert normalize_id(value) == expected
 
 
 @pytest.mark.parametrize(
