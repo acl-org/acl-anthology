@@ -266,6 +266,7 @@ def fetch_issue_revision_metadata(
         "anthology_id": sections.get("anthology id", "").strip() or None,
         "pdf_url": _extract_first_url(sections.get("pdf of the revision or erratum", "")),
         "description": description,
+        "change_type": sections.get("type of change", "").strip().casefold(),
         "title": issue.title or "",
         "issue_url": issue.html_url,
         "raw_body": body,
@@ -448,6 +449,8 @@ def main(args):
         github_repo = _get_github_repo(repo_name)
         issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
         anthology_id = normalize_id(issue_metadata.get("anthology_id"))
+        if issue_metadata.get("change_type").lower() == "erratum":
+            change_type = "erratum"
 
         pdf_url = issue_metadata.get("pdf_url")
         if args.path:
