@@ -1,0 +1,23 @@
+[common]
+anthology_files = "/var/www/anthology-files"
+
+[production]
+release_root = "/srv/acl-anthology/production/releases"
+current_link = "/srv/acl-anthology/production/current"
+lock_file = "/srv/acl-anthology/production/deploy.lock"
+keep_releases = 3
+max_archive_bytes = 8589934592
+max_expanded_bytes = 34359738368
+max_file_bytes = 2147483648
+max_entries = 1000000
+
+[preview]
+release_root = "/srv/acl-anthology/previews/releases"
+public_root = "/srv/acl-anthology/previews/public"
+lock_file = "/srv/acl-anthology/previews/deploy.lock"
+max_age_days = 30
+max_total_bytes = 53687091200
+max_archive_bytes = 4294967296
+max_expanded_bytes = 17179869184
+max_file_bytes = 1073741824
+max_entries = 750000
