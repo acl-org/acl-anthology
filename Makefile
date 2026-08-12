@@ -184,7 +184,7 @@ SYNC_DEST := anthologizer@aclanthology.org:anthology-files
 
 .PHONY: sync
 sync:
-	rsync -azve ssh --remove-source-files $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
+	rsync -azve ssh --remove-source-files --exclude .DS_Store $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
 
 # Archive ingestion materials with:
 #   make archive DIR=~/Downloads/2026-07-13-brigap
@@ -291,6 +291,7 @@ preview:
 	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
+	  printf '%s\n' 'User-agent: *' 'Disallow: /' | ssh -o StrictHostKeyChecking=accept-new anthologizer@aclanthology.org 'cat > /var/www/preview.aclanthology.org/robots.txt'; \
 	else \
 	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
 	  exit 1; \

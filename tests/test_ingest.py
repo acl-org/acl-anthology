@@ -12,8 +12,23 @@ from bin.ingest import (
     check_for_anonymous_pdf,
     configure_event,
 )
+from bin.ingest import check_for_anonymous_pdf, configure_event, ensure_venue
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+def test_ensure_venue_creates_without_saving_individual_venue():
+    anthology = MagicMock()
+    anthology.venues.__contains__.return_value = False
+    venue = anthology.venues.create.return_value
+
+    venue_slug = ensure_venue(anthology, "EVALITA", "Evaluation Campaign")
+
+    assert venue_slug == "evalita"
+    anthology.venues.create.assert_called_once_with(
+        id="evalita", acronym="EVALITA", name="Evaluation Campaign"
+    )
+    venue.save.assert_not_called()
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be
