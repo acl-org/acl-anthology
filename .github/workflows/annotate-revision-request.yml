@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Extract revision request data
         id: issue_data
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const issue = context.payload.issue;
@@ -115,10 +115,10 @@ jobs:
 
       - name: Upload revision thumbnail artifact
         if: steps.issue_data.outputs.valid == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: revision-preview
           path: revision-preview.jpg
+          archive: false
           if-no-files-found: error
           retention-days: 1
 
@@ -131,12 +131,12 @@ jobs:
       issues: write
     steps:
       - name: Download revision thumbnail artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
-          name: revision-preview
+          name: revision-preview.jpg
 
       - name: Publish thumbnail and annotate issue
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           ANTHOLOGY_ID: ${{ needs.prepare_revision_preview.outputs.anthology_id }}
           PDF_URL: ${{ needs.prepare_revision_preview.outputs.pdf_url }}
