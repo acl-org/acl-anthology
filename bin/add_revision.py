@@ -428,11 +428,14 @@ def replace_pdf(
     return item.collection.path
 
 
-def normalize_id(id):
+def normalize_id(anthology_id: str) -> str:
     """
     Remove common user errors.
     """
-    return id.rstrip("/")
+    markdown_link = re.fullmatch(r"\[([^]]+)\]\([^)]+\)", anthology_id)
+    if markdown_link:
+        anthology_id = markdown_link.group(1)
+    return anthology_id.rstrip("/")
 
 
 def main(args):
