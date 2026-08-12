@@ -49,6 +49,11 @@ def source_author_name(author: dict[str, Any]) -> str:
         if author.get(field)
     )
     last = str(author.get("last_name") or "").strip()
+    if not last:
+        full = str(author.get("name") or "").strip()
+        if not full:
+            raise ValueError(f"Source author has no usable name: {author!r}")
+        return Name(None, full).latex_normalize().as_first_last()
     return Name(first or None, last).latex_normalize().as_first_last()
 
 
@@ -103,6 +108,22 @@ def parse_extra_target_authors(values: list[str]) -> set[tuple[int, int]]:
         key = (paper_number, target_author_number)
         if key in extra_authors:
             raise ValueError(f"Duplicate extra target author: {value!r}")
+        extra_authors.add(key)
+    return extra_authors
+
+
+def parse_extra_source_authors(values: list[str]) -> set[tuple[int, int]]:
+    extra_authors = set()
+    for value in values:
+        try:
+            paper_number, source_author_number = (int(part) for part in value.split(":"))
+        except ValueError as error:
+            raise ValueError(
+                f"Invalid extra source author {value!r}; expected PAPER:SOURCE"
+            ) from error
+        key = (paper_number, source_author_number)
+        if key in extra_authors:
+            raise ValueError(f"Duplicate extra source author: {value!r}")
         extra_authors.add(key)
     return extra_authors
 
@@ -204,7 +225,12 @@ def backfill(
     apply: bool,
     allowed_title_mismatches: set[str],
     author_mappings: dict[tuple[int, int], int],
+    extra_source_authors: set[tuple[int, int]],
     extra_target_authors: set[tuple[int, int]],
+    allowed_orcid_mismatches: set[tuple[int, int]],
+    allowed_invalid_openreview_ids: set[tuple[int, int]],
+    allowed_missing_target_papers: set[str],
+    allowed_extra_target_papers: set[str],
 ) -> None:
     source_data = yaml.safe_load(source_path.read_text(encoding="utf-8"))
     if not isinstance(source_data, list):
@@ -218,7 +244,10 @@ def backfill(
     expected_paper_ids = set()
     seen_title_mismatches = set()
     seen_author_mappings = set()
+    seen_extra_source_authors = set()
     seen_extra_target_authors = set()
+    seen_orcid_mismatches = set()
+    seen_invalid_openreview_ids = set()
     updates = []
     aligned_author_count = 0
     reordered_author_count = 0
@@ -230,6 +259,9 @@ def backfill(
         expected_paper_ids.add(str(paper_number))
         target_paper = anthology.get_paper(paper_id)
         if target_paper is None:
+            if str(paper_number) in allowed_missing_target_papers:
+                print(f"Reviewed source-only paper: {paper_id}")
+                continue
             raise ValueError(f"Source paper has no Anthology counterpart: {paper_id}")
 
         expected_title = source_title(source_paper)
@@ -251,22 +283,40 @@ def backfill(
             )
 
         source_authors = source_paper.get("authors", [])
+        paper_extra_source_authors = {
+            source_author_number
+            for mapped_paper, source_author_number in extra_source_authors
+            if mapped_paper == paper_number
+        }
         paper_extra_target_authors = {
             target_author_number
             for mapped_paper, target_author_number in extra_target_authors
             if mapped_paper == paper_number
         }
-        if len(source_authors) + len(paper_extra_target_authors) != len(
-            target_paper.authors
-        ):
+        if len(source_authors) - len(paper_extra_source_authors) + len(
+            paper_extra_target_authors
+        ) != len(target_paper.authors):
             raise ValueError(
                 f"Author count mismatch for {paper_id}: "
                 f"source={len(source_authors)}, target={len(target_paper.authors)}, "
+                f"reviewed source-only={len(paper_extra_source_authors)}, "
                 f"reviewed target-only={len(paper_extra_target_authors)}"
             )
 
         matches = {}
         unmatched_target_numbers = set(range(1, len(target_paper.authors) + 1))
+        for source_author_number in paper_extra_source_authors:
+            if not 1 <= source_author_number <= len(source_authors):
+                raise ValueError(
+                    f"Source-only author is out of range for {paper_id}: "
+                    f"{source_author_number}"
+                )
+            seen_extra_source_authors.add((paper_number, source_author_number))
+            print(
+                f"Reviewed source-only author for {paper_id}, author "
+                f"{source_author_number}: "
+                f"{source_author_name(source_authors[source_author_number - 1])}"
+            )
         for target_author_number in paper_extra_target_authors:
             if target_author_number not in unmatched_target_numbers:
                 raise ValueError(
@@ -301,7 +351,10 @@ def backfill(
             seen_author_mappings.add((paper_number, source_author_number))
 
         for source_author_number, source_author in enumerate(source_authors, start=1):
-            if source_author_number in matches:
+            if (
+                source_author_number in matches
+                or source_author_number in paper_extra_source_authors
+            ):
                 continue
             expected_name = source_author_name(source_author)
             orcid = source_orcid(source_author)
@@ -340,7 +393,12 @@ def backfill(
                     )
                 target_author_number = name_matches[0]
                 target_orcid = target_paper.authors[target_author_number - 1].orcid
-                if orcid is not None and target_orcid not in (None, orcid):
+                if (
+                    orcid is not None
+                    and target_orcid not in (None, orcid)
+                    and (paper_number, source_author_number)
+                    not in allowed_orcid_mismatches
+                ):
                     raise ValueError(
                         f"Conflicting ORCIDs for {paper_id}, source author "
                         f"{source_author_number}: source={orcid}, target={target_orcid}"
@@ -355,6 +413,8 @@ def backfill(
             )
 
         for source_author_number, source_author in enumerate(source_authors, start=1):
+            if source_author_number in paper_extra_source_authors:
+                continue
             target_author_number = matches[source_author_number]
             target_author = target_paper.authors[target_author_number - 1]
             expected_name = source_author_name(source_author)
@@ -365,8 +425,16 @@ def backfill(
                 and target_author.orcid is not None
                 and target_author.orcid != orcid
             ):
-                raise ValueError(
-                    f"Conflicting ORCIDs for {paper_id}, source author "
+                key = (paper_number, source_author_number)
+                if key not in allowed_orcid_mismatches:
+                    raise ValueError(
+                        f"Conflicting ORCIDs for {paper_id}, source author "
+                        f"{source_author_number}: source={orcid}, "
+                        f"target={target_author.orcid}"
+                    )
+                seen_orcid_mismatches.add(key)
+                print(
+                    f"Reviewed ORCID mismatch for {paper_id}, source author "
                     f"{source_author_number}: source={orcid}, "
                     f"target={target_author.orcid}"
                 )
@@ -380,7 +448,18 @@ def backfill(
             if source_author_number != target_author_number:
                 reordered_author_count += 1
 
-            openreview_id = source_openreview_id(source_author)
+            try:
+                openreview_id = source_openreview_id(source_author)
+            except ValueError:
+                key = (paper_number, source_author_number)
+                if key not in allowed_invalid_openreview_ids:
+                    raise
+                seen_invalid_openreview_ids.add(key)
+                print(
+                    f"Reviewed invalid OpenReview ID for {paper_id}, source author "
+                    f"{source_author_number}"
+                )
+                continue
             if (
                 openreview_id is not None
                 and target_author.openreview is not None
@@ -396,12 +475,17 @@ def backfill(
             aligned_author_count += 1
 
     actual_paper_ids = {paper.id for paper in volume.papers() if paper.id != "0"}
-    if expected_paper_ids != actual_paper_ids:
-        missing = sorted(expected_paper_ids - actual_paper_ids, key=int)
-        extra = sorted(actual_paper_ids - expected_paper_ids, key=int)
+    missing = expected_paper_ids - actual_paper_ids
+    extra = actual_paper_ids - expected_paper_ids
+    if missing != allowed_missing_target_papers or extra != allowed_extra_target_papers:
         raise ValueError(
-            f"Paper set mismatch for {volume_id}: missing={missing}, extra={extra}"
+            f"Paper set mismatch for {volume_id}: "
+            f"missing={sorted(missing, key=int)}, extra={sorted(extra, key=int)}; "
+            f"reviewed missing={sorted(allowed_missing_target_papers, key=int)}, "
+            f"reviewed extra={sorted(allowed_extra_target_papers, key=int)}"
         )
+    for paper_id in sorted(allowed_extra_target_papers, key=int):
+        print(f"Reviewed target-only paper: {volume_id}.{paper_id}")
 
     unused_title_allowances = allowed_title_mismatches - seen_title_mismatches
     if unused_title_allowances:
@@ -412,10 +496,28 @@ def backfill(
     unused_author_mappings = set(author_mappings) - seen_author_mappings
     if unused_author_mappings:
         raise ValueError(f"Unused author mappings: {sorted(unused_author_mappings)}")
+    unused_extra_source_authors = extra_source_authors - seen_extra_source_authors
+    if unused_extra_source_authors:
+        raise ValueError(
+            f"Unused source-only author allowances: {sorted(unused_extra_source_authors)}"
+        )
     unused_extra_target_authors = extra_target_authors - seen_extra_target_authors
     if unused_extra_target_authors:
         raise ValueError(
             f"Unused target-only author allowances: {sorted(unused_extra_target_authors)}"
+        )
+    unused_orcid_mismatches = allowed_orcid_mismatches - seen_orcid_mismatches
+    if unused_orcid_mismatches:
+        raise ValueError(
+            f"Unused ORCID mismatch allowances: {sorted(unused_orcid_mismatches)}"
+        )
+    unused_invalid_openreview_ids = (
+        allowed_invalid_openreview_ids - seen_invalid_openreview_ids
+    )
+    if unused_invalid_openreview_ids:
+        raise ValueError(
+            f"Unused invalid OpenReview ID allowances: "
+            f"{sorted(unused_invalid_openreview_ids)}"
         )
 
     print(
@@ -452,11 +554,46 @@ def main() -> None:
         help="Map one reviewed source author to a differently named target author",
     )
     parser.add_argument(
+        "--allow-extra-source-author",
+        action="append",
+        default=[],
+        metavar="PAPER:SOURCE",
+        help="Allow one reviewed source author that is absent from the XML",
+    )
+    parser.add_argument(
         "--allow-extra-target-author",
         action="append",
         default=[],
         metavar="PAPER:TARGET",
         help="Allow one reviewed XML author that is absent from the source",
+    )
+    parser.add_argument(
+        "--allow-invalid-openreview",
+        action="append",
+        default=[],
+        metavar="PAPER:SOURCE",
+        help="Skip one reviewed malformed source OpenReview profile ID",
+    )
+    parser.add_argument(
+        "--allow-orcid-mismatch",
+        action="append",
+        default=[],
+        metavar="PAPER:SOURCE",
+        help="Allow one reviewed source/Anthology ORCID conflict",
+    )
+    parser.add_argument(
+        "--allow-missing-target-paper",
+        action="append",
+        default=[],
+        metavar="PAPER_NUMBER",
+        help="Allow one reviewed source paper that is absent from the Anthology",
+    )
+    parser.add_argument(
+        "--allow-extra-target-paper",
+        action="append",
+        default=[],
+        metavar="PAPER_NUMBER",
+        help="Allow one reviewed Anthology paper that is absent from the source",
     )
     parser.add_argument(
         "--apply", action="store_true", help="Save changes after full-volume validation"
@@ -478,7 +615,12 @@ def main() -> None:
         args.apply,
         set(args.allow_title_mismatch),
         parse_author_mappings(args.map_author),
+        parse_extra_source_authors(args.allow_extra_source_author),
         parse_extra_target_authors(args.allow_extra_target_author),
+        parse_extra_source_authors(args.allow_orcid_mismatch),
+        parse_extra_source_authors(args.allow_invalid_openreview),
+        set(args.allow_missing_target_paper),
+        set(args.allow_extra_target_paper),
     )
 
 
