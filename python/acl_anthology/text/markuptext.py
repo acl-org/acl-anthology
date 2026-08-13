@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from attrs import define, field, validators as v
 from collections import defaultdict
-from copy import deepcopy
+from copy import copy
 from functools import total_ordering
 from lxml import etree
 from typing import Optional, SupportsIndex, TYPE_CHECKING
@@ -120,13 +120,33 @@ class MarkupText:
         These operate on the [stringified XML representation][acl_anthology.text.markuptext.MarkupText.as_xml] of the class.
     """
 
-    # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
-    # is very expensive, as shown by profiling. Therefore, markup elements
-    # which don't actually contain any markup are simply stored as
-    # strings. This makes the implementation slightly more verbose (we need to
-    # check everywhere whether we're dealing with etree._Element or str), but
-    # much faster. ---For further optimization, we could explore if there's an
-    # alternative that doesn't require deepcopy-ing XML elements at all.
+    # IMPLEMENTATION NOTE: Copying (or newly instantiating) etree._Element is
+    # very expensive, as shown by profiling. Therefore, markup elements which
+    # don't actually contain any markup are simply stored as strings. This
+    # makes the implementation slightly more verbose (we need to check
+    # everywhere whether we're dealing with etree._Element or str), but much
+    # faster.
+    #
+    # Whenever we do need an independent copy of an etree._Element (either to
+    # detach it from a much bigger source document that may be discarded
+    # right after -- see e.g. `Collection.load()` -- or to get a working copy
+    # we can mutate without touching `_content` itself), we call
+    # `copy.copy(element)` instead of `copy.deepcopy(element)`. lxml's
+    # `_Element.__copy__` already performs a full, independent recursive copy
+    # of the element (there is no cheaper "shallow" copy for a tree of
+    # libxml2-owned nodes), so this produces the exact same result while
+    # skipping some of the generic `copy` module's deepcopy-specific
+    # bookkeeping (memo dict, id()-based cycle tracking), which is measurably
+    # faster at the volume we call this. This relies on an lxml
+    # implementation detail rather than a documented guarantee, so its
+    # behaviour is pinned by
+    # `test_markup_from_xml_copies_element_independently_of_source` and
+    # `test_markup_rendering_does_not_mutate_stored_content` in
+    # `markuptext_test.py` -- if a future lxml release ever changes what
+    # `__copy__` does, those tests should catch it.
+    #
+    # For further optimization, we could explore an alternative that doesn't
+    # require etree._Element at all for storing markup.
     _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
@@ -182,7 +202,7 @@ class MarkupText:
             return remove_extra_whitespace(self._content)
         if self._text is not None:
             return self._text
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
         has_par = protect_par(element)
@@ -204,7 +224,7 @@ class MarkupText:
             return xml_escape(remove_extra_whitespace(self._content))
         if self._html is not None:
             return self._html
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -327,7 +347,7 @@ class MarkupText:
             Instantiated MarkupText object corresponding to the element.
         """
         if len(element):
-            return cls(deepcopy(element))
+            return cls(copy(element))
         return cls(str(element.text) if element.text is not None else "")
 
     @classmethod
@@ -366,7 +386,7 @@ class MarkupText:
             if self._content:
                 element.text = self._content
         else:
-            element = deepcopy(self._content)
+            element = copy(self._content)
             element.tag = tag
         return element
 
