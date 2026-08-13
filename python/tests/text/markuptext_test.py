@@ -539,20 +539,8 @@ def test_markup_from_latex(inp, out):
             "First paragraph.<par/>Second paragraph.",
         ),
         (
-            "Text with \\textit{an inline\n\nline break}",
-            "Text with <i>an inline</i><par/><i>line break</i>",
-        ),
-        (
-            "Text \\textbf{with \\textit{nested\n\nmarkup}} end",
-            "Text <b>with <i>nested</i></b><par/><b><i>markup</i></b> end",
-        ),
-        (
-            "Text \\textit{\n\nsecond paragraph}",
-            "Text <par/><i>second paragraph</i>",
-        ),
-        (
-            "Text \\textit{first paragraph\n\n}",
-            "Text <i>first paragraph</i><par/>",
+            "Text with \\textit{an inline\nline break}",
+            "Text with <i>an inline line break</i>",
         ),
     ),
 )

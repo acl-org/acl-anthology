@@ -1,6 +1,6 @@
 # Changelog
 
-## Next
+## [Next release]
 
 ### Added
 - LaTeX line breaks are now normalized as whitespace, while blank lines are converted to `<par/>` paragraph breaks.

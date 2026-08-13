@@ -11,8 +11,8 @@ from bin.ingest import (
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
+    ensure_venue,
 )
-from bin.ingest import check_for_anonymous_pdf, configure_event, ensure_venue
 
 DATADIR = Path(__file__).resolve().parent / "data"
 

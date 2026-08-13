@@ -357,63 +357,27 @@ L2T_CONTEXT.add_context_category(
 )
 LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
+# Consume horizontal whitespace around CRLF, CR, or LF source line endings.
+# Two or more consecutive line endings denote a blank line between paragraphs.
 LATEX_PARAGRAPH_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*){2,}")
 LATEX_LINE_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*)+")
 
 
-def _append_latex_chars(element: etree._Element, text: str) -> None:
+def _append_normalized_latex_text(element: etree._Element, text: str) -> None:
+    """Append text while normalizing physical line breaks in LaTeX source.
+
+    A blank line becomes ``<par/>`` at the MarkupText root. The schema does not
+    permit paragraphs inside inline markup, where line breaks are collapsed to
+    spaces instead.
+    """
+    if element.tag != "root":
+        append_text(element, LATEX_LINE_BREAK_RE.sub(" ", text))
+        return
+
     for index, paragraph in enumerate(LATEX_PARAGRAPH_BREAK_RE.split(text)):
         if index:
             etree.SubElement(element, "par")
         append_text(element, LATEX_LINE_BREAK_RE.sub(" ", paragraph))
-
-
-def _lift_nested_paragraph(paragraph: etree._Element) -> None:
-    parent = paragraph.getparent()
-    if parent is None:  # pragma: no cover
-        return
-    grandparent = parent.getparent()
-    if grandparent is None:  # pragma: no cover
-        return
-
-    parent_index = grandparent.index(parent)
-    paragraph_index = parent.index(paragraph)
-    parent_tail = parent.tail
-    parent.tail = None
-
-    right = etree.Element(parent.tag, attrib=dict(parent.attrib))
-    right.text = paragraph.tail
-    paragraph.tail = None
-    for child in list(parent)[paragraph_index + 1 :]:
-        right.append(child)
-    parent.remove(paragraph)
-
-    insertion_index = parent_index + 1
-    if not parent.text and len(parent) == 0:
-        grandparent.remove(parent)
-        insertion_index = parent_index
-    grandparent.insert(insertion_index, paragraph)
-
-    if right.text or len(right):
-        right.tail = parent_tail
-        grandparent.insert(insertion_index + 1, right)
-    else:
-        paragraph.tail = parent_tail
-
-
-def _lift_nested_paragraphs(element: etree._Element) -> None:
-    while True:
-        paragraph = next(
-            (
-                child
-                for child in element.iterfind(".//par")
-                if child.getparent() is not element
-            ),
-            None,
-        )
-        if paragraph is None:
-            break
-        _lift_nested_paragraph(paragraph)
 
 
 def _is_trivial_math(node: LatexMathNode) -> bool:
@@ -463,7 +427,7 @@ def _parse_nodelist_to_element(
             continue  # pragma: no cover
         elif node.isNodeType(LatexCharsNode):
             # Plain text
-            _append_latex_chars(element, node.chars)
+            _append_normalized_latex_text(element, node.chars)
         elif node.isNodeType(LatexMacroNode):
             # LaTeX macro
             if (tag := LATEX_MACRO_TO_XMLTAG.get(node.macroname)) is not None:
@@ -554,5 +518,4 @@ def parse_latex_to_xml(
     walker = LatexWalker(latex_input, latex_context=LW_CONTEXT)
     nodelist, *_ = walker.get_latex_nodes()
     _parse_nodelist_to_element(nodelist, element, use_fixed_case)
-    _lift_nested_paragraphs(element)
     return element
