@@ -101,7 +101,9 @@ Both paper and volume IDs are zero-padded to ensure that filenames have a fixed 
       <td>J90-2001</td>
       <td>This is for the first paper in the second issue of J90; For combined issues, like 3/4, use the first number of the sequence.
         (E.g., if a journal year consists of combined issues 1/2 and 3/4, use J90-1 and J90-3 only).
-        The 'F' prefix is for the Finite String, a newsletter (now obsolete) that used to be part of the Journal.
+        The 'F' prefix was originally reserved for <a href="{{< relref "finite-string.md" >}}">The Finite String</a>,
+        but no current Finite String record uses it; F12-F14 were later assigned to JEP/TALN/RECITAL.
+        Digitized Finite String material retains the J identifiers of its containing AJCL/CL volumes.
       </td>
     </tr>
     <tr>
