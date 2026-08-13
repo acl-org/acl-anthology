@@ -179,12 +179,13 @@ def refresh_or_orcids(username=None, password=None):
             if explicit_ids:
                 (explicit_id,) = explicit_ids
                 eperson = anthology.get_person(explicit_id)
+                assert eperson is not None, explicit_id
                 if eperson.orcid and eperson.orcid != bare_orcid:
                     log.error(f"CONFLICT: Explicit ID {eperson.id} has a different ORCID ({eperson.orcid}; {user} specifies {bare_orcid})")
                     continue
                 elif person and eperson is not person:
-                    log.warning(f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. TODO: merge")
-                    continue
+                    log.warning(f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. Merging")
+                    person.merge_into(eperson)
                 person = eperson
 
             if person is None:
