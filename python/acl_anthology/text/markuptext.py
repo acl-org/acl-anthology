@@ -145,8 +145,12 @@ class MarkupText:
     # `markuptext_test.py` -- if a future lxml release ever changes what
     # `__copy__` does, those tests should catch it.
     #
-    # For further optimization, we could explore an alternative that doesn't
-    # require etree._Element at all for storing markup.
+    # We considered dropping etree._Element for markup storage entirely (a
+    # custom node type) to avoid copying it, but this isn't worth pursuing:
+    # profiling `Anthology.load_all()` shows the copy.copy() call above is
+    # already <1% of its runtime, and the remaining construction/rendering
+    # work would still be needed with any representation -- likely faster
+    # via lxml's C-level tree operations than an equivalent pure-Python walk.
     _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
