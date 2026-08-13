@@ -7,6 +7,8 @@ from pathlib import Path
 
 import requests
 from pypdf import PdfReader, PdfWriter
+from requests.adapters import HTTPAdapter
+from urllib3.util import Retry
 
 from acl_anthology import Anthology
 from acl_anthology.collections import VolumeType
@@ -17,9 +19,12 @@ ARCHIVE_INDEX_URL = (
     "https://web.archive.org/web/20211201201347/"
     "https://www.aclweb.org/old_anthology/docs/fs.html"
 )
-ARCHIVE_PDF_URL = (
-    "https://web.archive.org/web/20211201201347id_/"
-    "https://www.aclweb.org/old_anthology/J/J79/{source_id}.pdf"
+ARCHIVE_PDF_URLS = (
+    "https://aclanthology.org/{source_id}.pdf",
+    (
+        "https://web.archive.org/web/20211201201347id_/"
+        "https://www.aclweb.org/old_anthology/J/J79/{source_id}.pdf"
+    ),
 )
 
 
@@ -297,9 +302,28 @@ def download_archive_pdf(source_id: str, cache_dir: Path) -> Path:
         validate_pdf(destination)
         return destination
     destination.parent.mkdir(parents=True, exist_ok=True)
-    response = requests.get(ARCHIVE_PDF_URL.format(source_id=source_id), timeout=120)
-    response.raise_for_status()
-    destination.write_bytes(response.content)
+    retry = Retry(
+        total=5,
+        connect=5,
+        read=5,
+        status=5,
+        backoff_factor=1,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods={"GET"},
+    )
+    session = requests.Session()
+    session.mount("https://", HTTPAdapter(max_retries=retry))
+    errors = []
+    for url_template in ARCHIVE_PDF_URLS:
+        try:
+            response = session.get(url_template.format(source_id=source_id), timeout=120)
+            response.raise_for_status()
+            destination.write_bytes(response.content)
+            break
+        except requests.RequestException as exc:
+            errors.append(exc)
+    else:
+        raise ExceptionGroup(f"Could not download {source_id}", errors)
     validate_pdf(destination)
     return destination
 
