@@ -36,11 +36,11 @@ import os
 import warnings
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.exceptions import NameSpecResolutionWarning
+from acl_anthology.exceptions import NameSpecResolutionWarning, PersonDefinitionError
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
-EARLIEST_YEAR_WITH_OR_IDS = 2026
+EARLIEST_YEAR_WITH_OR_IDS = 2025
 
 
 def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[str, str]:
@@ -205,6 +205,11 @@ def refresh_or_orcids(username=None, password=None):
                 paper = ns.parent
                 assert isinstance(paper, Paper)
                 numUpdatedNSesByVolume[paper.parent.full_id] += 1
+
+            if numNewPerson >= 500:
+                log.info("Stopping after creating 500 new persons. Rerun to add more.")
+                break
+
         log.info(f"{numNewPerson} new Persons created.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
         log.info(numUpdatedNSesByVolume)
@@ -213,7 +218,7 @@ def refresh_or_orcids(username=None, password=None):
 
 
 if __name__ == "__main__":
-    tracker = setup_rich_logging(level=log.DEBUG)
+    tracker = setup_rich_logging(level=log.WARNING)
 
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
