@@ -36,7 +36,7 @@ import os
 import warnings
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.exceptions import NameSpecResolutionWarning, PersonDefinitionError
+from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -181,10 +181,14 @@ def refresh_or_orcids(username=None, password=None):
                 eperson = anthology.get_person(explicit_id)
                 assert eperson is not None, explicit_id
                 if eperson.orcid and eperson.orcid != bare_orcid:
-                    log.error(f"CONFLICT: Explicit ID {eperson.id} has a different ORCID ({eperson.orcid}; {user} specifies {bare_orcid})")
+                    log.error(
+                        f"CONFLICT: Explicit ID {eperson.id} has a different ORCID ({eperson.orcid}; {user} specifies {bare_orcid})"
+                    )
                     continue
                 elif person and eperson is not person:
-                    log.warning(f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. Merging")
+                    log.warning(
+                        f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. Merging"
+                    )
                     person.merge_into(eperson)
                 person = eperson
 
@@ -214,8 +218,8 @@ def refresh_or_orcids(username=None, password=None):
                 assert isinstance(paper, Paper)
                 numUpdatedNSesByVolume[paper.parent.full_id] += 1
 
-            if numNewPerson >= 500:
-                log.info("Stopping after creating 500 new persons. Rerun to add more.")
+            if numNewPerson >= 5000:
+                log.info("Stopping after creating 5000 new persons. Rerun to add more.")
                 break
 
         log.info(f"{numNewPerson} new Persons created.")
@@ -226,7 +230,7 @@ def refresh_or_orcids(username=None, password=None):
 
 
 if __name__ == "__main__":
-    tracker = setup_rich_logging(level=log.WARNING)
+    tracker = setup_rich_logging(level=log.INFO)
 
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
