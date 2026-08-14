@@ -117,9 +117,9 @@ def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
     except ValueError:
         display_date = date
     text = f"ACL Anthology ID {anth_id} / revision {revision_id} / {display_date}"
-    watermark_page = PdfReader(
-        _make_vertical_watermark_page(width, height, text)
-    ).pages[0]
+    watermark_page = PdfReader(_make_vertical_watermark_page(width, height, text)).pages[
+        0
+    ]
     first_page.merge_page(watermark_page)
     writer.add_page(first_page)
     for page in reader.pages[1:]:
