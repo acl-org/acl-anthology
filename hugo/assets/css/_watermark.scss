@@ -1,0 +1,158 @@
+.watermark-page {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.watermark-tool {
+  overflow: hidden;
+  border-radius: .375rem;
+  background: $white;
+}
+
+.watermark-controls {
+  background: $white;
+}
+
+.watermark-drop-zone {
+  display: grid;
+  place-items: center;
+  min-height: 9.5rem;
+  padding: 1.5rem;
+  border: 2px dashed $gray-400;
+  border-radius: .375rem;
+  background: $gray-100;
+  color: $gray-700;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+
+  .fas {
+    margin-bottom: .6rem;
+    color: $red;
+    font-size: 2rem;
+  }
+
+  &:hover,
+  &.is-dragging {
+    border-color: $primary;
+    background: tint-color($primary, 94%);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    border-color: $primary;
+    box-shadow: 0 0 0 .25rem rgba($primary, .25);
+  }
+}
+
+.watermark-drop-title,
+.watermark-drop-copy {
+  display: block;
+}
+
+.watermark-drop-title {
+  font-weight: 650;
+}
+
+.watermark-drop-copy {
+  margin-top: .15rem;
+  color: $gray-600;
+  font-size: .875rem;
+}
+
+.watermark-layout .input-group-text {
+  min-width: 2.5rem;
+  justify-content: center;
+}
+
+.watermark-actions {
+  min-height: 3.5rem;
+}
+
+.watermark-preview-panel {
+  border-top: 1px solid $gray-300;
+  background-color: $gray-100;
+  background-image: radial-gradient($gray-300 .6px, transparent .6px);
+  background-size: 10px 10px;
+}
+
+.watermark-preview-page {
+  position: relative;
+  width: min(100%, 20rem);
+  aspect-ratio: 8.5 / 11;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid $gray-400;
+  background: $white;
+  box-shadow: 0 .35rem 1rem rgba($black, .12);
+  color: $gray-900;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.watermark-preview-canvas {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  background: $white;
+}
+
+.watermark-preview-placeholder {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: .75rem;
+  padding: 2rem;
+  text-align: center;
+
+  .far {
+    font-size: 2.25rem;
+  }
+}
+
+.watermark-preview-canvas[hidden],
+.watermark-preview-placeholder[hidden] {
+  display: none;
+}
+
+.watermark-preview-footer,
+.watermark-preview-number {
+  position: absolute;
+  z-index: 2;
+  right: 7%;
+  left: 7%;
+  padding: 0 .15rem;
+  background: rgba($white, .88);
+  text-align: center;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+.watermark-preview-footer {
+  bottom: 1rem;
+  font-size: .62rem;
+  line-height: 1.2;
+}
+
+.watermark-preview-number {
+  bottom: 2.25rem;
+  font-size: .72rem;
+}
+
+@include media-breakpoint-up(lg) {
+  .watermark-preview-panel {
+    border-top: 0;
+    border-left: 1px solid $gray-300;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .watermark-layout .form-label {
+    min-height: 2.4rem;
+  }
+}

@@ -109,7 +109,7 @@ def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
     """Add a revision watermark to the first page of a PDF."""
     reader = PdfReader(input_pdf)
     writer = PdfWriter()
-    first_page = reader.pages[0]
+    first_page = writer.add_page(reader.pages[0])
     width = float(first_page.mediabox.width)
     height = float(first_page.mediabox.height)
     try:
@@ -121,9 +121,8 @@ def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
         0
     ]
     first_page.merge_page(watermark_page)
-    writer.add_page(first_page)
-    for page in reader.pages[1:]:
-        writer.add_page(page)
+    for source_page in reader.pages[1:]:
+        writer.add_page(source_page)
     with open(output_pdf, "wb") as output:
         writer.write(output)
 

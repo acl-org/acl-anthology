@@ -125,32 +125,54 @@ sure it is available on your machine.
 
 ## PDF Watermark / Footer Tool
 
-The Anthology includes a lightweight tool to add an ACL‑style footer (first page) and optional page numbers to arbitrary PDFs.
+The Anthology includes a tool at
+[https://aclanthology.org/watermark.html](https://aclanthology.org/watermark.html)
+for adding an ACL-style first-page footer and optional page numbers to a PDF.
 
 Components:
 
-* `hugo/static/watermark.html` – Client interface (drag/drop PDF, footer text, starting page number).
-* `hugo/static/cgi-bin/watermark.cgi` – CGI endpoint invoking `bin/add_footer.py`.
-* `bin/add_footer.py` – Core logic (already part of the repository) supporting inline italics with `<i>…</i>` and multi‑line centered layout.
+* `hugo/content/watermark.md` and `hugo/layouts/_default/watermark.html` render
+  the client interface at `/watermark.html`.
+* `hugo/static/js/watermark.js` handles the preview, upload, and download.
+* `hugo/static/cgi-bin/watermark.cgi` validates the request and invokes the PDF
+  processor.
+* `bin/add_footer_to_pdf.py` adds the footer and page numbers. It supports
+  multi-line centered text and inline italics using `<i>…</i>`.
 
 Setup:
-1. Create a python3.10 venv at /opt/venv/watermark
-2. Activate and install dependencies: `pip install pypdf reportlab`
+
+1. Create a Python 3.11 or newer virtual environment at `/opt/venv/watermark`.
+2. Install the service dependencies with
+   `/opt/venv/watermark/bin/pip install -r bin/requirements-watermark.txt`.
+3. Configure the web server to execute `hugo/static/cgi-bin/watermark.cgi` as
+  CGI. The script locates `bin/add_footer_to_pdf.py` from the checkout; set
+   `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
+   layout.
+
+A file-only development server such as `python -m http.server` can display the
+page but cannot process its form; POST requests will receive HTTP 501. End-to-end
+testing requires a CGI-capable server.
 
 Usage:
-1. Serve the site (or just open the HTML file if CGI is reachable at `/cgi-bin/watermark.cgi`).
-2. Browse to `https://aclanthology.org/watermark.html`.
-3. Provide an optional starting page number and multi‑line footer block (press Enter for new lines). Inline italics via `<i>…</i>`.
-4. Click “Generate PDF” to download the processed file (`*.watermarked.pdf`).
+
+1. Upload a PDF and enter the first-page footer. Press Enter for new lines and
+   use `<i>…</i>` for italics.
+2. Optionally set the first page number and adjust the bottom offset, font
+   sizes, or line spacing to match the original proceedings.
+3. Select **Generate PDF** to download `*.watermarked.pdf`.
 
 Server / security notes:
-* Upload limit: 25MB (client) / 30MB (server hard cap).
-* Basic validation checks `%PDF-` header.
-* Uses temporary directory per request; no persistence.
-* Requires Python environment satisfying dependencies for `add_footer.py` (pypdf, reportlab).
-* Errors returned as plain text with HTTP status codes.
 
-To disable, simply remove the HTML or CGI script; no other components are affected.
+* The client and server enforce a 25 MB PDF limit.
+* The CGI endpoint accepts only bounded `multipart/form-data` requests, checks
+  the PDF header, validates all numeric options, and limits footer text to
+  2,000 characters and eight lines.
+* Footer markup is restricted to balanced `<i>` tags and text supported by the
+  PDF font.
+* Each request uses a temporary directory that is removed on success or error;
+  uploaded and generated PDFs are not retained.
+* Processing diagnostics are written to the server log. Public errors do not
+  include command lines or subprocess output.
 
 ## Contributing
 
