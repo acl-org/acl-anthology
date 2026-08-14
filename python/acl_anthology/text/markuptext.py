@@ -120,37 +120,24 @@ class MarkupText:
         These operate on the [stringified XML representation][acl_anthology.text.markuptext.MarkupText.as_xml] of the class.
     """
 
-    # IMPLEMENTATION NOTE: Copying (or newly instantiating) etree._Element is
-    # very expensive, as shown by profiling. Therefore, markup elements which
-    # don't actually contain any markup are simply stored as strings. This
-    # makes the implementation slightly more verbose (we need to check
-    # everywhere whether we're dealing with etree._Element or str), but much
-    # faster.
+    # IMPLEMENTATION NOTE:
+    # --------------------
+    # Copying (or newly instantiating) `etree._Element` is very expensive,
+    # as shown by profiling. Therefore, markup elements which don't actually
+    # contain any markup are simply stored as strings. This makes the
+    # implementation slightly more verbose (we need to check everywhere
+    # whether we're dealing with `etree._Element` or `str`), but much faster.
     #
-    # Whenever we do need an independent copy of an etree._Element (either to
-    # detach it from a much bigger source document that may be discarded
-    # right after -- see e.g. `Collection.load()` -- or to get a working copy
-    # we can mutate without touching `_content` itself), we call
-    # `copy.copy(element)` instead of `copy.deepcopy(element)`. lxml's
-    # `_Element.__copy__` already performs a full, independent recursive copy
-    # of the element (there is no cheaper "shallow" copy for a tree of
-    # libxml2-owned nodes), so this produces the exact same result while
-    # skipping some of the generic `copy` module's deepcopy-specific
-    # bookkeeping (memo dict, id()-based cycle tracking), which is measurably
-    # faster at the volume we call this. This relies on an lxml
-    # implementation detail rather than a documented guarantee, so its
-    # behaviour is pinned by
-    # `test_markup_from_xml_copies_element_independently_of_source` and
-    # `test_markup_rendering_does_not_mutate_stored_content` in
-    # `markuptext_test.py` -- if a future lxml release ever changes what
-    # `__copy__` does, those tests should catch it.
+    # We use `copy()` as it is slightly faster than `deepcopy()`, and lxml's
+    # `_Element.__copy__` already performs a full, independent recursive
+    # copy of the element (there is no cheaper "shallow" copy for a tree of
+    # libxml2-owned nodes), so this produces the exact same result. This
+    # relies on an lxml implementation detail, so it is pinned by tests in
+    # `markuptext_test.py` in case a future lxml release ever changes this.
     #
-    # We considered dropping etree._Element for markup storage entirely (a
-    # custom node type) to avoid copying it, but this isn't worth pursuing:
-    # profiling `Anthology.load_all()` shows the copy.copy() call above is
-    # already <1% of its runtime, and the remaining construction/rendering
-    # work would still be needed with any representation -- likely faster
-    # via lxml's C-level tree operations than an equivalent pure-Python walk.
+    # Dropping `etree._Element` for markup storage entirely doesn't seem
+    # worth pursuing: profiling `Anthology.load_all()` shows the `copy()`
+    # call is already <1% of its total runtime.
     _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
