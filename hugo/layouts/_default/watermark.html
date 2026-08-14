@@ -1,18 +1,17 @@
 {{ define "main" }}
 <main class="watermark-page" aria-labelledby="title">
   <header class="mb-4">
-    <p class="text-uppercase text-muted fw-semibold small mb-2">Revision preparation</p>
     <h2 id="title" class="mb-2">Add a proceedings footer</h2>
-    <p class="lead text-muted mb-0">Apply page numbers and a first-page ACL-style footer to a revised paper.</p>
+    <p class="lead text-muted mb-0">You can use this form to add a first-page footer and page numbers to <a href="{{ relref . "/info/corrections" }}#revisions-and-errata">a paper revision</a>.</p>
   </header>
 
   <form id="watermark-form" class="watermark-tool border shadow-sm" action="{{ relURL "cgi-bin/watermark.cgi" }}" method="post" enctype="multipart/form-data" novalidate>
     <div class="row g-0">
       <section class="watermark-controls col-lg-7 p-3 p-md-4" aria-labelledby="watermark-input-heading">
-        <h3 id="watermark-input-heading" class="h5 mb-3">Paper and footer</h3>
+        <h3 id="watermark-input-heading" class="h5 mb-3">Paper</h3>
 
         <div class="mb-4">
-          <label id="pdf-label" class="form-label fw-semibold" for="pdf">PDF file</label>
+          <!-- <label id="pdf-label" class="form-label fw-semibold" for="pdf">PDF file</label> -->
           <label id="pdf-drop-zone" class="watermark-drop-zone" for="pdf" tabindex="0">
             <i class="fas fa-file-pdf" aria-hidden="true"></i>
             <span class="watermark-drop-title">Choose a PDF</span>
@@ -22,19 +21,23 @@
           <div id="pdf-file-summary" class="form-text text-truncate" aria-live="polite">No file selected</div>
         </div>
 
-        <div class="mb-4">
-          <label class="form-label fw-semibold" for="footer-text">First-page footer</label>
-          <textarea class="form-control" id="footer-text" name="footer_text" rows="5" maxlength="2000" aria-describedby="footer-help" placeholder="&lt;i&gt;Proceedings of ACL 2026, pages 1–10&lt;/i&gt;&#10;July 2–7, 2026 ©2026 ACL"></textarea>
-          <div id="footer-help" class="form-text">Use <code>&lt;i&gt;…&lt;/i&gt;</code> for italics and Enter for a new line.</div>
-        </div>
+        <section class="watermark-footer-section border-top pt-4" aria-labelledby="watermark-footer-heading">
+          <h3 id="watermark-footer-heading" class="h5 mb-3">Footer</h3>
+          <div class="mb-3">
+            <textarea class="form-control" id="footer-text" name="footer_text" rows="3" maxlength="2000" aria-describedby="footer-help">&lt;i&gt;Proceedings of ACL 2026, pages 1–10&lt;/i&gt;
+July 2–7, 2026 ©2026 ACL</textarea>
+            <div id="footer-help" class="form-text">Use <code>&lt;i&gt;…&lt;/i&gt;</code> for italics and Enter for a new line. Enter footer text or enable page numbering before generating.</div>
+          </div>
 
-        <fieldset class="watermark-layout border-top pt-3">
-          <legend class="h6 mb-3">Layout</legend>
-          <div class="row g-3">
-            <div class="col-6 col-md-3">
-              <label class="form-label small" for="page-start">First page</label>
-              <input class="form-control" type="number" id="page-start" name="page_start" min="1" max="1000000" step="1" inputmode="numeric" placeholder="None">
+          <div class="watermark-numbering-row mb-3">
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="checkbox" id="page-numbering" aria-controls="page-start">
+              <label class="form-check-label fw-semibold text-nowrap" for="page-numbering">Page numbering</label>
             </div>
+            <input class="form-control" type="number" id="page-start" name="page_start" min="1" max="1000000" step="1" inputmode="numeric" placeholder="First page number" required disabled>
+          </div>
+
+          <div class="watermark-layout row g-3">
             <div class="col-6 col-md-3">
               <label class="form-label small" for="bottom-margin">Bottom offset</label>
               <div class="input-group">
@@ -61,7 +64,7 @@
               <input class="form-control" type="number" id="line-spacing" name="line_spacing" min="1" max="2" step="0.1" value="1.2" inputmode="decimal">
             </div>
           </div>
-        </fieldset>
+        </section>
 
         <div class="watermark-actions d-flex flex-wrap align-items-center gap-2 border-top mt-4 pt-3">
           <button class="btn btn-primary" type="submit" id="generate-pdf">
@@ -79,10 +82,14 @@
       <aside class="watermark-preview-panel col-lg-5 p-3 p-md-4" aria-labelledby="watermark-preview-heading">
         <div class="d-flex justify-content-between align-items-baseline mb-3">
           <h3 id="watermark-preview-heading" class="h5 mb-0">First-page preview</h3>
-          <span class="text-muted small">Letter</span>
+          <span class="text-muted small">Source PDF</span>
         </div>
         <div id="watermark-preview-page" class="watermark-preview-page" aria-label="Preview of footer and page-number placement">
-          <div class="watermark-preview-copy" aria-hidden="true"></div>
+          <canvas id="watermark-preview-canvas" class="watermark-preview-canvas" role="img" aria-label="First page of the selected PDF" hidden></canvas>
+          <div id="watermark-preview-placeholder" class="watermark-preview-placeholder text-muted">
+            <i class="far fa-file-pdf" aria-hidden="true"></i>
+            <span id="watermark-preview-placeholder-text">Choose a PDF to preview its first page</span>
+          </div>
           <div id="watermark-preview-number" class="watermark-preview-number"></div>
           <div id="watermark-preview-footer" class="watermark-preview-footer text-muted">Footer preview</div>
         </div>

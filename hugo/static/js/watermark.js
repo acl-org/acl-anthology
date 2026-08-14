@@ -8,6 +8,7 @@
   const dropZone = document.getElementById("pdf-drop-zone");
   const fileSummary = document.getElementById("pdf-file-summary");
   const footerInput = document.getElementById("footer-text");
+  const pageNumberingInput = document.getElementById("page-numbering");
   const pageStartInput = document.getElementById("page-start");
   const bottomMarginInput = document.getElementById("bottom-margin");
   const footerSizeInput = document.getElementById("footer-size");
@@ -192,16 +193,23 @@
     return Number.isFinite(value) ? value : fallback;
   }
 
+  function updatePageNumberingState() {
+    pageStartInput.disabled = !pageNumberingInput.checked;
+    if (pageStartInput.disabled) pageStartInput.setCustomValidity("");
+    updatePreview();
+  }
+
   function updatePreview() {
     const footer = normalizeFooter(footerInput.value);
     const footerError = validateFooter(footer);
-    const hasOperation = Boolean(footer || pageStartInput.value.trim());
+    const pageNumber = pageNumberingInput.checked ? pageStartInput.value.trim() : "";
+    const hasOperation = Boolean(footer || pageNumber);
     footerInput.setCustomValidity(
       footerError || (hasOperation ? "" : "Enter footer text or a starting page number.")
     );
     previewFooter.innerHTML = footer ? renderFooter(footer) : "Footer preview";
     previewFooter.classList.toggle("text-muted", !footer);
-    previewNumber.textContent = pageStartInput.value.trim();
+    previewNumber.textContent = pageNumber;
 
     const pageHeight = previewPage.clientHeight || 400;
     const bottomOffset = numberValue(bottomMarginInput, 14);
@@ -262,6 +270,7 @@
     updateFileSummary();
     updateDocumentPreview();
   });
+  pageNumberingInput.addEventListener("change", updatePageNumberingState);
   for (const input of [footerInput, pageStartInput, bottomMarginInput, footerSizeInput, pageNumberSizeInput, lineSpacingInput]) {
     input.addEventListener("input", updatePreview);
   }
@@ -272,13 +281,13 @@
   });
 
   form.addEventListener("reset", function () {
-    window.requestAnimationFrame(function () {
+    window.setTimeout(function () {
       fileInput.setCustomValidity("");
       footerInput.setCustomValidity("");
       fileSummary.textContent = "No file selected";
       setStatus("", "");
       updateDocumentPreview();
-      updatePreview();
+      updatePageNumberingState();
     });
   });
 
@@ -329,5 +338,5 @@
     }
   });
 
-  updatePreview();
+  updatePageNumberingState();
 })();
