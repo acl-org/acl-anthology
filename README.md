@@ -145,9 +145,9 @@ Setup:
 2. Install the service dependencies with
    `/opt/venv/watermark/bin/pip install -r bin/requirements-watermark.txt`.
 3. Configure the web server to execute `hugo/static/cgi-bin/watermark.cgi` as
-  CGI. The script locates `bin/add_footer_to_pdf.py` from the checkout; set
-   `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
-   layout.
+  CGI. Site builds package `bin/add_footer_to_pdf.py` beside the CGI script;
+  set `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
+  layout.
 
 A file-only development server such as `python -m http.server` can display the
 page but cannot process its form; POST requests will receive HTTP 501. End-to-end

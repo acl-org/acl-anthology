@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
@@ -42,14 +43,14 @@ def make_multipart_body(
     return bytes(body)
 
 
-def run_cgi(body=b"", **environment_overrides):
+def run_cgi(body=b"", cgi_script=CGI_SCRIPT, **environment_overrides):
     environment = os.environ.copy()
     environment.update(environment_overrides)
     if body:
         environment["CONTENT_LENGTH"] = str(len(body))
         environment["CONTENT_TYPE"] = f"multipart/form-data; boundary={BOUNDARY}"
     return subprocess.run(
-        [sys.executable, str(CGI_SCRIPT)],
+        [sys.executable, str(cgi_script)],
         input=body,
         capture_output=True,
         env=environment,
@@ -64,6 +65,33 @@ def test_non_post_request_returns_method_not_allowed():
     response = result.stdout.decode()
     assert "Status: 405 Method Not Allowed" in response
     assert "Allow: POST" in response
+
+
+def test_post_uses_processor_bundled_next_to_cgi(tmp_path):
+    cgi_directory = tmp_path / "cgi-bin"
+    cgi_directory.mkdir()
+    cgi_script = cgi_directory / "watermark.cgi"
+    shutil.copyfile(CGI_SCRIPT, cgi_script)
+    (cgi_directory / "add_footer_to_pdf.py").write_text(
+        """from pathlib import Path
+import sys
+
+input_pdf, output_pdf, footer = sys.argv[-3:]
+Path(output_pdf).write_bytes(Path(input_pdf).read_bytes() + footer.encode())
+"""
+    )
+
+    result = run_cgi(
+        make_multipart_body(footer_text="Bundled processor"),
+        cgi_script=cgi_script,
+        REQUEST_METHOD="POST",
+        HOME=str(tmp_path / "no-checkout"),
+    )
+
+    assert result.returncode == 0, result.stderr.decode()
+    headers, output_pdf = result.stdout.split(b"\r\n\r\n", 1)
+    assert b"Content-Type: application/pdf" in headers
+    assert output_pdf.endswith(b"Bundled processor")
 
 
 def test_post_parses_multipart_and_cleans_up(tmp_path):

@@ -82,6 +82,10 @@ def find_footer_processor() -> Path:
         return Path(configured_path).expanduser().resolve()
 
     script_path = Path(__file__).resolve()
+    packaged_processor = script_path.with_name("add_footer_to_pdf.py")
+    if packaged_processor.is_file():
+        return packaged_processor
+
     home_checkout = Path(os.environ.get("HOME", "/home/anthologizer")) / "acl-anthology"
     for root in (*script_path.parents, home_checkout):
         candidate = root / "bin" / "add_footer_to_pdf.py"

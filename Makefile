@@ -113,10 +113,11 @@ build/.basedirs:
 .PHONY: static
 static: build/.static
 
-build/.static: build/.basedirs $(shell find hugo -type f)
+build/.static: build/.basedirs $(shell find hugo -type f) bin/add_footer_to_pdf.py
 	@echo "INFO     Creating and populating build directory..."
 	@echo "INFO     Split ${ANTHOLOGY_PREFIX} into HOST=${ANTHOLOGYHOST} DIR=${ANTHOLOGYDIR}"
 	@cp -r hugo/* build
+	@cp bin/add_footer_to_pdf.py build/static/cgi-bin/add_footer_to_pdf.py
 	@echo >> build/config.toml
 	@echo "[params]" >> build/config.toml
 	@echo "  githash = \"${githash}\"" >> build/config.toml
