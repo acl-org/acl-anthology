@@ -96,11 +96,11 @@ no-uncommitted-changes:
   git diff-index --quiet HEAD --
 
 # Bump version, update changelog, build new package, create a tag
-prepare-new-release VERSION: no-uncommitted-changes check test-all test-integration docs
+prepare-new-release VERSION: no-uncommitted-changes
   #!/usr/bin/env bash
   set -eux
   # Set trap to revert on error
-  trap 'git checkout -- CHANGELOG.md pyproject.toml' ERR
+  trap 'git checkout -- CHANGELOG.md pyproject.toml ../uv.lock' ERR
   # Bump version
   uv version {{VERSION}}
   # Update changelog
@@ -110,7 +110,7 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   # Build package
   uv build
   # Commit changes
-  git add CHANGELOG.md pyproject.toml uv.lock ../uv.lock
+  git add CHANGELOG.md pyproject.toml ../uv.lock
   git commit -m "Bump to version v$VERSION"
   # Done!
   set +x
