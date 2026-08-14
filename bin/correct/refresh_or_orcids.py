@@ -218,8 +218,8 @@ def refresh_or_orcids(username=None, password=None):
                 assert isinstance(paper, Paper)
                 numUpdatedNSesByVolume[paper.parent.full_id] += 1
 
-            if numNewPerson >= 5000:
-                log.info("Stopping after creating 5000 new persons. Rerun to add more.")
+            if numNewPerson >= 500:
+                log.info("Stopping after creating 500 new persons. Rerun to add more.")
                 break
 
         log.info(f"{numNewPerson} new Persons created.")

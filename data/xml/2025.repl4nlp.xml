@@ -48,7 +48,7 @@
     <paper id="3">
       <title>Prompt Tuning Can Simply Adapt Large Language Models to Text Encoders</title>
       <author openreview="~Kaiyan_Zhao2"><first>Kaiyan</first><last>Zhao</last></author>
-      <author openreview="~Qiyu_Wu2"><first>Qiyu</first><last>Wu</last><affiliation>Sony</affiliation></author>
+      <author id="qiyu-wu" orcid="0009-0008-9266-1098" openreview="~Qiyu_Wu2"><first>Qiyu</first><last>Wu</last><affiliation>Sony</affiliation></author>
       <author openreview="~Zhongtao_Miao1"><first>Zhongtao</first><last>Miao</last><affiliation>The University of Tokyo</affiliation></author>
       <author openreview="~Yoshimasa_Tsuruoka1"><first>Yoshimasa</first><last>Tsuruoka</last><affiliation>The University of Tokyo</affiliation></author>
       <pages>38-50</pages>
@@ -61,10 +61,10 @@
       <title>Cross-Modal Learning for Music-to-Music-Video Description Generation</title>
       <author openreview="~Zhuoyuan_Mao1"><first>Zhuoyuan</first><last>Mao</last><affiliation>Sony Group Corporation</affiliation></author>
       <author openreview="~Mengjie_Zhao1"><first>Mengjie</first><last>Zhao</last><affiliation>Sony</affiliation></author>
-      <author openreview="~Qiyu_Wu2"><first>Qiyu</first><last>Wu</last><affiliation>Sony</affiliation></author>
+      <author id="qiyu-wu" orcid="0009-0008-9266-1098" openreview="~Qiyu_Wu2"><first>Qiyu</first><last>Wu</last><affiliation>Sony</affiliation></author>
       <author openreview="~Zhi_Zhong2"><first>Zhi</first><last>Zhong</last><affiliation>Sony Group Corporation</affiliation></author>
       <author openreview="~Wei-Hsiang_Liao1"><first>Wei-Hsiang</first><last>Liao</last><affiliation>Sony Corporation</affiliation></author>
-      <author id="hiromi-wakaki" openreview="~Hiromi_Wakaki1"><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
+      <author id="hiromi-wakaki" orcid="0009-0002-1609-7807" openreview="~Hiromi_Wakaki1"><first>Hiromi</first><last>Wakaki</last><affiliation>Sony Group Corporation</affiliation></author>
       <author openreview="~Yuki_Mitsufuji1"><first>Yuki</first><last>Mitsufuji</last><affiliation>Sony AI, Sony Group Corporation and Tokyo Institute of Technology, Tokyo Institute of Technology</affiliation></author>
       <pages>51-58</pages>
       <abstract>Music-to-music-video generation is a challenging task due to the intrinsic differences between the music and video modalities. The advent of powerful text-to-video diffusion models has opened a promising pathway for music-video (MV) generation by first addressing the music-to-MV description task and subsequently leveraging these models for video generation. In this study, we focus on the MV description generation task and propose a comprehensive pipeline encompassing training data construction and multimodal model fine-tuning. We fine-tune existing pre-trained multimodal models on our newly constructed music-to-MV description dataset based on the Music4All dataset, which integrates both musical and visual information. Our experimental results demonstrate that music representations can be effectively mapped to textual domains, enabling the generation of meaningful MV description directly from music inputs. We also identify key components in the dataset construction pipeline that critically impact the quality of MV description and highlight specific musical attributes that warrant greater focus for improved MV description generation.</abstract>
@@ -96,7 +96,7 @@
     <paper id="7">
       <title>Efficient Document-level Event Relation Extraction</title>
       <author openreview="~Ruochen_Li3"><first>Ruochen</first><last>Li</last><affiliation>University of Texas at Dallas</affiliation></author>
-      <author openreview="~Zimu_Wang3"><first>Zimu</first><last>Wang</last><affiliation>University of Liverpool</affiliation></author>
+      <author id="zimu-wang" orcid="0009-0002-0238-5285" openreview="~Zimu_Wang3"><first>Zimu</first><last>Wang</last><affiliation>University of Liverpool</affiliation></author>
       <author openreview="~Xinya_Du1"><first>Xinya</first><last>Du</last><affiliation>University of Texas at Dallas</affiliation></author>
       <pages>92-99</pages>
       <abstract>Event Relation Extraction (ERE) predicts temporal and causal relationships between events, playing a crucial role in constructing comprehensive event knowledge graphs. However, existing approaches based on pairwise comparisons often suffer from computational inefficiency, particularly at the document level, due to the quadratic operations required. Additionally, the predominance of unrelated events also leads to largely skewed data distributions. In this paper, we propose an innovative two-stage framework to tackle the challenges, consisting of a retriever to identify the related event pairs and a cross-encoder to classify the relationships between the retrieved pairs. Evaluations across representative benchmarks demonstrate our approach achieves better efficiency and significantly better performance. We also investigate leveraging event coreference chains for ERE and demonstrate their effectiveness.</abstract>
@@ -124,7 +124,7 @@
       <author openreview="~Stalin_Varanasi1"><first>Stalin</first><last>Varanasi</last></author>
       <author openreview="~Leonhard_Hennig1"><first>Leonhard</first><last>Hennig</last><affiliation>German Research Center for AI</affiliation></author>
       <author openreview="~Simon_Ostermann1"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI</affiliation></author>
-      <author openreview="~Sebastian_Möller1"><first>Sebastian</first><last>Möller</last></author>
+      <author id="sebastian-moller" orcid="0000-0003-3057-0760" openreview="~Sebastian_Möller1"><first>Sebastian</first><last>Möller</last></author>
       <author id="josef-van-genabith" orcid="0000-0003-1322-7944" openreview="~Josef_van_Genabith1"><first>Josef</first><last>van Genabith</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
       <pages>108-119</pages>
       <abstract>In this work, we reimagine classical probing to evaluate knowledge transfer from simple source to more complex target tasks. Instead of probing frozen representations from a complex source task on diverse simple target probing tasks (as usually done in probing), we explore the effectiveness of embeddings from multiple simple source tasks on a single target task. We select coreference resolution, a linguistically complex problem requiring contextual understanding, as focus target task, and test the usefulness of embeddings from comparably simpler tasks tasks such as paraphrase detection, named entity recognition, and relation extraction. Through systematic experiments, we evaluate the impact of individual and combined task embeddings. Our findings reveal that task embeddings vary significantly in utility for coreference resolution, with semantic similarity tasks (e.g., paraphrase detection) proving most beneficial. Additionally, representations from intermediate layers of fine-tuned models often outperform those from final layers. Combining embeddings from multiple tasks consistently improves performance, with attention-based aggregation yielding substantial gains. These insights shed light on relationships between task-specific representations and their adaptability to complex downstream tasks, encouraging further exploration of embedding-level task transfer. Our source code is publicly available under <url>https://github.com/Cora4NLP/multi-task-knowledge-transfer</url>.</abstract>

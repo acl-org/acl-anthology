@@ -99,7 +99,7 @@
     <paper id="7">
       <title><fixed-case>RAG</fixed-case> based Question Answering of <fixed-case>K</fixed-case>orean Laws and Precedents</title>
       <author><first>Kiho</first><last>Seo</last><affiliation>NA</affiliation></author>
-      <author openreview="~Takehito_Utsuro1"><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <author id="takehito-utsuro" orcid="0000-0003-4072-1833" openreview="~Takehito_Utsuro1"><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
       <pages>91-100</pages>
       <abstract>We propose a method of improving the performance of question answering based on the interpretation of criminal law regulations in the Korean language by using large language models. In this study, we develop a system that accumulates legislative texts and case precedents related to criminal procedures published on the Internet.The system searches for relevant legal provisions and precedents related to the queryunder the RAG (Retrieval-Augmented Generation) framework.It generates accurate responses to questions by conducting reasoning through large language modelsbased on these relevant laws and precedents. As an application example of this system, it can be utilized to support decision makingin investigations and legal interpretation scenarios within the field of Korean criminal law.</abstract>
       <url hash="b7d6b7ce">2025.fever-1.7</url>
@@ -171,9 +171,9 @@
     </paper>
     <paper id="13">
       <title><fixed-case>EMULATE</fixed-case>: A Multi-Agent Framework for Determining the Veracity of Atomic Claims by Emulating Human Actions</title>
-      <author id="spencer-hong-nus" openreview="~Spencer_Hong2"><first>Spencer</first><last>Hong</last><affiliation>National University of Singapore</affiliation></author>
+      <author id="spencer-hong-nus" orcid="0009-0007-0482-3177" openreview="~Spencer_Hong2"><first>Spencer</first><last>Hong</last><affiliation>National University of Singapore</affiliation></author>
       <author id="meng-luo" orcid="0000-0003-2274-5719" openreview="~Meng_Luo2"><first>Meng</first><last>Luo</last></author>
-      <author openreview="~Xinyi_Wan1"><first>Xinyi</first><last>Wan</last><affiliation>national university of singaore, National University of Singapore and Sea AI Lab</affiliation></author>
+      <author id="xinyi-wan" orcid="0009-0003-6575-8947" openreview="~Xinyi_Wan1"><first>Xinyi</first><last>Wan</last><affiliation>national university of singaore, National University of Singapore and Sea AI Lab</affiliation></author>
       <pages>179-183</pages>
       <abstract>Determining the veracity of atomic claims is an imperative component of many recently proposed fact-checking systems. Many approaches tackle this problem by first retrieving evidence by querying a search engine and then performing classification by providing the evidence set and atomic claim to a large language model, but this process deviates from what a human would do in order to perform the task. Recent work attempted to address this issue by proposing iterative evidence retrieval, allowing for evidence to be collected several times and only when necessary. Continuing along this line of research, we propose a novel claim verification system, called EMULATE, which is designed to better emulate human actions through the use of a multi-agent framework where each agent performs a small part of the larger task, such as ranking search results according to predefined criteria or evaluating webpage content. Extensive experiments on several benchmarks show clear improvements over prior work, demonstrating the efficacy of our new multi-agent framework. Our code is available at <url>https://github.com/qqqube/EMULATE</url>.</abstract>
       <url hash="930876eb">2025.fever-1.13</url>
@@ -194,12 +194,12 @@
     <paper id="15">
       <title>The 2nd Automated Verification of Textual Claims (<fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case>) Shared Task: Open-weights, Reproducible and Efficient Systems</title>
       <author openreview="~Mubashara_Akhtar1"><first>Mubashara</first><last>Akhtar</last><affiliation>ETH Zurich</affiliation></author>
-      <author openreview="~Rami_Aly1"><first>Rami</first><last>Aly</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="rami-aly" orcid="0000-0001-5893-2079" openreview="~Rami_Aly1"><first>Rami</first><last>Aly</last><affiliation>University of Cambridge</affiliation></author>
       <author openreview="~Yulong_Chen1"><first>Yulong</first><last>Chen</last><affiliation>University of Cambridge</affiliation></author>
       <author openreview="~Zhenyun_Deng1"><first>Zhenyun</first><last>Deng</last><affiliation>University of Cambridge</affiliation></author>
       <author id="michael-schlichtkrull" openreview="~Michael_Schlichtkrull1"><first>Michael</first><last>Schlichtkrull</last><affiliation>Queen Mary University of London</affiliation></author>
       <author openreview="~Chenxi_Whitehouse1"><first>Chenxi</first><last>Whitehouse</last><affiliation>University of Cambridge</affiliation></author>
-      <author openreview="~Andreas_Vlachos1"><first>Andreas</first><last>Vlachos</last><affiliation>Meta</affiliation></author>
+      <author id="andreas-vlachos" orcid="0000-0003-2123-5071" openreview="~Andreas_Vlachos1"><first>Andreas</first><last>Vlachos</last><affiliation>Meta</affiliation></author>
       <pages>201-223</pages>
       <abstract>In the First Automated Verification of Textual Claims (AVeriTeC) shared task participanting teams developed systems that for each claim retrieve evidence from the web and predict its veracity. While there was progress in automated fact-checking for real-world claims, the majority of the systems proposed relied on closed-weights large language models, which rendered them expensive to run and less reporducible. To ameliorate this issue, in this year’s edition of the AVERITEC shared task we required system to use only open-weights models that could be run use a single GPU with 23GBs of RAM, and that systems should take one minute or less to return verdicts accompanied by evidence retrieved from a precompiled knowledge store. The shared task received 7 submissions; 6 of which exceeded the accuracy of our baseline on the test set, while they ran in under a minute per claim on the hardware we had speficied. The winning team was CTU AIC with an AVeriTeC score of 33.17%. In this paper we describe the shared task in detail and highlight key findings.</abstract>
       <url hash="84675e54">2025.fever-1.15</url>
@@ -208,8 +208,8 @@
     </paper>
     <paper id="16">
       <title>Team <fixed-case>HUMANE</fixed-case> at <fixed-case>AV</fixed-case>eri<fixed-case>T</fixed-case>e<fixed-case>C</fixed-case> 2025: <fixed-case>H</fixed-case>er<fixed-case>O</fixed-case> 2 for Efficient Fact Verification</title>
-      <author openreview="~Yejun_Yoon1"><first>Yejun</first><last>Yoon</last><affiliation>Soongsil University</affiliation></author>
-      <author openreview="~Jaeyoon_Jung1"><first>Jaeyoon</first><last>Jung</last></author>
+      <author id="yejun-yoon" orcid="0009-0001-1735-656X" openreview="~Yejun_Yoon1"><first>Yejun</first><last>Yoon</last><affiliation>Soongsil University</affiliation></author>
+      <author id="jaeyoon-jung" orcid="0009-0006-9897-2634" openreview="~Jaeyoon_Jung1"><first>Jaeyoon</first><last>Jung</last></author>
       <author id="seunghyun-yoon" orcid="0000-0002-7262-3579" openreview="~Seunghyun_Yoon1"><first>Seunghyun</first><last>Yoon</last><affiliation>Adobe Research</affiliation></author>
       <author id="kunwoo-park" orcid="0000-0003-2913-9711" openreview="~Kunwoo_Park1"><first>Kunwoo</first><last>Park</last><affiliation>Soongsil University</affiliation></author>
       <pages>224-228</pages>
@@ -220,11 +220,11 @@
     </paper>
     <paper id="17">
       <title>Exploring Semantic Filtering Heuristics For Efficient Claim Verification</title>
-      <author openreview="~Max_Upravitelev1"><first>Max</first><last>Upravitelev</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author id="max-upravitelev" orcid="0009-0000-0488-8017" openreview="~Max_Upravitelev1"><first>Max</first><last>Upravitelev</last><affiliation>Technische Universität Berlin</affiliation></author>
       <author openreview="~Premtim_Sahitaj1"><first>Premtim</first><last>Sahitaj</last></author>
       <author openreview="~Arthur_Hilbert1"><first>Arthur</first><last>Hilbert</last></author>
       <author id="veronika-solopova" orcid="0000-0003-0183-9433" openreview="~Veronika_Solopova1"><first>Veronika</first><last>Solopova</last></author>
-      <author id="jing-yang-campinas" openreview="~Jing_Yang15"><first>Jing</first><last>Yang</last></author>
+      <author id="jing-yang-campinas" orcid="0000-0002-0035-3960" openreview="~Jing_Yang15"><first>Jing</first><last>Yang</last></author>
       <author id="nils-feldhus" orcid="0009-0008-7408-7483" openreview="~Nils_Feldhus1"><first>Nils</first><last>Feldhus</last></author>
       <author openreview="~Tatiana_Anikina1"><first>Tatiana</first><last>Anikina</last><affiliation>German Research Center for AI</affiliation></author>
       <author id="simon-ostermann" orcid="0000-0002-0899-0657" openreview="~Simon_Ostermann1"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI</affiliation></author>
@@ -241,7 +241,7 @@
       <author openreview="~Russel_Dsouza1"><first>Russel</first><last>Dsouza</last><affiliation>University of Birmingham</affiliation></author>
       <author id="lance-calvin-lim-gamboa" orcid="0000-0003-0095-1335" openreview="~Lance_Calvin_Lim_Gamboa1"><first>Lance Calvin Lim</first><last>Gamboa</last><affiliation>University of Birmingham and Ateneo de Manila University</affiliation></author>
       <author id="asim-abbas" orcid="0000-0001-6374-0397" openreview="~ASIM_ABBAS1"><first>Asim</first><last>Abbas</last></author>
-      <author openreview="~Mubashir_Ali1"><first>Mubashir</first><last>Ali</last><affiliation>University of Birmingham</affiliation></author>
+      <author id="mubashir-ali" orcid="0000-0003-2467-4045" openreview="~Mubashir_Ali1"><first>Mubashir</first><last>Ali</last><affiliation>University of Birmingham</affiliation></author>
       <author id="yue-feng-6406" orcid="0009-0000-6665-6406" openreview="~Yue_Feng1"><first>Yue</first><last>Feng</last><affiliation>University of Birmingham</affiliation></author>
       <author id="mark-lee" openreview="~Mark_G._Lee1"><first>Mark G.</first><last>Lee</last></author>
       <author openreview="~Venelin_Kovatchev1"><first>Venelin</first><last>Kovatchev</last><affiliation>University of Birmingham</affiliation></author>
