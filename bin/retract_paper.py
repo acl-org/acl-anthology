@@ -43,8 +43,7 @@ from datetime import datetime
 
 import lxml.etree as ET
 
-template = Template(
-    r"""\documentclass{article}
+template = Template(r"""\documentclass{article}
 \usepackage[text=RETRACTED,scale=3,color=red]{draftwatermark}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -75,8 +74,7 @@ template = Template(
 
 \includepdf[pages=-]{$file}
 
-\end{document}"""
-)
+\end{document}""")
 
 
 def add_watermark(anth_id, workdir="."):

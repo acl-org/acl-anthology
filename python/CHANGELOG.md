@@ -1,5 +1,165 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Sped up `MarkupText` by avoiding unnecessary deep copies of XML elements.
+- Sped up BibTeX generation significantly by speeding up Unicode-to-LaTeX encoding.
+
+## [1.3.1] — 2026-08-09
+
+## Changed
+
+- `Name.is_valid()` now catches additional errors involving extra spaces between characters.
+- Fix bug in `clean_unicode()` for strings ending in dotless ı.
+- Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
+
+## Removed
+
+- Removed support for setting `year` on the Paper level; can only be set on Volume now.
+
+## [1.3.0] — 2026-07-31
+
+### Added
+
+- Added support for recording OpenReview IDs for authors.
+- Added support for (redundant) math-mode delimiters within `<tex-math>` tags.
+- Added `Name.latex_normalize()` to parse LaTeX in names.
+- Added `NameSpecification.normalize()` to call both LaTeX and case normalization (and potentially others in the future, if we have them), and use this for ingesting new namespecs.
+- Added support for more text markup in XML: `<a href=...>`, `<sc>` `<tt>`, `<u>`, `<par/>`.
+- Added `Name.is_valid()` to check the basic validity of first and last names.
+- `Name.case_normalize()` now repairs lowercase initials (for example, `C.s.` to `C.S.`); this is applied automatically by `create_paper()` and `create_volume()`.
+- Added `SIGIndex.create()`, in analogy to `VenueIndex.create()`.
+
+### Changed
+
+- Fixed a bug with `xml.ensure_minimal_diff()` that would sometimes break with markup-containing tags.
+- **All YAML data files have been replaced with JSON data files.**  This speeds up loading these files significantly.
+  - There are no longer individual data files for venues and SIGs, but instead a single `venues.json` and `sigs.json`, respectively.
+  - `SIG.save()` and `Venue.save()` are deprecated as there are no individual venue or SIG data files anymore; use `.save()` on their index instead.
+- SIGs now link associated volumes via `<sig>` tags in the XML, rather than in their data files, in analogy to how venues work.  This means:
+  - `SIGIndex.reverse` (for reverse-indexing of Volume–SIG) is no longer necessary and has been removed.
+  - `SIGIndex.by_volume()` is deprecated in favor of simply calling `Volume.sigs()`, in analogy to `Volume.venues()`.
+- `Venue.parent` now points to the `VenueIndex`, not the `Anthology`.  Use `Venue.root` for that, if needed.
+
+### Removed
+
+- Removed `NameSpecification.case_normalize()` in favor of `.normalize()`.
+
+## [1.2.0] — 2026-05-21
+
+This release refactors internals of the library to improve modification tracking and dynamic updating of relevant attributes when data is modified.  The breaking changes here are mostly relevant if you are modifying data.
+
+### Added
+
+- Added `PersonIndex.remove_person()` to properly remove a Person from the index, and make `Person.merge_into()` call this. (fixes #8068)
+- `<paper>` elements can now have `<month>` and `<year>` tags.
+
+### Changed
+
+- **Breaking change:** Collection items now use tuples instead of list attributes, and many objects that can be child attributes on collections (e.g. PDFReference, PaperRevision, ...) have been made immutable.
+- `Person.parent` now points to the `PersonIndex`, not the `Anthology`.  Use `Person.root` for that, if needed.  (This brings `Person` objects in line with how these attributes work anywhere else in the library.)
+- `__repr__` and `__rich_repr__` functions of all objects have been tweaked.
+- `Person.item_ids` will now update dynamically when...
+  - ...a new Person is created and/or relevant attributes of a Person change (i.e. `names`, `disable_name_matching`). (related to #7879)
+  - ...a NameSpecification's `name` or `id` attributes are modified.
+  - ...a Paper's or Volume's `authors` or `editors` attributes are modified.
+- `Person.item_ids` and `Venue.item_ids` are now sets instead of lists.
+- Bugfix: NameSpecifications now prevent having unverified IDs set on them (#7901)
+- `Person.names` and other attributes/functions that work with names now accept `ConvertableIntoName` and correctly raise errors on incompatible types (#8040)
+- `PersonIndex.create` now deduplicates list of names (#7858)
+- `Event.colocated_ids` and `EventIndex.reverse` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- `Venue.item_ids` will now update dynamically when a Volume's `venue_ids` attribute is modified, or when a new Volume is created.
+- `Paper.get_editors()` is deprecated in favor of `Paper.editors`.
+- `Paper.get_issue()` is deprecated in favor of `Paper.journal_issue`.
+- `{Paper|Volume}.get_journal_title()` is deprecated in favor of `.journal_title`.
+- `{Paper|Volume}.get_ingest_date()` is deprecated in favor of `.ingest_date`, which now always returns a `date` object instead of a string.
+- Fix a bug in `Name` where "script" attributes were not always preserved.
+
+### Removed
+
+- Dropped support for Python 3.10.
+
+## [1.1.0] — 2026-03-19
+
+### Added
+
+- Files (such as paper PDFs) can now be downloaded from their remote URLs via `.download()`.
+- Added `.get_namespec_for(Person)` on papers and volumes, to more easily find the NameSpecification referring to a given Person.
+- Added `NameSpecification.case_normalize()` to heuristically fix casing and match spelling details to known canonical names. This is mainly intended for ingestion and called automatically when using `create_paper()`/`create_volume()`.
+- Added `Person.namespecs()` to iterate over all NameSpecifications referring to this Person.
+- Added `Person.set_id_on_items()` to explicitly set a verified person's ID on all NameSpecifications that currently resolve to them.
+- Added `PersonIndex.generate_person_id()` to facilitate generating verified person IDs that don't exist yet in the index.
+- Added input conversion for ORCIDs: `person.orcid = "https://orcid.org/..."` works now.
+- Added input validation for bibkeys (to follow our convention of all-lowercase keys) and last names (to disallow empty strings).
+
+### Changed
+
+- Switched tooling from Poetry to uv, and from Black to Ruff formatter.
+- Renamed `PersonIndex.resolve_namespec` to `_resolve_namespec` to discourage external use.
+- Improvements to Names and NameSpecifications:
+  - `Name.slugify()` now treats typographic apostrophes (U+02BC and U+2019) the same as regular ones.
+  - NameSpecifications now track if they have been modified, and will trigger their parent collection being saved on `Anthology.save_all()`.
+  - NameSpecifications can now be resolved via `NameSpecification.resolve()`. Therefore, `Anthology.resolve()` has been deprecated.
+- Improvements to Person:
+  - `Person.make_explicit()` can now auto-generate an ID.
+  - `Person.merge_with_explicit()` has been renamed `Person.merge_into()` and now supports merging two explicit persons.
+
+## [1.0.0] — 2026-01-24
+
+This release implements the new [name resolution and author ID logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan), and is therefore fundamentally incompatible with ACL Anthology data before the switch to this new system.
+
+### Added
+
+- Support for Python 3.14.
+- Anthology now provides `save_all()` to conveniently save all data files.  The library tracks modifications to collection objects to only write XML files that have actually changed.  (Tracking changes does not work on _every_ possible modification, though; see the documentation.)
+- `Anthology.from_within_repo()` can be used to quickly instantiate the Anthology from within its own repo.
+- Person:
+  - Now provides `orcid`, `degree`, `disable_name_matching`, and `similar_ids` fields that correspond to the respective fields in the new `people.yaml`.
+  - Changing `id`, `orcid`, `names`, or using `add_name()` or `remove_names()` will now automatically update the PersonIndex.
+  - Added `change_id()` that updates a person's ID on all of their connected papers.
+  - Added `make_explicit()` that makes all necessary changes to change an implicit ("/unverified") to an explicit Person.
+  - Added `merge_with_explicit()` that makes all necessary changes to move an implicit ("/unverified") person's papers/volumes to an explicit Person.
+- PersonIndex:
+  - Now also indexes Person objects by ORCID, and provides `by_orcid` and `get_by_orcid()`.
+  - Now also keeps a mapping of name slugs to (verified) person IDs, via `slugs_to_verified_ids` (mostly for internal use).
+  - Added `ingest_namespec()` to implement the [matching logic on ingestion](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#ingestion) of new volumes.
+  - Added `PersonIndex.create` to instantiate a new Person and add it to the index.
+- MarkupText now provides a `from_()` class method that calls the appropriate builder method, using heuristic markup parsing if instantiated from a string.
+- MarkupText now supports some common string methods, such as `__contains__`, `endswith`, `startswith`.
+- Venues can now be created via `VenueIndex.create()`.
+
+### Changed
+
+- Several breaking changes to PersonIndex for the new author ID system:
+  - Loading the index now expects a `people.yaml` file instead of `name_variants.yaml`.
+  - Renamed `get_or_create_person()` to `resolve_namespec()` and refactored it to reflect the [new name resolution logic](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan#proposed-name-resolution-logic).
+  - Renamed `name_to_ids` to `by_name`, in line with the new `by_orcid` field.
+  - Changed the type of exceptions that can be raised; `AmbiguousNameError` was replaced by `NameSpecResolutionError` and `PersonDefinitionError`.
+  - Changed the previously experimental `save()` function to serialize the `people.yaml` file.
+- Person now stores names as tuples of `(Name, NameLink)`, the latter of which indicates if the name was explicitly defined in `people.yaml` or inferred by the name resolution logic (e.g. via slug matching).  As a consequence, `Person.names` can no longer be modified in-place; use `Person.add_name()`, `Person.remove_name()`, or the setter of `Person.names`.
+- Setting a canonical name for a Person changed from `.set_canonical_name()` to `Person.canonical_name = ...`
+- Attributes that expect a MarkupText, such as `Volume.title` or `Paper.abstract`, can now be set to a string, in which case the string will be automatically converted to MarkupText, including markup parsing.
+- EventLinkingType renamed to EventLink.
+- Refactored verbosity handling and progress/log output.  This fixes a bug where empty lines would appear in stdout from Rich's progress bars, even if they were disabled with `verbose=False`.  If stdout is not a TTY, progress/log output will be written to stderr instead.  If stderr is not a TTY, progress bars will be suppressed by default.
+
+### Removed
+
+- Support for "Papers with Code" references has been removed, as the service has been discontinued in August 2025.
+
+## [0.5.4] — 2025-11-27
+
+This release only exists to provide necessary functionality for transitioning to the [new author ID system](https://github.com/acl-org/acl-anthology/wiki/Author-Page-Plan).
+
+### Added
+
+- NameSpecification now provides an `orcid` field.
+
+### Changed
+
+- Updated the XML schema to match the data folder.
+
 ## [0.5.3] — 2025-06-22
 
 This release adds more functionality for ingesting new proceedings and modifying existing data.

@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019–2025 Matt Post <post@cs.jhu.edu>
+# Copyright 2026 Matt Post <post@cs.jhu.edu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,332 +16,653 @@
 # limitations under the License.
 
 """
-Used to add revisions to the Anthology.
-Assumes all files have a base format like ANTHOLOGY_ROOT/P/P18/P18-1234.pdf format.
-The revision process is as follows.
+This script processes paper revisions submitted to the ACL Anthology
+using our "03-revision-or-errata.yml" template.
+It can either process a GitHub issue directly (using the --issue flag)
+or it can take the pieces (anthology_id, path to PDF, explanation) manually. When provided with a Github issue, it will parse out the
+information, and prompt the user to summarize the explanation, since
+these are often long or unwieldy.
 
-- The original paper is named as above.
-- When a first revision is created, the original paper is archived to PYY-XXXXv1.pdf.
-- The new revision is copied to PYY-XXXXvN, where N is the next revision ID (usually 2).
-  The new revision is also copied to PYY-XXXX.pdf.
-  This causes it to be returned by the anthology when the base paper format is queried.
+The PDFs are then shuffled as follows:
+- When a first revision is created, the original paper is archived to {anthology_id}v1.pdf
+- The new revision is copied to {anthology_id}v2.pdf
+- The new revision also overwrites the original one at {anthology_id}.pdf.
+    This causes it to be returned by the anthology when the base paper format is queried.
+
+A variant of this is applied for subsequent revisions (v3, v4, etc.).
+For errata, we create a file {anthology_id}e1.pdf, {anthology_id}e2.pdf, etc., but do not overwrite the original paper, since errata are separate documents.
 
 Usage:
 
-  add_revision.py [-e] [-i GITHUB_ISSUE] paper_id URL_OR_PATH.pdf "Short explanation".
+    # Process information from the template and create a PR
+    add_revision.py [-e] [-i GITHUB_ISSUE]
+
+    # This variant lets you process pieces manually
+    add_revision [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
 `-e` denotes erratum instead of revision.
-By default, a dry run happens.
-When you are ready, add `--do`.
+`-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
+`-R` also works on whole volumes (e.g. 2026.silkroadnlp-1), which cannot carry revisions.
+
+List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
+
+from __future__ import annotations
 
 import argparse
 import filetype
+import io
 import os
+import re
 import shutil
+import subprocess
 import sys
 import tempfile
-import io
-
-from git.repo.base import Repo
-
-from anthology.utils import (
-    deconstruct_anthology_id,
-    make_simple_element,
-    indent,
-    compute_hash_from_file,
-    infer_url,
-    retrieve_url,
-    get_pdf_dir,
-    get_xml_file,
-)
-
-import lxml.etree as ET
-
+import urllib.parse
 from datetime import datetime
+from pathlib import Path
+
+import requests
+from git.repo.base import Repo
+from github import Auth, Github, GithubException
 from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 
+from acl_anthology import Anthology
+from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
+from acl_anthology.collections.volume import Volume
+from acl_anthology.files import FileReference, PDFReference
+from acl_anthology.utils.ids import parse_id
+
+DEFAULT_GITHUB_REPO = os.environ.get("ANTHOLOGY_GITHUB_REPO", "acl-org/acl-anthology")
+GITHUB_TOKEN_ENV_VARS = ("GITHUB_TOKEN", "GH_TOKEN")
+TRAILING_URL_CHARS = ').,]>"'
+ANTHOLOGY_FILES_DIR = Path(
+    os.environ.get("ANTHOLOGY_FILES", Path.home() / "anthology-files")
+)
+
 WATERMARK_FONT = "Times-Roman"
 WATERMARK_SIZE = 16
-WATERMARK_LEFT_OFFSET_PT = (
-    27  # distance from left edge in points (50% increase for margin)
-)
-WATERMARK_GRAY = 0.55  # medium gray like arXiv
+WATERMARK_LEFT_OFFSET_PT = 27
+WATERMARK_GRAY = 0.55
 
 
-def _make_vertical_watermark_page(w, h, text):
+def _make_vertical_watermark_page(width, height, text):
     """Return a single-page PDF with vertical (rotated 90° CCW) watermark at left."""
-    buf = io.BytesIO()
-    c = canvas.Canvas(buf, pagesize=(w, h))
-    c.saveState()
-    c.setFont(WATERMARK_FONT, WATERMARK_SIZE)
-    c.setFillGray(WATERMARK_GRAY)
-    # Translate slightly from left then rotate so text reads bottom-to-top along left side.
-    c.translate(WATERMARK_LEFT_OFFSET_PT, 0)
-    c.rotate(90)
-    text_w = c.stringWidth(text, WATERMARK_FONT, WATERMARK_SIZE)
-    # Center along original page height (which becomes horizontal span after rotation)
-    x_draw = (h - text_w) / 2.0
-    y_draw = 0
-    c.drawString(x_draw, y_draw, text)
-    c.restoreState()
-    c.showPage()
-    c.save()
-    buf.seek(0)
-    return buf
+    buffer = io.BytesIO()
+    overlay = canvas.Canvas(buffer, pagesize=(width, height))
+    overlay.saveState()
+    overlay.setFont(WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.setFillGray(WATERMARK_GRAY)
+    overlay.translate(WATERMARK_LEFT_OFFSET_PT, 0)
+    overlay.rotate(90)
+    text_width = overlay.stringWidth(text, WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.drawString((height - text_width) / 2.0, 0, text)
+    overlay.restoreState()
+    overlay.showPage()
+    overlay.save()
+    buffer.seek(0)
+    return buffer
 
 
-def add_revision_watermark(pdf_path, anth_id, revno, date):
-    """Return path to temp PDF with watermark added to first page (revisions only)."""
-    reader = PdfReader(pdf_path)
-    if not reader.pages:
-        return pdf_path
+def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
+    """Add a revision watermark to the first page of a PDF."""
+    reader = PdfReader(input_pdf)
     writer = PdfWriter()
-    first = reader.pages[0]
-    w = float(first.mediabox.width)
-    h = float(first.mediabox.height)
-    # Format date as DD-Mon-YYYY (e.g., 17-Sep-2025) for watermark display only.
+    first_page = reader.pages[0]
+    width = float(first_page.mediabox.width)
+    height = float(first_page.mediabox.height)
     try:
-        dt = datetime.strptime(date, "%Y-%m-%d")
-        display_date = dt.strftime("%d %b %Y")
+        display_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d %b %Y")
     except ValueError:
-        # If already in some unexpected format, just use original string.
         display_date = date
-    text = f"ACL Anthology ID {anth_id} / revision {revno} / {display_date}"
-    overlay = PdfReader(_make_vertical_watermark_page(w, h, text)).pages[0]
-    first.merge_page(overlay)
-    writer.add_page(first)
-    for p in reader.pages[1:]:
-        writer.add_page(p)
-    fd, tmp_path = tempfile.mkstemp(suffix=".pdf")
-    os.close(fd)
-    with open(tmp_path, "wb") as out_f:
-        writer.write(out_f)
-    return tmp_path
+    text = f"ACL Anthology ID {anth_id} / revision {revision_id} / {display_date}"
+    watermark_page = PdfReader(
+        _make_vertical_watermark_page(width, height, text)
+    ).pages[0]
+    first_page.merge_page(watermark_page)
+    writer.add_page(first_page)
+    for page in reader.pages[1:]:
+        writer.add_page(page)
+    with open(output_pdf, "wb") as output:
+        writer.write(output)
 
 
-def validate_file_type(path):
-    """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
-    detected = filetype.guess(path)
-    if detected is None or not detected.mime.endswith(detected.extension):
-        mime_type = 'UNKNOWN' if detected is None else detected.mime
+def _get_github_repo(repo_name):
+    token = _get_github_token()
+    if not token:
         print(
-            f"FATAL: file {path} has MIME type {mime_type}",
+            "-> FATAL: no GitHub token found. Set GITHUB_TOKEN or GH_TOKEN, or "
+            "configure Git Credential Manager (gcm) for github.com before using --issue",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    client = Github(auth=Auth.Token(token))
+    try:
+        return client.get_repo(repo_name)
+    except GithubException as exc:
+        print(
+            f"-> FATAL: unable to access GitHub repo {repo_name}: {exc}",
             file=sys.stderr,
         )
         sys.exit(1)
 
 
-def add_revision(
-    anth_id, pdf_path, explanation, change_type="revision", dry_run=True, date=None
+def _get_token_from_git_credential(host="github.com"):
+    """Retrieve a GitHub token from Git Credential Manager via `git credential fill`.
+
+    After a successful fill, the credential is handed back to
+    `git credential approve` so the configured helper (e.g. gcm) persists it.
+    Without this step the credential protocol treats the fill as unconfirmed,
+    causing gcm to re-run its interactive sign-in on every invocation.
+    """
+    request = f"protocol=https\nhost={host}\n\n"
+    try:
+        result = subprocess.run(
+            ["git", "credential", "fill"],
+            input=request,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+    credential = result.stdout
+    token = None
+    for line in credential.splitlines():
+        if line.startswith("password="):
+            token = line[len("password=") :].strip() or None
+
+    if token:
+        # Confirm the credential so the helper stores it and future runs are
+        # served from the cache instead of prompting to sign in again.
+        try:
+            subprocess.run(
+                ["git", "credential", "approve"],
+                input=credential,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
+
+    return token
+
+
+def _get_github_token():
+    for env_var in GITHUB_TOKEN_ENV_VARS:
+        token = os.environ.get(env_var)
+        if token:
+            return token
+    return _get_token_from_git_credential()
+
+
+def _parse_issue_form_sections(body):
+    sections = {}
+    current_key = None
+    for line in body.splitlines():
+        if line.startswith("### "):
+            current_key = line[4:].strip().lower()
+            sections[current_key] = []
+        elif current_key is not None:
+            sections[current_key].append(line.rstrip())
+    return {key: "\n".join(value).strip() for key, value in sections.items()}
+
+
+def _extract_first_url(value):
+    if not value:
+        return None
+    match = re.search(r"(https?://\S+)", value)
+    if match:
+        return match.group(1).rstrip(TRAILING_URL_CHARS)
+    return None
+
+
+GOOGLE_DRIVE_HOSTS = ("drive.google.com", "docs.google.com")
+
+
+def _extract_google_drive_id(url):
+    """Return the file ID from a Google Drive share URL, or None if it isn't one."""
+    parsed = urllib.parse.urlparse(url)
+    if parsed.netloc not in GOOGLE_DRIVE_HOSTS:
+        return None
+    # e.g. https://drive.google.com/file/d/<ID>/view
+    match = re.search(r"/d/([^/]+)", parsed.path)
+    if match:
+        return match.group(1)
+    # e.g. https://drive.google.com/open?id=<ID> or /uc?id=<ID>
+    query = urllib.parse.parse_qs(parsed.query)
+    if "id" in query:
+        return query["id"][0]
+    return None
+
+
+def download_google_drive_file(url, dest):
+    """Download a file shared from Google Drive.
+
+    A plain fetch of a Drive share link returns an HTML viewer/interstitial page
+    rather than the file itself. This resolves the file ID and follows the
+    large-file confirmation form so the actual bytes are written to ``dest``.
+
+    Returns True if ``url`` was a Google Drive URL (and was downloaded), or
+    False if it is not a Drive URL and should be handled by the caller.
+    """
+    file_id = _extract_google_drive_id(url)
+    if file_id is None:
+        return False
+
+    session = requests.Session()
+    response = session.get(
+        "https://drive.google.com/uc",
+        params={"id": file_id, "export": "download"},
+        stream=True,
+    )
+
+    if "text/html" in response.headers.get("Content-Type", ""):
+        # Large files return an interstitial page with a confirmation form.
+        text = response.text
+        action_match = re.search(r'action="([^"]+)"', text)
+        if action_match:
+            action = action_match.group(1).replace("&amp;", "&")
+            params = dict(re.findall(r'name="([^"]+)"\s+value="([^"]*)"', text))
+            response = session.get(action, params=params, stream=True)
+        else:
+            token = next(
+                (
+                    value
+                    for key, value in response.cookies.items()
+                    if key.startswith("download_warning")
+                ),
+                None,
+            )
+            if token:
+                response = session.get(
+                    "https://drive.google.com/uc",
+                    params={"id": file_id, "export": "download", "confirm": token},
+                    stream=True,
+                )
+
+    response.raise_for_status()
+    with open(dest, "wb") as handle:
+        for chunk in response.iter_content(chunk_size=32768):
+            if chunk:
+                handle.write(chunk)
+    return True
+
+
+def fetch_issue_revision_metadata(
+    issue_number, repo_name=DEFAULT_GITHUB_REPO, github_repo=None
 ):
-    """
-    Takes an Anthology ID. It then adds a revision to the Anthology XML,
-    updating and writing the XML file, and copies the PDFs into place.
-    For PDFs, the revised PDF is saved to {anth_id}.pdf and {anth_id}v{version}.pdf.
-    For the first revision, we first copy {anth_id}.pdf to {anth_id}v1.pdf.
-    """
+    """Fetch GitHub issue metadata and extract relevant revision fields."""
+    repo = github_repo or _get_github_repo(repo_name)
+    try:
+        issue = repo.get_issue(number=issue_number)
+    except GithubException as exc:
+        print(
+            f"-> FATAL: unable to fetch issue #{issue_number} from {repo_name}: {exc}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    body = issue.body or ""
+    sections = _parse_issue_form_sections(body)
+    description = sections.get("brief description of changes", "").strip()
+    metadata = {
+        "anthology_id": sections.get("anthology id", "").strip() or None,
+        "pdf_url": _extract_first_url(sections.get("pdf of the revision or erratum", "")),
+        "description": description,
+        "title": issue.title or "",
+        "issue_url": issue.html_url,
+        "raw_body": body,
+    }
+
+    return metadata
+
+
+def validate_file_type(path: Path) -> None:
+    """Ensure downloaded file mime type matches its extension (e.g., PDF)."""
+    detected = filetype.guess(str(path))
+    if detected is None or not detected.mime.endswith(detected.extension):
+        mime_type = "UNKNOWN" if detected is None else detected.mime
+        print(f"-> FATAL: file {path} has MIME type {mime_type}", file=sys.stderr)
+        sys.exit(1)
+
+
+def resolve_pdf_dir(anthology_id: str) -> Path:
+    collection_id, _, _ = parse_id(anthology_id)
+    base_dir = ANTHOLOGY_FILES_DIR / "pdf"
+    if collection_id[0].isdigit():
+        parts = collection_id.split(".", 1)
+        venue = parts[1] if len(parts) == 2 else parts[0]
+        return base_dir / venue
+    return base_dir / collection_id[0] / collection_id
+
+
+def copy_file(src: Path, dest: Path) -> None:
+    print(f"-> Copying {src} -> {dest}", file=sys.stderr)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dest)
+    os.chmod(dest, 0o644)
+
+
+def add_revision(
+    anthology: Anthology,
+    anth_id: str,
+    pdf_path: Path,
+    explanation: str,
+    change_type: str = "revision",
+    date: str | None = None,
+) -> Path | None:
     if date is None:
         now = datetime.now()
         date = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
-    def maybe_copy(file_from, file_to):
-        if not dry_run:
-            print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
-            shutil.copy(file_from, file_to)
-            os.chmod(file_to, 0o644)
-        else:
-            print(
-                "-> DRY RUN: Copying from {} -> {}".format(file_from, file_to),
-                file=sys.stderr,
-            )
+    paper = anthology.get_paper(anth_id)
+    if paper is None:
+        print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
+        sys.exit(1)
 
-    # The new version
-    revno = None
-
+    pdf_dir = resolve_pdf_dir(paper.full_id)
+    canonical_pdf = pdf_dir / f"{paper.full_id}.pdf"
     change_letter = "e" if change_type == "erratum" else "v"
+    history = paper.errata if change_type == "erratum" else paper.revisions
+    needs_initial_revision = change_type == "revision" and not history
 
-    # checksum will be computed after potential watermark insertion
-
-    # Files for old-style IDs are stored under anthology-files/pdf/P/P19/*
-    # Files for new-style IDs are stored under anthology-files/pdf/2020.acl/*
-    output_dir = get_pdf_dir(anth_id)
-
-    # Make sure directory exists
-    if not os.path.exists(output_dir):
-        print(f"-> Creating directory {output_dir}", file=sys.stderr)
-        os.makedirs(output_dir)
-
-    canonical_path = os.path.join(output_dir, f"{anth_id}.pdf")
-
-    # Update XML
-    xml_file = get_xml_file(anth_id)
-    collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
-    tree = ET.parse(xml_file)
-    if paper_id == "0":
-        paper = tree.getroot().find(f"./volume[@id='{volume_id}']/frontmatter")
-    else:
-        paper = tree.getroot().find(
-            f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
-        )
-    if paper is not None:
-        revisions = paper.findall(change_type)
-        revno = 1 if change_type == "erratum" else 2
-        for revision in revisions:
-            revno = int(revision.attrib["id"]) + 1
-
-        # Insert watermark for revisions before computing checksum / updating XML
-        watermarked_temp_path = None
-        if change_type == "revision":
-            watermarked_temp_path = add_revision_watermark(pdf_path, anth_id, revno, date)
-            pdf_path = watermarked_temp_path
-
-        checksum = compute_hash_from_file(pdf_path)
-
-        if not dry_run:
-            # Update the URL hash on the <url> tag
-            if change_type != "erratum":
-                url = paper.find("./url")
-                if url is not None:
-                    url.attrib["hash"] = checksum
-
-            if change_type == "revision" and revno == 2:
-                if paper.find("./url") is not None:
-                    current_version_url = infer_url(paper.find("./url").text) + ".pdf"
-
-                # Download original file
-                # There are no versioned files the first time around, so create the first one
-                # (essentially backing up the original version)
-                revised_file_v1_path = os.path.join(
-                    output_dir, f"{anth_id}{change_letter}1.pdf"
-                )
-
-                retrieve_url(current_version_url, revised_file_v1_path)
-                validate_file_type(revised_file_v1_path)
-
-                old_checksum = compute_hash_from_file(revised_file_v1_path)
-
-                # First revision requires making the original version explicit
-                revision = make_simple_element(
-                    change_type,
-                    None,
-                    attrib={
-                        "id": "1",
-                        "href": f"{anth_id}{change_letter}1",
-                        "hash": old_checksum,
-                    },
-                    parent=paper,
-                )
-
-            revision = make_simple_element(
-                change_type,
-                explanation,
-                attrib={
-                    "id": str(revno),
-                    "href": f"{anth_id}{change_letter}{revno}",
-                    "hash": checksum,
-                    "date": date,
-                },
-                parent=paper,
-            )
-            indent(tree.getroot())
-
-            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            print(
-                f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr
-            )
-
-    else:
+    if change_type == "revision" and paper.pdf is None:
         print(
-            f"-> FATAL: paper ID {anth_id} not found in the Anthology",
+            f"-> FATAL: paper {paper.full_id} has no PDF reference; cannot create revision",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    revised_file_versioned_path = os.path.join(
-        output_dir, f"{anth_id}{change_letter}{revno}.pdf"
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+
+    if needs_initial_revision:
+        v1_name = f"{paper.full_id}{change_letter}1"
+        v1_path = pdf_dir / f"{v1_name}.pdf"
+        print(f"-> Archiving original {paper.full_id} -> {v1_path}", file=sys.stderr)
+        paper.pdf.download(v1_path)
+        validate_file_type(v1_path)
+        paper.revisions += (
+            PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path)),
+        )
+
+    next_id = (
+        int(history[-1].id) + 1 if history else (1 if change_type == "erratum" else 2)
     )
+    version_name = f"{paper.full_id}{change_letter}{next_id}"
+    version_path = pdf_dir / f"{version_name}.pdf"
+    with tempfile.TemporaryDirectory(prefix="revision-watermark-") as temp_dir:
+        source_pdf = pdf_path
+        if change_type == "revision":
+            source_pdf = Path(temp_dir) / "watermarked.pdf"
+            add_revision_watermark(pdf_path, source_pdf, paper.full_id, next_id, date)
 
-    # Copy the file to the versioned path
-    maybe_copy(pdf_path, revised_file_versioned_path)
+        copy_file(source_pdf, version_path)
+        reference = PDFReference.from_file(version_path)
 
-    # Copy it over the canonical path
-    if change_type == "revision":
-        maybe_copy(pdf_path, canonical_path)
+        if change_type == "revision":
+            note = explanation.strip() if explanation else None
+            paper.revisions += (
+                PaperRevision(
+                    id=str(next_id),
+                    note=note,
+                    pdf=reference,
+                    date=date,
+                ),
+            )
+            copy_file(source_pdf, canonical_pdf)
+            paper.pdf = PDFReference.from_file(canonical_pdf)
+        else:
+            paper.errata += (
+                PaperErratum(
+                    id=str(next_id),
+                    pdf=reference,
+                    date=date,
+                ),
+            )
 
-    # Cleanup temp watermarked file if created
-    if (
-        'watermarked_temp_path' in locals()
-        and watermarked_temp_path
-        and os.path.exists(watermarked_temp_path)
-    ):
-        try:
-            os.remove(watermarked_temp_path)
-        except OSError:
-            pass
+    paper.collection.save()
+    print(
+        f"-> Added {change_type} #{next_id} ({version_name}) to {paper.full_id}",
+        file=sys.stderr,
+    )
+    return paper.collection.path
+
+
+def replace_pdf(
+    item: Paper | Volume,
+    pdf_path: Path,
+    label: str = "PDF",
+    explanation: str | None = None,
+    archive: bool = False,
+) -> Path | None:
+    """Replace a paper's or volume's canonical PDF in place, updating the checksum.
+
+    This overwrites {anthology_id}.pdf and records the new checksum without
+    creating any <revision> or <erratum> entries. It is used for frontmatter and
+    whole volumes (neither of which can carry revisions) and for the --replace
+    flag, where a bad file simply needs to be swapped out.
+
+    When ``archive`` is set, the pre-replacement PDF is preserved as
+    {anthology_id}.orig (only if one isn't already there, so the true original
+    survives repeated replacements) and, if an ``explanation`` is given, it is
+    logged to a parallel {anthology_id}.README. Both sit alongside the PDF under
+    ANTHOLOGY_FILES_DIR so they are synced.
+    """
+    pdf_dir = resolve_pdf_dir(item.full_id)
+    canonical_pdf = pdf_dir / f"{item.full_id}.pdf"
+
+    pdf_dir.mkdir(parents=True, exist_ok=True)
+
+    if archive:
+        orig_path = pdf_dir / f"{item.full_id}.orig"
+        if item.pdf is not None and not orig_path.exists():
+            print(
+                f"-> Archiving original {item.full_id} -> {orig_path}",
+                file=sys.stderr,
+            )
+            item.pdf.download(orig_path)
+            os.chmod(orig_path, 0o600)
+        if explanation:
+            readme_path = pdf_dir / f"{item.full_id}.README"
+            print(f"-> Logging description -> {readme_path}", file=sys.stderr)
+            readme_path.write_text(explanation.strip() + "\n")
+
+    copy_file(pdf_path, canonical_pdf)
+    item.pdf = PDFReference.from_file(canonical_pdf)
+    item.collection.save()
+    print(
+        f"-> Replaced {label} and updated checksum for {item.full_id}",
+        file=sys.stderr,
+    )
+    return item.collection.path
+
+
+def normalize_id(id):
+    """
+    Remove common user errors.
+    """
+    return id.rstrip("/")
 
 
 def main(args):
     change_type = "erratum" if args.erratum else "revision"
+    repo_name = args.repo or DEFAULT_GITHUB_REPO
+    anthology = Anthology.from_within_repo()
 
-    print(f"Processing {change_type} to {args.anthology_id}...")
-
-    # TODO: make sure path exists, or download URL to temp file
-    if args.path.startswith("http"):
-        _, input_file_path = tempfile.mkstemp()
-        retrieve_url(args.path, input_file_path)
-    else:
-        input_file_path = args.path
-
-    validate_file_type(input_file_path)
-
-    add_revision(
-        args.anthology_id,
-        input_file_path,
-        args.explanation,
-        change_type=change_type,
-        dry_run=args.dry_run,
-        date=args.date,
-    )
-
-    if args.path.startswith("http"):
-        os.remove(input_file_path)
-
-    """
-    If a Github issue was passed as an argument, do the following.
-    First ensure, that we are on a branch named "corrections-YYYY-MM".
-    Then, create a commit with the message "Add revision for {anthology_id} (closes {issue})"
-    Use the Github module to create the brnach (if not existing), change to it,
-    and create the commit.
-    """
+    github_repo = None
     if args.issue:
-        repo = Repo(".", search_parent_directories=True)
-        # Create the branch if it doesn't exist, based off main (or master)
-        branch_name = f"corrections-{args.date[:7]}"
-        existing_heads = [h.name for h in repo.heads]
-        base_branch = "master"
-        if branch_name not in existing_heads:
-            repo.create_head(branch_name, getattr(repo.heads, base_branch).commit)
-        # Change to the new branch
-        repo.git.checkout(branch_name)
-        # Stage changed files
-        repo.git.add(get_xml_file(args.anthology_id))
-        if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
-            repo.index.commit(
-                f"Add revision for {args.anthology_id} (closes #{args.issue})"
+        github_repo = _get_github_repo(repo_name)
+        issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
+        anthology_id = normalize_id(issue_metadata.get("anthology_id"))
+
+        pdf_url = issue_metadata.get("pdf_url")
+        if args.path:
+            pdf_url = args.path
+
+        print(
+            f"-> Issue #{args.issue} description from {repo_name}:\n"
+            f"   Anthology ID: {anthology_id or 'not provided'}\n"
+            f"   PDF URL: {issue_metadata.get('pdf_url') or 'not provided'}\n"
+            f"   PDF override (--path): {args.path or 'not provided'}\n"
+            f"   PDF used: {pdf_url or 'not provided'}\n"
+        )
+
+        description = issue_metadata.get("description") or ""
+        if description:
+            print("\nReported brief description:\n" + description + "\n")
+        else:
+            print("\nNo brief description found in the issue body.\n")
+
+        user_summary = input(
+            "Enter the summary to store in the Anthology (press Enter to reuse the description): "
+        ).strip()
+        explanation_text = user_summary or description
+    else:
+        if args.anthology_id is None or args.path is None or args.explanation is None:
+            print(
+                "-> FATAL: anthology_id, path, and explanation are required if not using --issue",
+                file=sys.stderr,
             )
+            sys.exit(1)
+        anthology_id = args.anthology_id
+        pdf_url = args.path
+        explanation_text = args.explanation
+
+    if not anthology_id:
+        print("-> FATAL: Anthology ID not provided", file=sys.stderr)
+        sys.exit(1)
+    if not pdf_url:
+        print("-> FATAL: PDF path or URL not provided", file=sys.stderr)
+        sys.exit(1)
+
+    pdf_path = None
+    temp_path = None
+    if pdf_url.lower().startswith("http"):
+        _, temp_path_str = tempfile.mkstemp(suffix=".pdf")
+        temp_path = pdf_path = Path(temp_path_str)
+        if not download_google_drive_file(pdf_url, pdf_path):
+            FileReference(name=pdf_url).download(pdf_path)
+    else:
+        pdf_path = Path(pdf_url)
+        if not pdf_path.is_file():
+            print(f"-> FATAL: file {pdf_path} does not exist", file=sys.stderr)
+            sys.exit(1)
+
+    pdf_path = Path(pdf_path)
+    validate_file_type(pdf_path)
+
+    _, volume_id, paper_id = parse_id(anthology_id)
+    is_volume = paper_id is None and volume_id is not None
+    is_frontmatter = paper_id == "0"
+
+    if is_volume and not args.replace:
+        print(
+            f"-> FATAL: {anthology_id} is a volume; volumes do not support "
+            "revisions. Use -R to replace the volume PDF.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if is_volume:
+        volume = anthology.get_volume(anthology_id)
+        if volume is None:
+            print(
+                f"-> FATAL: volume ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        collection_path = replace_pdf(
+            volume,
+            pdf_path,
+            label="volume PDF",
+            explanation=explanation_text,
+            archive=True,
+        )
+    elif is_frontmatter or args.replace:
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        label = "frontmatter PDF" if is_frontmatter else "PDF"
+        collection_path = replace_pdf(
+            paper,
+            pdf_path,
+            label=label,
+            explanation=explanation_text if args.replace else None,
+            archive=args.replace,
+        )
+    else:
+        # build a list of the checksums of all revisions for the paper
+        paper = anthology.get_paper(anthology_id)
+        if paper is None:
+            print(
+                f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        existing_checksums = [rev.pdf.checksum for rev in paper.revisions + paper.errata]
+        # make sure the new PDF is not a dupe
+        if PDFReference.from_file(pdf_path).checksum in existing_checksums:
+            print(
+                f"-> FATAL: the provided PDF is identical to an existing revision/erratum for {paper.full_id}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        collection_path = add_revision(
+            anthology,
+            anthology_id,
+            pdf_path,
+            explanation_text,
+            change_type=change_type,
+            date=args.date,
+        )
+
+    # clean up
+    if temp_path is not None and temp_path.exists():
+        temp_path.unlink()
+
+    """
+    If a Github issue or manual replacement was passed, create a commit.
+    """
+    if (args.issue or args.replace) and collection_path is not None:
+        repo = Repo(".", search_parent_directories=True)
+        repo.git.add(str(collection_path))
+        if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
+            if args.issue:
+                if is_frontmatter:
+                    msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
+                elif is_volume:
+                    msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
+                elif args.replace:
+                    msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
+                else:
+                    msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"
+            else:
+                msg = f"Replace PDF for {anthology_id}."
+            if explanation_text:
+                msg += f"\n\n{explanation_text}"
+            repo.index.commit(msg)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
+        "--anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
     )
     parser.add_argument(
-        "path", type=str, help="Path to the revised paper ID (can be URL)"
+        "--path", type=str, help="Path to the revised paper ID (can be URL)"
     )
-    parser.add_argument("explanation", help="Brief description of the changes.")
+    parser.add_argument("--explanation", help="Brief description of the changes.")
     parser.add_argument(
         "--issue",
         "-i",
@@ -355,6 +676,12 @@ if __name__ == "__main__":
         action="store_true",
         help="This is an erratum instead of a revision.",
     )
+    parser.add_argument(
+        "--replace",
+        "-R",
+        action="store_true",
+        help="Replace the paper's PDF in place (update checksum) without recording a revision.",
+    )
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
     parser.add_argument(
@@ -365,8 +692,12 @@ if __name__ == "__main__":
         help="The date of the revision (ISO 8601 format)",
     )
     parser.add_argument(
-        "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
+        "--repo",
+        "-r",
+        default=DEFAULT_GITHUB_REPO,
+        help="GitHub repository (owner/name) to query for issues.",
     )
+
     args = parser.parse_args()
 
     main(args)

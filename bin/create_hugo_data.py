@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ Options:
 
 from docopt import docopt
 from collections import Counter
+from datetime import date, timedelta
 from functools import cache
 import logging as log
 import msgspec
@@ -48,20 +49,34 @@ from rich.progress import (
 )
 import shutil
 
-from acl_anthology import Anthology, config
+from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
+from acl_anthology.collections.types import EventLink
 from acl_anthology.collections.volume import VolumeType
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
+from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
     interpret_pages,
     month_str2num,
     remove_extra_whitespace,
 )
 
-
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+HOMEPAGE_FLAGSHIP_VENUES = (
+    "acl",
+    "aacl",
+    "cl",
+    "coling",
+    "eacl",
+    "emnlp",
+    "findings",
+    "lrec",
+    "naacl",
+    "tacl",
+)
 
 
 def check_directory(cdir, clean=False):
@@ -93,7 +108,7 @@ def make_progress():
         TaskProgressColumn(show_speed=True),
         TimeRemainingColumn(elapsed_when_finished=True),
     ]
-    return Progress(*columns)
+    return Progress(*columns, console=primary_console)
 
 
 @cache
@@ -116,7 +131,6 @@ def paper_to_dict(paper):
     data = {
         "bibkey": paper.bibkey,
         "bibtype": paper.bibtype,
-        "ingest_date": paper.get_ingest_date().isoformat(),
         "paper_id": paper.id,
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
@@ -127,10 +141,11 @@ def paper_to_dict(paper):
         "url": paper.web_url if (not paper.pdf or paper.pdf.is_local) else paper.pdf.url,
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
+        "year": paper.year,
     }
-    editors = [
-        person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.get_editors()
-    ]
+    if paper.ingest_date != UNKNOWN_INGEST_DATE:
+        data["ingest_date"] = paper.ingest_date.isoformat()
+    editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
     if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
@@ -139,15 +154,13 @@ def paper_to_dict(paper):
             data["author"] = editors
     else:
         if paper.authors:
-            data["author"] = [
-                person_to_dict(paper.root.resolve(ns).id, ns) for ns in paper.authors
-            ]
+            data["author"] = [person_to_dict(ns.resolve().id, ns) for ns in paper.authors]
         if editors:
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "issue", "journal", "note"):
-        # TODO: Keys 'issue' and 'journal' are currently unused on Hugo templates
+    for key in ("doi", "journal_issue", "journal_title", "note", "month"):
+        # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
@@ -160,7 +173,11 @@ def paper_to_dict(paper):
     if (language_name := paper.language_name) is not None:
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
-        data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        try:
+            data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+        except ValueError as e:
+            log.error(f"Paper {paper.full_id}: error processing abstract: {e}")
+            data["abstract_html"] = abstract.as_xml()
         data["abstract_raw"] = abstract.as_xml()
     if paper.attachments:
         data["attachment"] = [
@@ -173,7 +190,9 @@ def paper_to_dict(paper):
             if attachment[0] != "mrf"  # exclude <mrf>
         ]
     if paper.awards:
-        data["award"] = paper.awards
+        data["award"] = [
+            {"name": award.name, "reasoning": award.reasoning} for award in paper.awards
+        ]
     if paper.deletion:
         match paper.deletion.type:
             case PaperDeletionType.RETRACTED:
@@ -194,8 +213,11 @@ def paper_to_dict(paper):
         else:
             data["pages"] = page_first
     if paper.pdf is not None:
-        data["pdf"] = paper.pdf.url
-        data["thumbnail"] = paper.thumbnail.url
+        if paper.pdf.is_local:
+            data["pdf"] = paper.pdf.url
+            data["thumbnail"] = paper.thumbnail.url
+        else:
+            data["external"] = paper.pdf.url
     if paper.errata:
         data["erratum"] = [
             {
@@ -205,21 +227,6 @@ def paper_to_dict(paper):
             }
             for erratum in paper.errata
         ]
-    if (pwc := paper.paperswithcode) is not None:
-        if pwc.code is not None:
-            data["pwccode"] = {
-                "additional": "true" if pwc.community_code else "false",
-                "name": pwc.code[0],
-                "url": pwc.code[1],
-            }
-        if pwc.datasets:
-            data["pwcdataset"] = [
-                {
-                    "name": dataset[0],
-                    "url": dataset[1],
-                }
-                for dataset in pwc.datasets
-            ]
     if paper.revisions:
         data["revision"] = [
             {
@@ -265,26 +272,114 @@ def volume_to_dict(volume):
     if volume.shorttitle:
         data["shortbooktitle"] = volume.shorttitle.as_text()
     if volume.editors:
-        data["editor"] = [
-            person_to_dict(volume.root.resolve(ns).id, ns) for ns in volume.editors
-        ]
-    if events := volume.get_events():
-        data["events"] = [event.id for event in events if event.is_explicit]
+        data["editor"] = [person_to_dict(ns.resolve().id, ns) for ns in volume.editors]
+    if volume.type != VolumeType.JOURNAL and (events := volume.get_events()):
+        data["events"] = sorted(event.id for event in events)
     if sigs := volume.get_sigs():
-        data["sigs"] = [sig.acronym for sig in sigs]
+        data["sigs"] = sorted(sig.acronym for sig in sigs)
     if volume.type == VolumeType.JOURNAL:
-        data["meta_journal_title"] = volume.get_journal_title()
+        data["meta_journal_title"] = volume.journal_title
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:
-        data["pdf"] = volume.pdf.url
+        if volume.pdf.is_local:
+            data["pdf"] = volume.pdf.url
+        else:
+            data["external"] = volume.pdf.url
     return data
 
 
-def export_papers_and_volumes(anthology, builddir, dryrun):
+def explicitly_colocated_volume_ids(anthology):
+    """Return volumes explicitly attached to a parent event."""
+    return {
+        volume_id
+        for event in anthology.events.values()
+        for volume_id, link_type in event.colocated_ids.items()
+        if link_type == EventLink.EXPLICIT
+    }
+
+
+def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
+    """Return the latest ingest date excluding volumes owned by a parent event."""
+    return max(
+        (
+            volume.ingest_date
+            for volume in volumes
+            if volume.full_id_tuple not in explicitly_colocated_ids
+        ),
+        default=UNKNOWN_INGEST_DATE,
+    )
+
+
+def newly_ingested_years(volumes, current_date=None, excluded_volume_ids=frozenset()):
+    """Return years containing a volume ingested within the past 45 days."""
+    current_date = current_date or date.today()
+    cutoff = current_date - timedelta(days=45)
+    return sorted(
+        {
+            volume.year
+            for volume in volumes
+            if (
+                (
+                    not excluded_volume_ids
+                    or volume.full_id_tuple not in excluded_volume_ids
+                )
+                and cutoff <= volume.ingest_date <= current_date
+            )
+        }
+    )
+
+
+def homepage_venue_group(venue_id, newly_ingested_owned_years):
+    """Return the venue's ordered homepage group number."""
+    if venue_id == "ws":
+        return 4
+    if newly_ingested_owned_years:
+        return 1
+    if venue_id in HOMEPAGE_FLAGSHIP_VENUES:
+        return 2
+    return 3
+
+
+def homepage_venue_sort_key(venue_id, acronym, homepage_group):
+    """Return the venue's sort key within its ordered homepage group."""
+    if homepage_group == 2:
+        position = HOMEPAGE_FLAGSHIP_VENUES.index(venue_id)
+        return f"{homepage_group}:{position:02d}:{venue_id}"
+    return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
+
+
+def homepage_stats(anthology):
+    """Compute collection statistics displayed on the homepage."""
+    volumes = list(anthology.volumes())
+    all_venues = list(anthology.venues.values())
+    top_level_venues = [venue for venue in all_venues if venue.is_toplevel]
+
+    return {
+        "paper_count": sum(1 for _ in anthology.papers()),
+        "volume_count": len(volumes),
+        "venue_count": len(all_venues),
+        "venue_year_count": sum(
+            len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
+        ),
+        "oldest_year": min(volume.year for volume in volumes),
+        "newest_year": max(volume.year for volume in volumes),
+    }
+
+
+def export_homepage_stats(anthology, builddir, dryrun):
+    data = homepage_stats(anthology)
+    if not dryrun:
+        with open(f"{builddir}/data/homepage.json", "wb") as f:
+            f.write(ENCODER.encode(data))
+    return data
+
+
+def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
     all_volumes = {}
     with make_progress() as progress:
-        paper_count = sum(1 for _ in anthology.papers())
+        if paper_count is None:
+            paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
         for collection in anthology.collections.values():
             collection_papers = {}
@@ -308,14 +403,18 @@ def export_papers_and_volumes(anthology, builddir, dryrun):
                         volume_data[key] = value
                 if events := volume.get_events():
                     # TODO: This information is currently not used on paper templates
-                    volume_data["events"] = [
+                    volume_data["events"] = sorted(
                         event.id for event in events if event.is_explicit
-                    ]
+                    )
 
                 # Now build the data for every paper
                 for paper in volume.papers():
-                    data = paper_to_dict(paper)
-                    data.update(volume_data)
+                    data = volume_data.copy()
+                    try:
+                        data.update(paper_to_dict(paper))
+                    except ValueError as e:
+                        log.error(f"Paper {paper.full_id}: {e}")
+                        continue
                     collection_papers[paper.full_id] = data
                     if "bibtex" in data:
                         volume_bibtex[volume.full_id].append(
@@ -358,7 +457,8 @@ def export_people(anthology, builddir, dryrun):
             cname = person.canonical_name
             papers = sorted(
                 person.papers(),
-                key=lambda paper: paper.year,
+                # TODO: Sort by month as well? Converting from string first?
+                key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
             data = {
@@ -374,6 +474,8 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (
                         -item[1],
                         anthology.people[item[0]].canonical_name.last,
+                        anthology.people[item[0]].canonical_name.as_last_first(),
+                        anthology.people[item[0]].id,
                     ),
                 ),
                 "venues": sorted(
@@ -392,15 +494,46 @@ def export_people(anthology, builddir, dryrun):
                     )
                     if n.script is not None:
                         diff_script_variants.append(n.as_full())
-                if diff_script_variants:
+                if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
             if person.comment is not None:
                 data["comment"] = person.comment
+            if person.orcid is not None:
+                data["orcid"] = person.orcid
             similar = anthology.people.similar.subset(person_id)
-            if len(similar) > 1:
-                data["similar"] = list(similar - {person_id})
+            similar.remove(person_id)
+            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
+                data["similar_verified"] = sorted(list(similar_verified))
+                similar.difference_update(similar_verified)
+            if similar:  # any remaining IDs are unverified
+                data["similar_unverified"] = sorted(list(similar))
             people[person_id] = data
             progress.update(task, advance=1)
+
+        # Generate redirects _iff_ there's a slug to a verified ID that does not
+        # correspond to an existing (verified OR unverified) person ID
+        extra_slugs = set(anthology.people.slugs_to_verified_ids.keys()) - set(
+            pid.replace("/unverified", "") for pid in people.keys()
+        )
+        for slug in extra_slugs:
+            ids = anthology.people.slugs_to_verified_ids[slug]
+            if len(ids) > 1:
+                target_id = sorted(
+                    ids,
+                    key=lambda pid: (
+                        len(list(anthology.people[pid].anthology_items())),
+                        pid,
+                    ),
+                )[-1]
+            else:
+                target_id = list(ids)[0]
+            if "aliases" in people[target_id]:
+                people[target_id]["aliases"].append(slug)
+            else:
+                people[target_id]["aliases"] = [slug]
+        for person in people.values():
+            if "aliases" in person:
+                person["aliases"].sort()
 
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
@@ -408,36 +541,63 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
+def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
+    data = {
+        "acronym": venue.acronym,
+        "is_acl": venue.is_acl,
+        "is_toplevel": venue.is_toplevel,
+        "name": venue.name,
+        # Note: 'slug' was produced with a separate function in the old
+        # library, but in practice it's always just the venue_id — maybe we
+        # can refactor this in the depending code as well to just use the
+        # venue_id, and get rid of this attribute
+        "slug": venue_id,
+    }
+    if venue.oldstyle_letter is not None:
+        data["oldstyle_letter"] = venue.oldstyle_letter
+    if venue.url is not None:
+        data["url"] = venue.url
+    if venue.type is not None:
+        data["type"] = venue.type
+    data["volumes_by_year"] = {}
+    sorted_volumes = sorted(
+        venue.volumes(),
+        key=lambda volume: (
+            volume.year,
+            volume.parent.id,
+            # Follow order of volumes within a collection
+            list(volume.parent.keys()).index(volume.id),
+        ),
+    )
+    for volume in sorted_volumes:
+        year, volume_id = volume.year, volume.full_id
+        try:
+            data["volumes_by_year"][year].append(volume_id)
+        except KeyError:
+            data["volumes_by_year"][year] = [volume_id]
+    data["years"] = list(data["volumes_by_year"].keys())
+    data["newly_ingested_years"] = newly_ingested_years(sorted_volumes, current_date)
+    newly_ingested_owned_years = newly_ingested_years(
+        sorted_volumes,
+        current_date,
+        excluded_volume_ids=explicitly_colocated_ids,
+    )
+    data["homepage_group"] = homepage_venue_group(venue_id, newly_ingested_owned_years)
+    data["homepage_sort_key"] = homepage_venue_sort_key(
+        venue_id, venue.acronym, data["homepage_group"]
+    )
+    data["latest_ingest_date"] = latest_owned_ingest_date(
+        sorted_volumes, explicitly_colocated_ids
+    ).isoformat()
+    return data
+
+
 def export_venues(anthology, builddir, dryrun):
     all_venues = {}
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
-        data = {
-            "acronym": venue.acronym,
-            "is_acl": venue.is_acl,
-            "is_toplevel": venue.is_toplevel,
-            "name": venue.name,
-            # Note: 'slug' was produced with a separate function in the old
-            # library, but in practice it's always just the venue_id — maybe we
-            # can refactor this in the depending code as well to just use the
-            # venue_id, and get rid of this attribute
-            "slug": venue_id,
-        }
-        if venue.oldstyle_letter is not None:
-            data["oldstyle_letter"] = venue.oldstyle_letter
-        if venue.url is not None:
-            data["url"] = venue.url
-        if venue.type is not None:
-            data["type"] = venue.type
-        data["volumes_by_year"] = {}
-        for volume in venue.volumes():
-            year, volume_id = volume.year, volume.full_id
-            try:
-                data["volumes_by_year"][year].append(volume_id)
-            except KeyError:
-                data["volumes_by_year"][year] = [volume_id]
-        data["years"] = sorted(list(data["volumes_by_year"].keys()))
-        all_venues[venue_id] = data
+        all_venues[venue_id] = venue_to_dict(venue_id, venue, explicitly_colocated_ids)
 
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:
@@ -488,6 +648,16 @@ def export_events(anthology, builddir, dryrun):
                 sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
+
+        # List venues for each volume in this event
+        data["vol_venues"] = {}
+        for vol_id in data["volumes"]:
+            vol = anthology.get(vol_id)
+            data["vol_venues"][vol_id] = []
+            for venue in vol.venues():
+                if venue.acronym.lower() == "ws":
+                    continue
+                data["vol_venues"][vol_id].append(venue.id)
 
         if event.title is not None:
             data["title"] = event.title.as_text()
@@ -547,7 +717,10 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
             if not check_directory(target_dir, clean=clean):
                 return
 
-    export_papers_and_volumes(anthology, builddir, dryrun)
+    stats = export_homepage_stats(anthology, builddir, dryrun)
+    export_papers_and_volumes(
+        anthology, builddir, dryrun, paper_count=stats["paper_count"]
+    )
     export_people(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)

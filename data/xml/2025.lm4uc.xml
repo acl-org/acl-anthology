@@ -13,11 +13,11 @@
       <isbn>979-8-89176-242-8</isbn>
       <doi>10.18653/v1/2025.lm4uc-1</doi>
       <editor><first>Sang</first><last>Truong</last></editor>
-      <editor><first>Rifki Afina</first><last>Putri</last></editor>
-      <editor><first>Duc</first><last>Nguyen</last></editor>
+      <editor id="rifki-afina-putri"><first>Rifki Afina</first><last>Putri</last></editor>
+      <editor id="duc-quang-nguyen"><first>Duc</first><last>Nguyen</last></editor>
       <editor><first>Angelina</first><last>Wang</last></editor>
       <editor><first>Daniel</first><last>Ho</last></editor>
-      <editor><first>Alice</first><last>Oh</last></editor>
+      <editor id="alice-oh"><first>Alice</first><last>Oh</last></editor>
       <editor><first>Sanmi</first><last>Koyejo</last></editor>
     </meta>
     <frontmatter>
@@ -41,7 +41,7 @@
       <author><first>Mohammad Abu Tareq</first><last>Rony</last><affiliation>Noakhali Science &amp; Technology University</affiliation></author>
       <author><first>Mohammad Shariful</first><last>Islam</last><affiliation>Noakhali Science &amp; Technology University</affiliation></author>
       <pages>8-15</pages>
-      <abstract>Research on Retrieval-Augmented Generation for low-resource languages has been sparse because of limited resources. To address this, we focus on Bangla, a low-resource language, and have created a dataset of 200 question-answer pairs as a basis for our study from Bangla Wikipedia dumps data. This paper introduces the TraSe architecture, which enhances RAG for Bangla using Translative prompting. Our experiments demonstrate that TraSe improves answer selection accuracy, achieving 34% with automatic retrieval and 63% with Human-in-the-Loop retrieval, outperforming baseline methods. The TraSe architecture marks a significant advancement in RAG for low-resource languages and has the potential to enhance question-answering systems for Bangla and similar languages. Future research could explore additional low-resource languages. The code is available at the following GitHub repository: https://github.com/Atia6/TraSe-Bangla-RAG.</abstract>
+      <abstract>Research on Retrieval-Augmented Generation for low-resource languages has been sparse because of limited resources. To address this, we focus on Bangla, a low-resource language, and have created a dataset of 200 question-answer pairs as a basis for our study from Bangla Wikipedia dumps data. This paper introduces the TraSe architecture, which enhances RAG for Bangla using Translative prompting. Our experiments demonstrate that TraSe improves answer selection accuracy, achieving 34% with automatic retrieval and 63% with Human-in-the-Loop retrieval, outperforming baseline methods. The TraSe architecture marks a significant advancement in RAG for low-resource languages and has the potential to enhance question-answering systems for Bangla and similar languages. Future research could explore additional low-resource languages. The code is available at the following GitHub repository: <url>https://github.com/Atia6/TraSe-Bangla-RAG</url>.</abstract>
       <url hash="86712547">2025.lm4uc-1.2</url>
       <bibkey>ipa-etal-2025-empowering</bibkey>
       <doi>10.18653/v1/2025.lm4uc-1.2</doi>
@@ -49,7 +49,7 @@
     <paper id="3">
       <title><fixed-case>ABDUL</fixed-case>: A New Approach to Build Language Models for Dialects Using Formal Language Corpora Only</title>
       <author><first>Yassine</first><last>Toughrai</last><affiliation>Université de Lorraine</affiliation></author>
-      <author><first>Kamel</first><last>Smaïli</last><affiliation>Université de Lorraine</affiliation></author>
+      <author id="kamel-smaili"><first>Kamel</first><last>Smaïli</last><affiliation>Université de Lorraine</affiliation></author>
       <author><first>David</first><last>Langlois</last><affiliation>Université de Lorraine</affiliation></author>
       <pages>16-21</pages>
       <abstract>Arabic dialects present major challenges for natural language processing (NLP) due to their diglossic nature, phonetic variability, and the scarcity of resources. To address this, we introduce a phoneme-like transcription approach that enables the training of robust language models for North African Dialects (NADs) using only formal language data, without the need for dialect-specific corpora.Our key insight is that Arabic dialects are highly phonetic, with NADs particularly influenced by European languages. This motivated us to develop a novel approach in which we convert Arabic script into a Latin-based representation, allowing our language model, ABDUL, to benefit from existing Latin-script corpora.Our method demonstrates strong performance in multi-label emotion classification and named entity recognition (NER) across various Arabic dialects. ABDUL achieves results comparable to or better than specialized and multilingual models such as DarijaBERT, DziriBERT, and mBERT. Notably, in the NER task, ABDUL outperforms mBERT by 5% in F1-score for Modern Standard Arabic (MSA), Moroccan, and Algerian Arabic, despite using a vocabulary four times smaller than mBERT.</abstract>
@@ -62,7 +62,7 @@
       <author><first>Enora</first><last>Rice</last><affiliation>University of Colorado Boulder</affiliation></author>
       <author><first>Ali</first><last>Marashian</last><affiliation>University of Colorado Boulder</affiliation></author>
       <author><first>Hannah</first><last>Haynie</last><affiliation>University of Colorado Boulder</affiliation></author>
-      <author><first>Katharina</first><last>Wense</last><affiliation>University of Colorado Boulder</affiliation></author>
+      <author id="katharina-von-der-wense"><first>Katharina</first><last>von der Wense</last><affiliation>University of Colorado Boulder</affiliation></author>
       <author><first>Alexis</first><last>Palmer</last><affiliation>University of Colorado Boulder</affiliation></author>
       <pages>22-31</pages>
       <abstract>Cross-lingual transfer learning is an invaluable tool for overcoming data scarcity, yet selecting a suitable transfer language remains a challenge. The precise roles of linguistic typology, training data, and model architecture in transfer language choice are not fully understood. We take a holistic approach, examining how both dataset-specific and fine-grained typological features influence transfer language selection for part-of-speech tagging, considering two different sources for morphosyntactic features. While previous work examines these dynamics in the context of bilingual biLSTMS, we extend our analysis to a more modern transfer learning pipeline: zero-shot prediction with pretrained multilingual models. We train a series of transfer language ranking systems and examine how different feature inputs influence ranker performance across architectures. Word overlap, type-token ratio, and genealogical distance emerge as top features across all architectures. Our findings reveal that a combination of typological and dataset-dependent features leads to the best rankings, and that good performance can be obtained with either feature group on its own.</abstract>
@@ -73,15 +73,15 @@
       <revision id="2" href="2025.lm4uc-1.4v2" hash="3deb9f8e" date="2025-06-12">Added missing acknowledgments and corrected a typo.</revision>
     </paper>
     <paper id="5">
-      <title>Serving the Underserved: Leveraging <fixed-case>BARTB</fixed-case>ahnar Language Model for Bahnaric-<fixed-case>V</fixed-case>ietnamese Translation</title>
-      <author><first>Long</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
-      <author><first>Tran</first><last>Le</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
-      <author><first>Huong</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
-      <author><first>Quynh</first><last>Vo</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
-      <author><first>Phong</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
-      <author><first>Tho</first><last>Quan</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <title>Serving the Underserved: Leveraging <fixed-case>BARTB</fixed-case>ahnar Language Model for <fixed-case>B</fixed-case>ahnaric-<fixed-case>V</fixed-case>ietnamese Translation</title>
+      <author id="long-s-t-nguyen"><first>Long S. T.</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <author><first>Tran T. B.</first><last>Le</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <author><first>Huong P. N.</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <author><first>Quynh T. N.</first><last>Vo</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <author><first>Phong H. N.</first><last>Nguyen</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
+      <author><first>Tho T.</first><last>Quan</last><affiliation>Ho Chi Minh City University of Technology - VNU-HCM</affiliation></author>
       <pages>32-41</pages>
-      <abstract>The Bahnar people, one of Vietnam’s ethnic minorities, represent an underserved community with limited access to modern technologies. Developing an effective Bahnaric-Vietnamese translation system is essential for fostering linguistic exchange, preserving cultural heritage, and empowering local communities by bridging communication barriers. With advancements in Artificial Intelligence (AI), Neural Machine Translation (NMT) has achieved remarkable success across various language pairs. However, the low-resource nature of Bahnaric, characterized by data scarcity, vocabulary constraints, and the lack of parallel corpora, poses significant challenges to building an accurate and efficient translation system. To address these challenges, we propose a novel hybrid architecture for Bahnaric-Vietnamese translation, with BARTBahnar as its core language model. BARTBahnar is developed by continually training a pre-trained Vietnamese model, BARTPho, on augmented monolingual Bahnaric data, followed by fine-tuning on bilingual datasets. This transfer learning approach reduces training costs while effectively capturing linguistic similarities between the two languages. Additionally, we implement advanced data augmentation techniques to enrich and diversify training data, further enhancing BARTBahnar’s robustness and translation accuracy. Beyond leveraging the language model, our hybrid system integrates rule-based and statistical methods to improve translation quality. Experimental results show substantial improvements on bilingual Bahnaric-Vietnamese datasets, validating the effectiveness of our approach for low-resource translation. To support further research, we open-source our code and related materials at https://github.com/ura-hcmut/BARTBahnar.</abstract>
+      <abstract>The Bahnar people, one of Vietnam’s ethnic minorities, represent an underserved community with limited access to modern technologies. Developing an effective Bahnaric-Vietnamese translation system is essential for fostering linguistic exchange, preserving cultural heritage, and empowering local communities by bridging communication barriers. With advancements in Artificial Intelligence (AI), Neural Machine Translation (NMT) has achieved remarkable success across various language pairs. However, the low-resource nature of Bahnaric, characterized by data scarcity, vocabulary constraints, and the lack of parallel corpora, poses significant challenges to building an accurate and efficient translation system. To address these challenges, we propose a novel hybrid architecture for Bahnaric-Vietnamese translation, with BARTBahnar as its core language model. BARTBahnar is developed by continually training a pre-trained Vietnamese model, BARTPho, on augmented monolingual Bahnaric data, followed by fine-tuning on bilingual datasets. This transfer learning approach reduces training costs while effectively capturing linguistic similarities between the two languages. Additionally, we implement advanced data augmentation techniques to enrich and diversify training data, further enhancing BARTBahnar’s robustness and translation accuracy. Beyond leveraging the language model, our hybrid system integrates rule-based and statistical methods to improve translation quality. Experimental results show substantial improvements on bilingual Bahnaric-Vietnamese datasets, validating the effectiveness of our approach for low-resource translation. To support further research, we open-source our code and related materials at <url>https://github.com/ura-hcmut/BARTBahnar</url>.</abstract>
       <url hash="5fbb5417">2025.lm4uc-1.5</url>
       <bibkey>nguyen-etal-2025-serving</bibkey>
       <doi>10.18653/v1/2025.lm4uc-1.5</doi>
@@ -101,7 +101,7 @@
       <author><first>Mahfuz Ahmed</first><last>Anik</last></author>
       <author><first>Abdur</first><last>Rahman</last></author>
       <author><first>Azmine Toushik</first><last>Wasi</last></author>
-      <author><first>Md Manjurul</first><last>Ahsan</last></author>
+      <author id="md-manjurul-ahsan"><first>Md Manjurul</first><last>Ahsan</last></author>
       <pages>51-60</pages>
       <abstract>Language is a cornerstone of cultural identity, yet globalization and the dominance of major languages have placed nearly 3,000 languages at risk of extinction. Existing AI-driven translation models prioritize efficiency but often fail to capture cultural nuances, idiomatic expressions, and historical significance, leading to translations that marginalize linguistic diversity. To address these challenges, we propose a multi-agent AI framework designed for culturally adaptive translation in underserved language communities. Our approach leverages specialized agents for translation, interpretation, content synthesis, and bias evaluation, ensuring that linguistic accuracy and cultural relevance are preserved. Using CrewAI and LangChain, our system enhances contextual fidelity while mitigating biases through external validation. Comparative analysis shows that our framework outperforms GPT-4o, producing contextually rich and culturally embedded translations—a critical advancement for Indigenous, regional, and low-resource languages. This research underscores the potential of multi-agent AI in fostering equitable, sustainable, and culturally sensitive NLP technologies, aligning with the AI Governance, Cultural NLP, and Sustainable NLP pillars of Language Models for Underserved Communities. Our full experimental codebase is publicly avail able at: github.com/ciol-researchlab/Context-Aware_Translation_MAS.</abstract>
       <url hash="9e501108">2025.lm4uc-1.7</url>
@@ -149,9 +149,11 @@
       <author><first>Stergios</first><last>Chatzikyriakidis</last><affiliation>University of Crete</affiliation></author>
       <pages>104-115</pages>
       <abstract>This paper is a critical reflection on the epistemic culture of contemporary computational linguistics, framed in the context of its growing obsession with tables with numbers. We argue against tables with numbers on the basis of their epistemic irrelevance, their environmental impact, their role in enabling and exacerbating social inequalities, and their deep ties to commercial applications and profit-driven research. We substantiate our arguments with empirical evidence drawn from a meta-analysis of computational linguistics research over the last decade.</abstract>
-      <url hash="a5829acf">2025.lm4uc-1.12</url>
+      <url hash="621606be">2025.lm4uc-1.12</url>
       <bibkey>kogkalidis-chatzikyriakidis-2025-tables</bibkey>
       <doi>10.18653/v1/2025.lm4uc-1.12</doi>
+      <revision id="1" href="2025.lm4uc-1.12v1" hash="a5829acf"/>
+      <revision id="2" href="2025.lm4uc-1.12v2" hash="621606be" date="2025-12-01">Added more info on the funding body.</revision>
     </paper>
   </volume>
 </collection>

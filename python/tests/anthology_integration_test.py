@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,13 +19,12 @@ from lxml import etree
 from pathlib import Path
 
 from acl_anthology import Anthology
-from acl_anthology.sigs import SIG
-from acl_anthology.venues import Venue
 from acl_anthology.utils import xml
 
-
 # Map from [repo]/python/tests to [repo]/data
-DATADIR = Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+DATADIR = (
+    Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / "data"
+).resolve()
 
 
 def pytest_generate_tests(metafunc):
@@ -35,21 +34,6 @@ def pytest_generate_tests(metafunc):
             "full_anthology_collection_id",
             [xmlpath.name[:-4] for xmlpath in sorted(DATADIR.glob("xml/*.xml"))],
         )
-    # Discovers all venue YAML files in DATADIR and parametrizes tests
-    if "full_anthology_venue_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_venue_id",
-            [
-                yamlpath.name[:-5]
-                for yamlpath in sorted(DATADIR.glob("yaml/venues/*.yaml"))
-            ],
-        )
-    # Discovers all SIG YAML files in DATADIR and parametrizes tests
-    if "full_anthology_sig_id" in metafunc.fixturenames:
-        metafunc.parametrize(
-            "full_anthology_sig_id",
-            [yamlpath.name[:-5] for yamlpath in sorted(DATADIR.glob("yaml/sigs/*.yaml"))],
-        )
 
 
 @pytest.fixture(scope="module")
@@ -58,15 +42,44 @@ def full_anthology():
 
 
 @pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.SchemaMismatchWarning")
 def test_anthology_from_repo(tmp_path):
     # Test that we can instantiate from the GitHub repo
-    _ = Anthology.from_repo(path=tmp_path, verbose=True)
+    anthology = Anthology.from_repo(path=tmp_path, verbose=True)
+    # ...and that any attempt to save throws a warning IF the flag is set (Note:
+    # we cannot really test the default behaviour here as tests should be
+    # isolated, and not write to the user's data directory outside this repo)
+    anthology._is_in_default_path = True
+    with pytest.warns(UserWarning, match=r"are you sure you want to save"):
+        anthology.save_all()
+
+
+@pytest.mark.integration
+def test_anthology_from_within_repo(tmp_path):
+    # Test that instantiating from within repo results in correct data folder
+    anthology = Anthology.from_within_repo()
+    assert anthology.datadir.resolve() == DATADIR
 
 
 @pytest.mark.integration
 def test_full_anthology_should_validate_schema(full_anthology):
     for collection in full_anthology.collections.values():
         collection.validate_schema()
+
+
+@pytest.mark.integration
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
+def test_full_anthology_should_have_valid_names(full_anthology):
+    errors = []
+
+    for person_id, person in full_anthology.people.items():
+        for name in person.names:
+            try:
+                name.is_valid(error=True)
+            except ValueError as exc:
+                errors.append(f"{person_id}: {exc}")
+
+    assert not errors, "\n".join(errors)
 
 
 @pytest.mark.integration
@@ -103,35 +116,33 @@ def test_full_anthology_roundtrip_xml(
             assert exp_lines == out_lines
 
 
-@pytest.mark.integration
-def test_full_anthology_roundtrip_venue_yaml(
-    full_anthology, full_anthology_venue_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the venue YAML files
-    venue = full_anthology.venues[full_anthology_venue_id]
-    outfile = tmp_path / f"{full_anthology_venue_id}.yaml"
-    # Save venue (it's already loaded when accessing it)
-    venue.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = Venue.load_from_yaml(outfile, full_anthology)
-    # Test for logical equivalence only
-    assert out == venue
+all_json_indices = ("venues", "sigs", "people")
 
 
 @pytest.mark.integration
-def test_full_anthology_roundtrip_sig_yaml(
-    full_anthology, full_anthology_sig_id, tmp_path
-):
-    # Test for equivalence when loading & immediately saving the SIG YAML files
-    sig = full_anthology.sigs[full_anthology_sig_id]
-    outfile = tmp_path / f"{full_anthology_sig_id}.yaml"
-    # Save SIG (it's already loaded when accessing it)
-    sig.save(path=outfile)
-    # Compare
-    assert outfile.is_file()
-    out = SIG.load_from_yaml(full_anthology.sigs, outfile)
-    # Test for logical equivalence only, ignoring order of meetings for now
-    for attrib in ("id", "acronym", "name", "url"):
-        assert getattr(out, attrib) == getattr(sig, attrib)
-    assert set(out.meetings) == set(sig.meetings)
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.NameSpecResolutionWarning")
+@pytest.mark.parametrize("index_name", all_json_indices)
+def test_full_anthology_roundtrip_json(full_anthology, tmp_path, index_name):
+    index = getattr(full_anthology, index_name)
+    index.load()
+    data_in = index.path
+    data_out = tmp_path / f"{index_name}.json"
+    index.save(data_out)
+    assert data_out.is_file()
+    with (
+        open(data_in, "r", encoding="utf-8") as f,
+        open(data_out, "r", encoding="utf-8") as g,
+    ):
+        expected = f.read()
+        out = g.read()
+    assert out == expected
+
+
+@pytest.mark.integration
+def test_full_anthology_loading_eventindex_shouldnt_modify_collections(full_anthology):
+    # See https://github.com/acl-org/acl-anthology/pull/8174#issuecomment-4392366090
+    # for why this exists -- bugs in event linking could cause Collections to be
+    # unintentionally modified
+    full_anthology.events.load()
+    for collection in full_anthology.collections.values():
+        assert not collection.is_modified

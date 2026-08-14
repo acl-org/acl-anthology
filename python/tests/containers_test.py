@@ -166,6 +166,6 @@ def test_container_values(demo):
 
 
 def test_dict_type(demo):
-    assert dict_type(demo) == "int "
+    assert dict_type(demo) == "int"
     blank = BlankContainer()
     assert dict_type(blank) == ""  # not determinable

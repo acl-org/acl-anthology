@@ -1,4 +1,4 @@
-languageCode = "en-us"
+locale = "en-us"
 title = "ACL Anthology"
 disablePathToLower = true
 staticDir = ["static", "data-export"]
@@ -8,6 +8,14 @@ rssLimit = 1000
   papers = "/:slug/"
 
 [markup]
+
   [markup.goldmark]
+    [markup.goldmark.extensions]
+      table = true
     [markup.goldmark.renderer]
       unsafe = true  # allow HTML in MD files
+
+enableGitInfo = true
+
+[frontmatter]
+lastmod = ["lastmod", ":git", "date", "publishDate", ":fileModTime"]

@@ -56,7 +56,7 @@
     <paper id="3">
       <title>Balancing Cost and Benefit with Tied-Multi Transformers</title>
       <author><first>Raj</first><last>Dabre</last></author>
-      <author><first>Raphael</first><last>Rubino</last></author>
+      <author id="raphael-rubino"><first>Raphael</first><last>Rubino</last></author>
       <author><first>Atsushi</first><last>Fujita</last></author>
       <pages>24–34</pages>
       <abstract>We propose a novel procedure for training multiple Transformers with tied parameters which compresses multiple models into one enabling the dynamic choice of the number of encoder and decoder layers during decoding. In training an encoder-decoder model, typically, the output of the last layer of the N-layer encoder is fed to the M-layer decoder, and the output of the last decoder layer is used to compute loss. Instead, our method computes a single loss consisting of NxM losses, where each loss is computed from the output of one of the M decoder layers connected to one of the N encoder layers. Such a model subsumes NxM models with different number of encoder and decoder layers, and can be used for decoding with fewer than the maximum number of encoder and decoder layers. Given our flexible tied model, we also address to a-priori selection of the number of encoder and decoder layers for faster decoding, and explore recurrent stacking of layers and knowledge distillation for model compression. We present a cost-benefit analysis of applying the proposed approaches for neural machine translation and show that they reduce decoding costs while preserving translation quality.</abstract>
@@ -79,8 +79,8 @@
     <paper id="5">
       <title>Meta-Learning for Few-Shot <fixed-case>NMT</fixed-case> Adaptation</title>
       <author><first>Amr</first><last>Sharaf</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
-      <author><first>Hal</first><last>Daumé III</last></author>
+      <author id="hany-hassan-awadalla"><first>Hany</first><last>Hassan</last></author>
+      <author id="hal-daume-iii"><first>Hal</first><last>Daumé III</last></author>
       <pages>43–53</pages>
       <abstract>We present META-MT, a meta-learning approach to adapt Neural Machine Translation (NMT) systems in a few-shot setting. META-MT provides a new approach to make NMT models easily adaptable to many target do- mains with the minimal amount of in-domain data. We frame the adaptation of NMT systems as a meta-learning problem, where we learn to adapt to new unseen domains based on simulated offline meta-training domain adaptation tasks. We evaluate the proposed meta-learning strategy on ten domains with general large scale NMT systems. We show that META-MT significantly outperforms classical domain adaptation when very few in- domain examples are available. Our experiments shows that META-MT can outperform classical fine-tuning by up to 2.5 BLEU points after seeing only 4, 000 translated words (300 parallel sentences).</abstract>
       <url hash="11a07b03">2020.ngt-1.5</url>
@@ -129,7 +129,7 @@
       <author><first>Sascha</first><last>Rothe</last></author>
       <author><first>Simon</first><last>Baumgartner</last></author>
       <author><first>Cong</first><last>Yu</last></author>
-      <author><first>Abe</first><last>Ittycheriah</last></author>
+      <author id="abe-ittycheriah"><first>Abe</first><last>Ittycheriah</last></author>
       <pages>79–87</pages>
       <abstract>We evaluate the performance of transformer encoders with various decoders for information organization through a new task: generation of section headings for Wikipedia articles. Our analysis shows that decoders containing attention mechanisms over the encoder output achieve high-scoring results by generating extractive text. In contrast, a decoder without attention better facilitates semantic encoding and can be used to generate section embeddings. We additionally introduce a new loss function, which further encourages the decoder to generate high-quality embeddings.</abstract>
       <url hash="38324904">2020.ngt-1.9</url>
@@ -197,7 +197,7 @@
       <author><first>Masahiro</first><last>Kaneko</last></author>
       <author><first>Aizhan</first><last>Imankulova</last></author>
       <author><first>Tosho</first><last>Hirasawa</last></author>
-      <author><first>Mamoru</first><last>Komachi</last></author>
+      <author id="mamoru-komachi"><first>Mamoru</first><last>Komachi</last></author>
       <pages>134–138</pages>
       <abstract>We introduce our TMU system that is submitted to The 4th Workshop on Neural Generation and Translation (WNGT2020) to English-to-Japanese (En→Ja) track on Simultaneous Translation And Paraphrase for Language Education (STAPLE) shared task. In most cases machine translation systems generate a single output from the input sentence, however, in order to assist language learners in their journey with better and more diverse feedback, it is helpful to create a machine translation system that is able to produce diverse translations of each input sentence. However, creating such systems would require complex modifications in a model to ensure the diversity of outputs. In this paper, we investigated if it is possible to create such systems in a simple way and whether it can produce desired diverse outputs. In particular, we combined the outputs from forward and backward neural translation models (NMT). Our system achieved third place in En→Ja track, despite adopting only a simple approach.</abstract>
       <url hash="3ac8d18f">2020.ngt-1.15</url>
@@ -231,9 +231,9 @@
     </paper>
     <paper id="18">
       <title>Expand and Filter: <fixed-case>CUNI</fixed-case> and <fixed-case>LMU</fixed-case> Systems for the <fixed-case>WNGT</fixed-case> 2020 <fixed-case>D</fixed-case>uolingo Shared Task</title>
-      <author><first>Jindřich</first><last>Libovický</last></author>
+      <author id="jindrich-libovicky"><first>Jindřich</first><last>Libovický</last></author>
       <author><first>Zdeněk</first><last>Kasner</last></author>
-      <author><first>Jindřich</first><last>Helcl</last></author>
+      <author id="jindrich-helcl"><first>Jindřich</first><last>Helcl</last></author>
       <author><first>Ondřej</first><last>Dušek</last></author>
       <pages>153–160</pages>
       <abstract>We present our submission to the Simultaneous Translation And Paraphrase for Language Education (STAPLE) challenge. We used a standard Transformer model for translation, with a crosslingual classifier predicting correct translations on the output n-best list. To increase the diversity of the outputs, we used additional data to train the translation model, and we trained a paraphrasing model based on the Levenshtein Transformer architecture to generate further synonymous translations. The paraphrasing results were again filtered using our classifier. While the use of additional data and our classifier filter were able to improve results, the paraphrasing model produced too many invalid outputs to further improve the output quality. Our model without the paraphrasing component finished in the middle of the field for the shared task, improving over the best baseline by a margin of 10-22 % weighted F1 absolute.</abstract>
@@ -281,7 +281,7 @@
       <title>The <fixed-case>JHU</fixed-case> Submission to the 2020 <fixed-case>D</fixed-case>uolingo Shared Task on Simultaneous Translation and Paraphrase for Language Education</title>
       <author><first>Huda</first><last>Khayrallah</last></author>
       <author><first>Jacob</first><last>Bremerman</last></author>
-      <author><first>Arya D.</first><last>McCarthy</last></author>
+      <author id="arya-d-mccarthy"><first>Arya D.</first><last>McCarthy</last></author>
       <author><first>Kenton</first><last>Murray</last></author>
       <author><first>Winston</first><last>Wu</last></author>
       <author><first>Matt</first><last>Post</last></author>
@@ -324,7 +324,7 @@
       <author><first>Guillaume</first><last>Klein</last></author>
       <author><first>Dakun</first><last>Zhang</last></author>
       <author><first>Clément</first><last>Chouteau</last></author>
-      <author><first>Josep</first><last>Crego</last></author>
+      <author id="josep-m-crego"><first>Josep</first><last>Crego</last></author>
       <author><first>Jean</first><last>Senellart</last></author>
       <pages>211–217</pages>
       <abstract>This paper describes the OpenNMT submissions to the WNGT 2020 efficiency shared task. We explore training and acceleration of Transformer models with various sizes that are trained in a teacher-student setup. We also present a custom and optimized C++ inference engine that enables fast CPU and GPU decoding with few dependencies. By combining additional optimizations and parallelization techniques, we create small, efficient, and high-quality neural machine translation models.</abstract>
@@ -356,7 +356,7 @@
       <author><first>Sami</first><last>Ul Haq</last></author>
       <author><first>Sadaf</first><last>Abdul Rauf</last></author>
       <author><first>Arslan</first><last>Shoukat</last></author>
-      <author><first>Noor-e-</first><last>Hira</last></author>
+      <author><last>Noor-e-Hira</last></author>
       <pages>225–231</pages>
       <abstract>Recent studies have shown that translation quality of NMT systems can be improved by providing document-level contextual information. In general sentence-based NMT models are extended to capture contextual information from large-scale document-level corpora which are difficult to acquire. Domain adaptation on the other hand promises adapting components of already developed systems by exploiting limited in-domain data. This paper presents FJWU’s system submission at WNGT, we specifically participated in Document level MT task for German-English translation. Our system is based on context-aware Transformer model developed on top of original NMT architecture by integrating contextual information using attention networks. Our experimental results show providing previous sentences as context significantly improves the BLEU score as compared to a strong NMT baseline. We also studied the impact of domain adaptation on document level translationand were able to improve results by adaptingthe systems according to the testing domain.</abstract>
       <url hash="7a0ce3cc">2020.ngt-1.27</url>
@@ -366,7 +366,7 @@
     <paper id="28">
       <title>Simultaneous Translation and Paraphrase for Language Education</title>
       <author><first>Stephen</first><last>Mayhew</last></author>
-      <author><first>Klinton</first><last>Bicknell</last></author>
+      <author id="klinton-bicknell"><first>Klinton</first><last>Bicknell</last></author>
       <author><first>Chris</first><last>Brust</last></author>
       <author><first>Bill</first><last>McDowell</last></author>
       <author><first>Will</first><last>Monroe</last></author>

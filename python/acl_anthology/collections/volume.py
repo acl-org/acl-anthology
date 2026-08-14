@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,17 @@
 from __future__ import annotations
 
 import datetime
-from attrs import define, field, validators
+import attrs
+from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 import sys
+
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
+else:
+    from typing_extensions import deprecated
 
 from .. import constants
 from ..config import config
@@ -27,20 +33,127 @@ from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..files import PDFReference
 from ..people import NameSpecification
-from ..text import MarkupText
+from ..text import MarkupText, to_markuptext
 from ..venues import Venue
-from ..utils.attrs import auto_validate_types, date_to_str, int_to_str
+from ..utils.attrs import (
+    attach_custom_repr,
+    attach_parent,
+    auto_validate_types,
+    date_to_str,
+    int_to_str,
+    into_namespec_tuple,
+    into_str_tuple,
+    track_modifications,
+    ConvertableIntoDate,
+)
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
-from .paper import Paper
-from .types import VolumeType
+from .event import Event
+from .paper import (
+    Paper,
+    _update_person_itemids,
+)  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
+from .types import EventLink, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from ..sigs import SIG
     from . import Collection, Event
 
 
-@define(field_transformer=auto_validate_types)
+def _update_sigs(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update objects depending on a volume's `sig_ids`.
+
+    This will:
+    - Update `SIG.item_ids` for SIGs linked to or unlinked from a volume
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    sig_index = volume.root.sigs
+    old_value = getattr(volume, attr.name)
+    for sig in set(old_value) - set(value):
+        # SIGs that are being removed from this volume
+        if sig_index.is_data_loaded:
+            sig_index[sig].item_ids.discard(volume.full_id_tuple)
+
+    for sig in set(value) - set(old_value):
+        # SIGs that are being added to this volume
+        if sig_index.is_data_loaded:
+            try:
+                # Update SIG.item_ids
+                sig_index[sig].item_ids.add(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting SIG that doesn't exist: {sig}")
+    return value
+
+
+def _update_venues(
+    volume: Volume, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update objects depending on a volume's `venue_ids`.
+
+    This will:
+    - Update `Venue.item_ids` for venues linked to or unlinked from a volume
+    - Create or remove implicitly created events
+    - Update the EventIndex and any connected `Event.colocated_ids`
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    venue_index = volume.root.venues
+    event_index = volume.root.events
+    old_value = getattr(volume, attr.name)
+    for venue in set(old_value) - set(value):
+        # Venues that are being removed from this volume
+        if venue_index.is_data_loaded:
+            venue_index[venue].item_ids.discard(volume.full_id_tuple)
+        if (
+            event_index.is_data_loaded
+            and (
+                implicit_event := event_index.get_or_create_implicit_event(
+                    volume, venue, create=False
+                )
+            )
+            is not None
+            and (
+                implicit_event.colocated_ids.get(volume.full_id_tuple)
+                == EventLink.INFERRED
+            )
+        ):
+            # Update Event.colocated_ids
+            del implicit_event.colocated_ids[volume.full_id_tuple]
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].discard(implicit_event.id)
+            # Check if implicit event can be deleted
+            if not implicit_event.colocated_ids:
+                del event_index[implicit_event.id]
+
+    for venue in set(value) - set(old_value):
+        # Venues that are being added to this volume
+        if venue_index.is_data_loaded:
+            try:
+                # Update Venue.item_ids
+                venue_index[venue].item_ids.add(volume.full_id_tuple)
+            except KeyError:
+                raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
+        if event_index.is_data_loaded:
+            # Update Event.colocated_ids
+            implicit_event = cast(
+                Event,
+                event_index.get_or_create_implicit_event(volume, venue, create=True),
+            )
+            implicit_event.add_colocated(volume.full_id_tuple, EventLink.INFERRED)
+            # Update EventIndex.reverse
+            event_index.reverse[volume.full_id_tuple].add(implicit_event.id)
+    return value
+
+
+@attach_custom_repr
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Volume(SlottedDict[Paper]):
     """A publication volume.
 
@@ -56,14 +169,13 @@ class Volume(SlottedDict[Paper]):
         title: The title of the volume. (Aliased to `booktitle` for initialization.)
         year: The year of publication.
 
-    Attributes: List Attributes:
+    Attributes: Tuple Attributes:
         editors: Names of editors associated with this volume.
         venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
 
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
         doi: The DOI for the volume.
-        ingest_date: The date of ingestion.
         isbn: The ISBN for the volume.
         journal_issue: The journal's issue number, if this volume belongs to a journal.
         journal_volume: The journal's volume number, if this volume belongs to a journal.
@@ -74,35 +186,82 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType = field(repr=False, converter=VolumeType)
-    title: MarkupText = field(alias="booktitle")
+    type: VolumeType = field(converter=VolumeType)
+    title: MarkupText = field(alias="booktitle", converter=to_markuptext)
     year: str = field(
         converter=int_to_str, validator=validators.matches_re(r"^[0-9]{4}$")
     )
 
-    editors: list[NameSpecification] = field(factory=list)
-    venue_ids: list[str] = field(factory=list)
+    editors: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            _update_person_itemids,
+            track_modifications,
+        ],
+    )
+    sig_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_sigs,
+            track_modifications,
+        ],
+    )
+    venue_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_venues,
+            track_modifications,
+        ],
+    )
 
-    address: Optional[str] = field(default=None, repr=False)
-    doi: Optional[str] = field(default=None, repr=False)
-    ingest_date: Optional[str] = field(
+    address: Optional[str] = field(default=None)
+    doi: Optional[str] = field(default=None)
+    _ingest_date: Optional[str] = field(
         default=None,
-        repr=False,
         converter=date_to_str,
         validator=validators.optional(validators.matches_re(constants.RE_ISO_DATE)),
     )
-    isbn: Optional[str] = field(default=None, repr=False)
-    journal_issue: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_volume: Optional[str] = field(default=None, repr=False, converter=int_to_str)
-    journal_title: Optional[str] = field(default=None, repr=False)
-    month: Optional[str] = field(default=None, repr=False)  # TODO: validate/convert?
-    pdf: Optional[PDFReference] = field(default=None, repr=False)
-    publisher: Optional[str] = field(default=None, repr=False)
+    isbn: Optional[str] = field(default=None)
+    journal_issue: Optional[str] = field(default=None, converter=int_to_str)
+    journal_volume: Optional[str] = field(default=None, converter=int_to_str)
+    _journal_title: Optional[str] = field(default=None)
+    month: Optional[str] = field(default=None)  # TODO: validate/convert?
+    pdf: Optional[PDFReference] = field(default=None)
+    publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(
-        default=None, alias="shortbooktitle", repr=False
+        default=None,
+        alias="shortbooktitle",
+        repr=False,
+        converter=converters.optional(to_markuptext),
     )
+
+    def __attrs_post_init__(self) -> None:
+        for namespec in self.editors:
+            namespec.parent = self
+        if self.root.venues.is_data_loaded:
+            for venue in self.venue_ids:
+                self.root.venues[venue].item_ids.add(self.full_id_tuple)
+
+        if (
+            self.type == VolumeType.JOURNAL
+            and self._journal_title is None
+            and len(self.venue_ids) != 1
+        ):
+            raise ValueError(
+                "Journal volume must have exactly one venue or an explicit <journal-title>"
+            )  # pragma: no cover
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -113,6 +272,11 @@ class Volume(SlottedDict[Paper]):
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
         return self.data.get(constants.FRONTMATTER_ID)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this volume belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -160,6 +324,35 @@ class Volume(SlottedDict[Paper]):
         """The URL of this volume's landing page on the ACL Anthology website."""
         return cast(str, config["volume_page_template"]).format(self.full_id)
 
+    @property
+    def namespecs(self) -> tuple[NameSpecification, ...]:
+        """All name specifications on this volume."""
+        return self.editors
+
+    @property
+    def ingest_date(self) -> datetime.date:
+        """The date when this volume was added to the Anthology.  If not set explicitly, will use [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead."""
+        if self._ingest_date is None:
+            return constants.UNKNOWN_INGEST_DATE
+        return datetime.date.fromisoformat(self._ingest_date)
+
+    @ingest_date.setter
+    def ingest_date(self, value: ConvertableIntoDate) -> None:
+        self._ingest_date = date_to_str(value)
+
+    @property
+    def journal_title(self) -> Optional[str]:
+        """The journal title for this volume. Fetched from the associated venue if not explicitly set."""
+        if self.type != VolumeType.JOURNAL:
+            return None
+        if self._journal_title is not None:
+            return self._journal_title
+        return self.root.venues[self.venue_ids[0]].name
+
+    @journal_title.setter
+    def journal_title(self, value: Optional[str]) -> None:
+        self._journal_title = value
+
     def get_events(self) -> list[Event]:
         """
         Returns:
@@ -167,55 +360,61 @@ class Volume(SlottedDict[Paper]):
         """
         return self.root.events.by_volume(self.full_id_tuple)
 
-    def get_ingest_date(self) -> datetime.date:
-        """
-        Returns:
-            The date when this volume was added to the Anthology. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
-        """
-        if self.ingest_date is None:
-            return constants.UNKNOWN_INGEST_DATE
-        return datetime.date.fromisoformat(self.ingest_date)
+    @deprecated("Volume.get_ingest_date() is deprecated in favor of Volume.ingest_date")
+    def get_ingest_date(self) -> datetime.date:  # pragma: no cover
+        return self.ingest_date
 
-    def get_journal_title(self) -> str:
-        """
+    @deprecated(
+        "Volume.get_journal_title() is deprecated in favor of Volume.journal_title"
+    )
+    def get_journal_title(self) -> str:  # pragma: no cover
+        return self.journal_title or ""
+
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this volume that refers to a given Person.
+
+        Arguments:
+            person: A person that is an editor on this volume.
+
         Returns:
-            The journal title for this volume, fetching this information from the associated venue if it isn't explicit set.
+            The NameSpecification that resolves to the given Person.
 
         Raises:
-            TypeError: If this volume doesn't represent a journal.
-            ValueError: If the journal title isn't explicitly set, but there isn't exactly one venue associated with this volume.
+            ValueError: If none of the editors resolve to the given Person.
         """
-        if self.type != VolumeType.JOURNAL:
-            raise TypeError("Volume is not a journal")
-        if self.journal_title is not None:
-            return self.journal_title
-        # If journal-title isn't explicit set, we fetch it from the associated venue
-        if len(self.venue_ids) != 1:
-            raise ValueError(
-                "Journal volume must have exactly one venue or an explicit <journal-title>"
-            )
-        return self.root.venues[self.venue_ids[0]].name
+        for namespec in self.namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def get_sigs(self) -> list[SIG]:
-        """
-        Returns:
-            A list of SIGs associated with this volume.
-        """
-        return self.root.sigs.by_volume(self.full_id_tuple)
+        return self.sigs()
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""
         yield from self.data.values()
 
+    def sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs associated with this volume.
+        """
+        try:
+            return [self.root.sigs[sig] for sig in self.sig_ids]
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
+            )
+            raise exc
+
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
         try:
             return [self.root.venues[vid] for vid in self.venue_ids]
-        except KeyError as exc:
-            if sys.version_info >= (3, 11):
-                exc.add_note(
-                    f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
-                )
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
             raise exc
 
     def to_bibtex(self) -> str:
@@ -244,7 +443,7 @@ class Volume(SlottedDict[Paper]):
 
     def create_paper(
         self,
-        title: MarkupText,
+        title: MarkupText | str,
         id: Optional[str] = None,
         bibkey: str = constants.NO_BIBKEY,
         **kwargs: Any,
@@ -252,7 +451,7 @@ class Volume(SlottedDict[Paper]):
         """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
 
         Parameters:
-            title: The title of the new paper.
+            title: The title of the new paper.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             id: The ID of the new paper (optional); if None, will generate the next-highest numeric ID that doesn't already exist in this volume.
             bibkey: The citation key of the new paper (optional); defaults to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY], in which case a non-clashing citation key will be automatically generated (recommended!).
             **kwargs: Any valid list or optional attribute of [Paper][acl_anthology.collections.paper.Paper].
@@ -271,18 +470,30 @@ class Volume(SlottedDict[Paper]):
             )
 
         kwargs["parent"] = self
-        paper = Paper(id=id, bibkey=bibkey, title=title, **kwargs)
+        paper = Paper(
+            id=id,
+            bibkey=bibkey,
+            title=title,
+            **kwargs,
+        )
 
         # Necessary because on_setattr is not called during initialization:
         paper.bibkey = bibkey  # triggers bibkey generating (if necessary) & indexing
 
-        # For convenience, if authors/editors were given, we add them to the index here
+        # If authors/editors were given, we fill in their ID & add them to the index
         if paper.authors:
+            for namespec in paper.authors:
+                namespec.normalize(skip_setter=True)
+                self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
         if paper.editors:
+            for namespec in paper.editors:
+                namespec.normalize(skip_setter=True)
+                self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
 
         self.data[id] = paper
+        self.parent.is_modified = True
         return paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:
@@ -301,15 +512,19 @@ class Volume(SlottedDict[Paper]):
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.get("id")),
-            "type": VolumeType(volume.get("type")),
+            "type": VolumeType(
+                cast(str, volume.get("type"))
+            ),  # 'type' required by schema
             "parent": parent,
             "editors": [],
+            "sig_ids": [],
             "venue_ids": [],
         }
         if (ingest_date := volume.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
-            if element.tag in (
+            tag = str(element.tag)
+            if tag in (
                 "address",
                 "doi",
                 "isbn",
@@ -317,23 +532,25 @@ class Volume(SlottedDict[Paper]):
                 "publisher",
                 "year",
             ):
-                kwargs[element.tag] = element.text
-            elif element.tag in (
+                kwargs[tag] = element.text
+            elif tag in (
                 "journal-issue",
                 "journal-volume",
                 "journal-title",
             ):
-                kwargs[element.tag.replace("-", "_")] = element.text
-            elif element.tag in ("booktitle", "shortbooktitle"):
-                kwargs[element.tag] = MarkupText.from_xml(element)
-            elif element.tag == "editor":
+                kwargs[tag.replace("-", "_")] = element.text
+            elif tag in ("booktitle", "shortbooktitle"):
+                kwargs[tag] = MarkupText.from_xml(element)
+            elif tag == "editor":
                 kwargs["editors"].append(NameSpecification.from_xml(element))
-            elif element.tag == "url":
+            elif tag == "url":
                 kwargs["pdf"] = PDFReference.from_xml(element)
-            elif element.tag == "venue":
+            elif tag == "sig":
+                kwargs["sig_ids"].append(str(element.text))
+            elif tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
+                raise ValueError(f"Unsupported element for Volume: <{tag}>")
         return cls(**kwargs)
 
     def to_xml(self, with_papers: bool = True) -> etree._Element:
@@ -346,8 +563,8 @@ class Volume(SlottedDict[Paper]):
             A serialization of this volume as a `<volume>` block in the Anthology XML format.
         """
         volume = E.volume(id=self.id, type=self.type.value)
-        if self.ingest_date is not None:
-            volume.set("ingest-date", self.ingest_date)
+        if self._ingest_date is not None:
+            volume.set("ingest-date", self._ingest_date)
         meta = E.meta()
         meta.append(self.title.to_xml("booktitle"))
         if self.shorttitle is not None:
@@ -366,15 +583,18 @@ class Volume(SlottedDict[Paper]):
                 meta.append(getattr(E, tag)(value))
         if self.pdf is not None:
             meta.append(self.pdf.to_xml("url"))
+        for sig in self.sig_ids:
+            meta.append(E.sig(sig))
         for venue in self.venue_ids:
             meta.append(E.venue(venue))
         for tag in (
             "journal_volume",
             "journal_issue",
-            "journal_title",
         ):
             if (value := getattr(self, tag)) is not None:
                 meta.append(getattr(E, tag.replace("_", "-"))(value))
+        if self._journal_title is not None:
+            meta.append(getattr(E, "journal-title")(self._journal_title))
         volume.append(meta)
 
         if with_papers:

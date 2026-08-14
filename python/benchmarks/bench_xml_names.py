@@ -14,7 +14,6 @@
 
 from lxml import etree
 
-
 REPEAT = 1000
 SAMPLE_XML = """
 <list-of-authors>

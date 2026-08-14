@@ -1,171 +1,633 @@
 {{ define "javascript" }}
 <script>
-  // Makes the header expand to the width of the (fluid) main container
-  $(function () {
-      var resize_navbar = function() {
-          var width = 0;
-          $('#main-container .col-12').each(function() {
-              width += $(this).width();
+  (function () {
+    const introToggle = document.querySelector("[data-home-intro-toggle]");
+    const introContents = Array.from(
+      document.querySelectorAll("[data-home-intro-content]")
+    );
+    if (introToggle && introContents.length > 0) {
+      const intro = introToggle.closest(".acl-home-intro");
+      const mobileIntro = window.matchMedia("(max-width: 575.98px)");
+
+      function setIntroExpanded(expanded) {
+        introContents.forEach(function (content) {
+          content.hidden = !expanded;
+        });
+        intro.classList.toggle("is-collapsed", !expanded);
+        introToggle.hidden = expanded;
+        introToggle.setAttribute("aria-expanded", expanded.toString());
+      }
+
+      function updateIntroMode(event) {
+        setIntroExpanded(!event.matches);
+      }
+
+      introToggle.addEventListener("click", function () {
+        setIntroExpanded(true);
+      });
+      mobileIntro.addEventListener("change", updateIntroMode);
+      updateIntroMode(mobileIntro);
+    }
+
+    const directory = document.querySelector("[data-venue-directory]");
+    if (!directory) return;
+
+    const filterInput = directory.querySelector("[data-venue-filter]");
+    const clearButton = directory.querySelector("[data-clear-filter]");
+    const periodButtons = Array.from(directory.querySelectorAll("[data-period-filter]"));
+    const venueSectionHeaders = Array.from(
+      directory.querySelectorAll("[data-venue-section-header]")
+    );
+    const venueSearchHeader = directory.querySelector("[data-venue-search-header]");
+    const venueRows = Array.from(directory.querySelectorAll("[data-venue-row]"));
+    const collectionIDs = ["other", "workshops"];
+    const collectionRows = new Map(collectionIDs.map(function (id) {
+      return [id, directory.querySelector('[data-venue-collection-row="' + id + '"]')];
+    }));
+    const collectionToggles = new Map(collectionIDs.map(function (id) {
+      return [id, directory.querySelector('[data-venue-collection-toggle="' + id + '"]')];
+    }));
+    const collectionPanels = new Map(collectionIDs.map(function (id) {
+      return [id, directory.querySelector('[data-venue-collection-panel="' + id + '"]')];
+    }));
+    const collectionChildren = new Map(collectionIDs.map(function (id) {
+      return [id, venueRows.filter(function (row) {
+        return row.dataset.venueCollectionChild === id;
+      })];
+    }));
+    const status = directory.querySelector("[data-filter-status]");
+    const emptyState = directory.querySelector("[data-filter-empty]");
+    let activePeriod = "recent";
+    const collectionExpanded = { other: false, workshops: false };
+
+    function updatePeriodButtons() {
+      periodButtons.forEach(function (button) {
+        const isActive = button.dataset.periodFilter === activePeriod;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive.toString());
+      });
+    }
+
+    function loadURLState() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedPeriod = params.get("year");
+
+      filterInput.value = params.get("venue") || "";
+      activePeriod = periodButtons.some(function (button) {
+        return button.dataset.periodFilter === requestedPeriod;
+      }) ? requestedPeriod : "recent";
+      collectionIDs.forEach(function (id) {
+        const requestedValue = params.get(id);
+        collectionExpanded[id] = requestedValue === "1" || requestedValue === "true";
+      });
+      updatePeriodButtons();
+    }
+
+    function updateURLState() {
+      const url = new URL(window.location.href);
+
+      if (filterInput.value) {
+        url.searchParams.set("venue", filterInput.value);
+      } else {
+        url.searchParams.delete("venue");
+      }
+      if (activePeriod === "recent") {
+        url.searchParams.delete("year");
+      } else {
+        url.searchParams.set("year", activePeriod);
+      }
+      collectionIDs.forEach(function (id) {
+        if (collectionExpanded[id]) {
+          url.searchParams.set(id, "1");
+        } else {
+          url.searchParams.delete(id);
+        }
+      });
+
+      const query = url.searchParams.toString();
+      window.history.replaceState(
+        window.history.state,
+        "",
+        url.pathname + (query ? "?" + query : "") + url.hash
+      );
+    }
+
+    loadURLState();
+
+    function normalizeSearchText(value) {
+      return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+    }
+
+    // Filtering runs on every keystroke. Cache immutable DOM references and
+    // normalized text so the hot path only needs to update visibility.
+    const venueData = new Map(venueRows.map(function (row) {
+      return [row, {
+        searchText: normalizeSearchText(row.dataset.venueSearch),
+        label: row.querySelector(".acl-venue-row__label"),
+        name: row.querySelector(".acl-venue-row__name"),
+        years: row.querySelector(".acl-venue-years"),
+        yearLinks: Array.from(row.querySelectorAll("[data-decade]")),
+        moreButton: row.querySelector("[data-venue-more]")
+      }];
+    }));
+    let venueTextEnds = new Map();
+    let yearSlotMetrics;
+
+    function getVisibleTextEnd(element, rowLeft) {
+      if (!element || getComputedStyle(element).display === "none") return 0;
+      const elementRect = element.getBoundingClientRect();
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const textRect = range.getBoundingClientRect();
+      return Math.min(elementRect.right, textRect.right) - rowLeft;
+    }
+
+    function refreshVenueTextEnds() {
+      // Text extents change with fonts and responsive layout, not with the
+      // query. Measure every row when layout changes, then reuse the results.
+      const hiddenPanelIDs = collectionIDs.filter(function (id) {
+        return collectionPanels.get(id).hidden;
+      });
+      collectionPanels.forEach(function (panel) {
+        panel.hidden = false;
+      });
+      const hiddenRows = venueRows.filter(function (row) {
+        return row.hidden;
+      });
+      hiddenRows.forEach(function (row) {
+        row.hidden = false;
+      });
+      venueTextEnds = new Map(venueRows.map(function (row) {
+        const rowLeft = row.getBoundingClientRect().left;
+        const data = venueData.get(row);
+        return [row, Math.max(
+          getVisibleTextEnd(data.label, rowLeft),
+          getVisibleTextEnd(data.name, rowLeft)
+        )];
+      }));
+      hiddenRows.forEach(function (row) {
+        row.hidden = true;
+      });
+      hiddenPanelIDs.forEach(function (id) {
+        collectionPanels.get(id).hidden = true;
+      });
+    }
+
+    function lengthToPx(value, context) {
+      const probe = document.createElement("div");
+      probe.style.cssText = "position:absolute;visibility:hidden;height:0;width:" + value;
+      context.appendChild(probe);
+      const px = probe.getBoundingClientRect().width;
+      probe.remove();
+      return px;
+    }
+
+    function refreshYearSlotMetrics() {
+      const rail = directory.querySelector(".acl-venue-years");
+      if (!rail) return;
+      const style = getComputedStyle(rail);
+      const declared = style.getPropertyValue("--acl-year-width").trim();
+      const slotWidth = declared ? lengthToPx(declared, rail) : 0;
+      if (!(slotWidth > 1)) return;
+      yearSlotMetrics = { gap: parseFloat(style.columnGap) || 0, slotWidth: slotWidth };
+    }
+
+    function getYearTrackWidth(rows) {
+      if (rows.length === 0) return 0;
+
+      // Start every row after the rightmost visible venue label.
+      const rowStyle = getComputedStyle(rows[0]);
+      const rowRect = rows[0].getBoundingClientRect();
+      const gap = parseFloat(rowStyle.columnGap) || 0;
+      const paddingRight = parseFloat(rowStyle.paddingRight) || 0;
+      const venueRight = rowRect.left + Math.max(
+        ...rows.map(function (row) {
+          return venueTextEnds.get(row);
+        })
+      );
+      return Math.max(0, rowRect.right - paddingRight - venueRight - gap);
+    }
+
+    function getYearSlotLayout(availableWidth) {
+      const gap = yearSlotMetrics.gap;
+      const slotWidth = yearSlotMetrics.slotWidth;
+      const slotCount = Math.max(
+        1,
+        Math.floor((availableWidth + gap) / (slotWidth + gap))
+      );
+      const stripWidth = Math.min(
+        availableWidth,
+        slotCount * slotWidth + Math.max(0, slotCount - 1) * gap
+      );
+      return { slotCount: slotCount, stripWidth: stripWidth };
+    }
+
+    function fitRecentYears(row, yearLinks, moreButton, slotLayout) {
+      const years = row.querySelector(".acl-venue-years");
+      years.style.width = slotLayout.stripWidth + "px";
+      const hasOverflow = yearLinks.length > slotLayout.slotCount;
+      const visibleYears = hasOverflow
+        ? Math.max(0, slotLayout.slotCount - 1)
+        : yearLinks.length;
+      yearLinks.forEach(function (link, index) {
+        link.hidden = hasOverflow && index >= visibleYears;
+      });
+      moreButton.hidden = !hasOverflow;
+      return visibleYears;
+    }
+
+    function applyFilters() {
+      const rawQuery = filterInput.value.trim();
+      const query = normalizeSearchText(rawQuery);
+      const hasQuery = query.length > 0;
+      const showAllVenues = rawQuery === "*";
+      let visibleVenues = 0;
+      let visibleYears = 0;
+
+      const matchingRows = venueRows.filter(function (row) {
+        const data = venueData.get(row);
+        const isTopLevel = row.dataset.venueTopLevel === "true";
+        const isRecentlyUpdated = row.dataset.homepageGroup === "1";
+        const collectionChild = row.dataset.venueCollectionChild;
+        const textMatches = showAllVenues
+          || data.searchText.includes(query);
+        const rowMatchesText = (
+          hasQuery || isTopLevel || isRecentlyUpdated
+          || (collectionChild && collectionExpanded[collectionChild])
+        ) && textMatches;
+        row.hidden = !rowMatchesText;
+        if (!rowMatchesText) return false;
+
+        if (activePeriod === "recent" || activePeriod === "all") return true;
+        const hasMatchingYear = data.yearLinks.some(
+          function (link) {
+            return link.dataset.decade === activePeriod;
+          }
+        );
+        row.hidden = !hasMatchingYear;
+        return hasMatchingYear;
+      });
+
+      collectionIDs.forEach(function (id) {
+        const parentRow = collectionRows.get(id);
+        const toggle = collectionToggles.get(id);
+        const panel = collectionPanels.get(id);
+        const matchingChildren = matchingRows.filter(function (row) {
+          return row.dataset.venueCollectionChild === id;
+        });
+        const hasChildrenInPeriod = collectionChildren.get(id).some(function (row) {
+          if (activePeriod === "recent" || activePeriod === "all") return true;
+          return venueData.get(row).yearLinks.some(function (link) {
+            return link.dataset.decade === activePeriod;
           });
-          $("#navbar-container").css("max-width", width);
-      };
-      $(window).resize(resize_navbar);
-      resize_navbar();
-  })
+        });
+        if (!parentRow.hasAttribute("data-venue-row")) {
+          parentRow.hidden = hasQuery || !hasChildrenInPeriod;
+        }
+        const panelVisible = (
+          hasQuery || (collectionExpanded[id] && !parentRow.hidden)
+        ) && matchingChildren.length > 0;
+        panel.hidden = !panelVisible;
+        toggle.setAttribute("aria-expanded", panelVisible.toString());
+        const collectionLabel = id === "other" ? "other venues" : "workshop venues";
+        toggle.setAttribute(
+          "aria-label",
+          (panelVisible ? "Hide " : "Show ") + collectionLabel
+        );
+        toggle.title = (panelVisible ? "Hide " : "Show ") + collectionLabel;
+      });
+
+      const yearTrackWidth = getYearTrackWidth(matchingRows);
+      const slotLayout = activePeriod === "recent" && matchingRows.length > 0
+        ? getYearSlotLayout(yearTrackWidth)
+        : null;
+
+      matchingRows.forEach(function (row) {
+
+        const data = venueData.get(row);
+        const yearLinks = data.yearLinks;
+        const expanded = row.dataset.expanded === "true";
+        const moreButton = data.moreButton;
+        const isCompact = activePeriod === "recent" && !expanded;
+        let matchingYears = 0;
+
+        row.classList.toggle("is-year-expanded", !isCompact);
+        if (isCompact && moreButton) {
+          matchingYears = fitRecentYears(row, yearLinks, moreButton, slotLayout);
+        } else {
+          data.years.style.width = activePeriod === "recent"
+            ? slotLayout.stripWidth + "px"
+            : yearTrackWidth + "px";
+          yearLinks.forEach(function (link) {
+            const periodMatches = activePeriod === "all"
+              || (activePeriod === "recent" && expanded)
+              || link.dataset.decade === activePeriod;
+            link.hidden = !periodMatches;
+            if (periodMatches) matchingYears += 1;
+          });
+          if (moreButton) {
+            moreButton.hidden = activePeriod !== "recent"
+              || matchingYears >= yearLinks.length;
+          }
+        }
+
+        if (matchingYears > 0) {
+          visibleVenues += 1;
+          visibleYears += matchingYears;
+        }
+      });
+
+      venueSearchHeader.hidden = !hasQuery;
+      venueSearchHeader.querySelector("[data-venue-section-count]").textContent = visibleVenues;
+      const venueCountsByGroup = { "1": 0, "2": 0, "3": 0, "4": 0 };
+      venueRows.forEach(function (row) {
+        if (row.hidden || row.hasAttribute("data-venue-collection-child")
+            || row.hasAttribute("data-venue-collection-row")) return;
+        const group = row.dataset.homepageGroup;
+        if (group in venueCountsByGroup) venueCountsByGroup[group] += 1;
+      });
+      venueCountsByGroup["4"] = venueRows.filter(function (row) {
+        if (!row.hasAttribute("data-venue-collection-child")) return false;
+        if (activePeriod === "recent" || activePeriod === "all") return true;
+        return venueData.get(row).yearLinks.some(function (link) {
+          return link.dataset.decade === activePeriod;
+        });
+      }).length;
+      venueSectionHeaders.forEach(function (header) {
+        const count = venueCountsByGroup[header.dataset.venueSectionHeader];
+        header.hidden = hasQuery || count === 0;
+        header.querySelector("[data-venue-section-count]").textContent = count;
+      });
+
+      function inflect(count) {
+        return "venue" + (count === 1 ? "" : "s");
+      }
+
+      clearButton.hidden = query.length === 0;
+      emptyState.hidden = visibleVenues > 0;
+      status.textContent = hasQuery
+        ? visibleVenues + " matches"
+        : visibleVenues + " " + inflect(visibleVenues);
+    }
+
+    filterInput.addEventListener("input", function () {
+      updateURLState();
+      applyFilters();
+    });
+    filterInput.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && filterInput.value) {
+        filterInput.value = "";
+        updateURLState();
+        applyFilters();
+      }
+    });
+
+    clearButton.addEventListener("click", function () {
+      filterInput.value = "";
+      filterInput.focus();
+      updateURLState();
+      applyFilters();
+    });
+
+    periodButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activePeriod = button.dataset.periodFilter;
+        venueRows.forEach(function (row) {
+          row.dataset.expanded = "false";
+        });
+        updatePeriodButtons();
+        updateURLState();
+        applyFilters();
+      });
+    });
+
+    directory.addEventListener("click", function (event) {
+      const collectionToggle = event.target.closest("[data-venue-collection-toggle]");
+      if (collectionToggle) {
+        const collectionID = collectionToggle.dataset.venueCollectionToggle;
+        collectionExpanded[collectionID] = !collectionExpanded[collectionID];
+        updateURLState();
+        applyFilters();
+        return;
+      }
+
+      const moreButton = event.target.closest("[data-venue-more]");
+      if (!moreButton) return;
+      const row = moreButton.closest("[data-venue-row]");
+      if (row) {
+        row.dataset.expanded = "true";
+        applyFilters();
+      }
+    });
+
+    if ("ResizeObserver" in window) {
+      let directoryWidth = 0;
+      new ResizeObserver(function (entries) {
+        const nextWidth = entries[0].contentRect.width;
+        if (nextWidth !== directoryWidth) {
+          directoryWidth = nextWidth;
+          refreshLayout();
+        }
+      }).observe(directory);
+    }
+    window.addEventListener("resize", refreshLayout);
+    window.addEventListener("popstate", function () {
+      loadURLState();
+      refreshLayout();
+    });
+
+    if (document.fonts) {
+      document.fonts.ready.then(refreshLayout);
+    }
+
+    function refreshLayout() {
+      // Resize and font loading invalidate geometry caches; ordinary filtering
+      // does not, which keeps input handling free of repeated layout reads.
+      refreshVenueTextEnds();
+      refreshYearSlotMetrics();
+      applyFilters();
+    }
+
+    refreshLayout();
+  }());
 </script>
 {{ end }}
 
 {{ define "meta" }}
-    <link rel="alternate" type="application/rss+xml" href="{{ "papers/index.xml" | relURL }}" title="ACL Anthology Papers" />
+<link rel="alternate" type="application/rss+xml" href="{{ "papers/index.xml" | relURL }}"
+  title="ACL Anthology Papers"/>
 {{ end }}
 
 {{ define "main" }}
-<div class="row justify-content-center">
-  {{ $.Scratch.Set "paper_count" 0 }}
-  {{ range $.Site.Data.papers }}
-    {{ $.Scratch.Add "paper_count" (len .) }}
+{{ $stats := hugo.Data.homepage }}
+{{ $currentYear := $stats.newest_year | int }}
+{{ $currentDecade := mul (div $currentYear 10) 10 }}
+{{ $decades := seq $currentDecade -10 1950 }}
+{{ $recentPostCutoff := now.AddDate 0 0 -45 }}
+{{ $recentPosts := sort (where (where .Site.RegularPages "Section" "posts") "Date" ">=" $recentPostCutoff) "Date" "desc" }}
+{{ $otherVenues := slice }}
+{{ $workshopVenues := slice }}
+{{ range $venue := hugo.Data.venues }}
+  {{ if and (not $venue.is_toplevel) (ne (int $venue.homepage_group) 1) }}
+    {{ if eq $venue.type "workshop" }}
+      {{ $workshopVenues = $workshopVenues | append $venue }}
+    {{ else }}
+      {{ $otherVenues = $otherVenues | append $venue }}
+    {{ end }}
   {{ end }}
+{{ end }}
 
-  <div class="col-12 col-xl-2">
-    <h2 class="pl-2 pb-2">Welcome to the ACL Anthology!</h2>
+<main class="acl-home">
+  <div class="acl-home-aside">
+    <section class="acl-home-intro" aria-label="ACL Anthology">
+      <button class="acl-home-intro__toggle" type="button" data-home-intro-toggle aria-expanded="true" aria-controls="acl-home-intro-content acl-home-actions{{ with $recentPosts }} acl-home-news{{ end }}" hidden>
+        <span>About the ACL Anthology</span>
+        <span class="acl-home-intro__affordance">More <i class="fas fa-plus" aria-hidden="true"></i></span>
+      </button>
+      <div id="acl-home-intro-content" class="acl-home-intro__content" data-home-intro-content>
+        <p class="acl-home-summary">The ACL Anthology is a library of publications in the scientific fields of <a href="https://www.aclweb.org/portal/what-is-cl">computational linguistics</a> and speech and natural language processing. It hosts papers from official venues of the <a href="https://www.aclweb.org/">Association for Computational Linguistics</a> and other organizations.</p>
 
-    <aside class="card acl-greeting font-weight-light mb-3">
-      <div class="card-body">
-        The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
+        <dl class="acl-home-stats" aria-label="Anthology collection statistics">
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.paper_count }} </dt>
+            <dd>papers</dd>
+          </div>
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
+            <dd>volumes</dd>
+          </div>
+          <div>
+            <dt>{{ lang.FormatNumberCustom 0 $stats.venue_count }}</dt>
+            <dd>venues</dd>
+          </div>
+          <div>
+            <dt>{{ add (sub (int $stats.newest_year) (int $stats.oldest_year)) 1 }}</dt>
+            <dd>years</dd>
+          </div>
+        </dl>
       </div>
-      <div class="card-body">
-        <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> or the <a href="{{ "posts/index.xml" | relURL }}">RSS news feed</a> to receive announcements and updates to the Anthology.
-      </div>
-    </aside>
+    </section>
 
-    <!-- Temporarily disabled...
-    <aside class="alert alert-info acl-news mb-3" role="alert">
-      // The news message pulls from content/_index.md
-      {{ if (gt (time .PublishDate).Year 2018) }}
-      <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
-      {{ end }}
-      {{ .Content }}
-    </aside>
-    -->
+    <nav id="acl-home-actions" class="acl-home-actions" data-home-intro-content aria-label="Anthology resources">
+      <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
+        <span>Author pages</span>
+      </a>
+      <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
+        <span>API &amp; data</span>
+      </a>
+      <a class="acl-home-action--feedback" href="{{ relref $ "/faq/#feedback" }}">
+        <span>Feedback</span>
+      </a>
+    </nav>
 
-    <div class="row mb-3">
-      {{ if (fileExists "/data-export/anthology.bib.gz") }}
-      <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-info" href="{{ "anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-        <a class="btn btn-block btn-info" href="{{ "anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
-      </div>
-      {{ end }}
-      <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-warning" href="{{ "papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
-      </div>
-      <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-success" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
-      </div>
-    </div>
+    {{ with $recentPosts }}
+    <section id="acl-home-news" class="acl-home-news" data-home-intro-content aria-labelledby="acl-home-news-title">
+      <header class="acl-directory-section__header">
+        <h3 id="acl-home-news-title">Recent posts</h3>
+      </header>
+      <ul class="acl-home-news__list">{{ range . }}<li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+        </li>{{ end }}</ul>
+    </section>
+    {{ end }}
   </div>
-  <div class="col-12 col-xl-10 col-xl-width-auto">
-    <main aria-role="main">
-    <h6>ACL Events</h6>
-    {{/* ACL EVENTS */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{/* Get the current year */}}
-    {{ $current_year := now.Format "2006" | int }}
-    {{/* The number of columns needed for the current year block */}}
-    {{ $num_cols := add (mod $current_year 10) 1 }}
-    {{ $all_years := seq $current_year -1 1974 }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
-      <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-left" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="16">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
-        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
-        {{ if (and $venue.is_toplevel $venue.is_acl) }}
-        <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{ $event := printf "%s-%s" $venue.slug $year }}
-          {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
-            {{- with index $.Site.Data.events $event -}}
-              {{- with index $.Site.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-              {{- end -}}
-            {{- end -}}
-          </td>
+  <section class="acl-venue-directory" data-venue-directory aria-label="Browse by venue and year">
+    <section class="acl-venue-group" data-venue-group aria-labelledby="acl-venues-title">
+      <header class="acl-directory-section__header">
+        <h3 id="acl-venues-title">Events</h3>
+        <div class="acl-venue-legend" aria-label="Events legend">
+          <span><span class="acl-venue-legend__marker" aria-hidden="true">&#9642;</span> ACL venues</span>
+          <span class="acl-venue-legend__new" title="Volume ingested within the past 45 days">NEW</span>
+        </div>
+      </header>
+
+      <div class="acl-directory-tools">
+        <div class="acl-venue-filter">
+          <div class="acl-venue-filter__control">
+            <i class="fas fa-filter" aria-hidden="true"></i>
+            <input id="acl-venue-filter" data-venue-filter type="search" placeholder="Search {{ lang.FormatNumberCustom 0 $stats.venue_count }} venue names..." autocomplete="off" aria-label="Filter venues">
+            <button type="button" data-clear-filter hidden title="Clear venue filter" aria-label="Clear venue filter">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p class="acl-directory-status visually-hidden" data-filter-status aria-live="polite">{{ $stats.venue_count }} venues &middot; recent years shown</p>
+        </div>
+
+        <fieldset class="acl-period-filter">
+          <div class="acl-period-filter__rail" aria-label="Choose years to show">
+            <button class="is-active" type="button" data-period-filter="recent" aria-pressed="true">Latest</button>
+            <button type="button" data-period-filter="all" aria-pressed="false">All years</button>
+            {{ range $decades }}
+            <button type="button" data-period-filter="{{ . }}" aria-pressed="false">{{ . }}s</button>
+            {{ end }}
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="acl-venue-list">
+        <div class="acl-venue-section-header" data-venue-search-header hidden>
+          Search results &middot; <span class="acl-venue-section-count" data-venue-section-count>0</span>
+        </div>
+        {{ $previousHomepageGroup := 0 }}
+        {{ range $venue := sort hugo.Data.venues "homepage_sort_key" "asc" }}
+        {{ $venuePage := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
+        {{ $homepageGroup := int $venue.homepage_group }}
+        {{ $isWorkshopIndex := eq $venue.slug "ws" }}
+        {{ if or $venue.is_toplevel (eq $homepageGroup 1) }}
+        {{ if $isWorkshopIndex }}
+        <div class="acl-venue-section-header" data-venue-section-header="4">
+          Other venues and workshops &middot; <span class="acl-venue-section-count" data-venue-section-count>0</span>
+        </div>
+        {{ partial "homepage_venue_collection_row.html" (dict
+          "id" "other"
+          "label" "Other venues"
+          "description" ""
+          "count" (len $otherVenues)
+        ) }}
+        <section id="acl-other-panel" class="acl-venue-collection-panel" data-venue-collection-panel="other" aria-labelledby="acl-other-toggle" hidden>
+          {{ range $otherVenue := sort $otherVenues "acronym" "asc" }}
+          {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $otherVenue "collectionChild" "other") }}
           {{ end }}
-        </tr>
+        </section>
+        {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $venue) }}
+        <section id="acl-workshops-panel" class="acl-venue-collection-panel" data-venue-collection-panel="workshops" aria-labelledby="acl-workshops-toggle" hidden>
+          {{ range $workshopVenue := sort $workshopVenues "acronym" "asc" }}
+          {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $workshopVenue "collectionChild" "workshops") }}
+          {{ end }}
+        </section>
+        {{ else }}
+        {{ if and (le $homepageGroup 3) (ne $homepageGroup $previousHomepageGroup) }}
+        <div class="acl-venue-section-header" data-venue-section-header="{{ $homepageGroup }}">
+          {{- if eq $homepageGroup 1 }}Recently updated{{ else if eq $homepageGroup 2 }}Flagship venues{{ else }}Other major venues{{ end }} &middot; <span class="acl-venue-section-count" data-venue-section-count>0</span>
+        </div>
+        {{ end }}
+        {{ partial "homepage_venue_row.html" (dict "page" $ "venue" $venue) }}
+        {{ end }}
+        {{ $previousHomepageGroup = $homepageGroup }}
         {{ end }}
         {{ end }}
-        {{/* SIGs */}}
-        <tr class="text-center border-left border-right">
-          <th scope="row">SIGs</th>
-          <td class="border-left" colspan="{{ len $all_years }}">
-          {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
-          {{ $len := len $sig_pages }}
-          {{ range $index, $page := $sig_pages}}
-            <a href="{{ $page.RelPermalink }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
-          {{ end }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      </div>
 
-    <h6>Non-ACL Events</h6>
-    {{/* NON-ACL EVENTS */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{/* Adjust this range at the beginning of each year */}}
-    {{ $all_years := seq $current_year -1 1986 | append (slice 1984 1982 1980 1978 1975 1973 1969 1967 1965) }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice (printf "%d" $current_year) "2019" "2009" "1999" "1989" }}
+      <div class="acl-directory-empty" data-filter-empty hidden>
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <p>No venues match these filters.</p>
+      </div>
+    </section>
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
-      <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <!-- Each year, adjust this line, changing the date and incrementing colspan -->
-          <th class="border-left" scope="col" colspan="{{ $num_cols }}">{{ $current_year }} &ndash; 2020</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="13">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
-        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
-        {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
-        <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s" $venue.slug) }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{ $event := printf "%s-%s" $venue.slug $year }}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
-            {{- with index $.Site.Data.events $event -}}
-              {{- with index $.Site.Data.events $event "volumes" -}}
-            <a href="{{ relref $ (printf "/events/%s" $event) }}">{{ slicestr $year 2 4 }}</a>
-              {{- end -}}
-            {{- end -}}
-          </td>
-          {{ end }}
-        </tr>
+    <section class="acl-sig-directory" aria-labelledby="acl-sig-title">
+      <header class="acl-directory-section__header">
+        <h3 id="acl-sig-title">ACL Special Interest Groups</h3>
+      </header>
+      <div class="acl-sig-directory__links">
+        {{ $sigPages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
+        {{ range $sigPages }}
+        <a href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Params.short_acronym }}</a>
         {{ end }}
-      {{ end }}
-      </tbody>
-    </table>
-  </main>
-  </div>
-</div>
+      </div>
+    </section>
+
+  </section>
+</main>
 {{ end }}

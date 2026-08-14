@@ -13,16 +13,19 @@
 # limitations under the License.
 
 import pytest
+import attrs
 from lxml import etree
+import requests
+import responses
+import shutil
 
 from acl_anthology import config
+from acl_anthology.exceptions import ChecksumMismatchWarning
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
     VideoReference,
-    PapersWithCodeReference,
 )
-
 
 test_cases_pdf = (
     (
@@ -61,58 +64,6 @@ test_cases_video = (
         "https://vimeo.com/385504611",
         "https://vimeo.com/385504611",
         False,
-    ),
-)
-
-
-test_cases_pwc = (
-    (
-        (
-            '<pwcdataset url="https://paperswithcode.com/dataset/wlasl">WLASL</pwcdataset>',
-        ),
-        None,
-        False,
-        [("WLASL", "https://paperswithcode.com/dataset/wlasl")],
-    ),
-    (
-        (
-            '<pwccode url="https://github.com/lksenel/coda21" additional="false">lksenel/coda21</pwccode>',
-        ),
-        ("lksenel/coda21", "https://github.com/lksenel/coda21"),
-        False,
-        [],
-    ),
-    (
-        (
-            '<pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>',
-            '<pwcdataset url="https://paperswithcode.com/dataset/qasc">QASC</pwcdataset>',
-            '<pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>',
-            '<pwcdataset url="https://paperswithcode.com/dataset/sciq">SciQ</pwcdataset>',
-        ),
-        None,
-        False,
-        [
-            ("CommonsenseQA", "https://paperswithcode.com/dataset/commonsenseqa"),
-            ("QASC", "https://paperswithcode.com/dataset/qasc"),
-            ("SQuAD", "https://paperswithcode.com/dataset/squad"),
-            ("SciQ", "https://paperswithcode.com/dataset/sciq"),
-        ],
-    ),
-    (
-        (
-            '<pwccode url="https://github.com/thunlp/OpenPrompt" additional="true">thunlp/OpenPrompt</pwccode>',
-            '<pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>',
-        ),
-        ("thunlp/OpenPrompt", "https://github.com/thunlp/OpenPrompt"),
-        True,
-        [("GLUE", "https://paperswithcode.com/dataset/glue")],
-    ),
-    (
-        # This happens, so it needs to be handled
-        ('<pwccode url="" additional="true"/>',),
-        (None, ""),
-        True,
-        [],
     ),
 )
 
@@ -173,36 +124,19 @@ def test_video_reference_to_xml(xml, name, url, permission):
     assert etree.tostring(ref.to_xml("video"), encoding="unicode") == xml
 
 
-@pytest.mark.parametrize("xml_list, code, community_code, datasets", test_cases_pwc)
-def test_pwc_reference_from_xml(xml_list, code, community_code, datasets):
-    ref = PapersWithCodeReference()
-    for xml in xml_list:
-        element = etree.fromstring(xml)
-        ref.append_from_xml(element)
-    assert ref.code == code
-    assert ref.community_code == community_code
-    assert ref.datasets == datasets
-
-
-@pytest.mark.parametrize("xml_list, code, community_code, datasets", test_cases_pwc)
-def test_pwc_reference_to_xml(xml_list, code, community_code, datasets):
-    ref = PapersWithCodeReference(
-        code=code,
-        community_code=community_code,
-        datasets=datasets,
-    )
-    actual_xml_list = ref.to_xml_list()
-    assert len(xml_list) == len(actual_xml_list)
-    for expected_xml, actual_xml in zip(xml_list, actual_xml_list):
-        assert etree.tostring(actual_xml, encoding="unicode") == expected_xml
-
-
 def test_reference_cant_change_template_field():
     name = "2023.venue-volume.222"
     ref = PDFReference(name)
     assert isinstance(ref.template_field, str)
     with pytest.raises(AttributeError):
         ref.template_field = "foo"
+
+
+def test_reference_is_frozen():
+    name = "2023.venue-volume.222"
+    ref = PDFReference(name)
+    with pytest.raises(attrs.exceptions.FrozenInstanceError):
+        ref.checksum = "f9f4f558"
 
 
 def test_pdfreference_from_file(datadir):
@@ -220,3 +154,84 @@ def test_attachmentreference_from_file(datadir):
     ref = AttachmentReference.from_file(datadir / "J16-4001.pdf")
     assert ref.name == "J16-4001.pdf"  # WITH the .pdf
     assert ref.checksum == "f9f4f558"
+
+
+@responses.activate
+def test_pdfreference_download(datadir, tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+    with open(datadir / "J16-4001.pdf", "rb") as f:
+        content = f.read()
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+        headers={"Content-Type": "application/pdf"},
+        body=content,
+    )
+
+    ref.download(tmp_path / "J16-4001.pdf")
+    assert responses.assert_call_count("https://aclanthology.org/J16-4001.pdf", 1) is True
+
+
+@responses.activate
+def test_pdfreference_download_warns_on_wrong_checksum(datadir, tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="a1e5f231")  # incorrect checksum
+    with open(datadir / "J16-4001.pdf", "rb") as f:
+        content = f.read()
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+        headers={"Content-Type": "application/pdf"},
+        body=content,
+    )
+
+    with pytest.warns(ChecksumMismatchWarning):
+        ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_raises_on_404(tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=404,
+    )
+
+    with pytest.raises(requests.HTTPError):
+        ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_raises_on_wrong_contenttype(tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+
+    # Mock server response
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=200,
+    )
+
+    with pytest.raises(ValueError, match="Expected 'application/pdf'"):
+        ref.download(tmp_path / "J16-4001.pdf")
+
+
+@responses.activate
+def test_pdfreference_download_does_not_redownload_existing_files(datadir, tmp_path):
+    ref = PDFReference(name="J16-4001", checksum="f9f4f558")
+    source = datadir / "J16-4001.pdf"
+    target = tmp_path / "J16-4001.pdf"
+    shutil.copy(source, target)
+
+    # Mock server response -- should NOT be called!
+    responses.get(
+        "https://aclanthology.org/J16-4001.pdf",
+        status=500,  # would raise if called
+    )
+
+    ref.download(target)
+    assert responses.assert_call_count("https://aclanthology.org/J16-4001.pdf", 0) is True

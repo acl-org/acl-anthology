@@ -9,28 +9,29 @@ date: 2025-08-02
 
 Our central guiding corrections principle is that **we view the content of PDFs as authoritative**. If you see errors or inconsistencies in the metadata (author list, title, abstract), you need to first check to see if it matches the PDF.
 
-This view drives four main types of corrections:
+This view drives two main types of __paper-level corrections__:
 
-* [_You have more than one author page_](#merging-author-pages). This occurs if you published papers under different variations of your name, or if you changed your name.
-* [_Your papers are mixed with someone else's_](#splitting-author-pages). If multiple people publish under the same name, we need to manually disambiguate them.
 * [_There are problems with the PDF_](#pdf-corrections). We can process corrections, revisions, errata, and retractions.
 * [_The PDF is fine, but there are problems with the metadata_](#metadata-corrections). Errors in the title, abstract, author names, or list of authors.
 
-Below we describe the process for addressing these types of corrections, in order of the frequency we encounter them.
+Below, we describe the process for addressing these types of corrections.
+
+Additionally, there are two main types of __corrections to author pages__. For these, please see [Author pages]({{< ref "/info/author-pages">}}).
+
+* You have more than one author page. This occurs if you published papers under different variations of your name, or if you changed your name.
+* Your papers are mixed with someone else's. If multiple people publish under the same name, we need to manually disambiguate them.
 
 ### Metadata corrections
 
 Corrections to **metadata** do not require changing the PDF.
 These kinds of corrections bring the information presented in the Anthology in line with the authoritative PDF.
 
-A request to change paper metadata can be submitted in two ways.
+To submit a metadata correction to Anthology staff:
 
-- _Have us do the work_. You can submit an issue to Anthology staff.
-   -  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [K17-1003](https://aclanthology.org/K17-1003)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a Github issue template with a JSON data block. We process these semiautomatically on a weekly basis.
-   -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
-      Please be sure to include a link to the paper page in the Anthology in your email. These are typically
-      processed on a monthly basis, in batches of corrections.
-- _Make the change yourself_. [Follow the instructions here](https://github.com/acl-org/acl-anthology/wiki/Issuing-Pull-Requests-For-Corrections) to make the changes yourself and create a pull request against the Anthology repository. These are typically processed every few days, as we see them.
+-  _(Preferred)_ Navigate to the paper’s page in the ACL Anthology (e.g., [2023.nlposs-1.10](https://aclanthology.org/2023.nlposs-1.10/)). From there, click the yellow “Fix data” button. This will display a dialog that you can use to correct the title, abstract, and author information. Submitting this form will fill a GitHub issue template with a JSON data block. We process these semiautomatically on a weekly basis.
+-  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+Please be sure to include a link to the paper page in the Anthology in your email. These are typically
+processed on a monthly basis, in batches of corrections.
 
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 
@@ -39,33 +40,7 @@ Metadata changes are generally accepted if they are consistent with the PDF, whi
 Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
 
 We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
-In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding Github issue or via email.
-
-### Merging author pages
-
-If you have published papers under different names, you will end up with multiple author profiles in the Anthology. We can merge these into a single page under your preferred name.
-
-Please pay careful attention to the following steps.
-
-1. **Ensure that each name is correct**. We treat the information on the PDF as authoritative; this means that the metadata should reflect exactly what is printed on the PDF. A common situation is that the name recorded in Anthology metadata (e.g., John P. Hancock) will not match what is displayed on the PDF (John Hancock). This needs to be corrected first. Please review your papers and [follow the steps here](#metadata-corrections) to correct any discrepancies. Sometimes, this will resolve the split pages.
-2. Obtain [an ORCID](https://orcid.org). This is required to help with matching of future papers.
-3. Fill out [an author page correction](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A Github issue is our preferred mechanism, but you can also email [the Anthology director](mailto:anthology@aclweb.org).
-4. Finally, to avoid issues in the future, ensure that the name you use on papers is properly recorded in your profile in publication management systems such as [Open Review](https://openreview.net), [Softconf](https://softconf.com), [EasyChair](https://easychair.org), and so on.
-
-Anthology staff will address your issue as quickly as possible.
-An example merged author profile is [Aravand Joshi](https://aclanthology.org/people/aravind-joshi).
-
-### Splitting author pages
-
-When multiple authors publish under the same name, we disambiguate them by manually assigning an ID to one or more of the authors, and then associating that ID with each of their papers.
-
-We need the following information from you:
-1. Your [ORCID](https://orcid.org/), which will help us assign future papers to you correctly.
-2. The name of the institution from which you received your highest degree (e.g., where you got your Ph.D.), or where you expect to receive it (for students).
-
-Anthology staff will assign an ID to you comprising your canonical name (e.g., [yang-liu]() for "Yang Liu") and this institution. This page will be associated with your ORCID and will become your permanent Anthology author page.
-
-To file a author split request, we prefer you to use [this Github issue](https://github.com/acl-org/acl-anthology/issues/new?template=02-name-correction.yml). A link to this template can also be found on any author page under the "Fix author" button. An example different authors published under the same name is [Yang Liu (of Edinburgh)](https://aclanthology.org/people/yang-liu-edinburgh/) and [Yang Liu (of Peking University)](https://aclanthology.org/people/yang-liu-pk).
+In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding GitHub issue or via email.
 
 ### PDF corrections
 
@@ -88,7 +63,7 @@ Please take note of the following points regarding revisions and retractions.
 
 #### Revisions and errata
 
-For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Crevision&template=03-revision-or-errata.yml&title=Paper+Revision%7Breplace+with+Anthology+ID%7D).
+For requests to change paper *content* (either a revision or an erratum), again, please [file a GitHub issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Crevision&template=03-revision-or-errata.yml&title=Paper+Revision%7Breplace+with+Anthology+ID%7D).
 **Please note the following**:
 
 - Be sure to attach the revised PDF to the issue.

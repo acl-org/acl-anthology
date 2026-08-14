@@ -28,9 +28,9 @@
       <author><first>Marieke</first><last>Van Erp</last></author>
       <author><first>Inger</first><last>Leemans</last></author>
       <author><first>Pasquale</first><last>Lisena</last></author>
-      <author><first>Raphael</first><last>Troncy</last></author>
+      <author id="raphael-troncy"><first>Raphael</first><last>Troncy</last></author>
       <author><first>William</first><last>Tullett</last></author>
-      <author><first>Ali</first><last>Hürriyetoğlu</last></author>
+      <author id="ali-hurriyetoglu"><first>Ali</first><last>Hürriyetoğlu</last></author>
       <author><first>Ger</first><last>Dijkstra</last></author>
       <author><first>Femke</first><last>Gordijn</last></author>
       <author><first>Elias</first><last>Jürgens</last></author>
@@ -234,7 +234,7 @@
     <paper id="17">
       <title><fixed-case>BOS</fixed-case> at <fixed-case>LSCD</fixed-case>iscovery: Lexical Substitution for Interpretable Lexical Semantic Change Detection</title>
       <author><first>Artem</first><last>Kudisov</last></author>
-      <author><first>Nikolay</first><last>Arefyev</last></author>
+      <author id="nikolay-arefyev"><first>Nikolay</first><last>Arefyev</last></author>
       <pages>165-172</pages>
       <abstract>We propose a solution for the LSCDiscovery shared task on Lexical Semantic Change Detection in Spanish. Our approach is based on generating lexical substitutes that describe old and new senses of a given word. This approach achieves the second best result in sense loss and sense gain detection subtasks. By observing those substitutes that are specific for only one time period, one can understand which senses were obtained or lost. This allows providing more detailed information about semantic change to the user and makes our method interpretable.</abstract>
       <url hash="b76ade55">2022.lchange-1.17</url>
@@ -245,7 +245,7 @@
     <paper id="18">
       <title><fixed-case>D</fixed-case>eep<fixed-case>M</fixed-case>istake at <fixed-case>LSCD</fixed-case>iscovery: Can a Multilingual Word-in-Context Model Replace Human Annotators?</title>
       <author><first>Daniil</first><last>Homskiy</last></author>
-      <author><first>Nikolay</first><last>Arefyev</last></author>
+      <author id="nikolay-arefyev"><first>Nikolay</first><last>Arefyev</last></author>
       <pages>173-179</pages>
       <abstract>In this paper we describe our solution of the LSCDiscovery shared task on Lexical Semantic Change Discovery (LSCD) in Spanish. Our solution employs a Word-in-Context (WiC) model, which is trained to determine if a particular word has the same meaning in two given contexts. We basically try to replicate the annotation of the dataset for the shared task, but replacing human annotators with a neural network. In the graded change discovery subtask, our solution has achieved the 2nd best result according to all metrics. In the main binary change detection subtask, our F1-score is 0.655 compared to 0.716 of the best submission, corresponding to the 5th place. However, in the optional sense gain detection subtask we have outperformed all other participants. During the post-evaluation experiments we compared different ways to prepare WiC data in Spanish for fine-tuning. We have found that it helps leaving only examples annotated as 1 (unrelated senses) and 4 (identical senses) rather than using 2x more examples including intermediate annotations.</abstract>
       <url hash="a81f99f9">2022.lchange-1.18</url>
@@ -295,7 +295,7 @@
     <paper id="22">
       <title><fixed-case>G</fixed-case>loss<fixed-case>R</fixed-case>eader at <fixed-case>LSCD</fixed-case>iscovery: Train to Select a Proper Gloss in <fixed-case>E</fixed-case>nglish – Discover Lexical Semantic Change in <fixed-case>S</fixed-case>panish</title>
       <author><first>Maxim</first><last>Rachinskiy</last></author>
-      <author><first>Nikolay</first><last>Arefyev</last></author>
+      <author id="nikolay-arefyev"><first>Nikolay</first><last>Arefyev</last></author>
       <pages>198-203</pages>
       <abstract>The contextualized embeddings obtained from neural networks pre-trained as Language Models (LM) or Masked Language Models (MLM) are not well suitable for solving the Lexical Semantic Change Detection (LSCD) task because they are more sensitive to changes in word forms rather than word meaning, a property previously known as the word form bias or orthographic bias. Unlike many other NLP tasks, it is also not obvious how to fine-tune such models for LSCD. In order to conclude if there are any differences between senses of a particular word in two corpora, a human annotator or a system shall analyze many examples containing this word from both corpora. This makes annotation of LSCD datasets very labour-consuming. The existing LSCD datasets contain up to 100 words that are labeled according to their semantic change, which is hardly enough for fine-tuning. To solve these problems we fine-tune the XLM-R MLM as part of a gloss-based WSD system on a large WSD dataset in English. Then we employ zero-shot cross-lingual transferability of XLM-R to build the contextualized embeddings for examples in Spanish. In order to obtain the graded change score for each word, we calculate the average distance between our improved contextualized embeddings of its old and new occurrences. For the binary change detection subtask, we apply thresholding to the same scores. Our solution has shown the best results among all other participants in all subtasks except for the optional sense gain detection subtask.</abstract>
       <url hash="ff0c8fb2">2022.lchange-1.22</url>

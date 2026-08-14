@@ -1,4 +1,4 @@
-{{ range $venue_id, $venue := .Site.Data.venues }}
+{{ range $venue_id, $venue := hugo.Data.venues }}
    {{ $venue_params := dict
       "venue" $venue.slug
       "acronym" $venue.acronym

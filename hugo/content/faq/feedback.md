@@ -1,6 +1,7 @@
 ---
 Title: How can I make suggestions or provide feedback on the Anthology?
-weight: 1
+category: info
+weight: 2
 ---
 
 We welcome your feedback!

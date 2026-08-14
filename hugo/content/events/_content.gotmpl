@@ -1,4 +1,4 @@
-{{ range $event_id, $event := .Site.Data.events }}
+{{ range $event_id, $event := hugo.Data.events }}
    {{ $page := dict
       "kind" "page"
       "path" $event_id

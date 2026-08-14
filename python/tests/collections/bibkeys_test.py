@@ -15,7 +15,18 @@
 
 import pytest
 from acl_anthology.collections import BibkeyIndex
+from acl_anthology.text import MarkupText
 from lxml import etree
+
+
+def test_bibkeyindex_load(anthology):
+    index = BibkeyIndex(anthology.collections)
+    assert not index.is_data_loaded
+    was_verbose = anthology.verbose
+    anthology.verbose = True
+    index.load()
+    anthology.verbose = was_verbose
+    assert index.is_data_loaded
 
 
 def test_bibkeys_indexing(anthology):
@@ -67,6 +78,13 @@ def test_bibkeys_index_paper(anthology):
     with pytest.raises(ValueError):
         paper2 = anthology.get_paper("2022.acl-long.100")
         index._index_paper(paper.bibkey, paper2)
+
+
+def test_bibkeys_generate_bibkey_with_all_stopwords(anthology):
+    index = anthology.collections.bibkeys
+    paper = anthology.get_paper("2022.acl-long.9")
+    paper.title = MarkupText.from_string("If and or")
+    assert index.generate_bibkey(paper) == "ma-etal-2022-if"
 
 
 @pytest.mark.parametrize("pre_load", (True, False))
@@ -167,6 +185,18 @@ def test_bibkeys_should_not_allow_setting_duplicate_bibkeys(anthology):
     paper_b = anthology.get_paper("2022.acl-long.2")
     with pytest.raises(ValueError):
         paper_b.bibkey = "my-duplicate-bibkey"  # not okay
+
+
+def test_bibkeys_should_perform_input_validation(anthology):
+    index = BibkeyIndex(anthology.collections)
+    index.is_data_loaded = True
+
+    paper = anthology.get_paper("2022.acl-long.1")
+
+    with pytest.raises(ValueError):
+        paper.bibkey = "No-Capital-Letters"
+    with pytest.raises(ValueError):
+        paper.bibkey = "no-spurious-whitespace  "
 
 
 def test_bibkeys_should_not_allow_loading_duplicate_bibkeys(anthology, shared_datadir):

@@ -20,10 +20,13 @@ from lxml import etree
 from typing import Callable, Iterable, Optional
 from xml.sax.saxutils import escape as xml_escape
 
-
 TAGS_WITH_MARKUP = {
     "b",
     "i",
+    "u",
+    "sc",
+    "tt",
+    "a",
     "fixed-case",
     "title",
     "abstract",
@@ -60,7 +63,6 @@ TAGS_WITH_ORDER_SEMANTICS = {
     "attachment",
     "award",
     "video",
-    "pwcdataset",
 }
 """XML tags that may appear multiple times per parent tag, and whose relative order matters even if their parent tag belongs to `TAGS_WITH_UNORDERED_CHILDREN`."""
 
@@ -105,8 +107,8 @@ def _sort_children(x: etree._Element) -> tuple[str, str]:
         # should not be changed. This guarantees that their original order will
         # not be changed due to Python's sort stability:
         # <https://docs.python.org/3/howto/sorting.html#sort-stability-and-complex-sorts>
-        return (x.tag, "")
-    return (x.tag, etree.tostring(x, encoding="unicode"))
+        return (str(x.tag), "")
+    return (str(x.tag), etree.tostring(x, encoding="unicode"))
 
 
 def assert_equals(elem: etree._Element, other: etree._Element) -> None:
@@ -253,7 +255,7 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
     """
     if elem.tag != reference.tag:
         raise ValueError(
-            f"ensure_minimal_diff received two elements with different tags ({elem.tag} != {reference.tag})"
+            f"ensure_minimal_diff received two elements with different tags ({str(elem.tag)} != {str(reference.tag)})"
         )
 
     # If the entire elements are logically equivalent, we just clone the reference
@@ -282,6 +284,10 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
         for key, value in attribs:
             elem.set(key, value)
 
+    # If element contains markup, we do NOT recurse into its children and stop here
+    if elem.tag in TAGS_WITH_MARKUP:
+        return
+
     # Sort child elements to match order in reference, if element allows reordering
     if elem.tag in TAGS_WITH_UNORDERED_CHILDREN:
         # Follow tag order in reference, with keys new in elem coming last
@@ -301,7 +307,7 @@ def ensure_minimal_diff(elem: etree._Element, reference: etree._Element) -> None
     # attributes.
     def make_match_keys(elems: Iterable[etree._Element]) -> list[str]:
         """Key used for element matching."""
-        return [f"{elem.tag}{sorted(elem.items())}" for elem in elems]
+        return [f"{str(elem.tag)}{sorted(elem.items())}" for elem in elems]
 
     matcher = SequenceMatcher(
         a=make_match_keys(elem),

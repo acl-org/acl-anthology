@@ -3,10 +3,8 @@
 {{ end }}
 
 {{ define "main" }}
-<main aria-role="main">
-  <button class="btn btn-info float-right" type="button" data-toggle="collapse" data-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp">
-    <i class="fas fa-info-circle mr-2"></i>How does the search work?
-  </button>
+<main role="main">
+  <button class="btn btn-info float-end" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHelp" aria-expanded="false" aria-controls="collapseHelp"><i class="fas fa-info-circle me-2"></i>How does the search work?</button>
   <h2 id="title">{{ .Title }}</h2>
   <hr />
 
@@ -51,11 +49,19 @@
 
 {{ define "javascript" }}
 <script>
-  $(function () {
+  document.addEventListener("DOMContentLoaded", function () {
       var p = new URLSearchParams(window.location.search);
       if (p.has("q")) {
-          $("#acl-search-box").val(p.get("q")).focus().select();
+          var query = p.get("q");
+          var searchBoxes = document.querySelectorAll(".acl-search-box");
+          searchBoxes.forEach(function (el) {
+              el.value = query;
+          });
+          if (searchBoxes.length > 0) {
+              searchBoxes[0].focus();
+              searchBoxes[0].select();
+          }
       }
-  })
+  });
 </script>
 {{ end }}

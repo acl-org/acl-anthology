@@ -32,7 +32,6 @@ from lxml import etree
 import os
 import sys
 
-
 SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
 
 

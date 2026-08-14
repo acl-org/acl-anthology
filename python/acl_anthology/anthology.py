@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,24 +17,34 @@ from __future__ import annotations
 import gc
 import itertools as it
 import pkgutil
-import sys
 import warnings
+from git.repo import Repo
 from lxml.etree import RelaxNG
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import cast, overload, Iterator, Optional, TypeAlias, TYPE_CHECKING
+from typing import (
+    cast,
+    overload,
+    Iterable,
+    Iterator,
+    Optional,
+    Self,
+    TypeAlias,
+    TYPE_CHECKING,
+)
+import sys
 
-if sys.version_info >= (3, 11):
-    from typing import Self
+if sys.version_info >= (3, 13):
+    from warnings import deprecated
 else:
-    from typing_extensions import Self
+    from typing_extensions import deprecated
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
-from .config import config, dirs
-from .exceptions import AnthologyException, SchemaMismatchWarning
+from .config import config, dirs, primary_console
+from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .utils.logging import get_logger
@@ -54,25 +64,29 @@ class Anthology:
 
     Attributes:
         datadir: The path to the data folder.
-        verbose: If False, will not show progress bars during longer operations.
+        verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
     """
 
-    def __init__(self, datadir: StrPath, verbose: bool = True) -> None:
-        if not Path(datadir).is_dir():
+    def __init__(self, datadir: StrPath, verbose: Optional[bool] = None) -> None:
+        if not Path(datadir).is_dir():  # pragma: no cover
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
+        if verbose is None:
+            verbose = primary_console.is_terminal
         self.verbose = verbose
         self._check_schema_compatibility()
         self._relaxng: Optional[RelaxNG] = None
+        self._is_in_default_path: bool = False
+        """If set to True by Anthology.from_repo(), attempts to save will throw a warning."""
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
 
-        self.events = EventIndex(self, verbose)
+        self.events = EventIndex(self)
         """The [EventIndex][acl_anthology.collections.EventIndex] for accessing events."""
 
-        self.people = PersonIndex(self, verbose)
+        self.people = PersonIndex(self)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
 
         self.sigs = SIGIndex(self)
@@ -100,24 +114,49 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[StrPath] = None,
-        verbose: bool = True,
+        verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
 
         Arguments:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
-            verbose: If False, will not show progress bars during longer operations.
+            verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
+
+        Note:
+            If no explicit `path` is supplied, attempts to call any save functions on the returned objects will throw a warning, since this is likely a user error.
         """
-        if path is None:
+        in_default_path = False
+        if path is None:  # pragma: no cover
             path = (
                 dirs.user_data_path
                 / "git"
                 / slugify(repo_url).replace("https-github-com-", "")
             )
+            in_default_path = True
         else:
             path = Path(path)
         git.clone_or_pull_from_repo(repo_url, path, verbose)
+        anthology = cls(datadir=path / "data", verbose=verbose)
+        anthology._is_in_default_path = in_default_path
+        return anthology
+
+    @classmethod
+    def from_within_repo(
+        cls,
+        verbose: Optional[bool] = None,
+    ) -> Self:
+        """Instantiates the Anthology from within its own Git repo, using the repo's main data folder.
+
+        Assumes that you have cloned the acl-org/acl-anthology repo and run a script that imports this library from within the repo.
+
+        Arguments:
+            verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
+
+        Raises:
+            git.InvalidGitRepositoryError: If this module is not within a Git repository, e.g. if it was pip-installed.
+        """
+        path = Path(Repo(__file__, search_parent_directories=True).working_dir)
         return cls(datadir=path / "data", verbose=verbose)
 
     def load_all(self) -> Self:
@@ -133,7 +172,8 @@ class Anthology:
             was_gc_enabled = gc.isenabled()
             gc.disable()
         elem = None
-        raised_exception = False
+        raised_exceptions = []
+        was_verbose = self.verbose
         try:
             indices_to_load = (
                 self.collections.bibkeys,
@@ -142,52 +182,72 @@ class Anthology:
                 self.sigs,
                 self.venues,
             )
-            iterator = track(
-                it.chain(
-                    self.collections.values(),
-                    indices_to_load,
-                ),
-                total=len(self.collections) + len(indices_to_load),
-                disable=(not self.verbose),
-                description="Loading Anthology data...",
+            iterator: Iterable[object] = it.chain(
+                self.collections.values(),
+                indices_to_load,
             )
             if self.verbose:
-                self.events.verbose = False
-                self.people.verbose = False
+                iterator = track(
+                    iterator,
+                    total=len(self.collections) + len(indices_to_load),
+                    description="Loading Anthology data...",
+                    console=primary_console,
+                )
+                self.verbose = False
             for elem in iterator:
                 try:
                     elem.load()  # type: ignore
-                except Exception as exc:
+                except Exception as exc:  # pragma: no cover
                     if elem is not None:
-                        note = f"Raised in {elem!r}"
-                        # If this is merged into a single if-statement (with "or"),
-                        # the type checker complains ¯\_(ツ)_/¯
-                        if isinstance(exc, AnthologyException):
-                            exc.add_note(note)
-                        elif sys.version_info >= (3, 11):
-                            exc.add_note(note)
-                    log.exception(exc)
-                    raised_exception = True
-            if self.verbose:
-                self.events.verbose = True
-                self.people.verbose = True
+                        exc.add_note(f"Raised in {elem!r}")
+                    raised_exceptions.append(exc)
+            if was_verbose:
+                self.verbose = True
         finally:
             if was_gc_enabled:
                 gc.enable()
-        if raised_exception:
-            raise Exception(
-                "An exception was raised during loading; check the logger for details."
+        if raised_exceptions:
+            raise ExceptionGroup(
+                "An exception was raised during load_all().",
+                raised_exceptions,
+            )  # pragma: no cover
+        return self
+
+    def _warn_if_in_default_path(self) -> None:
+        """Check if the data directory is the default path set by `Anthology.from_repo()` and throw a warning if that is the case, because saving data there is likely a user error."""
+        if self._is_in_default_path:
+            warnings.warn(
+                UserWarning(
+                    f"Anthology datadir is {self.datadir} -- are you sure you want to save there?"
+                )
             )
+
+    def save_all(self) -> Self:
+        """Save all Anthology data files."""
+        self._warn_if_in_default_path()
+        for collection in self.collections.values():
+            if collection.is_modified:
+                collection.save()
+        if self.people.is_data_loaded:
+            self.people.save()
+        if self.venues.is_data_loaded:
+            self.venues.save()
+        if self.sigs.is_data_loaded:
+            self.sigs.save()
         return self
 
     def reset_indices(self) -> Self:
         """Reset all non-collection indices.
 
-        Intended to be used after modifying data, to make sure all indices correctly reflect the changes.
+        Note:
+            - **Calling this function should normally not be necessary, as indices (and their child objects) update automatically when making changes.**
+            - Any modifications to data stored directly by the indices (i.e. stored in the JSON files, rather than inferred from the XML) need to be saved before calling this, or they will be lost.
+            - This will not update any Event, Person, or Venue objects you may have already obtained, but any objects returned by an index after the reset will reflect the new data.
         """
         self.events.reset()
         self.people.reset()
         self.venues.reset()
+        self.sigs.reset()
         return self
 
     @property
@@ -242,7 +302,7 @@ class Anthology:
         Returns:
             The object corresponding to the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return collection
@@ -260,7 +320,7 @@ class Anthology:
         Returns:
             The collection associated with the given ID.
         """
-        (collection_id, *_) = parse_id(full_id)
+        collection_id, *_ = parse_id(full_id)
         return self.collections.get(collection_id)
 
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
@@ -272,7 +332,7 @@ class Anthology:
         Returns:
             The volume associated with the given ID.
         """
-        (collection_id, volume_id, _) = parse_id(full_id)
+        collection_id, volume_id, _ = parse_id(full_id)
         collection = self.collections.get(collection_id)
         if collection is None or volume_id is None:
             return None
@@ -287,7 +347,7 @@ class Anthology:
         Returns:
             The paper associated with the given ID.
         """
-        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        collection_id, volume_id, paper_id = parse_id(full_id)
         volume = self.get_volume((collection_id, volume_id, None))
         if volume is None or paper_id is None:
             return None
@@ -318,6 +378,8 @@ class Anthology:
     def get_person(self, person_id: str) -> Optional[Person]:
         """Access a person by their ID.
 
+        See also: [`find_people()`][acl_anthology.anthology.Anthology.find_people] to find a person by name.
+
         Parameters:
             person_id: An ID that refers to a person.
 
@@ -329,6 +391,8 @@ class Anthology:
     def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
         """Find people by name.
 
+        See also: [`get_person()`][acl_anthology.anthology.Anthology.get_person] to find a person by their ID.
+
         Parameters:
             name_def: Anything that can be resolved to a name; see below for examples.
 
@@ -336,11 +400,10 @@ class Anthology:
             A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
 
         Examples:
-            >>> anthology.find_people("Doe, Jane")
-            >>> anthology.find_people(("Jane", "Doe"))       # same as above
-            >>> anthology.find_people({"first": "Jane",
-                                         "last": "Doe"})      # same as above
-            >>> anthology.find_people(Name("Jane", "Doe"))   # same as above
+            >>> anthology.find_people("Doe, Jane")       # all of these are identical
+            >>> anthology.find_people(("Jane", "Doe"))
+            >>> anthology.find_people({"first": "Jane", "last": "Doe"})
+            >>> anthology.find_people(Name("Jane", "Doe"))
         """
         name = Name.from_(name_def)
         return self.people.get_by_name(name)
@@ -355,8 +418,16 @@ class Anthology:
     ) -> list[Person]:  # pragma: no cover
         ...
 
-    def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:
+    @deprecated(
+        "Anthology.resolve() is deprecated in favor of NameSpecification.resolve()"
+    )
+    def resolve(
+        self, name_spec: NameSpecificationOrIter
+    ) -> PersonOrList:  # pragma: no cover
         """Resolve a name specification (e.g. as attached to papers) to a natural person.
+
+        Warning:
+            Deprecated in favor of [`NameSpecification.resolve()`][acl_anthology.people.name.NameSpecification.resolve]; alternatively, [`PersonIndex.get_by_namespec()`][acl_anthology.people.index.PersonIndex.get_by_namespec] if you want to see what a hypothetical NameSpecification would resolve to that is not yet attached to a paper.
 
         Parameters:
             name_spec: A name specification, or an iterator over name specifications.

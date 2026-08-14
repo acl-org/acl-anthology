@@ -74,11 +74,15 @@ anthology.find_people(("Yang", "Liu"))
 ```
 
 However, supplying a `{first} {last}` string only works as long as the split is
-unambiguous; you must use the `{last}, {first}` format otherwise:
+unambiguous.  If either the first or last name contains spaces, you must use the
+`{last}, {first}` format; if either of them contains a comma, you must use a
+tuple instead:
 
 ```python
-anthology.find_people("Daniel A. McFarland")      # raises ValueError
-anthology.find_people("McFarland, Daniel A.")     # works
+anthology.find_people("Daniel A. McFarland")          # raises ValueError
+anthology.find_people("McFarland, Daniel A.")         # works
+anthology.find_people("Stabler, Jr., Edward P.")      # raises ValueError
+anthology.find_people(("Edward P.", "Stabler, Jr."))  # works
 ```
 
 ## Name specifications
@@ -117,20 +121,15 @@ for name variants _written in a different script_, such as:
 ### Looking up name specifications
 
 In contrast to names, name specifications will _always_ resolve to a _single_
-person.  This is enforced by our metadata checks; if name specifications are
-ambiguous, they _must_ be resolved before the data can appear in the ACL
-Anthology.
-
-To look up name specifications, use
-[`anthology.resolve`][acl_anthology.anthology.Anthology.resolve], which will
-return the person that is being referred to:
+person.  To find the person that is being referred to, use
+[`.resolve()`][acl_anthology.people.name.NameSpecification.resolve]:
 
 ```pycon
 >>> paper = anthology.get("2021.emnlp-main.151")
 >>> name_spec = paper.authors[1]
 >>> name_spec
 NameSpecification(name=Name(first='Yang', last='Liu'), id='yang-liu-umich', affiliation=None, variants=[])
->>> anthology.resolve(name_spec)
+>>> name_spec.resolve()
 Person(
     id='yang-liu-umich',
     names=[Name(first='Yang', last='Liu')],
@@ -138,6 +137,9 @@ Person(
     comment='Univ. of Michigan, UC Santa Cruz'
 )
 ```
+
+This will work as long as the `NameSpecification` that you want to resolve is
+attached to an Anthology item (paper, volume, or talk).
 
 ## Persons
 
@@ -178,10 +180,12 @@ You can get a set of all items associated with a person:
 {('Q18', '1', '28'), ('2020.findings', 'emnlp', '158'), ('W11', '15', '16'), ...}
 ```
 
-For convenience, you can also use
-[`Person.volumes()`][acl_anthology.people.person.Person.volumes] and
-[`Person.papers()`][acl_anthology.people.person.Person.papers] to iterate over
-the set of volumes/papers that person is associated with.
+You can iterate over
+[`Person.anthology_items()`][acl_anthology.people.person.Person.anthology_items]
+to get the actual items the person is associated with. If you know that you only
+want to iterate over papers or volumes, you can also use
+[`Person.volumes()`][acl_anthology.people.person.Person.volumes] or
+[`Person.papers()`][acl_anthology.people.person.Person.papers] instead.
 
 ## An Entity-Relationship diagram
 

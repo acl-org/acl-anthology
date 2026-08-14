@@ -70,7 +70,7 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
             print(
                 f"-> Downloading file from {path} to {input_file_path}", file=sys.stderr
             )
-            request = urllib.request.Request(path, headers={'User-Agent': 'Mozilla/5.0'})
+            request = urllib.request.Request(path, headers={"User-Agent": "Mozilla/5.0"})
             with (
                 urllib.request.urlopen(request) as url,
                 open(input_file_path, mode="wb") as input_file_fh,

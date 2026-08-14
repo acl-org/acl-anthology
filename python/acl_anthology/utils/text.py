@@ -17,7 +17,6 @@
 from typing import cast, Optional
 import unicodedata
 
-
 _MONTH_TO_NUM: dict[str, int] = {
     "january": 1,
     "february": 2,
@@ -60,8 +59,8 @@ def clean_unicode(s: str) -> str:
     start = 0
     while (idx := s.find("ı", start)) > -1:
         # bug: we should only be looking for accents above, not below
-        if unicodedata.category(s[idx + 1]) == "Mn":
-            s = f"{s[:idx]}i{s[idx+1:]}"
+        if idx + 1 < len(s) and unicodedata.category(s[idx + 1]) == "Mn":
+            s = f"{s[:idx]}i{s[idx + 1 :]}"
         start = idx + 1
 
     # Selectively apply compatibility decomposition.

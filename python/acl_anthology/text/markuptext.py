@@ -16,12 +16,17 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, validators as v
 from collections import defaultdict
-from copy import deepcopy
+from copy import copy
+from functools import total_ordering
 from lxml import etree
-from typing import Iterator, Optional
+from typing import Optional, SupportsIndex, TYPE_CHECKING
 from xml.sax.saxutils import escape as xml_escape
+import re
+
+if TYPE_CHECKING:
+    import rich
 
 from ..utils import (
     clean_unicode,
@@ -33,17 +38,38 @@ from ..utils import (
 )
 from .texmath import TexMath
 
-
 MARKUP_LATEX_CMDS = defaultdict(
     lambda: "{text}",
     {
         "fixed-case": "{{{text}}}",
         "b": "\\textbf{{{text}}}",
         "i": "\\textit{{{text}}}",
+        "u": "\\underline{{{text}}}",
+        "sc": "\\textsc{{{text}}}",
+        "tt": "\\texttt{{{text}}}",
+        "par": "\\par ",
         "tex-math": "${text}$",
         "url": "\\url{{{text}}}",
     },
 )
+
+
+def protect_par(element: etree._Element) -> bool:
+    # Mark <par/> paragraph breaks with a sentinel character so they survive
+    # whitespace normalization (which strips newlines from the source),
+    # then restore them as paragraph breaks.
+    changed = False
+    for sub in element.iterfind(".//par"):
+        sub.text = "\ue000"
+        changed = True
+    return changed
+
+
+RE_PAR_PLACEHOLDER = re.compile(r"\s*\ue000\s*")
+
+
+def unprotect_par(text: str, replacement: str) -> str:
+    return RE_PAR_PLACEHOLDER.sub(replacement, text)
 
 
 def markup_to_latex(element: etree._Element) -> str:
@@ -58,25 +84,61 @@ def markup_to_latex(element: etree._Element) -> str:
         if nested_element.tail:
             text += latex_encode(nested_element.tail)
 
+    if tag == "a":
+        # Hyperlinks carry their target in the href attribute
+        href = element.get("href", "")
+        return f"\\href{{{href}}}{{{text}}}"
+
     text = MARKUP_LATEX_CMDS[tag].format(text=text)
     return text
 
 
 @define(repr=False)
+@total_ordering
 class MarkupText:
     """Text with optional markup.
 
-    This class **should not be instantiated directly,** but only through its class method constructors.  This is because the internal representation of the markup text may change at any time.
+    Warning:
+        This class **should not be instantiated directly.**  Use its class method constructors instead.
+
+    Example:
+        ```python
+        title = MarkupText.from_("A Structured Review of the Validity of BLEU")
+        title = MarkupText.from_("TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity")
+        ```
+
+    Note:
+        This class implements a limited subset of string methods to make common operations more convenient, for example:
+
+        ```python
+        title = MarkupText.from_string("A Structured Review of the Validity of BLEU")
+        title == "A Structured Review of the Validity of BLEU"  # True
+        "BLEU" in title  # True
+        title.startswith("A ")  # True
+        ```
+
+        These operate on the [stringified XML representation][acl_anthology.text.markuptext.MarkupText.as_xml] of the class.
     """
 
-    # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
-    # is very expensive, as shown by profiling. Therefore, markup elements
-    # which don't actually contain any markup are simply stored as
-    # strings. This makes the implementation slightly more verbose (we need to
-    # check everywhere whether we're dealing with etree._Element or str), but
-    # much faster. ---For further optimization, we could explore if there's an
-    # alternative that doesn't require deepcopy-ing XML elements at all.
-    _content: etree._Element | str = field()
+    # IMPLEMENTATION NOTE:
+    # --------------------
+    # Copying (or newly instantiating) `etree._Element` is very expensive,
+    # as shown by profiling. Therefore, markup elements which don't actually
+    # contain any markup are simply stored as strings. This makes the
+    # implementation slightly more verbose (we need to check everywhere
+    # whether we're dealing with `etree._Element` or `str`), but much faster.
+    #
+    # We use `copy()` as it is slightly faster than `deepcopy()`, and lxml's
+    # `_Element.__copy__` already performs a full, independent recursive
+    # copy of the element (there is no cheaper "shallow" copy for a tree of
+    # libxml2-owned nodes), so this produces the exact same result. This
+    # relies on an lxml implementation detail, so it is pinned by tests in
+    # `markuptext_test.py` in case a future lxml release ever changes this.
+    #
+    # Dropping `etree._Element` for markup storage entirely doesn't seem
+    # worth pursuing: profiling `Anthology.load_all()` shows the `copy()`
+    # call is already <1% of its total runtime.
+    _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
     _html: Optional[str] = field(init=False, default=None)
@@ -84,13 +146,37 @@ class MarkupText:
     _text: Optional[str] = field(init=False, default=None)
     _xml: Optional[str] = field(init=False, default=None)
 
+    def __contains__(self, key: object) -> bool:
+        if isinstance(key, str):
+            return (key in self.as_text()) or (key in self.as_xml())
+        return False  # pragma: no cover
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, str):
+            return self.as_xml() == other
+        elif isinstance(other, MarkupText):
+            return self.as_xml() == other.as_xml()
+        return False  # pragma: no cover
+
+    def __lt__(self, other: object) -> bool:
+        if isinstance(other, str):
+            return self.as_xml() < other
+        elif isinstance(other, MarkupText):
+            return self.as_xml() < other.as_xml()
+        return False  # pragma: no cover
+
+    def __len__(self) -> int:
+        return len(self.as_text())
+
     def __str__(self) -> str:
         return self.as_text()
 
     def __repr__(self) -> str:
-        return f"<MarkupText {self.as_html()!r}>"
+        if isinstance(self._content, str):
+            return repr(self._content)
+        return f"MarkupText({self.as_xml()!r})"
 
-    def __rich_repr__(self) -> Iterator[str]:
+    def __rich_repr__(self) -> rich.repr.Result:
         yield self.as_xml()
 
     @property
@@ -107,11 +193,13 @@ class MarkupText:
             return remove_extra_whitespace(self._content)
         if self._text is not None:
             return self._text
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
+        has_par = protect_par(element)
         text = etree.tostring(element, encoding="unicode", method="text")
-        self._text = remove_extra_whitespace(text)
+        text = remove_extra_whitespace(text)
+        self._text = unprotect_par(text, "\n\n") if has_par else text
         return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
@@ -127,7 +215,7 @@ class MarkupText:
             return xml_escape(remove_extra_whitespace(self._content))
         if self._html is not None:
             return self._html
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -136,6 +224,13 @@ class MarkupText:
                 else:
                     sub.tag = "span"
                 sub.set("class", "acl-markup-url")
+            elif sub.tag == "a":
+                if not allow_url:
+                    sub.tag = "span"
+                    sub.attrib.pop("href", None)
+            elif sub.tag == "sc":
+                sub.tag = "span"
+                sub.set("style", "font-variant: small-caps")
             elif sub.tag == "fixed-case":
                 sub.tag = "span"
                 sub.set("class", "acl-fixed-case")
@@ -143,7 +238,20 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
+            elif sub.tag == "par":
+                # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
+                sub.tag = "br"
+                another = etree.Element("br")
+                another.tail = sub.tail
+                sub.tail = None
+                sub.addnext(another)
+            elif len(sub) == 0 and sub.text is None:
+                sub.text = ""
+
         self._html = remove_extra_whitespace(stringify_children(element))
+
+        # remove whitespace before or after <br/>
+        self._html = re.sub(r"\s*((<br/>)+)\s*", r"\1", self._html)
         return self._html
 
     def as_latex(self) -> str:
@@ -158,6 +266,9 @@ class MarkupText:
         else:
             latex = markup_to_latex(self._content)
         self._latex = remove_extra_whitespace(latex_convert_quotes(latex))
+
+        # remove whitespace before \par
+        self._latex = re.sub(r"\s*\\par", r"\\par", self._latex)
         return self._latex
 
     def as_xml(self) -> str:
@@ -227,9 +338,31 @@ class MarkupText:
             Instantiated MarkupText object corresponding to the element.
         """
         if len(element):
-            return cls(deepcopy(element))
-        else:
-            return cls(str(element.text) if element.text is not None else "")
+            return cls(copy(element))
+        return cls(str(element.text) if element.text is not None else "")
+
+    @classmethod
+    def from_(cls, content: etree._Element | str) -> MarkupText:
+        """Instantiate MarkupText from an XML element or a string, heuristically parsing any supported markup.
+
+        - If called with an XML element, assumes it uses the Anthology's markup format and calls [`from_xml()`][acl_anthology.text.markuptext.MarkupText.from_xml].
+        - If called with a string, assumes the string might contain markup and will try to intelligently parse it.  At the moment, only LaTeX markup is supported, which means that the effect of this is identical to calling [`from_latex_maybe()`][acl_anthology.text.markuptext.MarkupText.from_latex_maybe], but this may change if we support different types of markup in the future.
+
+        Note:
+            If you want more fine-grained control over markup detection, call one of the more specific builder functions instead.
+
+        Arguments:
+            content: A string potentially containing markup, or an XML element containing valid MarkupText according to the schema.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the content.
+        """
+        if isinstance(content, etree._Element):
+            return cls.from_xml(content)
+        elif isinstance(content, str):
+            return cls.from_latex_maybe(content)
+        else:  # pragma: no cover
+            raise TypeError(f"Cannot instantiate MarkupText from {type(content)}")
 
     def to_xml(self, tag: str = "span") -> etree._Element:
         """
@@ -241,8 +374,42 @@ class MarkupText:
         """
         if isinstance(self._content, str):
             element = etree.Element(tag)
-            element.text = self._content
+            if self._content:
+                element.text = self._content
         else:
-            element = deepcopy(self._content)
+            element = copy(self._content)
             element.tag = tag
         return element
+
+    ### STRING METHODS
+
+    def endswith(
+        self,
+        suffix: str | tuple[str, ...],
+        start: Optional[SupportsIndex] = None,
+        end: Optional[SupportsIndex] = None,
+    ) -> bool:
+        """Return True if the string ends with the specified suffix, False otherwise.
+
+        Equivalent to `self.as_xml().endswith(...)`.
+        """
+        return self.as_xml().endswith(suffix, start, end)
+
+    def startswith(
+        self,
+        prefix: str | tuple[str, ...],
+        start: Optional[SupportsIndex] = None,
+        end: Optional[SupportsIndex] = None,
+    ) -> bool:
+        """Return True if the string starts with the specified prefix, False otherwise.
+
+        Equivalent to `self.as_xml().startswith(...)`.
+        """
+        return self.as_xml().startswith(prefix, start, end)
+
+
+def to_markuptext(value: object) -> MarkupText:
+    if isinstance(value, MarkupText):
+        return value
+    # MarkupText.from_ already raises TypeError, so let's not duplicate that here
+    return MarkupText.from_(value)  # type: ignore[arg-type]

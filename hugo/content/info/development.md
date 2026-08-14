@@ -2,42 +2,44 @@
 Title: Anthology development and API
 linktitle: API
 subtitle: Information on how to programmatically access Anthology data
-date: "2019-11-15"
+date: "2025-09-26"
 ---
 
-### API
+Our source code and data [are available on GitHub](https://github.com/acl-org/acl-anthology/).
+Development is coordinated in the [issue tracker](https://github.com/acl-org/acl-anthology/issues/).
 
-All Anthology data is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data).
+### Python API
+
+We have a Python API that defines objects for papers, authors, volumes, and so on.
+This is the recommended way to access data about publications in the Anthology.
+
+The API can be installed via pip from [PyPI](https://pypi.org/project/acl-anthology/) or built from source.
+Please see our [extensive developer documentation](https://acl-anthology.readthedocs.io/).
+
+Quick access via an interactive Python shell can be achieved by cloning the repository and running
+`just python repl` from the repository root directory.
+
+In addition to the documentation, there are many examples of using the module in the scripts in our `bin` directory.
+
+### Website software
+
+The ACL Anthology is built from open-source software.
+The Anthology website uses the [Hugo](https://gohugo.io/) framework to generate a static website that makes heavy use of the [Bootstrap](https://getbootstrap.com/) library for a modern design. We use [Font Awesome](https://fontawesome.com/) for icon fonts.
+
+The script [create_hugo_data.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_data.py)
+generates JSON data structures to build our static site.
+
+### Data organization
+
+All the data in the ACL Anthology is stored under [the data directory](https://github.com/acl-org/acl-anthology/tree/master/data) in our GitHub repository.
 In the `xml` directory are the files that contain all the Anthology metadata, in a format described below.
-The `yaml` directory contains various other important information.
-
-In addition, we have a Python API that defines objects for papers, authors, volumes, and so on.
-This is all accessible by an `Anthology` object that can be access in the following manner.
-First, clone [the Anthology Github repo](https://github.com/acl-org/acl-anthology) and setup your environment:
-
-```bash
-git clone https://github.com/acl-org/acl-anthology
-export ACLANTHOLOGY=$(pwd)/acl-anthology
-export PYTHONPATH+=:$ACLANTHOLOGY/bin
-```
-
-You can now access the Anthology from Python:
-
-```python
-from anthology import Anthology
-
-anthology = Anthology(importdir='acl-anthology/data')
-for id_, paper in anthology.papers.items():
-  print(paper.anthology_id, paper.get_title('text')
-```
-
-See the script [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py) to see how to iterate over the Anthology object and access other information such as authors and volumes.
+The `json` directory contains further information about authors, venues, and SIGs.
 
 ### Authoritative XML format
 
-The Anthology site is generated from an authoritative XML file format containing information about volumes, paper titles, and authors.
-This data is stored in [the official repository on Github](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
-Here is a fragment of a complete XML file ([P18.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P18.xml)), to give you the idea.
+The Anthology site is generated from an authoritative XML file format containing information about events, volumes, papers, and authors.
+This data is stored in [the official repository on GitHub](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
+Here is a simplified fragment of a complete XML file ([P18.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P18.xml)—this file defines the *collection* of volumes from the ACL 2018 main conference).
 The full file contains much more information.
 
 ```xml
@@ -80,5 +82,4 @@ The full file contains much more information.
 </collection>
 ```
 
-Our scripts use the [lxml.de](http://lxml.de) library to parse the XML.
-You can see examples of parsing and accessing the XML directly in [add_revision.py](https://github.com/acl-org/acl-anthology/blob/master/bin/add_revision.py) and [ingest.py](https://github.com/acl-org/acl-anthology/blob/master/bin/ingest.py).
+Programmatic access to the data is best achieved through the [Python API](#python-api) rather than through direct parsing of XML files.

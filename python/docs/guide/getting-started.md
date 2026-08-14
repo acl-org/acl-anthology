@@ -1,6 +1,6 @@
 # Getting Started
 
-To use this library, you need **Python 3.10 or newer**.  For automatically
+To use this library, you need **Python 3.11 or newer**.  For automatically
 fetching data from the main ACL Anthology repository, you will also need to have
 **Git** installed.
 
@@ -120,14 +120,14 @@ existing paper, you are working with a
 [`NameSpecification`][acl_anthology.people.name.NameSpecification], which is a
 name that may additionally contain information to help disambiguate it from
 similar names.  In this case, you can call
-[`anthology.resolve()`][acl_anthology.anthology.Anthology.resolve], which will
-always return a single, uniquely identified person:
+[`NameSpecification.resolve()`][acl_anthology.people.name.NameSpecification.resolve]:
+to return a single, uniquely identified person that is being referred to:
 
 ```pycon
 >>> paper = anthology.get("2022.acl-long.220")
 >>> paper.authors[-1]
 NameSpecification(name=Name(first='Dan', last='Klein'), ...)
->>> person = anthology.resolve(paper.authors[-1])
+>>> person = paper.authors[-1].resolve()
 ```
 
 !!! info

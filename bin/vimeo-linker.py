@@ -172,7 +172,7 @@ if computeMatch:
                     res = tryMatch(name.rsplit("-", 1)[0])
 
             if res is not None:
-                (idx, p) = res
+                idx, p = res
                 if checkVideo(p):
                     print("video already exists, skipping ...")
                     continue

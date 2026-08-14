@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import gzip
 import logging as log
 import os
 import msgspec
+import multiprocessing
 from pathlib import Path
 import re
 from rich.progress import track
@@ -41,7 +42,7 @@ import shutil
 import subprocess
 
 
-from acl_anthology import config
+from acl_anthology import config, primary_console
 from acl_anthology.utils.ids import infer_year
 from acl_anthology.utils.logging import setup_rich_logging
 from create_hugo_data import make_progress
@@ -89,6 +90,7 @@ def create_bibtex(builddir, clean=False) -> None:
                 reverse=True,
             ),
             description="Create anthology.bib.gz...  ",
+            console=primary_console,
         ):
             with open(volume_file, "r") as f:
                 bibtex = f.read()
@@ -124,6 +126,7 @@ def create_bibtex(builddir, clean=False) -> None:
                 reverse=True,
             ),
             description="       +abstracts.bib.gz... ",
+            console=primary_console,
         ):
             with open(collection_file, "rb") as f:
                 data = msgspec.json.decode(f.read())
@@ -152,7 +155,7 @@ def create_shards(
         entries_text = f.read()
 
     # Split entries at each next line starting with '@' (preserves the leading '@')
-    entries = re.split(r'(?=@[A-Za-z]+)', entries_text)
+    entries = re.split(r"(?=@[A-Za-z]+)", entries_text)
     entries = [e.strip() for e in entries if e.strip()]
 
     if not entries:
@@ -245,14 +248,30 @@ def convert_bibtex(builddir, max_workers=None):
             "Convert to MODS & Endnote...", total=len(data_files) + len(bib_files)
         )
 
-        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
-            futures = [
-                executor.submit(convert_collection_file, file) for file in data_files
-            ] + [executor.submit(convert_volume_bib_file, file) for file in bib_files]
-            for future in concurrent.futures.as_completed(futures):
+        if max_workers == 1:
+            # Mainly for debugging purposes
+            for file in data_files:
+                convert_collection_file(file)
                 progress.update(task, advance=1)
-                if (exc := future.exception()) is not None:
-                    log.exception(exc)
+            for file in bib_files:
+                convert_volume_bib_file(file)
+                progress.update(task, advance=1)
+        else:
+            with concurrent.futures.ProcessPoolExecutor(
+                max_workers=max_workers, mp_context=multiprocessing.get_context("fork")
+            ) as executor:
+                futures = [
+                    executor.submit(convert_collection_file, file) for file in data_files
+                ] + [executor.submit(convert_volume_bib_file, file) for file in bib_files]
+                try:
+                    for future in concurrent.futures.as_completed(futures):
+                        progress.update(task, advance=1)
+                        if (exc := future.exception()) is not None:
+                            log.critical(exc)
+                            executor.shutdown(wait=False, cancel_futures=True)
+                            break
+                except KeyboardInterrupt:
+                    executor.shutdown(wait=False, cancel_futures=True)
 
 
 def convert_collection_file(collection_file):
@@ -288,7 +307,7 @@ def convert_volume_bib_file(volume_bib_file):
     """
 
     volume_mods_file = volume_bib_file.with_suffix(".xml")
-    volume_endf_file = volume_bib_file.with_suffix(".endf")
+    volume_endf_file = volume_bib_file.with_suffix(".enw")
 
     with open(volume_bib_file, "rb") as bib, open(volume_mods_file, "wb") as mods:
         subprocess.run(

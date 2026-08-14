@@ -1,25 +1,38 @@
 # default namespace = ""
 
-b = element b { MarkupText }
-i = element i { MarkupText }
+# Text formatting
+b = element b { InlineMarkup+ }
+i = element i { InlineMarkup+ }
+u = element u { InlineMarkup+ }
+sc = element sc { InlineMarkup+ }  # small caps
+tt = element tt { InlineMarkup+ }
+a = element a {
+  attribute href { xsd:anyURI } & InlineMarkup+
+}
 url = element url {
   attribute type { xsd:NCName }? & xsd:anyURI
 }
-fixed-case = element fixed-case { MarkupText }
+par = element par { empty }  # paragraph break
+fixed-case = element fixed-case { InlineMarkup+ }
 tex-math = element tex-math { text }
-MarkupText = (text | b | i | url | fixed-case | tex-math )+
+InlineMarkup = text | b | i | u | sc | tt | a | url | fixed-case | tex-math
+InlineMarkupText = InlineMarkup+
+MarkupText = (InlineMarkup | par)+
 
+# Authors
 first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
 last = element last { xsd:string { pattern="\S(.*\S)?" } }
 affiliation = element affiliation { text }
 Variant = element variant { attribute script { xsd:string }, (first? & last) }
-# Allow canonical https ORCID URL or bare 16-digit hyphenated ORCID iD with checksum (last char may be X)
+# Store bare 16-digit hyphenated ORCID iD with checksum (last char may be X)
 OrcidId = xsd:string { pattern="([0-9]{4}-){3}[0-9]{3}[0-9X]" }
-OrcidUrl = xsd:anyURI { pattern="https://orcid\.org/([0-9]{4}-){3}[0-9]{3}[0-9X]" }
+# OpenReview profile ID, e.g. "~Jane_Doe1" (names may contain Unicode letters)
+OpenReviewId = xsd:string { pattern="~\S+" }
 
 Person =
   attribute id { xsd:NCName }?,
-  attribute orcid { OrcidUrl | OrcidId }?,
+  attribute orcid { OrcidId }?,
+  attribute openreview { OpenReviewId }?,
   (first? & last & Variant? & affiliation?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
@@ -45,7 +58,7 @@ Revision = element revision {
 
 Talk = element talk {
   attribute type { xsd:string }?,
-  (element title { MarkupText }
+  (element title { InlineMarkupText }
    & element speaker { Person }*
    & url?
   )
@@ -84,28 +97,23 @@ Paper = element paper {
      }?
    & element note { text }?
    & element pages { text }?
-   & element title { MarkupText }
+   & element title { InlineMarkupText }
    & url-with-checksum?
    & element video {
        attribute href { xsd:anyURI },
        attribute permission { xsd:boolean }?
      }*
    & element language { xsd:language }?
-   & element award { text }*
-   & element pwcdataset {
-       attribute url { xsd:anyURI },
+   & element month { text }?
+   & element award {
+       attribute name { text },
        text
      }*
-   & element pwccode {
-       attribute url { xsd:anyURI },
-       attribute additional { xsd:boolean },
-       text
-     }?
    )
 }
 Meta = element meta {
-  (element booktitle { MarkupText }
-   & element shortbooktitle { MarkupText }?
+  (element booktitle { InlineMarkupText }
+   & element shortbooktitle { InlineMarkupText }?
    & element editor { Person }*
    & element publisher { text }?
    & element address { text }?
@@ -114,6 +122,7 @@ Meta = element meta {
    & element isbn { xsd:NMTOKEN }?
    & url-with-checksum?
    & element doi { xsd:anyURI }?
+   & element sig { text }*
    & element venue { text }+
    & element journal-volume { xsd:string }?
    & element journal-issue { xsd:string }?
@@ -140,7 +149,7 @@ Volume = element volume {
 Event = element event {
   attribute id { xsd:string },
   (element meta {
-    (element title { MarkupText }?
+    (element title { InlineMarkupText }?
      & element location { text }?
      & element dates { text }?
     )

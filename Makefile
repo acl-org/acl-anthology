@@ -15,12 +15,8 @@
 # limitations under the License.
 
 # Instructions:
-# - if you edit a command running python, make sure to
-#   write . $(VENV) && python3 -- this sets up the virtual environment.
-#   if you just write "python3 foo.py" without the ". $(VENV) && " before,
-#   the libraries will not be loaded during run time.
-# - all targets running python somewhere should have venv/bin/activate as a dependency.
-#   this makes sure that all required packages are installed.
+# - a command running python should always be invoked with 'uv run python ...';
+#   add dependencies via 'uv add' in the root folder.
 # - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
 #   (e.g., make -j4 NOBIB=true)
 
@@ -63,9 +59,6 @@ ANTHOLOGYFILES ?= /var/www/anthology-files
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
-xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
-pysources=$(shell git ls-files | egrep "\.pyi?$$")
-pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 
 # these are shown in the generated html so everyone knows when the data
 # was generated.
@@ -73,32 +66,19 @@ timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
 githashshort=$(shell git rev-parse --short HEAD)
 
-#######################################################
-# check whether the correct python version is available
-ifeq (, $(shell which python3 ))
-  $(error "python3 not found in $(PATH)")
+# uv check
+ifeq (, $(shell which uv ))
+  $(error "uv not found in $(PATH)")
 endif
-
-PYTHON_VERSION_MIN=3.8
-PYTHON_VERSION_OK=$(shell python3 -c 'import sys; (major, minor) = "$(PYTHON_VERSION_MIN)".split("."); print(sys.version_info.major==int(major) and sys.version_info.minor >= int(minor))' )
-
-ifeq ($(PYTHON_VERSION_OK),"False")
-  PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
-  $(error "Need python $(PYTHON_VERSION_MIN), but only found python $(PYTHON_VERSION)!")
-endif
-# end python check
-#######################################################
 
 # hugo version check
-HUGO_VERSION_MIN=126
-HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
+HUGO_VERSION_MIN=154
+HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\([0-9]*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
 endif
 
-
-VENV := "venv/bin/activate"
 
 .PHONY: site
 site: build/.hugo build/.sitemap
@@ -109,22 +89,12 @@ site: build/.hugo build/.sitemap
 .PHONY: sitemap
 sitemap: build/.sitemap
 
-build/.sitemap: venv/bin/activate build/.hugo
-	. $(VENV) && python3 bin/split_sitemap.py build/website/$(ANTHOLOGYDIR)/sitemap.xml
+build/.sitemap: build/.hugo
+	uv run python bin/split_sitemap.py build/website/$(ANTHOLOGYDIR)/sitemap.xml
 	@rm -f build/website/$(ANTHOLOGYDIR)/sitemap_*.xml.gz
 	@gzip -9n build/website/$(ANTHOLOGYDIR)/sitemap_*.xml
 	@bin/create_sitemapindex.sh `ls build/website/$(ANTHOLOGYDIR)/ | grep 'sitemap_.*xml.gz'` > build/website/$(ANTHOLOGYDIR)/sitemapindex.xml
 	@touch build/.sitemap
-
-.PHONY: venv
-venv: venv/bin/activate
-
-# installs dependencies if requirements.txt have been updated.
-venv/bin/activate: bin/requirements.txt
-	test -d venv || python3 -m venv venv
-	. $(VENV) && pip3 install wheel
-	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	touch venv/bin/activate
 
 .PHONY: all
 all: check site
@@ -158,9 +128,9 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 .PHONY: hugo_data
 hugo_data: build/.data
 
-build/.data: build/.basedirs $(sourcefiles) venv/bin/activate
+build/.data: build/.basedirs $(sourcefiles)
 	@echo "INFO     Generating data files for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_data.py --clean
+	uv run python bin/create_hugo_data.py --clean
 	@touch build/.data
 
 .PHONY: bib
@@ -174,9 +144,9 @@ build/.bib:
 	@touch build/.bib
 else
 
-build/.bib: build/.basedirs build/.data venv/bin/activate
+build/.bib: build/.basedirs build/.data
 	@echo "INFO     Creating extra bibliographic files..."
-	. $(VENV) && python3 bin/create_extra_bib.py --clean
+	uv run python bin/create_extra_bib.py --clean
 	@touch build/.bib
 endif
 # end if block to conditionally disable bibtex generation
@@ -200,58 +170,101 @@ build/.hugo: build/.static build/.data build/.bib
 	@touch build/.hugo
 
 .PHONY: mirror
-mirror: venv/bin/activate
-	. $(VENV) && bin/create_mirror.py data/xml/*xml
+mirror:
+	uv run python bin/create_mirror.py data/xml/*xml
 
 .PHONY: mirror-no-attachments
-mirror-no-attachments: venv/bin/activate
-	. $(VENV) && bin/create_mirror.py --only-papers data/xml/*xml
+mirror-no-attachments:
+	uv run python bin/create_mirror.py --only-papers data/xml/*xml
 
-.PHONY: test
-test: hugo
-	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.bib test/data/P19-1007.bib
-	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.xml test/data/P19-1007.xml
+# Syncs the PDF and attachment hierarchies to the live server.
+# Override the local base directory with SYNC_BASEDIR=/path/to/files.
+SYNC_BASEDIR ?= ~/anthology-files
+SYNC_DEST := anthologizer@aclanthology.org:anthology-files
+
+.PHONY: sync
+sync:
+	rsync -azve ssh --remove-source-files --exclude .DS_Store $(SYNC_BASEDIR)/pdf $(SYNC_BASEDIR)/attachments $(SYNC_BASEDIR)/handbooks $(SYNC_DEST)
+
+# Archive ingestion materials with:
+#   make archive DIR=~/Downloads/2026-07-13-brigap
+DROPBOX_REMOTE ?= dropbox
+
+.PHONY: archive
+archive:
+	@set -euo pipefail; \
+	source_dir="$(DIR)"; \
+	if [[ -z "$$source_dir" ]]; then \
+	  echo "ERROR    Specify the ingestion directory with DIR=PATH"; \
+	  echo "Usage:    make archive DIR=~/Downloads/2026-07-13-brigap"; \
+	  exit 2; \
+	fi; \
+	if [[ "$$source_dir" == "~/"* ]]; then \
+	  source_dir="$$HOME/$${source_dir#\~/}"; \
+	fi; \
+	if [[ ! -d "$$source_dir" ]]; then \
+	  echo "ERROR    Directory does not exist: $$source_dir"; \
+	  exit 2; \
+	fi; \
+	basename="$$(basename "$${source_dir%/}")"; \
+	if [[ ! "$$basename" =~ ^([0-9]{4})([-_.]|$$) ]]; then \
+	  echo "ERROR    Cannot infer year from directory name: $$basename"; \
+	  echo "         Expected the basename to begin with a four-digit year."; \
+	  exit 2; \
+	fi; \
+	year="$${BASH_REMATCH[1]}"; \
+	if ! command -v rclone >/dev/null 2>&1; then \
+	  echo "ERROR    rclone is not installed."; \
+	  echo "         On macOS: brew install rclone"; \
+	  echo "         Then run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	if ! rclone listremotes | grep -Fqx '$(DROPBOX_REMOTE):'; then \
+	  echo "ERROR    rclone remote '$(DROPBOX_REMOTE):' does not exist."; \
+	  echo "         Run: rclone config"; \
+	  echo "         Create a Dropbox remote named '$(DROPBOX_REMOTE)'."; \
+	  exit 2; \
+	fi; \
+	destination="$(DROPBOX_REMOTE):Anthology/ingests/$$year/$$basename"; \
+	echo "INFO     Archiving $$source_dir to $$destination"; \
+	rclone copy "$$source_dir" "$$destination" --progress
+
+.PHONY: test-scripts
+test-scripts:
+	uv run python -m pytest tests/ -v
+
+# Sometimes after a merge conflict the entries in people.json
+# get miss-sorted. This corrects that by reloading and saving the file.
+.PHONY: resave_people_json
+resave_people_json: venv/bin/activate
+	. $(VENV) && python3 -c "from acl_anthology import Anthology; anth = Anthology.from_within_repo(); anth.people.load(); anth.people.save()"
 
 .PHONY: clean
 clean:
-	rm -rf build venv
+	rm -rf build
+
+# Upgrade uv-managed dependencies in both the root workspace and the
+# acl_anthology Python package under python/.
+.PHONY: upgrade
+upgrade:
+	uv sync --upgrade
+	cd python && uv sync --upgrade
 
 .PHONY: check
-check: venv
+check: test-scripts
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
 	fi
-	jing -c data/xml/schema.rnc data/xml/*xml
-	. $(VENV) \
-	  && SKIP=no-commit-to-branch pre-commit run --all-files \
-	  && black --check $(pysources) \
-	  && ruff check $(pysources)
-
-.PHONY: check_staged_xml
-check_staged_xml:
-	@if [ ! -z "$(xmlstaged)" ]; then \
-	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
-	 fi
+	SKIP=no-commit-to-branch uv run pre-commit run --all-files
 
 .PHONY: check_commit
-check_commit: check_staged_xml venv/bin/activate
-	@. $(VENV) && pre-commit run
-	@if [ ! -z "$(pystaged)" ]; then \
-	    . $(VENV) && black --check $(pystaged) && ruff check $(pystaged) ;\
-	 fi
+check_commit:
+	uv run pre-commit run
 
 .PHONY: autofix
-autofix: check_staged_xml venv/bin/activate
-	 @. $(VENV) && \
-	 EXIT_STATUS=0 ;\
-	 pre-commit run || EXIT_STATUS=$$? ;\
-	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 ruff check --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
-	 black $(pysources) || EXIT_STATUS=$$? ;\
-	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
-	 [ $${EXIT_STATUS} -eq 0 ]
+autofix: check
 
 .PHONY: reformat
 reformat: autofix
@@ -278,6 +291,7 @@ preview:
 	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
+	  printf '%s\n' 'User-agent: *' 'Disallow: /' | ssh -o StrictHostKeyChecking=accept-new anthologizer@aclanthology.org 'cat > /var/www/preview.aclanthology.org/robots.txt'; \
 	else \
 	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
 	  exit 1; \

@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $event := index .Site.Data.events .Params.event_slug }}
+{{ $event := index hugo.Data.events .Params.event_slug }}
 <section id="main">
   <h2 id="title">
     {{ .Title }}
@@ -8,36 +8,55 @@
   <span>{{ . }}</span><br/>
   {{ end }}
   {{ with $event.dates }}
-  <span class="font-weight-light text-muted">{{ . }}</span><br/>
+  <span class="fw-light text-muted">{{ . }}</span><br/>
   {{ end }}
   <hr />
 
   {{/* Get the event and iterate through all the volumes associated with it */}}
   {{ $volumes := index $event "volumes" }}
+  {{ if $event.links }}
+  <nav class="d-grid d-sm-flex gap-2 mb-3 mb-lg-4" aria-label="Event resources">
+    {{ range $event.links }}
+      {{ range $label, $link := . }}
+        {{ $link_class := "btn-outline-secondary" }}
+        {{ $link_icon := "fas fa-link" }}
+        {{ $link_label := $label }}
+        {{ if eq (lower $label) "website" }}
+          {{ $link_class = "btn-outline-primary" }}
+          {{ $link_icon = "fas fa-globe" }}
+        {{ else if eq (lower $label) "handbook" }}
+          {{ $link_class = "btn-primary" }}
+          {{ $link_icon = "far fa-file-pdf" }}
+          {{ $link_label = "Conference handbook" }}
+        {{ end }}
+        <a class="btn {{ $link_class }} d-flex align-items-center justify-content-center gap-2" href="{{ $link }}">
+          <i class="{{ $link_icon }}" aria-hidden="true"></i>
+          <span>{{ $link_label }}</span>
+          {{ if eq (lower $label) "website" }}<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>{{ end }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+  {{ end }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
-      {{ if $event.links }}
-      <h4 class="card-title">Links</h4>
-      <ul class="list-pl-responsive">
-        {{ range $event.links }}
-          {{ range $label, $link := . }}
-        <li>
-          <a class="align-middle" href="{{ $link }}">{{ $label }}</a>
-        </li>
-          {{ end }}
-        {{ end }}
-      </ul>
-      {{ end }}
       <h4 class="card-title">Volumes</h4>
-      <ul class="list-pl-responsive">
+      <ul class="list-ps-responsive">
         {{ range $volumes }}
-        {{ $volume := index $.Site.Data.volumes . }}
+        {{ $volume := index hugo.Data.volumes . }}
         <li>
           {{ if eq hugo.Environment "development" }}
-            <span class="badge badge-light align-middle">{{ . }}</span>
+            <span class="badge text-bg-light align-middle">{{ . }}</span>
           {{ end }}
           <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
-          <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+          {{- $this_vol_venues := index $event.vol_venues . -}}
+          {{- $len := (len $this_vol_venues) -}}
+          {{- range $index, $venue := $this_vol_venues -}}
+            {{ $acronym := index hugo.Data.venues $venue "acronym" }}
+            {{ $name := index hugo.Data.venues $venue "name" }}
+          <a href="{{ relref $ (printf "/venues/%s" ($venue)) }}" title="{{ $name }}" class="badge text-bg-primary align-middle ms-1">{{- $acronym -}}</a>
+          {{ end }}
+          <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
         </li>
         {{ end }}
       </ul>
@@ -47,30 +66,34 @@
   {{/* Check if any of the volumes associated with this event have abstracts */}}
   {{ $with_abstracts := 0 }}
   {{ range $volumes }}
-    {{ $volume := index $.Site.Data.volumes . }}
+    {{ $volume := index hugo.Data.volumes . }}
     {{ if $volume.has_abstracts }}
       {{ $with_abstracts = add $with_abstracts 1 }}
     {{ end }}
   {{ end }}
   {{ if (gt $with_abstracts 0) }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
-    <span class="on-toggle-state-hide">Show all abstracts<i class="ml-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ml-2 fas fa-angle-double-up"></i></span></button>
+    <span class="on-toggle-state-hide">Show all abstracts<i class="ms-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ms-2 fas fa-angle-double-up"></i></span></button>
   {{ end }}
 
   {{ range $volumes }}
-  {{ $volume := index $.Site.Data.volumes . }}
+  {{ $volume := index hugo.Data.volumes . }}
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
     <h4 class="d-sm-flex pb-2 border-bottom">
-      <span class="d-block mr-2 list-button-row">
+      <span class="d-block me-2 list-button-row">
       {{- with $volume.pdf -}}
-      <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
+      <br class="d-none d-sm-inline-block" />
+      {{- end -}}
+      {{- with $volume.external -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external proceedings" aria-label="Open external proceedings"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
       {{- $bibfile := printf "volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-      <a class="badge badge-secondary align-middle mr-1" href="{{ relURL $bibfile }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
+      <a class="badge text-bg-secondary align-middle me-1" href="{{ relURL $bibfile }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a></h4>

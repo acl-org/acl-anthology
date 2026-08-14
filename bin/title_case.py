@@ -32,17 +32,17 @@ def titlecase(s):
         ret.append(word)
         if any(c.isalpha() for c in word):
             first = False
-        if word in [':', '(']:
+        if word in [":", "("]:
             first = True
 
-    ret = ''.join(ret)
+    ret = "".join(ret)
     return ret
 
 
 def replace_text(node, text):
     def visit(node, skip):
         nonlocal text
-        if node.tag == 'fixed-case':
+        if node.tag == "fixed-case":
             skip = True
         if node.text:
             n = len(node.text)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     scriptdir = os.path.dirname(os.path.abspath(__file__))
-    datadir = os.path.join(scriptdir, '..', 'data')
+    datadir = os.path.join(scriptdir, "..", "data")
 
     ap = argparse.ArgumentParser(description="Correct titles.")
     ap.add_argument(

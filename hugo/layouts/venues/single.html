@@ -21,7 +21,7 @@
   </div>
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
@@ -32,13 +32,13 @@
       <div class="col-sm">
         <ul>
           {{ range $volumes }}
-          {{ $volume := index $.Site.Data.volumes . }}
+          {{ $volume := index hugo.Data.volumes . }}
           <li>
             {{ if eq hugo.Environment "development" }}
-              <span class="badge badge-light align-middle">{{ . }}</span>
+              <span class="badge text-bg-light align-middle">{{ . }}</span>
             {{ end }}
             <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a>
-            <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+            <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
           </li>
           {{ end }}
         </ul>

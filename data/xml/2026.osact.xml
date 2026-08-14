@@ -1,0 +1,528 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.osact">
+  <volume id="1" type="proceedings" ingest-date="2026-07-24">
+    <meta>
+      <booktitle>The 7th Workshop on Open-Source <fixed-case>A</fixed-case>rabic Corpora and Processing Tools (<fixed-case>OSACT</fixed-case>7) with 5 Shared Tasks</booktitle>
+      <editor><first>Hend</first><last>Al-Khalifa</last></editor>
+      <editor><first>Mo</first><last>El-Haj</last></editor>
+      <editor><first>Saad</first><last>Ezzini</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Palma, Mallorca (Spain)</address>
+      <month>May</month>
+      <year>2026</year>
+      <url hash="88417588">2026.osact-1</url>
+      <venue>osact</venue>
+      <venue>ws</venue>
+      <doi>10.63317/55nvfe53k6fq</doi>
+    </meta>
+    <frontmatter>
+      <url hash="c0d3e503">2026.osact-1.0</url>
+      <bibkey>osact-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Hidden Sentiments: The Impact of Low-level Adversarial Perturbations on <fixed-case>A</fixed-case>rabic Sentiment Analysis Services</title>
+      <author><first>Abdelrahman Hamada</first><last>Hefny Abdelkader</last></author>
+      <pages>1-13</pages>
+      <abstract>Sentiment analysis is one of the most popular applications of supervised machine learning for natural language processing. A common approach for obtaining a dataset to train sentiment analysis models is to extract user posts and comments from social media and other online platforms. However, this content is subject to various types of perturbations that go beyond the target of common preprocessing techniques and may impact the models’ performance. In this paper, a set of six popular corpora used in Arabic sentiment analysis research is analyzed to identify common patterns of character-level perturbations. The samples of three selected corpora were then used to test the performance of the online sentiment analysis services offered by three public cloud providers. This test is done using a clean version of each dataset and four other versions, each perturbed using a different technique. Empirical results indicate that no single sentiment analysis service is superior to others in all cases, and all three services are vulnerable to low-level adversarial attacks which may cause up to a 51% relative drop in macro average F1 score, while maintaining readability.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-01</url>
+      <bibkey>hefny-abdelkader-2026-hidden</bibkey>
+      <doi>10.63317/3x52cptyrpkm</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>LLM</fixed-case>-Based Financial Sentiment Analysis in <fixed-case>A</fixed-case>rabic: Evidence from Saudi Markets</title>
+      <author><first>Mona H.</first><last>Albaqawi</last></author>
+      <author><first>Eman M.</first><last>Albalkhi</last></author>
+      <author><first>Joud A.</first><last>Albaiti</last></author>
+      <author><first>Enrico</first><last>Lopedoto</last></author>
+      <pages>14-24</pages>
+      <abstract>Investor sentiment significantly influences financial markets, yet Arabic financial sentiment analysis remains limited by linguistic complexity and scarce domain-specific resources. This paper presents an LLM-based framework for large-scale Arabic financial sentiment analysis tailored to the Saudi market. We construct an 84K-sample Arabic Financial Sentiment Corpus integrating official financial news and social media data. The proposed pipeline includes preprocessing, deduplication, entity linking, conditional summarization, and five-class sentiment labeling using a multi-model consensus strategy to enhance reliability. We benchmark multiple large language models against traditional lexicon-based and fine-tuned transformer baselines. GPT-5 achieves the strongest class-balanced performance (Macro-F1 = 0.829), substantially outperforming conventional approaches. For summarization, Allam demonstrates the best trade-off between quality, hallucination control, and cost efficiency. Additional analyses examine cost–quality trade-offs and the impact of summarization on sentiment consistency. The results establish new benchmarks for Arabic financial sentiment classification and demonstrate the effectiveness of scalable LLM-based pipelines for domain-specific Arabic NLP.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-02</url>
+      <bibkey>albaqawi-etal-2026-llm</bibkey>
+      <doi>10.63317/3hsd9iyq472z</doi>
+    </paper>
+    <paper id="3">
+      <title>Does Translation Preserve Sentiment? An Analysis of <fixed-case>A</fixed-case>rabic-<fixed-case>E</fixed-case>nglish Cross-Lingual Classification</title>
+      <author><first>Nour Aldin Al</first><last>Mubarak</last></author>
+      <author><first>Noura</first><last>Al Moubayed</last></author>
+      <pages>25-34</pages>
+      <abstract>Machine translation is widely used in cross-lingual sentiment analysis, yet the assumption that translation preserves sentiment remains largely unexamined. We present a systematic analysis of translation-induced sentiment shifts across 11,558 samples from three Arabic-English datasets (AJGT, OCLAR, FSA) using three translation models (Helsinki-NMT, GPT-4o-mini, LLaMA-3.1-8B) and a fixed multilingual classifier (XLM-RoBERTa). A substantial proportion of samples experience sentiment shifts after translation, with accuracy drops ranging from less than 1% to nearly 20%. GPT-4o-mini achieves the strongest sentiment preservation, while LLaMA-3.1-8B exhibits both significant distortion and refusal behaviour. Critically, Helsinki-NMT’s successful translation of all samples indicates that LLaMA’s refusals stem from safety policies rather than input untranslatability. We also find that sentiment shift measurements are pipeline-dependent and vary with the classifier used for evaluation. These findings challenge the translate-then-classify paradigm and provide guidance for cross-lingual Arabic NLP systems.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-03</url>
+      <bibkey>mubarak-al-moubayed-2026-translation</bibkey>
+      <doi>10.63317/2khexrk5s3bx</doi>
+    </paper>
+    <paper id="4">
+      <title>When Bigger Isn’t Better: Evaluating <fixed-case>LLM</fixed-case>s for <fixed-case>A</fixed-case>rabic Sentiment Analysis</title>
+      <author><first>Mohamed</first><last>Ibrahim</last></author>
+      <author><first>Abdullah</first><last>Makki</last></author>
+      <author><first>Youssef</first><last>Barakat</last></author>
+      <author><first>Nour</first><last>Samy</last></author>
+      <author><first>Sarah</first><last>AlHumoud</last></author>
+      <pages>35-39</pages>
+      <abstract>This study evaluates the performance of a fine-tuned Arabic sentiment transformer (CAMeL-MSA) against eight large language models (LLMs). Using zero-shot prompting across six Arabic sentiment datasets, we compare a specialized, task-specific approach against generalized model capabilities. Results show that the fine-tuned baseline substantially outperformed all LLMs on five of the six datasets in both accuracy and Macro F1-score. While LLMs offer versatility, this comparison highlights the continued practical superiority of task-specific fine-tuning over zero-shot prompting.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-04</url>
+      <bibkey>ibrahim-etal-2026-bigger</bibkey>
+      <doi>10.63317/2kimof4u6y8x</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>GATE</fixed-case>-Reranker: A Strong <fixed-case>A</fixed-case>rabic Cross-Encoder for Document Reranking</title>
+      <author><first>Omer</first><last>Nacar</last></author>
+      <author><first>Omar</first><last>Elshehy</last></author>
+      <author><first>Mohamed</first><last>Zaytoon</last></author>
+      <author><first>Khloud</first><last>Al Jallad</last></author>
+      <pages>40-48</pages>
+      <abstract>Arabic information retrieval increasingly relies on multi-stage pipelines in which a fast first-stage retriever produces candidate passages and a neural reranker refines relevance. While transformer cross-encoders deliver strong effectiveness through joint query–passage encoding, multilingual rerankers achieve competitive performance on Arabic benchmarks. However, systematic analysis of calibration, robustness, and deployment behavior in Arabic-specific settings remains limited. We present <b>GATE-Reranker</b>, a compact Arabic cross-encoder initialized from an Arabic semantic embedding backbone and fine-tuned on large-scale mMARCO-style Arabic triplets. The model scores each query–passage pair via full self-attention and a lightweight regression head, enabling plug-and-play second-stage reranking for Arabic search and RAG systems. We evaluate on three Arabic benchmarks covering binary relevance discrimination, controlled multi-negative reranking, and large-scale mMARCO evaluation. While remaining competitive with strong multilingual rerankers in ranking effectiveness, GATE-Reranker demonstrates significantly improved calibration and discriminative behavior. These properties translate into more reliable downstream performance in retrieval and RAG pipelines, while maintaining low GPU memory and latency on a Tesla T4.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-05</url>
+      <bibkey>nacar-etal-2026-gate</bibkey>
+      <doi>10.63317/2y297wwcf77y</doi>
+    </paper>
+    <paper id="6">
+      <title>How Foundation Models Behave for <fixed-case>A</fixed-case>rabic Image Captioning?</title>
+      <author><first>Khaoula</first><last>Dahimi</last></author>
+      <author><first>Amel</first><last>Belabbaci</last></author>
+      <author><first>Hadda</first><last>Cherroun</last></author>
+      <author><first>Abdelhamid</first><last>Haouhat</last></author>
+      <pages>49-58</pages>
+      <abstract>Image captioning plays a crucial role in numerous applications, including educational systems. However, ensuring caption quality remains a significant challenge, particularly for morphologically rich, low-resource languages such as Arabic. We investigate an evaluation of Arabic image captioning using state-of-the-art multimodal foundation models. We systematically assess the performance of leading models—Gemini, Gemma, LLaMA, and Fanar. Our evaluation framework employs a diverse set of metrics spanning rule-based, learnable, visually-grounded, and LLM-based approaches to capture semantic accuracy, linguistic fluency, and hallucination detection. Experiments are conducted on two benchmark datasets: Flickr8k-Arabic and JEEM. Our findings reveal significant performance variations across models and evaluation metrics, highlighting the need for Arabic-specific optimization in multimodal architectures.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-06</url>
+      <bibkey>dahimi-etal-2026-foundation</bibkey>
+      <doi>10.63317/3bhwcpon3fv5</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>A</fixed-case>lign<fixed-case>AR</fixed-case>: Generative Sentence Alignment for <fixed-case>A</fixed-case>rabic–<fixed-case>E</fixed-case>nglish Parallel Corpora of Legal and Literary Texts</title>
+      <author><first>Baorong</first><last>Huang</last></author>
+      <author><first>Ali</first><last>Asiri</last></author>
+      <pages>59-65</pages>
+      <abstract>High-quality parallel corpora serve as the fundamental backbone for advancements in Machine Translation (MT) research and the development of effective translation pedagogy. Despite this need, robust resources for the Arabic-English language pair remain significantly scarce. Furthermore, existing datasets are often limited by their reliance on simplistic one-to-one sentence mappings, which fail to capture the structural complexities inherent in natural language translation. To address this deficiency, this paper presents AlignAR, a novel generative sentence alignment method, alongside a comprehensive new Arabic–English dataset that juxtaposes simple legal documents with complex literary texts. Our evaluation demonstrates that “Easy” datasets lack the discriminatory power to fully assess alignment methods. By reducing one-to-one mappings within our “Hard” subset, we exposed the limitations of traditional alignment techniques when faced with structural divergence. In contrast, Large Language Model (LLM) based approaches demonstrated superior robustness and adaptability. Specifically, the proposed LLM-based approaches demonstrated better robustness, achieving an overall F1-score of 85.5%, a nearly 9% improvement over previous methods. This study underscores the importance of complex benchmarks and validates the efficacy of generative models in handling the intricacies of bitext alignment. The codes and datasets are available on Github.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-07</url>
+      <bibkey>huang-asiri-2026-alignar</bibkey>
+      <doi>10.63317/2c9daup5j4k7</doi>
+    </paper>
+    <paper id="8">
+      <title>Helpful or Harmful? The Dual Role of Linguistic Features in <fixed-case>LLM</fixed-case>-Based Dialectal Machine Translation</title>
+      <author><first>Abdelhalim Hafedh</first><last>Dahou</last></author>
+      <author id="mohamed-amine-cheragui" orcid="0000-0003-2760-5547"><first>Mohamed Amine</first><last>Cheragui</last></author>
+      <pages>66-75</pages>
+      <abstract>Large Language Models (LLMs) have shown promising results in dialectal machine translation, yet the impact of explicit linguistic features remains underexplored. This paper examines whether part-of-speech (POS) tags and diacritization help or hinder LLM-based translation between Algerian dialect (Darija) and Modern Standard Arabic (MSA). Using a linguistically enriched subset of the PADIC dataset, we conduct bidirectional experiments across several frontier and open-weight LLMs, evaluated with automatic metrics and human judgments of adequacy and fluency. Results reveal a dual and asymmetric effect: diacritics can improve adequacy in the MSA → Algerian dialect direction, while POS tags and forced diacritization often introduce noise, especially for Algerian dialect → MSA translation. We further observe a mismatch between traditional overlap-based metrics and human evaluation, suggesting limitations in current evaluation practices. Overall, explicit linguistic augmentation does not consistently benefit LLM-based dialectal translation and must be applied cautiously.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-08</url>
+      <bibkey>dahou-cheragui-2026-helpful</bibkey>
+      <doi>10.63317/5dpmbr8bbedw</doi>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>ASCAT</fixed-case>: <fixed-case>A</fixed-case>rabic Scientific Benchmark for Advanced Translation Evaluation</title>
+      <author><first>Serry</first><last>Sibaee</last></author>
+      <author><first>Khloud</first><last>Al Jallad</last></author>
+      <author><first>Zineb</first><last>Yousfi</last></author>
+      <author><first>Israa</first><last>Elhosiny</last></author>
+      <author><first>Yousra</first><last>Yousra El-Ghawi</last></author>
+      <author><first>Batool</first><last>Balah</last></author>
+      <author><first>Omer</first><last>Nacar</last></author>
+      <pages>76-80</pages>
+      <abstract>We present ASCAT (Arabic Scientific Corpus for Advanced Translation), a high-quality English-Arabic parallel benchmark corpus designed for scientific translation evaluation constructed through a systematic multi-engine machine translation and expert post-editing pipeline. Unlike existing Arabic-English corpora that rely on short sentences or single-domain text, ASCAT targets full scientific abstracts averaging 125.3 words (English) and 111.78 words (Arabic), drawn from five scientific domains: physics, mathematics, computer science, quantum mechanics, and artificial intelligence. Each abstract was translated using three complementary architectures generative AI (Gemini), transformer-based models (Hugging Face quickmt-en-ar), and commercial MT APIs (Google Translate, DeepL) and subsequently post-edited by domain experts at the lexical, syntactic, and semantic levels. The resulting corpus contains 67,293 English tokens and 60,026 Arabic tokens, with an Arabic vocabulary of 17,604 unique words reflecting the morphological richness of the language. We benchmark three state-of-the-art LLMs on the corpus GPT-4o-mini (BLEU: 37.07), Gemini-3.0-Flash-Preview (BLEU: 30.44), and Qwen3-235B-A22B (BLEU: 23.68) demonstrating its discriminative power as an evaluation benchmark. ASCAT addresses a critical gap in scientific MT resources for Arabic and is designed to support rigorous evaluation of scientific translation quality and training of domain-specific translation models.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-09</url>
+      <bibkey>sibaee-etal-2026-ascat</bibkey>
+      <doi>10.63317/3328e5bk8rrs</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>SHEIN</fixed-case>fer: Implicit Product Category Inference from <fixed-case>A</fixed-case>rabic <fixed-case>E</fixed-case>-commerce Reviews</title>
+      <author id="hend-al-khalifa" orcid="0000-0002-7328-4935"><first>Hend</first><last>Al-Khalifa</last></author>
+      <pages>81-87</pages>
+      <abstract>We introduce SHEINfer, a novel task and dataset for inferring product categories from Arabic e-commerce reviews without explicit product mentions. Unlike traditional product classification that relies on product titles or descriptions, our task requires models to deduce product types solely from customer review text, which often contains implicit references through dialectal expressions, quality assessments, and contextual clues. We present a dataset of 801 Arabic reviews from the SHEIN e-commerce website, dual-annotated across 11 product categories with 515 agreed samples achieving moderate inter-annotator agreement (Cohen’s κ = 0.60). Given the relatively small dataset size, we employ 5-fold stratified cross-validation for all models to ensure robust performance estimates. Our experiments compare traditional machine learning approaches (TF-IDF with SVM and Logistic Regression), Arabic transformer models (AraBERT, CAMeLBERT, MARBERT), and large language models (GPT-4o-mini) in zero-shot and few-shot settings. Results show that MARBERT achieves the highest accuracy (0.586 ± 0.026), while TF-IDF with Logistic Regression achieves the best macro F1 (0.417 ± 0.056), indicating better performance across minority categories. GPT-4o-mini demonstrates poor zero-shot performance (0.064 accuracy) with modest improvement in 3-shot settings (0.186 accuracy), indicating that implicit product inference from dialectal Arabic text remains challenging for general-purpose LLMs. Our findings highlight the unique challenges of implicit product classification in Arabic e-commerce and establish benchmarks for future research in this underexplored area.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-10</url>
+      <bibkey>al-khalifa-2026-sheinfer</bibkey>
+      <doi>10.63317/4t8cfnk4ki9a</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>NAJD</fixed-case>-<fixed-case>MT</fixed-case>: High-Fidelity Saudi Najdi–<fixed-case>E</fixed-case>nglish Training Data for Bidirectional Neural Machine Translation</title>
+      <author><first>Nour</first><last>Qandos</last></author>
+      <author><first>Samar Essa</first><last>Ahmed</last></author>
+      <author><first>Omer</first><last>Nacar</last></author>
+      <author><first>Ahmad</first><last>Alrabghi</last></author>
+      <author><first>Rahaf Saeed</first><last>Al Hallay</last></author>
+      <author><first>Aya</first><last>Hamod</last></author>
+      <author><first>Shaden</first><last>Alsuhaim</last></author>
+      <pages>88-93</pages>
+      <abstract>Dialectal Arabic remains significantly underrepresented in parallel resources for direct machine translation with English, particularly for regional varieties such as Saudi Najdi Arabic. In this work, we introduce NAJD-MT, a systematically constructed Saudi Najdi-English parallel corpus designed for training bidirectional neural machine translation models. Starting from the Saudi Arabic Dialectal Annotated (SADA) dataset, we generate English translations using GPT-4.1 and subsequently apply cross-lingual embedding-based cosine similarity filtering to improve semantic alignment and reduce translation noise. We analyze the impact of varying semantic similarity thresholds on corpus size and downstream translation performance. Using the constructed datasets, we train and evaluate multiple Transformer-based models, including NLLB-200, OPUS-MT, mBART, and AraT5v2, in both Najdi→English and English→Najdi directions. Experimental results demonstrate that stricter semantic filtering (cosine ≥ 0.7) consistently improves translation quality despite reducing dataset size, highlighting that data purity plays a critical role in dialectal machine translation training. Our findings provide a reproducible framework for constructing high-fidelity dialect English parallel corpora and emphasize the importance of semantic alignment filtering in low-resource dialectal settings.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-11</url>
+      <bibkey>qandos-etal-2026-najd</bibkey>
+      <doi>10.63317/27nkwba8nvda</doi>
+    </paper>
+    <paper id="12">
+      <title>Parsing <fixed-case>A</fixed-case>rabic Dialects Revisited: New Benchmarks, Models, and Insights</title>
+      <author><first>Ahmed</first><last>Farouk Zakaria Elshabrawy</last></author>
+      <author id="go-inoue" orcid="0000-0002-2087-1423"><first>Go</first><last>Inoue</last></author>
+      <author><first>Muhammed</first><last>AbuOdeh</last></author>
+      <author id="nizar-habash" orcid="0000-0002-1831-3457"><first>Nizar</first><last>Habash</last></author>
+      <pages>94-105</pages>
+      <abstract>Parsing dialectal Arabic remains underexplored, with limited progress over the past two decades. Existing Modern Standard Arabic (MSA) parsers perform poorly on dialectal data, motivating the need for dialect-specific approaches. We revisit this task using modern neural models and present new results on Egyptian and Gulf Arabic dependency parsing. We demonstrate that even small amounts of dialectal training data yield substantial improvements in parsing accuracy. Our contributions include: (1) introducing a new annotated dataset for Gulf Arabic, (2) releasing a state-of-the-art multi-variety Arabic parser, and (3) employing dialect identification as a diagnostic tool to better understand how training data affects parsing performance across dialects and test sets.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-12</url>
+      <bibkey>farouk-zakaria-elshabrawy-etal-2026-parsing</bibkey>
+      <doi>10.63317/3eyeu3k726ab</doi>
+    </paper>
+    <paper id="13">
+      <title>On <fixed-case>LLM</fixed-case> Prompting Techniques for <fixed-case>A</fixed-case>rabic Language Arithmetic Reasoning</title>
+      <author><first>Reem</first><last>Alenezi</last></author>
+      <author><first>Ayed Atallah</first><last>Salman</last></author>
+      <pages>106-114</pages>
+      <abstract>Math word problems (MWPs) require complex reasoning to extract mathematical relationships from textual descriptions. While Large Language Models (LLMs) have shown remarkable performance on English mathematical reasoning tasks, their effectiveness on Arabic MWPs remains largely unexplored. This paper introduces three Arabic datasets (AGSM8K, Qudurat, and ArabicMWPs) and evaluates six LLMs using three prompting techniques: Manual Chain-of-Thought (CoT), Zero-shot CoT, and Self-consistency. Performance is assessed using accuracy and BERTScore metrics (precision, recall, F1-score). Our findings demonstrate that GPT-4o with Self-consistency achieves the highest accuracy of 97.65% on AGSM8K. It also obtains a precision of 71.94%, a recall of 71.31%, and an F1-score of 71.50%. The Arabic-specific LLM ALLaM achieves 84.41% accuracy on ArabicMWPs and 43.97% on AGSM8K. Fine-tuning experiments are further conducted on models using Arabic mathematical data. This work addresses the critical gap in Arabic mathematical reasoning resources and provides insights for developing Arabic-capable AI systems. Prompt-engineering methods combined with LLMs are regarded as a strong approach for advancing education and scientific research in solving Arabic mathematical problems.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-13</url>
+      <bibkey>alenezi-salman-2026-llm</bibkey>
+      <doi>10.63317/52s6fyvjghcs</doi>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>DIA</fixed-case>2 - a Comprehensive and Diverse Diacritized <fixed-case>A</fixed-case>rabic Corpus for <fixed-case>NLP</fixed-case> Research</title>
+      <author><first>Fatima</first><last>Dekmak</last></author>
+      <author><first>Shady</first><last>Elbassuoni</last></author>
+      <author id="khaled-shaban-7515" orcid="0000-0002-5688-7515"><first>Khaled</first><last>Shaban</last></author>
+      <author><first>Hazem</first><last>Hajj</last></author>
+      <author id="wassim-el-hajj-2954" orcid="0000-0002-5206-2954"><first>Wassim</first><last>El-Hajj</last></author>
+      <author><first>Yasmine</first><last>Abu Adla</last></author>
+      <author><first>Buthaina</first><last>Alabrash</last></author>
+      <pages>115-130</pages>
+      <abstract>The development of Arabic natural language processing (NLP) applications and large language models (LLMs) faces substantial challenges, primarily due to the scarcity of high-quality native Arabic datasets. To address this critical gap, we present DIA2 (a Comprehensive and Diverse Diacritized Modern Standard Arabic Corpus), a novel dataset curated from 28 diverse, carefully selected Arabic sources. DIA2 emphasizes the use of original Arabic text and explicitly avoids machine-translated content. The corpus incorporates substantial amounts of text from books, news articles, and poetry, and employs extensive data preprocessing to support NLP research and LLM development. Our preprocessing pipeline includes rigorous text cleaning, URL- and document-level deduplication, and automatic diacritization, while preserving a gold diacritized subset derived from manually annotated sources. The resulting corpus comprises over 140 GB of high-quality text, containing more than 26 million unique words and 41.9 billion tokens. To evaluate the proposed pipeline, we conducted controlled continued pretraining experiments using Llama3.1-8B on both raw and processed subsets of DIA2. The model trained on processed data consistently outperformed its counterpart across multiple Arabic evaluation benchmarks. These results highlight the positive impact of systematic preprocessing and the utility of DIA2 in empowering native Arabic LLMs and downstream NLP tasks.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-14</url>
+      <bibkey>dekmak-etal-2026-dia2</bibkey>
+      <doi>10.63317/3k2m7vtzunuk</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>CV</fixed-case>-18 <fixed-case>NER</fixed-case>: Augmented Common Voice for Named Entity Recognition from <fixed-case>A</fixed-case>rabic Speech</title>
+      <author><first>Youssef</first><last>Saidi</last></author>
+      <author id="haroun-elleuch" orcid="0009-0006-1175-650X"><first>Haroun</first><last>Elleuch</last></author>
+      <author id="fethi-bougares" orcid="0000-0002-6494-2350"><first>Fethi</first><last>Bougares</last></author>
+      <pages>131-140</pages>
+      <abstract>End-to-end speech Named Entity Recognition (NER) aims to directly extract entities from speech. Prior work has shown that end-to-end (E2E) approaches can outperform cascaded pipelines for English, French, and Chinese, but Arabic remains under-explored due to its morphological complexity, the absence of short vowels, and limited annotated resources. We introduce CV-18 NER, the first publicly available dataset for NER from Arabic speech, created by augmenting the Arabic Common Voice 18 corpus with manual NER annotations following the fine-grained Wojood schema (21 entity types). We benchmark both pipeline systems (ASR + text NER) and E2E models based on Whisper and AraBEST-RQ. E2E systems substantially outperform the best pipeline configuration on the test set, reaching 37.0% CoER (AraBEST-RQ 300M) and 38.0% CVER (Whisper-medium). Further analysis shows that Arabic-specific self-supervised pretraining yields strong ASR performance, while multilingual weak supervision transfers more effectively to joint speech-to-entity learning, and that larger models may be harder to adapt in this low-resource setting. Our dataset and models are publicly released, providing the first open benchmark for end-to-end named entity recognition from Arabic speech. <url>https://huggingface.co/datasets/Elyadata/CV18-NER</url></abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-15</url>
+      <bibkey>saidi-etal-2026-cv</bibkey>
+      <doi>10.63317/3ayuttvcg6vu</doi>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>ARHAHA</fixed-case> 2026: The Shared Task on <fixed-case>A</fixed-case>rabic Humor Automatic Generation</title>
+      <author><first>Ameera Masoud</first><last>Almasoud</last></author>
+      <author id="hend-al-khalifa" orcid="0000-0002-7328-4935"><first>Hend</first><last>Al-Khalifa</last></author>
+      <author><first>Reem Fahad</first><last>Alqifari</last></author>
+      <author><first>Nourah</first><last>Alangari</last></author>
+      <author><first>Manal M.</first><last>Albahlal</last></author>
+      <pages>141-150</pages>
+      <abstract>Humor generation remains one of the most challenging tasks in natural language processing, particularly in Arabic, where cultural context, dialectal variation, and linguistic nuances are central to comedic effect. In this paper, we present the ARHAHA 2026 shared task on constrained Arabic humor generation. The task requires systems to generate jokes that incorporate a given pair of words while adhering to safety and cultural constraints. We describe the task design, dataset construction, and evaluation framework, which combines automatic validation with human evaluation. Nine teams registered for the shared task; among them, three submitted final system outputs and two provided system description papers. Each participating system generated 1,200 Arabic jokes. For each system, a subset of 300 jokes was selected for evaluation by three independent annotators. The evaluation considered humor quality, originality, lexical constraint compliance, and safety. The results show that participating systems can produce safe and original content. However, generating genuinely humorous outputs remains difficult. The top-performing system was judged humorous in only 5.01% of outputs, highlighting the inherent difficulty of computational humor generation. All three systems maintained very low rates of policy violations and stereotyping, demonstrating the effectiveness of constrained generation for safe content production. However, the very low humor rates indicate a substantial gap between generating fluent, constraint-compliant text and producing genuinely funny content. The top-performing system achieves stronger performance across originality, lexical compliance, and safety, resulting in a final score of 49.25, compared to 44.62 for the second-ranked system and 35.99 for the third-ranked system. These results reveal that humor generation, rather than safety or constraint adherence, is the dominant bottleneck in constrained Arabic humor generation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-16</url>
+      <bibkey>almasoud-etal-2026-arhaha</bibkey>
+      <doi>10.63317/4hh2u3dppb58</doi>
+    </paper>
+    <paper id="17">
+      <title>The <fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val 2026 Shared Task on <fixed-case>A</fixed-case>rabic Politeness Detection</title>
+      <author><first>Reem Fahad</first><last>Alqifari</last></author>
+      <author id="hend-al-khalifa" orcid="0000-0002-7328-4935"><first>Hend</first><last>Al-Khalifa</last></author>
+      <author id="nadia-ghezaiel-hammouda" orcid="0000-0003-3438-7883"><first>Nadia</first><last>Ghezaiel</last></author>
+      <author><first>Maria</first><last>Bounnit</last></author>
+      <author><first>Hend Hamed</first><last>Alhazmi</last></author>
+      <author><first>Ameera Masoud</first><last>Almasoud</last></author>
+      <author id="sharefah-ahmed-al-ghamdi" orcid="0009-0006-2234-034X"><first>Sharefah Ahmed</first><last>Al-Ghamdi</last></author>
+      <author id="noof-abdullah-alfear" orcid="0000-0002-6104-976X"><first>Noof Abdullah</first><last>Alfear</last></author>
+      <pages>151-156</pages>
+      <abstract>We present an overview of the AdabEval 2026 shared task, organized as part of the OSACT7 workshop (co-located with LREC 2026). This task introduces the first benchmark suite for politeness detection. It includes two subtasks: Politeness Classification (Subtask A) and Category Prediction (Subtask B). The task focuses on evaluating models’ ability to recognize and categorize politeness phenomena in Arabic text. Evaluation was conducted using an automatic metric (macro F1-score). A total of 28 unique teams participated in the shared task. Of these, 13 teams submitted final system predictions across the two subtasks. The top-performing systems relied primarily on transformer-based architectures. The winning systems achieved macro F1-scores of 0.89 for Subtask A and 0.58 for Subtask B.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-17</url>
+      <bibkey>alqifari-etal-2026-adabeval</bibkey>
+      <doi>10.63317/3sbqjqbib67c</doi>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>GHAD</fixed-case> <fixed-case>NLP</fixed-case> at <fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val2026: Transformer-Based Approach for <fixed-case>A</fixed-case>rabic Politeness and Pragmatic Category Classification</title>
+      <author id="ghada-alfattni" orcid="0000-0002-2060-195X"><first>Ghada</first><last>Alfattni</last></author>
+      <author><first>Ghader</first><last>Kurdi</last></author>
+      <pages>157-164</pages>
+      <abstract>This paper presents our submission to the AdabEval 2026 shared task on Arabic politeness classification and pragmatic category prediction. We explored a range of Arabic-specific and multilingual transformer models and integrated their outputs through an ensemble strategy. Our approach achieved state-of-the-art performance in the shared task, ranking first in both subtasks with a macro-F1 score of 0.89 and an accuracy of 0.93 on subtask A, and a macro-F1 score of 0.58 on subtask B. Although our approach delivered high performance on overall politeness classification, pragmatic category prediction remains more challenging. Despite achieving the top ranking in this subtask, the comparatively lower macro-F1 score suggests that modelling fine-grained pragmatic functions requires further methodological refinement and experimentation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-18</url>
+      <bibkey>alfattni-kurdi-2026-ghad</bibkey>
+      <doi>10.63317/4k9uztg6j9jr</doi>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>MOSKA</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val 2026: Feature-Enriched Ensembling for <fixed-case>A</fixed-case>rabic Politeness Detection</title>
+      <author><first>Nina A.</first><last>Andriyanova-Almaamary</last></author>
+      <pages>165-173</pages>
+      <abstract>In this paper, we present our system for subtask A of the AdabEval 2026 shared task, which focuses on classifying Arabic text into Polite, Neutral, and Impolite categories. Politeness detection is challenging because it cannot be inferred from lexical meaning alone. This is prominent in Arabic language, where politeness is often conveyed through formulaic expressions, stylistic cues, and dialectal variations. Our approach follows a three-stage strategy. First, we evaluate five Arabic sentence embedding models based on different pretrained encoders to identify a strong representation backbone. Second, we enrich sentence embeddings with explicit lexical, surface-level, and auxiliary signals derived from external models, including dialect, intent, and sarcasm classifiers. Third, we combine predictions from independently trained models, using weighted probability-level ensembling with class-specific decision thresholds to address class imbalance. Experimental results show that feature-enriched representations consistently outperform embedding-only baselines, with additional gains obtained from calibrated ensembling. The proposed system achieves a macro-F1 score of 0.87 and an accuracy of 93% on the official AdabEval 2026 evaluation for subtask A.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-19</url>
+      <bibkey>andriyanova-almaamary-2026-moska</bibkey>
+      <doi>10.63317/56vfmbyh3fsv</doi>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>SHU</fixed-case> at <fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val 2026: Category-Aware Fine-Tuning of <fixed-case>MARBERT</fixed-case> for <fixed-case>A</fixed-case>rabic Politeness and Pragmatic Function Classification</title>
+      <author><first>Alla</first><last>Zwawi</last></author>
+      <author><first>Stephen</first><last>Wu</last></author>
+      <pages>174-178</pages>
+      <abstract>This paper describes our submission to the AdabEval 2026 shared task, addressing Subtask A (politeness classification) and Subtask B (multi-label pragmatic category prediction). For Subtask A, we fine-tuned MARBERT using weighted cross-entropy to mitigate class imbalance. For Subtask B, we apply BCEWithLogitsloss with inverse-frequency positive weighting to address the minority categories, and we introduce a category merging strategy to reduce categories’ sparsity and annotation variation. Finally, we propose a stacked architecture where predicted pragmatic categories are injected as auxiliary features into the politeness classifier. Our results demonstrate that dialect-aware modelling, class-imbalance handling, and category-aware stacking improve Macro-F1 across both subtasks, achieving 0.85 for Subtask A and 0.55 for Subtask B on the test set.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-20</url>
+      <bibkey>zwawi-wu-2026-shu</bibkey>
+      <doi>10.63317/5csq27bytjtc</doi>
+    </paper>
+    <paper id="21">
+      <title>Comparative Study of Machine Learning and Transformer-Based Approaches for <fixed-case>A</fixed-case>rabic Politeness Detection at <fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val 2026</title>
+      <author><first>Mariem</first><last>Ben Arbia</last></author>
+      <author><first>Ghada</first><last>Ben Amor</last></author>
+      <author><first>Omar</first><last>Trigui</last></author>
+      <pages>179-184</pages>
+      <abstract>This paper describes our system submitted to the OSACT7 AdabEval shared task on Arabic politeness detection (TaskA). The task requires classifying Arabic texts into three categories: Polite, Impolite, and Neutral. We systematically explore multiple approaches, progressing from classical machine learning baselines using pre-trained embeddings to fine-tuned transformer models. Our best system leverages MARBERT, a transformer model pre-trained on one billion Arabic tweets, fine-tuned with Focal Loss to handle the significant class imbalance present in the dataset (70% Neutral). We additionally experiment with hybrid approaches combining fine-tuned embeddings with gradient-boosted classifiers and ensemble methods. Our best single model achieves a macro F1 score of 0.84 and an accuracy of 0.90 on the validation set, substantially outperforming classical ML baselines (F1 = 0.42).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-21</url>
+      <bibkey>ben-arbia-etal-2026-comparative</bibkey>
+      <doi>10.63317/2vdvaesuziyj</doi>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>A</fixed-case>dab<fixed-case>E</fixed-case>val 2026 Task <fixed-case>B</fixed-case> : Multi-Label Classification of <fixed-case>A</fixed-case>rabic Politeness Criteria in Social Media Media</title>
+      <author><first>Rand Abdullah</first><last>Alturki</last></author>
+      <pages>185-190</pages>
+      <abstract>We address the problem of multi-label classification of politeness and impoliteness criteria in Arabic social media posts, as defined in Subtask B of an Arabic politeness shared task (CITATION) The goal is to assign up to four labels from nine pragmatic categories, including Insult, Criticism, Respect, Prayers, and Hospitality, to each post. We first construct consistent multi-label annotations by mapping heterogeneous criterion strings into the official label set and analyzing their skewed distribution. To mitigate severe class imbalance, especially for rare categories such as Hospitality and Racism/Discrimination, we apply targeted oversampling of minority instances. Our modelling pipeline combines a TF–IDF + Logistic Regression baseline with two transformer-based encoders, MARBERT and AraBERT-twitter, trained for multi-label classification with Focal Loss. We then aggregate model outputs through a weighted ensemble and optimize per-class decision thresholds on a held-out validation set to improve macro-averaged F1. Experiments on the shared-task train/validation split show that the ensemble substantially outperforms the TF–IDF baseline and individual transformers, particularly on underrepresented categories, while maintaining competitive performance on frequent labels.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-22</url>
+      <bibkey>alturki-2026-adabeval</bibkey>
+      <doi>10.63317/32uwkkvvdfq6</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>QIAS</fixed-case> 2026: Overview of the Shared Task on Islamic Inheritance Reasoning</title>
+      <author><first>Abdessalam</first><last>Bouchekif</last></author>
+      <author><first>Somaya</first><last>Eltanbouly</last></author>
+      <author><first>Shahd</first><last>Gaben</last></author>
+      <author><first>Mohammed</first><last>Ghaly</last></author>
+      <author><first>Samer</first><last>Rashwani</last></author>
+      <author><first>MOHAMED</first><last>Emad</last></author>
+      <author><first>Heba</first><last>Sbahi</last></author>
+      <pages>191-198</pages>
+      <abstract>This paper presents a comprehensive overview of the QIAS 2026 shared task, organized as part of the OSACT7 Workshop and co-located with LREC 2026. The shared task was designed to evaluate the ability of large language models to perform complex reasoning in the religious and legal domain of Islamic inheritance. Unlike conventional question-answering benchmarks, QIAS 2026 focuses on end-to-end reasoning from natural language cases, requiring systems to perform the full inheritance calculation process, from identifying the eligible heirs to assigning the correct share to each beneficiary. To support this evaluation, the task was based on the MAWARITH benchmark, a dataset of 12,500 Arabic inheritance cases annotated with intermediate reasoning steps and final answers. System submissions were evaluated using MIR-E, a multi-step metric that measures performance across the main stages of inheritance reasoning. A total of 16 teams participated in the shared task, investigating a range of approaches, including prompting-based methods, retrieval-augmented generation, and fine-tuning strategies. The results show that Islamic inheritance remains a highly challenging benchmark for current language models, especially in stages that require precise legal interpretation and structured numerical reasoning. This overview summarizes the task design, dataset, evaluation framework, participating systems, and main results.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-23</url>
+      <bibkey>bouchekif-etal-2026-qias</bibkey>
+      <doi>10.63317/55e9fi9ftwnm</doi>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>QU</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>QIAS</fixed-case> 2026: Multi-Stage <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case> Fine-Tuning for <fixed-case>A</fixed-case>rabic Islamic Inheritance Reasoning</title>
+      <author><first>Mohammad</first><last>ALSmadi</last></author>
+      <pages>199-203</pages>
+      <abstract>Islamic inheritance law (علم المواريث, ilm al-mawarıth) presents a challenging domain for evaluating large language models’ structured reasoning capabilities, requiring multi-step legal analysis, rule-based blocking decisions, and precise fractional calculations. We present QU-NLP’s submission to the QIAS 2026 shared task on Arabic Islamic inheritance reasoning. Our approach employs a multi-stage Quantized Low-Rank Adaptation (QLoRA) fine-tuning strategy on Qwen3-4B: (1) domain adaptation on 3,166 Islamic fatwa records to acquire inheritance terminology and jurisprudential reasoning patterns, followed by (2) task-specific training on 12,000 structured inheritance cases to optimize JSON-formatted output generation. Using 4-bit NF4 quantization with rank-128 LoRA adapters, our model achieves 90% MIR-E (Mawarith Inheritance Reasoning Evaluation) score on the test set, demonstrating competitive performance while requiring minimal computational resources. Our results show that domain-specific pre-adaptation combined with structured output training enables small language models to perform complex legal reasoning tasks effectively comparing to commercial systems such as Gemini-2.5-flash.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-24</url>
+      <bibkey>alsmadi-2026-qu</bibkey>
+      <doi>10.63317/2xw2ocj47xav</doi>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>PSL</fixed-case> at <fixed-case>QIAS</fixed-case> 2026: Which Models Perform Better in <fixed-case>A</fixed-case>rabic Inheritance Reasoning?</title>
+      <author><first>amine</first><last>Mohammed</last></author>
+      <author><first>Chahinez</first><last>Bouchekif</last></author>
+      <pages>204-208</pages>
+      <abstract>This paper presents the participation of team PSL in the QIAS 2026 Shared Task on Arabic Islamic inheritance reasoning. The task evaluates the ability of large language models to solve inheritance cases that require legal interpretation, multi-step reasoning, and precise numerical computation. We compare commercial and open-source models under a unified prompting strategy to assess their effectiveness in structured legal reasoning with minimal task-specific adaptation. Our results show a clear gap in reliability between the two model families. Commercial models demonstrate stronger performance in identifying eligible heirs, applying exclusion rules, and maintaining consistency across reasoning steps. In contrast, open-source models exhibit greater instability, particularly in cases involving dependent legal decisions and fractional share adjustments. The best performance is achieved by Gemini 2.5 Flash, with an MRE of 0.989.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-25</url>
+      <bibkey>mohammed-bouchekif-2026-psl</bibkey>
+      <doi>10.63317/3q67jok59yam</doi>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>AGS</fixed-case>-<fixed-case>KSU</fixed-case> at <fixed-case>QIAS</fixed-case> 2026: A Comparative Study of Prompting and <fixed-case>LLM</fixed-case> Approaches for Structured Islamic Inheritance Reasoning</title>
+      <author><first>Hicham Ghazi</first><last>Sidaoui</last></author>
+      <pages>209-212</pages>
+      <abstract>This paper describes our submission to the QIAS 2026 shared task on structured Islamic inheritance reasoning, based on the MAWARITH benchmark (Bouchekif et al., 2026). The task requires multi-step structured prediction for Arabic inheritance cases, including heir identification, blocking, share assignment, adjustment detection, and final distribution, evaluated with the MIR-E metric. We compare four system configurations: a QLoRA fine-tuned Qwen2.5-3B baseline, a multi-stage Fanar-Sadiq pipeline with deterministic validation and post-processing, and two GPT-5.4 prompting setups. On the official test set, the best result was achieved by GPT-5.4 with explicit inheritance rules and development examples used as in-context demonstrations, reaching a MIR-E score of 0.84, compared with 0.76 for a minimal-prompt GPT-5.4 variant. These results suggest that explicit rule conditioning and in-context demonstrations can improve performance in this setup. Since the compared systems vary in model family and prompting strategy, the findings should be interpreted as a comparison of task configurations rather than a controlled model-only comparison.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-26</url>
+      <bibkey>sidaoui-2026-ags</bibkey>
+      <doi>10.63317/2irfqjkfpyyn</doi>
+    </paper>
+    <paper id="27">
+      <title>Silah at <fixed-case>QIAS</fixed-case> 2026: Fine-Tuning vs. Retrieval-Augmented Generation for Islamic Inheritance Reasoning</title>
+      <author><first>Ghader</first><last>Kurdi</last></author>
+      <author><first>Hanan</first><last>Justanieah</last></author>
+      <author><first>Hala</first><last>Justanieah</last></author>
+      <pages>213-219</pages>
+      <abstract>Islamic inheritance is a highly structured and rule-intensive domain that requires precise reasoning. The QIAS 2026 Shared Task introduces a benchmark for evaluating generative artificial intelligence on end-to-end inheritance problem solving. In this paper, we present our team Silah’s participation in the QIAS 2026 shared task, where we compare three approaches: (1) a multi-stage retrieval-augmented, rule-guided pipeline, (2) supervised fine-tuning of generative large language models, and (3) a retrieval-augmented fine-tuning approach. We evaluate several open-source models, including Qwen2.5, Llama, DeepSeek, and Fanar. Our results show that supervised fine-tuning consistently outperforms retrieval-based approaches, with the fine-tuned Fanar-1-9B-Instruct model achieving the best performance (MIR-E = 0.83) and ranking sixth overall in the shared task. These findings suggest that learning implicit reasoning patterns through fine-tuning is more effective than explicit rule injection under current retrieval setups, and emphasize the need for more accurate and minimal rule selection mechanisms in future retrieval-augmented approaches.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-27</url>
+      <bibkey>kurdi-etal-2026-silah</bibkey>
+      <doi>10.63317/4iyrxakdovsm</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>KSAA</fixed-case>-2026 Shared Task on <fixed-case>A</fixed-case>rabic Speech Dictation with Automatic Diacritization</title>
+      <author><first>Asma Ali</first><last>Al Wazrah</last></author>
+      <author><first>Waad</first><last>Alshammari</last></author>
+      <author><first>Rawan</first><last>Almatham</last></author>
+      <author><first>Raghad</first><last>Al-rasheed</last></author>
+      <author><first>Afrah Abdulaziz</first><last>Altamimi</last></author>
+      <author><first>Rufael</first><last>Marew</last></author>
+      <author><first>Sawsan</first><last>Alqahtani</last></author>
+      <author id="hanan-aldarmaki" orcid="0000-0003-1706-1777"><first>Hanan</first><last>Aldarmaki</last></author>
+      <author id="abdullah-i-alharbi" orcid="0000-0002-2620-0049"><first>Abdullah I.</first><last>Alharbi</last></author>
+      <author><first>Abdulrahman Saeed</first><last>Alshehri</last></author>
+      <author><first>Mohamed</first><last>Assar</last></author>
+      <author><first>Amal</first><last>Almazrua</last></author>
+      <author id="abdulrahman-alosaimy" orcid="0000-0003-1566-3432"><first>Abdulrahman</first><last>Alosaimy</last></author>
+      <pages>220-224</pages>
+      <abstract>This paper presents the KSAA-2026 Shared Task on Arabic Speech Dictation with Automatic Diacritization, addressing a persistent challenge in Arabic NLP. The task focuses on transforming speech transcripts into fully diacritized Arabic text by leveraging both the speech signal and its undiacritized transcript. Unlike conventional ASR tasks that focus on transcription, this task integrates acoustic and textual information to improve diacritization accuracy. The shared task consists of two subtasks: (1) Data Contribution, where participants recorded and reviewed speech data through the VoiceWall platform, resulting in 2,160 recordings, and (2) Diacritization, where 5 teams developed systems that generate fully diacritized text from speech and undiacritized transcripts. The dataset includes approximately 5 hours of Modern Standard Arabic (MSA) and multi-dialectal speech with fully diacritized references. Experimental results show that several participant systems outperform the provided baselines, and that incorporating speech information and fine-tuning improves performance compared to text-only approaches. KSAA-2026 shared task establishes a benchmark for multimodal Arabic diacritization and supports the development of robust systems for applications in education, accessibility, and speech-driven text generation.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-28</url>
+      <bibkey>al-wazrah-etal-2026-ksaa</bibkey>
+      <doi>10.63317/33hmmyfpg7mx</doi>
+    </paper>
+    <paper id="29">
+      <title>Thaka at <fixed-case>KSAA</fixed-case>-2026 Task 2: Regularized Fine-Tuning for <fixed-case>A</fixed-case>rabic Speech Diacritization</title>
+      <author><first>Meshal Abdullah</first><last>Alamr</last></author>
+      <author><first>Hassan Rshed</first><last>Alqaeri</last></author>
+      <author><first>Abdullah</first><last>Aldahlawi</last></author>
+      <pages>225-228</pages>
+      <abstract>We describe the winning system for Task 2 of the KSAA-2026 Shared Task on Arabic Speech Dictation with Automatic Diacritization. The task requires producing fully diacritized Arabic text from speech audio and undiacritized transcripts, with only 2,327 training samples available and no external data permitted. Our system fine-tunes CATT-Whisper, a character-level multimodal model combining a pretrained CATT text encoder with a frozen Whisper speech encoder. The key to our approach is training regularization: R-Drop consistency regularization, Optuna-optimized hyperparameters with high weight decay, and Focal Loss. At inference, we average 200 stochastic forward passes across four model checkpoints using Monte Carlo Dropout at the softmax probability level. The system achieves 23.26% WER on the primary leaderboard metric (with case endings, including no-diacritic positions), placing 1st among all participants.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-29</url>
+      <bibkey>alamr-etal-2026-thaka</bibkey>
+      <doi>10.63317/4iat33d2ge52</doi>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>T</fixed-case>anta<fixed-case>A</fixed-case>rab<fixed-case>NLP</fixed-case> at <fixed-case>KSAA</fixed-case>-2026 Task 2: Adapting <fixed-case>CATT</fixed-case>-Whisper for <fixed-case>A</fixed-case>rabic Speech Dictation with Automatic Diacritization</title>
+      <author><first>Nada Adel</first><last>Esmaeil</last></author>
+      <author><first>Reda M.</first><last>Elbasiony</last></author>
+      <author><first>Mohamed T.</first><last>Faheem</last></author>
+      <pages>229-233</pages>
+      <abstract>We present our submission to the KSAA-2026 Shared Task (Subtask 2): Automatic Diacritization of Speech Dictation. Building upon the CATT-Whisper multimodal architecture, which fuses representations from a pre-trained CATT text encoder and the Whisper speech encoder, we fine-tune the model end-to-end on the official shared task training data. To further enhance performance on speech-dictated Arabic text, we apply careful post-processing to the model outputs. Our best submission achieves a Diacritic Error Rate (DER) of 7.04, a Word Error Rate (WER) of 24.39, and a Sentence Error Rate (SER) of 71.65 on the hidden test set, securing 2nd place in the competition. These results demonstrate the effectiveness of adapting a strong multimodal baseline to the speech-aware diacritization setting and highlight the value of task-specific fine-tuning and output refinement for bridging the gap between spoken transcripts and fully diacritized Arabic text.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-30</url>
+      <bibkey>esmaeil-etal-2026-tantaarabnlp</bibkey>
+      <doi>10.63317/46cm97fcekow</doi>
+    </paper>
+    <paper id="31">
+      <title>Fine-Tashkeel at <fixed-case>KSAA</fixed-case>-2026: A Comprehensive Evaluation of <fixed-case>S</fixed-case>eq2<fixed-case>S</fixed-case>eq and Multimodal Approaches for Automatic Diacritization of <fixed-case>A</fixed-case>rabic Speech Dictation</title>
+      <author><first>Hassan</first><last>Barmandah</last></author>
+      <author><first>Fatimah Emad</first><last>Eldin</last></author>
+      <author><first>Omer</first><last>Nacar</last></author>
+      <author><first>Wareef</first><last>Alzubaidi</last></author>
+      <pages>234-246</pages>
+      <abstract>This paper presents the Fine-Tashkeel system for Task 2 of the KSAA-2026 Shared Task on Automatic Diacritization of Speech Dictation. Diacritization of speech-derived Arabic text poses challenges due to dialectal variation, morphological ambiguity, and the absence of acoustic cues in text-only pipelines. Our approach treats diacritization as a character-level sequence-to-sequence task, mapping undiacritized text directly to its fully diacritized form. We evaluate 18 models spanning text-only, ASR-augmented, and fine-tuned configurations, finding that text-only Seq2Seq approaches outperform off-the-shelf multimodal models—a gap we attribute to task mismatch in generic ASR systems rather than an inherent audio limitation. Our best submission, using zero-shot inference without task-specific training, achieved a Diacritic Error Rate (DER) of 10.56%, Word Error Rate (WER) of 34.47%, and Sentence Error Rate (SER) of 79.88%, ranking 5th out of 7 teams. Per-nationality error analysis reveals significant dialectal variation (Egyptian 3.70% vs. Algerian 13.73% DER), and diagnostic analysis confirms that case endings and vowel ambiguity are the primary bottlenecks. Code and evaluation scripts are publicly available.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-31</url>
+      <bibkey>barmandah-etal-2026-fine</bibkey>
+      <doi>10.63317/4rgtj4c7thyj</doi>
+    </paper>
+    <paper id="32">
+      <title>Eraserhead at <fixed-case>OSACT</fixed-case>7 Shared Task: <fixed-case>ASR</fixed-case> Consistency Filtering and Speaker-Adaptive Post-Processing for <fixed-case>A</fixed-case>rabic Speech Diacritization</title>
+      <author><first>Muhammad</first><last>Abu Horaira</last></author>
+      <author><first>Nahian</first><last>Chowdhury</last></author>
+      <pages>247-251</pages>
+      <abstract>Arabic speech diacritization is the task of restoring short vowel marks to undiacritized text derived from speech input. It remains difficult because ASR output can be noisy, dialectal variation is substantial, and speakers often differ in how they realize word-final diacritics. In this paper, we describe our submission to Task 2 of the KSAA-2026 Shared Task on Arabic Speech Dictation with Automatic Diacritization, where our system ranked 4th on the official leaderboard. Our approach builds on a pretrained ASR-aware diacritization model and adds three components: ASR Consistency Filtering, confidence-based ensembling of three checkpoints, and speaker-adaptive post-processing specifically for word-final diacritics. Rather than discarding problematic data, our filtering strategy replaces unreliable ASR transcripts with the undiacritized gold text rather than removing training examples, which makes training more stable. On the official test set, our system achieved a Diacritic Error Rate (DER) of 8.23, a Word Error Rate (WER) of 30.37, and a Sentence Error Rate (SER) of 80.79 under the With Case Endings (WCE), Including No Diacritic (Incl. 0) evaluation setting. It also outperformed the organizers’ fine-tuned Text+ASR baseline in three of the four main evaluation settings.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-32</url>
+      <bibkey>abu-horaira-chowdhury-2026-eraserhead</bibkey>
+      <doi>10.63317/4x2nvon8vija</doi>
+    </paper>
+    <paper id="33">
+      <title>Abjad <fixed-case>AI</fixed-case> at <fixed-case>KSAA</fixed-case>-2026 Shared Task 2: Grouped Speech Conditioning for <fixed-case>A</fixed-case>rabic Diacritization</title>
+      <author><first>Naif Saad</first><last>Alharthi</last></author>
+      <author><first>Ahmad</first><last>Ghannam</last></author>
+      <author><first>Faris</first><last>Alasmary</last></author>
+      <author><first>Kholood</first><last>Al Tabash</last></author>
+      <author><first>Shouq</first><last>Sadah</last></author>
+      <author><first>Lahouari</first><last>Ghouti</last></author>
+      <pages>252-255</pages>
+      <abstract>We describe Abjad AI’s submission to KSAA-2026 Shared Task 2 on automatic diacritization of Arabic speech dictation. The task requires generating fully diacritized text given speech audio and an undiacritized transcript. Because text-only diacritization cannot resolve ambiguities that are recoverable from the acoustic signal, we propose conditioning a character-level encoder-only Transformer (CATT) (Alasmary et al., 2024) on speech representations. We introduce grouped speech conditioning, which downsamples speech encoder features into a small set of pooled tokens concatenated to the text input, enabling efficient fusion without architectural changes to CATT. We train with a two-phase schedule that first freezes the text encoder, then fine-tunes the full model. Our best system, using Whisper-small (Rad-ford et al., 2022) features with five grouped tokens, achieves a Diacritization Error Rate (DER) of 6.60 and a Word Error Rate (WER) of 18.66 (without case endings, including no-diacritic) on the official test set. Notably, we find that Whisper-small consistently outperforms Whisper-large-v3, suggesting that compact speech representations better suit this fusion setting. This is an extended and revised version of our previous work (Ghannam et al., 2025).</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-33</url>
+      <bibkey>alharthi-etal-2026-abjad</bibkey>
+      <doi>10.63317/4t229uhjkkot</doi>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val 2026: A Shared Task on Sentiment Analysis and Swapping in <fixed-case>A</fixed-case>rabic</title>
+      <author id="saad-ezzini" orcid="0000-0001-7657-4738"><first>Saad</first><last>Ezzini</last></author>
+      <author id="shadi-abudalfa" orcid="0000-0002-2028-144X"><first>Shadi</first><last>Abudalfa</last></author>
+      <author><first>Maram I.</first><last>Alharbi</last></author>
+      <author><first>Salmane</first><last>Chafik</last></author>
+      <author><first>Hamzah</first><last>Luqman</last></author>
+      <author id="mo-el-haj" orcid="0000-0002-6136-3898"><first>Mo</first><last>El-Haj</last></author>
+      <author id="paul-rayson" orcid="0000-0002-1257-2191"><first>Paul</first><last>Rayson</last></author>
+      <author><first>Reem</first><last>Alotaibi</last></author>
+      <pages>256-261</pages>
+      <abstract>Sentiment analysis is a fundamental problem in Natural Language Processing (NLP). Standard sentiment classification for the Arabic language remains challenging due to the high volume of dialectal Arabic. To advance research in this area, this paper proposes the Shared Task on Sentiment Analysis and Swapping in Arabic (AraSentEval), organized as part of the OSACT7 Workshop at LREC 2026. This shared task consists of two subtasks: Subtask 1 focuses on multi-class and multi-dialect sentiment analysis, requiring models to identify sentiment polarity across various Arabic dialects. Subtask 2 introduces a generative task for Arabic sentiment swap, challenging models to invert sentiment polarity while preserving core semantics. In this overview paper, we present the motivation, dataset creation, and summarize the main findings from participating models.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-34</url>
+      <bibkey>ezzini-etal-2026-arasenteval</bibkey>
+      <doi>10.63317/5ntazbi8wzad</doi>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>TTL</fixed-case>ab at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val: <fixed-case>SARF</fixed-case>( صرف) Sentiment Analysis via Root-based Fusion for Multi-Dialectal <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Ali</first><last>Abusaleh</last></author>
+      <author id="bhuvanesh-verma" orcid="0009-0000-5706-7271"><first>Bhuvanesh</first><last>Verma</last></author>
+      <author id="alexander-mehler" orcid="0000-0003-2567-7539"><first>Alexander</first><last>Mehler</last></author>
+      <pages>262-268</pages>
+      <abstract>Arabic sentiment analysis is challenged by morphological complexity and lexical variation across Arabic dialects, compounded by subjectivity in how speakers and writers express sentiment. In this paper, we present our submission for the AraSentEval 2026 Shared Task on Arabic Dialect Sentiment Analysis. We propose SARF (صرف) a multi-view architectural framework that integrates surface-level context with stemmed and rooted morphological perspectives using a shared MARBERTv2 encoder. Our system employs a hybrid BERT-CNN-BiLSTM-Attention architecture to capture both local sentiment n-grams and global sequential dependencies. Experimental results show that while individual morphological normalization strategies (stemming or rooting) may degrade performance, their joint integration via cross-morphological attention provides robust features across diverse dialects. Our final system achieved a competitive macro-F1-score of 0.9263, ranking 2nd out of 15 participating teams.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-35</url>
+      <bibkey>abusaleh-etal-2026-ttlab</bibkey>
+      <doi>10.63317/4wj6s3ys5osk</doi>
+    </paper>
+    <paper id="36">
+      <title>A Comparative Study of <fixed-case>A</fixed-case>rabic Sentiment Swap Models for <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val 2026</title>
+      <author><first>Yumna</first><last>Hamdy</last></author>
+      <author><first>Mohab</first><last>ElDamhougy</last></author>
+      <author><first>Yomna</first><last>Eid</last></author>
+      <author><first>Ensaf</first><last>Hussein</last></author>
+      <pages>269-273</pages>
+      <abstract>Sentiment swap is a controlled text generation task that rewrites a sentence by inverting its sentiment polarity while preserving semantic content and fluency. In this paper, we present our system for AraSentEval 2026 Subtask 2 on Arabic sentiment swap, a particularly challenging problem due to Arabic’s rich morphology and dialectal variation. We investigate multiple modeling paradigms, including encoder–decoder and multilingual approaches, and propose an enhanced system that combines targeted data augmentation and ensemble learning. Specifically, we augment underrepresented dialectal patterns to improve robustness and ensemble two Arabic-focused sequence-to-sequence models, AraBART and AraT5v2. Experiments are conducted on the MA’aks parallel dataset under fine-tuned settings. Our system ranked first in AraSentEval 2026 Subtask 2, achieving a BLEU score of 43.0, chrF of 65.36, and sentiment preservation accuracy of 0.7554. The results demonstrate that dialect-aware augmentation together with model ensembling substantially improves sentiment-controlled generation in Arabic and establishes strong baselines for future research in low-resource sentiment manipulation. Keywords: Arabic NLP, sentiment swap, style transfer, AraSentEval, text generation</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-36</url>
+      <bibkey>hamdy-etal-2026-comparative</bibkey>
+      <doi>10.63317/5effrrzp6ew2</doi>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>L</fixed-case>3<fixed-case>IA</fixed-case> at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val 2026 Subtask 2: <fixed-case>LLM</fixed-case>-Based Multi-Step Pipeline for <fixed-case>A</fixed-case>rabic Sentiment Swap</title>
+      <author><first>Abdessamad</first><last>Benlahbib</last></author>
+      <author id="hamza-alami" orcid="0000-0001-6945-6098"><first>Hamza</first><last>Alami</last></author>
+      <author><first>Mohamed</first><last>M’haouach</last></author>
+      <author><first>Kaouthar</first><last>Elyoussoufi</last></author>
+      <pages>274-277</pages>
+      <abstract>This paper describes our system submitted to the AraSentEval 2026 Shared Task, Subtask 2: Arabic Sentiment Swap. The task requires rewriting Arabic sentences to invert their sentiment polarity while preserving the core meaning. We propose a multi-step pipeline approach that uses large language models (LLMs). Our method decomposes the sentiment inversion problem into three stages: (1) sentiment expression extraction, where the model identifies all sentiment-bearing words and phrases in the input sentence; (2) opposite expression generation, where each identified expression is replaced by its semantic opposite; and (3) sentence reconstruction, where the final output is assembled to ensure grammatical correctness and natural fluency. Our system achieves 74.3% sentiment style accuracy, 27.22 BLEU, and 55.04 chrF on the official test set.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-37</url>
+      <bibkey>benlahbib-etal-2026-l3ia</bibkey>
+      <doi>10.63317/4wtc4onqmfgo</doi>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>C</fixed-case>asb<fixed-case>AI</fixed-case> at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val 2026: Robust Dialectal <fixed-case>A</fixed-case>rabic Sentiment Classification via Multi-Seed Ensembling and Data Augmentation.</title>
+      <author><first>Chaima</first><last>Abdelaziz</last></author>
+      <author><first>KahinaHouda</first><last>Saadaoui</last></author>
+      <author><first>Faiza</first><last>BELBACHIR</last></author>
+      <author><first>Lynda</first><last>Said Lhadj</last></author>
+      <pages>278-283</pages>
+      <abstract>This paper describes the system we designed for our participation in the AraSentEval 2026 shared task on Arabic dialectal sentiment analysis. We propose a transformer-based approach relying on MARBERT combined with a multi-seed ensemble strategy and several optimization techniques. Our system integrates seven independently trained models with different random initializations and applies Stochastic Weight Averaging (SWA) to improve generalization. To address class imbalance, we augment the training data through dialectal synonym replacement, increasing the dataset size by 13.9% while preserving dialect distribution. In addition, we incorporate Test-Time Augmentation (TTA) and investigate the use of pseudo-labeling based on high-confidence predictions. We report our experiments on the official dataset covering Moroccan, Egyptian, Jordanian, and Saudi dialects, and analyze the contribution of each component through ablation experiments. Our system achieved a macro F1-score of 84.62% on the test set, ranking 3rd among 15 participating teams.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-38</url>
+      <bibkey>abdelaziz-etal-2026-casbai</bibkey>
+      <doi>10.63317/32cq3gywnhjs</doi>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>BDSI</fixed-case> at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val Shared Task : A Multi-Transformer Contrastive Learning for <fixed-case>A</fixed-case>rabic Dialect Sentiment Analysis</title>
+      <author><first>Mohamed</first><last>M’haouach</last></author>
+      <author><first>Kaouthar</first><last>Elyoussoufi</last></author>
+      <author><first>Abdessamad</first><last>Benlahbib</last></author>
+      <author id="hamza-alami" orcid="0000-0001-6945-6098"><first>Hamza</first><last>Alami</last></author>
+      <pages>284-287</pages>
+      <abstract>This paper presents our system for the AraSentEval 2026 shared task on Arabic dialect sentiment analysis. We propose a multi-model ensemble combining AraBERTv2 and CAMeLBERT with supervised contrastive learning to improve sentiment classification. The system incorporates dialect-aware preprocessing, class-weighted cross-entropy loss with label smoothing, supervised contrastive loss for enhanced sentence representations, and rule-based post-processing for dialect-specific patterns. Our approach achieves a macro F1-score of 0.83 on the official test set, demonstrating the effectiveness of contrastive learning with pretrained Arabic language models for dialectal sentiment analysis.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-39</url>
+      <bibkey>mhaouach-etal-2026-bdsi</bibkey>
+      <doi>10.63317/4prectoefpgj</doi>
+    </paper>
+    <paper id="40">
+      <title>Codezone Research Group at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val Shared Task: <fixed-case>A</fixed-case>rabic Sentiment Swap beyond Negation Prepending, Benchmarking Multilingual T5 against Large Language Models on the <fixed-case>MA</fixed-case>’<fixed-case>AKS</fixed-case> Corpus</title>
+      <author id="abdulkadir-bichi" orcid="0009-0009-5552-3099"><first>Abdulkadir Shehu</first><last>Bichi</last></author>
+      <author><first>Sarah</first><last>Yassine</last></author>
+      <pages>288-291</pages>
+      <abstract>Abstract We launched ASBN-MT5, the system for Arabic Sentiment Swap, which performs the task of inverting the sentiment of a sentence while keeping the meaning intact. This is a sequence-to-sequence task. We demonstrate ASBN-MT5: mT5, which is a MultiLingual T5 model, fine-tuned on the provided dataset of the AraSentEval 2026 Shared Task. We describe the data as the first of its kind for the Arabic language, as MAAKS is the first manually composed, parallel, cross-linguistic corpus for the Arabic language. With the preliminary results of Sentiment Flip for the task of Sentiment Inversion, we have recorded a rate of 59.5% for positive to negative conversions and 58.5% for negative to positive conversions, while maintaining an average similarity to the original sentences of 0.955. We present the Arabic prompts and a neuro-developmental (Deep Learning) recipe. Due to the evaluation criteria which include Exact Match, Flip Success, Surface Similarity, and Quality of Output, we restrict the use of Prepended Negation as the main technique and recommend the use of LLMs designed for the Arabic language in the near future. Keywords: mT5, sequence-to-sequence, AraSentEval 2026, Arabic NLP, Text Style Transfer, Sentiment Swap</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-40</url>
+      <bibkey>bichi-yassine-2026-codezone</bibkey>
+      <doi>10.63317/2qp7m87fbeti</doi>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>L</fixed-case>3<fixed-case>IA</fixed-case>-Subtask 1 at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val Shared Task: Multi-Dialect <fixed-case>A</fixed-case>rabic Sentiment Classification via a Transformer-Based Approach</title>
+      <author><first>Mohamed</first><last>M’haouach</last></author>
+      <author><first>Kaouthar</first><last>Elyoussoufi</last></author>
+      <author><first>Hamza</first><last>Alami</last></author>
+      <author><first>Abdessamad</first><last>Benlahbib</last></author>
+      <pages>292-295</pages>
+      <abstract>This paper presents our system and findings for AraSentEval 2026 Subtask 1 on Arabic Dialect Sentiment Analysis. We propose an automated sentiment classification system grounded in advanced Natural Language Processing (NLP) techniques. The proposed approach leverages pre-trained Transformer-based architectures to categorize textual inputs into three sentiment polarities: positive, negative, and neutral. Initially, a text normalization procedure is applied to unify the orthographic and graphical variations characteristic of the Arabic language. This process is further complemented by repetition reduction techniques, which aim to mitigate textual noise and enhance the overall consistency of the data. Subsequently, the data are adapted to the requirements of the pre-trained models to ensure coherent tokenization. The processed texts are then encoded into numerical representations that serve as inputs during training and evaluation. Finally, we conduct a comprehensive benchmarking study of five Transformer-based architectures to assess their effectiveness. The best-performing experimental setup yielded remarkable results on the AraSentEval 2026 benchmark, achieving a micro-F1 score of 75.96% on the official test set.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-41</url>
+      <bibkey>mhaouach-etal-2026-l3ia</bibkey>
+      <doi>10.63317/4tdk6bsmy4dj</doi>
+    </paper>
+    <paper id="42">
+      <title>University of Tripoli at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val: Fine-Tuning <fixed-case>MARBERT</fixed-case>v2 and <fixed-case>CAMELBERT</fixed-case> for Multi-Dialect <fixed-case>A</fixed-case>rabic Sentiment Analysis</title>
+      <author><first>Abdusalam F. Ahmad</first><last>Nwesri</last></author>
+      <author><first>Amani Bahlul</first><last>Sharif</last></author>
+      <author><first>Sarah Farag S.</first><last>Hmeid</last></author>
+      <pages>296-301</pages>
+      <abstract>This paper presents our contribution to the AraSentEval 2026 shared task, specifically for Subtask 1: Arabic Dialect Sentiment Analysis, hosted at the OSACT7 workshop during LREC 2026. The task focuses on classifying the sentiment (positive, negative, neutral) of text written in four major Arabic dialects: Moroccan, Egyptian, Jordanian, and Saudi. We addressed this by fine-tuning several pre-trained language models, including MARBERTv2 and CAMELBERT, on the provided Multi-Dialect-Sent (MDS-3) dataset. Our best-performing system MARBERTv2, achieved a Macro F1-score of 84.29% on the official test set, securing fourth place among 13 participating teams. Our findings underscore the value of leveraging large pre-trained models tailored to dialectal Arabic for improved sentiment classification in this under-resourced domain.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-42</url>
+      <bibkey>nwesri-etal-2026-university</bibkey>
+      <doi>10.63317/3zunt9qnt2i4</doi>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>L</fixed-case>ingu<fixed-case>A</fixed-case>rabic at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>ent<fixed-case>E</fixed-case>val 2026: <fixed-case>MARBERT</fixed-case> for Multi-Dialect <fixed-case>A</fixed-case>rabic Sentiment Analysis</title>
+      <author><first>Norah Saud</first><last>Alshahrani</last></author>
+      <author><first>Elham Abdullah</first><last>Al-Qarni</last></author>
+      <author><first>Shatha Hussan</first><last>Alshomrani</last></author>
+      <pages>302-305</pages>
+      <abstract>Sentiment analysis for Arabic dialects remains challenging due to substantial linguistic variation across dialects and the expansion of informal language in user-generated content. The AraSentEval 2026 shared task introduces a multi-dialect benchmark designed to evaluate sentiment classification systems on real-world Arabic data. In this paper, we present LinguArabic’s submission to the sentiment classification track of AraSentEval 2026. Our approach is based on fine-tuning MARBERT, a transformer model pre-trained on large-scale Arabic social media data that captures diverse dialectal patterns. To improve model robustness, we incorporate a multi-stage preprocessing pipeline that includes text normalization, dialect-aware lexical mapping, and confidence-based prediction adjustment. We specifically investigate the impact of advanced normalization rules in reducing lexical sparsity across various regional dialects. Experimental results show that the proposed system achieves a Macro F1-score of 0.8333 on the offcial evaluation set. Our findings highlight the importance of dialect-aware pretraining and preprocessing strategies for improving sentiment classification performance across diverse Arabic dialects, providing a scalable framework for real-world Arabic NLP applications.</abstract>
+      <url>https://lrec.elra.info/lrec2026-ws-osact-43</url>
+      <bibkey>alshahrani-etal-2026-linguarabic</bibkey>
+      <doi>10.63317/2gbi3ds9jzqm</doi>
+    </paper>
+  </volume>
+</collection>

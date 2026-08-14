@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import attrs
 import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
+from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
 from acl_anthology.files import AttachmentReference, PDFReference
-from acl_anthology.people import NameSpecification
+from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 from lxml import etree
 
 from acl_anthology.collections.paper import (
+    Award,
     Paper,
     PaperDeletionType,
     PaperDeletionNotice,
@@ -32,9 +34,15 @@ from acl_anthology.collections.paper import (
 )
 
 
+class CollectionStub:
+    is_modified = False
+
+
 class VolumeStub:
     title = MarkupText.from_string("Generic volume")
     editors = []
+    full_id_tuple = ("2099", "stub", None)
+    parent = CollectionStub()
 
 
 @pytest.fixture
@@ -43,16 +51,29 @@ def index(anthology_stub):
 
 
 def test_paper_minimum_attribs():
-    paper_title = MarkupText.from_string("A minimal example")
-    parent = None
-    paper = Paper("42", parent, bibkey="nn-1900-minimal", title=paper_title)
+    parent = VolumeStub()
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
     assert not paper.is_deleted
-    assert paper.title == paper_title
+    assert paper.title == "A minimal example"
 
 
 def test_paper_web_url(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+
+
+def test_paper_namespecs():
+    authors = [NameSpecification(("John", "Doe"))]
+    editors = [NameSpecification(("Jane", "Doe"))]
+    paper = Paper(
+        "42",
+        None,
+        bibkey="nn-2025-conthrived",
+        title="A conthrived example just for testing",
+        authors=authors,
+        editors=editors,
+    )
+    assert list(paper.namespecs) == authors + editors
 
 
 def test_paper_get_events(anthology):
@@ -100,22 +121,14 @@ def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
             AttachmentReference(name="2022.acl-long.42.software.txt"),
         )
 
+    with pytest.raises(TypeError):
+        paper.attachments += ("something invalid",)
+
     # this is the correct way:
     paper.attachments = [
         ("software", AttachmentReference(name="2022.acl-long.42.software.txt"))
     ]
     assert len(paper.attachments) == 1
-
-
-def test_paper_attachments_append(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
-
-    # list modifications cannot automatically be validated...
-    paper.attachments.append("something invalid")
-
-    # ...but manually triggering validation should raise an error
-    with pytest.raises(TypeError):
-        attrs.validate(paper)
 
 
 def test_paper_change_id(anthology):
@@ -128,6 +141,70 @@ def test_paper_change_id(anthology):
 
     # BUT: currently no automatic check if ID already exists, so this works
     paper.id = "1"
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "id",
+        "bibkey",
+        "title",
+        "attachments",
+        "authors",
+        "awards",
+        "abstract",
+        "doi",
+        "ingest_date",
+        "type",
+        "month",
+    ),
+)
+def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    setattr(paper, attr_name, getattr(paper, attr_name))
+    assert paper.collection.is_modified
+
+
+def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
+    paper = anthology.get_paper("2022.acl-long.48")
+    assert not paper.collection.is_modified
+    paper.authors[0].affiliation = "University of Someplace"
+    assert paper.collection.is_modified
+
+
+@pytest.mark.parametrize(
+    "attr_name",
+    (
+        "editors",
+        "month",
+        "journal_title",
+        "journal_issue",
+    ),
+)
+def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
+    paper = anthology.get_paper("J89-3001")
+    value = getattr(paper.parent, attr_name)
+    assert hasattr(paper, f"_{attr_name}")
+    assert not getattr(paper, f"_{attr_name}")
+    assert getattr(paper, attr_name) == value
+    setattr(paper, attr_name, value)
+    assert getattr(paper, f"_{attr_name}") == value
+
+
+def test_paper_ingest_date_inherits_from_parent_volume(anthology):
+    paper = anthology.get_paper("J89-3001")
+    value = paper.parent.ingest_date
+    assert paper._ingest_date is None
+    assert paper.ingest_date == value
+    paper.ingest_date = value
+    assert paper._ingest_date == value.isoformat()
+
+
+def test_paper_unknown_ingest_date(anthology):
+    paper = anthology.get_paper("L06-1067")
+    value = paper.ingest_date
+    assert value == UNKNOWN_INGEST_DATE
 
 
 test_cases_language = (
@@ -154,7 +231,7 @@ def test_paper_language(anthology, paper_id, language, language_name):
 def test_paper_bibtype():
     volume = VolumeStub()
     volume.type = VolumeType.JOURNAL
-    paper = Paper("1", volume, bibkey="", title=MarkupText.from_string(""))
+    paper = Paper("1", volume, bibkey="foo", title="")
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
@@ -167,15 +244,14 @@ def test_paper_bibtype():
 def test_paper_remove_author(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     ns = paper.authors[-1]
-    person = anthology.resolve(ns)
-    assert person.id == "iryna-gurevych"
+    person = ns.resolve()
+    assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper
     paper.authors = paper.authors[:-1]
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = anthology.resolve(ns)
+
+    # Person should be updated
     assert paper.full_id_tuple not in person.item_ids
 
 
@@ -184,15 +260,51 @@ def test_paper_add_author(anthology):
     # This person exists, but is not an author on this paper
     ns = NameSpecification("Maya Varma")
     assert ns not in paper.authors
-    person = anthology.resolve(ns)
+    assert ns.parent is None
+    person = anthology.people.get_by_namespec(ns)
     assert paper.full_id_tuple not in person.item_ids
 
     # Adding this author to the paper
-    paper.authors.insert(0, ns)
-    # Person should be updated after resetting indices
-    anthology.reset_indices()
-    person = anthology.resolve(ns)
+    paper.authors += (ns,)
+
+    # NameSpecification should point to paper
+    assert ns.parent is paper
+    # Person should be updated
     assert paper.full_id_tuple in person.item_ids
+
+
+def test_paper_add_new_unverified_author(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    # This person does not exist at all in the data yet
+    ns = NameSpecification("Truman, Harry S.")
+    assert ns not in paper.authors
+    assert ns.parent is None
+    with pytest.raises(NameSpecResolutionError):
+        anthology.people.get_by_namespec(ns)
+
+    # Adding this author to the paper
+    paper.authors += (ns,)
+
+    # NameSpecification should point to paper
+    assert ns.parent is paper
+    # Person should exist now
+    person = anthology.people.get_by_namespec(ns)
+    assert paper.full_id_tuple in person.item_ids
+
+
+def test_paper_get_namespec_for(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = paper.authors[1].resolve()
+    namespec = paper.get_namespec_for(person)
+    assert person.has_name(namespec.name)
+    assert namespec.resolve() is person
+
+
+def test_paper_get_namespec_for_should_fail(anthology):
+    paper = anthology.get_paper("2022.acl-demo.24")
+    person = anthology.get_person("matt-post")
+    with pytest.raises(ValueError):
+        paper.get_namespec_for(person)
 
 
 test_cases_xml = (
@@ -205,6 +317,7 @@ test_cases_xml = (
   <title>Strings from neurons to language</title>
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
+  <abstract/>
   <url hash="61daae5b">2022.naloma-1.1</url>
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
@@ -219,6 +332,7 @@ test_cases_xml = (
   <title>Briefly Noted</title>
   <url hash="166bd6c1">J89-1009</url>
   <issue>42</issue>
+  <month>June</month>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
@@ -253,11 +367,8 @@ test_cases_xml = (
   <attachment hash="12345678" type="software">2023.fake-software</attachment>
   <attachment hash="12345690" type="software">2023.extra-software</attachment>
   <video href="2023.fake-video.mp4"/>
-  <award>Most ridiculous entry</award>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
   <bibkey>why-would-you-cite-this</bibkey>
-  <pwccode url="https://github.com/acl-org/fake-repo" additional="false">acl-org/fake-repo</pwccode>
-  <pwcdataset url="https://paperswithcode.com/dataset/fake-dataset">FaKe-DaTaSeT</pwcdataset>
 </paper>
 """,
 )
@@ -269,6 +380,51 @@ def test_paper_roundtrip_xml(xml):
     out = paper.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
+
+
+def test_paper_awards():
+    xml = """<paper id="9">
+  <title>Award-winning paper</title>
+    <award name="Named Award">Groundbreaking work.</award>
+    <award name="Current Award"/>
+  <bibkey>nn-1900-award</bibkey>
+</paper>"""
+    paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
+
+    assert paper.awards == (
+        Award(name="Named Award", reasoning="Groundbreaking work."),
+        Award(name="Current Award"),
+    )
+    assert [
+        etree.tostring(element, encoding="unicode")
+        for element in paper.to_xml().findall("award")
+    ] == [
+        '<award name="Named Award">Groundbreaking work.</award>',
+        '<award name="Current Award"/>',
+    ]
+
+    paper.awards = ["String Award"]
+    assert paper.awards == (Award(name="String Award"),)
+
+    with pytest.raises(TypeError, match=r"Expected Iterable\[str \| Award\]"):
+        setattr(paper, "awards", "String Award")
+
+
+def test_award_from_xml_without_name():
+    with pytest.raises(ValueError, match="An award must have a name"):
+        Award.from_xml(etree.fromstring("<award/>"))
+
+
+def test_paper_from_xml_invalid_tag():
+    xml = """<paper id="9">
+  <title>Briefly Noted</title>
+  <speaker><first>John</first><last>Doe</last></speaker>
+  <url hash="166bd6c1">J89-1009</url>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+"""
+    with pytest.raises(AnthologyXMLError):
+        Paper.from_xml(VolumeStub(), etree.fromstring(xml))
 
 
 test_cases_paper_to_bibtex = (
@@ -352,6 +508,22 @@ test_cases_paper_to_bibtex = (
     url = "https://aclanthology.org/J89-4000/"
 }""",
     ),
+    # Month defined at the paper level
+    (
+        "J89-3004",
+        False,
+        """@article{bien-1989-book,
+    title = "Book Reviews: Natural Language Understanding and Logic Programming, {II}: Proceedings of the Second International Workshop",
+    author = "Bien, Janusz S.",
+    editor = "Doe, John",
+    journal = "Computational Linguistics",
+    volume = "15",
+    number = "3",
+    month = aug,
+    year = "1989",
+    url = "https://aclanthology.org/J89-3004/"
+}""",
+    ),
 )
 
 
@@ -365,7 +537,7 @@ test_cases_papercitation = (
     # Journal article
     (
         "J89-4001",
-        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
+        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Comp. Ling.</i>, 15(4):219–232.',
     ),
     # Journal article, single page
     (

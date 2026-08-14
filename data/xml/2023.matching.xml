@@ -4,7 +4,7 @@
     <meta>
       <booktitle>Proceedings of the First Workshop on Matching From Unstructured and Structured Data (MATCHING 2023)</booktitle>
       <editor><first>Estevam</first><last>Hruschka</last></editor>
-      <editor><first>Tom</first><last>Mitchell</last></editor>
+      <editor id="tom-mitchell"><first>Tom</first><last>Mitchell</last></editor>
       <editor><first>Sajjadur</first><last>Rahman</last></editor>
       <editor><first>Dunja</first><last>Mladenić</last></editor>
       <editor><first>Marko</first><last>Grobelnik</last></editor>
@@ -22,7 +22,7 @@
     <paper id="1">
       <title>Text-To-<fixed-case>KG</fixed-case> Alignment: Comparing Current Methods on Classification Tasks</title>
       <author><first>Sondre</first><last>Wold</last></author>
-      <author><first>Lilja</first><last>Øvrelid</last></author>
+      <author id="lilja-ovrelid"><first>Lilja</first><last>Øvrelid</last></author>
       <author><first>Erik</first><last>Velldal</last></author>
       <pages>1-13</pages>
       <abstract>In contrast to large text corpora, knowledge graphs (KG) provide dense and structured representations of factual information. This makes them attractive for systems that supplement or ground the knowledge found in pre-trained language models with an external knowledge source. This has especially been the case for classification tasks, where recent work has focused on creating pipeline models that retrieve information from KGs like ConceptNet as additional context. Many of these models consist of multiple components, and although they differ in the number and nature of these parts, they all have in common that for some given text query, they attempt to identify and retrieve a relevant subgraph from the KG. Due to the noise and idiosyncrasies often found in KGs, it is not known how current methods compare to a scenario where the aligned subgraph is completely relevant to the query. In this work, we try to bridge this knowledge gap by reviewing current approaches to text-to-KG alignment and evaluating them on two datasets where manually created graphs are available, providing insights into the effectiveness of current methods. We release our code for reproducibility.</abstract>
@@ -33,7 +33,7 @@
     </paper>
     <paper id="2">
       <title>Identifying Quantifiably Verifiable Statements from Text</title>
-      <author><first>Pegah</first><last>Jandaghi</last></author>
+      <author id="pegah-jandaghi"><first>Pegah</first><last>Jandaghi</last></author>
       <author><first>Jay</first><last>Pujara</last></author>
       <pages>14-22</pages>
       <abstract>Humans often describe complex quantitative data using trend-based patterns. Trend-based patterns can be interpreted as higher order functions and relations over numerical data such as extreme values, rates of change, or cyclical repetition. One application where trends abound are descriptions of numerical tabular data. Therefore, the alignment of numerical tables and textual description of trends enables easier interpretations of tables. Most existing approaches can align quantities in text with tabular data but are unable to detect and align trend-based patterns about data. In this paper, we introduce the initial steps for aligning trend-based patterns about the data, i.e. the detection of textual description of trends and the alignment of trends with a relevant table. We introduce the problem of identifying quantifiably verifiable statements (QVS) in the text and aligning them with tables and datasets. We define the structure of these statements and implement a structured based detection. In our experiments, we demonstrate our method can detect and align these statements from several domains and compare favorably with traditional sequence labeling methods.</abstract>
@@ -70,11 +70,11 @@
     </paper>
     <paper id="5">
       <title>Corpus-Based Task-Specific Relation Discovery</title>
-      <author><first>Karthik</first><last>Ramanan</last></author>
+      <author><first>Karthik</first><last>Venkat Ramanan</last></author>
       <pages>45-57</pages>
       <abstract>Relation extraction is a crucial language processing task for various downstream applications, including knowledge base completion, question answering, and summarization. Traditional relation-extraction techniques, however, rely on a predefined set of relations and model the extraction as a classification task. Consequently, such closed-world extraction methods are insufficient for inducing novel relations from a corpus. Unsupervised techniques like OpenIE, which extract &lt;head, relation, tail&gt; triples, generate relations that are too general for practical information extraction applications. In this work, we contribute the following: 1) We motivate and introduce a new task, corpus-based task-specific relation discovery. 2) We adapt existing data sources to create Wiki-Art, a novel dataset for task-specific relation discovery. 3) We develop a novel framework for relation discovery using zero-shot entity linking, prompting, and type-specific clustering. Our approach effectively connects unstructured text spans to their shared underlying relations, bridging the data-representation gap and significantly outperforming baselines on both quantitative and qualitative metrics. Our code and data are available in our GitHub repository.</abstract>
       <url hash="51469e2d">2023.matching-1.5</url>
-      <bibkey>ramanan-2023-corpus</bibkey>
+      <bibkey>venkat-ramanan-2023-corpus</bibkey>
       <doi>10.18653/v1/2023.matching-1.5</doi>
       <video href="2023.matching-1.5.mp4"/>
     </paper>
@@ -120,7 +120,7 @@
       <author><first>Michele</first><last>Merler</last></author>
       <author><first>Mihir</first><last>Choudhury</last></author>
       <author><first>Raju</first><last>Pavuluri</last></author>
-      <author><first>Munindar</first><last>Singh</last></author>
+      <author id="munindar-p-singh"><first>Munindar</first><last>Singh</last></author>
       <author><first>Maja</first><last>Vukovic</last></author>
       <pages>109-119</pages>
       <abstract>Entity standardization maps noisy mentions from free-form text to standard entities in a knowledge base. The unique challenge of this task relative to other entity-related tasks is the lack of surrounding context and numerous variations in the surface form of the mentions, especially when it comes to generalization across domains where labeled data is scarce. Previous research mostly focuses on developing models either heavily relying on context, or dedicated solely to a specific domain. In contrast, we propose CoSiNES, a generic and adaptable framework with Contrastive Siamese Network for Entity Standardization that effectively adapts a pretrained language model to capture the syntax and semantics of the entities in a new domain. We construct a new dataset in the technology domain, which contains 640 technical stack entities and 6,412 mentions collected from industrial content management systems. We demonstrate that CoSiNES yields higher accuracy and faster runtime than baselines derived from leading methods in this domain. CoSiNES also achieves competitive performance in four standard datasets from the chemistry, medicine, and biomedical domains, demonstrating its cross-domain applicability. Code and data is available at <url>https://github.com/konveyor/tackle-container-advisor/tree/main/entity_standardizer/cosines</url></abstract>

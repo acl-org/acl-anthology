@@ -1,4 +1,4 @@
-{{ range $sig_id, $sig := .Site.Data.sigs }}
+{{ range $sig_id, $sig := hugo.Data.sigs }}
    {{ $short_acronym := $sig_id }}
    {{ if eq (substr $sig_id 0 3) "SIG" }}
       {{ $short_acronym = substr $sig_id 3 }}

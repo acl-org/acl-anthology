@@ -17,15 +17,18 @@
 from __future__ import annotations
 
 import re
-from functools import lru_cache
+import unicodedata
+from functools import cache
 from lxml import etree
-from typing import cast, Optional, TypeAlias, TYPE_CHECKING
+from typing import Iterable, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..people.name import NameSpecification
     from ..text import MarkupText
 
-    SerializableAsBibTeX: TypeAlias = None | str | MarkupText | list[NameSpecification]
+    SerializableAsBibTeX: TypeAlias = (
+        None | str | MarkupText | tuple[NameSpecification, ...]
+    )
     """Any type that can be supplied to `make_bibtex_entry`."""
 
 from .logging import get_logger
@@ -35,6 +38,7 @@ from pylatexenc.latexencode import (
     UnicodeToLatexEncoder,
     UnicodeToLatexConversionRule,
     RULE_DICT,
+    get_builtin_uni2latex_dict,
 )
 from pylatexenc.latexwalker import (
     LatexWalker,
@@ -60,30 +64,56 @@ log = get_logger()
 ### UNICODE TO LATEX (BIBTEX)
 ################################################################################
 
+LATEX_CUSTOM_OVERRIDES = {
+    ord("‘"): "`",  # defaults to \textquoteleft
+    ord("’"): "'",  # defaults to \textquoteright
+    ord("“"): "``",  # defaults to \textquotedblleft
+    ord("”"): "''",  # defaults to \textquotedblright
+    ord("–"): "--",  # defaults to \textendash
+    ord("—"): "---",  # defaults to \textemdash
+    ord("í"): "\\'i",  # defaults to using dotless \i
+    ord("ì"): "\\`i",
+    ord("î"): "\\^i",
+    ord("ï"): '\\"i',
+}
+"""Unicode-to-LaTeX overrides for `LATEXENC`, taking priority over its defaults."""
+
 LATEXENC = UnicodeToLatexEncoder(
     conversion_rules=[
-        UnicodeToLatexConversionRule(
-            RULE_DICT,
-            {
-                ord("‘"): "`",  # defaults to \textquoteleft
-                ord("’"): "'",  # defaults to \textquoteright
-                ord("“"): "``",  # defaults to \textquotedblleft
-                ord("”"): "''",  # defaults to \textquotedblright
-                ord("–"): "--",  # defaults to \textendash
-                ord("—"): "---",  # defaults to \textemdash
-                ord("í"): "\\'i",  # defaults to using dotless \i
-                ord("ì"): "\\`i",
-                ord("î"): "\\^i",
-                ord("ï"): '\\"i',
-            },
-        ),
+        UnicodeToLatexConversionRule(RULE_DICT, LATEX_CUSTOM_OVERRIDES),
         "defaults",
     ],
     replacement_latex_protection="braces-all",
     unknown_char_policy="keep",
     unknown_char_warning=False,
 )
-"""A UnicodeToLatexEncoder instance intended for BibTeX generation."""
+"""A UnicodeToLatexEncoder instance intended for BibTeX generation.
+
+Note:
+    `latex_encode()` below does not actually call this encoder. Its
+    conversion rules are dict-only (no regexes), with
+    `unknown_char_policy="keep"` and `replacement_latex_protection="braces-all"`;
+    given that, its output for *any* string is fully determined by a single
+    codepoint->replacement mapping (unmapped characters pass through
+    unchanged). `_build_fast_latex_table()` derives that mapping so
+    `latex_encode()` can apply it via `str.translate()` -- a single C-level
+    pass -- instead of pylatexenc's per-character, per-rule dispatch loop,
+    which profiling showed to dominate BibTeX generation time. If `LATEXENC`'s
+    configuration above ever changes, update `_build_fast_latex_table()`
+    accordingly; `tests/utils/latex_test.py` cross-checks the two against
+    every string in `data/xml/*.xml` and will fail if they diverge.
+"""
+
+
+def _build_fast_latex_table() -> dict[int, str]:
+    """Builds the `str.translate()` table `latex_encode()` uses; see the note on `LATEXENC` above."""
+    table = {cp: "{" + repl + "}" for cp, repl in get_builtin_uni2latex_dict().items()}
+    table.update({cp: "{" + repl + "}" for cp, repl in LATEX_CUSTOM_OVERRIDES.items()})
+    return table
+
+
+FAST_LATEX_TABLE = _build_fast_latex_table()
+"""`str.translate()` table equivalent to `LATEXENC.unicode_to_latex()`; see the note on `LATEXENC` above."""
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -176,7 +206,7 @@ def has_unbalanced_braces(string: str) -> bool:
     return c != 0
 
 
-@lru_cache
+@cache
 def latex_encode(text: Optional[str]) -> str:
     """
     Arguments:
@@ -187,8 +217,7 @@ def latex_encode(text: Optional[str]) -> str:
     """
     if text is None:
         return ""
-    text = cast(str, LATEXENC.unicode_to_latex(text))
-    return text
+    return unicodedata.normalize("NFC", text).translate(FAST_LATEX_TABLE)
 
 
 def latex_convert_quotes(text: str) -> str:
@@ -237,7 +266,7 @@ def make_bibtex_entry(
             continue
         if isinstance(value, MarkupText):
             value = value.as_latex()
-        elif isinstance(value, list) and isinstance(value[0], NameSpecification):
+        elif isinstance(value, (list, tuple)) and isinstance(value[0], NameSpecification):
             value = namespecs_to_bibtex(value)
         elif isinstance(value, str):
             if key in BIBTEX_FIELD_NEEDS_ENCODING:
@@ -263,7 +292,7 @@ def make_bibtex_entry(
     return "\n".join(lines)
 
 
-def namespecs_to_bibtex(namespecs: list[NameSpecification]) -> str:
+def namespecs_to_bibtex(namespecs: Iterable[NameSpecification]) -> str:
     """Convert a list of NameSpecifications to a BibTeX-formatted entry.
 
     Arguments:
@@ -291,6 +320,10 @@ LATEX_MACRO_TO_XMLTAG = {
     "sl": "i",
     "textbf": "b",
     "bf": "b",
+    "underline": "u",
+    "uline": "u",
+    "textsc": "sc",
+    "texttt": "tt",
     "url": "url",
 }
 """A mapping of LaTeX macros to Anthology XML tags."""
@@ -315,6 +348,7 @@ LW_CONTEXT.add_context_category(
     prepend=True,
     macros=[
         MacroSpec("href", "{{"),
+        MacroSpec("uline", "{"),
     ],
 )
 
@@ -343,9 +377,8 @@ L2T_CONTEXT.add_context_category(
     "common macros",
     prepend=True,
     macros=[
-        # \href: drop the URL but keep the text – we could append the URL in a
-        # <url> tag, but this cannot be done here, we would have to add this to
-        # _parse_nodelist_to_element as another special case
+        # \href: when converting to plain text, drop the URL but keep the
+        # text. (parse_latex_to_xml handles \href specially to keep the URL.)
         MacroTextSpec("href", simplify_repl=r"%(2)s")
     ],
 )
@@ -415,6 +448,18 @@ def _parse_nodelist_to_element(
             elif node.macroname == "\\":
                 # Special case: explicit linebreak \\
                 append_text(element, "\n")
+            elif node.macroname == "href":
+                # Hyperlink: the first argument is the URL (kept as an
+                # attribute), the second is the link text (recursed into <a>)
+                subelem = etree.SubElement(element, "a")
+                urlarg, textarg = node.nodeargd.argnlist
+                url = urlarg.latex_verbatim().strip()
+                if url.startswith("{") and url.endswith("}"):
+                    url = url[1:-1]
+                subelem.set("href", url)
+                _parse_nodelist_to_element(
+                    [textarg], subelem, use_fixed_case, in_macro=True
+                )
             else:
                 # This macro either represents a special characters, such as
                 # \v{c} or \"I, or is some other macro we do not explicitly

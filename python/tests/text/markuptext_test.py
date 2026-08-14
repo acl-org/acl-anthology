@@ -17,7 +17,7 @@ from lxml import etree
 from acl_anthology.text import MarkupText
 
 test_cases_markup = (
-    (
+    (  # Fixed-case
         "<fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case>: Speeding up Inference by Adaptive Length Reduction",
         {
             "text": "AdapLeR: Speeding up Inference by Adaptive Length Reduction",
@@ -25,7 +25,15 @@ test_cases_markup = (
             "latex": "{A}dap{L}e{R}: Speeding up Inference by Adaptive Length Reduction",
         },
     ),
-    (
+    (  # Fixed-case inside markup
+        "<b><fixed-case>A</fixed-case>dap<fixed-case>L</fixed-case>e<fixed-case>R</fixed-case></b>: Speeding up Inference by Adaptive Length Reduction",
+        {
+            "text": "AdapLeR: Speeding up Inference by Adaptive Length Reduction",
+            "html": '<b><span class="acl-fixed-case">A</span>dap<span class="acl-fixed-case">L</span>e<span class="acl-fixed-case">R</span></b>: Speeding up Inference by Adaptive Length Reduction',
+            "latex": "\\textbf{{A}dap{L}e{R}}: Speeding up Inference by Adaptive Length Reduction",
+        },
+    ),
+    (  # Markup <b>
         "<b>D</b>ynamic <b>S</b>chema <b>G</b>raph <b>F</b>usion <b>Net</b>work (<b>DSGFNet</b>)",
         {
             "text": "Dynamic Schema Graph Fusion Network (DSGFNet)",
@@ -33,7 +41,7 @@ test_cases_markup = (
             "latex": "\\textbf{D}ynamic \\textbf{S}chema \\textbf{G}raph \\textbf{F}usion \\textbf{Net}work (\\textbf{DSGFNet})",
         },
     ),
-    (
+    (  # Markup <i>
         "selecting prompt templates <i>without labeled examples</i> and <i>without direct access to the model</i>.",
         {
             "text": "selecting prompt templates without labeled examples and without direct access to the model.",
@@ -41,7 +49,15 @@ test_cases_markup = (
             "latex": "selecting prompt templates \\textit{without labeled examples} and \\textit{without direct access to the model}.",
         },
     ),
-    (
+    (  # Empty markup
+        "We <b/>solve this<i/> problem",
+        {
+            "text": "We solve this problem",
+            "html": "We <b></b>solve this<i></i> problem",
+            "latex": "We \\textbf{}solve this\\textit{} problem",
+        },
+    ),
+    (  # TeX-math expression
         "<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity",
         {
             "text": "ℰ: a Vectorial Resource for Computing Conceptual Similarity",
@@ -49,7 +65,7 @@ test_cases_markup = (
             "latex": "$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity",
         },
     ),
-    (
+    (  # URL
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
         {
             "text": "The source code will be available at https://github.com/zhang-yu-wei/MTP-CLNN.",
@@ -57,7 +73,87 @@ test_cases_markup = (
             "latex": "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         },
     ),
+    (  # Markup <u> (underline)
+        "This <u>NER</u> system",
+        {
+            "text": "This NER system",
+            "html": "This <u>NER</u> system",
+            "latex": "This \\underline{NER} system",
+        },
+    ),
+    (  # Markup <sc> (small caps)
+        "The <sc>let-alone</sc> construction",
+        {
+            "text": "The let-alone construction",
+            "html": 'The <span style="font-variant: small-caps">let-alone</span> construction',
+            "latex": "The \\textsc{let-alone} construction",
+        },
+    ),
+    (  # Markup <tt> (typewriter text)
+        "The <tt>nltk</tt> package",
+        {
+            "text": "The nltk package",
+            "html": "The <tt>nltk</tt> package",
+            "latex": "The \\texttt{nltk} package",
+        },
+    ),
+    (  # Hyperlinked text <a href>
+        'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+        {
+            "text": "Code at our repository.",
+            "html": 'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+            "latex": "Code at \\href{https://github.com/foo/bar}{our repository}.",
+        },
+    ),
+    (  # Hyperlinked text containing nested markup (conversion recurses)
+        'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
+        {
+            "text": "See the emphasized link now",
+            "html": 'See <a href="https://example.org">the <i>emphasized</i> link</a> now',
+            "latex": "See \\href{https://example.org}{the \\textit{emphasized} link} now",
+        },
+    ),
+    (  # Paragraph break <par/>
+        "Paragraph one.<par/>Paragraph two.",
+        {
+            "text": "Paragraph one.\n\nParagraph two.",
+            "html": "Paragraph one.<br/><br/>Paragraph two.",
+            "latex": "Paragraph one.\\par Paragraph two.",
+        },
+    ),
     (
+        "Taking a <par/>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (
+        "Taking a<par/>break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (
+        "Taking a <par/>    break",
+        {
+            "text": "Taking a\n\nbreak",
+            "html": "Taking a<br/><br/>break",
+            "latex": "Taking a\\par break",
+        },
+    ),
+    (  # New tags nested inside other markup
+        "<b><u>important</u></b> and <i><sc>scoped</sc></i>",
+        {
+            "text": "important and scoped",
+            "html": '<b><u>important</u></b> and <i><span style="font-variant: small-caps">scoped</span></i>',
+            "latex": "\\textbf{\\underline{important}} and \\textit{\\textsc{scoped}}",
+        },
+    ),
+    (  # XML entity
         "Workshop on Topic A &amp; B",
         {
             "text": "Workshop on Topic A & B",
@@ -65,7 +161,7 @@ test_cases_markup = (
             "latex": "Workshop on Topic A {\\&} B",
         },
     ),
-    (
+    (  # Line breaks
         "Title with\n\n line breaks",
         {
             "text": "Title with line breaks",
@@ -81,7 +177,7 @@ test_cases_markup = (
             "latex": "Title with line breaks",
         },
     ),
-    (
+    (  # Nested tags
         "<fixed-case>U</fixed-case>pstream <fixed-case>M</fixed-case>itigation <fixed-case>I</fixed-case>s <i><fixed-case>N</fixed-case>ot</i> <fixed-case>A</fixed-case>ll <fixed-case>Y</fixed-case>ou <fixed-case>N</fixed-case>eed",
         {
             "text": "Upstream Mitigation Is Not All You Need",
@@ -205,11 +301,104 @@ def test_markup_from_xml(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert markup.as_xml() == inp
-    assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
+    assert MarkupText.from_(element) == markup
+    if inp == "":
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == "<title/>"
+    else:
+        assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
     assert markup.contains_markup == ("<" in out["html"])
 
 
-def test_simple_string():
+def test_markup_from_xml_copies_element_independently_of_source():
+    """`MarkupText.from_xml()` must return an independent copy of the given
+    element, not a view into it.
+
+    This matters because `Collection.load()` parses XML with
+    `etree.iterparse()`, which is only memory-efficient because the *source*
+    document is discarded shortly after each `<paper>` is turned into Python
+    objects. If `MarkupText` held a live reference into that source document
+    instead of a detached copy, every title/abstract would keep the whole
+    (potentially large) source document reachable -- and thus resident in
+    memory -- for as long as the `MarkupText` object lives.
+
+    `from_xml()` currently satisfies this by calling `element.__copy__()`
+    (see the implementation note on `MarkupText._content`), which happens to
+    be faster than `copy.deepcopy()` for lxml elements but is not guaranteed
+    to remain so by lxml's public API -- it is an implementation detail we
+    are relying on. This test pins the *behaviour* we actually need
+    (independence), so a future lxml release that changes what `__copy__`
+    does would be caught here regardless of how `from_xml()` is implemented.
+    """
+    xml = "A <fixed-case>GPT</fixed-case>-based model"
+    # Embed the element in a larger tree, mimicking a real <paper> element
+    # with siblings, rather than a standalone root element.
+    parent = etree.fromstring(
+        f"<paper><title>{xml}</title><abstract>x</abstract></paper>"
+    )
+    element = parent.find("title")
+
+    markup = MarkupText.from_xml(element)
+
+    # The stored content must not be the same object as the source element.
+    assert markup._content is not element
+
+    # Mutating the source element after the fact must not affect the
+    # already-constructed MarkupText.
+    element.text = "MUTATED "
+    element.append(etree.fromstring("<b>extra</b>"))
+    parent.remove(element)  # also detach it from its former parent
+
+    assert markup.as_xml() == xml
+    assert markup.as_text() == "A GPT-based model"
+
+
+test_cases_markup_no_url = (
+    (  # <url> is rendered as a plain <span>, not a hyperlink
+        "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
+        'The source code will be available at <span class="acl-markup-url">https://github.com/zhang-yu-wei/MTP-CLNN</span>.',
+    ),
+    (  # <a href> is rendered as a plain <span>, dropping the href
+        'Code at <a href="https://github.com/foo/bar">our repository</a>.',
+        "Code at <span>our repository</span>.",
+    ),
+)
+
+
+@pytest.mark.parametrize("inp, html", test_cases_markup_no_url)
+def test_markup_as_html_without_url(inp, html):
+    element = etree.fromstring(f"<title>{inp}</title>")
+    markup = MarkupText.from_xml(element)
+    assert markup.as_html(allow_url=False) == html
+    # The XML representation should be unaffected by the rendering option
+    assert markup.as_xml() == inp
+
+
+def test_markup_rendering_does_not_mutate_stored_content():
+    """`as_text()`, `as_html()`, and `to_xml()` each work on their own copy
+    of the stored content (currently via `element.__copy__()`, for the same
+    reasons as `from_xml()` -- see
+    `test_markup_from_xml_copies_element_independently_of_source`). Calling
+    any of them mutates tags/text on their local copy (e.g. `as_html()`
+    renames `<url>` to `<a>`); none of that must ever leak back into
+    `self._content`, or leak between calls.
+    """
+    xml = "See <url>https://example.com</url> for details"
+    markup = MarkupText.from_xml(etree.fromstring(f"<title>{xml}</title>"))
+
+    # Exercise every renderer, in a deliberately mutation-provoking order.
+    markup.as_html(allow_url=False)
+    markup.as_html(allow_url=True)
+    markup.as_text()
+    etree.tostring(markup.to_xml("title"))
+
+    # The canonical XML representation must still be pristine...
+    assert markup.as_xml() == xml
+    # ...and calling the same renderer twice must be idempotent.
+    assert markup.as_html() == markup.as_html()
+    assert markup.as_text() == markup.as_text()
+
+
+def test_markup_from_simple_string():
     text = "Some ASCII text without markup"
     markup = MarkupText.from_string(text)
     assert not markup.contains_markup
@@ -217,10 +406,12 @@ def test_simple_string():
     assert markup.as_html() == text
     assert markup.as_latex() == text
     assert markup.as_xml() == text
+    assert markup == text
     assert (
         etree.tostring(markup.to_xml("span"), encoding="unicode")
         == f"<span>{text}</span>"
     )
+    assert MarkupText.from_(text) == markup
 
 
 test_cases_markup_from_latex = (
@@ -257,9 +448,25 @@ test_cases_markup_from_latex = (
         "The source code will be available at \\url{https://github.com/zhang-yu-wei/MTP-CLNN}.",
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
     ),
-    (  # \href currently only keeps the text, not the link
-        "\\href{http://www.overleaf.com}{Overleaf}",
-        "Overleaf",
+    (  # \underline becomes <u>
+        "An \\underline{underlined} word",
+        "An <u>underlined</u> word",
+    ),
+    (  # \uline (ulem) also becomes <u>
+        "An \\uline{underlined} word",
+        "An <u>underlined</u> word",
+    ),
+    (  # \textsc becomes <sc>
+        "The \\textsc{small caps} text",
+        "The <sc>small caps</sc> text",
+    ),
+    (  # \texttt becomes <tt>
+        "The \\texttt{typewriter} text",
+        "The <tt>typewriter</tt> text",
+    ),
+    (  # \href becomes <a href>, keeping the URL and recursing into the text
+        "See \\href{https://example.org}{the \\textit{linked} text} here",
+        'See <a href="https://example.org">the <i>linked</i> text</a> here',
     ),
     (  # Special characters do _not_ get <fixed-case> even when they’re in braces
         "Workshop on Topic A {\\&} B",
@@ -354,7 +561,7 @@ test_cases_markup_from_latex = (
         "A <tex-math>\\log 25</tex-math> increase",
     ),
     (  # Unhandled TeX commands are converted by Latex2Text’s rules
-        "An \\textsc{unhandled} command",
+        "An \\textrm{unhandled} command",
         "An unhandled command",
     ),
     (
@@ -424,3 +631,30 @@ def test_markup_from_latex_maybe(inp, out1, out2):
     assert markup.as_xml() == out1
     markup = MarkupText.from_latex_maybe(inp)
     assert markup.as_xml() == out2
+
+
+def test_markup_behaves_like_string():
+    markup = MarkupText.from_latex(
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert (
+        markup
+        == "TTCS<tex-math>^{\\mathcal{E}}</tex-math>: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert markup == MarkupText.from_latex(
+        "TTCS$^{\\mathcal{E}}$: a Vectorial Resource for Computing Conceptual Similarity"
+    )
+    assert "Vectorial" in markup
+    assert markup.startswith("TTCS")
+    assert markup.endswith("Similarity")
+    assert markup < "XTCS"
+    assert markup < MarkupText.from_string("XTCS")
+
+
+def test_markup_cannot_be_instantiated_from_unsupported_types():
+    with pytest.raises(TypeError):
+        MarkupText(42)
+    with pytest.raises(TypeError):
+        MarkupText(["foo", "bar"])
+    with pytest.raises(TypeError):
+        MarkupText(MarkupText("foo"))

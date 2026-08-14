@@ -16,23 +16,20 @@
 
 from __future__ import annotations
 
-import sys
-from attrs import define, field, validators as v, Factory
+from attrs import define, field, validators as v
 from lxml import etree
 from lxml.builder import E
 from pathlib import Path
-from typing import cast, ClassVar, Optional, TYPE_CHECKING
+import requests
+from typing import cast, ClassVar, Optional, Self, TYPE_CHECKING
+import warnings
 from zlib import crc32
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from .config import config
+from .exceptions import ChecksumMismatchWarning
 from .utils.xml import xsd_boolean
 
 
@@ -62,13 +59,14 @@ def compute_checksum_from_file(path: StrPath) -> str:
         return compute_checksum(f.read())
 
 
-@define
+@define(frozen=True)
 class FileReference:
     """Base class for all references to local or remote files in the XML data.
 
     Do not instantiate directly; use the sub-classes instead.
 
     Attributes:
+        content_type (Optional[str]): The expected content type of the file.  Set by some sub-classes.
         template_field (str): The URL formatting template to use.  Set by the sub-classes.
         name (str): The file reference (as found in the XML), typically a URL or an internal filename.
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
@@ -78,6 +76,7 @@ class FileReference:
     checksum: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
+    content_type: ClassVar[Optional[str]] = None
     template_field: ClassVar[str] = ""
 
     @property
@@ -126,6 +125,40 @@ class FileReference:
         checksum = elem.get("hash")
         return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
 
+    def download(self, filename: StrPath, timeout: float = 10) -> None:
+        """Download this file from its remote URL.
+
+        Arguments:
+            filename: The path to the local file to write to.
+            timeout: The timeout in seconds for the GET request.
+
+        Note:
+            If `filename` already exists _and_ has the expected checksum for this file, this function will do nothing.  Otherwise, this will attempt to (re)download the file, and `filename` **will get overwritten.**
+
+        Raises:
+            ChecksumMismatchWarning: If the downloaded file's checksum doesn't match the expected one.
+            ValueError: If the response does not have the expected Content-Type (e.g. application/pdf for PDFs).
+        """
+        if (
+            Path(filename).exists()
+            and self.checksum is not None
+            and compute_checksum_from_file(filename) == self.checksum
+        ):
+            return None  # correct file already downloaded
+        r = requests.get(self.url, timeout=timeout)
+        r.raise_for_status()  # Just raise in case of 404 etc.
+        if (
+            self.content_type is not None
+            and r.headers.get("Content-Type") != self.content_type
+        ):
+            raise ValueError(
+                f"Expected '{self.content_type}', got '{r.headers.get('Content-Type')}"
+            )
+        if self.checksum is not None and compute_checksum(r.content) != self.checksum:
+            warnings.warn(ChecksumMismatchWarning(self))
+        with open(filename, "wb") as f:
+            f.write(r.content)
+
     def to_xml(self, tag: str = "url") -> etree._Element:
         """
         Arguments:
@@ -141,21 +174,22 @@ class FileReference:
         return elem
 
 
-@define
+@define(frozen=True)
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
+    content_type: ClassVar[Optional[str]] = "application/pdf"
     template_field: ClassVar[str] = "pdf_location_template"
 
 
-@define
+@define(frozen=True)
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
     template_field: ClassVar[str] = "pdf_thumbnail_location_template"
 
 
-@define
+@define(frozen=True)
 class AttachmentReference(FileReference):
     """Reference to an attachment."""
 
@@ -164,14 +198,14 @@ class AttachmentReference(FileReference):
     template_field: ClassVar[str] = "attachment_location_template"
 
 
-@define
+@define(frozen=True)
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
     template_field: ClassVar[str] = "event_location_template"
 
 
-@define
+@define(frozen=True)
 class VideoReference(FileReference):
     """Reference to a video."""
 
@@ -191,51 +225,3 @@ class VideoReference(FileReference):
         if not self.permission:
             elem.set("permission", "false")
         return elem
-
-
-@define
-class PapersWithCodeReference:
-    """Class aggregating [Papers with Code](https://paperswithcode.com/) (PwC) links in a paper.
-
-    Attributes:
-        code: An official code repository, given as a tuple of the form `(name, url)`.
-        community_code: Whether the PwC page of the paper has additional, community-provided code links.
-        datasets: A list of datasets on PwC, given as tuples of the form `(name, url)`.
-    """
-
-    code: Optional[tuple[str | None, str]] = field(default=None)
-    community_code: bool = field(default=False)
-    datasets: list[tuple[str | None, str]] = Factory(list)
-
-    def append_from_xml(self, elem: etree._Element) -> None:
-        """Appends information from a `<pwccode>` or `<pwcdataset>` block to this reference."""
-        pwc_tuple = (elem.text, elem.get("url", ""))
-        if elem.tag == "pwccode":
-            self.community_code = xsd_boolean(elem.get("additional", ""))
-            self.code = pwc_tuple
-        elif elem.tag == "pwcdataset":
-            self.datasets.append(pwc_tuple)
-        else:  # pragma: no cover
-            raise ValueError(
-                f"Unsupported element for PapersWithCodeReference: <{elem.tag}>"
-            )
-
-    def to_xml_list(self) -> list[etree._Element]:
-        """
-        Returns:
-            A serialization of all PapersWithCode information as a list of corresponding XML tags in the Anthology XML format.
-        """
-        elements = []
-        if self.code is not None:
-            args = [self.code[0]] if self.code[0] is not None else []
-            elements.append(
-                E.pwccode(
-                    *args,
-                    url=self.code[1],
-                    additional=str(self.community_code).lower(),
-                )
-            )
-        for dataset in self.datasets:
-            args = [dataset[0]] if dataset[0] is not None else []
-            elements.append(E.pwcdataset(*args, url=dataset[1]))
-        return elements

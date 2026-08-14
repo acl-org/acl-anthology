@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check required labels
         id: check-labels
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const issue = context.payload.issue;
@@ -23,7 +23,7 @@ jobs:
       - name: Parse JSON from issue body
         id: parse-json
         if: steps.check-labels.outputs.has_required_labels == 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const issue = context.payload.issue;
@@ -50,7 +50,7 @@ jobs:
 
       - name: Create comment
         if: steps.check-labels.outputs.has_required_labels == 'true' && steps.parse-json.outputs.valid_json == 'true'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           script: |
             const anthology_id = '${{ steps.parse-json.outputs.anthology_id }}';
@@ -61,7 +61,10 @@ jobs:
 
             Please edit the JSON above if it does not match the image.
 
-            A staff member will review this correction. Once approved, it will be processed as part of a weekly batch of corrections.
+            A staff member will review this correction.
+            - Once approved, it can take 1–2 weeks for this change to be processed as part of a batch of corrections.
+            - Please **leave this issue open** until it is processed by us.
+            - Once the issue is closed by us as “resolved”, it will take 30–40 minutes for the correction to appear on the website.
             `;
 
             await github.rest.issues.createComment({

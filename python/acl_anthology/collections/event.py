@@ -1,5 +1,5 @@
 # Copyright 2022 Matt Post <post@cs.jhu.edu>
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,17 +15,23 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, converters, setters, validators as v
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
-from .types import EventLinkingType
+from .types import EventLink
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
-from ..text import MarkupText
-from ..utils.attrs import auto_validate_types
+from ..text import MarkupText, to_markuptext
+from ..utils.attrs import (
+    attach_custom_repr,
+    attach_parent,
+    auto_validate_types,
+    into_namespec_tuple,
+    track_modifications,
+)
 from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
@@ -33,21 +39,50 @@ if TYPE_CHECKING:
     from . import Collection, Volume
 
 
-@define(field_transformer=auto_validate_types)
+@attach_custom_repr
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Talk:
     """A talk without an associated paper, such as a keynote or invited talk.
 
     Attributes:
         title: The title of the talk.
+        parent: The Event object that this talk belongs to.
         type: Type of talk, e.g. "keynote".
         speakers: Name(s) of speaker(s) who gave this talk; can be empty.
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
-    title: MarkupText = field()
+    title: MarkupText = field(converter=to_markuptext)
+    parent: Optional[Event] = field(default=None, repr=False, eq=False)
     type: Optional[str] = field(default=None)
-    speakers: list[NameSpecification] = field(factory=list)
+    speakers: tuple[NameSpecification, ...] = field(
+        default=(),
+        converter=into_namespec_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            attach_parent,
+            track_modifications,
+        ],  # TODO: After CollectionItem refactoring, once talks have IDs, also update the connected Persons
+    )
     attachments: dict[str, EventFileReference] = field(factory=dict)
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this talk belongs to."""
+        if self.parent is None:  # pragma: no cover
+            raise Exception("Talk was instantiated without parent")
+        return self.parent.collection
+
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        if self.parent is None:  # pragma: no cover
+            raise Exception("Talk was instantiated without parent")
+        return self.parent.parent.parent.parent
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Talk:
@@ -66,7 +101,7 @@ class Talk:
                 type_ = str(meta.get("type", "attachment"))
                 kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
+                raise ValueError(f"Unsupported element for Talk: <{str(meta.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
@@ -87,7 +122,11 @@ class Talk:
         return elem
 
 
-@define(field_transformer=auto_validate_types)
+@attach_custom_repr
+@define(
+    field_transformer=auto_validate_types,
+    on_setattr=[setters.convert, setters.validate, track_modifications],
+)
 class Event:
     """An event, such as a meeting or a conference.
 
@@ -100,7 +139,7 @@ class Event:
         is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
-        colocated_ids: Tuples of volume IDs and their [`EventLinkingType`][acl_anthology.collections.types.EventLinkingType] that are colocated with this event.
+        colocated_ids: A dictionary mapping colocated volume IDs to their [`EventLink`][acl_anthology.collections.types.EventLink] type.
         links: Links to materials for this event paper. The dictionary key specifies the type of link (e.g., "handbook" or "website").
         talks: Zero or more references to talks belonging to this event.
 
@@ -112,25 +151,38 @@ class Event:
 
     id: str = field(validator=v.matches_re(RE_EVENT_ID))
     parent: Collection = field(repr=False, eq=False)
-    is_explicit: bool = field(default=False, converter=bool)
+    is_explicit: bool = field(default=False, converter=bool)  # TODO: freeze?
 
-    colocated_ids: list[tuple[AnthologyIDTuple, EventLinkingType]] = field(
-        factory=list,
-        repr=lambda x: f"<list of {len(x)} tuples>",
+    colocated_ids: dict[AnthologyIDTuple, EventLink] = field(
+        factory=dict,
+        repr=lambda x: f"<dict[AnthologyIDTuple, EventLink] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
-    links: dict[str, EventFileReference] = field(factory=dict, repr=False)
+    links: dict[str, EventFileReference] = field(factory=dict)
     talks: list[Talk] = field(
         factory=list,
-        repr=False,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Talk),
             iterable_validator=v.instance_of(list),
         ),
+        repr=lambda x: f"<list[Talk] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
 
-    title: Optional[MarkupText] = field(default=None)
+    title: Optional[MarkupText] = field(
+        default=None, converter=converters.optional(to_markuptext)
+    )
     location: Optional[str] = field(default=None)
     dates: Optional[str] = field(default=None)
+
+    def __attrs_post_init__(self) -> None:
+        for talk in self.talks:
+            talk.parent = self
+            for speaker in talk.speakers:
+                speaker.parent = talk
+
+    @property
+    def collection(self) -> Collection:
+        """The collection this event belongs to."""
+        return self.parent
 
     @property
     def collection_id(self) -> str:
@@ -144,7 +196,7 @@ class Event:
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes co-located with this event."""
-        for anthology_id, _ in self.colocated_ids:
+        for anthology_id in self.colocated_ids.keys():
             volume = self.root.get_volume(anthology_id)
             if volume is None:
                 raise ValueError(
@@ -156,15 +208,15 @@ class Event:
     def add_colocated(
         self,
         volume: Volume | AnthologyID,
-        type_: EventLinkingType = EventLinkingType.EXPLICIT,
+        type_: EventLink = EventLink.EXPLICIT,
     ) -> None:
         """Add a co-located volume to this event.
 
-        If the given volume is already co-located with this event and type_ is 'explicit', this will change its type to 'explicit'; otherwise, it will do nothing.
+        If the volume is already co-located with this event, calling this function can be used to make the connection explicit (i.e. written out to the XML); otherwise, this will do nothing.
 
         Parameters:
             volume: The ID or Volume object to co-locate with this event.
-            type_: Whether this volume is/should be explicitly linked in the XML or is inferred. (Defaults to 'explicit'.)
+            type_: Whether this volume is/should be explicitly linked in the XML or is inferred. (Defaults to 'explicit'; you probably don't want to change this.)
         """
         from .volume import Volume
 
@@ -173,16 +225,16 @@ class Event:
         else:
             volume_id = parse_id(volume)
 
-        for idx, (existing_id, existing_type) in enumerate(self.colocated_ids):
-            if volume_id == existing_id:
-                if (
-                    existing_type == EventLinkingType.INFERRED
-                    and type_ == EventLinkingType.EXPLICIT
-                ):
-                    self.colocated_ids[idx] = (volume_id, type_)
-                return
+        if volume_id in self.colocated_ids and (
+            type_ == EventLink.INFERRED  # never change an existing entry to "inferred"
+            or self.colocated_ids[volume_id]
+            == EventLink.EXPLICIT  # already set to "explicit"
+        ):
+            return  # nothing to do
 
-        self.colocated_ids.append((volume_id, type_))
+        self.colocated_ids[volume_id] = type_
+        if type_ == EventLink.EXPLICIT:
+            self.collection.is_modified = True
 
         # Update the event index as well
         if self.root.events.is_data_loaded:
@@ -203,7 +255,7 @@ class Event:
                     if meta.tag == "title":
                         kwargs["title"] = MarkupText.from_xml(meta)
                     elif meta.tag in ("location", "dates"):
-                        kwargs[meta.tag] = str(meta.text) if meta.text else None
+                        kwargs[str(meta.tag)] = str(meta.text) if meta.text else None
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
@@ -212,13 +264,13 @@ class Event:
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
-                kwargs["colocated_ids"] = [
-                    (parse_id(str(volume_id.text)), EventLinkingType.EXPLICIT)
+                kwargs["colocated_ids"] = {
+                    parse_id(str(volume_id.text)): EventLink.EXPLICIT
                     for volume_id in element
                     if volume_id.tag == "volume-id"
-                ]
+                }
             else:  # pragma: no cover
-                raise ValueError(f"Unsupported element for Event: <{element.tag}>")
+                raise ValueError(f"Unsupported element for Event: <{str(element.tag)}>")
         return cls(**kwargs)
 
     def to_xml(self) -> etree._Element:
@@ -251,8 +303,8 @@ class Event:
         # <colocated>
         if self.colocated_ids:
             colocated = E.colocated()
-            for id_tuple, el_type in self.colocated_ids:
-                if el_type == EventLinkingType.EXPLICIT:
+            for id_tuple, el_type in self.colocated_ids.items():
+                if el_type == EventLink.EXPLICIT:
                     colocated.append(
                         getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
                     )

@@ -16,6 +16,7 @@ import difflib
 import itertools as it
 import pytest
 import reprlib
+from unittest.mock import Mock
 
 pytest.register_assert_rewrite("acl_anthology.utils.xml")
 
@@ -24,6 +25,11 @@ from acl_anthology import Anthology  # noqa: E402
 
 class AnthologyStub:
     datadir = None
+    people = Mock()
+    verbose = False
+
+    def _warn_if_in_default_path(self) -> None:
+        pass
 
 
 @pytest.fixture
@@ -48,7 +54,12 @@ def pytest_assertrepr_compare(op, left, right):
             for x in it.chain(
                 [f"{short.repr(left)} == {short.repr(right)}"],
                 difflib.unified_diff(
-                    left, right, fromfile="left", tofile="right", n=1, lineterm=""
+                    [repr(item) for item in left],
+                    [repr(item) for item in right],
+                    fromfile="left",
+                    tofile="right",
+                    n=1,
+                    lineterm="",
                 ),
             )
         ]

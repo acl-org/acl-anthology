@@ -17,7 +17,6 @@ from lxml import etree
 
 from acl_anthology.utils import xml
 
-
 test_cases_stringify_children = (
     (
         "<span>Lorem <b>ipsum</b> <i>dolor</i> sit <b>a<i>men</i></b></span>",
@@ -68,6 +67,65 @@ test_cases_indent = (
     (
         "<abstract>Text that ends in a URL: <url>https://aclanthology.org/</url></abstract>",
         "<abstract>Text that ends in a URL: <url>https://aclanthology.org/</url></abstract>\n",
+    ),
+    (
+        """<collection id="W14">
+  <volume id="1">
+    <meta>
+      <booktitle>  Proceedings of the Seventh Global <fixed-case>Wordnet</fixed-case> Conference </booktitle>
+      <editor><first>Heili</first><last>Orav</last></editor>
+      <editor><first>Christiane</first><last>Fellbaum</last></editor>
+    <editor><first>Piek
+           </first><last>Vossen</last>
+           </editor>
+     <publisher>University of Tartu Press</publisher>
+     <address>Tartu, Estonia</address>
+     <month>January</month>
+   <year>2014</year>
+   </meta>
+                  <frontmatter>
+      <url>W14-0100</url>
+    </frontmatter>
+    <paper id="1">
+      <title> <fixed-case>W</fixed-case>o<fixed-case>N</fixed-case>e<fixed-case>F</fixed-case>, an improved, expanded and evaluated automatic <fixed-case>F</fixed-case>rench translation of <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et
+    </title>
+    <author>
+      <first  >Quentin</first><last>Pradet   </last>
+</author>
+<pages>32-39</pages>
+<url>W14-0105</url>
+</paper>
+  <paper>
+      <title><fixed-case>K</fixed-case>yoto<fixed-case>EBMT</fixed-case> System Description for the 1st Workshop on <fixed-case>A</fixed-case>sian Translation</title></paper>
+  </volume>
+    </collection>""",
+        """<collection id="W14">
+  <volume id="1">
+    <meta>
+      <booktitle>Proceedings of the Seventh Global <fixed-case>Wordnet</fixed-case> Conference</booktitle>
+      <editor><first>Heili</first><last>Orav</last></editor>
+      <editor><first>Christiane</first><last>Fellbaum</last></editor>
+      <editor><first>Piek</first><last>Vossen</last></editor>
+      <publisher>University of Tartu Press</publisher>
+      <address>Tartu, Estonia</address>
+      <month>January</month>
+      <year>2014</year>
+    </meta>
+    <frontmatter>
+      <url>W14-0100</url>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>W</fixed-case>o<fixed-case>N</fixed-case>e<fixed-case>F</fixed-case>, an improved, expanded and evaluated automatic <fixed-case>F</fixed-case>rench translation of <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et</title>
+      <author><first>Quentin</first><last>Pradet</last></author>
+      <pages>32-39</pages>
+      <url>W14-0105</url>
+    </paper>
+    <paper>
+      <title><fixed-case>K</fixed-case>yoto<fixed-case>EBMT</fixed-case> System Description for the 1st Workshop on <fixed-case>A</fixed-case>sian Translation</title>
+    </paper>
+  </volume>
+</collection>
+""",
     ),
 )
 
@@ -145,6 +203,11 @@ test_cases_assert_equals = (
     (  # Elements in <title> may NOT be reordered
         "<title><b>Bold</b><i>Italics</i></title>",
         "<title><i>Italics</i><b>Bold</b></title>",
+        False,
+    ),
+    (  # Formatting markup differences are not logically equivalent
+        "<abstract><b>Important</b> message</abstract>",
+        "<abstract>Important message</abstract>",
         False,
     ),
 )
@@ -329,6 +392,23 @@ test_cases_ensure_minimal_diff = (
              <bibkey>feng-etal-2022-legal</bibkey>
              <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
            </paper>""",
+    ),
+    # Added markup after <tex-math>
+    (
+        "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+        "<abstract><tex-math>a</tex-math> xxx</abstract>",
+        "<abstract><tex-math>a</tex-math> <b>xxx</b></abstract>",
+    ),
+    # Test <par/>
+    (
+        "<abstract>a<par/><b>xxx</b></abstract>",
+        "<abstract>a<par/>xxx</abstract>",
+        "<abstract>a<par/><b>xxx</b></abstract>",
+    ),
+    (
+        "<abstract><i>a</i><par/><b>xxx</b></abstract>",
+        "<abstract><i>a</i>\n<b>xxx</b></abstract>",
+        "<abstract><i>a</i><par/><b>xxx</b></abstract>",
     ),
 )
 

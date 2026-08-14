@@ -14,15 +14,161 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v
+from attrs import define, field, setters, validators as v
 from functools import cache, cached_property
 from lxml import etree
 from lxml.builder import E
 import re
+import unicodedata
 from slugify import slugify
-from typing import Any, Optional, cast, TypeAlias
+from typing import Any, Literal, Iterable, Optional, cast, Self, TypeAlias, TYPE_CHECKING
 
+from ..constants import RE_VERIFIED_PERSON_ID, NO_PERSON_ID
+from ..exceptions import AnthologyException
+from ..text import MarkupText
+from ..utils.attrs import (
+    attach_custom_repr,
+    track_namespec_modifications,
+    convert_orcid,
+    validate_orcid,
+)
 from ..utils.latex import latex_encode
+
+if TYPE_CHECKING:
+    import rich
+    from ..anthology import Anthology
+    from ..collections import Volume, Paper, Talk
+    from ..people import Person
+
+
+SLUGIFY_REPLACEMENTS = (
+    ["ʼ", "-"],
+    ["’", "-"],
+)
+"""Custom replacement rules for name slugs."""
+
+
+LAST_NAME_LOWERCASE_PREFIXES = {
+    "al",
+    "bin",
+    "bint",
+    "da",
+    "de",
+    "del",
+    "de la",
+    "dela",
+    "della",
+    "di",
+    "dos",
+    "du",
+    "el",
+    "la",
+    "le",
+    "van",
+    "van den",
+    "van der",
+    "von",
+    "von der",
+}
+"""Strings that tend to be lowercased when prefixing a last name; used for [`Name.case_normalize()`][acl_anthology.people.name.Name.case_normalize]."""
+
+# Automatically compile LAST_NAME_LOWERCASE_PREFIXES into a regex; the prefixes
+# are reverse-sorted by length so that it is always the longest string that
+# matches (e.g. so that "von der Weide" matches "von der", not just "von").
+_LAST_NAME_LOWERCASE_REGEX = re.compile(
+    f"^({'|'.join(sorted(LAST_NAME_LOWERCASE_PREFIXES, key=lambda s: -len(s)))}) ",
+    flags=re.IGNORECASE,
+)
+
+_LOWERCASE_INITIAL_REGEX = re.compile(r"\b[a-uw-z](?=\.)")
+"""Matches lowercase one-letter initials followed by a period, excluding `v.`."""
+
+_DOTTED_INITIAL_COMPONENT_REGEX = re.compile(r"(?<=\.)[a-z](?=\.|$)")
+"""Matches lowercase one-letter components after a period in dotted names."""
+
+_INITIAL_LED_DOTTED_TOKEN_REGEX = re.compile(
+    r"(?<!\S)[A-Za-z](?:\.[A-Za-z]+)+\.?(?=\s|$)"
+)
+"""Matches whitespace-delimited dotted tokens beginning with an initial, such as `S.B.priya`."""
+
+LAST_NAME_CAPITALIZATION_RULES = ((r"^Mc([a-z])", lambda p: "Mc" + p.group(1).upper()),)
+"""Regex rules for heuristically normalizing last names; used for [acl_anthology.people.name.Name.case_normalize][]."""
+
+
+def _normalize_initials(part: str) -> str:
+    part = _LOWERCASE_INITIAL_REGEX.sub(lambda match: match.group().upper(), part)
+    part = _DOTTED_INITIAL_COMPONENT_REGEX.sub(lambda match: match.group().upper(), part)
+    return _INITIAL_LED_DOTTED_TOKEN_REGEX.sub(lambda match: match.group().title(), part)
+
+
+RE_NAME_VALID = re.compile(r"[^ \'\",.:;!@#$%^&*()=+/?<>\[\]`\\–-](\S*( \S+)* ?[^ ,-])?")
+r"""Regex that partially checks validity of first and last names.
+
+First and last names should not start with punctuation, should not end with a comma or hyphen, and should not contain whitespace unless it is a space surrounded on both sides by non-whitespace. (It would be better to use the ``regex`` module with ``\p{P}`` for all Unicode punctuation, but that would add an extra dependency.)
+
+Used by [`Name.is_valid()`][acl_anthology.people.name.Name.is_valid].
+"""
+
+RE_NAME_UNDERCAPITALIZED = re.compile(r"\.[a-z]|\. [a-z]\b|\b[a-uw-z]\.")
+"""Regex that checks for spurious lowercase characters in a name.
+
+First and last names should not contain a lowercase initial after/before a dot, or any lowercase character immediately following a dot. (Exception: "v."--"v. Hahn" short for "von Hahn" is attested.)
+"""
+
+RE_NAME_OVERSPACED = re.compile(r"( |^)[a-z] [a-z]( |$)| -|- ")
+"""Regex that checks for overspacing of characters in a name. Detects hyphens bordering spaces, and multiple isolated lowercase characters in sequence."""
+
+EN_DASH = "\u2013"
+EM_DASH = "\u2014"
+
+VALID_NAME_PUNCT = "'’.,‘\"“”„-" + EN_DASH + EM_DASH + "&/()"
+"""Punctuation characters allowed in names."""
+
+
+def _is_bad_punct(c: str) -> bool:
+    """Check for invalid punctuation/symbol characters in a first or last name.
+
+    [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT] is the whitelist of valid punctuation characters.
+    """
+    if c in VALID_NAME_PUNCT:
+        return False
+    elif unicodedata.category(c).startswith(("P", "S")):
+        return True
+    return False
+
+
+def _is_valid_name_part(
+    attribute: Literal["first", "last"], value: str, error: bool = False
+) -> bool:
+    """Check if value is a valid first or last name string. If `error` is True, raises a `ValueError`.
+
+    Returns:
+        True _iff_ the name matches [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], does not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], does not contain a hyphen next to a space, does not contain two consecutive isolated lowercase letters, does not contain digits (except '3rd' in a last name), and does not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+    """
+    msg = ""
+    if not value or value.isalpha():
+        # If all characters are alphabetic, it is guaranteed to be valid.
+        # Empirically this applies to 80% of names. This test short-circuits the slower checks.
+        return True
+    elif not RE_NAME_VALID.fullmatch(value):
+        msg = f"Invalid {attribute} name: {value}"
+    elif RE_NAME_UNDERCAPITALIZED.search(value):
+        msg = f"Invalid {attribute} name (initial should be capitalized): {value}"
+    elif RE_NAME_OVERSPACED.search(value):
+        msg = f"Invalid {attribute} name (hyphen next to space or multiple isolated lowercase letters): {value}"
+    else:
+        for c in set(value) - {" "}:
+            if c.isdigit() or _is_bad_punct(c):
+                if c.isdigit() and " 3rd" in value and attribute == "last":
+                    continue
+                msg = f"Invalid {attribute} name (bad character): {value!r} ({c}, \\u{hex(ord(c))})"
+                break
+
+    if msg:
+        if not error:
+            return False
+        raise ValueError(msg)
+    return True
 
 
 @define(frozen=True)
@@ -33,24 +179,40 @@ class Name:
         Name objects are _frozen_, meaning they are immutable.  This allows them to be used as dictionary keys, but means that in order to change a name somewhere, you need to replace it with a new `Name` instance.
 
     Attributes:
-        first: First name part. Can be given as `None` for people who
-            only have a single name, but cannot be omitted.
+        first: First name part. Can be given as `None` for people who only have a single name, but cannot be omitted.
         last: Last name part.
         script: The script in which the name is written; only used for non-Latin script name variants.
 
+    It is recommended to check basic validity of the name strings by calling [`is_valid()`][acl_anthology.people.name.Name.is_valid]. Impermissible punctuation or digits, excessive whitespace, or lowercase characters in a few contexts are considered invalid.
+
     Examples:
         >>> Name("Yang", "Liu")
+        Name('Yang', 'Liu')
         >>> Name(last="Liu", first="Yang")
+        Name('Yang', 'Liu')
         >>> Name(None, "Mausam")
+        Name(None, 'Mausam')
     """
 
     first: Optional[str] = field(
-        eq=lambda x: x if x else None, validator=v.optional(v.instance_of(str))
+        eq=lambda x: x if x else None,
+        validator=v.optional(v.instance_of(str)),
     )
-    last: str = field(validator=v.instance_of(str))
+    last: str = field(validator=(v.instance_of(str), v.min_len(1)))
     script: Optional[str] = field(
-        default=None, repr=False, eq=False, validator=v.optional(v.instance_of(str))
+        default=None, eq=False, validator=v.optional(v.instance_of(str))
     )
+
+    def __repr__(self) -> str:
+        parts = [repr(self.first), repr(self.last)]
+        if self.script is not None:
+            parts.append(f"script={self.script!r}")
+        return f"{type(self).__name__}({', '.join(parts)})"
+
+    def __rich_repr__(self) -> rich.repr.Result:
+        yield self.first
+        yield self.last
+        yield "script", self.script, None
 
     def as_first_last(self) -> str:
         """
@@ -114,23 +276,98 @@ class Name:
             score += 0.5
         return score
 
+    def case_normalize(self, force: bool = False) -> Name:
+        """Try to heuristically normalize the casing of the name.
+
+        By default, this changes the name if it is currently all-lowercased or all-uppercased. Lowercase initials are also normalized in otherwise mixed-case names.
+
+        Examples:
+            Normalize a name that is entirely uppercase:
+
+            >>> Name("MARCEL", "BOLLMANN").case_normalize()
+            Name('Marcel', 'Bollmann')
+
+            Repair initials in an otherwise mixed-case name:
+
+            >>> Name("John C.s.", "Lui").case_normalize()
+            Name('John C.S.', 'Lui')
+
+        Arguments:
+            force: Apply title-casing even when the full name is mixed-case. Initial normalization is always applied.
+
+        Returns:
+            The original object when no changes are needed; otherwise, a new instance of the same concrete class with normalized name parts.
+
+        Note:
+            Names with a `script` attribute are returned unchanged.
+        """
+        if self.script is not None:
+            # Non-Latin script variants are left unchanged;
+            # should never trigger, but just in case...
+            return self  # pragma: no cover
+
+        first, last = self.first, self.last
+        firstlast = self.as_first_last()
+
+        if first is not None:
+            first = _normalize_initials(first)
+        last = _normalize_initials(last)
+
+        if not (force or firstlast.islower() or firstlast.isupper()):
+            if first == self.first and last == self.last:
+                return self
+            return self.__class__(first, last)
+
+        if first is not None:
+            first = first.title()
+        last = last.title()
+        # Prefixes
+        if (m := _LAST_NAME_LOWERCASE_REGEX.match(last)) is not None:
+            print(m)
+            last = m.group(0).lower() + last[m.end() :]
+        # Other normalization rules
+        for pattern, substitute in LAST_NAME_CAPITALIZATION_RULES:
+            last = re.sub(pattern, substitute, last)
+
+        return self.__class__(first, last)
+
+    def latex_normalize(self) -> Name:
+        """Normalize LaTeX commands in the name.
+
+        Returns:
+            The LaTeX-normalized Name.
+        """
+        first = (
+            MarkupText.from_latex_maybe(self.first).as_text()
+            if self.first is not None
+            else None
+        )
+        last = MarkupText.from_latex_maybe(self.last).as_text()
+        return self.__class__(first, last, script=self.script)
+
+    def is_valid(self, error: bool = False) -> bool:
+        """Check if the name has valid first and last names. (The first name is allowed to be None.) If `error` is True, raises a `ValueError`.
+
+        Returns:
+            True _iff_ the name parts match [`RE_NAME_VALID`][acl_anthology.people.name.RE_NAME_VALID], do not contain punctuation/symbols apart from the ones in [`VALID_NAME_PUNCT`][acl_anthology.people.name.VALID_NAME_PUNCT], do not contain digits (except '3rd' in a last name), and do not contain a lowercase initial with a dot or a lowercase character immediately after a dot (exception: 'v.' which can be short for 'von').
+        """
+        return _is_valid_name_part(
+            "first", self.first or "", error=error
+        ) and _is_valid_name_part("last", self.last, error=error)
+
+    @cache
     def slugify(self) -> str:
         """
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        if not (name := self.as_first_last()):
-            # Only necessary because of <https://github.com/acl-org/acl-anthology/issues/2725>
-            slug = "none"
-        else:
-            slug = slugify(name)
-        return slug
+        return slugify(self.as_first_last(), replacements=SLUGIFY_REPLACEMENTS)
 
     @classmethod
     def from_dict(cls, name: dict[str, str]) -> Name:
         """
         Parameters:
-            name: A dictionary with "first" and "last" keys.
+            name: A dictionary with at least a "last" key, and optionally "first" and "script" keys.
 
         Returns:
             A corresponding Name object.
@@ -138,6 +375,7 @@ class Name:
         return cls(
             name.get("first"),
             name["last"],
+            script=name.get("script"),
         )
 
     @classmethod
@@ -150,9 +388,7 @@ class Name:
             A corresponding Name object.
 
         Note:
-            This will work for `<author>` and `<editor>` tags as well, but those
-            are more efficiently parsed within
-            [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
+            This will work for `<author>` and `<editor>` tags as well, but those are more efficiently parsed within [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
         """
         first: Optional[str] = None
         last: Optional[str] = None
@@ -216,6 +452,19 @@ class Name:
         else:  # pragma: no cover
             raise TypeError(f"Cannot instantiate Name from {type(name)}")
 
+    def to_dict(self) -> dict[str, str]:
+        """
+        Returns:
+            A dictionary representing this name.
+        """
+        if self.first is not None:
+            d = {"first": self.first, "last": self.last}
+        else:
+            d = {"last": self.last}
+        if self.script is not None:
+            d["script"] = self.script
+        return d
+
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
         Arguments:
@@ -244,14 +493,23 @@ def _Name_from(value: Any) -> Name:
     return Name.from_(value)
 
 
-@define
+def _into_name_tuple(value: Iterable[ConvertableIntoName]) -> tuple[Name, ...]:
+    # Converter for NameSpecification.variants, to satisfy type checker
+    return tuple(Name.from_(v) for v in value)
+
+
+@attach_custom_repr
+@define(
+    on_setattr=[setters.convert, setters.validate, track_namespec_modifications],
+)
 class NameSpecification:
     """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
 
     Attributes:
-        name: The person's name.
-        id: Unique ID for the person that this name refers to.  Defaults to `None`.
-        affiliation: Professional affiliation.  Defaults to `None`.
+        parent: The Anthology item that this name specification belongs to.
+        orcid: An ORCID that was supplied together with this name.
+        openreview: An OpenReview profile ID that was supplied together with this name. (This is _not_ used for resolving author identities.)
+        affiliation: Professional affiliation. (This is _not_ used for resolving author identities.)
         variants: Variant spellings of this name in different scripts.
 
     Note:
@@ -261,21 +519,91 @@ class NameSpecification:
         (for this functionality, see [Person][acl_anthology.people.person.Person]).
     """
 
-    name: Name = field(converter=_Name_from)
-    id: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    _name: Name = field(converter=_Name_from, metadata={"repr_omits_field_name": True})
+    _id: Optional[str] = field(
+        default=None,
+        validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
+    )
+    parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
+    orcid: Optional[str] = field(
+        default=None,
+        converter=convert_orcid,
+        validator=v.optional(validate_orcid),
+    )
+    openreview: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
     affiliation: Optional[str] = field(
         default=None, validator=v.optional(v.instance_of(str))
     )
-    variants: list[Name] = field(
-        factory=list,
+    variants: tuple[Name, ...] = field(
+        default=(),
+        converter=_into_name_tuple,
         validator=v.deep_iterable(
             member_validator=v.instance_of(Name),
-            iterable_validator=v.instance_of(list),
+            iterable_validator=v.instance_of(tuple),
         ),
     )
 
     def __hash__(self) -> int:
-        return hash((self.name, self.id, self.affiliation, tuple(self.variants)))
+        return hash((self.name, self.id, self.affiliation, self.variants))
+
+    @property
+    def name(self) -> Name:
+        """The person's name."""
+        return self._name
+
+    @name.setter
+    def name(self, value: Any) -> None:
+        # TODO: hasattr check pending the CollectionItem refactoring
+        if (
+            self.id is None
+            and self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._name = _Name_from(value)
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
+                if (
+                    hasattr(self.parent, "frontmatter")
+                    and (frontmatter := self.parent.frontmatter) is not None
+                ):
+                    person_before.item_ids.discard(frontmatter.full_id_tuple)
+                    person_after.item_ids.add(frontmatter.full_id_tuple)
+        else:
+            self._name = _Name_from(value)
+
+    @property
+    def id(self) -> Optional[str]:
+        """Unique ID for the person that this NameSpecification refers to."""
+        return self._id
+
+    @id.setter
+    def id(self, value: Optional[str]) -> None:
+        # TODO: duplicates code from above, should probably be refactored
+        if (
+            self.parent is not None
+            and hasattr(self.parent, "full_id_tuple")
+            and self.root.people.is_data_loaded
+        ):
+            person_before = self.resolve()
+            self._id = value
+            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+            if person_before != person_after:
+                person_before.item_ids.discard(self.parent.full_id_tuple)
+                person_after.item_ids.add(self.parent.full_id_tuple)
+                if (
+                    hasattr(self.parent, "frontmatter")
+                    and (frontmatter := self.parent.frontmatter) is not None
+                ):
+                    person_before.item_ids.discard(frontmatter.full_id_tuple)
+                    person_after.item_ids.add(frontmatter.full_id_tuple)
+        else:
+            self._id = value
 
     @property
     def first(self) -> Optional[str]:
@@ -287,12 +615,57 @@ class NameSpecification:
         """The last name component."""
         return self.name.last
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        if self.parent is None:  # pragma: no cover
+            raise AnthologyException(
+                "NameSpecification is not attached to an Anthology item."
+            )
+        return self.parent.root
+
     @cached_property
     def citeproc_dict(self) -> dict[str, str]:
         """A citation object corresponding to this name for use with CiteProcJSON."""
         if not self.name.first:
             return {"family": self.name.last}
         return {"family": self.name.last, "given": self.name.first}
+
+    def normalize(
+        self, casing: bool = True, latex: bool = True, skip_setter: bool = False
+    ) -> Self:
+        """Heuristically normalize the name.
+
+        Arguments:
+            casing: If set to False, do not [case-normalize][acl_anthology.people.name.Name.case_normalize].
+            latex: If set to False, do not [LaTeX-normalize][acl_anthology.people.name.Name.latex_normalize].
+            skip_setter: If True, bypass the setter which dynamically updates affected objects. Set during ingestion; you probably do not want to set this manually.
+        """
+        name = self.name
+        if latex:
+            name = name.latex_normalize()
+        if casing:
+            name = name.case_normalize()
+        if skip_setter:
+            self._name = name
+        else:
+            self.name = name
+        return self
+
+    def resolve(self) -> Person:
+        """Resolve this name specification to a natural person.
+
+        Returns:
+            The Person object that this name specification resolves to.
+
+        Raises:
+            AnthologyException: If this name specification is not attached to an Anthology item (i.e., `parent` is not set).
+        """
+        if self.parent is None:
+            raise AnthologyException(
+                "Cannot resolve NameSpecification that is not attached to a paper."
+            )
+        return self.parent.root.people.get_by_namespec(self)
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> NameSpecification:
@@ -321,6 +694,8 @@ class NameSpecification:
         return cls(
             Name(first, cast(str, last)),
             id=person.get("id"),
+            orcid=person.get("orcid"),
+            openreview=person.get("openreview"),
             affiliation=affiliation,
             variants=variants,
         )
@@ -334,8 +709,14 @@ class NameSpecification:
             A serialization of this name in Anthology XML format.
         """
         elem = etree.Element(tag)
+        if self.id == NO_PERSON_ID:
+            self.id = None
         if self.id is not None:
             elem.set("id", self.id)
+        if self.orcid is not None:
+            elem.set("orcid", self.orcid)
+        if self.openreview is not None:
+            elem.set("openreview", self.openreview)
         elem.extend(
             (
                 E.first(self.first) if self.first else E.first(),

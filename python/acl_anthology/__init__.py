@@ -13,6 +13,6 @@
 # limitations under the License.
 
 from .anthology import Anthology
-from .config import config
+from .config import config, primary_console
 
-__all__ = ["Anthology", "config"]
+__all__ = ["Anthology", "config", "primary_console"]

@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Min-Yen Kan
+# Copyright 2026 Matt Post
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,163 +17,153 @@
 
 """
 Used to add ingested DOIs into the Anthology XML.
-Does not actually assign DOIs (separate script to manufacture XML to submit to Crossref), but
-simply adds to the XML, after checking that the DOI URL exists and resolves.
+Does not actually assign DOIs (separate script: generate_crossref_doi_metadata.py),
+but simply adds to the XML, after checking that the DOI URL exists and resolves.
 
-Usage:
+Accepts either volume IDs or event IDs (auto-detected by format):
 
-    add_dois.py [list of volume IDs]
+    python3 bin/add_dois.py 2024.emnlp-main 2024.emnlp-long
+    python3 bin/add_dois.py emnlp-2024
+    python3 bin/add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
 
-The best way to use it is with a script that adds all associated volumes
-for an event, including main conference and workshop volumes:
-
-    add_dois.py $(get_volumes_for_event.py data/xml/2024.emnlp.xml)
-
-e.g.,
-
-    python3 add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
+For events, all colocated volumes are resolved automatically.
 
 Modifies the XML.  Warns if DOIs already present.  Use -f to force.
-
-Limitations:
-- Doesn't current add the entire proceedings volume itself.
 """
 
+import logging
 import sys
-import os
-import anthology.data as data
-
-from anthology.utils import (
-    build_anthology_id,
-    deconstruct_anthology_id,
-    test_url_code,
-    indent,
-    make_simple_element,
-)
-from anthology.formatter import MarkupFormatter
+from pathlib import Path
 from time import sleep
 
-import lxml.etree as ET
+import requests
+
+# Allow importing sibling scripts from bin/
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from acl_anthology import Anthology
+from acl_anthology.utils.logging import setup_rich_logging
+
+from generate_crossref_doi_metadata import resolve_inputs, DOI_PREFIX
+
+log = logging.getLogger(__name__)
+
+# Constants
+DOI_URL_PREFIX = "https://doi.org/"
 
 
-def add_doi(xml_node, anth_id, force=False):
+def test_url_code(url):
+    """Test a URL with a HEAD request, returning the response."""
+    headers = {"user-agent": "acl-anthology/0.0.1"}
+    return requests.head(url, headers=headers, allow_redirects=True)
+
+
+def add_doi_to_item(item, anth_id, doi_prefix=DOI_PREFIX, force=False):
+    """Check that the DOI resolves and set it on the item (paper or volume).
+
+    Args:
+        item: A Paper or Volume object from the acl_anthology library.
+        anth_id: The full Anthology ID used to construct the DOI.
+        doi_prefix: The DOI prefix to use.
+        force: Whether to overwrite existing DOIs.
+
+    Returns:
+        True if the DOI was added, False otherwise.
     """
-    :param xml_node: the XML node to add the DOI to
-    :param anth_id: The Anthology ID of the paper, volume, or frontmatter
-    :param force: Whether to overwrite existing DOIs
-    """
+    new_doi = f"{doi_prefix}{anth_id}"
 
-    new_doi_text = f"{data.DOI_PREFIX}{anth_id}"
-
-    doi = xml_node.find("doi")
-    if doi is not None:
-        print(
-            f"-> [{anth_id}] Cowardly refusing to overwrite existing DOI {doi.text} (use --force)",
-            file=sys.stderr,
+    if item.doi is not None and not force:
+        log.warning(
+            "[%s] Cowardly refusing to overwrite existing DOI %s (use --force)",
+            anth_id,
+            item.doi,
         )
         return False
 
-    doi_url = f"{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}"
-    for tries in [1, 2, 3]:  # lots of random failures
+    doi_url = f"{DOI_URL_PREFIX}{new_doi}"
+    for _ in range(3):  # retry on transient failures
         try:
             result = test_url_code(doi_url)
             if result.status_code == 200:
-                doi = make_simple_element("doi", text=new_doi_text)
-                print(f"-> Adding DOI {new_doi_text}", file=sys.stderr)
-                xml_node.append(doi)
+                log.info("Adding DOI %s", new_doi)
+                item.doi = new_doi
                 return True
-            elif result.status_code == 429:  # too many requests
+            elif result.status_code == 429:
                 pause_for = int(result.headers["Retry-After"])
-                print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
+                log.warning("Got 429, pausing for %d seconds", pause_for)
                 sleep(pause_for + 1)
-            elif result.status_code == 404:  # not found
-                print("--> Got 404", file=sys.stderr)
+            elif result.status_code == 404:
+                log.warning("Got 404")
                 break
             else:
-                print(f"--> Other problem: {result}", file=sys.stderr)
-
+                log.warning("Other problem: %s", result)
         except Exception as e:
-            print(e)
+            log.error("%s", e)
 
-    print(f"-> Couldn't add DOI for {doi_url}", file=sys.stderr)
+    log.error("Couldn't add DOI for %s", doi_url)
     return False
 
 
-def process_volume(anthology_volume):
-    collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
+def process_volume(anthology, full_volume_id, doi_prefix=DOI_PREFIX, force=False):
+    """Process a single volume, adding DOIs to it and all its papers.
 
-    print(f"Attempting to add DOIs for {anthology_volume}", file=sys.stderr)
+    Returns:
+        The number of DOIs added.
+    """
+    volume = anthology.get_volume(full_volume_id)
+    if volume is None:
+        log.error("Volume %s not found in the Anthology", full_volume_id)
+        sys.exit(1)
 
-    # Update XML
-    xml_file = os.path.join(
-        os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
-    )
-    tree = ET.parse(xml_file)
-
-    formatter = MarkupFormatter()
+    log.info("Attempting to add DOIs for %s", full_volume_id)
+    log.info('Found volume "%s"', volume.title)
 
     num_added = 0
 
-    volume = tree.getroot().find(f"./volume[@id='{volume_id}']")
-    if volume is not None:
-        volume_booktitle = volume.find("./meta/booktitle")
-        volume_title = formatter.as_text(volume_booktitle)
-        print(f'-> Found volume "{volume_title}"', file=sys.stderr)
+    # Add volume-level DOI
+    added = add_doi_to_item(volume, full_volume_id, doi_prefix, force)
+    num_added += added
 
-        # Add the volume-level DOI
-        meta_node = volume.find("meta")
-        if meta_node is not None:
-            anth_id = build_anthology_id(collection_id, volume_id)
-            added = add_doi(meta_node, anth_id, force=args.force)
-            num_added += added
+    # Add DOIs for all papers (including frontmatter)
+    for paper in volume.papers():
+        added = add_doi_to_item(paper, paper.full_id, doi_prefix, force)
+        if added:
+            num_added += 1
+            sleep(0.1)
 
-        # Iterate through all papers
-        papers = volume.findall("paper")
-        if (frontmatter := volume.find("frontmatter")) is not None:
-            papers.insert(0, frontmatter)
+    # Save the collection
+    collection = volume.parent
+    collection.save()
+    log.info("Added %d DOIs to the XML for collection %s", num_added, collection.id)
 
-        for paper_node in papers:
-            # get the paper id attrib, default to 0 (frontmatter)
-            paper_id = int(paper_node.attrib.get("id", 0))
-            anth_id = build_anthology_id(collection_id, volume_id, paper_id)
-
-            added = add_doi(paper_node, anth_id, force=args.force)
-            if added:
-                num_added += 1
-                sleep(0.1)
-
-        indent(tree.getroot())
-
-        tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-        print(
-            f"-> added {num_added} DOIs to to the XML for collection {collection_id}",
-            file=sys.stderr,
-        )
-
-    else:
-        print(f"-> FATAL: volume {volume} not found in the Anthology", file=sys.stderr)
-        sys.exit(1)
+    return num_added
 
 
 def main(args):
-    for volume in args.anthology_volumes:
-        process_volume(volume)
+    setup_rich_logging()
+    anthology = Anthology.from_within_repo(verbose=False)
+    volume_ids = resolve_inputs(anthology, args.identifiers)
+
+    for volume_id in volume_ids:
+        process_volume(anthology, volume_id, doi_prefix=args.prefix, force=args.force)
 
 
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Add DOIs to Anthology XML after verifying they resolve."
+    )
     parser.add_argument(
-        "anthology_volumes",
+        "identifiers",
         nargs="+",
-        help="One or more Anthology volumes (e.g., P17-1, W18-02)",
+        help="Volume IDs (e.g., 2024.emnlp-main, W10-17) or event IDs (e.g., emnlp-2024, naacl-2012)",
     )
     parser.add_argument(
         "--prefix",
         "-p",
-        default=data.DOI_PREFIX,
-        help="The DOI prefix to use (default: " + data.DOI_PREFIX + ")",
+        default=DOI_PREFIX,
+        help=f"The DOI prefix to use (default: {DOI_PREFIX})",
     )
     parser.add_argument(
         "--force",

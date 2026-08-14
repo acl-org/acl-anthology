@@ -27,11 +27,12 @@ if TYPE_CHECKING:
 
 from .logging import get_logger
 
-
 log = get_logger()
 
 
-def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -> None:
+def clone_or_pull_from_repo(
+    repo_url: str, local_path: StrPath, verbose: Optional[bool]
+) -> None:
     """Clones a Git repository, or pulls from remote if it already exists.
 
     Arguments:
@@ -56,7 +57,11 @@ def clone_or_pull_from_repo(repo_url: str, local_path: StrPath, verbose: bool) -
     else:
         log.info(f"Cloning repository: {repo_url}")
         repo = Repo.clone_from(
-            repo_url, path, progress=progress, single_branch=True, depth=1  # type: ignore[arg-type]
+            repo_url,
+            path,
+            progress=progress,  # type: ignore[arg-type]
+            single_branch=True,
+            depth=1,
         )
         # ^-- It seems that Repo.clone_from() has an incorrect type signature
         # for its progress argument...

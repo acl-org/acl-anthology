@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,43 +14,19 @@
 
 from __future__ import annotations
 
-import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .people import Name, NameSpecification
+    from .files import FileReference
+    from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
 
-if sys.version_info >= (3, 11):
 
-    class AnthologyException(Exception):
-        """Base class from which all other exceptions defined here inherit."""
+class AnthologyException(Exception):
+    """Base class from which all other exceptions defined here inherit."""
 
-        def __init__(self, msg: str):
-            super().__init__(msg)
-
-else:
-
-    class AnthologyException(Exception):
-        def __init__(self, msg: str):
-            super().__init__(msg)
-            self.__notes__: list[str] = []
-
-        def add_note(self, note: str) -> None:
-            self.__notes__.append(note)
-
-
-class AmbiguousNameError(AnthologyException):
-    """Raised when an ambiguous name would need an explicit and unique ID, but does not have one.
-
-    Attributes:
-        name (Name): The name that raised the error.
-    """
-
-    def __init__(self, name: Name, message: str) -> None:
-        super().__init__(message)
-        self.name = name
-        self.add_note("Did you forget to add an explicit/unique ID to this name?")
+    def __init__(self, msg: str):
+        super().__init__(msg)
 
 
 class AnthologyDuplicateIDError(AnthologyException, ValueError):
@@ -91,10 +67,10 @@ class AnthologyXMLError(AnthologyException, ValueError):
         self.tag = tag
 
 
-class NameIDUndefinedError(AnthologyException):
-    """Raised when an author ID was requested that is not defined.
+class NameSpecResolutionError(AnthologyException):
+    """Raised when a NameSpecification cannot be resolved to a person.
 
-    This can happen when an `<author>` or `<editor>` was used with an ID which was not defined in `name_variants.yaml`, or when trying to look up a NameSpecification that does not correspond to any Person in the PersonIndex.
+    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_.  It might also happen if a NameSpecification is manually created (and e.g. uses an ID that is not defined).
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.
@@ -103,6 +79,44 @@ class NameIDUndefinedError(AnthologyException):
     def __init__(self, name_spec: NameSpecification, message: str) -> None:
         super().__init__(message)
         self.name_spec = name_spec
+
+
+class NameSpecResolutionWarning(UserWarning):
+    """Same as `NameSpecResolutionError`, but for less critical issues that shouldn't be blockers.
+
+    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_, but the person is implicit (unverified).
+
+    Attributes:
+        name_spec (NameSpecification): The name specification that raised the error.
+    """
+
+    def __init__(self, name_spec: NameSpecification, message: str) -> None:
+        super().__init__(message)
+        self.name_spec = name_spec
+
+
+class PersonDefinitionError(NameSpecResolutionError):
+    """Raised when a NameSpecification defines an ID, but either the ID or one of its fields is not compatible with the definition in `people.json`.
+
+    This can happen when an `<author>` or `<editor>` is used with an ID which was not defined in `people.json`; when the name used together with this ID was not listed among the possible names in `people.json`; or when the ORCID used together with this ID does not match the ORCID defined in `people.json`.
+
+    Attributes:
+        name_spec (NameSpecification): The name specification that raised the error.
+    """
+
+    pass
+
+
+class ChecksumMismatchWarning(UserWarning):
+    """Raised when a file's checksum doesn't match the checksum in the Anthology data files.
+
+    Attributes:
+        file (FileReference): The file reference that caused the mismatch.
+    """
+
+    def __init__(self, file: FileReference) -> None:
+        super().__init__(f"Checksum doesn't match for {file.name}")
+        self.file = file
 
 
 class SchemaMismatchWarning(UserWarning):
@@ -118,4 +132,4 @@ class SchemaMismatchWarning(UserWarning):
         super().__init__(
             "Data directory contains a different schema.rnc as this library; "
             "you might need to update the data or the acl-anthology library."
-        )
+        )  # pragma: no cover

@@ -1,12 +1,12 @@
 # Builds a preview of all non-master branches and publishes them
 # to https://aclanthology.org/previews/BRANCHNAME
 
-name: preview
+name: Create website preview
 
 on:
   push:
     branches:
-    - '*'
+    - '**'
     - '!master'
     - '!python-*'
 
@@ -15,14 +15,31 @@ concurrency:
   group: preview-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   preview:
     if: github.repository == 'acl-org/acl-anthology'
     runs-on:
       labels: ubuntu-latest-m
+    env:
+      HUGO_VERSION: 0.160.0
+      DART_SASS_VERSION: 1.97.1
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+    - name: Install Dart Sass
+      run: |
+        mkdir -p "${HOME}/.local"
+        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+    - name: install uv
+      uses: astral-sh/setup-uv@v9.0.0
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -34,7 +51,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -44,21 +61,42 @@ jobs:
         python -m pip install lxml
     - name: extract branch name
       shell: bash
-      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+      run: |
+        raw_branch="${GITHUB_REF#refs/heads/}"
+        branch="${raw_branch//\//___}"
+        echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
-    - name: list volumes
+    - name: list changes
       shell: bash
-      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
-      id: list_volumes
+      run: echo "changes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      id: list_changes
 #    - name: list volumes debug
 #      shell: bash
 #      run: |
 #        git diff --name-only $GITHUB_REF origin/master
 #        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+    - name: Download NLTK data
+      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
+    - name: find pull request
+      id: pull_request
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const branch = context.ref.replace('refs/heads/', '');
+          const { data: pullRequests } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            head: `${context.repo.owner}:${branch}`,
+            state: 'open',
+          });
+          return pullRequests[0]?.html_url || '';
     - name: preview
       shell: bash
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+        HUGO_PARAMS_PREVIEWPRURL: ${{ steps.pull_request.outputs.result }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
     - uses: mshick/add-pr-comment@v2
@@ -68,8 +106,106 @@ jobs:
         message: |
           Build successful. Some useful links:
           * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
-          * Potential volumes of interest: ${{ steps.list_volumes.outputs.volumes }}
+          * Potential changes of interest: ${{ steps.list_changes.outputs.changes }}
 
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
+    - name: Notify ingestion reviewers of preview
+      uses: actions/github-script@v8
+      with:
+        script: |
+          const branch = context.ref.replace('refs/heads/', '');
+          const { data: prs } = await github.rest.pulls.list({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            head: `${context.repo.owner}:${branch}`,
+            state: 'open',
+          });
+          if (prs.length === 0) return;
+          const pr = prs[0];
+          if (!/^ingest\b/i.test(pr.title)) return;
+
+          const body = pr.body || '';
+          const previewUrl = 'https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}';
+          const previewHeading = 'Navigate to the preview site and check the following:';
+          const linkedPreviewHeading = `Navigate to [the preview](${previewUrl}) site and check the following:`;
+          const updated = body.replace(
+            previewHeading,
+            linkedPreviewHeading
+          );
+          if (updated !== body) {
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              body: updated,
+            });
+          }
+
+          const lines = updated.split(/\r?\n/);
+          const blockStart = lines.findIndex(line => line.trim() === linkedPreviewHeading);
+          if (blockStart === -1) return;
+
+          let blockEnd = blockStart + 1;
+          while (blockEnd < lines.length && lines[blockEnd].trim() !== '') {
+            blockEnd += 1;
+          }
+          const previewBlock = lines.slice(blockStart, blockEnd).join('\n');
+
+          const result = await github.graphql(
+            `query($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $number) {
+                  closingIssuesReferences(first: 20) {
+                    nodes {
+                      number
+                      repository {
+                        name
+                        owner {
+                          login
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }`,
+            {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              number: pr.number,
+            }
+          );
+
+          const marker = `<!-- ingestion-preview-pr-${pr.number} -->`;
+          const commentBody = [
+            'A preview has been generated that requires your attention.',
+            '',
+            previewBlock,
+            '',
+            'The preview will be merged once you have completed the checklist.',
+            '',
+            marker,
+          ].join('\n');
+
+          for (const issue of result.repository.pullRequest.closingIssuesReferences.nodes) {
+            const issueOwner = issue.repository.owner.login;
+            const issueRepo = issue.repository.name;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: issueOwner,
+              repo: issueRepo,
+              issue_number: issue.number,
+              per_page: 100,
+            });
+            if (comments.some(comment => (comment.body || '').includes(marker))) {
+              continue;
+            }
+
+            await github.rest.issues.createComment({
+              owner: issueOwner,
+              repo: issueRepo,
+              issue_number: issue.number,
+              body: commentBody,
+            });
+          }

@@ -1,4 +1,4 @@
-name: check-build
+name: Check website build
 
 on:
   pull_request:
@@ -14,13 +14,34 @@ jobs:
   check-build:
     runs-on:
       labels: ubuntu-latest-m
+    env:
+      HUGO_VERSION: 0.160.0
+      DART_SASS_VERSION: 1.97.1
     steps:
-    - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
-    - name: update
-      run: sudo apt-get update
-    - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - uses: actions/checkout@v3
-    - name: build
+    - name: Install Hugo
+      run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+    - name: Install Dart Sass
+      run: |
+        mkdir -p "${HOME}/.local"
+        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+    - name: Install uv
+      uses: astral-sh/setup-uv@v9.0.0
+    - name: Install other dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+    - uses: actions/checkout@v7
+
+    - name: Run Python library integration tests
+      run: uv run --locked pytest -m "integration"
+      working-directory: ./python
+
+    - name: Download NLTK data
+      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
+
+    - name: Build website
       run: make check site

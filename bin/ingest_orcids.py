@@ -48,7 +48,7 @@ def parse_paper_yaml(paper_path: str) -> List[Dict[str, str]]:
     if not os.path.exists(paper_path):
         print(f"No such file: {paper_path}", file=sys.stderr)
         sys.exit(1)
-    with open(paper_path, 'r', encoding='utf-8') as f:
+    with open(paper_path, "r", encoding="utf-8") as f:
         papers = yaml.safe_load(f)
 
     for paper in papers:
@@ -62,18 +62,18 @@ def parse_paper_yaml(paper_path: str) -> List[Dict[str, str]]:
 @click.command()
 # add a positional argument for the paper YAML file
 @click.argument(
-    'paper_yaml',
+    "paper_yaml",
     type=click.Path(exists=True, dir_okay=False, readable=True),
     required=True,
 )
 @click.argument(
-    'full_volume_id',
+    "full_volume_id",
     type=str,
-    required=True,
+    required=False,
 )
 def main(
     paper_yaml: str,
-    full_volume_id: str,
+    full_volume_id: str = None,
 ):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
@@ -85,6 +85,10 @@ def main(
 
     # people = AnthologyIndex(srcdir=anthology_datadir)
     # people.bibkeys = load_bibkeys(anthology_datadir)
+
+    if full_volume_id is None:
+        full_volume_id = Path(paper_yaml).name.replace(".yaml", "")
+        print(f"Taking full volume ID from file name: {full_volume_id}", file=sys.stderr)
 
     # Load the papers.yaml file, skipping non-archival papers
     papers = [p for p in parse_paper_yaml(paper_yaml) if p["archival"]]
@@ -98,10 +102,10 @@ def main(
     #         file=sys.stderr,
     #     )
 
-    collection_id, volume_name = full_volume_id.split('-')
+    collection_id, volume_name = full_volume_id.split("-")
 
     # open the paper XML file
-    collection_file = anthology_datadir / 'xml' / f'{collection_id}.xml'
+    collection_file = anthology_datadir / "xml" / f"{collection_id}.xml"
     if not os.path.exists(collection_file):
         print(f"No such collection file {collection_file}", file=sys.stderr)
         sys.exit(1)
@@ -115,12 +119,12 @@ def main(
         )
         sys.exit(1)
 
-    assert len(papers) == len(
-        volume_node.findall('./paper')
-    ), f"Number of papers in YAML ({len(papers)}) does not match number in XML ({len(volume_node.findall('./paper'))})"
+    assert len(papers) == len(volume_node.findall("./paper")), (
+        f"Number of papers in YAML ({len(papers)}) does not match number in XML ({len(volume_node.findall('./paper'))})"
+    )
 
     num_added = 0
-    for paper, paper_node in zip(papers, volume_node.findall('./paper')):
+    for paper, paper_node in zip(papers, volume_node.findall("./paper")):
         # paper_num = int(paper["id"])
         # paper_num = int(paper_node.attrib['id'])
         # print(f"PAPER: YAML={paper_num}", file=sys.stderr)
@@ -144,8 +148,8 @@ def main(
 
             return tuple(names)
 
-        yaml_authors = paper['authors']
-        xml_authors = paper_node.findall('./author')
+        yaml_authors = paper["authors"]
+        xml_authors = paper_node.findall("./author")
 
         if len(yaml_authors) != len(xml_authors):
             print(
@@ -155,7 +159,20 @@ def main(
             continue
 
         def match_names(yaml_name_tuple, xml_name_tuple):
-            """Match a YAML name tuple to the XML name tuple"""
+            """Match a YAML name tuple to the XML name tuple.
+
+            Basic sanity check on name matching: we ensure that the YAML last name
+            ends the XML string that concatenates names in both directions.
+
+            e.g.,
+
+            YAML: "Post"
+            XML: ("Matt Post", "Post Matt")
+            match: True
+
+            We do both directions because of issues with Chinese names which have inconsistent
+            conventions.
+            """
 
             xml_name_forward = f"{xml_name_tuple[0]} {xml_name_tuple[1]}"
             xml_name_reverse = f"{xml_name_tuple[1]} {xml_name_tuple[0]}"
@@ -167,13 +184,13 @@ def main(
             )
 
         for author_yaml, author_node in zip(
-            paper['authors'], paper_node.findall('./author')
+            paper["authors"], paper_node.findall("./author")
         ):
             # Check that the author names match
             # We want to do this robustly, since author order may have changed
             yaml_name_tuple = (
-                author_yaml['first_name'].lower(),
-                author_yaml['last_name'].lower(),
+                author_yaml["first_name"].lower(),
+                author_yaml["last_name"].lower(),
             )
             yaml_name = yaml_name_tuple[0] + " " + yaml_name_tuple[1]
 
@@ -187,9 +204,9 @@ def main(
                     f"- Author YAML={yaml_name} XML={get_author_name_xml(author_node)}",
                     file=sys.stderr,
                 )
-            if orcid := author_yaml.get('orcid'):
+            if orcid := author_yaml.get("orcid"):
                 # grab ORCID pattern from orcid: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
-                orcid_pattern = r'\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
+                orcid_pattern = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
                 match = re.search(orcid_pattern, orcid)
                 if match:
                     # If the ORCID is in the expected format, use it directly
@@ -199,16 +216,16 @@ def main(
                     print(f"Invalid ORCID format: {orcid}", file=sys.stderr)
                     continue
 
-                author_node.attrib['orcid'] = orcid
+                author_node.attrib["orcid"] = orcid
 
     indent(root_node)
     tree = etree.ElementTree(root_node)
-    tree.write(collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True)
+    tree.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
     print(
         f"Added {num_added} ORCIDs for {full_volume_id} to {collection_file}",
         file=sys.stderr,
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

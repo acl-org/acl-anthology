@@ -1,0 +1,13 @@
+{{ $id := .id }}
+<article class="acl-venue-row acl-venue-collection-row" data-venue-collection-row="{{ $id }}">
+  <h4>
+    <button id="acl-{{ $id }}-toggle" class="acl-venue-collection-toggle" type="button" data-venue-collection-toggle="{{ $id }}" aria-expanded="false" aria-controls="acl-{{ $id }}-panel" aria-label="Show {{ lower .label }}" title="Show {{ lower .label }}">
+      <span class="acl-venue-row__label">
+        <span class="acl-venue-row__acl-marker" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+        <span class="acl-venue-row__acronym">{{ .label }}</span>
+      </span>
+      <span class="acl-venue-row__name">{{ .description }}</span>
+    </button>
+  </h4>
+  <div class="acl-venue-collection-count">{{ .count }} venues</div>
+</article>

@@ -25,7 +25,6 @@ from .logging import setup_rich_logging, get_logger
 from .text import clean_unicode, remove_extra_whitespace
 from .xml import stringify_children
 
-
 __all__ = [
     "AnthologyID",
     "build_id",

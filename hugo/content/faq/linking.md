@@ -1,6 +1,7 @@
 ---
 Title: How do I link to publications in the ACL Anthology?
-weight: 1
+category: usage
+weight: 2
 ---
 
 Every paper in the Anthology is assigned an [Anthology ID]({{< relref "/info/ids.md" >}}).

@@ -18,16 +18,19 @@ from attrs import define, field
 import re
 from rich.progress import track
 from slugify import slugify
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from .. import constants
+from ..config import primary_console
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError
 from ..text import StopWords
+from ..utils.attrs import attach_custom_repr
 from ..utils.logging import get_logger
 from .paper import Paper
 
 if TYPE_CHECKING:
+    from .collection import Collection
     from .index import CollectionIndex
 
 
@@ -38,6 +41,7 @@ BIBKEY_MAX_NAMES = 2
 """The maximum number of names to consider when generating bibkeys."""
 
 
+@attach_custom_repr
 @define
 class BibkeyIndex(SlottedDict[Paper]):
     """Index object which collects citation keys for all papers.
@@ -50,7 +54,9 @@ class BibkeyIndex(SlottedDict[Paper]):
     """
 
     parent: CollectionIndex = field(repr=False, eq=False)
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
 
     def generate_bibkey(self, paper: Paper) -> str:
         """Generate a unique bibkey for the given paper.
@@ -61,8 +67,8 @@ class BibkeyIndex(SlottedDict[Paper]):
         Returns:
             The generated bibkey.
 
-        Note:
-            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index.
+        Important:
+            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index.  Use [`Paper.refresh_bibkey()`][acl_anthology.collections.paper.Paper.refresh_bibkey] to automatically generate and set a bibkey for a paper.
         """
         if not self.is_data_loaded:
             self.load()
@@ -76,7 +82,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             )
         else:
             # Generate slugified author string, using '-etal' if necessary
-            namespecs = paper.authors if paper.authors else paper.get_editors()
+            namespecs = paper.authors if paper.authors else paper.editors
             if not namespecs:
                 bibnames = "nn"
             elif len(namespecs) > BIBKEY_MAX_NAMES:
@@ -90,6 +96,11 @@ class BibkeyIndex(SlottedDict[Paper]):
                 for word in slugify(paper.title.as_text()).split("-")
                 if not StopWords.contains(word)
             ]
+            # Edge case: ensure title_words is never empty
+            if not title_words:
+                title_words = [
+                    word for word in slugify(paper.title.as_text()).split("-")
+                ] + ["0"]
 
             # Regular papers use {authors}-{year}-{first_title_words}
             bibkey = f"{bibnames}-{paper.year}-{title_words.pop(0)}"
@@ -146,7 +157,7 @@ class BibkeyIndex(SlottedDict[Paper]):
         # from a cache if it doesn't need re-building.
         if self.is_data_loaded:
             return
-        self.build()
+        self.build(show_progress=self.parent.parent.verbose)
         self.is_data_loaded = True
 
     def reset(self) -> None:
@@ -162,12 +173,15 @@ class BibkeyIndex(SlottedDict[Paper]):
         """
         self.reset()
         # Go through every single paper
-        iterator = track(
-            self.parent.values(),
-            total=len(self.parent),
-            disable=(not show_progress),
-            description="Building bibkey index...",
-        )
+        if not show_progress:
+            iterator: Iterable[Collection] = self.parent.values()
+        else:
+            iterator = track(
+                self.parent.values(),
+                total=len(self.parent),
+                description="Building bibkey index...",
+                console=primary_console,
+            )
         errors = []
         for collection in iterator:
             for paper in collection.papers():

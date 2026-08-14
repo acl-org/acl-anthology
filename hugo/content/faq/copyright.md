@@ -1,6 +1,7 @@
 ---
 Title: What is the copyright for materials in the ACL Anthology?
-weight: 3
+category: info
+weight: 1
 ---
 
 The ACL materials that are hosted in the Anthology are licensed to the general public under a liberal usage policy that allows unlimited reproduction, distribution and hosting of materials on any other website or medium, for non-commercial purposes.

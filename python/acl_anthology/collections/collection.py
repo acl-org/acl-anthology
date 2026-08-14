@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,26 +14,20 @@
 
 from __future__ import annotations
 
-import sys
 from attrs import define, field, validators as v
 from lxml import etree
 from pathlib import Path
-from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
-
-if sys.version_info >= (3, 11):
-    from typing import Self
-else:
-    from typing_extensions import Self
+from typing import Any, Iterator, Optional, Self, cast, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
 from ..text.markuptext import MarkupText
-from ..utils.attrs import auto_validate_types, int_to_str
+from ..utils.attrs import attach_custom_repr, auto_validate_types, int_to_str
 from ..utils.ids import infer_year, is_valid_collection_id
 from ..utils.logging import get_logger
 from ..utils import xml
 from .event import Event
-from .types import EventLinkingType, VolumeType
+from .types import EventLink, VolumeType
 from .volume import Volume
 from .paper import Paper
 
@@ -46,6 +40,7 @@ if TYPE_CHECKING:
 log = get_logger()
 
 
+@attach_custom_repr
 @define(field_transformer=auto_validate_types)
 class Collection(SlottedDict[Volume]):
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
@@ -63,18 +58,23 @@ class Collection(SlottedDict[Volume]):
     Attributes: Non-Init Attributes:
         event: An event represented by this collection.
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
+        is_modified: A flag indicating whether any of the data in this collection has been modified after loading.
+        raised_error_on_load: A flag indicating whether loading the XML file raised an error. If True, calling `load()` again won't do anything. This is to prevent the same exceptions being triggered over and over again by other functions accessing this collection (and thereby triggering a load) multiple times.
     """
 
-    id: str = field(converter=int_to_str)
+    id: str = field(converter=int_to_str)  # validator defined below
     parent: CollectionIndex = field(repr=False, eq=False)
     path: Path = field(converter=Path)
     event: Optional[Event] = field(
         init=False,
-        repr=False,
         default=None,
         validator=v.optional(v.instance_of(Event)),
     )
-    is_data_loaded: bool = field(init=False, repr=True, default=False)
+    is_data_loaded: bool = field(
+        init=False, default=False, metadata={"repr_omit_if": True}
+    )
+    is_modified: bool = field(init=False, default=False)
+    raised_error_on_load: bool = field(init=False, default=False)
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -118,7 +118,7 @@ class Collection(SlottedDict[Volume]):
         volume = Volume.from_xml(self, meta)
         if volume.id in self.data:
             raise AnthologyDuplicateIDError(
-                volume.id, "Volume already exists in collection {self.id}"
+                volume.id, f"Volume {volume.id} already exists in collection {self.id}"
             )
         self.data[volume.id] = volume
         return volume
@@ -148,7 +148,7 @@ class Collection(SlottedDict[Volume]):
     def create_volume(
         self,
         id: str,
-        title: MarkupText,
+        title: MarkupText | str,
         year: Optional[str] = None,
         type: VolumeType = VolumeType.PROCEEDINGS,
         **kwargs: Any,
@@ -157,7 +157,7 @@ class Collection(SlottedDict[Volume]):
 
         Parameters:
             id: The ID of the new volume.
-            title: The title of the new volume.
+            title: The title of the new volume.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
             type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
             **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
@@ -193,11 +193,18 @@ class Collection(SlottedDict[Volume]):
         )
         volume.is_data_loaded = True
 
-        # For convenience, if editors were given, we add them to the index here
+        # If editors were given, we fill in their ID & add them to the index
         if volume.editors:
+            for namespec in volume.editors:
+                namespec.normalize(skip_setter=True)
+                self.root.people.ingest_namespec(namespec)
             self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
+        # Register this volume with the EventIndex
+        if self.root.events.is_data_loaded:
+            self.root.events._add_volume_to_index(volume)
 
         self.data[id] = volume
+        self.is_modified = True
         return volume
 
     def create_event(
@@ -240,59 +247,66 @@ class Collection(SlottedDict[Volume]):
             **kwargs,
         )
         self.root.events._add_to_index(self.event)
+        self.is_modified = True
         return self.event
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
-        if self.is_data_loaded:
+        if self.is_data_loaded or self.raised_error_on_load:
             return
 
         log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
-        for _, element in etree.iterparse(
-            self.path,
-            tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
-        ):
-            discard_element = True
-            if (
-                element.tag == "meta"
-                and (parent := element.getparent()) is not None
-                and parent.tag != "event"
+        try:
+            for _, element in etree.iterparse(
+                self.path,
+                tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
             ):
-                # Seeing a volume's <meta> block instantiates a new volume
-                current_volume = self._add_volume_from_xml(element)  # noqa: F841
-            elif element.tag in ("paper", "frontmatter"):
-                current_volume._add_paper_from_xml(element)
-            elif element.tag == "volume":
-                current_volume = cast(Volume, None)  # noqa: F481
-            elif element.tag == "event":
-                self._set_event_from_xml(element)
-                element.clear()
-            elif element.tag == "collection":
-                if element.get("id") != self.id:
-                    raise AnthologyInvalidIDError(
-                        element.get("id"),
-                        f"File {self.path} does not contain Collection {self.id}",
-                    )
-            else:
-                # Keep element around; should only apply to <event><meta> ...
-                discard_element = False
+                discard_element = True
+                if (
+                    element.tag == "meta"
+                    and (parent := element.getparent()) is not None
+                    and parent.tag != "event"
+                ):
+                    # Seeing a volume's <meta> block instantiates a new volume
+                    current_volume = self._add_volume_from_xml(element)  # noqa: F841
+                elif element.tag in ("paper", "frontmatter"):
+                    current_volume._add_paper_from_xml(element)
+                elif element.tag == "volume":
+                    current_volume = cast(Volume, None)  # noqa: F841
+                elif element.tag == "event":
+                    self._set_event_from_xml(element)
+                    element.clear()
+                elif element.tag == "collection":
+                    if element.get("id") != self.id:
+                        raise AnthologyInvalidIDError(
+                            element.get("id"),
+                            f"File {self.path} does not contain Collection {self.id}",
+                        )
+                else:
+                    # Keep element around; should only apply to <event><meta> ...
+                    discard_element = False
 
-            if discard_element:
-                element.clear()
+                if discard_element:
+                    element.clear()
+        except:
+            self.raised_error_on_load = True
+            raise
 
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
-            self.event.colocated_ids = [
-                (volume.full_id_tuple, EventLinkingType.INFERRED)
+            colocated_ids = {
+                volume.full_id_tuple: EventLink.INFERRED
                 for volume in self.data.values()
-                # Edge case: in case the <colocated> block lists a volume in
-                # the same collection, don't add it twice
-                if (volume.full_id_tuple, EventLinkingType.EXPLICIT)
-                not in self.event.colocated_ids
-            ] + self.event.colocated_ids
+                # Edge case: in case the <colocated> block lists a volume in the same collection, don't add it twice
+                if volume.full_id_tuple not in self.event.colocated_ids
+            }
+            # Make sure that implicitly linked volumes come first
+            colocated_ids.update(self.event.colocated_ids)
+            self.event.colocated_ids = colocated_ids
 
         self.is_data_loaded = True
+        self.is_modified = False
 
     def save(self, path: Optional[StrPath] = None, minimal_diff: bool = True) -> None:
         """Saves this collection as an XML file.
@@ -301,7 +315,8 @@ class Collection(SlottedDict[Volume]):
             path: The filename to save to. If None, defaults to `self.path`.
             minimal_diff: If True (default), will compare against an existing XML file in `self.path` to minimize the difference, i.e., to prevent noise from changes in the XML that make no semantic difference.  See [`utils.xml.ensure_minimal_diff`][acl_anthology.utils.xml.ensure_minimal_diff] for details.
         """
-        if path is None:
+        if path is None:  # pragma: no cover
+            self.root._warn_if_in_default_path()
             path = self.path
         collection = etree.Element("collection", {"id": self.id})
         for volume in self.volumes():
