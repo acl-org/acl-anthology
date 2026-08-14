@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Sped up `MarkupText` by avoiding unnecessary deep copies of XML elements.
+- Sped up BibTeX generation significantly by speeding up Unicode-to-LaTeX encoding.
+
 ## [1.3.1] — 2026-08-09
 
 ## Changed
