@@ -480,10 +480,7 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        venue = anthology.venues.create(
-            id=venue_slug, acronym=venue_abbrev, name=venue_title
-        )
-        venue.save()
+        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
     return venue_slug
 
 
@@ -556,6 +553,7 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(
             anthology, venue_abbrev, meta.get("title", venue_abbrev)
         )
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta.get("issue", meta["volume"]).lower()
         venue_name = venue_abbrev.lower()
@@ -601,7 +599,7 @@ def read_ingest_metadata(
             "address": (frontmatter_data or {}).get("address") or meta.get("location"),
             "title": volume_title,
             "editors": volume_editors,
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": meta.get("isbn"),
             "journal_volume": meta.get("volume") if args.is_journal else None,
             "journal_issue": meta.get("issue") if args.is_journal else None,
@@ -618,6 +616,7 @@ def read_ingest_metadata(
         meta = parse_conf_yaml(source)
         venue_abbrev = meta["anthology_venue_id"]
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
         # Use the registered venue slug (letters/digits only) for the venue tag
@@ -659,7 +658,7 @@ def read_ingest_metadata(
             "address": meta.get("location"),
             "title": normalize_latex(meta["book_title"]) or meta["book_title"],
             "editors": [namespec_from_author(author) for author in meta["editors"]],
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
             "journal_volume": None,
             "root_path": source_path,
