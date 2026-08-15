@@ -162,6 +162,8 @@ def refresh_or_orcids(username=None, password=None):
         numUpdatedNSesByVolume = defaultdict(int)
         numOrcidErrors = 0
         numNewPerson = 0
+        numMergedIntoLegacyVerified = 0
+        numAddedORCIDExistingPerson = 0
         for user, orcid in orid2orcid.items():
             log.debug(f"{user}: {orcid}")
             bare_orcid = orcid.split("/")[-1]
@@ -190,6 +192,7 @@ def refresh_or_orcids(username=None, password=None):
                         f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. Merging"
                     )
                     person.merge_into(eperson)
+                    numMergedIntoLegacyVerified += 1
                 person = eperson
 
             if person is None:
@@ -198,6 +201,7 @@ def refresh_or_orcids(username=None, password=None):
                 log.debug(f"...found: {person.id}, current ORCID: {person.orcid}")
                 if person.orcid is None:
                     person.orcid = orcid
+                    numAddedORCIDExistingPerson += 1
 
             for ns in user2nses[user]:
                 if person is None:
@@ -223,6 +227,10 @@ def refresh_or_orcids(username=None, password=None):
                 break
 
         log.info(f"{numNewPerson} new Persons created.")
+        log.info(
+            f"{numMergedIntoLegacyVerified} Persons merged into a legacy-verified Person."
+        )
+        log.info(f"{numAddedORCIDExistingPerson} Persons updated to add ORCID.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
         log.info(numUpdatedNSesByVolume)
         log.info(f"{numOrcidErrors} users' ORCIDs were rejected as invalid.")
