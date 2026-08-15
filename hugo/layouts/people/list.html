@@ -3,7 +3,6 @@
 {{ $authorPages := .Site.GetPage "/info/author-pages.md" }}
 {{ $verification := .Site.GetPage "/info/verification.md" }}
 {{ $orcid := .Site.GetPage "/info/orcid.md" }}
-{{ $names := .Site.GetPage "/info/names.md" }}
 
 <main class="acl-people-index" data-author-directory
       data-index-base="{{ "people/index/" | relURL }}"
@@ -43,8 +42,7 @@
     </div>
   </dl>
 
-  <div class="acl-people-index__body">
-    <section class="acl-author-search" aria-labelledby="author-search-heading">
+  <section class="acl-author-search" aria-labelledby="author-search-heading">
       <div class="acl-author-search__heading">
         <div>
           <h2 id="author-search-heading">Find authors and papers</h2>
@@ -78,64 +76,7 @@
       <noscript>
         <p class="acl-author-search__fallback">JavaScript is required for the local index. You can still use the <a href="{{ "search/" | relURL }}">site search</a>.</p>
       </noscript>
-    </section>
-
-    <aside class="acl-author-resources" aria-labelledby="author-resources-heading">
-      <h2 id="author-resources-heading">Author page essentials</h2>
-      <nav aria-label="Author page help">
-        <a href="{{ $authorPages.RelPermalink }}#how-to-get-your-author-page-verified">
-          <span class="acl-author-resources__icon acl-author-resources__icon--green">
-            <i class="fas fa-user-check" aria-hidden="true"></i>
-          </span>
-          <span>
-            <strong>Get verified</strong>
-            <small>Connect papers to your identity</small>
-          </span>
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-        <a href="{{ $verification.RelPermalink }}">
-          <span class="acl-author-resources__icon acl-author-resources__icon--blue">
-            <i class="fas fa-shield-alt" aria-hidden="true"></i>
-          </span>
-          <span>
-            <strong>Verification explained</strong>
-            <small>Verified and unverified pages</small>
-          </span>
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-        <a href="{{ $orcid.RelPermalink }}">
-          <span class="acl-author-resources__icon acl-author-resources__icon--yellow">
-            <i class="fab fa-orcid" aria-hidden="true"></i>
-          </span>
-          <span>
-            <strong>Use your ORCID iD</strong>
-            <small>Keep future papers connected</small>
-          </span>
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-        <a href="{{ $authorPages.RelPermalink }}#how-to-remove-papers-from-your-author-page">
-          <span class="acl-author-resources__icon acl-author-resources__icon--red">
-            <i class="fas fa-edit" aria-hidden="true"></i>
-          </span>
-          <span>
-            <strong>Fix an author page</strong>
-            <small>Add, remove, or merge papers</small>
-          </span>
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-        <a href="{{ $names.RelPermalink }}">
-          <span class="acl-author-resources__icon acl-author-resources__icon--gray">
-            <i class="fas fa-project-diagram" aria-hidden="true"></i>
-          </span>
-          <span>
-            <strong>How names are grouped</strong>
-            <small>Person IDs and name variants</small>
-          </span>
-          <i class="fas fa-chevron-right" aria-hidden="true"></i>
-        </a>
-      </nav>
-    </aside>
-  </div>
+  </section>
 
   {{ with $stats.first_paper_year_hist }}
   {{ $peak := index (sort . "count" "desc") 0 }}
