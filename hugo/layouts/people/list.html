@@ -88,6 +88,10 @@
       <div>
         <h2 id="author-histogram-heading">New authors by year</h2>
         <p>Each author page is counted once, in the year its earliest paper appeared.</p>
+        <div class="acl-people-histogram__legend" aria-label="Author verification status">
+          <span><i class="acl-people-histogram__swatch acl-people-histogram__swatch--verified" aria-hidden="true"></i>Verified</span>
+          <span><i class="acl-people-histogram__swatch acl-people-histogram__swatch--unverified" aria-hidden="true"></i>Unverified</span>
+        </div>
       </div>
       <i class="fas fa-chart-bar" aria-hidden="true"></i>
     </div>
@@ -96,15 +100,20 @@
       <ol class="acl-people-histogram__bars">
         {{ range . }}
         {{ $height := 0 }}
+        {{ $verifiedPercent := 0 }}
         {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
+        {{ if gt .count 0 }}{{ $verifiedPercent = int (math.Round (mul (div (float .verified_count) .count) 100)) }}{{ end }}
         <li class="acl-people-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
-            style="--bar-height: {{ $height }}%;"
-            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}">
-          <span class="acl-people-histogram__column" aria-hidden="true"></span>
+            style="--bar-height: {{ $height }}%; --verified-share: {{ $verifiedPercent }}%;"
+            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}; {{ lang.FormatNumberCustom 0 .verified_count }} verified ({{ $verifiedPercent }}%)">
+          <span class="acl-people-histogram__column" aria-hidden="true">
+            <span class="acl-people-histogram__segment acl-people-histogram__segment--unverified"></span>
+            <span class="acl-people-histogram__segment acl-people-histogram__segment--verified"></span>
+          </span>
           {{ if or (eq (mod .year 10) 0) (eq .year $first.year) (eq .year $latest.year) }}
           <span class="acl-people-histogram__tick{{ if or (eq .year $first.year) (eq .year $latest.year) }} is-endpoint{{ end }}" aria-hidden="true">{{ .year }}</span>
           {{ end }}
-          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors</span>
+          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors; {{ lang.FormatNumberCustom 0 .verified_count }} verified, {{ $verifiedPercent }} percent</span>
         </li>
         {{ end }}
       </ol>

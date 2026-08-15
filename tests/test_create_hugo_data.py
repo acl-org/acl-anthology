@@ -93,10 +93,10 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         "unverified_author_count": 1,
         "orcid_author_count": 1,
         "first_paper_year_hist": [
-            {"year": 2018, "count": 1},
-            {"year": 2019, "count": 1},
-            {"year": 2020, "count": 0},
-            {"year": 2021, "count": 1},
+            {"year": 2018, "count": 1, "verified_count": 1},
+            {"year": 2019, "count": 1, "verified_count": 1},
+            {"year": 2020, "count": 0, "verified_count": 0},
+            {"year": 2021, "count": 1, "verified_count": 0},
         ],
     }
     assert author_stats(people) == expected_stats
@@ -216,16 +216,16 @@ def test_paper_search_bucket_keys_normalize_accents_and_non_ascii_tokens():
 
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
     people = {
-        "a": {"first_year": 2005},
-        "b": {"first_year": 2005},
-        "c": {"first_year": 2008},
+        "alice-smith": {"first_year": 2005},
+        "bob-jones/unverified": {"first_year": 2005},
+        "carol-lee": {"first_year": 2008},
         "editor-only": {"full": "No Papers"},  # no first_year -> excluded
     }
     assert first_paper_year_histogram(people) == [
-        {"year": 2005, "count": 2},
-        {"year": 2006, "count": 0},
-        {"year": 2007, "count": 0},
-        {"year": 2008, "count": 1},
+        {"year": 2005, "count": 2, "verified_count": 1},
+        {"year": 2006, "count": 0, "verified_count": 0},
+        {"year": 2007, "count": 0, "verified_count": 0},
+        {"year": 2008, "count": 1, "verified_count": 1},
     ]
 
 

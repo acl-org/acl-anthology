@@ -530,21 +530,29 @@ def paper_search_bucket_keys(title: str) -> set[str]:
 def first_paper_year_histogram(people):
     """Count authors by the year of their first paper.
 
-    Returns a year-ordered list of ``{"year", "count"}`` entries spanning every
-    year between the earliest and latest debut. Years in which no author
-    published a first paper are included with a count of zero so the histogram
-    forms a continuous timeline. Authors without any papers (and therefore
-    without a ``first_year``) are ignored.
+    Returns a year-ordered list of ``{"year", "count", "verified_count"}``
+    entries spanning every year between the earliest and latest debut. Years in
+    which no author published a first paper are included with zero counts so the
+    histogram forms a continuous timeline. Authors without any papers (and
+    therefore without a ``first_year``) are ignored.
     """
-    counts = Counter(
-        person["first_year"]
-        for person in people.values()
-        if person.get("first_year") is not None
-    )
+    counts = Counter()
+    verified_counts = Counter()
+    for person_id, person in people.items():
+        if (first_year := person.get("first_year")) is None:
+            continue
+        counts[first_year] += 1
+        if is_verified_person_id(person_id):
+            verified_counts[first_year] += 1
+
     if not counts:
         return []
     return [
-        {"year": year, "count": counts.get(year, 0)}
+        {
+            "year": year,
+            "count": counts.get(year, 0),
+            "verified_count": verified_counts.get(year, 0),
+        }
         for year in range(min(counts), max(counts) + 1)
     ]
 

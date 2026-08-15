@@ -453,6 +453,36 @@ $acl-people-soft-red: #fff0f0;
   margin: 0;
 }
 
+.acl-people-histogram__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1rem;
+  margin-top: .65rem;
+  color: var(--acl-people-muted);
+  font-size: .76rem;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+}
+
+.acl-people-histogram__swatch {
+  display: inline-block;
+  width: .72rem;
+  height: .72rem;
+  border-radius: .1rem;
+}
+
+.acl-people-histogram__swatch--verified {
+  background: darken($green, 8%);
+}
+
+.acl-people-histogram__swatch--unverified {
+  background: #c8cccf;
+}
+
 .acl-people-histogram__bars {
   display: flex;
   align-items: flex-end;
@@ -474,18 +504,39 @@ $acl-people-soft-red: #fff0f0;
 }
 
 .acl-people-histogram__column {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: var(--bar-height, 0);
+  overflow: hidden;
   border-radius: .12rem .12rem 0 0;
-  background: linear-gradient(to top, darken($cyan, 16%), $cyan);
 }
 
 .acl-people-histogram__bar:not(.is-empty) .acl-people-histogram__column {
   min-height: 2px;
 }
 
-.acl-people-histogram__bar:hover .acl-people-histogram__column {
-  background: darken($cyan, 26%);
+.acl-people-histogram__segment {
+  display: block;
+  width: 100%;
+}
+
+.acl-people-histogram__segment--unverified {
+  flex: 1 1 auto;
+  background: #c8cccf;
+}
+
+.acl-people-histogram__segment--verified {
+  flex: 0 0 var(--verified-share, 0);
+  background: darken($green, 8%);
+}
+
+.acl-people-histogram__bar:hover .acl-people-histogram__segment--unverified {
+  background: #aeb4b8;
+}
+
+.acl-people-histogram__bar:hover .acl-people-histogram__segment--verified {
+  background: darken($green, 16%);
 }
 
 .acl-people-histogram__tick {
