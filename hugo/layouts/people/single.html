@@ -1,6 +1,6 @@
 {{ define "meta" }}
 {{ $person := index hugo.Data.people .Params.name }}
-  <link rel="canonical" href="/people/{{ $person.slug | strings.TrimSuffix "/unverified" }}" />
+  <link rel="canonical" href="/people/{{ $person.slug | strings.TrimSuffix "/unverified" }}/" />
 {{ end }}
 
 {{ define "main" }}
