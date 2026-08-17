@@ -10,32 +10,8 @@
   <header class="acl-people-index__header">
     <div>
       <h1>Author Directory</h1>
-      <p>The Anthology groups publications into author pages using submitted names, name variants, and ORCID iDs.</p>
     </div>
-    <a class="acl-people-index__verify" href="{{ $authorPages.RelPermalink }}#how-to-get-your-author-page-verified">
-      <i class="fas fa-user-check" aria-hidden="true"></i>
-      <span>Verify your author page</span>
-    </a>
   </header>
-
-  <dl class="acl-people-stats" aria-label="Author index statistics">
-    <div>
-      <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
-      <dd>author pages</dd>
-    </div>
-    <div>
-      <dt>{{ lang.FormatNumberCustom 0 $stats.verified_author_count }}</dt>
-      <dd><a href="{{ $verification.RelPermalink }}">verified authors</a></dd>
-    </div>
-    <div>
-      <dt>{{ lang.FormatNumberCustom 0 $stats.orcid_author_count }}</dt>
-      <dd><a href="{{ $orcid.RelPermalink }}">with ORCID iDs</a></dd>
-    </div>
-    <div>
-      <dt>{{ lang.FormatNumberCustom 0 $stats.unverified_author_count }}</dt>
-      <dd><a href="{{ $verification.RelPermalink }}">unverified pages</a></dd>
-    </div>
-  </dl>
 
   <section class="acl-author-search" aria-labelledby="author-search-heading">
       <div class="acl-author-search__heading">
@@ -72,6 +48,25 @@
         <p class="acl-author-search__fallback">JavaScript is required for the local index. You can still use the <a href="{{ "search/" | relURL }}">site search</a>.</p>
       </noscript>
   </section>
+
+  <dl class="acl-people-stats" aria-label="Author index statistics">
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
+      <dd>author pages</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.verified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">verified authors</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.orcid_author_count }}</dt>
+      <dd><a href="{{ $orcid.RelPermalink }}">with ORCID iDs</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.unverified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">unverified pages</a></dd>
+    </div>
+  </dl>
 
   {{ with $stats.first_paper_year_hist }}
   {{ $peak := index (sort . "count" "desc") 0 }}
