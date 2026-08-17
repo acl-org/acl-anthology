@@ -23,8 +23,6 @@ from bin.create_hugo_data import (
     homepage_stats,
     latest_owned_ingest_date,
     newly_ingested_years,
-    paper_search_bucket_keys,
-    paper_search_index,
     paper_to_dict,
     recent_top_level_events,
     subtract_months,
@@ -116,102 +114,20 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     assert any(row[0] == "Élodie Durand" for row in index["e"])
     assert any(row[0] == "Wei Zhang" for row in index["z"])
 
-    paper_person = SimpleNamespace(id="ada-lovelace")
-    paper = SimpleNamespace(
-        is_frontmatter=False,
-        title=SimpleNamespace(as_text=lambda: "Neural Parsing"),
-        full_id="2026.acl-long.1",
-        year="2026",
-        authors=[
-            SimpleNamespace(
-                name=SimpleNamespace(as_full=lambda: "Ada Lovelace"),
-                resolve=lambda: paper_person,
-            )
-        ],
-    )
-    paper_index = paper_search_index([paper], people)
-
     (tmp_path / "data").mkdir()
-    export_author_index(people, tmp_path, [paper])
+    stale_paper_index = tmp_path / "static" / "people" / "index" / "papers"
+    stale_paper_index.mkdir(parents=True)
+    (stale_paper_index / "old.json").write_text("[]")
+    export_author_index(people, tmp_path)
 
     with open(tmp_path / "data" / "people_stats.json") as f:
         exported_stats = json.load(f)
-    assert exported_stats.pop("paper_search_bucket_counts") == {
-        bucket: len(rows) for bucket, rows in paper_index.items()
-    }
-    assert exported_stats.pop("search_bucket_counts") == {
-        bucket: len(rows) for bucket, rows in index.items()
-    }
     assert exported_stats == expected_stats
     index_dir = tmp_path / "static" / "people" / "index"
     assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
-    assert {path.stem for path in (index_dir / "papers").glob("*.json")} == set(
-        paper_index
-    )
-    with open(index_dir / "papers" / "neu.json") as f:
-        assert json.load(f) == paper_index["neu"]
-
-
-def test_paper_search_index_supports_titles_authors_and_variants():
-    def name(value, person_id):
-        person = SimpleNamespace(id=person_id)
-        return SimpleNamespace(
-            name=SimpleNamespace(as_full=lambda: value),
-            resolve=lambda: person,
-        )
-
-    def title(value):
-        return SimpleNamespace(as_text=lambda: value)
-
-    papers = [
-        SimpleNamespace(
-            is_frontmatter=False,
-            title=title("Neural Parsing for Klingon"),
-            full_id="2026.acl-long.1",
-            year="2026",
-            authors=[name("A. Lovelace", "ada-lovelace")],
-        ),
-        SimpleNamespace(
-            is_frontmatter=True,
-            title=title("Proceedings of the Test Conference"),
-            full_id="2026.acl-long.0",
-            year="2026",
-            authors=[],
-        ),
-    ]
-    people = {
-        "ada-lovelace": {
-            "full": "Ada Lovelace",
-            "orcid": "0000-0000-0000-0001",
-            "variant_entries": [{"full": "Augusta Ada King"}],
-        }
-    }
-
-    index = paper_search_index(papers, people)
-    row = [
-        "Neural Parsing for Klingon",
-        "2026.acl-long.1",
-        "2026",
-        "A. Lovelace",
-        "0000-0000-0000-0001 Ada Lovelace Augusta Ada King",
-    ]
-    for bucket in ("for", "kli", "neu", "par"):
-        assert row in index[bucket]
-    assert set(index) == {"for", "kli", "neu", "par"}
-    assert all(
-        all(entry[1] != "2026.acl-long.0" for entry in rows) for rows in index.values()
-    )
-
-
-def test_paper_search_bucket_keys_normalize_accents_and_non_ascii_tokens():
-    assert paper_search_bucket_keys("Évaluation of 3D 中文") == {
-        "3d",
-        "eva",
-        "of",
-        "other",
-    }
+    assert not stale_paper_index.exists()
 
 
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():

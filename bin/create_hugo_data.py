@@ -511,22 +511,6 @@ def search_bucket_keys(searchable: str) -> set[str]:
     return bucket_keys or {"other"}
 
 
-def paper_search_bucket_keys(title: str) -> set[str]:
-    """Return three-character ASCII prefixes for a paper title's tokens."""
-    normalized = "".join(
-        char
-        for char in unicodedata.normalize("NFKD", title)
-        if not unicodedata.combining(char)
-    ).casefold()
-    bucket_keys = set()
-    for token in re.findall(r"\w+", normalized):
-        if token[0].isascii() and token[0].isalnum():
-            bucket_keys.add(token[:3])
-        else:
-            bucket_keys.add("other")
-    return bucket_keys or {"other"}
-
-
 def first_paper_year_histogram(people):
     """Count authors by the year of their first paper.
 
@@ -591,60 +575,10 @@ def author_search_index(people):
     return buckets
 
 
-def paper_search_index(papers, people):
-    """Build compact paper-search buckets keyed by title-token prefix."""
-    buckets = {}
-
-    for paper in papers:
-        if paper.is_frontmatter:
-            continue
-
-        displayed_authors = [namespec.name.as_full() for namespec in paper.authors]
-        displayed_author_set = set(displayed_authors)
-        searchable_authors = set()
-        for namespec in paper.authors:
-            person = people.get(namespec.resolve().id)
-            if person is None:
-                continue
-            if person["full"] not in displayed_author_set:
-                searchable_authors.add(person["full"])
-            if orcid := person.get("orcid"):
-                searchable_authors.add(orcid)
-            searchable_authors.update(
-                variant["full"]
-                for variant in person.get("variant_entries", [])
-                if variant["full"] not in displayed_author_set
-            )
-
-        title = paper.title.as_text()
-        author_search = " ".join(sorted(searchable_authors, key=str.casefold))
-        row = [
-            title,
-            paper.full_id,
-            paper.year,
-            ", ".join(displayed_authors),
-            author_search,
-        ]
-        for bucket in paper_search_bucket_keys(title):
-            buckets.setdefault(bucket, []).append(row)
-
-    for rows in buckets.values():
-        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
-
-    return dict(sorted(buckets.items()))
-
-
-def export_author_index(people, builddir, papers=()):
+def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author directory."""
     author_index = author_search_index(people)
-    paper_index = paper_search_index(papers, people)
     stats = author_stats(people)
-    stats["search_bucket_counts"] = {
-        bucket: len(rows) for bucket, rows in author_index.items()
-    }
-    stats["paper_search_bucket_counts"] = {
-        bucket: len(rows) for bucket, rows in paper_index.items()
-    }
     with open(f"{builddir}/data/people_stats.json", "wb") as f:
         f.write(ENCODER.encode(stats))
 
@@ -654,11 +588,6 @@ def export_author_index(people, builddir, papers=()):
     os.makedirs(index_dir)
     for bucket, rows in author_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
-            f.write(ENCODER.encode(rows))
-    paper_index_dir = f"{index_dir}/papers"
-    os.makedirs(paper_index_dir)
-    for bucket, rows in paper_index.items():
-        with open(f"{paper_index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
 
 
@@ -760,7 +689,7 @@ def export_people(anthology, builddir, dryrun):
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
                 f.write(ENCODER.encode(people))
-            export_author_index(people, builddir, anthology.papers())
+            export_author_index(people, builddir)
             progress.update(task, advance=100)
 
 

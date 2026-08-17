@@ -5,12 +5,8 @@
 {{ $orcid := .Site.GetPage "/info/orcid.md" }}
 
 <main class="acl-people-index" data-author-directory
-      data-index-base="{{ "people/index/" | relURL }}"
-  data-paper-index-base="{{ "people/index/papers/" | relURL }}"
-  data-index-bucket-counts="{{ $stats.search_bucket_counts | jsonify }}"
-      data-paper-index-bucket-counts="{{ $stats.paper_search_bucket_counts | jsonify }}"
-  data-people-base="{{ "people/" | relURL }}"
-  data-paper-base="{{ .Site.Home.RelPermalink }}">
+  data-index-base="{{ "people/index/" | relURL }}"
+  data-people-base="{{ "people/" | relURL }}">
   <header class="acl-people-index__header">
     <div>
       <h1>Author Directory</h1>
@@ -44,14 +40,14 @@
   <section class="acl-author-search" aria-labelledby="author-search-heading">
       <div class="acl-author-search__heading">
         <div>
-          <h2 id="author-search-heading">Find authors and papers</h2>
-          <p>Search author names, published variants, ORCID iDs, or paper titles.</p>
+          <h2 id="author-search-heading">Find authors</h2>
+          <p>Search author names, published variants, or ORCID iDs.</p>
         </div>
         <i class="fas fa-users" aria-hidden="true"></i>
       </div>
 
       <form role="search" data-author-search>
-        <label for="author-search-input">Author name, ORCID iD, or paper title</label>
+        <label for="author-search-input">Author name or ORCID iD</label>
         <div class="acl-author-search__field">
           <i class="fas fa-search" aria-hidden="true"></i>
           <input id="author-search-input" type="search" inputmode="search"
@@ -71,7 +67,7 @@
       <p class="acl-author-search__status" id="author-search-status"
         role="status" aria-live="polite" data-author-search-status>Enter at least two characters.</p>
       <ul class="acl-author-results" id="author-search-results"
-          aria-label="Author and paper search results" data-author-search-results hidden></ul>
+          aria-label="Author search results" data-author-search-results hidden></ul>
       <noscript>
         <p class="acl-author-search__fallback">JavaScript is required for the local index. You can still use the <a href="{{ "search/" | relURL }}">site search</a>.</p>
       </noscript>
@@ -140,8 +136,6 @@
     const status = directory.querySelector("[data-author-search-status]");
     const results = directory.querySelector("[data-author-search-results]");
     const authorIndexCache = new Map();
-    const paperIndexCache = new Map();
-    const paperBucketCounts = JSON.parse(directory.dataset.paperIndexBucketCounts);
     const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
     const resultLimit = 20;
     const idleStatus = "Enter at least two characters.";
@@ -175,109 +169,23 @@
       });
     }
 
-    function preparePaperRows(rows) {
-      return rows.map(function (row) {
-        return {
-          row: row,
-          title: normalize(row[0]),
-          authors: normalize([row[3], row[4]].join(" ")),
-        };
-      });
-    }
-
-    function loadBucket(cache, base, bucket, prepareRows, errorMessage) {
-      if (!cache.has(bucket)) {
-        const url = base + bucket + ".json";
+    function loadAuthorBucket(bucket) {
+      if (!authorIndexCache.has(bucket)) {
+        const url = directory.dataset.indexBase + bucket + ".json";
         const request = fetch(url, { headers: { Accept: "application/json" } })
           .then(function (response) {
-            if (!response.ok) throw new Error(errorMessage);
+            if (!response.ok) throw new Error("Author index request failed");
             return response.json();
           })
-          .then(prepareRows)
+          .then(prepareAuthorRows)
           .catch(function (error) {
-            cache.delete(bucket);
+            authorIndexCache.delete(bucket);
             throw error;
           });
-        cache.set(bucket, request);
+        authorIndexCache.set(bucket, request);
       }
-      return cache.get(bucket);
+      return authorIndexCache.get(bucket);
     }
-
-    function loadAuthorBucket(bucket) {
-      return loadBucket(
-        authorIndexCache,
-        directory.dataset.indexBase,
-        bucket,
-        prepareAuthorRows,
-        "Author index request failed"
-      );
-    }
-
-    function loadPaperBucket(bucket) {
-      if (!Object.prototype.hasOwnProperty.call(paperBucketCounts, bucket)) {
-        return Promise.resolve([]);
-      }
-      return loadBucket(
-        paperIndexCache,
-        directory.dataset.paperIndexBase,
-        bucket,
-        preparePaperRows,
-        "Paper index request failed"
-      );
-    }
-
-    function paperBucketsForToken(token) {
-      const normalizedToken = normalize(token);
-      const word = normalizedToken.match(/\w+/);
-      if (!word) return normalizedToken.length >= 2 ? ["other"] : [];
-      if (word[0].length < 2) {
-        return Object.prototype.hasOwnProperty.call(paperBucketCounts, word[0])
-          ? [word[0]]
-          : [];
-      }
-      const prefix = word[0].slice(0, 3);
-      if (!/^[a-z0-9]/.test(prefix)) return ["other"];
-      if (prefix.length === 2) {
-        return Object.keys(paperBucketCounts).filter(function (bucket) {
-          return bucket.startsWith(prefix);
-        });
-      }
-      return [prefix];
-    }
-
-    function loadPaperBuckets(tokens) {
-      const buckets = Array.from(new Set(tokens.flatMap(paperBucketsForToken)));
-      return Promise.all(buckets.map(loadPaperBucket)).then(function (bucketEntries) {
-        const entriesById = new Map();
-        bucketEntries.forEach(function (entries) {
-          entries.forEach(function (entry) { entriesById.set(entry.row[1], entry); });
-        });
-        return Array.from(entriesById.values());
-      });
-    }
-
-    const bucketCounts = JSON.parse(directory.dataset.indexBucketCounts);
-    let bucketTotal = 0;
-    for (const bucket in bucketCounts) {
-      bucketTotal += bucketCounts[bucket];
-    }
-    let bucketOffset = Math.floor(Math.random() * bucketTotal);
-    let placeholderBucket = "other";
-    for (const bucket in bucketCounts) {
-      bucketOffset -= bucketCounts[bucket];
-      if (bucketOffset < 0) {
-        placeholderBucket = bucket;
-        break;
-      }
-    }
-    loadAuthorBucket(placeholderBucket)
-      .then(function (entries) {
-        const entry = entries[Math.floor(Math.random() * entries.length)];
-        if (entry) {
-          input.placeholder = "e.g., " + entry.row[0] + " or 0000-0002-...";
-        }
-      })
-      .catch(function () {});
 
     function isVerified(row) {
       return !row[1].endsWith("/unverified");
@@ -290,38 +198,9 @@
       return 3;
     }
 
-    function paperMatchKind(entry, tokens) {
-      const titleMatches = tokens.map(function (token) { return entry.title.includes(token); });
-      const authorMatches = tokens.map(function (token) { return entry.authors.includes(token); });
-      const allTokensMatch = tokens.every(function (_token, index) {
-        return titleMatches[index] || authorMatches[index];
-      });
-
-      if (!allTokensMatch) return null;
-      if (titleMatches.every(Boolean)) return "title";
-      if (titleMatches.some(Boolean) && authorMatches.some(Boolean)) return "title+author";
-      return null;
-    }
-
-    function paperMatchRank(entry, query) {
-      if (entry.matchKind === "title+author") return 4;
-      if (entry.title === query) return 0;
-      if (entry.title.startsWith(query)) return 1;
-      const queryTokens = query.split(/\s+/);
-      const titleTokens = entry.title.split(/\s+/);
-      const tokenPrefixesMatch = queryTokens.every(function (queryToken) {
-        return titleTokens.some(function (titleToken) { return titleToken.startsWith(queryToken); });
-      });
-      return tokenPrefixesMatch ? 2 : 3;
-    }
-
     function authorUrl(personId) {
       const path = personId.split("/").map(encodeURIComponent).join("/");
       return directory.dataset.peopleBase + path + "/";
-    }
-
-    function paperUrl(paperId) {
-      return directory.dataset.paperBase + encodeURIComponent(paperId) + "/";
     }
 
     function makeBadge(text, modifier) {
@@ -372,68 +251,8 @@
       return item;
     }
 
-    function makePaperResult(entry) {
-      const row = entry.row;
-      const item = document.createElement("li");
-      const link = document.createElement("a");
-      const identity = document.createElement("span");
-      const title = document.createElement("strong");
-      const meta = document.createElement("small");
-      const arrow = document.createElement("i");
-      const isIntersection = entry.matchKind === "title+author";
-
-      link.href = paperUrl(row[1]);
-      identity.className = "acl-author-result__identity acl-author-result__identity--paper";
-      title.textContent = row[0];
-      meta.textContent = [row[3], row[2], row[1]].filter(Boolean).join(" · ");
-      arrow.className = "fas fa-arrow-right";
-      arrow.setAttribute("aria-hidden", "true");
-
-      identity.append(title, meta);
-      link.append(
-        identity,
-        makeBadge(
-          isIntersection ? "Title + author" : "Paper title",
-          isIntersection
-            ? "acl-author-result__badge--intersection"
-            : "acl-author-result__badge--paper"
-        ),
-        arrow
-      );
-      item.append(link);
-      return item;
-    }
-
-    function makeGroupHeading(label, count) {
-      const item = document.createElement("li");
-      item.className = "acl-author-results__group";
-      item.textContent = label + " (" + numberFormat.format(count) + ")";
-      return item;
-    }
-
-    function visibleResults(authorMatches, paperMatches) {
-      if (authorMatches.length === 0) {
-        return { authors: [], papers: paperMatches.slice(0, resultLimit) };
-      }
-      if (paperMatches.length === 0) {
-        return { authors: authorMatches.slice(0, resultLimit), papers: [] };
-      }
-
-      let authorLimit = Math.min(authorMatches.length, Math.ceil(resultLimit / 2));
-      let paperLimit = Math.min(paperMatches.length, Math.floor(resultLimit / 2));
-      let remaining = resultLimit - authorLimit - paperLimit;
-      const extraAuthors = Math.min(remaining, authorMatches.length - authorLimit);
-      authorLimit += extraAuthors;
-      remaining -= extraAuthors;
-      paperLimit += Math.min(remaining, paperMatches.length - paperLimit);
-      return {
-        authors: authorMatches.slice(0, authorLimit),
-        papers: paperMatches.slice(0, paperLimit),
-      };
-    }
-
-    function countDescription(shown, total, singular, plural) {
-      const label = total === 1 ? singular : plural;
+    function countDescription(shown, total) {
+      const label = total === 1 ? "author page" : "author pages";
       if (shown < total) {
         return "Showing " + numberFormat.format(shown) + " of "
           + numberFormat.format(total) + " " + label;
@@ -459,25 +278,17 @@
         return;
       }
 
-      status.textContent = "Searching author pages and paper titles...";
+      status.textContent = "Searching author pages...";
       results.hidden = true;
 
       try {
         const bucket = bucketFor(query);
         const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
-        const loaded = await Promise.all([
-          loadAuthorBucket(bucket),
-          loadPaperBuckets(tokens),
-        ]);
+        const entries = await loadAuthorBucket(bucket);
         if (version !== searchVersion) return;
 
-        const authorMatches = loaded[0].filter(function (entry) {
+        const authorMatches = entries.filter(function (entry) {
           return tokens.every(function (token) { return entry.searchable.includes(token); });
-        });
-        const paperMatches = [];
-        loaded[1].forEach(function (entry) {
-          const matchKind = paperMatchKind(entry, tokens);
-          if (matchKind) paperMatches.push(Object.assign({}, entry, { matchKind: matchKind }));
         });
 
         authorMatches.sort(function (left, right) {
@@ -486,47 +297,18 @@
             || right.row[2] - left.row[2]
             || left.row[0].localeCompare(right.row[0]);
         });
-        paperMatches.sort(function (left, right) {
-          return paperMatchRank(left, normalizedQuery) - paperMatchRank(right, normalizedQuery)
-            || Number(right.row[2]) - Number(left.row[2])
-            || left.row[0].localeCompare(right.row[0])
-            || left.row[1].localeCompare(right.row[1]);
-        });
 
-        const visible = visibleResults(authorMatches, paperMatches);
-        const resultItems = [];
-        if (visible.authors.length) {
-          resultItems.push(makeGroupHeading("Author pages", authorMatches.length));
-          resultItems.push(...visible.authors.map(makeAuthorResult));
-        }
-        if (visible.papers.length) {
-          resultItems.push(makeGroupHeading("Paper titles", paperMatches.length));
-          resultItems.push(...visible.papers.map(makePaperResult));
-        }
-        results.replaceChildren(...resultItems);
-        results.hidden = resultItems.length === 0;
+        const visibleMatches = authorMatches.slice(0, resultLimit);
+        results.replaceChildren(...visibleMatches.map(makeAuthorResult));
+        results.hidden = visibleMatches.length === 0;
 
-        if (authorMatches.length === 0 && paperMatches.length === 0) {
-          status.textContent = "No author pages or paper titles match \"" + query + "\".";
+        if (authorMatches.length === 0) {
+          status.textContent = "No author pages match \"" + query + "\".";
         } else {
-          const descriptions = [];
-          if (authorMatches.length) {
-            descriptions.push(countDescription(
-              visible.authors.length,
-              authorMatches.length,
-              "author page",
-              "author pages"
-            ));
-          }
-          if (paperMatches.length) {
-            descriptions.push(countDescription(
-              visible.papers.length,
-              paperMatches.length,
-              "paper title",
-              "paper titles"
-            ));
-          }
-          status.textContent = descriptions.join(" and ") + ".";
+          status.textContent = countDescription(
+            visibleMatches.length,
+            authorMatches.length
+          ) + ".";
         }
       } catch (error) {
         if (version !== searchVersion) return;
