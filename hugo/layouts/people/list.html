@@ -189,7 +189,7 @@
     function authorMatchRank(entry, query) {
       if (entry.name === query) return 0;
       if (entry.name.startsWith(query)) return 1;
-      if (entry.name.split(/\s+/).some(function (token) { return token.startsWith(query); })) return 2;
+      if (entry.name.split(/[\s-]+/).some(function (token) { return token.startsWith(query); })) return 2;
       return 3;
     }
 

@@ -130,6 +130,20 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     assert not stale_paper_index.exists()
 
 
+def test_author_index_includes_hyphenated_name_parts():
+    people = {
+        "aaron-galiano-jimenez": {
+            "full": "Aarón Galiano-Jiménez",
+            "papers": ["paper-1"],
+            "variant_entries": [],
+        }
+    }
+
+    assert any(
+        row[0] == "Aarón Galiano-Jiménez" for row in author_search_index(people)["j"]
+    )
+
+
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
     people = {
         "alice-smith": {"first_year": 2005},
