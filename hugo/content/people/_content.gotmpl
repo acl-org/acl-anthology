@@ -2,6 +2,7 @@
    {{ $page := dict
       "kind" "page"
       "path" $person_id
+      "permapath" (strings.TrimSuffix "/unverified" $person_id)
       "slug" (index (split $person_id "/") -1)
       "aliases" $person.aliases
       "params" (dict "name" $person_id "lastname" $person.last)
