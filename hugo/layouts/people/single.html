@@ -2,6 +2,9 @@
 {{ $person := index hugo.Data.people .Params.name }}
 {{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
 <section id="main">
+  <p class="small mb-2">
+    <a href="{{ relref . "/people/" }}"><i class="fas fa-arrow-left me-1" aria-hidden="true"></i>Author Directory</a>
+  </p>
   <h2 id="title">
     <!-- {{- .Title -}} -->
     <span class="fw-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>

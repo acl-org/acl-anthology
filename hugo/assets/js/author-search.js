@@ -1,0 +1,296 @@
+(function () {
+  "use strict";
+
+  const bucketCache = new Map();
+  const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
+
+  function normalize(value) {
+    return value
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase();
+  }
+
+  function cleanQuery(value) {
+    return value.trim().replace(/^https?:\/\/(?:www\.)?orcid\.org\//i, "");
+  }
+
+  function bucketFor(query) {
+    const firstWordCharacter = normalize(query).match(/\w/);
+    const initial = firstWordCharacter ? firstWordCharacter[0] : "";
+    return initial >= "a" && initial <= "z" ? initial : "other";
+  }
+
+  function prepareAuthorRows(rows) {
+    return rows.map(function (row) {
+      return {
+        row: row,
+        name: normalize(row[0]),
+        searchable: normalize([row[0], row[3], row[4]].join(" ")),
+      };
+    });
+  }
+
+  function loadAuthorBucket(indexBase, bucket) {
+    const cacheKey = indexBase + bucket;
+    if (!bucketCache.has(cacheKey)) {
+      const request = fetch(indexBase + bucket + ".json", {
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("Author index request failed");
+          return response.json();
+        })
+        .then(prepareAuthorRows)
+        .catch(function (error) {
+          bucketCache.delete(cacheKey);
+          throw error;
+        });
+      bucketCache.set(cacheKey, request);
+    }
+    return bucketCache.get(cacheKey);
+  }
+
+  function isVerified(row) {
+    return !row[1].endsWith("/unverified");
+  }
+
+  function authorMatchRank(entry, query) {
+    if (entry.name === query) return 0;
+    if (entry.name.startsWith(query)) return 1;
+    if (entry.name.split(/[\s-]+/).some(function (token) { return token.startsWith(query); })) return 2;
+    return 3;
+  }
+
+  function authorUrl(peopleBase, personId) {
+    const path = personId.split("/").map(encodeURIComponent).join("/");
+    return peopleBase + path + "/";
+  }
+
+  async function findAuthors(rawQuery, indexBase) {
+    const query = cleanQuery(rawQuery);
+    const normalizedQuery = normalize(query);
+    if (normalizedQuery.length < 2) {
+      return { query: query, matches: [] };
+    }
+
+    const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+    const entries = await loadAuthorBucket(indexBase, bucketFor(query));
+    const matches = entries.filter(function (entry) {
+      return tokens.every(function (token) { return entry.searchable.includes(token); });
+    });
+
+    matches.sort(function (left, right) {
+      return authorMatchRank(left, normalizedQuery) - authorMatchRank(right, normalizedQuery)
+        || Number(isVerified(right.row)) - Number(isVerified(left.row))
+        || right.row[2] - left.row[2]
+        || left.row[0].localeCompare(right.row[0]);
+    });
+
+    return { query: query, matches: matches };
+  }
+
+  function paperCount(row) {
+    return numberFormat.format(row[2]) + (row[2] === 1 ? " paper" : " papers");
+  }
+
+  function makeAuthorSuggestion(entry, peopleBase) {
+    const row = entry.row;
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const identity = document.createElement("span");
+    const name = document.createElement("strong");
+    const meta = document.createElement("small");
+    const status = document.createElement("span");
+    const arrow = document.createElement("i");
+
+    link.href = authorUrl(peopleBase, row[1]);
+    link.className = "acl-navbar-search__author";
+    name.textContent = row[0];
+    meta.textContent = paperCount(row) + " \u00b7 ";
+    status.textContent = isVerified(row) ? "Verified" : "Unverified";
+    status.className = isVerified(row)
+      ? "acl-navbar-search__verified"
+      : "acl-navbar-search__unverified";
+    arrow.className = "fas fa-arrow-right";
+    arrow.setAttribute("aria-hidden", "true");
+
+    meta.append(status);
+    identity.append(name, meta);
+    link.append(identity, arrow);
+    item.append(link);
+    return item;
+  }
+
+  function makeHeading(text) {
+    const item = document.createElement("li");
+    item.className = "acl-navbar-search__heading";
+    item.textContent = text;
+    return item;
+  }
+
+  function makeNoAuthors(message) {
+    const item = document.createElement("li");
+    item.className = "acl-navbar-search__empty";
+    item.textContent = message;
+    return item;
+  }
+
+  function makeDirectoryLink(peopleBase) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const icon = document.createElement("i");
+
+    item.className = "acl-navbar-search__command";
+    link.href = peopleBase;
+    icon.className = "fas fa-users";
+    icon.setAttribute("aria-hidden", "true");
+    link.append(icon, "Browse all authors");
+    item.append(link);
+    return item;
+  }
+
+  function fullSearchUrl(form, query) {
+    const url = new URL(form.action, window.location.href);
+    url.searchParams.set("q", query);
+    return url.toString();
+  }
+
+  function makeFullSearchLink(form, query) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const icon = document.createElement("i");
+    const label = document.createElement("span");
+    const hint = document.createElement("small");
+    const queryText = document.createElement("strong");
+
+    item.className = "acl-navbar-search__command acl-navbar-search__full";
+    link.href = fullSearchUrl(form, query);
+    icon.className = "fas fa-search";
+    icon.setAttribute("aria-hidden", "true");
+    queryText.textContent = "\u201c" + query + "\u201d";
+    label.append("Search all papers for ", queryText);
+    hint.className = "acl-navbar-search__return-hint";
+    hint.textContent = "Press Return for full search";
+    label.append(hint);
+    link.append(icon, label);
+    item.append(link);
+    return item;
+  }
+
+  function initNavbarSearch(form) {
+    const input = form.querySelector(".acl-search-box");
+    const results = form.querySelector("[data-navbar-author-results]");
+    const status = form.querySelector("[data-navbar-author-status]");
+    const resultLimit = 6;
+    let inputTimer;
+    let searchVersion = 0;
+
+    function closeResults() {
+      searchVersion += 1;
+      results.hidden = true;
+    }
+
+    function renderResults(query, matches, emptyMessage) {
+      const visibleMatches = matches.slice(0, resultLimit);
+      const children = [makeHeading("Authors")];
+
+      if (visibleMatches.length === 0) {
+        children.push(makeNoAuthors(emptyMessage || "No matching authors"));
+      } else {
+        children.push(...visibleMatches.map(function (entry) {
+          return makeAuthorSuggestion(entry, form.dataset.peopleBase);
+        }));
+      }
+      children.push(makeDirectoryLink(form.dataset.peopleBase));
+      children.push(makeFullSearchLink(form, query));
+
+      results.replaceChildren(...children);
+      results.hidden = false;
+      status.textContent = matches.length === 1
+        ? "1 matching author. Press Return for full search."
+        : numberFormat.format(matches.length) + " matching authors. Press Return for full search.";
+    }
+
+    async function search() {
+      const query = input.value.trim();
+      const version = ++searchVersion;
+      if (normalize(cleanQuery(query)).length < 2) {
+        closeResults();
+        status.textContent = "";
+        return;
+      }
+
+      status.textContent = "Searching authors...";
+      try {
+        const outcome = await findAuthors(query, form.dataset.indexBase);
+        if (version !== searchVersion) return;
+        renderResults(query, outcome.matches);
+      } catch (error) {
+        if (version !== searchVersion) return;
+        renderResults(query, [], "Author suggestions unavailable");
+        status.textContent = "Author suggestions are temporarily unavailable. Press Return for full search.";
+      }
+    }
+
+    input.addEventListener("input", function () {
+      clearTimeout(inputTimer);
+      inputTimer = setTimeout(search, 120);
+    });
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeResults();
+        return;
+      }
+      if (event.key === "ArrowDown" && !results.hidden) {
+        const firstLink = results.querySelector("a");
+        if (firstLink) {
+          event.preventDefault();
+          firstLink.focus();
+        }
+      }
+    });
+
+    results.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeResults();
+        input.focus();
+        return;
+      }
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+
+      const links = Array.from(results.querySelectorAll("a"));
+      const current = links.indexOf(document.activeElement);
+      if (current < 0) return;
+      event.preventDefault();
+      if (event.key === "ArrowUp" && current === 0) {
+        input.focus();
+      } else {
+        const next = event.key === "ArrowDown"
+          ? Math.min(current + 1, links.length - 1)
+          : current - 1;
+        links[next].focus();
+      }
+    });
+
+    form.addEventListener("focusout", function () {
+      window.setTimeout(function () {
+        if (!form.contains(document.activeElement)) closeResults();
+      }, 0);
+    });
+
+    form.addEventListener("submit", closeResults);
+  }
+
+  window.aclAuthorSearch = {
+    authorUrl: authorUrl,
+    cleanQuery: cleanQuery,
+    findAuthors: findAuthors,
+    isVerified: isVerified,
+    normalize: normalize,
+  };
+
+  document.querySelectorAll("[data-navbar-author-search]").forEach(initNavbarSearch);
+})();

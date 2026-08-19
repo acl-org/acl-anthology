@@ -11,6 +11,10 @@
     <div>
       <h1>Author Directory</h1>
     </div>
+    <a class="acl-people-index__verify" href="{{ $authorPages.RelPermalink }}">
+      <i class="fas fa-user-edit" aria-hidden="true"></i>
+      <span>Maintain your author page</span>
+    </a>
   </header>
 
   <section class="acl-author-search" aria-labelledby="author-search-heading">
@@ -130,73 +134,12 @@
     const clearButton = directory.querySelector("[data-author-search-clear]");
     const status = directory.querySelector("[data-author-search-status]");
     const results = directory.querySelector("[data-author-search-results]");
-    const authorIndexCache = new Map();
+    const authorSearch = window.aclAuthorSearch;
     const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
     const resultLimit = 20;
     const idleStatus = "Enter at least two characters.";
     let searchVersion = 0;
     let inputTimer;
-
-    function normalize(value) {
-      return value
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLocaleLowerCase();
-    }
-
-    function cleanQuery(value) {
-      return value.trim().replace(/^https?:\/\/(?:www\.)?orcid\.org\//i, "");
-    }
-
-    function bucketFor(query) {
-      const firstWordCharacter = normalize(query).match(/\w/);
-      const initial = firstWordCharacter ? firstWordCharacter[0] : "";
-      return initial >= "a" && initial <= "z" ? initial : "other";
-    }
-
-    function prepareAuthorRows(rows) {
-      return rows.map(function (row) {
-        return {
-          row: row,
-          name: normalize(row[0]),
-          searchable: normalize([row[0], row[3], row[4]].join(" ")),
-        };
-      });
-    }
-
-    function loadAuthorBucket(bucket) {
-      if (!authorIndexCache.has(bucket)) {
-        const url = directory.dataset.indexBase + bucket + ".json";
-        const request = fetch(url, { headers: { Accept: "application/json" } })
-          .then(function (response) {
-            if (!response.ok) throw new Error("Author index request failed");
-            return response.json();
-          })
-          .then(prepareAuthorRows)
-          .catch(function (error) {
-            authorIndexCache.delete(bucket);
-            throw error;
-          });
-        authorIndexCache.set(bucket, request);
-      }
-      return authorIndexCache.get(bucket);
-    }
-
-    function isVerified(row) {
-      return !row[1].endsWith("/unverified");
-    }
-
-    function authorMatchRank(entry, query) {
-      if (entry.name === query) return 0;
-      if (entry.name.startsWith(query)) return 1;
-      if (entry.name.split(/[\s-]+/).some(function (token) { return token.startsWith(query); })) return 2;
-      return 3;
-    }
-
-    function authorUrl(personId) {
-      const path = personId.split("/").map(encodeURIComponent).join("/");
-      return directory.dataset.peopleBase + path + "/";
-    }
 
     function makeBadge(text, modifier) {
       const badge = document.createElement("span");
@@ -207,7 +150,7 @@
 
     function makeAuthorResult(entry) {
       const row = entry.row;
-      const verified = isVerified(row);
+      const verified = authorSearch.isVerified(row);
       const item = document.createElement("li");
       const link = document.createElement("a");
       const identity = document.createElement("span");
@@ -216,7 +159,7 @@
       const badges = document.createElement("span");
       const arrow = document.createElement("i");
 
-      link.href = authorUrl(row[1]);
+      link.href = authorSearch.authorUrl(directory.dataset.peopleBase, row[1]);
       identity.className = "acl-author-result__identity";
       name.textContent = row[0];
       meta.textContent = numberFormat.format(row[2]) + (row[2] === 1 ? " paper" : " papers");
@@ -262,8 +205,8 @@
     }
 
     async function search() {
-      const query = cleanQuery(input.value);
-      const normalizedQuery = normalize(query);
+      const query = authorSearch.cleanQuery(input.value);
+      const normalizedQuery = authorSearch.normalize(query);
       const version = ++searchVersion;
 
       clearButton.hidden = input.value.length === 0;
@@ -276,21 +219,9 @@
       results.hidden = true;
 
       try {
-        const bucket = bucketFor(query);
-        const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
-        const entries = await loadAuthorBucket(bucket);
+        const outcome = await authorSearch.findAuthors(query, directory.dataset.indexBase);
         if (version !== searchVersion) return;
-
-        const authorMatches = entries.filter(function (entry) {
-          return tokens.every(function (token) { return entry.searchable.includes(token); });
-        });
-
-        authorMatches.sort(function (left, right) {
-          return authorMatchRank(left, normalizedQuery) - authorMatchRank(right, normalizedQuery)
-            || Number(isVerified(right.row)) - Number(isVerified(left.row))
-            || right.row[2] - left.row[2]
-            || left.row[0].localeCompare(right.row[0]);
-        });
+        const authorMatches = outcome.matches;
 
         const visibleMatches = authorMatches.slice(0, resultLimit);
         results.replaceChildren(...visibleMatches.map(makeAuthorResult));
