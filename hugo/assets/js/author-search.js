@@ -193,7 +193,7 @@
 
     function renderResults(query, matches, emptyMessage) {
       const visibleMatches = matches.slice(0, resultLimit);
-      const children = [makeHeading("Authors")];
+      const children = [makeFullSearchLink(form, query), makeHeading("Author matches")];
 
       if (visibleMatches.length === 0) {
         children.push(makeNoAuthors(emptyMessage || "No matching authors"));
@@ -203,7 +203,6 @@
         }));
       }
       children.push(makeDirectoryLink(form.dataset.peopleBase));
-      children.push(makeFullSearchLink(form, query));
 
       results.replaceChildren(...children);
       results.hidden = false;
