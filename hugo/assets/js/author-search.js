@@ -23,12 +23,14 @@
 
   function prepareAuthorRows(rows) {
     return rows.map(function (row) {
-      const variants = Array.isArray(row[4]) ? row[4] : row[4] ? [row[4]] : [];
+      const alternateNames = Array.isArray(row[4]) ? row[4] : row[4] ? [row[4]] : [];
+      const nameVariants = Array.isArray(row[6]) ? row[6] : row[6] ? [row[6]] : [];
       return {
         row: row,
         name: normalize(row[0]),
-        variants: variants,
-        searchable: normalize([row[0], row[3]].concat(variants).join(" ")),
+        comment: row[5] || "",
+        nameVariants: nameVariants,
+        searchable: normalize([row[0], row[3]].concat(alternateNames, nameVariants).join(" ")),
       };
     });
   }
@@ -121,8 +123,13 @@
 
     heading.append(name, status);
     identity.append(heading);
-    if (entry.variants.length > 0) {
-      meta.textContent = "Also published as: " + entry.variants.join(", ");
+    const detailParts = entry.comment ? [entry.comment] : [];
+    const normalizedContext = normalize(row[0] + " " + entry.comment);
+    entry.nameVariants.forEach(function (variant) {
+      if (!normalizedContext.includes(normalize(variant))) detailParts.push(variant);
+    });
+    if (detailParts.length > 0) {
+      meta.textContent = detailParts.join(" \u00b7 ");
       identity.append(meta);
     }
     link.append(identity, arrow);

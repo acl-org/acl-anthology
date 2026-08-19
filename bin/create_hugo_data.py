@@ -507,10 +507,24 @@ def author_search_index(people):
     buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
 
     for person_id, person in people.items():
-        variants = [variant["full"] for variant in person.get("variant_entries", [])]
+        alternate_names = [
+            variant["full"] for variant in person.get("variant_entries", [])
+        ]
+        name_variants = person.get("name_variants", [])
+        comment = person.get("comment", "")
         orcid = person.get("orcid", "")
-        row = [person["full"], person_id, len(person["papers"]), orcid, variants]
-        searchable = " ".join([person["full"], *variants, orcid])
+        row = [
+            person["full"],
+            person_id,
+            len(person["papers"]),
+            orcid,
+            alternate_names,
+            comment,
+            name_variants,
+        ]
+        searchable = " ".join(
+            [person["full"], *alternate_names, *name_variants, orcid]
+        )
         for bucket in search_bucket_keys(searchable):
             buckets[bucket].append(row)
 
@@ -592,6 +606,15 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
+            name_variants = sorted(
+                {
+                    variant.as_full()
+                    for namespec in person.namespecs()
+                    for variant in namespec.variants
+                }
+            )
+            if name_variants:
+                data["name_variants"] = name_variants
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:

@@ -72,6 +72,8 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
                 {"full": "Augusta Ada King"},
                 {"full": "Ada King, Countess of Lovelace"},
             ],
+            "name_variants": ["埃达·洛夫莱斯"],
+            "comment": "Analytical Engine Institute",
             "first_year": 2018,
         },
         "elodie-durand": {
@@ -107,6 +109,8 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         1,
         "0000-0000-0000-0001",
         ["Augusta Ada King", "Ada King, Countess of Lovelace"],
+        "Analytical Engine Institute",
+        ["埃达·洛夫莱斯"],
     ]
     assert ada_row in index["a"]
     assert ada_row in index["k"]
