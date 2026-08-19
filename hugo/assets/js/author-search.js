@@ -293,6 +293,10 @@
       if (!form.contains(event.target)) closeResults();
     });
 
+    document.addEventListener("pointerdown", function (event) {
+      if (!form.contains(event.target)) closeResults();
+    });
+
     form.addEventListener("submit", closeResults);
   }
 
