@@ -149,6 +149,24 @@ def test_author_index_includes_hyphenated_name_parts():
     )
 
 
+def test_author_index_includes_undecorated_canonical_name_for_ranking():
+    people = {
+        "yang-liu-icsi": {
+            "first": "Yang",
+            "last": "Liu",
+            "full": "Yang Liu (刘扬)",
+            "papers": ["paper-1"],
+            "variant_entries": [{"full": "刘扬"}],
+            "name_variants": ["刘扬"],
+        }
+    }
+
+    row = next(
+        row for row in author_search_index(people)["y"] if row[1] == "yang-liu-icsi"
+    )
+    assert row[7] == "Yang Liu"
+
+
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
     people = {
         "alice-smith": {"first_year": 2005},

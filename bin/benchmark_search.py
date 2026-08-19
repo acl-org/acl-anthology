@@ -81,28 +81,52 @@ def paper_buckets_for(token: str, available: set[str]) -> list[str]:
 
 def prepare_author_rows(rows: list[list[Any]]) -> list[dict[str, Any]]:
     """Precompute normalized author fields as the browser does after loading."""
-    return [
-        {
-            "row": row,
-            "name": normalize(row[0]),
-            "searchable": normalize(
-                " ".join(str(value) for value in (row[0], row[3], row[4]))
-            ),
-        }
-        for row in rows
-    ]
+    entries = []
+    for row in rows:
+        alternate_names = row[4] if len(row) > 4 else []
+        if not isinstance(alternate_names, list):
+            alternate_names = [alternate_names] if alternate_names else []
+        name_variants = row[6] if len(row) > 6 else []
+        if not isinstance(name_variants, list):
+            name_variants = [name_variants] if name_variants else []
+        canonical_name = row[7] if len(row) > 7 and row[7] else row[0]
+        names = [canonical_name, *alternate_names, *name_variants]
+        entries.append(
+            {
+                "row": row,
+                "name": normalize(canonical_name),
+                "names": [normalize(name) for name in names],
+                "searchable": normalize(
+                    " ".join(
+                        str(value)
+                        for value in (
+                            row[0],
+                            row[3],
+                            canonical_name,
+                            *alternate_names,
+                            *name_variants,
+                        )
+                    )
+                ),
+            }
+        )
+    return entries
 
 
-def author_rank(entry: dict[str, Any], query: str) -> int:
-    """Mirror the author-directory exact/prefix/token-prefix ranking."""
-    name = entry["name"]
+def name_rank(name: str, query: str) -> int:
+    """Rank one normalized name against a normalized query."""
     if name == query:
         return 0
     if name.startswith(query):
         return 1
-    if any(token.startswith(query) for token in name.split()):
+    if any(token.startswith(query) for token in re.split(r"[\s-]+", name)):
         return 2
     return 3
+
+
+def author_rank(entry: dict[str, Any], query: str) -> int:
+    """Mirror the best exact/prefix/token-prefix rank across name forms."""
+    return min(name_rank(name, query) for name in entry["names"])
 
 
 def is_verified_author(row: list[Any]) -> bool:
@@ -124,7 +148,8 @@ def search_authors(entries: list[dict[str, Any]], query: str) -> list[dict[str, 
             author_rank(entry, normalized_query),
             -int(is_verified_author(entry["row"])),
             -entry["row"][2],
-            entry["row"][0].casefold(),
+            entry["name"],
+            entry["row"][1],
         ),
     )
 

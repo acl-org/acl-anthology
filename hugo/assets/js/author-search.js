@@ -8,7 +8,13 @@
     return value
       .normalize("NFKD")
       .replace(/[\u0300-\u036f]/g, "")
-      .toLocaleLowerCase();
+      .toLowerCase();
+  }
+
+  function compareText(left, right) {
+    if (left < right) return -1;
+    if (left > right) return 1;
+    return 0;
   }
 
   function cleanQuery(value) {
@@ -25,12 +31,15 @@
     return rows.map(function (row) {
       const alternateNames = Array.isArray(row[4]) ? row[4] : row[4] ? [row[4]] : [];
       const nameVariants = Array.isArray(row[6]) ? row[6] : row[6] ? [row[6]] : [];
+      const canonicalName = row[7] || row[0];
       return {
         row: row,
-        name: normalize(row[0]),
+        name: normalize(canonicalName),
+        names: [canonicalName].concat(alternateNames, nameVariants).map(normalize),
         comment: row[5] || "",
         nameVariants: nameVariants,
-        searchable: normalize([row[0], row[3]].concat(alternateNames, nameVariants).join(" ")),
+        searchable: normalize([row[0], row[3], canonicalName]
+          .concat(alternateNames, nameVariants).join(" ")),
       };
     });
   }
@@ -59,11 +68,17 @@
     return !row[1].endsWith("/unverified");
   }
 
-  function authorMatchRank(entry, query) {
-    if (entry.name === query) return 0;
-    if (entry.name.startsWith(query)) return 1;
-    if (entry.name.split(/[\s-]+/).some(function (token) { return token.startsWith(query); })) return 2;
+  function nameMatchRank(name, query) {
+    if (name === query) return 0;
+    if (name.startsWith(query)) return 1;
+    if (name.split(/[\s-]+/).some(function (token) { return token.startsWith(query); })) return 2;
     return 3;
+  }
+
+  function authorMatchRank(entry, query) {
+    return entry.names.reduce(function (rank, name) {
+      return Math.min(rank, nameMatchRank(name, query));
+    }, 3);
   }
 
   function authorUrl(peopleBase, personId) {
@@ -88,7 +103,8 @@
       return authorMatchRank(left, normalizedQuery) - authorMatchRank(right, normalizedQuery)
         || Number(isVerified(right.row)) - Number(isVerified(left.row))
         || right.row[2] - left.row[2]
-        || left.row[0].localeCompare(right.row[0]);
+        || compareText(left.name, right.name)
+        || compareText(left.row[1], right.row[1]);
     });
 
     return { query: query, matches: matches };

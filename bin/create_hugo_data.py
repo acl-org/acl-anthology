@@ -522,7 +522,16 @@ def author_search_index(people):
             comment,
             name_variants,
         ]
-        searchable = " ".join([person["full"], *alternate_names, *name_variants, orcid])
+        canonical_name = " ".join(
+            name_part
+            for name_part in (person.get("first"), person.get("last"))
+            if name_part
+        )
+        if canonical_name and canonical_name != person["full"]:
+            row.append(canonical_name)
+        searchable = " ".join(
+            [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
+        )
         for bucket in search_bucket_keys(searchable):
             buckets[bucket].append(row)
 
