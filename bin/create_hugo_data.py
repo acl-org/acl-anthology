@@ -507,12 +507,10 @@ def author_search_index(people):
     buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
 
     for person_id, person in people.items():
-        variants = " ".join(
-            variant["full"] for variant in person.get("variant_entries", [])
-        )
+        variants = [variant["full"] for variant in person.get("variant_entries", [])]
         orcid = person.get("orcid", "")
         row = [person["full"], person_id, len(person["papers"]), orcid, variants]
-        searchable = " ".join((person["full"], variants, orcid))
+        searchable = " ".join([person["full"], *variants, orcid])
         for bucket in search_bucket_keys(searchable):
             buckets[bucket].append(row)
 

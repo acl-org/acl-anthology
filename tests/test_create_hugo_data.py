@@ -68,7 +68,10 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             "full": "Ada Lovelace",
             "papers": ["paper-1"],
             "orcid": "0000-0000-0000-0001",
-            "variant_entries": [{"full": "Augusta Ada King"}],
+            "variant_entries": [
+                {"full": "Augusta Ada King"},
+                {"full": "Ada King, Countess of Lovelace"},
+            ],
             "first_year": 2018,
         },
         "elodie-durand": {
@@ -103,7 +106,7 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         "ada-lovelace",
         1,
         "0000-0000-0000-0001",
-        "Augusta Ada King",
+        ["Augusta Ada King", "Ada King, Countess of Lovelace"],
     ]
     assert ada_row in index["a"]
     assert ada_row in index["k"]

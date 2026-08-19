@@ -23,10 +23,12 @@
 
   function prepareAuthorRows(rows) {
     return rows.map(function (row) {
+      const variants = Array.isArray(row[4]) ? row[4] : row[4] ? [row[4]] : [];
       return {
         row: row,
         name: normalize(row[0]),
-        searchable: normalize([row[0], row[3], row[4]].join(" ")),
+        variants: variants,
+        searchable: normalize([row[0], row[3]].concat(variants).join(" ")),
       };
     });
   }
@@ -90,33 +92,39 @@
     return { query: query, matches: matches };
   }
 
-  function paperCount(row) {
-    return numberFormat.format(row[2]) + (row[2] === 1 ? " paper" : " papers");
-  }
-
   function makeAuthorSuggestion(entry, peopleBase) {
     const row = entry.row;
     const item = document.createElement("li");
     const link = document.createElement("a");
     const identity = document.createElement("span");
+    const heading = document.createElement("span");
     const name = document.createElement("strong");
     const meta = document.createElement("small");
-    const status = document.createElement("span");
+    const status = document.createElement("i");
     const arrow = document.createElement("i");
+    const verified = isVerified(row);
+    const statusLabel = verified ? "Verified author" : "Unverified author";
 
     link.href = authorUrl(peopleBase, row[1]);
     link.className = "acl-navbar-search__author";
+    heading.className = "acl-navbar-search__author-heading";
     name.textContent = row[0];
-    meta.textContent = paperCount(row) + " \u00b7 ";
-    status.textContent = isVerified(row) ? "Verified" : "Unverified";
-    status.className = isVerified(row)
-      ? "acl-navbar-search__verified"
-      : "acl-navbar-search__unverified";
+    status.className = verified && row[3]
+      ? "fab fa-orcid acl-navbar-search__verification text-verified"
+      : "fas fa-question-circle acl-navbar-search__verification "
+        + (verified ? "text-verified" : "text-secondary");
+    status.title = statusLabel;
+    status.setAttribute("aria-label", statusLabel);
+    status.setAttribute("role", "img");
     arrow.className = "fas fa-arrow-right";
     arrow.setAttribute("aria-hidden", "true");
 
-    meta.append(status);
-    identity.append(name, meta);
+    heading.append(name, status);
+    identity.append(heading);
+    if (entry.variants.length > 0) {
+      meta.textContent = "Also published as: " + entry.variants.join(", ");
+      identity.append(meta);
+    }
     link.append(identity, arrow);
     item.append(link);
     return item;

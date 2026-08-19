@@ -88,6 +88,7 @@
     margin-top: .1rem;
     color: #626970;
     font-size: .71rem;
+    font-style: italic;
     line-height: 1.25;
   }
 
@@ -97,12 +98,20 @@
   }
 }
 
-.acl-navbar-search__verified {
-  color: darken($green, 18%);
-}
+.acl-navbar-search__author-heading {
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
+  min-width: 0;
 
-.acl-navbar-search__unverified {
-  color: #626970;
+  strong {
+    min-width: 0;
+  }
+
+  > i {
+    flex: 0 0 auto;
+    font-size: .76rem;
+  }
 }
 
 .acl-navbar-search__command {
