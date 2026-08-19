@@ -206,6 +206,16 @@
       results.hidden = true;
     }
 
+    function navigationDirection(event) {
+      if (event.key === "ArrowDown" || (event.ctrlKey && event.key.toLowerCase() === "n")) {
+        return 1;
+      }
+      if (event.key === "ArrowUp" || (event.ctrlKey && event.key.toLowerCase() === "p")) {
+        return -1;
+      }
+      return 0;
+    }
+
     function renderResults(query, matches, emptyMessage) {
       const visibleMatches = matches.slice(0, resultLimit);
       const children = [makeFullSearchLink(form, query), makeHeading("Author matches")];
@@ -257,13 +267,14 @@
         closeResults();
         return;
       }
-      if (event.key === "ArrowDown" && !results.hidden) {
-        const firstLink = results.querySelector("a");
-        if (firstLink) {
-          event.preventDefault();
-          firstLink.focus();
-        }
-      }
+      const direction = navigationDirection(event);
+      if (direction === 0 || results.hidden) return;
+
+      const links = results.querySelectorAll("a");
+      const target = direction > 0 ? links[0] : links[links.length - 1];
+      if (!target) return;
+      event.preventDefault();
+      target.focus();
     });
 
     results.addEventListener("keydown", function (event) {
@@ -273,16 +284,17 @@
         input.focus();
         return;
       }
-      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      const direction = navigationDirection(event);
+      if (direction === 0) return;
 
       const links = Array.from(results.querySelectorAll("a"));
       const current = links.indexOf(document.activeElement);
       if (current < 0) return;
       event.preventDefault();
-      if (event.key === "ArrowUp" && current === 0) {
+      if (direction < 0 && current === 0) {
         input.focus();
       } else {
-        const next = event.key === "ArrowDown"
+        const next = direction > 0
           ? Math.min(current + 1, links.length - 1)
           : current - 1;
         links[next].focus();
