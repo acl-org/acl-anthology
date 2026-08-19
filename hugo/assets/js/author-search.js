@@ -289,10 +289,8 @@
       }
     });
 
-    form.addEventListener("focusout", function () {
-      window.setTimeout(function () {
-        if (!form.contains(document.activeElement)) closeResults();
-      }, 0);
+    document.addEventListener("focusin", function (event) {
+      if (!form.contains(event.target)) closeResults();
     });
 
     form.addEventListener("submit", closeResults);
