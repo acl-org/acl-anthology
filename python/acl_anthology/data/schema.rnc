@@ -105,8 +105,10 @@ Paper = element paper {
      }*
    & element language { xsd:language }?
    & element month { text }?
-   & element year { xsd:gYear }?
-   & element award { text }*
+   & element award {
+       attribute name { text },
+       text
+     }*
    )
 }
 Meta = element meta {
@@ -120,6 +122,7 @@ Meta = element meta {
    & element isbn { xsd:NMTOKEN }?
    & url-with-checksum?
    & element doi { xsd:anyURI }?
+   & element sig { text }*
    & element venue { text }+
    & element journal-volume { xsd:string }?
    & element journal-issue { xsd:string }?

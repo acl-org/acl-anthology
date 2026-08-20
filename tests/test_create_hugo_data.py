@@ -16,19 +16,24 @@ from bin.create_hugo_data import (
     author_search_index,
     author_stats,
     career_year_histogram,
+    explicitly_colocated_volume_ids,
     export_author_index,
     export_affiliation_map,
     export_homepage_stats,
     first_paper_year_histogram,
     homepage_stats,
+    homepage_venue_group,
+    homepage_venue_sort_key,
+    latest_owned_ingest_date,
     longest_publishing_authors,
+    newly_ingested_years,
     paper_to_dict,
-    recent_top_level_events,
-    subtract_months,
+    venue_to_dict,
 )
 
 from acl_anthology import Anthology, config
 from acl_anthology.collections.types import EventLink
+from acl_anthology.constants import UNKNOWN_INGEST_DATE
 
 
 @pytest.fixture(scope="module")
@@ -47,7 +52,7 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
     assert stats["venue_year_count"] == sum(
         len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
     )
-    assert stats["oldest_year"] == "1952"
+    assert stats["oldest_year"] == min(volume.year for volume in anthology.volumes())
     assert stats["newest_year"] == max(volume.year for volume in anthology.volumes())
 
 
@@ -285,63 +290,114 @@ def test_longest_publishing_authors_includes_ties_at_limit():
     assert leaders[-1]["active_year_count"] == 2
 
 
-def test_subtract_months_clamps_to_end_of_month():
-    assert subtract_months(date(2026, 5, 31), 3) == date(2026, 2, 28)
-
-
-def test_recent_top_level_events_use_three_month_cutoff():
-    def event(event_id, ingest_date, colocated_ids=None):
-        volume_id = (event_id, "1", None)
-        volume = SimpleNamespace(ingest_date=ingest_date)
-        return SimpleNamespace(
-            id=event_id,
-            colocated_ids=colocated_ids or {volume_id: EventLink.INFERRED},
-            volumes=lambda: iter([volume]),
-        )
-
-    parent = event(
-        "parent-2026",
-        date(2026, 7, 14),
-        {
-            ("parent-2026", "1", None): EventLink.INFERRED,
-            ("child-2026", "1", None): EventLink.EXPLICIT,
-        },
-    )
-
+def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():
+    own_id = ("parent-2026", "1", None)
+    child_id = ("child-2026", "1", None)
     anthology = SimpleNamespace(
         events={
-            "new-2026": event("new-2026", date(2026, 7, 14)),
-            "cutoff-2025": event("cutoff-2025", date(2026, 4, 15)),
-            "old-2024": event("old-2024", date(2026, 4, 14)),
-            "future-2027": event("future-2027", date(2026, 7, 16)),
-            "ws-2026": event("ws-2026", date(2026, 7, 14)),
-            "parent-2026": parent,
-            "child-2026": event("child-2026", date(2026, 7, 14)),
-        },
-        venues={
-            "new": SimpleNamespace(acronym="NEW", is_toplevel=True),
-            "cutoff": SimpleNamespace(acronym="CUT", is_toplevel=True),
-            "old": SimpleNamespace(acronym="OLD", is_toplevel=True),
-            "future": SimpleNamespace(acronym="FUT", is_toplevel=True),
-            "ws": SimpleNamespace(acronym="WS", is_toplevel=True),
-            "parent": SimpleNamespace(acronym="PARENT", is_toplevel=True),
-            "child": SimpleNamespace(acronym="CHILD", is_toplevel=True),
+            "parent-2026": SimpleNamespace(
+                colocated_ids={
+                    own_id: EventLink.INFERRED,
+                    child_id: EventLink.EXPLICIT,
+                }
+            )
         },
     )
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    own_volume = SimpleNamespace(full_id_tuple=own_id, ingest_date=date(2026, 6, 1))
+    child_volume = SimpleNamespace(full_id_tuple=child_id, ingest_date=date(2026, 7, 1))
 
-    assert recent_top_level_events(anthology, date(2026, 7, 15)) == [
-        {
-            "id": "parent-2026",
-            "label": "PARENT 2026",
-            "ingest_date": "2026-07-14",
-        },
-        {"id": "new-2026", "label": "NEW 2026", "ingest_date": "2026-07-14"},
-        {
-            "id": "cutoff-2025",
-            "label": "CUT 2025",
-            "ingest_date": "2026-04-15",
-        },
+    assert explicitly_colocated_ids == {child_id}
+    assert latest_owned_ingest_date(
+        [own_volume, child_volume], explicitly_colocated_ids
+    ) == date(2026, 6, 1)
+    assert (
+        latest_owned_ingest_date([child_volume], explicitly_colocated_ids)
+        == UNKNOWN_INGEST_DATE
+    )
+
+
+def test_newly_ingested_years_uses_45_day_window():
+    current_date = date(2026, 7, 30)
+    volumes = [
+        SimpleNamespace(year="2023", ingest_date=date(2026, 6, 14)),
+        SimpleNamespace(year="2024", ingest_date=date(2026, 6, 15)),
+        SimpleNamespace(year="2025", ingest_date=date(2026, 7, 31)),
+        SimpleNamespace(year="2026", ingest_date=current_date),
     ]
+
+    assert newly_ingested_years(volumes, current_date) == ["2024", "2026"]
+
+
+def test_homepage_venue_groups_are_prioritized():
+    assert homepage_venue_group("updated", ["2026"]) == 1
+    assert homepage_venue_group("acl", []) == 2
+    assert homepage_venue_group("other", []) == 3
+    assert homepage_venue_group("ws", ["2026"]) == 4
+
+
+def test_homepage_venue_sort_keys_follow_requested_order():
+    flagships = ["acl", "aacl", "cl", "emnlp", "findings", "lrec", "naacl", "tacl"]
+
+    assert (
+        sorted(
+            flagships,
+            key=lambda venue_id: homepage_venue_sort_key(venue_id, venue_id.upper(), 2),
+        )
+        == flagships
+    )
+    assert homepage_venue_sort_key("starsem", "*SEM", 3) == "3:sem:starsem"
+
+
+def test_venue_data_uses_latest_owned_volume_ingest_date(anthology):
+    venue = anthology.venues["iwslt"]
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    data = venue_to_dict("iwslt", venue, explicitly_colocated_ids)
+
+    assert (
+        data["latest_ingest_date"]
+        == max(
+            volume.ingest_date
+            for volume in venue.volumes()
+            if volume.full_id_tuple not in explicitly_colocated_ids
+        ).isoformat()
+    )
+    assert (
+        data["latest_ingest_date"]
+        < max(volume.ingest_date for volume in venue.volumes()).isoformat()
+    )
+    assert data["newly_ingested_years"] == newly_ingested_years(venue.volumes())
+
+
+def test_venue_data_exports_workshop_type(anthology):
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+
+    workshop = venue_to_dict(
+        "textgraphs", anthology.venues["textgraphs"], explicitly_colocated_ids
+    )
+    other = venue_to_dict("bcs", anthology.venues["bcs"], explicitly_colocated_ids)
+
+    assert workshop["type"] == "workshop"
+    assert "type" not in other
+
+
+def test_homepage_group_excludes_parent_event_updates(anthology):
+    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
+    current_date = date(2026, 7, 30)
+    acl = venue_to_dict(
+        "acl", anthology.venues["acl"], explicitly_colocated_ids, current_date
+    )
+    iwslt = venue_to_dict(
+        "iwslt", anthology.venues["iwslt"], explicitly_colocated_ids, current_date
+    )
+    ws = venue_to_dict(
+        "ws", anthology.venues["ws"], explicitly_colocated_ids, current_date
+    )
+
+    assert acl["homepage_group"] == 1
+    assert iwslt["newly_ingested_years"] == ["2026"]
+    assert iwslt["homepage_group"] == 3
+    assert ws["homepage_group"] == 4
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):

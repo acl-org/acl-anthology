@@ -20,6 +20,10 @@ For NameSpecs that list an OpenReview ID but not an ORCID iD,
 query OpenReview to see if that profile now has an ORCID iD.
 If so, add it to the database, verifying the author if not already verified.
 
+Warns if an author ID already exists and is being ORCID-suffixed.
+If the reason is a legacy-verified author (with no ORCID yet),
+they should be merged using verify_author.py.
+
 See also fetch_orcid_from_openreview.py, which applies to a single user.
 """
 
@@ -36,7 +40,7 @@ from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
-EARLIEST_YEAR_WITH_OR_IDS = 2026
+EARLIEST_YEAR_WITH_OR_IDS = 2025
 
 
 def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[str, str]:
@@ -158,6 +162,8 @@ def refresh_or_orcids(username=None, password=None):
         numUpdatedNSesByVolume = defaultdict(int)
         numOrcidErrors = 0
         numNewPerson = 0
+        numMergedIntoLegacyVerified = 0
+        numAddedORCIDExistingPerson = 0
         for user, orcid in orid2orcid.items():
             log.debug(f"{user}: {orcid}")
             bare_orcid = orcid.split("/")[-1]
@@ -174,7 +180,20 @@ def refresh_or_orcids(username=None, password=None):
             )
             if explicit_ids:
                 (explicit_id,) = explicit_ids
-                person = anthology.get_person(explicit_id)
+                eperson = anthology.get_person(explicit_id)
+                assert eperson is not None, explicit_id
+                if eperson.orcid and eperson.orcid != bare_orcid:
+                    log.error(
+                        f"CONFLICT: Explicit ID {eperson.id} has a different ORCID ({eperson.orcid}; {user} specifies {bare_orcid})"
+                    )
+                    continue
+                elif person and eperson is not person:
+                    log.warning(
+                        f"Explicit ID {eperson.id} and ORCID-matched ID {person.id} for {user}. Merging"
+                    )
+                    person.merge_into(eperson)
+                    numMergedIntoLegacyVerified += 1
+                person = eperson
 
             if person is None:
                 log.debug("...will create a new verified person")
@@ -182,6 +201,7 @@ def refresh_or_orcids(username=None, password=None):
                 log.debug(f"...found: {person.id}, current ORCID: {person.orcid}")
                 if person.orcid is None:
                     person.orcid = orcid
+                    numAddedORCIDExistingPerson += 1
 
             for ns in user2nses[user]:
                 if person is None:
@@ -201,7 +221,16 @@ def refresh_or_orcids(username=None, password=None):
                 paper = ns.parent
                 assert isinstance(paper, Paper)
                 numUpdatedNSesByVolume[paper.parent.full_id] += 1
+
+            if numNewPerson >= 500:
+                log.info("Stopping after creating 500 new persons. Rerun to add more.")
+                break
+
         log.info(f"{numNewPerson} new Persons created.")
+        log.info(
+            f"{numMergedIntoLegacyVerified} Persons merged into a legacy-verified Person."
+        )
+        log.info(f"{numAddedORCIDExistingPerson} Persons updated to add ORCID.")
         log.info(f"{numUpdatedNSes} NameSpecs updated with ORCID.")
         log.info(numUpdatedNSesByVolume)
         log.info(f"{numOrcidErrors} users' ORCIDs were rejected as invalid.")
@@ -209,7 +238,7 @@ def refresh_or_orcids(username=None, password=None):
 
 
 if __name__ == "__main__":
-    tracker = setup_rich_logging(level=log.DEBUG)
+    tracker = setup_rich_logging(level=log.INFO)
 
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)

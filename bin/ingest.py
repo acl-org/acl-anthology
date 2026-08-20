@@ -33,7 +33,7 @@ import yaml
 import re
 import shutil
 import sys
-import PyPDF2
+import pypdf
 
 from collections import defaultdict
 from datetime import datetime
@@ -189,7 +189,7 @@ def add_page_numbers(
             )
 
         with open(paper_need_read_path, "rb") as pdf:
-            pdf_reader = PyPDF2.PdfReader(pdf)
+            pdf_reader = pypdf.PdfReader(pdf)
             num_of_pages = len(pdf_reader.pages)
             start = end + 1
             end = start + num_of_pages - 1
@@ -217,15 +217,6 @@ def join_names(author: Dict[str, Any], fields=None) -> str:
     return " ".join(author[field] for field in fields if author.get(field) is not None)
 
 
-def latex_to_text(text: Optional[str]) -> Optional[str]:
-    """Convert a possibly-LaTeX string (e.g. a name with LaTeX-style diacritics
-    such as ``Sch\\"utze``) into plain Unicode text. Returns None if the input is
-    None."""
-    if text is None:
-        return None
-    return MarkupText.from_latex_maybe(text).as_text()
-
-
 # Repairs for common LaTeX quirks introduced by upstream export pipelines
 # (aclpub2, OpenReview, START, etc.) before the text is handed to
 # ``MarkupText.from_latex_maybe()``. Each entry is a ``(name, pattern, repl)``
@@ -236,31 +227,11 @@ def latex_to_text(text: Optional[str]) -> Optional[str]:
 #   "$1") gets double-escaped to ``\\$``, which LaTeX reads as a line break
 #   (``\\``) followed by a math-mode toggle (``$``). The stray toggle then
 #   desynchronizes every following ``$...$`` span. Collapse it back to ``\$``.
-#
-# - texttt_unwrap: ``MarkupText.from_latex_maybe()`` silently DROPS the content
-#   of ``\texttt{...}`` (monospace has no Anthology markup equivalent), which
-#   empties acronyms such as ``\textbf{\texttt{RBED}}`` -> ``<b></b>``. Since we
-#   cannot represent monospace anyway, unwrap ``\texttt{X}`` to its literal
-#   content ``X`` so the text survives. (Non-nested braces only.)
-#
-# - strip_newlines: Source text (especially YAML-wrapped abstracts) often
-#   contains hard line breaks that are not meaningful LaTeX; drop them so the
-#   text is flattened to a single line before parsing.
 LATEX_REPAIRS: List[Tuple[str, "re.Pattern[str]", str]] = [
     (
         "over_escaped_dollar",
         re.compile(r"\\\\\$"),
         r"\\$",
-    ),
-    (
-        "texttt_unwrap",
-        re.compile(r"\\texttt\s*\{([^{}]*)\}"),
-        r"\1",
-    ),
-    (
-        "strip_newlines",
-        re.compile(r"\n"),
-        "",
     ),
 ]
 
@@ -373,8 +344,8 @@ def namespec_from(
     diacritics in the names to Unicode. Invalid ORCIDs are dropped with a warning.
     The OpenReview ID is only stored when no ORCID is available."""
     raw_first, raw_last = first, last
-    first = latex_to_text(first.strip()) if first else None
-    last = latex_to_text(last.strip()) if last else ""
+    first = first.strip() if first else None
+    last = last.strip() if last else ""
     try:
         name = Name(first or None, last)
     except ValueError as e:
@@ -509,10 +480,7 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        venue = anthology.venues.create(
-            id=venue_slug, acronym=venue_abbrev, name=venue_title
-        )
-        venue.save()
+        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
     return venue_slug
 
 
@@ -585,6 +553,7 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(
             anthology, venue_abbrev, meta.get("title", venue_abbrev)
         )
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta.get("issue", meta["volume"]).lower()
         venue_name = venue_abbrev.lower()
@@ -630,7 +599,7 @@ def read_ingest_metadata(
             "address": (frontmatter_data or {}).get("address") or meta.get("location"),
             "title": volume_title,
             "editors": volume_editors,
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": meta.get("isbn"),
             "journal_volume": meta.get("volume") if args.is_journal else None,
             "journal_issue": meta.get("issue") if args.is_journal else None,
@@ -647,6 +616,7 @@ def read_ingest_metadata(
         meta = parse_conf_yaml(source)
         venue_abbrev = meta["anthology_venue_id"]
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
         # Use the registered venue slug (letters/digits only) for the venue tag
@@ -688,7 +658,7 @@ def read_ingest_metadata(
             "address": meta.get("location"),
             "title": normalize_latex(meta["book_title"]) or meta["book_title"],
             "editors": [namespec_from_author(author) for author in meta["editors"]],
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
             "journal_volume": None,
             "root_path": source_path,
@@ -955,6 +925,7 @@ def ingest(
             "editors": paper.get("editors", []),
         }
         if paper.get("pdf_src") and paper.get("pdf_dest"):
+            check_for_anonymous_pdf(paper["pdf_src"])
             maybe_copy(paper["pdf_src"], paper["pdf_dest"], dry_run=args.dry_run)
             kwargs["pdf"] = PDFReference.from_file(str(paper["pdf_dest"]))
         for key in ("abstract", "doi", "pages"):
@@ -1001,7 +972,23 @@ def ingest(
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
 
-def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False):
+ANONYMOUS_PATTERN = re.compile(r"\bAnonymous\s+[\w-]+\s+submission\b")
+
+
+def check_for_anonymous_pdf(source_path: str) -> None:
+    """
+    Checks for signs of anonymous PDFs and outputs a warning; does nothing otherwise.
+    """
+    source = Path(source_path)
+    with open(source, "rb") as pdf:
+        pdf_reader = pypdf.PdfReader(pdf)
+        # Check for "Anonymous [XXX] submission" string on first page
+        text = pdf_reader.pages[0].extract_text() or ""
+        if ANONYMOUS_PATTERN.search(text) is not None:
+            log.warning(f"Potentially anonymous PDF: {source}")
+
+
+def maybe_copy(source_path: str, dest_path: str, dry_run: bool = False) -> None:
     """Copies the file if it's different from the target."""
     source = Path(source_path)
     dest = Path(dest_path)

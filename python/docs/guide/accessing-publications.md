@@ -182,7 +182,7 @@ Papers and volumes can infer their associated events via
 
 ## Explicitly loading data
 
-The Anthology metadata is distributed across many individual XML and YAML files,
+The Anthology metadata is distributed across many individual XML and JSON files,
 and loading all of this data can take a bit of time and memory.  Fortunately,
 you normally don't need to worry about that, as the Anthology library
 **implements lazy-loading** and only loads files on-demand as they are required.

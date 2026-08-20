@@ -1,12 +1,12 @@
 $enable-gradients: true;
 
-$blue: #446E9B;
-$red: #d9534f;
-$orange: #f47c3c;
-$green: #93C54B;
-$cyan: #29ABE0;
+@import 'colors';
 
-$secondary: #dee2e6;
+$acl-section-header-padding: .55rem .85rem;
+$acl-section-header-font-size: .9rem;
+$acl-section-header-line-height: 1.25;
+$acl-home-wide-max-width: max(96rem, 80vw);
+
 $yiq-contrasted-threshold: 200;
 
 /* Web Fonts */
@@ -88,13 +88,20 @@ $theme-colors: map-merge($theme-colors,
 @import 'stats';
 @import 'texmath';
 
+.acl-navbar-container--home {
+  width: calc(100% - #{$grid-gutter-width});
+  max-width: $acl-home-wide-max-width;
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .preview-banner-container {
   position: relative;
 }
 
 .preview-banner-container--home {
   width: calc(100% - #{$grid-gutter-width});
-  max-width: 74rem;
+  max-width: $acl-home-wide-max-width;
   padding-right: 0;
   padding-left: 0;
 }
@@ -104,12 +111,11 @@ $theme-colors: map-merge($theme-colors,
   width: 100%;
   margin: 0 0 1rem;
   border: .25rem dashed var(--bs-alert-color);
-  cursor: pointer;
   font: inherit;
 
-  &:focus-visible {
-    outline: .2rem solid $cyan;
-    outline-offset: .15rem;
+  .alert-link {
+    text-decoration: underline;
+    text-underline-offset: .15em;
   }
 }
 

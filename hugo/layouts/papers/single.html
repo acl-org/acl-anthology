@@ -588,7 +588,10 @@
             . }}</a>{{ end }}</dd>
         {{ range $paper.award }}
         <dt>Award:</dt>
-        <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
+        <dd>
+          <div><i class="fas fa-award"></i>&nbsp;<strong>{{ .name }}</strong></div>
+          <div class="mt-1">{{ .reasoning }}</div>
+        </dd>
         {{ end }}
         <!--
         <dt>Bibtype:</dt>

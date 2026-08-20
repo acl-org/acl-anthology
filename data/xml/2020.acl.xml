@@ -2155,7 +2155,7 @@
       <author><first>Jon</first><last>Gauthier</last></author>
       <author><first>Peng</first><last>Qian</last></author>
       <author><first>Ethan</first><last>Wilcox</last></author>
-      <author id="roger-levy"><first>Roger</first><last>Levy</last></author>
+      <author id="roger-levy"><first>Roger P.</first><last>Levy</last></author>
       <pages>1725–1744</pages>
       <abstract>While state-of-the-art neural network models continue to achieve lower perplexity scores on language modeling benchmarks, it remains unknown whether optimizing for broad-coverage predictive performance leads to human-like syntactic knowledge. Furthermore, existing work has not provided a clear picture about the model properties required to produce proper syntactic generalizations. We present a systematic evaluation of the syntactic knowledge of neural language models, testing 20 combinations of model types and data sizes on a set of 34 English-language syntactic test suites. We find substantial differences in syntactic generalization performance by model architecture, with sequential models underperforming other architectures. Factorially manipulating model architecture and training dataset size (1M-40M words), we find that variability in syntactic generalization performance is substantially greater by architecture than by dataset size for the corpora tested in our experiments. Our results also reveal a dissociation between perplexity and syntactic generalization performance.</abstract>
       <url hash="8ccfd93d">2020.acl-main.158</url>
@@ -2234,7 +2234,7 @@
       <author><first>Chris</first><last>Callison-Burch</last></author>
       <author><first>Douglas</first><last>Eck</last></author>
       <pages>1808–1822</pages>
-      <abstract>Recent advancements in neural language modelling make it possible to rapidly generate vast amounts of human-sounding text. The capabilities of humans and automatic discriminators to detect machine-generated text have been a large source of research interest, but humans and machines rely on different cues to make their decisions. Here, we perform careful benchmarking and analysis of three popular sampling-based decoding strategies—top-_k_, nucleus sampling, and untruncated random sampling—and show that improvements in decoding methods have primarily optimized for fooling humans. This comes at the expense of introducing statistical abnormalities that make detection easy for automatic systems. We also show that though both human and automatic detector performance improve with longer excerpt length, even multi-sentence excerpts can fool expert human raters over 30% of the time. Our findings reveal the importance of using both human and automatic detectors to assess the humanness of text generation systems.</abstract>
+      <abstract>Recent advancements in neural language modelling make it possible to rapidly generate vast amounts of human-sounding text. The capabilities of humans and automatic discriminators to detect machine-generated text have been a large source of research interest, but humans and machines rely on different cues to make their decisions. Here, we perform careful benchmarking and analysis of three popular sampling-based decoding strategies—top-<i>k</i>, nucleus sampling, and untruncated random sampling—and show that improvements in decoding methods have primarily optimized for fooling humans. This comes at the expense of introducing statistical abnormalities that make detection easy for automatic systems. We also show that though both human and automatic detector performance improve with longer excerpt length, even multi-sentence excerpts can fool expert human raters over 30% of the time. Our findings reveal the importance of using both human and automatic detectors to assess the humanness of text generation systems.</abstract>
       <url hash="33fe0256">2020.acl-main.164</url>
       <doi>10.18653/v1/2020.acl-main.164</doi>
       <video href="http://slideslive.com/38928914"/>
@@ -2840,7 +2840,7 @@
       <title>Interactive Machine Comprehension with Information Seeking Agents</title>
       <author><first>Xingdi</first><last>Yuan</last></author>
       <author><first>Jie</first><last>Fu</last></author>
-      <author><first>Marc-Alexandre</first><last>Côté</last></author>
+      <author id="marc-alexandre-cote"><first>Marc-Alexandre</first><last>Côté</last></author>
       <author><first>Yi</first><last>Tay</last></author>
       <author id="christopher-pal"><first>Chris</first><last>Pal</last></author>
       <author><first>Adam</first><last>Trischler</last></author>
@@ -5803,7 +5803,7 @@
       <author><first>Matt</first><last>Fredrikson</last></author>
       <author><first>Anupam</first><last>Datta</last></author>
       <pages>4748–4757</pages>
-      <abstract>LSTM-based recurrent neural networks are the state-of-the-art for many natural language processing (NLP) tasks. Despite their performance, it is unclear whether, or how, LSTMs learn structural features of natural languages such as subject-verb number agreement in English. Lacking this understanding, the generality of LSTM performance on this task and their suitability for related tasks remains uncertain. Further, errors cannot be properly attributed to a lack of structural capability, training data omissions, or other exceptional faults. We introduce *influence paths*, a causal account of structural properties as carried by paths across gates and neurons of a recurrent neural network. The approach refines the notion of influence (the subject’s grammatical number has influence on the grammatical number of the subsequent verb) into a set of gate or neuron-level paths. The set localizes and segments the concept (e.g., subject-verb agreement), its constituent elements (e.g., the subject), and related or interfering elements (e.g., attractors). We exemplify the methodology on a widely-studied multi-layer LSTM language model, demonstrating its accounting for subject-verb number agreement. The results offer both a finer and a more complete view of an LSTM’s handling of this structural aspect of the English language than prior results based on diagnostic classifiers and ablation.</abstract>
+      <abstract>LSTM-based recurrent neural networks are the state-of-the-art for many natural language processing (NLP) tasks. Despite their performance, it is unclear whether, or how, LSTMs learn structural features of natural languages such as subject-verb number agreement in English. Lacking this understanding, the generality of LSTM performance on this task and their suitability for related tasks remains uncertain. Further, errors cannot be properly attributed to a lack of structural capability, training data omissions, or other exceptional faults. We introduce <i>influence paths</i>, a causal account of structural properties as carried by paths across gates and neurons of a recurrent neural network. The approach refines the notion of influence (the subject’s grammatical number has influence on the grammatical number of the subsequent verb) into a set of gate or neuron-level paths. The set localizes and segments the concept (e.g., subject-verb agreement), its constituent elements (e.g., the subject), and related or interfering elements (e.g., attractors). We exemplify the methodology on a widely-studied multi-layer LSTM language model, demonstrating its accounting for subject-verb number agreement. The results offer both a finer and a more complete view of an LSTM’s handling of this structural aspect of the English language than prior results based on diagnostic classifiers and ablation.</abstract>
       <url hash="b4edb138">2020.acl-main.430</url>
       <doi>10.18653/v1/2020.acl-main.430</doi>
       <video href="http://slideslive.com/38929378"/>
@@ -5960,7 +5960,7 @@
       <author><first>Sameer</first><last>Singh</last></author>
       <pages>4902–4912</pages>
       <abstract>Although measuring held-out accuracy has been the primary approach to evaluate generalization, it often overestimates the performance of NLP models, while alternative approaches for evaluating models either focus on individual tasks or on specific behaviors. Inspired by principles of behavioral testing in software engineering, we introduce CheckList, a task-agnostic methodology for testing NLP models. CheckList includes a matrix of general linguistic capabilities and test types that facilitate comprehensive test ideation, as well as a software tool to generate a large and diverse number of test cases quickly. We illustrate the utility of CheckList with tests for three tasks, identifying critical failures in both commercial and state-of-art models. In a user study, a team responsible for a commercial sentiment analysis model found new and actionable bugs in an extensively tested model. In another user study, NLP practitioners with CheckList created twice as many tests, and found almost three times as many bugs as users without it.</abstract>
-      <award>Best Overall Paper</award>
+      <award name="Best Overall Paper"/>
       <url hash="bb937499">2020.acl-main.442</url>
       <doi>10.18653/v1/2020.acl-main.442</doi>
       <video href="http://slideslive.com/38929272"/>
@@ -6040,7 +6040,7 @@
       <author id="trevor-cohn"><first>Trevor</first><last>Cohn</last></author>
       <pages>4984–4997</pages>
       <abstract>Automatic metrics are fundamental for the development and evaluation of machine translation systems. Judging whether, and to what extent, automatic metrics concur with the gold standard of human evaluation is not a straightforward problem. We show that current methods for judging metrics are highly sensitive to the translations used for assessment, particularly the presence of outliers, which often leads to falsely confident conclusions about a metric’s efficacy. Finally, we turn to pairwise system ranking, developing a method for thresholding performance improvement under an automatic metric against human judgements, which allows quantification of type I versus type II errors incurred, i.e., insignificant human differences in system quality that are accepted, and significant human differences that are rejected. Together, these findings suggest improvements to the protocols for metric evaluation and system performance evaluation in machine translation.</abstract>
-      <award>Honorable Mention for Best Overall Paper</award>
+      <award name="Honorable Mention for Best Overall Paper"/>
       <url hash="cd49f160">2020.acl-main.448</url>
       <doi>10.18653/v1/2020.acl-main.448</doi>
       <video href="http://slideslive.com/38929447"/>
@@ -6234,7 +6234,7 @@
       <author><first>Alexander</first><last>Koller</last></author>
       <pages>5185–5198</pages>
       <abstract>The success of the large neural language models on many NLP tasks is exciting. However, we find that these successes sometimes lead to hype in which these models are being described as “understanding” language or capturing “meaning”. In this position paper, we argue that a system trained only on form has a priori no way to learn meaning. In keeping with the ACL 2020 theme of “Taking Stock of Where We’ve Been and Where We’re Going”, we argue that a clear understanding of the distinction between form and meaning will help guide the field towards better science around natural language understanding.</abstract>
-      <award>Best Theme Paper</award>
+      <award name="Best Theme Paper"/>
       <url hash="796f7819">2020.acl-main.463</url>
       <doi>10.18653/v1/2020.acl-main.463</doi>
       <video href="http://slideslive.com/38929214"/>
@@ -6255,7 +6255,7 @@
       <author><first>Tal</first><last>Linzen</last></author>
       <pages>5210–5217</pages>
       <abstract>This position paper describes and critiques the Pretraining-Agnostic Identically Distributed (PAID) evaluation paradigm, which has become a central tool for measuring progress in natural language understanding. This paradigm consists of three stages: (1) pre-training of a word prediction model on a corpus of arbitrary size; (2) fine-tuning (transfer learning) on a training set representing a classification task; (3) evaluation on a test set drawn from the same distribution as that training set. This paradigm favors simple, low-bias architectures, which, first, can be scaled to process vast amounts of data, and second, can capture the fine-grained statistical properties of a particular data set, regardless of whether those properties are likely to generalize to examples of the task outside the data set. This contrasts with humans, who learn language from several orders of magnitude less data than the systems favored by this evaluation paradigm, and generalize to new tasks in a consistent way. We advocate for supplementing or replacing PAID with paradigms that reward architectures that generalize as quickly and robustly as humans.</abstract>
-      <award>Honorable Mention for Best Theme Paper</award>
+      <award name="Honorable Mention for Best Theme Paper"/>
       <url hash="b2eea0dd">2020.acl-main.465</url>
       <doi>10.18653/v1/2020.acl-main.465</doi>
       <video href="http://slideslive.com/38929098"/>
@@ -6871,7 +6871,7 @@
       <title>Entity-Aware Dependency-Based Deep Graph Attention Network for Comparative Preference Classification</title>
       <author><first>Nianzu</first><last>Ma</last></author>
       <author><first>Sahisnu</first><last>Mazumder</last></author>
-      <author><first>Hao</first><last>Wang</last></author>
+      <author id="hao-wang-swjtu"><first>Hao</first><last>Wang</last></author>
       <author><first>Bing</first><last>Liu</last></author>
       <pages>5782–5788</pages>
       <abstract>This paper studies the task of comparative preference classification (CPC). Given two entities in a sentence, our goal is to classify whether the first (or the second) entity is preferred over the other or no comparison is expressed at all between the two entities. Existing works either do not learn entity-aware representations well and fail to deal with sentences involving multiple entity pairs or use sequential modeling approaches that are unable to capture long-range dependencies between the entities. Some also use traditional machine learning approaches that do not generalize well. This paper proposes a novel Entity-aware Dependency-based Deep Graph Attention Network (ED-GAT) that employs a multi-hop graph attention over a dependency graph sentence representation to leverage both the semantic information from word embeddings and the syntactic information from the dependency graph to solve the problem. Empirical evaluation shows that the proposed model achieves the state-of-the-art performance in comparative preference classification.</abstract>
@@ -8579,7 +8579,7 @@
     </paper>
     <paper id="636">
       <title>Meta-Reinforced Multi-Domain State Generator for Dialogue Systems</title>
-      <author><first>Yi</first><last>Huang</last></author>
+      <author id="yi-huang-tsinghua"><first>Yi</first><last>Huang</last></author>
       <author><first>Junlan</first><last>Feng</last></author>
       <author><first>Min</first><last>Hu</last></author>
       <author><first>Xiaoting</first><last>Wu</last></author>
@@ -9949,7 +9949,7 @@
       <author id="noah-a-smith"><first>Noah A.</first><last>Smith</last></author>
       <pages>8342–8360</pages>
       <abstract>Language models pretrained on text from a wide variety of sources form the foundation of today’s NLP. In light of the success of these broad-coverage models, we investigate whether it is still helpful to tailor a pretrained model to the domain of a target task. We present a study across four domains (biomedical and computer science publications, news, and reviews) and eight classification tasks, showing that a second phase of pretraining in-domain (domain-adaptive pretraining) leads to performance gains, under both high- and low-resource settings. Moreover, adapting to the task’s unlabeled data (task-adaptive pretraining) improves performance even after domain-adaptive pretraining. Finally, we show that adapting to a task corpus augmented using simple data selection strategies is an effective alternative, especially when resources for domain-adaptive pretraining might be unavailable. Overall, we consistently find that multi-phase adaptive pretraining offers large gains in task performance.</abstract>
-      <award>Honorable Mention for Best Overall Paper</award>
+      <award name="Honorable Mention for Best Overall Paper"/>
       <url hash="d7f9798b">2020.acl-main.740</url>
       <doi>10.18653/v1/2020.acl-main.740</doi>
       <video href="http://slideslive.com/38929123"/>
@@ -10628,7 +10628,7 @@
       <author><first>Marjorie</first><last>Freedman</last></author>
       <pages>77–86</pages>
       <abstract>We present the first comprehensive, open source multimedia knowledge extraction system that takes a massive stream of unstructured, heterogeneous multimedia data from various sources and languages as input, and creates a coherent, structured knowledge base, indexing entities, relations, and events, following a rich, fine-grained ontology. Our system, GAIA, enables seamless search of complex graph queries, and retrieves multimedia evidence including text, images and videos. GAIA achieves top performance at the recent NIST TAC SM-KBP2019 evaluation. The system is publicly available at GitHub and DockerHub, with a narrated video that documents the system.</abstract>
-      <award>Best Demonstration Paper</award>
+      <award name="Best Demonstration Paper"/>
       <url hash="84f848a5">2020.acl-demos.11</url>
       <doi>10.18653/v1/2020.acl-demos.11</doi>
       <video href="http://slideslive.com/38928613"/>
@@ -10940,7 +10940,7 @@
       <author id="preslav-nakov"><first>Preslav</first><last>Nakov</last></author>
       <pages>287–293</pages>
       <abstract>Recent events, such as the 2016 US Presidential Campaign, Brexit and the COVID-19 “infodemic”, have brought into the spotlight the dangers of online disinformation. There has been a lot of research focusing on fact-checking and disinformation detection. However, little attention has been paid to the specific rhetorical and psychological techniques used to convey propaganda messages. Revealing the use of such techniques can help promote media literacy and critical thinking, and eventually contribute to limiting the impact of “fake news” and disinformation campaigns. Prta (Propaganda Persuasion Techniques Analyzer) allows users to explore the articles crawled on a regular basis by highlighting the spans in which propaganda techniques occur and to compare them on the basis of their use of propaganda techniques. The system further reports statistics about the use of such techniques, overall and over time, or according to filtering criteria specified by the user based on time interval, keywords, and/or political orientation of the media. Moreover, it allows users to analyze any text or URL through a dedicated interface or via an API. The system is available online: <url>https://www.tanbih.org/prta</url>.</abstract>
-      <award>Honorable Mention for Best Demonstration Paper</award>
+      <award name="Honorable Mention for Best Demonstration Paper"/>
       <url hash="59a37b96">2020.acl-demos.32</url>
       <doi>10.18653/v1/2020.acl-demos.32</doi>
       <video href="http://slideslive.com/38928622"/>
@@ -11029,7 +11029,7 @@
       <abstract>The literature on structured prediction for NLP describes a rich collection of distributions and algorithms over sequences, segmentations, alignments, and trees; however, these algorithms are difficult to utilize in deep learning frameworks. We introduce Torch-Struct, a library for structured prediction designed to take advantage of and integrate with vectorized, auto-differentiation based frameworks. Torch-Struct includes a broad collection of probabilistic structures accessed through a simple and flexible distribution-based API that connects to any deep learning model. The library utilizes batched, vectorized operations and exploits auto-differentiation to produce readable, fast, and testable code. Internally, we also include a number of general-purpose optimizations to provide cross-algorithm efficiency. Experiments show significant performance gains over fast baselines and case-studies demonstrate the benefits of the library. Torch-Struct is available at <url>https://github.com/harvardnlp/pytorch-struct</url>.</abstract>
       <url hash="88f26f6c">2020.acl-demos.38</url>
       <attachment type="Software" hash="4e3a309b">2020.acl-demos.38.Software.tgz</attachment>
-      <award>Honorable Mention for Best Demonstration Paper</award>
+      <award name="Honorable Mention for Best Demonstration Paper"/>
       <doi>10.18653/v1/2020.acl-demos.38</doi>
       <video href="http://slideslive.com/38928616"/>
       <bibkey>rush-2020-torch</bibkey>

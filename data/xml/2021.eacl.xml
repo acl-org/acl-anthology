@@ -903,7 +903,7 @@
       <author><first>Felix</first><last>Gers</last></author>
       <author><first>Alexander</first><last>Loeser</last></author>
       <pages>881–893</pages>
-      <abstract>Outcome prediction from clinical text can prevent doctors from overlooking possible risks and help hospitals to plan capacities. We simulate patients at admission time, when decision support can be especially valuable, and contribute a novel *admission to discharge* task with four common outcome prediction targets: Diagnoses at discharge, procedures performed, in-hospital mortality and length-of-stay prediction. The ideal system should infer outcomes based on symptoms, pre-conditions and risk factors of a patient. We evaluate the effectiveness of language models to handle this scenario and propose *clinical outcome pre-training* to integrate knowledge about patient outcomes from multiple public sources. We further present a simple method to incorporate ICD code hierarchy into the models. We show that our approach improves performance on the outcome tasks against several baselines. A detailed analysis reveals further strengths of the model, including transferability, but also weaknesses such as handling of vital values and inconsistencies in the underlying data.</abstract>
+      <abstract>Outcome prediction from clinical text can prevent doctors from overlooking possible risks and help hospitals to plan capacities. We simulate patients at admission time, when decision support can be especially valuable, and contribute a novel <i>admission to discharge</i> task with four common outcome prediction targets: Diagnoses at discharge, procedures performed, in-hospital mortality and length-of-stay prediction. The ideal system should infer outcomes based on symptoms, pre-conditions and risk factors of a patient. We evaluate the effectiveness of language models to handle this scenario and propose <i>clinical outcome pre-training</i> to integrate knowledge about patient outcomes from multiple public sources. We further present a simple method to incorporate ICD code hierarchy into the models. We show that our approach improves performance on the outcome tasks against several baselines. A detailed analysis reveals further strengths of the model, including transferability, but also weaknesses such as handling of vital values and inconsistencies in the underlying data.</abstract>
       <url hash="9ac2df9d">2021.eacl-main.75</url>
       <bibkey>van-aken-etal-2021-clinical</bibkey>
       <doi>10.18653/v1/2021.eacl-main.75</doi>
@@ -1027,7 +1027,7 @@
       <pages>1000–1008</pages>
       <abstract>Ideally Open-Domain Question Answering models should exhibit a number of competencies, ranging from simply memorizing questions seen at training time, to answering novel question formulations with answers seen during training, to generalizing to completely novel questions with novel answers. However, single aggregated test set scores do not show the full picture of what capabilities models truly have. In this work, we perform a detailed study of the test sets of three popular open-domain benchmark datasets with respect to these competencies. We find that 30% of test-set questions have a near-duplicate paraphrase in their corresponding train sets. In addition, we find that 60-70% of answers in the test sets are also present in the train sets. Using these findings, we evaluate a variety of popular open-domain models to obtain greater insight into what extent they can generalize, and what drives their overall performance. We find that all models perform substantially worse on questions that cannot be memorized from train sets, with a mean absolute performance difference of 61% between repeated and non-repeated data. Finally we show that simple nearest-neighbor models outperform a BART closed-book QA model, further highlighting the role that train set memorization plays in these benchmarks</abstract>
       <url hash="f3480227">2021.eacl-main.86</url>
-      <award>Best Short Paper</award>
+      <award name="Best Short Paper"/>
       <bibkey>lewis-etal-2021-question</bibkey>
       <doi>10.18653/v1/2021.eacl-main.86</doi>
     </paper>
@@ -1344,7 +1344,7 @@
       <author><first>Ozan</first><last>Caglayan</last></author>
       <author><first>Menekse</first><last>Kuyu</last></author>
       <author><first>Mustafa Sercan</first><last>Amac</last></author>
-      <author id="pranava-swaroop-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
+      <author id="pranava-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
       <author><first>Erkut</first><last>Erdem</last></author>
       <author><first>Aykut</first><last>Erdem</last></author>
       <author><first>Lucia</first><last>Specia</last></author>
@@ -1541,7 +1541,7 @@
       <pages>1480–1490</pages>
       <abstract>Non-native speakers show difficulties with spoken word processing. Many studies attribute these difficulties to imprecise phonological encoding of words in the lexical memory. We test an alternative hypothesis: that some of these difficulties can arise from the non-native speakers’ phonetic perception. We train a computational model of phonetic learning, which has no access to phonology, on either one or two languages. We first show that the model exhibits predictable behaviors on phone-level and word-level discrimination tasks. We then test the model on a spoken word processing task, showing that phonology may not be necessary to explain some of the word processing effects observed in non-native speakers. We run an additional analysis of the model’s lexical representation space, showing that the two training languages are not fully separated in that space, similarly to the languages of a bilingual human speaker.</abstract>
       <url hash="5414afe7">2021.eacl-main.127</url>
-      <award>Honorable Mention for Best Long Paper</award>
+      <award name="Honorable Mention for Best Long Paper"/>
       <bibkey>matusevych-etal-2021-phonetic</bibkey>
       <doi>10.18653/v1/2021.eacl-main.127</doi>
     </paper>
@@ -1562,9 +1562,7 @@
       <author><first>Juri</first><last>Opitz</last></author>
       <author><first>Anette</first><last>Frank</last></author>
       <pages>1504–1518</pages>
-      <abstract>Systems that generate natural language text from abstract meaning representations such as AMR are typically evaluated using automatic surface matching metrics that compare the generated texts to reference texts from which the input meaning representations were constructed. We show that besides well-known issues from which such metrics suffer, an additional problem arises when applying these metrics for AMR-to-text evaluation, since an abstract meaning representation allows for numerous surface realizations. In this work we aim to alleviate these issues by proposing <tex-math>\mathcal{M}\mathcal{F}_\beta</tex-math>, a decomposable metric that builds on two pillars. The first is the <b>principle of meaning preservation <tex-math>\mathcal{M}</tex-math>
- </b>: it measures to what extent a given AMR can be reconstructed from the generated sentence using SOTA AMR parsers and applying (fine-grained) AMR evaluation metrics to measure the distance between the original and the reconstructed AMR. The second pillar builds on a <b>principle of (grammatical) form <tex-math>\mathcal{F}</tex-math>
- </b> that measures the linguistic quality of the generated text, which we implement using SOTA language models. In two extensive pilot studies we show that fulfillment of both principles offers benefits for AMR-to-text evaluation, including explainability of scores. Since <tex-math>\mathcal{M}\mathcal{F}_\beta</tex-math> does not necessarily rely on gold AMRs, it may extend to other text generation tasks.</abstract>
+      <abstract>Systems that generate natural language text from abstract meaning representations such as AMR are typically evaluated using automatic surface matching metrics that compare the generated texts to reference texts from which the input meaning representations were constructed. We show that besides well-known issues from which such metrics suffer, an additional problem arises when applying these metrics for AMR-to-text evaluation, since an abstract meaning representation allows for numerous surface realizations. In this work we aim to alleviate these issues by proposing <tex-math>\mathcal{M}\mathcal{F}_\beta</tex-math>, a decomposable metric that builds on two pillars. The first is the <b>principle of meaning preservation <tex-math>\mathcal{M}</tex-math></b>: it measures to what extent a given AMR can be reconstructed from the generated sentence using SOTA AMR parsers and applying (fine-grained) AMR evaluation metrics to measure the distance between the original and the reconstructed AMR. The second pillar builds on a <b>principle of (grammatical) form <tex-math>\mathcal{F}</tex-math></b> that measures the linguistic quality of the generated text, which we implement using SOTA language models. In two extensive pilot studies we show that fulfillment of both principles offers benefits for AMR-to-text evaluation, including explainability of scores. Since <tex-math>\mathcal{M}\mathcal{F}_\beta</tex-math> does not necessarily rely on gold AMRs, it may extend to other text generation tasks.</abstract>
       <url hash="7c470968">2021.eacl-main.129</url>
       <bibkey>opitz-frank-2021-towards</bibkey>
       <doi>10.18653/v1/2021.eacl-main.129</doi>
@@ -1894,7 +1892,7 @@
       <url hash="a882f04a">2021.eacl-main.156</url>
       <revision id="1" href="2021.eacl-main.156v1" hash="016692b6"/>
       <revision id="2" href="2021.eacl-main.156v2" hash="a882f04a" date="2021-05-03">url update</revision>
-      <award>Honorable Mention for Best Short Paper</award>
+      <award name="Honorable Mention for Best Short Paper"/>
       <bibkey>sogaard-etal-2021-need</bibkey>
       <doi>10.18653/v1/2021.eacl-main.156</doi>
     </paper>
@@ -1960,7 +1958,7 @@
       <pages>1887–1900</pages>
       <abstract>We evaluate two common conjectures in error analysis of NLP models: (i) Morphology is predictive of errors; and (ii) the importance of morphology increases with the morphological complexity of a language. We show across four different tasks and up to 57 languages that of these conjectures, somewhat surprisingly, only (i) is true. Using morphological features does improve error prediction across tasks; however, this effect is less pronounced with morphologically complex languages. We speculate this is because morphology is more discriminative in morphologically simple languages. Across all four tasks, case and gender are the morphological features most predictive of error.</abstract>
       <url hash="059162c0">2021.eacl-main.162</url>
-      <award>Best Long Paper</award>
+      <award name="Best Long Paper"/>
       <bibkey>bollmann-sogaard-2021-error</bibkey>
       <doi>10.18653/v1/2021.eacl-main.162</doi>
     </paper>
@@ -1972,7 +1970,7 @@
       <pages>1901–1907</pages>
       <abstract>The transformer has been shown to outperform recurrent neural network-based sequence-to-sequence models in various word-level NLP tasks. Yet for character-level transduction tasks, e.g. morphological inflection generation and historical text normalization, there are few works that outperform recurrent models using the transformer. In an empirical study, we uncover that, in contrast to recurrent sequence-to-sequence models, the batch size plays a crucial role in the performance of the transformer on character-level tasks, and we show that with a large enough batch size, the transformer does indeed outperform recurrent models. We also introduce a simple technique to handle feature-guided character-level transduction that further improves performance. With these insights, we achieve state-of-the-art performance on morphological inflection and historical text normalization. We also show that the transformer outperforms a strong baseline on two other character-level transduction tasks: grapheme-to-phoneme conversion and transliteration.</abstract>
       <url hash="36ce0454">2021.eacl-main.163</url>
-      <award>Honorable Mention for Best Short Paper</award>
+      <award name="Honorable Mention for Best Short Paper"/>
       <bibkey>wu-etal-2021-applying</bibkey>
       <doi>10.18653/v1/2021.eacl-main.163</doi>
     </paper>
@@ -2524,7 +2522,7 @@
       <pages>2482–2492</pages>
       <abstract>Automatic unreliable news detection is a research problem with great potential impact. Recently, several papers have shown promising results on large-scale news datasets with models that only use the article itself without resorting to any fact-checking mechanism or retrieving any supporting evidence. In this work, we take a closer look at these datasets. While they all provide valuable resources for future research, we observe a number of problems that may lead to results that do not generalize in more realistic settings. Specifically, we show that selection bias during data collection leads to undesired artifacts in the datasets. In addition, while most systems train and predict at the level of individual articles, overlapping article sources in the training and evaluation data can provide a strong confounding factor that models can exploit. In the presence of this confounding factor, the models can achieve good performance by directly memorizing the site-label mapping instead of modeling the real task of unreliable news detection. We observed a significant drop (&gt;10%) in accuracy for all models tested in a clean split with no train/test source overlap. Using the observations and experimental results, we provide practical suggestions on how to create more reliable datasets for the unreliable news detection task. We suggest future dataset creation include a simple model as a difficulty/bias probe and future model development use a clean non-overlapping site and date split.</abstract>
       <url hash="d92dde93">2021.eacl-main.211</url>
-      <award>Honorable Mention for Best Long Paper</award>
+      <award name="Honorable Mention for Best Long Paper"/>
       <bibkey>zhou-etal-2021-hidden</bibkey>
       <doi>10.18653/v1/2021.eacl-main.211</doi>
     </paper>
@@ -2945,7 +2943,7 @@
       <pages>2823–2828</pages>
       <abstract>At the heart of text based neural models lay word representations, which are powerful but occupy a lot of memory making it challenging to deploy to devices with memory constraints such as mobile phones, watches and IoT. To surmount these challenges, we introduce ProFormer – a projection based transformer architecture that is faster and lighter making it suitable to deploy to memory constraint devices and preserve user privacy. We use LSH projection layer to dynamically generate word representations on-the-fly without embedding lookup tables leading to significant memory footprint reduction from O(V.d) to O(T), where V is the vocabulary size, d is the embedding dimension size and T is the dimension of the LSH projection representation. We also propose a local projection attention (LPA) layer, which uses self-attention to transform the input sequence of N LSH word projections into a sequence of N/K representations reducing the computations quadratically by O(Kˆ2). We evaluate ProFormer on multiple text classification tasks and observed improvements over prior state-of-the-art on-device approaches for short text classification and comparable performance for long text classification tasks. ProFormer is also competitive with other popular but highly resource-intensive approaches like BERT and even outperforms small-sized BERT variants with significant resource savings – reduces the embedding memory footprint from 92.16 MB to 1.7 KB and requires 16x less computation overhead, which is very impressive making it the fastest and smallest on-device model.</abstract>
       <url hash="9a69f790">2021.eacl-main.246</url>
-      <award>Honorable Mention for Best Short Paper</award>
+      <award name="Honorable Mention for Best Short Paper"/>
       <bibkey>sankar-etal-2021-proformer</bibkey>
       <doi>10.18653/v1/2021.eacl-main.246</doi>
     </paper>
@@ -3237,7 +3235,7 @@
       <attachment type="Software" hash="e51236d0">2021.eacl-main.270.Software.zip</attachment>
       <revision id="1" href="2021.eacl-main.270v1" hash="9191a894"/>
       <revision id="2" href="2021.eacl-main.270v2" hash="125ca9bd" date="2021-05-03">citation change</revision>
-      <award>Best Long Paper</award>
+      <award name="Best Long Paper"/>
       <bibkey>glavas-vulic-2021-supervised</bibkey>
       <doi>10.18653/v1/2021.eacl-main.270</doi>
     </paper>
@@ -3253,7 +3251,7 @@
     </paper>
     <paper id="272">
       <title>Enhancing Sequence-to-Sequence Neural Lemmatization with External Resources</title>
-      <author><first>Kirill</first><last>Milintsevich</last></author>
+      <author id="kirill-milintsevich"><first>Kirill</first><last>Milintsevich</last></author>
       <author><first>Kairit</first><last>Sirts</last></author>
       <pages>3112–3122</pages>
       <abstract>We propose a novel hybrid approach to lemmatization that enhances the seq2seq neural model with additional lemmas extracted from an external lexicon or a rule-based system. During training, the enhanced lemmatizer learns both to generate lemmas via a sequential decoder and copy the lemma characters from the external candidates supplied during run-time. Our lemmatizer enhanced with candidates extracted from the Apertium morphological analyzer achieves statistically significant improvements compared to baseline models not utilizing additional lemma information, achieves an average accuracy of 97.25% on a set of 23 UD languages, which is 0.55% higher than obtained with the Stanford Stanza model on the same set of languages. We also compare with other methods of integrating external data into lemmatization and show that our enhanced system performs considerably better than a simple lexicon extension method based on the Stanza system, and it achieves complementary improvements w.r.t. the data augmentation method.</abstract>
@@ -3370,7 +3368,7 @@
       <author><first>Andy Mingren</first><last>Li</last></author>
       <author><first>Yishu</first><last>Miao</last></author>
       <author><first>Ozan</first><last>Caglayan</last></author>
-      <author id="pranava-swaroop-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
+      <author id="pranava-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
       <author><first>Lucia</first><last>Specia</last></author>
       <pages>3222–3233</pages>
       <abstract>This paper addresses the problem of simultaneous machine translation (SiMT) by exploring two main concepts: (a) adaptive policies to learn a good trade-off between high translation quality and low latency; and (b) visual information to support this process by providing additional (visual) contextual information which may be available before the textual input is produced. For that, we propose a multimodal approach to simultaneous machine translation using reinforcement learning, with strategies to integrate visual and textual information in both the agent and the environment. We provide an exploration on how different types of visual information and integration strategies affect the quality and latency of simultaneous translation models, and demonstrate that visual cues lead to higher quality while keeping the latency low.</abstract>
@@ -3407,7 +3405,7 @@
       <pages>3250–3258</pages>
       <abstract>Recently, it has been found that monolingual English language models can be used as knowledge bases. Instead of structural knowledge base queries, masked sentences such as “Paris is the capital of [MASK]” are used as probes. We translate the established benchmarks TREx and GoogleRE into 53 languages. Working with mBERT, we investigate three questions. (i) Can mBERT be used as a multilingual knowledge base? Most prior work only considers English. Extending research to multiple languages is important for diversity and accessibility. (ii) Is mBERT’s performance as knowledge base language-independent or does it vary from language to language? (iii) A multilingual model is trained on more text, e.g., mBERT is trained on 104 Wikipedias. Can mBERT leverage this for better performance? We find that using mBERT as a knowledge base yields varying performance across languages and pooling predictions across languages improves performance. Conversely, mBERT exhibits a language bias; e.g., when queried in Italian, it tends to predict Italy as the country of origin.</abstract>
       <url hash="b073e42f">2021.eacl-main.284</url>
-      <award>Best Short Paper</award>
+      <award name="Best Short Paper"/>
       <bibkey>kassner-etal-2021-multilingual</bibkey>
       <doi>10.18653/v1/2021.eacl-main.284</doi>
     </paper>
@@ -3452,7 +3450,7 @@
       <pages>3281–3292</pages>
       <abstract>Automatic detection of cognates helps downstream NLP tasks of Machine Translation, Cross-lingual Information Retrieval, Computational Phylogenetics and Cross-lingual Named Entity Recognition. Previous approaches for the task of cognate detection use orthographic, phonetic and semantic similarity based features sets. In this paper, we propose a novel method for enriching the feature sets, with cognitive features extracted from human readers’ gaze behaviour. We collect gaze behaviour data for a small sample of cognates and show that extracted cognitive features help the task of cognate detection. However, gaze data collection and annotation is a costly task. We use the collected gaze behaviour data to predict cognitive features for a larger sample and show that predicted cognitive features, also, significantly improve the task performance. We report improvements of 10% with the collected gaze features, and 12% using the predicted gaze features, over the previously proposed approaches. Furthermore, we release the collected gaze behaviour data along with our code and cross-lingual models.</abstract>
       <url hash="2225a875">2021.eacl-main.288</url>
-      <award>Honorable Mention for Best Long Paper</award>
+      <award name="Honorable Mention for Best Long Paper"/>
       <bibkey>kanojia-etal-2021-cognition</bibkey>
       <doi>10.18653/v1/2021.eacl-main.288</doi>
     </paper>
@@ -4027,7 +4025,7 @@
       <pages>71–79</pages>
       <abstract>Automatic evaluation of Machine Translation (MT) quality has been investigated over several decades. Spoken Language Translation (SLT), esp. when simultaneous, needs to consider additional criteria and does not have a standard evaluation procedure and a widely used toolkit. To fill the gap, we develop SLTev, an open-source tool for assessing SLT in a comprehensive way. SLTev reports the quality, latency, and stability of an SLT candidate output based on the time-stamped transcript and reference translation into a target language. For quality, we rely on sacreBLEU which provides MT evaluation measures such as chrF or BLEU. For latency, we propose two new scoring techniques. For stability, we extend the previously defined measures with a normalized Flicker in our work. We also propose a new averaging of older measures. A preliminary version of SLTev was used in the IWSLT 2020 shared task. Moreover, a growing collection of test datasets directly accessible by SLTev are provided for system evaluation comparable across papers.</abstract>
       <url hash="04b4f0b6">2021.eacl-demos.9</url>
-      <award>Outstanding Demo Paper</award>
+      <award name="Outstanding Demo Paper"/>
       <bibkey>ansari-etal-2021-sltev</bibkey>
       <doi>10.18653/v1/2021.eacl-demos.9</doi>
     </paper>
@@ -4040,7 +4038,7 @@
       <pages>80–90</pages>
       <abstract>We introduce Trankit, a light-weight Transformer-based Toolkit for multilingual Natural Language Processing (NLP). It provides a trainable pipeline for fundamental NLP tasks over 100 languages, and 90 pretrained pipelines for 56 languages. Built on a state-of-the-art pretrained language model, Trankit significantly outperforms prior multilingual NLP pipelines over sentence segmentation, part-of-speech tagging, morphological feature tagging, and dependency parsing while maintaining competitive performance for tokenization, multi-word token expansion, and lemmatization over 90 Universal Dependencies treebanks. Despite the use of a large pretrained transformer, our toolkit is still efficient in memory usage and speed. This is achieved by our novel plug-and-play mechanism with Adapters where a multilingual pretrained transformer is shared across pipelines for different languages. Our toolkit along with pretrained models and code are publicly available at: <url>https://github.com/nlp-uoregon/trankit</url>. A demo website for our toolkit is also available at: <url>http://nlp.uoregon.edu/trankit</url>. Finally, we create a demo video for Trankit at: <url>https://youtu.be/q0KGP3zGjGc</url>.</abstract>
       <url hash="ce3b7ceb">2021.eacl-demos.10</url>
-      <award>Outstanding Demo Paper</award>
+      <award name="Outstanding Demo Paper"/>
       <bibkey>nguyen-etal-2021-trankit</bibkey>
       <doi>10.18653/v1/2021.eacl-demos.10</doi>
     </paper>
@@ -4182,7 +4180,7 @@
       <pages>160–167</pages>
       <abstract>Acronyms and abbreviations are the short-form of longer phrases and they are ubiquitously employed in various types of writing. Despite their usefulness to save space in writing and reader’s time in reading, they also provide challenges for understanding the text especially if the acronym is not defined in the text or if it is used far from its definition in long texts. To alleviate this issue, there are considerable efforts both from the research community and software developers to build systems for identifying acronyms and finding their correct meanings in the text. However, none of the existing works provide a unified solution capable of processing acronyms in various domains and to be publicly available. Thus, we provide the first web-based acronym identification and disambiguation system which can process acronyms from various domains including scientific, biomedical, and general domains. The web-based system is publicly available at <url>http://iq.cs.uoregon.edu:5000</url> and a demo video is available at <url>https://youtu.be/IkSh7LqI42M</url>. The system source code is also available at <url>https://github.com/amirveyseh/MadDog</url>.</abstract>
       <url hash="6a683339">2021.eacl-demos.20</url>
-      <award>Best Demo Paper</award>
+      <award name="Best Demo Paper"/>
       <bibkey>pouran-ben-veyseh-etal-2021-maddog</bibkey>
       <doi>10.18653/v1/2021.eacl-demos.20</doi>
     </paper>
@@ -4205,7 +4203,7 @@
       <pages>176–197</pages>
       <abstract>Transfer learning, particularly approaches that combine multi-task learning with pre-trained contextualized embeddings and fine-tuning, have advanced the field of Natural Language Processing tremendously in recent years. In this paper we present MaChAmp, a toolkit for easy fine-tuning of contextualized embeddings in multi-task settings. The benefits of MaChAmp are its flexible configuration options, and the support of a variety of natural language processing tasks in a uniform toolkit, from text classification and sequence labeling to dependency parsing, masked language modeling, and text generation.</abstract>
       <url hash="90821c0d">2021.eacl-demos.22</url>
-      <award>Outstanding Demo Paper</award>
+      <award name="Outstanding Demo Paper"/>
       <bibkey>van-der-goot-etal-2021-massive</bibkey>
       <doi>10.18653/v1/2021.eacl-demos.22</doi>
     </paper>
@@ -4332,7 +4330,7 @@
     <paper id="30">
       <title><fixed-case>F</fixed-case>rame<fixed-case>F</fixed-case>orm: An Open-source Annotation Interface for <fixed-case>F</fixed-case>rame<fixed-case>N</fixed-case>et</title>
       <author><first>Büşra</first><last>Marşan</last></author>
-      <author><first>Olcay Taner</first><last>Yıldız</last></author>
+      <author id="olcay-taner-yildiz"><first>Olcay Taner</first><last>Yıldız</last></author>
       <pages>257–262</pages>
       <abstract>In this paper, we introduce FrameForm, an open-source annotation tool designed to accommodate predicate annotations based on Frame Semantics. FrameForm is a user-friendly tool for creating, annotating and maintaining computational lexicography projects like FrameNet and has been used while building the Turkish FrameNet. Responsive and open-source, FrameForm can be easily modified to answer the annotation needs of a wide range of different languages.</abstract>
       <url hash="dc2f6c28">2021.eacl-demos.30</url>
@@ -4603,7 +4601,7 @@
     <paper id="12">
       <title>Discrete Reasoning Templates for Natural Language Understanding</title>
       <author><first>Hadeel</first><last>Al-Negheimish</last></author>
-      <author id="pranava-swaroop-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
+      <author id="pranava-madhyastha"><first>Pranava</first><last>Madhyastha</last></author>
       <author><first>Alessandra</first><last>Russo</last></author>
       <pages>80–87</pages>
       <abstract>Reasoning about information from multiple parts of a passage to derive an answer is an open challenge for reading-comprehension models. In this paper, we present an approach that reasons about complex questions by decomposing them to simpler subquestions that can take advantage of single-span extraction reading-comprehension models, and derives the final answer according to instructions in a predefined reasoning template. We focus on subtraction based arithmetic questions and evaluate our approach on a subset of the DROP dataset. We show that our approach is competitive with the state of the art while being interpretable and requires little supervision.</abstract>

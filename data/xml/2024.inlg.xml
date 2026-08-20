@@ -11,6 +11,7 @@
       <month>September</month>
       <year>2024</year>
       <url hash="fc44fa1f">2024.inlg-main</url>
+      <sig>siggen</sig>
       <venue>inlg</venue>
       <doi>10.18653/v1/2024.inlg-main</doi>
     </meta>
@@ -23,7 +24,7 @@
       <title><fixed-case>A</fixed-case>uto<fixed-case>T</fixed-case>emplate: A Simple Recipe for Lexically Constrained Text Generation</title>
       <author><first>Hayate</first><last>Iso</last></author>
       <pages>1–12</pages>
-      <abstract>Lexically constrained text generation is one of the constrained text generation tasks, which aims to generate text that covers all the given constraint lexicons. While the existing approaches tackle this problem using a lexically constrained beam search algorithm or dedicated model using non-autoregressive decoding, there is a trade-off between the generated text quality and the hard constraint satisfaction. We introduce AutoTemplate, a simple yet effective lexically constrained text generation framework divided into template generation and lexicalization tasks. The template generation is to generate the text with the placeholders, and lexicalization replaces them into the constraint lexicons to perform lexically constrained text generation. We conducted the experiments on two tasks: keywords-to-sentence generations and entity-guided summarization. Experimental results show that the AutoTemplate outperforms the competitive baselines on both tasks while satisfying the hard lexical constraints. The code is available at https://github.com/megagonlabs/autotemplate</abstract>
+      <abstract>Lexically constrained text generation is one of the constrained text generation tasks, which aims to generate text that covers all the given constraint lexicons. While the existing approaches tackle this problem using a lexically constrained beam search algorithm or dedicated model using non-autoregressive decoding, there is a trade-off between the generated text quality and the hard constraint satisfaction. We introduce AutoTemplate, a simple yet effective lexically constrained text generation framework divided into template generation and lexicalization tasks. The template generation is to generate the text with the placeholders, and lexicalization replaces them into the constraint lexicons to perform lexically constrained text generation. We conducted the experiments on two tasks: keywords-to-sentence generations and entity-guided summarization. Experimental results show that the AutoTemplate outperforms the competitive baselines on both tasks while satisfying the hard lexical constraints. The code is available at <url>https://github.com/megagonlabs/autotemplate</url></abstract>
       <url hash="0c23e626">2024.inlg-main.1</url>
       <attachment type="Supplementary_Attachment" hash="edfabe99">2024.inlg-main.1.Supplementary_Attachment.pdf</attachment>
       <bibkey>iso-2024-autotemplate-simple</bibkey>
@@ -35,7 +36,7 @@
       <author><first>Xiaolan</first><last>Wang</last></author>
       <author id="yoshi-suhara"><first>Yoshi</first><last>Suhara</last></author>
       <pages>13–23</pages>
-      <abstract>Opinion summarization research has primarily focused on generating summaries reflecting important opinions from customer reviews without paying much attention to the writing style. In this paper, we propose the stylized opinion summarization task, which aims to generate a summary of customer reviews in the desired (e.g., professional) writing style. To tackle the difficulty in collecting customer and professional review pairs, we develop a non-parallel training framework, Noisy Pairing and Partial Supervision (NAPA), which trains a stylized opinion summarization system from non-parallel customer and professional review sets. We create a benchmark ProSum by collecting customer and professional reviews from Yelp and Michelin. Experimental results on ProSum and FewSum demonstrate that our non-parallel training framework consistently improves both automatic and human evaluations, successfully building a stylized opinion summarization model that can generate professionally-written summaries from customer reviews. The code is available at https://github.com/megagonlabs/napa</abstract>
+      <abstract>Opinion summarization research has primarily focused on generating summaries reflecting important opinions from customer reviews without paying much attention to the writing style. In this paper, we propose the stylized opinion summarization task, which aims to generate a summary of customer reviews in the desired (e.g., professional) writing style. To tackle the difficulty in collecting customer and professional review pairs, we develop a non-parallel training framework, Noisy Pairing and Partial Supervision (NAPA), which trains a stylized opinion summarization system from non-parallel customer and professional review sets. We create a benchmark ProSum by collecting customer and professional reviews from Yelp and Michelin. Experimental results on ProSum and FewSum demonstrate that our non-parallel training framework consistently improves both automatic and human evaluations, successfully building a stylized opinion summarization model that can generate professionally-written summaries from customer reviews. The code is available at <url>https://github.com/megagonlabs/napa</url></abstract>
       <url hash="952c41de">2024.inlg-main.2</url>
       <attachment type="Supplementary_Attachment" hash="79917466">2024.inlg-main.2.Supplementary_Attachment.pdf</attachment>
       <bibkey>iso-etal-2024-noisy-pairing</bibkey>
@@ -302,7 +303,7 @@
       <author><first>Hiroya</first><last>Takamura</last></author>
       <author id="naoaki-okazaki"><first>Naoaki</first><last>Okazaki</last></author>
       <pages>303–313</pages>
-      <abstract>M2 and its variants are the most widely used automatic evaluation metrics for grammatical error correction (GEC), which calculate an F-score using a phrase-based alignment between sentences. However, it is not straightforward at all to align learner sentences containing errors to their correct sentences. In addition, alignment calculations are computationally expensive. We propose GREEN, an alignment-free F-score for GEC evaluation. GREEN treats a sentence as a multiset of n-grams and extracts edits between sentences by set operations instead of computing an alignment. Our experiments confirm that GREEN performs better than existing methods for the corpus-level metrics and comparably for the sentence-level metrics even without computing an alignment. GREEN is available at https://github.com/shotakoyama/green.</abstract>
+      <abstract>M2 and its variants are the most widely used automatic evaluation metrics for grammatical error correction (GEC), which calculate an F-score using a phrase-based alignment between sentences. However, it is not straightforward at all to align learner sentences containing errors to their correct sentences. In addition, alignment calculations are computationally expensive. We propose GREEN, an alignment-free F-score for GEC evaluation. GREEN treats a sentence as a multiset of n-grams and extracts edits between sentences by set operations instead of computing an alignment. Our experiments confirm that GREEN performs better than existing methods for the corpus-level metrics and comparably for the sentence-level metrics even without computing an alignment. GREEN is available at <url>https://github.com/shotakoyama/green</url>.</abstract>
       <url hash="5f09ede7">2024.inlg-main.25</url>
       <bibkey>koyama-etal-2024-n-gram</bibkey>
       <doi>10.18653/v1/2024.inlg-main.25</doi>
@@ -612,7 +613,7 @@
       <author><first>Mohammed Eunus</first><last>Ali</last></author>
       <author><first>Yuan-Fang</first><last>Li</last></author>
       <pages>646–662</pages>
-      <abstract>While large multimodal models (LMMs) have obtained strong performance on many multimodal tasks, they may still hallucinate while generating text. Their performance on detecting salient features from visual data is also unclear. In this paper, we develop a framework to generate faithful and salient text from mixed-modal data, which includes images and structured data ( represented in knowledge graphs or tables). Specifically, we train a vision critic model to identify hallucinated and non-salient features from the image modality. The critic model also generates a list of salient image features. This information is used in the post editing step to improve the generation quality. Experiments on two datasets show that our framework improves LMMs’ generation quality on both faithfulness and saliency, outperforming recent techniques aimed at reducing hallucination. The dataset and code are available at https://github.com/TahsinaHashem/FaithD2T.</abstract>
+      <abstract>While large multimodal models (LMMs) have obtained strong performance on many multimodal tasks, they may still hallucinate while generating text. Their performance on detecting salient features from visual data is also unclear. In this paper, we develop a framework to generate faithful and salient text from mixed-modal data, which includes images and structured data ( represented in knowledge graphs or tables). Specifically, we train a vision critic model to identify hallucinated and non-salient features from the image modality. The critic model also generates a list of salient image features. This information is used in the post editing step to improve the generation quality. Experiments on two datasets show that our framework improves LMMs’ generation quality on both faithfulness and saliency, outperforming recent techniques aimed at reducing hallucination. The dataset and code are available at <url>https://github.com/TahsinaHashem/FaithD2T</url>.</abstract>
       <url hash="bb9dd3e3">2024.inlg-main.50</url>
       <attachment type="Supplementary_Attachment" hash="dc483dc9">2024.inlg-main.50.Supplementary_Attachment.pdf</attachment>
       <bibkey>hashem-etal-2024-generating-faithful</bibkey>
@@ -666,6 +667,7 @@
       <month>September</month>
       <year>2024</year>
       <url hash="89f596f5">2024.inlg-demos</url>
+      <sig>siggen</sig>
       <venue>inlg</venue>
       <doi>10.18653/v1/2024.inlg-demos</doi>
     </meta>
@@ -694,7 +696,7 @@
       <author><first>Daiyun</first><last>Huang</last></author>
       <author><first>Wei</first><last>Wang</last></author>
       <pages>4–6</pages>
-      <abstract>We introduce MTSwitch, a web-based system for the bidirectional translation between molecules and texts, leveraging various large language models (LLMs). It supports two crucial tasks, including molecule captioning (explaining the properties of a molecule) and molecule generation (designing a molecule based on specific properties). To the best of our knowledge, MTSwitch is currently the first accessible system that allows users to translate between molecular representations and descriptive text contents. The system and a screencast can be found in https://github.com/hanninaa/MTSwitch.</abstract>
+      <abstract>We introduce MTSwitch, a web-based system for the bidirectional translation between molecules and texts, leveraging various large language models (LLMs). It supports two crucial tasks, including molecule captioning (explaining the properties of a molecule) and molecule generation (designing a molecule based on specific properties). To the best of our knowledge, MTSwitch is currently the first accessible system that allows users to translate between molecular representations and descriptive text contents. The system and a screencast can be found in <url>https://github.com/hanninaa/MTSwitch</url>.</abstract>
       <url hash="eb23ccde">2024.inlg-demos.2</url>
       <bibkey>han-etal-2024-mtswitch-web</bibkey>
       <doi>10.18653/v1/2024.inlg-demos.2</doi>
@@ -764,6 +766,7 @@
       <month>September</month>
       <year>2024</year>
       <url hash="f7e4a54d">2024.inlg-tutorials</url>
+      <sig>siggen</sig>
       <venue>inlg</venue>
       <editor id="anja-belz"><first>Anya</first><last>Belz</last></editor>
       <editor><first>João</first><last>Sedoc</last></editor>
@@ -785,7 +788,7 @@
       <author><first>Simon</first><last>Mille</last></author>
       <author><first>Rudali</first><last>Huidrom</last></author>
       <pages>1–12</pages>
-      <abstract>Following numerous calls in the literature for improved practices and standardisation in human evaluation in Natural Language Processing over the past ten years, we held a tutorial on the topic at the 2024 INLG Conference. The tutorial addressed the structure, development, design, implementation, execution and analysis of human evaluations of NLP system quality. Hands-on practical sessions were run, designed to facilitate assimilation of the material presented. Slides, lecture recordings, code and data have been made available on GitHub (https://github.com/Human-Evaluation-Tutorial/INLG-2024-Tutorial). In this paper, we provide summaries of the content of the eight units of the tutorial, alongside its research context and aims.</abstract>
+      <abstract>Following numerous calls in the literature for improved practices and standardisation in human evaluation in Natural Language Processing over the past ten years, we held a tutorial on the topic at the 2024 INLG Conference. The tutorial addressed the structure, development, design, implementation, execution and analysis of human evaluations of NLP system quality. Hands-on practical sessions were run, designed to facilitate assimilation of the material presented. Slides, lecture recordings, code and data have been made available on GitHub (<url>https://github.com/Human-Evaluation-Tutorial/INLG-2024-Tutorial</url>). In this paper, we provide summaries of the content of the eight units of the tutorial, alongside its research context and aims.</abstract>
       <url hash="87e8c625">2024.inlg-tutorials.1</url>
       <bibkey>belz-etal-2024-inlg</bibkey>
       <doi>10.18653/v1/2024.inlg-tutorials.1</doi>
@@ -801,6 +804,7 @@
       <month>September</month>
       <year>2024</year>
       <url hash="49173c7b">2024.inlg-genchal</url>
+      <sig>siggen</sig>
       <venue>inlg</venue>
       <doi>10.18653/v1/2024.inlg-genchal</doi>
     </meta>
@@ -890,7 +894,7 @@
       <title><fixed-case>DCU</fixed-case>-<fixed-case>ADAPT</fixed-case>-mod<fixed-case>PB</fixed-case> at the <fixed-case>GEM</fixed-case>’24 Data-to-Text Generation Task: Model Hybridisation for Pipeline Data-to-Text Natural Language Generation</title>
       <author><first>Chinonso Cynthia</first><last>Osuji</last></author>
       <author><first>Rudali</first><last>Huidrom</last></author>
-      <author><first>Kolawole John</first><last>Adebayo</last></author>
+      <author id="kolawole-adebayo"><first>Kolawole John</first><last>Adebayo</last></author>
       <author id="thiago-castro-ferreira"><first>Thiago</first><last>Castro Ferreira</last></author>
       <author><first>Brian</first><last>Davis</last></author>
       <pages>66–75</pages>
