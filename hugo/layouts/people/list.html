@@ -38,7 +38,7 @@
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
         </div>
-        <button class="visually-hidden" type="submit">Open first result</button>
+        <button class="visually-hidden" type="submit">Show all results</button>
       </form>
 
       <p class="acl-author-search__status" id="author-search-status"
@@ -137,11 +137,15 @@
     const idleStatus = "Enter at least two characters.";
     let searchVersion = 0;
     let inputTimer;
+    let currentQuery = "";
+    let currentMatches = [];
+    let showingAll = false;
 
     const navigation = authorSearch.createResultNavigation({
       input: input,
       list: results,
       activeClass: "is-active",
+      optionSelector: "a, button",
     });
 
     function makeAuthorResult(entry) {
@@ -173,8 +177,49 @@
       return numberFormat.format(total) + " " + label;
     }
 
+    function makeShowAllResult(total) {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      const icon = document.createElement("i");
+      const label = document.createElement("span");
+      const hint = document.createElement("small");
+
+      item.className = "acl-author-results__command";
+      button.type = "button";
+      button.dataset.showAll = "";
+      icon.className = "fas fa-list-ul";
+      icon.setAttribute("aria-hidden", "true");
+      label.append("Show all " + numberFormat.format(total) + " results");
+      hint.className = "acl-author-results__hint";
+      hint.textContent = "Press Return to show all";
+      label.append(hint);
+      button.append(icon, label);
+      item.append(button);
+      return item;
+    }
+
+    function renderMatches() {
+      const total = currentMatches.length;
+      const truncated = !showingAll && total > resultLimit;
+      const visible = truncated ? currentMatches.slice(0, resultLimit) : currentMatches;
+      const children = visible.map(makeAuthorResult);
+
+      if (truncated) children.unshift(makeShowAllResult(total));
+      results.replaceChildren(...children);
+      results.hidden = total === 0;
+      navigation.refresh();
+
+      if (total === 0) {
+        status.textContent = "No author pages match \"" + currentQuery + "\".";
+      } else {
+        status.textContent = countDescription(visible.length, total) + ".";
+      }
+    }
+
     function resetResults() {
       searchVersion += 1;
+      currentMatches = [];
+      showingAll = false;
       status.textContent = idleStatus;
       results.replaceChildren();
       results.hidden = true;
@@ -199,33 +244,35 @@
       try {
         const outcome = await authorSearch.findAuthors(query, directory.dataset.indexBase);
         if (version !== searchVersion) return;
-        const authorMatches = outcome.matches;
-
-        const visibleMatches = authorMatches.slice(0, resultLimit);
-        results.replaceChildren(...visibleMatches.map(makeAuthorResult));
-        results.hidden = visibleMatches.length === 0;
-        navigation.refresh();
-
-        if (authorMatches.length === 0) {
-          status.textContent = "No author pages match \"" + query + "\".";
-        } else {
-          status.textContent = countDescription(
-            visibleMatches.length,
-            authorMatches.length
-          ) + ".";
-        }
+        currentQuery = query;
+        currentMatches = outcome.matches;
+        showingAll = false;
+        renderMatches();
       } catch (error) {
         if (version !== searchVersion) return;
+        currentMatches = [];
         results.hidden = true;
         navigation.refresh();
         status.textContent = "Search is temporarily unavailable.";
       }
     }
 
+    function showAllResults() {
+      if (showingAll || currentMatches.length <= resultLimit) return false;
+      showingAll = true;
+      renderMatches();
+      input.focus();
+      return true;
+    }
+
     input.addEventListener("input", function () {
       clearTimeout(inputTimer);
       clearButton.hidden = input.value.length === 0;
       inputTimer = setTimeout(search, 120);
+    });
+
+    results.addEventListener("click", function (event) {
+      if (event.target.closest("[data-show-all]")) showAllResults();
     });
 
     clearButton.addEventListener("click", function () {
@@ -238,6 +285,7 @@
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+      if (showAllResults()) return;
       const firstResult = results.querySelector("a");
       if (firstResult) firstResult.click();
     });

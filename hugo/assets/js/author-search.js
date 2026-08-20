@@ -218,6 +218,7 @@
     const list = config.list;
     const activeClass = config.activeClass;
     const onEscape = config.onEscape;
+    const optionSelector = config.optionSelector || "a";
     const idPrefix = (list.id || "acl-search-results") + "-option-";
     let options = [];
     let activeIndex = -1;
@@ -294,14 +295,14 @@
     list.addEventListener("keydown", handleKeydown);
 
     list.addEventListener("pointermove", function (event) {
-      const option = event.target.closest("a");
+      const option = event.target.closest(optionSelector);
       const index = option ? options.indexOf(option) : -1;
       if (index >= 0 && index !== activeIndex) setActive(index, false);
     });
 
-    // Keep the highlight in sync when a link is reached with Tab or the mouse.
+    // Keep the highlight in sync when an option is reached with Tab or the mouse.
     list.addEventListener("focusin", function (event) {
-      const index = options.indexOf(event.target.closest("a"));
+      const index = options.indexOf(event.target.closest(optionSelector));
       if (index >= 0 && index !== activeIndex) setActive(index, false);
     });
 
@@ -313,7 +314,7 @@
         }
         activeIndex = -1;
         input.removeAttribute("aria-activedescendant");
-        options = Array.from(list.querySelectorAll("a"));
+        options = Array.from(list.querySelectorAll(optionSelector));
         options.forEach(function (option, index) {
           option.id = idPrefix + index;
           option.setAttribute("role", "option");

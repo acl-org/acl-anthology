@@ -280,6 +280,52 @@ $acl-people-soft-green: #f2f8e6;
   }
 }
 
+.acl-author-results__command {
+  background: #f7f8f9;
+
+  button {
+    display: grid;
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    align-items: center;
+    gap: .55rem;
+    width: 100%;
+    padding: .7rem .55rem;
+    border: 0;
+    background: none;
+    color: var(--acl-people-ink);
+    font-size: .87rem;
+    font-weight: 650;
+    line-height: 1.3;
+    text-align: left;
+
+    &:hover,
+    &:focus-visible,
+    &.is-active {
+      background: $acl-people-soft-blue;
+    }
+
+    &:focus-visible,
+    &.is-active {
+      outline: .15rem solid darken($cyan, 8%);
+      outline-offset: -.15rem;
+    }
+
+    > i {
+      color: #687178;
+      font-size: .8rem;
+      text-align: center;
+    }
+  }
+}
+
+.acl-author-results__hint {
+  display: block;
+  color: var(--acl-people-muted);
+  font-size: .72rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 .acl-author-result__heading {
   display: flex;
   align-items: center;
