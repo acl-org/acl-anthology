@@ -1,0 +1,32 @@
+name: Acknowledge author page issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  acknowledge-author-page-issue:
+    if: contains(github.event.issue.labels.*.name, 'correction') && contains(github.event.issue.labels.*.name, 'author-page')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create comment
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const comment = `
+            Thank you. A staff member will review this correction.
+
+            - It can take 1–2 weeks for this change to be processed as part of a batch of corrections. Please allow additional time in peak periods (around ARR deadlines and major conferences).
+            - Please **leave this issue open** so we can handle the request. We will approve issues one by one and then implement the changes as a batch.
+            - Once the issue is closed by us as “resolved”, it will take 30–40 minutes for the changes to appear on the website.
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });

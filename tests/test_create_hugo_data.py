@@ -127,7 +127,12 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             "full": "Ada Lovelace",
             "papers": ["paper-1"],
             "orcid": "0000-0000-0000-0001",
-            "variant_entries": [{"full": "Augusta Ada King"}],
+            "variant_entries": [
+                {"full": "Augusta Ada King"},
+                {"full": "Ada King, Countess of Lovelace"},
+            ],
+            "name_variants": ["埃达·洛夫莱斯"],
+            "comment": "Analytical Engine Institute",
             "first_year": 2018,
             "last_year": 2018,
             "peak_year": 2018,
@@ -157,10 +162,10 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         "unverified_author_count": 1,
         "orcid_author_count": 1,
         "first_paper_year_hist": [
-            {"year": 2018, "count": 1},
-            {"year": 2019, "count": 1},
-            {"year": 2020, "count": 0},
-            {"year": 2021, "count": 1},
+            {"year": 2018, "count": 1, "verified_count": 1},
+            {"year": 2019, "count": 1, "verified_count": 1},
+            {"year": 2020, "count": 0, "verified_count": 0},
+            {"year": 2021, "count": 1, "verified_count": 0},
         ],
         "career_year_hists": {
             "first": [
@@ -200,7 +205,9 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
         "ada-lovelace",
         1,
         "0000-0000-0000-0001",
-        "Augusta Ada King",
+        ["Augusta Ada King", "Ada King, Countess of Lovelace"],
+        "Analytical Engine Institute",
+        ["埃达·洛夫莱斯"],
     ]
     assert ada_row in index["a"]
     assert ada_row in index["k"]
@@ -210,32 +217,65 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     assert any(row[0] == "Wei Zhang" for row in index["z"])
 
     (tmp_path / "data").mkdir()
+    stale_paper_index = tmp_path / "static" / "people" / "index" / "papers"
+    stale_paper_index.mkdir(parents=True)
+    (stale_paper_index / "old.json").write_text("[]")
     export_author_index(people, tmp_path)
 
     with open(tmp_path / "data" / "people_stats.json") as f:
         exported_stats = json.load(f)
-    assert exported_stats.pop("search_bucket_counts") == {
-        bucket: len(rows) for bucket, rows in index.items()
-    }
     assert exported_stats == expected_stats
     index_dir = tmp_path / "static" / "people" / "index"
     assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
+    assert not stale_paper_index.exists()
+
+
+def test_author_index_includes_hyphenated_name_parts():
+    people = {
+        "aaron-galiano-jimenez": {
+            "full": "Aarón Galiano-Jiménez",
+            "papers": ["paper-1"],
+            "variant_entries": [],
+        }
+    }
+
+    assert any(
+        row[0] == "Aarón Galiano-Jiménez" for row in author_search_index(people)["j"]
+    )
+
+
+def test_author_index_includes_undecorated_canonical_name_for_ranking():
+    people = {
+        "yang-liu-icsi": {
+            "first": "Yang",
+            "last": "Liu",
+            "full": "Yang Liu (刘扬)",
+            "papers": ["paper-1"],
+            "variant_entries": [{"full": "刘扬"}],
+            "name_variants": ["刘扬"],
+        }
+    }
+
+    row = next(
+        row for row in author_search_index(people)["y"] if row[1] == "yang-liu-icsi"
+    )
+    assert row[7] == "Yang Liu"
 
 
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
     people = {
-        "a": {"first_year": 2005},
-        "b": {"first_year": 2005},
-        "c": {"first_year": 2008},
+        "alice-smith": {"first_year": 2005},
+        "bob-jones/unverified": {"first_year": 2005},
+        "carol-lee": {"first_year": 2008},
         "editor-only": {"full": "No Papers"},  # no first_year -> excluded
     }
     assert first_paper_year_histogram(people) == [
-        {"year": 2005, "count": 2},
-        {"year": 2006, "count": 0},
-        {"year": 2007, "count": 0},
-        {"year": 2008, "count": 1},
+        {"year": 2005, "count": 2, "verified_count": 1},
+        {"year": 2006, "count": 0, "verified_count": 0},
+        {"year": 2007, "count": 0, "verified_count": 0},
+        {"year": 2008, "count": 1, "verified_count": 1},
     ]
 
 

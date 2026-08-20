@@ -494,7 +494,7 @@
           </div>
           <div>
             <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
-            <dd><a href="{{ relref . "/people" }}">authors</a></dd>
+            <dd><a href="{{ relref $ "/people/" }}">authors</a></dd>
           </div>
           <div>
             <dt>{{ lang.FormatNumberCustom 0 $stats.volume_count }}</dt>
@@ -510,15 +510,15 @@
           </div>
           <div class="acl-home-stats__link">
             <dt><i class="fas fa-chart-bar" aria-hidden="true"></i></dt>
-            <dd><a href="{{ relref . "/stats" }}">statistics</a></dd>
+            <dd><a href="{{ relref $ "/stats/" }}">statistics</a></dd>
           </div>
         </dl>
       </div>
     </section>
 
     <nav id="acl-home-actions" class="acl-home-actions" data-home-intro-content aria-label="Anthology resources">
-      <a class="acl-home-action--authors" href="{{ ($.Site.GetPage "/info/author-pages.md").RelPermalink }}">
-        <span>Author pages</span>
+      <a class="acl-home-action--authors" href="{{ relref $ "/people/" }}">
+        <span>Authors</span>
       </a>
       <a class="acl-home-action--data" href="{{ ($.Site.GetPage "/faq/api.md").RelPermalink }}">
         <span>API &amp; data</span>

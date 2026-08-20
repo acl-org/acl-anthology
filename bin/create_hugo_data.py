@@ -450,24 +450,41 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
 AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
 
 
+def search_bucket_keys(searchable: str) -> set[str]:
+    """Return initial-character buckets for all searchable tokens."""
+    bucket_keys = set()
+    for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
+        initial = token[0].casefold()
+        bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
+    return bucket_keys or {"other"}
+
+
 def first_paper_year_histogram(people):
     """Count authors by the year of their first paper.
 
-    Returns a year-ordered list of ``{"year", "count"}`` entries spanning every
-    year between the earliest and latest debut. Years in which no author
-    published a first paper are included with a count of zero so the histogram
-    forms a continuous timeline. Authors without any papers (and therefore
-    without a ``first_year``) are ignored.
+    Returns a year-ordered list of ``{"year", "count", "verified_count"}``
+    entries spanning every year between the earliest and latest debut. Years in
+    which no author published a first paper are included with zero counts so the
+    histogram forms a continuous timeline. Authors without any papers (and
+    therefore without a ``first_year``) are ignored.
     """
-    counts = Counter(
-        person["first_year"]
-        for person in people.values()
-        if person.get("first_year") is not None
-    )
+    counts = Counter()
+    verified_counts = Counter()
+    for person_id, person in people.items():
+        if (first_year := person.get("first_year")) is None:
+            continue
+        counts[first_year] += 1
+        if is_verified_person_id(person_id):
+            verified_counts[first_year] += 1
+
     if not counts:
         return []
     return [
-        {"year": year, "count": counts.get(year, 0)}
+        {
+            "year": year,
+            "count": counts.get(year, 0),
+            "verified_count": verified_counts.get(year, 0),
+        }
         for year in range(min(counts), max(counts) + 1)
     ]
 
@@ -555,18 +572,32 @@ def author_search_index(people):
     buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
 
     for person_id, person in people.items():
-        variants = " ".join(
+        alternate_names = [
             variant["full"] for variant in person.get("variant_entries", [])
-        )
+        ]
+        name_variants = person.get("name_variants", [])
+        comment = person.get("comment", "")
         orcid = person.get("orcid", "")
-        row = [person["full"], person_id, len(person["papers"]), orcid, variants]
-        searchable = " ".join((person["full"], variants, orcid))
-        bucket_keys = set()
-        for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
-            initial = token[0].casefold()
-            bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
-
-        for bucket in bucket_keys or {"other"}:
+        row = [
+            person["full"],
+            person_id,
+            len(person["papers"]),
+            orcid,
+            alternate_names,
+            comment,
+            name_variants,
+        ]
+        canonical_name = " ".join(
+            name_part
+            for name_part in (person.get("first"), person.get("last"))
+            if name_part
+        )
+        if canonical_name and canonical_name != person["full"]:
+            row.append(canonical_name)
+        searchable = " ".join(
+            [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
+        )
+        for bucket in search_bucket_keys(searchable):
             buckets[bucket].append(row)
 
     for rows in buckets.values():
@@ -576,12 +607,9 @@ def author_search_index(people):
 
 
 def export_author_index(people, builddir):
-    """Write aggregate and browser-search data for the author index."""
-    search_index = author_search_index(people)
+    """Write aggregate and browser-search data for the author directory."""
+    author_index = author_search_index(people)
     stats = author_stats(people)
-    stats["search_bucket_counts"] = {
-        bucket: len(rows) for bucket, rows in search_index.items()
-    }
     with open(f"{builddir}/data/people_stats.json", "wb") as f:
         f.write(ENCODER.encode(stats))
 
@@ -589,7 +617,7 @@ def export_author_index(people, builddir):
     if os.path.isdir(index_dir):
         shutil.rmtree(index_dir)
     os.makedirs(index_dir)
-    for bucket, rows in search_index.items():
+    for bucket, rows in author_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
 
@@ -648,6 +676,15 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
+            name_variants = sorted(
+                {
+                    variant.as_full()
+                    for namespec in person.namespecs()
+                    for variant in namespec.variants
+                }
+            )
+            if name_variants:
+                data["name_variants"] = name_variants
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:
