@@ -261,12 +261,14 @@ $acl-people-soft-green: #f2f8e6;
     color: var(--acl-people-ink);
 
     &:hover,
-    &:focus-visible {
+    &:focus-visible,
+    &.is-active {
       background: $acl-people-soft-blue;
       color: var(--acl-people-ink);
     }
 
-    &:focus-visible {
+    &:focus-visible,
+    &.is-active {
       outline: .15rem solid darken($cyan, 8%);
       outline-offset: -.15rem;
     }

@@ -199,6 +199,132 @@
     return url.toString();
   }
 
+  // Returns -1/0/1 for ArrowUp/Ctrl-P, no-op, and ArrowDown/Ctrl-N respectively.
+  function navigationDirection(event) {
+    if (event.altKey || event.metaKey || event.shiftKey) return 0;
+    if (event.key === "ArrowDown") return 1;
+    if (event.key === "ArrowUp") return -1;
+    if (!event.ctrlKey || !event.key) return 0;
+    const letter = event.key.toLowerCase();
+    if (letter === "n") return 1;
+    if (letter === "p") return -1;
+    return 0;
+  }
+
+  // Wires arrow-key/Ctrl-N/Ctrl-P navigation over the links inside `list`, using
+  // the combobox `aria-activedescendant` pattern so the caret stays in `input`.
+  function createResultNavigation(config) {
+    const input = config.input;
+    const list = config.list;
+    const activeClass = config.activeClass;
+    const onEscape = config.onEscape;
+    const idPrefix = (list.id || "acl-search-results") + "-option-";
+    let options = [];
+    let activeIndex = -1;
+
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    input.setAttribute("aria-haspopup", "listbox");
+    input.setAttribute("aria-expanded", "false");
+    list.setAttribute("role", "listbox");
+
+    function isOpen() {
+      return !list.hidden && options.length > 0;
+    }
+
+    function setActive(index, moveFocus) {
+      if (activeIndex >= 0 && options[activeIndex]) {
+        options[activeIndex].classList.remove(activeClass);
+        options[activeIndex].setAttribute("aria-selected", "false");
+      }
+      activeIndex = index;
+      if (activeIndex < 0 || !options[activeIndex]) {
+        activeIndex = -1;
+        input.removeAttribute("aria-activedescendant");
+        if (moveFocus) input.focus();
+        return;
+      }
+      const option = options[activeIndex];
+      option.classList.add(activeClass);
+      option.setAttribute("aria-selected", "true");
+      input.setAttribute("aria-activedescendant", option.id);
+      if (moveFocus) {
+        option.focus();
+      } else {
+        option.scrollIntoView({ block: "nearest" });
+      }
+    }
+
+    // Cycles through slot 0 (the input itself) plus one slot per option.
+    function move(direction) {
+      const slots = options.length + 1;
+      const next = (activeIndex + 1 + direction + slots) % slots;
+      setActive(next - 1, list.contains(document.activeElement));
+    }
+
+    function handleKeydown(event) {
+      if (event.key === "Escape") {
+        const hadActive = activeIndex >= 0;
+        setActive(-1, list.contains(document.activeElement));
+        if (onEscape) {
+          event.preventDefault();
+          onEscape();
+        } else if (hadActive) {
+          event.preventDefault();
+        }
+        return;
+      }
+
+      const direction = navigationDirection(event);
+      if (direction !== 0) {
+        if (!isOpen()) return;
+        event.preventDefault();
+        move(direction);
+        return;
+      }
+
+      if (event.key === "Enter" && isOpen() && activeIndex >= 0
+        && !list.contains(document.activeElement)) {
+        event.preventDefault();
+        options[activeIndex].click();
+      }
+    }
+
+    input.addEventListener("keydown", handleKeydown);
+    list.addEventListener("keydown", handleKeydown);
+
+    list.addEventListener("pointermove", function (event) {
+      const option = event.target.closest("a");
+      const index = option ? options.indexOf(option) : -1;
+      if (index >= 0 && index !== activeIndex) setActive(index, false);
+    });
+
+    // Keep the highlight in sync when a link is reached with Tab or the mouse.
+    list.addEventListener("focusin", function (event) {
+      const index = options.indexOf(event.target.closest("a"));
+      if (index >= 0 && index !== activeIndex) setActive(index, false);
+    });
+
+    return {
+      // Call whenever the list contents or its hidden state change.
+      refresh: function () {
+        if (activeIndex >= 0 && options[activeIndex]) {
+          options[activeIndex].classList.remove(activeClass);
+        }
+        activeIndex = -1;
+        input.removeAttribute("aria-activedescendant");
+        options = Array.from(list.querySelectorAll("a"));
+        options.forEach(function (option, index) {
+          option.id = idPrefix + index;
+          option.setAttribute("role", "option");
+          option.setAttribute("aria-selected", "false");
+          option.classList.remove(activeClass);
+        });
+        input.setAttribute("aria-expanded", isOpen() ? "true" : "false");
+      },
+    };
+  }
+
   function makeFullSearchLink(form, query) {
     const item = document.createElement("li");
     const link = document.createElement("a");
@@ -229,19 +355,20 @@
     let inputTimer;
     let searchVersion = 0;
 
+    const navigation = createResultNavigation({
+      input: input,
+      list: results,
+      activeClass: "is-active",
+      onEscape: function () {
+        closeResults();
+        input.focus();
+      },
+    });
+
     function closeResults() {
       searchVersion += 1;
       results.hidden = true;
-    }
-
-    function navigationDirection(event) {
-      if (event.key === "ArrowDown" || (event.ctrlKey && event.key.toLowerCase() === "n")) {
-        return 1;
-      }
-      if (event.key === "ArrowUp" || (event.ctrlKey && event.key.toLowerCase() === "p")) {
-        return -1;
-      }
-      return 0;
+      navigation.refresh();
     }
 
     function renderResults(query, matches, emptyMessage) {
@@ -259,6 +386,7 @@
 
       results.replaceChildren(...children);
       results.hidden = false;
+      navigation.refresh();
       status.textContent = matches.length === 1
         ? "1 matching author. Press Return for full search."
         : numberFormat.format(matches.length) + " matching authors. Press Return for full search.";
@@ -290,45 +418,6 @@
       inputTimer = setTimeout(search, 120);
     });
 
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        closeResults();
-        return;
-      }
-      const direction = navigationDirection(event);
-      if (direction === 0 || results.hidden) return;
-
-      const links = results.querySelectorAll("a");
-      const target = direction > 0 ? links[0] : links[links.length - 1];
-      if (!target) return;
-      event.preventDefault();
-      target.focus();
-    });
-
-    results.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeResults();
-        input.focus();
-        return;
-      }
-      const direction = navigationDirection(event);
-      if (direction === 0) return;
-
-      const links = Array.from(results.querySelectorAll("a"));
-      const current = links.indexOf(document.activeElement);
-      if (current < 0) return;
-      event.preventDefault();
-      if (direction < 0 && current === 0) {
-        input.focus();
-      } else {
-        const next = direction > 0
-          ? Math.min(current + 1, links.length - 1)
-          : current - 1;
-        links[next].focus();
-      }
-    });
-
     document.addEventListener("focusin", function (event) {
       if (!form.contains(event.target)) closeResults();
     });
@@ -343,6 +432,7 @@
   window.aclAuthorSearch = {
     authorUrl: authorUrl,
     cleanQuery: cleanQuery,
+    createResultNavigation: createResultNavigation,
     findAuthors: findAuthors,
     isVerified: isVerified,
     makeAuthorIdentity: makeAuthorIdentity,

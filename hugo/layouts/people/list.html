@@ -138,6 +138,12 @@
     let searchVersion = 0;
     let inputTimer;
 
+    const navigation = authorSearch.createResultNavigation({
+      input: input,
+      list: results,
+      activeClass: "is-active",
+    });
+
     function makeAuthorResult(entry) {
       const row = entry.row;
       const item = document.createElement("li");
@@ -172,6 +178,7 @@
       status.textContent = idleStatus;
       results.replaceChildren();
       results.hidden = true;
+      navigation.refresh();
     }
 
     async function search() {
@@ -187,6 +194,7 @@
 
       status.textContent = "Searching author pages...";
       results.hidden = true;
+      navigation.refresh();
 
       try {
         const outcome = await authorSearch.findAuthors(query, directory.dataset.indexBase);
@@ -196,6 +204,7 @@
         const visibleMatches = authorMatches.slice(0, resultLimit);
         results.replaceChildren(...visibleMatches.map(makeAuthorResult));
         results.hidden = visibleMatches.length === 0;
+        navigation.refresh();
 
         if (authorMatches.length === 0) {
           status.textContent = "No author pages match \"" + query + "\".";
@@ -208,6 +217,7 @@
       } catch (error) {
         if (version !== searchVersion) return;
         results.hidden = true;
+        navigation.refresh();
         status.textContent = "Search is temporarily unavailable.";
       }
     }
