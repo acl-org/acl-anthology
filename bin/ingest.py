@@ -66,7 +66,7 @@ def read_meta(path: str) -> Dict[str, Any]:
         for line in instream:
             if re.match(r"^\s*$", line):
                 continue
-            key, value = line.rstrip().split(" ", maxsplit=1)
+            key, value = re.split(r"\s+", line.rstrip(), maxsplit=1)
             if key.startswith("chair") or key.startswith("editor"):
                 # Allow for Bib format, an occasional error in the meta file
                 for value in value.split(" and "):
