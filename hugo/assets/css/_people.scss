@@ -7,15 +7,15 @@ $acl-people-red: #ed1c24;
 $acl-people-soft-blue: #e5f5fb;
 $acl-people-soft-green: #f2f8e6;
 
-.acl-author-directory-link {
-  --bs-btn-color: #{darken($acl-people-red, 10%)};
-  --bs-btn-border-color: #{darken($acl-people-red, 8%)};
-  --bs-btn-hover-color: #{darken($acl-people-red, 16%)};
+.acl-people-header-link {
+  --bs-btn-color: #{darken($blue, 8%)};
+  --bs-btn-border-color: #{darken($blue, 4%)};
+  --bs-btn-hover-color: #{darken($blue, 16%)};
   --bs-btn-hover-bg: transparent;
-  --bs-btn-hover-border-color: #{darken($acl-people-red, 16%)};
-  --bs-btn-active-color: #{darken($acl-people-red, 16%)};
+  --bs-btn-hover-border-color: #{darken($blue, 16%)};
+  --bs-btn-active-color: #{darken($blue, 16%)};
   --bs-btn-active-bg: transparent;
-  --bs-btn-active-border-color: #{darken($acl-people-red, 16%)};
+  --bs-btn-active-border-color: #{darken($blue, 16%)};
   background-color: transparent;
   font-weight: 600;
 }
@@ -34,10 +34,6 @@ $acl-people-soft-green: #f2f8e6;
 }
 
 .acl-people-index__header {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 2rem;
   padding: .7rem 0 1.35rem;
   border-bottom: .3rem solid #b00;
 
@@ -64,34 +60,6 @@ $acl-people-soft-green: #f2f8e6;
   font-weight: 700;
   line-height: 1.2;
   text-transform: uppercase;
-}
-
-.acl-people-index__verify {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  min-height: 2.8rem;
-  padding: .6rem .9rem;
-  border: 1px solid darken($cyan, 8%);
-  border-radius: .35rem;
-  background: $cyan;
-  color: $acl-people-ink;
-  font-size: .88rem;
-  font-weight: 650;
-
-  &:hover,
-  &:focus-visible {
-    border-color: darken($cyan, 16%);
-    background: darken($cyan, 10%);
-    color: $acl-people-ink;
-  }
-
-  &:focus-visible {
-    outline: .2rem solid rgba($cyan, .35);
-    outline-offset: .15rem;
-  }
 }
 
 .acl-people-stats {

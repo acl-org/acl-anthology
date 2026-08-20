@@ -7,13 +7,10 @@
 <main class="acl-people-index" data-author-directory
   data-index-base="{{ "people/index/" | relURL }}"
   data-people-base="{{ "people/" | relURL }}">
-  <header class="acl-people-index__header">
-    <div>
-      <h1>Author Directory</h1>
-    </div>
-    <a class="acl-people-index__verify" href="{{ $authorPages.RelPermalink }}">
-      <i class="fas fa-user-edit" aria-hidden="true"></i>
-      <span>Maintain your author page</span>
+  <header class="acl-people-index__header d-flex flex-wrap align-items-center gap-2 mb-2">
+    <h1 class="flex-grow-1 mb-0">Author Directory</h1>
+    <a class="btn btn-sm acl-people-header-link flex-shrink-0 ms-auto" href="{{ $authorPages.RelPermalink }}">
+      <i class="fas fa-user-edit me-1" aria-hidden="true"></i>Maintain your author page
     </a>
   </header>
 
