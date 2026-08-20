@@ -68,6 +68,41 @@
     return !row[1].endsWith("/unverified");
   }
 
+  function makeAuthorIdentity(entry, classNames) {
+    const row = entry.row;
+    const identity = document.createElement("span");
+    const heading = document.createElement("span");
+    const name = document.createElement("strong");
+    const meta = document.createElement("small");
+    const status = document.createElement("i");
+    const verified = isVerified(row);
+    const statusLabel = verified ? "Verified author" : "Unverified author";
+
+    identity.className = classNames.identity || "";
+    heading.className = classNames.heading || "";
+    name.textContent = row[0];
+    status.className = verified && row[3]
+      ? "fab fa-orcid " + classNames.verification + " text-verified"
+      : "fas fa-question-circle " + classNames.verification + " "
+        + (verified ? "text-verified" : "text-secondary");
+    status.title = statusLabel;
+    status.setAttribute("aria-label", statusLabel);
+    status.setAttribute("role", "img");
+
+    heading.append(name, status);
+    identity.append(heading);
+    const detailParts = entry.comment ? [entry.comment] : [];
+    const normalizedContext = normalize(row[0] + " " + entry.comment);
+    entry.nameVariants.forEach(function (variant) {
+      if (!normalizedContext.includes(normalize(variant))) detailParts.push(variant);
+    });
+    if (detailParts.length > 0) {
+      meta.textContent = detailParts.join(" \u00b7 ");
+      identity.append(meta);
+    }
+    return identity;
+  }
+
   function nameMatchRank(name, query) {
     if (name === query) return 0;
     if (name.startsWith(query)) return 1;
@@ -114,40 +149,17 @@
     const row = entry.row;
     const item = document.createElement("li");
     const link = document.createElement("a");
-    const identity = document.createElement("span");
-    const heading = document.createElement("span");
-    const name = document.createElement("strong");
-    const meta = document.createElement("small");
-    const status = document.createElement("i");
+    const identity = makeAuthorIdentity(entry, {
+      heading: "acl-navbar-search__author-heading",
+      verification: "acl-navbar-search__verification",
+    });
     const arrow = document.createElement("i");
-    const verified = isVerified(row);
-    const statusLabel = verified ? "Verified author" : "Unverified author";
 
     link.href = authorUrl(peopleBase, row[1]);
     link.className = "acl-navbar-search__author";
-    heading.className = "acl-navbar-search__author-heading";
-    name.textContent = row[0];
-    status.className = verified && row[3]
-      ? "fab fa-orcid acl-navbar-search__verification text-verified"
-      : "fas fa-question-circle acl-navbar-search__verification "
-        + (verified ? "text-verified" : "text-secondary");
-    status.title = statusLabel;
-    status.setAttribute("aria-label", statusLabel);
-    status.setAttribute("role", "img");
     arrow.className = "fas fa-arrow-right";
     arrow.setAttribute("aria-hidden", "true");
 
-    heading.append(name, status);
-    identity.append(heading);
-    const detailParts = entry.comment ? [entry.comment] : [];
-    const normalizedContext = normalize(row[0] + " " + entry.comment);
-    entry.nameVariants.forEach(function (variant) {
-      if (!normalizedContext.includes(normalize(variant))) detailParts.push(variant);
-    });
-    if (detailParts.length > 0) {
-      meta.textContent = detailParts.join(" \u00b7 ");
-      identity.append(meta);
-    }
     link.append(identity, arrow);
     item.append(link);
     return item;
@@ -333,6 +345,7 @@
     cleanQuery: cleanQuery,
     findAuthors: findAuthors,
     isVerified: isVerified,
+    makeAuthorIdentity: makeAuthorIdentity,
     normalize: normalize,
   };
 

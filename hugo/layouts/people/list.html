@@ -138,49 +138,22 @@
     let searchVersion = 0;
     let inputTimer;
 
-    function makeBadge(text, modifier) {
-      const badge = document.createElement("span");
-      badge.className = "acl-author-result__badge " + modifier;
-      badge.textContent = text;
-      return badge;
-    }
-
     function makeAuthorResult(entry) {
       const row = entry.row;
-      const verified = authorSearch.isVerified(row);
       const item = document.createElement("li");
       const link = document.createElement("a");
-      const identity = document.createElement("span");
-      const name = document.createElement("strong");
-      const meta = document.createElement("small");
-      const badges = document.createElement("span");
+      const identity = authorSearch.makeAuthorIdentity(entry, {
+        identity: "acl-author-result__identity",
+        heading: "acl-author-result__heading",
+        verification: "acl-author-result__verification",
+      });
       const arrow = document.createElement("i");
 
       link.href = authorSearch.authorUrl(directory.dataset.peopleBase, row[1]);
-      identity.className = "acl-author-result__identity";
-      name.textContent = row[0];
-      meta.textContent = numberFormat.format(row[2]) + (row[2] === 1 ? " paper" : " papers");
-      badges.className = "acl-author-result__badges";
-      badges.append(
-        makeBadge(
-          verified ? "Verified" : "Unverified",
-          verified
-            ? "acl-author-result__badge--verified"
-            : "acl-author-result__badge--unverified"
-        )
-      );
       arrow.className = "fas fa-arrow-right";
       arrow.setAttribute("aria-hidden", "true");
 
-      if (row[3]) {
-        const orcidIcon = document.createElement("i");
-        orcidIcon.className = "fab fa-orcid acl-author-result__orcid";
-        orcidIcon.title = "ORCID iD " + row[3];
-        name.append(" ", orcidIcon);
-      }
-
-      identity.append(name, meta);
-      link.append(identity, badges, arrow);
+      link.append(identity, arrow);
       item.append(link);
       return item;
     }
