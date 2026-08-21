@@ -48,6 +48,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
+import yaml
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
@@ -109,6 +110,103 @@ def make_progress():
         TimeRemainingColumn(elapsed_when_finished=True),
     ]
     return Progress(*columns, console=primary_console)
+
+
+def author_publications_by_year(papers):
+    """Count an author's papers by publication year."""
+    return Counter(
+        int(paper.year) for paper in papers if paper.year and paper.year.isdigit()
+    )
+
+
+def author_peak_year(papers):
+    """Return an author's peak publication year, preferring later median ties."""
+    year_counts = author_publications_by_year(papers)
+    if not year_counts:
+        return None
+
+    peak_count = max(year_counts.values())
+    peak_years = sorted(
+        year for year, count in year_counts.items() if count == peak_count
+    )
+    return peak_years[len(peak_years) // 2]
+
+
+def load_fellows(anthology, path):
+    """Load ACL Fellows and enrich them with data from their author pages."""
+    with open(path, encoding="utf-8") as yaml_file:
+        cohorts = yaml.safe_load(yaml_file)
+
+    fellows = []
+    seen_ids = set()
+    for year, entries in cohorts.items():
+        if not isinstance(year, int) or not isinstance(entries, list):
+            log.error(f"Invalid ACL Fellows cohort: {year!r}")
+            continue
+
+        for cohort_order, entry in enumerate(entries):
+            if isinstance(entry, str):
+                person_id = entry
+                metadata = {}
+            elif isinstance(entry, dict) and "id" in entry:
+                person_id = entry["id"]
+                metadata = entry
+            else:
+                log.error(f"Invalid ACL Fellow entry in {year}: {entry!r}")
+                continue
+
+            reason = metadata.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                log.error(f"Missing citation for ACL Fellow: {person_id}")
+                continue
+
+            if person_id in seen_ids:
+                log.error(f"Duplicate ACL Fellow: {person_id}")
+                continue
+            seen_ids.add(person_id)
+
+            person = anthology.get_person(person_id)
+            if person is None:
+                log.error(f"Unknown person ID for ACL Fellow: {person_id}")
+                continue
+            if person is None:
+                # Some fellow entries intentionally use /unverified IDs; if that
+                # record is absent, fall back to the corresponding verified ID.
+                fallback_person_id = person_id.removesuffix("/unverified")
+                if fallback_person_id != person_id:
+                    person = anthology.get_person(fallback_person_id)
+                if person is None:
+                    log.error(f"Unresolvable person ID for ACL Fellow: {person_id}")
+                    continue
+
+            canonical_name = person.canonical_name
+            papers = list(person.papers())
+            publication_counts = author_publications_by_year(papers)
+            timeline_available = person.is_explicit and "/unverified" not in person_id
+            fellow = {
+                "_cohort_order": cohort_order,
+                "_publication_counts": publication_counts,
+                "id": person_id,
+                "initials": "".join(
+                    part[0]
+                    for part in (canonical_name.first, canonical_name.last)
+                    if part
+                ),
+                "name": canonical_name.as_full(),
+                "peak_year": author_peak_year(papers) if timeline_available else None,
+                "reason": reason.strip(),
+                "timeline_available": timeline_available,
+                "year": year,
+            }
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source"):
+                if value := metadata.get(key):
+                    fellow[key] = value
+            fellows.append(fellow)
+
+    return sorted(
+        fellows,
+        key=lambda fellow: (-fellow["year"], fellow["_cohort_order"]),
+    )
 
 
 @cache
@@ -541,6 +639,56 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
+def fellows_to_dict(anthology, path):
+    """Build the ACL Fellows data structure consumed by Hugo."""
+    fellows = load_fellows(anthology, path)
+    timeline_fellows = [fellow for fellow in fellows if fellow["timeline_available"]]
+    first_year = min(min(fellow["_publication_counts"]) for fellow in timeline_fellows)
+    last_year = max(max(fellow["_publication_counts"]) for fellow in timeline_fellows)
+    years = range(first_year, last_year + 1)
+    max_count = max(
+        max(fellow["_publication_counts"].values()) for fellow in timeline_fellows
+    )
+    chart_height = 36
+    for fellow in fellows:
+        counts = fellow.pop("_publication_counts")
+        fellow.pop("_cohort_order")
+        if fellow["timeline_available"]:
+            fellow["publications"] = [
+                {
+                    "count": count,
+                    "height": max(1, round(count / max_count * chart_height))
+                    if count
+                    else 0,
+                    "year": year,
+                }
+                for year in years
+                for count in (counts.get(year, 0),)
+            ]
+
+    ticks = sorted({first_year, last_year, *range(1970, last_year + 1, 10)})
+    return {
+        "cohorts": sorted({fellow["year"] for fellow in fellows}, reverse=True),
+        "people": fellows,
+        "timeline": {
+            "bar_width": 6,
+            "chart_height": chart_height,
+            "first_year": first_year,
+            "last_year": last_year,
+            "max_count": max_count,
+            "ticks": [{"index": year - first_year, "year": year} for year in ticks],
+        },
+    }
+
+
+def export_fellows(anthology, importdir, builddir, dryrun):
+    print("Exporting ACL Fellows...")
+    data = fellows_to_dict(anthology, os.path.join(importdir, "yaml", "fellows.yaml"))
+    if not dryrun:
+        with open(f"{builddir}/data/fellows.json", "wb") as json_file:
+            json_file.write(ENCODER.encode(data))
+
+
 def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
     data = {
         "acronym": venue.acronym,
@@ -700,7 +848,7 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
-def export_anthology(anthology, builddir, clean=False, dryrun=False):
+def export_anthology(anthology, builddir, importdir=None, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
     to generate the website, as well as build/data-export/volumes/*.bib,
@@ -722,6 +870,12 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
         anthology, builddir, dryrun, paper_count=stats["paper_count"]
     )
     export_people(anthology, builddir, dryrun)
+    export_fellows(
+        anthology,
+        importdir or os.path.join(SCRIPTDIR, "..", "data"),
+        builddir,
+        dryrun,
+    )
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
@@ -753,7 +907,11 @@ if __name__ == "__main__":
         exit(1)
 
     export_anthology(
-        anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
+        anthology,
+        args["--exportdir"],
+        importdir=args["--importdir"],
+        clean=args["--clean"],
+        dryrun=args["--dry-run"],
     )
     if tracker.highest >= log.ERROR:
         exit(1)
