@@ -20,6 +20,14 @@ extractions in a parallel tree leaves the PDF tree untouched, so the two can be
 synced, served, or discarded independently. Override the roots with
 `--pdf-root` and `--output-root`.
 
+`hugo/static/.htaccess` serves them under the paper ID, alongside the existing
+`.pdf` and `.bib` shortcuts:
+
+```text
+https://aclanthology.org/2025.acl-long.1.json
+https://aclanthology.org/P17-1069.json
+```
+
 The motivating use is custom full-text search: each file carries both the
 Anthology's own metadata and GROBID's document structure, so an indexer can
 build one document per paper with separate fields — authors, venue names,
