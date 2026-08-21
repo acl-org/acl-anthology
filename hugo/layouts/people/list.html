@@ -1,15 +1,12 @@
 {{ define "main" }}
 {{ $stats := hugo.Data.people_stats }}
-{{ $authorPages := .Site.GetPage "/info/author-pages.md" }}
-{{ $verification := .Site.GetPage "/info/verification.md" }}
-{{ $orcid := .Site.GetPage "/info/orcid.md" }}
 
 <main class="acl-people-index" data-author-directory
   data-index-base="{{ "people/index/" | relURL }}"
   data-people-base="{{ "people/" | relURL }}">
   <header class="acl-people-index__header d-flex flex-wrap align-items-center gap-2 mb-2">
     <h1 class="flex-grow-1 mb-0">Author Directory</h1>
-    <a class="btn btn-sm acl-people-header-link flex-shrink-0 ms-auto" href="{{ $authorPages.RelPermalink }}">
+    <a class="btn btn-sm acl-people-header-link flex-shrink-0 ms-auto" href="{{ relref . "/info/author-pages.md" }}">
       <i class="fas fa-user-edit me-1" aria-hidden="true"></i>Maintain your author page
     </a>
   </header>
@@ -106,15 +103,15 @@
     </div>
     <div>
       <dt>{{ lang.FormatNumberCustom 0 $stats.verified_author_count }}</dt>
-      <dd><a href="{{ $verification.RelPermalink }}">verified authors</a></dd>
+      <dd><a href="{{ relref . "/info/verification.md" }}">verified authors</a></dd>
     </div>
     <div>
       <dt>{{ lang.FormatNumberCustom 0 $stats.orcid_author_count }}</dt>
-      <dd><a href="{{ $orcid.RelPermalink }}">with ORCID iDs</a></dd>
+      <dd><a href="{{ relref . "/info/orcid.md" }}">with ORCID iDs</a></dd>
     </div>
     <div>
       <dt>{{ lang.FormatNumberCustom 0 $stats.unverified_author_count }}</dt>
-      <dd><a href="{{ $verification.RelPermalink }}">unverified pages</a></dd>
+      <dd><a href="{{ relref . "/info/verification.md" }}">unverified pages</a></dd>
     </div>
   </dl>
 </main>
