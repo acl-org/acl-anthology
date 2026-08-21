@@ -386,6 +386,26 @@ def grobid_endpoint(base_url: str) -> str:
     return f"{base_url.rstrip('/')}/api/processFulltextDocument"
 
 
+def parse_version(payload: str) -> str:
+    """Read /api/version, which reports JSON in newer GROBID and text in older."""
+    payload = payload.strip()
+    try:
+        parsed = json.loads(payload)
+    except json.JSONDecodeError:
+        return payload or "unknown"
+    if isinstance(parsed, dict) and parsed.get("version"):
+        return str(parsed["version"])
+    return payload or "unknown"
+
+
+def error_summary(response: requests.Response) -> str:
+    """Describe a failed GROBID response, including its error code when given."""
+    message = " ".join(response.text.split())[:200]
+    if not message:
+        return f"HTTP {response.status_code}"
+    return f"HTTP {response.status_code}: {message}"
+
+
 def check_grobid(base_url: str, timeout: float) -> str:
     """Check GROBID readiness and return its reported version."""
     base_url = base_url.rstrip("/")
@@ -395,7 +415,7 @@ def check_grobid(base_url: str, timeout: float) -> str:
         raise RuntimeError(f"GROBID at {base_url} is not ready: {alive.text.strip()}")
     version = requests.get(f"{base_url}/api/version", timeout=(5, timeout))
     version.raise_for_status()
-    return version.text.strip() or "unknown"
+    return parse_version(version.text)
 
 
 def request_grobid(
@@ -475,7 +495,7 @@ def process_job(job: PaperJob) -> WorkResult:
                 "message": response.text[:2000],
             }
             atomic_write_json(job.json_path, result)
-            return WorkResult(job.paper_id, "error", f"HTTP {response.status_code}")
+            return WorkResult(job.paper_id, "error", error_summary(response))
 
         try:
             fulltext = parse_fulltext_tei(response.content)

@@ -539,6 +539,18 @@ def grobid_endpoint(base_url: str) -> str:
     return f"{base_url.rstrip('/')}/api/processHeaderDocument"
 
 
+def parse_version(payload: str) -> str:
+    """Read /api/version, which reports JSON in newer GROBID and text in older."""
+    payload = payload.strip()
+    try:
+        parsed = json.loads(payload)
+    except json.JSONDecodeError:
+        return payload or "unknown"
+    if isinstance(parsed, dict) and parsed.get("version"):
+        return str(parsed["version"])
+    return payload or "unknown"
+
+
 def check_grobid(base_url: str, timeout: float) -> str:
     """Check GROBID readiness and return its reported version."""
     base_url = base_url.rstrip("/")
@@ -548,7 +560,7 @@ def check_grobid(base_url: str, timeout: float) -> str:
         raise RuntimeError(f"GROBID at {base_url} is not ready: {alive.text.strip()}")
     version = requests.get(f"{base_url}/api/version", timeout=(5, timeout))
     version.raise_for_status()
-    return version.text.strip() or "unknown"
+    return parse_version(version.text)
 
 
 def request_grobid(
