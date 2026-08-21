@@ -357,10 +357,11 @@ L2T_CONTEXT.add_context_category(
 )
 LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
-# Consume horizontal whitespace around CRLF, CR, or LF source line endings.
-# Two or more consecutive line endings denote a blank line between paragraphs.
 LATEX_PARAGRAPH_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*){2,}")
 LATEX_LINE_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*)+")
+"""Consume horizontal whitespace around CRLF, CR, or LF source line endings.
+Two or more consecutive line endings denote a blank line between paragraphs.
+"""
 
 
 def _append_normalized_latex_text(element: etree._Element, text: str) -> None:
