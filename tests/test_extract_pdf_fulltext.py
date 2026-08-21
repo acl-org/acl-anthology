@@ -259,6 +259,12 @@ def test_atomic_write_json_replaces_file(tmp_path):
     assert list(path.parent.iterdir()) == [path]
 
 
+def test_atomic_write_json_is_world_readable(tmp_path):
+    path = tmp_path / "paper.json"
+    extract_pdf_fulltext.atomic_write_json(path, {"status": "success"})
+    assert path.stat().st_mode & 0o777 == 0o644
+
+
 def test_load_json_returns_none_for_broken_file(tmp_path):
     path = tmp_path / "broken.json"
     path.write_text("{not json", encoding="utf-8")

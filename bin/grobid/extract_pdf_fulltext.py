@@ -67,6 +67,7 @@ DEFAULT_PDF_ROOT = DEFAULT_ANTHOLOGY_FILES / "pdf"
 DEFAULT_OUTPUT_ROOT = DEFAULT_ANTHOLOGY_FILES / "grobid"
 DEFAULT_GROBID_URL = os.environ.get("GROBID_URL") or "http://localhost:8070"
 OUTPUT_SUFFIX = ".json"
+OUTPUT_MODE = 0o644
 
 SCHEMA_VERSION = 1
 TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
@@ -355,6 +356,8 @@ def atomic_write_json(path: Path, value: dict[str, Any]) -> None:
             stream.write(payload)
             stream.flush()
             os.fsync(stream.fileno())
+        # mkstemp creates 0600; the web server has to be able to read these.
+        os.chmod(temporary_path, OUTPUT_MODE)
         os.replace(temporary_path, path)
     finally:
         temporary_path.unlink(missing_ok=True)
