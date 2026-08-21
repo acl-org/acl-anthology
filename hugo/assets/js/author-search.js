@@ -27,8 +27,28 @@
     return initial >= "a" && initial <= "z" ? initial : "other";
   }
 
+  // Mirrors slugify_display_name() in bin/create_hugo_data.py.
+  function slugifyName(name) {
+    return name
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  // The index omits IDs it can rebuild from the name, and drops trailing empty
+  // fields; restore both so the rest of the code sees a full row.
+  function expandAuthorRow(row) {
+    while (row.length < 8) row.push("");
+    if (row[1] === 0) row[1] = slugifyName(row[0]);
+    else if (row[1] === 1) row[1] = slugifyName(row[0]) + "/unverified";
+    return row;
+  }
+
   function prepareAuthorRows(rows) {
     return rows.map(function (row) {
+      expandAuthorRow(row);
       const alternateNames = Array.isArray(row[4]) ? row[4] : row[4] ? [row[4]] : [];
       const nameVariants = Array.isArray(row[6]) ? row[6] : row[6] ? [row[6]] : [];
       const canonicalName = row[7] || row[0];

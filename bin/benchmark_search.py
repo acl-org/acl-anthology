@@ -79,6 +79,29 @@ def paper_buckets_for(token: str, available: set[str]) -> list[str]:
     return [prefix] if prefix in available else []
 
 
+def expand_author_row(row: list[Any]) -> list[Any]:
+    """Restore the fields the index omits, as expandAuthorRow() does in JS."""
+    row = [*row, *[""] * (8 - len(row))]
+    slug = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        "".join(
+            char
+            for char in unicodedata.normalize("NFKD", row[0])
+            if not 0x0300 <= ord(char) <= 0x036F
+        ).lower(),
+    ).strip("-")
+    if row[1] == 0:
+        row[1] = slug
+    elif row[1] == 1:
+        row[1] = f"{slug}/unverified"
+    return row
+
+
+def load_author_rows(payload: bytes) -> list[list[Any]]:
+    return [expand_author_row(row) for row in json.loads(payload)]
+
+
 def prepare_author_rows(rows: list[list[Any]]) -> list[dict[str, Any]]:
     """Precompute normalized author fields as the browser does after loading."""
     entries = []
@@ -272,7 +295,7 @@ def benchmark_authors(index_dir: Path, queries: tuple[str, ...], iterations: int
 
     raw_size = sum(path.stat().st_size for path in paths)
     gzip_size = sum(len(gzip.compress(path.read_bytes(), mtime=0)) for path in paths)
-    all_rows = [row for path in paths for row in json.loads(path.read_bytes())]
+    all_rows = [row for path in paths for row in load_author_rows(path.read_bytes())]
     unique_records = len({row[1] for row in all_rows})
 
     print("Author index")
@@ -288,10 +311,10 @@ def benchmark_authors(index_dir: Path, queries: tuple[str, ...], iterations: int
         path = index_dir / f"{bucket_for(query)}.json"
 
         def cold_search() -> list[dict[str, Any]]:
-            rows = json.loads(path.read_bytes())
+            rows = load_author_rows(path.read_bytes())
             return search_authors(prepare_author_rows(rows), query)
 
-        prepared = prepare_author_rows(json.loads(path.read_bytes()))
+        prepared = prepare_author_rows(load_author_rows(path.read_bytes()))
         matches = search_authors(prepared, query)
         cold_p50, cold_p95 = measure(cold_search, max(3, iterations // 5))
         warm_p50, warm_p95 = measure(lambda: search_authors(prepared, query), iterations)

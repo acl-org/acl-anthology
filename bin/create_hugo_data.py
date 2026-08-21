@@ -448,6 +448,38 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
 
 AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
 
+# Sentinels for a person ID that the browser can rebuild from the display name.
+# Keep slugify_display_name() in sync with slugifyName() in author-search.js.
+AUTHOR_ID_FROM_NAME = 0
+AUTHOR_ID_FROM_NAME_UNVERIFIED = 1
+
+
+def slugify_display_name(name: str) -> str:
+    """Reduce a display name to the person ID it would normally produce."""
+    stripped = "".join(
+        char
+        for char in unicodedata.normalize("NFKD", name)
+        if not 0x0300 <= ord(char) <= 0x036F
+    ).lower()
+    return re.sub(r"[^a-z0-9]+", "-", stripped).strip("-")
+
+
+def encode_author_id(person_id: str, full_name: str):
+    """Replace an ID derivable from the name with a sentinel, else keep it."""
+    slug = slugify_display_name(full_name)
+    if person_id == slug:
+        return AUTHOR_ID_FROM_NAME
+    if person_id == f"{slug}/unverified":
+        return AUTHOR_ID_FROM_NAME_UNVERIFIED
+    return person_id
+
+
+def trim_trailing_empty(row: list) -> list:
+    """Drop trailing empty fields; the browser restores them as defaults."""
+    while len(row) > 2 and row[-1] in ("", []):
+        row.pop()
+    return row
+
 
 def search_bucket_keys(searchable: str) -> set[str]:
     """Return initial-character buckets for all searchable tokens."""
@@ -515,7 +547,7 @@ def author_search_index(people):
         orcid = person.get("orcid", "")
         row = [
             person["full"],
-            person_id,
+            encode_author_id(person_id, person["full"]),
             len(person["papers"]),
             orcid,
             alternate_names,
@@ -529,16 +561,22 @@ def author_search_index(people):
         )
         if canonical_name and canonical_name != person["full"]:
             row.append(canonical_name)
+        trim_trailing_empty(row)
         searchable = " ".join(
             [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
         )
         for bucket in search_bucket_keys(searchable):
-            buckets[bucket].append(row)
+            buckets[bucket].append((person_id, row))
 
-    for rows in buckets.values():
-        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
-
-    return buckets
+    return {
+        bucket: [
+            row
+            for _, row in sorted(
+                entries, key=lambda entry: (entry[1][0].casefold(), entry[0])
+            )
+        ]
+        for bucket, entries in buckets.items()
+    }
 
 
 def export_author_index(people, builddir):

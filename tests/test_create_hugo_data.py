@@ -11,6 +11,8 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
+    AUTHOR_ID_FROM_NAME,
+    AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
     author_search_index,
     author_stats,
@@ -105,7 +107,7 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     index = author_search_index(people)
     ada_row = [
         "Ada Lovelace",
-        "ada-lovelace",
+        0,  # ID rebuilt from the name by the browser
         1,
         "0000-0000-0000-0001",
         ["Augusta Ada King", "Ada King, Countess of Lovelace"],
@@ -162,9 +164,33 @@ def test_author_index_includes_undecorated_canonical_name_for_ranking():
     }
 
     row = next(
-        row for row in author_search_index(people)["y"] if row[1] == "yang-liu-icsi"
+        row for row in author_search_index(people)["y"] if row[0] == "Yang Liu (刘扬)"
     )
+    assert row[1] == "yang-liu-icsi"
     assert row[7] == "Yang Liu"
+
+
+def test_author_index_omits_ids_the_browser_can_rebuild():
+    people = {
+        "ada-lovelace": {"full": "Ada Lovelace", "papers": ["paper-1"]},
+        "wei-zhang/unverified": {"full": "Wei Zhang", "papers": ["paper-2"]},
+        # 'ø' survives NFKD, so this ID cannot be derived and is kept verbatim
+        "anne-moller": {"full": "Anne Møller", "papers": ["paper-3"]},
+    }
+
+    rows = {row[0]: row for row in author_search_index(people)["a"]}
+    assert rows["Ada Lovelace"][1] == AUTHOR_ID_FROM_NAME
+    assert rows["Anne Møller"][1] == "anne-moller"
+    zhang = next(row for row in author_search_index(people)["z"])
+    assert zhang[1] == AUTHOR_ID_FROM_NAME_UNVERIFIED
+
+
+def test_author_index_drops_trailing_empty_fields():
+    people = {"ada-lovelace": {"full": "Ada Lovelace", "papers": ["paper-1"]}}
+
+    (row,) = author_search_index(people)["a"]
+
+    assert row == ["Ada Lovelace", AUTHOR_ID_FROM_NAME, 1]
 
 
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
