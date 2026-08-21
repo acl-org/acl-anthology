@@ -225,6 +225,24 @@ def test_grobid_endpoint_uses_fulltext_service():
     assert endpoint == "http://localhost:8070/api/processFulltextDocument"
 
 
+def test_parse_version_accepts_json_and_plain_text():
+    assert extract_pdf_fulltext.parse_version('{"version":"0.9.0","revision":"x"}\n') == (
+        "0.9.0"
+    )
+    assert extract_pdf_fulltext.parse_version("  0.8.1 ") == "0.8.1"
+    assert extract_pdf_fulltext.parse_version("") == "unknown"
+    assert extract_pdf_fulltext.parse_version('{"revision":"x"}') == '{"revision":"x"}'
+
+
+def test_error_summary_includes_grobid_message():
+    response = SimpleNamespace(status_code=500, text="[NO_BLOCKS]\n  no text found\n")
+    summary = extract_pdf_fulltext.error_summary(response)
+    assert summary == "HTTP 500: [NO_BLOCKS] no text found"
+    assert extract_pdf_fulltext.error_summary(
+        SimpleNamespace(status_code=400, text="")
+    ) == ("HTTP 400")
+
+
 def test_single_paper_requires_exactly_one_match():
     paper = make_paper("2025.acl", "2025.acl-long.1")
     assert extract_pdf_fulltext.single_paper([paper], ["2025.acl-long.1"]) == [paper]

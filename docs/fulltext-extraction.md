@@ -101,13 +101,18 @@ Python are both too old, and the version stays pinned to the same image the
 `make grobid` target uses on developer machines.
 
 The default image is `grobid/grobid:0.9.0-full`, whose header and affiliation
-models are the more accurate ones. The image is large (approximately 10 GB) and
-the service is memory hungry; for full-text search the CRF-only image is the
-better trade on a shared server, and is much lighter and faster:
+models are the more accurate ones, but it is the wrong trade for this job: it is
+about 8 GB because it carries TensorFlow and pre-loaded embeddings, and without
+a GPU its deep-learning models are considerably slower. Upstream recommends the
+lightweight CRF-only image (about 500 MB) precisely for full-text extraction
+feeding search, so set it here:
 
 ```console
 $ GROBID_IMAGE=grobid/grobid:0.9.0-crf bin/aclanthology.org/grobid-cronjob.sh
 ```
+
+The image is only read when the container is *created* — `docker rm -f
+acl-anthology-grobid` first if you are switching.
 
 The port is published on `127.0.0.1` only — the service must not be reachable
 from the outside. To check on it by hand:
@@ -170,6 +175,57 @@ and is picked up next time.
 Budget disk accordingly: the JSON for a paper is roughly the size of its text,
 so the full corpus adds up to tens of gigabytes. The files compress very well;
 serve them with on-the-fly gzip if they are ever exposed.
+
+### 5. Throughput
+
+Extraction is already parallel: `--jobs N` (`GROBID_JOBS`) runs N concurrent
+GROBID requests from a bounded thread pool. The default when calling the script
+directly is 1, which is why an unadorned run looks serial; the cron wrapper
+passes 4. Every hundred papers the run prints its rate, which is the number to
+extrapolate from:
+
+```text
+Extracted 400/1603 scheduled papers (2.7/s).
+```
+
+The ceiling is the service, not the client. GROBID processes requests from a
+pool sized by `concurrency` in `grobid-home/config/grobid.yaml`, default 10;
+beyond that it answers HTTP 503, which this script treats as transient and
+retries with backoff. So raising `--jobs` past 10 buys nothing until that
+configuration changes, and environment variables can no longer be used for it —
+the file has to be mounted into the container:
+
+```console
+$ docker run ... -v /path/to/grobid.yaml:/opt/grobid/grobid-home/config/grobid.yaml:ro ...
+```
+
+Upstream advises setting `concurrency` slightly above the host's thread count.
+A good starting point is therefore `--jobs` ≈ `nproc`, capped at 10 until the
+config is mounted. Watch memory as well: GROBID wants roughly 4 GB for
+full-text processing and 6–8 GB under parallel batch load.
+
+On the current server — 8 CPUs, also serving aclanthology.org — use half the
+machine and enforce it in the container rather than trusting the client:
+
+```console
+$ docker run --detach --name acl-anthology-grobid \
+    --restart unless-stopped --init --ulimit core=0 \
+    --cpus 4 --publish 127.0.0.1:8070:8070 \
+    grobid/grobid:0.9.0-crf
+
+$ GROBID_JOBS=4 GROBID_LIMIT=2000 bin/aclanthology.org/grobid-cronjob.sh
+```
+
+Each concurrent request keeps roughly one core busy, so `--cpus 4` leaves four
+for the web server and the system, and the cap covers the `pdfalto` child
+processes too. Setting `--jobs` above the cap only queues work inside GROBID
+and raises its memory use, so keep the two numbers equal. The client itself is
+almost idle — it waits on HTTP — apart from the one-off Anthology load at
+startup.
+
+Watch `docker stats acl-anthology-grobid` and site latency during the first
+capped run before changing anything. If the site is unaffected, `--cpus 6` is
+the next step; the backfill runs at night, when traffic is lowest.
 
 ## Running it by hand
 
