@@ -56,7 +56,7 @@ endif
 # Easiest if the server can just serve them from /anthology-files.
 ANTHOLOGYFILES ?= /var/www/anthology-files
 
-# Local GROBID service used by bin/extract_pdf_metadata.py. The full image uses
+# Local GROBID service used by bin/grobid/extract_pdf_metadata.py. The full image uses
 # the more accurate header and affiliation models; override GROBID_IMAGE with
 # grobid/grobid:$(GROBID_VERSION)-crf for the smaller CRF-only image.
 GROBID_VERSION ?= 0.9.0
@@ -305,6 +305,20 @@ grobid:
 	echo "FATAL    GROBID did not become ready within $(GROBID_STARTUP_TIMEOUT) seconds. Recent logs:"; \
 	docker logs --tail 50 "$(GROBID_CONTAINER)"; \
 	exit 1
+
+# Extract full text for every PDF that has no current extraction. Output goes
+# into $(ANTHOLOGYFILES)/grobid, which mirrors $(ANTHOLOGYFILES)/pdf.
+# This is what bin/aclanthology.org/grobid-cronjob.sh runs on the server;
+# override the concurrency with GROBID_JOBS=N.
+GROBID_JOBS ?= 4
+
+.PHONY: fulltext
+fulltext: grobid
+	uv run python bin/grobid/extract_pdf_fulltext.py --all \
+	    --jobs $(GROBID_JOBS) \
+	    --grobid-url $(GROBID_URL) \
+	    --pdf-root $(ANTHOLOGYFILES)/pdf \
+	    --output-root $(ANTHOLOGYFILES)/grobid
 
 # Sometimes after a merge conflict the entries in people.json
 # get miss-sorted. This corrects that by reloading and saving the file.
