@@ -33,7 +33,6 @@ Options:
 """
 
 from docopt import docopt
-from calendar import monthrange
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
@@ -302,57 +301,6 @@ def explicitly_colocated_volume_ids(anthology):
     }
 
 
-def subtract_months(value, months):
-    """Return a date shifted back by a number of calendar months."""
-    month_index = value.year * 12 + value.month - 1 - months
-    year, zero_based_month = divmod(month_index, 12)
-    month = zero_based_month + 1
-    day = min(value.day, monthrange(year, month)[1])
-    return date(year, month, day)
-
-
-def recent_top_level_events(anthology, current_date=None):
-    """Return top-level events ingested within the past three months."""
-    current_date = current_date or date.today()
-    cutoff = subtract_months(current_date, 3)
-    recent_events = []
-    explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
-
-    for event in anthology.events.values():
-        venue_id, year = event.id.rsplit("-", 1)
-        venue = anthology.venues.get(venue_id)
-        if venue_id == "ws" or venue is None or not venue.is_toplevel:
-            continue
-
-        own_volume_ids = {
-            volume_id
-            for volume_id, link_type in event.colocated_ids.items()
-            if link_type == EventLink.INFERRED
-        }
-        if own_volume_ids & explicitly_colocated_ids:
-            continue
-
-        ingest_date = max(
-            (volume.ingest_date for volume in event.volumes()), default=None
-        )
-        if ingest_date is None or not cutoff <= ingest_date <= current_date:
-            continue
-
-        recent_events.append(
-            {
-                "id": event.id,
-                "label": f"{venue.acronym} {year}",
-                "ingest_date": ingest_date.isoformat(),
-            }
-        )
-
-    return sorted(
-        recent_events,
-        key=lambda event: (event["ingest_date"], event["label"]),
-        reverse=True,
-    )
-
-
 def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
@@ -403,7 +351,7 @@ def homepage_venue_sort_key(venue_id, acronym, homepage_group):
     return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
-def homepage_stats(anthology, current_date=None):
+def homepage_stats(anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -419,7 +367,6 @@ def homepage_stats(anthology, current_date=None):
         ),
         "oldest_year": min(volume.year for volume in volumes),
         "newest_year": max(volume.year for volume in volumes),
-        "recent_events": recent_top_level_events(anthology, current_date),
     }
 
 
@@ -560,12 +507,31 @@ def author_search_index(people):
     buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
 
     for person_id, person in people.items():
-        variants = " ".join(
+        alternate_names = [
             variant["full"] for variant in person.get("variant_entries", [])
-        )
+        ]
+        name_variants = person.get("name_variants", [])
+        comment = person.get("comment", "")
         orcid = person.get("orcid", "")
-        row = [person["full"], person_id, len(person["papers"]), orcid, variants]
-        searchable = " ".join((person["full"], variants, orcid))
+        row = [
+            person["full"],
+            person_id,
+            len(person["papers"]),
+            orcid,
+            alternate_names,
+            comment,
+            name_variants,
+        ]
+        canonical_name = " ".join(
+            name_part
+            for name_part in (person.get("first"), person.get("last"))
+            if name_part
+        )
+        if canonical_name and canonical_name != person["full"]:
+            row.append(canonical_name)
+        searchable = " ".join(
+            [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
+        )
         for bucket in search_bucket_keys(searchable):
             buckets[bucket].append(row)
 
@@ -647,6 +613,15 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
+            name_variants = sorted(
+                {
+                    variant.as_full()
+                    for namespec in person.namespecs()
+                    for variant in namespec.variants
+                }
+            )
+            if name_variants:
+                data["name_variants"] = name_variants
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:

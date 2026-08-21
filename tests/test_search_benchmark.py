@@ -42,6 +42,43 @@ def test_author_search_normalizes_and_ranks_like_browser():
     assert search_authors(entries, "0000-0002")[0]["row"][1] == "matt-post"
 
 
+def test_author_search_ranks_surface_forms_and_breaks_ties_by_id():
+    rows = [
+        ["Yang Liu", "yang-liu-z", 29, "", [], "", []],
+        ["Yang Janet Liu", "yang-janet-liu", 29, "", ["Yang Liu"], "", []],
+        ["Yang Liu (刘洋)", "yang-liu-ict", 87, "", ["刘洋"], "", ["刘洋"], "Yang Liu"],
+        ["Yanghua Xiao", "yanghua-xiao", 89, "", [], "", []],
+        [
+            "Yang Liu (刘扬)",
+            "yang-liu-icsi",
+            103,
+            "",
+            ["Y. Liu"],
+            "",
+            ["刘扬"],
+            "Yang Liu",
+        ],
+        ["Yang Liu", "yang-liu-a", 29, "", [], "", []],
+    ]
+    entries = prepare_author_rows(rows)
+
+    assert [entry["row"][1] for entry in search_authors(entries, "Yang")] == [
+        "yang-liu-icsi",
+        "yanghua-xiao",
+        "yang-liu-ict",
+        "yang-janet-liu",
+        "yang-liu-a",
+        "yang-liu-z",
+    ]
+    assert [entry["row"][1] for entry in search_authors(entries, "Yang Liu")] == [
+        "yang-liu-icsi",
+        "yang-liu-ict",
+        "yang-janet-liu",
+        "yang-liu-a",
+        "yang-liu-z",
+    ]
+
+
 def test_paper_search_distinguishes_title_and_author_intersection():
     rows = [
         [

@@ -1,4 +1,4 @@
 ---
-Title: Authors
+Title: Author Directory
 render_pagelist: false
 ---
