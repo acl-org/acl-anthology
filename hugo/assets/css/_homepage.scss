@@ -80,7 +80,7 @@
 
 .acl-home-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.08rem;
   margin: .75rem 0 0;
   padding: .65rem 0 0;
@@ -103,6 +103,19 @@
     color: var(--acl-home-muted);
     font-size: .81rem;
     line-height: 1.4;
+  }
+
+  a {
+    color: darken($acl-logo-red, 8%);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: .08em;
+    text-underline-offset: .12em;
+
+    &:hover,
+    &:focus-visible {
+      color: darken($acl-logo-red, 16%);
+    }
   }
 }
 

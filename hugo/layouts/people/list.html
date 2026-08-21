@@ -1,0 +1,294 @@
+{{ define "main" }}
+{{ $stats := hugo.Data.people_stats }}
+{{ $authorPages := .Site.GetPage "/info/author-pages.md" }}
+{{ $verification := .Site.GetPage "/info/verification.md" }}
+{{ $orcid := .Site.GetPage "/info/orcid.md" }}
+
+<main class="acl-people-index" data-author-directory
+  data-index-base="{{ "people/index/" | relURL }}"
+  data-people-base="{{ "people/" | relURL }}">
+  <header class="acl-people-index__header d-flex flex-wrap align-items-center gap-2 mb-2">
+    <h1 class="flex-grow-1 mb-0">Author Directory</h1>
+    <a class="btn btn-sm acl-people-header-link flex-shrink-0 ms-auto" href="{{ $authorPages.RelPermalink }}">
+      <i class="fas fa-user-edit me-1" aria-hidden="true"></i>Maintain your author page
+    </a>
+  </header>
+
+  <section class="acl-author-search" aria-labelledby="author-search-heading">
+      <div class="acl-author-search__heading">
+        <div>
+          <h2 id="author-search-heading">Find authors</h2>
+          <p>Search author names, published variants, or ORCID iDs.</p>
+        </div>
+        <i class="fas fa-users" aria-hidden="true"></i>
+      </div>
+
+      <form role="search" data-author-search>
+        <label for="author-search-input">Author name or ORCID iD</label>
+        <div class="acl-author-search__field">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input id="author-search-input" type="search" inputmode="search"
+                 autocomplete="off" autocapitalize="none" spellcheck="false"
+                 placeholder="e.g., Matt Post or 0000-0002-..."
+                 aria-describedby="author-search-status"
+                 aria-controls="author-search-results"
+                 data-author-search-input>
+          <button type="button" title="Clear search" aria-label="Clear search"
+                  data-author-search-clear hidden>
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <button class="visually-hidden" type="submit">Show all results</button>
+      </form>
+
+      <p class="acl-author-search__status" id="author-search-status"
+        role="status" aria-live="polite" data-author-search-status>Enter at least two characters.</p>
+      <ul class="acl-author-results" id="author-search-results"
+          aria-label="Author search results" data-author-search-results hidden></ul>
+      <noscript>
+        <p class="acl-author-search__fallback">JavaScript is required for the local index. You can still use the <a href="{{ "search/" | relURL }}">site search</a>.</p>
+      </noscript>
+  </section>
+
+  {{ with $stats.first_paper_year_hist }}
+  {{ $peak := index (sort . "count" "desc") 0 }}
+  {{ $maxCount := $peak.count }}
+  {{ $first := index . 0 }}
+  {{ $latest := index (last 1 .) 0 }}
+  <section class="acl-people-histogram" aria-labelledby="author-histogram-heading">
+    <div class="acl-people-histogram__heading">
+      <div>
+        <h2 id="author-histogram-heading">New authors by year</h2>
+        <p>Each author page is counted once, in the year its earliest paper appeared.</p>
+        <div class="acl-people-histogram__legend" aria-label="Author verification status">
+          <span><i class="acl-people-histogram__swatch acl-people-histogram__swatch--verified" aria-hidden="true"></i>Verified</span>
+          <span><i class="acl-people-histogram__swatch acl-people-histogram__swatch--unverified" aria-hidden="true"></i>Unverified</span>
+        </div>
+      </div>
+      <i class="fas fa-chart-bar" aria-hidden="true"></i>
+    </div>
+
+    <figure class="acl-people-histogram__figure">
+      <ol class="acl-people-histogram__bars">
+        {{ range . }}
+        {{ $height := 0 }}
+        {{ $verifiedPercent := 0 }}
+        {{ if gt $maxCount 0 }}{{ $height = math.Round (mul (div (float .count) $maxCount) 100) }}{{ end }}
+        {{ if gt .count 0 }}{{ $verifiedPercent = int (math.Round (mul (div (float .verified_count) .count) 100)) }}{{ end }}
+        <li class="acl-people-histogram__bar{{ if eq .count 0 }} is-empty{{ end }}"
+            style="--bar-height: {{ $height }}%; --verified-share: {{ $verifiedPercent }}%;"
+            title="{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new author{{ if ne .count 1 }}s{{ end }}; {{ lang.FormatNumberCustom 0 .verified_count }} verified ({{ $verifiedPercent }}%)">
+          <span class="acl-people-histogram__column" aria-hidden="true">
+            <span class="acl-people-histogram__segment acl-people-histogram__segment--unverified"></span>
+            <span class="acl-people-histogram__segment acl-people-histogram__segment--verified"></span>
+          </span>
+          {{ if or (eq (mod .year 10) 0) (eq .year $first.year) (eq .year $latest.year) }}
+          <span class="acl-people-histogram__tick{{ if or (eq .year $first.year) (eq .year $latest.year) }} is-endpoint{{ end }}" aria-hidden="true">{{ .year }}</span>
+          {{ end }}
+          <span class="visually-hidden">{{ .year }}: {{ lang.FormatNumberCustom 0 .count }} new authors; {{ lang.FormatNumberCustom 0 .verified_count }} verified, {{ $verifiedPercent }} percent</span>
+        </li>
+        {{ end }}
+      </ol>
+      <figcaption class="acl-people-histogram__caption">
+        Authors are placed in the year of their first Anthology paper
+        ({{ $first.year }}&ndash;{{ $latest.year }}). The busiest debut year so far is
+        {{ $peak.year }}, with {{ lang.FormatNumberCustom 0 $peak.count }} new authors;
+        the most recent year keeps growing as new volumes are ingested.
+      </figcaption>
+    </figure>
+  </section>
+  {{ end }}
+
+  <dl class="acl-people-stats" aria-label="Author index statistics">
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.author_count }}</dt>
+      <dd>author pages</dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.verified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">verified authors</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.orcid_author_count }}</dt>
+      <dd><a href="{{ $orcid.RelPermalink }}">with ORCID iDs</a></dd>
+    </div>
+    <div>
+      <dt>{{ lang.FormatNumberCustom 0 $stats.unverified_author_count }}</dt>
+      <dd><a href="{{ $verification.RelPermalink }}">unverified pages</a></dd>
+    </div>
+  </dl>
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+<script>
+  (function () {
+    const directory = document.querySelector("[data-author-directory]");
+    if (!directory) return;
+
+    const form = directory.querySelector("[data-author-search]");
+    const input = directory.querySelector("[data-author-search-input]");
+    const clearButton = directory.querySelector("[data-author-search-clear]");
+    const status = directory.querySelector("[data-author-search-status]");
+    const results = directory.querySelector("[data-author-search-results]");
+    const authorSearch = window.aclAuthorSearch;
+    const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
+    const resultLimit = 20;
+    const idleStatus = "Enter at least two characters.";
+    let searchVersion = 0;
+    let inputTimer;
+    let currentQuery = "";
+    let currentMatches = [];
+    let showingAll = false;
+
+    const navigation = authorSearch.createResultNavigation({
+      input: input,
+      list: results,
+      activeClass: "is-active",
+      optionSelector: "a, button",
+    });
+
+    function makeAuthorResult(entry) {
+      const row = entry.row;
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const identity = authorSearch.makeAuthorIdentity(entry, {
+        identity: "acl-author-result__identity",
+        heading: "acl-author-result__heading",
+        verification: "acl-author-result__verification",
+      });
+      const arrow = document.createElement("i");
+
+      link.href = authorSearch.authorUrl(directory.dataset.peopleBase, row[1]);
+      arrow.className = "fas fa-arrow-right";
+      arrow.setAttribute("aria-hidden", "true");
+
+      link.append(identity, arrow);
+      item.append(link);
+      return item;
+    }
+
+    function countDescription(shown, total) {
+      const label = total === 1 ? "author page" : "author pages";
+      if (shown < total) {
+        return "Showing " + numberFormat.format(shown) + " of "
+          + numberFormat.format(total) + " " + label;
+      }
+      return numberFormat.format(total) + " " + label;
+    }
+
+    function makeShowAllResult(total) {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      const icon = document.createElement("i");
+      const label = document.createElement("span");
+      const hint = document.createElement("small");
+
+      item.className = "acl-author-results__command";
+      button.type = "button";
+      button.dataset.showAll = "";
+      icon.className = "fas fa-list-ul";
+      icon.setAttribute("aria-hidden", "true");
+      label.append("Show all " + numberFormat.format(total) + " results");
+      hint.className = "acl-author-results__hint";
+      hint.textContent = "Press Return to show all";
+      label.append(hint);
+      button.append(icon, label);
+      item.append(button);
+      return item;
+    }
+
+    function renderMatches() {
+      const total = currentMatches.length;
+      const truncated = !showingAll && total > resultLimit;
+      const visible = truncated ? currentMatches.slice(0, resultLimit) : currentMatches;
+      const children = visible.map(makeAuthorResult);
+
+      if (truncated) children.unshift(makeShowAllResult(total));
+      results.replaceChildren(...children);
+      results.hidden = total === 0;
+      navigation.refresh();
+
+      if (total === 0) {
+        status.textContent = "No author pages match \"" + currentQuery + "\".";
+      } else {
+        status.textContent = countDescription(visible.length, total) + ".";
+      }
+    }
+
+    function resetResults() {
+      searchVersion += 1;
+      currentMatches = [];
+      showingAll = false;
+      status.textContent = idleStatus;
+      results.replaceChildren();
+      results.hidden = true;
+      navigation.refresh();
+    }
+
+    async function search() {
+      const query = authorSearch.cleanQuery(input.value);
+      const normalizedQuery = authorSearch.normalize(query);
+      const version = ++searchVersion;
+
+      clearButton.hidden = input.value.length === 0;
+      if (normalizedQuery.length < 2) {
+        resetResults();
+        return;
+      }
+
+      status.textContent = "Searching author pages...";
+      results.hidden = true;
+      navigation.refresh();
+
+      try {
+        const outcome = await authorSearch.findAuthors(query, directory.dataset.indexBase);
+        if (version !== searchVersion) return;
+        currentQuery = query;
+        currentMatches = outcome.matches;
+        showingAll = false;
+        renderMatches();
+      } catch (error) {
+        if (version !== searchVersion) return;
+        currentMatches = [];
+        results.hidden = true;
+        navigation.refresh();
+        status.textContent = "Search is temporarily unavailable.";
+      }
+    }
+
+    function showAllResults() {
+      if (showingAll || currentMatches.length <= resultLimit) return false;
+      showingAll = true;
+      renderMatches();
+      input.focus();
+      return true;
+    }
+
+    input.addEventListener("input", function () {
+      clearTimeout(inputTimer);
+      clearButton.hidden = input.value.length === 0;
+      inputTimer = setTimeout(search, 120);
+    });
+
+    results.addEventListener("click", function (event) {
+      if (event.target.closest("[data-show-all]")) showAllResults();
+    });
+
+    clearButton.addEventListener("click", function () {
+      clearTimeout(inputTimer);
+      input.value = "";
+      clearButton.hidden = true;
+      resetResults();
+      input.focus();
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (showAllResults()) return;
+      const firstResult = results.querySelector("a");
+      if (firstResult) firstResult.click();
+    });
+  })();
+</script>
+{{ end }}
