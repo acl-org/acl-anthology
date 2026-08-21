@@ -190,7 +190,7 @@ def test_output_path_mirrors_old_style_tree():
 
 def current_result(source):
     return {
-        "schema_version": extract_pdf_fulltext.SCHEMA_VERSION,
+        "extraction_version": extract_pdf_fulltext.EXTRACTION_VERSION,
         "status": "success",
         "source": source,
         "extractor": {"options": extract_pdf_fulltext.GROBID_REQUEST_OPTIONS},
@@ -210,11 +210,17 @@ def test_result_is_current_rejects_changed_pdf():
         assert not extract_pdf_fulltext.result_is_current(result, SOURCE)
 
 
-def test_result_is_current_rejects_old_schema_and_options():
-    stale_schema = current_result(SOURCE) | {"schema_version": 0}
-    assert not extract_pdf_fulltext.result_is_current(stale_schema, SOURCE)
+def test_result_is_current_rejects_old_version_and_options():
+    stale_version = current_result(SOURCE) | {"extraction_version": 0}
+    assert not extract_pdf_fulltext.result_is_current(stale_version, SOURCE)
     stale_options = current_result(SOURCE) | {"extractor": {"options": {}}}
     assert not extract_pdf_fulltext.result_is_current(stale_options, SOURCE)
+
+
+def test_result_is_current_rejects_missing_version():
+    result = current_result(SOURCE)
+    del result["extraction_version"]
+    assert not extract_pdf_fulltext.result_is_current(result, SOURCE)
 
 
 def test_result_is_current_rejects_incomplete_status():
