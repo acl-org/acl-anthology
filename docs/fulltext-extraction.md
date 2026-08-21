@@ -105,6 +105,27 @@ Papers whose PDF is not in the local tree are counted as `missing-pdf` and
 skipped; unlike the header-extraction spike, this job never downloads PDFs,
 because it is meant to run where the canonical files already are.
 
+### Testing a single PDF
+
+`--pdf FILE` reads one PDF from anywhere instead of from the tree. It needs a
+selector matching exactly one paper — that paper supplies the `metadata` block
+and determines where the output lands — and it implies `--force`, so repeated
+test runs always re-extract:
+
+```console
+make grobid    # once, to have a service running
+
+bin/grobid/extract_pdf_fulltext.py 2025.acl-long.1 \
+    --pdf ~/Downloads/paper.pdf \
+    --output-root /tmp/grobid-test
+
+jq . /tmp/grobid-test/acl/2025.acl-long.1.json
+```
+
+Point `--output-root` at a scratch directory so the test never touches the real
+extraction tree. To test a PDF that is already in the tree, drop `--pdf` and
+pass `--force` instead.
+
 ## Incremental behavior
 
 A paper is sent to GROBID when any of the following holds:
