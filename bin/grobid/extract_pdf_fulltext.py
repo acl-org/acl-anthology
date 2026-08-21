@@ -69,7 +69,10 @@ DEFAULT_GROBID_URL = os.environ.get("GROBID_URL") or "http://localhost:8070"
 OUTPUT_SUFFIX = ".json"
 OUTPUT_MODE = 0o644
 
-SCHEMA_VERSION = 1
+# Bump whenever a run should produce different output than the last one did:
+# changed request options, a changed TEI projection, or a changed output shape.
+# Every extraction records it, and mismatched records are re-extracted.
+EXTRACTION_VERSION = 2
 TEI_NAMESPACE = "http://www.tei-c.org/ns/1.0"
 NS = {"tei": TEI_NAMESPACE}
 GROBID_REQUEST_OPTIONS = {
@@ -376,7 +379,7 @@ def load_json(path: Path) -> dict[str, Any] | None:
 
 def result_is_current(result: dict[str, Any], source: dict[str, Any]) -> bool:
     """Return whether an existing extraction still describes this PDF."""
-    if result.get("schema_version") != SCHEMA_VERSION:
+    if result.get("extraction_version") != EXTRACTION_VERSION:
         return False
     if result.get("status") not in CACHEABLE_STATUSES:
         return False
@@ -462,7 +465,7 @@ def request_grobid(
 
 def base_result(job: PaperJob, status: str, version: str | None = None) -> dict[str, Any]:
     return {
-        "schema_version": SCHEMA_VERSION,
+        "extraction_version": EXTRACTION_VERSION,
         "status": status,
         "paper_id": job.paper_id,
         "extracted": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

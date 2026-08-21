@@ -283,7 +283,7 @@ A paper is sent to GROBID when any of the following holds:
 
 - it has no JSON file in the extraction tree;
 - the recorded PDF `checksum` (from the XML) or `size` no longer matches;
-- the recorded `schema_version` or GROBID request options are out of date;
+- the recorded `extraction_version` or GROBID request options are out of date;
 - `--force`, or `--retry-errors` for a recorded error.
 
 Notably, an unchanged PDF is *never* re-read from disk, so a scan over the whole
@@ -299,7 +299,7 @@ no half-written or stale-but-plausible output.
 
 ```jsonc
 {
-  "schema_version": 1,
+  "extraction_version": 2,
   "status": "success",            // or "no-content", "error"
   "paper_id": "2025.acl-long.1",
   "extracted": "2026-08-21T03:24:11Z",
@@ -334,8 +334,23 @@ no half-written or stale-but-plausible output.
 
 Two rules keep the schema predictable: empty values are omitted rather than
 written as `null` or `[]`, and document order is preserved everywhere — authors,
-sections, paragraphs, and references. Bump `SCHEMA_VERSION` in the script when
-the projection changes; the next run then re-extracts everything.
+sections, paragraphs, and references.
+
+### Forcing a re-extraction
+
+`EXTRACTION_VERSION` in the script is the deliberate lever for redoing the
+corpus. Every output file records it, and a record whose version does not match
+the script is re-extracted. Bump it whenever a run should produce different
+output than the last one did — changed request options, a changed TEI
+projection, a changed output shape — and the next scheduled run rolls the
+change through the corpus on its own, at whatever pace `GROBID_LIMIT` allows.
+Nothing has to be deleted by hand, and an interrupted rollout simply resumes.
+
+Two things are deliberately *not* triggers. The GROBID version and image are
+recorded but not compared, so upgrading the service does not silently re-run
+130k papers; redo those with `--force` when you want them. And Anthology
+metadata changes are patched into existing files in place, since they do not
+depend on GROBID at all.
 
 `status` distinguishes the three durable outcomes: `success` (a `fulltext`
 block is present), `no-content` (GROBID returned HTTP 204 for a PDF it could not
