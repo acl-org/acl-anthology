@@ -1119,16 +1119,14 @@ def register_volume_with_sig(
     volume: Volume,
     booktitle: Optional[str] = None,
 ) -> None:
-    """Register an ingested volume with a SIG if that SIG exists."""
+    """Store a SIG association on an ingested volume if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
         log.warning(f"SIG '{sig_key}' not found; cannot register {volume.full_id}")
         return
 
-    sig = anthology.sigs[sig_key]
-    if volume.full_id not in sig.meetings:
-        sig.meetings.append(volume.full_id)
-    anthology.sigs.reverse[volume.full_id_tuple].add(sig_key)
+    if sig_key not in volume.sig_ids:
+        volume.sig_ids += (sig_key,)
 
 
 def main(args):
