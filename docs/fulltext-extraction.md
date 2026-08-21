@@ -33,24 +33,104 @@ calls `processFulltextDocument` and writes to the file tree.
 
 ## Server setup
 
-### 1. GROBID
+The instructions below are for the current server, Ubuntu 20.04 LTS.
+
+### 1. Prerequisites
+
+Ubuntu 20.04 ships Python 3.8, which is too old for `acl_anthology` (>3.11),
+and it is past its standard support window. Neither is a blocker: `uv` provides
+its own interpreter, and the job only needs Docker, `uv`, `git`, `curl`, and
+`flock`.
+
+```console
+$ sudo apt update
+$ sudo apt install git curl ca-certificates util-linux
+```
+
+Docker no longer lists 20.04 as a supported release, but its `apt` repository
+still carries `focal` packages:
+
+```console
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+$ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+$ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable" \
+    | sudo tee /etc/apt/sources.list.d/docker.list
+$ sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io
+$ sudo systemctl enable --now docker
+```
+
+The job must run Docker without `sudo`, so add its user to the `docker` group
+and start a fresh login session:
+
+```console
+$ sudo usermod -aG docker anthology
+$ newgrp docker && docker info >/dev/null && echo ok
+```
+
+Note that membership in `docker` is equivalent to root on the host.
+
+Then install `uv` as the job's user:
+
+```console
+$ curl -LsSf https://astral.sh/uv/install.sh | sh   # into ~/.local/bin
+$ cd ~/acl-anthology && uv sync                     # fetches its own Python
+$ uv run python -c "import acl_anthology; print(acl_anthology.__version__)"
+```
+
+Disk is the thing to check before starting: the GROBID image and the extraction
+tree both want room. See [backfill](#4-backfill) below.
+
+### 2. GROBID
 
 The cron wrapper manages the container itself, so the only prerequisite is a
 working Docker daemon for the user that runs the job. The wrapper creates the
 container with `--restart unless-stopped`, so it survives reboots and later runs
 reuse it.
 
+Docker is not a hard requirement. The extractor only speaks HTTP to
+`--grobid-url`, and the wrapper touches Docker only when nothing answers at
+`GROBID_URL`. A GROBID [installed from
+source](https://grobid.readthedocs.io/en/latest/Install-Grobid/), or running on
+another host, works just as well — set `GROBID_URL` and Docker is never used.
+The container is simply the path of least resistance here: upstream calls it the
+standard deployment, the image bundles the JVM, the `pdfalto` binary and the
+models, none of which then have to be maintained on a host whose Java and
+Python are both too old, and the version stays pinned to the same image the
+`make grobid` target uses on developer machines.
+
 The default image is `grobid/grobid:0.9.0-full`, whose header and affiliation
 models are the more accurate ones. The image is large (approximately 10 GB) and
-the service is memory hungry; for a smaller, faster CRF-only service set
-`GROBID_IMAGE=grobid/grobid:0.9.0-crf`. The port is published on `127.0.0.1`
-only — the service must not be reachable from the outside.
+the service is memory hungry; for full-text search the CRF-only image is the
+better trade on a shared server, and is much lighter and faster:
 
-### 2. Cron entry
+```console
+$ GROBID_IMAGE=grobid/grobid:0.9.0-crf bin/aclanthology.org/grobid-cronjob.sh
+```
+
+The port is published on `127.0.0.1` only — the service must not be reachable
+from the outside. To check on it by hand:
+
+```console
+$ docker ps --filter name=acl-anthology-grobid
+$ curl -s localhost:8070/api/version
+$ docker logs --tail 50 acl-anthology-grobid
+```
+
+### 3. Cron entry
 
 ```cron
+PATH=/home/anthology/.local/bin:/usr/local/bin:/usr/bin:/bin
 20 3 * * * /home/anthology/acl-anthology/bin/aclanthology.org/grobid-cronjob.sh >> /var/log/anthology/grobid.log 2>&1
 ```
+
+The `PATH` line matters: cron's default `PATH` does not include `~/.local/bin`,
+so `uv` would not be found. The wrapper says so explicitly if that happens; the
+alternative is to set `UV=/home/anthology/.local/bin/uv`.
+
+Create the log directory first (`sudo install -d -o anthology /var/log/anthology`)
+and add a `logrotate` entry for it.
 
 The wrapper serializes runs with `flock`, so a long run is never overlapped by
 the next scheduled one; a blocked run logs a line and exits successfully.
@@ -68,11 +148,18 @@ It is configured entirely through the environment:
 | `GROBID_JOBS` | `4` | Concurrent extraction requests |
 | `GROBID_LIMIT` | unset | Cap on papers sent to GROBID per run |
 | `GROBID_LOCKFILE` | `/tmp/acl-anthology-grobid-fulltext.lock` | Run lock |
+| `UV` | `uv` | Path to the `uv` binary |
 
 `GROBID_GIT_PULL` matters only if nothing else updates the checkout: papers
 ingested since the last run are invisible until the XML is current.
 
-### 3. Backfill
+Before trusting the schedule, run the wrapper once by hand with a small cap:
+
+```console
+$ GROBID_LIMIT=5 bin/aclanthology.org/grobid-cronjob.sh
+```
+
+### 4. Backfill
 
 The first run has the whole corpus to process. Set `GROBID_LIMIT` to a
 manageable number of papers so each nightly run does a bounded amount of work

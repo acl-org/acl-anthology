@@ -32,6 +32,9 @@ GROBID_LIMIT=${GROBID_LIMIT:-}
 
 LOCKFILE=${GROBID_LOCKFILE:-/tmp/acl-anthology-grobid-fulltext.lock}
 
+# cron runs with a minimal PATH that usually omits ~/.local/bin.
+UV=${UV:-uv}
+
 log() {
     echo "$(date -u +'%Y-%m-%dT%H:%M:%SZ') $*"
 }
@@ -52,8 +55,8 @@ if [[ -z ${GROBID_CRONJOB_LOCKED:-} ]]; then
     exit "$exit_code"
 fi
 
-if ! docker info >/dev/null 2>&1; then
-    log "FATAL Docker is not available; cannot run GROBID"
+if ! command -v "$UV" >/dev/null 2>&1; then
+    log "FATAL uv was not found on PATH=$PATH; set UV=/path/to/uv"
     exit 1
 fi
 
@@ -61,7 +64,14 @@ grobid_is_alive() {
     curl -fsS "$GROBID_URL/api/isalive" 2>/dev/null | grep -qx true
 }
 
+# Docker is only needed to run the service. Point GROBID_URL at a GROBID
+# installed some other way, or on another host, and it is never used.
 if ! grobid_is_alive; then
+    if ! docker info >/dev/null 2>&1; then
+        log "FATAL no GROBID at $GROBID_URL, and Docker is not available to start one"
+        exit 1
+    fi
+
     if docker inspect "$GROBID_CONTAINER" >/dev/null 2>&1; then
         log "starting existing container $GROBID_CONTAINER"
         docker start "$GROBID_CONTAINER" >/dev/null
@@ -92,7 +102,7 @@ fi
 
 if ! grobid_is_alive; then
     log "FATAL GROBID did not become ready; recent logs:"
-    docker logs --tail 50 "$GROBID_CONTAINER"
+    docker logs --tail 50 "$GROBID_CONTAINER" 2>/dev/null || true
     exit 1
 fi
 
@@ -113,5 +123,5 @@ if [[ -n $GROBID_LIMIT ]]; then
 fi
 
 log "extracting full text (jobs=$GROBID_JOBS, limit=${GROBID_LIMIT:-none})"
-uv run python bin/grobid/extract_pdf_fulltext.py "${extract_args[@]}"
+"$UV" run python bin/grobid/extract_pdf_fulltext.py "${extract_args[@]}"
 log "extraction finished"
