@@ -36,10 +36,12 @@ from docopt import docopt
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
+import json
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+import re
 from rich.progress import (
     Progress,
     TextColumn,
@@ -48,6 +50,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
+import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
@@ -357,6 +360,7 @@ def homepage_stats(anthology):
 
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
+        "author_count": len(anthology.people),
         "volume_count": len(volumes),
         "venue_count": len(all_venues),
         "venue_year_count": sum(
@@ -443,6 +447,181 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
             f.write(ENCODER.encode(all_volumes))
 
 
+AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
+
+
+def search_bucket_keys(searchable: str) -> set[str]:
+    """Return initial-character buckets for all searchable tokens."""
+    bucket_keys = set()
+    for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
+        initial = token[0].casefold()
+        bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
+    return bucket_keys or {"other"}
+
+
+def first_paper_year_histogram(people):
+    """Count authors by the year of their first paper.
+
+    Returns a year-ordered list of ``{"year", "count", "verified_count"}``
+    entries spanning every year between the earliest and latest debut. Years in
+    which no author published a first paper are included with zero counts so the
+    histogram forms a continuous timeline. Authors without any papers (and
+    therefore without a ``first_year``) are ignored.
+    """
+    counts = Counter()
+    verified_counts = Counter()
+    for person_id, person in people.items():
+        if (first_year := person.get("first_year")) is None:
+            continue
+        counts[first_year] += 1
+        if is_verified_person_id(person_id):
+            verified_counts[first_year] += 1
+
+    if not counts:
+        return []
+    return [
+        {
+            "year": year,
+            "count": counts.get(year, 0),
+            "verified_count": verified_counts.get(year, 0),
+        }
+        for year in range(min(counts), max(counts) + 1)
+    ]
+
+
+def author_career_stats(papers):
+    """Summarize an author's publication years."""
+    year_counts = Counter(
+        int(paper.year) for paper in papers if paper.year and paper.year.isdigit()
+    )
+    if not year_counts:
+        return {}
+
+    peak_count = max(year_counts.values())
+    peak_years = sorted(
+        year for year, count in year_counts.items() if count == peak_count
+    )
+    return {
+        "first_year": min(year_counts),
+        "last_year": max(year_counts),
+        "peak_year": peak_years[len(peak_years) // 2],
+        "active_year_count": len(year_counts),
+    }
+
+
+def career_year_histogram(people, year_key):
+    """Count authors by career year as a continuous annual series."""
+    years = [
+        person[year_key] for person in people.values() if person.get(year_key) is not None
+    ]
+    if not years:
+        return []
+
+    counts = Counter(years)
+    return [
+        {"year": year, "count": counts.get(year, 0)}
+        for year in range(min(years), max(years) + 1)
+    ]
+
+
+def longest_publishing_authors(people, limit=100):
+    """Return the longest-publishing authors, including ties at the limit."""
+    authors = sorted(
+        (
+            {
+                "id": person_id,
+                "name": person["full"],
+                "active_year_count": person["active_year_count"],
+            }
+            for person_id, person in people.items()
+            if person.get("active_year_count") is not None
+        ),
+        key=lambda author: (
+            -author["active_year_count"],
+            author["name"].casefold(),
+            author["id"],
+        ),
+    )
+    if len(authors) <= limit:
+        return authors
+    cutoff = authors[limit - 1]["active_year_count"]
+    return [author for author in authors if author["active_year_count"] >= cutoff]
+
+
+def author_stats(people):
+    """Compute statistics for the author index."""
+    verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
+    return {
+        "author_count": len(people),
+        "verified_author_count": verified_count,
+        "unverified_author_count": len(people) - verified_count,
+        "orcid_author_count": sum(
+            bool(person.get("orcid")) for person in people.values()
+        ),
+        "first_paper_year_hist": first_paper_year_histogram(people),
+        "career_year_hists": {
+            year_key: career_year_histogram(people, f"{year_key}_year")
+            for year_key in ("first", "last", "peak")
+        },
+        "longest_publishing_authors": longest_publishing_authors(people),
+    }
+
+
+def author_search_index(people):
+    """Build compact author-search buckets keyed by name-token initial."""
+    buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
+
+    for person_id, person in people.items():
+        alternate_names = [
+            variant["full"] for variant in person.get("variant_entries", [])
+        ]
+        name_variants = person.get("name_variants", [])
+        comment = person.get("comment", "")
+        orcid = person.get("orcid", "")
+        row = [
+            person["full"],
+            person_id,
+            len(person["papers"]),
+            orcid,
+            alternate_names,
+            comment,
+            name_variants,
+        ]
+        canonical_name = " ".join(
+            name_part
+            for name_part in (person.get("first"), person.get("last"))
+            if name_part
+        )
+        if canonical_name and canonical_name != person["full"]:
+            row.append(canonical_name)
+        searchable = " ".join(
+            [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
+        )
+        for bucket in search_bucket_keys(searchable):
+            buckets[bucket].append(row)
+
+    for rows in buckets.values():
+        rows.sort(key=lambda row: (row[0].casefold(), row[1]))
+
+    return buckets
+
+
+def export_author_index(people, builddir):
+    """Write aggregate and browser-search data for the author directory."""
+    author_index = author_search_index(people)
+    stats = author_stats(people)
+    with open(f"{builddir}/data/people_stats.json", "wb") as f:
+        f.write(ENCODER.encode(stats))
+
+    index_dir = f"{builddir}/static/people/index"
+    if os.path.isdir(index_dir):
+        shutil.rmtree(index_dir)
+    os.makedirs(index_dir)
+    for bucket, rows in author_index.items():
+        with open(f"{index_dir}/{bucket}.json", "wb") as f:
+            f.write(ENCODER.encode(rows))
+
+
 def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -485,6 +664,7 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            data.update(author_career_stats(papers))
             if len(person.names) > 1:
                 data["variant_entries"] = []
                 diff_script_variants = []
@@ -496,6 +676,15 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
+            name_variants = sorted(
+                {
+                    variant.as_full()
+                    for namespec in person.namespecs()
+                    for variant in namespec.variants
+                }
+            )
+            if name_variants:
+                data["name_variants"] = name_variants
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:
@@ -538,6 +727,7 @@ def export_people(anthology, builddir, dryrun):
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
                 f.write(ENCODER.encode(people))
+            export_author_index(people, builddir)
             progress.update(task, advance=100)
 
 
@@ -700,6 +890,126 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
+def load_affiliation_geocache():
+    """Load committed affiliation -> coordinates data. The build only READS these
+    files; it never contacts a geocoding service.
+
+    Organization identities and sectors come from ROR; coordinates use linked
+    Wikidata institution points with ROR GeoNames localities as explicit fallbacks.
+    Manual corrections in data/geo/affiliation_overrides.json take precedence,
+    since some prominent organizations (especially companies with generic names
+    like "Amazon") are ambiguous in ROR or resolve to the wrong place.
+    """
+    geo_dir = os.path.join(SCRIPTDIR, "..", "data", "geo")
+    cache = {}
+    try:
+        with open(
+            os.path.join(geo_dir, "affiliation_geocache.json"), encoding="utf-8"
+        ) as f:
+            cache = json.load(f)
+    except FileNotFoundError:
+        log.warning(
+            "No affiliation geocache found; the affiliation map will be empty. "
+            "Run bin/geocode_affiliations.py to populate it."
+        )
+    try:
+        with open(
+            os.path.join(geo_dir, "affiliation_overrides.json"), encoding="utf-8"
+        ) as f:
+            cache.update(json.load(f))
+    except FileNotFoundError:
+        pass
+    # Keys beginning with "_" are in-file documentation (each JSON file carries a
+    # "_comment" describing its provenance), not affiliation entries.
+    return {key: value for key, value in cache.items() if not key.startswith("_")}
+
+
+def export_affiliation_map(anthology, builddir, dryrun):
+    """Aggregate author affiliations from <author> tags and join them with cached
+    coordinates to produce the data for the world map on the statistics page.
+
+    Counting is per *paper*, not per author: within a paper each institution is
+    counted at most once (the set of affiliations, not the multiset), so a paper
+    with many co-authors from the same institution does not inflate its point.
+    Distinct affiliation strings that resolve to the same ROR organization are
+    merged and, thanks to the per-paper de-duplication below, still only count once
+    per paper. Coordinates are presentation data, not organization identifiers:
+    ROR commonly gives every organization in a city the same GeoNames centroid.
+    """
+    geocache = load_affiliation_geocache()
+    sectors = ("academic", "industry", "government", "other")
+
+    string_paper_counts = Counter()  # affiliation string -> number of papers
+    organization_paper_counts = Counter()  # organization identity -> papers
+    organization_members = {}  # organization identity -> {affiliation: cache hit}
+    total_papers = 0
+    papers_with_affiliation = 0
+
+    for paper in anthology.papers():
+        total_papers += 1
+        # The set (not multiset) of whitespace-normalized affiliation strings on
+        # this paper; the normalized string is the shared geocache key.
+        strings = set()
+        for namespec in paper.authors:
+            if namespec.affiliation:
+                norm = " ".join(namespec.affiliation.split())
+                if norm:
+                    strings.add(norm)
+        if strings:
+            papers_with_affiliation += 1
+        paper_organizations = set()
+        for norm in strings:
+            string_paper_counts[norm] += 1
+            hit = geocache.get(norm)
+            if not hit:
+                continue
+            # Only ROR identity can safely merge different affiliation strings.
+            # Unidentified/manual entries remain distinct by normalized string.
+            key = ("ror", hit["ror_id"]) if hit.get("ror_id") else ("affiliation", norm)
+            paper_organizations.add(key)
+            organization_members.setdefault(key, {})[norm] = hit
+        # Count each distinct organization at most once for this paper.
+        for key in paper_organizations:
+            organization_paper_counts[key] += 1
+
+    points = []
+    sector_totals = {sector: 0 for sector in sectors}
+    for key, members in organization_members.items():
+        count = organization_paper_counts[key]
+        # Label the point after the string that appears on the most papers.
+        label = max(members, key=lambda norm: (string_paper_counts[norm], norm))
+        hit = members[label]
+        sector = hit.get("sector", "other")
+        sector = sector if sector in sectors else "other"
+        sector_totals[sector] += count
+        points.append(
+            {
+                "label": label,
+                "lat": round(hit["lat"], 4),
+                "lon": round(hit["lon"], 4),
+                "count": count,
+                "aliases": len(members),
+                "sector": sector,
+                "coordinate_source": hit.get(
+                    "coordinate_source", hit.get("source", "unknown")
+                ),
+            }
+        )
+    points.sort(key=lambda point: (-point["count"], point["label"]))
+
+    data = {
+        "total_papers": total_papers,
+        "papers_with_affiliation": papers_with_affiliation,
+        "located_points": len(points),
+        "sector_totals": sector_totals,
+        "points": points,
+    }
+    if not dryrun:
+        with open(f"{builddir}/data/affiliation_map.json", "wb") as f:
+            f.write(ENCODER.encode(data))
+    return data
+
+
 def export_anthology(anthology, builddir, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
@@ -725,6 +1035,7 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
+    export_affiliation_map(anthology, builddir, dryrun)
 
 
 if __name__ == "__main__":

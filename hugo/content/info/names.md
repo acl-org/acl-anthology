@@ -11,6 +11,8 @@ This page explains how the Anthology creates author pages and groups papers by a
 * Disambiguating names
 * Matching papers to authors
 
+You can find individual pages in the [Author Directory]({{< ref "/people" >}}).
+
 ## Names in paper metadata
 
 When a volume is ingested, we receive a list of authors for each paper as text metadata: given name(s) and family name, plus optional additional information. These “name strings” are what you see on PDFs and in BibTeX exports. (The Anthology policy is that these name strings should match what is on the PDF, which we treat as authoritative.)
