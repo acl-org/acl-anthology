@@ -8,8 +8,8 @@ lossless TEI response and a parsed JSON record under the output directory.
 Writes are atomic, and the JSON file is written last as the completion marker,
 so interrupted runs can be resumed safely:
 
-    bin/extract_pdf_metadata.py 2025 -j 4
-    bin/extract_pdf_metadata.py 2025.acl-main acl-2025 -j 4
+    bin/grobid/extract_pdf_metadata.py 2025 -j 4
+    bin/grobid/extract_pdf_metadata.py 2025.acl-main acl-2025 -j 4
 
 At least one selector is required. Four-digit selectors are treated as years;
 all others are Anthology IDs identifying papers, volumes, collections, or

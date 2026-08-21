@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from acl_anthology.files import PDFReference
 
 
-SCRIPT_PATH = Path(__file__).parents[1] / "bin" / "extract_pdf_metadata.py"
+SCRIPT_PATH = Path(__file__).parents[1] / "bin" / "grobid" / "extract_pdf_metadata.py"
 SPEC = importlib.util.spec_from_file_location("extract_pdf_metadata", SCRIPT_PATH)
 assert SPEC and SPEC.loader
 extract_pdf_metadata = importlib.util.module_from_spec(SPEC)

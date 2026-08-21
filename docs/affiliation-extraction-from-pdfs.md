@@ -2,7 +2,9 @@
 
 **Status:** Extraction spike implemented; evaluation and integration pending
 **Date:** 2026-07-18
-**Related code:** [`bin/extract_pdf_metadata.py`](../bin/extract_pdf_metadata.py)
+**Related code:** [`bin/grobid/extract_pdf_metadata.py`](../bin/grobid/extract_pdf_metadata.py)
+**See also:** [full-text extraction](fulltext-extraction.md), the server job that
+runs GROBID's full-text endpoint over the whole corpus
 
 ## Motivation
 
@@ -62,7 +64,7 @@ The extraction spike uses an offline-batch → local-cache pipeline:
 
 ## Implemented extraction command
 
-`bin/extract_pdf_metadata.py` implements the extraction and parsing spike. It
+`bin/grobid/extract_pdf_metadata.py` implements the extraction and parsing spike. It
 requires an explicit selection, so an accidental invocation cannot enqueue the
 entire Anthology:
 
@@ -71,10 +73,10 @@ entire Anthology:
 make grobid
 
 # Every paper whose Anthology year is 2025
-bin/extract_pdf_metadata.py 2025 -j 4
+bin/grobid/extract_pdf_metadata.py 2025 -j 4
 
 # A paper, a volume, and an event; overlapping papers are processed once
-bin/extract_pdf_metadata.py \
+bin/grobid/extract_pdf_metadata.py \
   2025.acl-long.1 2025.acl-long acl-2025 -j 4
 ```
 
