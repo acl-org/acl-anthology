@@ -27,6 +27,10 @@ in place without contacting GROBID. This makes repeated cron invocations cheap:
     # a bounded selection, for spot checks
     bin/grobid/extract_pdf_fulltext.py 2025.acl-long.1 acl-2025 -j 4
 
+    # one PDF from anywhere, written to a scratch tree
+    bin/grobid/extract_pdf_fulltext.py 2025.acl-long.1 \\
+        --pdf ~/Downloads/paper.pdf --output-root /tmp/grobid-test
+
 Selectors are positional and may be mixed. A four-digit selector is a year;
 every other selector is resolved as a paper, volume, collection, or event ID.
 `--all` selects the entire Anthology and may not be combined with selectors.
@@ -547,6 +551,17 @@ def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]
     return iter(selected.values())
 
 
+def single_paper(papers: list[Paper], selectors: list[str]) -> list[Paper]:
+    """Require a selection of exactly one paper, as `--pdf` does."""
+    if len(papers) != 1:
+        selection = " ".join(selectors)
+        raise ValueError(
+            f"--pdf needs a selector matching one paper, "
+            f"but {selection!r} matches {len(papers)}"
+        )
+    return papers
+
+
 def make_job(paper: Paper, args: argparse.Namespace) -> tuple[str, PaperJob | None]:
     """Classify a paper as up to date, unusable, or needing GROBID."""
     if paper.is_deleted:
@@ -559,12 +574,14 @@ def make_job(paper: Paper, args: argparse.Namespace) -> tuple[str, PaperJob | No
         return "frontmatter", None
 
     pdf_path = canonical_pdf_path(args.pdf_root, paper)
+    json_path = output_path(pdf_path, args.pdf_root, args.output_root)
+    if args.pdf is not None:
+        pdf_path = args.pdf
     try:
         source = source_metadata(paper, pdf_path)
     except OSError:
         return "missing-pdf", None
 
-    json_path = output_path(pdf_path, args.pdf_root, args.output_root)
     metadata = anthology_metadata(paper)
     existing = load_json(json_path)
     if (
@@ -650,6 +667,15 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--pdf",
+        type=Path,
+        default=None,
+        help=(
+            "Extract this PDF file instead of the one in the PDF tree; needs a "
+            "selector matching exactly one paper, and implies --force."
+        ),
+    )
+    parser.add_argument(
         "--limit",
         type=positive_integer,
         default=None,
@@ -699,12 +725,20 @@ def main() -> int:
         parser.error("--all cannot be combined with selectors")
     if not args.all and not args.selectors:
         parser.error("give at least one selector, or --all to scan the whole Anthology")
-    if not args.pdf_root.is_dir():
+    if args.pdf is not None:
+        if args.all:
+            parser.error("--pdf cannot be combined with --all")
+        if not args.pdf.is_file():
+            parser.error(f"PDF {args.pdf} does not exist")
+        args.force = True
+    elif not args.pdf_root.is_dir():
         parser.error(f"PDF root {args.pdf_root} does not exist")
 
     anthology = Anthology.from_within_repo()
     try:
         papers = select_papers(anthology, args.selectors)
+        if args.pdf is not None:
+            papers = iter(single_paper(list(papers), args.selectors))
     except ValueError as exception:
         parser.error(str(exception))
     counts: Counter[str] = Counter()

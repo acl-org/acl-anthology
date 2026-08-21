@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
 from acl_anthology.files import PDFReference
 
 
@@ -222,6 +223,14 @@ def test_result_is_current_rejects_incomplete_status():
 def test_grobid_endpoint_uses_fulltext_service():
     endpoint = extract_pdf_fulltext.grobid_endpoint("http://localhost:8070/")
     assert endpoint == "http://localhost:8070/api/processFulltextDocument"
+
+
+def test_single_paper_requires_exactly_one_match():
+    paper = make_paper("2025.acl", "2025.acl-long.1")
+    assert extract_pdf_fulltext.single_paper([paper], ["2025.acl-long.1"]) == [paper]
+    for papers in ([], [paper, paper]):
+        with pytest.raises(ValueError, match="matching one paper"):
+            extract_pdf_fulltext.single_paper(papers, ["2025.acl-long"])
 
 
 def test_atomic_write_json_replaces_file(tmp_path):
