@@ -78,6 +78,7 @@ GROBID_REQUEST_OPTIONS = {
     "consolidateCitations": "0",
     "consolidateFunders": "0",
     "includeRawAffiliations": "1",
+    "includeRawCitations": "1",
     "segmentSentences": "0",
 }
 CACHEABLE_STATUSES = {"success", "no-content", "error"}
@@ -155,6 +156,8 @@ def parse_tei_reference(element: etree._Element) -> dict[str, Any]:
         "year": text_of(element, ".//tei:date[@type='published']")
         or text_of(element, ".//tei:date"),
         "doi": text_of(element, ".//tei:idno[@type='DOI']"),
+        # Survives citation-parsing mistakes, so search it rather than the fields.
+        "raw": text_of(element, ".//tei:note[@type='raw_reference']"),
     }
     return {key: value for key, value in result.items() if value not in (None, [], {})}
 

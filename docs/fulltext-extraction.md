@@ -326,7 +326,7 @@ no half-written or stale-but-plausible output.
     "keywords": ["…"],
     "sections": [{ "n": "1", "head": "Introduction", "paragraphs": ["…"] }],
     "back_sections": [{ "type": "acknowledgement", "head": "…", "paragraphs": ["…"] }],
-    "references": [{ "title": "…", "authors": ["…"], "venue": "…", "year": "…", "doi": "…" }],
+    "references": [{ "title": "…", "authors": ["…"], "venue": "…", "year": "…", "doi": "…", "raw": "…" }],
     "stats": { "sections": 8, "paragraphs": 63, "references": 41, "body_characters": 38210 }
   }
 }
@@ -344,8 +344,29 @@ failure, with an `error` block explaining it). Transient failures — connection
 errors, a busy service — deliberately leave no file behind so the next run
 retries them.
 
-## Notes for the search index
+## GROBID request options
 
+`GROBID_REQUEST_OPTIONS` in the script fixes the request parameters, and they
+are recorded in every output file, so changing one makes every extraction stale
+and the next run redoes the corpus. The current choices:
+
+| Option | Value | Why |
+| --- | --- | --- |
+| `consolidateHeader` | `0` | Consolidation calls Crossref per document: slow, networked, rate-limited, and it injects publisher metadata we already hold authoritatively in the XML |
+| `consolidateCitations` | `0` | Same, once per reference; DOI matching for references is better done as its own batch job |
+| `consolidateFunders` | `0` | Same |
+| `includeRawAffiliations` | `1` | The raw byline string survives affiliation-parsing errors |
+| `includeRawCitations` | `1` | Likewise for references — query text matches the printed reference string far more reliably than GROBID's parsed fields |
+| `segmentSentences` | `0` | Sentence splitting inflates the output; an indexer can split paragraphs itself |
+
+Deliberately unused: `teiCoordinates` would give bounding boxes, enough to
+highlight a hit inside the PDF, but multiplies the output size — a decision to
+revisit only if the search UI wants it. `generateIDs` adds element identifiers,
+which the positional structure here already covers. `flavor` selects an
+alternative structuring for documents whose body comes out empty, and is worth
+trying as a targeted retry rather than a default.
+
+## Notes for the search index
 - The `metadata` and `fulltext` blocks are deliberately parallel: `metadata` is
   authoritative and clean, `fulltext` is PDF-intrinsic and noisier. Index them
   as separate fields so a hit can be attributed to a source, and prefer

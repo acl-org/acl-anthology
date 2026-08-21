@@ -84,6 +84,7 @@ TEI = b"""<?xml version="1.0" encoding="UTF-8"?>
               <title level="j">Journal of Engines</title>
               <imprint><date type="published" when="1837">1837</date></imprint>
             </monogr>
+            <note type="raw_reference">Babbage, C. (1837). On the Analytical Engine.</note>
           </biblStruct>
         </listBibl>
       </div>
@@ -134,6 +135,7 @@ def test_parse_fulltext_tei_references_and_stats():
             "venue": "Journal of Engines",
             "year": "1837",
             "doi": "10.0000/example",
+            "raw": "Babbage, C. (1837). On the Analytical Engine.",
         }
     ]
     assert parsed["stats"]["sections"] == 4
