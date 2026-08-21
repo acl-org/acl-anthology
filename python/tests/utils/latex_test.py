@@ -12,10 +12,60 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unicodedata
 import pytest
 from acl_anthology.people.name import Name, NameSpecification
 from acl_anthology.text import MarkupText
 from acl_anthology.utils import latex
+
+
+def test_latexenc_configuration_assumptions():
+    """`latex_encode()` replaces calling `LATEXENC.unicode_to_latex()` with a
+    single `str.translate()` pass, which is only equivalent because
+    `LATEXENC` uses dict-only conversion rules together with the specific
+    settings checked here (see the note on `LATEXENC` in `utils/latex.py`).
+    If this test fails, `_build_fast_latex_table()`/`latex_encode()` need to
+    be revisited -- they may silently produce incorrect BibTeX otherwise.
+    """
+    assert latex.LATEXENC.non_ascii_only is False
+    assert latex.LATEXENC.unknown_char_policy == "keep"
+    assert latex.LATEXENC.replacement_latex_protection == "braces-all"
+    assert latex.LATEXENC.latex_string_class is str
+
+
+def test_latex_encode_matches_reference_for_every_mapped_codepoint():
+    """Exhaustively checks latex_encode()'s fast path against the reference
+    `LATEXENC.unicode_to_latex()` for every codepoint it claims to handle."""
+    for codepoint in latex.FAST_LATEX_TABLE:
+        char = chr(codepoint)
+        assert latex.latex_encode(char) == latex.LATEXENC.unicode_to_latex(char)
+
+
+@pytest.mark.parametrize(
+    "text",
+    (
+        "",
+        "Plain ASCII text, with punctuation: (a, b) & c! 100%.",
+        "Mixed café naïve façade 中文 русский",  # mapped + unmapped non-ASCII
+        "\N{GRINNING FACE}",  # unmapped and outside the BMP-adjacent ranges
+        "\t\n\r control whitespace",
+        "e\N{COMBINING ACUTE ACCENT}",  # decomposed; NFC-normalizes to "é"
+    ),
+)
+def test_latex_encode_matches_reference_for_arbitrary_text(text):
+    assert latex.latex_encode(text) == latex.LATEXENC.unicode_to_latex(text)
+
+
+def test_latex_encode_none_and_empty():
+    assert latex.latex_encode(None) == ""
+    assert latex.latex_encode("") == ""
+
+
+def test_latex_encode_normalizes_nfc():
+    decomposed = "e\N{COMBINING ACUTE ACCENT}"
+    assert unicodedata.normalize("NFC", decomposed) != decomposed  # sanity check
+    assert latex.latex_encode(decomposed) == latex.latex_encode("é")
+
 
 # Tests helper function used during conversion of our XML markup to LaTeX.
 # Straight quotation marks (") will have been converted to double apostrophes,
@@ -102,3 +152,43 @@ def test_make_bibtex_entry_malformed():
         latex.make_bibtex_entry("", "", [("author", [Name("John", "Doé")])])
     with pytest.raises(ValueError):
         latex.make_bibtex_entry("", "", [("title", "}{")])
+
+
+@pytest.mark.integration
+def test_latex_encode_matches_reference_on_full_corpus():
+    """Cross-checks latex_encode()'s fast path against the reference
+    `LATEXENC.unicode_to_latex()` for every string in data/xml/*.xml, not
+    just the hand-picked cases above."""
+    import os
+    from lxml import etree
+    from pathlib import Path
+
+    datadir = (
+        Path(os.path.dirname(os.path.realpath(__file__))) / ".." / ".." / ".." / "data"
+    )
+    texts = set()
+    for xmlpath in sorted(datadir.glob("xml/*.xml")):
+        tree = etree.parse(xmlpath)
+        for element in tree.iter(
+            "title",
+            "abstract",
+            "first",
+            "last",
+            "booktitle",
+            "publisher",
+            "address",
+            "note",
+        ):
+            text = "".join(element.itertext())
+            if text:
+                texts.add(text)
+
+    assert texts, "expected to find at least some text in data/xml/*.xml"
+    mismatches = [
+        text
+        for text in texts
+        if latex.latex_encode(text) != latex.LATEXENC.unicode_to_latex(text)
+    ]
+    assert not mismatches, (
+        f"{len(mismatches)} strings mismatched, e.g. {mismatches[:3]!r}"
+    )

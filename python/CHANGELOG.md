@@ -1,9 +1,14 @@
 # Changelog
 
-## [Unbreleased]
+## [Unreleased]
 
 ### Added
 - LaTeX line breaks are now normalized as whitespace, while blank lines are converted to `<par/>` paragraph breaks.
+
+### Changed
+
+- Sped up `MarkupText` by avoiding unnecessary deep copies of XML elements.
+- Sped up BibTeX generation significantly by speeding up Unicode-to-LaTeX encoding.
 
 ## [1.3.1] — 2026-08-09
 

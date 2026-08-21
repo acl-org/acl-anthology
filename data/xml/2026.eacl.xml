@@ -359,7 +359,7 @@
     </paper>
     <paper id="25">
       <title>Tailored Emotional <fixed-case>LLM</fixed-case>-Supporter: Enhancing Cultural Sensitivity</title>
-      <author id="chen-cecilia-liu" openreview="~Chen_Cecilia_Liu1"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="chen-cecilia-liu" orcid="0009-0004-2382-8609" openreview="~Chen_Cecilia_Liu1"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
       <author id="hiba-arnaout" orcid="0000-0003-1077-6278" openreview="~Hiba_Arnaout1"><first>Hiba</first><last>Arnaout</last><affiliation>Technische Universität Darmstadt</affiliation></author>
       <author openreview="~Nils_Kovačić1"><first>Nils</first><last>Kovačić</last><affiliation>KTH Royal Institute of Technology</affiliation></author>
       <author openreview="~Dana_Atzil-Slonim1"><first>Dana</first><last>Atzil-Slonim</last><affiliation>Bar-Ilan University</affiliation></author>
@@ -724,7 +724,7 @@
     <paper id="51">
       <title>Don’t Trust Generative Agents to Mimic Communication on Social Networks Unless You Benchmarked their Empirical Realism</title>
       <author id="simon-munker" orcid="0000-0003-1850-5536" openreview="~Simon_Münker1"><first>Simon</first><last>Münker</last></author>
-      <author openreview="~Nils_Schwager1"><first>Nils</first><last>Schwager</last><affiliation>Trier University</affiliation></author>
+      <author id="nils-schwager" orcid="0009-0007-8313-2066" openreview="~Nils_Schwager1"><first>Nils</first><last>Schwager</last><affiliation>Trier University</affiliation></author>
       <author id="achim-rettinger" orcid="0000-0003-4950-1167" openreview="~Achim_Rettinger1"><first>Achim</first><last>Rettinger</last><affiliation>FZI Forschungszentrum Informatik and Trier University</affiliation></author>
       <pages>1141-1151</pages>
       <abstract>The ability of Large Language Models (LLMs) to mimic human behavior triggered a plethora of computational social science research, assuming that empirical studies of humans can be conducted with AI agents instead. Since there have been conflicting research findings on whether and when this hypothesis holds, there is a need to better understand the differences in their experimental designs. We focus on replicating the behavior of social network users with the use of LLMs for the analysis of communication on social networks. First, we provide a formal framework for the simulation of social networks, before focusing on the sub-task of imitating user communication. We empirically test different approaches to imitate user behavior on in English and German. Our findings suggest that social simulations should be validated by their empirical realism measured in the setting in which the simulation components were fitted. With this paper, we argue for more rigor when applying generative-agent-based modeling for social simulation.</abstract>
@@ -1056,7 +1056,7 @@
       <author id="viet-thanh-pham" orcid="0009-0000-6990-476X" openreview="~Viet_Thanh_Pham1"><first>Viet Thanh</first><last>Pham</last><affiliation>Monash University</affiliation></author>
       <author id="minghan-wang" orcid="0000-0002-2747-421X" openreview="~Minghan_Wang1"><first>Minghan</first><last>Wang</last><affiliation>Monash University</affiliation></author>
       <author openreview="~Hao-Han_Liao1"><first>Hao-Han</first><last>Liao</last><affiliation>Monash University</affiliation></author>
-      <author id="thuy-trang-vu" orcid="0009-0005-6296-4184" openreview="~Thuy-Trang_Vu1"><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
+      <author id="thuy-vu" orcid="0009-0005-6296-4184" openreview="~Thuy-Trang_Vu1"><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
       <pages>1607-1627</pages>
       <abstract>Adapting large language models to full document translation remains challenging due to the difficulty of capturing long-range dependencies and preserving discourse coherence throughout extended texts. While recent agentic machine translation systems mitigate context window constraints through multi-agent orchestration and persistent memory, they require substantial computational resources and are sensitive to memory retrieval strategies. We introduce TransGraph, a discourse-guided framework that explicitly models inter-chunk relationships through structured discourse graphs and selectively conditions each translation segment on relevant graph neighbourhoods rather than relying on sequential or exhaustive context. Across three document-level MT benchmarks spanning six languages and diverse domains, TransGraph consistently surpasses strong baselines in translation quality and terminology consistency while incurring significantly lower token overhead.</abstract>
       <url hash="07d37061">2026.eacl-long.75</url>
@@ -1833,7 +1833,7 @@
     </paper>
     <paper id="130">
       <title><fixed-case>PTEB</fixed-case>: Towards Robust Text Embedding Evaluation via Stochastic Paraphrasing at Evaluation Time with <fixed-case>LLM</fixed-case>s</title>
-      <author openreview="~Manuel_Frank1"><first>Manuel</first><last>Frank</last><affiliation>Research Collaborator, Munster Technological University</affiliation></author>
+      <author id="manuel-frank" orcid="0009-0002-5620-7118" openreview="~Manuel_Frank1"><first>Manuel</first><last>Frank</last><affiliation>Research Collaborator, Munster Technological University</affiliation></author>
       <author id="haithem-afli" orcid="0000-0002-7449-4707" openreview="~Haithem_Afli1"><first>Haithem</first><last>Afli</last><affiliation>Munster Technological University</affiliation></author>
       <pages>2832-2851</pages>
       <abstract>Current sentence embedding evaluations typically rely on static test beds like the Massive Text Embedding Benchmark (MTEB). While invaluable, repeated tuning on a fixed suite can inflate reported scores and obscure real-world robustness. We introduce the Paraphrasing Text Embedding Benchmark (PTEB), a dynamic protocol that stochastically generates meaning-preserving paraphrases at evaluation time and aggregates results across multiple runs. Using a cost-efficient LLM-based method grounded in gold ratings and human validation, we show that LLMs generate token-diverse but semantically preserving paraphrases. Across 7 MTEB tasks, we validate our hypothesis that the performance of sentence encoders is sensitive to changes in token space even when semantics remain fixed. We also observe that smaller models are not disproportionately affected relative to larger ones. Our results are statistically robust over multiple runs spanning 20 datasets and 25 languages. More generally, we aim to propose a new evaluation paradigm in NLP that relies less on static, pre-defined benchmarks but shifts towards dynamic, stochastic evaluation leveraging eval-time compute. We make the code to run PTEB publicly available.</abstract>
@@ -2675,7 +2675,7 @@
     </paper>
     <paper id="190">
       <title>Reasoning’s Razor: Reasoning Improves Accuracy but Hurts Recall at Critical Operating Points in Safety and Hallucination Detection</title>
-      <author openreview="~Atoosa_Chegini1"><first>Atoosa</first><last>Chegini</last></author>
+      <author id="atoosa-chegini" orcid="0009-0003-1733-4525" openreview="~Atoosa_Chegini1"><first>Atoosa</first><last>Chegini</last></author>
       <author openreview="~Hamid_Kazemi1"><first>Hamid</first><last>Kazemi</last><affiliation>Apple</affiliation></author>
       <author openreview="~Garrett_Souza2"><first>Garrett</first><last>Souza</last><affiliation>Apple</affiliation></author>
       <author openreview="~Maria_Safi1"><first>Maria</first><last>Safi</last></author>
@@ -3037,7 +3037,7 @@
     <paper id="215">
       <title><fixed-case>BLE</fixed-case>n<fixed-case>D</fixed-case>-Vis: Benchmarking Multimodal Cultural Understanding in Vision Language Models</title>
       <author id="bryan-chen-zhengyu-tan" orcid="0009-0002-0428-9641" openreview="~Bryan_Chen_Zhengyu_Tan1"><first>Bryan Chen Zhengyu</first><last>Tan</last></author>
-      <author openreview="~Weihua_Zheng2"><first>Weihua</first><last>Zheng</last><affiliation>Singapore University of Technology and Design</affiliation></author>
+      <author id="zheng-weihua" orcid="0009-0009-3855-2998" openreview="~Weihua_Zheng2"><first>Weihua</first><last>Zheng</last><affiliation>Singapore University of Technology and Design</affiliation></author>
       <author id="zhengyuan-liu" orcid="0000-0001-6864-3094" openreview="~Zhengyuan_Liu2"><first>Zhengyuan</first><last>Liu</last><affiliation>Agency for Science, Technology and Research (A*STAR), Singapore</affiliation></author>
       <author id="nancy-chen" orcid="0000-0003-0872-5877" openreview="~Nancy_F._Chen1"><first>Nancy F.</first><last>Chen</last></author>
       <author id="hwaran-lee" orcid="0000-0002-3773-4871" openreview="~Hwaran_Lee1"><first>Hwaran</first><last>Lee</last><affiliation>Sogang University</affiliation></author>
@@ -3234,7 +3234,7 @@
     <paper id="229">
       <title><fixed-case>DITTO</fixed-case>: A Spoofing Attack Framework on Watermarked <fixed-case>LLM</fixed-case>s via Knowledge Distillation</title>
       <author openreview="~Hyeseon_An1"><first>Hyeseon</first><last>An</last><affiliation>Yonsei University</affiliation></author>
-      <author openreview="~Shinwoo_Park1"><first>Shinwoo</first><last>Park</last></author>
+      <author id="shinwoo-park" orcid="0009-0009-9240-2042" openreview="~Shinwoo_Park1"><first>Shinwoo</first><last>Park</last></author>
       <author openreview="~Suyeon_Woo1"><first>Suyeon</first><last>Woo</last><affiliation>Seoul National University</affiliation></author>
       <author openreview="~Yo-Sub_Han1"><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
       <pages>4922-4936</pages>
@@ -3381,7 +3381,7 @@
       <author id="jessica-h-zhu" orcid="0000-0001-8729-511X" openreview="~Jessica_H_Zhu1"><first>Jessica H</first><last>Zhu</last></author>
       <author id="arkaitz-zubiaga" orcid="0000-0003-4583-3623" openreview="~Arkaitz_Zubiaga1"><first>Arkaitz</first><last>Zubiaga</last><affiliation>Queen Mary University of London</affiliation></author>
       <author openreview="~Anders_Søgaard1"><first>Anders</first><last>Søgaard</last><affiliation>Copenhagen University</affiliation></author>
-      <author id="alexander-fraser-682x" orcid="0000-0003-4891-682X" openreview="~Alexander_Fraser1"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X" openreview="~Alexander_Fraser1"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
       <author id="zhijing-jin" orcid="0000-0003-0238-9024" openreview="~Zhijing_Jin1"><first>Zhijing</first><last>Jin</last><affiliation>Department of Computer Science, University of Toronto</affiliation></author>
       <author id="rada-mihalcea" orcid="0000-0002-0767-6703" openreview="~Rada_Mihalcea1"><first>Rada</first><last>Mihalcea</last><affiliation>University of Michigan</affiliation></author>
       <author openreview="~Joel_R._Tetreault2"><first>Joel R.</first><last>Tetreault</last></author>
@@ -3501,7 +3501,7 @@
       <author id="pedro-henrique-luz-de-araujo" orcid="0000-0002-6114-832X" openreview="~Pedro_Henrique_Luz_de_Araujo1"><first>Pedro Henrique</first><last>Luz de Araujo</last><affiliation>Universität Vienna</affiliation></author>
       <author id="michael-a-hedderich" orcid="0000-0001-6858-0791" openreview="~Michael_A._Hedderich1"><first>Michael A.</first><last>Hedderich</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <author openreview="~Ali_Modarressi1"><first>Ali</first><last>Modarressi</last><affiliation>Center for Information and Language Processing, LMU Munich</affiliation></author>
-      <author id="hinrich-schuetze" orcid="0000-0001-9514-7934" openreview="~Hinrich_Schuetze3"><first>Hinrich</first><last>Schuetze</last></author>
+      <author id="hinrich-schutze" orcid="0000-0001-9514-7934" openreview="~Hinrich_Schuetze3"><first>Hinrich</first><last>Schuetze</last></author>
       <author id="benjamin-roth" orcid="0000-0003-0362-0267" openreview="~Benjamin_Roth2"><first>Benjamin</first><last>Roth</last><affiliation>Universität Vienna</affiliation></author>
       <pages>5329-5359</pages>
       <abstract>Persona-assigned large language models (LLMs) are used in domains such as education, healthcare, and sociodemographic simulation. Yet, they are typically evaluated only in short, single-round settings that do not reflect real-world usage. We introduce an evaluation protocol that combines long persona dialogues (over 100 rounds) and evaluation datasets to create dialogue-conditioned benchmarks that can robustly measure long-context effects. We then investigate the effects of dialogue length on persona fidelity, instruction-following, and safety of seven state-of-the-art open- and closed-weight LLMs. We find that persona fidelity degrades over the course of dialogues, especially in goal-oriented conversations, where models must sustain both persona fidelity and instruction following. We identify a trade-off between fidelity and instruction following, with non-persona baselines initially outperforming persona-assigned models; as dialogues progress and fidelity fades, persona responses become increasingly similar to baseline responses. Our findings highlight the fragility of persona applications in extended interactions and our work provides a protocol to systematically measure such failures.</abstract>
@@ -3657,7 +3657,7 @@
     </paper>
     <paper id="258">
       <title><fixed-case>R</fixed-case>o<fixed-case>SE</fixed-case>: Round-robin Synthetic Data Evaluation for Selecting <fixed-case>LLM</fixed-case> Generators without Human Test Sets</title>
-      <author openreview="~Jan_Cegin1"><first>Jan</first><last>Cegin</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author id="jan-cegin" orcid="0000-0003-2692-9320" openreview="~Jan_Cegin1"><first>Jan</first><last>Cegin</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
       <author id="branislav-pecher" orcid="0000-0003-0344-8620" openreview="~Branislav_Pecher1"><first>Branislav</first><last>Pecher</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
       <author id="ivan-srba" orcid="0000-0003-3511-5337" openreview="~Ivan_Srba1"><first>Ivan</first><last>Srba</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
       <author id="jakub-simko" orcid="0000-0003-0239-4237" openreview="~Jakub_Simko1"><first>Jakub</first><last>Simko</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
@@ -3900,7 +3900,7 @@
     <paper id="276">
       <title>Multi-Token Completion for Text Anonymization</title>
       <author id="pulkit-madaan" orcid="0000-0002-8051-9237" openreview="~Pulkit_Madaan1"><first>Pulkit</first><last>Madaan</last><affiliation>Google</affiliation></author>
-      <author openreview="~Krithika_Ramesh1"><first>Krithika</first><last>Ramesh</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="krithika-ramesh" orcid="0009-0001-1703-5723" openreview="~Krithika_Ramesh1"><first>Krithika</first><last>Ramesh</last><affiliation>Johns Hopkins University</affiliation></author>
       <author id="lisa-bauer" orcid="0000-0002-4725-1232" openreview="~Lisa_Bauer1"><first>Lisa</first><last>Bauer</last><affiliation>Amazon</affiliation></author>
       <author id="charith-peris" orcid="0000-0003-3648-8389" openreview="~Charith_Peris1"><first>Charith</first><last>Peris</last><affiliation>Amazon</affiliation></author>
       <author id="anjalie-field" orcid="0000-0002-6955-746X" openreview="~Anjalie_Field2"><first>Anjalie</first><last>Field</last><affiliation>Johns Hopkins University</affiliation></author>
@@ -4194,7 +4194,7 @@
     <paper id="295">
       <title><fixed-case>LLM</fixed-case>s as Cultural Archives: Cultural Commonsense Knowledge Graph Extraction</title>
       <author id="junior-cedric-tonga" orcid="0009-0001-3500-9422" openreview="~Junior_Cedric_Tonga1"><first>Junior Cedric</first><last>Tonga</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
-      <author id="chen-cecilia-liu" openreview="~Chen_Cecilia_Liu1"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="chen-cecilia-liu" orcid="0009-0004-2382-8609" openreview="~Chen_Cecilia_Liu1"><first>Chen Cecilia</first><last>Liu</last><affiliation>University of Cambridge</affiliation></author>
       <author openreview="~Iryna_Gurevych1"><first>Iryna</first><last>Gurevych</last><affiliation>Institute for Computer Science, Artificial Intelligence and Technology, Mohamed bin Zayed University of Artificial Intelligence and Technische Universität Darmstadt</affiliation></author>
       <author id="fajri-koto" orcid="0000-0002-3659-6761" openreview="~Fajri_Koto1"><first>Fajri</first><last>Koto</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>6289-6309</pages>
@@ -4249,7 +4249,7 @@
     <paper id="299">
       <title><fixed-case>CONGRAD</fixed-case>: Conflicting Gradient Filtering for Multilingual Preference Alignment</title>
       <author openreview="~Jiangnan_Li1"><first>Jiangnan</first><last>Li</last><affiliation>Monash University</affiliation></author>
-      <author id="thuy-trang-vu" orcid="0009-0005-6296-4184" openreview="~Thuy-Trang_Vu1"><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
+      <author id="thuy-vu" orcid="0009-0005-6296-4184" openreview="~Thuy-Trang_Vu1"><first>Thuy-Trang</first><last>Vu</last><affiliation>Monash University</affiliation></author>
       <author openreview="~Christian_Herold1"><first>Christian</first><last>Herold</last><affiliation>eBay Inc.</affiliation></author>
       <author openreview="~Amirhossein_Tebbifakhr2"><first>Amirhossein</first><last>Tebbifakhr</last><affiliation>eBay Inc.</affiliation></author>
       <author openreview="~Shahram_Khadivi1"><first>Shahram</first><last>Khadivi</last><affiliation>eBay Inc.</affiliation></author>
@@ -4785,7 +4785,7 @@
       <title><fixed-case>D</fixed-case>iv<fixed-case>M</fixed-case>erge: A divergence-based model merging method for multi-tasking</title>
       <author openreview="~Brahim_Touayouch1"><first>Brahim</first><last>Touayouch</last></author>
       <author openreview="~Loïc_Fosse1"><first>Loïc</first><last>Fosse</last></author>
-      <author id="geraldine-damnati-4181" orcid="0000-0003-2218-4181" openreview="~Géraldine_Damnati1"><first>Géraldine</first><last>Damnati</last><affiliation>Orange Innovation</affiliation></author>
+      <author id="geraldine-damnati" orcid="0000-0003-2218-4181" openreview="~Géraldine_Damnati1"><first>Géraldine</first><last>Damnati</last><affiliation>Orange Innovation</affiliation></author>
       <author openreview="~Gwénolé_Lecorvé1"><first>Gwénolé</first><last>Lecorvé</last><affiliation>Orange</affiliation></author>
       <pages>7157-7180</pages>
       <abstract>Merging fine-tuned models is a promising alternative to costly multi-task training, but task interference remains a challenge, especially as the number of tasks grows. We present DivMerge, a reference-free method that merges models trained on different tasks by minimizing Jensen-Shannon divergence between their outputs and those of the merged model, automatically balancing task importance. While the method exhibits strong theoretical properties, experiments on classification and generative tasks with autoregressive models show that DivMerge consistently outperforms prior work, and remains robust when scaling to more tasks.</abstract>
@@ -5481,7 +5481,7 @@
       <title><fixed-case>T</fixed-case>ime<fixed-case>M</fixed-case>achine-bench: A Benchmark for Evaluating Model Capabilities in Repository-Level Migration Tasks</title>
       <author id="ryo-fujii" orcid="0009-0009-6609-9510" openreview="~Ryo_Fujii3"><first>Ryo</first><last>Fujii</last><affiliation>Tohoku University and Future Corporation</affiliation></author>
       <author id="makoto-morishita" orcid="0009-0001-3418-2119" openreview="~Makoto_Morishita1"><first>Makoto</first><last>Morishita</last><affiliation>Future Corporation and Tohoku University</affiliation></author>
-      <author openreview="~Kazuki_Yano1"><first>Kazuki</first><last>Yano</last></author>
+      <author id="kazuki-yano" orcid="0009-0004-2180-9359" openreview="~Kazuki_Yano1"><first>Kazuki</first><last>Yano</last></author>
       <author id="jun-suzuki" orcid="0000-0003-2108-1340" openreview="~Jun_Suzuki1"><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University</affiliation></author>
       <pages>8233-8264</pages>
       <abstract>With the advancement of automated software engineering, research focus is increasingly shifting toward practical tasks reflecting the day-to-day work of software engineers.Among these tasks, software migration, a critical process of adapting code to evolving environments, has been largely overlooked.In this study, we introduce TimeMachine-bench, a benchmark designed to evaluate software migration in real-world Python projects.Our benchmark consists of GitHub repositories whose tests begin to fail in response to dependency updates.The construction process is fully automated, enabling live updates of the benchmark.Furthermore, we curated a human-verified subset to ensure problem solvability.We evaluated agent-based baselines built on top of 11 models, including both strong open-weight and state-of-the-art LLMs on this verified subset.Our results indicated that, while LLMs show some promise for migration tasks, they continue to face substantial reliability challenges, including spurious solutions that exploit low test coverage and unnecessary edits stemming from suboptimal tool-use strategies.Our dataset and implementation are available at <url>https://github.com/tohoku-nlp/timemachine-bench</url>.</abstract>
@@ -5519,7 +5519,7 @@
     <paper id="388">
       <title>Wikontic: Constructing <fixed-case>W</fixed-case>ikidata-Aligned, Ontology-Aware Knowledge Graphs with Large Language Models</title>
       <author id="alla-chepurova" orcid="0009-0000-5039-3875" openreview="~Alla_Chepurova1"><first>Alla</first><last>Chepurova</last><affiliation>Cognitive AI Systems Lab</affiliation></author>
-      <author openreview="~Aydar_Bulatov1"><first>Aydar</first><last>Bulatov</last><affiliation>Cognitive AI Systems Lab and Moscow Independent Research Institute of Artificial Intelligence</affiliation></author>
+      <author id="aydar-bulatov" orcid="0009-0003-1738-8208" openreview="~Aydar_Bulatov1"><first>Aydar</first><last>Bulatov</last><affiliation>Cognitive AI Systems Lab and Moscow Independent Research Institute of Artificial Intelligence</affiliation></author>
       <author id="mikhail-burtsev" orcid="0000-0003-1614-1695" openreview="~Mikhail_Burtsev1"><first>Mikhail</first><last>Burtsev</last><affiliation>London Institute for Mathematical Sciences</affiliation></author>
       <author openreview="~Yuri_Kuratov2"><first>Yuri</first><last>Kuratov</last><affiliation>Cognitive AI Systems Lab and DeepPavlov</affiliation></author>
       <pages>8304-8319</pages>
@@ -5587,8 +5587,8 @@
       <title><fixed-case>IYKYK</fixed-case>: Using language models to decode extremist cryptolects</title>
       <author id="christine-de-kock" orcid="0000-0003-1980-4183" openreview="~Christine_de_Kock2"><first>Christine</first><last>de Kock</last></author>
       <author openreview="~Arij_Riabi1"><first>Arij</first><last>Riabi</last></author>
-      <author id="zeerak-talat-867x" orcid="0000-0001-5503-867X" openreview="~Zeerak_Talat1"><first>Zeerak</first><last>Talat</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
-      <author id="michael-sejr-schlichtkrull" orcid="0000-0002-8666-0856" openreview="~Michael_Sejr_Schlichtkrull1"><first>Michael Sejr</first><last>Schlichtkrull</last><affiliation>Queen Mary, University of London</affiliation></author>
+      <author id="zeerak-talat" orcid="0000-0001-5503-867X" openreview="~Zeerak_Talat1"><first>Zeerak</first><last>Talat</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author id="michael-schlichtkrull" orcid="0000-0002-8666-0856" openreview="~Michael_Sejr_Schlichtkrull1"><first>Michael Sejr</first><last>Schlichtkrull</last><affiliation>Queen Mary, University of London</affiliation></author>
       <author id="pranava-madhyastha" orcid="0000-0002-4438-8161" openreview="~Pranava_Madhyastha1"><first>Pranava</first><last>Madhyastha</last><affiliation>City, University of London</affiliation></author>
       <author openreview="~Eduard_Hovy1"><first>Eduard</first><last>Hovy</last><affiliation>University of Melbourne and Carnegie Mellon University</affiliation></author>
       <pages>8393-8409</pages>
@@ -5603,7 +5603,7 @@
       <author openreview="~Sawsan_Alqahtani1"><first>Sawsan</first><last>Alqahtani</last><affiliation>Princess Nourah Bint Abdulrahman University</affiliation></author>
       <author id="mir-tafseer-nayeem" orcid="0000-0002-4715-6059" openreview="~Mir_Tafseer_Nayeem1"><first>Mir Tafseer</first><last>Nayeem</last><affiliation>University of Alberta</affiliation></author>
       <author id="md-tahmid-rahman-laskar" openreview="~Md_Tahmid_Rahman_Laskar2"><first>Md Tahmid Rahman</first><last>Laskar</last><affiliation>York University and Dialpad Inc.</affiliation></author>
-      <author id="tasnim-mohiuddin" orcid="0009-0003-0955-7200" openreview="~Tasnim_Mohiuddin1"><first>Tasnim</first><last>Mohiuddin</last><affiliation>Qatar Computing Research Institute</affiliation></author>
+      <author id="muhammad-tasnim-mohiuddin" orcid="0009-0003-0955-7200" openreview="~Tasnim_Mohiuddin1"><first>Tasnim</first><last>Mohiuddin</last><affiliation>Qatar Computing Research Institute</affiliation></author>
       <author openreview="~M_Saiful_Bari2"><first>M Saiful</first><last>Bari</last><affiliation>Amazon</affiliation></author>
       <pages>8410-8432</pages>
       <abstract>Tokenization underlies every large language model, yet it remains an under-theorized and inconsistently designed component. Common subword approaches such as Byte Pair Encoding (BPE) offer scalability but often misalign with linguistic structure, amplify bias, and waste capacity across languages and domains. This paper reframes tokenization as a core modeling decision rather than a preprocessing step. We argue for a context-aware framework that integrates tokenizer and model co-design, guided by linguistic, domain, and deployment considerations. Standardized evaluation and transparent reporting are essential to make tokenization choices accountable and comparable. Treating tokenization as a core design problem, not a technical afterthought, can yield language technologies that are fairer, more efficient, and more adaptable.</abstract>
@@ -5860,7 +5860,7 @@
       <title>Optical Character Recognition for the International Phonetic Alphabet</title>
       <author id="shu-okabe" orcid="0009-0003-0169-3689" openreview="~Shu_Okabe1"><first>Shu</first><last>Okabe</last><affiliation>Technische Universität München</affiliation></author>
       <author openreview="~Dejvi_Zelo1"><first>Dejvi</first><last>Zelo</last></author>
-      <author id="alexander-fraser-682x" orcid="0000-0003-4891-682X" openreview="~Alexander_Fraser1"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X" openreview="~Alexander_Fraser1"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
       <pages>265-273</pages>
       <abstract>As grammar books are increasingly used as additional reference resources specifically for very low-resource languages, a significant portion comes from scans and relies on the quality of the Optical Character Recognition (OCR) tool. We focus here on a particular script used in linguistics to transcribe sounds: the International Phonetic Alphabet (IPA). We consider two data sources: actual grammar book PDFs for two languages under documentation, Japhug and Kagayanen, and a synthetically generated dataset based on Wiktionary. We compare two neural OCR frameworks, Tesseract and Calamari, and a recent large vision-language model, Qwen2.5-VL-7B, all three in an off-the-shelf setting and with fine-tuning. While their zero-shot performance is relatively poor for IPA characters in general due to character set mismatch, fine-tuning with the synthetic dataset leads to notable improvements.</abstract>
       <url hash="08ae670f">2026.eacl-short.19</url>
@@ -6015,7 +6015,7 @@
     </paper>
     <paper id="31">
       <title>Out of Distribution, Out of Luck: Process Rewards Misguide Reasoning Models</title>
-      <author openreview="~Alexey_Dontsov1"><first>Alexey</first><last>Dontsov</last><affiliation>DS NLP Group</affiliation></author>
+      <author id="alexey-dontsov" orcid="0009-0002-1999-1644" openreview="~Alexey_Dontsov1"><first>Alexey</first><last>Dontsov</last><affiliation>DS NLP Group</affiliation></author>
       <author openreview="~Anton_Korznikov1"><first>Anton</first><last>Korznikov</last><affiliation>DS-NLP Group</affiliation></author>
       <author openreview="~Andrey_V._Galichin1"><first>Andrey V.</first><last>Galichin</last><affiliation>Applied AI Institute</affiliation></author>
       <author id="elena-tutubalina" orcid="0000-0001-7936-0284" openreview="~Elena_Tutubalina1"><first>Elena</first><last>Tutubalina</last></author>
@@ -6063,7 +6063,7 @@
       <author openreview="~Pranav_Somani1"><first>Pranav</first><last>Somani</last></author>
       <author openreview="~Alice_Guo2"><first>Alice</first><last>Guo</last></author>
       <author id="dan-jurafsky" orcid="0000-0002-6459-7745" openreview="~Dan_Jurafsky1"><first>Dan</first><last>Jurafsky</last><affiliation>Stanford University</affiliation></author>
-      <author openreview="~Chen_Shani1"><first>Chen</first><last>Shani</last></author>
+      <author id="chen-shani" orcid="0009-0001-4902-616X" openreview="~Chen_Shani1"><first>Chen</first><last>Shani</last></author>
       <pages>457-474</pages>
       <abstract>The next-token prediction (NTP) objective has been foundational in the development of modern large language models (LLMs), driving advances in fluency and generalization. However, NTP operates at the token level, treating deviations from a single reference continuation as errors even when alternative continuations are equally plausible or semantically equivalent. As a result, token-level loss can penalize valid abstractions, paraphrases, or conceptually correct reasoning paths, biasing models toward surface form rather than underlying meaning. This mismatch between the training signal and semantic correctness motivates learning objectives that operate over higher-level representations.We propose a shift from token-level to concept-level prediction, where concepts group multiple surface forms of the same idea (e.g., “mom,” “mommy,” “mother” <tex-math>\rightarrow</tex-math> <i>MOTHER</i>). We introduce various methods for integrating conceptual supervision into LLM training and show that concept-aware models achieve lower perplexity, improved robustness under domain shift, and stronger performance than NTP-based models on diverse NLP benchmarks. This suggests concept-level supervision as an improved training signal that better aligns LLMs with human semantic abstractions.</abstract>
       <url hash="cc894152">2026.eacl-short.34</url>
@@ -6123,7 +6123,7 @@
     <paper id="39">
       <title>Funny or Persuasive, but Not Both: Evaluating Fine-Grained Multi-Concept Control in <fixed-case>LLM</fixed-case>s</title>
       <author openreview="~Arya_Labroo1"><first>Arya</first><last>Labroo</last></author>
-      <author openreview="~Ivaxi_Sheth1"><first>Ivaxi</first><last>Sheth</last><affiliation>CISPA, saarland university, saarland informatics campus</affiliation></author>
+      <author id="ivaxi-sheth" orcid="0009-0001-9903-0693" openreview="~Ivaxi_Sheth1"><first>Ivaxi</first><last>Sheth</last><affiliation>CISPA, saarland university, saarland informatics campus</affiliation></author>
       <author id="vyas-raina" orcid="0000-0002-7157-5392" openreview="~Vyas_Raina1"><first>Vyas</first><last>Raina</last></author>
       <author openreview="~Amaani_Ahmed1"><first>Amaani</first><last>Ahmed</last></author>
       <author openreview="~Mario_Fritz1"><first>Mario</first><last>Fritz</last><affiliation>CISPA Helmholtz Center for Information Security and Saarland University</affiliation></author>
@@ -6500,7 +6500,7 @@
       <author openreview="~Lukas_Hilgert1"><first>Lukas</first><last>Hilgert</last><affiliation>Karlsruher Institut für Technologie</affiliation></author>
       <author openreview="~Seymanur_Akti1"><first>Seymanur</first><last>Akti</last><affiliation>Karlsruher Institut für Technologie</affiliation></author>
       <author id="enes-yavuz-ugan" orcid="0009-0009-5181-3910" openreview="~Enes_Yavuz_Ugan1"><first>Enes Yavuz</first><last>Ugan</last></author>
-      <author id="alexander-waibel" orcid="0009-0001-0848-1000" openreview="~Alexander_Waibel2"><first>Alexander</first><last>Waibel</last></author>
+      <author id="alex-waibel" orcid="0009-0001-0848-1000" openreview="~Alexander_Waibel2"><first>Alexander</first><last>Waibel</last></author>
       <author id="jan-niehues" orcid="0000-0002-4231-6543" openreview="~Jan_Niehues1"><first>Jan</first><last>Niehues</last></author>
       <pages>175-187</pages>
       <abstract>The globalization of education and rapid growth of online learning have made localizing educational content a critical challenge. Lecture materials are inherently multimodal, combining spoken audio with visual slides, which requires systems capable of processing multiple input modalities. To provide an accessible and complete learning experience, translations must preserve all modalities: text for reading, slides for visual understanding, and speech for auditory learning. We present <b>BOOM</b>, a multimodal multilingual lecture companion that jointly translates lecture audio and slides to produce synchronized outputs across three modalities: translated text, localized slides with preserved visual elements, and synthesized speech. This end-to-end approach enables students to access lectures in their native language while aiming to preserve the original content in its entirety. Our experiments demonstrate that slide-aware transcripts also yield cascading benefits for downstream tasks such as summarization and question answering. We release our Slide Translation code at <url>https://github.com/saikoneru/image-translator</url> and integrate it in Lecture Translator at <url>https://gitlab.kit.edu/kit/isl-ai4lt/lt-middleware/ltpipeline</url>[All released code and models are licensed under the MIT License].</abstract>
@@ -7347,8 +7347,8 @@
     </paper>
     <paper id="37">
       <title>Plasticity vs. Rigidity: The Impact of Low-Rank Adapters on Reasoning on a Micro-Budget</title>
-      <author openreview="~Zohaib_Khan2"><first>Zohaib</first><last>Khan</last></author>
-      <author openreview="~Omer_Tafveez1"><first>Omer</first><last>Tafveez</last></author>
+      <author id="zohaib-khan" orcid="0009-0004-2938-8130" openreview="~Zohaib_Khan2"><first>Zohaib</first><last>Khan</last></author>
+      <author id="omer-tafveez" orcid="0009-0006-1481-8366" openreview="~Omer_Tafveez1"><first>Omer</first><last>Tafveez</last></author>
       <author openreview="~Zoha_Hayat_Bhatti1"><first>Zoha Hayat</first><last>Bhatti</last></author>
       <pages>493-501</pages>
       <abstract>Recent advances in mathematical reasoning typically rely on massive scale, yet the question remains: can strong reasoning capabilities be induced in small language models (<tex-math>\leq1.5\text{B}</tex-math>) under extreme constraints? We investigate this by training models on a single A40 GPU (48GB) for under 24 hours using Reinforcement Learning with Verifiable Rewards (RLVR) and Low-Rank Adaptation (LoRA). We find that the success of this “micro-budget" regime depends critically on the interplay between adapter capacity and model initialization. While low-rank adapters (<tex-math>r=8</tex-math>) consistently fail to capture the complex optimization dynamics of reasoning, high-rank adapters (<tex-math>r=256</tex-math>) unlock significant plasticity in standard instruction-tuned models. Our best result achieved an impressive 40.0% Pass@1 on AIME 24 (an 11.1% absolute improvement over baseline) and pushed Pass@16 to 70.0%, demonstrating robust exploration capabilities. However, this plasticity is not universal: while instruction-tuned models utilized the budget to elongate their chain-of-thought and maximize reward, heavily math-aligned models suffered performance collapse, suggesting that noisy, low-budget RL updates can act as destructive interference for models already residing near a task-specific optimum.</abstract>
@@ -7426,11 +7426,11 @@
     </paper>
     <paper id="44">
       <title>Annotation-Efficient Vision-Language Model Adaptation to the <fixed-case>P</fixed-case>olish Language Using the <fixed-case>LL</fixed-case>a<fixed-case>VA</fixed-case> Framework</title>
-      <author openreview="~Grzegorz_Statkiewicz1"><first>Grzegorz</first><last>Statkiewicz</last><affiliation>NASK - National Research Institute</affiliation></author>
+      <author id="grzegorz-statkiewicz" orcid="0009-0007-5556-1015" openreview="~Grzegorz_Statkiewicz1"><first>Grzegorz</first><last>Statkiewicz</last><affiliation>NASK - National Research Institute</affiliation></author>
       <author openreview="~Alicja_Dobrzeniecka1"><first>Alicja</first><last>Dobrzeniecka</last><affiliation>NASK - National Research Institute</affiliation></author>
       <author id="karolina-seweryn" orcid="0000-0003-0617-7301" openreview="~Karolina_Seweryn1"><first>Karolina</first><last>Seweryn</last></author>
       <author id="aleksandra-krasnodebska" orcid="0009-0004-1702-0865" openreview="~Aleksandra_Krasnodębska1"><first>Aleksandra</first><last>Krasnodębska</last><affiliation>NASK - National Research Institute</affiliation></author>
-      <author openreview="~Karolina_Piosek1"><first>Karolina</first><last>Piosek</last><affiliation>NASK - National Research Institute</affiliation></author>
+      <author id="karolina-piosek" orcid="0009-0008-6545-769X" openreview="~Karolina_Piosek1"><first>Karolina</first><last>Piosek</last><affiliation>NASK - National Research Institute</affiliation></author>
       <author openreview="~Katarzyna_Bogusz1"><first>Katarzyna</first><last>Bogusz</last></author>
       <author id="sebastian-cygert" orcid="0000-0002-4763-8381" openreview="~Sebastian_Cygert1"><first>Sebastian</first><last>Cygert</last><affiliation>NASK - National Research Institute and Gdańsk University of Techonology</affiliation></author>
       <author id="wojciech-kusa" orcid="0000-0003-4420-4147" openreview="~Wojciech_Kusa1"><first>Wojciech</first><last>Kusa</last><affiliation>NASK - National Research Institute</affiliation></author>
@@ -7675,7 +7675,7 @@
       <author id="alisea-stroligo" orcid="0000-0001-8194-4799" openreview="~Alisea_Stroligo1"><first>Alisea</first><last>Stroligo</last><affiliation>Universität Konstanz</affiliation></author>
       <author openreview="~Anna_Shamray1"><first>Anna</first><last>Shamray</last></author>
       <author id="julian-schelb" orcid="0009-0002-8034-7364" openreview="~Julian_Schelb1"><first>Julian</first><last>Schelb</last><affiliation>Universität Konstanz</affiliation></author>
-      <author id="andreas-spitz" openreview="~Andreas_Spitz1"><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
+      <author id="andreas-spitz" orcid="0000-0002-5282-6133" openreview="~Andreas_Spitz1"><first>Andreas</first><last>Spitz</last><affiliation>Universität Konstanz</affiliation></author>
       <pages>861-880</pages>
       <abstract>The use of large language models (LLMs) for generating responses to multiple-choice style questionnaires that were originally intended to be answered by humans is often a helpful or even necessary task, for example in persona simulation or during LLM alignment. Although the input and output versatility of generative LLMs is beneficial when adapting such questionnaires to machine use, it can be detrimental when mapping the generated text back to a closed set of possible answer options for evaluation or scoring. In this paper, we investigate the performance of smaller models for the classification of LLM outputs into the available answer options of multiple-choice questionnaires. We consider fine-tuned encoder-transformers as well as a rule-based approach on three datasets with differing answer option complexity. Surprisingly, we find that the best-performing neural approach still underperforms in comparison to our rule-based baseline, indicating that simple pattern-matching of answer options against LLM outputs might still be the most competitive solution for cleaning LLM responses to multiple-choice questionnaires.</abstract>
       <url hash="7c7c023f">2026.eacl-srw.64</url>
@@ -8585,8 +8585,8 @@
     </paper>
     <paper id="61">
       <title>A Hybrid Supervised-<fixed-case>LLM</fixed-case> Pipeline for Actionable Suggestion Mining in Unstructured Customer Reviews</title>
-      <author openreview="~Aakash_Trivedi1"><first>Aakash</first><last>Trivedi</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
-      <author openreview="~Aniket_Upadhyay1"><first>Aniket</first><last>Upadhyay</last></author>
+      <author id="aakash-trivedi" orcid="0009-0004-9380-7360" openreview="~Aakash_Trivedi1"><first>Aakash</first><last>Trivedi</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
+      <author id="aniket-upadhyay" orcid="0009-0006-4919-4629" openreview="~Aniket_Upadhyay1"><first>Aniket</first><last>Upadhyay</last></author>
       <author id="pratik-narang" orcid="0000-0003-1865-3512" openreview="~Pratik_Narang1"><first>Pratik</first><last>Narang</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
       <author id="dhruv-kumar-1847" orcid="0000-0003-4831-1847" openreview="~Dhruv_Kumar4"><first>Dhruv</first><last>Kumar</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
       <author openreview="~Praveen_Kumar8"><first>Praveen</first><last>Kumar</last></author>

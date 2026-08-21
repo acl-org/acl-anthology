@@ -17,9 +17,10 @@
 from __future__ import annotations
 
 import re
-from functools import lru_cache
+import unicodedata
+from functools import cache
 from lxml import etree
-from typing import cast, Iterable, Optional, TypeAlias, TYPE_CHECKING
+from typing import Iterable, Optional, TypeAlias, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..people.name import NameSpecification
@@ -37,6 +38,7 @@ from pylatexenc.latexencode import (
     UnicodeToLatexEncoder,
     UnicodeToLatexConversionRule,
     RULE_DICT,
+    get_builtin_uni2latex_dict,
 )
 from pylatexenc.latexwalker import (
     LatexWalker,
@@ -62,30 +64,56 @@ log = get_logger()
 ### UNICODE TO LATEX (BIBTEX)
 ################################################################################
 
+LATEX_CUSTOM_OVERRIDES = {
+    ord("‘"): "`",  # defaults to \textquoteleft
+    ord("’"): "'",  # defaults to \textquoteright
+    ord("“"): "``",  # defaults to \textquotedblleft
+    ord("”"): "''",  # defaults to \textquotedblright
+    ord("–"): "--",  # defaults to \textendash
+    ord("—"): "---",  # defaults to \textemdash
+    ord("í"): "\\'i",  # defaults to using dotless \i
+    ord("ì"): "\\`i",
+    ord("î"): "\\^i",
+    ord("ï"): '\\"i',
+}
+"""Unicode-to-LaTeX overrides for `LATEXENC`, taking priority over its defaults."""
+
 LATEXENC = UnicodeToLatexEncoder(
     conversion_rules=[
-        UnicodeToLatexConversionRule(
-            RULE_DICT,
-            {
-                ord("‘"): "`",  # defaults to \textquoteleft
-                ord("’"): "'",  # defaults to \textquoteright
-                ord("“"): "``",  # defaults to \textquotedblleft
-                ord("”"): "''",  # defaults to \textquotedblright
-                ord("–"): "--",  # defaults to \textendash
-                ord("—"): "---",  # defaults to \textemdash
-                ord("í"): "\\'i",  # defaults to using dotless \i
-                ord("ì"): "\\`i",
-                ord("î"): "\\^i",
-                ord("ï"): '\\"i',
-            },
-        ),
+        UnicodeToLatexConversionRule(RULE_DICT, LATEX_CUSTOM_OVERRIDES),
         "defaults",
     ],
     replacement_latex_protection="braces-all",
     unknown_char_policy="keep",
     unknown_char_warning=False,
 )
-"""A UnicodeToLatexEncoder instance intended for BibTeX generation."""
+"""A UnicodeToLatexEncoder instance intended for BibTeX generation.
+
+Note:
+    `latex_encode()` below does not actually call this encoder. Its
+    conversion rules are dict-only (no regexes), with
+    `unknown_char_policy="keep"` and `replacement_latex_protection="braces-all"`;
+    given that, its output for *any* string is fully determined by a single
+    codepoint->replacement mapping (unmapped characters pass through
+    unchanged). `_build_fast_latex_table()` derives that mapping so
+    `latex_encode()` can apply it via `str.translate()` -- a single C-level
+    pass -- instead of pylatexenc's per-character, per-rule dispatch loop,
+    which profiling showed to dominate BibTeX generation time. If `LATEXENC`'s
+    configuration above ever changes, update `_build_fast_latex_table()`
+    accordingly; `tests/utils/latex_test.py` cross-checks the two against
+    every string in `data/xml/*.xml` and will fail if they diverge.
+"""
+
+
+def _build_fast_latex_table() -> dict[int, str]:
+    """Builds the `str.translate()` table `latex_encode()` uses; see the note on `LATEXENC` above."""
+    table = {cp: "{" + repl + "}" for cp, repl in get_builtin_uni2latex_dict().items()}
+    table.update({cp: "{" + repl + "}" for cp, repl in LATEX_CUSTOM_OVERRIDES.items()})
+    return table
+
+
+FAST_LATEX_TABLE = _build_fast_latex_table()
+"""`str.translate()` table equivalent to `LATEXENC.unicode_to_latex()`; see the note on `LATEXENC` above."""
 
 BIBTEX_FIELD_NEEDS_ENCODING = {"journal", "address", "publisher", "note"}
 """Any BibTeX field whose value should be LaTeX-encoded first."""
@@ -178,7 +206,7 @@ def has_unbalanced_braces(string: str) -> bool:
     return c != 0
 
 
-@lru_cache
+@cache
 def latex_encode(text: Optional[str]) -> str:
     """
     Arguments:
@@ -189,8 +217,7 @@ def latex_encode(text: Optional[str]) -> str:
     """
     if text is None:
         return ""
-    text = cast(str, LATEXENC.unicode_to_latex(text))
-    return text
+    return unicodedata.normalize("NFC", text).translate(FAST_LATEX_TABLE)
 
 
 def latex_convert_quotes(text: str) -> str:

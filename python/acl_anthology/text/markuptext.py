@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from attrs import define, field, validators as v
 from collections import defaultdict
-from copy import deepcopy
+from copy import copy
 from functools import total_ordering
 from lxml import etree
 from typing import Optional, SupportsIndex, TYPE_CHECKING
@@ -120,13 +120,24 @@ class MarkupText:
         These operate on the [stringified XML representation][acl_anthology.text.markuptext.MarkupText.as_xml] of the class.
     """
 
-    # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
-    # is very expensive, as shown by profiling. Therefore, markup elements
-    # which don't actually contain any markup are simply stored as
-    # strings. This makes the implementation slightly more verbose (we need to
-    # check everywhere whether we're dealing with etree._Element or str), but
-    # much faster. ---For further optimization, we could explore if there's an
-    # alternative that doesn't require deepcopy-ing XML elements at all.
+    # IMPLEMENTATION NOTE:
+    # --------------------
+    # Copying (or newly instantiating) `etree._Element` is very expensive,
+    # as shown by profiling. Therefore, markup elements which don't actually
+    # contain any markup are simply stored as strings. This makes the
+    # implementation slightly more verbose (we need to check everywhere
+    # whether we're dealing with `etree._Element` or `str`), but much faster.
+    #
+    # We use `copy()` as it is slightly faster than `deepcopy()`, and lxml's
+    # `_Element.__copy__` already performs a full, independent recursive
+    # copy of the element (there is no cheaper "shallow" copy for a tree of
+    # libxml2-owned nodes), so this produces the exact same result. This
+    # relies on an lxml implementation detail, so it is pinned by tests in
+    # `markuptext_test.py` in case a future lxml release ever changes this.
+    #
+    # Dropping `etree._Element` for markup storage entirely doesn't seem
+    # worth pursuing: profiling `Anthology.load_all()` shows the `copy()`
+    # call is already <1% of its total runtime.
     _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
@@ -182,7 +193,7 @@ class MarkupText:
             return remove_extra_whitespace(self._content)
         if self._text is not None:
             return self._text
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
         has_par = protect_par(element)
@@ -204,7 +215,7 @@ class MarkupText:
             return xml_escape(remove_extra_whitespace(self._content))
         if self._html is not None:
             return self._html
-        element = deepcopy(self._content)
+        element = copy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -327,7 +338,7 @@ class MarkupText:
             Instantiated MarkupText object corresponding to the element.
         """
         if len(element):
-            return cls(deepcopy(element))
+            return cls(copy(element))
         return cls(str(element.text) if element.text is not None else "")
 
     @classmethod
@@ -366,7 +377,7 @@ class MarkupText:
             if self._content:
                 element.text = self._content
         else:
-            element = deepcopy(self._content)
+            element = copy(self._content)
             element.tag = tag
         return element
 
