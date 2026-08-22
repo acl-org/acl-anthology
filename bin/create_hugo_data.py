@@ -40,6 +40,7 @@ import logging as log
 import msgspec
 from omegaconf import OmegaConf
 import os
+import re
 from rich.progress import (
     Progress,
     TextColumn,
@@ -48,6 +49,7 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
+import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
@@ -357,6 +359,7 @@ def homepage_stats(anthology):
 
     return {
         "paper_count": sum(1 for _ in anthology.papers()),
+        "author_count": len(anthology.people),
         "volume_count": len(volumes),
         "venue_count": len(all_venues),
         "venue_year_count": sum(
@@ -443,6 +446,155 @@ def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
             f.write(ENCODER.encode(all_volumes))
 
 
+AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
+
+# Sentinels for a person ID that the browser can rebuild from the display name.
+# Keep slugify_display_name() in sync with slugifyName() in author-search.js.
+AUTHOR_ID_FROM_NAME = 0
+AUTHOR_ID_FROM_NAME_UNVERIFIED = 1
+
+
+def slugify_display_name(name: str) -> str:
+    """Reduce a display name to the person ID it would normally produce."""
+    stripped = "".join(
+        char
+        for char in unicodedata.normalize("NFKD", name)
+        if not 0x0300 <= ord(char) <= 0x036F
+    ).lower()
+    return re.sub(r"[^a-z0-9]+", "-", stripped).strip("-")
+
+
+def encode_author_id(person_id: str, full_name: str):
+    """Replace an ID derivable from the name with a sentinel, else keep it."""
+    slug = slugify_display_name(full_name)
+    if person_id == slug:
+        return AUTHOR_ID_FROM_NAME
+    if person_id == f"{slug}/unverified":
+        return AUTHOR_ID_FROM_NAME_UNVERIFIED
+    return person_id
+
+
+def trim_trailing_empty(row: list) -> list:
+    """Drop trailing empty fields; the browser restores them as defaults."""
+    while len(row) > 2 and row[-1] in ("", []):
+        row.pop()
+    return row
+
+
+def search_bucket_keys(searchable: str) -> set[str]:
+    """Return initial-character buckets for all searchable tokens."""
+    bucket_keys = set()
+    for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
+        initial = token[0].casefold()
+        bucket_keys.add(initial if initial in AUTHOR_INDEX_BUCKETS else "other")
+    return bucket_keys or {"other"}
+
+
+def first_paper_year_histogram(people):
+    """Count authors by the year of their first paper.
+
+    Returns a year-ordered list of ``{"year", "count", "verified_count"}``
+    entries spanning every year between the earliest and latest debut. Years in
+    which no author published a first paper are included with zero counts so the
+    histogram forms a continuous timeline. Authors without any papers (and
+    therefore without a ``first_year``) are ignored.
+    """
+    counts = Counter()
+    verified_counts = Counter()
+    for person_id, person in people.items():
+        if (first_year := person.get("first_year")) is None:
+            continue
+        counts[first_year] += 1
+        if is_verified_person_id(person_id):
+            verified_counts[first_year] += 1
+
+    if not counts:
+        return []
+    return [
+        {
+            "year": year,
+            "count": counts.get(year, 0),
+            "verified_count": verified_counts.get(year, 0),
+        }
+        for year in range(min(counts), max(counts) + 1)
+    ]
+
+
+def author_stats(people):
+    """Compute statistics for the author index."""
+    verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
+    return {
+        "author_count": len(people),
+        "verified_author_count": verified_count,
+        "unverified_author_count": len(people) - verified_count,
+        "orcid_author_count": sum(
+            bool(person.get("orcid")) for person in people.values()
+        ),
+        "first_paper_year_hist": first_paper_year_histogram(people),
+    }
+
+
+def author_search_index(people):
+    """Build compact author-search buckets keyed by name-token initial."""
+    buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
+
+    for person_id, person in people.items():
+        alternate_names = [
+            variant["full"] for variant in person.get("variant_entries", [])
+        ]
+        name_variants = person.get("name_variants", [])
+        comment = person.get("comment", "")
+        orcid = person.get("orcid", "")
+        row = [
+            person["full"],
+            encode_author_id(person_id, person["full"]),
+            len(person["papers"]),
+            orcid,
+            alternate_names,
+            comment,
+            name_variants,
+        ]
+        canonical_name = " ".join(
+            name_part
+            for name_part in (person.get("first"), person.get("last"))
+            if name_part
+        )
+        if canonical_name and canonical_name != person["full"]:
+            row.append(canonical_name)
+        trim_trailing_empty(row)
+        searchable = " ".join(
+            [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
+        )
+        for bucket in search_bucket_keys(searchable):
+            buckets[bucket].append((person_id, row))
+
+    return {
+        bucket: [
+            row
+            for _, row in sorted(
+                entries, key=lambda entry: (entry[1][0].casefold(), entry[0])
+            )
+        ]
+        for bucket, entries in buckets.items()
+    }
+
+
+def export_author_index(people, builddir):
+    """Write aggregate and browser-search data for the author directory."""
+    author_index = author_search_index(people)
+    stats = author_stats(people)
+    with open(f"{builddir}/data/people_stats.json", "wb") as f:
+        f.write(ENCODER.encode(stats))
+
+    index_dir = f"{builddir}/static/people/index"
+    if os.path.isdir(index_dir):
+        shutil.rmtree(index_dir)
+    os.makedirs(index_dir)
+    for bucket, rows in author_index.items():
+        with open(f"{index_dir}/{bucket}.json", "wb") as f:
+            f.write(ENCODER.encode(rows))
+
+
 def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -485,6 +637,9 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
+            if debut_years:
+                data["first_year"] = min(debut_years)
             if len(person.names) > 1:
                 data["variant_entries"] = []
                 diff_script_variants = []
@@ -496,6 +651,15 @@ def export_people(anthology, builddir, dryrun):
                         diff_script_variants.append(n.as_full())
                 if diff_script_variants and is_verified_person_id(person_id):
                     data["full"] = f"{data['full']} ({', '.join(diff_script_variants)})"
+            name_variants = sorted(
+                {
+                    variant.as_full()
+                    for namespec in person.namespecs()
+                    for variant in namespec.variants
+                }
+            )
+            if name_variants:
+                data["name_variants"] = name_variants
             if person.comment is not None:
                 data["comment"] = person.comment
             if person.orcid is not None:
@@ -538,6 +702,7 @@ def export_people(anthology, builddir, dryrun):
         if not dryrun:
             with open(f"{builddir}/data/people.json", "wb") as f:
                 f.write(ENCODER.encode(people))
+            export_author_index(people, builddir)
             progress.update(task, advance=100)
 
 

@@ -81,9 +81,19 @@ $theme-colors: map-merge($theme-colors,
 @import 'vendor/bootstrap-5/scss/utilities/api';
 // @import 'vendor/bootstrap-5/scss/print'; // Merged
 
+/* Site-wide design tokens. Page stylesheets should consume these rather than
+   declaring their own copies of the same greys. */
+:root {
+  --acl-ink: #{$acl-black};
+  --acl-muted: #{$acl-muted};
+  --acl-line: #{$acl-line};
+}
+
 @import 'homepage';
 @import 'info';
+@import 'navbar-search';
 @import 'papers';
+@import 'people';
 @import 'texmath';
 
 .acl-navbar-container--home {
