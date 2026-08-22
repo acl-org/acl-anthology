@@ -779,6 +779,8 @@ class Paper:
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
         for element in paper:
+            if isinstance(element, etree._Comment):
+                continue  # allow, but ignore comments
             tag = str(element.tag)
             if tag in ("bibkey", "doi", "pages"):
                 kwargs[tag] = element.text
@@ -821,6 +823,8 @@ class Paper:
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in paper:
+            if isinstance(element, etree._Comment):
+                continue  # allow, but ignore comments
             tag = str(element.tag)
             if tag in (
                 "bibkey",
@@ -891,6 +895,7 @@ class Paper:
             paper.set("ingest-date", self._ingest_date)
         if self.type == PaperType.BACKMATTER:
             paper.set("type", "backmatter")
+        paper.append(etree.Comment(self.web_url))
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:

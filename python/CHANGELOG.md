@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- XML serialization now adds comments with the full web URL of each Anthology item, where applicable.
+
 ### Changed
 
 - Sped up `MarkupText` by avoiding unnecessary deep copies of XML elements.
