@@ -966,7 +966,6 @@ def ingest(
             anthology,
             metadata["sig"],
             volume_obj,
-            metadata.get("booktitle"),
         )
     configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
@@ -1117,7 +1116,6 @@ def register_volume_with_sig(
     anthology: Anthology,
     sig_id: str,
     volume: Volume,
-    booktitle: Optional[str] = None,
 ) -> None:
     """Store a SIG association on an ingested volume if that SIG exists."""
     sig_key = sig_id.lower()
