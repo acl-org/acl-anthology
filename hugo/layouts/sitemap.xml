@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range .Data.Pages -}}{{/* PART 1: All HTML pages */}}
-  {{- $nameSlug := .Path | strings.TrimPrefix "people/" | strings.TrimSuffix "/unverified" -}}{{/* Canonical URL omits /unverified */}}
+  {{- $nameSlug := .Path | strings.TrimPrefix "/people/" | strings.TrimSuffix "/unverified" -}}{{/* Canonical URL omits /unverified */}}
   {{- if not (and (strings.HasSuffix .Path "/unverified") (index site.Data.people $nameSlug))}}{{/* Don't duplicate an existing verified person URL */}}
   <url>
     <loc>{{ .Permalink | strings.TrimSuffix "/unverified/" | strings.TrimSuffix "/" }}/</loc>
