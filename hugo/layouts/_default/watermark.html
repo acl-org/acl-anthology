@@ -1,0 +1,105 @@
+{{ define "main" }}
+<main class="watermark-page" aria-labelledby="title">
+  <header class="mb-4">
+    <h2 id="title" class="mb-2">Add a proceedings footer</h2>
+    <p class="lead text-muted mb-0">You can use this form to add a first-page footer and page numbers to <a href="{{ relref . "/info/corrections" }}#revisions-and-errata">a paper revision</a>.</p>
+  </header>
+
+  <form id="watermark-form" class="watermark-tool border shadow-sm" action="{{ relURL "cgi-bin/watermark.cgi" }}" method="post" enctype="multipart/form-data" novalidate>
+    <div class="row g-0">
+      <section class="watermark-controls col-lg-7 p-3 p-md-4" aria-labelledby="watermark-input-heading">
+        <h3 id="watermark-input-heading" class="h5 mb-3">Paper</h3>
+
+        <div class="mb-4">
+          <!-- <label id="pdf-label" class="form-label fw-semibold" for="pdf">PDF file</label> -->
+          <label id="pdf-drop-zone" class="watermark-drop-zone" for="pdf" tabindex="0">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="watermark-drop-title">Choose a PDF</span>
+            <span class="watermark-drop-copy">or drop it here, up to 25 MB</span>
+          </label>
+          <input class="visually-hidden" type="file" id="pdf" name="pdf" accept="application/pdf,.pdf" required aria-labelledby="pdf-label pdf-file-summary">
+          <div id="pdf-file-summary" class="form-text text-truncate" aria-live="polite">No file selected</div>
+        </div>
+
+        <section class="watermark-footer-section border-top pt-4" aria-labelledby="watermark-footer-heading">
+          <h3 id="watermark-footer-heading" class="h5 mb-3">Footer</h3>
+          <div class="mb-3">
+            <textarea class="form-control" id="footer-text" name="footer_text" rows="3" maxlength="2000" aria-describedby="footer-help">&lt;i&gt;Proceedings of ACL 2026, pages 1–10&lt;/i&gt;
+July 2–7, 2026 ©2026 ACL</textarea>
+            <div id="footer-help" class="form-text">Use <code>&lt;i&gt;…&lt;/i&gt;</code> for italics and Enter for a new line. Enter footer text or enable page numbering before generating.</div>
+          </div>
+
+          <div class="watermark-numbering-row mb-3">
+            <div class="form-check mb-0">
+              <input class="form-check-input" type="checkbox" id="page-numbering" aria-controls="page-start">
+              <label class="form-check-label fw-semibold text-nowrap" for="page-numbering">Page numbering</label>
+            </div>
+            <input class="form-control" type="number" id="page-start" name="page_start" min="1" max="1000000" step="1" inputmode="numeric" placeholder="First page number" required disabled>
+          </div>
+
+          <div class="watermark-layout row g-3">
+            <div class="col-6 col-md-3">
+              <label class="form-label small" for="bottom-margin">Bottom offset</label>
+              <div class="input-group">
+                <input class="form-control" type="number" id="bottom-margin" name="bottom_margin" min="0" max="72" step="1" value="14" inputmode="decimal">
+                <span class="input-group-text">pt</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small" for="footer-size">Footer size</label>
+              <div class="input-group">
+                <input class="form-control" type="number" id="footer-size" name="footer_size" min="6" max="18" step="0.5" value="9" inputmode="decimal">
+                <span class="input-group-text">pt</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small" for="page-number-size">Number size</label>
+              <div class="input-group">
+                <input class="form-control" type="number" id="page-number-size" name="page_number_size" min="6" max="18" step="0.5" value="11" inputmode="decimal">
+                <span class="input-group-text">pt</span>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label small" for="line-spacing">Line spacing</label>
+              <input class="form-control" type="number" id="line-spacing" name="line_spacing" min="1" max="2" step="0.1" value="1.2" inputmode="decimal">
+            </div>
+          </div>
+        </section>
+
+        <div class="watermark-actions d-flex flex-wrap align-items-center gap-2 border-top mt-4 pt-3">
+          <button class="btn btn-primary" type="submit" id="generate-pdf">
+            <span class="spinner-border spinner-border-sm d-none" id="generate-spinner" aria-hidden="true"></span>
+            <i class="fas fa-download" id="generate-icon" aria-hidden="true"></i>
+            <span id="generate-label">Generate PDF</span>
+          </button>
+          <button class="btn btn-outline-secondary" type="reset">
+            <i class="fas fa-undo pe-1" aria-hidden="true"></i>Reset
+          </button>
+          <span id="watermark-status" class="small ms-lg-auto" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <aside class="watermark-preview-panel col-lg-5 p-3 p-md-4" aria-labelledby="watermark-preview-heading">
+        <div class="d-flex justify-content-between align-items-baseline mb-3">
+          <h3 id="watermark-preview-heading" class="h5 mb-0">First-page preview</h3>
+          <span class="text-muted small">Source PDF</span>
+        </div>
+        <div id="watermark-preview-page" class="watermark-preview-page" aria-label="Preview of footer and page-number placement">
+          <canvas id="watermark-preview-canvas" class="watermark-preview-canvas" role="img" aria-label="First page of the selected PDF" hidden></canvas>
+          <div id="watermark-preview-placeholder" class="watermark-preview-placeholder text-muted">
+            <i class="far fa-file-pdf" aria-hidden="true"></i>
+            <span id="watermark-preview-placeholder-text">Choose a PDF to preview its first page</span>
+          </div>
+          <div id="watermark-preview-number" class="watermark-preview-number"></div>
+          <div id="watermark-preview-footer" class="watermark-preview-footer text-muted">Footer preview</div>
+        </div>
+        <p class="small text-muted mt-3 mb-0"><i class="fas fa-lock pe-1" aria-hidden="true"></i>Uploads are processed temporarily and deleted after the response.</p>
+      </aside>
+    </div>
+  </form>
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+<script defer src="{{ relURL "js/watermark.js" }}"></script>
+{{ end }}

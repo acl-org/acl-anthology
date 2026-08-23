@@ -1,0 +1,1 @@
+../hugo/static/cgi-bin/add_footer_to_pdf.py
