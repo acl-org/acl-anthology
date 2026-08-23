@@ -478,7 +478,7 @@
       <author id="zhao-zhang-0035" orcid="0000-0001-5921-0035" openreview="~Zhao_Zhang1"><first>Zhao</first><last>Zhang</last><affiliation>Rutgers University</affiliation></author>
       <author id="yuan-cao" orcid="0000-0002-1267-8930" openreview="~Yuan_Cao2"><first>Yuan</first><last>Cao</last><affiliation>Unreasonable Labs</affiliation></author>
       <author id="ruixiang-tang" orcid="0000-0001-6476-2336" openreview="~Ruixiang_Tang1"><first>Ruixiang</first><last>Tang</last><affiliation>Rutgers University</affiliation></author>
-      <author openreview="~Dimitris_N._Metaxas1"><first>Dimitris N.</first><last>Metaxas</last></author>
+      <author id="dimitris-n-metaxas" orcid="0000-0001-7142-7640" openreview="~Dimitris_N._Metaxas1"><first>Dimitris N.</first><last>Metaxas</last></author>
       <pages>716-749</pages>
       <abstract>Ensuring that Large Language Models (LLMs) adhere to safety principles without refusing benign requests remains a significant challenge. While OpenAI introduces deliberative alignment (DA) to enhance the safety of its o-series models through reasoning over detailed “code-like” safety rules, the effectiveness of this approach in open-source LLMs, which typically lack advanced reasoning capabilities, is understudied. In this work, we systematically evaluate the impact of explicitly specifying extensive safety codes versus demonstrating them through illustrative cases. We find that referencing explicit codes inconsistently improves harmlessness and systematically degrades helpfulness, whereas training on case-augmented simple codes yields more robust and generalized safety behaviors. By guiding LLMs with case-augmented reasoning instead of extensive code-like safety rules, we avoid rigid adherence to narrowly enumerated rules and enable broader adaptability. Building on these insights, we propose CADA, a case-augmented deliberative alignment method for LLMs utilizing reinforcement learning on self-generated safety reasoning chains. CADA effectively enhances harmlessness, improves robustness against attacks, and reduces over-refusal while preserving utility across diverse benchmarks, offering a practical alternative to rule-only DA for improving safety while maintaining helpfulness.</abstract>
       <url hash="c02dbda5">2026.acl-long.30</url>
@@ -1132,7 +1132,7 @@
       <author id="jiangxuan-long" orcid="0009-0000-5028-058X" openreview="~Jiangxuan_Long1"><first>Jiangxuan</first><last>Long</last><affiliation>University of Hong Kong</affiliation></author>
       <author id="weidi-xu" orcid="0000-0002-7279-9339" openreview="~Weidi_Xu1"><first>Weidi</first><last>Xu</last><affiliation>Infly Technology</affiliation></author>
       <author openreview="~Wei_Chu1"><first>Wei</first><last>Chu</last><affiliation>Inf Tech</affiliation></author>
-      <author openreview="~Yuan_Qi2"><first>Yuan</first><last>Qi</last><affiliation>Fudan University</affiliation></author>
+      <author id="yuan-qi" orcid="0009-0002-9377-5755" openreview="~Yuan_Qi2"><first>Yuan</first><last>Qi</last><affiliation>Fudan University</affiliation></author>
       <pages>1618-1639</pages>
       <abstract>Recent advances in model distillation show that data from advanced reasoning models can effectively train smaller student models. However, standard practices discard incorrect reasoning traces—valuable, yet underutilized data. This paper addresses the critical question: How can both positive and negative distilled reasoning traces be effectively leveraged to maximize LLM reasoning performance in an offline setting? We employ a two-stage training recipe: first, Supervised Fine-Tuning (SFT) on positive traces, followed by a refinement stage using both positive and negative traces. We find that a simple REINFORCE-style objective, which we term the Reinforcement Distillation (REDI) objective, outperforms established preference optimization methods like DPO and SimPO in this distillation context. Our empirical evaluations demonstrate the effectiveness of this approach. Notably, our Qwen-REDI-1.5B model, trained on just 131k traces from the open Open-R1 dataset, achieves an 83.1% score on MATH-500. Its performance matches that of DeepSeek-R1-Distill-Qwen-1.5B, a model trained on 800k proprietary data. This result showcases the remarkable data efficiency of utilizing previously discarded negative traces.</abstract>
       <url hash="a6831564">2026.acl-long.74</url>
@@ -1256,7 +1256,7 @@
     </paper>
     <paper id="82">
       <title><fixed-case>CRISP</fixed-case>: Persistent Concept Unlearning via Sparse Autoencoders</title>
-      <author openreview="~Tomer_Ashuach1"><first>Tomer</first><last>Ashuach</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
+      <author id="tomer-ashuach" orcid="0009-0008-5305-3428" openreview="~Tomer_Ashuach1"><first>Tomer</first><last>Ashuach</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
       <author openreview="~Dana_Arad1"><first>Dana</first><last>Arad</last><affiliation>Computer Science Departmen, Technion-Israel Institute of Technology</affiliation></author>
       <author id="aaron-mueller" orcid="0009-0005-1148-5001" openreview="~Aaron_Mueller1"><first>Aaron</first><last>Mueller</last><affiliation>Boston University</affiliation></author>
       <author openreview="~Martin_Tutek1"><first>Martin</first><last>Tutek</last><affiliation>University of Zagreb</affiliation></author>
@@ -1319,7 +1319,7 @@
       <author id="ke-wang-cuhk" orcid="0009-0006-5469-0029" openreview="~Ke_Wang18"><first>Ke</first><last>Wang</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
       <author openreview="~Yunqiao_Yang2"><first>Yunqiao</first><last>Yang</last></author>
       <author id="haotian-hou" orcid="0009-0005-8583-7516" openreview="~Haotian_Hou3"><first>Haotian</first><last>Hou</last></author>
-      <author openreview="~Hongsheng_Li3"><first>Hongsheng</first><last>Li</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
+      <author id="hongsheng-li" orcid="0000-0002-2664-7975" openreview="~Hongsheng_Li3"><first>Hongsheng</first><last>Li</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
       <pages>1906-1933</pages>
       <abstract>Spreadsheets are central to real-world applications such as enterprise reporting, auditing, and scientific data management. Despite their ubiquity, existing large language model based approaches typically treat tables as plain text, overlooking critical layout cues and visual semantics. Moreover, real-world spreadsheets are often massive in scale, exceeding the input length that LLMs can efficiently process. To address these challenges, we propose SpreadsheetAgent, a two-stage multi-agent framework for spreadsheet understanding that adopts a step-by-step reading and reasoning paradigm. Instead of loading the entire spreadsheet at once, SpreadsheetAgent incrementally interprets localized regions through multiple modalities, including code execution results, images, and LaTeX tables. The method first constructs a structural sketch and row/column summaries, and then performs task-driven reasoning over this intermediate representation in the Solving Stage. To further enhance reliability, we design a verification module that validates extracted structures via targeted inspections, reducing error propagation and ensuring trustworthy inputs for downstream reasoning. Extensive experiments on two spreadsheet datasets demonstrate the effectiveness of our approach. With GPT-OSS-120B, SpreadsheetAgent achieves 38.16% on Spreadsheet Bench, outperforming the ChatGPT Agent baseline (35.27%) by 2.89 absolute points. These results highlight the potential of SpreadsheetAgent to advance robust and scalable spreadsheet understanding in real-world applications. Code is available at <url>https://github.com/renhouxing/SpreadsheetAgent</url>.</abstract>
       <url hash="e09153cc">2026.acl-long.86</url>
@@ -1349,7 +1349,7 @@
     <paper id="88">
       <title>Erasing Without Remembering: Implicit Knowledge Forgetting in Large Language Models</title>
       <author openreview="~Huazheng_Wang2"><first>Huazheng</first><last>Wang</last></author>
-      <author openreview="~Yongcheng_Jing1"><first>Yongcheng</first><last>Jing</last></author>
+      <author id="yongcheng-jing" orcid="0000-0001-8925-5787" openreview="~Yongcheng_Jing1"><first>Yongcheng</first><last>Jing</last></author>
       <author id="haifeng-sun" orcid="0000-0003-3072-7422" openreview="~Haifeng_Sun2"><first>Haifeng</first><last>Sun</last></author>
       <author id="yingjie-wang" orcid="0000-0002-1054-4197" openreview="~Yingjie_Wang1"><first>Yingjie</first><last>Wang</last></author>
       <author id="jingyu-wang" orcid="0000-0002-2182-2228" openreview="~Jingyu_Wang1"><first>Jingyu</first><last>Wang</last></author>
@@ -1520,7 +1520,7 @@
       <author openreview="~Lingjing_Kong1"><first>Lingjing</first><last>Kong</last><affiliation>Computer Science Department, School of Computer Science</affiliation></author>
       <author id="zeyu-tang" orcid="0000-0002-4423-4728" openreview="~Zeyu_Tang1"><first>Zeyu</first><last>Tang</last><affiliation>Stanford University</affiliation></author>
       <author openreview="~Mona_T._Diab1"><first>Mona T.</first><last>Diab</last><affiliation>Carnegie Mellon University</affiliation></author>
-      <author openreview="~Virginia_Smith1"><first>Virginia</first><last>Smith</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author id="virginia-smith" orcid="0000-0002-6404-2395" openreview="~Virginia_Smith1"><first>Virginia</first><last>Smith</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author openreview="~Kun_Zhang1"><first>Kun</first><last>Zhang</last><affiliation>Carnegie Mellon University and Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>2172-2210</pages>
       <abstract>Sparse Autoencoders (SAEs) are a prominent tool in mechanistic interpretability (MI) for decomposing neural network activations into interpretable features. However, the aspiration to identify a canonical set of features is challenged by the observed inconsistency of learned SAE features across different training runs, undermining reproducibility and complicating model comparison. We study run-to-run feature consistency in SAEs and argue that it should be reported as a standard evaluation axis alongside reconstruction and sparsity. We propose the Pairwise Dictionary Mean Correlation Coefficient (PW-MCC) as an assignment-based metric to quantify consistency and demonstrate that high levels are achievable (PW-MCC ≈ 0.80 for TopK SAEs on LLM activations) with appropriate architectural choices.Our contributions include: (i) theoretical grounding for strong consistency in the idealized setting of TopK SAEs; (ii) synthetic validation using a model organism, which verifies PW-MCC as a reliable proxy for ground-truth recovery; and (iii) empirical analysis on LLM activations, where PW-MCC correlates with the similarity of automatically generated natural-language feature explanations.</abstract>
@@ -2764,7 +2764,7 @@
       <author openreview="~Linfeng_Song1"><first>Linfeng</first><last>Song</last><affiliation>Google</affiliation></author>
       <author id="juntao-li" orcid="0000-0002-6286-7529" openreview="~Juntao_Li2"><first>Juntao</first><last>Li</last></author>
       <author openreview="~Haitao_Mi1"><first>Haitao</first><last>Mi</last><affiliation>Tencent AI Lab</affiliation></author>
-      <author openreview="~Zhaopeng_Tu1"><first>Zhaopeng</first><last>Tu</last><affiliation>Tencent</affiliation></author>
+      <author id="zhaopeng-tu" orcid="0000-0002-7900-6055" openreview="~Zhaopeng_Tu1"><first>Zhaopeng</first><last>Tu</last><affiliation>Tencent</affiliation></author>
       <author id="min-zhang" orcid="0000-0002-3895-5510" openreview="~Min_Zhang9"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
       <author id="dong-yu" orcid="0000-0003-0520-6844" openreview="~Dong_Yu2"><first>Dong</first><last>Yu</last><affiliation>CapitalOne</affiliation></author>
       <pages>3872-3892</pages>
@@ -3132,7 +3132,7 @@
       <title><fixed-case>C</fixed-case>ode<fixed-case>F</fixed-case>low<fixed-case>B</fixed-case>ench: A Multi-turn, Iterative Benchmark for Complex Code Generation</title>
       <author id="sizhe-wang" orcid="0009-0002-4759-3002" openreview="~Sizhe_Wang4"><first>Sizhe</first><last>Wang</last></author>
       <author id="zhengren-wang" orcid="0000-0003-3541-9322" openreview="~Zhengren_Wang1"><first>Zhengren</first><last>Wang</last><affiliation>Peking University</affiliation></author>
-      <author openreview="~Dongsheng_Ma1"><first>Dongsheng</first><last>Ma</last></author>
+      <author id="dongsheng-ma" orcid="0009-0007-8865-6715" openreview="~Dongsheng_Ma1"><first>Dongsheng</first><last>Ma</last></author>
       <author id="yongan-yu" orcid="0009-0006-3264-1170" openreview="~Yongan_Yu1"><first>Yongan</first><last>Yu</last><affiliation>Mila - Quebec Artificial Intelligence Institute and McGill University, McGill University</affiliation></author>
       <author openreview="~Rui_ling3"><first>Rui</first><last>Ling</last></author>
       <author id="zhiyu-li" orcid="0009-0008-3196-7739" openreview="~Zhiyu_li2"><first>Zhiyu</first><last>li</last></author>
@@ -3163,11 +3163,11 @@
       <title>Illusions of Confidence? Diagnosing <fixed-case>LLM</fixed-case> Truthfulness via Neighborhood Consistency</title>
       <author id="haoming-xu" orcid="0009-0006-5637-488X" openreview="~Haoming_Xu2"><first>Haoming</first><last>Xu</last></author>
       <author openreview="~Ningyuan_Zhao1"><first>Ningyuan</first><last>Zhao</last></author>
-      <author openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
-      <author openreview="~Weihong_Xu2"><first>Weihong</first><last>Xu</last></author>
+      <author id="yunzhi-yao" orcid="0000-0001-9458-696X" openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="weihong-xu" orcid="0009-0006-1072-4063" openreview="~Weihong_Xu2"><first>Weihong</first><last>Xu</last></author>
       <author id="hongru-wang" orcid="0000-0001-5027-0138" openreview="~Hongru_WANG1"><first>Hongru</first><last>Wang</last></author>
       <author id="xinle-deng" orcid="0009-0009-2159-5879" openreview="~Xinle_Deng3"><first>Xinle</first><last>Deng</last></author>
-      <author openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="shumin-deng" orcid="0000-0002-4049-8478" openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
       <author id="jeff-z-pan" orcid="0000-0002-9779-2088" openreview="~Jeff_Z._Pan1"><first>Jeff Z.</first><last>Pan</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
       <author id="huajun-chen" orcid="0000-0001-5496-7442" openreview="~Huajun_Chen1"><first>Huajun</first><last>Chen</last><affiliation>Zhejiang University and ZJU-Hangzhou Global Scientific and Technological Innovation Center</affiliation></author>
       <author id="ningyu-zhang" orcid="0000-0002-1970-0678" openreview="~Ningyu_Zhang1"><first>Ningyu</first><last>Zhang</last><affiliation>Zhejiang University</affiliation></author>
@@ -3607,7 +3607,7 @@
       <author openreview="~Zhao_Xu5"><first>Zhao</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology, University of California, Los Angeles and Tsinghua University</affiliation></author>
       <author id="zhaoyu-chen" orcid="0000-0002-7112-2596" openreview="~Zhaoyu_Chen1"><first>Zhaoyu</first><last>Chen</last><affiliation>Tiktok</affiliation></author>
       <author openreview="~Jian_Du3"><first>Jian</first><last>Du</last><affiliation>TikTok</affiliation></author>
-      <author openreview="~Yaxin_Du1"><first>Yaxin</first><last>Du</last></author>
+      <author id="yaxin-du" orcid="0009-0007-3182-1409" openreview="~Yaxin_Du1"><first>Yaxin</first><last>Du</last></author>
       <author openreview="~Xianghe_Pang1"><first>Xianghe</first><last>Pang</last></author>
       <author openreview="~Keduan_Huang1"><first>Keduan</first><last>Huang</last></author>
       <author id="yanfeng-wang" orcid="0000-0002-3196-2347" openreview="~Yanfeng_Wang1"><first>Yanfeng</first><last>Wang</last><affiliation>Shanghai Jiao Tong University</affiliation></author>
@@ -4696,7 +4696,7 @@
       <author id="yutong-wang" orcid="0009-0004-6147-301X" openreview="~Yutong_Wang11"><first>Yutong</first><last>Wang</last></author>
       <author id="min-zhang-6851" orcid="0000-0002-9624-6851" openreview="~Min_Zhang10"><first>Min</first><last>Zhang</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
       <author id="shimin-tao" orcid="0000-0002-2795-6921" openreview="~Shimin_Tao2"><first>Shimin</first><last>Tao</last></author>
-      <author openreview="~Daimeng_Wei1"><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="daimeng-wei" orcid="0009-0008-9606-5058" openreview="~Daimeng_Wei1"><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
       <author id="min-zhang" orcid="0000-0002-3895-5510" openreview="~Min_Zhang9"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
       <pages>6603-6621</pages>
       <abstract>Idiom translation remains a formidable challenge for Large Language Models (LLMs), as the constraints of static parametric memory and the noise in sentence-level retrieval often lead to literal misinterpretations. To address this, we propose DeReA, a detect-retrieve-arbitrate framework. The system employs a preference-aligned detector to identify idiomatic spans by reasoning over semantic conflicts between literal and contextual meanings. Subsequently, an idiom-centric translator invokes a fine-tuned embedding model to efficiently retrieve canonical definitions from an external knowledge base. The translator then utilizes a dual-path arbitration mechanism to select the optimal rendering by weighing the retrieval-augmented translations against direct translation. To evaluate our framework, we introduce LoMI, a high-difficulty benchmark with low data contamination. Experimental results demonstrate that DeReA significantly enhances performance across various model scales, improving GPT-5-mini by over 5.2 points in both idiomatic quality and consistency according to LLM-based metrics. Furthermore, evaluations on an emerging slang dataset from Urban Dictionary validate the potential of our approach in handling novel and evolving linguistic data. Our code is available at <url>https://github.com/jrongqing/DeReA</url>.</abstract>
@@ -6030,7 +6030,7 @@
     <paper id="383">
       <title><fixed-case>I</fixed-case>nference<fixed-case>D</fixed-case>ynamics: Adaptive <fixed-case>LLM</fixed-case> Routing through Structured Capability and Knowledge Profiling</title>
       <author id="haochen-shi" orcid="0009-0003-5308-6696" openreview="~Haochen_Shi4"><first>Haochen</first><last>Shi</last></author>
-      <author openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="tianshi-zheng" orcid="0009-0008-7053-6253" openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <author id="weiqi-wang" orcid="0000-0002-1617-9805" openreview="~Weiqi_Wang1"><first>Weiqi</first><last>Wang</last><affiliation>Tencent Hunyuan</affiliation></author>
       <author id="baixuan-xu" orcid="0000-0001-8175-7598" openreview="~Baixuan_Xu1"><first>Baixuan</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <author id="chunyang-li" orcid="0009-0002-9883-4531" openreview="~Chunyang_Li3"><first>Chunyang</first><last>Li</last><affiliation>Department of Computer Science and Engineering, Hong Kong University of Science and Technology</affiliation></author>
@@ -7335,7 +7335,7 @@
       <author id="dandan-liu" orcid="0009-0002-4702-8070" openreview="~DanDan_Liu4"><first>DanDan</first><last>Liu</last></author>
       <author openreview="~AZNUL_QALID_MD_SABRI1"><first>Aznul Qalid MD</first><last>Sabri</last></author>
       <author id="rui-zhang-7413" orcid="0000-0001-7767-7413" openreview="~Rui_Zhang29"><first>Rui</first><last>Zhang</last><affiliation>Taiyuan University of Science and Technology</affiliation></author>
-      <author openreview="~Pan_Lihu1"><first>Pan</first><last>Lihu</last><affiliation>Taiyuan University of Science and Technology</affiliation></author>
+      <author id="pan-lihu" orcid="0000-0001-9530-694X" openreview="~Pan_Lihu1"><first>Pan</first><last>Lihu</last><affiliation>Taiyuan University of Science and Technology</affiliation></author>
       <pages>10175-10193</pages>
       <abstract>When asked explicitly, a Large language model (LLM) may validate your anger—but implicitly, it may still judge that anger as inappropriate. We call this divergence the endorsement–exposure gap, and it reveals that LLMs encode hidden norms about which emotions are acceptable in which contexts. To measure these norms systematically, we introduce Feeling Rules Atlas, a benchmark of 1,320 vignettes spanning 6 institutional settings, 12 roles, 7 emotions, and 5 intensity levels. We pair the benchmark with two probes: explicit norm judgments (APPROPRIATE/INAPPROPRIATE/DEPENDS) and implicit acceptability scored by log-likelihood contrast. Across six model families, we find large cross-model variation in sanctioning thresholds and institutional “norm signatures” not reducible to overall strictness; models that appear similarly lenient explicitly can diverge sharply in implicit judgments. These results establish normative affect—context-conditioned judgments of emotional appropriateness—as a distinct alignment axis, and motivate transparent profiling of feeling rules for emotionally sensitive deployments.</abstract>
       <url hash="c784c443">2026.acl-long.462</url>
@@ -7647,7 +7647,7 @@
     <paper id="482">
       <title>Distilling Large Embeddings via Hyperspherical Householder Quantization</title>
       <author openreview="~Yihang_Wang3"><first>Yihang</first><last>Wang</last><affiliation>ByteDance Inc. and University of Chinese Academy of Sciences</affiliation></author>
-      <author openreview="~Bin_Wu27"><first>Bin</first><last>Wu</last></author>
+      <author id="bin-wu-4610" orcid="0009-0004-2162-4610" openreview="~Bin_Wu27"><first>Bin</first><last>Wu</last></author>
       <author id="yueyang-su" orcid="0000-0002-6154-8059" openreview="~Yueyang_Su2"><first>Yueyang</first><last>Su</last><affiliation>Chinese Academy of Sciences</affiliation></author>
       <author openreview="~Tianfu_Zhang1"><first>Tianfu</first><last>Zhang</last><affiliation>ByteDance Inc.</affiliation></author>
       <author openreview="~Yiqi_Du1"><first>Yiqi</first><last>Du</last><affiliation>ByteDance Inc.</affiliation></author>
@@ -7663,7 +7663,7 @@
     </paper>
     <paper id="483">
       <title>Masked by Consensus: Disentangling Privileged Knowledge in <fixed-case>LLM</fixed-case> Correctness</title>
-      <author openreview="~Tomer_Ashuach1"><first>Tomer</first><last>Ashuach</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
+      <author id="tomer-ashuach" orcid="0009-0008-5305-3428" openreview="~Tomer_Ashuach1"><first>Tomer</first><last>Ashuach</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
       <author openreview="~Shai_Gretz1"><first>Shai</first><last>Gretz</last><affiliation>International Business Machines</affiliation></author>
       <author openreview="~Yoav_Katz1"><first>Yoav</first><last>Katz</last><affiliation>International Business Machines</affiliation></author>
       <author openreview="~Yonatan_Belinkov1"><first>Yonatan</first><last>Belinkov</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
@@ -8190,7 +8190,7 @@
     </paper>
     <paper id="515">
       <title><fixed-case>PIAST</fixed-case>: Rapid Prompting with In-context Augmentation for Scarce Training data</title>
-      <author openreview="~Paweł_Batorski2"><first>Paweł</first><last>Batorski</last></author>
+      <author id="pawel-batorski" orcid="0009-0007-0450-4141" openreview="~Paweł_Batorski2"><first>Paweł</first><last>Batorski</last></author>
       <author openreview="~Paul_Swoboda1"><first>Paul</first><last>Swoboda</last><affiliation>Heinrich-Heine University Düsseldorf</affiliation></author>
       <pages>11222-11242</pages>
       <abstract>LLMs are highly sensitive to prompt design, but handcrafting effective prompts is difficult and often requires intricate crafting of few-shot examples. We propose a fast automatic prompt construction algorithm that augments human instructions by generating a small set of few shot examples. Our method iteratively replaces/drops/keeps few-shot examples using Monte Carlo Shapley estimation of example utility. For faster execution, we use aggressive subsampling and a replay buffer for faster evaluations. Our method can be run using different compute time budgets. Under a limited budget, it outperforms prior automatic prompting methods on text simplification and mathematical reasoning (GSM8K, DeepMath, Math500), while achieving second-best results on classification and summarization and third-best on MedQA. With an extended, yet still modest budget, PIAST sets a new state of the art among automatic prompting methods on classification, simplification, GSM8K, DeepMath, and Math500. Overall, our results suggest that optimizing in-context examples, rather than exhaustively searching over instruction rewrites is the dominant lever for fast and data-efficient prompt engineering. We will release code and data upon acceptance.</abstract>
@@ -9047,8 +9047,8 @@
       <author openreview="~Wanling_Li1"><first>Wanling</first><last>Li</last></author>
       <author openreview="~Zipei_Zhang2"><first>Zipei</first><last>Zhang</last></author>
       <author id="hui-tian" orcid="0000-0002-1591-656X" openreview="~Hui_Tian5"><first>Hui</first><last>Tian</last><affiliation>Huaqiao University</affiliation></author>
-      <author openreview="~Zhongliang_Yang1"><first>Zhongliang</first><last>Yang</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
-      <author openreview="~Linna_Zhou2"><first>Linna</first><last>Zhou</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author id="zhongliang-yang" orcid="0000-0002-8027-9560" openreview="~Zhongliang_Yang1"><first>Zhongliang</first><last>Yang</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author id="linna-zhou" orcid="0009-0004-0727-2436" openreview="~Linna_Zhou2"><first>Linna</first><last>Zhou</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
       <pages>12581-12603</pages>
       <abstract>LLM-based agents are increasingly deployed to autonomously solve complex tasks, raising urgent needs for IP protection and regulatory provenance. While content watermarking effectively attributes LLM-generated outputs, it fails to directly identify the high-level planning behaviors (e.g., tool and subgoal choices) that govern multi-step execution. Critically, watermarking at the planning-behavior layer faces unique challenges: minor distributional deviations in decision-making can compound during long-term agent operation, degrading utility, and many agents operate as black boxes that are difficult to intervene in directly. To bridge this gap, we propose AgentMark, a behavioral watermarking framework that embeds multi-bit identifiers into planning decisions while preserving utility. It operates by eliciting an explicit behavior distribution from the agent and applying distribution-preserving conditional sampling, enabling deployment under black-box APIs while remaining compatible with action-layer content watermarking. Experiments across embodied, tool-use, and social environments demonstrate practical multi-bit capacity, robust recovery from partial logs, and utility preservation. Code is available at <url>https://github.com/Tooooa/AgentMark</url>.</abstract>
       <url hash="2028a27b">2026.acl-long.573</url>
@@ -9091,7 +9091,7 @@
       <author openreview="~Zhicong_Li1"><first>Zhicong</first><last>Li</last></author>
       <author id="lingjie-jiang" orcid="0009-0002-8565-3256" openreview="~Lingjie_Jiang1"><first>Lingjie</first><last>Jiang</last><affiliation>Peking University</affiliation></author>
       <author openreview="~Yulan_Hu1"><first>Yulan</first><last>Hu</last><affiliation>Alibaba Group</affiliation></author>
-      <author openreview="~Xingchen_ZENG1"><first>Xingchen</first><last>Zeng</last></author>
+      <author id="xingchen-zeng" orcid="0000-0002-1967-0595" openreview="~Xingchen_ZENG1"><first>Xingchen</first><last>Zeng</last></author>
       <author id="yixia-li" orcid="0000-0002-0921-7551" openreview="~Yixia_Li1"><first>Yixia</first><last>Li</last></author>
       <author openreview="~Xiangwen_Zhang3"><first>Xiangwen</first><last>Zhang</last></author>
       <author id="guanhua-chen" orcid="0000-0002-5353-9734" openreview="~Guanhua_Chen1"><first>Guanhua</first><last>Chen</last><affiliation>Southern University of Science and Technology</affiliation></author>
@@ -9996,7 +9996,7 @@
     </paper>
     <paper id="634">
       <title>How Tokenization Limits Phonological Knowledge Representation in Language Models and How to Improve Them</title>
-      <author openreview="~Disen_Liao1"><first>Disen</first><last>Liao</last></author>
+      <author id="disen-liao" orcid="0009-0001-7875-9135" openreview="~Disen_Liao1"><first>Disen</first><last>Liao</last></author>
       <author id="freda-shi" orcid="0009-0009-5697-449X" openreview="~Freda_Shi1"><first>Freda</first><last>Shi</last><affiliation>Vector Institute and University of Waterloo</affiliation></author>
       <pages>13921-13938</pages>
       <abstract>Tokenization is the first step in every language model (LM), yet it never takes the sounds of words into account. We investigate how tokenization influences text-only LMs’ ability to represent phonological knowledge. Through a series of probing experiments, we show that subword-based tokenization systematically weakens the encoding of both local (e.g., rhyme) and global (e.g., syllabification) phonological features. To quantify this effect, we introduce the syllabification-tokenization alignment distance (STAD), a metric that measures the misalignment between a model’s tokenization and the natural syllable boundaries of words, and find that higher misalignment correlates with poorer phonological representations, providing a simple diagnostic for phonology-aware tokenization. To address these limitations, we propose a lightweight IPA-based fine-tuning method that infuses phonological awareness into LMs, leading to consistent improvements across three phonology-related tasks while largely preserving math and general reasoning ability, with 1.1% and 0.9% drops on GSM8K and MMLU, respectively.[Our code is available at <url>https://github.com/liaodisen/Tokenization-Phonology</url>]</abstract>
@@ -10369,7 +10369,7 @@
       <author openreview="~Yalin_Feng2"><first>Yalin</first><last>Feng</last></author>
       <author id="hongbin-zhong" orcid="0009-0003-2564-9674" openreview="~Hongbin_Zhong1"><first>Hongbin</first><last>Zhong</last></author>
       <author id="yanxin-zhang" orcid="0009-0001-2307-901X" openreview="~Yanxin_Zhang2"><first>Yanxin</first><last>Zhang</last><affiliation>NVIDIA</affiliation></author>
-      <author openreview="~Dimitris_N._Metaxas1"><first>Dimitris N.</first><last>Metaxas</last></author>
+      <author id="dimitris-n-metaxas" orcid="0000-0001-7142-7640" openreview="~Dimitris_N._Metaxas1"><first>Dimitris N.</first><last>Metaxas</last></author>
       <pages>14472-14483</pages>
       <abstract>Sign Language Production (SLP) is the process of converting the complex input text into a real video. Most previous works focused on the Text2Gloss, Gloss2Pose, Pose2Vid stages, and some concentrated on Prompt2Gloss and Text2Avatar stages. However, this field has made slow progress due to the inaccuracy of text conversion, pose generation, and the rendering of poses into real human videos in these stages, resulting in gradually accumulating errors. Therefore, in this paper, we streamline the traditional redundant structure, simplify and optimize the task objective, and design a new sign language generative model called <b>Stable Signer</b>. It redefines the SLP task as a hierarchical generation end-to-end task that only includes text understanding (Prompt2Gloss, Text2Gloss) and Pose2Vid, and executes text understanding through our proposed new <b>S</b>ign <b>L</b>anguage <b>U</b>nderstanding <b>L</b>inker called <b>SLUL</b>, and generates hand gestures through the named <b>SLP-MoE</b> hand gesture rendering expert block to end-to-end generate high-quality and multi-style sign language videos. SLUL is trained using the newly developed <b>S</b>emantic-<b>A</b>ware <b>G</b>loss <b>M</b>asking Loss (<b>SAGM Loss</b>). Its performance has improved by 48.6% compared to the current SOTA generation methods, which is a significant increase in the SLP field.</abstract>
       <url hash="6774e9a8">2026.acl-long.659</url>
@@ -11049,8 +11049,8 @@
     </paper>
     <paper id="704">
       <title>Hallucination Detection in <fixed-case>LLM</fixed-case>s with Topological Divergence on Attention Graphs</title>
-      <author openreview="~Alexandra_Bazarova1"><first>Alexandra</first><last>Bazarova</last><affiliation>Applied AI Institute</affiliation></author>
-      <author openreview="~Andrei_Volodichev1"><first>Andrei</first><last>Volodichev</last><affiliation>Applied AI Institute</affiliation></author>
+      <author id="alexandra-bazarova" orcid="0009-0007-0585-5269" openreview="~Alexandra_Bazarova1"><first>Alexandra</first><last>Bazarova</last><affiliation>Applied AI Institute</affiliation></author>
+      <author id="andrei-volodichev" orcid="0009-0003-8424-8942" openreview="~Andrei_Volodichev1"><first>Andrei</first><last>Volodichev</last><affiliation>Applied AI Institute</affiliation></author>
       <author id="aleksandr-yugay" orcid="0009-0003-8394-2879" openreview="~Aleksandr_Yugay2"><first>Aleksandr</first><last>Yugay</last><affiliation>Applied AI Institute</affiliation></author>
       <author openreview="~Andrey_Shulga1"><first>Andrey</first><last>Shulga</last><affiliation>Applied AI Institute</affiliation></author>
       <author id="alina-ermilova" orcid="0000-0002-1392-6908" openreview="~Alina_Ermilova1"><first>Alina</first><last>Ermilova</last><affiliation>University of Sharjah and Applied AI Institute</affiliation></author>
@@ -11572,7 +11572,7 @@
       <author id="sean-du" orcid="0000-0002-8080-7861" openreview="~Sean_Du1"><first>Sean</first><last>Du</last></author>
       <author openreview="~Hamed_Hassani2"><first>Hamed</first><last>Hassani</last><affiliation>University of Pennsylvania</affiliation></author>
       <author id="paul-bogdan" orcid="0000-0003-2118-0816" openreview="~Paul_Bogdan1"><first>Paul</first><last>Bogdan</last></author>
-      <author openreview="~Dawn_Song1"><first>Dawn</first><last>Song</last><affiliation>University of California Berkeley</affiliation></author>
+      <author id="dawn-song" orcid="0000-0001-9745-6802" openreview="~Dawn_Song1"><first>Dawn</first><last>Song</last><affiliation>University of California Berkeley</affiliation></author>
       <author openreview="~Sharon_Li1"><first>Sharon</first><last>Li</last></author>
       <pages>16219-16250</pages>
       <abstract>Uncertainty quantification (UQ) for large language models (LLMs) is a key building block for safety guardrails of daily LLM applications. Yet, even as LLM agents are increasingly deployed in highly complex tasks, most UQ research still centers on single-turn question-answering. We argue that UQ research must shift to realistic settings with interactive agents, and that a new principled framework for agent UQ is needed. This paper presents three pillars to build a solid ground for future agent UQ research: (1. Foundations) We present the first general formulation of agent UQ that subsumes broad classes of existing UQ setups; (2. Challenges) We identify four technical challenges specifically tied to agentic setups—selection of uncertainty estimator, uncertainty of heterogeneous entities, modeling uncertainty dynamics in interactive systems, and lack of fine-grained benchmarks—with numerical analysis on a real-world agent benchmark, <tex-math>\tau^2</tex-math>-bench; (3. Future Directions) We conclude with noting on the practical implications of agent UQ and remaining open problems as forward-looking discussion for future explorations.</abstract>
@@ -11669,7 +11669,7 @@
       <author openreview="~Yujun_Audrey_Mao1"><first>Yujun Audrey</first><last>Mao</last><affiliation>Boston University, Boston University</affiliation></author>
       <author openreview="~Yulu_Qin1"><first>Yulu</first><last>Qin</last><affiliation>Boston University, Boston University</affiliation></author>
       <author id="sebastian-schuster" orcid="0000-0002-8066-0142" openreview="~Sebastian_Schuster1"><first>Sebastian</first><last>Schuster</last><affiliation>University of Vienna</affiliation></author>
-      <author openreview="~Najoung_Kim1"><first>Najoung</first><last>Kim</last><affiliation>Boston University</affiliation></author>
+      <author id="najoung-kim" orcid="0009-0009-7352-8643" openreview="~Najoung_Kim1"><first>Najoung</first><last>Kim</last><affiliation>Boston University</affiliation></author>
       <pages>16380-16417</pages>
       <abstract>Agents based on Large Language Models (LLMs) have shown promise for performing sophisticated software engineering tasks autonomously. In addition, there has been progress towards developing agents that can perform parts of the research pipeline in machine learning and the natural sciences. We argue that research extension and its implementation is a critical capability for such systems, and introduce RExBench to support the evaluation of this capability. RExBench is a benchmark consisting of realistic extensions of 12 research papers that aim to investigate <i>novel</i> research hypotheses. Each task is set up as an extension to an existing research paper and codebase, accompanied by domain expert-written instructions. RExBench is robust to data contamination, and supports an automatic evaluation infrastructure that executes agent outputs to determine whether the success criteria are met. We use this benchmark to evaluate 12 LLM agents implemented using two different frameworks: aider and OpenHands. We find that all agents fail to autonomously implement the majority of the extensions, with the best agent at around 33% success rate. Although the success rate improves with additional human-written hints, the best performance under this setting remains below 44%. This indicates that current agents are still short of being able to handle realistic research extension tasks without substantial human guidance.</abstract>
       <url hash="48b2e4da">2026.acl-long.745</url>
@@ -11983,7 +11983,7 @@
       <author openreview="~Yingjie_Li7"><first>Yingjie</first><last>Li</last><affiliation>Amazon</affiliation></author>
       <author openreview="~Xiang_Li60"><first>Xiang</first><last>Li</last><affiliation>Amazon</affiliation></author>
       <author id="chenlei-guo" orcid="0009-0006-0502-947X" openreview="~Chenlei_Guo1"><first>Chenlei</first><last>Guo</last><affiliation>Amazon</affiliation></author>
-      <author openreview="~Xing_Fan1"><first>Xing</first><last>Fan</last></author>
+      <author id="xing-fan" orcid="0009-0007-2670-9471" openreview="~Xing_Fan1"><first>Xing</first><last>Fan</last></author>
       <author openreview="~Ruhi_Sarikaya1"><first>Ruhi</first><last>Sarikaya</last></author>
       <author id="heng-ji" orcid="0000-0002-0464-7966" openreview="~Heng_Ji3"><first>Heng</first><last>Ji</last><affiliation>University of Illinois, Urbana-Champaign</affiliation></author>
       <pages>16814-16851</pages>
@@ -12601,7 +12601,7 @@
       <author openreview="~Hongchuan_Zeng1"><first>Hongchuan</first><last>Zeng</last></author>
       <author openreview="~Zhiying_Zou1"><first>Zhiying</first><last>Zou</last></author>
       <author openreview="~Xinyuan_Cheng1"><first>Xinyuan</first><last>Cheng</last><affiliation>University of Munich, Ludwig-Maximilians-Universität München</affiliation></author>
-      <author openreview="~Zhifan_Sun1"><first>Zhifan</first><last>Sun</last><affiliation>Leibniz Institut für Bildungsforschung und Bildungsinformation</affiliation></author>
+      <author id="zhifan-sun" orcid="0009-0006-2161-1160" openreview="~Zhifan_Sun1"><first>Zhifan</first><last>Sun</last><affiliation>Leibniz Institut für Bildungsforschung und Bildungsinformation</affiliation></author>
       <author openreview="~Zheye_Deng1"><first>Zheye</first><last>Deng</last><affiliation>Department of Computer Science and Engineering, Hong Kong University of Science and Technology</affiliation></author>
       <author openreview="~Kawai_Chung1"><first>Kawai</first><last>Chung</last></author>
       <author id="yuzhuo-ao" orcid="0009-0006-2598-4511" openreview="~Yuzhuo_Ao1"><first>Yuzhuo</first><last>Ao</last></author>
@@ -14159,7 +14159,7 @@
       <author id="zhengxi-lu" orcid="0009-0005-9326-3188" openreview="~Zhengxi_Lu1"><first>Zhengxi</first><last>Lu</last></author>
       <author id="fei-tang" orcid="0009-0008-0019-1034" openreview="~Fei_Tang4"><first>Fei</first><last>Tang</last><affiliation>Nankai University</affiliation></author>
       <author id="guangyi-liu" orcid="0009-0003-3322-8730" openreview="~Guangyi_Liu6"><first>Guangyi</first><last>Liu</last></author>
-      <author openreview="~Jin_Ma5"><first>Jin</first><last>Ma</last></author>
+      <author id="jin-ma" orcid="0009-0005-5837-6144" openreview="~Jin_Ma5"><first>Jin</first><last>Ma</last></author>
       <author id="kaitao-song" orcid="0000-0002-4046-8594" openreview="~Kaitao_Song1"><first>Kaitao</first><last>Song</last><affiliation>Apple</affiliation></author>
       <author id="xu-tan" orcid="0000-0001-5631-0639" openreview="~Xu_Tan1"><first>Xu</first><last>Tan</last></author>
       <author id="wenqi-zhang" orcid="0000-0002-8312-0184" openreview="~Wenqi_Zhang2"><first>Wenqi</first><last>Zhang</last><affiliation>Zhejiang University</affiliation></author>
@@ -14231,7 +14231,7 @@
     <paper id="908">
       <title>Distillation Traps and Guards: A Calibration Knob for <fixed-case>LLM</fixed-case> Distillability</title>
       <author openreview="~Weixiao_Zhan1"><first>Weixiao</first><last>Zhan</last></author>
-      <author openreview="~Yongcheng_Jing1"><first>Yongcheng</first><last>Jing</last></author>
+      <author id="yongcheng-jing" orcid="0000-0001-8925-5787" openreview="~Yongcheng_Jing1"><first>Yongcheng</first><last>Jing</last></author>
       <author id="leszek-rutkowski" orcid="0000-0001-6960-9525" openreview="~Leszek_Rutkowski2"><first>Leszek</first><last>Rutkowski</last><affiliation>AGH University of Science and Technology, Systems Research Institute Polish Academy of Sciences and University of Social Sciences</affiliation></author>
       <author id="dacheng-tao" orcid="0000-0001-7225-5449" openreview="~Dacheng_Tao1"><first>Dacheng</first><last>Tao</last><affiliation>Nanyang Technological University</affiliation></author>
       <pages>19814-19833</pages>
@@ -14435,7 +14435,7 @@
       <author openreview="~Ganggui_Ding1"><first>Ganggui</first><last>Ding</last></author>
       <author openreview="~Liang_Hou1"><first>Liang</first><last>Hou</last><affiliation>Kuaishou Technology</affiliation></author>
       <author id="xin-tao" orcid="0000-0001-9126-4746" openreview="~Xin_Tao3"><first>Xin</first><last>Tao</last><affiliation>Kuaishou</affiliation></author>
-      <author openreview="~Ying-Cong_Chen1"><first>Ying-Cong</first><last>Chen</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="ying-cong-chen" orcid="0000-0002-9565-8205" openreview="~Ying-Cong_Chen1"><first>Ying-Cong</first><last>Chen</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <pages>20124-20137</pages>
       <abstract>Recent progress in large language models (LLMs) has focused on test-time scaling to improve reasoning via increased inference computation, but often at the cost of efficiency. We revisit test-time behavior and uncover a simple yet underexplored phenomenon: reasoning uncertainty is highly localized—only a small subset of high-entropy tokens dominantly affects output correctness. Motivated by this, we propose Minimal Test-Time Intervention (MTI), a training-free framework that enhances reasoning accuracy and stability with minimal overhead. MTI includes: (i) Selective CFG intervention, applying classifier-free guidance only at uncertain positions; and (ii) Lightweight negative-prompt guidance, reusing the main model’s KV cache to approximate unconditional decoding efficiently. MTI yields consistent gains across general, coding, and STEM tasks—e.g., +9.28% average improvement on six benchmarks for DeepSeek-R1-7B and +11.25% on AIME2024 using Ling-mini-2.0—while remaining highly efficient.</abstract>
       <url hash="dc192c4b">2026.acl-long.921</url>
@@ -14689,7 +14689,7 @@
       <author id="yingbo-zhou" orcid="0000-0001-6034-9667" openreview="~Yingbo_Zhou2"><first>Yingbo</first><last>Zhou</last></author>
       <author id="wei-zhai" orcid="0009-0009-1762-9570" openreview="~Wei_Zhai2"><first>Wei</first><last>Zhai</last><affiliation>Fudan University</affiliation></author>
       <author id="jintao-chen-0351" orcid="0000-0002-5523-0351" openreview="~Jintao_Chen6"><first>Jintao</first><last>Chen</last></author>
-      <author openreview="~Dejing_Dou4"><first>Dejing</first><last>Dou</last><affiliation>Fudan University</affiliation></author>
+      <author id="dejing-dou" orcid="0000-0001-7561-1672" openreview="~Dejing_Dou4"><first>Dejing</first><last>Dou</last><affiliation>Fudan University</affiliation></author>
       <pages>20490-20505</pages>
       <abstract>Reasoning segmentation requires models to ground complex, implicit textual queries into precise pixel-level masks. Existing approaches rely on a single segmentation token <tex-math>\&lt;SEG\&gt;</tex-math>, whose hidden state implicitly encodes both semantic reasoning and spatial localization, limiting the model’s ability to explicitly disentangle <i>what to segment</i> from <i>where to segment</i>. We introduce AnchorSeg, which reformulates reasoning segmentation as a structured conditional generation process over image tokens, conditioned on language grounded query banks. Instead of compressing all semantic reasoning and spatial localization into a single embedding, AnchorSeg constructs an ordered sequence of query banks: latent reasoning tokens that capture intermediate semantic states, and a segmentation anchor token that provides explicit spatial grounding. We model spatial conditioning as a factorized distribution over image tokens, where the anchor query determines localization signals while contextual queries provide semantic modulation. To bridge token-level predictions and pixel-level supervision, we propose Token–Mask Cycle Consistency (TMCC), a bidirectional training objective that enforces alignment across resolutions. By explicitly decoupling spatial grounding from semantic reasoning through structured language grounded query banks, AnchorSeg achieves state-of-the-art results on ReasonSeg test set (67.7% gIoU and 68.1% cIoU).  All code and models are publicly available at <url>https://github.com/rui-qian/AnchorSeg</url>.</abstract>
       <url hash="4bb958f5">2026.acl-long.938</url>
@@ -14750,7 +14750,7 @@
       <author id="haoyu-huang" orcid="0009-0004-7881-7595" openreview="~Haoyu_Huang2"><first>Haoyu</first><last>Huang</last></author>
       <author openreview="~Xiao_Zhou16"><first>Xiao</first><last>Zhou</last></author>
       <author openreview="~Feng_QIN3"><first>Feng</first><last>Qin</last></author>
-      <author openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="tianshi-zheng" orcid="0009-0008-7053-6253" openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <author openreview="~Xi_Peng8"><first>Xi</first><last>Peng</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
       <author id="xin-yao-7900" orcid="0000-0002-5780-7900" openreview="~Xin_YAO15"><first>Xin</first><last>Yao</last><affiliation>University of Hong Kong</affiliation></author>
       <author id="huiwen-yang" orcid="0000-0001-8951-5526" openreview="~Huiwen_Yang1"><first>Huiwen</first><last>Yang</last></author>
@@ -14779,8 +14779,8 @@
     </paper>
     <paper id="944">
       <title><fixed-case>S</fixed-case>peaker<fixed-case>S</fixed-case>leuth: Can Large Audio-Language Models Judge Speaker Consistency across Multi-turn Dialogues?</title>
-      <author openreview="~Jonggeun_Lee1"><first>Jonggeun</first><last>Lee</last></author>
-      <author openreview="~Junseong_Pyo2"><first>Junseong</first><last>Pyo</last></author>
+      <author id="jonggeun-lee" orcid="0009-0000-5703-9377" openreview="~Jonggeun_Lee1"><first>Jonggeun</first><last>Lee</last></author>
+      <author id="junseong-pyo" orcid="0009-0003-7887-295X" openreview="~Junseong_Pyo2"><first>Junseong</first><last>Pyo</last></author>
       <author openreview="~Gyuhyeon_Seo1"><first>Gyuhyeon</first><last>Seo</last></author>
       <author id="yohan-jo" orcid="0009-0006-9296-3403" openreview="~Yohan_Jo1"><first>Yohan</first><last>Jo</last><affiliation>Seoul National University</affiliation></author>
       <pages>20612-20636</pages>
@@ -14836,7 +14836,7 @@
     </paper>
     <paper id="948">
       <title>Don’t Adapt Small Language Models for Tools; Adapt Tool Schemas to the Models</title>
-      <author openreview="~Jonggeun_Lee1"><first>Jonggeun</first><last>Lee</last></author>
+      <author id="jonggeun-lee" orcid="0009-0000-5703-9377" openreview="~Jonggeun_Lee1"><first>Jonggeun</first><last>Lee</last></author>
       <author id="woojung-song" orcid="0009-0004-7706-0746" openreview="~Woojung_Song1"><first>Woojung</first><last>Song</last></author>
       <author openreview="~Jongwook_Han2"><first>Jongwook</first><last>Han</last><affiliation>Seoul National University</affiliation></author>
       <author openreview="~Haesung_Pyun1"><first>Haesung</first><last>Pyun</last></author>
@@ -15049,7 +15049,7 @@
     </paper>
     <paper id="963">
       <title>Cultural Benchmarking of <fixed-case>LLM</fixed-case>s in Standard and Dialectal <fixed-case>A</fixed-case>rabic Dialogues</title>
-      <author openreview="~Muhammad_Dehan_Al_Kautsar1"><first>Muhammad Dehan</first><last>Al Kautsar</last></author>
+      <author id="muhammad-dehan-al-kautsar" orcid="0009-0000-5416-3524" openreview="~Muhammad_Dehan_Al_Kautsar1"><first>Muhammad Dehan</first><last>Al Kautsar</last></author>
       <author id="saeed-almheiri" orcid="0009-0006-1330-7302" openreview="~Saeed_Almheiri1"><first>Saeed</first><last>Almheiri</last></author>
       <author id="momina-ahsan" orcid="0009-0004-5988-9673" openreview="~Momina_Ahsan1"><first>Momina</first><last>Ahsan</last></author>
       <author id="bilal-elbouardi" orcid="0000-0003-3558-167X" openreview="~Bilal_Elbouardi1"><first>Bilal</first><last>Elbouardi</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
@@ -15343,7 +15343,7 @@
       <author id="jiansheng-wei" orcid="0009-0000-1096-1524" openreview="~Jiansheng_Wei1"><first>Jiansheng</first><last>Wei</last></author>
       <author id="xiaojun-meng" orcid="0000-0003-2425-7217" openreview="~Xiaojun_Meng1"><first>Xiaojun</first><last>Meng</last><affiliation>Large Model Data Technology Lab, Huawei Technologies Ltd.</affiliation></author>
       <author openreview="~Fanyi_Du1"><first>Fanyi</first><last>Du</last></author>
-      <author openreview="~Daimeng_Wei1"><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="daimeng-wei" orcid="0009-0008-9606-5058" openreview="~Daimeng_Wei1"><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
       <author id="yanghua-xiao" orcid="0000-0001-8403-9591" openreview="~Yanghua_Xiao1"><first>Yanghua</first><last>Xiao</last><affiliation>Fudan University</affiliation></author>
       <pages>21364-21384</pages>
       <abstract>Evaluating the multilingual and multicultural capabilities of Large Language Models (LLMs) is essential for their global utility. However, current benchmarks face three critical limitations: (1) fragmented evaluation dimensions that often neglect deep cultural nuances; (2) insufficient language coverage in subjective tasks relying on low-quality machine translation; and (3) shallow analysis that lacks diagnostic depth beyond simple rankings. To address these, we introduce GaoYao, a comprehensive benchmark with 182.3k samples, 26 languages and 51 nations/areas. First, GaoYao proposes a unified framework categorizing evaluation tasks into three cultural layers (General Multilingual, Cross-cultural, Monocultural) and nine cognitive sub-layers. Second, we achieve native-quality expansion by leveraging experts to rigorously localize subjective benchmarks into 19 languages and synthesizing cross-cultural test sets for 34 cultures, surpassing prior coverage by up to 111%. Third, we conduct an in-depth diagnostic analysis on 20+ flagship and compact LLMs. Our findings reveal significant geographical performance disparities and distinct gaps between tasks, offering a reliable map for future work. We release the benchmark.</abstract>
@@ -15562,7 +15562,7 @@
       <author openreview="~Huiyao_Liu2"><first>Huiyao</first><last>Liu</last></author>
       <author id="koji-inoue" orcid="0000-0002-2929-2559" openreview="~Koji_Inoue1"><first>Koji</first><last>Inoue</last><affiliation>Kyoto University</affiliation></author>
       <author openreview="~Ryuichi_Sumida1"><first>Ryuichi</first><last>Sumida</last></author>
-      <author openreview="~Tatsuya_Kawahara1"><first>Tatsuya</first><last>Kawahara</last><affiliation>Kyoto University</affiliation></author>
+      <author id="tatsuya-kawahara" orcid="0000-0002-2686-2296" openreview="~Tatsuya_Kawahara1"><first>Tatsuya</first><last>Kawahara</last><affiliation>Kyoto University</affiliation></author>
       <author openreview="~Fan_Xu6"><first>Fan</first><last>Xu</last><affiliation>Jiangxi Normal University</affiliation></author>
       <author openreview="~Lingyu_Ye1"><first>Lingyu</first><last>Ye</last></author>
       <author openreview="~Wei_Tian8"><first>Wei</first><last>Tian</last><affiliation>Jiangxi Normal University</affiliation></author>
@@ -15693,7 +15693,7 @@
       <author openreview="~Shuang_Cheng1"><first>Shuang</first><last>Cheng</last></author>
       <author id="yihao-liu" orcid="0009-0004-4623-5240" openreview="~Yihao_Liu2"><first>Yihao</first><last>Liu</last></author>
       <author openreview="~Ermo_Hua1"><first>Ermo</first><last>Hua</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
-      <author openreview="~Che_Jiang1"><first>Che</first><last>Jiang</last></author>
+      <author id="che-jiang" orcid="0009-0005-1749-6174" openreview="~Che_Jiang1"><first>Che</first><last>Jiang</last></author>
       <author id="weigao-sun" orcid="0000-0003-2551-924X" openreview="~Weigao_Sun1"><first>Weigao</first><last>Sun</last><affiliation>Shanghai Artificial Intelligence Laboratory</affiliation></author>
       <author id="yu-cheng" orcid="0000-0002-7901-8662" openreview="~Yu_Cheng1"><first>Yu</first><last>Cheng</last><affiliation>Skywork AI and The Chinese University of Hong Kong</affiliation></author>
       <author id="feifei-gao" orcid="0000-0001-8896-352X" openreview="~Feifei_Gao2"><first>Feifei</first><last>Gao</last></author>
@@ -15882,10 +15882,10 @@
     </paper>
     <paper id="1008">
       <title><fixed-case>S</fixed-case>el<fixed-case>F</fixed-case>usion: Self-distillation for Diffusion Language Models</title>
-      <author openreview="~Hyeongsoo_Lim2"><first>Hyeongsoo</first><last>Lim</last></author>
-      <author openreview="~Jinyoung_Kim8"><first>Jinyoung</first><last>Kim</last></author>
+      <author id="hyeongsoo-lim" orcid="0009-0009-2068-1468" openreview="~Hyeongsoo_Lim2"><first>Hyeongsoo</first><last>Lim</last></author>
+      <author id="jinyoung-kim-3676" orcid="0009-0003-5390-3676" openreview="~Jinyoung_Kim8"><first>Jinyoung</first><last>Kim</last></author>
       <author id="eun-seo-seo" orcid="0009-0001-6166-237X" openreview="~EUN_SEO_SEO1"><first>Eun Seo</first><last>Seo</last><affiliation>Chung-Ang University</affiliation></author>
-      <author openreview="~Min_Ho_Jang1"><first>Min Ho</first><last>Jang</last></author>
+      <author id="min-ho-jang" orcid="0009-0007-5592-1527" openreview="~Min_Ho_Jang1"><first>Min Ho</first><last>Jang</last></author>
       <author id="ji-won-yoon" orcid="0000-0001-8631-4489" openreview="~Ji_Won_Yoon3"><first>Ji Won</first><last>Yoon</last><affiliation>Chung-Ang University</affiliation></author>
       <pages>22077-22089</pages>
       <abstract>Diffusion language models (DLMs) alleviate the inherent latency bottleneck of autoregressive (AR) large language models (LLMs), but their degraded generation quality limits practical applicability. Although knowledge distillation (KD) can be a promising direction for improving performance, we empirically find that naively applying conventional KD yields only marginal gains, or even degrades generation quality. Based on these observations, we propose a novel self-distillation framework for DLMs, namely SelFusion. To enable effective KD without an external teacher model, SelFusion performs two forward passes with different masking levels, defining the hard mode with a larger masking probability and the easy mode with a smaller masking probability. However, the easy mode is not always more accurate than the hard mode and can be overconfident on incorrect tokens. Thus, we introduce bidirectional KD between the two modes, which can dynamically determine the distillation direction based on token-level correctness. Experimental results on instruction-following tasks show that the proposed self-distillation substantially outperforms other KD methods with external LLM and DLM teachers. In many configurations, the student trained with SelFusion even surpasses the performance of the LLM teacher, providing a practical path toward improving DLM generation quality. Source code can be found at <url>https://github.com/scai-research/SelFusion_official</url></abstract>
@@ -16848,7 +16848,7 @@
       <author id="jiaxin-bai" orcid="0000-0002-8985-6467" openreview="~Jiaxin_Bai1"><first>Jiaxin</first><last>Bai</last><affiliation>Hong Kong Baptist University</affiliation></author>
       <author id="haoyu-huang" orcid="0009-0004-7881-7595" openreview="~Haoyu_Huang2"><first>Haoyu</first><last>Huang</last></author>
       <author id="qiao-xiao" orcid="0009-0008-3170-3645" openreview="~Qiao_Xiao5"><first>Qiao</first><last>Xiao</last></author>
-      <author openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="tianshi-zheng" orcid="0009-0008-7053-6253" openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <author id="baixuan-xu" orcid="0000-0001-8175-7598" openreview="~Baixuan_Xu1"><first>Baixuan</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <author id="shujie-liu" orcid="0009-0008-2599-6752" openreview="~Shujie_LIU1"><first>Shujie</first><last>Liu</last></author>
       <author id="yangqiu-song" orcid="0000-0002-7818-6090" openreview="~Yangqiu_Song1"><first>Yangqiu</first><last>Song</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
@@ -16907,7 +16907,7 @@
       <author id="seyoung-song" orcid="0009-0006-8738-8424" openreview="~Seyoung_Song1"><first>Seyoung</first><last>Song</last><affiliation>KAIST</affiliation></author>
       <author openreview="~A._Seza_Doğruöz1"><first>A. Seza</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
       <author id="alice-oh" orcid="0000-0002-7884-3038" openreview="~Alice_Oh1"><first>Alice</first><last>Oh</last><affiliation>Google and Korea Advanced Institute of Science and Technology</affiliation></author>
-      <author openreview="~Najoung_Kim1"><first>Najoung</first><last>Kim</last><affiliation>Boston University</affiliation></author>
+      <author id="najoung-kim" orcid="0009-0009-7352-8643" openreview="~Najoung_Kim1"><first>Najoung</first><last>Kim</last><affiliation>Boston University</affiliation></author>
       <pages>23431-23451</pages>
       <abstract>As LLMs are increasingly deployed in real-world interactions, their social reasoning in interpersonal communication becomes critical. To explore their capabilities, we introduce SCRIPTS, a 1.1k-dialogue dataset in English and Korean, sourced from movie scripts and propose a social reasoning task based on SCRIPTS that evaluates the capacity of LLMs to infer the social relationships (e.g., friends, lovers) between speakers in each dialogue. Evaluating nine models on our task, current LLMs achieve around 75–80% on the English dataset and 58–69% in Korean, and models predict an Unlikely relationship in 10–25% of responses in both languages.Furthermore, we find that thinking models and chain-of-thought prompting provide minimal benefits for social reasoning and occasionally amplify social biases.In sum, there are significant limitations in current LLMs’ social reasoning capabilities, especially for Korean, highlighting the need for efforts to develop socially-aware LLMs across languages.</abstract>
       <url hash="33ba8ad2">2026.acl-long.1074</url>
@@ -17827,7 +17827,7 @@
       <author id="jingbo-zhou" orcid="0000-0003-2677-7021" openreview="~Jingbo_Zhou1"><first>Jingbo</first><last>Zhou</last></author>
       <author id="jingyong-ye" orcid="0000-0002-4224-7322" openreview="~Jingyong_Ye1"><first>Jingyong</first><last>Ye</last></author>
       <author id="qiang-huang-1629" orcid="0009-0000-7750-1629" openreview="~Qiang_Huang8"><first>Qiang</first><last>Huang</last></author>
-      <author openreview="~Dejing_Dou4"><first>Dejing</first><last>Dou</last><affiliation>Fudan University</affiliation></author>
+      <author id="dejing-dou" orcid="0000-0001-7561-1672" openreview="~Dejing_Dou4"><first>Dejing</first><last>Dou</last><affiliation>Fudan University</affiliation></author>
       <pages>24663-24680</pages>
       <abstract>Reinforcement learning (RL) has emerged as an effective approach for enhancing the reasoning capabilities of large language models (LLMs), especially in scenarios where supervised fine-tuning (SFT) falls short due to limited chain-of-thought (CoT) data. Among RL-based post-training methods, group relative advantage estimation, as exemplified by Group Relative Policy Optimization (GRPO), has attracted considerable attention for eliminating the dependency on the value model, thereby simplifying training compared to traditional approaches like Proximal Policy Optimization (PPO). However, existing group relative advantage estimation method still suffers from training inefficiencies, particularly when the estimated advantage approaches zero. To address this limitation, we propose Advantage-Augmented Policy Optimization (AAPO), a novel RL algorithm that optimizes the cross-entropy (CE) loss using advantages enhanced through a margin-based estimation scheme. This approach effectively mitigates the inefficiencies associated with group relative advantage estimation. Experimental results on multiple mathematical reasoning benchmarks and model series demonstrate the superior performance of AAPO. Code is available at <url>https://github.com/JianxXiong/AAPO</url>.</abstract>
       <url hash="dd0dc40e">2026.acl-long.1131</url>
@@ -18288,7 +18288,7 @@
       <author id="chen-huang-7085" orcid="0000-0002-3542-7085" openreview="~Chen_Huang7"><first>Chen</first><last>Huang</last><affiliation>National University of Singapore</affiliation></author>
       <author openreview="~Yueke_Zhang1"><first>Yueke</first><last>Zhang</last></author>
       <author openreview="~Jiahao_Zhang19"><first>Jiahao</first><last>Zhang</last><affiliation>Vanderbilt University</affiliation></author>
-      <author openreview="~Toby_Jia-Jun_Li1"><first>Toby Jia-Jun</first><last>Li</last><affiliation>University of Notre Dame</affiliation></author>
+      <author id="toby-jia-jun-li" orcid="0000-0001-7902-7625" openreview="~Toby_Jia-Jun_Li1"><first>Toby Jia-Jun</first><last>Li</last><affiliation>University of Notre Dame</affiliation></author>
       <author id="collin-mcmillan" orcid="0009-0005-0887-1083" openreview="~Collin_McMillan3"><first>Collin</first><last>McMillan</last><affiliation>University of Notre Dame</affiliation></author>
       <author openreview="~Kevin_Leach1"><first>Kevin</first><last>Leach</last><affiliation>Vanderbilt University</affiliation></author>
       <author id="yu-huang-5077" orcid="0000-0003-2730-5077" openreview="~Yu_Huang9"><first>Yu</first><last>Huang</last><affiliation>Vanderbilt University</affiliation></author>
@@ -19468,7 +19468,7 @@
       <author openreview="~Dawei_Zhu2"><first>Dawei</first><last>Zhu</last></author>
       <author id="rui-meng" orcid="0000-0001-5583-4924" openreview="~Rui_Meng1"><first>Rui</first><last>Meng</last><affiliation>Google Cloud AI Research</affiliation></author>
       <author openreview="~Jiefeng_Chen2"><first>Jiefeng</first><last>Chen</last><affiliation>Google</affiliation></author>
-      <author openreview="~Sujian_Li1"><first>Sujian</first><last>Li</last><affiliation>Peking University</affiliation></author>
+      <author id="sujian-li" orcid="0000-0001-7493-0786" openreview="~Sujian_Li1"><first>Sujian</first><last>Li</last><affiliation>Peking University</affiliation></author>
       <author id="tomas-pfister" orcid="0009-0004-4088-8718" openreview="~Tomas_Pfister1"><first>Tomas</first><last>Pfister</last><affiliation>Google</affiliation></author>
       <author openreview="~Jinsung_Yoon1"><first>Jinsung</first><last>Yoon</last><affiliation>Google</affiliation></author>
       <pages>26804-26829</pages>
@@ -19844,7 +19844,7 @@
     </paper>
     <paper id="1257">
       <title>Improving Long-Context Translation via Self-Supervised Dual Learning</title>
-      <author openreview="~Shanbo_Cheng1"><first>Shanbo</first><last>Cheng</last><affiliation>ByteDance Inc.</affiliation></author>
+      <author id="shanbo-cheng" orcid="0000-0002-6115-9483" openreview="~Shanbo_Cheng1"><first>Shanbo</first><last>Cheng</last><affiliation>ByteDance Inc.</affiliation></author>
       <author id="shuaijie-she" orcid="0000-0002-5500-9251" openreview="~Shuaijie_She1"><first>Shuaijie</first><last>She</last></author>
       <author openreview="~Yu_Bao1"><first>Yu</first><last>Bao</last><affiliation>ByteDance Research</affiliation></author>
       <author openreview="~Jianbing_Zhang1"><first>Jianbing</first><last>Zhang</last><affiliation>Nanjing University</affiliation></author>
@@ -20341,7 +20341,7 @@
       <author id="linjiang-huang" orcid="0000-0001-9701-6487" openreview="~Linjiang_Huang1"><first>Linjiang</first><last>Huang</last><affiliation>Beihang University</affiliation></author>
       <author id="si-liu" orcid="0000-0002-9180-2935" openreview="~Si_Liu5"><first>Si</first><last>Liu</last><affiliation>Beihang University</affiliation></author>
       <author id="rui-liu-8491" orcid="0000-0003-2115-8491" openreview="~Rui_Liu17"><first>Rui</first><last>Liu</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author openreview="~Hongsheng_Li3"><first>Hongsheng</first><last>Li</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
+      <author id="hongsheng-li" orcid="0000-0002-2664-7975" openreview="~Hongsheng_Li3"><first>Hongsheng</first><last>Li</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
       <pages>27933-27954</pages>
       <abstract>While Large Language Models (LLMs) have excelled in textual reasoning, they struggle with mathematical domains like geometry that intrinsically rely on visual aids. Existing approaches to Visual Chain-of-Thought (VCoT) are often limited by rigid external tools or fail to generate the high-fidelity, strategically-timed diagrams necessary for complex problem-solving. To bridge this gap, we introduce MathCanvas, a comprehensive framework designed to endow unified Large Multimodal Models (LMMs) with intrinsic VCoT capabilities for mathematics. Our approach consists of two phases. First, a Visual Manipulation stage pre-trains the model on a novel 15.2M-pair corpus, comprising 10M caption-to-diagram pairs (MathCanvas-Imagen) and 5.2M step-by-step editing trajectories (MathCanvas-Edit), to master diagram generation and editing. Second, a Strategic Visual-Aided Reasoning stage fine-tunes the model on MathCanvas-Instruct, a new 219K-example dataset of interleaved visual-textual reasoning paths, teaching it when and how to leverage visual aids. To facilitate rigorous evaluation, we introduce MathCanvas-Bench, a challenging benchmark with 3K problems that require models to produce interleaved visual-textual solutions. Our model, BAGEL-Canvas, trained under this framework, achieves an 86% relative improvement over strong LMM baselines on MathCanvas-Bench, demonstrating excellent generalization to other public math benchmarks. Our work provides a complete toolkit—framework, datasets, and benchmark—to unlock complex, human-like visual reasoning in LMMs.</abstract>
       <url hash="9694f5a4">2026.acl-long.1287</url>
@@ -20837,7 +20837,7 @@
     </paper>
     <paper id="1319">
       <title><fixed-case>G</fixed-case>enesis<fixed-case>F</fixed-case>unc: Multi-Agent Data Generation for Accurate and Generalizable Function-Calling</title>
-      <author openreview="~Hao-Xiang_Xu1"><first>Hao-Xiang</first><last>Xu</last></author>
+      <author id="hao-xiang-xu" orcid="0009-0005-4112-184X" openreview="~Hao-Xiang_Xu1"><first>Hao-Xiang</first><last>Xu</last></author>
       <author openreview="~Chong_Deng1"><first>Chong</first><last>Deng</last></author>
       <author openreview="~Jiaqing_Liu2"><first>Jiaqing</first><last>Liu</last><affiliation>Alibaba Group</affiliation></author>
       <author id="wen-wang" orcid="0000-0002-0356-1968" openreview="~Wen_Wang6"><first>Wen</first><last>Wang</last><affiliation>Alibaba Group</affiliation></author>
@@ -21237,8 +21237,8 @@
     <paper id="1343">
       <title><fixed-case>Q</fixed-case>i<fixed-case>M</fixed-case>eng-<fixed-case>PR</fixed-case>epair: Precise Code Repair via Edit-Aware Reward Optimization</title>
       <author openreview="~Changxin_Ke1"><first>Changxin</first><last>Ke</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
-      <author openreview="~Rui_Zhang1"><first>Rui</first><last>Zhang</last><affiliation>Institute of Computing Technology, CAS</affiliation></author>
-      <author openreview="~Jiaming_Guo2"><first>Jiaming</first><last>Guo</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author id="rui-zhang-8549" orcid="0000-0001-8691-8549" openreview="~Rui_Zhang1"><first>Rui</first><last>Zhang</last><affiliation>Institute of Computing Technology, CAS</affiliation></author>
+      <author id="jiaming-guo" orcid="0000-0003-3200-5255" openreview="~Jiaming_Guo2"><first>Jiaming</first><last>Guo</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
       <author id="yuanbo-wen" orcid="0000-0002-7775-2724" openreview="~Yuanbo_Wen1"><first>Yuanbo</first><last>Wen</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
       <author openreview="~Li_Ding8"><first>Li</first><last>Ding</last></author>
       <author openreview="~Shuo_Wang36"><first>Shuo</first><last>Wang</last></author>
@@ -21247,8 +21247,8 @@
       <author id="di-huang" orcid="0000-0002-2370-0072" openreview="~Di_Huang5"><first>Di</first><last>Huang</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
       <author id="zidong-du" orcid="0000-0002-7603-4210" openreview="~Zidong_Du1"><first>Zidong</first><last>Du</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
       <author openreview="~Xing_Hu3"><first>Xing</first><last>Hu</last></author>
-      <author openreview="~Qi_Guo4"><first>Qi</first><last>Guo</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
-      <author openreview="~Yunji_Chen1"><first>Yunji</first><last>Chen</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author id="qi-guo-5874" orcid="0000-0003-2530-5874" openreview="~Qi_Guo4"><first>Qi</first><last>Guo</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
+      <author id="yunji-chen" orcid="0000-0003-3925-5185" openreview="~Yunji_Chen1"><first>Yunji</first><last>Chen</last><affiliation>Institute of Computing Technology, Chinese Academy of Sciences</affiliation></author>
       <pages>29114-29129</pages>
       <abstract>Large Language Models (LLMs) achieve strong program repair performance but often suffer from over-editing, where excessive modifications overwrite correct code and hinder bug localization. We systematically quantify its impact and introduce precise repair task, which maximizes reuse of correct code while fixing only buggy parts. Building on this insight, we propose PRepair, a framework that mitigates over-editing and improves repair accuracy. PRepair has two components: Self-Breaking, which generates diverse buggy programs via controlled bug injection and min–max sampling, and Self-Repairing, which trains models with Edit-Aware Group Relative Policy Optimization (EA-GRPO) using an edit-aware reward to encourage minimal yet correct edits. Experiments show that PRepair improves repair precision by up to 31.4% under <tex-math>\mathrm{fix}_1@1</tex-math>, a metric that jointly considers repair correctness and extent, and significantly increases decoding throughput when combined with speculative editing, demonstrating its potential for precise and practical code repair.</abstract>
       <url hash="e79a1b76">2026.acl-long.1343</url>
@@ -22795,7 +22795,7 @@
       <author id="yongliang-shen" orcid="0000-0003-0975-3554" openreview="~Yongliang_Shen1"><first>Yongliang</first><last>Shen</last><affiliation>Zhejiang University</affiliation></author>
       <author openreview="~Guozhou_Zheng1"><first>Guozhou</first><last>Zheng</last></author>
       <author id="huajun-chen" orcid="0000-0001-5496-7442" openreview="~Huajun_Chen1"><first>Huajun</first><last>Chen</last><affiliation>Zhejiang University and ZJU-Hangzhou Global Scientific and Technological Innovation Center</affiliation></author>
-      <author openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="shumin-deng" orcid="0000-0002-4049-8478" openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
       <pages>31269-31299</pages>
       <abstract>Large Language Models (LLMs) are increasingly deployed in socially sensitive domains, yet their unpredictable behaviors, ranging from misaligned intent to inconsistent personality, pose significant risks. We introduce SteerEval, a hierarchical benchmark for evaluating LLM controllability across three domains: language features, sentiment, and personality. Each domain is structured into three specification levels: L1 (what to express), L2 (how to express), and L3 (how to instantiate), connecting high-level behavioral intent to concrete textual output. Using SteerBench, we systematically evaluate contemporary steering methods, revealing that control often degrades at finer-grained levels. Our benchmark offers a principled and interpretable framework for safe and controllable LLM behavior, serving as a foundation for future research.</abstract>
       <url hash="ae647fe2">2026.acl-long.1443</url>
@@ -23116,10 +23116,10 @@
       <author id="hengyu-sun" orcid="0009-0000-5571-915X" openreview="~Hengyu_Sun1"><first>Hengyu</first><last>Sun</last></author>
       <author openreview="~Haiwen_Hong1"><first>Haiwen</first><last>Hong</last><affiliation>Alibaba Group</affiliation></author>
       <author id="mengru-wang" orcid="0000-0002-4488-9871" openreview="~Mengru_Wang1"><first>Mengru</first><last>Wang</last></author>
-      <author openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="yunzhi-yao" orcid="0000-0001-9458-696X" openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
       <author id="longtao-huang" orcid="0000-0002-0517-1592" openreview="~Longtao_Huang2"><first>Longtao</first><last>Huang</last><affiliation>Alibaba Group</affiliation></author>
       <author openreview="~Hui_Xue5"><first>Hui</first><last>Xue</last></author>
-      <author openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="shumin-deng" orcid="0000-0002-4049-8478" openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
       <author id="zhixuan-chu" orcid="0000-0001-6075-1816" openreview="~Zhixuan_Chu1"><first>Zhixuan</first><last>Chu</last><affiliation>Zhejiang University</affiliation></author>
       <author id="huajun-chen" orcid="0000-0001-5496-7442" openreview="~Huajun_Chen1"><first>Huajun</first><last>Chen</last><affiliation>Zhejiang University and ZJU-Hangzhou Global Scientific and Technological Innovation Center</affiliation></author>
       <author id="ningyu-zhang" orcid="0000-0002-1970-0678" openreview="~Ningyu_Zhang1"><first>Ningyu</first><last>Zhang</last><affiliation>Zhejiang University</affiliation></author>
@@ -23764,7 +23764,7 @@
       <author openreview="~Ashwag_Alasmari1"><first>Ashwag</first><last>Alasmari</last><affiliation>King Khaled University</affiliation></author>
       <author openreview="~Abdurrahman_Gerrio1"><first>Abdurrahman</first><last>Gerrio</last><affiliation>Misurata University</affiliation></author>
       <author openreview="~Omar_Said_Alshahri1"><first>Omar Said</first><last>Alshahri</last><affiliation>Dhofar University</affiliation></author>
-      <author openreview="~AbdelRahim_A._Elmadany1"><first>AbdelRahim A.</first><last>Elmadany</last></author>
+      <author id="abdelrahim-a-elmadany" orcid="0000-0002-2019-1196" openreview="~AbdelRahim_A._Elmadany1"><first>AbdelRahim A.</first><last>Elmadany</last></author>
       <author openreview="~Ismail_Berrada1"><first>Ismail</first><last>Berrada</last><affiliation>Mohammed VI Polytechnic University</affiliation></author>
       <author id="amir-azad-adli-al-kathiri" orcid="0009-0004-4071-2077" openreview="~Amir_Azad_Adli_Al-kathiri1"><first>Amir Azad Adli</first><last>Al-kathiri</last><affiliation>University of Technology and Applied Sciences</affiliation></author>
       <author id="fadi-a-zaraket" orcid="0000-0001-5909-6375" openreview="~Fadi_zaraket2"><first>Fadi</first><last>Zaraket</last><affiliation>Arab Center for Research and Policy Studies and American University of Beirut</affiliation></author>
@@ -24643,7 +24643,7 @@
     <paper id="1553">
       <title><fixed-case>MQM</fixed-case> Re-Annotation: A Technique for Collaborative Evaluation of Machine Translation</title>
       <author openreview="~Parker_Riley1"><first>Parker</first><last>Riley</last><affiliation>Google</affiliation></author>
-      <author openreview="~Daniel_Deutsch1"><first>Daniel</first><last>Deutsch</last><affiliation>Google</affiliation></author>
+      <author id="daniel-deutsch" orcid="0000-0002-3738-5384" openreview="~Daniel_Deutsch1"><first>Daniel</first><last>Deutsch</last><affiliation>Google</affiliation></author>
       <author openreview="~Mara_Finkelstein1"><first>Mara</first><last>Finkelstein</last><affiliation>Google</affiliation></author>
       <author openreview="~Colten_DiIanni1"><first>Colten</first><last>DiIanni</last><affiliation>Google</affiliation></author>
       <author openreview="~Juraj_Juraska1"><first>Juraj</first><last>Juraska</last><affiliation>Google</affiliation></author>
@@ -25011,8 +25011,8 @@
     <paper id="1578">
       <title>Evaluating Visual Narrative Coherence in Story Visualization via Diversified Storylines</title>
       <author id="minha-jhang" orcid="0009-0007-6896-8754" openreview="~Minha_Jhang1"><first>Minha</first><last>Jhang</last></author>
-      <author openreview="~Kyeongman_Park1"><first>Kyeongman</first><last>Park</last></author>
-      <author openreview="~Hyukhun_Koh1"><first>Hyukhun</first><last>Koh</last><affiliation>Seoul National University</affiliation></author>
+      <author id="kyeongman-park" orcid="0009-0008-4957-508X" openreview="~Kyeongman_Park1"><first>Kyeongman</first><last>Park</last></author>
+      <author id="hyukhun-koh" orcid="0000-0002-3644-1524" openreview="~Hyukhun_Koh1"><first>Hyukhun</first><last>Koh</last><affiliation>Seoul National University</affiliation></author>
       <author id="kyomin-jung" orcid="0000-0003-2547-7051" openreview="~Kyomin_Jung1"><first>Kyomin</first><last>Jung</last><affiliation>Seoul National University</affiliation></author>
       <pages>34192-34207</pages>
       <abstract>Story visualization requires generating a coherent sequence of images that collectively form a narrative, yet existing evaluation metrics and datasets often overlook visual continuity and narrative diversity. In this paper, we introduce the Visual Context-Aware Metric for Story Visualization, which uses large vision-language models to jointly assess caption fidelity and inter-image consistency, achieving Spearman’s correlation comparable to human agreement on two benchmarks. Also, to address the shortcomings of narrowly defined datasets with low diversity, we propose a diffusion-augmented evaluation pipeline that blends diverse and controlled narrative elements at adjustable ratios, producing challenging evaluation sets. By combining VCMS with this pipeline, we provide a scalable, human-aligned framework for evaluating story visualization models.</abstract>
@@ -26363,7 +26363,7 @@
     <paper id="1664">
       <title>Structured Semantic Information Helps Retrieve Better Examples for In-Context Learning Applied to Few-Shot Relation Extraction</title>
       <author openreview="~Aunabil_Chakma1"><first>Aunabil</first><last>Chakma</last></author>
-      <author openreview="~Mihai_Surdeanu1"><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
+      <author id="mihai-surdeanu" orcid="0000-0001-6956-8030" openreview="~Mihai_Surdeanu1"><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
       <author openreview="~Eduardo_Blanco1"><first>Eduardo</first><last>Blanco</last><affiliation>University of Arizona</affiliation></author>
       <pages>35947-35971</pages>
       <abstract>This paper presents several strategies to automatically obtain additional examples for in-context learning, effectively transforming relation extraction from a 1-shot to a few-shot setting. Specifically, we introduce a novel strategy for example selection, in which new examples are selected based on the similarity of their underlying syntactic-semantic structure to the provided 1-shot example. We show that our strategy results in complementary word choices and sentence structures compared to LLM-generated examples. When both strategies are combined, the resulting hybrid system achieves a more holistic picture of the relations of interest than either method alone. Our framework transfers well across datasets (FS-TACRED and FS-FewRel) and LLM families(Qwen and Gemma). Overall, our hybrid system consistently outperforms alternative strategies achieving state-of-the-art performance on FS-TACRED and strong gains on a customized FewRel subset.</abstract>
@@ -26376,7 +26376,7 @@
       <title><fixed-case>DUD</fixed-case>: Decoupled Update Dynamics for Reliable Uncertainty Quantification in Large Language Models</title>
       <author openreview="~Yixin_Bu1"><first>Yixin</first><last>Bu</last></author>
       <author id="runze-xia" orcid="0000-0003-0900-5900" openreview="~Runze_Xia1"><first>Runze</first><last>Xia</last></author>
-      <author openreview="~Guanyun_Zou1"><first>Guanyun</first><last>Zou</last><affiliation>Nanjing University of Aeronautics and Astronautics</affiliation></author>
+      <author id="guanyun-zou" orcid="0009-0000-3918-1337" openreview="~Guanyun_Zou1"><first>Guanyun</first><last>Zou</last><affiliation>Nanjing University of Aeronautics and Astronautics</affiliation></author>
       <author openreview="~Yupeng_Ji1"><first>Yupeng</first><last>Ji</last></author>
       <author id="hongliang-dai" orcid="0000-0001-8961-7469" openreview="~Hongliang_Dai1"><first>Hongliang</first><last>Dai</last><affiliation>Nanjing University of Aeronautics and Astronautics</affiliation></author>
       <author openreview="~haodong_liu5"><first>Haodong</first><last>Liu</last></author>
@@ -26956,10 +26956,10 @@
     </paper>
     <paper id="1703">
       <title><fixed-case>P</fixed-case>a<fixed-case>T</fixed-case>: Planning-after-Trial for Efficient Test-Time Code Generation</title>
-      <author openreview="~Youngsik_Yoon1"><first>Youngsik</first><last>Yoon</last><affiliation>POSTECH</affiliation></author>
+      <author id="youngsik-yoon" orcid="0009-0005-3331-9557" openreview="~Youngsik_Yoon1"><first>Youngsik</first><last>Yoon</last><affiliation>POSTECH</affiliation></author>
       <author id="sungjae-lee-postech" orcid="0000-0001-6142-2694" openreview="~Sungjae_Lee4"><first>Sungjae</first><last>Lee</last><affiliation>Pohang University of Science and Technology</affiliation></author>
-      <author openreview="~Seockbean_Song1"><first>Seockbean</first><last>Song</last><affiliation>Pohang University of Science and Technology</affiliation></author>
-      <author openreview="~Siwei_Wang2"><first>Siwei</first><last>Wang</last><affiliation>Microsoft</affiliation></author>
+      <author id="seockbean-song" orcid="0009-0004-3205-684X" openreview="~Seockbean_Song1"><first>Seockbean</first><last>Song</last><affiliation>Pohang University of Science and Technology</affiliation></author>
+      <author id="siwei-wang-0162" orcid="0009-0008-0940-0162" openreview="~Siwei_Wang2"><first>Siwei</first><last>Wang</last><affiliation>Microsoft</affiliation></author>
       <author openreview="~Wei_Chen10"><first>Wei</first><last>Chen</last></author>
       <author id="jungseul-ok" orcid="0000-0003-4742-2473" openreview="~Jungseul_Ok2"><first>Jungseul</first><last>Ok</last><affiliation>POSTECH</affiliation></author>
       <pages>36738-36755</pages>
@@ -27767,7 +27767,7 @@
     <paper id="1757">
       <title><fixed-case>F</fixed-case>air<fixed-case>QE</fixed-case>: Multi-Agent Framework for Mitigating Gender Bias in Translation Quality Estimation</title>
       <author openreview="~Jinhee_Jang1"><first>Jinhee</first><last>Jang</last></author>
-      <author openreview="~Juhwan_Choi1"><first>Juhwan</first><last>Choi</last><affiliation>AITRICS</affiliation></author>
+      <author id="juhwan-choi" orcid="0009-0008-0231-2354" openreview="~Juhwan_Choi1"><first>Juhwan</first><last>Choi</last><affiliation>AITRICS</affiliation></author>
       <author id="dongjin-lee" orcid="0009-0002-6802-5186" openreview="~Dongjin_Lee4"><first>Dongjin</first><last>Lee</last><affiliation>Chung-Ang University</affiliation></author>
       <author id="seunguk-yu" orcid="0009-0001-9497-9189" openreview="~Seunguk_Yu1"><first>Seunguk</first><last>Yu</last><affiliation>Chung-Ang University</affiliation></author>
       <author openreview="~YoungBin_Kim1"><first>YoungBin</first><last>Kim</last><affiliation>Chung-Ang University</affiliation></author>
@@ -27973,7 +27973,7 @@
       <author openreview="~Vahagn_Hovhannisyan1"><first>Vahagn</first><last>Hovhannisyan</last></author>
       <author openreview="~Nikhil_Bageshpura1"><first>Nikhil</first><last>Bageshpura</last></author>
       <author openreview="~Kyle_Liu2"><first>Kyle</first><last>Liu</last><affiliation>Algoverse AI Research</affiliation></author>
-      <author openreview="~Kevin_Zhu3"><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
+      <author id="kevin-zhu" orcid="0009-0000-5033-8948" openreview="~Kevin_Zhu3"><first>Kevin</first><last>Zhu</last><affiliation>Algoverse AI Research</affiliation></author>
       <author id="sunishchal-dev" orcid="0009-0006-0314-5012" openreview="~Sunishchal_Dev1"><first>Sunishchal</first><last>Dev</last><affiliation>RAND Corporation and Algoverse Coding Academy LLC</affiliation></author>
       <author openreview="~Ashwinee_Panda1"><first>Ashwinee</first><last>Panda</last><affiliation>TogetherAI and University of Maryland, College Park</affiliation></author>
       <author id="oleg-rogov" orcid="0000-0001-9672-2427" openreview="~Oleg_Rogov1"><first>Oleg</first><last>Rogov</last></author>
@@ -28205,7 +28205,7 @@
     </paper>
     <paper id="1784">
       <title>Vision-Language Introspection: Mitigating Overconfident Hallucinations in <fixed-case>MLLM</fixed-case>s via Interpretable Bi-Causal Steering</title>
-      <author openreview="~Shuliang_Liu1"><first>Shuliang</first><last>Liu</last></author>
+      <author id="shuliang-liu-0228" orcid="0009-0006-9788-0228" openreview="~Shuliang_Liu1"><first>Shuliang</first><last>Liu</last></author>
       <author id="songbo-yang" orcid="0009-0003-3169-7568" openreview="~Songbo_Yang1"><first>Songbo</first><last>Yang</last></author>
       <author id="dong-fang" orcid="0009-0004-7948-9079" openreview="~Dong_Fang1"><first>Dong</first><last>Fang</last><affiliation>LIGHTSPEED STUDIOS</affiliation></author>
       <author id="sihang-jia" orcid="0009-0008-3645-8351" openreview="~Sihang_Jia1"><first>Sihang</first><last>Jia</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
@@ -28416,7 +28416,7 @@
       <author id="francesco-maria-molfese" orcid="0009-0007-7598-2343" openreview="~Francesco_Maria_Molfese1"><first>Francesco Maria</first><last>Molfese</last><affiliation>University of Roma "La Sapienza"</affiliation></author>
       <author id="luca-moroni" orcid="0009-0006-1210-5098" openreview="~Luca_Moroni1"><first>Luca</first><last>Moroni</last><affiliation>University of Roma "La Sapienza"</affiliation></author>
       <author id="ciro-porcaro" orcid="0000-0001-9806-5635" openreview="~Ciro_Porcaro1"><first>Ciro</first><last>Porcaro</last></author>
-      <author openreview="~Simone_Conia1"><first>Simone</first><last>Conia</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author id="simone-conia" orcid="0000-0002-6238-7816" openreview="~Simone_Conia1"><first>Simone</first><last>Conia</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author id="roberto-navigli" orcid="0000-0003-3831-9706" openreview="~Roberto_Navigli2"><first>Roberto</first><last>Navigli</last><affiliation>Sapienza University of Rome</affiliation></author>
       <pages>38817-38832</pages>
       <abstract>While Small Language Models (SLMs) have demonstrated promising performance on an increasingly wide array of commonsense reasoning benchmarks, current evaluation practices rely almost exclusively on the accuracy of their final answers, neglecting the validity of the reasoning processes that lead to those answers. To address this issue, we present ReTraceQA, a novel benchmark that introduces process-level evaluation for commonsense reasoning tasks. Our expert-annotated dataset reveals that in a substantial portion of instances (14-24%), SLMs provide correct final answers despite flawed reasoning processes, suggesting that the capabilities of SLMs are often overestimated by evaluation metrics that focus only on comparing the final answer with the ground truth. Indeed, we show that, when employing strong Large Language Models (LLMs) as automated judges for reasoning-aware evaluation rather than answer-only metrics, SLM performance drops significantly across all models and datasets, with scores decreasing by up to 25%.</abstract>
@@ -28584,7 +28584,7 @@
       <author openreview="~Zhengmao_Ye1"><first>Zhengmao</first><last>Ye</last></author>
       <author id="tingwen-liu" orcid="0000-0002-0750-6923" openreview="~Tingwen_Liu1"><first>Tingwen</first><last>Liu</last><affiliation>Institute of Information Engineering, Chinese Academy of Sciences</affiliation></author>
       <author id="ran-tao" orcid="0009-0003-1835-8836" openreview="~Ran_Tao12"><first>Ran</first><last>Tao</last><affiliation>IQuest Research</affiliation></author>
-      <author openreview="~Bryan_Dai1"><first>Bryan</first><last>Dai</last><affiliation>ubiquant</affiliation></author>
+      <author id="bryan-dai" orcid="0009-0005-9100-9557" openreview="~Bryan_Dai1"><first>Bryan</first><last>Dai</last><affiliation>ubiquant</affiliation></author>
       <pages>39001-39013</pages>
       <abstract>Although the Universal Transformer (UT) mitigates the diminishing returns of standard LLM scaling by decoupling parameter count from depth, it remains constrained by linear computational costs and rigid weight-sharing mechanisms. These limitations lead to severe functional homogeneity, which subsequently induces over-smoothing, representation rank collapse, and degraded reasoning performance. In this work, we present the first systematic study of Compute Distribution Skew, identifying it as the primary driver of extrapolation failure. This is a pathological phenomenon in ultra-deep recurrent Transformers characterized by a disproportionate distribution of contributions across recurrent steps, resulting in distinct functional states during prefix and suffix processing phases. To address this challenge, we propose the Polymorphic Transformer, which aims to achieve functional polymorphism and depth sparsity within a shared-parameter framework. By integrating conditional sparse subspaces, SiLU Attention, and an uncertainty-aware depth scheduler, our architecture mitigates power-method collapse and effectively decouples logical depth from computational cost. Experiments demonstrate that our model significantly enhances representation rank and robustness, achieving complex reasoning performance comparable to baseline while reducing computation by 64.7%.</abstract>
       <url hash="92c38c31">2026.acl-long.1809</url>
@@ -29264,7 +29264,7 @@
       <author id="chen-tang" orcid="0000-0001-7010-2203" openreview="~Chen_Tang5"><first>Chen</first><last>Tang</last></author>
       <author id="jie-liu-6886" orcid="0000-0001-6209-6886" openreview="~Jie_Liu15"><first>Jie</first><last>Liu</last><affiliation>Harbin Institute of Technology</affiliation></author>
       <author openreview="~Wei_Cai10"><first>Wei</first><last>Cai</last><affiliation>Harbin Institute of Technology</affiliation></author>
-      <author openreview="~Jingchi_Jiang1"><first>Jingchi</first><last>Jiang</last><affiliation>Harbin Institute of Technology</affiliation></author>
+      <author id="jingchi-jiang" orcid="0000-0003-2167-4082" openreview="~Jingchi_Jiang1"><first>Jingchi</first><last>Jiang</last><affiliation>Harbin Institute of Technology</affiliation></author>
       <pages>39924-39942</pages>
       <abstract>Lifelong model editing (LME) aims to sequentially rectify outdated or inaccurate knowledge in deployed LLMs while minimizing side effects on unrelated inputs. However, existing approaches typically apply parameter perturbations to a static and dense set of LLM layers for all editing instances. This practice is counter-intuitive, as we hypothesize that different pieces of knowledge are stored in distinct layers of the model. Neglecting this layer-wise specificity can impede adaptability in integrating new knowledge and result in catastrophic forgetting for both general and previously edited knowledge. To address this, we propose HiEdit, a hierarchical reinforcement learning framework that adaptively identifies the most knowledge-relevant layers for each editing instance. By enabling dynamic, instance-aware layer selection and incorporating an intrinsic reward for sparsity, HiEdit achieves precise, localized updates. Experiments on various LLMs show that HiEdit boosts the performance of the competitive RLEdit by an average of 8.48% with perturbing only half of the layers per edit. Our code is available at: <url>https://github.com/yangfanww/hiedit</url>.</abstract>
       <url hash="7c97de83">2026.acl-long.1855</url>
@@ -29312,7 +29312,7 @@
     </paper>
     <paper id="1858">
       <title><fixed-case>KASER</fixed-case>: Knowledge-Aligned Student Error Simulator for Open-Ended Coding Tasks</title>
-      <author openreview="~Zhangqi_Duan1"><first>Zhangqi</first><last>Duan</last><affiliation>College of Information and Computer Science, University of Massachusetts at Amherst</affiliation></author>
+      <author id="zhangqi-duan" orcid="0009-0004-7635-3352" openreview="~Zhangqi_Duan1"><first>Zhangqi</first><last>Duan</last><affiliation>College of Information and Computer Science, University of Massachusetts at Amherst</affiliation></author>
       <author id="nigel-fernandez" orcid="0000-0002-2258-0208" openreview="~Nigel_Fernandez1"><first>Nigel</first><last>Fernandez</last></author>
       <author openreview="~Andrew_Lan1"><first>Andrew</first><last>Lan</last><affiliation>University of Massachusetts, Amherst</affiliation></author>
       <pages>39988-40006</pages>
@@ -30483,7 +30483,7 @@
       <author id="soumi-das" orcid="0000-0002-6933-5744" openreview="~Soumi_Das1"><first>Soumi</first><last>Das</last><affiliation>MPI-SWS</affiliation></author>
       <author id="till-speicher" orcid="0009-0000-1172-2525" openreview="~Till_Speicher1"><first>Till</first><last>Speicher</last><affiliation>Aleph Alpha Research</affiliation></author>
       <author id="qinyuan-wu" orcid="0000-0002-1453-9643" openreview="~Qinyuan_Wu1"><first>Qinyuan</first><last>Wu</last></author>
-      <author openreview="~Mohammad_Aflah_Khan1"><first>Mohammad Aflah</first><last>Khan</last></author>
+      <author id="mohammad-aflah-khan" orcid="0009-0009-6325-3746" openreview="~Mohammad_Aflah_Khan1"><first>Mohammad Aflah</first><last>Khan</last></author>
       <author id="deepak-garg" orcid="0000-0002-0888-3093" openreview="~Deepak_Garg1"><first>Deepak</first><last>Garg</last><affiliation>MPI-SWS</affiliation></author>
       <author id="krishna-p-gummadi" orcid="0000-0003-1256-8800" openreview="~Krishna_P._Gummadi1"><first>Krishna P.</first><last>Gummadi</last><affiliation>MPI-SWS</affiliation></author>
       <author openreview="~Evimaria_Terzi1"><first>Evimaria</first><last>Terzi</last><affiliation>Boston University, Boston University</affiliation></author>
@@ -30896,8 +30896,8 @@
     </paper>
     <paper id="1960">
       <title>Simulated Students in Tutoring Dialogues: Substance or Illusion?</title>
-      <author openreview="~Alexander_Scarlatos1"><first>Alexander</first><last>Scarlatos</last><affiliation>Department of Computer Science, University of Massachusetts at Amherst</affiliation></author>
-      <author id="jaewook-lee-umass" openreview="~Jaewook_Lee5"><first>Jaewook</first><last>Lee</last></author>
+      <author id="alexander-scarlatos" orcid="0000-0001-6419-5909" openreview="~Alexander_Scarlatos1"><first>Alexander</first><last>Scarlatos</last><affiliation>Department of Computer Science, University of Massachusetts at Amherst</affiliation></author>
+      <author id="jaewook-lee-umass" orcid="0009-0007-1179-4730" openreview="~Jaewook_Lee5"><first>Jaewook</first><last>Lee</last></author>
       <author id="simon-woodhead" orcid="0000-0002-2192-9797" openreview="~Simon_Woodhead1"><first>Simon</first><last>Woodhead</last><affiliation>Eedi</affiliation></author>
       <author openreview="~Andrew_Lan1"><first>Andrew</first><last>Lan</last><affiliation>University of Massachusetts, Amherst</affiliation></author>
       <pages>42349-42385</pages>
@@ -31079,7 +31079,7 @@
     <paper id="1971">
       <title><fixed-case>ACBQ</fixed-case>: Adaptive Cross-Block Quantization of Large Language Models</title>
       <author openreview="~Hailing_Wang5"><first>Hailing</first><last>Wang</last></author>
-      <author openreview="~Jianglin_Lu2"><first>Jianglin</first><last>Lu</last></author>
+      <author id="jianglin-lu" orcid="0009-0003-5773-0012" openreview="~Jianglin_Lu2"><first>Jianglin</first><last>Lu</last></author>
       <author id="yitian-zhang" orcid="0000-0001-8721-6063" openreview="~Yitian_Zhang1"><first>Yitian</first><last>Zhang</last></author>
       <author id="huimin-zeng-0495" orcid="0009-0002-7101-0495" openreview="~Huimin_Zeng2"><first>Huimin</first><last>Zeng</last><affiliation>Northeastern University</affiliation></author>
       <author id="yun-fu" orcid="0000-0002-5098-2853" openreview="~Yun_Fu1"><first>Yun</first><last>Fu</last></author>
@@ -31789,7 +31789,7 @@
     <paper id="2017">
       <title>A Lightweight Explainable Guardrail for Prompt Safety</title>
       <author id="md-asiful-islam" orcid="0000-0002-7173-383X" openreview="~Md_Asiful_Islam1"><first>Md Asiful</first><last>Islam</last><affiliation>University of Arizona</affiliation></author>
-      <author openreview="~Mihai_Surdeanu1"><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
+      <author id="mihai-surdeanu" orcid="0000-0001-6956-8030" openreview="~Mihai_Surdeanu1"><first>Mihai</first><last>Surdeanu</last><affiliation>University of Arizona</affiliation></author>
       <pages>43573-43591</pages>
       <abstract>We propose a lightweight explainable guardrail (LEG) method to detect unsafe prompts. LEG uses a multi-task learning architecture to jointly learn a prompt classifier and an explanation classifier, where the latter labels prompt words that explain the safe/unsafe overall decision. LEG is trained on synthetic explanation data, which is generated using a novel strategy that counteracts the confirmation biases of LLMs. Lastly, LEG’s training process uses a novel loss that captures global explanation signals as a weak supervision and combines cross-entropy and focal losses with uncertainty-based weighting. LEG obtains equivalent or better performance than the state-of-the-art for both prompt classification and explainability, both in-domain and out-of-domain on three datasets, despite the fact that its model size is considerably smaller than current approaches.</abstract>
       <url hash="405cd6e4">2026.acl-long.2017</url>
@@ -32030,7 +32030,7 @@
       <author openreview="~Yu_Su2"><first>Yu</first><last>Su</last><affiliation>Ohio State University, Columbus</affiliation></author>
       <author openreview="~Upol_Ehsan1"><first>Upol</first><last>Ehsan</last><affiliation>Northeastern University and Harvard University</affiliation></author>
       <author id="malihe-alikhani" orcid="0000-0002-1315-2228" openreview="~Malihe_Alikhani2"><first>Malihe</first><last>Alikhani</last><affiliation>Northeastern University</affiliation></author>
-      <author openreview="~Toby_Jia-Jun_Li1"><first>Toby Jia-Jun</first><last>Li</last><affiliation>University of Notre Dame</affiliation></author>
+      <author id="toby-jia-jun-li" orcid="0000-0001-7902-7625" openreview="~Toby_Jia-Jun_Li1"><first>Toby Jia-Jun</first><last>Li</last><affiliation>University of Notre Dame</affiliation></author>
       <author id="lydia-chilton" orcid="0000-0002-1737-1276" openreview="~Lydia_Chilton1"><first>Lydia</first><last>Chilton</last><affiliation>Columbia University</affiliation></author>
       <author id="dakuo-wang" orcid="0000-0001-9371-9441" openreview="~Dakuo_Wang1"><first>Dakuo</first><last>Wang</last><affiliation>Amazon and Northeastern University</affiliation></author>
       <pages>43942-43960</pages>
@@ -32061,7 +32061,7 @@
     <paper id="2035">
       <title><fixed-case>RATE</fixed-case>: Reviewer Profiling and Annotation-free Training for Expertise Ranking in Peer Review Systems</title>
       <author openreview="~Weicong_Liu1"><first>Weicong</first><last>Liu</last></author>
-      <author openreview="~Zixuan_Yang8"><first>Zixuan</first><last>Yang</last></author>
+      <author id="zixuan-yang" orcid="0009-0001-6842-3718" openreview="~Zixuan_Yang8"><first>Zixuan</first><last>Yang</last></author>
       <author id="yibo-zhao" orcid="0009-0000-4261-8915" openreview="~Yibo_Zhao7"><first>Yibo</first><last>Zhao</last><affiliation>East China Normal University</affiliation></author>
       <author id="xiang-li-2483" orcid="0009-0003-0142-2483" openreview="~Xiang_Li24"><first>Xiang</first><last>Li</last><affiliation>East China Normal University</affiliation></author>
       <pages>43978-43996</pages>
@@ -32770,7 +32770,7 @@
     </paper>
     <paper id="2080">
       <title>Lost in the Mix: Evaluating <fixed-case>LLM</fixed-case> Understanding of Code-Switched Text</title>
-      <author openreview="~Amr_Mohamed2"><first>Amr</first><last>Mohamed</last><affiliation>École Polytechnique and Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="amr-mohamed" orcid="0009-0009-9078-1149" openreview="~Amr_Mohamed2"><first>Amr</first><last>Mohamed</last><affiliation>École Polytechnique and Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author id="yang-zhang-0117" orcid="0009-0000-2337-0117" openreview="~Yang_ZHANG56"><first>Yang</first><last>Zhang</last><affiliation>École Polytechnique</affiliation></author>
       <author openreview="~Michalis_Vazirgiannis1"><first>Michalis</first><last>Vazirgiannis</last><affiliation>Ecole Polytechnique, France</affiliation></author>
       <author id="guokan-shang" orcid="0009-0004-3657-0598" openreview="~Guokan_Shang1"><first>Guokan</first><last>Shang</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
@@ -32876,7 +32876,7 @@
       <author id="yitian-zhang" orcid="0000-0001-8721-6063" openreview="~Yitian_Zhang1"><first>Yitian</first><last>Zhang</last></author>
       <author id="huimin-zeng-0495" orcid="0009-0002-7101-0495" openreview="~Huimin_Zeng2"><first>Huimin</first><last>Zeng</last><affiliation>Northeastern University</affiliation></author>
       <author id="yizhou-wang" orcid="0000-0003-1601-9649" openreview="~Yizhou_Wang3"><first>Yizhou</first><last>Wang</last><affiliation>Adobe Systems</affiliation></author>
-      <author openreview="~Jianglin_Lu2"><first>Jianglin</first><last>Lu</last></author>
+      <author id="jianglin-lu" orcid="0009-0003-5773-0012" openreview="~Jianglin_Lu2"><first>Jianglin</first><last>Lu</last></author>
       <author id="kuo-yang-7261" orcid="0009-0005-5021-7261" openreview="~Kuo_Yang6"><first>Kuo</first><last>Yang</last><affiliation>Northeastern University</affiliation></author>
       <author id="yun-fu" orcid="0000-0002-5098-2853" openreview="~Yun_Fu1"><first>Yun</first><last>Fu</last></author>
       <pages>45055-45070</pages>
@@ -33125,7 +33125,7 @@
       <title><fixed-case>RV</fixed-case>-<fixed-case>HATE</fixed-case>: Reinforced Multi-Module Voting for Implicit Hate Speech Detection</title>
       <author id="yejin-lee" orcid="0009-0009-0344-0507" openreview="~Yejin_Lee6"><first>Yejin</first><last>Lee</last><affiliation>Yonsei University</affiliation></author>
       <author openreview="~Hyeseon_An1"><first>Hyeseon</first><last>An</last></author>
-      <author openreview="~Yo-Sub_Han1"><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
+      <author id="yo-sub-han" orcid="0000-0002-7211-6657" openreview="~Yo-Sub_Han1"><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
       <pages>45364-45383</pages>
       <abstract>Hate speech remains prevalent in human society and continues to evolve in its forms and expressions. Modern advancements in the internet and online anonymity accelerate its rapid spread and complicate its detection. However, hate speech datasets exhibit diverse characteristics primarily because they are constructed from different sources and platforms, each reflecting different linguistic styles and social contexts. Despite this diversity, prior studies on hate speech detection often rely on fixed methodologies without adapting to data-specific features. We introduce RV-HATE, a detection framework designed to account for the dataset-specific characteristics of each hate speech dataset. RV-HATE consists of multiple specialized modules, where each module focuses on distinct linguistic or contextual features of hate speech. The framework employs reinforcement learning to optimize weights that determine the contribution of each module for a given dataset. A voting mechanism then aggregates the module outputs to produce the final decision. RV-HATE offers two primary advantages: (1) it improves detection accuracy by tailoring the detection process to dataset-specific attributes, and (2) it also provides interpretable insights into the distinctive features of each dataset. Consequently, our approach effectively addresses implicit hate speech and achieves superior performance compared to conventional static methods.</abstract>
       <url hash="6032af71">2026.acl-long.2104</url>
@@ -33284,7 +33284,7 @@
       <author id="shinwoo-park" orcid="0009-0009-9240-2042" openreview="~Shinwoo_Park1"><first>Shinwoo</first><last>Park</last></author>
       <author id="hyejin-park" orcid="0009-0005-4847-2116" openreview="~Hyejin_Park5"><first>Hyejin</first><last>Park</last><affiliation>Rensselaer Polytechnic Institute</affiliation></author>
       <author openreview="~Hyeseon_An1"><first>Hyeseon</first><last>An</last></author>
-      <author openreview="~Yo-Sub_Han1"><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
+      <author id="yo-sub-han" orcid="0000-0002-7211-6657" openreview="~Yo-Sub_Han1"><first>Yo-Sub</first><last>Han</last><affiliation>Yonsei University</affiliation></author>
       <pages>45629-45647</pages>
       <abstract>As large language models (LLMs) continue to advance rapidly, reliable governance tools have become critical. Publicly verifiable watermarking is particularly essential for fostering a trustworthy AI ecosystem. A central challenge persists: balancing text quality against detection robustness. Recent studies have sought to navigate this trade-off by leveraging signals from model output distributions (e.g., token-level entropy); however, their reliance on these model-specific signals presents a significant barrier to public verification, as the detection process requires access to the logits of the underlying model. We introduce STELA, a novel framework that aligns watermark strength with the linguistic degrees of freedom inherent in language. STELA dynamically modulates the signal using part-of-speech (POS) n-gram–modeled linguistic indeterminacy, weakening it in grammatically constrained contexts to preserve quality and strengthening it in contexts with greater linguistic flexibility to enhance detectability. Our detector operates without access to any model logits, thus facilitating publicly verifiable detection. Through extensive experiments on typologically diverse languages—analytic English, isolating Chinese, and agglutinative Korean—we show that STELA surpasses prior methods in detection robustness. Our code is available at <url>https://github.com/Shinwoo-Park/stela_watermark</url>.</abstract>
       <url hash="78b82917">2026.acl-long.2115</url>
@@ -33631,7 +33631,7 @@
     <paper id="2138">
       <title><fixed-case>B</fixed-case>io<fixed-case>T</fixed-case>ool: A Comprehensive Tool-Calling Dataset for Enhancing Biomedical Capabilities of Large Language Models</title>
       <author id="xin-gao-8416" orcid="0009-0001-8490-8416" openreview="~Xin_Gao15"><first>Xin</first><last>Gao</last></author>
-      <author openreview="~Ruiyi_Zhang4"><first>Ruiyi</first><last>Zhang</last><affiliation>University of California, San Diego</affiliation></author>
+      <author id="ruiyi-zhang" orcid="0009-0008-6868-4767" openreview="~Ruiyi_Zhang4"><first>Ruiyi</first><last>Zhang</last><affiliation>University of California, San Diego</affiliation></author>
       <author id="meixi-du" orcid="0009-0006-8551-4095" openreview="~Meixi_Du1"><first>Meixi</first><last>Du</last></author>
       <author id="peijia-qin" orcid="0009-0000-8768-3622" openreview="~Peijia_Qin1"><first>Peijia</first><last>Qin</last></author>
       <author openreview="~Pengtao_Xie3"><first>Pengtao</first><last>Xie</last><affiliation>University of California, San Diego</affiliation></author>
@@ -34034,7 +34034,7 @@
       <title><fixed-case>B</fixed-case>aton<fixed-case>V</fixed-case>oice: An Operationalist Framework for Enhancing Controllable Speech Synthesis with Linguistic Intelligence from <fixed-case>LLM</fixed-case>s</title>
       <author openreview="~Yue_Wang17"><first>Yue</first><last>Wang</last><affiliation>Soochow University, China</affiliation></author>
       <author openreview="~Ruotian_Ma1"><first>Ruotian</first><last>Ma</last><affiliation>Tencent</affiliation></author>
-      <author openreview="~Xingyu_Chen5"><first>Xingyu</first><last>Chen</last><affiliation>Shanghai Jiaotong University</affiliation></author>
+      <author id="xingyu-chen" orcid="0009-0001-1484-7435" openreview="~Xingyu_Chen5"><first>Xingyu</first><last>Chen</last><affiliation>Shanghai Jiaotong University</affiliation></author>
       <author openreview="~Zhengliang_Shi1"><first>Zhengliang</first><last>Shi</last></author>
       <author id="morunliu-yang" orcid="0009-0008-1169-9730" openreview="~Morunliu_Yang1"><first>Morunliu</first><last>Yang</last></author>
       <author openreview="~Wanshun_CHEN1"><first>Wanshun</first><last>Chen</last></author>
@@ -34045,7 +34045,7 @@
       <author openreview="~Qingxuan_Jiang1"><first>Qingxuan</first><last>Jiang</last><affiliation>Tencent</affiliation></author>
       <author openreview="~Fanghua_Ye1"><first>Fanghua</first><last>Ye</last><affiliation>Tencent Hunyuan</affiliation></author>
       <author id="juntao-li" orcid="0000-0002-6286-7529" openreview="~Juntao_Li2"><first>Juntao</first><last>Li</last></author>
-      <author openreview="~Zhaopeng_Tu1"><first>Zhaopeng</first><last>Tu</last><affiliation>Tencent</affiliation></author>
+      <author id="zhaopeng-tu" orcid="0000-0002-7900-6055" openreview="~Zhaopeng_Tu1"><first>Zhaopeng</first><last>Tu</last><affiliation>Tencent</affiliation></author>
       <author openreview="~Xiaolong_Li4"><first>Xiaolong</first><last>Li</last><affiliation>Tencent America LLC</affiliation></author>
       <author openreview="~Liefeng_Bo1"><first>Liefeng</first><last>Bo</last><affiliation>Tencent</affiliation></author>
       <author id="min-zhang" orcid="0000-0002-3895-5510" openreview="~Min_Zhang9"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen and Harbin Institute of Technology</affiliation></author>
@@ -34826,8 +34826,8 @@
       <title>Macaron: Controlled, Human-Written Benchmark for Multilingual and Multicultural Reasoning via Template-Filling</title>
       <author id="alaa-el-setohy" orcid="0009-0006-5186-9461" openreview="~Alaa_Elsetohy1"><first>Alaa</first><last>Elsetohy</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author openreview="~Sama_Hadhoud1"><first>Sama</first><last>Hadhoud</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
-      <author openreview="~Haryo_Akbarianto_Wibowo1"><first>Haryo Akbarianto</first><last>Wibowo</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
-      <author openreview="~Chenxi_Whitehouse1"><first>Chenxi</first><last>Whitehouse</last><affiliation>Meta</affiliation></author>
+      <author id="haryo-akbarianto-wibowo" orcid="0000-0001-7457-2165" openreview="~Haryo_Akbarianto_Wibowo1"><first>Haryo Akbarianto</first><last>Wibowo</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="chenxi-whitehouse" orcid="0009-0008-8813-4527" openreview="~Chenxi_Whitehouse1"><first>Chenxi</first><last>Whitehouse</last><affiliation>Meta</affiliation></author>
       <author id="genta-indra-winata" orcid="0000-0001-9135-2594" openreview="~Genta_Indra_Winata1"><first>Genta Indra</first><last>Winata</last><affiliation>Capital One</affiliation></author>
       <author id="fajri-koto" orcid="0000-0002-3659-6761" openreview="~Fajri_Koto1"><first>Fajri</first><last>Koto</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author id="alham-fikri-aji" orcid="0000-0001-7665-0673" openreview="~Alham_Fikri_Aji1"><first>Alham Fikri</first><last>Aji</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
@@ -35165,10 +35165,10 @@
       <author id="yijun-chen-1648" orcid="0009-0006-9287-1648" openreview="~Yijun_Chen8"><first>Yijun</first><last>Chen</last></author>
       <author openreview="~Jizhan_Fang1"><first>Jizhan</first><last>Fang</last></author>
       <author id="ruobin-zhong" orcid="0009-0003-7453-5251" openreview="~Ruobin_Zhong1"><first>Ruobin</first><last>Zhong</last><affiliation>Zhejiang University</affiliation></author>
-      <author openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="yunzhi-yao" orcid="0000-0001-9458-696X" openreview="~Yunzhi_Yao1"><first>Yunzhi</first><last>Yao</last><affiliation>Zhejiang University</affiliation></author>
       <author id="yuqi-zhu" orcid="0009-0009-4041-2601" openreview="~Yuqi_Zhu2"><first>Yuqi</first><last>Zhu</last><affiliation>Zhejiang University</affiliation></author>
       <author openreview="~Lun_Du1"><first>Lun</first><last>Du</last><affiliation>Ant Group</affiliation></author>
-      <author openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
+      <author id="shumin-deng" orcid="0000-0002-4049-8478" openreview="~Shumin_Deng1"><first>Shumin</first><last>Deng</last><affiliation>Zhejiang University</affiliation></author>
       <pages>122-146</pages>
       <abstract>Long-term conversational agents need memory systems that capture relationships between events, not merely isolated facts, to support temporal reasoning and multi-hop question answering. Current approaches face a fundamental trade-off: flat memory is efficient but fails to model relational structure, while graph-based memory enables structured reasoning at the cost of expensive and fragile construction. To address these issues, we propose StructMem, a structure-enriched hierarchical memory framework that preserves event-level bindings and induces cross-event connections. By temporally anchoring dual perspectives and performing periodic semantic consolidation, StructMem improves temporal reasoning and multi-hop performance on LoCoMo, while substantially reducing token usage, API calls, and runtime compared to prior memory systems.</abstract>
       <url hash="d16e53a8">2026.acl-short.12</url>
@@ -35490,7 +35490,7 @@
     </paper>
     <paper id="36">
       <title>Calibrated? Not for Everyone: How Sexual Orientation and Religious Markers Distort <fixed-case>LLM</fixed-case> Accuracy and Confidence in Medical <fixed-case>QA</fixed-case></title>
-      <author openreview="~Alberto_Testoni1"><first>Alberto</first><last>Testoni</last><affiliation>Amsterdam UMC</affiliation></author>
+      <author id="alberto-testoni" orcid="0000-0002-4130-0056" openreview="~Alberto_Testoni1"><first>Alberto</first><last>Testoni</last><affiliation>Amsterdam UMC</affiliation></author>
       <author id="iacer-calixto" orcid="0000-0001-6244-7906" openreview="~Iacer_Calixto2"><first>Iacer</first><last>Calixto</last><affiliation>Amsterdam UMC, University of Amsterdam</affiliation></author>
       <pages>432-447</pages>
       <abstract>Safe clinical deployment of Large Language Models (LLMs) requires not only high accuracy but also robust uncertainty calibration to ensure models defer to clinicians when appropriate. Our paper investigates how social descriptors of a patient (specifically sexual orientation and religious affiliation) distort these uncertainty signals and model accuracy. Evaluating nine general-purpose and biomedical LLMs on 2,364 medical questions and their counterfactual variants, we demonstrate that identity markers cause a “calibration crisis”. <i>Homosexual</i> markers consistently trigger performance drops, and intersectional identities produce idiosyncratic, non-additive harms to calibration. Moreover, a clinician-validated case study in an open-ended generation setting confirms that these failures are not an artifact of the multiple-choice format. Our results demonstrate that the presence of social identity cues does not merely shift predictions; it affects the reliability of confidence signals, posing a significant risk to equitable care and safe deployment in confidence-based clinical workflows.</abstract>
@@ -35502,7 +35502,7 @@
     <paper id="37">
       <title><fixed-case>DIXITWORLD</fixed-case>: Evaluating Multimodal Abductive Reasoning in Vision-Language Models with Multi-Agent Dixit Gameplay</title>
       <author id="yunxiang-mo" orcid="0009-0008-4398-523X" openreview="~Yunxiang_MO1"><first>Yunxiang</first><last>MO</last></author>
-      <author openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="tianshi-zheng" orcid="0009-0008-7053-6253" openreview="~Tianshi_Zheng1"><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <author id="qing-zong" orcid="0009-0006-9192-9975" openreview="~Qing_Zong2"><first>Qing</first><last>Zong</last></author>
       <author id="jiayu-liu-2402" orcid="0009-0000-5691-2402" openreview="~Jiayu_Liu7"><first>Jiayu</first><last>Liu</last></author>
       <author id="baixuan-xu" orcid="0000-0001-8175-7598" openreview="~Baixuan_Xu1"><first>Baixuan</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
@@ -38653,7 +38653,7 @@
       <author id="zirui-tang" orcid="0009-0003-3449-4248" openreview="~Zirui_Tang1"><first>Zirui</first><last>Tang</last></author>
       <author id="boyu-niu" orcid="0009-0003-2343-643X" openreview="~Boyu_Niu1"><first>Boyu</first><last>Niu</last></author>
       <author openreview="~Yuanhong_Zheng1"><first>Yuanhong</first><last>Zheng</last></author>
-      <author openreview="~Dongsheng_Ma1"><first>Dongsheng</first><last>Ma</last></author>
+      <author id="dongsheng-ma" orcid="0009-0007-8865-6715" openreview="~Dongsheng_Ma1"><first>Dongsheng</first><last>Ma</last></author>
       <author openreview="~Ziyang_Miao1"><first>Ziyang</first><last>Miao</last></author>
       <author id="hejun-dong" orcid="0009-0000-5579-8812" openreview="~Hejun_Dong1"><first>Hejun</first><last>Dong</last></author>
       <author id="siyi-qian" orcid="0009-0002-2793-0067" openreview="~Siyi_Qian2"><first>Siyi</first><last>Qian</last></author>
@@ -38671,7 +38671,7 @@
       <author openreview="~Huaiyu_Gu1"><first>Huaiyu</first><last>Gu</last></author>
       <author openreview="~Lindong_Lu1"><first>Lindong</first><last>Lu</last></author>
       <author id="dechen-lin" orcid="0009-0007-3387-3472" openreview="~Dechen_Lin1"><first>Dechen</first><last>Lin</last></author>
-      <author openreview="~Shenguanlin1"><first/><last>Shenguanlin</last></author>
+      <author id="shenguanlin" orcid="0009-0002-8826-5590" openreview="~Shenguanlin1"><first/><last>Shenguanlin</last></author>
       <author openreview="~Xuanhe_Zhou1"><first>Xuanhe</first><last>Zhou</last></author>
       <author id="linfeng-zhang" orcid="0000-0002-3341-183X" openreview="~Linfeng_Zhang2"><first>Linfeng</first><last>Zhang</last></author>
       <author id="yuhang-zang" orcid="0000-0003-1110-5062" openreview="~Yuhang_Zang1"><first>Yuhang</first><last>Zang</last></author>
@@ -38680,7 +38680,7 @@
       <author id="bo-zhang" orcid="0000-0001-8052-782X" openreview="~Bo_Zhang17"><first>Bo</first><last>Zhang</last></author>
       <author id="lei-bai" orcid="0000-0003-3378-7201" openreview="~LEI_BAI1"><first>Lei</first><last>Bai</last></author>
       <author id="pei-chu" orcid="0009-0005-1276-3069" openreview="~Pei_Chu1"><first>Pei</first><last>Chu</last></author>
-      <author openreview="~Weijia_Li2"><first>Weijia</first><last>Li</last></author>
+      <author id="weijia-li-9176" orcid="0000-0003-1838-9176" openreview="~Weijia_Li2"><first>Weijia</first><last>Li</last></author>
       <author id="jiang-wu" orcid="0009-0002-2402-0957" openreview="~Jiang_Wu7"><first>Jiang</first><last>Wu</last></author>
       <author id="lijun-wu" orcid="0000-0002-3530-590X" openreview="~Lijun_Wu1"><first>Lijun</first><last>Wu</last></author>
       <author openreview="~Zhenxiang_Li1"><first>Zhenxiang</first><last>Li</last></author>
@@ -38845,7 +38845,7 @@
       <author openreview="~Bhaktipriya_Radharapu1"><first>Bhaktipriya</first><last>Radharapu</last></author>
       <author openreview="~Eshika_Saxena1"><first>Eshika</first><last>Saxena</last></author>
       <author openreview="~Kenneth_Li1"><first>Kenneth</first><last>Li</last></author>
-      <author openreview="~Chenxi_Whitehouse1"><first>Chenxi</first><last>Whitehouse</last></author>
+      <author id="chenxi-whitehouse" orcid="0009-0008-8813-4527" openreview="~Chenxi_Whitehouse1"><first>Chenxi</first><last>Whitehouse</last></author>
       <author id="adina-williams" orcid="0000-0001-5281-3343" openreview="~Adina_Williams1"><first>Adina</first><last>Williams</last></author>
       <author openreview="~Nicola_Cancedda1"><first>Nicola</first><last>Cancedda</last></author>
       <pages>193-216</pages>
@@ -39193,7 +39193,7 @@
       <author id="haonan-zheng" orcid="0009-0009-2017-962X" openreview="~Haonan_Zheng1"><first>Haonan</first><last>Zheng</last></author>
       <author openreview="~Yuanhao_Yue4"><first>Yuanhao</first><last>Yue</last></author>
       <author openreview="~Junbing_Yan1"><first>Junbing</first><last>Yan</last></author>
-      <author openreview="~Ming_Wang21"><first>Ming</first><last>Wang</last></author>
+      <author id="ming-wang-0282" orcid="0009-0008-3417-0282" openreview="~Ming_Wang21"><first>Ming</first><last>Wang</last></author>
       <author id="jun-huang" orcid="0000-0002-7706-7081" openreview="~Jun_Huang4"><first>Jun</first><last>Huang</last></author>
       <pages>535-551</pages>
       <abstract>Modern industrial applications increasingly demand language models that act as agents, capable of multi-step reasoning and tool use in real-world settings. These tasks are typically performed under strict cost and latency constraints, making small agentic models highly desirable. In this paper, we introduce the AgenticQwen family of models, trained via multi-round reinforcement learning (RL) on synthetic data and a limited amount of open-source data. Our training framework combines reasoning RL and agentic RL with dual data flywheels that automatically generate increasingly challenging tasks. The reasoning flywheel increases task difficulty by learning from errors, while the agentic flywheel expands linear workflows into multi-branch behavior trees that better reflect the decision complexity of real-world applications. We validate AgenticQwen on public benchmarks and in an industrial agent system. The models achieve strong performance on multiple agentic benchmarks, and in our industrial agent system, close the gap with much larger models on search and data analysis tasks.</abstract>
@@ -40820,7 +40820,7 @@
       <title>Thinking with Reasoning Skills: Fewer Tokens, More Accuracy</title>
       <author id="guangxiang-zhao" orcid="0000-0002-3046-512X" openreview="~Guangxiang_Zhao3"><first>Guangxiang</first><last>Zhao</last></author>
       <author id="qilong-shi" orcid="0000-0001-5550-0692" openreview="~Qilong_Shi1"><first>Qilong</first><last>Shi</last></author>
-      <author openreview="~Xusen_Xiao1"><first>Xusen</first><last>Xiao</last></author>
+      <author id="xusen-xiao" orcid="0009-0008-2021-0706" openreview="~Xusen_Xiao1"><first>Xusen</first><last>Xiao</last></author>
       <author id="xiangzheng-zhang" orcid="0009-0008-7700-5746" openreview="~Xiangzheng_Zhang2"><first>Xiangzheng</first><last>Zhang</last></author>
       <author id="tong-yang" orcid="0000-0003-2402-5854" openreview="~Tong_Yang6"><first>Tong</first><last>Yang</last></author>
       <author id="lin-sun" orcid="0009-0008-0471-9131" openreview="~Lin_Sun15"><first>Lin</first><last>Sun</last></author>
