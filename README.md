@@ -136,8 +136,9 @@ Components:
 * `hugo/static/js/watermark.js` handles the preview, upload, and download.
 * `hugo/static/cgi-bin/watermark.cgi` validates the request and invokes the PDF
   processor.
-* `bin/add_footer_to_pdf.py` adds the footer and page numbers. It supports
-  multi-line centered text and inline italics using `<i>…</i>`.
+* `hugo/static/cgi-bin/add_footer_to_pdf.py` adds the footer and page numbers.
+  It supports multi-line centered text and inline italics using `<i>…</i>`.
+  `bin/add_footer_to_pdf.py` is a symlink to it, for command-line use.
 
 Setup:
 
@@ -145,8 +146,8 @@ Setup:
 2. Install the service dependencies with
    `/opt/venv/watermark/bin/pip install -r bin/requirements-watermark.txt`.
 3. Configure the web server to execute `hugo/static/cgi-bin/watermark.cgi` as
-  CGI. Site builds package `bin/add_footer_to_pdf.py` beside the CGI script;
-  set `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
+  CGI. `add_footer_to_pdf.py` sits beside the CGI script; set
+  `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
   layout.
 
 A file-only development server such as `python -m http.server` can display the

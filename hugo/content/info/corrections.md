@@ -72,7 +72,7 @@ For requests to change paper *content* (either a revision or an erratum), again,
 	Its intended audience is users of the Anthology, and should therefore be written from a neutral, scientific perspective.
 - If the metadata also needs to change, please also follow the instructions in the previous section.
 - If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps to match the original.
-  A web service providing this feature can be found at [https://aclanthology.org/watermark.html](https://aclanthology.org/watermark.html) ([source code](https://github.com/acl-org/acl-anthology/blob/master/bin/add_footer_to_pdf.py)).
+  A web service providing this feature can be found at [https://aclanthology.org/watermark.html](https://aclanthology.org/watermark.html) ([source code](https://github.com/acl-org/acl-anthology/blob/master/hugo/static/cgi-bin/add_footer_to_pdf.py)).
 
 For revisions, the brief summary should allow readers to find the changed parts, but need not be too detailed.
 Here are some good examples:
