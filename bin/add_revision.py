@@ -51,6 +51,7 @@ from __future__ import annotations
 
 import argparse
 import filetype
+import io
 import os
 import re
 import shutil
@@ -64,6 +65,8 @@ from pathlib import Path
 import requests
 from git.repo.base import Repo
 from github import Auth, Github, GithubException
+from pypdf import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
@@ -77,6 +80,51 @@ TRAILING_URL_CHARS = ').,]>"'
 ANTHOLOGY_FILES_DIR = Path(
     os.environ.get("ANTHOLOGY_FILES", Path.home() / "anthology-files")
 )
+
+WATERMARK_FONT = "Times-Roman"
+WATERMARK_SIZE = 16
+WATERMARK_LEFT_OFFSET_PT = 27
+WATERMARK_GRAY = 0.55
+
+
+def _make_vertical_watermark_page(width, height, text):
+    """Return a single-page PDF with vertical (rotated 90° CCW) watermark at left."""
+    buffer = io.BytesIO()
+    overlay = canvas.Canvas(buffer, pagesize=(width, height))
+    overlay.saveState()
+    overlay.setFont(WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.setFillGray(WATERMARK_GRAY)
+    overlay.translate(WATERMARK_LEFT_OFFSET_PT, 0)
+    overlay.rotate(90)
+    text_width = overlay.stringWidth(text, WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.drawString((height - text_width) / 2.0, 0, text)
+    overlay.restoreState()
+    overlay.showPage()
+    overlay.save()
+    buffer.seek(0)
+    return buffer
+
+
+def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
+    """Add a revision watermark to the first page of a PDF."""
+    reader = PdfReader(input_pdf)
+    writer = PdfWriter()
+    first_page = writer.add_page(reader.pages[0])
+    width = float(first_page.mediabox.width)
+    height = float(first_page.mediabox.height)
+    try:
+        display_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d %b %Y")
+    except ValueError:
+        display_date = date
+    text = f"ACL Anthology ID {anth_id} / revision {revision_id} / {display_date}"
+    watermark_page = PdfReader(_make_vertical_watermark_page(width, height, text)).pages[
+        0
+    ]
+    first_page.merge_page(watermark_page)
+    for source_page in reader.pages[1:]:
+        writer.add_page(source_page)
+    with open(output_pdf, "wb") as output:
+        writer.write(output)
 
 
 def _get_github_repo(repo_name):
@@ -346,29 +394,35 @@ def add_revision(
     )
     version_name = f"{paper.full_id}{change_letter}{next_id}"
     version_path = pdf_dir / f"{version_name}.pdf"
-    copy_file(pdf_path, version_path)
-    reference = PDFReference.from_file(version_path)
+    with tempfile.TemporaryDirectory(prefix="revision-watermark-") as temp_dir:
+        source_pdf = pdf_path
+        if change_type == "revision":
+            source_pdf = Path(temp_dir) / "watermarked.pdf"
+            add_revision_watermark(pdf_path, source_pdf, paper.full_id, next_id, date)
 
-    if change_type == "revision":
-        note = explanation.strip() if explanation else None
-        paper.revisions += (
-            PaperRevision(
-                id=str(next_id),
-                note=note,
-                pdf=reference,
-                date=date,
-            ),
-        )
-        copy_file(pdf_path, canonical_pdf)
-        paper.pdf = PDFReference.from_file(canonical_pdf)
-    else:
-        paper.errata += (
-            PaperErratum(
-                id=str(next_id),
-                pdf=reference,
-                date=date,
-            ),
-        )
+        copy_file(source_pdf, version_path)
+        reference = PDFReference.from_file(version_path)
+
+        if change_type == "revision":
+            note = explanation.strip() if explanation else None
+            paper.revisions += (
+                PaperRevision(
+                    id=str(next_id),
+                    note=note,
+                    pdf=reference,
+                    date=date,
+                ),
+            )
+            copy_file(source_pdf, canonical_pdf)
+            paper.pdf = PDFReference.from_file(canonical_pdf)
+        else:
+            paper.errata += (
+                PaperErratum(
+                    id=str(next_id),
+                    pdf=reference,
+                    date=date,
+                ),
+            )
 
     paper.collection.save()
     print(
