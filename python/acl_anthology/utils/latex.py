@@ -384,6 +384,29 @@ L2T_CONTEXT.add_context_category(
 )
 LATEX_TO_TEXT = LatexNodes2Text(strict_latex_spaces=True, latex_context=L2T_CONTEXT)
 
+LATEX_PARAGRAPH_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*){2,}")
+LATEX_LINE_BREAK_RE = re.compile(r"[^\S\r\n]*(?:(?:\r\n?|\n)[^\S\r\n]*)+")
+"""Consume horizontal whitespace around CRLF, CR, or LF source line endings.
+Two or more consecutive line endings denote a blank line between paragraphs.
+"""
+
+
+def _append_normalized_latex_text(element: etree._Element, text: str) -> None:
+    """Append text while normalizing physical line breaks in LaTeX source.
+
+    A blank line becomes ``<par/>`` at the MarkupText root. The schema does not
+    permit paragraphs inside inline markup, where line breaks are collapsed to
+    spaces instead.
+    """
+    if element.tag != "root":
+        append_text(element, LATEX_LINE_BREAK_RE.sub(" ", text))
+        return
+
+    for index, paragraph in enumerate(LATEX_PARAGRAPH_BREAK_RE.split(text)):
+        if index:
+            etree.SubElement(element, "par")
+        append_text(element, LATEX_LINE_BREAK_RE.sub(" ", paragraph))
+
 
 def _is_trivial_math(node: LatexMathNode) -> bool:
     """Helper function to determine whether or not a LatexMathNode contains only 'trivial' content that doesn't require a <tex-math> node.
@@ -432,7 +455,7 @@ def _parse_nodelist_to_element(
             continue  # pragma: no cover
         elif node.isNodeType(LatexCharsNode):
             # Plain text
-            append_text(element, node.chars)
+            _append_normalized_latex_text(element, node.chars)
         elif node.isNodeType(LatexMacroNode):
             # LaTeX macro
             if (tag := LATEX_MACRO_TO_XMLTAG.get(node.macroname)) is not None:

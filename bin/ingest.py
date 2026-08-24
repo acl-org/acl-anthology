@@ -251,16 +251,15 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
     empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
     expands to nothing.
 
-    The Anthology schema defines ``MarkupText = (text | b | i | url |
-    fixed-case | tex-math)+``, so a markup element with neither text nor child
-    elements is invalid and makes the XML fail schema validation at build time.
+    With the exception of ``<par/>``, markup elements with neither text nor child
+    elements are invalid and make the XML fail schema validation at build time.
     Such abstracts render without raising, so they must be detected explicitly.
     """
     root = abstract.to_xml()
     for element in root.iter():
         if element is root:
             continue
-        if len(element) == 0 and not element.text:
+        if element.tag != "par" and len(element) == 0 and not element.text:
             return True
     return False
 

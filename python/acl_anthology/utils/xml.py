@@ -194,9 +194,6 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
     Note:
         Adapted from [https://stackoverflow.com/a/33956544](https://stackoverflow.com/a/33956544).
     """
-    if isinstance(elem, etree._Comment):
-        return
-
     # tags that have no internal linebreaks (including children)
     oneline = elem.tag in TAGS_WITHOUT_LINEBREAKS
 
@@ -234,6 +231,8 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, lambda x: x.strip())
+        if isinstance(elem, etree._Comment):
+            elem.text = f" {elem.text} "
 
         if internal:
             elem.tail = clean_whitespace(elem.tail)
