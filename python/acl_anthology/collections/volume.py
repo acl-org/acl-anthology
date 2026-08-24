@@ -565,6 +565,7 @@ class Volume(SlottedDict[Paper]):
         volume = E.volume(id=self.id, type=self.type.value)
         if self._ingest_date is not None:
             volume.set("ingest-date", self._ingest_date)
+        volume.append(etree.Comment(self.web_url))
         meta = E.meta()
         meta.append(self.title.to_xml("booktitle"))
         if self.shorttitle is not None:
