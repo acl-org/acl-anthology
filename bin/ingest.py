@@ -632,7 +632,11 @@ def read_ingest_metadata(
         meta = parse_conf_yaml(source)
         venue_abbrev = meta["anthology_venue_id"]
         venue_slug = ensure_venue(
-            anthology, venue_abbrev, meta["event_name"], args.is_workshop, args.is_journal
+            anthology,
+            venue_abbrev,
+            meta["event_name"],
+            args.is_workshop,
+            args.is_journal,
         )
         is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
