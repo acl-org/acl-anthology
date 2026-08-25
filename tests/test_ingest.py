@@ -12,6 +12,7 @@ from bin.ingest import (
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    register_volume_with_sig,
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
@@ -29,6 +30,16 @@ def test_ensure_venue_creates_without_saving_individual_venue():
         id="evalita", acronym="EVALITA", name="Evaluation Campaign"
     )
     venue.save.assert_not_called()
+
+
+def test_register_volume_with_sig_stores_sig_on_volume():
+    anthology = SimpleNamespace(sigs={"sigdat": object()})
+    volume = SimpleNamespace(full_id="2026.acl-main", sig_ids=())
+
+    register_volume_with_sig(anthology, "SIGDAT", volume)
+    register_volume_with_sig(anthology, "sigdat", volume)
+
+    assert volume.sig_ids == ("sigdat",)
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be
