@@ -73,6 +73,10 @@ benchmark *FLAGS:
 benchmark-integration *FLAGS:
   uv run pytest benchmarks/ -m "benchmark and integration" --benchmark-only {{FLAGS}}
 
+# Run only the fixed-size benchmarks used for automated CI regression detection
+benchmark-pinned *FLAGS:
+  uv run pytest benchmarks/ -m "benchmark and pinned" --benchmark-only {{FLAGS}}
+
 # Build the documentation
 docs:
   uv run mkdocs build
