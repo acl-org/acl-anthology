@@ -595,6 +595,28 @@ def test_markup_from_latex(inp, out):
     assert markup.as_xml() == out
 
 
+@pytest.mark.parametrize(
+    ("inp", "xml"),
+    (
+        (
+            "A line\nwrapped in the source",
+            "A line wrapped in the source",
+        ),
+        (
+            "First paragraph. \n \n Second paragraph.",
+            "First paragraph.<par/>Second paragraph.",
+        ),
+        (
+            "Text with \\textit{an inline\nline break}",
+            "Text with <i>an inline line break</i>",
+        ),
+    ),
+)
+def test_markup_from_latex_normalizes_line_breaks(inp, xml):
+    markup = MarkupText.from_latex(inp)
+    assert markup.as_xml() == xml
+
+
 test_cases_markup_from_latex_maybe = (
     ("", "", ""),
     (  # LaTeX comment or intended percentage sign?

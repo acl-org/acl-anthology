@@ -6,7 +6,15 @@ from pathlib import Path
 from unittest.mock import MagicMock
 from types import SimpleNamespace
 
-from bin.ingest import check_for_anonymous_pdf, configure_event, ensure_venue, read_meta
+from acl_anthology.text import MarkupText
+from bin.ingest import (
+    abstract_has_empty_markup,
+    check_for_anonymous_pdf,
+    configure_event,
+    ensure_venue,
+    read_meta,
+    register_volume_with_sig,
+)
 
 DATADIR = Path(__file__).resolve().parent / "data"
 
@@ -34,6 +42,16 @@ def test_ensure_venue_creates_without_saving_individual_venue():
     venue.save.assert_not_called()
 
 
+def test_register_volume_with_sig_stores_sig_on_volume():
+    anthology = SimpleNamespace(sigs={"sigdat": object()})
+    volume = SimpleNamespace(full_id="2026.acl-main", sig_ids=())
+
+    register_volume_with_sig(anthology, "SIGDAT", volume)
+    register_volume_with_sig(anthology, "sigdat", volume)
+
+    assert volume.sig_ids == ("sigdat",)
+
+
 # PDFs that still carry an "Anonymous ... submission" header and should be
 # flagged by check_for_anonymous_pdf. The supplementary attachments were
 # uploaded without de-anonymization, unlike their published main papers.
@@ -51,6 +69,16 @@ CLEAN_PDFS = [
     "D18-1202.pdf",
     "2020.conll-1.33.pdf",
 ]
+
+
+def test_abstract_paragraph_is_not_empty_markup():
+    abstract = MarkupText.from_latex("First paragraph.\n\nSecond paragraph.")
+    assert not abstract_has_empty_markup(abstract)
+
+
+def test_abstract_empty_inline_markup_is_rejected():
+    abstract = MarkupText.from_latex(r"Text with \textit{} empty markup")
+    assert abstract_has_empty_markup(abstract)
 
 
 @pytest.mark.parametrize("filename", ANONYMOUS_PDFS)

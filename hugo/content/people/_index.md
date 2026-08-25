@@ -1,6 +1,4 @@
 ---
-Title: Author Index
+Title: Author Directory
 render_pagelist: false
 ---
-
-There currently is no dedicated author index.

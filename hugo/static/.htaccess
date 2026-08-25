@@ -16,6 +16,20 @@
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
+# The server compresses HTML and CSS but not JSON, so the author-search index
+# shards (the largest JSON we serve) went out uncompressed; gzip cuts them ~4x.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/json application/javascript text/javascript
+</IfModule>
+
+# Build artifacts only change when the site is rebuilt, so let browsers reuse a
+# fetched index shard across searches and page loads instead of refetching it.
+<IfModule mod_headers.c>
+  <FilesMatch "\.json$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>
+
 # Use the Anthology-themed error document
 ErrorDocument 404 /ANTHOLOGYDIR/404.html
 
