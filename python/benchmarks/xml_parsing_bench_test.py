@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+"""Compares strategies for turning a <paper> element's children into a
+key-value dict, on a single sample collection file."""
+
+import pytest
 from copy import deepcopy
 from lxml import etree
 from pathlib import Path
 
-REPEAT = 3
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-XMLFILE = Path(f"{SCRIPTDIR}/../tests/data/anthology/xml/2022.acl.xml")
+SCRIPTDIR = Path(__file__).parent.resolve()
+XMLFILE = SCRIPTDIR / ".." / "tests" / "data" / "anthology" / "xml" / "2022.acl.xml"
 
 # Names of XML elements that may appear multiple times, and should be accumulated as a list
 LIST_ELEMENTS = (
@@ -57,12 +59,12 @@ def parse_element(xml_element):
             value = element.text
         elif tag in ("author", "editor"):
             id_ = element.attrib.get("id", None)
+            first, last = "", ""
             for subelement in element:
-                tag = subelement.tag
                 # These are guaranteed to occur at most once by the schema
-                if tag == "first":
+                if subelement.tag == "first":
                     first = subelement.text or ""
-                elif tag == "last":
+                elif subelement.tag == "last":
                     last = subelement.text or ""
             value = (first, last, id_)
         elif tag == "pwccode":
@@ -97,12 +99,12 @@ def parse_single_element(element):
         value = element.text
     elif tag in ("author", "editor"):
         id_ = element.attrib.get("id", None)
+        first, last = "", ""
         for subelement in element:
-            tag = subelement.tag
             # These are guaranteed to occur at most once by the schema
-            if tag == "first":
+            if subelement.tag == "first":
                 first = subelement.text or ""
-            elif tag == "last":
+            elif subelement.tag == "last":
                 last = subelement.text or ""
         value = (first, last, id_)
     elif tag == "pwccode":
@@ -118,10 +120,8 @@ def parse_single_element(element):
 
 
 def parse_via_parse_element():
-    """
-    Parses <paper> elements by passing them to `parse_element()`, which
-    returns a key-value hash.
-    """
+    """Parses <paper> elements by passing them to `parse_element()`, which
+    returns a key-value hash."""
     for _, element in etree.iterparse(XMLFILE):
         if element.tag == "paper":
             paper = parse_element(element)
@@ -129,10 +129,9 @@ def parse_via_parse_element():
 
 
 def parse_via_parse_single_element():
-    """
-    Parses <paper> elements by looping over their children and passing
-    them to `parse_single_element()`, then using the return value to
-    build a key-value hash.
+    """Parses <paper> elements by looping over their children and passing
+    them to `parse_single_element()`, then using the return value to build
+    a key-value hash.
 
     This should result in a lot more function calls, albeit with smaller
     (simpler) XML elements.
@@ -153,10 +152,8 @@ def parse_via_parse_single_element():
 
 
 def parse_via_parse_and_clear_element():
-    """
-    Parses <paper> elements by passing them to `parse_element()`, but
-    also clears them afterwards to potentially save memory.
-    """
+    """Parses <paper> elements by passing them to `parse_element()`, but
+    also clears them afterwards to potentially save memory."""
     for _, element in etree.iterparse(XMLFILE):
         if element.tag == "paper":
             paper = parse_element(element)
@@ -164,30 +161,15 @@ def parse_via_parse_and_clear_element():
     return paper
 
 
-def bench_with_parse_element():
-    for _ in range(REPEAT):
-        parse_via_parse_element()
-
-
-def bench_with_parse_single_element():
-    for _ in range(REPEAT):
-        parse_via_parse_single_element()
-
-
-def bench_with_parse_and_clear_element():
-    for _ in range(REPEAT):
-        parse_via_parse_and_clear_element()
-
-
-__benchmarks__ = [
-    (
-        bench_with_parse_single_element,
-        bench_with_parse_element,
-        "XML <paper>: one function call instead of one per child tag",
-    ),
-    (
-        bench_with_parse_element,
-        bench_with_parse_and_clear_element,
-        "XML <paper>: clear <paper> element after parsing",
-    ),
-]
+@pytest.mark.benchmark
+@pytest.mark.parametrize(
+    "parse_fn",
+    [
+        parse_via_parse_element,
+        parse_via_parse_single_element,
+        parse_via_parse_and_clear_element,
+    ],
+    ids=["call-per-paper", "call-per-child", "call-per-paper+clear"],
+)
+def test_paper_parsing_strategy(benchmark, parse_fn):
+    benchmark(parse_fn)
