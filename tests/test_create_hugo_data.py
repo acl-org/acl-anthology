@@ -14,12 +14,12 @@ from bin.create_hugo_data import (
     AUTHOR_ID_FROM_NAME,
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
-    author_search_index,
-    author_stats,
+    build_author_search_index,
+    compute_author_stats,
+    compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
     export_author_index,
     export_homepage_stats,
-    first_paper_year_histogram,
     homepage_venue_group,
     homepage_venue_sort_key,
     homepage_stats,
@@ -102,9 +102,9 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
             {"year": 2021, "count": 1, "verified_count": 0},
         ],
     }
-    assert author_stats(people) == expected_stats
+    assert compute_author_stats(people) == expected_stats
 
-    index = author_search_index(people)
+    index = build_author_search_index(people)
     ada_row = [
         "Ada Lovelace",
         0,  # ID rebuilt from the name by the browser
@@ -147,7 +147,8 @@ def test_author_index_includes_hyphenated_name_parts():
     }
 
     assert any(
-        row[0] == "Aarón Galiano-Jiménez" for row in author_search_index(people)["j"]
+        row[0] == "Aarón Galiano-Jiménez"
+        for row in build_author_search_index(people)["j"]
     )
 
 
@@ -164,7 +165,9 @@ def test_author_index_includes_undecorated_canonical_name_for_ranking():
     }
 
     row = next(
-        row for row in author_search_index(people)["y"] if row[0] == "Yang Liu (刘扬)"
+        row
+        for row in build_author_search_index(people)["y"]
+        if row[0] == "Yang Liu (刘扬)"
     )
     assert row[1] == "yang-liu-icsi"
     assert row[7] == "Yang Liu"
@@ -178,17 +181,17 @@ def test_author_index_omits_ids_the_browser_can_rebuild():
         "anne-moller": {"full": "Anne Møller", "papers": ["paper-3"]},
     }
 
-    rows = {row[0]: row for row in author_search_index(people)["a"]}
+    rows = {row[0]: row for row in build_author_search_index(people)["a"]}
     assert rows["Ada Lovelace"][1] == AUTHOR_ID_FROM_NAME
     assert rows["Anne Møller"][1] == "anne-moller"
-    zhang = next(row for row in author_search_index(people)["z"])
+    zhang = next(row for row in build_author_search_index(people)["z"])
     assert zhang[1] == AUTHOR_ID_FROM_NAME_UNVERIFIED
 
 
 def test_author_index_drops_trailing_empty_fields():
     people = {"ada-lovelace": {"full": "Ada Lovelace", "papers": ["paper-1"]}}
 
-    (row,) = author_search_index(people)["a"]
+    (row,) = build_author_search_index(people)["a"]
 
     assert row == ["Ada Lovelace", AUTHOR_ID_FROM_NAME, 1]
 
@@ -200,7 +203,7 @@ def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers(
         "carol-lee": {"first_year": 2008},
         "editor-only": {"full": "No Papers"},  # no first_year -> excluded
     }
-    assert first_paper_year_histogram(people) == [
+    assert compute_first_paper_year_histogram(people) == [
         {"year": 2005, "count": 2, "verified_count": 1},
         {"year": 2006, "count": 0, "verified_count": 0},
         {"year": 2007, "count": 0, "verified_count": 0},
@@ -209,7 +212,9 @@ def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers(
 
 
 def test_first_paper_year_histogram_is_empty_without_debut_years():
-    assert first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
+    assert (
+        compute_first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
+    )
 
 
 def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():

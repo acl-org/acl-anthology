@@ -481,7 +481,7 @@ def trim_trailing_empty(row: list) -> list:
     return row
 
 
-def search_bucket_keys(searchable: str) -> set[str]:
+def collect_search_bucket_keys(searchable: str) -> set[str]:
     """Return initial-character buckets for all searchable tokens."""
     bucket_keys = set()
     for token in re.findall(r"\w+", unicodedata.normalize("NFKD", searchable)):
@@ -490,7 +490,7 @@ def search_bucket_keys(searchable: str) -> set[str]:
     return bucket_keys or {"other"}
 
 
-def first_paper_year_histogram(people):
+def compute_first_paper_year_histogram(people):
     """Count authors by the year of their first paper.
 
     Returns a year-ordered list of ``{"year", "count", "verified_count"}``
@@ -520,7 +520,7 @@ def first_paper_year_histogram(people):
     ]
 
 
-def author_stats(people):
+def compute_author_stats(people):
     """Compute statistics for the author index."""
     verified_count = sum(is_verified_person_id(person_id) for person_id in people.keys())
     return {
@@ -530,11 +530,11 @@ def author_stats(people):
         "orcid_author_count": sum(
             bool(person.get("orcid")) for person in people.values()
         ),
-        "first_paper_year_hist": first_paper_year_histogram(people),
+        "first_paper_year_hist": compute_first_paper_year_histogram(people),
     }
 
 
-def author_search_index(people):
+def build_author_search_index(people):
     """Build compact author-search buckets keyed by name-token initial."""
     buckets = {bucket: [] for bucket in AUTHOR_INDEX_BUCKETS}
 
@@ -565,7 +565,7 @@ def author_search_index(people):
         searchable = " ".join(
             [person["full"], canonical_name, *alternate_names, *name_variants, orcid]
         )
-        for bucket in search_bucket_keys(searchable):
+        for bucket in collect_search_bucket_keys(searchable):
             buckets[bucket].append((person_id, row))
 
     return {
@@ -581,8 +581,8 @@ def author_search_index(people):
 
 def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author directory."""
-    author_index = author_search_index(people)
-    stats = author_stats(people)
+    author_index = build_author_search_index(people)
+    stats = compute_author_stats(people)
     with open(f"{builddir}/data/people_stats.json", "wb") as f:
         f.write(ENCODER.encode(stats))
 
