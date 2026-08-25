@@ -18,9 +18,10 @@ from __future__ import annotations
 from attrs import define, field, converters, setters, validators as v
 from lxml import etree
 from lxml.builder import E
-from typing import Any, Iterator, Optional, TYPE_CHECKING
+from typing import cast, Any, Iterator, Optional, TYPE_CHECKING
 
 from .types import EventLink
+from ..config import config
 from ..constants import RE_EVENT_ID
 from ..files import EventFileReference
 from ..people import NameSpecification
@@ -190,6 +191,11 @@ class Event:
         return self.parent.id
 
     @property
+    def web_url(self) -> str:
+        """The URL of this event's landing page on the ACL Anthology website."""
+        return cast(str, config["event_page_template"]).format(self.id)
+
+    @property
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
@@ -250,6 +256,8 @@ class Event:
             "talks": [],
         }
         for element in event:
+            if isinstance(element, etree._Comment):
+                continue  # allow, but ignore comments
             if element.tag == "meta":
                 for meta in element:
                     if meta.tag == "title":
@@ -279,6 +287,7 @@ class Event:
             A serialization of this event as an `<event>` block in the Anthology XML format.
         """
         elem = E.event(id=self.id)
+        elem.append(etree.Comment(self.web_url))
         # <meta> block
         meta = E.meta()
         if self.title is not None:
