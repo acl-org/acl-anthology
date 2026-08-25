@@ -33,6 +33,14 @@ Three kinds of benchmarks live here, distinguished by markers:
   post alert comments; PR runs are compare-only, see the workflow file for
   why.
 
+Macro/pinned coverage currently spans every data-heavy, corpus-wide
+operation the library has: `PersonIndex.build()`, `VenueIndex.build()`,
+`SIGIndex.build()`, and `Collection.load()` (the raw XML parsing that all
+three of the above sit on top of — useful to benchmark on its own so you
+can tell "parsing got slower" apart from "resolving against JSON metadata
+got slower"). All four pairs share one fixed collection list and one
+`pinned_datadir` fixture, defined once in `conftest.py`.
+
 ## Running
 
 ```sh
@@ -89,8 +97,12 @@ change, rather than relying on `.benchmarks/` surviving.
   expensive operation runs, rather than letting pytest-benchmark's
   auto-calibration decide. See `personindex_build_bench_test.py`.
 - Pinned (a macro benchmark you want CI regression detection on): also add
-  `@pytest.mark.pinned`, and build a fixed-size input from a hardcoded,
-  deliberately-chosen list of real collection IDs rather than the whole
-  `data/` directory — see `personindex_build_pinned_bench_test.py`, which
-  symlinks a handful of real, representative collections into a throwaway
-  datadir so the benchmark's input never changes as `data/` grows.
+  `@pytest.mark.pinned`, and use the `pinned_datadir` fixture from
+  `conftest.py` instead of `Anthology.from_within_repo()` — it points at a
+  throwaway datadir symlinking only `PINNED_COLLECTIONS` out of the real
+  `data/` directory, so the benchmark's input never changes as `data/`
+  grows. If the fixture is missing a metadata file your new benchmark
+  needs (it currently symlinks `people.json`, `venues.json`, `sigs.json`,
+  and `xml/schema.rnc`), add it there rather than in your own test file, so
+  every pinned benchmark keeps using the exact same datadir. See
+  `personindex_build_pinned_bench_test.py` for a full example.

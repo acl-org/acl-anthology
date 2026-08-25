@@ -31,53 +31,11 @@ a tool like github-action-benchmark should alert on.
 """
 
 import pytest
-from git import Repo
-from pathlib import Path
 
 from acl_anthology import Anthology
 
-# A fixed, deliberately chosen set of real collection IDs, spanning old and
-# new ID schemes and a range of sizes (a couple of large modern conferences,
-# some mid-sized ones, a small workshop, an old journal, and a tiny historical
-# collection) for a representative mix. This list should only change when we
-# deliberately decide to -- e.g. if it stops being representative -- never as
-# a side effect of new data being ingested.
-PINNED_COLLECTIONS = (
-    "2022.acl",
-    "2022.emnlp",
-    "2023.eacl",
-    "C16",
-    "P19",
-    "L06",
-    "Q13",
-    "J93",
-    "2021.hcinlp",
-    "1957.earlymt",
-)
-
-
-@pytest.fixture(scope="module")
-def pinned_datadir(tmp_path_factory):
-    """A datadir containing only `PINNED_COLLECTIONS`' XML files, symlinked
-    out of the real `data/` directory, plus everything else `PersonIndex`
-    needs (`json/people.json`, `xml/schema.rnc`)."""
-    real_datadir = (
-        Path(Repo(__file__, search_parent_directories=True).working_dir) / "data"
-    )
-    pinned_dir = tmp_path_factory.mktemp("pinned-anthology")
-
-    (pinned_dir / "xml").mkdir()
-    (pinned_dir / "xml" / "schema.rnc").symlink_to(real_datadir / "xml" / "schema.rnc")
-    for collection_id in PINNED_COLLECTIONS:
-        filename = f"{collection_id}.xml"
-        (pinned_dir / "xml" / filename).symlink_to(real_datadir / "xml" / filename)
-
-    (pinned_dir / "json").mkdir()
-    (pinned_dir / "json" / "people.json").symlink_to(
-        real_datadir / "json" / "people.json"
-    )
-
-    return pinned_dir
+# See conftest.py for `pinned_datadir` (the fixed-size subset of `data/`
+# shared by all `*_pinned_bench_test.py` files) and `PINNED_COLLECTIONS`.
 
 
 def build_person_index(datadir):
