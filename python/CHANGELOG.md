@@ -7,6 +7,7 @@
 - XML serialization now adds comments with the full web URL of each Anthology item, where applicable.
 - Added `Event.web_url` in analogy to the same property on other objects.
 - LaTeX line breaks are now normalized as whitespace, while blank lines are converted to `<par/>` paragraph breaks.
+- Added `Volume.add_sig`, `Volume.remove_sig`, `Volume.add_venue`, `Volume.remove_venue`.
 
 ### Changed
 
