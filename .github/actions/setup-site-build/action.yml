@@ -1,0 +1,62 @@
+name: Set up ACL Anthology site build
+
+description: Install the pinned, checksum-verified site build toolchain.
+
+runs:
+  using: composite
+  steps:
+    - name: Install Hugo
+      shell: bash
+      env:
+        HUGO_SHA256: f84c6b2aacc3b0ab633a826dd5e6f08e054a59ead33f4f150567cadfea226c46
+        HUGO_VERSION: 0.160.0
+      run: |
+        set -euo pipefail
+        package="hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+        curl \
+          --fail \
+          --location \
+          --output "${package}" \
+          --show-error \
+          --silent \
+          "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${package}"
+        printf '%s  %s\n' "${HUGO_SHA256}" "${package}" | sha256sum --check --strict -
+        sudo dpkg -i "${package}"
+        rm "${package}"
+
+    - name: Install Dart Sass
+      shell: bash
+      env:
+        DART_SASS_SHA256: 08867d2f63f458bc07985d0fd96bfef42ed759a4dd9b3d5e1a87b85b52b76112
+        DART_SASS_VERSION: 1.97.1
+      run: |
+        set -euo pipefail
+        archive="dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        curl \
+          --fail \
+          --location \
+          --output "${archive}" \
+          --show-error \
+          --silent \
+          "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/${archive}"
+        printf '%s  %s\n' "${DART_SASS_SHA256}" "${archive}" | sha256sum --check --strict -
+        mkdir -p "${HOME}/.local"
+        tar -C "${HOME}/.local" -xf "${archive}"
+        rm "${archive}"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@ae62891fec2bb8e7d6c99fc78c9fec3a63790f8d # v10.0.0
+      with:
+        version: latest-known
+
+    - name: Install system dependencies
+      shell: bash
+      run: |
+        set -euo pipefail
+        sudo apt-get update
+        sudo apt-get install -y bibutils jing libpython3-dev libyaml-dev
+
+    - name: Download NLTK data
+      shell: bash
+      run: uv run python -c "import nltk; nltk.download('punkt_tab')"

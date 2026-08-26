@@ -1,0 +1,431 @@
+# This workflow is loaded from master. It treats the triggering branch workflow
+# and its artifact as untrusted until authorization and archive validation pass.
+
+name: Deploy maintainer branch preview
+
+on:
+  workflow_run:
+    workflows:
+      - Build maintainer branch preview
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: preview-deploy-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+jobs:
+  authorize:
+    if: >-
+      github.repository == 'acl-org/acl-anthology' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.authorize.outputs.allowed }}
+      artifact_id: ${{ steps.authorize.outputs.artifact_id }}
+      actor: ${{ steps.authorize.outputs.actor }}
+      branch: ${{ steps.authorize.outputs.branch }}
+      head_sha: ${{ steps.authorize.outputs.head_sha }}
+      slug: ${{ steps.authorize.outputs.slug }}
+      triggering_actor: ${{ steps.authorize.outputs.triggering_actor }}
+    steps:
+      - name: Reauthorize triggering run
+        id: authorize
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const crypto = require('crypto');
+            const run = context.payload.workflow_run;
+            const expectedRepository = `${context.repo.owner}/${context.repo.repo}`;
+            core.setOutput('allowed', 'false');
+
+            if (run.repository?.full_name !== expectedRepository ||
+                run.head_repository?.full_name !== expectedRepository) {
+              core.notice('Skipping preview from a different repository.');
+              return;
+            }
+            if (!/^[0-9a-f]{40}$/.test(run.head_sha || '')) {
+              core.notice('Skipping preview with an invalid head SHA.');
+              return;
+            }
+
+            const branch = run.head_branch || '';
+            if (!branch || branch.length > 255 || /[\x00-\x1f\x7f]/.test(branch) ||
+                branch === 'master' || branch.startsWith('python-')) {
+              core.notice(`Skipping unexpected preview branch: ${JSON.stringify(branch)}`);
+              return;
+            }
+
+            const actor = run.actor?.login || '';
+            const triggeringActor = run.triggering_actor?.login || actor;
+            const actors = [...new Set([actor, triggeringActor].filter(Boolean))];
+            if (actors.length === 0 || actors.some(
+              username => !/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(username),
+            )) {
+              core.notice('Skipping preview without a triggering actor.');
+              return;
+            }
+            for (const username of actors) {
+              const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username,
+              });
+              if (data.user.permissions?.maintain !== true) {
+                core.notice(
+                  `Skipping preview for ${username}: ${data.role_name} role`,
+                );
+                return;
+              }
+            }
+
+            let branchRef;
+            try {
+              ({ data: branchRef } = await github.rest.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${branch}`,
+              }));
+            } catch (error) {
+              if (error.status === 404) {
+                core.notice(`Skipping deleted branch: ${branch}`);
+                return;
+              }
+              throw error;
+            }
+            if (branchRef.object.sha !== run.head_sha) {
+              core.notice(
+                `Skipping stale preview ${run.head_sha}; branch is now ${branchRef.object.sha}.`,
+              );
+              return;
+            }
+
+            const allArtifacts = await github.paginate(
+              github.rest.actions.listWorkflowRunArtifacts,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: run.id,
+                per_page: 100,
+              },
+            );
+            const artifacts = allArtifacts.filter(
+              artifact => artifact.name === 'preview-site.tar.gz' && !artifact.expired,
+            );
+            if (artifacts.length !== 1) {
+              core.notice(
+                `Expected one preview artifact, found ${artifacts.length}.`,
+              );
+              return;
+            }
+            const artifact = artifacts[0];
+            if (artifact.size_in_bytes <= 0 || artifact.size_in_bytes > 4294967296) {
+              core.notice(`Preview artifact has invalid size: ${artifact.size_in_bytes}.`);
+              return;
+            }
+
+            const readable = branch
+              .replace(/[^A-Za-z0-9._-]+/g, '-')
+              .replace(/^[-._]+|[-._]+$/g, '')
+              .slice(0, 60) || 'branch';
+            const digest = crypto.createHash('sha256').update(branch).digest('hex');
+            const slug = `${readable}-${digest.slice(0, 12)}`;
+
+            core.setOutput('allowed', 'true');
+            core.setOutput('artifact_id', artifact.id.toString());
+            core.setOutput('actor', actor);
+            core.setOutput('branch', branch);
+            core.setOutput('head_sha', run.head_sha);
+            core.setOutput('slug', slug);
+            core.setOutput('triggering_actor', triggeringActor);
+
+  validate:
+    needs: authorize
+    if: needs.authorize.outputs.allowed == 'true'
+    runs-on:
+      labels: ubuntu-latest-m
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check out trusted validator
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Download triggering run artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          artifact-ids: ${{ needs.authorize.outputs.artifact_id }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          path: ${{ runner.temp }}/preview-artifact
+          skip-decompress: true
+
+      - name: Validate and sanitize preview site
+        run: |
+          set -euo pipefail
+          artifact_dir="${RUNNER_TEMP}/preview-artifact"
+          archive="${artifact_dir}/preview-site.tar.gz"
+          [[ -f "${archive}" && ! -L "${archive}" ]]
+          [[ $(find "${artifact_dir}" -mindepth 1 -type f | wc -l) -eq 1 ]]
+          [[ -z $(find "${artifact_dir}" -mindepth 1 ! -type f -print -quit) ]]
+          python bin/aclanthology.org/validate_site_archive.py \
+            "${archive}" \
+            validated-site \
+            --max-archive-bytes 4294967296 \
+            --max-expanded-bytes 17179869184 \
+            --max-file-bytes 1073741824 \
+            --max-entries 750000
+          tar --hard-dereference -C validated-site -czf validated-preview-site.tar.gz .
+
+      - name: Upload validated preview site
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: validated-preview-site.tar.gz
+          archive: false
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs:
+      - authorize
+      - validate
+    if: needs.authorize.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: preview
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Download validated preview site
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: validated-preview-site.tar.gz
+          path: ${{ runner.temp }}/validated-preview
+          skip-decompress: true
+
+      - name: Recheck branch and actor authorization
+        env:
+          ACTOR: ${{ needs.authorize.outputs.actor }}
+          BRANCH_NAME: ${{ needs.authorize.outputs.branch }}
+          EXPECTED_SHA: ${{ needs.authorize.outputs.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+          TRIGGERING_ACTOR: ${{ needs.authorize.outputs.triggering_actor }}
+        run: |
+          set -euo pipefail
+          current_sha=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/heads/${BRANCH_NAME}" \
+            --jq .object.sha)
+          if [[ "${current_sha}" != "${EXPECTED_SHA}" ]]; then
+            echo "Branch moved from ${EXPECTED_SHA} to ${current_sha}; refusing stale deploy." >&2
+            exit 1
+          fi
+
+          for username in "${ACTOR}" "${TRIGGERING_ACTOR}"; do
+            [[ "${username}" =~ ^[A-Za-z0-9]([A-Za-z0-9-]{0,38})$ ]]
+            gh api \
+              "repos/${GITHUB_REPOSITORY}/collaborators/${username}/permission" \
+              --jq '.user.permissions.maintain == true' | grep -Fx true >/dev/null
+          done
+
+      - name: Deploy preview site
+        env:
+          DEPLOY_HOST: ${{ vars.ANTHOLOGY_DEPLOY_HOST }}
+          DEPLOY_KEY: ${{ secrets.PREVIEW_DEPLOY_SSH_KEY }}
+          HEAD_SHA: ${{ needs.authorize.outputs.head_sha }}
+          PREVIEW_SLUG: ${{ needs.authorize.outputs.slug }}
+          SSH_KNOWN_HOSTS: ${{ vars.ANTHOLOGY_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          [[ -n "${DEPLOY_HOST}" && -n "${DEPLOY_KEY}" && -n "${SSH_KNOWN_HOSTS}" ]]
+          [[ "${PREVIEW_SLUG}" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$ ]]
+          [[ "${HEAD_SHA}" =~ ^[0-9a-f]{40}$ ]]
+
+          archive="${RUNNER_TEMP}/validated-preview/validated-preview-site.tar.gz"
+          [[ -f "${archive}" && ! -L "${archive}" ]]
+          [[ $(find "${RUNNER_TEMP}/validated-preview" -mindepth 1 -type f | wc -l) -eq 1 ]]
+          [[ -z $(find "${RUNNER_TEMP}/validated-preview" -mindepth 1 ! -type f -print -quit) ]]
+          archive_size=$(stat -c '%s' "${archive}")
+          archive_digest=$(sha256sum "${archive}" | cut -d' ' -f1)
+          if (( archive_size == 0 || archive_size > 4294967296 )); then
+            echo "Preview archive has unexpected size: ${archive_size} bytes" >&2
+            exit 1
+          fi
+
+          umask 077
+          install -d -m 700 "${HOME}/.ssh"
+          printf '%s\n' "${SSH_KNOWN_HOSTS}" > "${HOME}/.ssh/known_hosts"
+          printf '%s\n' "${DEPLOY_KEY}" > "${HOME}/.ssh/preview_deploy"
+          unset DEPLOY_KEY SSH_KNOWN_HOSTS
+          trap 'rm -f "${HOME}/.ssh/preview_deploy"' EXIT
+
+          ssh-keygen -F "${DEPLOY_HOST}" -f "${HOME}/.ssh/known_hosts" >/dev/null
+          ssh \
+            -i "${HOME}/.ssh/preview_deploy" \
+            -o BatchMode=yes \
+            -o ClearAllForwardings=yes \
+            -o ConnectTimeout=30 \
+            -o IdentitiesOnly=yes \
+            -o RequestTTY=no \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
+            "anthology-preview-deploy@${DEPLOY_HOST}" \
+            "deploy ${PREVIEW_SLUG} ${HEAD_SHA} ${archive_digest} ${archive_size}" < "${archive}"
+
+  notify:
+    needs:
+      - authorize
+      - deploy
+    if: needs.authorize.outputs.allowed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Announce preview
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          BRANCH_NAME: ${{ needs.authorize.outputs.branch }}
+          PREVIEW_SLUG: ${{ needs.authorize.outputs.slug }}
+        with:
+          script: |
+            const branch = process.env.BRANCH_NAME;
+            const previewUrl = `https://preview.aclanthology.org/${process.env.PREVIEW_SLUG}`;
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              state: 'open',
+            });
+            if (prs.length === 0) return;
+
+            const pr = prs[0];
+            const marker = '<!-- add-pr-comment:preview -->';
+            const previewComment = [
+              marker,
+              '',
+              'Build successful. Some useful links:',
+              `* Complete site preview: ${previewUrl}`,
+              '',
+              'This preview will be removed after it expires.',
+            ].join('\n');
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              per_page: 100,
+            });
+            const existing = comments.find(
+              comment => (comment.body || '').includes(marker),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: previewComment,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: previewComment,
+              });
+            }
+
+            if (!/^ingest\b/i.test(pr.title)) return;
+            const body = pr.body || '';
+            const previewHeading =
+              'Navigate to the preview site and check the following:';
+            const linkedPreviewHeading =
+              `Navigate to [the preview](${previewUrl}) site and check the following:`;
+            const updated = body.replace(previewHeading, linkedPreviewHeading);
+            if (updated !== body) {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                body: updated,
+              });
+            }
+
+            const lines = updated.split(/\r?\n/);
+            const blockStart = lines.findIndex(
+              line => line.trim() === linkedPreviewHeading,
+            );
+            if (blockStart === -1) return;
+            let blockEnd = blockStart + 1;
+            while (blockEnd < lines.length && lines[blockEnd].trim() !== '') {
+              blockEnd += 1;
+            }
+            const previewBlock = lines.slice(blockStart, blockEnd).join('\n');
+
+            const result = await github.graphql(
+              `query($owner: String!, $repo: String!, $number: Int!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequest(number: $number) {
+                    closingIssuesReferences(first: 20) {
+                      nodes {
+                        number
+                        repository {
+                          name
+                          owner { login }
+                        }
+                      }
+                    }
+                  }
+                }
+              }`,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                number: pr.number,
+              },
+            );
+
+            const issueMarker = `<!-- ingestion-preview-pr-${pr.number} -->`;
+            const issueComment = [
+              'A preview has been generated that requires your attention.',
+              '',
+              previewBlock,
+              '',
+              'The preview will be merged once you have completed the checklist.',
+              '',
+              issueMarker,
+            ].join('\n');
+            for (const issue of
+              result.repository.pullRequest.closingIssuesReferences.nodes) {
+              const issueOwner = issue.repository.owner.login;
+              const issueRepo = issue.repository.name;
+              const issueComments = await github.paginate(
+                github.rest.issues.listComments,
+                {
+                  owner: issueOwner,
+                  repo: issueRepo,
+                  issue_number: issue.number,
+                  per_page: 100,
+                },
+              );
+              if (issueComments.some(
+                comment => (comment.body || '').includes(issueMarker),
+              )) {
+                continue;
+              }
+              await github.rest.issues.createComment({
+                owner: issueOwner,
+                repo: issueRepo,
+                issue_number: issue.number,
+                body: issueComment,
+              });
+            }

@@ -1,55 +1,185 @@
-# Publishes the build to our current mirror, aclanthology.org
+# Builds master without credentials, then deploys the resulting archive from a
+# separate job using a production-only, server-restricted SSH key.
 
-name: publish-aclanthology
+name: Publish ACL Anthology
 
 on:
   push:
     branches:
       - master
 
-# only run one at a time
-concurrency: publish
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
 
 jobs:
-  publish-aclanthology:
+  build:
     if: github.repository == 'acl-org/acl-anthology'
     runs-on:
       labels: ubuntu-latest-m
-    env:
-      HUGO_VERSION: 0.160.0
-      DART_SASS_VERSION: 1.97.1
+    timeout-minutes: 90
     steps:
-    - name: install hugo
-      run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
-    - name: Install Dart Sass
-      run: |
-        mkdir -p "${HOME}/.local"
-        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
-    - name: install uv
-      uses: astral-sh/setup-uv@v9.0.0
-    - name: update
-      run: sudo apt-get update
-    - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - name: dump secret key
-      env:
-        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
-      run: |
-        mkdir -p $HOME/.ssh/
-        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
-        chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v7
-    - name: Download NLTK data
-      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
-      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
-    - name: build
-      env:
-        ANTHOLOGY_PREFIX: https://aclanthology.org
-      run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
-    - name: publish
-      run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload
+      - name: Check out master
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up site build
+        uses: ./.github/actions/setup-site-build
+
+      - name: Build and check the production site
+        env:
+          ANTHOLOGY_PREFIX: https://aclanthology.org
+        run: make ANTHOLOGY_PREFIX="${ANTHOLOGY_PREFIX}" check site
+
+      - name: Package the production site
+        run: |
+          set -euo pipefail
+          site_dir='build/website'
+
+          # The server creates this one known symlink after safe extraction.
+          if [[ -L "${site_dir}/anthology-files" ]]; then
+            rm "${site_dir}/anthology-files"
+          fi
+          unexpected_symlink=$(find "${site_dir}" -type l -print -quit)
+          if [[ -n "${unexpected_symlink}" ]]; then
+            echo "Unexpected symlink in generated site: ${unexpected_symlink}" >&2
+            exit 1
+          fi
+
+          tar --hard-dereference -C "${site_dir}" -czf anthology-site.tar.gz .
+          archive_size=$(stat -c '%s' anthology-site.tar.gz)
+          if (( archive_size == 0 || archive_size > 8589934592 )); then
+            echo "Production archive has unexpected size: ${archive_size} bytes" >&2
+            exit 1
+          fi
+
+      - name: Upload production site artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: anthology-site.tar.gz
+          archive: false
+          if-no-files-found: error
+          retention-days: 1
+
+  validate:
+    needs: build
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on:
+      labels: ubuntu-latest-m
+    timeout-minutes: 45
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check out trusted validator
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Download production site artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: anthology-site.tar.gz
+          path: ${{ runner.temp }}/production-artifact
+          skip-decompress: true
+
+      - name: Validate and sanitize production site
+        run: |
+          set -euo pipefail
+          artifact_dir="${RUNNER_TEMP}/production-artifact"
+          archive="${artifact_dir}/anthology-site.tar.gz"
+          [[ -f "${archive}" && ! -L "${archive}" ]]
+          [[ $(find "${artifact_dir}" -mindepth 1 -type f | wc -l) -eq 1 ]]
+          [[ -z $(find "${artifact_dir}" -mindepth 1 ! -type f -print -quit) ]]
+          python bin/aclanthology.org/validate_site_archive.py \
+            "${archive}" \
+            validated-site \
+            --max-archive-bytes 8589934592 \
+            --max-expanded-bytes 34359738368 \
+            --max-file-bytes 2147483648 \
+            --max-entries 1000000
+          tar --hard-dereference -C validated-site -czf validated-anthology-site.tar.gz .
+
+      - name: Upload validated production site
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: validated-anthology-site.tar.gz
+          archive: false
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs: validate
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: production
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Download production site artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: validated-anthology-site.tar.gz
+          path: ${{ runner.temp }}/validated-production
+          skip-decompress: true
+
+      - name: Refuse stale production deployment
+        id: freshness
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          current_sha=$(gh api \
+            "repos/${GITHUB_REPOSITORY}/git/ref/heads/master" \
+            --jq .object.sha)
+          if [[ "${current_sha}" == "${GITHUB_SHA}" ]]; then
+            echo 'deploy=true' >> "${GITHUB_OUTPUT}"
+          else
+            echo "Master moved from ${GITHUB_SHA} to ${current_sha}; skipping stale deploy."
+            echo 'deploy=false' >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Deploy production site
+        if: steps.freshness.outputs.deploy == 'true'
+        env:
+          DEPLOY_HOST: ${{ vars.ANTHOLOGY_DEPLOY_HOST }}
+          DEPLOY_KEY: ${{ secrets.PRODUCTION_DEPLOY_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ vars.ANTHOLOGY_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          [[ -n "${DEPLOY_HOST}" && -n "${DEPLOY_KEY}" && -n "${SSH_KNOWN_HOSTS}" ]]
+
+          archive="${RUNNER_TEMP}/validated-production/validated-anthology-site.tar.gz"
+          [[ -f "${archive}" && ! -L "${archive}" ]]
+          [[ $(find "${RUNNER_TEMP}/validated-production" -mindepth 1 -type f | wc -l) -eq 1 ]]
+          [[ -z $(find "${RUNNER_TEMP}/validated-production" -mindepth 1 ! -type f -print -quit) ]]
+          archive_size=$(stat -c '%s' "${archive}")
+          archive_digest=$(sha256sum "${archive}" | cut -d' ' -f1)
+          if (( archive_size == 0 || archive_size > 8589934592 )); then
+            echo "Production archive has unexpected size: ${archive_size} bytes" >&2
+            exit 1
+          fi
+
+          umask 077
+          install -d -m 700 "${HOME}/.ssh"
+          printf '%s\n' "${SSH_KNOWN_HOSTS}" > "${HOME}/.ssh/known_hosts"
+          printf '%s\n' "${DEPLOY_KEY}" > "${HOME}/.ssh/production_deploy"
+          unset DEPLOY_KEY SSH_KNOWN_HOSTS
+          trap 'rm -f "${HOME}/.ssh/production_deploy"' EXIT
+
+          ssh-keygen -F "${DEPLOY_HOST}" -f "${HOME}/.ssh/known_hosts" >/dev/null
+          ssh \
+            -i "${HOME}/.ssh/production_deploy" \
+            -o BatchMode=yes \
+            -o ClearAllForwardings=yes \
+            -o ConnectTimeout=30 \
+            -o IdentitiesOnly=yes \
+            -o RequestTTY=no \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
+            "anthology-production-deploy@${DEPLOY_HOST}" \
+            "deploy ${GITHUB_SHA} ${archive_digest} ${archive_size}" < "${archive}"

@@ -1,1 +1,298 @@
 Scripts used on the server.
+
+# Hardened GitHub deployment
+
+The production and preview workflows build in GitHub Actions without SSH
+credentials. A separate validation job rejects unsafe archive entries and
+repackages regular files. A final job, which never checks out repository code,
+streams the sanitized archive to a server account with a forced SSH command.
+
+Production and preview deployment use different SSH keys and Unix accounts.
+Neither account has a general-purpose SSH shell, SFTP, forwarding, or permission
+to modify the other deployment tree.
+
+## Important rollout order
+
+The first merge containing `.github/workflows/publish.yml` immediately starts a
+production deployment. Complete the server and GitHub configuration below before
+merging it. Keep the current web roots in place until the first new deployment
+has created the `current` and preview symlinks, then switch the web server roots.
+
+## 1. Create dedicated SSH keys
+
+Generate these on an administrator machine, not on the web server:
+
+```sh
+ssh-keygen -t ed25519 -f anthology-production-deploy -C acl-anthology-production
+ssh-keygen -t ed25519 -f anthology-preview-deploy -C acl-anthology-preview
+```
+
+The private keys become GitHub environment secrets. The public keys are installed
+on the server below. Do not reuse `PUBLISH_SSH_KEY`.
+
+## 2. Install the server programs
+
+Run as root on the server from a trusted checkout of this branch:
+
+```sh
+useradd --system --create-home \
+	--home-dir /var/lib/anthology-production-deploy \
+	--shell /bin/bash anthology-production-deploy
+useradd --system --create-home \
+	--home-dir /var/lib/anthology-preview-deploy \
+	--shell /bin/bash anthology-preview-deploy
+
+install -d -o root -g root -m 0755 /usr/local/libexec/acl-anthology
+install -o root -g root -m 0755 \
+	bin/aclanthology.org/deploy_site_archive.py \
+	bin/aclanthology.org/validate_site_archive.py \
+	/usr/local/libexec/acl-anthology/
+
+install -d -o root -g root -m 0755 /etc/acl-anthology
+install -o root -g root -m 0644 \
+	bin/aclanthology.org/deploy.toml.example \
+	/etc/acl-anthology/deploy.toml
+
+install -d -o root -g root -m 0755 /srv/acl-anthology
+install -d -o anthology-production-deploy -g www-data -m 0755 \
+	/srv/acl-anthology/production \
+	/srv/acl-anthology/production/releases
+install -d -o anthology-preview-deploy -g www-data -m 0755 \
+	/srv/acl-anthology/previews \
+	/srv/acl-anthology/previews/releases \
+	/srv/acl-anthology/previews/public
+```
+
+Review `/etc/acl-anthology/deploy.toml`. In particular, verify the
+`anthology_files` target and storage limits. The configuration and installed
+programs must remain root-owned and not writable by either deployment account.
+
+The default limits are:
+
+- Production: 8 GiB compressed, 32 GiB expanded, one million entries, three
+	retained releases.
+- Previews: 4 GiB compressed, 16 GiB expanded per deployment, 50 GiB total,
+	30-day expiration.
+
+The script limits are defense in depth. Also give the preview account a hard
+filesystem or project quota slightly above `max_total_bytes` (for example,
+60 GiB) and an inode quota. Exact quota commands depend on whether the server
+uses ext4, XFS, ZFS, or another filesystem.
+
+## 3. Install public keys and force commands
+
+Make both deployment home directories and their SSH authorization files
+root-owned, so a compromised deployment process cannot authorize another key:
+
+```sh
+chown root:root \
+	/var/lib/anthology-production-deploy \
+	/var/lib/anthology-preview-deploy
+chmod 0755 \
+	/var/lib/anthology-production-deploy \
+	/var/lib/anthology-preview-deploy
+install -d -o root -g root -m 0755 \
+	/var/lib/anthology-production-deploy/.ssh \
+	/var/lib/anthology-preview-deploy/.ssh
+```
+
+Create an `authorized_keys` file for each account, owned by root with mode 0644.
+Each file should contain only its corresponding public key, prefixed with
+`restrict`:
+
+```text
+restrict ssh-ed25519 AAAA... acl-anthology-production
+```
+
+```text
+restrict ssh-ed25519 AAAA... acl-anthology-preview
+```
+
+Set ownership and permissions:
+
+```sh
+chown root:root /var/lib/anthology-*-deploy/.ssh/authorized_keys
+chmod 0644 /var/lib/anthology-*-deploy/.ssh/authorized_keys
+```
+
+Add `/etc/ssh/sshd_config.d/acl-anthology-deploy.conf`:
+
+```text
+Match User anthology-production-deploy
+		AuthenticationMethods publickey
+		PasswordAuthentication no
+		KbdInteractiveAuthentication no
+		PermitTTY no
+		PermitTunnel no
+		AllowAgentForwarding no
+		AllowTcpForwarding no
+		X11Forwarding no
+		PermitUserEnvironment no
+		PermitUserRC no
+		ForceCommand /usr/bin/timeout --signal=KILL 3600 /usr/bin/prlimit --as=8589934592 --cpu=3300 --fsize=8589934592 --nofile=1024 -- /usr/bin/python3 /usr/local/libexec/acl-anthology/deploy_site_archive.py --config /etc/acl-anthology/deploy.toml production
+
+Match User anthology-preview-deploy
+		AuthenticationMethods publickey
+		PasswordAuthentication no
+		KbdInteractiveAuthentication no
+		PermitTTY no
+		PermitTunnel no
+		AllowAgentForwarding no
+		AllowTcpForwarding no
+		X11Forwarding no
+		PermitUserEnvironment no
+		PermitUserRC no
+		ForceCommand /usr/bin/timeout --signal=KILL 2700 /usr/bin/prlimit --as=4294967296 --cpu=2400 --fsize=4294967296 --nofile=1024 -- /usr/bin/python3 /usr/local/libexec/acl-anthology/deploy_site_archive.py --config /etc/acl-anthology/deploy.toml preview
+
+Match all
+```
+
+Validate and reload SSH before closing the administrator session:
+
+```sh
+sshd -t
+systemctl reload ssh
+```
+
+The forced command parses only these request forms from `SSH_ORIGINAL_COMMAND`:
+
+```text
+deploy COMMIT_SHA ARCHIVE_SHA256 ARCHIVE_SIZE
+deploy PREVIEW_SLUG COMMIT_SHA ARCHIVE_SHA256 ARCHIVE_SIZE
+```
+
+Archive bytes arrive only on standard input. No argument is used as a filesystem
+path.
+
+## 4. Configure static web roots
+
+After one successful deployment, configure the production virtual host to serve:
+
+```text
+/srv/acl-anthology/production/current
+```
+
+Configure the preview virtual host to serve:
+
+```text
+/srv/acl-anthology/previews/public
+```
+
+Both roots contain symlinks managed by the forced command, so the web server must
+follow those specific symlinks. The production release contains one server-made
+`anthology-files` symlink to the configured object-file tree.
+
+The preview virtual host must be static-only, with directory listings and script
+execution disabled. For Apache, use `AllowOverride None`; do not let uploaded
+`.htaccess` files change server behavior. Add at least these response headers:
+
+```text
+X-Content-Type-Options: nosniff
+X-Robots-Tag: noindex, noarchive
+```
+
+Add a Content Security Policy only after testing it against the site's required
+asset origins; an overly narrow generic policy will break previews.
+
+Keep a `robots.txt` with `Disallow: /` in the preview public root.
+
+## 5. Expire previews independently of deployments
+
+Install a systemd service and timer so expiration still runs when no new preview
+is deployed:
+
+```ini
+# /etc/systemd/system/acl-anthology-preview-cleanup.service
+[Unit]
+Description=Expire ACL Anthology branch previews
+
+[Service]
+Type=oneshot
+User=anthology-preview-deploy
+Group=anthology-preview-deploy
+ExecStart=/usr/bin/python3 /usr/local/libexec/acl-anthology/deploy_site_archive.py --config /etc/acl-anthology/deploy.toml cleanup-previews
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/srv/acl-anthology/previews
+RestrictAddressFamilies=AF_UNIX
+```
+
+```ini
+# /etc/systemd/system/acl-anthology-preview-cleanup.timer
+[Unit]
+Description=Run ACL Anthology preview cleanup daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=30m
+
+[Install]
+WantedBy=timers.target
+```
+
+Enable it with:
+
+```sh
+systemctl daemon-reload
+systemctl enable --now acl-anthology-preview-cleanup.timer
+```
+
+The old `remove-previews.sh` job is unnecessary after this timer is active.
+
+## 6. Configure GitHub
+
+Create two GitHub environments:
+
+- `production`: allow deployments only from `master`; add secret
+	`PRODUCTION_DEPLOY_SSH_KEY` containing the complete production private key.
+- `preview`: allow deployments only from `master`; add secret
+	`PREVIEW_DEPLOY_SSH_KEY` containing the complete preview private key. The
+	trusted `workflow_run` workflow itself runs from `master` even though its
+	artifact came from a maintainer branch.
+
+Create these repository variables:
+
+- `ANTHOLOGY_DEPLOY_HOST`: the SSH hostname, normally `aclanthology.org`.
+- `ANTHOLOGY_SSH_KNOWN_HOSTS`: an OpenSSH `known_hosts` line for that hostname.
+
+Obtain the host key from the server console and verify its fingerprint there.
+Do not trust an unverified `ssh-keyscan` result. The workflows require strict host
+key checking and never use `accept-new`.
+
+Set the repository's default `GITHUB_TOKEN` permission to read-only. The
+workflows explicitly request only the additional API permissions needed for
+preview comments.
+
+Protect `master` with a ruleset that:
+
+- Requires pull requests and at least one approval.
+- Requires review from Code Owners. `.github/CODEOWNERS` assigns deployment
+	boundaries to `@acl-org/anthology`.
+- Dismisses stale approvals when deployment files change.
+- Restricts direct and force pushes and branch deletion.
+- Requires the website build check before merge.
+
+In Actions settings, require approval for first-time outside contributors, keep
+`GITHUB_TOKEN` read-only by default, and disable GitHub Actions creating or
+approving pull requests unless another workflow explicitly needs it.
+
+After both new deployment paths work:
+
+1. Remove `PUBLISH_SSH_KEY` from GitHub.
+2. Remove its old public key from every server account.
+3. Rotate that old key if it was used anywhere else.
+
+## Trust boundaries
+
+- Branch and production builds receive no SSH secret.
+- A trusted workflow loaded from `master` rechecks preview actor permission,
+	repository identity, current branch SHA, artifact identity, and artifact size.
+- Archive validation rejects absolute paths, traversal, duplicate paths,
+	symlinks, hardlinks, devices, sockets, oversized files, excessive expansion,
+	and excessive entry counts.
+- Deploy jobs do not check out or execute repository code.
+- The server repeats byte-count, digest, archive, and resource validation before
+	creating one known symlink and atomically switching a fixed public link.
