@@ -1,0 +1,145 @@
+name: Check PyPI package compatibility with data
+
+# Verifies that the version of `acl-anthology` currently published on PyPI
+# can still load & validate the data currently in data/. This is meant to
+# catch cases where data/ has evolved in ways the latest *released* library
+# doesn't know how to handle -- exactly what a `pip install acl-anthology`
+# user pointing at this repo would experience.
+#
+# On failure, opens (or updates) a labeled issue. Once fixed -- normally by
+# commenting `/prepare-new-release <patch|minor|major>` on that issue, see
+# prepare-release.yml -- the next passing run auto-closes it.
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'data/**'
+  schedule:
+    - cron: '17 6 * * 1'   # weekly backstop, Monday 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  TRACKING_LABEL: pypi-incompatible
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          python-version: 3.14
+
+      - name: Run compatibility check
+        id: run_check
+        run: |
+          set +e
+          # --no-project makes uv ignore this repo's workspace source override
+          # for acl-anthology; --isolated additionally guarantees a fresh
+          # environment even if an earlier step left behind a .venv, so this
+          # always installs and tests the real, currently-published PyPI
+          # package rather than the local checkout.
+          uv run --no-project --isolated --with acl-anthology python bin/check_pypi_compatibility.py \
+            > compat-output.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          cat compat-output.txt
+
+      - name: Find existing tracking issue
+        if: always()
+        id: existing
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: process.env.TRACKING_LABEL,
+            });
+            core.setOutput('number', issues[0] ? issues[0].number : '');
+
+      - name: Report failure
+        if: steps.run_check.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('compat-output.txt', 'utf8').slice(-50000);
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const number = '${{ steps.existing.outputs.number }}';
+
+            const entry = [
+              `Failed again at ${context.sha.slice(0, 7)} (${runUrl}):`,
+              '',
+              '<details><summary>Output</summary>',
+              '',
+              '```',
+              output,
+              '```',
+              '</details>',
+            ].join('\n');
+
+            if (number) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: parseInt(number, 10),
+                body: entry,
+              });
+            } else {
+              const body = [
+                'The version of `acl-anthology` currently published on PyPI can no longer ' +
+                'load and/or validate the data currently in `data/`. Anyone who ' +
+                '`pip install`s the library right now and points it at this repo will hit ' +
+                'the same errors.',
+                '',
+                entry,
+                '',
+                'Once the library has been updated to handle this (or the data fixed), ' +
+                'this issue will be closed automatically by the next passing run.',
+                '',
+                'To prepare a new PyPI release directly from here, comment e.g.:',
+                '```',
+                '/prepare-new-release patch',
+                '```',
+                '(also accepts `minor` or `major`; see prepare-release.yml)',
+              ].join('\n');
+
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: 'PyPI package incompatible with current Anthology data',
+                labels: [process.env.TRACKING_LABEL],
+                body,
+              });
+            }
+
+      - name: Close resolved tracking issue
+        if: steps.run_check.outputs.exit_code == '0' && steps.existing.outputs.number != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const number = parseInt('${{ steps.existing.outputs.number }}', 10);
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: number,
+              body: `✅ Resolved as of ${context.sha.slice(0, 7)} -- the latest PyPI release now loads and validates the current data/ again.`,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: number,
+              state: 'closed',
+            });
+
+      - name: Fail job if check failed
+        if: steps.run_check.outputs.exit_code != '0'
+        run: exit 1

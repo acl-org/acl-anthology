@@ -1,0 +1,152 @@
+name: Prepare a new PyPI release
+
+# Runs `just python prepare-new-release` and opens a PR, either:
+#   - manually, via "Run workflow" in the Actions UI, or
+#   - by commenting `/prepare-new-release <patch|minor|major>` on an issue
+#     (e.g. the one auto-filed by check-pypi-compatibility.yml).
+#
+# Only prepares the release (version bump, changelog heading, build, commit,
+# branch, PR) -- merging that PR is still a manual, reviewed step, and
+# publish-to-pypi.yml takes over from there.
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      bump_level:
+        description: Version part to bump
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  prepare:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.pull_request == null &&
+       contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association))
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Determine bump level
+        id: level
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let level = '';
+            if (context.eventName === 'workflow_dispatch') {
+              level = '${{ inputs.bump_level }}';
+            } else {
+              const match = context.payload.comment.body
+                .trim()
+                .match(/^\/prepare-new-release\s+(major|minor|patch)\s*$/i);
+              if (match) level = match[1].toLowerCase();
+            }
+            core.setOutput('level', level);
+
+      - name: Explain usage if command was malformed
+        if: >
+          github.event_name == 'issue_comment' &&
+          steps.level.outputs.level == '' &&
+          contains(github.event.comment.body, '/prepare-new-release')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'Usage: `/prepare-new-release <patch|minor|major>`',
+            });
+
+      - name: React to triggering comment
+        if: github.event_name == 'issue_comment' && steps.level.outputs.level != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes',
+            });
+
+      - uses: actions/checkout@v5
+        if: steps.level.outputs.level != ''
+        with:
+          ref: master
+
+      - uses: astral-sh/setup-uv@v9.0.0
+        if: steps.level.outputs.level != ''
+        with:
+          python-version: 3.14
+
+      - uses: extractions/setup-just@v3
+        if: steps.level.outputs.level != ''
+
+      - name: Compute target version
+        if: steps.level.outputs.level != ''
+        id: newver
+        working-directory: python
+        run: |
+          NEWVER=$(uv version --bump "${{ steps.level.outputs.level }}" --dry-run --short)
+          echo "version=$NEWVER" >> "$GITHUB_OUTPUT"
+
+      - name: Check for an existing release PR
+        if: steps.level.outputs.level != ''
+        id: existing
+        run: |
+          BRANCH="release/py-v${{ steps.newver.outputs.version }}"
+          URL=$(gh pr list --state open --head "$BRANCH" --json url --jq '.[0].url // empty')
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare release
+        if: steps.level.outputs.level != '' && steps.existing.outputs.url == ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "release/py-v${{ steps.newver.outputs.version }}"
+          just python prepare-new-release "${{ steps.newver.outputs.version }}"
+          git push origin "release/py-v${{ steps.newver.outputs.version }}"
+
+      - name: Open PR
+        if: steps.level.outputs.level != '' && steps.existing.outputs.url == ''
+        id: pr
+        run: |
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            TRIGGER="Requested by @${{ github.event.comment.user.login }} in #${{ github.event.issue.number }}."
+          else
+            TRIGGER="Manually triggered by @${{ github.actor }}."
+          fi
+          BODY=$(printf '%s\n\nPrepared automatically via `just python prepare-new-release %s` (%s bump).\n\nAfter merging, publish-to-pypi.yml will publish this version to PyPI automatically.\n' \
+            "$TRIGGER" "${{ steps.newver.outputs.version }}" "${{ steps.level.outputs.level }}")
+          URL=$(gh pr create \
+            --base master \
+            --head "release/py-v${{ steps.newver.outputs.version }}" \
+            --title "Bump to version v${{ steps.newver.outputs.version }}" \
+            --body "$BODY" \
+            --draft)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment back on triggering issue
+        if: github.event_name == 'issue_comment' && steps.level.outputs.level != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.pr.outputs.url }}' || '${{ steps.existing.outputs.url }}';
+            const already = '${{ steps.existing.outputs.url }}' !== '';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: already
+                ? `A release PR for this version is already open: ${url}`
+                : `🚀 Opened ${url}`,
+            });
