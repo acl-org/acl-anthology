@@ -9,13 +9,11 @@ tt = element tt { InlineMarkup+ }
 a = element a {
   attribute href { xsd:anyURI } & InlineMarkup+
 }
-url = element url {
-  attribute type { xsd:NCName }? & xsd:anyURI
-}
+markup-url = element url { xsd:anyURI }
 par = element par { empty }  # paragraph break
 fixed-case = element fixed-case { InlineMarkup+ }
 tex-math = element tex-math { text }
-InlineMarkup = text | b | i | u | sc | tt | a | url | fixed-case | tex-math
+InlineMarkup = text | b | i | u | sc | tt | a | markup-url | fixed-case | tex-math
 InlineMarkupText = InlineMarkup+
 MarkupText = (InlineMarkup | par)+
 
@@ -38,6 +36,9 @@ Person =
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
+url = element url {
+  attribute type { xsd:NCName }? & xsd:anyURI
+}
 url-with-checksum = element url {
     xsd:anyURI {pattern="https?://.*"} |
     (local-filename, checksum)
