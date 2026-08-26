@@ -31,7 +31,7 @@ from .. import constants
 from ..config import config
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
-from ..files import PDFReference
+from ..files import PDFReference, URLReference, validate_url_tuple
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
@@ -172,6 +172,7 @@ class Volume(SlottedDict[Paper]):
     Attributes: Tuple Attributes:
         editors: Names of editors associated with this volume.
         venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
+        urls: Links to external, non-locally-hosted resources associated with this volume (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
@@ -224,6 +225,14 @@ class Volume(SlottedDict[Paper]):
             _update_venues,
             track_modifications,
         ],
+    )
+    urls: tuple[tuple[str, URLReference], ...] = field(
+        default=(),
+        converter=tuple,
+        validator=validators.deep_iterable(
+            member_validator=validate_url_tuple,
+            iterable_validator=validators.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
     )
 
     address: Optional[str] = field(default=None)
@@ -535,6 +544,7 @@ class Volume(SlottedDict[Paper]):
             "editors": [],
             "sig_ids": [],
             "venue_ids": [],
+            "urls": [],
         }
         if (ingest_date := volume.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -562,7 +572,8 @@ class Volume(SlottedDict[Paper]):
             elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
             elif tag == "url":
-                pass  # TODO: external URLs
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             elif tag == "sig":
                 kwargs["sig_ids"].append(str(element.text))
             elif tag == "venue":
@@ -602,6 +613,11 @@ class Volume(SlottedDict[Paper]):
                 meta.append(getattr(E, tag)(value))
         if self._pdf is not None:
             meta.append(self._pdf.to_xml())
+        for type_, url in self.urls:
+            elem = url.to_xml("url")
+            if type_:
+                elem.set("type", type_)
+            meta.append(elem)
         for sig in self.sig_ids:
             meta.append(E.sig(sig))
         for venue in self.venue_ids:

@@ -37,7 +37,9 @@ from ..files import (
     AttachmentReference,
     PDFReference,
     PDFThumbnailReference,
+    URLReference,
     VideoReference,
+    validate_url_tuple,
 )
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
@@ -316,6 +318,7 @@ class Paper:
         errata: Errata for this paper; can be empty.
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
+        urls: Links to external, non-locally-hosted resources associated with this paper (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
         abstract: The full abstract.
@@ -387,6 +390,14 @@ class Paper:
     videos: tuple[VideoReference, ...] = field(
         default=(), converter=tuple
     )  # auto_validate_types covers this, so no validator necessary
+    urls: tuple[tuple[str, URLReference], ...] = field(
+        default=(),
+        converter=tuple,
+        validator=v.deep_iterable(
+            member_validator=validate_url_tuple,
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
+    )
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
@@ -791,6 +802,7 @@ class Paper:
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
             "attachments": [],
+            "urls": [],
         }
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
@@ -812,7 +824,8 @@ class Paper:
             elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
             elif tag == "url":
-                pass  # TODO: external URLs
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             else:
                 raise AnthologyXMLError(
                     parent.full_id_tuple,
@@ -837,6 +850,7 @@ class Paper:
             "authors": [],
             "editors": [],
             "attachments": [],
+            "urls": [],
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -881,7 +895,8 @@ class Paper:
             elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
             elif tag == "url":
-                pass  # TODO: external URLs
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             elif tag == "video":
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
@@ -928,6 +943,11 @@ class Paper:
             paper.append(self.abstract.to_xml("abstract"))
         if self._pdf is not None:
             paper.append(self._pdf.to_xml())
+        for type_, url in self.urls:
+            elem = url.to_xml("url")
+            if type_:
+                elem.set("type", type_)
+            paper.append(elem)
         for erratum in self.errata:
             paper.append(erratum.to_xml())
         for revision in self.revisions:

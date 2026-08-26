@@ -125,7 +125,7 @@ def auto_validate_types(
         PDFReference,
         PDFThumbnailReference,
         AttachmentReference,
-        EventFileReference,
+        URLReference,
         VideoReference,
     )
     from ..people import Name, NameSpecification
@@ -140,7 +140,7 @@ def auto_validate_types(
             PDFReference,
             PDFThumbnailReference,
             AttachmentReference,
-            EventFileReference,
+            URLReference,
             VideoReference,
             MarkupText,
             Name,

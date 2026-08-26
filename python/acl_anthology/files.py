@@ -21,7 +21,7 @@ from lxml import etree
 from lxml.builder import E
 from pathlib import Path
 import requests
-from typing import cast, ClassVar, Optional, Self, TYPE_CHECKING
+from typing import cast, Any, ClassVar, Optional, Self, TYPE_CHECKING
 import warnings
 from zlib import crc32
 
@@ -211,10 +211,32 @@ class AttachmentReference(FileReference):
 
 
 @define(frozen=True)
-class EventFileReference(FileReference):
-    """Reference to an event-related file."""
+class URLReference(FileReference):
+    """Reference to an external URL, e.g. for supplementary materials hosted elsewhere.
+
+    Used for `<url>` elements, which -- unlike [PDFReference][acl_anthology.files.PDFReference] and its
+    siblings -- carry no checksum and are (almost always) not locally hosted.  An optional `type`
+    attribute distinguishing multiple `<url>` elements (e.g. "video", "website") is *not* stored on
+    this class; callers are expected to track it alongside the reference, e.g. as `tuple[str, URLReference]`
+    (see [`validate_url_tuple`][acl_anthology.files.validate_url_tuple]).
+    """
 
     template_field: ClassVar[str] = "event_location_template"
+
+
+def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
+    """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
+
+    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable]
+    validator, e.g. for `Paper.urls` and `Volume.urls`.
+    """
+    if (
+        not isinstance(value, tuple)
+        or len(value) != 2
+        or not isinstance(value[0], str)
+        or not isinstance(value[1], URLReference)
+    ):
+        raise TypeError(f"expected tuples of (str, URLReference) (got: {value!r})")
 
 
 @define(frozen=True)
