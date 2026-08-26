@@ -70,7 +70,7 @@ entire Anthology:
 
 ```console
 # Pull and start the pinned GROBID service, then wait until it is ready
-make grobid
+just grobid
 
 # Every paper whose Anthology year is 2025
 bin/grobid/extract_pdf_metadata.py 2025 -j 4
@@ -80,19 +80,19 @@ bin/grobid/extract_pdf_metadata.py \
   2025.acl-long.1 2025.acl-long acl-2025 -j 4
 ```
 
-`make grobid` requires a running Docker daemon and starts a reusable named
+`just grobid` requires a running Docker daemon and starts a reusable named
 container in the background at `http://localhost:8070`. It defaults to the
 GROBID 0.9.0 full image because its header and affiliation models are more
 accurate. The initial pull is approximately 10 GB. For a smaller, faster
 CRF-only service, use:
 
 ```console
-make grobid GROBID_IMAGE=grobid/grobid:0.9.0-crf
+GROBID_IMAGE=grobid/grobid:0.9.0-crf just grobid
 ```
 
-The target is idempotent: it reuses a healthy service, restarts its stopped
+The recipe is idempotent: it reuses a healthy service, restarts its stopped
 container, and replaces the managed container when `GROBID_IMAGE` changes.
-Stop it with `docker stop acl-anthology-grobid`; a later `make grobid` restarts
+Stop it with `docker stop acl-anthology-grobid`; a later `just grobid` restarts
 it. The image is currently amd64-only, so the target explicitly enables Docker
 emulation on Apple Silicon.
 

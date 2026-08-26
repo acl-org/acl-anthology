@@ -106,7 +106,7 @@ The container is simply the path of least resistance here: upstream calls it the
 standard deployment, the image bundles the JVM, the `pdfalto` binary and the
 models, none of which then have to be maintained on a host whose Java and
 Python are both too old, and the version stays pinned to the same image the
-`make grobid` target uses on developer machines.
+`just grobid` recipe uses on developer machines.
 
 The default image is `grobid/grobid:0.9.0-full`, whose header and affiliation
 models are the more accurate ones, but it is the wrong trade for this job: it is
@@ -238,8 +238,8 @@ the next step; the backfill runs at night, when traffic is lowest.
 ## Running it by hand
 
 ```console
-# everything new or stale, using the Makefile's managed container
-make fulltext GROBID_JOBS=8 ANTHOLOGYFILES=~/anthology-files
+# everything new or stale, using just's managed container
+GROBID_JOBS=8 ANTHOLOGYFILES=~/anthology-files just fulltext
 
 # or directly, with the default ~/anthology-files roots
 bin/grobid/extract_pdf_fulltext.py --all -j 8
@@ -264,7 +264,7 @@ and determines where the output lands — and it implies `--force`, so repeated
 test runs always re-extract:
 
 ```console
-make grobid    # once, to have a service running
+just grobid    # once, to have a service running
 
 bin/grobid/extract_pdf_fulltext.py 2025.acl-long.1 \
     --pdf ~/Downloads/paper.pdf \

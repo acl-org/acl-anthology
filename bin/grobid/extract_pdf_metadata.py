@@ -983,7 +983,7 @@ def main() -> int:
                     print(f"Could not connect to GROBID: {exception}", file=sys.stderr)
                     if args.grobid_url.rstrip("/") == DEFAULT_GROBID_URL:
                         print(
-                            "Start the local service with 'make grobid', then retry.",
+                            "Start the local service with 'just grobid', then retry.",
                             file=sys.stderr,
                         )
                     return 2
