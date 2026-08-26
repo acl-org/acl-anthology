@@ -148,6 +148,9 @@ them yourself (`just test-integration`) after modifying files under `data/`.
   tests that don't need a full `Anthology`.
 - Docstrings may not use line-wrapping; all line breaks are rendered as hard
   line breaks by Mkdocs.
+- Functional changes to the library should be accompanied by a corresponding
+  statement in `CHANGELOG.md`; keep this very concise unless there are major
+  changes.
 
 ## Content vs. presentation
 
