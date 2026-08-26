@@ -228,7 +228,8 @@ def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
     """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
 
     Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable]
-    validator, e.g. for `Paper.urls` and `Volume.urls`.
+    validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction,
+    never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.
     """
     if (
         not isinstance(value, tuple)
@@ -237,6 +238,10 @@ def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
         or not isinstance(value[1], URLReference)
     ):
         raise TypeError(f"expected tuples of (str, URLReference) (got: {value!r})")
+    if value[1].is_local:
+        raise ValueError(
+            f"'urls' must only contain non-local file references (got: {value[1]!r})"
+        )
 
 
 @define(frozen=True)

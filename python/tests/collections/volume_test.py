@@ -18,6 +18,7 @@ from pathlib import Path
 import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType, Paper
+from acl_anthology.files import PDFReference, URLReference
 from acl_anthology.people import (
     Name,
     NameSpecification as NameSpec,
@@ -45,6 +46,8 @@ test_cases_volume_xml = (
     <month>May</month>
     <year>2022</year>
     <pdf hash="b8317652"/>
+    <url type="website">https://2022.aclweb.org</url>
+    <url type="handbook">https://2022.aclweb.org/handbook.pdf</url>
     <venue>acl</venue>
   </meta>
   <frontmatter>
@@ -747,3 +750,56 @@ def test_volume_type_validation(anthology):
         volume.venue_ids = "lrec"
     with pytest.raises(TypeError):
         volume.pdf = "L05-6000.pdf"
+
+
+def test_volume_pdf_must_be_local(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            pdf=PDFReference("https://external.com/volume.pdf"),
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        volume.pdf = PDFReference("https://external.com/volume.pdf")
+
+
+def test_volume_urls_must_be_non_local(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            urls=[("website", URLReference("some-local-filename"))],
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        volume.urls = [("website", URLReference("some-local-filename"))]
+    # Sanity check: non-local URLs are fine
+    volume.urls = [("website", URLReference("https://example.com"))]
+    assert volume.urls[0][1].name == "https://example.com"

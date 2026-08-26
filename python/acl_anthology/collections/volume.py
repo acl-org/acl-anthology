@@ -277,6 +277,22 @@ class Volume(SlottedDict[Paper]):
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "Not a valid Volume ID")
 
+    @_pdf.validator
+    def _check_pdf(self, _: Any, value: Any) -> None:
+        # Adding this validator disables auto_validate_types for this field, so
+        # we need to check the type explicitly here, too.
+        if value is None:
+            return
+        if not isinstance(value, PDFReference):
+            raise TypeError(
+                f"'pdf' must be Optional[{PDFReference!r}] (got '{value!r}' that is a {type(value)!r})"
+            )
+        # <pdf> must be a local file reference according to the schema
+        if not value.is_local:
+            raise ValueError(
+                f"'pdf' of a Volume must be a local file reference (got '{value}')"
+            )
+
     @property
     def pdf(self) -> Optional[PDFReference]:
         """A reference to the volume's PDF.

@@ -18,7 +18,7 @@ from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
-from acl_anthology.files import AttachmentReference, PDFReference
+from acl_anthology.files import AttachmentReference, PDFReference, URLReference
 from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
@@ -62,6 +62,41 @@ def test_paper_minimum_attribs():
 def test_paper_web_url(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+
+
+def test_paper_pdf_must_be_local():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        Paper(
+            "1",
+            parent,
+            bibkey="nn-2026-external",
+            title="An external PDF",
+            pdf=PDFReference("https://external.com/paper.pdf"),
+        )
+    paper = Paper("1", parent, bibkey="nn-2026-local", title="A local PDF")
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        paper.pdf = PDFReference("https://external.com/paper.pdf")
+    with pytest.raises(TypeError):
+        paper.pdf = "not-a-pdf-reference"
+
+
+def test_paper_urls_must_be_non_local():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        Paper(
+            "1",
+            parent,
+            bibkey="nn-2026-localurl",
+            title="A local file passed off as a URL",
+            urls=[("dataset", URLReference("some-local-filename"))],
+        )
+    paper = Paper("1", parent, bibkey="nn-2026-nourls", title="No URLs yet")
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        paper.urls = [("dataset", URLReference("some-local-filename"))]
+    # Sanity check: non-local URLs are fine
+    paper.urls = [("dataset", URLReference("https://example.com/dataset"))]
+    assert paper.urls[0][1].name == "https://example.com/dataset"
 
 
 def test_paper_namespecs():
@@ -355,6 +390,16 @@ test_cases_xml = (
   <doi>10.18653/v1/2022.acl-long.6</doi>
   <video href="2022.acl-long.6.mp4"/>
   <bibkey>zaharia-etal-2022-domain</bibkey>
+</paper>
+""",
+    """<paper id="7">
+  <!-- https://aclanthology.org/2026.stub-main.7/ -->
+  <title>A Paper With Both A <fixed-case>PDF</fixed-case> And Several External <fixed-case>URL</fixed-case>s</title>
+  <pdf hash="a1b2c3d4"/>
+  <url type="dataset">https://example.com/dataset</url>
+  <url type="website">https://example.com/paper-page</url>
+  <url>https://example.com/no-type-link</url>
+  <bibkey>example-2026-urls</bibkey>
 </paper>
 """,
     """<paper id="max" ingest-date="2023-09-30">
