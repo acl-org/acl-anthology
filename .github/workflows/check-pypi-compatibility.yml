@@ -8,7 +8,7 @@ name: Check PyPI package compatibility with data
 #
 # On failure, opens (or updates) a labeled issue. Once fixed -- normally by
 # commenting `/prepare-new-release <patch|minor|major>` on that issue, see
-# prepare-release.yml -- the next passing run auto-closes it.
+# prepare-pypi-release.yml -- the next passing run auto-closes it.
 
 on:
   push:
@@ -109,7 +109,7 @@ jobs:
                 '```',
                 '/prepare-new-release patch',
                 '```',
-                '(also accepts `minor` or `major`; see prepare-release.yml)',
+                '(also accepts `minor` or `major`; see prepare-pypi-release.yml)',
               ].join('\n');
 
               await github.rest.issues.create({
