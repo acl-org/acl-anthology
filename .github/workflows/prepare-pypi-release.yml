@@ -131,8 +131,7 @@ jobs:
             --base master \
             --head "release/py-v${{ steps.newver.outputs.version }}" \
             --title "Bump to version v${{ steps.newver.outputs.version }}" \
-            --body "$BODY" \
-            --draft)
+            --body "$BODY")
           echo "url=$URL" >> "$GITHUB_OUTPUT"
 
       - name: Comment back on triggering issue
