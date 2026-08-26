@@ -406,7 +406,7 @@ class Paper:
     _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
-    pdf: Optional[PDFReference] = field(default=None)
+    _pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
 
     def __attrs_post_init__(self) -> None:
@@ -588,9 +588,25 @@ class Paper:
         return self.parent.publisher
 
     @property
+    def pdf(self) -> Optional[PDFReference]:
+        """A reference to the paper's PDF.
+
+        `<pdf>` always refers to a local file, so the reference's `name` is
+        derived from this paper's `full_id` rather than stored -- it is not
+        present in the XML.
+        """
+        if self._pdf is None:
+            return None
+        return attrs.evolve(self._pdf, name=self.full_id)
+
+    @pdf.setter
+    def pdf(self, value: Optional[PDFReference]) -> None:
+        self._pdf = value
+
+    @property
     def thumbnail(self) -> Optional[PDFThumbnailReference]:
         """A reference to a thumbnail image of the paper's PDF."""
-        if self.pdf is not None:
+        if self._pdf is not None:
             return PDFThumbnailReference(self.full_id)
         return None
 
@@ -793,8 +809,10 @@ class Paper:
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                pass  # TODO: external URLs
             else:
                 raise AnthologyXMLError(
                     parent.full_id_tuple,
@@ -860,8 +878,10 @@ class Paper:
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                pass  # TODO: external URLs
             elif tag == "video":
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
@@ -906,8 +926,8 @@ class Paper:
             paper.append(E.pages(self.pages))
         if self.abstract is not None:
             paper.append(self.abstract.to_xml("abstract"))
-        if self.pdf is not None:
-            paper.append(self.pdf.to_xml("url"))
+        if self._pdf is not None:
+            paper.append(self._pdf.to_xml())
         for erratum in self.errata:
             paper.append(erratum.to_xml())
         for revision in self.revisions:

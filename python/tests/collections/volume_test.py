@@ -44,12 +44,12 @@ test_cases_volume_xml = (
     <address>Dublin, Ireland</address>
     <month>May</month>
     <year>2022</year>
-    <url hash="b8317652">2022.acl-long</url>
+    <pdf hash="b8317652"/>
     <venue>acl</venue>
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-long.0/ -->
-    <url hash="56ea4e43">2022.acl-long.0</url>
+    <pdf hash="56ea4e43"/>
     <bibkey>acl-2022-association-linguistics-1</bibkey>
   </frontmatter>
 </volume>
@@ -66,12 +66,12 @@ test_cases_volume_xml = (
     <doi>10.18653/v1/2022.acl-demo</doi>
     <month>May</month>
     <year>2022</year>
-    <url hash="d92e3f4d">2022.acl-demo</url>
+    <pdf hash="d92e3f4d"/>
     <venue>acl</venue>
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-demo.0/ -->
-    <url hash="ad64a7d9">2022.acl-demo.0</url>
+    <pdf hash="ad64a7d9"/>
     <bibkey>acl-2022-association-linguistics-system</bibkey>
   </frontmatter>
 </volume>
@@ -87,7 +87,7 @@ test_cases_volume_xml = (
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-1.0/ -->
-    <url hash="363084f8">J89-1000</url>
+    <pdf hash="363084f8"/>
     <bibkey>cl-1989-linguistics</bibkey>
   </frontmatter>
   <paper id="1">
@@ -95,7 +95,7 @@ test_cases_volume_xml = (
     <title>Parsing with Flexibility, Dynamic Strategies, and Idioms in Mind</title>
     <author><first>Oliviero</first><last>Stock</last></author>
     <pages>1-18</pages>
-    <url hash="ad57020c">J89-1001</url>
+    <pdf hash="ad57020c"/>
     <bibkey>stock-1989-parsing</bibkey>
   </paper>
 </volume>
@@ -122,7 +122,7 @@ test_cases_volume_xml = (
     <address>IIT Kharagpur, India</address>
     <month>October</month>
     <year>2019</year>
-    <url hash="48102019">W19-75</url>
+    <pdf hash="48102019"/>
     <venue>iscls</venue>
   </meta>
 </volume>

@@ -238,7 +238,7 @@ class Volume(SlottedDict[Paper]):
     journal_volume: Optional[str] = field(default=None, converter=int_to_str)
     _journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)  # TODO: validate/convert?
-    pdf: Optional[PDFReference] = field(default=None)
+    _pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(
         default=None,
@@ -267,6 +267,22 @@ class Volume(SlottedDict[Paper]):
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "Not a valid Volume ID")
+
+    @property
+    def pdf(self) -> Optional[PDFReference]:
+        """A reference to the volume's PDF.
+
+        `<pdf>` always refers to a local file, so the reference's `name` is
+        derived from this volume's `full_id` rather than stored -- it is not
+        present in the XML.
+        """
+        if self._pdf is None:
+            return None
+        return attrs.evolve(self._pdf, name=self.full_id)
+
+    @pdf.setter
+    def pdf(self, value: Optional[PDFReference]) -> None:
+        self._pdf = value
 
     @property
     def frontmatter(self) -> Paper | None:
@@ -543,8 +559,10 @@ class Volume(SlottedDict[Paper]):
                 kwargs[tag] = MarkupText.from_xml(element)
             elif tag == "editor":
                 kwargs["editors"].append(NameSpecification.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                pass  # TODO: external URLs
             elif tag == "sig":
                 kwargs["sig_ids"].append(str(element.text))
             elif tag == "venue":
@@ -582,8 +600,8 @@ class Volume(SlottedDict[Paper]):
         ):
             if (value := getattr(self, tag)) is not None:
                 meta.append(getattr(E, tag)(value))
-        if self.pdf is not None:
-            meta.append(self.pdf.to_xml("url"))
+        if self._pdf is not None:
+            meta.append(self._pdf.to_xml())
         for sig in self.sig_ids:
             meta.append(E.sig(sig))
         for venue in self.venue_ids:

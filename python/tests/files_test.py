@@ -29,25 +29,18 @@ from acl_anthology.files import (
 
 test_cases_pdf = (
     (
-        '<url hash="a8b4ae72">2022.acl-demo.14</url>',
+        '<pdf hash="a8b4ae72"/>',
         "2022.acl-demo.14",
         "https://aclanthology.org/2022.acl-demo.14.pdf",
         "a8b4ae72",
         True,
     ),
     (
-        '<url hash="f9ed34ae">J89-3004</url>',
+        '<pdf hash="f9ed34ae"/>',
         "J89-3004",
         "https://aclanthology.org/J89-3004.pdf",
         "f9ed34ae",
         True,
-    ),
-    (
-        "<url>http://www.lrec-conf.org/proceedings/lrec2006/pdf/4_pdf.pdf</url>",
-        "http://www.lrec-conf.org/proceedings/lrec2006/pdf/4_pdf.pdf",
-        "http://www.lrec-conf.org/proceedings/lrec2006/pdf/4_pdf.pdf",
-        None,
-        False,
     ),
 )
 

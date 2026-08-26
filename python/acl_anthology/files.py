@@ -121,9 +121,18 @@ class FileReference:
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
-        """Instantiate a new file reference from a corresponding XML element."""
+        """Instantiate a new file reference from a corresponding XML element.
+
+        Note:
+            Some elements (e.g. a paper's or volume's own `<pdf>` element) carry
+            no name at all, only a checksum -- the name is instead derived from
+            the `full_id` of the object the file belongs to.  In that case, this
+            returns a reference with an empty placeholder `name` that callers
+            are expected to replace (e.g. via [`attrs.evolve`][]) before use.
+        """
         checksum = elem.get("hash")
-        return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
+        name = elem.text if elem.text is not None else ""
+        return cls(name=name, checksum=str(checksum) if checksum else None)
 
     def download(self, filename: StrPath, timeout: float = 10) -> None:
         """Download this file from its remote URL.
@@ -180,6 +189,9 @@ class PDFReference(FileReference):
 
     content_type: ClassVar[Optional[str]] = "application/pdf"
     template_field: ClassVar[str] = "pdf_location_template"
+
+    def to_xml(self, tag: str = "pdf") -> etree._Element:
+        return E.pdf(hash=str(self.checksum))
 
 
 @define(frozen=True)

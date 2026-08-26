@@ -39,9 +39,6 @@ checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-
 url = element url {
   attribute type { xsd:NCName }? & xsd:anyURI
 }
-external-url = element url {
-    xsd:anyURI {pattern="https?://.*"}
-}
 pdf = element pdf { empty, checksum }
 attachment = element attachment {
     attribute type { xsd:NCName }?,
@@ -100,7 +97,7 @@ Paper = element paper {
    & element pages { text }?
    & element title { InlineMarkupText }
    & pdf?
-   & external-url*
+   & url*
    & element video {
        attribute href { xsd:anyURI },
        attribute permission { xsd:boolean }?
@@ -123,7 +120,7 @@ Meta = element meta {
    & element year { xsd:gYear }
    & element isbn { xsd:NMTOKEN }?
    & pdf?
-   & external-url*
+   & url*
    & element doi { xsd:anyURI }?
    & element sig { text }*
    & element venue { text }+
@@ -134,7 +131,7 @@ Meta = element meta {
 }
 Frontmatter = element frontmatter {
   (pdf?
-   & external-url*
+   & url*
    & element pages { text }?
    & element bibkey { bibtex-key }
    & Revision*

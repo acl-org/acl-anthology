@@ -312,7 +312,7 @@ def test_paper_get_namespec_for_should_fail(anthology):
 test_cases_xml = (
     """<frontmatter>
   <!-- https://aclanthology.org/2026.stub-main.0/ -->
-  <url hash="56ea4e43">2022.acl-long.0</url>
+  <pdf hash="56ea4e43"/>
   <bibkey>acl-2022-association-linguistics-1</bibkey>
 </frontmatter>
 """,
@@ -322,21 +322,21 @@ test_cases_xml = (
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
   <abstract/>
-  <url hash="61daae5b">2022.naloma-1.1</url>
+  <pdf hash="61daae5b"/>
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
 """,
     """<paper id="9">
   <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
     """<paper id="9">
   <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <issue>42</issue>
   <month>June</month>
   <bibkey>nn-1989-briefly</bibkey>
@@ -351,7 +351,7 @@ test_cases_xml = (
   <author><first>Mihai</first><last>Dascalu</last></author>
   <pages>70-80</pages>
   <abstract>Complex word identification (CWI) is a cornerstone process towards proper text simplification. CWI is highly dependent on context, whereas its difficulty is augmented by the scarcity of available datasets which vary greatly in terms of domains and languages. As such, it becomes increasingly more difficult to develop a robust model that generalizes across a wide array of input examples. In this paper, we propose a novel training technique for the CWI task based on domain adaptation to improve the target character and context representations. This technique addresses the problem of working with multiple domains, inasmuch as it creates a way of smoothing the differences between the explored datasets. Moreover, we also propose a similar auxiliary task, namely text simplification, that can be used to complement lexical complexity prediction. Our model obtains a boost of up to 2.42% in terms of Pearson Correlation Coefficients in contrast to vanilla training techniques, when considering the CompLex from the Lexical Complexity Prediction 2021 dataset. At the same time, we obtain an increase of 3% in Pearson scores, while considering a cross-lingual setup relying on the Complex Word Identification 2018 dataset. In addition, our model yields state-of-the-art results in terms of Mean Absolute Error.</abstract>
-  <url hash="23e260bb">2022.acl-long.6</url>
+  <pdf hash="23e260bb"/>
   <doi>10.18653/v1/2022.acl-long.6</doi>
   <video href="2022.acl-long.6.mp4"/>
   <bibkey>zaharia-etal-2022-domain</bibkey>
@@ -364,7 +364,7 @@ test_cases_xml = (
   <editor><first>Marcel</first><last>Bollmann</last></editor>
   <pages>0</pages>
   <abstract><b>Look</b> at <i>this</i>!</abstract>
-  <url hash="d6a71220">2023.fake-volume.max</url>
+  <pdf hash="d6a71220"/>
   <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
   <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
   <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
@@ -427,7 +427,7 @@ def test_paper_from_xml_invalid_tag():
     xml = """<paper id="9">
   <title>Briefly Noted</title>
   <speaker><first>John</first><last>Doe</last></speaker>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """
