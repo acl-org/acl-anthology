@@ -61,7 +61,7 @@ def refactor_urls(collection):
                 else:
                     element.tag = "pdf"
                     element.text = None
-            if element.tag == "revision":
+            elif element.tag == "revision":
                 revision_id = element.get("id")
                 expected = f"{item_id}v{revision_id}"
                 value = element.get("href")
@@ -71,7 +71,7 @@ def refactor_urls(collection):
                     )
                 else:
                     del element.attrib["href"]
-            if element.tag == "erratum":
+            elif element.tag == "erratum":
                 erratum_id = element.get("id")
                 expected = f"{item_id}e{erratum_id}"
                 value = element.text

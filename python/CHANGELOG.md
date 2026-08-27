@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Breaking changes to how local URLs are stored:
+  - Local PDFs are now represented as `<pdf hash="..." />` and no longer store their filename.  Instead, the filename is derived automatically from the parent's Anthology ID.
+  - External PDFs or other links can now be represented with `<url>` tags instead of or in addition to the new `<pdf>` tag.
+  - Errata and revisions no longer store their filename; they are also derived automatically from the parent's Anthology ID.
+
 ## [1.3.2] — 2026-08-26
 
 ### Added
