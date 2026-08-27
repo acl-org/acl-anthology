@@ -124,11 +124,7 @@ class FileReference:
         """Instantiate a new file reference from a corresponding XML element.
 
         Note:
-            Some elements (e.g. a paper's or volume's own `<pdf>` element) carry
-            no name at all, only a checksum -- the name is instead derived from
-            the `full_id` of the object the file belongs to.  In that case, this
-            returns a reference with an empty placeholder `name` that callers
-            are expected to replace (e.g. via [`attrs.evolve`][]) before use.
+            Some elements (e.g. a paper's or volume's own `<pdf>` element) carry no name at all, only a checksum -- the name is instead derived from the `full_id` of the object the file belongs to.  In that case, this returns a reference with an empty placeholder `name` that callers are expected to replace (e.g. via [`attrs.evolve`][]) before use.
         """
         checksum = elem.get("hash")
         name = elem.text if elem.text is not None else ""
@@ -214,11 +210,7 @@ class AttachmentReference(FileReference):
 class URLReference(FileReference):
     """Reference to an external URL, e.g. for supplementary materials hosted elsewhere.
 
-    Used for `<url>` elements, which -- unlike [PDFReference][acl_anthology.files.PDFReference] and its
-    siblings -- carry no checksum and are (almost always) not locally hosted.  An optional `type`
-    attribute distinguishing multiple `<url>` elements (e.g. "video", "website") is *not* stored on
-    this class; callers are expected to track it alongside the reference, e.g. as `tuple[str, URLReference]`
-    (see [`validate_url_tuple`][acl_anthology.files.validate_url_tuple]).
+    Used for `<url>` elements, which -- unlike [PDFReference][acl_anthology.files.PDFReference] and its siblings -- carry no checksum and are (almost always) not locally hosted.  An optional `type` attribute distinguishing multiple `<url>` elements (e.g. "video", "website") is *not* stored on this class; callers are expected to track it alongside the reference, e.g. as `tuple[str, URLReference]` (see [`validate_url_tuple`][acl_anthology.files.validate_url_tuple]).
     """
 
     template_field: ClassVar[str] = "event_location_template"
@@ -227,9 +219,7 @@ class URLReference(FileReference):
 def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
     """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
 
-    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable]
-    validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction,
-    never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.
+    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable] validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction, never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.
     """
     if (
         not isinstance(value, tuple)

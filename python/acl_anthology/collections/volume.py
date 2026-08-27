@@ -297,9 +297,7 @@ class Volume(SlottedDict[Paper]):
     def pdf(self) -> Optional[PDFReference]:
         """A reference to the volume's PDF.
 
-        `<pdf>` always refers to a local file, so the reference's `name` is
-        derived from this volume's `full_id` rather than stored -- it is not
-        present in the XML.
+        `<pdf>` always refers to a local file, so the reference's `name` is derived from this volume's `full_id` rather than stored -- it is not present in the XML.
         """
         if self._pdf is None:
             return None

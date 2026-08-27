@@ -104,7 +104,11 @@ class PaperErratum:
     """An ID for this erratum.  Must be numeric."""
 
     pdf: PDFReference = field()
-    """A reference to the erratum's PDF."""
+    """A reference to the erratum's PDF.
+
+    Note:
+        The `name` on this reference is only correctly resolved when accessed via [`Paper.errata`][acl_anthology.collections.paper.Paper.errata]; it is derived from the parent paper's `full_id` and is not present in the XML.
+    """
 
     date: Optional[str] = field(
         default=None,
@@ -139,7 +143,7 @@ class PaperErratum:
         Returns:
             A serialization of this erratum in Anthology XML format.
         """
-        elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
+        elem = E.erratum(id=self.id, hash=str(self.pdf.checksum))
         if self.date is not None:
             elem.set("date", self.date)
         return elem
@@ -157,7 +161,11 @@ class PaperRevision:
     """A note explaining the reason for the revision."""
 
     pdf: PDFReference = field()
-    """A reference to the revision's PDF."""
+    """A reference to the revision's PDF.
+
+    Note:
+        The `name` on this reference is only correctly resolved when accessed via [`Paper.revisions`][acl_anthology.collections.paper.Paper.revisions]; it is derived from the parent paper's `full_id` and is not present in the XML.
+    """
 
     date: Optional[str] = field(
         default=None,
@@ -184,7 +192,7 @@ class PaperRevision:
         return cls(
             id=str(element.get("id")),
             note=str(element.text) if element.text else None,
-            pdf=PDFReference(str(element.get("href")), str(element.get("hash"))),
+            pdf=PDFReference(name="", checksum=str(element.get("hash"))),
             date=element.get("date"),
         )
 
@@ -195,7 +203,6 @@ class PaperRevision:
         """
         elem = E.revision(
             id=self.id,
-            href=self.pdf.name,
             hash=str(self.pdf.checksum),
         )
         if self.note:
@@ -315,8 +322,8 @@ class Paper:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Awards this paper has received, represented by [`Award`][acl_anthology.collections.paper.Award] objects; can be empty.
-        errata: Errata for this paper; can be empty.
-        revisions: Revisions for this paper; can be empty.
+        errata: Errata for this paper; can be empty.  Each erratum's PDF reference has its `name` derived from this paper's `full_id` and the erratum's own `id`.
+        revisions: Revisions for this paper; can be empty.  Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id`.
         videos: Zero or more references to video recordings belonging to this paper.
         urls: Links to external, non-locally-hosted resources associated with this paper (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
@@ -371,7 +378,7 @@ class Paper:
             track_modifications,
         ],
     )
-    errata: tuple[PaperErratum, ...] = field(
+    _errata: tuple[PaperErratum, ...] = field(
         default=(),
         converter=tuple,
         validator=v.deep_iterable(
@@ -379,7 +386,7 @@ class Paper:
             iterable_validator=v.instance_of(tuple),
         ),  # necessary because auto_validate_types cannot cover this
     )
-    revisions: tuple[PaperRevision, ...] = field(
+    _revisions: tuple[PaperRevision, ...] = field(
         default=(),
         converter=tuple,
         validator=v.deep_iterable(
@@ -618,9 +625,7 @@ class Paper:
     def pdf(self) -> Optional[PDFReference]:
         """A reference to the paper's PDF.
 
-        `<pdf>` always refers to a local file, so the reference's `name` is
-        derived from this paper's `full_id` rather than stored -- it is not
-        present in the XML.
+        `<pdf>` always refers to a local file, so the reference's `name` is derived from this paper's `full_id` rather than stored -- it is not present in the XML.
         """
         if self._pdf is None:
             return None
@@ -636,6 +641,42 @@ class Paper:
         if self._pdf is not None:
             return PDFThumbnailReference(self.full_id)
         return None
+
+    @property
+    def errata(self) -> tuple[PaperErratum, ...]:
+        """Errata for this paper; can be empty.
+
+        Each erratum's PDF reference has its `name` derived from this paper's `full_id` and the erratum's own `id` -- it is not present in the XML.
+        """
+        return tuple(
+            attrs.evolve(
+                erratum,
+                pdf=attrs.evolve(erratum.pdf, name=f"{self.full_id}e{erratum.id}"),
+            )
+            for erratum in self._errata
+        )
+
+    @errata.setter
+    def errata(self, value: Iterable[PaperErratum]) -> None:
+        self._errata = tuple(value)
+
+    @property
+    def revisions(self) -> tuple[PaperRevision, ...]:
+        """Revisions for this paper; can be empty.
+
+        Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id` -- it is not present in the XML.
+        """
+        return tuple(
+            attrs.evolve(
+                revision,
+                pdf=attrs.evolve(revision.pdf, name=f"{self.full_id}v{revision.id}"),
+            )
+            for revision in self._revisions
+        )
+
+    @revisions.setter
+    def revisions(self, value: Iterable[PaperRevision]) -> None:
+        self._revisions = tuple(value)
 
     @property
     def language_name(self) -> Optional[str]:
@@ -964,9 +1005,9 @@ class Paper:
             if type_:
                 elem.set("type", type_)
             paper.append(elem)
-        for erratum in self.errata:
+        for erratum in self._errata:
             paper.append(erratum.to_xml())
-        for revision in self.revisions:
+        for revision in self._revisions:
             paper.append(revision.to_xml())
         if self.doi is not None:
             paper.append(E.doi(self.doi))

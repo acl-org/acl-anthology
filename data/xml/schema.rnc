@@ -48,7 +48,6 @@ attachment = element attachment {
 
 Revision = element revision {
   attribute id { xsd:positiveInteger },
-  attribute href { local-filename },
   attribute date { xsd:date }?,
   checksum,
   text
@@ -76,8 +75,7 @@ Paper = element paper {
    & element erratum {
        attribute id { xsd:positiveInteger },
        attribute date { xsd:date }?,
-       checksum,
-       local-filename
+       checksum
      }*
    & element retracted {
        attribute date { xsd:date },

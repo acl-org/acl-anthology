@@ -26,7 +26,15 @@ def refactor_urls(collection):
     cid, vid, pid = None, None, None
     for event, element in etree.iterwalk(
         tree,
-        tag=("collection", "volume", "paper", "url"),
+        tag=(
+            "collection",
+            "volume",
+            "frontmatter",
+            "paper",
+            "url",
+            "revision",
+            "erratum",
+        ),
         events=("start", "end"),
     ):
         if event == "start":
@@ -36,25 +44,48 @@ def refactor_urls(collection):
             elif element.tag == "volume":
                 vid = element.get("id")
                 pid = None
+            elif element.tag == "frontmatter":
+                pid = "0"
             elif element.tag == "paper":
                 pid = element.get("id")
-        elif event == "end" and element.tag == "url" and element.get("hash") is not None:
-            value = element.text
-            if element.getparent().tag == "frontmatter":
-                pid = "0"
+        elif event == "end":
             item_id = ids.build_id(cid, vid, pid)
-            if value != item_id:
-                print(
-                    f"[bold red]ERROR:[/] {item_id} has {etree.tostring(element, encoding='UTF-8').strip()}"
-                )
-            else:
-                element.tag = "pdf"
-                element.text = None
+            if element.tag == "url" and element.get("hash") is not None:
+                value = element.text
+                if element.getparent().tag == "frontmatter":
+                    pid = "0"
+                if value != item_id:
+                    print(
+                        f"[bold red]ERROR:[/] {item_id} has {etree.tostring(element, encoding='UTF-8').decode().strip()}"
+                    )
+                else:
+                    element.tag = "pdf"
+                    element.text = None
+            if element.tag == "revision":
+                revision_id = element.get("id")
+                expected = f"{item_id}v{revision_id}"
+                value = element.get("href")
+                if value != expected:
+                    print(
+                        f"[bold red]ERROR:[/] {item_id} has revision '{revision_id}' named '{value}'"
+                    )
+                else:
+                    del element.attrib["href"]
+            if element.tag == "erratum":
+                erratum_id = element.get("id")
+                expected = f"{item_id}e{erratum_id}"
+                value = element.text
+                if value != expected:
+                    print(
+                        f"[bold red]ERROR:[/] {item_id} has erratum '{erratum_id}' named '{value}'"
+                    )
+                else:
+                    element.text = None
 
     root = tree.getroot()
     xml.indent(root)
-    with open(collection, "wb") as f:
-        f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
+    # with open(collection, "wb") as f:
+    #     f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
 
 
 if __name__ == "__main__":

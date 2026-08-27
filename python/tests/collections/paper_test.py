@@ -437,9 +437,9 @@ test_cases_xml = (
   <pages>0</pages>
   <abstract><b>Look</b> at <i>this</i>!</abstract>
   <pdf hash="d6a71220"/>
-  <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
-  <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
-  <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
+  <erratum id="1" hash="21a4921f"/>
+  <revision id="1" hash="21e2f21f"/>
+  <revision id="2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
   <doi>10.18653/v1/2023.fake-volume.max</doi>
   <language>fra</language>
   <note>This is not a real paper, obviously.</note>
@@ -758,14 +758,14 @@ def test_paperdeletionnotice_to_xml(xml, type_, note, date):
 
 test_cases_papererratum = (
     (
-        '<erratum id="1" hash="8eecd4c3" date="2022-09-20">P18-1188e1</erratum>',
+        '<erratum id="1" hash="8eecd4c3" date="2022-09-20"/>',
         "1",
         "P18-1188e1",
         "8eecd4c3",
         "2022-09-20",
     ),
     (
-        '<erratum id="42" hash="8edae19f">C12-1115e42</erratum>',
+        '<erratum id="42" hash="8edae19f"/>',
         "42",
         "C12-1115e42",
         "8edae19f",
@@ -781,7 +781,9 @@ def test_papererratum_from_xml(xml, id_, pdf_name, pdf_checksum, date):
     element = etree.fromstring(xml)
     erratum = PaperErratum.from_xml(element)
     assert erratum.id == id_
-    assert erratum.pdf.name == pdf_name
+    # <erratum> carries no name in the XML -- it is derived from the parent
+    # paper's full_id and the erratum's own id (see Paper.errata)
+    assert erratum.pdf.name == ""
     assert erratum.pdf.checksum == pdf_checksum
     assert erratum.date == date
 
@@ -808,7 +810,7 @@ def test_papererratum_must_be_local():
 
 test_cases_paperrevision = (
     (
-        '<revision id="1" href="Q15-1022v1" hash="f16c56cd"/>',
+        '<revision id="1" hash="f16c56cd"/>',
         "1",
         "Q15-1022v1",
         "f16c56cd",
@@ -816,7 +818,7 @@ test_cases_paperrevision = (
         None,
     ),
     (
-        '<revision id="2" href="Q15-1022v2" hash="59f9673b">No description of the changes were recorded.</revision>',
+        '<revision id="2" hash="59f9673b">No description of the changes were recorded.</revision>',
         "2",
         "Q15-1022v2",
         "59f9673b",
@@ -824,7 +826,7 @@ test_cases_paperrevision = (
         "No description of the changes were recorded.",
     ),
     (
-        '<revision id="2" href="2020.pam-1.0v2" hash="7e1b77c7" date="2021-05-04">Author typo correction.</revision>',
+        '<revision id="2" hash="7e1b77c7" date="2021-05-04">Author typo correction.</revision>',
         "2",
         "2020.pam-1.0v2",
         "7e1b77c7",
@@ -841,7 +843,9 @@ def test_paperrevision_from_xml(xml, id_, pdf_name, pdf_checksum, date, note):
     element = etree.fromstring(xml)
     revision = PaperRevision.from_xml(element)
     assert revision.id == id_
-    assert revision.pdf.name == pdf_name
+    # <revision> carries no name in the XML -- it is derived from the parent
+    # paper's full_id and the revision's own id (see Paper.revisions)
+    assert revision.pdf.name == ""
     assert revision.pdf.checksum == pdf_checksum
     assert revision.date == date
     assert revision.note == note
@@ -869,3 +873,49 @@ def test_paperrevision_must_be_local():
             note=None,
             pdf=PDFReference(name="https://aclanthology.org/somefile.pdf"),
         )
+
+
+def test_paper_errata_and_revisions_derive_pdf_name():
+    parent = VolumeStub()
+    paper = Paper(
+        "42",
+        parent,
+        bibkey="nn-1900-minimal",
+        title="A minimal example",
+        # The stored names are irrelevant -- they are always derived from
+        # full_id and the erratum's/revision's own id
+        errata=[PaperErratum(id="1", pdf=PDFReference("ignored", checksum="aaaaaaaa"))],
+        revisions=[
+            PaperRevision(
+                id="1", note=None, pdf=PDFReference("ignored", checksum="bbbbbbbb")
+            ),
+            PaperRevision(
+                id="2", note="fix", pdf=PDFReference("ignored", checksum="cccccccc")
+            ),
+        ],
+    )
+    assert paper.full_id == "2026.stub-main.42"
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.errata[0].pdf.checksum == "aaaaaaaa"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
+    assert paper.revisions[1].pdf.name == "2026.stub-main.42v2"
+    # The raw stored objects themselves are untouched by evolving the copies
+    # returned from the properties
+    assert paper._errata[0].pdf.name == "ignored"
+    assert paper._revisions[0].pdf.name == "ignored"
+
+
+def test_paper_from_xml_derives_erratum_and_revision_pdf_names():
+    xml = """<paper id="9">
+  <title>Briefly Noted</title>
+  <erratum id="1" hash="21a4921f"/>
+  <revision id="1" hash="21e2f21f"/>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+"""
+    paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
+    assert paper.full_id == "2026.stub-main.9"
+    assert paper.errata[0].pdf.name == "2026.stub-main.9e1"
+    assert paper.errata[0].pdf.checksum == "21a4921f"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.9v1"
+    assert paper.revisions[0].pdf.checksum == "21e2f21f"
