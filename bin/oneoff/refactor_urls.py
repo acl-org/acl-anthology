@@ -58,10 +58,9 @@ def refactor_urls(collection):
                     print(
                         f"[bold red]ERROR:[/] {item_id} has {etree.tostring(element, encoding='UTF-8').decode().strip()}"
                     )
-                else:
-                    element.tag = "pdf"
-                    element.text = None
-            elif element.tag == "revision":
+                element.tag = "pdf"
+                element.text = None
+            elif element.tag == "revision" and element.get("href") is not None:
                 revision_id = element.get("id")
                 expected = f"{item_id}v{revision_id}"
                 value = element.get("href")
@@ -69,9 +68,8 @@ def refactor_urls(collection):
                     print(
                         f"[bold red]ERROR:[/] {item_id} has revision '{revision_id}' named '{value}'"
                     )
-                else:
-                    del element.attrib["href"]
-            elif element.tag == "erratum":
+                del element.attrib["href"]
+            elif element.tag == "erratum" and element.text is not None:
                 erratum_id = element.get("id")
                 expected = f"{item_id}e{erratum_id}"
                 value = element.text
@@ -79,13 +77,12 @@ def refactor_urls(collection):
                     print(
                         f"[bold red]ERROR:[/] {item_id} has erratum '{erratum_id}' named '{value}'"
                     )
-                else:
-                    element.text = None
+                element.text = None
 
     root = tree.getroot()
     xml.indent(root)
-    # with open(collection, "wb") as f:
-    #     f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
+    with open(collection, "wb") as f:
+        f.write(etree.tostring(root, xml_declaration=True, encoding="UTF-8"))
 
 
 if __name__ == "__main__":
