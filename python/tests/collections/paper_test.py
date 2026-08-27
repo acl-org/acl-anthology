@@ -113,8 +113,8 @@ def test_paper_pdf_and_thumbnail_with_pdf():
         parent,
         bibkey="nn-1900-minimal",
         title="A minimal example",
-        # The stored name is irrelevant -- it is always derived from full_id
-        pdf=PDFReference("ignored-name", checksum="abcd1234"),
+        # An empty name is fine -- it is always derived from full_id
+        pdf=PDFReference("", checksum="abcd1234"),
     )
     assert paper.full_id == "2026.stub-main.42"
     assert paper.pdf is not None
@@ -123,6 +123,25 @@ def test_paper_pdf_and_thumbnail_with_pdf():
     assert paper.thumbnail is not None
     assert paper.thumbnail.name == paper.full_id
     assert paper.thumbnail.url == "https://aclanthology.org/thumb/2026.stub-main.42.jpg"
+
+
+def test_paper_pdf_name_must_match_full_id_if_given():
+    parent = VolumeStub()
+    # A non-empty name that doesn't match full_id is rejected...
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-mismatch",
+            title="A minimal example",
+            pdf=PDFReference("wrong-name", checksum="abcd1234"),
+        )
+    paper = Paper("42", parent, bibkey="nn-1900-mismatch2", title="A minimal example")
+    with pytest.raises(ValueError, match="does not match"):
+        paper.pdf = PDFReference("wrong-name", checksum="abcd1234")
+    # ...but a name that already matches full_id is accepted
+    paper.pdf = PDFReference(paper.full_id, checksum="abcd1234")
+    assert paper.pdf.name == paper.full_id
 
 
 def test_paper_namespecs():
@@ -884,16 +903,12 @@ def test_paper_errata_and_revisions_derive_pdf_name():
         parent,
         bibkey="nn-1900-minimal",
         title="A minimal example",
-        # The stored names are irrelevant -- they are always derived from
-        # full_id and the erratum's/revision's own id
-        errata=[PaperErratum(id="1", pdf=PDFReference("ignored", checksum="aaaaaaaa"))],
+        # An empty name is fine -- it is always derived from full_id and the
+        # erratum's/revision's own id
+        errata=[PaperErratum(id="1", pdf=PDFReference("", checksum="aaaaaaaa"))],
         revisions=[
-            PaperRevision(
-                id="1", note=None, pdf=PDFReference("ignored", checksum="bbbbbbbb")
-            ),
-            PaperRevision(
-                id="2", note="fix", pdf=PDFReference("ignored", checksum="cccccccc")
-            ),
+            PaperRevision(id="1", note=None, pdf=PDFReference("", checksum="bbbbbbbb")),
+            PaperRevision(id="2", note="fix", pdf=PDFReference("", checksum="cccccccc")),
         ],
     )
     assert paper.full_id == "2026.stub-main.42"
@@ -903,8 +918,8 @@ def test_paper_errata_and_revisions_derive_pdf_name():
     assert paper.revisions[1].pdf.name == "2026.stub-main.42v2"
     # The raw stored objects themselves are untouched by evolving the copies
     # returned from the properties
-    assert paper._errata[0].pdf.name == "ignored"
-    assert paper._revisions[0].pdf.name == "ignored"
+    assert paper._errata[0].pdf.name == ""
+    assert paper._revisions[0].pdf.name == ""
 
 
 def test_paper_errata_and_revisions_setters():
@@ -914,25 +929,69 @@ def test_paper_errata_and_revisions_setters():
     assert paper.revisions == ()
 
     # Setters accept any iterable and convert it to a tuple
-    paper.errata = [
-        PaperErratum(id="1", pdf=PDFReference("ignored", checksum="aaaaaaaa"))
-    ]
+    paper.errata = [PaperErratum(id="1", pdf=PDFReference("", checksum="aaaaaaaa"))]
     paper.revisions = (
-        PaperRevision(
-            id="1", note=None, pdf=PDFReference("ignored", checksum="bbbbbbbb")
-        ),
+        PaperRevision(id="1", note=None, pdf=PDFReference("", checksum="bbbbbbbb")),
     )
     assert isinstance(paper._errata, tuple)
     assert isinstance(paper._revisions, tuple)
     assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
     assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
 
-    # The += pattern (getter, then setter) used e.g. by bin/add_revision.py
-    paper.errata += (
-        PaperErratum(id="2", pdf=PDFReference("ignored", checksum="dddddddd")),
-    )
+    # The += pattern (getter, then setter) used e.g. by bin/add_revision.py --
+    # note that the getter already returns entries with correctly-resolved
+    # names, so re-assigning them (as += does) is itself a validity check
+    paper.errata += (PaperErratum(id="2", pdf=PDFReference("", checksum="dddddddd")),)
     assert len(paper.errata) == 2
     assert paper.errata[1].pdf.name == "2026.stub-main.42e2"
+
+
+def test_paper_errata_and_revisions_pdf_name_must_match_if_given():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-erratum-mismatch",
+            title="A minimal example",
+            errata=[PaperErratum(id="1", pdf=PDFReference("wrong-name", checksum="a"))],
+        )
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-revision-mismatch",
+            title="A minimal example",
+            revisions=[
+                PaperRevision(
+                    id="1", note=None, pdf=PDFReference("wrong-name", checksum="a")
+                )
+            ],
+        )
+
+    paper = Paper(
+        "42", parent, bibkey="nn-1900-setter-mismatch", title="A minimal example"
+    )
+    with pytest.raises(ValueError, match="does not match"):
+        paper.errata = [
+            PaperErratum(id="1", pdf=PDFReference("wrong-name", checksum="a"))
+        ]
+    with pytest.raises(ValueError, match="does not match"):
+        paper.revisions = [
+            PaperRevision(id="1", note=None, pdf=PDFReference("wrong-name", checksum="a"))
+        ]
+
+    # ...but a name that already matches the automatically-derived one is accepted
+    paper.errata = [
+        PaperErratum(id="1", pdf=PDFReference("2026.stub-main.42e1", checksum="a"))
+    ]
+    paper.revisions = [
+        PaperRevision(
+            id="1", note=None, pdf=PDFReference("2026.stub-main.42v1", checksum="a")
+        )
+    ]
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
 
 
 def test_paper_from_xml_derives_erratum_and_revision_pdf_names():

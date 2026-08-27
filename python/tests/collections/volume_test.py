@@ -777,6 +777,37 @@ def test_volume_pdf_must_be_local(anthology):
         volume.pdf = PDFReference("https://external.com/volume.pdf")
 
 
+def test_volume_pdf_name_must_match_full_id_if_given(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="does not match"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            pdf=PDFReference("wrong-name", checksum="abcd1234"),
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    assert volume.full_id == "L05-6"
+    with pytest.raises(ValueError, match="does not match"):
+        volume.pdf = PDFReference("wrong-name", checksum="abcd1234")
+    # ...but an empty name, or one that already matches full_id, is accepted
+    volume.pdf = PDFReference("", checksum="abcd1234")
+    assert volume.pdf.name == "L05-6"
+    volume.pdf = PDFReference("L05-6", checksum="abcd1234")
+    assert volume.pdf.name == "L05-6"
+
+
 def test_volume_urls_must_be_non_local(anthology):
     volume_title = MarkupText.from_string("Lorem ipsum")
     parent = Collection("L05", CollectionIndexStub(anthology), Path("."))

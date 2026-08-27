@@ -260,6 +260,33 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         )
 
 
+def _check_pdf_names(
+    paper: Paper, letter: str, value: Iterable[PaperErratum | PaperRevision]
+) -> None:
+    """Verify that each item's PDF reference name, if given, matches the name that would automatically be derived for it from `paper`'s `full_id` and the item's own `id` (see `Paper.errata`/`Paper.revisions`).
+
+    Intended to be called from the validator of `Paper._errata`/`Paper._revisions`.
+    """
+    for item in value:
+        expected = f"{paper.full_id}{letter}{item.id}"
+        if item.pdf.name and item.pdf.name != expected:
+            raise ValueError(
+                f"PDF reference name {item.pdf.name!r} does not match the automatically derived name {expected!r}"
+            )
+
+
+def _check_errata_pdf_names(
+    paper: Paper, _: Any, value: tuple[PaperErratum, ...]
+) -> None:
+    _check_pdf_names(paper, "e", value)
+
+
+def _check_revisions_pdf_names(
+    paper: Paper, _: Any, value: tuple[PaperRevision, ...]
+) -> None:
+    _check_pdf_names(paper, "v", value)
+
+
 def _into_award_tuple(value: Iterable[str | Award]) -> tuple[Award, ...]:
     if isinstance(value, str):
         raise TypeError(
@@ -381,18 +408,24 @@ class Paper:
     _errata: tuple[PaperErratum, ...] = field(
         default=(),
         converter=tuple,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(PaperErratum),
-            iterable_validator=v.instance_of(tuple),
-        ),  # necessary because auto_validate_types cannot cover this
+        validator=[
+            v.deep_iterable(
+                member_validator=v.instance_of(PaperErratum),
+                iterable_validator=v.instance_of(tuple),
+            ),  # necessary because auto_validate_types cannot cover this
+            _check_errata_pdf_names,
+        ],
     )
     _revisions: tuple[PaperRevision, ...] = field(
         default=(),
         converter=tuple,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(PaperRevision),
-            iterable_validator=v.instance_of(tuple),
-        ),  # necessary because auto_validate_types cannot cover this
+        validator=[
+            v.deep_iterable(
+                member_validator=v.instance_of(PaperRevision),
+                iterable_validator=v.instance_of(tuple),
+            ),  # necessary because auto_validate_types cannot cover this
+            _check_revisions_pdf_names,
+        ],
     )
     videos: tuple[VideoReference, ...] = field(
         default=(), converter=tuple
@@ -450,6 +483,12 @@ class Paper:
         if not value.is_local:
             raise ValueError(
                 f"'pdf' of a Paper must be a local file reference (got '{value}')"
+            )
+        # If a name is given, it must match what would be derived automatically
+        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
+        if value.name and value.name != self.full_id:
+            raise ValueError(
+                f"PDF reference name {value.name!r} does not match this paper's full_id {self.full_id!r}"
             )
 
     @property

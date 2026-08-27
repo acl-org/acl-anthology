@@ -292,6 +292,12 @@ class Volume(SlottedDict[Paper]):
             raise ValueError(
                 f"'pdf' of a Volume must be a local file reference (got '{value}')"
             )
+        # If a name is given, it must match what would be derived automatically
+        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
+        if value.name and value.name != self.full_id:
+            raise ValueError(
+                f"PDF reference name {value.name!r} does not match this volume's full_id {self.full_id!r}"
+            )
 
     @property
     def pdf(self) -> Optional[PDFReference]:
