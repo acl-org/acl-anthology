@@ -330,9 +330,12 @@ def test_homepage_group_excludes_parent_event_updates(anthology):
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
     data = paper_to_dict(anthology.get_paper("1998.amta-papers.1"))
 
-    assert data["external"] == (
-        "https://link.springer.com/chapter/10.1007/3-540-49478-2_1"
-    )
+    assert data["urls"] == [
+        {
+            "type": "External",
+            "url": "https://link.springer.com/chapter/10.1007/3-540-49478-2_1",
+        }
+    ]
     assert "pdf" not in data
     assert "thumbnail" not in data
 
