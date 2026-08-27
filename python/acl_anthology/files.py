@@ -216,6 +216,12 @@ class URLReference(FileReference):
     template_field: ClassVar[str] = "event_location_template"
 
 
+# Deprecated alias: URLReference used to be called EventFileReference, before its use was
+# generalized beyond Event links to also cover Paper/Volume urls.  Kept around so external
+# code (e.g. bin/ scripts) importing the old name doesn't break.
+EventFileReference = URLReference
+
+
 def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
     """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
 
