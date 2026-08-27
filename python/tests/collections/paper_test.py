@@ -99,6 +99,32 @@ def test_paper_urls_must_be_non_local():
     assert paper.urls[0][1].name == "https://example.com/dataset"
 
 
+def test_paper_pdf_and_thumbnail_without_pdf():
+    parent = VolumeStub()
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
+    assert paper.pdf is None
+    assert paper.thumbnail is None
+
+
+def test_paper_pdf_and_thumbnail_with_pdf():
+    parent = VolumeStub()
+    paper = Paper(
+        "42",
+        parent,
+        bibkey="nn-1900-minimal",
+        title="A minimal example",
+        # The stored name is irrelevant -- it is always derived from full_id
+        pdf=PDFReference("ignored-name", checksum="abcd1234"),
+    )
+    assert paper.full_id == "2026.stub-main.42"
+    assert paper.pdf is not None
+    assert paper.pdf.name == paper.full_id
+    assert paper.pdf.checksum == "abcd1234"
+    assert paper.thumbnail is not None
+    assert paper.thumbnail.name == paper.full_id
+    assert paper.thumbnail.url == "https://aclanthology.org/thumb/2026.stub-main.42.jpg"
+
+
 def test_paper_namespecs():
     authors = [NameSpecification(("John", "Doe"))]
     editors = [NameSpecification(("Jane", "Doe"))]
@@ -348,6 +374,7 @@ test_cases_xml = (
     """<frontmatter>
   <!-- https://aclanthology.org/2026.stub-main.0/ -->
   <pdf hash="56ea4e43"/>
+  <url type="handbook">https://example.com/handbook.pdf</url>
   <bibkey>acl-2022-association-linguistics-1</bibkey>
 </frontmatter>
 """,

@@ -24,7 +24,9 @@ from acl_anthology.exceptions import ChecksumMismatchWarning
 from acl_anthology.files import (
     AttachmentReference,
     PDFReference,
+    URLReference,
     VideoReference,
+    validate_url_tuple,
 )
 
 test_cases_pdf = (
@@ -132,6 +134,30 @@ def test_reference_is_frozen():
     ref = PDFReference(name)
     with pytest.raises(attrs.exceptions.FrozenInstanceError):
         ref.checksum = "f9f4f558"
+
+
+@pytest.mark.parametrize(
+    "value",
+    (
+        "not-a-tuple",
+        ("dataset", URLReference("https://example.com")) + ("too-long",),
+        (0, URLReference("https://example.com")),  # first element not str
+        ("dataset", "https://example.com"),  # second element not URLReference
+    ),
+)
+def test_validate_url_tuple_raises_typeerror(value):
+    with pytest.raises(TypeError):
+        validate_url_tuple(None, None, value)
+
+
+def test_validate_url_tuple_raises_valueerror_on_local_reference():
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        validate_url_tuple(None, None, ("dataset", URLReference("local-filename")))
+
+
+def test_validate_url_tuple_accepts_valid_value():
+    # Should not raise
+    validate_url_tuple(None, None, ("dataset", URLReference("https://example.com")))
 
 
 def test_pdfreference_from_file(datadir):
