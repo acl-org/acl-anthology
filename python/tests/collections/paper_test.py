@@ -220,6 +220,8 @@ def test_paper_change_id(anthology):
         "ingest_date",
         "type",
         "month",
+        "errata",
+        "revisions",
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
@@ -903,6 +905,34 @@ def test_paper_errata_and_revisions_derive_pdf_name():
     # returned from the properties
     assert paper._errata[0].pdf.name == "ignored"
     assert paper._revisions[0].pdf.name == "ignored"
+
+
+def test_paper_errata_and_revisions_setters():
+    parent = VolumeStub()
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
+    assert paper.errata == ()
+    assert paper.revisions == ()
+
+    # Setters accept any iterable and convert it to a tuple
+    paper.errata = [
+        PaperErratum(id="1", pdf=PDFReference("ignored", checksum="aaaaaaaa"))
+    ]
+    paper.revisions = (
+        PaperRevision(
+            id="1", note=None, pdf=PDFReference("ignored", checksum="bbbbbbbb")
+        ),
+    )
+    assert isinstance(paper._errata, tuple)
+    assert isinstance(paper._revisions, tuple)
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
+
+    # The += pattern (getter, then setter) used e.g. by bin/add_revision.py
+    paper.errata += (
+        PaperErratum(id="2", pdf=PDFReference("ignored", checksum="dddddddd")),
+    )
+    assert len(paper.errata) == 2
+    assert paper.errata[1].pdf.name == "2026.stub-main.42e2"
 
 
 def test_paper_from_xml_derives_erratum_and_revision_pdf_names():
