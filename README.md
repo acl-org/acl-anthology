@@ -123,6 +123,58 @@ You will need this software on the server
 Note that generating the anthology takes quite a bit of RAM, so make
 sure it is available on your machine.
 
+## PDF Watermark / Footer Tool
+
+The Anthology includes a tool at
+[https://aclanthology.org/watermark.html](https://aclanthology.org/watermark.html)
+for adding an ACL-style first-page footer and optional page numbers to a PDF.
+
+Components:
+
+* `hugo/content/watermark.md` and `hugo/layouts/_default/watermark.html` render
+  the client interface at `/watermark.html`.
+* `hugo/static/js/watermark.js` handles the preview, upload, and download.
+* `hugo/static/cgi-bin/watermark.cgi` validates the request and invokes the PDF
+  processor.
+* `hugo/static/cgi-bin/add_footer_to_pdf.py` adds the footer and page numbers.
+  It supports multi-line centered text and inline italics using `<i>…</i>`.
+  `bin/add_footer_to_pdf.py` is a symlink to it, for command-line use.
+
+Setup:
+
+1. Create a Python 3.11 or newer virtual environment at `/opt/venv/watermark`.
+2. Install the service dependencies with
+   `/opt/venv/watermark/bin/pip install -r bin/requirements-watermark.txt`.
+3. Configure the web server to execute `hugo/static/cgi-bin/watermark.cgi` as
+  CGI. `add_footer_to_pdf.py` sits beside the CGI script; set
+  `WATERMARK_ADD_FOOTER` to an explicit path when using another deployment
+  layout.
+
+A file-only development server such as `python -m http.server` can display the
+page but cannot process its form; POST requests will receive HTTP 501. End-to-end
+testing requires a CGI-capable server.
+
+Usage:
+
+1. Upload a PDF and enter the first-page footer. Press Enter for new lines and
+   use `<i>…</i>` for italics.
+2. Optionally set the first page number and adjust the bottom offset, font
+   sizes, or line spacing to match the original proceedings.
+3. Select **Generate PDF** to download `*.watermarked.pdf`.
+
+Server / security notes:
+
+* The client and server enforce a 25 MB PDF limit.
+* The CGI endpoint accepts only bounded `multipart/form-data` requests, checks
+  the PDF header, validates all numeric options, and limits footer text to
+  2,000 characters and eight lines.
+* Footer markup is restricted to balanced `<i>` tags and text supported by the
+  PDF font.
+* Each request uses a temporary directory that is removed on success or error;
+  uploaded and generated PDFs are not retained.
+* Processing diagnostics are written to the server log. Public errors do not
+  include command lines or subprocess output.
+
 ## Contributing
 
 If you'd like to contribute to the ACL Anthology, please take a look at:
