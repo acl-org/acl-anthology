@@ -72,7 +72,7 @@ dev = [
 ]
 profiling = [
     "memray>=1.19.1; sys_platform != 'win32'",
-    "richbench",
+    "pytest-benchmark>=5.3.0,<6",
 ]
 
 [tool.mypy]
@@ -84,9 +84,6 @@ default-groups = "all"
 [tool.uv.build-backend]
 module-name = "acl_anthology"
 module-root = ""
-
-[tool.uv.sources]
-richbench = { git = "https://github.com/tonybaloney/rich-bench.git" }
 
 [[tool.mypy.overrides]]
 module = 'TexSoup.*'
@@ -106,7 +103,9 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 markers = [
-    "integration: marks tests on the full acl-org/acl-anthology repo"
+    "integration: marks tests on the full acl-org/acl-anthology repo",
+    "benchmark: marks performance benchmarks (see benchmarks/README.md)",
+    "pinned: marks benchmarks with a fixed-size input, suitable for automated CI regression detection (see benchmarks/README.md)",
 ]
 testpaths = ["tests"]
 filterwarnings = [

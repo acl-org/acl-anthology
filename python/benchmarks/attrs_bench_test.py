@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,23 +12,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Is it worth disabling attrs' validators when instantiating many objects?"""
+
 import attrs
+import pytest
 from pathlib import Path
 
+from acl_anthology import Anthology
 from acl_anthology.collections import Collection, Volume
 from acl_anthology.people import NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 
-REPEAT = 1_000
+SCRIPTDIR = Path(__file__).parent.resolve()
+TESTDATADIR = SCRIPTDIR / ".." / "tests" / "data" / "anthology"
 
 
-def create_volume():
+class CollectionIndexStub:
+    """Minimal stand-in for a CollectionIndex, just enough for `Volume.root`
+    (`self.parent.parent.parent`) to resolve to a real Anthology instance."""
+
+    def __init__(self, parent):
+        self.parent = parent
+
+
+@pytest.fixture(scope="module")
+def collection():
+    anthology = Anthology(datadir=TESTDATADIR)
+    return Collection("2023.acl", CollectionIndexStub(anthology), Path("."))
+
+
+def instantiate_volume(collection):
     volume_title = MarkupText.from_string("Lorem ipsum")
     volume_shorttitle = MarkupText.from_string("L.I.")
-    parent = Collection("2023.acl", None, Path("."))
-    _ = Volume(
+    return Volume(
         id="long",
-        parent=parent,
+        parent=collection,
         type="proceedings",
         booktitle=volume_title,
         year="2023",
@@ -45,23 +63,13 @@ def create_volume():
     )
 
 
-def instantiate_volume_regularly():
-    """Instantiate a Volume."""
-    for _ in range(REPEAT):
-        create_volume()
-
-
-def instantiate_volume_without_validation():
-    """Instantiate a class with attribute validation disabled."""
-    for _ in range(REPEAT):
+@pytest.mark.benchmark
+@pytest.mark.parametrize(
+    "disable_validation", [False, True], ids=["validated", "unvalidated"]
+)
+def test_instantiate_volume(benchmark, collection, disable_validation):
+    if disable_validation:
         with attrs.validators.disabled():
-            create_volume()
-
-
-__benchmarks__ = [
-    (
-        instantiate_volume_regularly,
-        instantiate_volume_without_validation,
-        "attrs: instantiate Volume with attrs.validators.disabled",
-    ),
-]
+            benchmark(instantiate_volume, collection)
+    else:
+        benchmark(instantiate_volume, collection)

@@ -65,13 +65,17 @@ update-dependencies:
   uv sync --upgrade
   uv pip list --outdated
 
-# Run benchmarks
-benchmark:
-  uv run richbench --percentage benchmarks/
-  @echo ""
-  @echo "  Note: Benchmark descriptions should be interpreted as 'Is it faster to...' or"
-  @echo "        'What is the performance impact if we...', with the highlighted columns"
-  @echo "        showing the delta."
+# Run benchmarks against small, in-repo fixtures (fast)
+benchmark *FLAGS="--benchmark-columns 'mean,min,max,stddev,outliers,rounds,iterations' --benchmark-name short --benchmark-sort name --benchmark-time-unit ms":
+  uv run pytest benchmarks/ -m "benchmark and not integration" --benchmark-only {{FLAGS}}
+
+# Run benchmarks against this repo's own, full Anthology data (slow)
+benchmark-integration *FLAGS="--benchmark-columns 'mean,min,max,stddev,outliers,rounds,iterations' --benchmark-name short --benchmark-sort name --benchmark-time-unit s":
+  uv run pytest benchmarks/ -m "benchmark and integration and not pinned" --benchmark-only {{FLAGS}}
+
+# Run only the fixed-size benchmarks used for automated CI regression detection
+benchmark-pinned *FLAGS="--benchmark-name short --benchmark-sort name --benchmark-time-unit s":
+  uv run pytest benchmarks/ -m "benchmark and pinned" --benchmark-only {{FLAGS}}
 
 # Build the documentation
 docs:

@@ -71,3 +71,64 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  benchmark:
+    name: "Pinned benchmark (regression check)"
+    # Runs against a fixed-size subset of `data/` (see
+    # python/benchmarks/personindex_build_pinned_bench_test.py), so unlike
+    # the macro benchmarks against the full corpus, its timing is meant to
+    # be directly comparable across commits and safe to alert on.
+    defaults:
+      run:
+        working-directory: ./python
+    runs-on: ubuntu-latest
+    permissions:
+      # contents: write is only exercised by `comment-on-alert` below, which
+      # is itself only enabled on pushes to master -- never on pull_request.
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install uv and set python version
+        uses: astral-sh/setup-uv@v9.0.0
+        with:
+          python-version: "3.14"
+          working-directory: python
+      - name: Install dependencies
+        run: uv sync --locked --verbose
+      - name: Run pinned benchmark
+        run: uv run pytest benchmarks/ -m "benchmark and pinned" --benchmark-only --benchmark-json=output.json
+      # History is kept as a plain JSON file in the Actions cache rather than
+      # a `gh-pages` branch -- we don't need the auto-generated chart
+      # dashboard, just the before/after comparison, and this needs no
+      # one-time repo setup. The cache key includes `run_id` so it's always
+      # a "miss" (actions/cache skips re-saving on an exact hit, which would
+      # otherwise leave history stuck after the first run); `restore-keys`
+      # then falls back to the most recently saved entry.
+      - name: Restore benchmark history
+        uses: actions/cache@v4
+        with:
+          path: python/cache
+          key: pinned-benchmark-data-${{ github.run_id }}
+          restore-keys: |
+            pinned-benchmark-data-
+      - name: Compare against previous results
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: "Pinned Python benchmarks"
+          tool: "pytest"
+          output-file-path: python/output.json
+          external-data-json-path: python/cache/benchmark-data.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          summary-always: true
+          # Conservative starting point: only alert (and don't yet fail the
+          # workflow) on a >2x slowdown, since even this pinned/fixed-size
+          # benchmark showed ~30-40% round-to-round noise when measured
+          # locally. Tighten alert-threshold and consider fail-on-alert once
+          # there's enough real CI history to judge actual noise levels.
+          alert-threshold: "200%"
+          fail-on-alert: false
+          # Only post an alert comment on trusted pushes to the default
+          # branch -- never on pull_request, which shouldn't get write
+          # access (same trust boundary the tool's own docs recommend for
+          # its gh-pages auto-push feature, applied here to commenting).
+          comment-on-alert: ${{ github.ref == 'refs/heads/master' }}
