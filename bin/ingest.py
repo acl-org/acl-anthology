@@ -494,6 +494,7 @@ def _find_book_pdf(
         path / "book.pdf",
         path / "cdrom" / "book.pdf",
         path / "cdrom" / f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+        path / "cdrom" / f"{venue_name.lower()}-{year}-{volume_name}.pdf",
         path / "cdrom" / f"{venue_name.lower()}-{year}.{volume_name}.pdf",
         path / "cdrom" / f"{venue_name.upper()}-{year}.pdf",
     ]
