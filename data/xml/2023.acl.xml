@@ -1445,7 +1445,7 @@
       <author><first>Tao</first><last>Shen</last><affiliation>University of Technology Sydney</affiliation></author>
       <author><first>Dongyan</first><last>Zhao</last><affiliation>pku.edu.cn</affiliation></author>
       <author id="xiubo-geng" orcid="0000-0001-6477-7933"><first>Xiubo</first><last>Geng</last><affiliation>STCA NLP Group, Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>1688-1700</pages>
       <abstract>Document ranking aims at sorting a collection of documents with their relevance to a query. Contemporary methods explore more efficient transformers or divide long documents into passages to handle the long input. However, intensive query-irrelevant content may lead to harmful distraction and high query latency. Some recent works further propose cascade document ranking models that extract relevant passages with an efficient selector before ranking, however, their selection and ranking modules are almost independently optimized and deployed, leading to selecting error reinforcement and sub-optimal performance. In fact, the document ranker can provide fine-grained supervision to make the selector more generalizable and compatible, and the selector built upon a different structure can offer a distinct perspective to assist in document ranking. Inspired by this, we propose a fine-grained attention alignment approach to jointly optimize a cascade document ranking model. Specifically, we utilize the attention activations over the passages from the ranker as fine-grained attention feedback to optimize the selector. Meanwhile, we fuse the relevance scores from the passage selector into the ranker to assist in calculating the cooperative matching representation. Experiments on MS MARCO and TREC DL demonstrate the effectiveness of our method.</abstract>
       <url hash="72eb4c4b">2023.acl-long.94</url>
@@ -1898,7 +1898,7 @@
       <author><first>Xiaolong</first><last>Huang</last><affiliation>Microsoft</affiliation></author>
       <author><first>Binxing</first><last>Jiao</last><affiliation>Microsoft</affiliation></author>
       <author><first>Linjun</first><last>Yang</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <author><first>Rangan</first><last>Majumder</last><affiliation>Microsoft</affiliation></author>
       <author><first>Furu</first><last>Wei</last><affiliation>Microsoft Research</affiliation></author>
       <pages>2244-2258</pages>
@@ -2641,7 +2641,7 @@
       <author><first>Chang</first><last>Liu</last><affiliation>Peking University</affiliation></author>
       <author><first>Juntao</first><last>Li</last><affiliation>Soochow University</affiliation></author>
       <author id="xiubo-geng" orcid="0000-0001-6477-7933"><first>Xiubo</first><last>Geng</last><affiliation>STCA NLP Group, Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>3102-3114</pages>
       <abstract>Establishing retrieval-based dialogue systems that can select appropriate responses from the pre-built index has gained increasing attention. Recent common practice is to construct a two-stage pipeline with a fast retriever (e.g., bi-encoder) for first-stage recall followed by a smart response reranker (e.g., cross-encoder) for precise ranking. However, existing studies either optimize the retriever and reranker in independent ways, or distill the knowledge from a pre-trained reranker into the retriever in an asynchronous way, leading to sub-optimal performance of both modules. Thus, an open question remains about how to train them for a better combination of the best of both worlds. To this end, we present a cooperative training of the response retriever and the reranker whose parameters are dynamically optimized by the ground-truth labels as well as list-wise supervision signals from each other. As a result, the two modules can learn from each other and evolve together throughout the training. Experimental results on two benchmarks demonstrate the superiority of our method.</abstract>
       <url hash="a767a96b">2023.acl-long.174</url>
@@ -2990,7 +2990,7 @@
       <author><first>Bowen</first><last>Cao</last><affiliation>Peking University</affiliation></author>
       <author><first>Jianhui</first><last>Chang</last><affiliation>Peking University</affiliation></author>
       <author id="jia-li" orcid="0000-0002-6362-4385"><first>Jia</first><last>Li</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>3552-3566</pages>
       <abstract>Currently, learning better unsupervised sentence representations is the pursuit of many natural language processing communities. Lots of approaches based on pre-trained language models (PLMs) and contrastive learning have achieved promising results on this task. Experimentally, we observe that the over-smoothing problem reduces the capacity of these powerful PLMs, leading to sub-optimal sentence representations. In this paper, we present a Simple method named Self-Contrastive Learning (SSCL) to alleviate this issue, which samples negatives from PLMs intermediate layers, improving the quality of the sentence representation. Our proposed method is quite simple and can be easily extended to various state-of-the-art models for performance boosting, which can be seen as a plug-and-play contrastive framework for learning unsupervised sentence representation. Extensive results prove that SSCL brings the superior performance improvements of different strong baselines (e.g., BERT and SimCSE) on Semantic Textual Similarity and Transfer datasets</abstract>
       <url hash="eab43974">2023.acl-long.197</url>

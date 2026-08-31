@@ -443,10 +443,15 @@ class AnthologyMetadataUpdater:
         def str_to_markup(text: str) -> MarkupText:  # raises lxml.etree.XMLSyntaxError
             return MarkupText.from_xml(etree.fromstring(f"<dummy>{text}</dummy>"))
 
-        if not paper.is_frontmatter:
-            # frontmatter has no title or abstract  : cannot change booktitle
-            if TITLE in changes:
+        if TITLE in changes:
+            if paper.is_frontmatter:
+                # volume title
+                paper.parent.title = str_to_markup(changes[TITLE])
+            else:
                 paper.title = str_to_markup(changes[TITLE])
+
+        if not paper.is_frontmatter:
+            # frontmatter has no abstract
             if ABSTRACT in changes:
                 paper.abstract = str_to_markup(changes[ABSTRACT])
 
