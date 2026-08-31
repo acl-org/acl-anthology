@@ -8,11 +8,6 @@
         pdf
       </a>
       {{- end -}}
-      {{- with $paper.external -}}
-      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external publication" aria-label="Open external publication">
-        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
-      </a>
-      {{- end -}}
       {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
       <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX" aria-label="Export to BibTeX">
         bib
@@ -25,6 +20,9 @@
     <span class="d-inline d-sm-block text-nowrap">
       {{- range $paper.award -}}
       {{- partial "award_icon.html" . -}}
+      {{- end -}}
+      {{- range $paper.urls -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open {{ .type }}" aria-label="Open {{ .type }}">{{ partial "url_repr.html" . }}</a>
       {{- end -}}
       {{- range $paper.attachment -}}
         <a class="badge text-bg-attachment align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ .type | humanize }}" aria-label="Open {{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>

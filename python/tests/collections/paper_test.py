@@ -18,7 +18,7 @@ from acl_anthology.collections import CollectionIndex
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
-from acl_anthology.files import AttachmentReference, PDFReference
+from acl_anthology.files import AttachmentReference, PDFReference, URLReference
 from acl_anthology.people import NameSpecification, UNVERIFIED_PID_FORMAT
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
@@ -62,6 +62,86 @@ def test_paper_minimum_attribs():
 def test_paper_web_url(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+
+
+def test_paper_pdf_must_be_local():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        Paper(
+            "1",
+            parent,
+            bibkey="nn-2026-external",
+            title="An external PDF",
+            pdf=PDFReference("https://external.com/paper.pdf"),
+        )
+    paper = Paper("1", parent, bibkey="nn-2026-local", title="A local PDF")
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        paper.pdf = PDFReference("https://external.com/paper.pdf")
+    with pytest.raises(TypeError):
+        paper.pdf = "not-a-pdf-reference"
+
+
+def test_paper_urls_must_be_non_local():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        Paper(
+            "1",
+            parent,
+            bibkey="nn-2026-localurl",
+            title="A local file passed off as a URL",
+            urls=[("dataset", URLReference("some-local-filename"))],
+        )
+    paper = Paper("1", parent, bibkey="nn-2026-nourls", title="No URLs yet")
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        paper.urls = [("dataset", URLReference("some-local-filename"))]
+    # Sanity check: non-local URLs are fine
+    paper.urls = [("dataset", URLReference("https://example.com/dataset"))]
+    assert paper.urls[0][1].name == "https://example.com/dataset"
+
+
+def test_paper_pdf_and_thumbnail_without_pdf():
+    parent = VolumeStub()
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
+    assert paper.pdf is None
+    assert paper.thumbnail is None
+
+
+def test_paper_pdf_and_thumbnail_with_pdf():
+    parent = VolumeStub()
+    paper = Paper(
+        "42",
+        parent,
+        bibkey="nn-1900-minimal",
+        title="A minimal example",
+        # An empty name is fine -- it is always derived from full_id
+        pdf=PDFReference("", checksum="abcd1234"),
+    )
+    assert paper.full_id == "2026.stub-main.42"
+    assert paper.pdf is not None
+    assert paper.pdf.name == paper.full_id
+    assert paper.pdf.checksum == "abcd1234"
+    assert paper.thumbnail is not None
+    assert paper.thumbnail.name == paper.full_id
+    assert paper.thumbnail.url == "https://aclanthology.org/thumb/2026.stub-main.42.jpg"
+
+
+def test_paper_pdf_name_must_match_full_id_if_given():
+    parent = VolumeStub()
+    # A non-empty name that doesn't match full_id is rejected...
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-mismatch",
+            title="A minimal example",
+            pdf=PDFReference("wrong-name", checksum="abcd1234"),
+        )
+    paper = Paper("42", parent, bibkey="nn-1900-mismatch2", title="A minimal example")
+    with pytest.raises(ValueError, match="does not match"):
+        paper.pdf = PDFReference("wrong-name", checksum="abcd1234")
+    # ...but a name that already matches full_id is accepted
+    paper.pdf = PDFReference(paper.full_id, checksum="abcd1234")
+    assert paper.pdf.name == paper.full_id
 
 
 def test_paper_namespecs():
@@ -159,6 +239,8 @@ def test_paper_change_id(anthology):
         "ingest_date",
         "type",
         "month",
+        "errata",
+        "revisions",
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
@@ -312,7 +394,8 @@ def test_paper_get_namespec_for_should_fail(anthology):
 test_cases_xml = (
     """<frontmatter>
   <!-- https://aclanthology.org/2026.stub-main.0/ -->
-  <url hash="56ea4e43">2022.acl-long.0</url>
+  <pdf hash="56ea4e43"/>
+  <url type="handbook">https://example.com/handbook.pdf</url>
   <bibkey>acl-2022-association-linguistics-1</bibkey>
 </frontmatter>
 """,
@@ -322,21 +405,21 @@ test_cases_xml = (
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
   <abstract/>
-  <url hash="61daae5b">2022.naloma-1.1</url>
+  <pdf hash="61daae5b"/>
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
 """,
     """<paper id="9">
   <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
     """<paper id="9">
   <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <issue>42</issue>
   <month>June</month>
   <bibkey>nn-1989-briefly</bibkey>
@@ -351,10 +434,20 @@ test_cases_xml = (
   <author><first>Mihai</first><last>Dascalu</last></author>
   <pages>70-80</pages>
   <abstract>Complex word identification (CWI) is a cornerstone process towards proper text simplification. CWI is highly dependent on context, whereas its difficulty is augmented by the scarcity of available datasets which vary greatly in terms of domains and languages. As such, it becomes increasingly more difficult to develop a robust model that generalizes across a wide array of input examples. In this paper, we propose a novel training technique for the CWI task based on domain adaptation to improve the target character and context representations. This technique addresses the problem of working with multiple domains, inasmuch as it creates a way of smoothing the differences between the explored datasets. Moreover, we also propose a similar auxiliary task, namely text simplification, that can be used to complement lexical complexity prediction. Our model obtains a boost of up to 2.42% in terms of Pearson Correlation Coefficients in contrast to vanilla training techniques, when considering the CompLex from the Lexical Complexity Prediction 2021 dataset. At the same time, we obtain an increase of 3% in Pearson scores, while considering a cross-lingual setup relying on the Complex Word Identification 2018 dataset. In addition, our model yields state-of-the-art results in terms of Mean Absolute Error.</abstract>
-  <url hash="23e260bb">2022.acl-long.6</url>
+  <pdf hash="23e260bb"/>
   <doi>10.18653/v1/2022.acl-long.6</doi>
   <video href="2022.acl-long.6.mp4"/>
   <bibkey>zaharia-etal-2022-domain</bibkey>
+</paper>
+""",
+    """<paper id="7">
+  <!-- https://aclanthology.org/2026.stub-main.7/ -->
+  <title>A Paper With Both A <fixed-case>PDF</fixed-case> And Several External <fixed-case>URL</fixed-case>s</title>
+  <pdf hash="a1b2c3d4"/>
+  <url type="dataset">https://example.com/dataset</url>
+  <url type="website">https://example.com/paper-page</url>
+  <url>https://example.com/no-type-link</url>
+  <bibkey>example-2026-urls</bibkey>
 </paper>
 """,
     """<paper id="max" ingest-date="2023-09-30">
@@ -364,10 +457,10 @@ test_cases_xml = (
   <editor><first>Marcel</first><last>Bollmann</last></editor>
   <pages>0</pages>
   <abstract><b>Look</b> at <i>this</i>!</abstract>
-  <url hash="d6a71220">2023.fake-volume.max</url>
-  <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
-  <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
-  <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
+  <pdf hash="d6a71220"/>
+  <erratum id="1" hash="21a4921f"/>
+  <revision id="1" hash="21e2f21f"/>
+  <revision id="2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
   <doi>10.18653/v1/2023.fake-volume.max</doi>
   <language>fra</language>
   <note>This is not a real paper, obviously.</note>
@@ -427,7 +520,7 @@ def test_paper_from_xml_invalid_tag():
     xml = """<paper id="9">
   <title>Briefly Noted</title>
   <speaker><first>John</first><last>Doe</last></speaker>
-  <url hash="166bd6c1">J89-1009</url>
+  <pdf hash="166bd6c1"/>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """
@@ -686,14 +779,14 @@ def test_paperdeletionnotice_to_xml(xml, type_, note, date):
 
 test_cases_papererratum = (
     (
-        '<erratum id="1" hash="8eecd4c3" date="2022-09-20">P18-1188e1</erratum>',
+        '<erratum id="1" hash="8eecd4c3" date="2022-09-20"/>',
         "1",
         "P18-1188e1",
         "8eecd4c3",
         "2022-09-20",
     ),
     (
-        '<erratum id="42" hash="8edae19f">C12-1115e42</erratum>',
+        '<erratum id="42" hash="8edae19f"/>',
         "42",
         "C12-1115e42",
         "8edae19f",
@@ -709,7 +802,9 @@ def test_papererratum_from_xml(xml, id_, pdf_name, pdf_checksum, date):
     element = etree.fromstring(xml)
     erratum = PaperErratum.from_xml(element)
     assert erratum.id == id_
-    assert erratum.pdf.name == pdf_name
+    # <erratum> carries no name in the XML -- it is derived from the parent
+    # paper's full_id and the erratum's own id (see Paper.errata)
+    assert erratum.pdf.name == ""
     assert erratum.pdf.checksum == pdf_checksum
     assert erratum.date == date
 
@@ -736,7 +831,7 @@ def test_papererratum_must_be_local():
 
 test_cases_paperrevision = (
     (
-        '<revision id="1" href="Q15-1022v1" hash="f16c56cd"/>',
+        '<revision id="1" hash="f16c56cd"/>',
         "1",
         "Q15-1022v1",
         "f16c56cd",
@@ -744,7 +839,7 @@ test_cases_paperrevision = (
         None,
     ),
     (
-        '<revision id="2" href="Q15-1022v2" hash="59f9673b">No description of the changes were recorded.</revision>',
+        '<revision id="2" hash="59f9673b">No description of the changes were recorded.</revision>',
         "2",
         "Q15-1022v2",
         "59f9673b",
@@ -752,7 +847,7 @@ test_cases_paperrevision = (
         "No description of the changes were recorded.",
     ),
     (
-        '<revision id="2" href="2020.pam-1.0v2" hash="7e1b77c7" date="2021-05-04">Author typo correction.</revision>',
+        '<revision id="2" hash="7e1b77c7" date="2021-05-04">Author typo correction.</revision>',
         "2",
         "2020.pam-1.0v2",
         "7e1b77c7",
@@ -769,7 +864,9 @@ def test_paperrevision_from_xml(xml, id_, pdf_name, pdf_checksum, date, note):
     element = etree.fromstring(xml)
     revision = PaperRevision.from_xml(element)
     assert revision.id == id_
-    assert revision.pdf.name == pdf_name
+    # <revision> carries no name in the XML -- it is derived from the parent
+    # paper's full_id and the revision's own id (see Paper.revisions)
+    assert revision.pdf.name == ""
     assert revision.pdf.checksum == pdf_checksum
     assert revision.date == date
     assert revision.note == note
@@ -797,3 +894,117 @@ def test_paperrevision_must_be_local():
             note=None,
             pdf=PDFReference(name="https://aclanthology.org/somefile.pdf"),
         )
+
+
+def test_paper_errata_and_revisions_derive_pdf_name():
+    parent = VolumeStub()
+    paper = Paper(
+        "42",
+        parent,
+        bibkey="nn-1900-minimal",
+        title="A minimal example",
+        # An empty name is fine -- it is always derived from full_id and the
+        # erratum's/revision's own id
+        errata=[PaperErratum(id="1", pdf=PDFReference("", checksum="aaaaaaaa"))],
+        revisions=[
+            PaperRevision(id="1", note=None, pdf=PDFReference("", checksum="bbbbbbbb")),
+            PaperRevision(id="2", note="fix", pdf=PDFReference("", checksum="cccccccc")),
+        ],
+    )
+    assert paper.full_id == "2026.stub-main.42"
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.errata[0].pdf.checksum == "aaaaaaaa"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
+    assert paper.revisions[1].pdf.name == "2026.stub-main.42v2"
+    # The raw stored objects themselves are untouched by evolving the copies
+    # returned from the properties
+    assert paper._errata[0].pdf.name == ""
+    assert paper._revisions[0].pdf.name == ""
+
+
+def test_paper_errata_and_revisions_setters():
+    parent = VolumeStub()
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title="A minimal example")
+    assert paper.errata == ()
+    assert paper.revisions == ()
+
+    # Setters accept any iterable and convert it to a tuple
+    paper.errata = [PaperErratum(id="1", pdf=PDFReference("", checksum="aaaaaaaa"))]
+    paper.revisions = (
+        PaperRevision(id="1", note=None, pdf=PDFReference("", checksum="bbbbbbbb")),
+    )
+    assert isinstance(paper._errata, tuple)
+    assert isinstance(paper._revisions, tuple)
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
+
+    # The += pattern (getter, then setter) used e.g. by bin/add_revision.py --
+    # note that the getter already returns entries with correctly-resolved
+    # names, so re-assigning them (as += does) is itself a validity check
+    paper.errata += (PaperErratum(id="2", pdf=PDFReference("", checksum="dddddddd")),)
+    assert len(paper.errata) == 2
+    assert paper.errata[1].pdf.name == "2026.stub-main.42e2"
+
+
+def test_paper_errata_and_revisions_pdf_name_must_match_if_given():
+    parent = VolumeStub()
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-erratum-mismatch",
+            title="A minimal example",
+            errata=[PaperErratum(id="1", pdf=PDFReference("wrong-name", checksum="a"))],
+        )
+    with pytest.raises(ValueError, match="does not match"):
+        Paper(
+            "42",
+            parent,
+            bibkey="nn-1900-revision-mismatch",
+            title="A minimal example",
+            revisions=[
+                PaperRevision(
+                    id="1", note=None, pdf=PDFReference("wrong-name", checksum="a")
+                )
+            ],
+        )
+
+    paper = Paper(
+        "42", parent, bibkey="nn-1900-setter-mismatch", title="A minimal example"
+    )
+    with pytest.raises(ValueError, match="does not match"):
+        paper.errata = [
+            PaperErratum(id="1", pdf=PDFReference("wrong-name", checksum="a"))
+        ]
+    with pytest.raises(ValueError, match="does not match"):
+        paper.revisions = [
+            PaperRevision(id="1", note=None, pdf=PDFReference("wrong-name", checksum="a"))
+        ]
+
+    # ...but a name that already matches the automatically-derived one is accepted
+    paper.errata = [
+        PaperErratum(id="1", pdf=PDFReference("2026.stub-main.42e1", checksum="a"))
+    ]
+    paper.revisions = [
+        PaperRevision(
+            id="1", note=None, pdf=PDFReference("2026.stub-main.42v1", checksum="a")
+        )
+    ]
+    assert paper.errata[0].pdf.name == "2026.stub-main.42e1"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.42v1"
+
+
+def test_paper_from_xml_derives_erratum_and_revision_pdf_names():
+    xml = """<paper id="9">
+  <title>Briefly Noted</title>
+  <erratum id="1" hash="21a4921f"/>
+  <revision id="1" hash="21e2f21f"/>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+"""
+    paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
+    assert paper.full_id == "2026.stub-main.9"
+    assert paper.errata[0].pdf.name == "2026.stub-main.9e1"
+    assert paper.errata[0].pdf.checksum == "21a4921f"
+    assert paper.revisions[0].pdf.name == "2026.stub-main.9v1"
+    assert paper.revisions[0].pdf.checksum == "21e2f21f"

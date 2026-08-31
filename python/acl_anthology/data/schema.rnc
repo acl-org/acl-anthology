@@ -9,13 +9,11 @@ tt = element tt { InlineMarkup+ }
 a = element a {
   attribute href { xsd:anyURI } & InlineMarkup+
 }
-url = element url {
-  attribute type { xsd:NCName }? & xsd:anyURI
-}
+markup-url = element url { xsd:anyURI }
 par = element par { empty }  # paragraph break
 fixed-case = element fixed-case { InlineMarkup+ }
 tex-math = element tex-math { text }
-InlineMarkup = text | b | i | u | sc | tt | a | url | fixed-case | tex-math
+InlineMarkup = text | b | i | u | sc | tt | a | markup-url | fixed-case | tex-math
 InlineMarkupText = InlineMarkup+
 MarkupText = (InlineMarkup | par)+
 
@@ -38,10 +36,10 @@ Person =
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
-url-with-checksum = element url {
-    xsd:anyURI {pattern="https?://.*"} |
-    (local-filename, checksum)
+url = element url {
+  attribute type { xsd:NCName }? & xsd:anyURI
 }
+pdf = element pdf { empty, checksum }
 attachment = element attachment {
     attribute type { xsd:NCName }?,
     checksum,
@@ -50,7 +48,6 @@ attachment = element attachment {
 
 Revision = element revision {
   attribute id { xsd:positiveInteger },
-  attribute href { local-filename },
   attribute date { xsd:date }?,
   checksum,
   text
@@ -78,8 +75,7 @@ Paper = element paper {
    & element erratum {
        attribute id { xsd:positiveInteger },
        attribute date { xsd:date }?,
-       checksum,
-       local-filename
+       checksum
      }*
    & element retracted {
        attribute date { xsd:date },
@@ -98,7 +94,8 @@ Paper = element paper {
    & element note { text }?
    & element pages { text }?
    & element title { InlineMarkupText }
-   & url-with-checksum?
+   & pdf?
+   & url*
    & element video {
        attribute href { xsd:anyURI },
        attribute permission { xsd:boolean }?
@@ -120,7 +117,8 @@ Meta = element meta {
    & element month { text }?
    & element year { xsd:gYear }
    & element isbn { xsd:NMTOKEN }?
-   & url-with-checksum?
+   & pdf?
+   & url*
    & element doi { xsd:anyURI }?
    & element sig { text }*
    & element venue { text }+
@@ -130,7 +128,8 @@ Meta = element meta {
   )
 }
 Frontmatter = element frontmatter {
-  (url-with-checksum?
+  (pdf?
+   & url*
    & element pages { text }?
    & element bibkey { bibtex-key }
    & Revision*

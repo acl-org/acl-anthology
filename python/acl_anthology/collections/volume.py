@@ -31,7 +31,7 @@ from .. import constants
 from ..config import config
 from ..containers import SlottedDict
 from ..exceptions import AnthologyDuplicateIDError, AnthologyInvalidIDError
-from ..files import PDFReference
+from ..files import PDFReference, URLReference, validate_url_tuple
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..venues import Venue
@@ -173,6 +173,7 @@ class Volume(SlottedDict[Paper]):
         editors: Names of editors associated with this volume.
         sig_ids: List of SIG IDs associated with this volume. See also [sigs][acl_anthology.collections.volume.Volume.sigs]/[add_sig][acl_anthology.collections.volume.Volume.add_sig]/[remove_sig][acl_anthology.collections.volume.Volume.remove_sig].
         venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues]/[add_venue][acl_anthology.collections.volume.Volume.add_venue]/[remove_venue][acl_anthology.collections.volume.Volume.remove_venue].
+        urls: Links to external, non-locally-hosted resources associated with this volume (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
@@ -226,6 +227,14 @@ class Volume(SlottedDict[Paper]):
             track_modifications,
         ],
     )
+    urls: tuple[tuple[str, URLReference], ...] = field(
+        default=(),
+        converter=tuple,
+        validator=validators.deep_iterable(
+            member_validator=validate_url_tuple,
+            iterable_validator=validators.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
+    )
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
@@ -239,7 +248,7 @@ class Volume(SlottedDict[Paper]):
     journal_volume: Optional[str] = field(default=None, converter=int_to_str)
     _journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)  # TODO: validate/convert?
-    pdf: Optional[PDFReference] = field(default=None)
+    _pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(
         default=None,
@@ -268,6 +277,42 @@ class Volume(SlottedDict[Paper]):
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "Not a valid Volume ID")
+
+    @_pdf.validator
+    def _check_pdf(self, _: Any, value: Any) -> None:
+        # Adding this validator disables auto_validate_types for this field, so
+        # we need to check the type explicitly here, too.
+        if value is None:
+            return
+        if not isinstance(value, PDFReference):
+            raise TypeError(
+                f"'pdf' must be Optional[{PDFReference!r}] (got '{value!r}' that is a {type(value)!r})"
+            )
+        # <pdf> must be a local file reference according to the schema
+        if not value.is_local:
+            raise ValueError(
+                f"'pdf' of a Volume must be a local file reference (got '{value}')"
+            )
+        # If a name is given, it must match what would be derived automatically
+        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
+        if value.name and value.name != self.full_id:
+            raise ValueError(
+                f"PDF reference name {value.name!r} does not match this volume's full_id {self.full_id!r}"
+            )
+
+    @property
+    def pdf(self) -> Optional[PDFReference]:
+        """A reference to the volume's PDF.
+
+        `<pdf>` always refers to a local file, so the reference's `name` is derived from this volume's `full_id` rather than stored -- it is not present in the XML.
+        """
+        if self._pdf is None:
+            return None
+        return attrs.evolve(self._pdf, name=self.full_id)
+
+    @pdf.setter
+    def pdf(self, value: Optional[PDFReference]) -> None:
+        self._pdf = value
 
     @property
     def frontmatter(self) -> Paper | None:
@@ -586,6 +631,7 @@ class Volume(SlottedDict[Paper]):
             "editors": [],
             "sig_ids": [],
             "venue_ids": [],
+            "urls": [],
         }
         if (ingest_date := volume.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -610,8 +656,11 @@ class Volume(SlottedDict[Paper]):
                 kwargs[tag] = MarkupText.from_xml(element)
             elif tag == "editor":
                 kwargs["editors"].append(NameSpecification.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             elif tag == "sig":
                 kwargs["sig_ids"].append(str(element.text))
             elif tag == "venue":
@@ -649,8 +698,13 @@ class Volume(SlottedDict[Paper]):
         ):
             if (value := getattr(self, tag)) is not None:
                 meta.append(getattr(E, tag)(value))
-        if self.pdf is not None:
-            meta.append(self.pdf.to_xml("url"))
+        if self._pdf is not None:
+            meta.append(self._pdf.to_xml())
+        for type_, url in self.urls:
+            elem = url.to_xml("url")
+            if type_:
+                elem.set("type", type_)
+            meta.append(elem)
         for sig in self.sig_ids:
             meta.append(E.sig(sig))
         for venue in self.venue_ids:
