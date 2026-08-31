@@ -12,10 +12,20 @@ from bin.ingest import (
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    read_meta,
     register_volume_with_sig,
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+def test_read_meta_accepts_multiple_spaces_between_key_and_value(tmp_path):
+    meta_path = tmp_path / "meta"
+    meta_path.write_text("booktitle  Proceedings of EAMT 2026 (Volume 1)\n")
+
+    assert read_meta(str(meta_path))["booktitle"] == (
+        "Proceedings of EAMT 2026 (Volume 1)"
+    )
 
 
 def test_ensure_venue_creates_without_saving_individual_venue():

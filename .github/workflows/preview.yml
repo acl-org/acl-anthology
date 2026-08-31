@@ -1,18 +1,23 @@
-# Builds a preview of all non-master branches and publishes them
-# to https://aclanthology.org/previews/BRANCHNAME
+# Builds a preview of a branch's associated pull request and publishes it
+# to https://preview.aclanthology.org/BRANCHNAME
+#
+# This only runs for open PRs carrying the "preview" label, since a full
+# preview build is expensive. The label is added automatically for certain
+# PR types (see add-preview-label.yml); for anything else, add the
+# "preview" label to the PR to request a build. Removing the label stops
+# further builds on subsequent pushes.
 
 name: Create website preview
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, labeled]
     branches:
-    - '**'
-    - '!master'
-    - '!python-*'
+    - master
 
-# only run one at a time per branch
+# only run one at a time per PR
 concurrency:
-  group: preview-${{ github.ref }}
+  group: preview-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 permissions:
@@ -22,7 +27,16 @@ permissions:
 
 jobs:
   preview:
-    if: github.repository == 'acl-org/acl-anthology'
+    # IMPORTANT: `head.repo.full_name == github.repository` restricts this to
+    # PRs from branches within our own repo. Do not remove this check: this job
+    # runs arbitrary repo code (`make check site preview`) and publishes with a
+    # secret SSH key, so it must never run against a fork's code.
+    if: >
+      github.repository == 'acl-org/acl-anthology' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref != 'master' &&
+      contains(github.event.pull_request.labels.*.name, 'preview') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'preview')
     runs-on:
       labels: ubuntu-latest-m
     env:
@@ -52,6 +66,11 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v7
+      with:
+        # Check out the PR's actual head commit (not the ephemeral merge
+        # commit that `pull_request` checks out by default), so the preview
+        # reflects exactly what's on the branch.
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -62,41 +81,27 @@ jobs:
     - name: extract branch name
       shell: bash
       run: |
-        raw_branch="${GITHUB_REF#refs/heads/}"
+        raw_branch="${GITHUB_HEAD_REF}"
         branch="${raw_branch//\//___}"
         echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
     - name: list changes
       shell: bash
-      run: echo "changes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      run: echo "changes=$(git diff --name-only HEAD origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
       id: list_changes
 #    - name: list volumes debug
 #      shell: bash
 #      run: |
-#        git diff --name-only $GITHUB_REF origin/master
-#        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+#        git diff --name-only HEAD origin/master
+#        git diff --name-only HEAD origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
     - name: Download NLTK data
       # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
       run: uv run python -c "import nltk; nltk.download('punkt_tab')"
-    - name: find pull request
-      id: pull_request
-      uses: actions/github-script@v6
-      with:
-        result-encoding: string
-        script: |
-          const branch = context.ref.replace('refs/heads/', '');
-          const { data: pullRequests } = await github.rest.pulls.list({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            head: `${context.repo.owner}:${branch}`,
-            state: 'open',
-          });
-          return pullRequests[0]?.html_url || '';
     - name: preview
       shell: bash
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
-        HUGO_PARAMS_PREVIEWPRURL: ${{ steps.pull_request.outputs.result }}
+        HUGO_PARAMS_PREVIEWPRURL: ${{ github.event.pull_request.html_url }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
     - uses: mshick/add-pr-comment@v2
@@ -115,15 +120,7 @@ jobs:
       uses: actions/github-script@v8
       with:
         script: |
-          const branch = context.ref.replace('refs/heads/', '');
-          const { data: prs } = await github.rest.pulls.list({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            head: `${context.repo.owner}:${branch}`,
-            state: 'open',
-          });
-          if (prs.length === 0) return;
-          const pr = prs[0];
+          const pr = context.payload.pull_request;
           if (!/^ingest\b/i.test(pr.title)) return;
 
           const body = pr.body || '';

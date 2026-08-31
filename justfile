@@ -26,7 +26,11 @@ upgrade-hugo-version VERSION:
     sed -i 's/Hugo [0-9.]\+/Hugo {{ VERSION }}/' README.md README_detailed.md
     sed -i 's/hugo >= [0-9.]\+/hugo >= {{ VERSION }}/' README.md
 
-# Build site and serve via Hugo's webserver
+# Build website in production mode
+build:
+  make site
+
+# Build website in development mode and serve via Hugo's webserver
 serve ENV='development' NOBIB='true':
     make NOBIB={{ NOBIB }} static hugo_data bib
     cd build/ && hugo server --environment {{ ENV }}
