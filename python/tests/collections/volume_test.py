@@ -396,6 +396,77 @@ def test_volume_add_sig_raises(anthology):
         volume.sig_ids += ("doesntexist",)
 
 
+def test_volume_add_sig_by_id(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    sigdat = anthology.sigs["sigdat"]
+    assert "sigdat" not in volume.sig_ids
+    assert volume.full_id_tuple not in sigdat.item_ids
+
+    volume.add_sig("sigdat")
+
+    assert volume.sig_ids == ("sigdat",)
+    assert volume.full_id_tuple in sigdat.item_ids
+
+
+def test_volume_add_sig_by_object(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    sigdat = anthology.sigs["sigdat"]
+    assert "sigdat" not in volume.sig_ids
+
+    volume.add_sig(sigdat)
+
+    assert volume.sig_ids == ("sigdat",)
+    assert volume.full_id_tuple in sigdat.item_ids
+
+
+def test_volume_add_sig_already_present_is_noop(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    assert "sigdat" in volume.sig_ids
+
+    volume.add_sig("sigdat")
+
+    assert volume.sig_ids.count("sigdat") == 1
+
+
+def test_volume_add_sig_nonexistent_raises(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    anthology.sigs.load()
+    with pytest.raises(ValueError):
+        volume.add_sig("doesntexist")
+
+
+def test_volume_remove_sig_by_id(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    sigdat = anthology.sigs["sigdat"]
+    assert "sigdat" in volume.sig_ids
+    assert volume.full_id_tuple in sigdat.item_ids
+
+    volume.remove_sig("sigdat")
+
+    assert "sigdat" not in volume.sig_ids
+    assert volume.full_id_tuple not in sigdat.item_ids
+
+
+def test_volume_remove_sig_by_object(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    sigsem = anthology.sigs["sigsem"]
+    assert "sigsem" in volume.sig_ids
+
+    volume.remove_sig(sigsem)
+
+    assert "sigsem" not in volume.sig_ids
+    assert volume.full_id_tuple not in sigsem.item_ids
+
+
+def test_volume_remove_sig_not_present_is_noop(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    assert volume.sig_ids == ()
+
+    volume.remove_sig("sigdat")
+
+    assert volume.sig_ids == ()
+
+
 def test_volume_add_venue_updates_venue(anthology):
     volume = anthology.get_volume("2022.naloma-1")
     nlma = anthology.venues["nlma"]
@@ -460,6 +531,77 @@ def test_volume_remove_venue_updates_event(anthology):
     # Events should be updated
     events = anthology.events.by_volume(volume)
     assert set(ev.id for ev in events) == {"acl-2022", "ws-2022"}
+
+
+def test_volume_add_venue_by_id(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    humeval = anthology.venues["humeval"]
+    assert "humeval" not in volume.venue_ids
+    assert volume.full_id_tuple not in humeval.item_ids
+
+    volume.add_venue("humeval")
+
+    assert "humeval" in volume.venue_ids
+    assert volume.full_id_tuple in humeval.item_ids
+
+
+def test_volume_add_venue_by_object(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    humeval = anthology.venues["humeval"]
+    assert "humeval" not in volume.venue_ids
+
+    volume.add_venue(humeval)
+
+    assert "humeval" in volume.venue_ids
+    assert volume.full_id_tuple in humeval.item_ids
+
+
+def test_volume_add_venue_already_present_is_noop(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    assert "nlma" in volume.venue_ids
+
+    volume.add_venue("nlma")
+
+    assert volume.venue_ids.count("nlma") == 1
+
+
+def test_volume_add_venue_nonexistent_raises(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    anthology.venues.load()
+    with pytest.raises(ValueError):
+        volume.add_venue("doesntexist")
+
+
+def test_volume_remove_venue_by_id(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    nlma = anthology.venues["nlma"]
+    assert "nlma" in volume.venue_ids
+    assert volume.full_id_tuple in nlma.item_ids
+
+    volume.remove_venue("nlma")
+
+    assert "nlma" not in volume.venue_ids
+    assert volume.full_id_tuple not in nlma.item_ids
+
+
+def test_volume_remove_venue_by_object(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    ws = anthology.venues["ws"]
+    assert "ws" in volume.venue_ids
+
+    volume.remove_venue(ws)
+
+    assert "ws" not in volume.venue_ids
+    assert volume.full_id_tuple not in ws.item_ids
+
+
+def test_volume_remove_venue_not_present_is_noop(anthology):
+    volume = anthology.get_volume("2022.acl-long")
+    assert volume.venue_ids == ("acl",)
+
+    volume.remove_venue("humeval")
+
+    assert volume.venue_ids == ("acl",)
 
 
 @pytest.mark.parametrize("xml", test_cases_volume_xml)

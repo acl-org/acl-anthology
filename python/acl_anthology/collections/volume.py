@@ -171,7 +171,8 @@ class Volume(SlottedDict[Paper]):
 
     Attributes: Tuple Attributes:
         editors: Names of editors associated with this volume.
-        venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
+        sig_ids: List of SIG IDs associated with this volume. See also [sigs][acl_anthology.collections.volume.Volume.sigs]/[add_sig][acl_anthology.collections.volume.Volume.add_sig]/[remove_sig][acl_anthology.collections.volume.Volume.remove_sig].
+        venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues]/[add_venue][acl_anthology.collections.volume.Volume.add_venue]/[remove_venue][acl_anthology.collections.volume.Volume.remove_venue].
         urls: Links to external, non-locally-hosted resources associated with this volume (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
@@ -439,6 +440,39 @@ class Volume(SlottedDict[Paper]):
         """An iterator over all Paper objects in this volume."""
         yield from self.data.values()
 
+    def add_sig(self, sig: str | SIG) -> None:
+        """Associate a SIG with this volume.
+
+        If the SIG is already associated with this volume, this will do nothing.
+
+        Arguments:
+            sig: A SIG object, or a string representing a SIG ID.
+
+        Raises:
+            ValueError: If a string was given, but the SIG does not exist.
+        """
+        if isinstance(sig, str):
+            sig_id = sig
+            if sig_id not in self.root.sigs:
+                raise ValueError(f"SIG doesn't exist: '{sig_id}'")
+        else:
+            sig_id = sig.id
+        if sig_id in self.sig_ids:
+            return
+        self.sig_ids += (sig_id,)
+
+    def remove_sig(self, sig: str | SIG) -> None:
+        """Remove a SIG association from this volume.
+
+        If the SIG is not associated with this volume, this will do nothing.
+
+        Arguments:
+            sig: A SIG object, or a string representing a SIG ID.
+        """
+        sig_id = sig if isinstance(sig, str) else sig.id
+        if sig_id in self.sig_ids:
+            self.sig_ids = tuple(x for x in self.sig_ids if x != sig_id)
+
     def sigs(self) -> list[SIG]:
         """
         Returns:
@@ -451,6 +485,39 @@ class Volume(SlottedDict[Paper]):
                 f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
             )
             raise exc
+
+    def add_venue(self, venue: str | Venue) -> None:
+        """Associate a venue with this volume.
+
+        If the venue is already associated with this volume, this will do nothing.
+
+        Arguments:
+            venue: A Venue object, or a string representing a venue ID.
+
+        Raises:
+            ValueError: If a string was given, but the venue does not exist.
+        """
+        if isinstance(venue, str):
+            venue_id = venue
+            if venue_id not in self.root.venues:
+                raise ValueError(f"Venue doesn't exist: '{venue_id}'")
+        else:
+            venue_id = venue.id
+        if venue_id in self.venue_ids:
+            return
+        self.venue_ids += (venue_id,)
+
+    def remove_venue(self, venue: str | Venue) -> None:
+        """Remove a venue association from this volume.
+
+        If the venue is not associated with this volume, this will do nothing.
+
+        Arguments:
+            venue: A Venue object, or a string representing a venue ID.
+        """
+        venue_id = venue.id if isinstance(venue, Venue) else venue
+        if venue_id in self.venue_ids:
+            self.venue_ids = tuple(x for x in self.venue_ids if x != venue_id)
 
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
