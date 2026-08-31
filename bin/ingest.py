@@ -66,7 +66,7 @@ def read_meta(path: str) -> Dict[str, Any]:
         for line in instream:
             if re.match(r"^\s*$", line):
                 continue
-            key, value = line.rstrip().split(" ", maxsplit=1)
+            key, value = line.rstrip().split(maxsplit=1)
             if key.startswith("chair") or key.startswith("editor"):
                 # Allow for Bib format, an occasional error in the meta file
                 for value in value.split(" and "):
@@ -251,16 +251,15 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
     empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
     expands to nothing.
 
-    The Anthology schema defines ``MarkupText = (text | b | i | url |
-    fixed-case | tex-math)+``, so a markup element with neither text nor child
-    elements is invalid and makes the XML fail schema validation at build time.
+    With the exception of ``<par/>``, markup elements with neither text nor child
+    elements are invalid and make the XML fail schema validation at build time.
     Such abstracts render without raising, so they must be detected explicitly.
     """
     root = abstract.to_xml()
     for element in root.iter():
         if element is root:
             continue
-        if len(element) == 0 and not element.text:
+        if element.tag != "par" and len(element) == 0 and not element.text:
             return True
     return False
 
@@ -966,7 +965,6 @@ def ingest(
             anthology,
             metadata["sig"],
             volume_obj,
-            metadata.get("booktitle"),
         )
     configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
@@ -1117,18 +1115,15 @@ def register_volume_with_sig(
     anthology: Anthology,
     sig_id: str,
     volume: Volume,
-    booktitle: Optional[str] = None,
 ) -> None:
-    """Register an ingested volume with a SIG if that SIG exists."""
+    """Store a SIG association on an ingested volume if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
         log.warning(f"SIG '{sig_key}' not found; cannot register {volume.full_id}")
         return
 
-    sig = anthology.sigs[sig_key]
-    if volume.full_id not in sig.meetings:
-        sig.meetings.append(volume.full_id)
-    anthology.sigs.reverse[volume.full_id_tuple].add(sig_key)
+    if sig_key not in volume.sig_ids:
+        volume.sig_ids += (sig_key,)
 
 
 def main(args):

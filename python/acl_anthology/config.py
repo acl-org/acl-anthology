@@ -41,6 +41,9 @@ class DefaultConfig:
     event_location_template: str = "${url_prefix}/{}"
     """URL formatting template for event-related files."""
 
+    event_page_template: str = "${url_prefix}/events/{}/"
+    """URL formatting template for event landing pages."""
+
     video_location_template: str = "${url_prefix}/{}"
     """URL formatting template for videos."""
 
