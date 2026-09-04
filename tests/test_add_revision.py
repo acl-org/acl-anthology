@@ -17,6 +17,10 @@ from bin.add_revision import add_revision, main, normalize_id
         ("2026.example-1.2", "2026.example-1.2"),
         ("2026.example-1.2/", "2026.example-1.2"),
         (
+            "https://aclanthology.org/2026.example-1.2/",
+            "2026.example-1.2",
+        ),
+        (
             "[2026.example-1.2](https://aclanthology.org/2026.example-1.2/)",
             "2026.example-1.2",
         ),

@@ -506,6 +506,12 @@ def normalize_id(anthology_id: str) -> str:
     markdown_link = re.fullmatch(r"\[([^]]+)\]\([^)]+\)", anthology_id)
     if markdown_link:
         anthology_id = markdown_link.group(1)
+    parsed_url = urllib.parse.urlparse(anthology_id)
+    if parsed_url.scheme in {"http", "https"} and parsed_url.netloc.casefold() in {
+        "aclanthology.org",
+        "www.aclanthology.org",
+    }:
+        anthology_id = parsed_url.path.strip("/")
     return anthology_id.rstrip("/")
 
 
