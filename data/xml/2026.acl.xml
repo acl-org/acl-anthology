@@ -404,11 +404,13 @@
       <author id="emmanuel-dupoux" orcid="0000-0002-7814-2952" openreview="~Emmanuel_Dupoux1"><first>Emmanuel</first><last>Dupoux</last><affiliation>EHESS</affiliation></author>
       <pages>568-585</pages>
       <abstract>This paper introduces MauBERT, a multilingual extension of HuBERT that leverages articulatory features for robust cross-lingual phonetic representation learning. We continue HuBERT pre-training with supervision based on a phonetic-to-articulatory feature mapping in 55 languages. Our models learn from multilingual data to predict articulatory features or phones, resulting in language-independent representations that capture multilingual phonetic properties. Through comprehensive ABX discriminability testing, we show MauBERT models produce more context-invariant representations than state-of-the-art multilingual self-supervised learning models. Additionally, the models effectively adapt to unseen languages and casual speech with minimal self-supervised fine-tuning (10 hours of speech). This establishes an effective approach for instilling linguistic inductive biases in self-supervised speech models.</abstract>
-      <url hash="95a7280d">2026.acl-long.24</url>
+      <url hash="bfb41f4e">2026.acl-long.24</url>
       <attachment hash="1542fea2" type="checklist">2026.acl-long.24.checklist.pdf</attachment>
       <bibkey>ortiz-tandazo-etal-2026-maubert</bibkey>
       <doi>10.18653/v1/2026.acl-long.24</doi>
       <award name="Outstanding Paper"/>
+      <revision id="1" href="2026.acl-long.24v1" hash="95a7280d"/>
+      <revision id="2" href="2026.acl-long.24v2" hash="bfb41f4e" date="2026-08-12">Numerous corrections in Table 1, Figure 1.b., and sections 4.3 and 5.1.</revision>
     </paper>
     <paper id="25">
       <!-- https://aclanthology.org/2026.acl-long.25/ -->
@@ -472,10 +474,12 @@
       <author id="varun-chandrasekaran" orcid="0000-0003-0661-6378" openreview="~Varun_Chandrasekaran1"><first>Varun</first><last>Chandrasekaran</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
       <pages>646-673</pages>
       <abstract>Translating software written in C to Rust has significant benefits in improving memory safety. However, manual translation is cumbersome, error-prone, and often produces unidiomatic code. Large language models (LLMs) have demonstrated promise in producing idiomatic translations, but offer no correctness guarantees. We propose SACTOR, an LLM-driven C-to-Rust translation tool that employs a two-step process: an initial “unidiomatic” translation to preserve semantics, followed by an “idiomatic” refinement to align with Rust standards. SACTOR leverages static analysis of the C source to handle pointer semantics and dependency resolution. To validate correctness of our function-wise incremental translation that mixes C and Rust, we use end-to-end testing via the foreign function interface. We evaluate SACTOR on 200 programs from two public datasets and on two more complex scenarios (a 50-sample subset of CRust-Bench and the libogg library), comparing multiple LLMs. Across datasets, SACTOR delivers high end-to-end correctness and produces safe, idiomatic Rust with up to 7<tex-math>\times</tex-math> fewer Clippy warnings; On CRust-Bench, SACTOR achieves an average (across samples) of 85% unidiomatic and 52% idiomatic success, and on libogg it attains full unidiomatic and up to 78% idiomatic coverage on GPT-5.</abstract>
-      <url hash="86cc1288">2026.acl-long.28</url>
+      <url hash="dccacf04">2026.acl-long.28</url>
       <attachment hash="3a97937f" type="checklist">2026.acl-long.28.checklist.pdf</attachment>
       <bibkey>zhou-etal-2026-sactor</bibkey>
       <doi>10.18653/v1/2026.acl-long.28</doi>
+      <revision id="1" href="2026.acl-long.28v1" hash="86cc1288"/>
+      <revision id="2" href="2026.acl-long.28v2" hash="dccacf04" date="2026-09-04">Correct page layout issue.</revision>
     </paper>
     <paper id="29">
       <!-- https://aclanthology.org/2026.acl-long.29/ -->
@@ -2359,10 +2363,12 @@
       <author id="alex-warstadt" orcid="0000-0002-5397-3151" openreview="~Alex_Warstadt1"><first>Alex</first><last>Warstadt</last><affiliation>University of California, San Diego</affiliation></author>
       <pages>3137-3151</pages>
       <abstract>Users frequently express their beliefs to large language models (LLMs). In some situations, the LLM should accept these contextual beliefs as true. In others, they should stick to their prior knowledge. Notably, users’ expressions of belief (EoBs) can take linguistically diverse forms—using presuppositions, evidential and certainty markers, or varied tones—each of which may have a different persuasiveness over the LLMs. We introduce a typology to systematically evaluate how different EoBs affect whether models follow context versus prior knowledge. The typology is grounded in four linguistically motivated dimensions: form, evidentiality, epistemic stance, and tone, spanning 17 fine-grained types. By pairing these EoBs with world knowledge facts, we generate controlled EoB–query pairs that isolate the effect of linguistic variation. Using this benchmark, we evaluate 16 LLMs that differ in architecture (Llama3, Qwen3, Gemma3), scale (1B-30B parameters), and training stages (base vs instruct). We identify meaningful variations in response behavior across these axes, e.g., that bigger models and instruction models tend to be less context–following than smaller models and base models. We further identify specific EoBs that statistically significantly persuade LMs more consistently than others. Our work reveals systematic patterns in how linguistic framing affects LLM context integration, with implications for prompt engineering and model robustness.</abstract>
-      <url hash="70596be7">2026.acl-long.142</url>
+      <url hash="fe96fe1c">2026.acl-long.142</url>
       <attachment hash="86b4db5d" type="checklist">2026.acl-long.142.checklist.pdf</attachment>
       <bibkey>du-etal-2026-say</bibkey>
       <doi>10.18653/v1/2026.acl-long.142</doi>
+      <revision id="1" href="2026.acl-long.142v1" hash="70596be7"/>
+      <revision id="2" href="2026.acl-long.142v2" hash="fe96fe1c" date="2026-08-10">Clarifies that our metric of CFR estimates a probability distribution, rather than exactly represents one.</revision>
     </paper>
     <paper id="143">
       <!-- https://aclanthology.org/2026.acl-long.143/ -->
@@ -4065,12 +4071,13 @@
       <author id="tao-jin" orcid="0000-0003-3564-1628" openreview="~Tao_Jin2"><first>Tao</first><last>Jin</last><affiliation>Zhejiang University</affiliation></author>
       <pages>5385-5394</pages>
       <abstract>In recent years, CLIP-based text-video retrieval methods have developed rapidly, with research focusing on constructing diverse features and achieving effective interactions. However, the asymmetry of cross-modal information poses a challenge to accurately establishing retrieval relationships. To overcome this challenge, we propose a novel video retrieval framework, termed the Dual-Pathway and Dual-View model (DPDV), which consists of the Dual-Pathway Partitioning Module (DPPM) for constructing features at an appropriate granularity and the Dual-View Interaction Module (DVIM) for performing effective feature interactions. For DPPM, we simulate a human macro-level cognitive perspective by partitioning visual features into two categories based on their relevance to the text query and supplementing less relevant features with additional textual information. For DVIM, we simulate a human alignment strategy from macro to micro levels, focusing on local visual features while comprehensively modeling fine-grained interactions. We evaluate DPDV on five benchmark datasets, achieving leading retrieval performance.</abstract>
-      <url hash="0efa54b1">2026.acl-long.244</url>
+      <url hash="bceefcbc">2026.acl-long.244</url>
       <attachment hash="57599c0f" type="checklist">2026.acl-long.244.checklist.pdf</attachment>
       <bibkey>xie-etal-2026-dpdv</bibkey>
       <doi>10.18653/v1/2026.acl-long.244</doi>
       <revision id="1" href="2026.acl-long.244v1" hash="0efa54b1"/>
       <revision id="2" href="2026.acl-long.244v2" hash="0efa54b1" date="2026-07-19">This revision replaces an incorrectly uploaded PDF with the correct camera-ready version for this publication.</revision>
+      <revision id="3" href="2026.acl-long.244v3" hash="bceefcbc" date="2026-09-04">This revision adds an equal-contribution marker to Boyun Zhang on the first page.</revision>
     </paper>
     <paper id="245">
       <!-- https://aclanthology.org/2026.acl-long.245/ -->
@@ -6349,10 +6356,12 @@
       <author openreview="~Jun_Wang2"><first>Jun</first><last>Wang</last><affiliation>University College London</affiliation></author>
       <pages>8350-8366</pages>
       <abstract>Large language models (LLMs) excel at natural language tasks but face deployment challenges due to computational demands. We introduce <b>Dual Activation-Weight Sparsity (DAWS)</b>, a training-free framework that jointly exploits activation and weight sparsity through magnitude-based routing. Systematic analysis of pretrained transformers reveals two key observations: (1) the activation energy is concentrated in a few neurons, and (2) activation and weight sparsity patterns are complementary between attention and FFN layers. DAWS employs a three-tier routing strategy: high-magnitude activations pass through full-precision weights to preserve critical pathways, medium-magnitude activations use magnitude-pruned sparse weights for efficiency, and low-magnitude activations are directly discarded. Unlike prior work that uses activation-aware pruning methods like WANDA, our approach uses direct magnitude-based pruning, which we show is more robust to sample-level variations. Experiments on Llama and Mistral models demonstrate that DAWS maintains &gt;98% of dense model performance at 50% sparsity, outperforming WANDA, TEAL, and R-Sparse.</abstract>
-      <url hash="b2c0136e">2026.acl-long.378</url>
+      <url hash="6436f127">2026.acl-long.378</url>
       <attachment hash="8b59d575" type="checklist">2026.acl-long.378.checklist.pdf</attachment>
       <bibkey>sun-etal-2026-dual-activation</bibkey>
       <doi>10.18653/v1/2026.acl-long.378</doi>
+      <revision id="1" href="2026.acl-long.378v1" hash="b2c0136e"/>
+      <revision id="2" href="2026.acl-long.378v2" hash="6436f127" date="2026-09-04">Fix typo in author's name.</revision>
     </paper>
     <paper id="379">
       <!-- https://aclanthology.org/2026.acl-long.379/ -->
@@ -12645,10 +12654,12 @@
       <author id="haifeng-chen-738x" orcid="0000-0002-9363-738X" openreview="~Haifeng_Chen1"><first>Haifeng</first><last>Chen</last><affiliation>NEC-Labs</affiliation></author>
       <pages>16689-16715</pages>
       <abstract>Large Language Models (LLMs) have achieved remarkable success in natural language processing by encoding extensive knowledge, but their utility relies on timely updates as human knowledge keeps evolving. In this paper, we investigate the problem of LLM knowledge updates, which requires simultaneously unlearning unwanted information and learning new knowledge. Existing approaches that tackle unlearning and learning separately encounter <i>task conflicts</i> and <i>knowledge management issues</i> when applied to comprehensive knowledge updates.In this paper, we validate our findings with theoretical analysis and empirical evidence, and propose LOKA, a conflict-aware framework for Large language mOdel Knowledge updAtes. During training, LOKA introduces an adaptive knowledge memory approach in which updated knowledge is allocated across multiple memory units. During inference, LOKA retrieves the most relevant memory unit from the knowledge memory and integrates it with the original LLM to apply updated knowledge, while a learning-based router controls the activation of the knowledge memory to improve knowledge utilization. Extensive experiments demonstrate the efficacy of LOKA in achieving accurate, flexible, and conflict-aware knowledge updates.</abstract>
-      <url hash="c005ee17">2026.acl-long.760</url>
+      <url hash="f65d448c">2026.acl-long.760</url>
       <attachment hash="564e773b" type="checklist">2026.acl-long.760.checklist.pdf</attachment>
       <bibkey>zhang-etal-2026-loka</bibkey>
       <doi>10.18653/v1/2026.acl-long.760</doi>
+      <revision id="1" href="2026.acl-long.760v1" hash="c005ee17"/>
+      <revision id="2" href="2026.acl-long.760v2" hash="f65d448c" date="2026-08-14">Add Acknowledgments section.</revision>
     </paper>
     <paper id="761">
       <!-- https://aclanthology.org/2026.acl-long.761/ -->
@@ -12738,10 +12749,12 @@
       <author id="zhengzhang-chen" orcid="0000-0002-6803-0535" openreview="~Zhengzhang_Chen1"><first>Zhengzhang</first><last>Chen</last><affiliation>NEC Labs America</affiliation></author>
       <pages>16798-16813</pages>
       <abstract>Large language models (LLMs) are increasingly deployed in culturally sensitive real-world tasks. However, existing cultural alignment approaches fail to align LLMs’ broad cultural values with the specific goals of downstream tasks and suffer from cross-culture interference. We propose CultureManager, a novel pipeline for task-specific cultural alignment. CultureManager synthesizes task-aware cultural data in line with target task formats, grounded in culturally relevant web search results. To prevent conflicts between cultural norms, it manages multi-culture knowledge learned in separate adapters with a culture router that selects the appropriate one to apply. Experiments across five national cultures and ten culture-sensitive tasks show consistent improvements over prompt-based and fine-tuning baselines. Our results demonstrate the necessity of task adaptation and modular culture management for effective cultural alignment.</abstract>
-      <url hash="5ea1d505">2026.acl-long.766</url>
+      <url hash="88d853ed">2026.acl-long.766</url>
       <attachment hash="b2b5173d" type="checklist">2026.acl-long.766.checklist.pdf</attachment>
       <bibkey>zhang-etal-2026-mind</bibkey>
       <doi>10.18653/v1/2026.acl-long.766</doi>
+      <revision id="1" href="2026.acl-long.766v1" hash="5ea1d505"/>
+      <revision id="2" href="2026.acl-long.766v2" hash="88d853ed" date="2026-08-14">Add Acknowledgments section.</revision>
     </paper>
     <paper id="767">
       <!-- https://aclanthology.org/2026.acl-long.767/ -->
@@ -14884,11 +14897,13 @@
       <author id="xun-yang" orcid="0000-0003-0201-1638" openreview="~Xun_Yang1"><first>Xun</first><last>Yang</last><affiliation>University of Science and Technology of China</affiliation></author>
       <pages>19514-19531</pages>
       <abstract>Machine unlearning aims to forget sensitive knowledge from Large Language Models (LLMs) while maintaining general utility. However, existing approaches typically treat all tokens in a response indiscriminately and enforce uncertainty over the entire vocabulary. This global treatment results in unnecessary utility degradation and extends optimization to content-agnostic regions. To address these limitations, we propose PALU (Prefix-Aware Localized Unlearning), a framework driven by a local entropy maximization objective across both temporal and vocabulary dimensions. PALU reveals that (i) suppressing the sensitive prefix alone is sufficient to sever the causal generation link, and (ii) flattening only the top-K logits is adequate to maximize uncertainty in the critical subspace. These findings allow PALU to alleviate redundant optimization across the full vocabulary and parameter space while minimizing collateral damage to general model performance. Comprehensive evaluations validate that PALU achieves superior forgetting efficacy and utility preservation compared to state-of-the-art baselines. Our code is available at <url>https://github.com/nxZhai/PALU</url>.</abstract>
-      <url hash="963e9467">2026.acl-long.893</url>
+      <url hash="9195d243">2026.acl-long.893</url>
       <attachment hash="18d2f0f8" type="checklist">2026.acl-long.893.checklist.pdf</attachment>
       <bibkey>zhai-etal-2026-maximizing</bibkey>
       <doi>10.18653/v1/2026.acl-long.893</doi>
       <award name="Outstanding Paper"/>
+      <revision id="1" href="2026.acl-long.893v1" hash="963e9467"/>
+      <revision id="2" href="2026.acl-long.893v2" hash="9195d243" date="2026-08-10">This revision fixes several typographical errors, removes the downward arrows and best/second-best highlighting from the metrics in Table 2, and updates the corresponding discussion to clarify their interpretation and avoid potential ambiguity.</revision>
     </paper>
     <paper id="894">
       <!-- https://aclanthology.org/2026.acl-long.894/ -->
@@ -15326,10 +15341,12 @@
       <author id="shanshan-wang" orcid="0009-0004-2680-0775" openreview="~Shanshan_Wang5"><first>Shanshan</first><last>Wang</last></author>
       <pages>20071-20104</pages>
       <abstract>Although debiased large language models (LLMs) excel at handling known or low-bias prompts, they often fail on unfamiliar and high-bias prompts. We demonstrate via out-of-distribution (OOD) detection that these high-bias prompts cause a distribution shift, degrading static model performance. To enable real-time correction, we propose CAP-TTA, a test-time adaptation framework. CAP-TTA triggers context-aware LoRA updates only when a bias-risk score exceeds a set threshold. By utilizing an offline precomputed diagonal preconditioner, it ensures fast and stable optimization. Across multiple benchmarks and human evaluations, CAP-TTA effectively reduces toxicity/bias score with significantly lower latency than standard optimization methods (e.g., AdamW or SGD). Furthermore, it prevents catastrophic forgetting, and substantially improves narrative fluency over state-of-the-art baselines without compromising debiasing performance.</abstract>
-      <url hash="70772125">2026.acl-long.919</url>
+      <url hash="7e4d3735">2026.acl-long.919</url>
       <attachment hash="f3e1c30b" type="checklist">2026.acl-long.919.checklist.pdf</attachment>
       <bibkey>shen-etal-2026-preconditioned</bibkey>
       <doi>10.18653/v1/2026.acl-long.919</doi>
+      <revision id="1" href="2026.acl-long.919v1" hash="70772125"/>
+      <revision id="2" href="2026.acl-long.919v2" hash="7e4d3735" date="2026-08-12">Correct numerous typos.</revision>
     </paper>
     <paper id="920">
       <!-- https://aclanthology.org/2026.acl-long.920/ -->
@@ -24938,10 +24955,12 @@
       <author openreview="~Ryan_Cotterell1"><first>Ryan</first><last>Cotterell</last></author>
       <pages>32202-32224</pages>
       <abstract>Surprisal theory links human processing effort to the predictability of an upcoming linguistic unit, but empirical work often leaves the notion of a unit underspecified. In practice, experimental stimuli are segmented into linguistically motivated units (e.g., words), while pretrained language models assign probability mass to a fixed token alphabet that typically does not align with those units. As a result, surprisal-based predictors depend implicitly on ad hoc procedures that conflate two distinct modeling choices: the definition of the unit of analysis and the choice of regions of interest over which predictions are evaluated. In this paper, we disentangle these choices and give a unified framework for reasoning about surprisal over arbitrary unit inventories. We argue that surprisal-based analyses should make these choices explicit and treat tokenization as an implementation detail rather than a scientific primitive.</abstract>
-      <url hash="a3bfd911">2026.acl-long.1485</url>
+      <url hash="58ca1811">2026.acl-long.1485</url>
       <attachment hash="9d5b61d8" type="checklist">2026.acl-long.1485.checklist.pdf</attachment>
       <bibkey>kiegeland-etal-2026-proper</bibkey>
       <doi>10.18653/v1/2026.acl-long.1485</doi>
+      <revision id="1" href="2026.acl-long.1485v1" hash="a3bfd911"/>
+      <revision id="2" href="2026.acl-long.1485v2" hash="58ca1811" date="2026-08-12">Fix minor typos, add and reorganize appendices, update empirical results.</revision>
     </paper>
     <paper id="1486">
       <!-- https://aclanthology.org/2026.acl-long.1486/ -->
@@ -27212,10 +27231,12 @@
       <author id="aixin-sun" orcid="0000-0003-0764-4258" openreview="~Aixin_Sun1"><first>Aixin</first><last>Sun</last><affiliation>Nanyang Technological University</affiliation></author>
       <pages>34979-35011</pages>
       <abstract>Large language models (LLMs) are often assumed to contain "safety regions” - parameter subsets whose modification directly influences safety behaviors. We conduct a systematic evaluation of four safety region identification methods spanning different parameter granularities, from individual weights to entire Transformer layers, across four families of backbone LLMs with varying sizes. Using ten safety identification datasets, we find that the identified safety regions exhibit only low to moderate overlap, as measured by IoU. The overlap drops significantly when the safety regions are further refined using utility datasets (i.e. non-harmful queries). These results suggest that current techniques fail to reliably identify a stable, dataset-agnostic safety region.</abstract>
-      <url hash="060367c5">2026.acl-long.1616</url>
+      <url hash="fa053542">2026.acl-long.1616</url>
       <attachment hash="2baee9be" type="checklist">2026.acl-long.1616.checklist.pdf</attachment>
       <bibkey>li-etal-2026-llm-safety</bibkey>
       <doi>10.18653/v1/2026.acl-long.1616</doi>
+      <revision id="1" href="2026.acl-long.1616v1" hash="060367c5"/>
+      <revision id="2" href="2026.acl-long.1616v2" hash="fa053542" date="2026-08-10">Update with camera-ready copy.</revision>
     </paper>
     <paper id="1617">
       <!-- https://aclanthology.org/2026.acl-long.1617/ -->
@@ -28536,10 +28557,12 @@
       <author openreview="~Christina_Lioma1"><first>Christina</first><last>Lioma</last><affiliation>University of Copenhagen</affiliation></author>
       <pages>36570-36590</pages>
       <abstract>Large Language Models (LLMs) often encode whether a statement is true as a vector in their residual stream activations. These vectors, also known as truth vectors, have been studied in prior work, however how they change when context is introduced remains unexplored. We study this question by measuring (1) the directional change (<tex-math>\theta</tex-math>) between the truth vectors with and without context and (2) the relative magnitude of the truth vectors upon adding context. Across four LLMs and four datasets, we find that (1) truth vectors are roughly orthogonal in early layers, converge in middle layers, and may stabilize or continue increasing in later layers; (2) adding context generally increases the truth vector magnitude, i.e., the separation between true and false representations in the activation space is amplified; (3) larger models distinguish relevant from irrelevant context mainly through directional change (<tex-math>\theta</tex-math>), while smaller models show this distinction through magnitude differences. We also find that context conflicting with parametric knowledge produces larger geometric changes than parametrically aligned context. Collectively, these findings provide a geometric characterization of how context transforms the truth vector in the activation space of LLMs.</abstract>
-      <url hash="028d3a3e">2026.acl-long.1695</url>
+      <url hash="c85ab8f0">2026.acl-long.1695</url>
       <attachment hash="975a19aa" type="checklist">2026.acl-long.1695.checklist.pdf</attachment>
       <bibkey>adarsh-etal-2026-context</bibkey>
       <doi>10.18653/v1/2026.acl-long.1695</doi>
+      <revision id="1" href="2026.acl-long.1695v1" hash="028d3a3e"/>
+      <revision id="2" href="2026.acl-long.1695v2" hash="c85ab8f0" date="2026-08-10">Add missing acknowledgments.</revision>
     </paper>
     <paper id="1696">
       <!-- https://aclanthology.org/2026.acl-long.1696/ -->
