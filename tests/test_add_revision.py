@@ -4,6 +4,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
+from pypdf import PdfReader, PdfWriter
 import pytest
 
 from acl_anthology.files import PDFReference
@@ -28,7 +29,9 @@ def test_normalize_id(value: str, expected: str) -> None:
 def test_add_revision_preserves_remote_pdf_reference(tmp_path: Path) -> None:
     anthology_id = "2026.example-1.2"
     revised_pdf = tmp_path / "revision.pdf"
-    revised_pdf.write_bytes(b"revised")
+    writer = PdfWriter()
+    writer.add_blank_page(width=612, height=792)
+    writer.write(revised_pdf)
     pdf_dir = tmp_path / "pdf"
     remote_pdf = PDFReference(name="https://example.org/original.pdf")
     anthology = MagicMock()
@@ -59,8 +62,10 @@ def test_add_revision_preserves_remote_pdf_reference(tmp_path: Path) -> None:
         )
 
     assert (pdf_dir / f"{anthology_id}v1.pdf").read_bytes() == b"original"
-    assert (pdf_dir / f"{anthology_id}v2.pdf").read_bytes() == b"revised"
-    assert (pdf_dir / f"{anthology_id}.pdf").read_bytes() == b"revised"
+    version_pdf = pdf_dir / f"{anthology_id}v2.pdf"
+    canonical_pdf = pdf_dir / f"{anthology_id}.pdf"
+    assert version_pdf.read_bytes() == canonical_pdf.read_bytes()
+    assert len(PdfReader(version_pdf).pages) == 1
     assert paper.pdf is remote_pdf
     assert [revision.pdf.name for revision in paper.revisions] == [
         f"{anthology_id}v1",
