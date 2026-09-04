@@ -7,6 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -52,6 +53,7 @@ def test_author_peak_year_prefers_later_year_for_median_tie():
 
 def test_acl_fellows_are_complete_resolved_and_share_timeline_scale(anthology):
     fellows_path = Path(__file__).parent.parent / "data" / "yaml" / "fellows.yaml"
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
 
     data = fellows_to_dict(anthology, fellows_path)
     fellows = data["people"]
@@ -61,6 +63,14 @@ def test_acl_fellows_are_complete_resolved_and_share_timeline_scale(anthology):
     assert {fellow["year"] for fellow in fellows} == set(range(2011, 2026))
     assert len({fellow["id"] for fellow in fellows}) == len(fellows)
     assert all(fellow["reason"].startswith("For ") for fellow in fellows)
+    assert all(fellow["photo"].startswith("images/fellows/") for fellow in fellows)
+    assert all(fellow["photo_source"].startswith("http") for fellow in fellows)
+    for fellow in fellows:
+        photo_path = static_path / fellow["photo"]
+        assert photo_path.is_file()
+        with Image.open(photo_path) as photo:
+            assert photo.format == "WEBP"
+            assert photo.size == (400, 600)
     assert all(
         fellow["timeline_available"] == ("/unverified" not in fellow["id"])
         for fellow in fellows

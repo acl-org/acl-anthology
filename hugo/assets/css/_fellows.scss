@@ -1,24 +1,5 @@
-.acl-fellows-scale {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  margin: 0 0 .5rem;
-  color: $gray-600;
-  font-size: .72rem;
-
-  span:first-child {
-    margin-right: auto;
-    color: $gray-800;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-}
-
 .acl-fellows-list {
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid $gray-300;
-  list-style: none;
+  border-top: 1px solid var(--acl-line);
 }
 
 .acl-fellow-row {
@@ -28,66 +9,58 @@
   align-items: center;
   min-height: 9.25rem;
   padding: 1rem 0;
-  border-bottom: 1px solid $gray-300;
-
-  &:hover {
-    background: tint-color($cyan, 97%);
-  }
+  border-bottom: 1px solid var(--acl-line);
 }
 
 .acl-fellow-portrait {
-  position: relative;
   display: grid;
   width: 5.5rem;
   overflow: hidden;
-  border: 1px solid $gray-300;
+  border: 1px solid var(--acl-line);
   border-radius: .2rem;
   place-items: center;
-  background-color: tint-color($blue, 88%);
-  aspect-ratio: 3 / 4;
+  background-color: $acl-soft-gray;
+  aspect-ratio: 2 / 3;
 
-  > img:not(.acl-fellow-mark) {
+  > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
   > span {
-    position: relative;
-    color: darken($blue, 15%);
+    color: var(--acl-ink);
     font-size: 1.35rem;
-    font-weight: 700;
+    font-weight: 600;
   }
-}
-
-.acl-fellow-mark {
-  position: absolute;
-  width: 78%;
-  opacity: .08;
 }
 
 .acl-fellow-copy {
   min-width: 0;
 
   h2 {
-    margin: .15rem 0 .4rem;
+    margin: 0 0 .4rem;
     font-size: 1.15rem;
     line-height: 1.25;
     overflow-wrap: anywhere;
   }
 }
 
-.acl-fellow-cohort {
-  margin: 0;
-  color: darken($green, 20%);
-  font-size: .72rem;
-  font-weight: 700;
-  text-transform: uppercase;
+.acl-fellow-year {
+  margin-left: .35rem;
+  color: var(--acl-muted);
+  font-size: .78rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.acl-fellow-author-icon {
+  color: $acl-logo-red;
 }
 
 .acl-fellow-reason {
   margin: 0;
-  color: $gray-700;
+  color: var(--acl-muted);
   font-size: .82rem;
   line-height: 1.45;
 }
@@ -95,7 +68,7 @@
 .acl-fellow-credit {
   display: inline-block;
   margin-top: .35rem;
-  color: $gray-600;
+  color: var(--acl-muted);
   font-size: .65rem;
   text-decoration: underline;
 }
@@ -108,11 +81,11 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: .2rem;
-    color: $gray-600;
+    color: var(--acl-muted);
     font-size: .68rem;
 
     span:first-child {
-      color: $gray-800;
+      color: var(--acl-ink);
       font-weight: 600;
     }
   }
@@ -128,44 +101,39 @@
 .acl-fellow-timeline-unavailable {
   display: grid;
   min-height: 5rem;
-  border-bottom: 1px solid $gray-300;
   place-items: center;
 
   p {
     margin: 0;
-    color: $gray-600;
+    color: var(--acl-muted);
     font-size: .75rem;
   }
 }
 
 .acl-timeline-grid {
-  stroke: $gray-200;
+  stroke: $acl-line;
   stroke-width: .5;
 }
 
 .acl-timeline-axis {
-  stroke: $gray-400;
+  stroke: $acl-muted;
   stroke-width: .75;
 }
 
 .acl-timeline-label {
-  fill: $gray-600;
+  fill: $acl-muted;
   font-size: 5px;
 }
 
 .acl-timeline-bar {
-  fill: rgba($blue, .72);
+  fill: $acl-muted-blue;
 }
 
 .acl-timeline-bar-peak {
-  fill: darken($green, 14%);
+  fill: $acl-logo-red;
 }
 
 @include media-breakpoint-down(lg) {
-  .acl-fellows-scale {
-    display: none;
-  }
-
   .acl-fellow-row {
     grid-template-columns: 5rem minmax(0, 1fr);
   }

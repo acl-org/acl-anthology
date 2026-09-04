@@ -21,16 +21,17 @@
       <div class="acl-fellow-portrait">
         {{ with .photo }}
           {{ $photo_url := cond (hasPrefix . "http") . (relURL .) }}
-          <img src="{{ $photo_url }}" alt="{{ default (printf "Portrait of %s" $fellow.name) $fellow.photo_alt }}" loading="lazy" decoding="async">
+          <img src="{{ $photo_url }}" alt="{{ default (printf "Portrait of %s" $fellow.name) $fellow.photo_alt }}" width="400" height="600" loading="lazy" decoding="async">
         {{ else }}
-          <img class="acl-fellow-mark" src="{{ relURL "images/acl-logo-square.svg" }}" alt="">
           <span aria-hidden="true">{{ .initials }}</span>
         {{ end }}
       </div>
 
       <div class="acl-fellow-copy">
-        <p class="acl-fellow-cohort">{{ .year }} ACL Fellow</p>
-        <h2><a href="{{ relref $ (printf "/people/%s" .id) }}">{{ .name }}</a></h2>
+        <h2>
+          <a href="{{ relref $ (printf "/people/%s" .id) }}">{{ .name }}</a>
+          <span class="acl-fellow-year">ACL Fellow, {{ .year }}</span>
+        </h2>
         <p class="acl-fellow-reason">{{ .reason }}</p>
         {{ with .photo_source }}
         <a class="acl-fellow-credit" href="{{ . }}" rel="external noopener">{{ default "Photo source" $fellow.photo_credit }}</a>
