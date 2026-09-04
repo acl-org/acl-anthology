@@ -90,10 +90,6 @@ RewriteRule ^files/(.*)$ anthology-files/files/$1 [L,NC]
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 
-# GROBID full-text extractions (e.g., /P17-1069.json loads anthology-files/grobid/P/P17/P17-1069.json)
-RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})\.json$ anthology-files/grobid/$1/$1$2/$1$2-$3.json [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.([a-zA-Z\d]+)\.json$ anthology-files/grobid/$2/$1.$2-$3.$4.json [L,NC]
-
 # Author pages. A request for the old-style URL /people/m/matt-post should give a 301 redirect
 # to /people/matt-post. Note that this works for any letter prefix, but this can't be avoided
 # since the pattern-match can't match source side.
