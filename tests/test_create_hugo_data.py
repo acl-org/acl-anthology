@@ -12,7 +12,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
     author_peak_year,
+    AUTHOR_ID_FROM_NAME,
+    AUTHOR_ID_FROM_NAME_UNVERIFIED,
+    AUTHOR_INDEX_BUCKETS,
+    build_author_search_index,
+    compute_author_stats,
+    compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
+    export_author_index,
     export_homepage_stats,
     fellows_to_dict,
     homepage_venue_group,
@@ -91,6 +98,7 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
     top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
 
     assert stats["paper_count"] == sum(1 for _ in anthology.papers())
+    assert stats["author_count"] == len(anthology.people)
     assert stats["volume_count"] == sum(1 for _ in anthology.volumes())
     assert stats["venue_count"] == len(anthology.venues)
     assert stats["venue_year_count"] == sum(
@@ -108,6 +116,159 @@ def test_homepage_stats_are_exported(anthology, tmp_path):
 
     with open(data_dir / "homepage.json") as f:
         assert json.load(f) == homepage_stats(anthology)
+
+
+def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
+    people = {
+        "ada-lovelace": {
+            "full": "Ada Lovelace",
+            "papers": ["paper-1"],
+            "orcid": "0000-0000-0000-0001",
+            "variant_entries": [
+                {"full": "Augusta Ada King"},
+                {"full": "Ada King, Countess of Lovelace"},
+            ],
+            "name_variants": ["埃达·洛夫莱斯"],
+            "comment": "Analytical Engine Institute",
+            "first_year": 2018,
+        },
+        "elodie-durand": {
+            "full": "Élodie Durand",
+            "papers": ["paper-2"],
+            "first_year": 2019,
+        },
+        "wei-zhang/unverified": {
+            "full": "Wei Zhang",
+            "papers": ["paper-3", "paper-4"],
+            "first_year": 2021,
+        },
+    }
+
+    expected_stats = {
+        "author_count": 3,
+        "verified_author_count": 2,
+        "unverified_author_count": 1,
+        "orcid_author_count": 1,
+        "first_paper_year_hist": [
+            {"year": 2018, "count": 1, "verified_count": 1},
+            {"year": 2019, "count": 1, "verified_count": 1},
+            {"year": 2020, "count": 0, "verified_count": 0},
+            {"year": 2021, "count": 1, "verified_count": 0},
+        ],
+    }
+    assert compute_author_stats(people) == expected_stats
+
+    index = build_author_search_index(people)
+    ada_row = [
+        "Ada Lovelace",
+        0,  # ID rebuilt from the name by the browser
+        1,
+        "0000-0000-0000-0001",
+        ["Augusta Ada King", "Ada King, Countess of Lovelace"],
+        "Analytical Engine Institute",
+        ["埃达·洛夫莱斯"],
+    ]
+    assert ada_row in index["a"]
+    assert ada_row in index["k"]
+    assert ada_row in index["l"]
+    assert ada_row in index["other"]
+    assert any(row[0] == "Élodie Durand" for row in index["e"])
+    assert any(row[0] == "Wei Zhang" for row in index["z"])
+
+    (tmp_path / "data").mkdir()
+    stale_paper_index = tmp_path / "static" / "people" / "index" / "papers"
+    stale_paper_index.mkdir(parents=True)
+    (stale_paper_index / "old.json").write_text("[]")
+    export_author_index(people, tmp_path)
+
+    with open(tmp_path / "data" / "people_stats.json") as f:
+        exported_stats = json.load(f)
+    assert exported_stats == expected_stats
+    index_dir = tmp_path / "static" / "people" / "index"
+    assert {path.stem for path in index_dir.glob("*.json")} == set(AUTHOR_INDEX_BUCKETS)
+    with open(index_dir / "l.json") as f:
+        assert ada_row in json.load(f)
+    assert not stale_paper_index.exists()
+
+
+def test_author_index_includes_hyphenated_name_parts():
+    people = {
+        "aaron-galiano-jimenez": {
+            "full": "Aarón Galiano-Jiménez",
+            "papers": ["paper-1"],
+            "variant_entries": [],
+        }
+    }
+
+    assert any(
+        row[0] == "Aarón Galiano-Jiménez"
+        for row in build_author_search_index(people)["j"]
+    )
+
+
+def test_author_index_includes_undecorated_canonical_name_for_ranking():
+    people = {
+        "yang-liu-icsi": {
+            "first": "Yang",
+            "last": "Liu",
+            "full": "Yang Liu (刘扬)",
+            "papers": ["paper-1"],
+            "variant_entries": [{"full": "刘扬"}],
+            "name_variants": ["刘扬"],
+        }
+    }
+
+    row = next(
+        row
+        for row in build_author_search_index(people)["y"]
+        if row[0] == "Yang Liu (刘扬)"
+    )
+    assert row[1] == "yang-liu-icsi"
+    assert row[7] == "Yang Liu"
+
+
+def test_author_index_omits_ids_the_browser_can_rebuild():
+    people = {
+        "ada-lovelace": {"full": "Ada Lovelace", "papers": ["paper-1"]},
+        "wei-zhang/unverified": {"full": "Wei Zhang", "papers": ["paper-2"]},
+        # 'ø' survives NFKD, so this ID cannot be derived and is kept verbatim
+        "anne-moller": {"full": "Anne Møller", "papers": ["paper-3"]},
+    }
+
+    rows = {row[0]: row for row in build_author_search_index(people)["a"]}
+    assert rows["Ada Lovelace"][1] == AUTHOR_ID_FROM_NAME
+    assert rows["Anne Møller"][1] == "anne-moller"
+    zhang = next(row for row in build_author_search_index(people)["z"])
+    assert zhang[1] == AUTHOR_ID_FROM_NAME_UNVERIFIED
+
+
+def test_author_index_drops_trailing_empty_fields():
+    people = {"ada-lovelace": {"full": "Ada Lovelace", "papers": ["paper-1"]}}
+
+    (row,) = build_author_search_index(people)["a"]
+
+    assert row == ["Ada Lovelace", AUTHOR_ID_FROM_NAME, 1]
+
+
+def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
+    people = {
+        "alice-smith": {"first_year": 2005},
+        "bob-jones/unverified": {"first_year": 2005},
+        "carol-lee": {"first_year": 2008},
+        "editor-only": {"full": "No Papers"},  # no first_year -> excluded
+    }
+    assert compute_first_paper_year_histogram(people) == [
+        {"year": 2005, "count": 2, "verified_count": 1},
+        {"year": 2006, "count": 0, "verified_count": 0},
+        {"year": 2007, "count": 0, "verified_count": 0},
+        {"year": 2008, "count": 1, "verified_count": 1},
+    ]
+
+
+def test_first_paper_year_histogram_is_empty_without_debut_years():
+    assert (
+        compute_first_paper_year_histogram({"editor-only": {"full": "No Papers"}}) == []
+    )
 
 
 def test_latest_owned_ingest_date_ignores_explicitly_colocated_volumes():

@@ -35,10 +35,12 @@ from acl_anthology.collections.paper import (
 
 
 class CollectionStub:
+    id = "2026.stub"
     is_modified = False
 
 
 class VolumeStub:
+    id = "main"
     title = MarkupText.from_string("Generic volume")
     editors = []
     full_id_tuple = ("2099", "stub", None)
@@ -309,11 +311,13 @@ def test_paper_get_namespec_for_should_fail(anthology):
 
 test_cases_xml = (
     """<frontmatter>
+  <!-- https://aclanthology.org/2026.stub-main.0/ -->
   <url hash="56ea4e43">2022.acl-long.0</url>
   <bibkey>acl-2022-association-linguistics-1</bibkey>
 </frontmatter>
 """,
     """<paper id="1">
+  <!-- https://aclanthology.org/2026.stub-main.1/ -->
   <title>Strings from neurons to language</title>
   <author><first>Tim</first><last>Fernando</last></author>
   <pages>1–10</pages>
@@ -323,12 +327,14 @@ test_cases_xml = (
 </paper>
 """,
     """<paper id="9">
+  <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
   <url hash="166bd6c1">J89-1009</url>
   <bibkey>nn-1989-briefly</bibkey>
 </paper>
 """,
     """<paper id="9">
+  <!-- https://aclanthology.org/2026.stub-main.9/ -->
   <title>Briefly Noted</title>
   <url hash="166bd6c1">J89-1009</url>
   <issue>42</issue>
@@ -337,6 +343,7 @@ test_cases_xml = (
 </paper>
 """,
     """<paper id="6">
+  <!-- https://aclanthology.org/2026.stub-main.6/ -->
   <title>Domain Adaptation in Multilingual and Multi-Domain Monolingual Settings for Complex Word Identification</title>
   <author><first>George-Eduard</first><last>Zaharia</last></author>
   <author><first>Răzvan-Alexandru</first><last>Smădu</last></author>
@@ -351,6 +358,7 @@ test_cases_xml = (
 </paper>
 """,
     """<paper id="max" ingest-date="2023-09-30">
+  <!-- https://aclanthology.org/2026.stub-main.max/ -->
   <title>This <fixed-case>P</fixed-case>aper Has All Fields That A Paper Can Have</title>
   <author><first/><last>None</last></author>
   <editor><first>Marcel</first><last>Bollmann</last></editor>

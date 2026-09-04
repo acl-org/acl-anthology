@@ -66,7 +66,7 @@ def read_meta(path: str) -> Dict[str, Any]:
         for line in instream:
             if re.match(r"^\s*$", line):
                 continue
-            key, value = line.rstrip().split(" ", maxsplit=1)
+            key, value = re.split(r"\s+", line.rstrip(), maxsplit=1)
             if key.startswith("chair") or key.startswith("editor"):
                 # Allow for Bib format, an occasional error in the meta file
                 for value in value.split(" and "):
@@ -251,16 +251,15 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
     empty ``<i/>`` left behind when a LaTeX command (such as a custom macro)
     expands to nothing.
 
-    The Anthology schema defines ``MarkupText = (text | b | i | url |
-    fixed-case | tex-math)+``, so a markup element with neither text nor child
-    elements is invalid and makes the XML fail schema validation at build time.
+    With the exception of ``<par/>``, markup elements with neither text nor child
+    elements are invalid and make the XML fail schema validation at build time.
     Such abstracts render without raising, so they must be detected explicitly.
     """
     root = abstract.to_xml()
     for element in root.iter():
         if element is root:
             continue
-        if len(element) == 0 and not element.text:
+        if element.tag != "par" and len(element) == 0 and not element.text:
             return True
     return False
 
@@ -480,10 +479,7 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        venue = anthology.venues.create(
-            id=venue_slug, acronym=venue_abbrev, name=venue_title
-        )
-        venue.save()
+        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
     return venue_slug
 
 
@@ -498,6 +494,7 @@ def _find_book_pdf(
         path / "book.pdf",
         path / "cdrom" / "book.pdf",
         path / "cdrom" / f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+        path / "cdrom" / f"{venue_name.lower()}-{year}-{volume_name}.pdf",
         path / "cdrom" / f"{venue_name.lower()}-{year}.{volume_name}.pdf",
         path / "cdrom" / f"{venue_name.upper()}-{year}.pdf",
     ]
@@ -556,6 +553,7 @@ def read_ingest_metadata(
         venue_slug = ensure_venue(
             anthology, venue_abbrev, meta.get("title", venue_abbrev)
         )
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta.get("issue", meta["volume"]).lower()
         venue_name = venue_abbrev.lower()
@@ -601,7 +599,7 @@ def read_ingest_metadata(
             "address": (frontmatter_data or {}).get("address") or meta.get("location"),
             "title": volume_title,
             "editors": volume_editors,
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": meta.get("isbn"),
             "journal_volume": meta.get("volume") if args.is_journal else None,
             "journal_issue": meta.get("issue") if args.is_journal else None,
@@ -618,6 +616,7 @@ def read_ingest_metadata(
         meta = parse_conf_yaml(source)
         venue_abbrev = meta["anthology_venue_id"]
         venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
+        is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
         # Use the registered venue slug (letters/digits only) for the venue tag
@@ -659,7 +658,7 @@ def read_ingest_metadata(
             "address": meta.get("location"),
             "title": normalize_latex(meta["book_title"]) or meta["book_title"],
             "editors": [namespec_from_author(author) for author in meta["editors"]],
-            "venue_ids": [venue_name] + (["ws"] if args.is_workshop else []),
+            "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
             "journal_volume": None,
             "root_path": source_path,
@@ -967,7 +966,6 @@ def ingest(
             anthology,
             metadata["sig"],
             volume_obj,
-            metadata.get("booktitle"),
         )
     configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
@@ -1118,18 +1116,15 @@ def register_volume_with_sig(
     anthology: Anthology,
     sig_id: str,
     volume: Volume,
-    booktitle: Optional[str] = None,
 ) -> None:
-    """Register an ingested volume with a SIG if that SIG exists."""
+    """Store a SIG association on an ingested volume if that SIG exists."""
     sig_key = sig_id.lower()
     if sig_key not in anthology.sigs:
         log.warning(f"SIG '{sig_key}' not found; cannot register {volume.full_id}")
         return
 
-    sig = anthology.sigs[sig_key]
-    if volume.full_id not in sig.meetings:
-        sig.meetings.append(volume.full_id)
-    anthology.sigs.reverse[volume.full_id_tuple].add(sig_key)
+    if sig_key not in volume.sig_ids:
+        volume.sig_ids += (sig_key,)
 
 
 def main(args):

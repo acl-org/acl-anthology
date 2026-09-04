@@ -29,12 +29,14 @@ class CollectionStub:
 
 test_cases_event_xml = (
     """<event id="ws-1985">
+  <!-- https://aclanthology.org/events/ws-1985/ -->
   <colocated>
     <volume-id>W85-01</volume-id>
   </colocated>
 </event>
 """,
     """<event id="acl-2022">
+  <!-- https://aclanthology.org/events/acl-2022/ -->
   <meta>
     <title>60th Annual Meeting of the Association for Computational Linguistics</title>
     <location>Dublin, Ireland</location>
@@ -57,6 +59,7 @@ test_cases_event_xml = (
 </event>
 """,
     """<event id="hypothetical-2099">
+  <!-- https://aclanthology.org/events/hypothetical-2099/ -->
   <meta>
     <title>I only have a <b>fancy</b> title</title>
   </meta>
@@ -79,6 +82,7 @@ def test_event_minimum_attribs():
     assert event.title is None
     assert event.location is None
     assert event.dates is None
+    assert event.web_url == "https://aclanthology.org/events/foobar-2023/"
 
 
 def test_event_all_attribs():
@@ -102,6 +106,7 @@ def test_event_all_attribs():
     assert event.title == event_title
     assert event.is_explicit
     assert event.talks[0].parent is event
+    assert event.web_url == "https://aclanthology.org/events/li-2023/"
 
 
 def test_event_to_xml_dont_list_colocated_volumes_of_parent():
@@ -120,6 +125,7 @@ def test_event_to_xml_dont_list_colocated_volumes_of_parent():
     assert (
         etree.tostring(out, encoding="unicode")
         == """<event id="li-2023">
+  <!-- https://aclanthology.org/events/li-2023/ -->
   <colocated>
     <volume-id>2023.baz-1</volume-id>
     <volume-id>2023.ling-1</volume-id>

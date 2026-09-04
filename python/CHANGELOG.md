@@ -1,14 +1,28 @@
 # Changelog
 
+## [1.3.2] — 2026-08-26
+
+### Added
+
+- XML serialization now adds comments with the full web URL of each Anthology item, where applicable.
+- Added `Event.web_url` in analogy to the same property on other objects.
+- LaTeX line breaks are now normalized as whitespace, while blank lines are converted to `<par/>` paragraph breaks.
+- Added `Volume.add_sig()`, `Volume.remove_sig()`, `Volume.add_venue()`, `Volume.remove_venue()`.
+
+### Changed
+
+- Sped up `MarkupText` by avoiding unnecessary deep copies of XML elements.
+- Sped up BibTeX generation significantly by speeding up Unicode-to-LaTeX encoding.
+
 ## [1.3.1] — 2026-08-09
 
-## Changed
+### Changed
 
 - `Name.is_valid()` now catches additional errors involving extra spaces between characters.
 - Fix bug in `clean_unicode()` for strings ending in dotless ı.
 - Paper awards are now always represented by `Award` objects, with a required name and optional reasoning.
 
-## Removed
+### Removed
 
 - Removed support for setting `year` on the Paper level; can only be set on Volume now.
 

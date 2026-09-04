@@ -31,6 +31,8 @@ The PDFs are then shuffled as follows:
 
 A variant of this is applied for subsequent revisions (v3, v4, etc.).
 For errata, we create a file {anthology_id}e1.pdf, {anthology_id}e2.pdf, etc., but do not overwrite the original paper, since errata are separate documents.
+For externally hosted papers, the original is retrieved from the Anthology-hosted
+copy when available, and the top-level external URL is preserved.
 
 Usage:
 
@@ -42,7 +44,8 @@ Usage:
 
 `-e` denotes erratum instead of revision.
 `-R` replaces the paper's PDF in place (updating the checksum) without recording a revision.
-`-R` also works on whole volumes (e.g. 2026.silkroadnlp-1), which cannot carry revisions.
+Replacement mode is selected automatically for frontmatter and whole volumes
+(e.g. 2026.silkroadnlp-1), which cannot carry revisions.
 
 List of revisions: https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue%20state%3Aopen%20label%3Arevision
 """
@@ -51,6 +54,7 @@ from __future__ import annotations
 
 import argparse
 import filetype
+import io
 import os
 import re
 import shutil
@@ -64,6 +68,8 @@ from pathlib import Path
 import requests
 from git.repo.base import Repo
 from github import Auth, Github, GithubException
+from pypdf import PdfReader, PdfWriter
+from reportlab.pdfgen import canvas
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
@@ -77,6 +83,51 @@ TRAILING_URL_CHARS = ').,]>"'
 ANTHOLOGY_FILES_DIR = Path(
     os.environ.get("ANTHOLOGY_FILES", Path.home() / "anthology-files")
 )
+
+WATERMARK_FONT = "Times-Roman"
+WATERMARK_SIZE = 16
+WATERMARK_LEFT_OFFSET_PT = 27
+WATERMARK_GRAY = 0.55
+
+
+def _make_vertical_watermark_page(width, height, text):
+    """Return a single-page PDF with vertical (rotated 90° CCW) watermark at left."""
+    buffer = io.BytesIO()
+    overlay = canvas.Canvas(buffer, pagesize=(width, height))
+    overlay.saveState()
+    overlay.setFont(WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.setFillGray(WATERMARK_GRAY)
+    overlay.translate(WATERMARK_LEFT_OFFSET_PT, 0)
+    overlay.rotate(90)
+    text_width = overlay.stringWidth(text, WATERMARK_FONT, WATERMARK_SIZE)
+    overlay.drawString((height - text_width) / 2.0, 0, text)
+    overlay.restoreState()
+    overlay.showPage()
+    overlay.save()
+    buffer.seek(0)
+    return buffer
+
+
+def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
+    """Add a revision watermark to the first page of a PDF."""
+    reader = PdfReader(input_pdf)
+    writer = PdfWriter()
+    first_page = writer.add_page(reader.pages[0])
+    width = float(first_page.mediabox.width)
+    height = float(first_page.mediabox.height)
+    try:
+        display_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d %b %Y")
+    except ValueError:
+        display_date = date
+    text = f"ACL Anthology ID {anth_id} / revision {revision_id} / {display_date}"
+    watermark_page = PdfReader(_make_vertical_watermark_page(width, height, text)).pages[
+        0
+    ]
+    first_page.merge_page(watermark_page)
+    for source_page in reader.pages[1:]:
+        writer.add_page(source_page)
+    with open(output_pdf, "wb") as output:
+        writer.write(output)
 
 
 def _get_github_repo(repo_name):
@@ -265,6 +316,7 @@ def fetch_issue_revision_metadata(
         "anthology_id": sections.get("anthology id", "").strip() or None,
         "pdf_url": _extract_first_url(sections.get("pdf of the revision or erratum", "")),
         "description": description,
+        "change_type": sections.get("type of change", "").strip().casefold(),
         "title": issue.title or "",
         "issue_url": issue.html_url,
         "raw_body": body,
@@ -335,7 +387,20 @@ def add_revision(
         v1_name = f"{paper.full_id}{change_letter}1"
         v1_path = pdf_dir / f"{v1_name}.pdf"
         print(f"-> Archiving original {paper.full_id} -> {v1_path}", file=sys.stderr)
-        paper.pdf.download(v1_path)
+        original_pdf = paper.pdf
+        if not original_pdf.is_local:
+            anthology_pdf = PDFReference(name=paper.full_id)
+            try:
+                anthology_pdf.download(v1_path)
+            except (requests.RequestException, ValueError) as exc:
+                print(
+                    f"-> Anthology-hosted copy unavailable ({exc}); trying "
+                    f"{original_pdf.url}",
+                    file=sys.stderr,
+                )
+                original_pdf.download(v1_path)
+        else:
+            original_pdf.download(v1_path)
         validate_file_type(v1_path)
         paper.revisions += (
             PaperRevision(id="1", note=None, pdf=PDFReference.from_file(v1_path)),
@@ -346,29 +411,36 @@ def add_revision(
     )
     version_name = f"{paper.full_id}{change_letter}{next_id}"
     version_path = pdf_dir / f"{version_name}.pdf"
-    copy_file(pdf_path, version_path)
-    reference = PDFReference.from_file(version_path)
+    with tempfile.TemporaryDirectory(prefix="revision-watermark-") as temp_dir:
+        source_pdf = pdf_path
+        if change_type == "revision":
+            source_pdf = Path(temp_dir) / "watermarked.pdf"
+            add_revision_watermark(pdf_path, source_pdf, paper.full_id, next_id, date)
 
-    if change_type == "revision":
-        note = explanation.strip() if explanation else None
-        paper.revisions += (
-            PaperRevision(
-                id=str(next_id),
-                note=note,
-                pdf=reference,
-                date=date,
-            ),
-        )
-        copy_file(pdf_path, canonical_pdf)
-        paper.pdf = PDFReference.from_file(canonical_pdf)
-    else:
-        paper.errata += (
-            PaperErratum(
-                id=str(next_id),
-                pdf=reference,
-                date=date,
-            ),
-        )
+        copy_file(source_pdf, version_path)
+        reference = PDFReference.from_file(version_path)
+
+        if change_type == "revision":
+            note = explanation.strip() if explanation else None
+            paper.revisions += (
+                PaperRevision(
+                    id=str(next_id),
+                    note=note,
+                    pdf=reference,
+                    date=date,
+                ),
+            )
+            copy_file(source_pdf, canonical_pdf)
+            if paper.pdf.is_local:
+                paper.pdf = PDFReference.from_file(canonical_pdf)
+        else:
+            paper.errata += (
+                PaperErratum(
+                    id=str(next_id),
+                    pdf=reference,
+                    date=date,
+                ),
+            )
 
     paper.collection.save()
     print(
@@ -427,11 +499,20 @@ def replace_pdf(
     return item.collection.path
 
 
-def normalize_id(id):
+def normalize_id(anthology_id: str) -> str:
     """
     Remove common user errors.
     """
-    return id.rstrip("/")
+    markdown_link = re.fullmatch(r"\[([^]]+)\]\([^)]+\)", anthology_id)
+    if markdown_link:
+        anthology_id = markdown_link.group(1)
+    parsed_url = urllib.parse.urlparse(anthology_id)
+    if parsed_url.scheme in {"http", "https"} and parsed_url.netloc.casefold() in {
+        "aclanthology.org",
+        "www.aclanthology.org",
+    }:
+        anthology_id = parsed_url.path.strip("/")
+    return anthology_id.rstrip("/")
 
 
 def main(args):
@@ -444,6 +525,8 @@ def main(args):
         github_repo = _get_github_repo(repo_name)
         issue_metadata = fetch_issue_revision_metadata(args.issue, repo_name, github_repo)
         anthology_id = normalize_id(issue_metadata.get("anthology_id"))
+        if issue_metadata.get("change_type").lower() == "erratum":
+            change_type = "erratum"
 
         pdf_url = issue_metadata.get("pdf_url")
         if args.path:
@@ -504,14 +587,7 @@ def main(args):
     _, volume_id, paper_id = parse_id(anthology_id)
     is_volume = paper_id is None and volume_id is not None
     is_frontmatter = paper_id == "0"
-
-    if is_volume and not args.replace:
-        print(
-            f"-> FATAL: {anthology_id} is a volume; volumes do not support "
-            "revisions. Use -R to replace the volume PDF.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    replace_in_place = args.replace or is_volume or is_frontmatter
 
     if is_volume:
         volume = anthology.get_volume(anthology_id)
@@ -528,7 +604,7 @@ def main(args):
             explanation=explanation_text,
             archive=True,
         )
-    elif is_frontmatter or args.replace:
+    elif replace_in_place:
         paper = anthology.get_paper(anthology_id)
         if paper is None:
             print(
@@ -541,8 +617,8 @@ def main(args):
             paper,
             pdf_path,
             label=label,
-            explanation=explanation_text if args.replace else None,
-            archive=args.replace,
+            explanation=explanation_text,
+            archive=True,
         )
     else:
         # build a list of the checksums of all revisions for the paper
@@ -579,7 +655,7 @@ def main(args):
     """
     If a Github issue or manual replacement was passed, create a commit.
     """
-    if (args.issue or args.replace) and collection_path is not None:
+    if (args.issue or replace_in_place) and collection_path is not None:
         repo = Repo(".", search_parent_directories=True)
         repo.git.add(str(collection_path))
         if repo.is_dirty(index=True, working_tree=True, untracked_files=True):
@@ -588,7 +664,7 @@ def main(args):
                     msg = f"Update frontmatter for {anthology_id} (closes #{args.issue})"
                 elif is_volume:
                     msg = f"Replace volume PDF for {anthology_id} (closes #{args.issue})"
-                elif args.replace:
+                elif replace_in_place:
                     msg = f"Replace PDF for {anthology_id} (closes #{args.issue})"
                 else:
                     msg = f"Add {change_type} for {anthology_id} (closes #{args.issue})"

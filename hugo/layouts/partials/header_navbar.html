@@ -28,6 +28,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link text-nowrap" href="#" id="usingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open Using menu">Using<i class="ps-1 fas fa-caret-down"></i></a>
           <ul class="dropdown-menu" aria-labelledby="usingDropdown">
+            <li><a class="dropdown-item" href="{{ relref . "/people/" }}">Author directory</a></li>
             <li><a class="dropdown-item" href="{{ relref . "/faq/bib" }}">Citing papers</a></li>
             <li><a class="dropdown-item" href="{{ relref . "/faq/linking" }}">Links in the Anthology</a></li>
             <li><a class="dropdown-item" href="{{ relref . "/faq/api" }}">Data access</a></li>
@@ -47,7 +48,7 @@
           <ul class="dropdown-menu" aria-labelledby="contribDropdown">
             <li><a class="dropdown-item" href="{{ relref . "/info/contrib" }}">Submissions</a></li>
             <li><a class="dropdown-item" href="{{ relref . "/info/corrections" }}">Corrections</a></li>
-            <li><a class="dropdown-item" href="{{ relref . "/info/author-pages" }}">Author pages</a></li>
+            <li><a class="dropdown-item" href="{{ relref . "/info/author-pages" }}">Maintain author pages</a></li>
             <li><a class="dropdown-item" href="{{ relref . "/faq/attachments" }}">Attachments</a></li>
           </ul>
         </li>
@@ -55,14 +56,22 @@
           <a class="nav-link text-nowrap" href="https://github.com/acl-org/acl-anthology/"><i class="fab fa-github pe-1"></i>GitHub</a>
         </li>
       </ul>
-      <form class="d-flex d-md-none align-items-center my-2 flex-nowrap" action={{ relURL "search/?" }} method=get role="search">
-        <input class="form-control acl-search-box me-sm-2 shadow-sm" name=q type=search placeholder=Search... aria-label="Search the Anthology">
+      <form class="acl-navbar-search d-flex d-md-none align-items-center my-2 flex-nowrap w-100" action="{{ relURL "search/" }}" method="get" role="search"
+            data-navbar-author-search data-index-base="{{ relURL "people/index/" }}" data-people-base="{{ relURL "people/" }}">
+        <input class="form-control acl-search-box me-sm-2 shadow-sm" name="q" type="search" placeholder="Search..." aria-label="Search papers or authors"
+           autocomplete="off" spellcheck="false" aria-controls="acl-navbar-search-results-mobile">
         <button class="btn btn-outline-primary" type=submit aria-label="Submit search"><i class="fas fa-search"></i></button>
+        <ul class="acl-navbar-search__results" id="acl-navbar-search-results-mobile" aria-label="Author and full-search suggestions" data-navbar-author-results hidden></ul>
+        <span class="visually-hidden" role="status" aria-live="polite" data-navbar-author-status></span>
       </form>
     </div>
-    <form class="d-none d-md-flex align-items-center flex-nowrap" action={{ relURL "search/?" }} method=get role="search">
-      <input class="form-control acl-search-box me-sm-2 shadow-sm" name=q type=search placeholder=Search... aria-label="Search the Anthology">
+    <form class="acl-navbar-search d-none d-md-flex align-items-center flex-nowrap" action="{{ relURL "search/" }}" method="get" role="search"
+          data-navbar-author-search data-index-base="{{ relURL "people/index/" }}" data-people-base="{{ relURL "people/" }}">
+      <input class="form-control acl-search-box me-sm-2 shadow-sm" name="q" type="search" placeholder="Search..." aria-label="Search papers or authors"
+              autocomplete="off" spellcheck="false" aria-controls="acl-navbar-search-results-desktop">
       <button class="btn btn-outline-primary" type=submit aria-label="Submit search"><i class="fas fa-search"></i></button>
+      <ul class="acl-navbar-search__results" id="acl-navbar-search-results-desktop" aria-label="Author and full-search suggestions" data-navbar-author-results hidden></ul>
+      <span class="visually-hidden" role="status" aria-live="polite" data-navbar-author-status></span>
     </form>
   </div>
 </nav>

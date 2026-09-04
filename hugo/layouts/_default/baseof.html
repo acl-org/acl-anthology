@@ -48,6 +48,8 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  {{ $authorSearch := resources.Get "js/author-search.js" | minify | fingerprint }}
+  <script src="{{ $authorSearch.RelPermalink }}"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // tooltips

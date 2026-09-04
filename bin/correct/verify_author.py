@@ -128,6 +128,9 @@ def verify_by_author_id(
     for aid in author_ids:
         person = anthology.get_person(aid)
         assert person is not None, f"Unregistered author ID: {aid}"
+        assert person.orcid is None or person.orcid == orcid, (
+            f"Author ID {aid} has a different ORCID: {person.orcid} (if attempting to split an author page with implicit paper matches, first disable name matching?)"
+        )
         people.append(person)
     person = anthology.people.get_by_orcid(orcid)
     if person is not None and person not in people:

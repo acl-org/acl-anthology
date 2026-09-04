@@ -309,6 +309,49 @@ def test_markup_from_xml(inp, out):
     assert markup.contains_markup == ("<" in out["html"])
 
 
+def test_markup_from_xml_copies_element_independently_of_source():
+    """`MarkupText.from_xml()` must return an independent copy of the given
+    element, not a view into it.
+
+    This matters because `Collection.load()` parses XML with
+    `etree.iterparse()`, which is only memory-efficient because the *source*
+    document is discarded shortly after each `<paper>` is turned into Python
+    objects. If `MarkupText` held a live reference into that source document
+    instead of a detached copy, every title/abstract would keep the whole
+    (potentially large) source document reachable -- and thus resident in
+    memory -- for as long as the `MarkupText` object lives.
+
+    `from_xml()` currently satisfies this by calling `element.__copy__()`
+    (see the implementation note on `MarkupText._content`), which happens to
+    be faster than `copy.deepcopy()` for lxml elements but is not guaranteed
+    to remain so by lxml's public API -- it is an implementation detail we
+    are relying on. This test pins the *behaviour* we actually need
+    (independence), so a future lxml release that changes what `__copy__`
+    does would be caught here regardless of how `from_xml()` is implemented.
+    """
+    xml = "A <fixed-case>GPT</fixed-case>-based model"
+    # Embed the element in a larger tree, mimicking a real <paper> element
+    # with siblings, rather than a standalone root element.
+    parent = etree.fromstring(
+        f"<paper><title>{xml}</title><abstract>x</abstract></paper>"
+    )
+    element = parent.find("title")
+
+    markup = MarkupText.from_xml(element)
+
+    # The stored content must not be the same object as the source element.
+    assert markup._content is not element
+
+    # Mutating the source element after the fact must not affect the
+    # already-constructed MarkupText.
+    element.text = "MUTATED "
+    element.append(etree.fromstring("<b>extra</b>"))
+    parent.remove(element)  # also detach it from its former parent
+
+    assert markup.as_xml() == xml
+    assert markup.as_text() == "A GPT-based model"
+
+
 test_cases_markup_no_url = (
     (  # <url> is rendered as a plain <span>, not a hyperlink
         "The source code will be available at <url>https://github.com/zhang-yu-wei/MTP-CLNN</url>.",
@@ -328,6 +371,31 @@ def test_markup_as_html_without_url(inp, html):
     assert markup.as_html(allow_url=False) == html
     # The XML representation should be unaffected by the rendering option
     assert markup.as_xml() == inp
+
+
+def test_markup_rendering_does_not_mutate_stored_content():
+    """`as_text()`, `as_html()`, and `to_xml()` each work on their own copy
+    of the stored content (currently via `element.__copy__()`, for the same
+    reasons as `from_xml()` -- see
+    `test_markup_from_xml_copies_element_independently_of_source`). Calling
+    any of them mutates tags/text on their local copy (e.g. `as_html()`
+    renames `<url>` to `<a>`); none of that must ever leak back into
+    `self._content`, or leak between calls.
+    """
+    xml = "See <url>https://example.com</url> for details"
+    markup = MarkupText.from_xml(etree.fromstring(f"<title>{xml}</title>"))
+
+    # Exercise every renderer, in a deliberately mutation-provoking order.
+    markup.as_html(allow_url=False)
+    markup.as_html(allow_url=True)
+    markup.as_text()
+    etree.tostring(markup.to_xml("title"))
+
+    # The canonical XML representation must still be pristine...
+    assert markup.as_xml() == xml
+    # ...and calling the same renderer twice must be idempotent.
+    assert markup.as_html() == markup.as_html()
+    assert markup.as_text() == markup.as_text()
 
 
 def test_markup_from_simple_string():
@@ -525,6 +593,28 @@ test_cases_markup_from_latex = (
 def test_markup_from_latex(inp, out):
     markup = MarkupText.from_latex(inp)
     assert markup.as_xml() == out
+
+
+@pytest.mark.parametrize(
+    ("inp", "xml"),
+    (
+        (
+            "A line\nwrapped in the source",
+            "A line wrapped in the source",
+        ),
+        (
+            "First paragraph. \n \n Second paragraph.",
+            "First paragraph.<par/>Second paragraph.",
+        ),
+        (
+            "Text with \\textit{an inline\nline break}",
+            "Text with <i>an inline line break</i>",
+        ),
+    ),
+)
+def test_markup_from_latex_normalizes_line_breaks(inp, xml):
+    markup = MarkupText.from_latex(inp)
+    assert markup.as_xml() == xml
 
 
 test_cases_markup_from_latex_maybe = (

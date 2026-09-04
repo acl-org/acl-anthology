@@ -38,14 +38,11 @@
 }
 
 .acl-home {
-  --acl-home-ink: #{$acl-black};
-  --acl-home-muted: #5f6368;
-  --acl-home-line: #d9d9d9;
   --acl-home-paper: #f7f7f7;
   --acl-home-accent: #{$acl-muted-blue};
   max-width: 60rem;
   margin: 0 auto 3rem;
-  color: var(--acl-home-ink);
+  color: var(--acl-ink);
 
   [hidden] {
     display: none !important;
@@ -54,7 +51,7 @@
 
 .acl-home-intro {
   padding: 1rem 1.5rem;
-  border: 1px solid var(--acl-home-line);
+  border: 1px solid var(--acl-line);
   border-radius: .375rem;
   background: $white;
 }
@@ -80,11 +77,11 @@
 
 .acl-home-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.08rem;
   margin: .75rem 0 0;
   padding: .65rem 0 0;
-  border-top: 1px solid var(--acl-home-line);
+  border-top: 1px solid var(--acl-line);
 
   div {
     min-width: 0;
@@ -100,9 +97,22 @@
 
   dd {
     margin: .12rem 0 0;
-    color: var(--acl-home-muted);
+    color: var(--acl-muted);
     font-size: .81rem;
     line-height: 1.4;
+  }
+
+  a {
+    color: darken($acl-logo-red, 8%);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: .08em;
+    text-underline-offset: .12em;
+
+    &:hover,
+    &:focus-visible {
+      color: darken($acl-logo-red, 16%);
+    }
   }
 }
 
@@ -120,14 +130,14 @@
     padding: .35rem .65rem;
     border: 1px solid transparent;
     border-radius: .35rem;
-    color: var(--acl-home-ink);
+    color: var(--acl-ink);
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
 
     &:hover,
     &:focus-visible {
-      color: var(--acl-home-ink);
+      color: var(--acl-ink);
       box-shadow: 0 .2rem .55rem rgba($acl-black, .12);
     }
   }
@@ -178,7 +188,7 @@
   --acl-directory-header-ink: #{$acl-black};
   margin-block: .92rem;
   overflow: hidden;
-  border: 1px solid var(--acl-home-line);
+  border: 1px solid var(--acl-line);
   border-top: .18rem solid $yellow;
   border-radius: .35rem;
   background: $white;
@@ -192,7 +202,7 @@
   li + li {
     margin-top: .55rem;
     padding-top: .55rem;
-    border-top: 1px solid var(--acl-home-line);
+    border-top: 1px solid var(--acl-line);
   }
 
   a {
@@ -212,7 +222,7 @@
   time {
     display: block;
     margin-top: .12rem;
-    color: var(--acl-home-muted);
+    color: var(--acl-muted);
     font-size: .72rem;
   }
 }
@@ -243,7 +253,7 @@
 
   > i {
     margin-left: .65rem;
-    color: var(--acl-home-muted);
+    color: var(--acl-muted);
     font-size: .8rem;
   }
 
@@ -253,7 +263,7 @@
     border: 0;
     outline: 0;
     background: transparent;
-    color: var(--acl-home-ink);
+    color: var(--acl-ink);
     font-size: .9rem;
 
     &::placeholder {
@@ -270,7 +280,7 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--acl-home-muted);
+    color: var(--acl-muted);
 
     &:hover,
     &:focus-visible {
@@ -332,7 +342,7 @@
 
 .acl-directory-status {
   margin: 0;
-  color: var(--acl-home-muted);
+  color: var(--acl-muted);
   font-size: .82rem;
   white-space: nowrap;
 }
@@ -342,7 +352,7 @@
   --acl-directory-header-ink: #{$acl-black};
   margin-bottom: 1.72rem;
   overflow: hidden;
-  border: 1px solid var(--acl-home-line);
+  border: 1px solid var(--acl-line);
   border-top: .18rem solid $cyan;
   border-radius: .35rem;
   background: $white;
@@ -354,7 +364,7 @@
   justify-content: space-between;
   gap: 1.33rem;
   padding: $acl-section-header-padding;
-  border-bottom: 1px solid var(--acl-home-line);
+  border-bottom: 1px solid var(--acl-line);
   background: var(--acl-directory-header-bg, #{$white});
 
   h3 {
@@ -362,7 +372,7 @@
     align-items: baseline;
     gap: .5rem;
     margin: 0;
-    color: var(--acl-directory-header-ink, var(--acl-home-ink));
+    color: var(--acl-directory-header-ink, var(--acl-ink));
     font-size: $acl-section-header-font-size;
     font-weight: 600;
     letter-spacing: 0;
@@ -375,7 +385,7 @@
   display: flex;
   align-items: center;
   gap: .65rem;
-  color: var(--acl-directory-header-ink, var(--acl-home-muted));
+  color: var(--acl-directory-header-ink, var(--acl-muted));
   font-size: .72rem;
   font-weight: 400;
   line-height: $acl-section-header-line-height;
@@ -495,7 +505,7 @@
   grid-column: 1;
   grid-row: 1;
   justify-self: end;
-  color: var(--acl-home-muted);
+  color: var(--acl-muted);
   font-size: .75rem;
   font-variant-numeric: tabular-nums;
 }
@@ -527,7 +537,7 @@
 .acl-venue-row__name {
   min-width: 0;
   overflow: hidden;
-  color: var(--acl-home-muted);
+  color: var(--acl-muted);
   font-size: .83rem;
   font-weight: 430;
   text-overflow: ellipsis;
@@ -616,7 +626,7 @@ $acl-year-width: 2.75rem;  /* width of a "year" cell */
   appearance: none;                // Safari's default button appearance
   border-color: #c7c7c7;
   background: $white;
-  color: var(--acl-home-muted);
+  color: var(--acl-muted);
   cursor: pointer;
 
   &:hover,
@@ -640,7 +650,7 @@ $acl-year-width: 2.75rem;  /* width of a "year" cell */
   --acl-directory-header-bg: #{$acl-soft-green};
   --acl-directory-header-ink: #{$acl-black};
   margin: .92rem 0 1.75rem;
-  border: 1px solid var(--acl-home-line);
+  border: 1px solid var(--acl-line);
   border-top: .18rem solid $green;
   border-radius: .35rem;
   background: $white;
@@ -672,7 +682,7 @@ $acl-year-width: 2.75rem;  /* width of a "year" cell */
 .acl-directory-empty {
   margin: 0;
   padding: 2rem;
-  color: var(--acl-home-muted);
+  color: var(--acl-muted);
   text-align: center;
 
   i {
