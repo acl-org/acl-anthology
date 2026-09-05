@@ -4721,7 +4721,7 @@
       <author><first>Ming</first><last>Gong</last><affiliation>STCA Search &amp; Distribution Group, Microsoft (China)</affiliation></author>
       <author><first>Jian</first><last>Pei</last><affiliation>Simon Fraser University</affiliation></author>
       <author><first>Jianhui</first><last>Chang</last><affiliation>Peking University</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <author id="jia-li" orcid="0000-0002-6362-4385"><first>Jia</first><last>Li</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
       <pages>2042-2057</pages>
       <abstract>To present, multilingual language models trained using various pre-training tasks like mask language modeling (MLM) have yielded encouraging results on a wide range of downstream tasks. Despite the promising performances, structural knowledge in cross-lingual corpus is less explored in current works, leading to the semantic misalignment. In this paper, we propose a new pre-training task named Structural Contrast Pretraining (SCP) to align the structural words in a parallel sentence, enhancing the models’ ability to comprehend cross-lingual representations. Concretely, each structural word in source and target languages is regarded as a positive pair in SCP. Since contrastive learning compares positive and negative pairs, an increase in the frequency of negative pairings could enhance the performance of the resulting model. Therefore, we further propose Cross-lingual Momentum Contrast (CL-MoCo) to increase the number of negative pairs by maintaining a large size of the queue. CL-MoCo extends the original Moco approach into cross-lingual training and jointly optimizes the source-to-target language and target-to-source language representations, resulting in a more suitable encoder for cross-lingual transfer. We conduct extensive experiments to validate the proposed approach on three cross-lingual tasks across five datasets such as MLQA, WikiAnn, etc, and results prove the effectiveness of our method.</abstract>
@@ -7298,7 +7298,7 @@
       <author id="chenxiao-liu" orcid="0000-0001-6245-3951"><first>Chenxiao</first><last>Liu</last><affiliation>Peking University</affiliation></author>
       <author><first>Shuai</first><last>Lu</last><affiliation>Microsoft</affiliation></author>
       <author><first>Weizhu</first><last>Chen</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <author id="alexey-svyatkovskiy" orcid="0000-0001-7714-4481"><first>Alexey</first><last>Svyatkovskiy</last><affiliation>Microsoft</affiliation></author>
       <author><first>Shengyu</first><last>Fu</last><affiliation>Microsoft Corp.</affiliation></author>
       <author><first>Neel</first><last>Sundaresan</last><affiliation>Microsoft Corp.</affiliation></author>
@@ -7649,7 +7649,7 @@
       <author><first>Can</first><last>Xu</last><affiliation>STCA NLP Group, Microsoft</affiliation></author>
       <author id="guodong-long" orcid="0000-0003-3740-9515"><first>Guodong</first><last>Long</last><affiliation>University of Technology Sydney</affiliation></author>
       <author><first>Binxing</first><last>Jiao</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>5387-5401</pages>
       <abstract>A neural ranker plays an indispensable role in the de facto ‘retrieval &amp; rerank’ pipeline, but its training still lags behind due to the weak negative mining during contrastive learning. Compared to retrievers boosted by self-adversarial (i.e., in-distribution) negative mining, the ranker’s heavy structure suffers from query-document combinatorial explosions, so it can only resort to the negative sampled by the fast yet out-of-distribution retriever. Thereby, the moderate negatives compose ineffective contrastive learning samples, becoming the main barrier to learning a robust ranker. To alleviate this, we propose a multi-adversarial training strategy that leverages multiple retrievers as generators to challenge a ranker, where i) diverse hard negatives from a joint distribution are prone to fool the ranker for more effective adversarial learning and ii) involving extensive out-of-distribution label noises renders the ranker against each noise distribution, leading to more challenging and robust contrastive learning. To evaluate our robust ranker (dubbed R2anker), we conduct experiments in various settings on the passage retrieval benchmarks, including BM25-reranking, full-ranking, retriever distillation, etc. The empirical results verify the new state-of-the-art effectiveness of our model.</abstract>
       <url hash="2bc04996">2023.findings-acl.332</url>
@@ -19245,7 +19245,7 @@
       <author><first>Xiao</first><last>Liu</last></author>
       <author><first>Yeyun</first><last>Gong</last></author>
       <author><first>Yan</first><last>Zhang</last></author>
-      <author><first>Daxin</first><last>Jiang</last></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last></author>
       <author><first>Linjun</first><last>Yang</last></author>
       <author><first>Nan</first><last>Duan</last></author>
       <pages>3794-3805</pages>
@@ -22784,7 +22784,7 @@
       <author><first>Xingyao</first><last>Zhang</last></author>
       <author id="jie-wu-0938"><first>Jie</first><last>Wu</last></author>
       <author><first>Ming</first><last>Gong</last></author>
-      <author><first>Daxin</first><last>Jiang</last></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last></author>
       <pages>7480-7492</pages>
       <abstract>Previous entity disambiguation (ED) methods adopt a discriminative paradigm, where prediction is made based on matching scores between mention context and candidate entities using length-limited encoders. However, these methods often struggle to capture explicit discourse-level dependencies, resulting in incoherent predictions at the abstract level (e.g. topic or category). We propose CoherentED, an ED system equipped with novel designs aimed at enhancing the coherence of entity predictions. Our method first introduces an unsupervised variational autoencoder (VAE) to extract latent topic vectors of context sentences. This approach not only allows the encoder to handle longer documents more effectively, conserves valuable input space, but also keeps a topic-level coherence. Additionally, we incorporate an external category memory, enabling the system to retrieve relevant categories for undecided mentions. By employing step-by-step entity decisions, this design facilitates the modeling of entity-entity interactions, thereby maintaining maximum coherence at the category level. We achieve new state-of-the-art results on popular ED benchmarks, with an average improvement of 1.3 F1 points. Our model demonstrates particularly outstanding performance on challenging long-text scenarios.</abstract>
       <url hash="49ca9e73">2023.findings-emnlp.502</url>

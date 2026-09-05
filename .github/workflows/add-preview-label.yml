@@ -1,0 +1,39 @@
+# Automatically requests a website preview by adding the "preview" label,
+# which triggers preview.yml, for PR types that reliably need one:
+#   - ingestion PRs (title starts with "ingest")
+#   - metadata correction PRs (title contains "corrections")
+# For anything else, add the "preview" label yourself if you'd like a build.
+#
+# This only ever adds a label (no repo code is checked out or executed), so
+# it's safe to run via pull_request_target even for PRs from forks.
+
+name: Add preview label
+
+on:
+  pull_request_target:
+    types: [opened, edited]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  add-preview-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add preview label
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const title = context.payload.pull_request.title;
+            // Matches the same "ingest..." title convention used in
+            // preview.yml's ingestion-reviewer notification step, plus
+            // metadata correction PRs (title contains "corrections").
+            const wantsPreview = /^ingest\b/i.test(title) || /corrections/i.test(title);
+            if (!wantsPreview) return;
+
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ['preview'],
+            });

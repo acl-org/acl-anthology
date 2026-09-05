@@ -1046,12 +1046,12 @@
       <!-- https://aclanthology.org/2023.acl-long.68/ -->
       <title><fixed-case>T</fixed-case>hink<fixed-case>S</fixed-case>um: Probabilistic reasoning over sets using large language models</title>
       <author><first>Batu</first><last>Ozturkler</last><affiliation>Stanford University</affiliation></author>
-      <author><first>Nikolay</first><last>Malkin</last><affiliation>Mila</affiliation></author>
+      <author><first>Esmeralda S.</first><last>Whitammer</last><affiliation>Mila</affiliation></author>
       <author id="zhen-wang" orcid="0000-0001-7407-5118"><first>Zhen</first><last>Wang</last><affiliation>The Ohio State University</affiliation></author>
       <author><first>Nebojsa</first><last>Jojic</last><affiliation>Microsoft Research</affiliation></author>
       <pages>1216-1239</pages>
       <abstract>Large language models (LLMs) have a substantial capacity for high-level analogical reasoning: reproducing patterns in linear text that occur in their training data (zero-shot evaluation) or in the provided context (few-shot in-context learning). However, recent studies show that even the more advanced LLMs fail in scenarios that require reasoning over multiple objects or facts and making sequences of logical deductions. We propose a two-stage probabilistic inference paradigm, ThinkSum, which reasons over sets of objects or facts in a structured manner. In the first stage (Think – retrieval of associations), a LLM is queried in parallel over a set of phrases extracted from the prompt or an auxiliary model call. In the second stage (Sum – probabilistic inference or reasoning), the results of these queries are aggregated to make the final prediction. We demonstrate the possibilities and advantages of ThinkSum on the BIG-bench suite of LLM evaluation tasks, achieving improvements over the state of the art using GPT-family models on thirteen difficult tasks, often with far smaller model variants. We also compare and contrast ThinkSum with other proposed modifications to direct prompting of LLMs, such as variants of chain-of-thought prompting. Our results suggest that because the probabilistic inference in ThinkSum is performed outside of calls to the LLM, ThinkSum is less sensitive to prompt design, yields more interpretable predictions, and can be flexibly combined with latent variable models to extract structured knowledge from LLMs. Overall, our proposed paradigm represents a promising approach for enhancing the reasoning capabilities of LLMs.</abstract>
-      <url hash="c559f374">2023.acl-long.68</url>
+      <url hash="b3d19b04">2023.acl-long.68</url>
       <bibkey>ozturkler-etal-2023-thinksum</bibkey>
       <doi>10.18653/v1/2023.acl-long.68</doi>
       <video href="2023.acl-long.68.mp4"/>
@@ -1445,7 +1445,7 @@
       <author><first>Tao</first><last>Shen</last><affiliation>University of Technology Sydney</affiliation></author>
       <author><first>Dongyan</first><last>Zhao</last><affiliation>pku.edu.cn</affiliation></author>
       <author id="xiubo-geng" orcid="0000-0001-6477-7933"><first>Xiubo</first><last>Geng</last><affiliation>STCA NLP Group, Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>1688-1700</pages>
       <abstract>Document ranking aims at sorting a collection of documents with their relevance to a query. Contemporary methods explore more efficient transformers or divide long documents into passages to handle the long input. However, intensive query-irrelevant content may lead to harmful distraction and high query latency. Some recent works further propose cascade document ranking models that extract relevant passages with an efficient selector before ranking, however, their selection and ranking modules are almost independently optimized and deployed, leading to selecting error reinforcement and sub-optimal performance. In fact, the document ranker can provide fine-grained supervision to make the selector more generalizable and compatible, and the selector built upon a different structure can offer a distinct perspective to assist in document ranking. Inspired by this, we propose a fine-grained attention alignment approach to jointly optimize a cascade document ranking model. Specifically, we utilize the attention activations over the passages from the ranker as fine-grained attention feedback to optimize the selector. Meanwhile, we fuse the relevance scores from the passage selector into the ranker to assist in calculating the cooperative matching representation. Experiments on MS MARCO and TREC DL demonstrate the effectiveness of our method.</abstract>
       <url hash="72eb4c4b">2023.acl-long.94</url>
@@ -1898,7 +1898,7 @@
       <author><first>Xiaolong</first><last>Huang</last><affiliation>Microsoft</affiliation></author>
       <author><first>Binxing</first><last>Jiao</last><affiliation>Microsoft</affiliation></author>
       <author><first>Linjun</first><last>Yang</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <author><first>Rangan</first><last>Majumder</last><affiliation>Microsoft</affiliation></author>
       <author><first>Furu</first><last>Wei</last><affiliation>Microsoft Research</affiliation></author>
       <pages>2244-2258</pages>
@@ -2641,7 +2641,7 @@
       <author><first>Chang</first><last>Liu</last><affiliation>Peking University</affiliation></author>
       <author><first>Juntao</first><last>Li</last><affiliation>Soochow University</affiliation></author>
       <author id="xiubo-geng" orcid="0000-0001-6477-7933"><first>Xiubo</first><last>Geng</last><affiliation>STCA NLP Group, Microsoft</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>3102-3114</pages>
       <abstract>Establishing retrieval-based dialogue systems that can select appropriate responses from the pre-built index has gained increasing attention. Recent common practice is to construct a two-stage pipeline with a fast retriever (e.g., bi-encoder) for first-stage recall followed by a smart response reranker (e.g., cross-encoder) for precise ranking. However, existing studies either optimize the retriever and reranker in independent ways, or distill the knowledge from a pre-trained reranker into the retriever in an asynchronous way, leading to sub-optimal performance of both modules. Thus, an open question remains about how to train them for a better combination of the best of both worlds. To this end, we present a cooperative training of the response retriever and the reranker whose parameters are dynamically optimized by the ground-truth labels as well as list-wise supervision signals from each other. As a result, the two modules can learn from each other and evolve together throughout the training. Experimental results on two benchmarks demonstrate the superiority of our method.</abstract>
       <url hash="a767a96b">2023.acl-long.174</url>
@@ -2990,7 +2990,7 @@
       <author><first>Bowen</first><last>Cao</last><affiliation>Peking University</affiliation></author>
       <author><first>Jianhui</first><last>Chang</last><affiliation>Peking University</affiliation></author>
       <author id="jia-li" orcid="0000-0002-6362-4385"><first>Jia</first><last>Li</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
-      <author><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
+      <author id="daxin-jiang"><first>Daxin</first><last>Jiang</last><affiliation>STCA, Microsoft</affiliation></author>
       <pages>3552-3566</pages>
       <abstract>Currently, learning better unsupervised sentence representations is the pursuit of many natural language processing communities. Lots of approaches based on pre-trained language models (PLMs) and contrastive learning have achieved promising results on this task. Experimentally, we observe that the over-smoothing problem reduces the capacity of these powerful PLMs, leading to sub-optimal sentence representations. In this paper, we present a Simple method named Self-Contrastive Learning (SSCL) to alleviate this issue, which samples negatives from PLMs intermediate layers, improving the quality of the sentence representation. Our proposed method is quite simple and can be easily extended to various state-of-the-art models for performance boosting, which can be seen as a plug-and-play contrastive framework for learning unsupervised sentence representation. Extensive results prove that SSCL brings the superior performance improvements of different strong baselines (e.g., BERT and SimCSE) on Semantic Textual Similarity and Transfer datasets</abstract>
       <url hash="eab43974">2023.acl-long.197</url>
