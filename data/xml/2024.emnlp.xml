@@ -2709,7 +2709,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <title>On the Role of Context in Reading Time Prediction</title>
       <author><first>Andreas</first><last>Opedal</last><affiliation>Department of Computer Science, ETHZ - ETH Zurich</affiliation></author>
       <author id="eleanor-chodroff" orcid="0000-0003-4549-5919"><first>Eleanor</first><last>Chodroff</last><affiliation>University of Zurich and University of York</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <author><first>Ethan</first><last>Wilcox</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
       <pages>3042-3058</pages>
       <abstract>We present a new perspective on how readers integrate context during real-time language comprehension. Our proposals build on surprisal theory, which posits that the processing effort of a linguistic unit (e.g., a word) is an affine function of its in-context information content. We first observe that surprisal is only one out of many potential ways that a contextual predictor can be derived from a language model. Another one is the pointwise mutual information (PMI) between a unit and its context, which turns out to yield the same predictive power as surprisal when controlling for unigram frequency. Moreover, both PMI and surprisal are correlated with frequency. This means that neither PMI nor surprisal contains information about context alone. In response to this, we propose a technique where we project surprisal onto the orthogonal complement of frequency, yielding a new contextual predictor that is uncorrelated with frequency. Our experiments show that the proportion of variance in reading times explained by context is a lot smaller when context is represented by the orthogonalized predictor. From an interpretability standpoint, this indicates that previous studies may have overstated the role that context has in predicting reading times.</abstract>
@@ -7098,7 +7098,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <author><first>Franz</first><last>Nowak</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
       <author><first>Anej</first><last>Svete</last></author>
       <author><first>Reda</first><last>Boumasmoud</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <pages>8197-8210</pages>
       <abstract>Extracting finite state automata (FSAs) fromblack-box models offers a powerful approachto gaining interpretable insights into complexmodel behaviors. To support this pursuit, wepresent a weighted variant of Angluin’s (1987)L* algorithm for learning FSAs. We stay faithful to the original formulation, devising a wayto exactly learn deterministic weighted FSAswhose weights support division. Furthermore,we formulate the learning process in a mannerthat highlights the connection with FSA minimization, showing how L* directly learns aminimal automaton for the target language.</abstract>
       <url hash="5ee1255b">2024.emnlp-main.468</url>
@@ -7931,7 +7931,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <author><first>Ethan</first><last>Wilcox</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
       <author><first>Afra</first><last>Amini</last></author>
       <author><first>David Robert</first><last>Reich</last><affiliation>Universität Potsdam</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <pages>9367-9389</pages>
       <abstract>Numerous previous studies have sought to determine to what extent language models, pretrained on natural language text, can serve as useful models of human cognition.In this paper, we are interested in the opposite question: whether we can directly optimize a language model to be a useful cognitive model by aligning it to human psychometric data.To achieve this, we introduce a novel alignment technique in which we fine-tune a language model to implicitly optimize the parameters of a linear regressor that directly predicts humans’ reading times of in-context linguistic units, e.g., phonemes, morphemes, or words, using surprisal estimates derived from the language model. Using words as a test case, we evaluate our technique across multiple model sizes and datasets and find that it improves language models’ psychometric predictive power.However, we find an inverse relationship between psychometric power and a model’s performance on downstream NLP tasks as well as its perplexity on held-out test data.While this latter trend has been observed before (Oh et al., 2022; Shain et al., 2024), we are the first to induce it by manipulating a model’s alignment to psychometric data.</abstract>
       <url hash="6bb3736e">2024.emnlp-main.526</url>
@@ -8280,7 +8280,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <author><first>Nadav</first><last>Borenstein</last></author>
       <author><first>Mike</first><last>Zhou</last></author>
       <author id="isabelle-augenstein" orcid="0000-0003-1562-7909"><first>Isabelle</first><last>Augenstein</last><affiliation>University of Copenhagen</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <pages>9851-9867</pages>
       <abstract>Much theoretical work has described the ability of transformers to represent formal languages. However, linking theoretical results to empirical performance is not straightforward due to the complex interplay between the architecture, the learning algorithm, and training data. To test whether theoretical lower bounds imply <i>learnability</i> of formal languages, we turn to recent work relating transformers to <tex-math>n</tex-math>-gram language models (LMs). We study transformers’ ability to learn random <tex-math>n</tex-math>-gram LMs of two kinds: ones with arbitrary next-symbol probabilities and ones where those are defined with shared parameters. We find that classic estimation techniques for <tex-math>n</tex-math>-gram LMs such as add-<tex-math>\lambda</tex-math> smoothing outperform transformers on the former, while transformers perform better on the latter, outperforming methods specifically designed to learn <tex-math>n</tex-math>-gram LMs.</abstract>
       <url hash="55b67554">2024.emnlp-main.550</url>
@@ -12311,7 +12311,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <author><first>Anej</first><last>Svete</last></author>
       <author id="yanxia-qin" orcid="0000-0002-6186-1651"><first>Yanxia</first><last>Qin</last><affiliation>Singapore University of Technology and Design</affiliation></author>
       <author><first>Min-Yen</first><last>Kan</last><affiliation>National University of Singapore</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <pages>14805-14829</pages>
       <url hash="9730ad4b">2024.emnlp-main.822</url>
       <bibkey>tan-etal-2024-probability</bibkey>
@@ -15332,7 +15332,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <author id="juan-luis-gastaldi" orcid="0000-0003-0494-5266"><first>Juan Luis</first><last>Gastaldi</last></author>
       <author id="brian-dusell" orcid="0000-0001-7191-625X"><first>Brian</first><last>DuSell</last><affiliation>Department of Computer Science, ETHZ - ETH Zurich</affiliation></author>
       <author id="tim-vieira" orcid="0000-0002-2043-1073"><first>Tim</first><last>Vieira</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <pages>18556-18572</pages>
       <abstract>Language models are widely used in computational psycholinguistics to test theories that relate the negative log probability (the surprisal) of a region of interest (a substring of characters) under a language model to its cognitive cost experienced by readers, as operationalized, for example, by gaze duration on the region. However, the application of modern language models to psycholinguistic studies is complicated by the practice of using tokenization as an intermediate step in training a model. Doing so results in a language model over <i>token</i> strings rather than one over character strings. Vexingly, regions of interest are generally misaligned with these token strings. The paper argues that token-level language models should be (approximately) marginalized into character-level language models before they are used in psycholinguistic studies to compute the surprisal of a region of interest; then, the marginalized character-level language model can be used to compute the surprisal of an arbitrary character substring, which we term a focal area, that the experimenter may wish to use as a predictor. Our proposal of marginalizing a token-level model into a character-level one solves this misalignment issue independently of the tokenization scheme. Empirically, we discover various focal areas whose surprisal is a better psychometric predictor than the surprisal of the region of interest itself.</abstract>
       <url hash="207b397d">2024.emnlp-main.1032</url>
@@ -15539,7 +15539,7 @@ com/thunderous77/GLaPE</url>.</abstract>
       <title>Surprise! <fixed-case>U</fixed-case>niform <fixed-case>I</fixed-case>nformation <fixed-case>D</fixed-case>ensity Isn’t the Whole Story: Predicting Surprisal Contours in Long-form Discourse</title>
       <author><first>Eleftheria</first><last>Tsipidi</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
       <author><first>Franz</first><last>Nowak</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>Swiss Federal Institute of Technology</affiliation></author>
       <author><first>Ethan</first><last>Wilcox</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
       <author><first>Mario</first><last>Giulianelli</last><affiliation>Department of Computer Science, ETHZ - ETH Zurich</affiliation></author>
       <author><first>Alex</first><last>Warstadt</last></author>

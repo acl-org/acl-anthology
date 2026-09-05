@@ -1243,7 +1243,7 @@
       <author><first>Tiago</first><last>Pimentel</last><affiliation>University of Cambridge</affiliation></author>
       <author id="luca-malagutti" orcid="0000-0002-2755-4105"><first>Luca</first><last>Malagutti</last><affiliation>ETH Zurich</affiliation></author>
       <author><first>Ethan</first><last>Wilcox</last><affiliation>ETH Zürich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>1437-1455</pages>
       <abstract>Sampling-based decoding strategies are widely employed for generating text from probabilistic models, yet standard ancestral sampling often results in text that is degenerate or incoherent. To alleviate this issue, various modifications to a model’s sampling distribution, such as nucleus or top-<i>k</i> sampling, have been introduced and are now ubiquitously used in language generation systems. We propose a unified framework for understanding these techniques, which we term <b>sampling adapters</b>. Sampling adapters often lead to qualitatively better text, which raises the question: From a formal perspective, how are they changing the token-level distributions of language generation models? And why do these local changes lead to higher-quality text? We argue that the shift they enforce can be viewed as a trade-off between precision and recall: while the model loses its ability to produce certain strings, its precision rate on desirable text increases. While this trade-off is not reflected in standard metrics of distribution quality (such as perplexity), we find that several precision-emphasizing measures indeed indicate that sampling adapters can lead to probability distributions more aligned with the true distribution. Further, these measures correlate with higher sequence-level quality scores, specifically, Mauve.</abstract>
       <url hash="c7b7f4b1">2023.acl-long.80</url>
@@ -3090,7 +3090,7 @@
       <author><first>Andreas</first><last>Opedal</last><affiliation>ETH Zurich</affiliation></author>
       <author><first>Ran</first><last>Zmigrod</last><affiliation>University of Cambridge</affiliation></author>
       <author id="tim-vieira" orcid="0000-0002-2043-1073"><first>Tim</first><last>Vieira</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author id="jason-eisner" orcid="0000-0002-8861-0772"><first>Jason</first><last>Eisner</last><affiliation>Johns Hopkins University + Microsoft Corporation</affiliation></author>
       <pages>3687-3713</pages>
       <abstract>We present Earley’s (1970) context-free parsing algorithm as a deduction system, incorporating various known and new speed-ups. In particular, our presentation supports a known worst-case runtime improvement from Earley’s (1970) <tex-math>O(N^3|G||R|)</tex-math>, which is unworkable for the large grammars that arise in natural language processing, to <tex-math>O(N^3|G|)</tex-math>, which matches the complexity of CKY on a binarized version of the grammar G. Here N is the length of the sentence, |R| is the number of productions in G, and |G| is the total length of those productions. We also provide a version that achieves runtime of <tex-math>O(N^3|M|)</tex-math> with <tex-math>|M| \leq |G|</tex-math> when the grammar is represented compactly as a single finite-state automaton M (this is partly novel). We carefully treat the generalization to semiring-weighted deduction, preprocessing the grammar like Stolcke (1995) to eliminate the possibility of deduction cycles, and further generalize Stolcke’s method to compute the weights of sentence prefixes. We also provide implementation details for efficient execution, ensuring that on a preprocessed grammar, the semiring-weighted versions of our methods have the same asymptotic runtime and space requirements as the unweighted methods, including sub-cubic runtime on some grammars.</abstract>
@@ -4012,7 +4012,7 @@
       <author id="lucas-torroba-hennigen" orcid="0000-0002-8197-9008"><first>Lucas</first><last>Torroba Hennigen</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
       <author><first>Josef</first><last>Valvoda</last><affiliation>University of Cambridge</affiliation></author>
       <author id="robert-west" orcid="0000-0002-3984-1232"><first>Robert</first><last>West</last><affiliation>EPFL</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Aaron</first><last>Schein</last><affiliation>University of Chicago</affiliation></author>
       <pages>4817-4830</pages>
       <abstract>Measuring the intensity of events is crucial for monitoring and tracking armed conflict. Advances in automated event extraction have yielded massive data sets of “who did what to whom” micro-records that enable data-driven approaches to monitoring conflict. The Goldstein scale is a widely-used expert-based measure that scores events on a conflictual–cooperative scale. It is based only on the action category (“what”) and disregards the subject (“who”) and object (“to whom”) of an event, as well as contextual information, like associated casualty count, that should contribute to the perception of an event’s “intensity”. This paper takes a latent variable-based approach to measuring conflict intensity. We introduce a probabilistic generative model that assumes each observed event is associated with a latent intensity class. A novel aspect of this model is that it imposes an ordering on the classes, such that higher-valued classes denote higher levels of intensity. The ordinal nature of the latent variable is induced from naturally ordered aspects of the data (e.g., casualty counts) where higher values naturally indicate higher intensity. We evaluate the proposed model both intrinsically and extrinsically, showing that it obtains comparatively good held-out predictive performance.</abstract>
@@ -4309,7 +4309,7 @@
       <author id="juan-luis-gastaldi" orcid="0000-0003-0494-5266"><first>Juan</first><last>Gastaldi</last><affiliation>ETH Zurich</affiliation></author>
       <author><first>Li</first><last>Du</last><affiliation>Johns Hopkins University</affiliation></author>
       <author><first>Mrinmaya</first><last>Sachan</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>5184-5207</pages>
       <abstract>Subword tokenization is a key part of most NLP pipelines. However, little is known about why some tokenizer and hyperparameter combinations lead to improved downstream model performance over others. We propose that good tokenizers lead to efficient channel usage, where the channel is the means by which some input is conveyed to the model and efficiency can be quantified in information-theoretic terms as the ratio of the Shannon entropy to the maximum entropy of the subword distribution. Nevertheless, an optimal encoding according to Shannon entropy assigns extremely long codes to low-frequency subwords and very short codes to high-frequency subwords.Defining efficiency in terms of Rényi entropy, on the other hand, penalizes distributions with either very high or very low-frequency subwords.We posit that (1) extremely high-frequency subwords are problematic because their meaning is not distinct and (2) that low-frequency subwords may not appear frequently enough for their meaning to be learned properly; encodings that induce unigram distributions with either can harm model performance. In machine translation, we find that across multiple tokenizers, the Rényi entropy has a very strong correlation with BLEU: 0.82 in comparison to just -0.30 for compressed length.</abstract>
       <url hash="cbb650d1">2023.acl-long.284</url>
@@ -6423,7 +6423,7 @@
       <!-- https://aclanthology.org/2023.acl-long.420/ -->
       <title>Convergence and Diversity in the Control Hierarchy</title>
       <author><first>Alexandra</first><last>Butoi</last><affiliation>ETH Zürich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author id="david-chiang" orcid="0000-0002-0435-4864"><first>David</first><last>Chiang</last><affiliation>University of Notre Dame</affiliation></author>
       <pages>7597-7616</pages>
       <abstract>Weir has defined a hierarchy of language classes whose second member (L2) is generated by tree-adjoining grammars (TAG), linear indexed grammars (LIG), combinatory categorial grammars, and head grammars. The hierarchy is obtained using the mechanism of control, and L2 is obtained using a context-free grammar (CFG) whose derivations are controlled by another CFG. We adapt Weir’s definition of a controllable CFG (called a labeled distinguished CFG) to give a definition of controllable pushdown automata (PDAs), called labeled distinguished PDAs. This yields three new characterizations of L2 as the class of languages generated by PDAs controlling PDAs, PDAs controlling CFGs, and CFGs controlling PDAs. We show that these four formalisms are not only weakly equivalent but equivalent in a stricter sense that we call d-weak equivalence. Furthermore, using an even stricter notion of equivalence called d-strong equivalence, we make precise the intuition that a CFG controlling a CFG is a TAG, a PDA controlling a PDA is an embedded PDA, and a PDA controlling a CFG is a LIG. The fourth member of this family, a CFG controlling a PDA, does not correspond to any kind of automaton we know of, so we invent one and call it a Pushdown Adjoining Automaton (PAA).</abstract>
@@ -6650,7 +6650,7 @@
       <author><first>Shuming</first><last>Ma</last><affiliation>Microsoft Research Asia</affiliation></author>
       <author><first>Dongdong</first><last>Zhang</last><affiliation>Microsoft Research Asia</affiliation></author>
       <author><first>Mrinmaya</first><last>Sachan</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>7853-7872</pages>
       <abstract>Several recent papers claim to have achieved human parity at sentence-level machine translation (MT)—especially between high-resource language pairs. In response, the MT community has, in part, shifted its focus to document-level translation. Translating documents requires a deeper understanding of the structure and meaning of text, which is often captured by various kinds of discourse phenomena such as consistency, coherence, and cohesion. However, this renders conventional sentence-level MT evaluation benchmarks inadequate for evaluating the performance of context-aware MT systems. This paperpresents a new dataset with rich discourse annotations, built upon the large-scale parallel corpus BWB introduced in Jiang et al. (2022a). The new BWB annotation introduces four extra evaluation aspects, i.e., entity, terminology, coreference, and quotation, covering 15,095 entity mentions in both languages. Using these annotations, we systematically investigate the similarities and differences between the discourse structures of source and target languages, and the challenges they pose to MT. We discover that MT outputs differ fundamentally from human translations in terms of their latent discourse structures. This gives us a new perspective on the challenges and opportunities in document-level MT. We make our resource publicly available to spur future research in document-level MT and its generalization to other language translation tasks.</abstract>
       <url hash="d45e1c0b">2023.acl-long.435</url>
@@ -8025,7 +8025,7 @@
       <title>Log-linear Guardedness and its Implications</title>
       <author><first>Shauli</first><last>Ravfogel</last><affiliation>Bar Ilan University</affiliation></author>
       <author><first>Yoav</first><last>Goldberg</last><affiliation>Bar Ilan University</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>9413-9431</pages>
       <abstract>Methods for erasing human-interpretable concepts from neural representations that assume linearity have been found to be tractable and useful. However, the impact of this removal on the behavior of downstream classifiers trained on the modified representations is not fully understood. In this work, we formally define the notion of linear guardedness as the inability of an adversary to predict the concept directly from the representation, and study its implications. We show that, in the binary case, under certain assumptions, a downstream log-linear model cannot recover the erased concept. However, we constructively demonstrate that a multiclass log-linear model <i>can</i> be constructed that indirectly recovers the concept in some cases, pointing to the inherent limitations of linear guardedness as a downstream bias mitigation technique.These findings shed light on the theoretical limitations of linear erasure methods and highlight the need for further research on the connections between intrinsic and extrinsic bias in neural models.</abstract>
       <url hash="e3832d66">2023.acl-long.523</url>
@@ -8341,7 +8341,7 @@
       <author><first>Tiago</first><last>Pimentel</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Clara</first><last>Meister</last><affiliation>ETH Zurich</affiliation></author>
       <author id="jason-eisner" orcid="0000-0002-8861-0772"><first>Jason</first><last>Eisner</last><affiliation>Johns Hopkins University + Microsoft Corporation</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>9744-9770</pages>
       <abstract>Language modeling, a central task in natural language processing, involves estimating a probability distribution over strings. In most cases, the estimated distribution sums to 1 over all finite strings. However, in some pathological cases, probability mass can “leak” onto the set of infinite sequences. In order to characterize the notion of leakage more precisely, this paper offers a measure-theoretic treatment of language modeling. We prove that many popular language model families are in fact tight, meaning that they will not leak in this sense. We also generalize characterizations of tightness proposed in previous works.</abstract>
       <url hash="94ecd3f8">2023.acl-long.543</url>
@@ -10304,7 +10304,7 @@
       <author id="lucas-torroba-hennigen" orcid="0000-0002-8197-9008"><first>Lucas</first><last>Torroba Hennigen</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
       <author id="niklas-stoehr" orcid="0000-0003-2867-0236"><first>Niklas</first><last>Stoehr</last><affiliation>ETH Zurich</affiliation></author>
       <author><first>Alex</first><last>Warstadt</last><affiliation>ETH Zürich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>11979-11995</pages>
       <abstract>Many popular feature-attribution methods for interpreting deep neural networks rely on computing the gradients of a model’s output with respect to its inputs. While these methods can indicate which input features may be important for the model’s prediction, they reveal little about the inner workings of the model itself. In this paper, we observe that the gradient computation of a model is a special case of a more general formulation using semirings. This observation allows us to generalize the backpropagation algorithm to efficiently compute other interpretable statistics about the gradient graph of a neural network, such as the highest-weighted path and entropy. We implement this generalized algorithm, evaluate it on synthetic datasets to better understand the statistics it computes, and apply it to study BERT’s behavior on the subject–verb number agreement task (SVA). With this method, we (a) validate that the amount of gradient flow through a component of a model reflects its importance to a prediction and (b) for SVA, identify which pathways of the self-attention mechanism are most important.</abstract>
       <url hash="4c7646f2">2023.acl-long.669</url>
@@ -14114,7 +14114,7 @@
       <!-- https://aclanthology.org/2023.acl-short.6/ -->
       <title>A Fast Algorithm for Computing Prefix Probabilities</title>
       <author id="franz-nowak" orcid="0000-0002-0103-1031"><first>Franz</first><last>Nowak</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>57-69</pages>
       <abstract>Multiple algorithms are known for efficiently calculating the prefix probability of a string under a probabilistic context-free grammar (PCFG). Good algorithms for the problem have a runtime cubic in the length of the input string. However, some proposed algorithms are suboptimal with respect to the size of the grammar. This paper proposes a new speed-up of Jelinek and Lafferty’s (1991) algorithm, which runs in <tex-math>O(n^3|N|^3 + |N|^4)</tex-math>, where n is the input length and |N| is the number of non-terminals in the grammar. In contrast, our speed-up runs in <tex-math>O(n^2|N|^3 + n^3|N|^2)</tex-math>.</abstract>
       <url hash="6bc94565">2023.acl-short.6</url>
@@ -15815,7 +15815,7 @@
       <title>Hexatagging: Projective Dependency Parsing as Tagging</title>
       <author><first>Afra</first><last>Amini</last><affiliation>ETH Zurich</affiliation></author>
       <author id="tianyu-liu" orcid="0000-0002-1147-8427"><first>Tianyu</first><last>Liu</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>1453-1464</pages>
       <abstract>We introduce a novel dependency parser, the hexatagger, that constructs dependency trees by tagging the words in a sentence with elements from a finite set of possible tags. In contrast to many approaches to dependency parsing, our approach is fully parallelizable at training time, i.e., the structure-building actions needed to build a dependency parse can be predicted in parallel to each other. Additionally, exact decoding is linear in time and space complexity. Furthermore, we derive a probabilistic dependency parser that predicts hexatags using no more than a linear model with features from a pretrained language model, i.e., we forsake a bespoke architecture explicitly designed for the task. Despite the generality and simplicity of our approach, we achieve state-of-the-art performance of 96.4 LAS and 97.4 UAS on the Penn Treebank test set. Additionally, our parser’s linear time complexity and parallelism significantly improve computational efficiency, with a roughly 10-times speed-up over previous state-of-the-art models during decoding.</abstract>
       <url hash="c5120965">2023.acl-short.124</url>
@@ -19060,7 +19060,7 @@
       <!-- https://aclanthology.org/2023.acl-tutorials.4/ -->
       <title>Generating Text from Language Models</title>
       <author><first>Afra</first><last>Amini</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>John</first><last>Hewitt</last></author>
       <author><first>Luca</first><last>Malagutti</last></author>
       <author><first>Clara</first><last>Meister</last></author>

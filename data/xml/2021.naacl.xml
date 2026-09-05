@@ -10,7 +10,7 @@
       <editor id="dilek-hakkani-tur"><first>Dilek</first><last>Hakkani-Tur</last></editor>
       <editor><first>Iz</first><last>Beltagy</last></editor>
       <editor><first>Steven</first><last>Bethard</last></editor>
-      <editor><first>Ryan</first><last>Cotterell</last></editor>
+      <editor id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></editor>
       <editor><first>Tanmoy</first><last>Chakraborty</last></editor>
       <editor><first>Yichao</first><last>Zhou</last></editor>
       <publisher>Association for Computational Linguistics</publisher>
@@ -167,7 +167,7 @@
       <!-- https://aclanthology.org/2021.naacl-main.11/ -->
       <title>Do Syntactic Probes Probe Syntax? Experiments with Jabberwocky Probing</title>
       <author><first>Rowan Hall</first><last>Maudslay</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>124–131</pages>
       <abstract>Analysing whether neural language models encode linguistic information has become popular in NLP. One method of doing so, which is frequently cited to support the claim that models like BERT encode syntax, is called probing; probes are small supervised models trained to extract linguistic information from another model’s output. If a probe is able to predict a particular structure, it is argued that the model whose output it is trained on must have implicitly learnt to encode it. However, drawing a generalisation about a model’s linguistic knowledge about a specific phenomena based on what a probe is able to learn may be problematic: in this work, we show that semantic cues in training data means that syntactic probes do not properly isolate syntax. We generate a new corpus of semantically nonsensical but syntactically well-formed Jabberwocky sentences, which we use to evaluate two probes trained on normal data. We train the probes on several popular language models (BERT, GPT-2, and RoBERTa), and find that in all settings they perform worse when evaluated on these data, for one probe by an average of 15.4 UUAS points absolute. Although in most cases they still outperform the baselines, their lead is reduced substantially, e.g. by 53% in the case of BERT for one probe. This begs the question: what empirical scores constitute knowing syntax?</abstract>
       <url hash="4029576a">2021.naacl-main.11</url>
@@ -181,7 +181,7 @@
       <author><first>Jennifer C.</first><last>White</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Naomi</first><last>Saphra</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>132–138</pages>
       <abstract>Probes are models devised to investigate the encoding of knowledge—e.g. syntactic structure—in contextual representations. Probes are often designed for simplicity, which has led to restrictions on probe design that may not allow for the full exploitation of the structure of encoded information; one such restriction is linearity. We examine the case of a structural probe (Hewitt and Manning, 2019), which aims to investigate the encoding of syntactic structure in contextual representations through learning only linear transformations. By observing that the structural probe learns a metric, we are able to kernelize it and develop a novel non-linear variant with an identical number of parameters. We test on 6 languages and find that the radial-basis function (RBF) kernel, in conjunction with regularization, achieves a statistically significant improvement over the baseline in all languages—implying that at least part of the syntactic knowledge is encoded non-linearly. We conclude by discussing how the RBF kernel resembles BERT’s self-attention layers and speculate that this resemblance leads to the RBF-based probe’s stronger performance.</abstract>
       <url hash="e0d33705">2021.naacl-main.12</url>
@@ -2650,7 +2650,7 @@
       <author><first>Josef</first><last>Valvoda</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Niklas</first><last>Stoehr</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Simone</first><last>Teufel</last></author>
       <pages>2275–2288</pages>
       <abstract>In common law, the outcome of a new case is determined mostly by precedent cases, rather than by existing statutes. However, how exactly does the precedent influence the outcome of a new case? Answering this question is crucial for guaranteeing fair and consistent judicial decision-making. We are the first to approach this question computationally by comparing two longstanding jurisprudential views; Halsbury’s, who believes that the arguments of the precedent are the main determinant of the outcome, and Goodhart’s, who believes that what matters most is the precedent’s facts. We base our study on the corpus of legal cases from the European Court of Human Rights (ECtHR), which allows us to access not only the case itself, but also cases cited in the judges’ arguments (i.e. the precedent cases). Taking an information-theoretic view, and modelling the question as a case out-come classification task, we find that the precedent’s arguments share 0.38 nats of information with the case’s outcome, whereas precedent’s facts only share 0.18 nats of information (i.e.,58% less); suggesting Halsbury’s view may be more accurate in this specific court. We found however in a qualitative analysis that there are specific statues where Goodhart’s view dominates, and present some evidence these are the ones where the legal concept at hand is less straightforward.</abstract>
@@ -5051,7 +5051,7 @@
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Brian</first><last>Roark</last></author>
       <author><first>Søren</first><last>Wichmann</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Damián</first><last>Blasi</last></author>
       <pages>4416–4425</pages>
       <abstract>This work presents an information-theoretic operationalisation of cross-linguistic non-arbitrariness. It is not a new idea that there are small, cross-linguistic associations between the forms and meanings of words. For instance, it has been claimed (Blasi et al., 2016) that the word for “tongue” is more likely than chance to contain the phone [l]. By controlling for the influence of language family and geographic proximity within a very large concept-aligned, cross-lingual lexicon, we extend methods previously used to detect within language non-arbitrariness (Pimentel et al., 2019) to measure cross-linguistic associations. We find that there is a significant effect of non-arbitrariness, but it is unsurprisingly small (less than 0.5% on average according to our information-theoretic estimate). We also provide a concept-level analysis which shows that a quarter of the concepts considered in our work exhibit a significant level of cross-linguistic non-arbitrariness. In sum, the paper provides new methods to detect cross-linguistic associations at scale, and confirms their effects are minor.</abstract>
@@ -5066,7 +5066,7 @@
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Irene</first><last>Nikkarinen</last></author>
       <author><first>Kyle</first><last>Mahowald</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Damián</first><last>Blasi</last></author>
       <pages>4426–4438</pages>
       <abstract>The mapping of lexical meanings to wordforms is a major feature of natural languages. While usage pressures might assign short words to frequent meanings (Zipf’s law of abbreviation), the need for a productive and open-ended vocabulary, local constraints on sequences of symbols, and various other factors all shape the lexicons of the world’s languages. Despite their importance in shaping lexical structure, the relative contributions of these factors have not been fully quantified. Taking a coding-theoretic view of the lexicon and making use of a novel generative statistical model, we define upper bounds for the compressibility of the lexicon under various constraints. Examining corpora from 7 typologically diverse languages, we use those upper bounds to quantify the lexicon’s optimality and to explore the relative costs of major constraints on natural codes. We find that (compositional) morphology and graphotactics can sufficiently account for most of the complexity of natural codes—as measured by code length.</abstract>

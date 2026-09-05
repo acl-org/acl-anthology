@@ -5951,7 +5951,7 @@
       <!-- https://aclanthology.org/2022.emnlp-main.399/ -->
       <title>Mutual Information Alleviates Hallucinations in Abstractive Summarization</title>
       <author><first>Liam</first><last>van der Poel</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Clara</first><last>Meister</last><affiliation>ETH Zurich</affiliation></author>
       <pages>5956-5965</pages>
       <abstract>Despite significant progress in the quality of language generated from abstractive summarization models, these models still exhibit the tendency to hallucinate, i.e., output content not supported by the source document. A number of works have tried to fix—or at least uncover the source of—the problem with limited success. In this paper, we identify a simple criterion under which models are significantly more likely to assign more probability to hallucinated content during generation: high model uncertainty. This finding offers a potential explanation for hallucinations: models default to favoring text with high marginal probability, i.e., high-frequency occurrences in the training set, when uncertain about a continuation. It also motivates possible routes for real-time intervention during decoding to prevent such hallucinations. We propose a decoding strategy that switches to optimizing for pointwise mutual information of the source and target token—rather than purely the probability of the target token—when the model exhibits uncertainty. Experiments on the dataset show that our method decreases the probability of hallucinated tokens while maintaining the Rouge and BERT-S scores of top-performing decoding strategies.</abstract>
@@ -6036,7 +6036,7 @@
       <author><first>Shauli</first><last>Ravfogel</last><affiliation>Bar Ilan University</affiliation></author>
       <author><first>Francisco</first><last>Vargas</last><affiliation>Cambridge university</affiliation></author>
       <author><first>Yoav</first><last>Goldberg</last><affiliation>Bar Ilan University</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>6034-6055</pages>
       <abstract>The representation space of neural models for textual data emerges in an unsupervised manner during training. Understanding how human-interpretable concepts, such as gender, are encoded in these representations would improve the ability of users to control the content of these representations and analyze the working of the models that rely on them. One prominent approach to the control problem is the identification and removal of linear concept subspaces – subspaces in the representation space that correspond to a given concept. While those are tractable and interpretable, neural network do not necessarily represent concepts in linear subspaces. We propose a kernelization of the recently-proposed linear concept-removal objective, and show that it is effective in guarding against the ability of certain nonlinear adversaries to recover the concept. Interestingly, our findings suggest that the division between linear and nonlinear models is overly simplistic: when considering the concept of binary gender and its neutralization, we do not find a single kernel space that exclusively contains all the concept-related information. It is therefore challenging to protect against all nonlinear adversaries at once.</abstract>
       <url hash="59968985">2022.emnlp-main.405</url>
@@ -8368,7 +8368,7 @@
       <title>Algorithms for Acyclic Weighted Finite-State Automata with Failure Arcs</title>
       <author><first>Anej</first><last>Svete</last><affiliation>ETH Zurich</affiliation></author>
       <author><first>Benjamin</first><last>Dayan</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Tim</first><last>Vieira</last><affiliation>Johns Hopkins University</affiliation></author>
       <author id="jason-eisner"><first>Jason</first><last>Eisner</last><affiliation>Johns Hopkins University</affiliation></author>
       <pages>8289-8305</pages>
@@ -8955,7 +8955,7 @@
       <!-- https://aclanthology.org/2022.emnlp-main.607/ -->
       <title>On Parsing as Tagging</title>
       <author><first>Afra</first><last>Amini</last><affiliation>ETH Zürich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>8884-8900</pages>
       <abstract>There are many proposals to reduce constituency parsing to tagging. To figure out what these approaches have in common, we offer a unifying pipeline, which consists of three steps: linearization, learning, and decoding. We prove that classic shift–reduce parsing can be reduced to tetratagging—the state-of-the-art constituency tagger—under two assumptions: right-corner transformation in the linearization step and factored scoring in the learning step. We ask what is the most critical factor that makes parsing-as-tagging methods accurate while being efficient. To answer this question, we empirically evaluate a taxonomy of tagging pipelines with different choices of linearizers, learners, and decoders. Based on the results in English as well as a set of 8 typologically diverse languages, we conclude that the linearization of the derivation tree and its alignment with the input sequence is the most critical factor in achieving accurate parsers as taggers.</abstract>
       <url hash="70ad2dfd">2022.emnlp-main.607</url>
@@ -9664,7 +9664,7 @@
       <author><first>Alexandra</first><last>Butoi</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Brian</first><last>DuSell</last><affiliation>University of Notre Dame</affiliation></author>
       <author><first>Tim</first><last>Vieira</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>David</first><last>Chiang</last><affiliation>University of Notre Dame</affiliation></author>
       <pages>9669-9680</pages>
       <abstract>Weighted pushdown automata (WPDAs) are at the core of many natural language processing tasks, like syntax-based statistical machine translation and transition-based dependency parsing. As most existing dynamic programming algorithms are designed for context-free grammars (CFGs), algorithms for PDAs often resort to a PDA-to-CFG conversion. In this paper, we develop novel algorithms that operate directly on WPDAs. Our algorithms are inspired by Lang’s algorithm, but use a more general definition of pushdown automaton and either reduce the space requirements by a factor of |Gamma| (the size of the stack alphabet) or reduce the runtime by a factor of more than |Q| (the number of states). When run on the same class of PDAs as Lang’s algorithm, our algorithm is both more space-efficient by a factor of |Gamma| and more time-efficient by a factor of |Q| x |Gamma|.</abstract>
@@ -11541,7 +11541,7 @@
       <author><first>Tiago</first><last>Pimentel</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Josef</first><last>Valvoda</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Niklas</first><last>Stoehr</last><affiliation>ETH Zurich</affiliation></author>
-      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>11459-11472</pages>
       <abstract>In this paper, we seek to measure how much information a component in a neural network could extract from the representations fed into it. Our work stands in contrast to prior probing work, most of which investigates how much information a model’s representations contain. This shift in perspective leads us to propose a new principle for probing, the architectural bottleneck principle: In order to estimate how much information a given component could extract, a probe should look exactly like the component. Relying on this principle, we estimate how much syntactic information is available to transformers through our attentional probe, a probe that exactly resembles a transformer’s self-attention head. Experimentally, we find that, in three models (BERT, ALBERT, and RoBERTa), a sentence’s syntax tree is mostly extractable by our probe, suggesting these models have access to syntactic information while composing their contextual representations. Whether this information is actually used by these models, however, remains an open question.</abstract>
       <url hash="7514164a">2022.emnlp-main.788</url>
