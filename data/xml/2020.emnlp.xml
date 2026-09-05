@@ -214,7 +214,7 @@
       <title>Intrinsic Probing through Dimension Selection</title>
       <author><first>Lucas</first><last>Torroba Hennigen</last></author>
       <author><first>Adina</first><last>Williams</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>197–216</pages>
       <abstract>Most modern NLP systems make use of pre-trained contextual representations that attain astonishingly high performance on a variety of tasks. Such high performance should not be possible unless some form of linguistic structure inheres in these representations, and a wealth of research has sprung up on probing for it. In this paper, we draw a distinction between intrinsic probing, which examines how linguistic information is structured within a representation, and the extrinsic probing popular in prior work, which only argues for the presence of such information by showing that it can be successfully extracted. To enable intrinsic probing, we propose a novel framework based on a decomposable multivariate Gaussian probe that allows us to determine whether the linguistic information in word embeddings is dispersed or focal. We then probe fastText and BERT for various morphosyntactic attributes across 36 languages. We find that most attributes are reliably encoded by only a few neurons, with fastText concentrating its linguistic structure more than BERT.</abstract>
       <url hash="28aa84f1">2020.emnlp-main.15</url>
@@ -2469,7 +2469,7 @@
       <!-- https://aclanthology.org/2020.emnlp-main.170/ -->
       <title>If beam search is the answer, what was the question?</title>
       <author><first>Clara</first><last>Meister</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
       <pages>2173–2185</pages>
       <award name="Honorable Mention Paper"/>
@@ -3347,7 +3347,7 @@
       <!-- https://aclanthology.org/2020.emnlp-main.232/ -->
       <title>Exploring the Linear Subspace Hypothesis in Gender Bias Mitigation</title>
       <author><first>Francisco</first><last>Vargas</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>2902–2913</pages>
       <abstract>Bolukbasi et al. (2016) presents one of the first gender bias mitigation techniques for word embeddings. Their method takes pre-trained word embeddings as input and attempts to isolate a linear subspace that captures most of the gender bias in the embeddings. As judged by an analogical evaluation task, their method virtually eliminates gender bias in the embeddings. However, an implicit and untested assumption of their method is that the bias subspace is actually linear. In this work, we generalize their method to a kernelized, non-linear version. We take inspiration from kernel principal component analysis and derive a non-linear bias isolation technique. We discuss and overcome some of the practical drawbacks of our method for non-linear gender bias mitigation in word embeddings and analyze empirically whether the bias subspace is actually linear. Our analysis shows that gender bias is in fact well captured by a linear subspace, justifying the assumption of Bolukbasi et al. (2016).</abstract>
       <url hash="f8bfabaa">2020.emnlp-main.232</url>
@@ -3664,7 +3664,7 @@
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Naomi</first><last>Saphra</last></author>
       <author><first>Adina</first><last>Williams</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>3138–3153</pages>
       <abstract>The question of how to probe contextual word representations in a way that is principled and useful has seen significant recent attention. In our contribution to this discussion, we argue, first, for a probe metric that reflects the trade-off between probe complexity and performance: the Pareto hypervolume. To measure complexity, we present a number of parametric and non-parametric metrics. Our experiments with such metrics show that probe’s performance curves often fail to align with widely accepted rankings between language representations (with, e.g., non-contextual representations outperforming contextual ones). These results lead us to argue, second, that common simplistic probe tasks such as POS labeling and dependency arc labeling, are inadequate to evaluate the properties encoded in contextual word representations. We propose full dependency parsing as an example probe task, and demonstrate it with the Pareto hypervolume. In support of our arguments, the results of this illustrative experiment conform closer to accepted rankings among contextual word representations.</abstract>
       <url hash="8f9c945f">2020.emnlp-main.254</url>
@@ -4741,7 +4741,7 @@
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Rowan Hall</first><last>Maudslay</last></author>
       <author><first>Damian</first><last>Blasi</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>4004–4015</pages>
       <abstract>Lexical ambiguity is widespread in language, allowing for the reuse of economical word forms and therefore making language more efficient. If ambiguous words cannot be disambiguated from context, however, this gain in efficiency might make language less clear—resulting in frequent miscommunication. For a language to be clear and efficiently encoded, we posit that the lexical ambiguity of a word type should correlate with how much information context provides about it, on average. To investigate whether this is the case, we operationalise the lexical ambiguity of a word as the entropy of meanings it can take, and provide two ways to estimate this—one which requires human annotation (using WordNet), and one which does not (using BERT), making it readily applicable to a large number of languages. We validate these measures by showing that, on six high-resource languages, there are significant Pearson correlations between our BERT-based estimate of ambiguity and the number of synonyms a word has in WordNet (e.g. <tex-math>\rho = 0.40</tex-math> in English). We then test our main hypothesis—that a word’s lexical ambiguity should negatively correlate with its contextual uncertainty—and find significant correlations on all 18 typologically diverse languages we analyse. This suggests that, in the presence of ambiguity, speakers compensate by making contexts more informative.</abstract>
       <url hash="6e231fff">2020.emnlp-main.328</url>
@@ -4754,7 +4754,7 @@
       <title>Investigating <fixed-case>C</fixed-case>ross-<fixed-case>L</fixed-case>inguistic <fixed-case>A</fixed-case>djective <fixed-case>O</fixed-case>rdering <fixed-case>T</fixed-case>endencies with a <fixed-case>L</fixed-case>atent-<fixed-case>V</fixed-case>ariable <fixed-case>M</fixed-case>odel</title>
       <author><first>Jun Yen</first><last>Leung</last></author>
       <author><first>Guy</first><last>Emerson</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>4016–4028</pages>
       <abstract>Across languages, multiple consecutive adjectives modifying a noun (e.g. “the big red dog”) follow certain unmarked ordering rules. While explanatory accounts have been put forward, much of the work done in this area has relied primarily on the intuitive judgment of native speakers, rather than on corpus data. We present the first purely corpus-driven model of multi-lingual adjective ordering in the form of a latent-variable model that can accurately order adjectives across 24 different languages, even when the training and testing languages are different. We utilize this novel statistical model to provide strong converging evidence for the existence of universal, cross-linguistic, hierarchical adjective ordering tendencies.</abstract>
       <url hash="afe65b8a">2020.emnlp-main.329</url>
@@ -5623,7 +5623,7 @@
       <title>Please Mind the Root: <fixed-case>D</fixed-case>ecoding Arborescences for Dependency Parsing</title>
       <author><first>Ran</first><last>Zmigrod</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>4809–4819</pages>
       <abstract>The connection between dependency trees and spanning trees is exploited by the NLP community to train and to decode graph-based dependency parsers. However, the NLP literature has missed an important difference between the two structures: only one edge may emanate from the root in a dependency tree. We analyzed the output of state-of-the-art parsers on many languages from the Universal Dependency Treebank: although these parsers are often able to learn that trees which violate the constraint should be assigned lower probabilities, their ability to do so unsurprisingly de-grades as the size of the training set decreases. In fact, the worst constraint-violation rate we observe is 24%. Prior work has proposed an inefficient algorithm to enforce the constraint, which adds a factor of n to the decoding runtime. We adapt an algorithm due to Gabow and Tarjan (1984) to dependency parsing, which satisfies the constraint without compromising the original runtime.</abstract>
       <url hash="b880be25">2020.emnlp-main.390</url>
@@ -6554,7 +6554,7 @@
       <author><first>Adina</first><last>Williams</last></author>
       <author><first>Shijia</first><last>Liu</last></author>
       <author><first>David</first><last>Yarowsky</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>5664–5675</pages>
       <abstract>A grammatical gender system divides a lexicon into a small number of relatively fixed grammatical categories. How similar are these gender systems across languages? To quantify the similarity, we define gender systems extensionally, thereby reducing the problem of comparisons between languages’ gender systems to cluster evaluation. We borrow a rich inventory of statistical tools for cluster evaluation from the field of community detection (Driver and Kroeber, 1932; Cattell, 1945), that enable us to craft novel information theoretic metrics for measuring similarity between gender systems. We first validate our metrics, then use them to measure gender system similarity in 20 languages. We then ask whether our gender system similarities alone are sufficient to reconstruct historical relationships between languages. Towards this end, we make phylogenetic predictions on the popular, but thorny, problem from historical linguistics of inducing a phylogenetic tree over extant Indo-European languages. Of particular interest, languages on the same branch of our phylogenetic tree are notably similar, whereas languages from separate branches are no more similar than chance.</abstract>
       <url hash="1fdcf58c">2020.emnlp-main.456</url>

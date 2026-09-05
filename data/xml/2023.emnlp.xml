@@ -772,7 +772,7 @@
       <author><first>Tianyu</first><last>Liu</last></author>
       <author><first>Afra</first><last>Amini</last></author>
       <author><first>Mrinmaya</first><last>Sachan</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>808-830</pages>
       <abstract>Tasks that model the relation between pairs of tokens in a string are a vital part of understanding natural language. Such tasks, in general, require exhaustive pair-wise comparisons of tokens, thus having a quadratic runtime complexity in the length of the string. We show that these exhaustive comparisons can be avoided, and, moreover, the complexity of such tasks can be reduced to linear by casting the relation between tokens as a partial order over the string. Our method predicts real numbers for each token in a string in parallel and sorts the tokens accordingly, resulting in total orders of the tokens in the string. Each total order implies a set of arcs oriented from smaller to greater tokens, sorted by their predicted numbers. The intersection of total orders results in a partial order over the set of tokens in the string, which is then decoded into a directed graph representing the desired linguistic structure. Our experiments on dependency parsing and coreference resolution show that our method achieves state-of-the-art or comparable performance. Moreover, the linear complexity and parallelism of our method double the speed of graph-based coreference resolution models, and bring a 10-times speed-up over graph-based dependency parsers.</abstract>
       <url hash="a9bf9390">2023.emnlp-main.52</url>
@@ -2054,7 +2054,7 @@
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Ethan</first><last>Wilcox</last></author>
       <author><first>Kyle</first><last>Mahowald</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>2240-2255</pages>
       <abstract>Zipf (1935) posited that wordforms are optimized to minimize utterances’ communicative costs. Under the assumption that cost is given by an utterance’s length, he supported this claim by showing that words’ lengths are inversely correlated with their frequencies. Communicative cost, however, can be operationalized in different ways. Piantadosi et al. (2011) claim that cost should be measured as the distance between an utterance’s information rate and channel capacity, which we dub the channel capacity hypothesis (CCH) here. Following this logic, they then proposed that a word’s length should be proportional to the expected value of its surprisal (negative log-probability in context). In this work, we show that Piantadosi et al.’s derivation does not minimize CCH’s cost, but rather a lower bound, which we term CCH-lower. We propose a novel derivation, suggesting an improved way to minimize CCH’s cost. Under this method, we find that a language’s word lengths should instead be proportional to the surprisal’s expectation plus its variance-to-mean ratio. Experimentally, we compare these three communicative cost functions: Zipf’s, CCH-lower , and CCH. Across 13 languages and several experimental settings, we find that length is better predicted by frequency than either of the other hypotheses. In fact, when surprisal’s expectation, or expectation plus variance-to-mean ratio, is estimated using better language models, it leads to worse word length predictions. We take these results as evidence that Zipf’s longstanding hypothesis holds.</abstract>
       <url hash="7fb9cdd5">2023.emnlp-main.137</url>
@@ -4940,7 +4940,7 @@
       <title>Efficient Algorithms for Recognizing Weighted Tree-Adjoining Languages</title>
       <author><first>Alexandra</first><last>Butoi</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>David</first><last>Chiang</last></author>
       <pages>5394-5416</pages>
       <abstract>The class of tree-adjoining languages can be characterized by various two-level formalisms, consisting of a context-free grammar (CFG) or pushdown automaton (PDA) controlling another CFG or PDA. These four formalisms are equivalent to tree-adjoining grammars (TAG), linear indexed grammars (LIG), pushdown-adjoining automata (PAA), and embedded pushdown automata (EPDA). We define semiring-weighted versions of the above two-level formalisms, and we design new algorithms for computing their stringsums (the weight of all derivations of a string) and allsums (the weight of all derivations). From these, we also immediately obtain stringsum and allsum algorithms for TAG, LIG, PAA, and EPDA. For LIG, our algorithm is more time-efficient by a factor of <tex-math>\mathcal{O}(n|\mathcal{N}|)</tex-math> (where <tex-math>n</tex-math> is the string length and <tex-math>|\mathcal{N}|</tex-math> is the size of the nonterminal set) and more space-efficient by a factor of <tex-math>\mathcal{O}(|\Gamma|)</tex-math> (where <tex-math>\Gamma</tex-math> is the size of the stack alphabet) than the algorithm of Vijay-Shanker and Weir (1989). For EPDA, our algorithm is both more space-efficient and time-efficient than the algorithm of Alonso et al. (2001) by factors of <tex-math>\mathcal{O}(|\Gamma|^2)</tex-math> and <tex-math>\mathcal{O}(|\Gamma|^3)</tex-math>, respectively. Finally, we give the first PAA stringsum and allsum algorithms.</abstract>
@@ -6519,7 +6519,7 @@
       <author><first>Franz</first><last>Nowak</last></author>
       <author><first>Anej</first><last>Svete</last></author>
       <author><first>Li</first><last>Du</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>7011-7034</pages>
       <abstract>This work investigates the computational expressivity of language models (LMs) based on recurrent neural networks (RNNs). Siegelmann and Sontag (1992) famously showed that RNNs with rational weights and hidden states and unbounded computation time are Turing complete. However, LMs define weightings over strings in addition to just (unweighted) language membership and the analysis of the computational power of RNN LMs (RLMs) should reflect this. We extend the Turing completeness result to the probabilistic case, showing how a rationally weighted RLM with unbounded computation time can simulate any deterministic probabilistic Turing machine (PTM) with rationally weighted transitions. Since, in practice, RLMs work in real-time, processing a symbol at every time step, we treat the above result as an upper bound on the expressivity of RLMs. We also provide a lower bound by showing that under the restriction to real-time computation, such models can simulate deterministic real-time rational PTMs.</abstract>
       <url hash="2f50018d">2023.emnlp-main.434</url>
@@ -6990,7 +6990,7 @@
       <title>Language Model Quality Correlates with Psychometric Predictive Power in Multiple Languages</title>
       <author><first>Ethan</first><last>Wilcox</last></author>
       <author><first>Clara</first><last>Meister</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <pages>7503-7511</pages>
       <abstract>Surprisal theory (Hale, 2001; Levy, 2008) posits that a word’s reading time is proportional to its surprisal (i.e., to its negative log probability given the proceeding context). Since we are unable to access a word’s ground-truth probability, surprisal theory has been empirically tested using surprisal estimates from language models (LMs). Under the premise that surprisal theory holds, we would expect that higher quality language models provide more powerful predictors of human reading behavior—a conjecture we dub the quality–power (QP) hypothesis. Unfortunately, empirical support for the QP hypothesis is mixed. Some studies in English have found correlations between LM quality and predictive power, but other studies using Japanese data, as well as using larger English LMs, find no such correlations. In this work, we conduct a systematic crosslinguistic assessment of the QP hypothesis. We train LMs from scratch on small- and medium-sized datasets from 13 languages (across five language families) and assess their ability to predict eye tracking data. We find correlations between LM quality and power in eleven of these thirteen languages, suggesting that, within the range of model classes and sizes tested, better language models are indeed better predictors of human language processing behaviors.</abstract>
@@ -7537,7 +7537,7 @@
       <!-- https://aclanthology.org/2023.emnlp-main.502/ -->
       <title>Recurrent Neural Language Models as Probabilistic Finite-state Automata</title>
       <author><first>Anej</first><last>Svete</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>8069-8086</pages>
       <abstract>Studying language models (LMs) in terms of well-understood formalisms allows us to precisely characterize their abilities and limitations. Previous work has investigated the expressive power of recurrent neural network (RNN) LMs in terms of their capacity to recognize unweighted formal languages. However, LMs do not describe unweighted formal languages—rather, they define probability distributions over strings. In this work, we study what classes of such probability distributions RNN LMs can represent, which allows us to make more direct statements about their capabilities. We show that simple RNNs are equivalent to a subclass of probabilistic finite-state automata, and can thus model a strict subset of probability distributions expressible by finite-state models. Furthermore, we study the space complexity of representing finite-state LMs with RNNs. We show that, to represent an arbitrary deterministic finite-state LM with <tex-math>N</tex-math> states over an alphabet <tex-math>\Sigma</tex-math>, an RNN requires <tex-math>\Omega\left(N |\Sigma|\right)</tex-math> neurons. These results present a first step towards characterizing the classes of distributions RNN LMs can represent and thus help us understand their capabilities and limitations.</abstract>
       <url hash="395d611e">2023.emnlp-main.502</url>
@@ -9079,7 +9079,7 @@
       <author><first>Lukas</first><last>Wolf</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Evelina</first><last>Fedorenko</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Alex</first><last>Warstadt</last></author>
       <author><first>Ethan Gotlieb</first><last>Wilcox</last></author>
       <author><first>Tamar I.</first><last>Regev</last></author>
@@ -12355,7 +12355,7 @@
       <author><first>Andreas</first><last>Opedal</last></author>
       <author><first>Eleftheria</first><last>Tsipidi</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
       <pages>13393-13427</pages>
       <abstract>The left-corner transformation (Rosenkrantz and Lewis, 1970) is used to remove left recursion from context-free grammars, which is an important step towards making the grammar parsable top-down with simple techniques. This paper generalizes prior left-corner transformations to support semiring-weighted production rules and to provide finer-grained control over which left corners may be moved. Our generalized left-corner transformation (GLCT) arose from unifying the left-corner transformation and speculation transformation (Eisner and Blatz, 2007), originally for logic programming. Our new transformation and speculation define equivalent weighted languages. Yet, their derivation trees are structurally different in an important way: GLCT replaces left recursion with right recursion, and speculation does not. We also provide several technical results regarding the formal relationships between the outputs of GLCT, speculation, and the original grammar. Lastly, we empirically investigate the efficiency of GLCT for left-recursion elimination from grammars of nine languages. Code: <url>https://github.com/rycolab/left-corner</url></abstract>
@@ -13630,9 +13630,9 @@ The experiments were repeated and the tables and figures were updated. Changes a
       <!-- https://aclanthology.org/2023.emnlp-main.910/ -->
       <title>Enhancing Computation Efficiency in Large Language Models through Weight and Activation Quantization</title>
       <author><first>Janghwan</first><last>Lee</last></author>
-      <author><first>Minsoo</first><last>Kim</last></author>
+      <author id="minsoo-kim"><first>Minsoo</first><last>Kim</last></author>
       <author><first>Seungcheol</first><last>Baek</last></author>
-      <author><first>Seok</first><last>Hwang</last></author>
+      <author><first>Seok Joong</first><last>Hwang</last></author>
       <author><first>Wonyong</first><last>Sung</last></author>
       <author><first>Jungwook</first><last>Choi</last></author>
       <pages>14726-14739</pages>

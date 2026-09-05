@@ -573,7 +573,7 @@
       <!-- https://aclanthology.org/2021.acl-long.38/ -->
       <title>Examining the Inductive Bias of Neural Language Models with Artificial Languages</title>
       <author><first>Jennifer C.</first><last>White</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>454–463</pages>
       <abstract>Since language models are used to model a wide variety of languages, it is natural to ask whether the neural architectures used for the task have inductive biases towards modeling particular types of languages. Investigation of these biases has proved complicated due to the many variables that appear in the experimental setup. Languages vary in many typological dimensions, and it is difficult to single out one or two to investigate without the others acting as confounders. We propose a novel method for investigating the inductive biases of language models using artificial languages. These languages are constructed to allow us to create parallel corpora across languages that differ only in the typological feature being investigated, such as word order. We then use them to train and test language models. This constitutes a fully controlled causal framework, and demonstrates how grammar engineering can serve as a useful tool for analyzing neural models. Using this method, we find that commonly used neural architectures exhibit different inductive biases: LSTMs display little preference with respect to word ordering, while transformers display a clear preference for some orderings over others. Further, we find that neither the inductive bias of the LSTM nor that of the transformer appear to reflect any tendencies that we see in attested natural languages.</abstract>
       <url hash="9c983b4e">2021.acl-long.38</url>
@@ -1583,7 +1583,7 @@
       <title>On Finding the K-best Non-projective Dependency Trees</title>
       <author><first>Ran</first><last>Zmigrod</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>1324–1337</pages>
       <abstract>The connection between the maximum spanning tree in a directed graph and the best dependency tree of a sentence has been exploited by the NLP community. However, for many dependency parsing schemes, an important detail of this approach is that the spanning tree must have exactly one edge emanating from the root. While work has been done to efficiently solve this problem for finding the one-best dependency tree, no research has attempted to extend this solution to finding the K-best dependency trees. This is arguably a more important extension as a larger proportion of decoded trees will not be subject to the root constraint of dependency trees. Indeed, we show that the rate of root constraint violations increases by an average of 13 times when decoding with K=50 as opposed to K=1. In this paper, we provide a simplification of the K-best spanning tree algorithm of Camerini et al. (1980). Our simplification allows us to obtain a constant time speed-up over the original algorithm. Furthermore, we present a novel extension of the algorithm for decoding the K-best dependency trees of a graph which are subject to a root constraint.</abstract>
       <url hash="b2d321c9">2021.acl-long.106</url>
@@ -6061,7 +6061,7 @@
       <title>A Cognitive Regularizer for Language Modeling</title>
       <author><first>Jason</first><last>Wei</last></author>
       <author><first>Clara</first><last>Meister</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>5191–5202</pages>
       <abstract>The uniform information density (UID) hypothesis, which posits that speakers behaving optimally tend to distribute information uniformly across a linguistic signal, has gained traction in psycholinguistics as an explanation for certain syntactic, morphological, and prosodic choices. In this work, we explore whether the UID hypothesis can be operationalized as an inductive bias for statistical language modeling. Specifically, we augment the canonical MLE objective for training language models with a regularizer that encodes UID. In experiments on ten languages spanning five language families, we find that using UID regularization consistently improves perplexity in language models, having a larger effect when training data is limited. Moreover, via an analysis of generated sequences, we find that UID-regularized language models have other desirable properties, e.g., they generate text that is more lexically diverse. Our results not only suggest that UID is a reasonable inductive bias for language modeling, but also provide an alternative validation of the UID hypothesis using modern-day NLP tools.</abstract>
       <url hash="0d784f34">2021.acl-long.404</url>
@@ -6206,7 +6206,7 @@
       <!-- https://aclanthology.org/2021.acl-long.414/ -->
       <title>Language Model Evaluation Beyond Perplexity</title>
       <author><first>Clara</first><last>Meister</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>5328–5339</pages>
       <abstract>We propose an alternate approach to quantifying how well language models learn natural language: we ask how well they match the statistical tendencies of natural language. To answer this question, we analyze whether text generated from language models exhibits the statistical tendencies present in the human-generated text on which they were trained. We provide a framework–paired with significance tests–for evaluating the fit of language models to these trends. We find that neural language models appear to learn only a subset of the tendencies considered, but align much more closely with empirical trends than proposed theoretical distributions (when present). Further, the fit to different distributions is highly-dependent on both model architecture and generation strategy. As concrete examples, text generated under the nucleus sampling scheme adheres more closely to the type–token relationship of natural language than text produced using standard ancestral sampling; text from LSTMs reflects the natural language distributions over length, stopwords, and symbols surprisingly well.</abstract>
       <url hash="c621b539">2021.acl-long.414</url>
@@ -6814,7 +6814,7 @@
     <paper id="454">
       <!-- https://aclanthology.org/2021.acl-long.454/ -->
       <title>Lexicon Enhanced <fixed-case>C</fixed-case>hinese Sequence Labeling Using <fixed-case>BERT</fixed-case> Adapter</title>
-      <author><first>Wei</first><last>Liu</last></author>
+      <author id="wei-liu-9041"><first>Wei</first><last>Liu</last></author>
       <author id="xiyan-fu"><first>Xiyan</first><last>Fu</last></author>
       <author><first>Yue</first><last>Zhang</last></author>
       <author><first>Wenming</first><last>Xiao</last></author>
@@ -7709,7 +7709,7 @@
       <title>Determinantal Beam Search</title>
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Martina</first><last>Forster</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>6551–6562</pages>
       <abstract>Beam search is a go-to strategy for decoding neural sequence models. The algorithm can naturally be viewed as a subset optimization problem, albeit one where the corresponding set function does not reflect interactions between candidates. Empirically, this leads to sets often exhibiting high overlap, e.g., strings may differ by only a single word. Yet in use-cases that call for multiple solutions, a diverse or representative set is often desired. To address this issue, we propose a reformulation of beam search, which we call determinantal beam search. Determinantal beam search has a natural relationship to determinantal point processes (DPPs), models over sets that inherently encode intra-set interactions. By posing iterations in beam search as a series of subdeterminant maximization problems, we can turn the algorithm into a diverse subset selection process. In a case study, we use the string subsequence kernel to explicitly encourage n-gram coverage in text generated from a sequence model. We observe that our algorithm offers competitive performance against other diverse set generation strategies in the context of language generation, while providing a more general approach to optimizing for diversity.</abstract>
       <url hash="f7dfc94b">2021.acl-long.512</url>
@@ -8823,7 +8823,7 @@
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Stefan</first><last>Lazov</last></author>
       <author><first>Isabelle</first><last>Augenstein</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>122–129</pages>
       <abstract>Sparse attention has been claimed to increase model interpretability under the assumption that it highlights influential inputs. Yet the attention distribution is typically over representations internal to the model rather than the inputs themselves, suggesting this assumption may not have merit. We build on the recent work exploring the interpretability of attention; we design a set of experiments to help us understand how sparsity affects our ability to use attention as an explainability tool. On three text classification tasks, we verify that only a weak relationship between inputs and co-indexed intermediate representations exists—under sparse attention and otherwise. Further, we do not find any plausible mappings from sparse attention distributions to a sparse set of influential inputs through other avenues. Rather, we observe in this setting that inducing sparsity may make it less plausible that attention can be used as a tool for understanding model behavior.</abstract>
       <url hash="c3bbf91e">2021.acl-short.17</url>
@@ -9027,7 +9027,7 @@
       <title>Higher-order Derivatives of Weighted Finite-state Machines</title>
       <author><first>Ran</first><last>Zmigrod</last></author>
       <author><first>Tim</first><last>Vieira</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>240–248</pages>
       <abstract>Weighted finite-state machines are a fundamental building block of NLP systems. They have withstood the test of time—from their early use in noisy channel models in the 1990s up to modern-day neurally parameterized conditional random fields. This work examines the computation of higher-order derivatives with respect to the normalization constant for weighted finite-state machines. We provide a general algorithm for evaluating derivatives of all orders, which has not been previously described in the literature. In the case of second-order derivatives, our scheme runs in the optimal O(Aˆ2 Nˆ4) time where A is the alphabet size and N is the number of states. Our algorithm is significantly faster than prior algorithms. Additionally, our approach leads to a significantly faster algorithm for computing second-order expectations, such as covariance matrices and gradients of first-order expectations.</abstract>
       <url hash="778aed74">2021.acl-short.32</url>
