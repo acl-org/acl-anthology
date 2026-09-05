@@ -7,10 +7,12 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
+    author_peak_year,
     AUTHOR_ID_FROM_NAME,
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
@@ -20,6 +22,7 @@ from bin.create_hugo_data import (
     explicitly_colocated_volume_ids,
     export_author_index,
     export_homepage_stats,
+    fellows_to_dict,
     homepage_venue_group,
     homepage_venue_sort_key,
     homepage_stats,
@@ -37,6 +40,67 @@ from acl_anthology.constants import UNKNOWN_INGEST_DATE
 @pytest.fixture(scope="module")
 def anthology():
     return Anthology.from_within_repo()
+
+
+def test_author_peak_year_prefers_later_year_for_median_tie():
+    papers = [
+        SimpleNamespace(year=year)
+        for year in ("2001", "2001", "2004", "2004", "not-a-year")
+    ]
+
+    assert author_peak_year(papers) == 2004
+
+
+def test_acl_fellows_are_complete_resolved_and_share_timeline_scale(anthology):
+    fellows_path = Path(__file__).parent.parent / "data" / "yaml" / "fellows.yaml"
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
+
+    data = fellows_to_dict(anthology, fellows_path)
+    fellows = data["people"]
+    timeline = data["timeline"]
+
+    assert len(fellows) == 107
+    assert {fellow["year"] for fellow in fellows} == set(range(2011, 2026))
+    assert len({fellow["id"] for fellow in fellows}) == len(fellows)
+    assert all(fellow["reason"].startswith("For ") for fellow in fellows)
+    assert all(fellow["photo"].startswith("images/fellows/") for fellow in fellows)
+    assert all(fellow["photo_source"].startswith("http") for fellow in fellows)
+    for fellow in fellows:
+        photo_path = static_path / fellow["photo"]
+        assert photo_path.is_file()
+        with Image.open(photo_path) as photo:
+            assert photo.format == "WEBP"
+            assert photo.size == (400, 600)
+    assert all(
+        fellow["timeline_available"] == ("/unverified" not in fellow["id"])
+        for fellow in fellows
+    )
+    assert all(
+        (fellow["peak_year"] is not None) == fellow["timeline_available"]
+        for fellow in fellows
+    )
+    assert [fellow["year"] for fellow in fellows] == sorted(
+        (fellow["year"] for fellow in fellows), reverse=True
+    )
+
+    timeline_fellows = [fellow for fellow in fellows if fellow["timeline_available"]]
+    publication_lengths = {len(fellow["publications"]) for fellow in timeline_fellows}
+    assert publication_lengths == {timeline["last_year"] - timeline["first_year"] + 1}
+    assert all(
+        fellow["publications"][0]["year"] == timeline["first_year"]
+        and fellow["publications"][-1]["year"] == timeline["last_year"]
+        for fellow in timeline_fellows
+    )
+    assert all(
+        "publications" not in fellow
+        for fellow in fellows
+        if not fellow["timeline_available"]
+    )
+    assert timeline["max_count"] == max(
+        publication["count"]
+        for fellow in timeline_fellows
+        for publication in fellow["publications"]
+    )
 
 
 def test_homepage_stats_are_computed_from_anthology(anthology):

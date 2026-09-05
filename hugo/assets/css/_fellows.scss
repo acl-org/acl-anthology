@@ -1,0 +1,163 @@
+.acl-fellows-list {
+  border-top: 1px solid var(--acl-line);
+}
+
+.acl-fellow-row {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(19rem, .9fr) minmax(25rem, 1.15fr);
+  gap: 1.25rem;
+  align-items: center;
+  min-height: 9.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--acl-line);
+}
+
+.acl-fellow-portrait {
+  display: grid;
+  width: 5.5rem;
+  overflow: hidden;
+  border: 1px solid var(--acl-line);
+  border-radius: .2rem;
+  place-items: center;
+  background-color: $acl-soft-gray;
+  aspect-ratio: 2 / 3;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  > span {
+    color: var(--acl-ink);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+}
+
+.acl-fellow-copy {
+  min-width: 0;
+
+  h2 {
+    margin: 0 0 .4rem;
+    font-size: 1.15rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+}
+
+.acl-fellow-year {
+  margin-left: .35rem;
+  color: var(--acl-muted);
+  font-size: .78rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.acl-fellow-author-icon {
+  color: $acl-logo-red;
+}
+
+.acl-fellow-reason {
+  margin: 0;
+  color: var(--acl-muted);
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+.acl-fellow-credit {
+  display: inline-block;
+  margin-top: .35rem;
+  color: var(--acl-muted);
+  font-size: .65rem;
+  text-decoration: underline;
+}
+
+.acl-fellow-timeline {
+  min-width: 0;
+  margin: 0;
+
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .2rem;
+    color: var(--acl-muted);
+    font-size: .68rem;
+
+    span:first-child {
+      color: var(--acl-ink);
+      font-weight: 600;
+    }
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 5rem;
+    overflow: visible;
+  }
+}
+
+.acl-fellow-timeline-unavailable {
+  display: grid;
+  min-height: 5rem;
+  place-items: center;
+
+  p {
+    margin: 0;
+    color: var(--acl-muted);
+    font-size: .75rem;
+  }
+}
+
+.acl-timeline-grid {
+  stroke: $acl-line;
+  stroke-width: .5;
+}
+
+.acl-timeline-axis {
+  stroke: $acl-muted;
+  stroke-width: .75;
+}
+
+.acl-timeline-label {
+  fill: $acl-muted;
+  font-size: 5px;
+}
+
+.acl-timeline-bar {
+  fill: $acl-muted-blue;
+}
+
+.acl-timeline-bar-peak {
+  fill: $acl-logo-red;
+}
+
+@include media-breakpoint-down(lg) {
+  .acl-fellow-row {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+
+  .acl-fellow-portrait {
+    width: 5rem;
+  }
+
+  .acl-fellow-timeline {
+    grid-column: 1 / -1;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .acl-fellow-row {
+    gap: .85rem;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+  }
+
+  .acl-fellow-portrait {
+    width: 4.25rem;
+  }
+
+  .acl-fellow-timeline svg {
+    height: 4.5rem;
+  }
+}

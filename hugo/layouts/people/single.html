@@ -6,6 +6,10 @@
 {{ define "main" }}
 {{ $person := index hugo.Data.people .Params.name }}
 {{ $is_verified := not (hasSuffix $person.slug "/unverified") }}
+{{ $fellow_matches := slice }}
+{{ with hugo.Data.fellows }}
+  {{ $fellow_matches = where .people "id" $person.slug }}
+{{ end }}
 <section id="main">
   <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
     <h2 id="title" class="flex-grow-1 mb-0">
@@ -22,6 +26,11 @@
       {{ else }}
         <a href="{{ ref . `info/author-pages` }}" title="How to verify an author" target="_blank" rel="noopener">
           <i class="fas fa-question-circle fa-xs align-middle text-secondary ms-1"></i>
+        </a>
+      {{ end }}
+      {{ range first 1 $fellow_matches }}
+        <a class="acl-fellow-author-icon" href="{{ relref $ "/fellows" }}" title="ACL Fellow, inducted {{ .year }}" aria-label="ACL Fellow, inducted {{ .year }}">
+          <i class="fas fa-award fa-xs align-middle ms-1" aria-hidden="true"></i>
         </a>
       {{ end }}
     </h2>
