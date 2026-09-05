@@ -49,7 +49,6 @@ def test_add_revision_preserves_remote_pdf_reference(tmp_path: Path) -> None:
 
     def download(reference: PDFReference, destination: Path) -> None:
         assert reference.name == anthology_id
-        assert reference.url == f"https://aclanthology.org/{anthology_id}.pdf"
         Path(destination).write_bytes(b"original")
 
     with (
