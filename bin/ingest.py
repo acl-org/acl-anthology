@@ -464,7 +464,13 @@ def configure_event(collection: Collection, args: argparse.Namespace) -> None:
         event.links = links
 
 
-def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> str:
+def ensure_venue(
+    anthology: Anthology,
+    venue_abbrev: str,
+    venue_title: str,
+    is_workshop: bool = False,
+    is_journal: bool = False,
+) -> str:
     """
     Looks for existing venue or creates a new one.
     """
@@ -479,7 +485,14 @@ def ensure_venue(anthology: Anthology, venue_abbrev: str, venue_title: str) -> s
         )
     if venue_slug not in anthology.venues:
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
-        anthology.venues.create(id=venue_slug, acronym=venue_abbrev, name=venue_title)
+        kwargs = {}
+        if is_journal:
+            kwargs["type"] = "journal"
+        elif is_workshop:
+            kwargs["type"] = "workshop"
+        anthology.venues.create(
+            id=venue_slug, acronym=venue_abbrev, name=venue_title, **kwargs
+        )
     return venue_slug
 
 
@@ -551,7 +564,11 @@ def read_ingest_metadata(
         meta = read_meta(source_path / "meta")
         venue_abbrev = meta["abbrev"]
         venue_slug = ensure_venue(
-            anthology, venue_abbrev, meta.get("title", venue_abbrev)
+            anthology,
+            venue_abbrev,
+            meta.get("title", venue_abbrev),
+            args.is_workshop,
+            args.is_journal,
         )
         is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
@@ -615,7 +632,13 @@ def read_ingest_metadata(
     if format_ == "aclpub2":
         meta = parse_conf_yaml(source)
         venue_abbrev = meta["anthology_venue_id"]
-        venue_slug = ensure_venue(anthology, venue_abbrev, meta["event_name"])
+        venue_slug = ensure_venue(
+            anthology,
+            venue_abbrev,
+            meta["event_name"],
+            args.is_workshop,
+            args.is_journal,
+        )
         is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume_name"].lower()
