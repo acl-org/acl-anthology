@@ -470,6 +470,7 @@ def ensure_venue(
     venue_title: str,
     is_workshop: bool = False,
     is_journal: bool = False,
+    is_conference: bool = False,
 ) -> str:
     """
     Looks for existing venue or creates a new one.
@@ -484,6 +485,8 @@ def ensure_venue(
             f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake"
         )
     if venue_slug not in anthology.venues:
+        if not any((is_workshop, is_journal, is_conference)):
+            raise ValueError(f"New venue '{venue_abbrev}' requires one of -w, -j, or -c")
         print(f"Creating venue '{venue_abbrev}' ({venue_title}) slug {venue_slug}")
         kwargs = {}
         if is_journal:
@@ -569,6 +572,7 @@ def read_ingest_metadata(
             meta.get("title", venue_abbrev),
             args.is_workshop,
             args.is_journal,
+            args.is_conference,
         )
         is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
@@ -638,6 +642,7 @@ def read_ingest_metadata(
             meta["event_name"],
             args.is_workshop,
             args.is_journal,
+            args.is_conference,
         )
         is_workshop = args.is_workshop or anthology.venues[venue_slug].type == "workshop"
         collection_id = meta["year"] + "." + venue_slug
@@ -1216,11 +1221,15 @@ if __name__ == "__main__":
         default=attachments_path,
         help="Root path for placement of PDF files",
     )
-    parser.add_argument(
+    venue_type = parser.add_mutually_exclusive_group()
+    venue_type.add_argument(
         "--is-workshop", "-w", action="store_true", help="Venue is a workshop"
     )
-    parser.add_argument(
+    venue_type.add_argument(
         "--is-journal", "-j", action="store_true", help="Venue is a journal"
+    )
+    venue_type.add_argument(
+        "--is-conference", "-c", action="store_true", help="Venue is a conference"
     )
     parser.add_argument(
         "--parent-event",
