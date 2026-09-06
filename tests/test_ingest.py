@@ -33,13 +33,34 @@ def test_ensure_venue_creates_without_saving_individual_venue():
     anthology.venues.__contains__.return_value = False
     venue = anthology.venues.create.return_value
 
-    venue_slug = ensure_venue(anthology, "EVALITA", "Evaluation Campaign")
+    venue_slug = ensure_venue(
+        anthology, "EVALITA", "Evaluation Campaign", is_conference=True
+    )
 
     assert venue_slug == "evalita"
     anthology.venues.create.assert_called_once_with(
         id="evalita", acronym="EVALITA", name="Evaluation Campaign"
     )
     venue.save.assert_not_called()
+
+
+def test_ensure_venue_requires_type_for_new_venue():
+    anthology = MagicMock()
+    anthology.venues.__contains__.return_value = False
+
+    with pytest.raises(ValueError, match=r"requires one of -w, -j, or -c"):
+        ensure_venue(anthology, "EVALITA", "Evaluation Campaign")
+
+    anthology.venues.create.assert_not_called()
+
+
+def test_ensure_venue_does_not_require_type_for_existing_venue():
+    anthology = MagicMock()
+    anthology.venues.__contains__.return_value = True
+
+    assert ensure_venue(anthology, "EVALITA", "Evaluation Campaign") == "evalita"
+
+    anthology.venues.create.assert_not_called()
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
