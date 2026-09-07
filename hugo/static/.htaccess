@@ -106,7 +106,12 @@ RewriteCond %{REQUEST_URI} ^(.*/people/[^/]+/)unverified/?$ [NC]
 RewriteRule ^ - [E=CANONICAL_PATH:%1]
 # Inject the rel="canonical" Link header using the captured path
 <IfModule mod_headers.c>
-    Header set Link "<https://aclanthology.org%{CANONICAL_PATH}e>; rel=\"canonical\"" env=CANONICAL_PATH
+    # "always" forces the header onto 404 and other non-200 responses
+    Header always set Link "<https://aclanthology.org%{CANONICAL_PATH}e>; rel=\"canonical\"" env=CANONICAL_PATH
+
+    # Handles Apache internal ErrorDocument subrequests (where CANONICAL_PATH becomes REDIRECT_CANONICAL_PATH)
+    Header always set Link "<https://aclanthology.org%{REDIRECT_CANONICAL_PATH}e>; rel=\"canonical\"" env=REDIRECT_CANONICAL_PATH
+</IfModule>
 </IfModule>
 
 # Videos
