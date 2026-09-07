@@ -112,7 +112,6 @@ RewriteRule ^ - [E=CANONICAL_PATH:%1]
     # Handles Apache internal ErrorDocument subrequests (where CANONICAL_PATH becomes REDIRECT_CANONICAL_PATH)
     Header always set Link "<https://aclanthology.org%{REDIRECT_CANONICAL_PATH}e>; rel=\"canonical\"" env=REDIRECT_CANONICAL_PATH
 </IfModule>
-</IfModule>
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
