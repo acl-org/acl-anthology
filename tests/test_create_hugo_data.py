@@ -2,6 +2,7 @@
 
 import json
 import sys
+from collections import Counter
 from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
@@ -12,7 +13,6 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bin.create_hugo_data import (
-    author_peak_year,
     AUTHOR_ID_FROM_NAME,
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
@@ -29,6 +29,7 @@ from bin.create_hugo_data import (
     latest_owned_ingest_date,
     newly_ingested_years,
     paper_to_dict,
+    publication_decades,
     venue_to_dict,
 )
 
@@ -42,22 +43,33 @@ def anthology():
     return Anthology.from_within_repo()
 
 
-def test_author_peak_year_prefers_later_year_for_median_tie():
-    papers = [
-        SimpleNamespace(year=year)
-        for year in ("2001", "2001", "2004", "2004", "not-a-year")
-    ]
+def test_publication_decades_group_years_and_scale_per_author():
+    decades = publication_decades(Counter({1998: 1, 2001: 2, 2004: 8}))
 
-    assert author_peak_year(papers) == 2004
+    assert [decade["label"] for decade in decades] == ["1990s", "2000s"]
+    assert all(len(decade["years"]) == 10 for decade in decades)
+    assert [year["year"] for year in decades[0]["years"]] == list(range(1990, 2000))
+    assert {
+        year["year"]: year["level"] for decade in decades for year in decade["years"]
+    } == {
+        **dict.fromkeys(range(1990, 1998), 0),
+        1998: 1,
+        1999: 0,
+        2000: 0,
+        2001: 1,
+        2002: 0,
+        2003: 0,
+        2004: 4,
+        **dict.fromkeys(range(2005, 2010), 0),
+    }
 
 
-def test_acl_fellows_are_complete_resolved_and_share_timeline_scale(anthology):
+def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
     fellows_path = Path(__file__).parent.parent / "data" / "yaml" / "fellows.yaml"
     static_path = Path(__file__).parent.parent / "hugo" / "static"
 
     data = fellows_to_dict(anthology, fellows_path)
     fellows = data["people"]
-    timeline = data["timeline"]
 
     assert len(fellows) == 107
     assert {fellow["year"] for fellow in fellows} == set(range(2011, 2026))
@@ -75,31 +87,36 @@ def test_acl_fellows_are_complete_resolved_and_share_timeline_scale(anthology):
         fellow["timeline_available"] == ("/unverified" not in fellow["id"])
         for fellow in fellows
     )
-    assert all(
-        (fellow["peak_year"] is not None) == fellow["timeline_available"]
-        for fellow in fellows
-    )
     assert [fellow["year"] for fellow in fellows] == sorted(
         (fellow["year"] for fellow in fellows), reverse=True
     )
 
     timeline_fellows = [fellow for fellow in fellows if fellow["timeline_available"]]
-    publication_lengths = {len(fellow["publications"]) for fellow in timeline_fellows}
-    assert publication_lengths == {timeline["last_year"] - timeline["first_year"] + 1}
     assert all(
-        fellow["publications"][0]["year"] == timeline["first_year"]
-        and fellow["publications"][-1]["year"] == timeline["last_year"]
+        all(len(decade["years"]) == 10 for decade in fellow["publication_decades"])
         for fellow in timeline_fellows
     )
     assert all(
-        "publications" not in fellow
+        all(
+            year["level"] == 0 if year["count"] == 0 else 1 <= year["level"] <= 4
+            for decade in fellow["publication_decades"]
+            for year in decade["years"]
+        )
+        for fellow in timeline_fellows
+    )
+    assert all(
+        max(
+            year["level"]
+            for decade in fellow["publication_decades"]
+            for year in decade["years"]
+        )
+        == 4
+        for fellow in timeline_fellows
+    )
+    assert all(
+        "publication_decades" not in fellow
         for fellow in fellows
         if not fellow["timeline_available"]
-    )
-    assert timeline["max_count"] == max(
-        publication["count"]
-        for fellow in timeline_fellows
-        for publication in fellow["publications"]
     )
 
 

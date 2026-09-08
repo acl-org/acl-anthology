@@ -121,17 +121,31 @@ def author_publications_by_year(papers):
     )
 
 
-def author_peak_year(papers):
-    """Return an author's peak publication year, preferring later median ties."""
-    year_counts = author_publications_by_year(papers)
-    if not year_counts:
-        return None
+def publication_decades(counts):
+    """Group yearly publication counts into decade rows with relative intensities."""
+    if not counts:
+        return []
 
-    peak_count = max(year_counts.values())
-    peak_years = sorted(
-        year for year, count in year_counts.items() if count == peak_count
-    )
-    return peak_years[len(peak_years) // 2]
+    first_decade = min(counts) // 10 * 10
+    last_decade = max(counts) // 10 * 10
+    max_count = max(counts.values())
+    return [
+        {
+            "label": f"{decade}s",
+            "years": [
+                {
+                    "count": count,
+                    "level": min(4, (count * 4 + max_count - 1) // max_count)
+                    if count
+                    else 0,
+                    "year": year,
+                }
+                for year in range(decade, decade + 10)
+                for count in (counts.get(year, 0),)
+            ],
+        }
+        for decade in range(first_decade, last_decade + 1, 10)
+    ]
 
 
 def load_fellows(anthology, path):
@@ -195,7 +209,6 @@ def load_fellows(anthology, path):
                     if part
                 ),
                 "name": canonical_name.as_full(),
-                "peak_year": author_peak_year(papers) if timeline_available else None,
                 "reason": reason.strip(),
                 "timeline_available": timeline_available,
                 "year": year,
@@ -807,42 +820,15 @@ def export_people(anthology, builddir, dryrun):
 def fellows_to_dict(anthology, path):
     """Build the ACL Fellows data structure consumed by Hugo."""
     fellows = load_fellows(anthology, path)
-    timeline_fellows = [fellow for fellow in fellows if fellow["timeline_available"]]
-    first_year = min(min(fellow["_publication_counts"]) for fellow in timeline_fellows)
-    last_year = max(max(fellow["_publication_counts"]) for fellow in timeline_fellows)
-    years = range(first_year, last_year + 1)
-    max_count = max(
-        max(fellow["_publication_counts"].values()) for fellow in timeline_fellows
-    )
-    chart_height = 36
     for fellow in fellows:
         counts = fellow.pop("_publication_counts")
         fellow.pop("_cohort_order")
         if fellow["timeline_available"]:
-            fellow["publications"] = [
-                {
-                    "count": count,
-                    "height": max(1, round(count / max_count * chart_height))
-                    if count
-                    else 0,
-                    "year": year,
-                }
-                for year in years
-                for count in (counts.get(year, 0),)
-            ]
+            fellow["publication_decades"] = publication_decades(counts)
 
-    ticks = sorted({first_year, last_year, *range(1970, last_year + 1, 10)})
     return {
         "cohorts": sorted({fellow["year"] for fellow in fellows}, reverse=True),
         "people": fellows,
-        "timeline": {
-            "bar_width": 6,
-            "chart_height": chart_height,
-            "first_year": first_year,
-            "last_year": last_year,
-            "max_count": max_count,
-            "ticks": [{"index": year - first_year, "year": year} for year in ticks],
-        },
     }
 
 

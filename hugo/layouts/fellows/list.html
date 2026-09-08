@@ -1,9 +1,5 @@
 {{ define "main" }}
 {{ $fellows := hugo.Data.fellows.people }}
-{{ $timeline := hugo.Data.fellows.timeline }}
-{{ $chart_width := mul (add (sub $timeline.last_year $timeline.first_year) 1) $timeline.bar_width }}
-{{ $baseline := add $timeline.chart_height 2 }}
-{{ $chart_height := add $baseline 17 }}
 
 <main class="acl-fellows">
   <article>
@@ -40,26 +36,17 @@
 
       {{ if .timeline_available }}
       <figure class="acl-fellow-timeline">
-        <figcaption>
-          <span>Publication history</span>
-        </figcaption>
-        <svg viewBox="0 0 {{ $chart_width }} {{ $chart_height }}" role="img" aria-labelledby="timeline-title-{{ .id | anchorize }} timeline-desc-{{ .id | anchorize }}" preserveAspectRatio="none">
-          <title id="timeline-title-{{ .id | anchorize }}">{{ .name }} publications by year</title>
-          <desc id="timeline-desc-{{ .id | anchorize }}">Annual paper counts from {{ $timeline.first_year }} through {{ $timeline.last_year }}, on a shared scale of zero to {{ $timeline.max_count }} papers.</desc>
-          {{ range $timeline.ticks }}
-          {{ $x := add (mul .index $timeline.bar_width) 2 }}
-          <line class="acl-timeline-grid" x1="{{ $x }}" y1="0" x2="{{ $x }}" y2="{{ $baseline }}" />
-          <text class="acl-timeline-label" x="{{ $x }}" y="{{ sub $chart_height 2 }}" text-anchor="middle">{{ .year }}</text>
-          {{ end }}
-          <line class="acl-timeline-axis" x1="0" y1="{{ $baseline }}" x2="{{ $chart_width }}" y2="{{ $baseline }}" />
-          {{ range $index, $publication := .publications }}
-            {{ if $publication.count }}
-            <rect class="acl-timeline-bar{{ if eq $publication.year $fellow.peak_year }} acl-timeline-bar-peak{{ end }}" x="{{ add (mul $index $timeline.bar_width) 1 }}" y="{{ sub $baseline $publication.height }}" width="4" height="{{ $publication.height }}">
-              <title>{{ $publication.year }}: {{ $publication.count }} paper{{ if ne $publication.count 1 }}s{{ end }}</title>
-            </rect>
+        <figcaption>Publication timeline</figcaption>
+        <div class="acl-fellow-decades" role="img" aria-label="{{ .name }} publications by year. Each row is one decade; darker blue blocks indicate more papers in that year relative to this Fellow's busiest year.">
+          {{ range .publication_decades }}
+          <div class="acl-fellow-decade">
+            <span class="acl-fellow-decade-label">{{ .label }}</span>
+            {{ range .years }}
+            <span class="acl-fellow-publication-year acl-fellow-publication-year--{{ .level }}" title="{{ .year }}: {{ .count }} paper{{ if ne .count 1 }}s{{ end }}" aria-hidden="true"></span>
             {{ end }}
+          </div>
           {{ end }}
-        </svg>
+        </div>
       </figure>
       {{ else }}
       <div class="acl-fellow-timeline acl-fellow-timeline-unavailable">
