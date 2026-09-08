@@ -2182,7 +2182,7 @@
       <author><first>Emanuele</first><last>Bugliarello</last></author>
       <author id="sabrina-j-mielke"><first>Sabrina J.</first><last>Mielke</last></author>
       <author><first>Antonios</first><last>Anastasopoulos</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author id="naoaki-okazaki"><first>Naoaki</first><last>Okazaki</last></author>
       <pages>1640–1649</pages>
       <abstract>The performance of neural machine translation systems is commonly evaluated in terms of BLEU. However, due to its reliance on target language properties and generation, the BLEU metric does not allow an assessment of which translation directions are more difficult to model. In this paper, we propose cross-mutual information (XMI): an asymmetric information-theoretic metric of machine translation difficulty that exploits the probabilistic nature of most neural machine translation models. XMI allows us to better evaluate the difficulty of translating text into the target language while controlling for the difficulty of the target-side generation component independent of the translation task. We then present the first systematic and controlled study of cross-lingual translation difficulties using modern neural translation systems. Code for replicating our experiments is available online at <url>https://github.com/e-bug/nmt-difficulty</url>.</abstract>
@@ -5994,7 +5994,7 @@
       <author><first>Eleanor</first><last>Chodroff</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Matthew</first><last>Wiesner</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author id="alan-w-black"><first>Alan W</first><last>Black</last></author>
       <author id="jason-eisner"><first>Jason</first><last>Eisner</last></author>
       <pages>4526–4546</pages>
@@ -6081,7 +6081,7 @@
       <author><first>Rowan Hall</first><last>Maudslay</last></author>
       <author><first>Ran</first><last>Zmigrod</last></author>
       <author><first>Adina</first><last>Williams</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>4609–4622</pages>
       <abstract>The success of neural networks on a diverse set of NLP tasks has led researchers to question how much these networks actually “know” about natural language. Probes are a natural way of assessing this. When probing, a researcher chooses a linguistic task and trains a supervised model to predict annotations in that linguistic task from the network’s learned representations. If the probe does well, the researcher may conclude that the representations encode knowledge related to the task. A commonly held belief is that using simpler models as probes is better; the logic is that simpler models will identify linguistic structure, but not learn the task itself. We propose an information-theoretic operationalization of probing as estimating mutual information that contradicts this received wisdom: one should always select the highest performing probe one can, even if it is more complex, since it will result in a tighter estimate, and thus reveal more of the linguistic information inherent in the representation. The experimental portion of our paper focuses on empirically estimating the mutual information between a linguistic property and BERT, comparing these estimates to several baselines. We evaluate on a set of ten typologically diverse languages often underrepresented in NLP research—plus English—totalling eleven languages. Our implementation is available in <url>https://github.com/rycolab/info-theoretic-probing</url>.</abstract>
       <url hash="334ed2ef">2020.acl-main.420</url>
@@ -8648,7 +8648,7 @@
       <author><first>Hagen</first><last>Blix</last></author>
       <author id="arya-d-mccarthy"><first>Arya D.</first><last>McCarthy</last></author>
       <author><first>Eleanor</first><last>Chodroff</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>6682–6695</pages>
       <abstract>The noun lexica of many natural languages are divided into several declension classes with characteristic morphological properties. Class membership is far from deterministic, but the phonological form of a noun and/or its meaning can often provide imperfect clues. Here, we investigate the strength of those clues. More specifically, we operationalize this by measuring how much information, in bits, we can glean about declension class from knowing the form and/or meaning of nouns. We know that form and meaning are often also indicative of grammatical gender—which, as we quantitatively verify, can itself share information with declension class—so we also control for gender. We find for two Indo-European languages (Czech and German) that form and meaning respectively share significant amounts of information with class (and contribute additional information above and beyond gender). The three-way interaction between class, form, and meaning (given gender) is also significant. Our study is important for two reasons: First, we introduce a new method that provides additional quantitative support for a classic linguistic finding that form and meaning are relevant for the classification of nouns into declensions. Secondly, we show not only that individual declensions classes vary in the strength of their clues within a language, but also that these variations themselves vary across languages.</abstract>
       <url hash="17bb637a">2020.acl-main.597</url>
@@ -8915,7 +8915,7 @@
       <title>Generalized Entropy Regularization or: There’s Nothing Special about Label Smoothing</title>
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Elizabeth</first><last>Salesky</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>6870–6886</pages>
       <abstract>Prior work has explored directly regularizing the output distributions of probabilistic models to alleviate peaky (i.e. over-confident) predictions, a common sign of overfitting. This class of techniques, of which label smoothing is one, has a connection to entropy regularization. Despite the consistent success of label smoothing across architectures and data sets in language generation tasks, two problems remain open: (1) there is little understanding of the underlying effects entropy regularizers have on models, and (2) the full space of entropy regularization techniques is largely unexplored. We introduce a parametric family of entropy regularizers, which includes label smoothing as a special case, and use it to gain a better understanding of the relationship between the entropy of a model and its performance on language generation tasks. We also find that variance in model performance can be explained largely by the resulting entropy of the model. Lastly, we find that label smoothing provably does not allow for sparsity in an output distribution, an undesirable property for language generation models, and therefore advise the use of other entropy regularization methods in its place.</abstract>
       <url hash="87d3c56c">2020.acl-main.615</url>
@@ -9545,7 +9545,7 @@
       <author><first>Josef</first><last>Valvoda</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Adina</first><last>Williams</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <pages>7389–7395</pages>
       <abstract>Measuring what linguistic information is encoded in neural models of language has become popular in NLP. Researchers approach this enterprise by training “probes”—supervised models designed to extract linguistic structure from another model’s output. One such probe is the structural probe (Hewitt and Manning, 2019), designed to quantify the extent to which syntactic information is encoded in contextualised word representations. The structural probe has a novel design, unattested in the parsing literature, the precise benefit of which is not immediately obvious. To explore whether syntactic probes would do better to make use of existing techniques, we compare the structural probe to a more traditional parser with an identical lightweight parameterisation. The parser outperforms structural probe on UUAS in seven of nine analysed languages, often by a substantial amount (e.g. by 11.1 points in English). Under a second less common metric, however, there is the opposite trend—the structural probe outperforms the parser. This begs the question: which metric should we prefer?</abstract>
       <url hash="8ee13cf2">2020.acl-main.659</url>
@@ -10040,7 +10040,7 @@
       <author><first>Alexander</first><last>Erdmann</last></author>
       <author><first>Micha</first><last>Elsner</last></author>
       <author><first>Shijie</first><last>Wu</last></author>
-      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author id="ryan-cotterell"><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Nizar</first><last>Habash</last></author>
       <pages>7778–7790</pages>
       <abstract>This work treats the paradigm discovery problem (PDP), the task of learning an inflectional morphological system from unannotated sentences. We formalize the PDP and develop evaluation metrics for judging systems. Using currently available resources, we construct datasets for the task. We also devise a heuristic benchmark for the PDP and report empirical results on five diverse languages. Our benchmark system first makes use of word embeddings and string similarity to cluster forms by cell and by paradigm. Then, we bootstrap a neural transducer on top of the clustered data to predict words to realize the empty paradigm slots. An error analysis of our system suggests clustering by cell across different inflection classes is the most pressing challenge for future work.</abstract>
