@@ -1,6 +1,8 @@
 ---
 title: ACL Hall of Fame
 css_container: container-xl
+aliases:
+  - /fellows/
 ---
 
 The ACL Fellows program recognizes members whose work has made extraordinary
