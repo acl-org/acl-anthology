@@ -193,7 +193,7 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
 
     awards_by_year = {award["year"]: award for award in awards}
     assert awards_by_year[2014]["talk_url"] == (
-        "https://aclanthology.org/2014.acl-lat.1.mp4"
+        "https://aclanthology.org/2014.acl-laa.1.mp4"
     )
     assert awards_by_year[2025]["talk_url"].startswith("https://direct.mit.edu/")
     assert all("talk_url" not in awards_by_year[year] for year in (2002, 2003))
