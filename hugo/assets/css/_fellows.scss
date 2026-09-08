@@ -1,15 +1,35 @@
-.acl-fellows-list {
-  border-top: 1px solid var(--acl-line);
+.acl-fellows-section {
+  margin-top: 2.5rem;
+
+  > h2 {
+    margin-bottom: 1.25rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--acl-line);
+  }
 }
 
-.acl-fellow-row {
+.acl-fellows-group-label {
+  margin: 1.5rem 0 .75rem;
+  color: var(--acl-ink);
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.acl-fellows-gallery {
   display: grid;
-  grid-template-columns: 5.5rem minmax(19rem, 1fr) minmax(14rem, .65fr);
-  gap: 1.25rem;
-  align-items: center;
-  min-height: 9.25rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--acl-line);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.acl-fellow-card {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: .85rem;
+  min-width: 0;
+  padding: .75rem;
+  border: 1px solid var(--acl-line);
+  border-radius: .25rem;
 }
 
 .acl-fellow-portrait {
@@ -38,148 +58,46 @@
 .acl-fellow-copy {
   min-width: 0;
 
-  h2 {
-    margin: 0 0 .4rem;
-    font-size: 1.15rem;
+  h3 {
+    margin: 0 0 .35rem;
+    font-size: 1rem;
     line-height: 1.25;
     overflow-wrap: anywhere;
   }
 }
 
-.acl-fellow-year {
-  margin-left: .35rem;
-  color: var(--acl-muted);
-  font-size: .78rem;
-  font-weight: 400;
-  white-space: nowrap;
+.acl-fellow-honors {
+  display: grid;
+  gap: .15rem;
+  margin-bottom: .5rem;
 }
 
-.acl-fellow-author-icon {
-  color: $acl-logo-red;
+.acl-fellow-year {
+  color: var(--acl-muted);
+  font-size: .72rem;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .acl-fellow-reason {
-  margin: 0;
+  margin: 0 0 .4rem;
   color: var(--acl-muted);
-  font-size: .82rem;
-  line-height: 1.45;
+  font-size: .76rem;
+  line-height: 1.4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .acl-fellow-credit {
-  display: inline-block;
-  margin-top: .35rem;
   color: var(--acl-muted);
   font-size: .65rem;
   text-decoration: underline;
 }
 
-.acl-fellow-timeline {
-  min-width: 0;
-  margin: 0;
-
-  figcaption {
-    margin-bottom: .35rem;
-    color: var(--acl-ink);
-    font-size: .68rem;
-    font-weight: 600;
-  }
-}
-
-.acl-fellow-decades {
-  display: grid;
-  gap: .22rem;
-}
-
-.acl-fellow-decade {
-  display: grid;
-  grid-template-columns: 2.7rem repeat(10, .72rem);
-  gap: .2rem;
-  align-items: center;
-}
-
-.acl-fellow-decade-label {
-  color: var(--acl-muted);
-  font-size: .62rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.acl-fellow-publication-year {
-  width: .72rem;
-  height: .72rem;
-  border: 1px solid rgba($acl-black, .05);
-  border-radius: .12rem;
-  background: $acl-soft-gray;
-}
-
-.acl-fellow-publication-year--1 {
-  background: $acl-soft-blue;
-}
-
-.acl-fellow-publication-year--2 {
-  background: tint-color($acl-muted-blue, 55%);
-}
-
-.acl-fellow-publication-year--3 {
-  background: tint-color($acl-muted-blue, 25%);
-}
-
-.acl-fellow-publication-year--4 {
-  background: $acl-muted-blue;
-}
-
-.acl-fellow-timeline-unavailable {
-  display: grid;
-  min-height: 5rem;
-  place-items: center;
-
-  p {
-    margin: 0;
-    color: var(--acl-muted);
-    font-size: .75rem;
-  }
-}
-
-@include media-breakpoint-down(lg) {
-  .acl-fellow-row {
-    grid-template-areas:
-      "heading heading"
-      "portrait timeline"
-      "details details";
-    grid-template-columns: 5rem minmax(0, 1fr);
-    align-items: start;
-    row-gap: .75rem;
-  }
-
-  .acl-fellow-copy {
-    display: contents;
-
-    h2 {
-      grid-area: heading;
-      margin-bottom: 0;
-    }
-  }
-
-  .acl-fellow-details {
-    grid-area: details;
-  }
-
-  .acl-fellow-portrait {
-    grid-area: portrait;
-    width: 5rem;
-  }
-
-  .acl-fellow-timeline {
-    grid-area: timeline;
-  }
-}
-
 @include media-breakpoint-down(sm) {
-  .acl-fellow-row {
-    column-gap: .85rem;
-    grid-template-columns: 4.25rem minmax(0, 1fr);
-  }
-
   .acl-fellow-portrait {
-    width: 4.25rem;
+    width: 5rem;
   }
 }

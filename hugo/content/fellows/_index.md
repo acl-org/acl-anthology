@@ -1,5 +1,5 @@
 ---
-title: ACL Fellows and Lifetime Achievement Award Recipients
+title: ACL Hall of Fame
 css_container: container-xl
 ---
 
