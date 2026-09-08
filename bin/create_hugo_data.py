@@ -202,6 +202,7 @@ def load_fellows(anthology, path):
             fellow = {
                 "_cohort_order": cohort_order,
                 "_publication_counts": publication_counts,
+                "honor": "fellow",
                 "id": person_id,
                 "initials": "".join(
                     part[0]
@@ -221,6 +222,85 @@ def load_fellows(anthology, path):
     return sorted(
         fellows,
         key=lambda fellow: (-fellow["year"], fellow["_cohort_order"]),
+    )
+
+
+def load_lifetime_achievement_awards(anthology, path, fellows):
+    """Load ACL Lifetime Achievement Award recipients and acceptance speeches."""
+    with open(path, encoding="utf-8") as yaml_file:
+        cohorts = yaml.safe_load(yaml_file)
+
+    fellow_photos = {
+        fellow["id"]: {
+            key: fellow[key]
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source")
+            if key in fellow
+        }
+        for fellow in fellows
+    }
+    awards = []
+    seen_ids = set()
+    for year, entries in cohorts.items():
+        if not isinstance(year, int) or not isinstance(entries, list):
+            log.error(f"Invalid ACL Lifetime Achievement Award cohort: {year!r}")
+            continue
+
+        for cohort_order, entry in enumerate(entries):
+            if not isinstance(entry, dict) or "id" not in entry:
+                log.error(
+                    f"Invalid ACL Lifetime Achievement Award entry in {year}: {entry!r}"
+                )
+                continue
+
+            person_id = entry["id"]
+            if person_id in seen_ids:
+                log.error(
+                    f"Duplicate ACL Lifetime Achievement Award recipient: {person_id}"
+                )
+                continue
+            seen_ids.add(person_id)
+
+            talk_title = entry.get("talk_title")
+            talk_url = entry.get("talk_url")
+            if bool(talk_title) != bool(talk_url):
+                log.error(
+                    f"Incomplete ACL Lifetime Achievement Award talk for {person_id}"
+                )
+                continue
+
+            person = anthology.get_person(person_id)
+            if person is None:
+                log.error(
+                    f"Unknown person ID for ACL Lifetime Achievement Award: {person_id}"
+                )
+                continue
+
+            canonical_name = person.canonical_name
+            publication_counts = author_publications_by_year(person.papers())
+            award = {
+                "_cohort_order": cohort_order,
+                "_publication_counts": publication_counts,
+                "honor": "lifetime-achievement-award",
+                "id": person_id,
+                "initials": "".join(
+                    part[0]
+                    for part in (canonical_name.first, canonical_name.last)
+                    if part
+                ),
+                "name": canonical_name.as_full(),
+                "timeline_available": person.is_explicit
+                and "/unverified" not in person_id,
+                "year": year,
+            }
+            award.update(fellow_photos.get(person_id, {}))
+            for key in ("talk_title", "talk_url", "video_url"):
+                if value := entry.get(key):
+                    award[key] = value
+            awards.append(award)
+
+    return sorted(
+        awards,
+        key=lambda award: (-award["year"], award["_cohort_order"]),
     )
 
 
@@ -817,24 +897,43 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
-def fellows_to_dict(anthology, path):
-    """Build the ACL Fellows data structure consumed by Hugo."""
+def fellows_to_dict(anthology, path, lifetime_awards_path=None):
+    """Build the ACL honors data structure consumed by Hugo."""
     fellows = load_fellows(anthology, path)
-    for fellow in fellows:
-        counts = fellow.pop("_publication_counts")
-        fellow.pop("_cohort_order")
-        if fellow["timeline_available"]:
-            fellow["publication_decades"] = publication_decades(counts)
+    awards = (
+        load_lifetime_achievement_awards(anthology, lifetime_awards_path, fellows)
+        if lifetime_awards_path
+        else []
+    )
+    honorees = sorted(
+        [*fellows, *awards],
+        key=lambda honoree: (
+            -honoree["year"],
+            honoree["honor"] != "lifetime-achievement-award",
+            honoree["_cohort_order"],
+        ),
+    )
+    for honoree in honorees:
+        counts = honoree.pop("_publication_counts")
+        honoree.pop("_cohort_order")
+        if honoree["timeline_available"]:
+            honoree["publication_decades"] = publication_decades(counts)
 
     return {
         "cohorts": sorted({fellow["year"] for fellow in fellows}, reverse=True),
+        "honorees": honorees,
+        "lifetime_achievement_awards": awards,
         "people": fellows,
     }
 
 
 def export_fellows(anthology, importdir, builddir, dryrun):
-    print("Exporting ACL Fellows...")
-    data = fellows_to_dict(anthology, os.path.join(importdir, "yaml", "fellows.yaml"))
+    print("Exporting ACL honors...")
+    data = fellows_to_dict(
+        anthology,
+        os.path.join(importdir, "yaml", "fellows.yaml"),
+        os.path.join(importdir, "yaml", "lifetime-achievement-awards.yaml"),
+    )
     if not dryrun:
         with open(f"{builddir}/data/fellows.json", "wb") as json_file:
             json_file.write(ENCODER.encode(data))

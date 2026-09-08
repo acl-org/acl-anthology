@@ -6,6 +6,7 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
+from urllib.parse import urlparse
 
 import pytest
 from PIL import Image
@@ -118,6 +119,51 @@ def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
         for fellow in fellows
         if not fellow["timeline_available"]
     )
+
+
+def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
+    data_path = Path(__file__).parent.parent / "data" / "yaml"
+    data = fellows_to_dict(
+        anthology,
+        data_path / "fellows.yaml",
+        data_path / "lifetime-achievement-awards.yaml",
+    )
+    fellows = data["people"]
+    awards = data["lifetime_achievement_awards"]
+    honorees = data["honorees"]
+
+    assert len(fellows) == 107
+    assert len(awards) == 24
+    assert len(honorees) == 131
+    assert {award["year"] for award in awards} == set(range(2002, 2026))
+    assert all(award["honor"] == "lifetime-achievement-award" for award in awards)
+    assert [honoree["year"] for honoree in honorees] == sorted(
+        (honoree["year"] for honoree in honorees), reverse=True
+    )
+    for year in range(2011, 2026):
+        year_honorees = [honoree for honoree in honorees if honoree["year"] == year]
+        assert year_honorees[0]["honor"] == "lifetime-achievement-award"
+
+    article_awards = [
+        award
+        for award in awards
+        if award.get("talk_url", "").startswith("https://aclanthology.org/")
+        and not award["talk_url"].endswith(".mp4")
+    ]
+    assert len(article_awards) == 20
+    for award in article_awards:
+        paper_id = urlparse(award["talk_url"]).path.strip("/")
+        paper = anthology.get_paper(paper_id)
+        assert paper is not None
+        assert award["talk_title"] in str(paper.title)
+
+    awards_by_year = {award["year"]: award for award in awards}
+    assert awards_by_year[2014]["talk_url"] == (
+        "https://aclanthology.org/2014.acl-lat.1.mp4"
+    )
+    assert awards_by_year[2025]["talk_url"].startswith("https://direct.mit.edu/")
+    assert all("talk_url" not in awards_by_year[year] for year in (2002, 2003))
+    assert awards_by_year[2018]["photo"] == "images/fellows/mark-steedman.webp"
 
 
 def test_homepage_stats_are_computed_from_anthology(anthology):
