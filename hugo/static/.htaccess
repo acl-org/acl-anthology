@@ -103,6 +103,7 @@ RewriteRule ^people/([^/]+)/?$ people/$1/unverified [L,R=307]
 # Unverified URLs: extract and provide canonical URL in header
 # Extract the path before "unverified/" into a variable
 RewriteCond %{REQUEST_URI} ^(.*/people/[^/]+/)unverified/?$ [NC]
+RewriteCond %{REQUEST_FILENAME}/../index.html -f
 RewriteRule ^ - [E=CANONICAL_PATH:%1]
 # Inject the rel="canonical" Link header using the captured path
 <IfModule mod_headers.c>
