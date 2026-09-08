@@ -94,6 +94,7 @@ WATERMARK_MARKERS = (
     "Downloaded from http://www.mitpressjournals.org/doi/pdf/",
     "Downloaded from https://www.mitpressjournals.org/doi/pdf/",
 )
+WATERMARK_DOMAINS = ("direct.mit.edu", "mitpressjournals.org")
 PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 DOWNLOAD_CHUNK_SIZE = 1024 * 1024
@@ -532,20 +533,23 @@ def maybe_download_pdf(
         try:
             retrieve_url(pdf_url, str(destination))
             if destination.is_file() and destination.stat().st_size > 0:
-                try:
-                    removed = maybe_remove_mitpress_watermark(destination)
-                    if removed > 0:
-                        logging.info(
-                            "Removed %s watermark content stream(s) from %s",
-                            removed,
-                            destination.name,
-                        )
-                except Exception as exc:
-                    logging.warning(
-                        "Watermark cleanup failed for DOI %s (%s), keeping original PDF",
-                        doi,
-                        exc,
+                removed = maybe_remove_mitpress_watermark(destination)
+                if removed == 0:
+                    raise RuntimeError(
+                        "no MIT Press watermark streams were removed; "
+                        "the PDF format may have changed"
                     )
+                remaining_pages = find_mitpress_watermark_pages(destination)
+                if remaining_pages:
+                    raise RuntimeError(
+                        "MIT Press watermark remains on page(s) "
+                        + ", ".join(map(str, remaining_pages))
+                    )
+                logging.info(
+                    "Removed %s watermark content stream(s) from %s",
+                    removed,
+                    destination.name,
+                )
                 destination.chmod(PDF_FILE_MODE)
                 return True, pdf_url
             raise RuntimeError("downloaded file missing or empty")
@@ -558,12 +562,14 @@ def maybe_download_pdf(
                 pass
 
             if attempt == PDF_DOWNLOAD_RETRIES:
-                logging.warning("Failed to fetch PDF for DOI %s: %s", doi, exc)
+                logging.warning(
+                    "Failed to download and clean PDF for DOI %s: %s", doi, exc
+                )
                 return False, pdf_url
 
             wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
             logging.warning(
-                "PDF fetch failed for DOI %s (attempt %s/%s): %s. Retrying in %ss",
+                "PDF download or cleanup failed for DOI %s (attempt %s/%s): %s. Retrying in %ss",
                 doi,
                 attempt,
                 PDF_DOWNLOAD_RETRIES,
@@ -582,7 +588,7 @@ def remove_margin_watermark_streams(
     encoding_fallback: str = "latin-1",
 ) -> int:
     """
-    Remove per-page content streams containing MIT's margin watermark text.
+    Remove per-page content streams containing MIT's margin watermark.
 
     Returns the number of removed content streams.
     """
@@ -609,7 +615,11 @@ def remove_margin_watermark_streams(
         for stream in streams:
             obj = stream.get_object() if hasattr(stream, "get_object") else stream
             data = obj.get_data()
-            has_marker = any(mb in data for mb in marker_bytes)
+            has_marker = b"/Artifact" in data and bool(
+                re.search(rb"/(?:Type|Subtype)\s*/Watermark\b", data)
+            )
+            if not has_marker:
+                has_marker = any(mb in data for mb in marker_bytes)
             if not has_marker:
                 try:
                     decoded = data.decode("utf-8")
@@ -644,6 +654,39 @@ def remove_margin_watermark_streams(
             writer.write(out_f)
 
     return removed
+
+
+def find_mitpress_watermark_pages(path: Path) -> list[int]:
+    """Return page numbers that still contain an MIT Press watermark."""
+    reader = PdfReader(str(path))
+    remaining_pages = []
+
+    for page_number, page in enumerate(reader.pages, 1):
+        text = (page.extract_text() or "").replace("\u200b", "").casefold()
+        has_watermark = "downloaded from" in text and any(
+            domain in text for domain in WATERMARK_DOMAINS
+        )
+
+        contents = page.get("/Contents")
+        if contents is not None and not has_watermark:
+            streams = (
+                list(contents)
+                if isinstance(contents, (list, ArrayObject))
+                else [contents]
+            )
+            for stream in streams:
+                obj = stream.get_object() if hasattr(stream, "get_object") else stream
+                data = obj.get_data()
+                if b"/Artifact" in data and re.search(
+                    rb"/(?:Type|Subtype)\s*/Watermark\b", data
+                ):
+                    has_watermark = True
+                    break
+
+        if has_watermark:
+            remaining_pages.append(page_number)
+
+    return remaining_pages
 
 
 def maybe_remove_mitpress_watermark(path: Path) -> int:
@@ -794,6 +837,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
                         raise RuntimeError(
                             f"PDF download failed for existing DOI {doi} ({pdf_url}); aborting ingestion."
                         )
+                    existing_paper.pdf = PDFReference.from_file(destination)
                     report["existing_pdf_downloaded"] += 1
                     report["existing_pdf_downloaded_dois"].append(doi)
             continue
