@@ -33,10 +33,12 @@ command runner; running `just -l` will list all available recipes, while `just
 
 ## Running benchmarks
 
-There are some benchmark scripts intended to be run with
-[richbench](https://github.com/tonybaloney/rich-bench) via `uv run richbench
-benchmarks/` or `just benchmark`.  They were mostly used to inform design
-decisions during development and are currently not actively maintained.
+There are some benchmarks written with
+[pytest-benchmark](https://pytest-benchmark.readthedocs.io/), runnable with
+`just benchmark` (fast, small in-repo fixtures) or `just benchmark-integration`
+(slower, against this repo's own, full Anthology data). See
+[`benchmarks/README.md`](https://github.com/acl-org/acl-anthology/blob/master/python/benchmarks/README.md)
+for details, including how to compare results against a saved baseline.
 
 ## Generating and writing documentation
 

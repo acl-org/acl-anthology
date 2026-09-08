@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Is it cheaper to parse an <author> element via .findtext() lookups or by
+iterating over its children once?"""
+
+import pytest
 from lxml import etree
 
-REPEAT = 1000
 SAMPLE_XML = """
 <list-of-authors>
   <author>
@@ -61,33 +64,20 @@ def parse_with_iter(element):
             affiliation = child.text
         elif child.tag == "variant":
             variants.append(child.get("script"))  # simplification
-    return [
-        first,
-        last,
-        element.get("id"),
-        affiliation,
-        variants,
-    ]
+    return [first, last, element.get("id"), affiliation, variants]
 
 
-def bench_with_findtext():
-    for _ in range(REPEAT):
-        element = etree.fromstring(SAMPLE_XML)
-        for author in element:
-            parse_with_findtext(author)
+@pytest.fixture(scope="module")
+def author_elements():
+    return list(etree.fromstring(SAMPLE_XML))
 
 
-def bench_with_iter():
-    for _ in range(REPEAT):
-        element = etree.fromstring(SAMPLE_XML)
-        for author in element:
-            parse_with_iter(author)
+@pytest.mark.benchmark
+@pytest.mark.parametrize(
+    "parse_fn", [parse_with_findtext, parse_with_iter], ids=["findtext", "iterate"]
+)
+def test_parse_author_name(benchmark, author_elements, parse_fn):
+    def parse_all():
+        return [parse_fn(author) for author in author_elements]
 
-
-__benchmarks__ = [
-    (
-        bench_with_findtext,
-        bench_with_iter,
-        "XML <author>: iterate instead of searching with .findtext",
-    ),
-]
+    benchmark(parse_all)
