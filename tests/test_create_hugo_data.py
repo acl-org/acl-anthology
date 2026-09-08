@@ -134,7 +134,8 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
 
     assert len(fellows) == 107
     assert len(awards) == 24
-    assert len(honorees) == 131
+    assert len(honorees) == 118
+    assert len({honoree["id"] for honoree in honorees}) == len(honorees)
     assert {award["year"] for award in awards} == set(range(2002, 2026))
     assert all(award["honor"] == "lifetime-achievement-award" for award in awards)
     assert [honoree["year"] for honoree in honorees] == sorted(
@@ -142,7 +143,28 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
     )
     for year in range(2011, 2026):
         year_honorees = [honoree for honoree in honorees if honoree["year"] == year]
-        assert year_honorees[0]["honor"] == "lifetime-achievement-award"
+        if any(
+            honoree.get("lifetime_achievement_award_year") == year
+            for honoree in year_honorees
+        ):
+            assert year_honorees[0]["lifetime_achievement_award_year"] == year
+
+    dual_honorees = [honoree for honoree in honorees if honoree["honor"] == "both"]
+    assert len(dual_honorees) == 13
+    assert all("fellow_year" in honoree for honoree in dual_honorees)
+    assert all(
+        "lifetime_achievement_award_year" in honoree
+        for honoree in dual_honorees
+    )
+    assert next(
+        honoree for honoree in dual_honorees if honoree["id"] == "eugene-charniak/unverified"
+    )["year"] == 2011
+    assert next(
+        honoree for honoree in dual_honorees if honoree["id"] == "barbara-j-grosz"
+    )["year"] == 2019
+    assert {fellow["year"] for fellow in fellows if fellow["id"] == "barbara-j-grosz"} == {
+        2019
+    }
 
     article_awards = [
         award

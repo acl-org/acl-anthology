@@ -27,22 +27,21 @@
         <h2>
           <a href="{{ relref $ (printf "/people/%s" .id) }}">{{ .name }}</a>
           <span class="acl-fellow-year">
-            {{- if eq .honor "fellow" -}}
-              ACL Fellow, {{ .year }}
-            {{- else -}}
-              ACL Lifetime Achievement Award, {{ .year }}
-            {{- end -}}
+            {{- with .fellow_year -}}ACL Fellow, {{ . }}{{ end -}}
+            {{- if and .fellow_year .lifetime_achievement_award_year }}; {{ end -}}
+            {{- with .lifetime_achievement_award_year -}}ACL Lifetime Achievement Award, {{ . }}{{ end -}}
           </span>
         </h2>
         <div class="acl-fellow-details">
-        {{ if eq .honor "fellow" }}
-        <p class="acl-fellow-reason">{{ .reason }}</p>
-        {{ else if .talk_url }}
+        {{ with .reason }}
+        <p class="acl-fellow-reason">{{ . }}</p>
+        {{ end }}
+        {{ if .talk_url }}
         <p class="acl-fellow-reason">
           Acceptance speech: <a href="{{ .talk_url }}" rel="external noopener">{{ .talk_title }}</a>
           {{- with .video_url }} (<a href="{{ . }}" rel="external noopener">video</a>){{ end }}
         </p>
-        {{ else }}
+        {{ else if .lifetime_achievement_award_year }}
         <p class="acl-fellow-reason">No acceptance speech is listed.</p>
         {{ end }}
         {{ with .photo_source }}

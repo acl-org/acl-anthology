@@ -905,19 +905,46 @@ def fellows_to_dict(anthology, path, lifetime_awards_path=None):
         if lifetime_awards_path
         else []
     )
-    honorees = sorted(
-        [*fellows, *awards],
-        key=lambda honoree: (
-            -honoree["year"],
-            honoree["honor"] != "lifetime-achievement-award",
-            honoree["_cohort_order"],
-        ),
-    )
-    for honoree in honorees:
+    for honoree in [*fellows, *awards]:
         counts = honoree.pop("_publication_counts")
         honoree.pop("_cohort_order")
         if honoree["timeline_available"]:
             honoree["publication_decades"] = publication_decades(counts)
+
+    honorees_by_id = {
+        fellow["id"]: {
+            **fellow,
+            "fellow_year": fellow["year"],
+            "_sort_as_lifetime_award": False,
+        }
+        for fellow in fellows
+    }
+    for award in awards:
+        if honoree := honorees_by_id.get(award["id"]):
+            honoree["honor"] = "both"
+            honoree["lifetime_achievement_award_year"] = award["year"]
+            for key in ("talk_title", "talk_url", "video_url"):
+                if key in award:
+                    honoree[key] = award[key]
+            if award["year"] >= honoree["year"]:
+                honoree["year"] = award["year"]
+                honoree["_sort_as_lifetime_award"] = True
+        else:
+            honorees_by_id[award["id"]] = {
+                **award,
+                "lifetime_achievement_award_year": award["year"],
+                "_sort_as_lifetime_award": True,
+            }
+
+    honorees = sorted(
+        honorees_by_id.values(),
+        key=lambda honoree: (
+            -honoree["year"],
+            not honoree["_sort_as_lifetime_award"],
+        ),
+    )
+    for honoree in honorees:
+        honoree.pop("_sort_as_lifetime_award")
 
     return {
         "cohorts": sorted({fellow["year"] for fellow in fellows}, reverse=True),
