@@ -293,7 +293,15 @@ def load_lifetime_achievement_awards(anthology, path, fellows):
                 "year": year,
             }
             award.update(fellow_photos.get(person_id, {}))
-            for key in ("talk_title", "talk_url", "video_url"):
+            for key in (
+                "photo",
+                "photo_alt",
+                "photo_credit",
+                "photo_source",
+                "talk_title",
+                "talk_url",
+                "video_url",
+            ):
                 if value := entry.get(key):
                     award[key] = value
             awards.append(award)

@@ -26,11 +26,16 @@
       <div class="acl-fellow-copy">
         <h2>
           <a href="{{ relref $ (printf "/people/%s" .id) }}">{{ .name }}</a>
+          {{ with .fellow_year }}
           <span class="acl-fellow-year">
-            {{- with .fellow_year -}}ACL Fellow, {{ . }}{{ end -}}
-            {{- if and .fellow_year .lifetime_achievement_award_year }}; {{ end -}}
-            {{- with .lifetime_achievement_award_year -}}ACL Lifetime Achievement Award, {{ . }}{{ end -}}
+            ACL Fellow, {{ . }}
           </span>
+          {{ end }}
+          {{ with .lifetime_achievement_award_year }}
+          <span class="acl-fellow-year">
+            ACL Lifetime Achievement Award, {{ . }}
+          </span>
+          {{ end }}
         </h2>
         <div class="acl-fellow-details">
         {{ with .reason }}

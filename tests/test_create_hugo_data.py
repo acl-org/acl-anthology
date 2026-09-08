@@ -123,6 +123,7 @@ def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
 
 def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
     data_path = Path(__file__).parent.parent / "data" / "yaml"
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
     data = fellows_to_dict(
         anthology,
         data_path / "fellows.yaml",
@@ -138,6 +139,12 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
     assert len({honoree["id"] for honoree in honorees}) == len(honorees)
     assert {award["year"] for award in awards} == set(range(2002, 2026))
     assert all(award["honor"] == "lifetime-achievement-award" for award in awards)
+    assert all(award["photo"].startswith("images/fellows/") for award in awards)
+    assert all(award["photo_source"].startswith("http") for award in awards)
+    for award in awards:
+        with Image.open(static_path / award["photo"]) as photo:
+            assert photo.format == "WEBP"
+            assert photo.size == (400, 600)
     assert [honoree["year"] for honoree in honorees] == sorted(
         (honoree["year"] for honoree in honorees), reverse=True
     )
@@ -152,19 +159,24 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
     dual_honorees = [honoree for honoree in honorees if honoree["honor"] == "both"]
     assert len(dual_honorees) == 13
     assert all("fellow_year" in honoree for honoree in dual_honorees)
-    assert all(
-        "lifetime_achievement_award_year" in honoree
-        for honoree in dual_honorees
+    assert all("lifetime_achievement_award_year" in honoree for honoree in dual_honorees)
+    assert (
+        next(
+            honoree
+            for honoree in dual_honorees
+            if honoree["id"] == "eugene-charniak/unverified"
+        )["year"]
+        == 2011
     )
-    assert next(
-        honoree for honoree in dual_honorees if honoree["id"] == "eugene-charniak/unverified"
-    )["year"] == 2011
-    assert next(
-        honoree for honoree in dual_honorees if honoree["id"] == "barbara-j-grosz"
-    )["year"] == 2019
-    assert {fellow["year"] for fellow in fellows if fellow["id"] == "barbara-j-grosz"} == {
-        2019
-    }
+    assert (
+        next(honoree for honoree in dual_honorees if honoree["id"] == "barbara-j-grosz")[
+            "year"
+        ]
+        == 2019
+    )
+    assert {
+        fellow["year"] for fellow in fellows if fellow["id"] == "barbara-j-grosz"
+    } == {2019}
 
     article_awards = [
         award
