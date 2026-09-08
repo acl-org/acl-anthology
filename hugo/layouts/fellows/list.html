@@ -34,6 +34,7 @@
             {{- end -}}
           </span>
         </h2>
+        <div class="acl-fellow-details">
         {{ if eq .honor "fellow" }}
         <p class="acl-fellow-reason">{{ .reason }}</p>
         {{ else if .talk_url }}
@@ -47,6 +48,7 @@
         {{ with .photo_source }}
         <a class="acl-fellow-credit" href="{{ . }}" rel="external noopener">{{ default "Photo source" $fellow.photo_credit }}</a>
         {{ end }}
+        </div>
       </div>
 
       {{ if .timeline_available }}
