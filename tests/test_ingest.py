@@ -3,15 +3,17 @@
 import logging
 import pytest
 from pathlib import Path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from types import SimpleNamespace
 
+from acl_anthology.collections.types import VolumeType
 from acl_anthology.text import MarkupText
 from bin.ingest import (
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    read_ingest_metadata,
     read_meta,
     register_volume_with_sig,
 )
@@ -33,11 +35,12 @@ def test_ensure_venue_creates_without_saving_individual_venue():
     anthology.venues.__contains__.return_value = False
     venue = anthology.venues.create.return_value
 
-    venue_slug = ensure_venue(
+    venue_slug, venue_type = ensure_venue(
         anthology, "EVALITA", "Evaluation Campaign", is_conference=True
     )
 
     assert venue_slug == "evalita"
+    assert venue_type == "conference"
     anthology.venues.create.assert_called_once_with(
         id="evalita", acronym="EVALITA", name="Evaluation Campaign"
     )
@@ -57,10 +60,77 @@ def test_ensure_venue_requires_type_for_new_venue():
 def test_ensure_venue_does_not_require_type_for_existing_venue():
     anthology = MagicMock()
     anthology.venues.__contains__.return_value = True
+    anthology.venues.__getitem__.return_value.type = "workshop"
 
-    assert ensure_venue(anthology, "EVALITA", "Evaluation Campaign") == "evalita"
+    assert ensure_venue(anthology, "EVALITA", "Evaluation Campaign") == (
+        "evalita",
+        "workshop",
+    )
 
     anthology.venues.create.assert_not_called()
+
+
+def test_ensure_venue_warns_when_flag_conflicts_with_existing_type(capsys):
+    anthology = MagicMock()
+    anthology.venues.__contains__.return_value = True
+    anthology.venues.__getitem__.return_value.type = "journal"
+
+    assert ensure_venue(
+        anthology, "TACL", "Transactions of the ACL", is_workshop=True
+    ) == ("tacl", "journal")
+
+    assert "declared as type journal" in capsys.readouterr().out
+
+
+def ingest_args(tmp_path):
+    return SimpleNamespace(
+        is_workshop=False,
+        is_journal=False,
+        is_conference=False,
+        pdfs_dir=tmp_path / "pdf",
+        attachments_dir=tmp_path / "attachments",
+    )
+
+
+def test_aclpub_metadata_uses_inferred_journal_type(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text(
+        "abbrev TACL\ntitle Transactions of the ACL\nyear 2026\nvolume 14\nissue 2\n"
+    )
+
+    with patch("bin.ingest.ensure_venue", return_value=("tacl", "journal")):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["volume_type"] == VolumeType.JOURNAL
+    assert metadata["journal_volume"] == "14"
+    assert metadata["journal_issue"] == "2"
+
+
+def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    meta = {
+        "anthology_venue_id": "YNLG",
+        "event_name": "Workshop on Young Researchers in Natural Language Generation",
+        "year": "2025",
+        "volume_name": "main",
+        "book_title": "Proceedings of YNLG 2025",
+        "editors": [],
+    }
+
+    with (
+        patch("bin.ingest.parse_conf_yaml", return_value=meta),
+        patch("bin.ingest.ensure_venue", return_value=("ynlg", "workshop")),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub2", ingest_args(tmp_path)
+        )
+
+    assert metadata["volume_type"] == VolumeType.PROCEEDINGS
+    assert metadata["venue_ids"] == ["ynlg", "ws"]
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
