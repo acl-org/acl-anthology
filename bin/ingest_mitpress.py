@@ -27,6 +27,7 @@ import re
 import sys
 import tempfile
 import time
+from datetime import date
 from pathlib import Path
 from typing import Any, Optional
 
@@ -691,8 +692,10 @@ def ensure_volume(
     year: int,
     issue_id: str,
     paper: dict[str, Any],
+    ingest_date: date,
 ):
     if (volume := collection.get(issue_id)) is not None:
+        volume.ingest_date = ingest_date
         return volume
 
     volume = collection.create_volume(
@@ -706,12 +709,14 @@ def ensure_volume(
         venue_ids=[venue],
         journal_volume=paper.get("journal_volume"),
         journal_issue=paper.get("journal_issue"),
+        ingest_date=ingest_date,
     )
     return volume
 
 
 def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
     anthology = Anthology(datadir=os.path.join(args.anthology_dir, "data"))
+    ingest_date = date.today()
 
     collection_id = f"{args.year}.{args.venue}"
     if (collection := anthology.collections.get(collection_id)) is None:
@@ -817,6 +822,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
             args.year,
             str(paper_data["issue_id"]),
             paper_data,
+            ingest_date,
         )
 
         paper_id = volume.generate_paper_id()
