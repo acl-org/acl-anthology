@@ -43,13 +43,58 @@ RewriteBase /ANTHOLOGYDIR
 
 # EXTERNAL REDIRECTIONS
 #
-# These rules contain external redirections: to HTTPS, to canonical URLs, and others.
-# The hand-written host canonicalization applies only to the official Anthology;
-# generated redirects use the base URL selected for each production or preview build.
+# These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
+# The redirects are only applicable to the official aclweb.org anthology; all the
+# 301 redirects are guarded with a RewriteCond.
 
-# Permanent and temporary URL redirects are generated from redirects.yaml.
-# BEGIN GENERATED REDIRECTS
-# END GENERATED REDIRECTS
+## Added 2026-09-09
+# Related issues:
+# - https://github.com/acl-org/acl-anthology/issues/9364
+# - https://github.com/acl-org/acl-anthology/issues/9908
+
+### LREC 2026 identifier change
+# LREC 2026 was previewed with volume name "main", then published as "1".
+# Redirect paper/volume pages and their public file shortcuts to the final IDs.
+RewriteRule ^2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteRule ^volumes/2026\.lrec-main(?=\.|/|$)(.*)$ volumes/2026.lrec-1$1 [R=301,END]
+RewriteRule ^attachments/2026\.lrec-main(?=\.|/|$)(.*)$ attachments/2026.lrec-1$1 [R=301,END]
+RewriteRule ^thumb/2026\.lrec-main(?=\.|/|$)(.*)$ thumb/2026.lrec-1$1 [R=301,END]
+
+# Handle old LREC IDs that were indexed through physical storage paths. Checking
+# THE_REQUEST prevents these external redirects from firing after an internal rewrite.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/pdf/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/attachments/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ attachments/2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/videos/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/thumb/2026\.lrec-main(?=\.|/|$)(.*)$ thumb/2026.lrec-1$1 [R=301,END]
+
+### Canonicalize exposed physical storage paths
+# Apache previously exposed directory listings under /anthology-files. Redirect
+# files discovered there to the public URL forms while stripping storage shards.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/templates/acl-copyright-transfer\.pdf$ acl-copyright-transfer.pdf [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:pdf|videos|handbooks)/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/attachments/(?:[^/]+/)*([^/]+)$ attachments/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/thumb/(?:[^/]+/)*([^/]+)$ thumb/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/files/(.*)$ files/$1 [R=301,END]
+
+# Early MT and MT Summit predate the current pdf/ and attachments/ directory
+# layout. Match attachment-shaped names before ordinary PDFs.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:earlymt|mtsummit)/(\d{4}\.[a-zA-Z\d]+-[a-zA-Z\d]+\.[a-zA-Z\d]+\.[^/.]+\.[^/]+)$ attachments/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:earlymt|mtsummit)/([^/]+\.pdf)$ $1 [R=301,END]
+
+# Legacy Vimeo downloads also live outside the current videos/ hierarchy.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/vimeo_videos/videos/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
 
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} acl\.ldc\.upenn\.edu [OR]
@@ -120,9 +165,6 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+).handbook.pdf$ anthology-files/handbooks/$2/$
 
 # Copyright form (redirect)
 RewriteRule acl-copyright-transfer.pdf anthology-files/templates/acl-copyright-transfer.pdf [L,NC]
-
-# The exact-match RewriteMap is deployed with the site but is not public data.
-RewriteRule ^\.acl-redirects\.map$ - [R=404,L]
 
 # Don't return any copyright forms (404 even if file exists)
 RewriteRule \.copyright\.pdf$ - [R=404,L]
