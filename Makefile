@@ -113,10 +113,17 @@ build/.basedirs:
 .PHONY: static
 static: build/.static
 
-build/.static: build/.basedirs $(shell find hugo -type f)
+build/.static: build/.basedirs $(shell find hugo -type f) bin/build_redirects.py
 	@echo "INFO     Creating and populating build directory..."
 	@echo "INFO     Split ${ANTHOLOGY_PREFIX} into HOST=${ANTHOLOGYHOST} DIR=${ANTHOLOGYDIR}"
 	@cp -r hugo/* build
+	@uv run --frozen python bin/build_redirects.py \
+	    --config hugo/redirects.yaml \
+	    --htaccess-template hugo/static/.htaccess \
+	    --htaccess-output build/static/.htaccess \
+	    --map-output build/static/.acl-redirects.map \
+	    --base-url "${ANTHOLOGY_PREFIX}" \
+	    $(if $(filter https://aclanthology.org,$(ANTHOLOGY_PREFIX)),--use-rewrite-map)
 	@echo >> build/config.toml
 	@echo "[params]" >> build/config.toml
 	@echo "  githash = \"${githash}\"" >> build/config.toml

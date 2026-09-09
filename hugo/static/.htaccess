@@ -16,6 +16,10 @@
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
+# File storage is reachable through an internal symlink, but its directory tree
+# must not be browsable or crawlable through Apache-generated index pages.
+Options -Indexes
+
 # The server compresses HTML and CSS but not JSON, so the author-search index
 # shards (the largest JSON we serve) went out uncompressed; gzip cuts them ~4x.
 <IfModule mod_deflate.c>
@@ -39,9 +43,13 @@ RewriteBase /ANTHOLOGYDIR
 
 # EXTERNAL REDIRECTIONS
 #
-# These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
-# The redirects are only applicable to the official aclweb.org anthology; all the
-# 301 redirects are guarded with a RewriteCond.
+# These rules contain external redirections: to HTTPS, to canonical URLs, and others.
+# The hand-written host canonicalization applies only to the official Anthology;
+# generated redirects use the base URL selected for each production or preview build.
+
+# Permanent and temporary URL redirects are generated from redirects.yaml.
+# BEGIN GENERATED REDIRECTS
+# END GENERATED REDIRECTS
 
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} acl\.ldc\.upenn\.edu [OR]
@@ -112,6 +120,9 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+).handbook.pdf$ anthology-files/handbooks/$2/$
 
 # Copyright form (redirect)
 RewriteRule acl-copyright-transfer.pdf anthology-files/templates/acl-copyright-transfer.pdf [L,NC]
+
+# The exact-match RewriteMap is deployed with the site but is not public data.
+RewriteRule ^\.acl-redirects\.map$ - [R=404,L]
 
 # Don't return any copyright forms (404 even if file exists)
 RewriteRule \.copyright\.pdf$ - [R=404,L]

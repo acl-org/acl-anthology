@@ -1,0 +1,69 @@
+# Permanent and temporary redirects for URLs that have escaped into the wild.
+# See docs/redirects.md before adding an entry.
+version: 1
+
+batches:
+  - added: 2026-09-09
+    issues:
+      - 9364
+      - 9908
+    redirects:
+      # LREC 2026 was previewed with the volume name "main", then published as "1".
+      - match: regex
+        from: '^/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/2026.lrec-1$1'
+        tests:
+          - from: /2026.lrec-main.104/
+            to: /2026.lrec-1.104/
+          - from: /2026.lrec-main.104.pdf
+            to: /2026.lrec-1.104.pdf
+          - from: /2026.lrec-main.pdf
+            to: /2026.lrec-1.pdf
+          - from: /2026.lrec-main.104.bib
+            to: /2026.lrec-1.104.bib
+
+      - match: regex
+        from: '^/volumes/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/volumes/2026.lrec-1$1'
+        tests:
+          - from: /volumes/2026.lrec-main/
+            to: /volumes/2026.lrec-1/
+          - from: /volumes/2026.lrec-main.bib
+            to: /volumes/2026.lrec-1.bib
+
+      - match: regex
+        from: '^/(attachments|thumb)/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/$1/2026.lrec-1$2'
+        tests:
+          - from: /attachments/2026.lrec-main.104.Poster.pdf
+            to: /attachments/2026.lrec-1.104.Poster.pdf
+          - from: /thumb/2026.lrec-main.104-trimmed.jpg
+            to: /thumb/2026.lrec-1.104-trimmed.jpg
+
+      - match: regex
+        from: '^/anthology-files/pdf/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/2026.lrec-1$1'
+        tests:
+          - from: /anthology-files/pdf/lrec/2026.lrec-main.104.pdf
+            to: /2026.lrec-1.104.pdf
+
+      - match: regex
+        from: '^/anthology-files/attachments/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/attachments/2026.lrec-1$1'
+        tests:
+          - from: /anthology-files/attachments/lrec/2026.lrec-main.104.Poster.pdf
+            to: /attachments/2026.lrec-1.104.Poster.pdf
+
+      - match: regex
+        from: '^/anthology-files/videos/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/2026.lrec-1$1'
+        tests:
+          - from: /anthology-files/videos/lrec/2026.lrec-main.104.mp4
+            to: /2026.lrec-1.104.mp4
+
+      - match: regex
+        from: '^/anthology-files/thumb/2026\.lrec-main(?=\.|/|$)(.*)$'
+        to: '/thumb/2026.lrec-1$1'
+        tests:
+          - from: /anthology-files/thumb/2026.lrec-main.104-trimmed.jpg
+            to: /thumb/2026.lrec-1.104-trimmed.jpg
