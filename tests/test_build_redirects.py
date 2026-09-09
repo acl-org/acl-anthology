@@ -321,3 +321,4 @@ def test_checked_in_registry_compiles(tmp_path):
     assert "https://aclanthology.org/2026.lrec-1$1" in htaccess
     assert "2026.lrec-main.104" not in htaccess
     assert "Options -Indexes" in htaccess
+    assert 'Header always set X-Robots-Tag "noindex"' in htaccess
