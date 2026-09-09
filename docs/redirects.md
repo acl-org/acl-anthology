@@ -134,8 +134,12 @@ only Apache-generated directory listings are forbidden.
 Direct requests for known storage-file URL families are permanently redirected to
 their public forms. PDFs, videos, and handbooks use root-level file URLs;
 attachments use `/attachments/`, thumbnails use `/thumb/`, and event files use
-`/files/`. These generated rules check `%{THE_REQUEST}` so they only match paths
+`/files/`. Legacy Early MT, MT Summit, and Vimeo storage trees are normalized the
+same way. These generated rules check `%{THE_REQUEST}` so they only match paths
 requested by the client; internal storage rewrites do not create redirect loops.
+
+Internal work trees such as `grobid/`, `queue/`, and `underline_science_vids/`
+have no canonical public URL and are intentionally not redirected.
 
 ## One-time Apache setup
 

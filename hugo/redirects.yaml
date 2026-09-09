@@ -121,3 +121,33 @@ batches:
       - direct: true
         from: /anthology-files/templates/acl-copyright-transfer.pdf
         to: /acl-copyright-transfer.pdf
+
+      # Older imports predate the current pdf/ and attachments/ sharding.
+      # Attachment-shaped names must precede the general PDF rule.
+      - match: regex
+        direct: true
+        from: '^/anthology-files/(?:earlymt|mtsummit)/(\d{4}\.[a-zA-Z\d]+-[a-zA-Z\d]+\.[a-zA-Z\d]+\.[^/.]+\.[^/]+)$'
+        to: '/attachments/$1'
+        tests:
+          - from: /anthology-files/earlymt/1961.earlymt-1.3.Presentation.pdf
+            to: /attachments/1961.earlymt-1.3.Presentation.pdf
+          - from: /anthology-files/mtsummit/2005.mtsummit-invited.10.Presentation.pdf
+            to: /attachments/2005.mtsummit-invited.10.Presentation.pdf
+
+      - match: regex
+        direct: true
+        from: '^/anthology-files/(?:earlymt|mtsummit)/([^/]+\.pdf)$'
+        to: '/$1'
+        tests:
+          - from: /anthology-files/earlymt/1956.earlymt-1.9.pdf
+            to: /1956.earlymt-1.9.pdf
+          - from: /anthology-files/mtsummit/1999.mtsummit-1.37.pdf
+            to: /1999.mtsummit-1.37.pdf
+
+      - match: regex
+        direct: true
+        from: '^/anthology-files/vimeo_videos/videos/(?:[^/]+/)*([^/]+)$'
+        to: '/$1'
+        tests:
+          - from: /anthology-files/vimeo_videos/videos/N15/N15-1005.mp4
+            to: /N15-1005.mp4

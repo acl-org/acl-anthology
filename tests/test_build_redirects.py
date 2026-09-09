@@ -396,6 +396,18 @@ def test_checked_in_registry_compiles(tmp_path):
             "/anthology-files/templates/acl-copyright-transfer.pdf",
             "/acl-copyright-transfer.pdf",
         ),
+        (
+            "/anthology-files/earlymt/1961.earlymt-1.3.Presentation.pdf",
+            "/attachments/1961.earlymt-1.3.Presentation.pdf",
+        ),
+        (
+            "/anthology-files/mtsummit/1999.mtsummit-1.37.pdf",
+            "/1999.mtsummit-1.37.pdf",
+        ),
+        (
+            "/anthology-files/vimeo_videos/videos/N15/N15-1005.mp4",
+            "/N15-1005.mp4",
+        ),
     ],
 )
 def test_checked_in_registry_canonicalizes_storage_urls(source, target):
