@@ -41,6 +41,7 @@ batches:
             to: /thumb/2026.lrec-1.104-trimmed.jpg
 
       - match: regex
+        direct: true
         from: '^/anthology-files/pdf/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
         to: '/2026.lrec-1$1'
         tests:
@@ -48,6 +49,7 @@ batches:
             to: /2026.lrec-1.104.pdf
 
       - match: regex
+        direct: true
         from: '^/anthology-files/attachments/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
         to: '/attachments/2026.lrec-1$1'
         tests:
@@ -55,6 +57,7 @@ batches:
             to: /attachments/2026.lrec-1.104.Poster.pdf
 
       - match: regex
+        direct: true
         from: '^/anthology-files/videos/lrec/2026\.lrec-main(?=\.|/|$)(.*)$'
         to: '/2026.lrec-1$1'
         tests:
@@ -62,8 +65,59 @@ batches:
             to: /2026.lrec-1.104.mp4
 
       - match: regex
+        direct: true
         from: '^/anthology-files/thumb/2026\.lrec-main(?=\.|/|$)(.*)$'
         to: '/thumb/2026.lrec-1$1'
         tests:
           - from: /anthology-files/thumb/2026.lrec-main.104-trimmed.jpg
             to: /thumb/2026.lrec-1.104-trimmed.jpg
+
+      # Physical storage paths are implementation details. Strip their shard
+      # directories and redirect direct requests to the public URL families.
+      - match: regex
+        direct: true
+        from: '^/anthology-files/(?:pdf|videos|handbooks)/(?:[^/]+/)*([^/]+)$'
+        to: '/$1'
+        tests:
+          - from: /anthology-files/pdf/P/P17/P17-1069.pdf
+            to: /P17-1069.pdf
+          - from: /anthology-files/pdf/acl/2025.acl-long.1.pdf
+            to: /2025.acl-long.1.pdf
+          - from: /anthology-files/videos/N/N13-1001.mp4
+            to: /N13-1001.mp4
+          - from: /anthology-files/videos/acl/2021.acl-long.1.mp4
+            to: /2021.acl-long.1.mp4
+          - from: /anthology-files/handbooks/acl/2026.acl.handbook.pdf
+            to: /2026.acl.handbook.pdf
+
+      - match: regex
+        direct: true
+        from: '^/anthology-files/attachments/(?:[^/]+/)*([^/]+)$'
+        to: '/attachments/$1'
+        tests:
+          - from: /anthology-files/attachments/P/P17/P17-1069.Poster.pdf
+            to: /attachments/P17-1069.Poster.pdf
+          - from: /anthology-files/attachments/acl/2025.acl-long.1.SupplementaryMaterial.zip
+            to: /attachments/2025.acl-long.1.SupplementaryMaterial.zip
+
+      - match: regex
+        direct: true
+        from: '^/anthology-files/thumb/(?:[^/]+/)*([^/]+)$'
+        to: '/thumb/$1'
+        tests:
+          - from: /anthology-files/thumb/P17-1069.jpg
+            to: /thumb/P17-1069.jpg
+          - from: /anthology-files/thumb/2025.acl-long.1-trimmed.jpg
+            to: /thumb/2025.acl-long.1-trimmed.jpg
+
+      - match: prefix
+        direct: true
+        from: /anthology-files/files/
+        to: /files/
+        tests:
+          - from: /anthology-files/files/acl-2025/program.pdf
+            to: /files/acl-2025/program.pdf
+
+      - direct: true
+        from: /anthology-files/templates/acl-copyright-transfer.pdf
+        to: /acl-copyright-transfer.pdf

@@ -9,7 +9,12 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from bin.build_redirects import RedirectConfigError, build_redirects, load_redirects
+from bin.build_redirects import (
+    RedirectConfigError,
+    apply_redirect,
+    build_redirects,
+    load_redirects,
+)
 
 
 HTACCESS_TEMPLATE = """RewriteEngine On
@@ -138,6 +143,31 @@ def test_prefix_gone_redirect_matches_without_target(tmp_path):
     assert "RewriteRule ^withdrawn/(.*)$ - [G]" in htaccess
 
 
+def test_direct_redirect_is_guarded_by_original_request(tmp_path):
+    htaccess, redirect_map = build(
+        tmp_path,
+        """  - match: regex
+    direct: true
+    from: '^/anthology-files/pdf/(?:[^/]+/)*([^/]+\\.pdf)$'
+    to: '/$1'
+    tests:
+      - from: /anthology-files/pdf/acl/2025.acl-long.1.pdf
+        to: /2025.acl-long.1.pdf
+""",
+        use_rewrite_map=True,
+    )
+
+    assert (
+        "RewriteCond %{THE_REQUEST} "
+        r"\s+/branch/anthology\-files/".replace(r"\-", "-")
+    ) in htaccess
+    assert (
+        "RewriteRule ^anthology-files/pdf/(?:[^/]+/)*([^/]+\\.pdf)$ "
+        "https://preview.example.test/branch/$1 [R=301,END]"
+    ) in htaccess
+    assert "/anthology-files/" not in redirect_map
+
+
 @pytest.mark.parametrize(
     ("redirects", "message"),
     [
@@ -231,6 +261,13 @@ def test_prefix_gone_redirect_matches_without_target(tmp_path):
 """,
             "query must be one of",
         ),
+        (
+            """  - from: /old
+    to: /new
+    direct: true
+""",
+            "direct redirects must match anthology-files",
+        ),
     ],
 )
 def test_invalid_configuration_is_rejected(tmp_path, redirects, message):
@@ -321,3 +358,57 @@ def test_checked_in_registry_compiles(tmp_path):
     assert "https://aclanthology.org/2026.lrec-1$1" in htaccess
     assert "2026.lrec-main.104" not in htaccess
     assert "Options -Indexes" in htaccess
+
+
+@pytest.mark.parametrize(
+    ("source", "target"),
+    [
+        (
+            "/anthology-files/pdf/lrec/2026.lrec-main.104.pdf",
+            "/2026.lrec-1.104.pdf",
+        ),
+        ("/anthology-files/pdf/P/P17/P17-1069.pdf", "/P17-1069.pdf"),
+        (
+            "/anthology-files/pdf/acl/2025.acl-long.1.pdf",
+            "/2025.acl-long.1.pdf",
+        ),
+        (
+            "/anthology-files/attachments/P/P17/P17-1069.Poster.pdf",
+            "/attachments/P17-1069.Poster.pdf",
+        ),
+        (
+            "/anthology-files/thumb/2025.acl-long.1-trimmed.jpg",
+            "/thumb/2025.acl-long.1-trimmed.jpg",
+        ),
+        (
+            "/anthology-files/videos/acl/2021.acl-long.1.mp4",
+            "/2021.acl-long.1.mp4",
+        ),
+        (
+            "/anthology-files/handbooks/acl/2026.acl.handbook.pdf",
+            "/2026.acl.handbook.pdf",
+        ),
+        (
+            "/anthology-files/files/acl-2025/program.pdf",
+            "/files/acl-2025/program.pdf",
+        ),
+        (
+            "/anthology-files/templates/acl-copyright-transfer.pdf",
+            "/acl-copyright-transfer.pdf",
+        ),
+    ],
+)
+def test_checked_in_registry_canonicalizes_storage_urls(source, target):
+    repository_root = Path(__file__).resolve().parent.parent
+    redirects = load_redirects(repository_root / "hugo" / "redirects.yaml")
+
+    actual = next(
+        (
+            result
+            for redirect in redirects
+            if (result := apply_redirect(redirect, source)) is not None
+        ),
+        None,
+    )
+
+    assert actual == target

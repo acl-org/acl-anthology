@@ -48,6 +48,7 @@ match: exact
 status: 301
 query: preserve
 case_sensitive: true
+direct: false
 ```
 
 Supported `match` values are:
@@ -99,6 +100,11 @@ For example:
 Use `case_sensitive: false` only for a historically case-insensitive URL. Such an
 entry is emitted as an Apache rule rather than placed in the exact-match map.
 
+Use `direct: true` for redirects whose source is under `/anthology-files/`. The
+compiler then checks Apache's original request line before redirecting. This prevents
+a canonical public URL from looping when its internal storage rewrite causes
+`.htaccess` to run a second time.
+
 Run the focused checks after changing the registry:
 
 ```bash
@@ -125,11 +131,11 @@ The root `.htaccess` now sets `Options -Indexes` to stop that enumeration. Known
 files remain directly available and may still be crawled and indexed when linked;
 only Apache-generated directory listings are forbidden.
 
-Known storage URLs remain independently fetchable until they are canonicalized. A
-follow-up issue should add permanent redirects from direct storage-file requests to
-their friendly URLs. Those rules must check `%{THE_REQUEST}` so they only match paths
-requested by the client; matching the rewritten URI would catch normal friendly
-URLs on Apache's second rewrite pass and create a redirect loop.
+Direct requests for known storage-file URL families are permanently redirected to
+their public forms. PDFs, videos, and handbooks use root-level file URLs;
+attachments use `/attachments/`, thumbnails use `/thumb/`, and event files use
+`/files/`. These generated rules check `%{THE_REQUEST}` so they only match paths
+requested by the client; internal storage rewrites do not create redirect loops.
 
 ## One-time Apache setup
 

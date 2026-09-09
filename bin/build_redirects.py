@@ -22,6 +22,7 @@ ALLOWED_REDIRECT_STATUSES = {301, 302, 303, 307, 308, 410}
 ALLOWED_QUERY_POLICIES = {"preserve", "discard", "replace", "append"}
 ALLOWED_ENTRY_KEYS = {
     "case_sensitive",
+    "direct",
     "from",
     "match",
     "note",
@@ -54,6 +55,7 @@ class Redirect:
     status: int
     query: str
     case_sensitive: bool
+    direct: bool
     note: str | None
     tests: tuple[RedirectExample, ...]
 
@@ -64,6 +66,7 @@ class Redirect:
             and self.status == 301
             and self.query == "preserve"
             and self.case_sensitive
+            and not self.direct
         )
 
 
@@ -236,6 +239,13 @@ def _parse_redirect(
         raise RedirectConfigError(
             f"redirect {entry_number}: case_sensitive must be a boolean"
         )
+    direct = raw.get("direct", False)
+    if not isinstance(direct, bool):
+        raise RedirectConfigError(f"redirect {entry_number}: direct must be a boolean")
+    if direct and not source.startswith(("/anthology-files/", "^/anthology-files/")):
+        raise RedirectConfigError(
+            f"redirect {entry_number}: direct redirects must match anthology-files"
+        )
 
     target_value = raw.get("to")
     target = (
@@ -272,6 +282,7 @@ def _parse_redirect(
         status=status,
         query=query,
         case_sensitive=case_sensitive,
+        direct=direct,
         note=note,
         tests=tests,
     )
@@ -471,6 +482,13 @@ def _apache_target(redirect: Redirect, base_url: str) -> str:
     return _qualified_target(target, base_url)
 
 
+def _direct_request_condition(base_url: str, case_sensitive: bool) -> str:
+    base_path = urlsplit(base_url).path.rstrip("/")
+    pattern = rf"\s+{re.escape(base_path)}/anthology-files/"
+    flags = " [NC]" if not case_sensitive else ""
+    return f"RewriteCond %{{THE_REQUEST}} {pattern}{flags}"
+
+
 def _entry_comment(redirect: Redirect) -> str:
     issue_label = "issue" if len(redirect.issues) == 1 else "issues"
     details = [
@@ -518,6 +536,8 @@ def render_htaccess_block(
             continue
         lines.append("")
         lines.append(f"# {_entry_comment(redirect)}")
+        if redirect.direct:
+            lines.append(_direct_request_condition(base_url, redirect.case_sensitive))
         pattern = _apache_pattern(redirect)
         if redirect.status == 410:
             flags = ["G"]
