@@ -16,8 +16,8 @@
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
-# File storage is reachable through an internal symlink, but its directory tree
-# must not be browsable or crawlable through Apache-generated index pages.
+# File storage is reachable through an internal symlink, but Apache must not
+# generate browsable directory listings for it (or any other directory).
 Options -Indexes
 
 # The server compresses HTML and CSS but not JSON, so the author-search index
@@ -29,10 +29,6 @@ Options -Indexes
 # Build artifacts only change when the site is rebuilt, so let browsers reuse a
 # fetched index shard across searches and page loads instead of refetching it.
 <IfModule mod_headers.c>
-  # Raw storage URLs duplicate the public URLs. Match the original request so
-  # friendly URLs internally rewritten into anthology-files remain indexable.
-  Header always set X-Robots-Tag "noindex" "expr=%{THE_REQUEST} =~ m#\s+[^?\s]*/anthology-files/#"
-
   <FilesMatch "\.json$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>

@@ -121,19 +121,15 @@ However, the production Apache server previously generated directory indexes for
 the symlink. For example, `/anthology-files/pdf/lrec/` returned a browsable `Index
 of` page containing every physical PDF filename. This allowed crawlers to discover
 the storage URLs directly even though Hugo templates and sitemaps did not link them.
-The root `.htaccess` now sets `Options -Indexes` to stop that enumeration and
-returns `X-Robots-Tag: noindex` when a client requests an `anthology-files` URL
-directly. The header tests Apache's original request line, so public PDF URLs that
-are internally rewritten into the file store remain indexable.
+The root `.htaccess` now sets `Options -Indexes` to stop that enumeration. Known
+files remain directly available and may still be crawled and indexed when linked;
+only Apache-generated directory listings are forbidden.
 
 Known storage URLs remain independently fetchable until they are canonicalized. A
 follow-up issue should add permanent redirects from direct storage-file requests to
 their friendly URLs. Those rules must check `%{THE_REQUEST}` so they only match paths
 requested by the client; matching the rewritten URI would catch normal friendly
-URLs on Apache's second rewrite pass and create a redirect loop. Do not use a
-`robots.txt` disallow as the replacement: crawlers need to fetch known URLs to see
-their permanent redirects and `noindex` headers. The intended policy is for raw
-storage URLs to remain crawlable but not indexable.
+URLs on Apache's second rewrite pass and create a redirect loop.
 
 ## One-time Apache setup
 
