@@ -132,19 +132,8 @@ their friendly URLs. Those rules must check `%{THE_REQUEST}` so they only match 
 requested by the client; matching the rewritten URI would catch normal friendly
 URLs on Apache's second rewrite pass and create a redirect loop. Do not use a
 `robots.txt` disallow as the replacement: crawlers need to fetch known URLs to see
-their permanent redirects.
-
-After search engines have processed the redirects and `noindex` headers, crawling
-can also be disabled at the host root if it remains a concern:
-
-```text
-User-agent: *
-Disallow: /anthology-files/
-```
-
-Do not deploy that rule during cleanup. A URL blocked by `robots.txt` cannot be
-recrawled, so Google cannot observe its redirect or `X-Robots-Tag` and may retain a
-URL-only search result.
+their permanent redirects and `noindex` headers. The intended policy is for raw
+storage URLs to remain crawlable but not indexable.
 
 ## One-time Apache setup
 
