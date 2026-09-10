@@ -14,6 +14,25 @@ INGEST_MITPRESS = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(INGEST_MITPRESS)
 
 
+def test_normalize_author_specs_uses_anthology_name_split():
+    incoming_name = INGEST_MITPRESS.Name("Arnab Sen", "Sharma")
+    name_split_index = {(incoming_name.slugify(), 2): {1}}
+
+    authors = INGEST_MITPRESS.normalize_author_specs(
+        name_split_index, [{"first": "Arnab Sen", "last": "Sharma"}]
+    )
+
+    assert authors[0].name == INGEST_MITPRESS.Name("Arnab", "Sen Sharma")
+
+
+def test_normalize_author_specs_keeps_unknown_name_split():
+    authors = INGEST_MITPRESS.normalize_author_specs(
+        {}, [{"first": "New", "last": "Author"}]
+    )
+
+    assert authors[0].name == INGEST_MITPRESS.Name("New", "Author")
+
+
 def test_ensure_volume_updates_existing_volume_ingest_date():
     existing_volume = SimpleNamespace(ingest_date=None)
     collection = Mock()
@@ -152,7 +171,10 @@ def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
     )
     collection = Mock()
     collection.papers.return_value = [existing_paper]
-    anthology = SimpleNamespace(collections={"2026.cl": collection})
+    anthology = SimpleNamespace(
+        collections={"2026.cl": collection},
+        people=SimpleNamespace(by_name={}),
+    )
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))
     monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download_pdf)
