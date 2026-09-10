@@ -100,6 +100,19 @@
     color: var(--acl-muted);
     font-size: .81rem;
     line-height: 1.4;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: #bfc3c7;
+      text-underline-offset: .13rem;
+
+      &:hover,
+      &:focus-visible {
+        color: darken($acl-logo-red, 10%);
+        text-decoration-color: currentColor;
+      }
+    }
   }
 
   a {
@@ -114,6 +127,10 @@
       color: darken($acl-logo-red, 16%);
     }
   }
+}
+
+.acl-home-stats__link dt {
+  color: darken($acl-logo-red, 8%);
 }
 
 .acl-home-actions {
