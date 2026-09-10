@@ -474,6 +474,7 @@ def ensure_venue(
 ) -> Tuple[str, str]:
     """
     Looks for existing venue or creates a new one.
+    The venue type may be specified by setting one of `is_workshop`, `is_journal`, `is_conference`; the recorded type will be looked up if the venue is already in the database. Returns the venue slug and type.
     """
     venue_slug = venue_slug_from_acronym(venue_abbrev)
     year = str(datetime.now().year)
