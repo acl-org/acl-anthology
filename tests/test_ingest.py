@@ -7,16 +7,25 @@ from unittest.mock import MagicMock
 from types import SimpleNamespace
 
 from acl_anthology.text import MarkupText
+from acl_anthology.people import Name
 from bin.ingest import (
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
     read_meta,
+    resegment_name,
     register_volume_with_sig,
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+def test_resegment_name_accepts_explicit_index():
+    name = Name("Arnab Sen", "Sharma")
+    name_split_index = {(name.slugify(), 2): {1}}
+
+    assert resegment_name(name, name_split_index) == Name("Arnab", "Sen Sharma")
 
 
 def test_read_meta_accepts_multiple_spaces_between_key_and_value(tmp_path):
