@@ -1,0 +1,48 @@
+{{ define "main" }}
+{{ $honorees := hugo.Data.fellows.honorees }}
+{{ $latest_fellow_year := 0 }}
+{{ $latest_award_year := 0 }}
+{{ range $honorees }}
+  {{ with .fellow_year }}
+    {{ if gt . $latest_fellow_year }}{{ $latest_fellow_year = . }}{{ end }}
+  {{ end }}
+  {{ with .lifetime_achievement_award_year }}
+    {{ if gt . $latest_award_year }}{{ $latest_award_year = . }}{{ end }}
+  {{ end }}
+{{ end }}
+
+<main class="acl-fellows">
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+  </article>
+
+  <section class="acl-fellows-section" aria-labelledby="recent-honorees">
+    <h2 id="recent-honorees">Recent</h2>
+    <p class="acl-fellows-group-label">{{ $latest_award_year }} ACL Lifetime Achievement Award</p>
+    <div class="acl-fellows-gallery acl-fellows-gallery--recent">
+      {{ range where $honorees "lifetime_achievement_award_year" $latest_award_year }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+
+    <p class="acl-fellows-group-label">{{ $latest_fellow_year }} ACL Fellows</p>
+    <div class="acl-fellows-gallery acl-fellows-gallery--recent">
+      {{ range where $honorees "fellow_year" $latest_fellow_year }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="acl-fellows-section" aria-labelledby="all-honorees">
+    <h2 id="all-honorees">All honorees</h2>
+    <div class="acl-fellows-gallery">
+      {{ range sort $honorees "name" "asc" }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+  </section>
+</main>
+{{ end }}

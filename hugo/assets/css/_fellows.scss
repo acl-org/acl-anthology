@@ -1,0 +1,103 @@
+.acl-fellows-section {
+  margin-top: 2.5rem;
+
+  > h2 {
+    margin-bottom: 1.25rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--acl-line);
+  }
+}
+
+.acl-fellows-group-label {
+  margin: 1.5rem 0 .75rem;
+  color: var(--acl-ink);
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.acl-fellows-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.acl-fellow-card {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: .85rem;
+  min-width: 0;
+  padding: .75rem;
+  border: 1px solid var(--acl-line);
+  border-radius: .25rem;
+}
+
+.acl-fellow-portrait {
+  display: grid;
+  width: 5.5rem;
+  overflow: hidden;
+  border: 1px solid var(--acl-line);
+  border-radius: .2rem;
+  place-items: center;
+  background-color: $acl-soft-gray;
+  aspect-ratio: 2 / 3;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  > span {
+    color: var(--acl-ink);
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+}
+
+.acl-fellow-copy {
+  min-width: 0;
+
+  h3 {
+    margin: 0 0 .35rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+}
+
+.acl-fellow-honors {
+  display: grid;
+  gap: .15rem;
+  margin-bottom: .5rem;
+}
+
+.acl-fellow-year {
+  color: var(--acl-muted);
+  font-size: .72rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.acl-fellow-reason {
+  margin: 0 0 .4rem;
+  color: var(--acl-muted);
+  font-size: .76rem;
+  line-height: 1.4;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.acl-fellow-credit {
+  color: var(--acl-muted);
+  font-size: .65rem;
+  text-decoration: underline;
+}
+
+@include media-breakpoint-down(sm) {
+  .acl-fellow-portrait {
+    width: 5rem;
+  }
+}
