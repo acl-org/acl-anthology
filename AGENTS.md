@@ -46,8 +46,10 @@ For modifications or bugfixes concerning the authoritative `data/` directory,
 `acl_anthology` Python library (`python/`), whether writing a one-off `bin/`
 script or fixing a bug. Only use its **public API** (nothing starting with `_`).
 
-Read docstrings and `python/docs/` (or https://acl-anthology.readthedocs.io/)
-before writing code against the library if unfamiliar with it.
+Read docstrings, `python/AGENTS.md`, and `python/docs/`
+before writing code against the library if unfamiliar with it. In particular,
+`python/docs/guide/modifying-data.md` contains comprehensive recipes for author
+and person management (e.g. `make_explicit()`, setting ORCIDs, and disambiguation).
 
 ### Key API patterns
 
@@ -89,11 +91,28 @@ before writing code against the library if unfamiliar with it.
   uses `first_name`/`last_name` keys, but the library's own `Name` uses
   `first`/`last`.
 
+### Testing and verification scopes
+
 **Before committing**, run `uv run pre-commit install` once so hooks
 (ruff-check, ruff-format, XML schema validation via `jing`, JSON well-formedness,
 trailing-whitespace/EOF-newline, license header insertion) run automatically.
-Integration tests are *not* part of pre-commit (too slow) but run in CI — run
-them yourself (`just python test-integration`) after modifying files under `data/`.
+
+Choose the appropriate testing scope based on what you changed:
+
+- **`just check` (Default / Quick)**: Runs script unit tests, XML tab check, and
+  all pre-commit hooks (~40s). Run this after any metadata changes under `data/`
+  or scripts under `bin/`.
+- **`just python test-all` (Library Unit Tests)**: Runs all non-integration
+  pytest tests in `python/tests/` (~10s) using fake test data.
+- **Targeted Integration Tests**: Run specific integration tests when verifying
+  against real Anthology data without running the full suite:
+  ```bash
+  uv run pytest python/tests/anthology_integration_test.py -k "people"
+  ```
+- **`just python test-integration` (Full Integration Tests)**: Roundtrips every
+  single XML collection and data file in the repository (~7-8 minutes, 3,400+
+  tests). This runs in CI and is only needed locally when altering core library
+  parsing/serialization logic.
 
 ## Content vs. presentation
 

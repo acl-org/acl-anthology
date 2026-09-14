@@ -16,6 +16,10 @@
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
+# File storage is reachable through an internal symlink, but Apache must not
+# generate browsable directory listings for it (or any other directory).
+Options -Indexes
+
 # The server compresses HTML and CSS but not JSON, so the author-search index
 # shards (the largest JSON we serve) went out uncompressed; gzip cuts them ~4x.
 <IfModule mod_deflate.c>
@@ -42,6 +46,55 @@ RewriteBase /ANTHOLOGYDIR
 # These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
 # The redirects are only applicable to the official aclweb.org anthology; all the
 # 301 redirects are guarded with a RewriteCond.
+
+## Added 2026-09-09
+# Related issues:
+# - https://github.com/acl-org/acl-anthology/issues/9364
+# - https://github.com/acl-org/acl-anthology/issues/9908
+
+### LREC 2026 identifier change
+# LREC 2026 was previewed with volume name "main", then published as "1".
+# Redirect paper/volume pages and their public file shortcuts to the final IDs.
+RewriteRule ^2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteRule ^volumes/2026\.lrec-main(?=\.|/|$)(.*)$ volumes/2026.lrec-1$1 [R=301,END]
+RewriteRule ^attachments/2026\.lrec-main(?=\.|/|$)(.*)$ attachments/2026.lrec-1$1 [R=301,END]
+RewriteRule ^thumb/2026\.lrec-main(?=\.|/|$)(.*)$ thumb/2026.lrec-1$1 [R=301,END]
+
+# Handle old LREC IDs that were indexed through physical storage paths. Checking
+# THE_REQUEST prevents these external redirects from firing after an internal rewrite.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/pdf/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/attachments/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ attachments/2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/videos/lrec/2026\.lrec-main(?=\.|/|$)(.*)$ 2026.lrec-1$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/thumb/2026\.lrec-main(?=\.|/|$)(.*)$ thumb/2026.lrec-1$1 [R=301,END]
+
+### Canonicalize exposed physical storage paths
+# Apache previously exposed directory listings under /anthology-files. Redirect
+# files discovered there to the public URL forms while stripping storage shards.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/templates/acl-copyright-transfer\.pdf$ acl-copyright-transfer.pdf [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:pdf|videos|handbooks)/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/attachments/(?:[^/]+/)*([^/]+)$ attachments/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/thumb/(?:[^/]+/)*([^/]+)$ thumb/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/files/(.*)$ files/$1 [R=301,END]
+
+# Early MT and MT Summit predate the current pdf/ and attachments/ directory
+# layout. Match attachment-shaped names before ordinary PDFs.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:earlymt|mtsummit)/(\d{4}\.[a-zA-Z\d]+-[a-zA-Z\d]+\.[a-zA-Z\d]+\.[^/.]+\.[^/]+)$ attachments/$1 [R=301,END]
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/(?:earlymt|mtsummit)/([^/]+\.pdf)$ $1 [R=301,END]
+
+# Legacy Vimeo downloads also live outside the current videos/ hierarchy.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/
+RewriteRule ^anthology-files/vimeo_videos/videos/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
 
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} acl\.ldc\.upenn\.edu [OR]
@@ -99,6 +152,23 @@ RewriteRule ^people/[a-z]/([\-a-z0-9]+)/?$ people/$1/ [R=301,L,NC]
 RewriteCond %{REQUEST_FILENAME}/index.html !-f
 RewriteCond %{REQUEST_FILENAME}/unverified -d
 RewriteRule ^people/([^/]+)/?$ people/$1/unverified [L,R=307]
+
+# Unverified URLs: extract and provide canonical URL in header
+# Extract the path before "unverified/" into a variable
+RewriteCond %{REQUEST_URI} ^(.*/people/[^/]+/)unverified/?$ [NC]
+# Send the header if either the verified or the unverified page exists on disk;
+# only withhold it if neither exists (a genuine 404 with nothing to point to)
+RewriteCond %{DOCUMENT_ROOT}%1index.html -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%1unverified/index.html -f
+RewriteRule ^ - [E=CANONICAL_PATH:%1]
+# Inject the rel="canonical" Link header using the captured path
+<IfModule mod_headers.c>
+    # "always" forces the header onto 404 and other non-200 responses
+    Header always set Link "<https://aclanthology.org%{CANONICAL_PATH}e>; rel=\"canonical\"" env=CANONICAL_PATH
+
+    # Handles Apache internal ErrorDocument subrequests (where CANONICAL_PATH becomes REDIRECT_CANONICAL_PATH)
+    Header always set Link "<https://aclanthology.org%{REDIRECT_CANONICAL_PATH}e>; rel=\"canonical\"" env=REDIRECT_CANONICAL_PATH
+</IfModule>
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4

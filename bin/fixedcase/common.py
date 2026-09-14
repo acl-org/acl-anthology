@@ -9,6 +9,20 @@ import nltk.tokenize
 from collections import defaultdict
 
 
+def _ensure_punkt():
+    for resource in ("punkt_tab", "punkt"):
+        try:
+            nltk.data.find(f"tokenizers/{resource}")
+        except LookupError:
+            try:
+                nltk.download(resource, quiet=True)
+            except Exception:
+                pass
+
+
+_ensure_punkt()
+
+
 def is_hyphen(s):
     return s in ("-", "–")
 
