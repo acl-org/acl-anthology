@@ -18,7 +18,7 @@
       <author><first>Christian</first><last>Reuter</last></author>
       <pages>1–22</pages>
       <abstract>Active learning is designed to minimize annotation efforts by prioritizing instances that most enhance learning. However, many active learning strategies struggle with a ‘cold-start’ problem, needing substantial initial data to be effective. This limitation reduces their utility in the increasingly relevant few-shot scenarios, where the instance selection has a substantial impact. To address this, we introduce ActiveLLM, a novel active learning approach that leverages Large Language Models such as GPT-4, o1, Llama 3, or Mistral Large for selecting instances. We demonstrate that ActiveLLM significantly enhances the classification performance of BERT classifiers in few-shot scenarios, outperforming traditional active learning methods as well as improving the few-shot learning methods ADAPET, PERFECT, and SetFit. Additionally, ActiveLLM can be extended to non-few-shot scenarios, allowing for iterative selections. In this way, ActiveLLM can even help other active learning strategies to overcome their cold-start problem. Our results suggest that ActiveLLM offers a promising solution for improving model performance across various learning setups.</abstract>
-      <pdf hash="1930e9b3"/>
+      <url hash="1930e9b3">2026.tacl-1.1</url>
       <doi>10.1162/tacl.a.63</doi>
       <bibkey>bayer-etal-2026-activellm</bibkey>
     </paper>
@@ -35,7 +35,7 @@
       <author><first>Reut</first><last>Tsarfaty</last></author>
       <pages>23–46</pages>
       <abstract>Automated agents, powered by large language models (LLMs), are emerging as the go-to tool for querying information. However, evaluation benchmarks for LLM agents rarely feature natural questions that are both information-seeking and genuinely time-consuming for humans. To address this gap we introduce MoNaCo, a benchmark of 1,315 natural and time-consuming questions that require dozens, and at times hundreds, of intermediate steps to solve— far more than any existing QA benchmark. To build MoNaCo, we developed a decomposed annotation pipeline to elicit and manually answer real-world time-consuming questions at scale. Frontier LLMs evaluated on MoNaCo achieve at most 61.2% F1, hampered by low recall and hallucinations. Our results underscore the limitations of LLM-powered agents in handling the complexity and sheer breadth of real-world information-seeking tasks—with MoNaCo providing an effective resource for tracking such progress. The MoNaCo benchmark, codebase, prompts, and models predictions are all publicly available at: <url>https://tomerwolgithub.github.io/monaco</url>.</abstract>
-      <pdf hash="308dddd4"/>
+      <url hash="308dddd4">2026.tacl-1.2</url>
       <doi>10.1162/tacl.a.64</doi>
       <bibkey>wolfson-etal-2026-monaco</bibkey>
     </paper>
@@ -47,7 +47,7 @@
       <author><first>Jie</first><last>Zhou</last></author>
       <pages>47–63</pages>
       <abstract>Recently, deep reasoning LLMs (e.g., OpenAI o1 and DeepSeek-R1) have shown promising performance in various downstream tasks. Free translation is an important and interesting task in the multilingual world, which requires going beyond word-for-word translation. However, the task is still under-explored in deep reasoning LLMs. In this paper, we introduce DeepTrans, a deep reasoning translation model that learns free translation via reinforcement learning (RL). Specifically, we carefully build a reward model with pre-defined scoring criteria on both the translation results and the thought processes. The reward model teaches DeepTrans how to think and free-translate the given sentences during RL. Besides, our RL training does not need any labeled translations, avoiding the human-intensive annotation or resource-intensive data synthesis. Experimental results show the effectiveness of DeepTrans. Using Qwen2.5-7B as the backbone, DeepTrans improves performance by 16.3% in literature translation, and outperforms strong deep reasoning LLMs. Moreover, we summarize the failures and interesting findings during our RL exploration. We hope this work could inspire other researchers in free translation.1</abstract>
-      <pdf hash="1962a9f6"/>
+      <url hash="1962a9f6">2026.tacl-1.3</url>
       <doi>10.1162/tacl.a.65</doi>
       <bibkey>wang-etal-2026-deeptrans</bibkey>
     </paper>
@@ -59,7 +59,7 @@
       <author><first>Gülşen</first><last>Eryiğit</last></author>
       <pages>64–80</pages>
       <abstract>Coreference Resolution (CR) is a crucial yet challenging task in natural language understanding, often constrained by task-specific architectures and encoder-based language models that demand extensive training and lack adaptability. This study introduces the first multilingual CR methodology which leverages decoder-only LLMs to handle both overt and zero mentions. The article explores how to model the CR task for LLMs via five different instruction sets using a controlled inference method. The approach is evaluated across three LLMs: Llama 3.1, Gemma 2, and Mistral 0.3. The results indicate that LLMs, when instruction-tuned with a suitable instruction set, can surpass state-of-the-art task-specific architectures. Specifically, our best model, a fully fine-tuned Llama 3.1 for multilingual CR, outperforms the leading multilingual CR model (i.e., Corpipe 24 single stage variant) by 2 percentage points on average across all languages in the CorefUD v1.2 dataset collection.</abstract>
-      <pdf hash="475bb1f4"/>
+      <url hash="475bb1f4">2026.tacl-1.4</url>
       <doi>10.1162/tacl.a.593</doi>
       <bibkey>pamay-arslan-etal-2026-corefinst</bibkey>
     </paper>
@@ -71,7 +71,7 @@
       <author><first>Jinho D.</first><last>Choi</last></author>
       <pages>81–99</pages>
       <abstract>In task-oriented dialogue (TOD) systems, Slot Schema Induction (SSI) is essential for automatically identifying key information slots from dialogue data without manual intervention. This paper presents a novel state-of-the-art (SotA) approach that formulates SSI as a text generation task, where a language model incrementally constructs and refines a slot schema over a stream of dialogue data. To develop this approach, we present a fully automatic LLM-based TOD simulation method that creates data with high-quality state labels for novel task domains. Furthermore, we identify issues in SSI evaluation due to data leakage and poor metric alignment with human judgment. We resolve these by creating new evaluation data using our simulation method with human guidance and correction, as well as designing improved evaluation metrics. These contributions establish a foundation for future SSI research and advance the SotA in dialogue understanding and system development.</abstract>
-      <pdf hash="50657364"/>
+      <url hash="50657364">2026.tacl-1.5</url>
       <doi>10.1162/tacl.a.66</doi>
       <bibkey>finch-etal-2026-generative</bibkey>
     </paper>
@@ -88,7 +88,7 @@
       <author><first>Ido</first><last>Dagan</last></author>
       <pages>100–123</pages>
       <abstract>There has been an increasing interest in detecting hallucinations in model-generated texts, both manually and automatically, at varying levels of granularity. However, most existing methods fail to precisely pinpoint the errors. In this work, we introduce QASemConsistency, a new formalism for localizing factual inconsistencies in attributable text generation, at a fine-grained level. Drawing inspiration from Neo-Davidsonian formal semantics, we propose decomposing the generated text into minimal predicate-argument level propositions, expressed as simple question-answer (QA) pairs, and assess whether each individual QA pair is supported by a trusted reference text. As each QA pair corresponds to a single semantic relation between a predicate and an argument, QASemConsistency effectively localizes the unsupported information. We first demonstrate the effectiveness of the QASemConsistency methodology for human annotation, by collecting crowdsourced annotations of granular consistency errors, while achieving a substantial inter-annotator agreement. This benchmark includes more than 3K instances spanning various tasks of attributable text generation. We also show that QASemConsistency yields factual consistency scores that correlate well with human judgments. Finally, we implement several methods for automatically detecting localized factual inconsistencies, with both supervised entailment models and LLMs.1</abstract>
-      <pdf hash="0b161f63"/>
+      <url hash="0b161f63">2026.tacl-1.6</url>
       <doi>10.1162/tacl.a.598</doi>
       <bibkey>cattan-etal-2026-localizing</bibkey>
     </paper>
@@ -102,7 +102,7 @@
       <author><first>Roger P.</first><last>Levy</last></author>
       <pages>124–146</pages>
       <abstract>What have language models (LMs) learned about grammar? This question remains hotly debated, with major ramifications for linguistic theory. However, since probability and grammaticality are distinct notions in linguistics, it is not obvious what string probabilities can reveal about an LM’s underlying grammatical knowledge. We present a theoretical analysis of the relationship between grammar, meaning, and string probability, based on simple assumptions about the generative process of corpus data. Our framework makes three predictions, which we validate empirically using 280K sentence pairs in English and Chinese: (1) correlation between the probability of strings within minimal pairs, i.e., string pairs with minimal semantic differences; (2) correlation between models’ and humans’ deltas within minimal pairs; and (3) poor separation in probability space between unpaired grammatical and ungrammatical strings. Our analyses give theoretical grounding for using probability to learn about LMs’ structural knowledge, and suggest directions for future work in LM grammatical evaluation.</abstract>
-      <pdf hash="f15dcfb2"/>
+      <url hash="f15dcfb2">2026.tacl-1.7</url>
       <doi>10.1162/tacl.a.611</doi>
       <bibkey>hu-etal-2026-string</bibkey>
     </paper>
@@ -115,7 +115,7 @@
       <author><first>Dana</first><last>Angluin</last></author>
       <pages>147–166</pages>
       <abstract>We study conditions under which transformers using soft attention can simulate hard attention, that is, effectively focus all attention on a subset of positions. First, we examine several subclasses of languages recognized by hard-attention transformers, which can be defined in variants of linear temporal logic. We demonstrate how soft-attention transformers can compute formulas of these logics using unbounded positional embeddings or temperature scaling. Second, we demonstrate how temperature scaling allows softmax transformers to simulate general hard-attention transformers, using a temperature that depends on the minimum gap between the maximum attention scores and other attention scores.</abstract>
-      <pdf hash="269d7234"/>
+      <url hash="269d7234">2026.tacl-1.8</url>
       <doi>10.1162/tacl.a.597</doi>
       <bibkey>yang-etal-2026-simulating</bibkey>
     </paper>
@@ -128,7 +128,7 @@
       <author><first>Zhixue</first><last>Zhao</last></author>
       <pages>167–192</pages>
       <abstract>Recent advances in large language model (LLM) pruning have shown state-of-the-art (SotA) compression results in post-training and retraining-free settings while maintaining high predictive performance. However, previous research mainly considered calibrating based on English text, despite the multilingual nature of modern LLMs and their frequent use in non-English languages. This analysis paper conducts an in-depth investigation of the performance and internal representation changes associated with pruning multilingual language models for monolingual applications. We present the first comprehensive empirical study, comparing different calibration languages for pruning multilingual models across diverse languages, tasks, models, and SotA pruning techniques. We further analyze the latent subspaces, pruning masks, and individual neurons within pruned models. Our results reveal that while calibration on the target language effectively retains perplexity and yields high signal-to-noise ratios, it does not consistently improve downstream task performance. Further analysis of internal representations at three different levels highlights broader limitations of current pruning approaches: While they effectively preserve dominant information like language-specific features, this is insufficient to counteract the loss of nuanced, language-agnostic features that are crucial for knowledge retention and reasoning.</abstract>
-      <pdf hash="bdc1f7ae"/>
+      <url hash="bdc1f7ae">2026.tacl-1.9</url>
       <doi>10.1162/tacl.a.599</doi>
       <bibkey>kurz-etal-2026-limitations</bibkey>
     </paper>
@@ -141,7 +141,7 @@
       <author><first>Arianna</first><last>Bisazza</last></author>
       <pages>193–216</pages>
       <abstract>We introduce MultiBLiMP 1.0, a massively multilingual benchmark of linguistic minimal pairs, covering 101 languages and 2 types of subject-verb agreement, containing more than 128,000 minimal pairs. Our minimal pairs are created using a fully automated pipeline, leveraging the large-scale linguistic resources of Universal Dependencies and UniMorph. MultiBLiMP 1.0 evaluates abilities of LLMs at an unprecedented multilingual scale, and highlights the shortcomings of the current state-of-the-art in modelling low-resource languages.1</abstract>
-      <pdf hash="35b95242"/>
+      <url hash="35b95242">2026.tacl-1.10</url>
       <doi>10.1162/tacl.a.600</doi>
       <bibkey>jumelet-etal-2026-multiblimp</bibkey>
     </paper>
@@ -159,7 +159,7 @@
       <author><first>Ruifeng</first><last>Xu</last></author>
       <pages>217–232</pages>
       <abstract>Stance detection on social media plays a vital role in understanding public opinion on contentious topics. While prior work leverages external knowledge sources like Wikipedia to enrich limited target information, it primarily introduces conceptual content, neglecting the interpretability potential of knowledge and often leading to the incorporation of irrelevant or redundant information that hinders stance prediction performance. To address this, we introduce PiKGL, a Pruned interpretable Knowledge Graph Learning framework for explainable stance detection. Specifically, we first extract event triplets and topics to obtain real-world knowledge, which is then used to construct an interpretable knowledge graph. To ensure precision and minimize noise, we introduce a retrieval-guided pruning strategy that incorporates commonsense knowledge, filtering redundant information of the interpretable knowledge graph. Finally, the pruned knowledge graph is injected into a large language model to jointly model textual, target, and commonsense for improved stance comprehension. Experimental results conducted on three public datasets demonstrate our PiKGL achieves state-of-the-art performance on stance detection.</abstract>
-      <pdf hash="145a7563"/>
+      <url hash="145a7563">2026.tacl-1.11</url>
       <doi>10.1162/tacl.a.612</doi>
       <bibkey>wang-etal-2026-pikgl</bibkey>
     </paper>
@@ -179,7 +179,7 @@
       <author><first>Ting-Hao</first><last>Huang</last></author>
       <pages>233–252</pages>
       <abstract>Since the SciCap dataset’s launch in 2021, the research community has made significant progress in generating captions for scientific figures in scholarly articles. In 2023, the first SciCap Challenge took place, inviting global teams to use an expanded SciCap dataset to develop models for captioning diverse figure types across various academic fields. At the same time, text generation models advanced quickly, with many powerful pre-trained large multimodal models (LMMs) emerging that showed impressive capabilities in various vision-and-language tasks. This paper presents an overview of the first SciCap Challenge and details the performance of various models on its data, capturing a snapshot of the field’s state. We found that professional editors overwhelmingly preferred figure captions generated by GPT-4V over those from all other models and even the original captions written by authors. Following this key finding, we conducted detailed analyses to answer this question: Have advanced LMMs solved the task of generating captions for scientific figures?</abstract>
-      <pdf hash="95cbc112"/>
+      <url hash="95cbc112">2026.tacl-1.12</url>
       <doi>10.1162/tacl.a.653</doi>
       <bibkey>hsu-etal-2026-large</bibkey>
     </paper>
@@ -190,7 +190,7 @@
       <author><first>Jason</first><last>Eisner</last></author>
       <pages>253–270</pages>
       <abstract>Large language models are increasingly deployed in multi-agent workflows. We introduce Prompt Choreography, a framework that efficiently executes LLM workflows by maintaining a dynamic, global KV cache. Each LLM call can attend to an arbitrary, reordered subset of previously encoded messages. Parallel calls are supported. Though caching messages’ encodings sometimes gives different results from re-encoding them in a new context, we show in diverse settings that fine-tuning the LLM to work with the cache can help it mimic the original results. Prompt Choreography significantly reduces per-message latency (2.0–6.2× faster time-to-first-token) and achieves substantial end-to-end speedups (&gt;2.2×) in some workflows dominated by redundant computation.</abstract>
-      <pdf hash="11bfeaa6"/>
+      <url hash="11bfeaa6">2026.tacl-1.13</url>
       <doi>10.1162/tacl.a.643</doi>
       <bibkey>bai-eisner-2026-accelerating</bibkey>
     </paper>
@@ -204,7 +204,7 @@
       <author><first>Iryna</first><last>Gurevych</last></author>
       <pages>271–291</pages>
       <abstract>Warning: This paper contains offensive text. We introduce aligned probing, a novel interpretability framework that aligns the behavior of language models (LMs), based on their outputs, and their internal representations (internals). Using this framework, we examine over 20 OLMo, Llama, and Mistral models, bridging behavioral and internal perspectives for toxicity for the first time. Our results show that LMs strongly encode information about the toxicity level of inputs and subsequent outputs, particularly in lower layers. Focusing on how unique LMs differ offers both correlative and causal evidence that they generate less toxic output when strongly encoding information about the input toxicity. We also highlight the heterogeneity of toxicity, as model behavior and internals vary across unique attributes such as Threat. Finally, four case studies analyzing detoxification, multi-prompt evaluations, model quantization, and pre-training dynamics underline the practical impact of aligned probing with further concrete insights. Our findings contribute to a more holistic understanding of LMs, both within and beyond the context of toxicity. alignedprobing.github.io</abstract>
-      <pdf hash="ef546720"/>
+      <url hash="ef546720">2026.tacl-1.14</url>
       <doi>10.1162/tacl.a.613</doi>
       <bibkey>waldis-etal-2026-aligned</bibkey>
     </paper>
@@ -215,7 +215,7 @@
       <author><first>Daniel</first><last>Khashabi</last></author>
       <pages>292–317</pages>
       <abstract>Self-consistency (SC) improves the performance of large language models (LLMs) across various tasks and domains that involve short content. However, does this support its effectiveness for long-context problems? We challenge the assumption that SC’s benefits generalize to long-context settings, where LLMs often struggle with position bias—the systematic over-reliance on specific context regions—which hinders their ability to utilize information effectively from all parts of their context. Through comprehensive experimentation with varying state-of-the-art models, tasks, and SC formulations, we find that SC not only fails to improve but actively degrades performance on long-context tasks. This degradation is driven by persistent position bias, which worsens with longer context lengths and smaller model sizes but remains invariant to prompt format or task type. Unlike short-context tasks, where SC diversifies reasoning paths, long-context SC amplifies positional errors. These comprehensive results provide valuable insight into the limitations of current LLMs in long-context understanding and highlight the need for more sophisticated approaches.</abstract>
-      <pdf hash="61114567"/>
+      <url hash="61114567">2026.tacl-1.15</url>
       <doi>10.1162/tacl.a.625</doi>
       <bibkey>byerly-khashabi-2026-self</bibkey>
     </paper>
@@ -231,7 +231,7 @@
       <author><first>Dirk</first><last>Hovy</last></author>
       <pages>318–340</pages>
       <abstract>Large language models (LLMs) are helping millions of users write texts about diverse issues, and in doing so expose users to different ideas and perspectives. This creates concerns about issue bias, where an LLM tends to present just one perspective on a given issue, which in turn may influence how users think about this issue. So far, it has not been possible to measure which issue biases LLMs manifest in real user interactions, making it difficult to address the risks from biased LLMs. Therefore, we create IssueBench: a set of 2.49m realistic English-language prompts to measure issue bias in LLM writing assistance, which we construct based on 3.9k templates (e.g., “write a blog about”) and 212 political issues (e.g., “AI regulation”) from real user interactions. Using IssueBench, we show that issue biases are common and persistent in 10 state-of-the-art LLMs. We also show that biases are very similar across models, and that all models align more with US Democrat than Republican voter opinion on a subset of issues. IssueBench can easily be adapted to include other issues, templates, or tasks. By enabling robust and realistic measurement, we hope that IssueBench can bring a new quality of evidence to ongoing discussions about LLM biases and how to address them.</abstract>
-      <pdf hash="de2663e0"/>
+      <url hash="de2663e0">2026.tacl-1.16</url>
       <doi>10.1162/tacl.a.626</doi>
       <bibkey>rottger-etal-2026-issuebench</bibkey>
     </paper>
@@ -244,7 +244,7 @@
       <author><first>Florian</first><last>Hinterwimmer</last></author>
       <pages>341–377</pages>
       <abstract>Fine-tuning large language models (LLMs) with limited data poses a practical challenge in low-resource languages, specialized domains, and constrained deployment settings. While pre-trained LLMs provide strong foundations, effective adaptation under data scarcity requires focused and efficient fine-tuning techniques. This paper presents a structured and practical survey of recent methods for fine-tuning LLMs in data-scarce scenarios. We systematically review parameter-efficient fine-tuning techniques that lower training and deployment costs, domain and cross-lingual adaptation methods for both encoder and decoder models, and model specialization strategies. We further examine preference alignment approaches that guide model behavior using limited human or synthetic feedback, emphasizing sample and compute efficiency. Throughout, we highlight empirical trade-offs, selection criteria, and best practices for choosing suitable techniques based on task constraints, including model scaling, data scaling, and the mitigation of catastrophic forgetting. The aim is to equip researchers and practitioners with actionable insights for effectively fine-tuning LLMs when data and resources are limited.</abstract>
-      <pdf hash="228cdfe9"/>
+      <url hash="228cdfe9">2026.tacl-1.17</url>
       <doi>10.1162/tacl.a.627</doi>
       <bibkey>szep-etal-2026-fine</bibkey>
     </paper>
@@ -259,7 +259,7 @@
       <author><first>Haizhou</first><last>Li</last></author>
       <pages>378–398</pages>
       <abstract>Recent advancements in large language models (LLMs) like GPT-4o have enabled real-time speech interactions through LLM-based voice assistants, offering an improved user experience over text-based interactions. However, a suitable benchmark to rigorously evaluate such speech interactions systems is currently lacking. To bridge this gap, we introduce VoiceBench, the first benchmark specifically designed to assess LLM-based voice assistants. VoiceBench comprises 6,783 synthetic and real spoken instructions recorded from diverse speakers across eight distinct tasks. These instructions are meticulously crafted to assess three crucial capability areas: general knowledge, instruction-following, and safety compliance. Furthermore, VoiceBench systematically incorporates realistic variations common in spoken interactions, including differences in speaker characteristics (e.g., accents), heterogeneous environmental conditions (e.g., reverberation), and content complexities such as mispronunciations. Extensive experiments reveal the limitations of current LLM-based voice assistant models and offer valuable insights for future research and development in this field.1</abstract>
-      <pdf hash="f9a9cef6"/>
+      <url hash="f9a9cef6">2026.tacl-1.18</url>
       <doi>10.1162/tacl.a.628</doi>
       <bibkey>chen-etal-2026-voicebench</bibkey>
     </paper>
@@ -276,7 +276,7 @@
       <author><first>Graham</first><last>Neubig</last></author>
       <pages>399–417</pages>
       <abstract>This paper introduces MERLIN, a novel testbed system for the task of Multilingual Multimodal Entity Linking. The created dataset includes BBC news article titles, paired with corresponding images, in five languages: Hindi, Japanese, Indonesian, Vietnamese, and Tamil, featuring over 7,000 named entity mentions linked to 2,500 unique Wikidata entities. We also include several benchmarks using multilingual and multimodal entity linking methods exploring different language models like LLaMa-2 and Aya-23. Our findings indicate that incorporating visual data improves the accuracy of entity linking, especially for entities where the textual context is ambiguous or insufficient, and particularly for models that do not have strong multilingual abilities. For the work, the dataset, methods are available online.1</abstract>
-      <pdf hash="c672d2d0"/>
+      <url hash="c672d2d0">2026.tacl-1.19</url>
       <doi>10.1162/tacl.a.633</doi>
       <bibkey>ramamoorthy-etal-2026-merlin</bibkey>
     </paper>
@@ -290,7 +290,7 @@
       <author><first>Dafna</first><last>Shahaf</last></author>
       <pages>418–441</pages>
       <abstract>Large Language Models (LLMs) excel at many tasks, yet they struggle to produce truly creative, diverse ideas. In this paper, we introduce a novel approach that enhances LLM creativity. We apply LLMs for translating between natural language and structured representations, and perform the core creative leap via cognitively inspired manipulations on these representations. Our notion of creativity goes beyond superficial token-level variations; rather, we recombine structured representations of existing ideas, enabling our system to effectively explore a more abstract landscape of ideas. We demonstrate our approach in the culinary domain with DishCover, a model that generates creative recipes. Experiments and domain-expert evaluations reveal that our outputs, which are mostly coherent and feasible, significantly surpass GPT-4o in terms of novelty and diversity, thus outperforming it in creative generation. We hope our work inspires further research into structured creativity in AI.</abstract>
-      <pdf hash="fc2d4ae1"/>
+      <url hash="fc2d4ae1">2026.tacl-1.20</url>
       <doi>10.1162/tacl.a.638</doi>
       <bibkey>mizrahi-etal-2026-cooking</bibkey>
     </paper>
@@ -302,7 +302,7 @@
       <author><first>Frank</first><last>Keller</last></author>
       <pages>442–464</pages>
       <abstract>Characters are important in narratives. They move the plot forward, create emotional connections, and embody the story’s themes. Visual storytelling methods focus more on the plot and events relating to it, without building the narrative around specific characters. As a result, the generated stories feel generic, with character mentions being absent, vague, or incorrect. To mitigate these issues, we introduce a new character-centric approach to visual story generation. We present the first model capable of predicting visual stories with consistently grounded and coreferent character mentions. Our model is finetuned on a new dataset which we build on top of the widely used VIST (Huang et al., 2016) benchmark. Specifically, we develop an automated pipeline to enrich VIST with visual and textual character coreference chains. We also propose new evaluation metrics to measure the richness of characters and coreference in stories. Experimental results show that our model generates stories with recurring characters which are consistent and coreferent to larger extent compared to baselines and state-of-the-art systems.1 Our code and dataset are available at <url>https://github.com/iz2late/character-centric-vist</url>.</abstract>
-      <pdf hash="469b4ab2"/>
+      <url hash="469b4ab2">2026.tacl-1.21</url>
       <doi>10.1162/tacl.a.641</doi>
       <bibkey>liu-etal-2026-generating</bibkey>
     </paper>
@@ -313,7 +313,7 @@
       <author><first>Iryna</first><last>Gurevych</last></author>
       <pages>465–488</pages>
       <abstract>Large Language Models (LLMs) have great potential to accelerate and support scholarly peer review and are increasingly used as fully automatic review generators (ARGs). However, potential biases and systematic errors may pose significant risks to scientific integrity; understanding the specific capabilities and limitations of state-of-the-art ARGs is essential. We focus on a core reviewing skill that underpins high-quality peer review: detecting faulty research logic. This involves evaluating the internal consistency between a paper’s results, interpretations, and claims. We present a fully automated counterfactual evaluation framework that isolates and tests this skill under controlled conditions. Testing a range of ARG approaches, we find that, contrary to expectation, flaws in research logic have no significant effect on their output reviews. Based on our findings, we derive three actionable recommendations for future work and release our counterfactual dataset and evaluation framework publicly.1</abstract>
-      <pdf hash="d17172d0"/>
+      <url hash="d17172d0">2026.tacl-1.22</url>
       <doi>10.1162/tacl.a.642</doi>
       <bibkey>dycke-gurevych-2026-automatic</bibkey>
     </paper>
@@ -332,7 +332,7 @@
       <author><first>Preslav</first><last>Nakov</last></author>
       <pages>489–509</pages>
       <abstract>Automatic fact-checking aims to support professional fact-checkers by offering tools that can help speed up manual fact-checking. Yet, existing frameworks fail to address the key step of producing output suitable for broader dissemination to the general public: While human fact-checkers communicate their findings through fact-checking articles, automated systems typically produce little or no justification for their assessments. Here, we aim to bridge this gap. In particular, we argue for the need to extend the typical automatic fact-checking pipeline with automatic generation of full fact-checking articles. We first identify key desiderata for such articles through a series of interviews with experts from leading fact-checking organizations. We then develop Qraft, an LLM-based agentic framework that mimics the writing workflow of human fact-checkers. Finally, we assess the practical usefulness of Qraft through human evaluations with professional fact-checkers. Our evaluation shows that while Qraft outperforms several previously proposed text-generation approaches, it lags considerably behind expert-written articles. We hope that our work will enable further research in this new and important direction. The code for our implementation is available at <url>https://github.com/mbzuai-nlp/qraft.git</url>.</abstract>
-      <pdf hash="5dde57d9"/>
+      <url hash="5dde57d9">2026.tacl-1.23</url>
       <doi>10.1162/tacl.a.644</doi>
       <bibkey>sahnan-etal-2026-llms</bibkey>
     </paper>
@@ -348,7 +348,7 @@
       <author><first>Yuan</first><last>Zhang</last></author>
       <pages>510–529</pages>
       <abstract>Existing LLM-based role-playing methods often rely on superficial textual descriptions or simplistic metrics, inadequately modeling both intrinsic and extrinsic character dimensions. Additionally, they typically simulate character memory with implicit model knowledge or basic retrieval augment generation without explicit memory alignment, compromising memory consistency. The two issues weaken reliability of role-playing LLMs in several applications, such as trustworthy social simulation. To address these limitations, we propose PsyMem, a novel framework integrating fine-grained psychological attributes and explicit memory control for role-playing. PsyMem supplements textual descriptions with 26 psychological indicators to detailed model character. Additionally, PsyMem implements memory alignment training, explicitly trains the model to align character’s response with memory, thereby enabling dynamic memory-controlled responding during inference. By training Qwen2.5-7B-Instruct on our specially designed dataset (including 5,414 characters and 38,962 dialogues extracted from novels), the resulting model, termed as PsyMem-Qwen, outperforms baseline models in role-playing, achieving the best performance in human-likeness and character fidelity.</abstract>
-      <pdf hash="1d75bf78"/>
+      <url hash="1d75bf78">2026.tacl-1.24</url>
       <doi>10.1162/tacl.a.645</doi>
       <bibkey>cheng-etal-2026-psymem</bibkey>
     </paper>
@@ -360,7 +360,7 @@
       <author><first>Andreas</first><last>Vlachos</last></author>
       <pages>530–561</pages>
       <abstract>Current automated fact-checking (AFC) approaches typically evaluate evidence either implicitly via the predicted verdicts or through exact matches with predefined closed knowledge sources, such as Wikipedia. However, these methods are limited due to their reliance on evaluation metrics originally designed for other purposes and constraints from closed knowledge sources. In this work, we introduce Ev2R which combines the strengths of reference-based evaluation and verdict-level proxy scoring. Ev2R jointly assesses how well the evidence aligns with the gold references and how reliably it supports the verdict, addressing the shortcomings of prior methods. We evaluate Ev2R against three types of evidence evaluation approaches: reference-based, proxy-reference, and reference-less baselines. Assessments against human ratings and adversarial tests demonstrate that Ev2R consistently outperforms existing scoring approaches in accuracy and robustness. It achieves stronger correlation with human judgments and greater robustness to adversarial perturbations, establishing it as a reliable metric for evidence evaluation in AFC.1</abstract>
-      <pdf hash="b3316c25"/>
+      <url hash="b3316c25">2026.tacl-1.25</url>
       <doi>10.1162/tacl.a.647</doi>
       <bibkey>akhtar-etal-2026-ev2r</bibkey>
     </paper>
@@ -374,7 +374,7 @@
       <author><first>André F. T.</first><last>Martins</last></author>
       <pages>562–587</pages>
       <abstract>Automatic translation systems offer a powerful solution to bridge language barriers in scenarios where participants do not share a common language. However, these systems can introduce errors leading to misunderstandings and conversation breakdown. A key issue is that current systems fail to incorporate the rich contextual information necessary to resolve ambiguities and omitted details, resulting in literal, inappropriate, or misaligned translations. In this work, we present a framework to improve large language model-based translation systems by incorporating contextual information in bilingual conversational settings during training and inference. We validate our proposed framework on two task-oriented domains: customer chat and user-assistant interaction. Across both settings, the system produced by our framework—TowerChat—consistently results in better translations than state-of-the-art systems like GPT-4o and TowerInstruct, as measured by multiple automatic translation quality metrics on several language pairs. We also show that the resulting model leverages context in an intended and interpretable way, improving consistency between the conveyed message and the generated translations.1</abstract>
-      <pdf hash="81ab5917"/>
+      <url hash="81ab5917">2026.tacl-1.26</url>
       <doi>10.1162/tacl.a.639</doi>
       <bibkey>pombal-etal-2026-context</bibkey>
     </paper>
@@ -388,7 +388,7 @@
       <author><first>Alex</first><last>Warstadt</last></author>
       <pages>588–611</pages>
       <abstract>Grammatical features across human languages exhibit intriguing correlations, often attributed to learning biases in humans. Language models (LMs) provide a scalable and naturalistic framework for studying artificial language learning—one not available in human research. We investigate how learnability varies across typologically plausible and implausible languages that closely follow the word order universals identified by linguistic typologists. Our study trains LMs on highly naturalistic counterfactual versions of English (head-initial) and Japanese (head-final). Compared to prior work, our datasets more precisely target the boundary between typological plausibility and implausibility. Our experiments show that LMs learn subtly implausible languages more slowly, though they eventually reach similar performance on some metrics regardless of typological plausibility. These findings suggest that LMs exhibit typologically aligned learning preferences and that certain typological patterns may emerge from general learning biases. <url>https://github.com/sally-xu-42/Typological_Universals</url>.</abstract>
-      <pdf hash="ed0a2417"/>
+      <url hash="ed0a2417">2026.tacl-1.27</url>
       <doi>10.1162/tacl.a.640</doi>
       <bibkey>xu-etal-2026-language</bibkey>
     </paper>
@@ -401,7 +401,7 @@
       <author><first>Melanie</first><last>Mitchell</last></author>
       <pages>612–626</pages>
       <abstract>In people, the ability to solve analogies such as “body: feet:: table: ?” emerges in childhood, and appears to transfer easily to other domains, such as the visual domain “(: ) :: &lt; : ?”. Recent research shows that large language models (LLMs) can solve various forms of analogies. However, can LLMs generalize analogy solving to other domains like people can? To investigate this, we had children, adults, and LLMs solve a series of letter-string analogies (e.g., a b : a c :: j k : ?) in the Latin alphabet, in a near transfer domain (Greek alphabet), and a far transfer domain (list of symbols). Children and adults easily generalized their knowledge to unfamiliar domains, whereas LLMs did not. This key difference between human and AI performance is evidence that these LLMs still struggle with robust human-like analogical transfer.</abstract>
-      <pdf hash="0628ba4b"/>
+      <url hash="0628ba4b">2026.tacl-1.28</url>
       <doi>10.1162/tacl.a.614</doi>
       <bibkey>stevenson-etal-2026-large</bibkey>
     </paper>
@@ -418,7 +418,7 @@
       <author><first>Yuji</first><last>Matsumoto</last></author>
       <pages>627–655</pages>
       <abstract>We present a systematic analysis of module-level design choices in GraphRAG, a retrieval-augmented generation framework that integrates structured knowledge graphs into question answering. Focusing on triple extraction, community clustering, and report generation, we evaluate multiple strategies across two knowledge-intensive benchmarks. Our results show that high-quality triple extraction is critical, as the accuracy and coverage of the resulting knowledge graph can become a bottleneck for downstream reasoning. We also find that the granularity of fundamental knowledge units, as determined by community clustering, has a significant impact on downstream performance: Achieving a balance between factual detail and topical coherence within each unit is important to enable precise and comprehensive retrieval and to facilitate effective multi-hop reasoning. In addition, simple template-based reporting outperforms LLM-based summarization in both accuracy and efficiency. These findings provide practical guidance for the structure- aware design of retrieval-augmented systems.</abstract>
-      <pdf hash="8d7ee2fe"/>
+      <url hash="8d7ee2fe">2026.tacl-1.29</url>
       <doi>10.1162/tacl.a.615</doi>
       <bibkey>nishida-etal-2026-dissecting</bibkey>
     </paper>
@@ -439,7 +439,7 @@
       <author><first>Jingbo</first><last>Zhu</last></author>
       <pages>656–688</pages>
       <abstract>To enhance the efficiency of the attention mechanism within large language models (LLMs), previous works primarily compress the Key-Value cache or group attention heads, while largely overlooking redundancy between layers. Our comprehensive analyses across various LLMs show that highly similar attention patterns persist within most layers. It’s intuitive to reduce the redundancy by sharing attention weights across layers. However, further analysis reveals two challenges: (1) Directly sharing the weight matrix without carefully rearranging the attention heads proves to be ineffective; (2) Shallow layers are vulnerable to small deviations in attention weights. Driven by these insights, we introduce LiSA, a lightweight substitute for self-attention in well-trained LLMs. LiSA employs tiny feed-forward networks to align attention heads between adjacent layers and low-rank matrices to approximate differences in layer-wise attention weights. Evaluations encompassing 13 typical benchmarks demonstrate that LiSA maintains high response quality in terms of accuracy and perplexity while reducing redundant attention calculations within 53% −84% of the total layers. Our implementations of LiSA achieve a 6 × compression of Q and K matrices within the attention mechanism, with maximum throughput improvements 19.5%, 32.3%, and 40.1% for LLaMA3-8B, LLaMA2-7B, and LLaMA2-13B, respectively. Our code is available at <url>https://github.com/takagi97/lisa</url>.</abstract>
-      <pdf hash="2fd01bbc"/>
+      <url hash="2fd01bbc">2026.tacl-1.30</url>
       <doi>10.1162/tacl.a.616</doi>
       <bibkey>mu-etal-2026-cross</bibkey>
     </paper>
@@ -454,7 +454,7 @@
       <author><first>Chenghua</first><last>Lin</last></author>
       <pages>689–710</pages>
       <abstract>Evaluating natural language generation systems is challenging due to the diversity of valid outputs. While human evaluation is the gold standard, it suffers from inconsistencies, lack of standardization, and demographic biases, limiting reproducibility. LLM-based evaluators offer a scalable alternative but are highly sensitive to prompt design, where small variations can lead to significant discrepancies. In this work, we propose an inversion learning method that learns effective reverse mappings from model outputs back to their input instructions, enabling the automatic generation of highly effective, model-specific evaluation prompts. Our method requires only a single evaluation sample and eliminates the need for time-consuming manual prompt engineering, thereby improving both efficiency and robustness. Our work contributes toward a new direction for more robust and efficient LLM-based evaluation.</abstract>
-      <pdf hash="69e8e079"/>
+      <url hash="69e8e079">2026.tacl-1.31</url>
       <doi>10.1162/tacl.a.617</doi>
       <bibkey>hong-etal-2026-beyond</bibkey>
     </paper>
@@ -466,7 +466,7 @@
       <author id="lonneke-van-der-plas"><first>Lonneke</first><last>van der Plas</last></author>
       <pages>711–732</pages>
       <abstract>Analogical reasoning is an essential aspect of human cognition. In this paper, we summarize key theories about the processes underlying analogical reasoning from the cognitive science literature and relate it to current research in natural language processing. While these processes can be easily linked to concepts in NLP, they are generally not viewed through a cognitive lens. Furthermore, we show how these notions are relevant for several major challenges in NLP research, not directly related to analogy solving. This may guide researchers to better optimize relational understanding in text, as opposed to relying heavily on entity-level similarity.</abstract>
-      <pdf hash="caf9420d"/>
+      <url hash="caf9420d">2026.tacl-1.32</url>
       <doi>10.1162/tacl.a.632</doi>
       <bibkey>petersen-etal-2026-modelling</bibkey>
     </paper>
@@ -482,7 +482,7 @@
       <author><first>André F. T.</first><last>Martins</last></author>
       <pages>733–754</pages>
       <abstract>Reinforcement learning (RL) has been proven to be an effective and robust method for training neural machine translation systems, especially when paired with powerful reward models that accurately assess translation quality. However, most research has focused on RL methods that use sentence-level feedback, leading to inefficient learning signals due to the reward sparsity problem—the model receives a single score for the entire sentence. To address this, we propose a novel approach that leverages fine-grained, token-level quality assessments along with error severity levels using RL methods. Specifically, we use xCOMET, a state-of-the-art quality estimation system, as our token-level reward model. We conduct experiments on small and large translation datasets with standard encoder-decoder and large language models-based machine translation systems, comparing the impact of sentence-level versus fine-grained reward signals on translation quality. Our results show that training with token-level rewards improves translation quality across language pairs over baselines according to both automatic and human evaluation. Furthermore, token-level reward optimization improves training stability, evidenced by a steady increase in mean rewards over training epochs.</abstract>
-      <pdf hash="5393cda7"/>
+      <url hash="5393cda7">2026.tacl-1.33</url>
       <doi>10.1162/tacl.a.646</doi>
       <bibkey>ramos-etal-2026-fine</bibkey>
     </paper>
@@ -503,7 +503,7 @@
       <author><first>Hai</first><last>Hu</last></author>
       <pages>755–771</pages>
       <abstract>We present ZhoBLiMP, the largest linguistic minimal pair benchmark for Chinese, with over 100 paradigms, ranging from topicalization to the Ba construction. We then train from scratch a suite of Chinese language models (LMs) with different tokenizers, parameter sizes, and token volumes, to study the learning curves of LMs on Chinese. To mitigate the biases introduced by unequal lengths of the sentences in a minimal pair, we propose a new metric named sub-linear length normalized log-probabilities (SLLN-LP). Using SLLN-LP as the metric, our results show that Anaphor, Quantifiers, and Ellipsis in Chinese are difficult for LMs even up to 32B parameters, and that SLLN-LP successfully mitigates biases in ZhoBLiMP, JBLiMP and BLiMP. We conclude that future evaluations should be more carefully designed to consider the intricate relations between linking functions, LMs, and targeted minimal pairs.</abstract>
-      <pdf hash="cdd3913c"/>
+      <url hash="cdd3913c">2026.tacl-1.34</url>
       <doi>10.1162/tacl.a.648</doi>
       <bibkey>liu-etal-2026-systematic</bibkey>
     </paper>
