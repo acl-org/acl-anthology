@@ -47,6 +47,15 @@ RewriteBase /ANTHOLOGYDIR
 # The redirects are only applicable to the official aclweb.org anthology; all the
 # 301 redirects are guarded with a RewriteCond.
 
+## Added 2026-09-15
+# Related issue:
+# - https://github.com/acl-org/acl-anthology/issues/9978
+
+# Some indexed URLs contain the physical-storage prefix twice. Strip the entire
+# physical directory path, leaving the public filename at the site root.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/anthology-files/
+RewriteRule ^anthology-files/anthology-files/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
+
 ## Added 2026-09-09
 # Related issues:
 # - https://github.com/acl-org/acl-anthology/issues/9364
