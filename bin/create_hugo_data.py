@@ -137,10 +137,7 @@ def paper_to_dict(paper):
         "title": paper.title.as_text(),
         "title_html": remove_extra_whitespace(paper.title.as_html(allow_url=False)),
         "title_raw": paper.title.as_xml(),
-        # Slightly funky logic: If there is an external URL given for a paper,
-        # it will be in '.pdf', even though we use the Anthology landing page
-        # (and not the PDF URL) for everything else
-        "url": paper.web_url if (not paper.pdf or paper.pdf.is_local) else paper.pdf.url,
+        "url": paper.web_url,
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
         "year": paper.year,
@@ -215,11 +212,13 @@ def paper_to_dict(paper):
         else:
             data["pages"] = page_first
     if paper.pdf is not None:
-        if paper.pdf.is_local:
-            data["pdf"] = paper.pdf.url
-            data["thumbnail"] = paper.thumbnail.url
-        else:
-            data["external"] = paper.pdf.url
+        data["pdf"] = paper.pdf.url
+        data["thumbnail"] = paper.thumbnail.url
+    if paper.urls:
+        data["urls"] = [
+            {"type": type_.capitalize() if type_ else "External", "url": ref.url}
+            for type_, ref in paper.urls
+        ]
     if paper.errata:
         data["erratum"] = [
             {
@@ -259,9 +258,7 @@ def volume_to_dict(volume):
         "title_raw": volume.title.as_xml(),
         "year": volume.year,
         "sigs": [],
-        "url": (
-            volume.web_url if (not volume.pdf or volume.pdf.is_local) else volume.pdf.url
-        ),
+        "url": volume.web_url,
         "venues": volume.venue_ids,
     }
     for key in ("address", "doi", "isbn", "publisher"):
@@ -284,10 +281,12 @@ def volume_to_dict(volume):
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:
-        if volume.pdf.is_local:
-            data["pdf"] = volume.pdf.url
-        else:
-            data["external"] = volume.pdf.url
+        data["pdf"] = volume.pdf.url
+    if volume.urls:
+        data["urls"] = [
+            {"type": type_.capitalize() if type_ else "External", "url": ref.url}
+            for type_, ref in volume.urls
+        ]
     return data
 
 

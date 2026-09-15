@@ -1,0 +1,21 @@
+{{/* This partial maps external <url> types to icons or similar representations */}}
+{{ $type := lower .type }}
+{{ if eq $type "video" }}
+<i class="fas fa-video"></i>
+{{ else if eq $type "website" }}
+<i class="fas fa-globe"></i>
+{{ else if eq $type "handbook" }}
+<i class="fas fa-book"></i>
+{{ else if eq $type "poster" }}
+<i class="fas fa-file-image"></i>
+{{ else if eq $type "slides" }}
+<i class="fas fa-file-powerpoint"></i>
+{{ else if eq $type "presentation" }}
+<i class="fas fa-file-powerpoint"></i>
+{{ else if eq $type "dataset" }}
+<i class="fas fa-file-archive"></i>
+{{ else if eq $type "software" }}
+<i class="fas fa-file-code"></i>
+{{ else }}
+<i class="fas fa-external-link-alt"></i>
+{{ end }}

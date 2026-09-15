@@ -18,6 +18,7 @@ from pathlib import Path
 import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType, Paper
+from acl_anthology.files import PDFReference, URLReference
 from acl_anthology.people import (
     Name,
     NameSpecification as NameSpec,
@@ -44,12 +45,14 @@ test_cases_volume_xml = (
     <address>Dublin, Ireland</address>
     <month>May</month>
     <year>2022</year>
-    <url hash="b8317652">2022.acl-long</url>
+    <pdf hash="b8317652"/>
+    <url type="website">https://2022.aclweb.org</url>
+    <url type="handbook">https://2022.aclweb.org/handbook.pdf</url>
     <venue>acl</venue>
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-long.0/ -->
-    <url hash="56ea4e43">2022.acl-long.0</url>
+    <pdf hash="56ea4e43"/>
     <bibkey>acl-2022-association-linguistics-1</bibkey>
   </frontmatter>
 </volume>
@@ -66,12 +69,12 @@ test_cases_volume_xml = (
     <doi>10.18653/v1/2022.acl-demo</doi>
     <month>May</month>
     <year>2022</year>
-    <url hash="d92e3f4d">2022.acl-demo</url>
+    <pdf hash="d92e3f4d"/>
     <venue>acl</venue>
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-demo.0/ -->
-    <url hash="ad64a7d9">2022.acl-demo.0</url>
+    <pdf hash="ad64a7d9"/>
     <bibkey>acl-2022-association-linguistics-system</bibkey>
   </frontmatter>
 </volume>
@@ -87,7 +90,7 @@ test_cases_volume_xml = (
   </meta>
   <frontmatter>
     <!-- https://aclanthology.org/2026.dummy-1.0/ -->
-    <url hash="363084f8">J89-1000</url>
+    <pdf hash="363084f8"/>
     <bibkey>cl-1989-linguistics</bibkey>
   </frontmatter>
   <paper id="1">
@@ -95,7 +98,7 @@ test_cases_volume_xml = (
     <title>Parsing with Flexibility, Dynamic Strategies, and Idioms in Mind</title>
     <author><first>Oliviero</first><last>Stock</last></author>
     <pages>1-18</pages>
-    <url hash="ad57020c">J89-1001</url>
+    <pdf hash="ad57020c"/>
     <bibkey>stock-1989-parsing</bibkey>
   </paper>
 </volume>
@@ -122,7 +125,7 @@ test_cases_volume_xml = (
     <address>IIT Kharagpur, India</address>
     <month>October</month>
     <year>2019</year>
-    <url hash="48102019">W19-75</url>
+    <pdf hash="48102019"/>
     <venue>iscls</venue>
   </meta>
 </volume>
@@ -889,3 +892,87 @@ def test_volume_type_validation(anthology):
         volume.venue_ids = "lrec"
     with pytest.raises(TypeError):
         volume.pdf = "L05-6000.pdf"
+
+
+def test_volume_pdf_must_be_local(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            pdf=PDFReference("https://external.com/volume.pdf"),
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    with pytest.raises(ValueError, match="must be a local file reference"):
+        volume.pdf = PDFReference("https://external.com/volume.pdf")
+
+
+def test_volume_pdf_name_must_match_full_id_if_given(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="does not match"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            pdf=PDFReference("wrong-name", checksum="abcd1234"),
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    assert volume.full_id == "L05-6"
+    with pytest.raises(ValueError, match="does not match"):
+        volume.pdf = PDFReference("wrong-name", checksum="abcd1234")
+    # ...but an empty name, or one that already matches full_id, is accepted
+    volume.pdf = PDFReference("", checksum="abcd1234")
+    assert volume.pdf.name == "L05-6"
+    volume.pdf = PDFReference("L05-6", checksum="abcd1234")
+    assert volume.pdf.name == "L05-6"
+
+
+def test_volume_urls_must_be_non_local(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        Volume(
+            "6",
+            parent,
+            type=VolumeType.JOURNAL,
+            booktitle=volume_title,
+            journal_title="Foo bar",
+            year="2005",
+            urls=[("website", URLReference("some-local-filename"))],
+        )
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        journal_title="Foo bar",
+        year="2005",
+    )
+    with pytest.raises(ValueError, match="must only contain non-local"):
+        volume.urls = [("website", URLReference("some-local-filename"))]
+    # Sanity check: non-local URLs are fine
+    volume.urls = [("website", URLReference("https://example.com"))]
+    assert volume.urls[0][1].name == "https://example.com"
