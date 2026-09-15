@@ -17,7 +17,7 @@ from attrs import define
 from lxml import etree
 
 from acl_anthology.collections import Event, EventLink, Talk
-from acl_anthology.files import EventFileReference
+from acl_anthology.files import URLReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 
@@ -100,7 +100,7 @@ def test_event_all_attribs():
             (("2023.asdf", "1", None), EventLink.EXPLICIT),
         ],
         talks=[Talk("Invited talk")],
-        links={"Website": EventFileReference("http://foobar.com")},
+        links={"Website": URLReference("http://foobar.com")},
     )
     assert event.collection_id == "2023.li"
     assert event.title == event_title
@@ -219,7 +219,7 @@ def test_talk_attribs(anthology):
     assert talk.root is anthology
     assert talk.type is None
     assert len(talk.attachments) == 1
-    assert isinstance(talk.attachments.get("video"), EventFileReference)
+    assert isinstance(talk.attachments.get("video"), URLReference)
 
 
 @pytest.mark.parametrize("xml", test_cases_talk_xml)

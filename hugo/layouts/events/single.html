@@ -87,8 +87,8 @@
       <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
-      {{- with $volume.external -}}
-      <a class="badge text-bg-primary align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open external proceedings" aria-label="Open external proceedings"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+      {{- range $volume.urls -}}
+      <a class="badge text-bg-primary align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open {{ .type }}" aria-label="Open {{ .type }}">{{ partial "url_repr.html" . }}</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
       {{- $bibfile := printf "volumes/%s.bib" . -}}

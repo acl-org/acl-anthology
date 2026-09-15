@@ -21,7 +21,7 @@ from lxml import etree
 from lxml.builder import E
 from pathlib import Path
 import requests
-from typing import cast, ClassVar, Optional, Self, TYPE_CHECKING
+from typing import cast, Any, ClassVar, Optional, Self, TYPE_CHECKING
 import warnings
 from zlib import crc32
 
@@ -121,9 +121,14 @@ class FileReference:
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
-        """Instantiate a new file reference from a corresponding XML element."""
+        """Instantiate a new file reference from a corresponding XML element.
+
+        Note:
+            Some elements (e.g. a paper's or volume's own `<pdf>` element) carry no name at all, only a checksum -- the name is instead derived from the `full_id` of the object the file belongs to.  In that case, this returns a reference with an empty placeholder `name` that callers are expected to replace (e.g. via [`attrs.evolve`][]) before use.
+        """
         checksum = elem.get("hash")
-        return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
+        name = elem.text if elem.text is not None else ""
+        return cls(name=name, checksum=str(checksum) if checksum else None)
 
     def download(self, filename: StrPath, timeout: float = 10) -> None:
         """Download this file from its remote URL.
@@ -181,6 +186,9 @@ class PDFReference(FileReference):
     content_type: ClassVar[Optional[str]] = "application/pdf"
     template_field: ClassVar[str] = "pdf_location_template"
 
+    def to_xml(self, tag: str = "pdf") -> etree._Element:
+        return E.pdf(hash=str(self.checksum))
+
 
 @define(frozen=True)
 class PDFThumbnailReference(FileReference):
@@ -199,10 +207,37 @@ class AttachmentReference(FileReference):
 
 
 @define(frozen=True)
-class EventFileReference(FileReference):
-    """Reference to an event-related file."""
+class URLReference(FileReference):
+    """Reference to an external URL, e.g. for supplementary materials hosted elsewhere.
+
+    Used for `<url>` elements, which -- unlike [PDFReference][acl_anthology.files.PDFReference] and its siblings -- carry no checksum and are (almost always) not locally hosted.  An optional `type` attribute distinguishing multiple `<url>` elements (e.g. "video", "website") is *not* stored on this class; callers are expected to track it alongside the reference, e.g. as `tuple[str, URLReference]` (see [`validate_url_tuple`][acl_anthology.files.validate_url_tuple]).
+    """
 
     template_field: ClassVar[str] = "event_location_template"
+
+
+# Deprecated alias: URLReference used to be called EventFileReference, before its use was
+# generalized beyond Event links to also cover Paper/Volume urls.  Kept around so external
+# code (e.g. bin/ scripts) importing the old name doesn't break.
+EventFileReference = URLReference
+
+
+def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
+    """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
+
+    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable] validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction, never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.
+    """
+    if (
+        not isinstance(value, tuple)
+        or len(value) != 2
+        or not isinstance(value[0], str)
+        or not isinstance(value[1], URLReference)
+    ):
+        raise TypeError(f"expected tuples of (str, URLReference) (got: {value!r})")
+    if value[1].is_local:
+        raise ValueError(
+            f"'urls' must only contain non-local file references (got: {value[1]!r})"
+        )
 
 
 @define(frozen=True)

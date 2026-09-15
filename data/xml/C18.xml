@@ -95,13 +95,13 @@
       <author><first>Nidhi</first><last>Vyas</last></author>
       <author><first>Ruochen</first><last>Xu</last></author>
       <author><first>Yiming</first><last>Yang</last></author>
-      <author><first>Teruko</first><last>Mitamura</last></author>
+      <author id="teruko-mitamura"><first>Teruko</first><last>Mitamura</last></author>
       <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
       <pages>70–82</pages>
       <abstract>The use of machine learning for NLP generally requires resources for training. Tasks performed in a low-resource language usually rely on labeled data in another, typically resource-rich, language. However, there might not be enough labeled data even in a resource-rich language such as English. In such cases, one approach is to use a hand-crafted approach that utilizes only a small bilingual dictionary with minimal manual verification to create distantly supervised data. Another is to explore typical machine learning techniques, for example adversarial training of bilingual word representations. We find that in event-type detection task—the task to classify [parts of] documents into a fixed set of labels—they give about the same performance. We explore ways in which the two methods can be complementary and also see how to best utilize a limited budget for manual annotation to maximize performance gain.</abstract>
       <pdf hash="63fd2cde"/>
-      <revision id="1" href="C18-1007v1" hash="87377f6b"/>
-      <revision id="2" href="C18-1007v2" hash="63fd2cde">No description of the changes were recorded.</revision>
+      <revision id="1" hash="87377f6b"/>
+      <revision id="2" hash="63fd2cde">No description of the changes were recorded.</revision>
       <bibkey>muis-etal-2018-low</bibkey>
     </paper>
     <paper id="8">
@@ -885,7 +885,7 @@
       <!-- https://aclanthology.org/C18-1075/ -->
       <title>Open-Domain Event Detection using Distant Supervision</title>
       <author><first>Jun</first><last>Araki</last></author>
-      <author><first>Teruko</first><last>Mitamura</last></author>
+      <author id="teruko-mitamura"><first>Teruko</first><last>Mitamura</last></author>
       <pages>878–891</pages>
       <abstract>This paper introduces open-domain event detection, a new event detection paradigm to address issues of prior work on restricted domains and event annotation. The goal is to detect all kinds of events regardless of domains. Given the absence of training data, we propose a distant supervision method that is able to generate high-quality training data. Using a manually annotated event corpus as gold standard, our experiments show that despite no direct supervision, the model outperforms supervised models. This result indicates that the distant supervision enables robust event detection in various domains, while obviating the need for human annotation of events.</abstract>
       <pdf hash="f0324ed0"/>
@@ -2349,8 +2349,8 @@
       <pages>2369–2378</pages>
       <abstract>Large scale knowledge graphs (KGs) such as Freebase are generally incomplete. Reasoning over multi-hop (mh) KG paths is thus an important capability that is needed for question answering or other NLP tasks that require knowledge about the world. mh-KG reasoning includes diverse scenarios, e.g., given a head entity and a relation path, predict the tail entity; or given two entities connected by some relation paths, predict the unknown relation between them. We present ROPs, recurrent one-hop predictors, that predict entities at each step of mh-KB paths by using recurrent neural networks and vector representations of entities and relations, with two benefits: (i) modeling mh-paths of arbitrary lengths while updating the entity and relation representations by the training signal at each step; (ii) handling different types of mh-KG reasoning in a unified framework. Our models show state-of-the-art for two important multi-hop KG reasoning tasks: Knowledge Base Completion and Path Query Answering.</abstract>
       <pdf hash="8b98a76c"/>
-      <revision id="1" href="C18-1200v1" hash="7e471937"/>
-      <revision id="2" href="C18-1200v2" hash="8b98a76c">A footnote is added in the page 8 to show that the created 'EnhancedKGP' dataset has a potential leak of test information to training set, due to an inadvertent data preprocessing.</revision>
+      <revision id="1" hash="7e471937"/>
+      <revision id="2" hash="8b98a76c">A footnote is added in the page 8 to show that the created 'EnhancedKGP' dataset has a potential leak of test information to training set, due to an inadvertent data preprocessing.</revision>
       <bibkey>yin-etal-2018-recurrent</bibkey>
     </paper>
     <paper id="201">
@@ -2703,7 +2703,7 @@
       <pages>2715–2729</pages>
       <abstract>In this paper, we propose a method for obtaining sentence-level embeddings. While the problem of securing word-level embeddings is very well studied, we propose a novel method for obtaining sentence-level embeddings. This is obtained by a simple method in the context of solving the paraphrase generation task. If we use a sequential encoder-decoder model for generating paraphrase, we would like the generated paraphrase to be semantically close to the original sentence. One way to ensure this is by adding constraints for true paraphrase embeddings to be close and unrelated paraphrase candidate sentence embeddings to be far. This is ensured by using a sequential pair-wise discriminator that shares weights with the encoder that is trained with a suitable loss function. Our loss function penalizes paraphrase sentence embedding distances from being too large. This loss is used in combination with a sequential encoder-decoder network. We also validated our method by evaluating the obtained embeddings for a sentiment analysis task. The proposed method results in semantic embeddings and outperforms the state-of-the-art on the paraphrase generation and sentiment analysis task on standard datasets. These results are also shown to be statistically significant.</abstract>
       <pdf hash="70095e62"/>
-      <erratum id="1" hash="63c8ea24" date="2020-07-07">C18-1230e1</erratum>
+      <erratum id="1" hash="63c8ea24" date="2020-07-07"/>
       <bibkey>patro-etal-2018-learning</bibkey>
     </paper>
     <paper id="231">
@@ -3619,7 +3619,7 @@
       <!-- https://aclanthology.org/C18-1309/ -->
       <title>Graph Based Decoding for Event Sequencing and Coreference Resolution</title>
       <author><first>Zhengzhong</first><last>Liu</last></author>
-      <author><first>Teruko</first><last>Mitamura</last></author>
+      <author id="teruko-mitamura"><first>Teruko</first><last>Mitamura</last></author>
       <author id="eduard-hovy"><first>Eduard</first><last>Hovy</last></author>
       <pages>3645–3657</pages>
       <abstract>Events in text documents are interrelated in complex ways. In this paper, we study two types of relation: Event Coreference and Event Sequencing. We show that the popular tree-like decoding structure for automated Event Coreference is not suitable for Event Sequencing. To this end, we propose a graph-based decoding algorithm that is applicable to both tasks. The new decoding algorithm supports flexible feature sets for both tasks. Empirically, our event coreference system has achieved state-of-the-art performance on the TAC-KBP 2015 event coreference task and our event sequencing system beats a strong temporal-based, oracle-informed baseline. We discuss the challenges of studying these event relations.</abstract>
