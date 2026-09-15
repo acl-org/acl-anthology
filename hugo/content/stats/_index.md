@@ -1,0 +1,4 @@
+---
+title: Statistics
+slug: stats
+---
