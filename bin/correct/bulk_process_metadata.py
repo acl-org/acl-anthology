@@ -295,6 +295,7 @@ class AnthologyMetadataUpdater:
             return "approved" in [label.name for label in issue.get_labels()]
 
         if "metadata correction" not in issue.title.lower():
+            log.warning(f"-> Skipping due to unexpected title: {issue.title}")
             return None
         self.stats["visited_issues"] += 1
 
@@ -314,6 +315,8 @@ class AnthologyMetadataUpdater:
         if not json_block:
             if close_old_issues:
                 self.add_comment_to_issue_without_json(issue, dry_run=dry_run)
+            else:
+                log.warning("-> Skipping (no JSON block)")
             return None
         self.stats["relevant_issues"] += 1
 
