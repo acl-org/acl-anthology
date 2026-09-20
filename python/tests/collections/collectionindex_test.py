@@ -26,10 +26,10 @@ def test_collectionindex_load(anthology_stub):
 
 def test_collectionindex_get_collection(anthology_stub):
     index = CollectionIndex(anthology_stub)
-    # Fetch 2022.acl
-    collection = index.get("2022.acl")
+    # Fetch 2022.facl
+    collection = index.get("2022.facl")
     assert collection is not None
-    assert collection.id == "2022.acl"
+    assert collection.id == "2022.facl"
 
 
 def test_collectionindex_create_collection(anthology_stub):
@@ -44,9 +44,9 @@ def test_collectionindex_create_collection(anthology_stub):
 
 def test_collectionindex_create_collection_should_raise_with_oldstyle_ids(anthology_stub):
     index = CollectionIndex(anthology_stub)
-    # 2022.acl already exists
+    # 2022.facl already exists
     with pytest.raises(ValueError):
-        index.create("2022.acl")
+        index.create("2022.facl")
     # Collections can't be created with old-style IDs
     with pytest.raises(ValueError):
         index.create("P50")

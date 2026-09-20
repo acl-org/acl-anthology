@@ -35,26 +35,26 @@ test_cases_event_xml = (
   </colocated>
 </event>
 """,
-    """<event id="acl-2022">
-  <!-- https://aclanthology.org/events/acl-2022/ -->
+    """<event id="facl-2022">
+  <!-- https://aclanthology.org/events/facl-2022/ -->
   <meta>
-    <title>60th Annual Meeting of the Association for Computational Linguistics</title>
-    <location>Dublin, Ireland</location>
-    <dates>May 22–27, 2022</dates>
+    <title>60th Annual Fabricated Meeting on Computational Linguistics</title>
+    <location>Porto, Portugal</location>
+    <dates>May 16–21, 2022</dates>
   </meta>
   <links>
-    <url type="website">https://2022.aclweb.org</url>
-    <url type="handbook">2022.acl.handbook.pdf</url>
+    <url type="website">https://2022.facl-conf.example.org</url>
+    <url type="handbook">2022.facl.handbook.pdf</url>
   </links>
   <talk>
-    <title>Keynote 1: Language in the human brain</title>
-    <speaker><first>Angela D.</first><last>Friederici</last></speaker>
-    <url type="video">2022.acl.keynote1.mp4</url>
+    <title>Keynote 1: Language Beyond the Fabricated Brain</title>
+    <speaker><first>Elin K.</first><last>Sandstrom</last></speaker>
+    <url type="video">2022.facl.keynote1.mp4</url>
   </talk>
   <colocated>
-    <volume-id>2022.findings-acl</volume-id>
-    <volume-id>2022.bigscience-1</volume-id>
-    <volume-id>2022.wit-1</volume-id>
+    <volume-id>2022.ffindings-facl</volume-id>
+    <volume-id>2022.fabscience-1</volume-id>
+    <volume-id>2022.fwit-1</volume-id>
   </colocated>
 </event>
 """,
@@ -145,33 +145,33 @@ def test_event_roundtrip_xml(xml):
 
 
 def test_event_volumes(anthology):
-    event = anthology.events.get("cl-1989")
-    assert str(event.title) == "Computational Linguistics (1989)"
+    event = anthology.events.get("fcl-1989")
+    assert str(event.title) == "Journal of Fabricated Computational Linguistics (1989)"
     assert len(event.colocated_ids) == 4
     volumes = list(event.volumes())
     assert len(volumes) == 4
     assert {vol.full_id_tuple for vol in volumes} == set(event.colocated_ids.keys())
     with pytest.raises(ValueError):
-        # acl-2022 lists co-located volumes that we don't have in the toy
+        # facl-2022 lists co-located volumes that we don't have in the toy
         # dataset, so trying to access them should raise an error
-        list(anthology.events.get("acl-2022").volumes())
+        list(anthology.events.get("facl-2022").volumes())
 
 
 @pytest.mark.parametrize(
     "attr_name", ("id", "colocated_ids", "links", "talks", "title", "location", "dates")
 )
 def test_event_setattr_sets_collection_is_modified(anthology, attr_name):
-    event = anthology.events.get("lrec-2006")
+    event = anthology.events.get("flrec-2006")
     assert not event.collection.is_modified
     setattr(event, attr_name, getattr(event, attr_name))
     assert event.collection.is_modified
 
 
 def test_event_add_colocated(anthology):
-    event = anthology.events.get("lrec-2006")
+    event = anthology.events.get("flrec-2006")
     assert len(event.colocated_ids) == 1
     assert not event.collection.is_modified
-    volume = anthology.get_volume("J89-1")
+    volume = anthology.get_volume("Q89-1")
 
     # Adding colocated volume should update Event & EventIndex
     event.add_colocated(volume)
@@ -188,16 +188,16 @@ def test_event_add_colocated(anthology):
 
 test_cases_talk_xml = (
     """<talk>
-  <title>Keynote 1: Language in the human brain</title>
-  <speaker><first>Angela D.</first><last>Friederici</last></speaker>
-  <url type="video">2022.acl.keynote1.mp4</url>
+  <title>Keynote 1: Language Beyond the Fabricated Brain</title>
+  <speaker><first>Elin K.</first><last>Sandstrom</last></speaker>
+  <url type="video">2022.facl.keynote1.mp4</url>
 </talk>
 """,
     """<talk type="keynote">
-  <title>Keynote 2: Fire-side Chat with Barbara Grosz and Yejin Choi search lectures</title>
-  <speaker><first>Yejin</first><last>Choi</last></speaker>
-  <speaker><first>Barbara</first><last>Grosz</last></speaker>
-  <url type="video">2022.acl.keynote2.mp4</url>
+  <title>Keynote 2: Fire-side Chat with Fabricated Researchers</title>
+  <speaker><first>Wren</first><last>Ashby</last></speaker>
+  <speaker><first>Talia</first><last>Marchetti</last></speaker>
+  <url type="video">2022.facl.keynote2.mp4</url>
 </talk>
 """,
 )
@@ -213,7 +213,7 @@ def test_talk_minimum_attribs():
 
 
 def test_talk_attribs(anthology):
-    event = anthology.events.get("acl-2022")
+    event = anthology.events.get("facl-2022")
     talk = event.talks[0]
     assert talk.parent is event
     assert talk.root is anthology
@@ -232,7 +232,7 @@ def test_talk_roundtrip_xml(xml):
 
 
 def test_talk_setattr_on_namespec_sets_collection_is_modified(anthology):
-    event = anthology.events.get("acl-2022")
+    event = anthology.events.get("facl-2022")
     assert not event.collection.is_modified
     event.talks[1].speakers[0].affiliation = "University of Someplace"
     assert event.collection.is_modified

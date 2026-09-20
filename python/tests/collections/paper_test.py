@@ -60,8 +60,8 @@ def test_paper_minimum_attribs():
 
 
 def test_paper_web_url(anthology):
-    paper = anthology.get_paper("2022.acl-demo.2")
-    assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+    paper = anthology.get_paper("2022.facl-demo.2")
+    assert paper.web_url == "https://aclanthology.org/2022.facl-demo.2/"
 
 
 def test_paper_pdf_must_be_local():
@@ -159,24 +159,24 @@ def test_paper_namespecs():
 
 
 def test_paper_get_events(anthology):
-    paper = anthology.get_paper("2022.acl-demo.2")
+    paper = anthology.get_paper("2022.facl-demo.2")
     assert paper is not None
-    assert paper.get_events() == [anthology.events["acl-2022"]]
+    assert paper.get_events() == [anthology.events["facl-2022"]]
 
 
 def test_paper_attachments(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("2022.facl-long.48")
     assert paper is not None
     assert len(paper.attachments) == 2
     attachments = sorted((att_type, att.name) for (att_type, att) in paper.attachments)
     assert attachments == [
-        ("software", "2022.acl-long.48.software.txt"),
-        ("software", "2022.acl-long.48.software.zip"),
+        ("software", "2022.facl-long.48.software.txt"),
+        ("software", "2022.facl-long.48.software.zip"),
     ]
 
 
 def test_paper_attachments_set(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("2022.facl-long.48")
     assert paper is not None
     assert len(paper.attachments) == 2
 
@@ -189,18 +189,18 @@ def test_paper_attachments_set(anthology):
 
 
 def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
-    paper = anthology.get_paper("2022.acl-long.42")
+    paper = anthology.get_paper("2022.facl-long.42")
 
     with pytest.raises(TypeError):
-        paper.attachments = [("software", "2022.acl-long.42.software.txt")]
+        paper.attachments = [("software", "2022.facl-long.42.software.txt")]
 
     with pytest.raises(TypeError):
-        paper.attachments = [AttachmentReference(name="2022.acl-long.42.software.txt")]
+        paper.attachments = [AttachmentReference(name="2022.facl-long.42.software.txt")]
 
     with pytest.raises(TypeError):
         paper.attachments = (
             "software",
-            AttachmentReference(name="2022.acl-long.42.software.txt"),
+            AttachmentReference(name="2022.facl-long.42.software.txt"),
         )
 
     with pytest.raises(TypeError):
@@ -208,13 +208,13 @@ def test_paper_attachments_set_should_raise_on_invalid_items(anthology):
 
     # this is the correct way:
     paper.attachments = [
-        ("software", AttachmentReference(name="2022.acl-long.42.software.txt"))
+        ("software", AttachmentReference(name="2022.facl-long.42.software.txt"))
     ]
     assert len(paper.attachments) == 1
 
 
 def test_paper_change_id(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("2022.facl-long.48")
     paper.id = "14308"  # okay
     paper.id = "xxx"  # okay
 
@@ -244,14 +244,14 @@ def test_paper_change_id(anthology):
     ),
 )
 def test_paper_setattr_sets_collection_is_modified(anthology, attr_name):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("2022.facl-long.48")
     assert not paper.collection.is_modified
     setattr(paper, attr_name, getattr(paper, attr_name))
     assert paper.collection.is_modified
 
 
 def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
-    paper = anthology.get_paper("2022.acl-long.48")
+    paper = anthology.get_paper("2022.facl-long.48")
     assert not paper.collection.is_modified
     paper.authors[0].affiliation = "University of Someplace"
     assert paper.collection.is_modified
@@ -267,7 +267,7 @@ def test_paper_setattr_on_namespec_sets_collection_is_modified(anthology):
     ),
 )
 def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
-    paper = anthology.get_paper("J89-3001")
+    paper = anthology.get_paper("Q89-3001")
     value = getattr(paper.parent, attr_name)
     assert hasattr(paper, f"_{attr_name}")
     assert not getattr(paper, f"_{attr_name}")
@@ -277,7 +277,7 @@ def test_paper_attr_inherits_from_parent_volume(anthology, attr_name):
 
 
 def test_paper_ingest_date_inherits_from_parent_volume(anthology):
-    paper = anthology.get_paper("J89-3001")
+    paper = anthology.get_paper("Q89-3001")
     value = paper.parent.ingest_date
     assert paper._ingest_date is None
     assert paper.ingest_date == value
@@ -286,15 +286,15 @@ def test_paper_ingest_date_inherits_from_parent_volume(anthology):
 
 
 def test_paper_unknown_ingest_date(anthology):
-    paper = anthology.get_paper("L06-1067")
+    paper = anthology.get_paper("K06-1067")
     value = paper.ingest_date
     assert value == UNKNOWN_INGEST_DATE
 
 
 test_cases_language = (
-    ("2022.acl-short.11", None, None),
-    ("2022.naloma-1.3", "fra", "French"),
-    ("2022.naloma-1.4", "en-US", "English (United States)"),
+    ("2022.facl-short.11", None, None),
+    ("2022.natfake-1.3", "fra", "French"),
+    ("2022.natfake-1.4", "en-US", "English (United States)"),
 )
 
 
@@ -326,10 +326,10 @@ def test_paper_bibtype():
 
 
 def test_paper_remove_author(anthology):
-    paper = anthology.get_paper("2022.acl-demo.2")
+    paper = anthology.get_paper("2022.facl-demo.2")
     ns = paper.authors[-1]
     person = ns.resolve()
-    assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iryna-gurevych")
+    assert person.id == UNVERIFIED_PID_FORMAT.format(pid="iselin-castellan")
     assert paper.full_id_tuple in person.item_ids
 
     # Removing last author from paper
@@ -340,9 +340,9 @@ def test_paper_remove_author(anthology):
 
 
 def test_paper_add_author(anthology):
-    paper = anthology.get_paper("2022.acl-demo.2")
+    paper = anthology.get_paper("2022.facl-demo.2")
     # This person exists, but is not an author on this paper
-    ns = NameSpecification("Maya Varma")
+    ns = NameSpecification("Farida Solomon")
     assert ns not in paper.authors
     assert ns.parent is None
     person = anthology.people.get_by_namespec(ns)
@@ -358,7 +358,7 @@ def test_paper_add_author(anthology):
 
 
 def test_paper_add_new_unverified_author(anthology):
-    paper = anthology.get_paper("2022.acl-demo.2")
+    paper = anthology.get_paper("2022.facl-demo.2")
     # This person does not exist at all in the data yet
     ns = NameSpecification("Truman, Harry S.")
     assert ns not in paper.authors
@@ -377,7 +377,7 @@ def test_paper_add_new_unverified_author(anthology):
 
 
 def test_paper_get_namespec_for(anthology):
-    paper = anthology.get_paper("2022.acl-demo.24")
+    paper = anthology.get_paper("2022.facl-demo.24")
     person = paper.authors[1].resolve()
     namespec = paper.get_namespec_for(person)
     assert person.has_name(namespec.name)
@@ -385,8 +385,8 @@ def test_paper_get_namespec_for(anthology):
 
 
 def test_paper_get_namespec_for_should_fail(anthology):
-    paper = anthology.get_paper("2022.acl-demo.24")
-    person = anthology.get_person("matt-post")
+    paper = anthology.get_paper("2022.facl-demo.24")
+    person = anthology.get_person("wen-zhao-labx")
     with pytest.raises(ValueError):
         paper.get_namespec_for(person)
 
@@ -396,17 +396,17 @@ test_cases_xml = (
   <!-- https://aclanthology.org/2026.stub-main.0/ -->
   <pdf hash="56ea4e43"/>
   <url type="handbook">https://example.com/handbook.pdf</url>
-  <bibkey>acl-2022-association-linguistics-1</bibkey>
+  <bibkey>stub-2026-fabricated-1</bibkey>
 </frontmatter>
 """,
     """<paper id="1">
   <!-- https://aclanthology.org/2026.stub-main.1/ -->
-  <title>Strings from neurons to language</title>
-  <author><first>Tim</first><last>Fernando</last></author>
+  <title>Signals from synapses to syntax</title>
+  <author><first>Nils</first><last>Ekstrom</last></author>
   <pages>1–10</pages>
   <abstract/>
   <pdf hash="61daae5b"/>
-  <bibkey>fernando-2022-strings</bibkey>
+  <bibkey>ekstrom-2026-signals</bibkey>
 </paper>
 """,
     """<paper id="9">
@@ -427,17 +427,17 @@ test_cases_xml = (
 """,
     """<paper id="6">
   <!-- https://aclanthology.org/2026.stub-main.6/ -->
-  <title>Domain Adaptation in Multilingual and Multi-Domain Monolingual Settings for Complex Word Identification</title>
-  <author><first>George-Eduard</first><last>Zaharia</last></author>
-  <author><first>Răzvan-Alexandru</first><last>Smădu</last></author>
-  <author><first>Dumitru</first><last>Cercel</last></author>
-  <author><first>Mihai</first><last>Dascalu</last></author>
+  <title>Domain Adaptation Across Fabricated Multilingual and Monolingual Word Settings</title>
+  <author><first>Teodor-Andrei</first><last>Lazar</last></author>
+  <author><first>Bogdan-Cristian</first><last>Vaduva</last></author>
+  <author><first>Florin</first><last>Petrache</last></author>
+  <author><first>Radu</first><last>Dumitrescu</last></author>
   <pages>70-80</pages>
-  <abstract>Complex word identification (CWI) is a cornerstone process towards proper text simplification. CWI is highly dependent on context, whereas its difficulty is augmented by the scarcity of available datasets which vary greatly in terms of domains and languages. As such, it becomes increasingly more difficult to develop a robust model that generalizes across a wide array of input examples. In this paper, we propose a novel training technique for the CWI task based on domain adaptation to improve the target character and context representations. This technique addresses the problem of working with multiple domains, inasmuch as it creates a way of smoothing the differences between the explored datasets. Moreover, we also propose a similar auxiliary task, namely text simplification, that can be used to complement lexical complexity prediction. Our model obtains a boost of up to 2.42% in terms of Pearson Correlation Coefficients in contrast to vanilla training techniques, when considering the CompLex from the Lexical Complexity Prediction 2021 dataset. At the same time, we obtain an increase of 3% in Pearson scores, while considering a cross-lingual setup relying on the Complex Word Identification 2018 dataset. In addition, our model yields state-of-the-art results in terms of Mean Absolute Error.</abstract>
+  <abstract>Fabricated word identification (FWI) is a cornerstone process towards proper text simplification. FWI is highly dependent on context, whereas its difficulty is augmented by the scarcity of available synthetic datasets which vary greatly in terms of domains and languages. As such, it becomes increasingly more difficult to develop a robust model that generalizes across a wide array of input examples. In this paper, we propose a novel training technique for the FWI task based on domain adaptation to improve the target character and context representations. This technique addresses the problem of working with multiple domains, inasmuch as it creates a way of smoothing the differences between the explored fabricated datasets.</abstract>
   <pdf hash="23e260bb"/>
-  <doi>10.18653/v1/2022.acl-long.6</doi>
-  <video href="2022.acl-long.6.mp4"/>
-  <bibkey>zaharia-etal-2022-domain</bibkey>
+  <doi>10.18653/v1/2022.facl-long.6</doi>
+  <video href="2022.facl-long.6.mp4"/>
+  <bibkey>lazar-etal-2022-domain</bibkey>
 </paper>
 """,
     """<paper id="7">
@@ -530,99 +530,97 @@ def test_paper_from_xml_invalid_tag():
 
 test_cases_paper_to_bibtex = (
     (
-        "2022.acl-long.268",
+        "2022.facl-long.268",
         True,
-        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
-    title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
-    author = "{\\'A}lvarez-Mellado, Elena  and
-      Lignos, Constantine",
-    editor = "Muresan, Smaranda  and
-      Nakov, Preslav  and
-      Villavicencio, Aline",
-    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+        """@inproceedings{alarcon-pena-whitcombe-2022-detecting,
+    title = "Detecting Fabricated Neologisms in Galician: A Synthetic Corpus and Approaches to Modeling",
+    author = "Alarc{\\'o}n-Pe{\\~n}a, Inez  and
+      Whitcombe, Marcus",
+    editor = "Aksoy, Selin  and
+      Pretto, Dario  and
+      Ferris, Nadia",
+    booktitle = "Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 1: Long Papers)",
     month = may,
     year = "2022",
-    address = "Dublin, Ireland",
+    address = "Porto, Portugal",
     publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2022.acl-long.268/",
-    doi = "10.18653/v1/2022.acl-long.268",
-    pages = "3868--3888",
-    abstract = "This work presents a new resource for borrowing identification and analyzes the performance and errors of several models on this task. We introduce a new annotated corpus of Spanish newswire rich in unassimilated lexical borrowings{---}words from one language that are introduced into another without orthographic adaptation{---}and use it to evaluate how several sequence labeling models (CRF, BiLSTM-CRF, and Transformer-based models) perform. The corpus contains 370,000 tokens and is larger, more borrowing-dense, OOV-rich, and topic-varied than previous corpora available for this task. Our results show that a BiLSTM-CRF model fed with subword embeddings along with either Transformer-based embeddings pretrained on codeswitched data or a combination of contextualized word embeddings outperforms results obtained by a multilingual BERT-based model."
+    url = "https://aclanthology.org/2022.facl-long.268/",
+    doi = "10.18653/v1/2022.facl-long.268",
+    abstract = "This work presents a new resource for fabricated neologism identification and analyzes the performance of several models on this task. We introduce a new annotated corpus of Galician newswire rich in unassimilated synthetic borrowings and use it to evaluate how sequence labeling models perform. The corpus is larger, more borrowing-dense, and more topic-varied than previous fabricated corpora for this task."
 }""",
     ),
     (
-        "2022.acl-long.268",
+        "2022.facl-long.268",
         False,
-        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
-    title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
-    author = "{\\'A}lvarez-Mellado, Elena  and
-      Lignos, Constantine",
-    editor = "Muresan, Smaranda  and
-      Nakov, Preslav  and
-      Villavicencio, Aline",
-    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+        """@inproceedings{alarcon-pena-whitcombe-2022-detecting,
+    title = "Detecting Fabricated Neologisms in Galician: A Synthetic Corpus and Approaches to Modeling",
+    author = "Alarc{\\'o}n-Pe{\\~n}a, Inez  and
+      Whitcombe, Marcus",
+    editor = "Aksoy, Selin  and
+      Pretto, Dario  and
+      Ferris, Nadia",
+    booktitle = "Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 1: Long Papers)",
     month = may,
     year = "2022",
-    address = "Dublin, Ireland",
+    address = "Porto, Portugal",
     publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2022.acl-long.268/",
-    doi = "10.18653/v1/2022.acl-long.268",
-    pages = "3868--3888"
+    url = "https://aclanthology.org/2022.facl-long.268/",
+    doi = "10.18653/v1/2022.facl-long.268"
 }""",
     ),
     (
-        "2022.acl-short.0",
+        "2022.facl-short.0",
         False,
-        """@proceedings{acl-2022-short,
-    title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
-    editor = "Muresan, Smaranda  and
-      Nakov, Preslav  and
-      Villavicencio, Aline",
+        """@proceedings{facl-2022-short,
+    title = "Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 2: Short Papers)",
+    editor = "Aksoy, Selin  and
+      Pretto, Dario  and
+      Ferris, Nadia",
     month = may,
     year = "2022",
-    address = "Dublin, Ireland",
+    address = "Porto, Portugal",
     publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2022.acl-short.0/"
+    url = "https://aclanthology.org/2022.facl-short.0/"
 }""",
     ),
     (
-        "J89-2002",
+        "Q89-2002",
         True,
-        """@article{oshaughnessy-1989-parsing,
-    title = "Parsing with a Small Dictionary for Applications such as Text to Speech",
-    author = "O{'}Shaughnessy, Douglas D.",
-    editor = "Allen, James F.",
-    journal = "Computational Linguistics",
+        """@article{omalley-1989-chunking,
+    title = "Chunking with a Compact Lexicon for Applications such as Speech Synthesis",
+    author = "O{'}Malley, Rowan D.",
+    editor = "Aldridge, Marcus T.",
+    journal = "Journal of Fabricated Computational Linguistics",
     volume = "15",
     number = "2",
     year = "1989",
-    url = "https://aclanthology.org/J89-2002/",
+    url = "https://aclanthology.org/Q89-2002/",
     pages = "97--108"
 }""",
     ),
     (
-        "J89-4000",
+        "Q89-4000",
         False,
-        """@book{cl-1989-linguistics-15-number-4,
-    title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
+        """@book{fcl-1989-linguistics-15-number-4,
+    title = "Journal of Fabricated Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
     year = "1989",
-    url = "https://aclanthology.org/J89-4000/"
+    url = "https://aclanthology.org/Q89-4000/"
 }""",
     ),
     # Month defined at the paper level
     (
-        "J89-3004",
+        "Q89-3004",
         False,
-        """@article{bien-1989-book,
-    title = "Book Reviews: Natural Language Understanding and Logic Programming, {II}: Proceedings of the Second International Workshop",
-    author = "Bien, Janusz S.",
+        """@article{cheam-1989-book,
+    title = "Book Reviews: Fabricated Language Understanding and Logic Programming, {II}: Proceedings of the Second Fabricated Workshop",
+    author = "Cheam, Baxter",
     editor = "Doe, John",
-    journal = "Computational Linguistics",
+    journal = "Journal of Fabricated Computational Linguistics",
     volume = "15",
     number = "3",
     month = aug,
     year = "1989",
-    url = "https://aclanthology.org/J89-3004/"
+    url = "https://aclanthology.org/Q89-3004/"
 }""",
     ),
 )
@@ -637,58 +635,58 @@ def test_paper_to_bibtex(anthology, full_id, with_abstract, expected):
 test_cases_papercitation = (
     # Journal article
     (
-        "J89-4001",
-        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Comp. Ling.</i>, 15(4):219–232.',
+        "Q89-4001",
+        'Andrew Kessler. 1989. <a href="https://aclanthology.org/Q89-4001/">A Chunking Algorithm for Constraint Grammar</a>. <i>Fab. Comp. Ling.</i>, 15(4):219–232.',
     ),
     # Journal article, single page
     (
-        "J89-1004",
-        'Martha Evens. 1989. <a href="https://aclanthology.org/J89-1004/">Book Reviews: An Artificial Intelligence Approach to Legal Reasoning</a>. <i>Computational Linguistics</i>, 15(1):53.',
+        "Q89-1004",
+        'Priya Osei. 1989. <a href="https://aclanthology.org/Q89-1004/">Book Reviews: A Fabricated Approach to Analogical Reasoning</a>. <i>Journal of Fabricated Computational Linguistics</i>, 15(1):53.',
     ),
     # Journal article, no page numbers
     (
-        "J89-1005",
-        'Barron Brainerd. 1989. <a href="https://aclanthology.org/J89-1005/">Book Reviews: Mathematics of Language</a>. <i>Computational Linguistics</i>, 15(1).',
+        "Q89-1005",
+        'Tobias Lindqvist. 1989. <a href="https://aclanthology.org/Q89-1005/">Book Reviews: Mathematics of Fabricated Language</a>. <i>Journal of Fabricated Computational Linguistics</i>, 15(1).',
     ),
     # Journal article, issue number defined at paper level
     (
-        "J89-3003",
-        'Tomek Strzalkowski and Nick Cercone. 1989. <a href="https://aclanthology.org/J89-3003/">Non-singular Concepts in Natural Language Discourse</a>. <i>Computational Linguistics</i>, 15(10):171–186.',
+        "Q89-3003",
+        'Camille Ndiaye and Frida Solberg. 1989. <a href="https://aclanthology.org/Q89-3003/">Non-canonical Concepts in Fabricated Discourse Structures</a>. <i>Journal of Fabricated Computational Linguistics</i>, 15(10):171–186.',
     ),
     # Journal article, no author
     (
-        "J89-2015",
-        'James F. Allen (ed.). 1989. <a href="https://aclanthology.org/J89-2015/">Abstracts of Current Literature</a>. <i>Computational Linguistics</i>, 15(2).',
+        "Q89-2015",
+        'Marcus T. Aldridge (ed.). 1989. <a href="https://aclanthology.org/Q89-2015/">Abstracts of Current Literature</a>. <i>Journal of Fabricated Computational Linguistics</i>, 15(2).',
     ),
     # Journal article, no author, no editor
     (
-        "J89-1009",
-        '<a href="https://aclanthology.org/J89-1009/">Briefly Noted</a>. 1989. <i>Computational Linguistics</i>, 15(1).',
+        "Q89-1009",
+        '<a href="https://aclanthology.org/Q89-1009/">Briefly Noted</a>. 1989. <i>Journal of Fabricated Computational Linguistics</i>, 15(1).',
     ),
     # Journal frontmatter
     (
-        "J89-2000",
-        'James F. Allen. 1989. <i><a href="https://aclanthology.org/J89-2000/">Computational Linguistics, Volume 15, Number 2, June 1989</a></i>.',
+        "Q89-2000",
+        'Marcus T. Aldridge. 1989. <i><a href="https://aclanthology.org/Q89-2000/">Journal of Fabricated Computational Linguistics, Volume 15, Number 2, June 1989</a></i>.',
     ),
     # Conference proceedings
     (
-        "2022.acl-short.0",
-        'Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i><a href="https://aclanthology.org/2022.acl-short.0/">Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</a></i>. Association for Computational Linguistics, Dublin, Ireland.',
+        "2022.facl-short.0",
+        'Selin Aksoy, Dario Pretto, and Nadia Ferris. 2022. <i><a href="https://aclanthology.org/2022.facl-short.0/">Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 2: Short Papers)</a></i>. Association for Computational Linguistics, Porto, Portugal.',
     ),
     # Article in proceedings, two authors, with page numbers
     (
-        "2022.acl-long.268",
-        'Elena Álvarez-Mellado and Constantine Lignos. 2022. <a href="https://aclanthology.org/2022.acl-long.268/">Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</i>, pages 3868–3888, Dublin, Ireland. Association for Computational Linguistics.',
+        "2022.facl-long.268",
+        'Inez Alarcón-Peña and Marcus Whitcombe. 2022. <a href="https://aclanthology.org/2022.facl-long.268/">Detecting Fabricated Neologisms in Galician: A Synthetic Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 1: Long Papers)</i>, Porto, Portugal. Association for Computational Linguistics.',
     ),
     # Article in proceedings, many authors, no page numbers
     (
-        "L06-1060",
-        'Brian Roark, Mary Harper, Eugene Charniak, Bonnie Dorr, Mark Johnson, Jeremy Kahn, Yang Liu, Mari Ostendorf, John Hale, Anna Krasnyanskaya, Matthew Lease, Izhak Shafran, Matthew Snover, Robin Stewart, and Lisa Yung. 2006. <a href="https://aclanthology.org/L06-1060/">SParseval: Evaluation Metrics for Parsing Speech</a>. In <i>Proceedings of the Fifth International Conference on Language Resources and Evaluation (LREC’06)</i>, Genoa, Italy. European Language Resources Association (ELRA).',
+        "K06-1060",
+        'Nadia Corwin, Mireille Harkness, Emeka Vantage, Simone Farrow, Malik Johnston, Jeremiah Kestrel, Wen Zhao, Marisol Ostrander, Jon Halvorsen, Anya Krasnovsky, Mateo Leclair, Izabela Shafik, Mattias Snowden, Robyn Stanfield, and Lena Yuen. 2006. <a href="https://aclanthology.org/K06-1060/">FParseval: Evaluation Metrics for Fabricated Speech Parsing</a>. In <i>Proceedings of the Fifth International Conference on Fabricated Language Resources and Evaluation (FLREC’06)</i>, Faketon, Ambazon. Fabricated Language Resources Association (FLRA).',
     ),
     # Article in proceedings, one author, single page
     (
-        "2022.naloma-1.1",
-        'Tim Fernando. 2022. <a href="https://aclanthology.org/2022.naloma-1.1/">Strings from neurons to language</a>. In <i>Proceedings of the 3rd Natural Logic Meets Machine Learning Workshop (NALOMA III)</i>, page 10, Galway, Ireland. Association for Computational Linguistics.',
+        "2022.natfake-1.1",
+        'Tomas Ferreira. 2022. <a href="https://aclanthology.org/2022.natfake-1.1/">Vectors from Circuits to Syntax</a>. In <i>Proceedings of the 3rd Workshop on Fabricated Logic Meets Machine Learning (NATFAKE III)</i>, page 10, Galway, Ireland. Association for Computational Linguistics.',
     ),
 )
 
@@ -703,38 +701,38 @@ def test_paper_to_citation(anthology, full_id, expected):
 test_cases_papercitation_markdown = (
     # Journal article
     (
-        "J89-4001",
-        "[A Parsing Algorithm for Unification Grammar](https://aclanthology.org/J89-4001/) (Haas, CL 1989)",
+        "Q89-4001",
+        "[A Chunking Algorithm for Constraint Grammar](https://aclanthology.org/Q89-4001/) (Kessler, FCL 1989)",
     ),
     # Journal article, no author
     (
-        "J89-2015",
-        "[Abstracts of Current Literature](https://aclanthology.org/J89-2015/) (CL 1989)",
+        "Q89-2015",
+        "[Abstracts of Current Literature](https://aclanthology.org/Q89-2015/) (FCL 1989)",
     ),
     # Journal article, no author, no editor
     (
-        "J89-1009",
-        "[Briefly Noted](https://aclanthology.org/J89-1009/) (CL 1989)",
+        "Q89-1009",
+        "[Briefly Noted](https://aclanthology.org/Q89-1009/) (FCL 1989)",
     ),
     # Conference proceedings
     (
-        "2022.acl-short.0",
-        "[Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.acl-short.0/) (Muresan et al., ACL 2022)",
+        "2022.facl-short.0",
+        "[Proceedings of the 60th Annual Fabricated Meeting on Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.facl-short.0/) (Aksoy et al., FACL 2022)",
     ),
     # Article in proceedings, two authors
     (
-        "2022.acl-long.268",
-        "[Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling](https://aclanthology.org/2022.acl-long.268/) (Álvarez-Mellado & Lignos, ACL 2022)",
+        "2022.facl-long.268",
+        "[Detecting Fabricated Neologisms in Galician: A Synthetic Corpus and Approaches to Modeling](https://aclanthology.org/2022.facl-long.268/) (Alarcón-Peña & Whitcombe, FACL 2022)",
     ),
     # Article in proceedings, many authors
     (
-        "L06-1060",
-        "[SParseval: Evaluation Metrics for Parsing Speech](https://aclanthology.org/L06-1060/) (Roark et al., LREC 2006)",
+        "K06-1060",
+        "[FParseval: Evaluation Metrics for Fabricated Speech Parsing](https://aclanthology.org/K06-1060/) (Corwin et al., FLREC 2006)",
     ),
     # Article in proceedings, single author
     (
-        "2022.naloma-1.1",
-        "[Strings from neurons to language](https://aclanthology.org/2022.naloma-1.1/) (Fernando, NALOMA 2022)",
+        "2022.natfake-1.1",
+        "[Vectors from Circuits to Syntax](https://aclanthology.org/2022.natfake-1.1/) (Ferreira, NATFAKE 2022)",
     ),
 )
 
