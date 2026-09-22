@@ -23,7 +23,7 @@ from typing import cast, Any, Iterator, Optional, TYPE_CHECKING
 from .types import EventLink
 from ..config import config
 from ..constants import RE_EVENT_ID
-from ..files import EventFileReference
+from ..files import URLReference
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
 from ..utils.attrs import (
@@ -69,7 +69,7 @@ class Talk:
             track_modifications,
         ],  # TODO: After CollectionItem refactoring, once talks have IDs, also update the connected Persons
     )
-    attachments: dict[str, EventFileReference] = field(factory=dict)
+    attachments: dict[str, URLReference] = field(factory=dict)
 
     @property
     def collection(self) -> Collection:
@@ -100,7 +100,7 @@ class Talk:
                 kwargs["speakers"].append(NameSpecification.from_xml(meta))
             elif meta.tag == "url":
                 type_ = str(meta.get("type", "attachment"))
-                kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
+                kwargs["attachments"][type_] = URLReference.from_xml(meta)
             else:  # pragma: no cover
                 raise ValueError(f"Unsupported element for Talk: <{str(meta.tag)}>")
         return cls(**kwargs)
@@ -158,7 +158,7 @@ class Event:
         factory=dict,
         repr=lambda x: f"<dict[AnthologyIDTuple, EventLink] of {len(x)} item{'' if len(x) == 1 else 's'}>",
     )
-    links: dict[str, EventFileReference] = field(factory=dict)
+    links: dict[str, URLReference] = field(factory=dict)
     talks: list[Talk] = field(
         factory=list,
         validator=v.deep_iterable(
@@ -268,7 +268,7 @@ class Event:
                 kwargs["links"] = {}
                 for url in element:
                     type_ = str(url.get("type", "attachment"))
-                    kwargs["links"][type_] = EventFileReference.from_xml(url)
+                    kwargs["links"][type_] = URLReference.from_xml(url)
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":

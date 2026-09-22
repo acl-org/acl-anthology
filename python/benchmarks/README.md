@@ -1,0 +1,108 @@
+# Benchmarks
+
+These are [pytest-benchmark](https://pytest-benchmark.readthedocs.io/) tests.
+They are not part of the regular test suite (`testpaths` in `pyproject.toml`
+only covers `tests/`), so they only run when you point pytest at this
+directory explicitly.
+
+Three kinds of benchmarks live here, distinguished by markers:
+
+- **Micro benchmarks** (`benchmark` marker only) compare small alternative
+  implementations against tiny, in-repo fixtures — e.g. "is it faster to
+  parse this XML element with `.findtext()` or by iterating its children?".
+  They run in a second or two each.
+- **Macro benchmarks** (`benchmark` + `integration` markers) time an
+  operation against this repo's own, full Anthology data (e.g.
+  `PersonIndex.build()`) rather than a small fixture, and can take a while
+  to run — that's the point, they're what a future optimization (e.g. an
+  on-disk cache for `PersonIndex`) would be measured against. **Their
+  numbers are expected to drift upward over time as `data/` grows** —
+  that's real, but it's not a code regression, so don't wire these into
+  automated regression detection (see below).
+- **Pinned benchmarks** (`benchmark` + `integration` + `pinned` markers) are
+  the CI-regression-safe version of a macro benchmark: same idea, but
+  against a fixed, hardcoded subset of real collections instead of all of
+  `data/`, so the input size never changes and the reported time is
+  directly comparable commit-to-commit. These feed the `benchmark` job in
+  [`check-python-build.yml`](https://github.com/acl-org/acl-anthology/blob/master/.github/workflows/check-python-build.yml),
+  which runs them on every push/PR and uses
+  [github-action-benchmark](https://github.com/benchmark-action/github-action-benchmark)
+  to compare against previous history (kept as a JSON file in the Actions
+  cache, not a `gh-pages` branch — no dashboard, just the comparison) and
+  alert on regressions. Only pushes to `master` update that history and
+  post alert comments; PR runs are compare-only, see the workflow file for
+  why.
+
+Macro/pinned coverage currently spans every data-heavy, corpus-wide
+operation the library has: `PersonIndex.build()`, `VenueIndex.build()`,
+`SIGIndex.build()`, and `Collection.load()` (the raw XML parsing that all
+three of the above sit on top of — useful to benchmark on its own so you
+can tell "parsing got slower" apart from "resolving against JSON metadata
+got slower"). All four pairs share one fixed collection list and one
+`pinned_datadir` fixture, defined once in `conftest.py`.
+
+## Running
+
+```sh
+# Fast micro benchmarks only
+just benchmark
+
+# Slow macro benchmarks against the full Anthology data (includes pinned ones)
+just benchmark-integration
+
+# Just the fixed-size ones, suitable for automated regression detection
+just benchmark-pinned
+
+# Equivalent, if you want to pass pytest-benchmark flags directly
+uv run pytest benchmarks/ -m "benchmark and not integration" --benchmark-only
+uv run pytest benchmarks/ -m "benchmark and integration" --benchmark-only
+uv run pytest benchmarks/ -m "benchmark and pinned" --benchmark-only
+```
+
+Each parametrized benchmark function shows up as one row per variant in the
+result table (min/max/mean/stddev/median/ops), grouped by test name — this is
+what replaces richbench's side-by-side comparison tables.
+
+## Tracking results over time
+
+Unlike the richbench scripts these replace, pytest-benchmark can persist
+results and diff against them, which is the main tool against these
+benchmarks quietly going stale:
+
+```sh
+# Save this run under a named baseline
+uv run pytest benchmarks/ -m "benchmark and not integration" --benchmark-only \
+    --benchmark-autosave
+
+# Compare a later run against it
+uv run pytest benchmarks/ -m "benchmark and not integration" --benchmark-only \
+    --benchmark-compare=0001 --benchmark-compare-fail=mean:10%
+```
+
+Results are written to `.benchmarks/` (gitignored) by default. If you want a
+durable baseline to compare future changes against — e.g. before/after
+numbers for a specific optimization — save the relevant `.json` file
+somewhere it won't be cleaned up, or attach it to the PR/issue discussing the
+change, rather than relying on `.benchmarks/` surviving.
+
+## Adding a new benchmark
+
+- Micro: use a `benchmark` fixture-taking test, `@pytest.mark.benchmark`,
+  and `@pytest.mark.parametrize` over the variants being compared. See
+  `xml_parsing_bench_test.py` for an example.
+- Macro (uses the full Anthology data instead of a fixture): also add
+  `@pytest.mark.integration`, and prefer
+  `benchmark.pedantic(fn, rounds=..., iterations=1)` over the plain
+  `benchmark(fn)` fixture call so you control exactly how many times an
+  expensive operation runs, rather than letting pytest-benchmark's
+  auto-calibration decide. See `personindex_build_bench_test.py`.
+- Pinned (a macro benchmark you want CI regression detection on): also add
+  `@pytest.mark.pinned`, and use the `pinned_datadir` fixture from
+  `conftest.py` instead of `Anthology.from_within_repo()` — it points at a
+  throwaway datadir symlinking only `PINNED_COLLECTIONS` out of the real
+  `data/` directory, so the benchmark's input never changes as `data/`
+  grows. If the fixture is missing a metadata file your new benchmark
+  needs (it currently symlinks `people.json`, `venues.json`, `sigs.json`,
+  and `xml/schema.rnc`), add it there rather than in your own test file, so
+  every pinned benchmark keeps using the exact same datadir. See
+  `personindex_build_pinned_bench_test.py` for a full example.

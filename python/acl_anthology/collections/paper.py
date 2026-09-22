@@ -37,7 +37,9 @@ from ..files import (
     AttachmentReference,
     PDFReference,
     PDFThumbnailReference,
+    URLReference,
     VideoReference,
+    validate_url_tuple,
 )
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
@@ -102,7 +104,11 @@ class PaperErratum:
     """An ID for this erratum.  Must be numeric."""
 
     pdf: PDFReference = field()
-    """A reference to the erratum's PDF."""
+    """A reference to the erratum's PDF.
+
+    Note:
+        The `name` on this reference is only correctly resolved when accessed via [`Paper.errata`][acl_anthology.collections.paper.Paper.errata]; it is derived from the parent paper's `full_id` and is not present in the XML.
+    """
 
     date: Optional[str] = field(
         default=None,
@@ -137,7 +143,7 @@ class PaperErratum:
         Returns:
             A serialization of this erratum in Anthology XML format.
         """
-        elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
+        elem = E.erratum(id=self.id, hash=str(self.pdf.checksum))
         if self.date is not None:
             elem.set("date", self.date)
         return elem
@@ -155,7 +161,11 @@ class PaperRevision:
     """A note explaining the reason for the revision."""
 
     pdf: PDFReference = field()
-    """A reference to the revision's PDF."""
+    """A reference to the revision's PDF.
+
+    Note:
+        The `name` on this reference is only correctly resolved when accessed via [`Paper.revisions`][acl_anthology.collections.paper.Paper.revisions]; it is derived from the parent paper's `full_id` and is not present in the XML.
+    """
 
     date: Optional[str] = field(
         default=None,
@@ -182,7 +192,7 @@ class PaperRevision:
         return cls(
             id=str(element.get("id")),
             note=str(element.text) if element.text else None,
-            pdf=PDFReference(str(element.get("href")), str(element.get("hash"))),
+            pdf=PDFReference(name="", checksum=str(element.get("hash"))),
             date=element.get("date"),
         )
 
@@ -193,7 +203,6 @@ class PaperRevision:
         """
         elem = E.revision(
             id=self.id,
-            href=self.pdf.name,
             hash=str(self.pdf.checksum),
         )
         if self.note:
@@ -249,6 +258,33 @@ def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
         raise TypeError(
             f"'attachments' needs to contain tuples of (str, AttachmentReference) (got: {value!r})"
         )
+
+
+def _check_pdf_names(
+    paper: Paper, letter: str, value: Iterable[PaperErratum | PaperRevision]
+) -> None:
+    """Verify that each item's PDF reference name, if given, matches the name that would automatically be derived for it from `paper`'s `full_id` and the item's own `id` (see `Paper.errata`/`Paper.revisions`).
+
+    Intended to be called from the validator of `Paper._errata`/`Paper._revisions`.
+    """
+    for item in value:
+        expected = f"{paper.full_id}{letter}{item.id}"
+        if item.pdf.name and item.pdf.name != expected:
+            raise ValueError(
+                f"PDF reference name {item.pdf.name!r} does not match the automatically derived name {expected!r}"
+            )
+
+
+def _check_errata_pdf_names(
+    paper: Paper, _: Any, value: tuple[PaperErratum, ...]
+) -> None:
+    _check_pdf_names(paper, "e", value)
+
+
+def _check_revisions_pdf_names(
+    paper: Paper, _: Any, value: tuple[PaperRevision, ...]
+) -> None:
+    _check_pdf_names(paper, "v", value)
 
 
 def _into_award_tuple(value: Iterable[str | Award]) -> tuple[Award, ...]:
@@ -313,9 +349,10 @@ class Paper:
         attachments: File attachments of this paper, as tuples of the format `(type_of_attachment, attachment_file)`; can be empty.
         authors: Names of authors associated with this paper; can be empty.
         awards: Awards this paper has received, represented by [`Award`][acl_anthology.collections.paper.Award] objects; can be empty.
-        errata: Errata for this paper; can be empty.
-        revisions: Revisions for this paper; can be empty.
+        errata: Errata for this paper; can be empty.  Each erratum's PDF reference has its `name` derived from this paper's `full_id` and the erratum's own `id`.
+        revisions: Revisions for this paper; can be empty.  Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id`.
         videos: Zero or more references to video recordings belonging to this paper.
+        urls: Links to external, non-locally-hosted resources associated with this paper (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
         abstract: The full abstract.
@@ -368,25 +405,39 @@ class Paper:
             track_modifications,
         ],
     )
-    errata: tuple[PaperErratum, ...] = field(
+    _errata: tuple[PaperErratum, ...] = field(
         default=(),
         converter=tuple,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(PaperErratum),
-            iterable_validator=v.instance_of(tuple),
-        ),  # necessary because auto_validate_types cannot cover this
+        validator=[
+            v.deep_iterable(
+                member_validator=v.instance_of(PaperErratum),
+                iterable_validator=v.instance_of(tuple),
+            ),  # necessary because auto_validate_types cannot cover this
+            _check_errata_pdf_names,
+        ],
     )
-    revisions: tuple[PaperRevision, ...] = field(
+    _revisions: tuple[PaperRevision, ...] = field(
         default=(),
         converter=tuple,
-        validator=v.deep_iterable(
-            member_validator=v.instance_of(PaperRevision),
-            iterable_validator=v.instance_of(tuple),
-        ),  # necessary because auto_validate_types cannot cover this
+        validator=[
+            v.deep_iterable(
+                member_validator=v.instance_of(PaperRevision),
+                iterable_validator=v.instance_of(tuple),
+            ),  # necessary because auto_validate_types cannot cover this
+            _check_revisions_pdf_names,
+        ],
     )
     videos: tuple[VideoReference, ...] = field(
         default=(), converter=tuple
     )  # auto_validate_types covers this, so no validator necessary
+    urls: tuple[tuple[str, URLReference], ...] = field(
+        default=(),
+        converter=tuple,
+        validator=v.deep_iterable(
+            member_validator=validate_url_tuple,
+            iterable_validator=v.instance_of(tuple),
+        ),  # necessary because auto_validate_types cannot cover this
+    )
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
@@ -406,7 +457,7 @@ class Paper:
     _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
-    pdf: Optional[PDFReference] = field(default=None)
+    _pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
 
     def __attrs_post_init__(self) -> None:
@@ -417,6 +468,28 @@ class Paper:
     def _check_id(self, _: Any, value: str) -> None:
         if not is_valid_item_id(value):
             raise AnthologyInvalidIDError(value, "not a valid paper ID")
+
+    @_pdf.validator
+    def _check_pdf(self, _: Any, value: Any) -> None:
+        # Adding this validator disables auto_validate_types for this field, so
+        # we need to check the type explicitly here, too.
+        if value is None:
+            return
+        if not isinstance(value, PDFReference):
+            raise TypeError(
+                f"'pdf' must be Optional[{PDFReference!r}] (got '{value!r}' that is a {type(value)!r})"
+            )
+        # <pdf> must be a local file reference according to the schema
+        if not value.is_local:
+            raise ValueError(
+                f"'pdf' of a Paper must be a local file reference (got '{value}')"
+            )
+        # If a name is given, it must match what would be derived automatically
+        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
+        if value.name and value.name != self.full_id:
+            raise ValueError(
+                f"PDF reference name {value.name!r} does not match this paper's full_id {self.full_id!r}"
+            )
 
     @property
     def collection(self) -> Collection:
@@ -588,11 +661,61 @@ class Paper:
         return self.parent.publisher
 
     @property
+    def pdf(self) -> Optional[PDFReference]:
+        """A reference to the paper's PDF.
+
+        `<pdf>` always refers to a local file, so the reference's `name` is derived from this paper's `full_id` rather than stored -- it is not present in the XML.
+        """
+        if self._pdf is None:
+            return None
+        return attrs.evolve(self._pdf, name=self.full_id)
+
+    @pdf.setter
+    def pdf(self, value: Optional[PDFReference]) -> None:
+        self._pdf = value
+
+    @property
     def thumbnail(self) -> Optional[PDFThumbnailReference]:
         """A reference to a thumbnail image of the paper's PDF."""
-        if self.pdf is not None:
+        if self._pdf is not None:
             return PDFThumbnailReference(self.full_id)
         return None
+
+    @property
+    def errata(self) -> tuple[PaperErratum, ...]:
+        """Errata for this paper; can be empty.
+
+        Each erratum's PDF reference has its `name` derived from this paper's `full_id` and the erratum's own `id` -- it is not present in the XML.
+        """
+        return tuple(
+            attrs.evolve(
+                erratum,
+                pdf=attrs.evolve(erratum.pdf, name=f"{self.full_id}e{erratum.id}"),
+            )
+            for erratum in self._errata
+        )
+
+    @errata.setter
+    def errata(self, value: Iterable[PaperErratum]) -> None:
+        self._errata = tuple(value)
+
+    @property
+    def revisions(self) -> tuple[PaperRevision, ...]:
+        """Revisions for this paper; can be empty.
+
+        Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id` -- it is not present in the XML.
+        """
+        return tuple(
+            attrs.evolve(
+                revision,
+                pdf=attrs.evolve(revision.pdf, name=f"{self.full_id}v{revision.id}"),
+            )
+            for revision in self._revisions
+        )
+
+    @revisions.setter
+    def revisions(self, value: Iterable[PaperRevision]) -> None:
+        self._revisions = tuple(value)
 
     @property
     def language_name(self) -> Optional[str]:
@@ -775,6 +898,7 @@ class Paper:
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
             "attachments": [],
+            "urls": [],
         }
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
@@ -793,8 +917,11 @@ class Paper:
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             else:
                 raise AnthologyXMLError(
                     parent.full_id_tuple,
@@ -819,6 +946,7 @@ class Paper:
             "authors": [],
             "editors": [],
             "attachments": [],
+            "urls": [],
         }
         if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -860,8 +988,11 @@ class Paper:
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif tag == "url":
+            elif tag == "pdf":
                 kwargs["pdf"] = PDFReference.from_xml(element)
+            elif tag == "url":
+                type_ = str(element.get("type", ""))
+                kwargs["urls"].append((type_, URLReference.from_xml(element)))
             elif tag == "video":
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
@@ -906,11 +1037,16 @@ class Paper:
             paper.append(E.pages(self.pages))
         if self.abstract is not None:
             paper.append(self.abstract.to_xml("abstract"))
-        if self.pdf is not None:
-            paper.append(self.pdf.to_xml("url"))
-        for erratum in self.errata:
+        if self._pdf is not None:
+            paper.append(self._pdf.to_xml())
+        for type_, url in self.urls:
+            elem = url.to_xml("url")
+            if type_:
+                elem.set("type", type_)
+            paper.append(elem)
+        for erratum in self._errata:
             paper.append(erratum.to_xml())
-        for revision in self.revisions:
+        for revision in self._revisions:
             paper.append(revision.to_xml())
         if self.doi is not None:
             paper.append(E.doi(self.doi))
