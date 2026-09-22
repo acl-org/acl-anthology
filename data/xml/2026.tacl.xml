@@ -865,7 +865,7 @@
       <author><first>Olga</first><last>Kolesnikova</last></author>
       <author><first>Shamsuddeen Hassan</first><last>Muhammad</last></author>
       <author><first>Seid Muhie</first><last>Yimam</last></author>
-      <pages>1329–1347</pages>
+      <pages>1348–1364</pages>
       <abstract>Disagreement in annotation is a common phenomenon in the development of NLP datasets and serves as a valuable source of insight. While majority voting remains the dominant strategy for aggregating labels, recent work has explored modeling individual annotators to preserve their perspectives. However, modeling each annotator is resource-intensive and remains underexplored across various NLP tasks. We propose an agreement-based clustering technique to model the disagreement between the annotators. We conduct comprehensive experiments in 40 datasets in 18 typologically diverse languages, covering three subjective NLP tasks: sentiment analysis, emotion classification, and hate speech detection. We evaluate four aggregation approaches: majority vote, ensemble, multi-label, and multitask. The results demonstrate that agreement-based clustering can leverage the full spectrum of annotator perspectives and significantly enhance classification performance in subjective NLP tasks compared to majority voting and individual annotator modeling. Regarding the aggregation approach, the multi-label and multitask approaches are better for modeling clustered annotators than an ensemble and model majority vote. The dataset is publicly available in GitHub: https://github.com/Tadesse-Destaw/Beyond-Majority-Voting.</abstract>
       <pdf hash="14c84dc7"/>
       <doi>10.1162/tacl.a.731</doi>
@@ -878,7 +878,7 @@
       <author><first>Allen</first><last>Chang</last></author>
       <author><first>Chaitanya</first><last>Malaviya</last></author>
       <author><first>Mark</first><last>Yatskar</last></author>
-      <pages>1344–1368</pages>
+      <pages>1365–1389</pages>
       <abstract>Evaluating long-form responses to research queries is increasingly important for LLM agents, particularly emerging deep research systems. Such evaluation heavily relies on expert annotators, restricting attention to areas like AI where researchers can conveniently enlist colleagues. Yet, research expertise is abundant: survey articles consolidate knowledge spread across the literature. We introduce RESEARCHQA, a resource for evaluating LLM systems by distilling survey articles from 75 research felds into 21K queries and 160K rubric items. Queries and rubrics are jointly derived from survey sections, where rubric items list query-specific answer evaluation criteria, i.e., citing papers, making explanations, and describing limitations. 31 Ph.D. annotators in 8 fields judge that 90% of queries reflect Ph.D. information needs and 87% of rubric items warrant emphasis of a sentence or longer. We leverage RESEARCHQA to evaluate 18 systems in 7.6K head-to-heads. No parametric or retrieval-augmented system we evaluate exceeds 70% on covering rubric items, and the highest-ranking system shows 75% coverage. Error analysis reveals that the highest-ranking system fully addresses less than 11% of citation rubric items, 48% of limitation items, and 49% of comparison items. We release our data to facilitate more comprehensive multi-field evaluations.</abstract>
       <pdf hash="ff30d075"/>
       <doi>10.1162/tacl.a.732</doi>
@@ -891,7 +891,7 @@
       <author><first>Woojung</first><last>Song</last></author>
       <author><first>Eun-Ju</first><last>Lee</last></author>
       <author><first>Yohan</first><last>Jo</last></author>
-      <pages>1369–1391</pages>
+      <pages>1390–1412</pages>
       <abstract>As psychometric surveys are increasingly used to assess the traits of large language models (LLMs), the need for scalable survey item generation suited for LLMs has also grown. A critical challenge here is ensuring the construct validity of generated items, i.e., whether they truly measure the intended trait. Traditionally, this requires costly, large-scale human data collection. To make it efficient, we present a framework for virtual respondent simulation using LLMs. Our central idea is to account for mediators: factors through which the same trait can give rise to varying responses to a survey item. By simulating respondents with diverse mediators, we identify survey items that yield responses robustly correlated with intended traits across these mediators. Experiments on three psychological trait theories (Big5, Schwartz, VIA) show that our mediator generation methods and simulation framework effectively identify high-validity items. LLMs demonstrate the ability to generate plausible mediators from trait definitions and to simulate respondent behavior for item validation. Our problem formulation, metrics, methodology, and dataset open a new direction for cost-efficient survey development and a deeper understanding of how LLMs simulate human survey responses. We release our dataset and code to support future work.1</abstract>
       <pdf hash="137806e1"/>
       <doi>10.1162/tacl.a.733</doi>
@@ -901,7 +901,7 @@
       <!-- https://aclanthology.org/2026.tacl-1.64/ -->
       <title><fixed-case>BP</fixed-case>-<fixed-case>LLM</fixed-case>: Belief Propagation for Binary Feedback in Large Language Model Alignment</title>
       <author><first>Jessica E.</first><last>Liang</last></author>
-      <pages>1392–1409</pages>
+      <pages>1413–1430</pages>
       <abstract>Preference-based alignment methods such as Direct Preference Optimization (DPO) and Binary Classifier Optimization (BCO) offer efficient alternatives to reinforcement learning from human feedback (RLHF). However, they often treat comparisons as independent labels and do not explicitly model uncertainty, which can lead to miscalibration and reduced robustness under noisy or heterogeneous feedback. We introduce Belief Propagation for Large Language Model Alignment (BP–LLM), a probabilistic framework that views binary feedback as noisy observations of latent reward margins under a policy-induced Gaussian prior. Using the Jaakkola–Jordan variational bound, BP–LLM yields closed-form Gaussian message updates and performs stable belief propagation between a classifier-side inference module and the policy. Exchanging extrinsic messages enables both modules to refine beliefs without double counting and recovers BCO and DPO as special cases. We evaluate BP–LLM in two regimes. In an inference-only setting with frozen LLM weights, BP–LLM consistently improves label-free test-time win rate over BCO and DPO across UltraFeedback, Capybara, and HelpSteer2 for open-weight Llama and Qwen models. In a training-time setting with parameter-efficient LoRA updates, BP–LLM also outperforms Cal-DPO with higher win rates. Overall, BP–LLM is most beneficial under noisy/heterogeneous (or unary) feedback, where posterior refinement and extrinsic shaping provide more reliable signals than hard labels, while remaining lightweight and scalable.1</abstract>
       <pdf hash="3200fc02"/>
       <doi>10.1162/tacl.a.734</doi>
@@ -916,7 +916,7 @@
       <author><first>Shauli</first><last>Ravfogel</last></author>
       <author><first>William</first><last>Merrill</last></author>
       <author><first>Tal</first><last>Linzen</last></author>
-      <pages>1410–1431</pages>
+      <pages>1431–1452</pages>
       <abstract>Large language models (LLMs) are increasingly used to solve complex tasks where they must retrieve and compose many pieces of in-context information in long reasoning chains. For many real-world tasks it is hard to accurately gauge how model performance and strategy change as task complexity grows. To evaluate models’ complex reasoning capability in a scalable and verifiable way, we introduce RELIC (Recognition of Languages In-Context), a framework that evaluates an LLM’s ability to decide whether a given string belongs to the context-free language (CFL) generated by a grammar presented in-context. CFL recognition allows us to modulate the intrinsic complexity of the problem by varying grammar size and string length and translate this asymptotic complexity into predictions for ideal LLM performance. We find that even the most advanced reasoning models perform poorly on RELIC, not only failing to appropriately scale their inference compute to keep pace with task difficulty, but even reducing the number of reasoning tokens they use as task complexity increases. We find that these decreases in compute accompany changes in reasoning strategy, as models move from identifying and implementing algorithmic solutions to guessing. For models whose full completions go uninspected, this manifests as “quiet quitting” on hard tasks. Code: https://jpetty.org/relic</abstract>
       <pdf hash="eedd03ce"/>
       <doi>10.1162/tacl.a.735</doi>
@@ -927,7 +927,7 @@
       <title>Citation Failure: Definition, Analysis and Efficient Mitigation</title>
       <author><first>Jan</first><last>Buchmann</last></author>
       <author><first>Iryna</first><last>Gurevych</last></author>
-      <pages>1432–1460</pages>
+      <pages>1453–1481</pages>
       <abstract>Citations from LLM-based RAG systems are supposed to simplify response verification. However, this goal is undermined in cases of citation failure, where a model generates a helpful response, but fails to generate citations to complete evidence. In contrast to previous work, we propose to disentangle this from response failure, where the response itself is flawed, and citing complete evidence is impossible. To address citation failure, this work follows a two-step approach: (1) We study when citation failure occurs and (2) how it can be mitigated efficiently. For step 1, we extend prior work by investigating how the relation between response and evidence affects citation quality. We introduce CITE-CONTROL, a benchmark that systematically varies this relation to enable the analysis of failure modes. Experiments show that failures increase with relational complexity and suggest that combining citation methods could improve performance, motivating step 2. To study the efficient improvement of LLM citation, we propose CITENTION, a framework integrating generative, attention-based, and retrieval-based methods. Results demonstrate substantial citation improvements on CITECONTROL and in transfer settings. We make our data and code publicly available.1</abstract>
       <pdf hash="928eb54d"/>
       <doi>10.1162/tacl.a.736</doi>
@@ -940,7 +940,7 @@
       <author><first>Jindrich</first><last>Helcl</last></author>
       <author><first>Andrei-Alexandru</first><last>Manea</last></author>
       <author><first>Gianluca</first><last>Vico</last></author>
-      <pages>1461–1488</pages>
+      <pages>1482–1509</pages>
       <abstract>We introduce CUS-QA, a benchmark for evaluation of open-ended regional question answering that encompasses both textual and visual modalities. We also provide strong baselines using state-of-the-art large language models (LLMs). Our dataset consists of manually curated questions and answers grounded in Wikipedia, created by native speakers from Czechia, Slovakia, and Ukraine, with accompanying English translations. It includes both purely textual questions and those requiring visual understanding. We evaluate state-of-the-art LLMs through prompting and add human judgments of answer correctness. Using these human evaluations, we analyze the reliability of existing automatic evaluation metrics. Our baseline results show that even the best open-weight LLMs achieve only over 40% accuracy on textual questions and below 30% on visual questions. LLM-based evaluation metrics show strong correlation with human judgment, while traditional string-overlap metrics perform surprisingly well due to the prevalence of named entities in answers.</abstract>
       <pdf hash="e83f888e"/>
       <doi>10.1162/tacl.a.737</doi>
@@ -952,7 +952,7 @@
       <author><first>Sung-Lin</first><last>Yeh</last></author>
       <author><first>Peter</first><last>Bell</last></author>
       <author><first>Hao</first><last>Tang</last></author>
-      <pages>1489–1504</pages>
+      <pages>1510–1525</pages>
       <abstract>Despite being the best known objective for learning speech representations, the HuBERT objective has not been further developed and improved. We argue that it is the lack of an underlying principle that stalls the development, and, in this paper, we show that predictive coding under a variational view is the principle behind the HuBERT objective. Due to its generality, our formulation provides opportunities to improve parameterization and optimization, and we show two simple modifications that bring immediate improvements to the HuBERT objective. In addition, the predictive coding formulation has tight connections to various other objectives, such as APC, CPC, wav2vec, and BEST-RQ. Empirically, the improvement in pre-training brings significant improvements to four downstream tasks: phone classification, f0 tracking, speaker recognition, and automatic speech recognition, highlighting the importance of the predictive coding interpretation.</abstract>
       <pdf hash="671b76d4"/>
       <doi>10.1162/tacl.a.738</doi>
@@ -965,7 +965,7 @@
       <author><first>Alexandra</first><last>Lorson</last></author>
       <author><first>Ivan</first><last>Titov</last></author>
       <author><first>Christian</first><last>Hardmeier</last></author>
-      <pages>1505–1540</pages>
+      <pages>1526–1561</pages>
       <abstract>Human users increasingly communicate with large language models (LLMs), but LLMs suffer from frequent overconfidence in their output, even when its accuracy is questionable, which undermines their trustworthiness and perceived legitimacy. Therefore, there is a need for language models to signal their confidence in order to reap the benefits of human-machine collaboration and mitigate potential harms. Verbalized uncertainty is the expression of confidence with linguistic means, an approach that integrates perfectly into language-based interfaces. Most recent research in natural language processing (NLP) overlooks the nuances surrounding human uncertainty communication and the biases that influence the communication of and with machines. We argue for anthropomimetic uncertainty, the principle that intuitive and trustworthy uncertainty communication requires a degree of imitation of human linguistic behaviors. We present a thorough overview of the research in human uncertainty communication, survey ongoing research in NLP, and perform additional analyses to demonstrate so-far underexplored biases in verbalized uncertainty. We conclude by pointing out unique factors in human-machine uncertainty and outlining future research directions towards implementing anthropomimetic uncertainty. kaleidophon/anthropomimetic-uncertainty</abstract>
       <pdf hash="e2bc8779"/>
       <doi>10.1162/tacl.a.739</doi>
@@ -978,7 +978,7 @@
       <author><first>Yanai</first><last>Elazar</last></author>
       <author><first>Hila</first><last>Gonen</last></author>
       <author><first>Noah A.</first><last>Smith</last></author>
-      <pages>1541–1567</pages>
+      <pages>1562–1588</pages>
       <abstract>We present an experimental recipe for studying the relationship between training data and language model (LM) behavior. We outline steps for intervening on data batches – i.e., “rewriting history” – and then retraining model checkpoints over that data to test hypotheses relating data to behavior. Our intervention recipe’s stages are (1) selecting evaluation items from a benchmark that measures model behavior, (2) matching relevant documents to those items, and (3) modifying those documents before retraining and measuring the effects. We demonstrate the utility of our recipe through case studies on factual knowledge acquisition and gender bias in LMs, using both cooccurrence statistics and information retrieval methods to identify documents that might contribute to model behavior. Our results supplement past observational analyses that link cooccurrence to model behavior, while demonstrating that extant methods for identifying relevant training documents do not fully explain an LM’s abilities and biases. Researchers can follow the recipe to test further hypotheses about how training data affects model behavior. Our code is made publicly available to promote future work.1</abstract>
       <pdf hash="137a27bd"/>
       <doi>10.1162/tacl.a.740</doi>
@@ -993,7 +993,7 @@
       <author><first>Justin</first><last>Baker</last></author>
       <author><first>Fernando</first><last>De la Torre</last></author>
       <author><first>Louis-Philippe</first><last>Morency</last></author>
-      <pages>1568–1583</pages>
+      <pages>1589–1604</pages>
       <abstract>Large language models (LLMs) excel on many NLP benchmarks, but their behavior on real-world, semi-structured prediction remains underexplored. We present LLAMADRS, a benchmark for structured clinical assessment from dialogue built on the CAMI corpus of psychiatric interviews, comprising 5,804 expert annotations across 541 sessions. We evaluate 25 open-source models (standard and reasoning-augmented; 0.6B–400B parameters) and generate over 400,000 predictions. Our results demonstrate that strong open-source LLMs achieve item-level accuracy with residual error below clinically substantial thresholds. Additionally, an Item-then-Sum (ITS) strategy, assessing symptoms individually through discrete LLM calls before synthesizing final scores, significantly reduces error relative to Direct Total Score (DTS) prediction across most model architectures and scales, despite reasoning models attempting similar decomposition in the reasoning traces of their DTS predictions. In fact, we find that performance gains attributed to “reasoning” depend fundamentally on prompt design: standard models equipped with structured task definitions and examples match reasoning-augmented counterparts. Among the latter, longer reasoning traces correlate with reduced error; while higher model scale does across both architectures. Our results clarify when and why reasoning helps and offer actionable guidance for deploying LLMs in semi-structured clinical assessment.</abstract>
       <pdf hash="5faae174"/>
       <doi>10.1162/tacl.a.741</doi>
@@ -1005,7 +1005,7 @@
       <author><first>Bart</first><last>Evelo</last></author>
       <author><first>Meaghan</first><last>Fowlie</last></author>
       <author><first>Denis</first><last>Paperno</last></author>
-      <pages>1584–1597</pages>
+      <pages>1605–1618</pages>
       <abstract>Do neural models, such as Large Language Models, genuinely acquire compositional abilities for interpretation of natural language? When we talk about semantic interpretation, we can distinguish two complementary aspects: establishing what an expression refers to in the world (which we call the Extensional task) and representing its sense in a structured way (which we call the Intensional task). We evaluate LLMs and humans on both tasks in the setting of the Personal Relation Task (Paperno, 2022) in which, given a universe of people and their relationships with each other, one is asked to interpret a noun phrase such as Amber’s parent’s friend. Here, for the Intensional task, the answer is the formula friend(parent(amber)), and for the Extensional task, the person. We find that humans and LLMs show opposite strengths: humans perform better on Extensional than Intensional tasks, and LLMs vice versa. Our methodology brings greater nuance to the understanding of compositional abilities in modern machine learning models. Our results support the notion that the lack of referential grounding in LLM training is a crucial missing component in mimicking humanlike language understanding.</abstract>
       <pdf hash="0e6361a0"/>
       <doi>10.1162/tacl.a.742</doi>
@@ -1016,7 +1016,7 @@
       <title>Fodor and Pylyshyn’s Systematicity Challenge Still Stands</title>
       <author><first>Michael</first><last>Goodale</last></author>
       <author><first>Salvador</first><last>Mascarenhas</last></author>
-      <pages>1598–1611</pages>
+      <pages>1619–1632</pages>
       <abstract>The recent successes of neural networks producing human-like language have caused significant stir in cognitive science, with many researchers arguing that classical puzzles about human cognition and challenges to artificial intelligence are being solved by neural networks. A notable case is the argument from systematicity due to Jerry Fodor and Zenon Pylyshyn, argues that humans display systematic biconditional dependencies. For example, someone can understand the sentence “John saw Mary” just in case that they understand the sentence “Mary saw John.” Symbolic systems explain this systematicity of language and thought, while neural networks offer no immediate explanation. Several recent articles argue that this challenge has now been met by neural networks. In particular, Brenden Lake and Marco Baroni argue that their meta-learning for compositionality protocol matches and perhaps explains human systematicity. We demonstrate that these conclusions are premature. Among other results, we found that their model struggles to learn rules that are even slightly out of distribution compared to their training data. Furthermore, the model behaves unsystematically even on many within-distribution problems. We conclude that Fodor and Pylyshyn’s challenge to neural networks remains unmet.</abstract>
       <pdf hash="6e39d333"/>
       <doi>10.1162/tacl.a.743</doi>
@@ -1031,7 +1031,7 @@
       <author><first>David</first><last>Gefen</last></author>
       <author><first>Shahin</first><last>Jabbari</last></author>
       <author><first>Rezvaneh</first><last>Rezapour</last></author>
-      <pages>1612–1638</pages>
+      <pages>1633–1659</pages>
       <abstract>The rise of generative AI (GenAI) has impacted many aspects of life. As these systems become embedded in everyday practices, understanding public trust in them also becomes essential for responsible adoption and governance. Prior work on trust in AI has largely drawn from psychology and human–computer interaction, but there is a lack of computational, large-scale, and longitudinal approaches to measuring trust and distrust in GenAI and large language models. We present the first computational study of Trust and Distrust in GenAI, using a multi-year Reddit dataset (2022–2025) spanning 39 subreddits and 230,576 posts. Crowd-sourced annotations of a representative sample were combined with classification models for scale analysis. Our results show that Trust and Distrust are nearly balanced over time, although Trust modestly outweighs Distrust. Technical performance and usability dominate as dimensions for both categories, while personal experience is the most frequent reason shaping attitudes. Distinct patterns also emerge across trustor groups: while industry professionals and tech leaders predominantly express Trust in GenAI, Distrust remains more prevalent among AI ethicists, journalists, and the general public. Our results provide a methodological framework for large-scale Trust analysis and insights into evolving public perceptions towards GenAI.</abstract>
       <pdf hash="5e034b66"/>
       <doi>10.1162/tacl.a.744</doi>
@@ -1045,7 +1045,7 @@
       <author><first>Gal</first><last>Vishne</last></author>
       <author><first>Shauli</first><last>Ravfogel</last></author>
       <author><first>Reut</first><last>Tsarfaty</last></author>
-      <pages>1639–1653</pages>
+      <pages>1660–1684</pages>
       <abstract>Current evaluations of large language models (LLMs) rely heavily on a growing collection of benchmarks and on aggregate benchmark scores, yet it remains unclear what this comparison actually captures, and what these scores reveal about models’ underlying capabilities. Here, we propose a new paradigm for LLM evaluation, by asking whether benchmark performance reflects many independent abilities, or rather, relies on a small number of shared dimensions. To answer this, we apply Factor Analysis (FA) to a massive performance matrix of LLMs versus benchmarks (60 × 44) revealing an intrinsically low-rank structure of that matrix. That is, a small number of latent factors captures most of the structure in the full task space. This low-rank geometry reveals substantial redundancy across existing tasks and explains why many benchmarks appear to be measuring overlapping abilities. We further show that these latent factors correspond to coherent, skill-like, dimensions of LLM behavior. Leveraging this latent skill-space, we deliver three practical tools for LLM evaluation and downstream users: (i) identifying redundant tasks, (ii) profiling new models using a small subset of tasks, and (iii) selecting models aligned with desired skill profiles. Our method provides a solid alternative to the de-facto standard of a single aggregate score, and establishes an interpretable and practical framework for understanding and benchmarking LLM core capabilities.</abstract>
       <pdf hash="1bbfbc55"/>
       <doi>10.1162/tacl.a.745</doi>
@@ -1061,7 +1061,7 @@
       <author><first>Marius</first><last>Mosbach</last></author>
       <author><first>Ori</first><last>Yoran</last></author>
       <author><first>Mor</first><last>Geva</last></author>
-      <pages>1654–1691</pages>
+      <pages>1685–1722</pages>
       <abstract>Language models (LMs) increasingly drive real-world applications that require world knowledge. However, the internal processes through which models turn data into representations of knowledge and beliefs about the world are poorly understood. To facilitate such studies, we present LMEnt, a suite including (1) a knowledge-rich pretraining corpus, fully annotated with entity mentions based on Wikipedia, (2) an entity-based retrieval method over pretraining data that outperforms existing tools by as much as 80.4%, and (3) 12 pretrained LMs with up to 1B parameters and 4K intermediate checkpoints, with comparable performance to popular open-source models on knowledge tasks. Together, these resources provide a controlled environment for analyzing connections between entity mentions in pretraining data and downstream performance. We show the utility of LMEnt by studying knowledge acquisition over training, finding that entity co-occurrence and mention forms—which are difficult to study with existing tools—affect learning trends. Moreover, as LMs form stronger associations between entities, their facts are harder to edit in-context, whereas inconsistencies in model predictions over training are indicative of editing success. We release LMEnt to support studies of knowledge in LMs, including knowledge representations, plasticity, editing, attribution, hallucinations, and learning dynamics. huggingface.co/LMEnt github.com/LMEnt</abstract>
       <pdf hash="13180083"/>
       <doi>10.1162/tacl.a.746</doi>
@@ -1073,7 +1073,7 @@
       <author><first>Takumi</first><last>Goto</last></author>
       <author><first>Yusuke</first><last>Sakai</last></author>
       <author><first>Taro</first><last>Watanabe</last></author>
-      <pages>1692–1710</pages>
+      <pages>1723–1741</pages>
       <abstract>Automatic evaluation in grammatical error correction (GEC) is crucial for selecting the best-performing systems. Currently, reference-based metrics are a popular choice, which basically measure the similarity between hypothesis and reference sentences. However, similarity measures based on embeddings, such as BERTScore, are often ineffective, since many words in the source sentences remain unchanged in both the hypothesis and the reference. This study focuses on edits specifically designed for GEC, i.e., ERRANT, and computes similarity measured over the edits from the source sentence. To this end, we propose edit vector, a representation for an edit, and introduce a new metric, UOT-ERRANT, which transports these edit vectors from hypothesis to reference using unbalanced optimal transport. Experiments with SEEDA meta-evaluation show that UOT-ERRANT improves evaluation performance, particularly in the +Fluency domain where many edits occur. Moreover, our method is highly interpretable because the transport plan can be interpreted as a soft edit alignment, making UOT-ERRANT a useful metric for both system ranking and analyzing GEC systems. Our code is available from https://github.com/gotutiyan/uot-errant.</abstract>
       <pdf hash="6820f864"/>
       <doi>10.1162/tacl.a.747</doi>
@@ -1090,7 +1090,7 @@
       <author><first>Lu</first><last>Cheng</last></author>
       <author><first>Ali</first><last>Cinar</last></author>
       <author><first>Barbara</first><last>Di Eugenio</last></author>
-      <pages>1711–1733</pages>
+      <pages>1742–1764</pages>
       <abstract>Clinical notes in Electronic Health Records (EHRs) capture rich temporal information on events, clinician reasoning, and lifestyle factors often missing from structured data. Leveraging them for predictive modeling can be impactful for timely identification of chronic diseases. However, they present core natural language processing (NLP) challenges: long text, irregular event distribution, complex temporal dependencies, privacy constraints, and resource limitations. We present two complementary methods for temporally and contextually grounded risk prediction from longitudinal notes. First, we introduce HITGNN, a hierarchical temporal graph neural network that integrates intranote temporal event structures, inter-visit dynamics, and medical knowledge to model patient trajectories with fine-grained temporal granularity. Second, we propose REVEAL, a lightweight test-time framework that distills LLMs’ reasoning into smaller verifier models. Applied to opportunistic screening for Type 2 Diabetes (T2D) using temporally realistic cohorts curated from private and public hospital corpora, HITGNN achieves the highest predictive accuracy—especially for near-term risk—while preserving privacy and limiting reliance on large proprietary models. REVEAL enhances sensitivity to true T2D cases and retains explanatory reasoning. Our ablations confirm the value of temporal structure and knowledge augmentation, and fairness analysis shows HITGNN performs more equitably across subgroups.</abstract>
       <pdf hash="7e26ba67"/>
       <doi>10.1162/tacl.a.748</doi>
@@ -1109,7 +1109,7 @@
       <author><first>Hao</first><last>Fei</last></author>
       <author><first>See-Kiong</first><last>Ng</last></author>
       <author><first>Bing</first><last>Qin</last></author>
-      <pages>1765–1787</pages>
+      <pages>1765–1786</pages>
       <abstract>Large Language Models (LLMs) exhibit unique strengths arising from differences in model architecture, training data, and strategies. Ensemble learning has been explored to leverage these complementary strengths through decision-level sharing (i.e.,Decision Ensemble), which combines the predictions from multiple LLMs. However, such methods integrate only shallow decisions and overlook the exchange of deeper levels of information within the internal representations of LLMs, such as problem understanding, world knowledge, and latent reasoning patterns. In this work, we propose Representation Ensemble (RISE), a novel ensemble framework that enables cross-LLM representation sharing for richer information exchange. To address challenges of representation-level interaction caused by layer misalignment and latent-space incompatibility across LLMs, we introduce a representation alignment method based on relational similarity measures and an orthogonal latent-space transformation. Experimental results show that (1) RISE achieves performance competitive with existing decision ensemble methods, and (2) RISE is strongly complementary to decision ensemble, with their combination boosting collaboration gains by 14%–41%. Finally, we further compare ensemble of small LLMs to a single larger LLM and to model merging and composition approaches, and find that ensemble learning consistently generalizes well without additional training.</abstract>
       <pdf hash="5073d84b"/>
       <doi>10.1162/tacl.a.773</doi>
@@ -1223,7 +1223,7 @@
       <author><first>Kohei</first><last>Kajikawa</last></author>
       <author><first>Koji</first><last>Hukuahima</last></author>
       <author><first>Yohei</first><last>Oseki</last></author>
-      <pages>1917–1935</pages>
+      <pages>1917–1934</pages>
       <abstract>Statistical analysis of corpora provides an approach to quantitatively investigate natural languages. This approach has revealed that several power laws consistently emerge across different corpora and languages, suggesting universal mechanisms underlying languages. In particular, the power-law decay of correlations has been interpreted as evidence of underlying hierarchical structures in syntax, semantics, and discourse. This perspective has also been extended beyond corpora produced by human adults, including child speech, birdsong, and chimpanzee action sequences. However, the argument supporting this interpretation has not been empirically tested in natural languages. To address this gap, the present study examines the validity of the argument for syntactic structures. Specifically, we test whether the statistical properties of parse trees align with the assumptions in the argument. Using English and Japanese corpora, we analyze the mutual information, deviations from probabilistic context-free grammars (PCFGs), and other properties in natural language parse trees, as well as in the PCFG that approximates these parse trees. Our results indicate that the assumptions do not hold for syntactic structures and that it is difficult to apply the proposed argument not only to sentences by human adults but also to other domains, highlighting the need to reconsider the relationship between the power law and hierarchical structures.</abstract>
       <pdf hash="d5fe2ada"/>
       <doi>10.1162/tacl.a.785</doi>
@@ -1485,6 +1485,7 @@
       <pdf hash="7690a4b0"/>
       <doi>10.1162/tacl.x.779</doi>
       <bibkey>evelo-etal-2026-erratum</bibkey>
+      <pages>1826</pages>
     </paper>
   </volume>
 </collection>
