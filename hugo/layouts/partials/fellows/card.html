@@ -1,6 +1,6 @@
 {{ $page := .page }}
 {{ $honoree := .honoree }}
-<article class="acl-fellow-card acl-fellow-card--{{ $honoree.honor }}">
+<article class="acl-fellow-card acl-fellow-card--{{ $honoree.honor }}" data-honoree-name="{{ $honoree.name }}" data-honoree-year="{{ $honoree.year }}">
   <div class="acl-fellow-portrait">
     {{ with $honoree.photo }}
       {{ $photo_url := cond (hasPrefix . "http") . (relURL .) }}

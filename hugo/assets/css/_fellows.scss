@@ -8,6 +8,20 @@
   }
 }
 
+.acl-fellows-section-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--acl-line);
+
+  h2 {
+    margin: 0;
+  }
+}
+
 .acl-fellows-group-label {
   margin: 1.5rem 0 .75rem;
   color: var(--acl-ink);
@@ -160,6 +174,10 @@
 }
 
 @include media-breakpoint-down(sm) {
+  .acl-fellows-section-heading {
+    flex-wrap: wrap;
+  }
+
   .acl-person-award {
     padding: 1.25rem 0;
   }
