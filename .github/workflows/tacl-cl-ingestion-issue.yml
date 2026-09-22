@@ -1,0 +1,39 @@
+name: Create TACL and CL ingestion issue
+
+on:
+  schedule:
+    - cron: "0 9 1 3,6,10,12 *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-ingestion-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create ingestion issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const now = new Date();
+            const month = now.toLocaleString('en-US', {
+              month: 'long',
+              timeZone: 'UTC',
+            });
+            const year = now.getUTCFullYear();
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Ingest TACL + CL (${month} ${year})`,
+              body: [
+                'Ingest the latest journal content from MIT Press:',
+                '',
+                '- [ ] Transactions of the Association for Computational Linguistics (TACL)',
+                '- [ ] Computational Linguistics (CL)',
+              ].join('\n'),
+              assignees: ['mjpost'],
+              labels: ['ingestion', 'preview'],
+            });
