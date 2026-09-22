@@ -1,10 +1,42 @@
 {{ define "main" }}
 {{ $honorees := where hugo.Data.fellows.honorees "id" .Params.name }}
 {{ range first 1 $honorees }}
+{{ $honoree := . }}
+{{ $awards := slice }}
+{{ with .fellow_year }}
+  {{ $awards = $awards | append (dict "kind" "fellow" "year" .) }}
+{{ end }}
+{{ with .lifetime_achievement_award_year }}
+  {{ $awards = $awards | append (dict "kind" "lifetime-achievement" "year" .) }}
+{{ end }}
 <section id="main" class="acl-person-awards">
   <h2 id="title">{{ $.Title }}</h2>
-  <hr />
-  {{ partial "fellows/honors.html" . }}
+  <div class="acl-person-awards-list">
+    {{ range sort $awards "year" "desc" }}
+      {{ if eq .kind "fellow" }}
+      <section class="acl-person-award" aria-labelledby="acl-fellow-heading">
+        <header class="acl-person-award-header">
+          <h3 id="acl-fellow-heading"><i class="fas fa-award" aria-hidden="true"></i> ACL Fellow</h3>
+          <p class="acl-person-award-year">Inducted {{ .year }}</p>
+        </header>
+        <div class="acl-person-award-details">
+          <h4>Citation</h4>
+          {{ partial "fellows/citation.html" $honoree }}
+        </div>
+      </section>
+      {{ else }}
+      <section class="acl-person-award" aria-labelledby="acl-lifetime-award-heading">
+        <header class="acl-person-award-header">
+          <h3 id="acl-lifetime-award-heading"><i class="fas fa-trophy" aria-hidden="true"></i> ACL Lifetime Achievement Award</h3>
+          <p class="acl-person-award-year">Awarded {{ .year }}</p>
+        </header>
+        <div class="acl-person-award-details">
+          {{ partial "fellows/acceptance-speech.html" $honoree }}
+        </div>
+      </section>
+      {{ end }}
+    {{ end }}
+  </div>
 </section>
 {{ end }}
 {{ end }}

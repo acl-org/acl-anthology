@@ -97,23 +97,73 @@
 }
 
 .acl-person-awards {
-  max-width: 48rem;
+  max-width: 58rem;
+}
 
-  .acl-fellow-honors {
-    margin-bottom: 1rem;
-  }
+.acl-person-awards-list {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--acl-line);
+}
 
-  .acl-fellow-year,
+.acl-person-award {
+  display: grid;
+  grid-template-columns: minmax(14rem, 2fr) minmax(0, 3fr);
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--acl-line);
+
   .acl-fellow-reason {
+    color: var(--acl-ink);
     font-size: 1rem;
-  }
-
-  .acl-fellow-reason {
     line-height: 1.5;
   }
 }
 
+.acl-person-award-header {
+  h3 {
+    margin: 0 0 .35rem;
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+
+  i {
+    width: 1.25rem;
+    color: var(--acl-muted);
+    text-align: center;
+  }
+}
+
+.acl-person-award-year {
+  margin: 0 0 0 1.6rem;
+  color: var(--acl-muted);
+  font-size: .9rem;
+}
+
+.acl-person-award-details {
+  h4 {
+    margin: 0 0 .35rem;
+    color: var(--acl-muted);
+    font-size: .8rem;
+    font-weight: 600;
+  }
+
+  .acl-fellow-reason {
+    margin-bottom: 0;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .acl-person-award {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 @include media-breakpoint-down(sm) {
+  .acl-person-award {
+    padding: 1.25rem 0;
+  }
+
   .acl-fellow-portrait {
     width: 5rem;
   }
