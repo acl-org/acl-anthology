@@ -63,7 +63,7 @@ jobs:
       - name: Post or update release notice
         if: github.event_name == 'pull_request' && steps.check-for-version-tag.outputs.is-new == 'true'
         continue-on-error: true
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const version = "${{ steps.find-pypi-version.outputs.version }}";
