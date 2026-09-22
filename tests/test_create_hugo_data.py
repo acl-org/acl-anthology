@@ -75,6 +75,7 @@ def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
     assert len(fellows) == 107
     assert {fellow["year"] for fellow in fellows} == set(range(2011, 2026))
     assert len({fellow["id"] for fellow in fellows}) == len(fellows)
+    assert all(anthology.get_person(fellow["id"]) is not None for fellow in fellows)
     assert all(fellow["reason"].startswith("For ") for fellow in fellows)
     assert all(fellow["photo"].startswith("images/fellows/") for fellow in fellows)
     assert all(fellow["photo_source"].startswith("http") for fellow in fellows)

@@ -192,6 +192,7 @@ def load_fellows(anthology, path):
                     log.error(f"Unresolvable person ID for ACL Fellow: {person_id}")
                     continue
 
+            person_id = person.id
             canonical_name = person.canonical_name
             papers = list(person.papers())
             publication_counts = author_publications_by_year(papers)
