@@ -225,6 +225,7 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
         award["award_url"].startswith("https://www.aclweb.org/")
         for award in service_awards
     )
+    assert all(award["reason"].startswith("For ") for award in service_awards)
     assert all(
         next(honoree for honoree in honorees if honoree["id"] == award["id"])[
             "distinguished_service_award_year"

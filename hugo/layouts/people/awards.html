@@ -44,7 +44,8 @@
           <p class="acl-person-award-year">Awarded {{ .year }}</p>
         </header>
         <div class="acl-person-award-details">
-          <p class="acl-fellow-reason"><a href="{{ $honoree.distinguished_service_award_url }}" rel="external noopener">Award announcement</a></p>
+          <h4>Citation</h4>
+          {{ partial "fellows/distinguished-service-citation.html" $honoree }}
         </div>
       </section>
       {{ end }}

@@ -351,6 +351,12 @@ def load_distinguished_service_awards(anthology, path, fellows):
                     f"Missing ACL Distinguished Service Award announcement for {person_id}"
                 )
                 continue
+            reason = entry.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                log.error(
+                    f"Missing ACL Distinguished Service Award citation for {person_id}"
+                )
+                continue
 
             person = anthology.get_person(person_id)
             if person is None:
@@ -379,6 +385,7 @@ def load_distinguished_service_awards(anthology, path, fellows):
                     if part
                 ),
                 "name": canonical_name.as_full(),
+                "reason": reason.strip(),
                 "timeline_available": person.is_explicit
                 and "/unverified" not in person_id,
                 "year": year,
@@ -1038,6 +1045,7 @@ def fellows_to_dict(
     for award in service_awards:
         if honoree := honorees_by_id.get(award["id"]):
             honoree["distinguished_service_award_name"] = award["award_name"]
+            honoree["distinguished_service_award_reason"] = award["reason"]
             honoree["distinguished_service_award_year"] = award["year"]
             honoree["distinguished_service_award_url"] = award["award_url"]
             if award["year"] > honoree["year"]:
@@ -1046,6 +1054,7 @@ def fellows_to_dict(
             honorees_by_id[award["id"]] = {
                 **award,
                 "distinguished_service_award_name": award["award_name"],
+                "distinguished_service_award_reason": award["reason"],
                 "distinguished_service_award_year": award["year"],
                 "distinguished_service_award_url": award["award_url"],
                 "_sort_as_lifetime_award": False,

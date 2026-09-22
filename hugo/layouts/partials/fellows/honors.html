@@ -6,14 +6,11 @@
   <span class="acl-fellow-year">ACL Lifetime Achievement Award, {{ . }}</span>
   {{ end }}
   {{ with .distinguished_service_award_year }}
-  <span class="acl-fellow-year">
-    {{- with $.distinguished_service_award_url }}<a href="{{ . }}" rel="external noopener">{{ end -}}
-    {{ $.distinguished_service_award_name }}, {{ . }}
-    {{- with $.distinguished_service_award_url }}</a>{{ end -}}
-  </span>
+  <span class="acl-fellow-year">{{ $.distinguished_service_award_name }}, {{ . }}</span>
   {{ end }}
 </div>
 <div class="acl-fellow-details">
   {{ partial "fellows/citation.html" . }}
   {{ partial "fellows/acceptance-speech.html" . }}
+  {{ partial "fellows/distinguished-service-citation.html" . }}
 </div>
