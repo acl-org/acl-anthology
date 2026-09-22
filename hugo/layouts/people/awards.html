@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{ $honorees := where hugo.Data.fellows.honorees "id" .Params.name }}
+{{ range first 1 $honorees }}
+<section id="main" class="acl-person-awards">
+  <h2 id="title">{{ $.Title }}</h2>
+  <hr />
+  {{ partial "fellows/honors.html" . }}
+</section>
+{{ end }}
+{{ end }}

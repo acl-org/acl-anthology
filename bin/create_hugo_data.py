@@ -183,9 +183,6 @@ def load_fellows(anthology, path):
 
             person = anthology.get_person(person_id)
             if person is None:
-                log.error(f"Unknown person ID for ACL Fellow: {person_id}")
-                continue
-            if person is None:
                 # Some fellow entries intentionally use /unverified IDs; if that
                 # record is absent, fall back to the corresponding verified ID.
                 fallback_person_id = person_id.removesuffix("/unverified")

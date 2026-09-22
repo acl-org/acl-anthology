@@ -8,4 +8,14 @@
       "title" $person.full
    }}
    {{ $.AddPage $page }}
+   {{ if where hugo.Data.fellows.honorees "id" $person_id }}
+      {{ $awards_page := dict
+         "kind" "page"
+         "layout" "awards"
+         "path" (printf "%s/awards" $person_id)
+         "params" (dict "name" $person_id)
+         "title" (printf "Awards for %s" $person.full)
+      }}
+      {{ $.AddPage $awards_page }}
+   {{ end }}
 {{ end }}
