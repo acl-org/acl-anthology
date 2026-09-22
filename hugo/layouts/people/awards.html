@@ -9,6 +9,9 @@
 {{ with .lifetime_achievement_award_year }}
   {{ $awards = $awards | append (dict "kind" "lifetime-achievement" "year" .) }}
 {{ end }}
+{{ with .distinguished_service_award_year }}
+  {{ $awards = $awards | append (dict "kind" "distinguished-service" "name" $honoree.distinguished_service_award_name "year" .) }}
+{{ end }}
 <section id="main" class="acl-person-awards">
   <h2 id="title">{{ $.Title }}</h2>
   <div class="acl-person-awards-list">
@@ -24,7 +27,7 @@
           {{ partial "fellows/citation.html" $honoree }}
         </div>
       </section>
-      {{ else }}
+      {{ else if eq .kind "lifetime-achievement" }}
       <section class="acl-person-award" aria-labelledby="acl-lifetime-award-heading">
         <header class="acl-person-award-header">
           <h3 id="acl-lifetime-award-heading"><i class="fas fa-trophy" aria-hidden="true"></i> ACL Lifetime Achievement Award</h3>
@@ -32,6 +35,16 @@
         </header>
         <div class="acl-person-award-details">
           {{ partial "fellows/acceptance-speech.html" $honoree }}
+        </div>
+      </section>
+      {{ else }}
+      <section class="acl-person-award" aria-labelledby="acl-service-award-heading">
+        <header class="acl-person-award-header">
+          <h3 id="acl-service-award-heading"><i class="fas fa-hand-paper" aria-hidden="true"></i> {{ .name }}</h3>
+          <p class="acl-person-award-year">Awarded {{ .year }}</p>
+        </header>
+        <div class="acl-person-award-details">
+          <p class="acl-fellow-reason"><a href="{{ $honoree.distinguished_service_award_url }}" rel="external noopener">Award announcement</a></p>
         </div>
       </section>
       {{ end }}

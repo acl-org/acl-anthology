@@ -129,14 +129,17 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
         anthology,
         data_path / "fellows.yaml",
         data_path / "lifetime-achievement-awards.yaml",
+        data_path / "distinguished-service-awards.yaml",
     )
     fellows = data["people"]
     awards = data["lifetime_achievement_awards"]
+    service_awards = data["distinguished_service_awards"]
     honorees = data["honorees"]
 
     assert len(fellows) == 107
     assert len(awards) == 24
-    assert len(honorees) == 118
+    assert len(service_awards) == 6
+    assert len(honorees) == 119
     assert len({honoree["id"] for honoree in honorees}) == len(honorees)
     assert {award["year"] for award in awards} == set(range(2002, 2026))
     assert all(award["honor"] == "lifetime-achievement-award" for award in awards)
@@ -199,6 +202,36 @@ def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
     assert awards_by_year[2025]["talk_url"].startswith("https://direct.mit.edu/")
     assert all("talk_url" not in awards_by_year[year] for year in (2002, 2003))
     assert awards_by_year[2018]["photo"] == "images/fellows/mark-steedman.webp"
+
+    assert {award["year"]: award["id"] for award in service_awards} == {
+        2019: "min-yen-kan",
+        2020: "graeme-hirst",
+        2021: "lillian-lee",
+        2022: "dragomir-radev",
+        2023: "joakim-nivre",
+        2025: "julia-hirschberg",
+    }
+    assert all(
+        award["award_name"] == "ACL Distinguished Service Award"
+        for award in service_awards
+        if award["year"] <= 2022
+    )
+    assert all(
+        award["award_name"] == "ACL Dragomir Radev Distinguished Service Award"
+        for award in service_awards
+        if award["year"] >= 2023
+    )
+    assert all(
+        award["award_url"].startswith("https://www.aclweb.org/")
+        for award in service_awards
+    )
+    assert all(
+        next(honoree for honoree in honorees if honoree["id"] == award["id"])[
+            "distinguished_service_award_year"
+        ]
+        == award["year"]
+        for award in service_awards
+    )
 
 
 def test_homepage_stats_are_computed_from_anthology(anthology):
