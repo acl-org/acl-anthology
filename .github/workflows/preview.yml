@@ -104,7 +104,7 @@ jobs:
         HUGO_PARAMS_PREVIEWPRURL: ${{ github.event.pull_request.html_url }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
-    - uses: mshick/add-pr-comment@v2
+    - uses: mshick/add-pr-comment@v3
       with:
         # this causes pushes to update the old message, instead of generating a new one
         message-id: preview
