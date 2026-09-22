@@ -117,7 +117,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Notify ingestion reviewers of preview
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         script: |
           const pr = context.payload.pull_request;
