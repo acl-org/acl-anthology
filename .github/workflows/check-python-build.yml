@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked --verbose
       - name: Cache pre-commit hooks based on pre-commit config
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
@@ -105,7 +105,7 @@ jobs:
       # otherwise leave history stuck after the first run); `restore-keys`
       # then falls back to the most recently saved entry.
       - name: Restore benchmark history
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: python/cache
           key: pinned-benchmark-data-${{ github.run_id }}
