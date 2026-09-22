@@ -47,6 +47,15 @@ RewriteBase /ANTHOLOGYDIR
 # The redirects are only applicable to the official aclweb.org anthology; all the
 # 301 redirects are guarded with a RewriteCond.
 
+## Added 2026-09-15
+# Related issue:
+# - https://github.com/acl-org/acl-anthology/issues/9978
+
+# Some indexed URLs contain the physical-storage prefix twice. Strip the entire
+# physical directory path, leaving the public filename at the site root.
+RewriteCond %{THE_REQUEST} \s+[^?\s]*/anthology-files/anthology-files/
+RewriteRule ^anthology-files/anthology-files/(?:[^/]+/)*([^/]+)$ $1 [R=301,END]
+
 ## Added 2026-09-09
 # Related issues:
 # - https://github.com/acl-org/acl-anthology/issues/9364
@@ -153,22 +162,11 @@ RewriteCond %{REQUEST_FILENAME}/index.html !-f
 RewriteCond %{REQUEST_FILENAME}/unverified -d
 RewriteRule ^people/([^/]+)/?$ people/$1/unverified [L,R=307]
 
-# Unverified URLs: extract and provide canonical URL in header
-# Extract the path before "unverified/" into a variable
+# If the requested unverified author page does not exist, but the verified counterpart does, soft-redirect to the latter
 RewriteCond %{REQUEST_URI} ^(.*/people/[^/]+/)unverified/?$ [NC]
-# Send the header if either the verified or the unverified page exists on disk;
-# only withhold it if neither exists (a genuine 404 with nothing to point to)
-RewriteCond %{DOCUMENT_ROOT}%1index.html -f [OR]
-RewriteCond %{DOCUMENT_ROOT}%1unverified/index.html -f
-RewriteRule ^ - [E=CANONICAL_PATH:%1]
-# Inject the rel="canonical" Link header using the captured path
-<IfModule mod_headers.c>
-    # "always" forces the header onto 404 and other non-200 responses
-    Header always set Link "<https://aclanthology.org%{CANONICAL_PATH}e>; rel=\"canonical\"" env=CANONICAL_PATH
-
-    # Handles Apache internal ErrorDocument subrequests (where CANONICAL_PATH becomes REDIRECT_CANONICAL_PATH)
-    Header always set Link "<https://aclanthology.org%{REDIRECT_CANONICAL_PATH}e>; rel=\"canonical\"" env=REDIRECT_CANONICAL_PATH
-</IfModule>
+RewriteCond %{DOCUMENT_ROOT}%1index.html -f
+RewriteCond %{DOCUMENT_ROOT}%1unverified/index.html !-f
+RewriteRule ^ %1 [L,R=307]
 
 # Videos
 ## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
