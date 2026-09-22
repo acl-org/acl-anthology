@@ -1,11 +1,11 @@
 version: 2
 updates:
   - package-ecosystem: "uv"
-    directories:
-      - "/"
-      - "/python"
+    directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "stop-words"
     groups:
       minor-and-patch:
         update-types: [minor, patch]
@@ -21,7 +21,7 @@ updates:
     schedule:
       interval: "monthly"
     ignore:
-      - dependency-name: "ruff-*"
+      - dependency-name: "https://github.com/astral-sh/ruff-pre-commit"
         update-types:
           - "version-update:semver-major"
           - "version-update:semver-minor"
