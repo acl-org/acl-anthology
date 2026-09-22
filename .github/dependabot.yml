@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directories:
+      - "/"
+      - "/python"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    ignore:
+      - dependency-name: "ruff-*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
