@@ -2,11 +2,14 @@
 
 import json
 import sys
+from collections import Counter
 from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
+from urllib.parse import urlparse
 
 import pytest
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -20,12 +23,15 @@ from bin.create_hugo_data import (
     explicitly_colocated_volume_ids,
     export_author_index,
     export_homepage_stats,
+    fellows_to_dict,
     homepage_venue_group,
     homepage_venue_sort_key,
     homepage_stats,
     latest_owned_ingest_date,
+    load_hall_of_fame,
     newly_ingested_years,
     paper_to_dict,
+    publication_decades,
     venue_to_dict,
 )
 
@@ -37,6 +43,212 @@ from acl_anthology.constants import UNKNOWN_INGEST_DATE
 @pytest.fixture(scope="module")
 def anthology():
     return Anthology.from_within_repo()
+
+
+def test_publication_decades_group_years_and_scale_per_author():
+    decades = publication_decades(Counter({1998: 1, 2001: 2, 2004: 8}))
+
+    assert [decade["label"] for decade in decades] == ["1990s", "2000s"]
+    assert all(len(decade["years"]) == 10 for decade in decades)
+    assert [year["year"] for year in decades[0]["years"]] == list(range(1990, 2000))
+    assert {
+        year["year"]: year["level"] for decade in decades for year in decade["years"]
+    } == {
+        **dict.fromkeys(range(1990, 1998), 0),
+        1998: 1,
+        1999: 0,
+        2000: 0,
+        2001: 1,
+        2002: 0,
+        2003: 0,
+        2004: 4,
+        **dict.fromkeys(range(2005, 2010), 0),
+    }
+
+
+def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
+    hall_of_fame_path = (
+        Path(__file__).parent.parent / "data" / "json" / "hall-of-fame.json"
+    )
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
+
+    data = fellows_to_dict(anthology, hall_of_fame_path)
+    fellows = data["people"]
+
+    assert len(fellows) == 107
+    assert {fellow["year"] for fellow in fellows} == set(range(2011, 2026))
+    assert len({fellow["id"] for fellow in fellows}) == len(fellows)
+    assert all(anthology.get_person(fellow["id"]) is not None for fellow in fellows)
+    assert all(fellow["reason"].startswith("For ") for fellow in fellows)
+    assert all(fellow["photo"].startswith("images/fellows/") for fellow in fellows)
+    assert all(fellow["photo_source"].startswith("http") for fellow in fellows)
+    for fellow in fellows:
+        photo_path = static_path / fellow["photo"]
+        assert photo_path.is_file()
+        with Image.open(photo_path) as photo:
+            assert photo.format == "WEBP"
+            assert photo.size == (400, 600)
+    assert all(
+        fellow["timeline_available"] == ("/unverified" not in fellow["id"])
+        for fellow in fellows
+    )
+    assert [fellow["year"] for fellow in fellows] == sorted(
+        (fellow["year"] for fellow in fellows), reverse=True
+    )
+
+    timeline_fellows = [fellow for fellow in fellows if fellow["timeline_available"]]
+    assert all(
+        all(len(decade["years"]) == 10 for decade in fellow["publication_decades"])
+        for fellow in timeline_fellows
+    )
+    assert all(
+        all(
+            year["level"] == 0 if year["count"] == 0 else 1 <= year["level"] <= 4
+            for decade in fellow["publication_decades"]
+            for year in decade["years"]
+        )
+        for fellow in timeline_fellows
+    )
+    assert all(
+        max(
+            year["level"]
+            for decade in fellow["publication_decades"]
+            for year in decade["years"]
+        )
+        == 4
+        for fellow in timeline_fellows
+    )
+    assert all(
+        "publication_decades" not in fellow
+        for fellow in fellows
+        if not fellow["timeline_available"]
+    )
+
+
+def test_hall_of_fame_awards_are_complete_and_interspersed(anthology):
+    hall_of_fame_path = (
+        Path(__file__).parent.parent / "data" / "json" / "hall-of-fame.json"
+    )
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
+    source_data = load_hall_of_fame(hall_of_fame_path)
+    data = fellows_to_dict(anthology, hall_of_fame_path)
+    fellows = data["people"]
+    awards = data["lifetime_achievement_awards"]
+    service_awards = data["distinguished_service_awards"]
+    honorees = data["honorees"]
+
+    assert set(source_data) == {
+        "fellows",
+        "lifetime_achievement_awards",
+        "distinguished_service_awards",
+    }
+    assert all(
+        section["source"].startswith("https://") for section in source_data.values()
+    )
+    assert source_data["distinguished_service_awards"]["recipients_by_year"]["2024"] == []
+    assert len(fellows) == 107
+    assert len(awards) == 24
+    assert len(service_awards) == 6
+    assert len(honorees) == 119
+    assert len({honoree["id"] for honoree in honorees}) == len(honorees)
+    assert {award["year"] for award in awards} == set(range(2002, 2026))
+    assert all(award["honor"] == "lifetime-achievement-award" for award in awards)
+    assert all(award["photo"].startswith("images/fellows/") for award in awards)
+    assert all(award["photo_source"].startswith("http") for award in awards)
+    for award in awards:
+        with Image.open(static_path / award["photo"]) as photo:
+            assert photo.format == "WEBP"
+            assert photo.size == (400, 600)
+    assert [honoree["year"] for honoree in honorees] == sorted(
+        (honoree["year"] for honoree in honorees), reverse=True
+    )
+    for year in range(2011, 2026):
+        year_honorees = [honoree for honoree in honorees if honoree["year"] == year]
+        if any(
+            honoree.get("lifetime_achievement_award_year") == year
+            for honoree in year_honorees
+        ):
+            assert year_honorees[0]["lifetime_achievement_award_year"] == year
+
+    dual_honorees = [honoree for honoree in honorees if honoree["honor"] == "both"]
+    assert len(dual_honorees) == 13
+    assert all("fellow_year" in honoree for honoree in dual_honorees)
+    assert all("lifetime_achievement_award_year" in honoree for honoree in dual_honorees)
+    assert (
+        next(
+            honoree
+            for honoree in dual_honorees
+            if honoree["id"] == "eugene-charniak/unverified"
+        )["year"]
+        == 2011
+    )
+    assert (
+        next(honoree for honoree in dual_honorees if honoree["id"] == "barbara-j-grosz")[
+            "year"
+        ]
+        == 2019
+    )
+    assert {
+        fellow["year"] for fellow in fellows if fellow["id"] == "barbara-j-grosz"
+    } == {2019}
+
+    article_awards = [
+        award
+        for award in awards
+        if award.get("talk_url", "").startswith("https://aclanthology.org/")
+        and not award["talk_url"].endswith(".mp4")
+    ]
+    assert len(article_awards) == 20
+    for award in article_awards:
+        paper_id = urlparse(award["talk_url"]).path.strip("/")
+        paper = anthology.get_paper(paper_id)
+        assert paper is not None
+        assert award["talk_title"] in str(paper.title)
+
+    awards_by_year = {award["year"]: award for award in awards}
+    assert awards_by_year[2014]["talk_url"] == (
+        "https://aclanthology.org/2014.acl-laa.1.mp4"
+    )
+    assert awards_by_year[2025]["talk_url"].startswith("https://direct.mit.edu/")
+    assert all("talk_url" not in awards_by_year[year] for year in (2002, 2003))
+    assert awards_by_year[2018]["photo"] == "images/fellows/mark-steedman.webp"
+
+    assert {award["year"]: award["id"] for award in service_awards} == {
+        2019: "min-yen-kan",
+        2020: "graeme-hirst",
+        2021: "lillian-lee",
+        2022: "dragomir-radev",
+        2023: "joakim-nivre",
+        2025: "julia-hirschberg",
+    }
+    assert all(
+        award["award_name"] == "ACL Distinguished Service Award"
+        for award in service_awards
+        if award["year"] <= 2022
+    )
+    assert all(
+        award["award_name"] == "ACL Dragomir Radev Distinguished Service Award"
+        for award in service_awards
+        if award["year"] >= 2023
+    )
+    assert all(
+        award["award_url"].startswith("https://www.aclweb.org/")
+        for award in service_awards
+    )
+    assert all(award["reason"].startswith("For ") for award in service_awards)
+    assert all(
+        next(honoree for honoree in honorees if honoree["id"] == award["id"])[
+            "distinguished_service_award_year"
+        ]
+        == award["year"]
+        for award in service_awards
+    )
+    min_yen_kan = next(award for award in service_awards if award["id"] == "min-yen-kan")
+    assert min_yen_kan["photo"] == "images/fellows/min-yen-kan.webp"
+    assert min_yen_kan["photo_source"] == "https://www.comp.nus.edu.sg/~kanmy/"
+    with Image.open(static_path / min_yen_kan["photo"]) as photo:
+        assert photo.format == "WEBP"
+        assert photo.size == (400, 600)
 
 
 def test_homepage_stats_are_computed_from_anthology(anthology):

@@ -113,6 +113,297 @@ def make_progress():
     return Progress(*columns, console=primary_console)
 
 
+def author_publications_by_year(papers):
+    """Count an author's papers by publication year."""
+    return Counter(
+        int(paper.year) for paper in papers if paper.year and paper.year.isdigit()
+    )
+
+
+def publication_decades(counts):
+    """Group yearly publication counts into decade rows with relative intensities."""
+    if not counts:
+        return []
+
+    first_decade = min(counts) // 10 * 10
+    last_decade = max(counts) // 10 * 10
+    max_count = max(counts.values())
+    return [
+        {
+            "label": f"{decade}s",
+            "years": [
+                {
+                    "count": count,
+                    "level": min(4, (count * 4 + max_count - 1) // max_count)
+                    if count
+                    else 0,
+                    "year": year,
+                }
+                for year in range(decade, decade + 10)
+                for count in (counts.get(year, 0),)
+            ],
+        }
+        for decade in range(first_decade, last_decade + 1, 10)
+    ]
+
+
+def load_hall_of_fame(path):
+    """Load the consolidated ACL honors source data."""
+    with open(path, "rb") as json_file:
+        return msgspec.json.decode(json_file.read())
+
+
+def honor_cohorts(cohorts, honor_name):
+    """Yield validated integer years and recipient lists from JSON data."""
+    if not isinstance(cohorts, dict):
+        log.error(f"Invalid {honor_name} data: expected an object")
+        return
+
+    for year_value, entries in cohorts.items():
+        try:
+            year = int(year_value)
+        except (TypeError, ValueError):
+            log.error(f"Invalid {honor_name} cohort: {year_value!r}")
+            continue
+        if not isinstance(entries, list):
+            log.error(f"Invalid {honor_name} cohort: {year_value!r}")
+            continue
+        yield year, entries
+
+
+def load_fellows(anthology, cohorts):
+    """Load ACL Fellows and enrich them with data from their author pages."""
+    fellows = []
+    seen_ids = set()
+    for year, entries in honor_cohorts(cohorts, "ACL Fellows"):
+        for cohort_order, entry in enumerate(entries):
+            if isinstance(entry, str):
+                person_id = entry
+                metadata = {}
+            elif isinstance(entry, dict) and "id" in entry:
+                person_id = entry["id"]
+                metadata = entry
+            else:
+                log.error(f"Invalid ACL Fellow entry in {year}: {entry!r}")
+                continue
+
+            reason = metadata.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                log.error(f"Missing citation for ACL Fellow: {person_id}")
+                continue
+
+            if person_id in seen_ids:
+                log.error(f"Duplicate ACL Fellow: {person_id}")
+                continue
+            seen_ids.add(person_id)
+
+            person = anthology.get_person(person_id)
+            if person is None:
+                # Some fellow entries intentionally use /unverified IDs; if that
+                # record is absent, fall back to the corresponding verified ID.
+                fallback_person_id = person_id.removesuffix("/unverified")
+                if fallback_person_id != person_id:
+                    person = anthology.get_person(fallback_person_id)
+                if person is None:
+                    log.error(f"Unresolvable person ID for ACL Fellow: {person_id}")
+                    continue
+
+            person_id = person.id
+            canonical_name = person.canonical_name
+            papers = list(person.papers())
+            publication_counts = author_publications_by_year(papers)
+            timeline_available = person.is_explicit and "/unverified" not in person_id
+            fellow = {
+                "_cohort_order": cohort_order,
+                "_publication_counts": publication_counts,
+                "honor": "fellow",
+                "id": person_id,
+                "initials": "".join(
+                    part[0]
+                    for part in (canonical_name.first, canonical_name.last)
+                    if part
+                ),
+                "name": canonical_name.as_full(),
+                "reason": reason.strip(),
+                "timeline_available": timeline_available,
+                "year": year,
+            }
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source"):
+                if value := metadata.get(key):
+                    fellow[key] = value
+            fellows.append(fellow)
+
+    return sorted(
+        fellows,
+        key=lambda fellow: (-fellow["year"], fellow["_cohort_order"]),
+    )
+
+
+def load_lifetime_achievement_awards(anthology, cohorts, fellows):
+    """Load ACL Lifetime Achievement Award recipients and acceptance speeches."""
+    fellow_photos = {
+        fellow["id"]: {
+            key: fellow[key]
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source")
+            if key in fellow
+        }
+        for fellow in fellows
+    }
+    awards = []
+    seen_ids = set()
+    for year, entries in honor_cohorts(cohorts, "ACL Lifetime Achievement Award"):
+        for cohort_order, entry in enumerate(entries):
+            if not isinstance(entry, dict) or "id" not in entry:
+                log.error(
+                    f"Invalid ACL Lifetime Achievement Award entry in {year}: {entry!r}"
+                )
+                continue
+
+            person_id = entry["id"]
+            if person_id in seen_ids:
+                log.error(
+                    f"Duplicate ACL Lifetime Achievement Award recipient: {person_id}"
+                )
+                continue
+            seen_ids.add(person_id)
+
+            talk_title = entry.get("talk_title")
+            talk_url = entry.get("talk_url")
+            if bool(talk_title) != bool(talk_url):
+                log.error(
+                    f"Incomplete ACL Lifetime Achievement Award talk for {person_id}"
+                )
+                continue
+
+            person = anthology.get_person(person_id)
+            if person is None:
+                log.error(
+                    f"Unknown person ID for ACL Lifetime Achievement Award: {person_id}"
+                )
+                continue
+
+            canonical_name = person.canonical_name
+            publication_counts = author_publications_by_year(person.papers())
+            award = {
+                "_cohort_order": cohort_order,
+                "_publication_counts": publication_counts,
+                "honor": "lifetime-achievement-award",
+                "id": person_id,
+                "initials": "".join(
+                    part[0]
+                    for part in (canonical_name.first, canonical_name.last)
+                    if part
+                ),
+                "name": canonical_name.as_full(),
+                "timeline_available": person.is_explicit
+                and "/unverified" not in person_id,
+                "year": year,
+            }
+            award.update(fellow_photos.get(person_id, {}))
+            for key in (
+                "photo",
+                "photo_alt",
+                "photo_credit",
+                "photo_source",
+                "talk_title",
+                "talk_url",
+                "video_url",
+            ):
+                if value := entry.get(key):
+                    award[key] = value
+            awards.append(award)
+
+    return sorted(
+        awards,
+        key=lambda award: (-award["year"], award["_cohort_order"]),
+    )
+
+
+def load_distinguished_service_awards(anthology, cohorts, fellows):
+    """Load ACL Distinguished Service Award recipients."""
+    fellow_photos = {
+        fellow["id"]: {
+            key: fellow[key]
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source")
+            if key in fellow
+        }
+        for fellow in fellows
+    }
+    awards = []
+    seen_ids = set()
+    for year, entries in honor_cohorts(cohorts, "ACL Distinguished Service Award"):
+        for cohort_order, entry in enumerate(entries):
+            if not isinstance(entry, dict) or "id" not in entry:
+                log.error(
+                    f"Invalid ACL Distinguished Service Award entry in {year}: {entry!r}"
+                )
+                continue
+
+            person_id = entry["id"]
+            if person_id in seen_ids:
+                log.error(
+                    f"Duplicate ACL Distinguished Service Award recipient: {person_id}"
+                )
+                continue
+            seen_ids.add(person_id)
+
+            award_url = entry.get("award_url")
+            if not isinstance(award_url, str) or not award_url.startswith("https://"):
+                log.error(
+                    f"Missing ACL Distinguished Service Award announcement for {person_id}"
+                )
+                continue
+            reason = entry.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                log.error(
+                    f"Missing ACL Distinguished Service Award citation for {person_id}"
+                )
+                continue
+
+            person = anthology.get_person(person_id)
+            if person is None:
+                log.error(
+                    f"Unknown person ID for ACL Distinguished Service Award: {person_id}"
+                )
+                continue
+
+            canonical_name = person.canonical_name
+            publication_counts = author_publications_by_year(person.papers())
+            award_name = (
+                "ACL Dragomir Radev Distinguished Service Award"
+                if year >= 2023
+                else "ACL Distinguished Service Award"
+            )
+            award = {
+                "_cohort_order": cohort_order,
+                "_publication_counts": publication_counts,
+                "award_name": award_name,
+                "award_url": award_url,
+                "honor": "distinguished-service-award",
+                "id": person_id,
+                "initials": "".join(
+                    part[0]
+                    for part in (canonical_name.first, canonical_name.last)
+                    if part
+                ),
+                "name": canonical_name.as_full(),
+                "reason": reason.strip(),
+                "timeline_available": person.is_explicit
+                and "/unverified" not in person_id,
+                "year": year,
+            }
+            award.update(fellow_photos.get(person_id, {}))
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source"):
+                if value := entry.get(key):
+                    award[key] = value
+            awards.append(award)
+
+    return sorted(
+        awards,
+        key=lambda award: (-award["year"], award["_cohort_order"]),
+    )
+
+
 @cache
 def person_to_dict(person_id, ns):
     full_name = ns.name.as_full()
@@ -705,6 +996,99 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
+def fellows_to_dict(anthology, path):
+    """Build the ACL honors data structure consumed by Hugo."""
+    source_data = load_hall_of_fame(path)
+    fellows = load_fellows(anthology, source_data["fellows"]["recipients_by_year"])
+    lifetime_awards = load_lifetime_achievement_awards(
+        anthology,
+        source_data["lifetime_achievement_awards"]["recipients_by_year"],
+        fellows,
+    )
+    service_awards = load_distinguished_service_awards(
+        anthology,
+        source_data["distinguished_service_awards"]["recipients_by_year"],
+        fellows,
+    )
+    for honoree in [*fellows, *lifetime_awards, *service_awards]:
+        counts = honoree.pop("_publication_counts")
+        honoree.pop("_cohort_order")
+        if honoree["timeline_available"]:
+            honoree["publication_decades"] = publication_decades(counts)
+
+    honorees_by_id = {
+        fellow["id"]: {
+            **fellow,
+            "fellow_year": fellow["year"],
+            "_sort_as_lifetime_award": False,
+        }
+        for fellow in fellows
+    }
+    for award in lifetime_awards:
+        if honoree := honorees_by_id.get(award["id"]):
+            honoree["honor"] = "both"
+            honoree["lifetime_achievement_award_year"] = award["year"]
+            for key in ("talk_title", "talk_url", "video_url"):
+                if key in award:
+                    honoree[key] = award[key]
+            if award["year"] >= honoree["year"]:
+                honoree["year"] = award["year"]
+                honoree["_sort_as_lifetime_award"] = True
+        else:
+            honorees_by_id[award["id"]] = {
+                **award,
+                "lifetime_achievement_award_year": award["year"],
+                "_sort_as_lifetime_award": True,
+            }
+
+    for award in service_awards:
+        if honoree := honorees_by_id.get(award["id"]):
+            honoree["distinguished_service_award_name"] = award["award_name"]
+            honoree["distinguished_service_award_reason"] = award["reason"]
+            honoree["distinguished_service_award_year"] = award["year"]
+            honoree["distinguished_service_award_url"] = award["award_url"]
+            if award["year"] > honoree["year"]:
+                honoree["year"] = award["year"]
+        else:
+            honorees_by_id[award["id"]] = {
+                **award,
+                "distinguished_service_award_name": award["award_name"],
+                "distinguished_service_award_reason": award["reason"],
+                "distinguished_service_award_year": award["year"],
+                "distinguished_service_award_url": award["award_url"],
+                "_sort_as_lifetime_award": False,
+            }
+
+    honorees = sorted(
+        honorees_by_id.values(),
+        key=lambda honoree: (
+            -honoree["year"],
+            not honoree["_sort_as_lifetime_award"],
+        ),
+    )
+    for honoree in honorees:
+        honoree.pop("_sort_as_lifetime_award")
+
+    return {
+        "cohorts": sorted({fellow["year"] for fellow in fellows}, reverse=True),
+        "honorees": honorees,
+        "lifetime_achievement_awards": lifetime_awards,
+        "distinguished_service_awards": service_awards,
+        "people": fellows,
+    }
+
+
+def export_fellows(anthology, importdir, builddir, dryrun):
+    print("Exporting ACL honors...")
+    data = fellows_to_dict(
+        anthology,
+        os.path.join(importdir, "json", "hall-of-fame.json"),
+    )
+    if not dryrun:
+        with open(f"{builddir}/data/fellows.json", "wb") as json_file:
+            json_file.write(ENCODER.encode(data))
+
+
 def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
     data = {
         "acronym": venue.acronym,
@@ -864,7 +1248,7 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
-def export_anthology(anthology, builddir, clean=False, dryrun=False):
+def export_anthology(anthology, builddir, importdir=None, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
     to generate the website, as well as build/data-export/volumes/*.bib,
@@ -886,6 +1270,12 @@ def export_anthology(anthology, builddir, clean=False, dryrun=False):
         anthology, builddir, dryrun, paper_count=stats["paper_count"]
     )
     export_people(anthology, builddir, dryrun)
+    export_fellows(
+        anthology,
+        importdir or os.path.join(SCRIPTDIR, "..", "data"),
+        builddir,
+        dryrun,
+    )
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
@@ -917,7 +1307,11 @@ if __name__ == "__main__":
         exit(1)
 
     export_anthology(
-        anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
+        anthology,
+        args["--exportdir"],
+        importdir=args["--importdir"],
+        clean=args["--clean"],
+        dryrun=args["--dry-run"],
     )
     if tracker.highest >= log.ERROR:
         exit(1)
