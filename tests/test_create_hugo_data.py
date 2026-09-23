@@ -28,6 +28,7 @@ from bin.create_hugo_data import (
     homepage_venue_sort_key,
     homepage_stats,
     latest_owned_ingest_date,
+    load_hall_of_fame,
     newly_ingested_years,
     paper_to_dict,
     publication_decades,
@@ -66,10 +67,12 @@ def test_publication_decades_group_years_and_scale_per_author():
 
 
 def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
-    fellows_path = Path(__file__).parent.parent / "data" / "yaml" / "fellows.yaml"
+    hall_of_fame_path = (
+        Path(__file__).parent.parent / "data" / "json" / "hall-of-fame.json"
+    )
     static_path = Path(__file__).parent.parent / "hugo" / "static"
 
-    data = fellows_to_dict(anthology, fellows_path)
+    data = fellows_to_dict(anthology, hall_of_fame_path)
     fellows = data["people"]
 
     assert len(fellows) == 107
@@ -122,20 +125,27 @@ def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):
     )
 
 
-def test_lifetime_achievement_awards_are_complete_and_interspersed(anthology):
-    data_path = Path(__file__).parent.parent / "data" / "yaml"
-    static_path = Path(__file__).parent.parent / "hugo" / "static"
-    data = fellows_to_dict(
-        anthology,
-        data_path / "fellows.yaml",
-        data_path / "lifetime-achievement-awards.yaml",
-        data_path / "distinguished-service-awards.yaml",
+def test_hall_of_fame_awards_are_complete_and_interspersed(anthology):
+    hall_of_fame_path = (
+        Path(__file__).parent.parent / "data" / "json" / "hall-of-fame.json"
     )
+    static_path = Path(__file__).parent.parent / "hugo" / "static"
+    source_data = load_hall_of_fame(hall_of_fame_path)
+    data = fellows_to_dict(anthology, hall_of_fame_path)
     fellows = data["people"]
     awards = data["lifetime_achievement_awards"]
     service_awards = data["distinguished_service_awards"]
     honorees = data["honorees"]
 
+    assert set(source_data) == {
+        "fellows",
+        "lifetime_achievement_awards",
+        "distinguished_service_awards",
+    }
+    assert all(
+        section["source"].startswith("https://") for section in source_data.values()
+    )
+    assert source_data["distinguished_service_awards"]["recipients_by_year"]["2024"] == []
     assert len(fellows) == 107
     assert len(awards) == 24
     assert len(service_awards) == 6

@@ -49,7 +49,6 @@ from rich.progress import (
     TimeRemainingColumn,
 )
 import shutil
-import yaml
 import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
@@ -148,18 +147,35 @@ def publication_decades(counts):
     ]
 
 
-def load_fellows(anthology, path):
-    """Load ACL Fellows and enrich them with data from their author pages."""
-    with open(path, encoding="utf-8") as yaml_file:
-        cohorts = yaml.safe_load(yaml_file)
+def load_hall_of_fame(path):
+    """Load the consolidated ACL honors source data."""
+    with open(path, "rb") as json_file:
+        return msgspec.json.decode(json_file.read())
 
+
+def honor_cohorts(cohorts, honor_name):
+    """Yield validated integer years and recipient lists from JSON data."""
+    if not isinstance(cohorts, dict):
+        log.error(f"Invalid {honor_name} data: expected an object")
+        return
+
+    for year_value, entries in cohorts.items():
+        try:
+            year = int(year_value)
+        except (TypeError, ValueError):
+            log.error(f"Invalid {honor_name} cohort: {year_value!r}")
+            continue
+        if not isinstance(entries, list):
+            log.error(f"Invalid {honor_name} cohort: {year_value!r}")
+            continue
+        yield year, entries
+
+
+def load_fellows(anthology, cohorts):
+    """Load ACL Fellows and enrich them with data from their author pages."""
     fellows = []
     seen_ids = set()
-    for year, entries in cohorts.items():
-        if not isinstance(year, int) or not isinstance(entries, list):
-            log.error(f"Invalid ACL Fellows cohort: {year!r}")
-            continue
-
+    for year, entries in honor_cohorts(cohorts, "ACL Fellows"):
         for cohort_order, entry in enumerate(entries):
             if isinstance(entry, str):
                 person_id = entry
@@ -223,11 +239,8 @@ def load_fellows(anthology, path):
     )
 
 
-def load_lifetime_achievement_awards(anthology, path, fellows):
+def load_lifetime_achievement_awards(anthology, cohorts, fellows):
     """Load ACL Lifetime Achievement Award recipients and acceptance speeches."""
-    with open(path, encoding="utf-8") as yaml_file:
-        cohorts = yaml.safe_load(yaml_file)
-
     fellow_photos = {
         fellow["id"]: {
             key: fellow[key]
@@ -238,11 +251,7 @@ def load_lifetime_achievement_awards(anthology, path, fellows):
     }
     awards = []
     seen_ids = set()
-    for year, entries in cohorts.items():
-        if not isinstance(year, int) or not isinstance(entries, list):
-            log.error(f"Invalid ACL Lifetime Achievement Award cohort: {year!r}")
-            continue
-
+    for year, entries in honor_cohorts(cohorts, "ACL Lifetime Achievement Award"):
         for cohort_order, entry in enumerate(entries):
             if not isinstance(entry, dict) or "id" not in entry:
                 log.error(
@@ -310,11 +319,8 @@ def load_lifetime_achievement_awards(anthology, path, fellows):
     )
 
 
-def load_distinguished_service_awards(anthology, path, fellows):
+def load_distinguished_service_awards(anthology, cohorts, fellows):
     """Load ACL Distinguished Service Award recipients."""
-    with open(path, encoding="utf-8") as yaml_file:
-        cohorts = yaml.safe_load(yaml_file)
-
     fellow_photos = {
         fellow["id"]: {
             key: fellow[key]
@@ -325,11 +331,7 @@ def load_distinguished_service_awards(anthology, path, fellows):
     }
     awards = []
     seen_ids = set()
-    for year, entries in cohorts.items():
-        if not isinstance(year, int) or not isinstance(entries, list):
-            log.error(f"Invalid ACL Distinguished Service Award cohort: {year!r}")
-            continue
-
+    for year, entries in honor_cohorts(cohorts, "ACL Distinguished Service Award"):
         for cohort_order, entry in enumerate(entries):
             if not isinstance(entry, dict) or "id" not in entry:
                 log.error(
@@ -991,25 +993,19 @@ def export_people(anthology, builddir, dryrun):
             progress.update(task, advance=100)
 
 
-def fellows_to_dict(
-    anthology,
-    path,
-    lifetime_awards_path=None,
-    distinguished_service_awards_path=None,
-):
+def fellows_to_dict(anthology, path):
     """Build the ACL honors data structure consumed by Hugo."""
-    fellows = load_fellows(anthology, path)
-    lifetime_awards = (
-        load_lifetime_achievement_awards(anthology, lifetime_awards_path, fellows)
-        if lifetime_awards_path
-        else []
+    source_data = load_hall_of_fame(path)
+    fellows = load_fellows(anthology, source_data["fellows"]["recipients_by_year"])
+    lifetime_awards = load_lifetime_achievement_awards(
+        anthology,
+        source_data["lifetime_achievement_awards"]["recipients_by_year"],
+        fellows,
     )
-    service_awards = (
-        load_distinguished_service_awards(
-            anthology, distinguished_service_awards_path, fellows
-        )
-        if distinguished_service_awards_path
-        else []
+    service_awards = load_distinguished_service_awards(
+        anthology,
+        source_data["distinguished_service_awards"]["recipients_by_year"],
+        fellows,
     )
     for honoree in [*fellows, *lifetime_awards, *service_awards]:
         counts = honoree.pop("_publication_counts")
@@ -1083,9 +1079,7 @@ def export_fellows(anthology, importdir, builddir, dryrun):
     print("Exporting ACL honors...")
     data = fellows_to_dict(
         anthology,
-        os.path.join(importdir, "yaml", "fellows.yaml"),
-        os.path.join(importdir, "yaml", "lifetime-achievement-awards.yaml"),
-        os.path.join(importdir, "yaml", "distinguished-service-awards.yaml"),
+        os.path.join(importdir, "json", "hall-of-fame.json"),
     )
     if not dryrun:
         with open(f"{builddir}/data/fellows.json", "wb") as json_file:
