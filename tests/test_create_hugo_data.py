@@ -18,6 +18,7 @@ from bin.create_hugo_data import (
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
     build_author_search_index,
+    awarded_paper_ids,
     compute_author_stats,
     compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
@@ -64,6 +65,17 @@ def test_publication_decades_group_years_and_scale_per_author():
         2004: 4,
         **dict.fromkeys(range(2005, 2010), 0),
     }
+
+
+def test_awarded_paper_ids_filters_unawarded_papers():
+    papers = [
+        SimpleNamespace(full_id="2025.test.1", awards=()),
+        SimpleNamespace(full_id="2025.test.2", awards=(SimpleNamespace(),)),
+        SimpleNamespace(full_id="2025.test.3", awards=()),
+        SimpleNamespace(full_id="2025.test.4", awards=(SimpleNamespace(),)),
+    ]
+
+    assert awarded_paper_ids(papers) == ["2025.test.2", "2025.test.4"]
 
 
 def test_acl_fellows_are_complete_resolved_and_have_timelines(anthology):

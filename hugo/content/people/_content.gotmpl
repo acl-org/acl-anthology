@@ -8,7 +8,7 @@
       "title" $person.full
    }}
    {{ $.AddPage $page }}
-   {{ if where hugo.Data.fellows.honorees "id" $person_id }}
+   {{ if or (where hugo.Data.fellows.honorees "id" $person_id) $person.award_papers }}
       {{ $awards_page := dict
          "kind" "page"
          "layout" "awards"
