@@ -25,11 +25,11 @@ jobs:
       version: ${{ steps.find-pypi-version.outputs.version }}
       is-new: ${{ steps.check-for-version-tag.outputs.is-new }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0   # need tag history to compare against
 
-      - uses: astral-sh/setup-uv@v9.0.0
+      - uses: astral-sh/setup-uv@v10.1.0
         with:
           python-version: 3.14
           ignore-nothing-to-cache: true
@@ -63,7 +63,7 @@ jobs:
       - name: Post or update release notice
         if: github.event_name == 'pull_request' && steps.check-for-version-tag.outputs.is-new == 'true'
         continue-on-error: true
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const version = "${{ steps.find-pypi-version.outputs.version }}";
@@ -106,9 +106,9 @@ jobs:
       id-token: write   # required for trusted publishing
       contents: write   # for pushing a new tag
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v9.0.0
+      - uses: astral-sh/setup-uv@v10.1.0
         with:
           python-version: 3.14
 

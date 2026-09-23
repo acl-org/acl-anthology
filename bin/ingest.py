@@ -268,10 +268,11 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
 # observed split points (i.e. the number of whitespace-delimited tokens in the
 # first name) seen in the existing Anthology data. Populated once in main() and
 # used by resegment_name() to align ingested name splits with existing ones.
-_name_split_index: Optional[Dict[Tuple[str, int], set]] = None
+NameSplitIndex = Dict[Tuple[str, int], set[int]]
+_name_split_index: Optional[NameSplitIndex] = None
 
 
-def build_name_split_index(anthology: Anthology) -> Dict[Tuple[str, int], set]:
+def build_name_split_index(anthology: Anthology) -> NameSplitIndex:
     """Builds an index of how multi-token names are split into first/last in the
     existing Anthology data.
 
@@ -290,7 +291,7 @@ def build_name_split_index(anthology: Anthology) -> Dict[Tuple[str, int], set]:
     Returns:
         The index, which can be assigned to the module-level ``_name_split_index``.
     """
-    index: Dict[Tuple[str, int], set] = defaultdict(set)
+    index: NameSplitIndex = defaultdict(set)
     for name in anthology.people.by_name:
         # Only Latin-script, multi-token names have an ambiguous split point.
         if not name.first or name.script is not None:
@@ -302,7 +303,7 @@ def build_name_split_index(anthology: Anthology) -> Dict[Tuple[str, int], set]:
     return index
 
 
-def resegment_name(name: Name) -> Name:
+def resegment_name(name: Name, name_split_index: Optional[NameSplitIndex] = None) -> Name:
     """Re-splits a name's first/last segmentation to match an existing name in
     the Anthology, if one with the same full form but a different split exists.
 
@@ -311,13 +312,14 @@ def resegment_name(name: Name) -> Name:
     ambiguity). The spelling and casing of the name are preserved; only the
     boundary between first and last name may change.
     """
-    if _name_split_index is None or not name.first or name.script is not None:
+    split_index = _name_split_index if name_split_index is None else name_split_index
+    if split_index is None or not name.first or name.script is not None:
         return name
     full = name.as_first_last()
     num_spaces = full.count(" ")
     if num_spaces < 2:
         return name
-    existing_split_points = _name_split_index.get((name.slugify(), num_spaces))
+    existing_split_points = split_index.get((name.slugify(), num_spaces))
     if not existing_split_points:
         return name
     current_split_point = len(name.first.split())

@@ -53,7 +53,7 @@ jobs:
         rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
         echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
     - name: install uv
-      uses: astral-sh/setup-uv@v9.0.0
+      uses: astral-sh/setup-uv@v10.1.0
     - name: update
       run: sudo apt-get update
     - name: install other deps
@@ -104,7 +104,7 @@ jobs:
         HUGO_PARAMS_PREVIEWPRURL: ${{ github.event.pull_request.html_url }}
       run: |
         make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
-    - uses: mshick/add-pr-comment@v2
+    - uses: mshick/add-pr-comment@v3
       with:
         # this causes pushes to update the old message, instead of generating a new one
         message-id: preview
@@ -117,7 +117,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         allow-repeats: false
     - name: Notify ingestion reviewers of preview
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         script: |
           const pr = context.payload.pull_request;
