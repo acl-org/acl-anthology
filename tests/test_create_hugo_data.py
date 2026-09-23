@@ -243,9 +243,7 @@ def test_hall_of_fame_awards_are_complete_and_interspersed(anthology):
         == award["year"]
         for award in service_awards
     )
-    min_yen_kan = next(
-        award for award in service_awards if award["id"] == "min-yen-kan"
-    )
+    min_yen_kan = next(award for award in service_awards if award["id"] == "min-yen-kan")
     assert min_yen_kan["photo"] == "images/fellows/min-yen-kan.webp"
     assert min_yen_kan["photo_source"] == "https://www.comp.nus.edu.sg/~kanmy/"
     with Image.open(static_path / min_yen_kan["photo"]) as photo:
