@@ -30,6 +30,7 @@ from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
     AnthologyInvalidIDError,
+    MaintainerWarning,
     NameSpecResolutionError,
     NameSpecResolutionWarning,
     PersonDefinitionError,
@@ -261,7 +262,7 @@ class PersonIndex(SlottedDict[Person]):
             if self.data[slug].orcid is None:
                 # ...but existing person is verified without an ORCID -> warn
                 warnings.warn(
-                    UserWarning(
+                    MaintainerWarning(
                         f"Generating new person ID '{pid}', but '{slug}' exists and has no ORCID -> same person?",
                     )
                 )

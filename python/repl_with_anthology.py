@@ -45,8 +45,10 @@ _ = traceback.install()
 del _
 
 from acl_anthology import Anthology
+from acl_anthology.exceptions import enable_maintainer_warnings
 from acl_anthology.utils.logging import setup_rich_logging
 
 setup_rich_logging(level="INFO")
+enable_maintainer_warnings()
 anthology = Anthology.from_within_repo()
 print(f">>> anthology = {anthology}")
