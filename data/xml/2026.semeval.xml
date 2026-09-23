@@ -137,12 +137,12 @@
     <paper id="9">
       <!-- https://aclanthology.org/2026.semeval-1.9/ -->
       <title><fixed-case>LAFED</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: Language-Agnostic Feature Engineering for Cross-Lingual <fixed-case>AI</fixed-case>-Generated Code Detection</title>
-      <author id="juan-villate-lemus" orcid="0009-0007-5777-8808"><first>Juan</first><last>Villate Lemus</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="juan-david-villate" orcid="0009-0007-5777-8808"><first>Juan David</first><last>Villate</last><affiliation>Independent Researcher</affiliation></author>
       <pages>59-64</pages>
       <abstract>Robust detection of AI-generated source code across programming languages remains challenging due to language-specific cues and train–test distribution shifts. We present LAFED (Language-Agnostic Feature Engineering Detector), a feature-engineering approach trained on {Python, Java, C++} and evaluated on a multilingual test set that includes unseen languages {C, C#, Go, JavaScript, PHP}. LAFED combines (i) structural skeletal features (indentation, control-flow density, and approximations of McCabe/Halstead complexity), (ii) character and whitespace statistics inspired by stylometry, and (iii) micro-style patterns (operator spacing, blank lines, indentation consistency). Using XGBoost (Chen and Guestrin, 2016) with Optuna hyperparameter search (Akiba et al., 2019), our best model achieves macro-F1=0.7570 on a 1,000-sample test set; the official submission obtains macro-F1=0.75209 (5th place in Subtask A). Per-language analysis shows strong transfer to C# (0.7753) and JavaScript (0.7683), but weaker performance on Go (0.6400) and PHP (0.5238).</abstract>
       <pdf hash="996fef5e"/>
       <attachment hash="97aac029" type="SupplementaryMaterial">2026.semeval-1.9.SupplementaryMaterial.zip</attachment>
-      <bibkey>villate-lemus-2026-lafed</bibkey>
+      <bibkey>villate-2026-lafed</bibkey>
       <doi>10.18653/v1/2026.semeval-1.9</doi>
     </paper>
     <paper id="10">
@@ -519,7 +519,7 @@
     </paper>
     <paper id="39">
       <!-- https://aclanthology.org/2026.semeval-1.39/ -->
-      <title><fixed-case>C</fixed-case>ode<fixed-case>H</fixed-case>unters at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: Detecting Machine-Generated Code with Multiple Programming Languages, Generators, and Application Scenarios</title>
+      <title><fixed-case>C</fixed-case>ode<fixed-case>H</fixed-case>unters at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13: Detecting Machine-Generated Code by Using Different Transformer Models</title>
       <author><first>Daniel-Antoniu</first><last>Dumitru</last><affiliation>Faculty of Computer Science, Alexandru Ioan Cuza University of Iași, Romania</affiliation></author>
       <author><first>Simina</first><last>Lazăr</last><affiliation>Faculty of Computer Science, Alexandru Ioan Cuza University of Iași, Romania</affiliation></author>
       <author><first>Nicoleta</first><last>Danilă (amargheoalei)</last><affiliation>Faculty of Computer Science, Alexandru Ioan Cuza University of Iași, Romania</affiliation></author>
@@ -782,9 +782,9 @@
       <author><first>Trung Kiet</first><last>Huynh</last><affiliation>University of Science, VNU-HCM</affiliation></author>
       <author><first>Phu Quy</first><last>Nguyen Lam</last><affiliation>University of Science, VNU-HCM</affiliation></author>
       <author><first>Phu Hoa</first><last>Pham</last><affiliation>University of Science, VNU-HCM</affiliation></author>
-      <pages>409-417</pages>
+      <pages>409-416</pages>
       <abstract>This paper presents our system developed for SemEval-2026 Task 12: Abductive Event Reasoning (AER). The shared task aims at identifying the most plausible cause of a real-world event from multiple-choice options, given retrieved documents as evidence. In this work, we propose using hybrid retrieval that combines BM25 keyword matching with dense semantic search to capture explicit causal keywords. Moreover, we apply extended LoRA fine-tuning that trains both attention and MLP layers of a 32-billion parameter language model with only 0.81% trainable parameters. For final refinement, we perform development set fine-tuning to leverage validation data before inference. We achieve a tie for fifth place in the shared task: our system achieves a score of 0.90 on the official test set evaluation, ranking tied for fifth among participating teams and representing a +0.27 improvement over our baseline.</abstract>
-      <pdf hash="148c190c"/>
+      <pdf hash="46403a0b"/>
       <bibkey>dao-sy-etal-2026-hcmus-repeatedgames</bibkey>
       <doi>10.18653/v1/2026.semeval-1.59</doi>
     </paper>
@@ -1245,7 +1245,7 @@
       <author><first>Phu Quy</first><last>Nguyen Lam</last><affiliation>University of Science, VNU-HCM</affiliation></author>
       <pages>658-663</pages>
       <abstract>This paper describes our system for SemEval-2026 Task 11, Subtask 1: binary classification of syllogistic validity in English. The main challenge is the content effect, where language models confuse formal logical validity with how plausible the argument sounds. We propose three techniques that work together to separate logical form from semantic content: (1) Structure-Disentangled Prompting (SDP), which breaks syllogisms into premise-conclusion triples and uses a logic-first instruction template; (2) Asymmetric Counterfactual Debiasing (ACD), a data augmentation method that only generates valid-to-invalid counterfactual pairs, taking advantage of an asymmetry in validity composition to avoid label noise; and (3) Rank-Sensitive Logical Invariance Adaptation (RLIA), where we find that low-rank QLoRA adapters cannot simultaneously learn classification and suppress content-correlated shortcuts, and solve this by increasing adapter rank. Built on Qwen2.5-14B-Instruct, our system achieved a perfect Combined Score of 100.0 on the SemEval-2026 Task 11 Subtask 1 benchmark.</abstract>
-      <pdf hash="4e7e53d4"/>
+      <pdf hash="780a3d0c"/>
       <bibkey>tran-etal-2026-hcmusdroneboys</bibkey>
       <doi>10.18653/v1/2026.semeval-1.95</doi>
     </paper>
@@ -1422,13 +1422,14 @@
     </paper>
     <paper id="110">
       <!-- https://aclanthology.org/2026.semeval-1.110/ -->
-      <title><fixed-case>BAHAHA</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 1: Benchmarking-Aware Humor Authoring with Hybrid Assessment and Adaptation</title>
+      <title><fixed-case>BAHAHA</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 1: Multi-Style Humor Generation via Comedian-Inspired Prompting and <fixed-case>LLM</fixed-case> Self-Assessment</title>
       <author><first>Utsav</first><last>Arora</last><affiliation>Purdue University</affiliation></author>
+      <author><first>Michael Olaolu</first><last>Arowolo</last></author>
       <author><first>Andrew</first><last>Hoblitzell</last><affiliation>Purdue University</affiliation></author>
       <pages>785-792</pages>
       <abstract>This paper describes the BAHAHA system for SemEval-2026 Task 1: MWAHAHA, which requires generating original jokes given either a news headline or a pair of rare words. Our approach uses a generate-then-rank pipeline, combining multi-style candidate generation via comedian-inspired few-shot prompting. We perform quality assessment from a smaller model fine-tuned on synthetic rating data from the generation model. Specifically, we produce up to 50 candidates per input across 15 stylistic templates and select outputs through a mixed-initiative interface that combines automated ranking with human judgment. There were 305 participants and 180 submissions in the contest. Our system ranks 2nd on Subtask A Chinese and 5th on Subtasks B1 and B2. The system generates jokes natively in each language rather than through translation.</abstract>
       <pdf hash="98ebe8cb"/>
-      <bibkey>arora-hoblitzell-2026-bahaha</bibkey>
+      <bibkey>arora-etal-2026-bahaha</bibkey>
       <doi>10.18653/v1/2026.semeval-1.110</doi>
     </paper>
     <paper id="111">
@@ -1480,14 +1481,14 @@
     </paper>
     <paper id="115">
       <!-- https://aclanthology.org/2026.semeval-1.115/ -->
-      <title><fixed-case>JCT</fixed-case> 2026 - <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val Task 5</title>
+      <title>Team <fixed-case>JCT</fixed-case> 2026 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: <fixed-case>A</fixed-case>mbi<fixed-case>S</fixed-case>tory Navigating Narrative Consistency through a Hybrid <fixed-case>LLM</fixed-case>-<fixed-case>NLI</fixed-case> Ensemble</title>
       <author><first>Chava</first><last>Laufer</last><affiliation>JCT</affiliation></author>
       <author><first>Batel</first><last>Turjeman</last><affiliation>batel</affiliation></author>
       <author><first>Chaya</first><last>Liebeskind</last><affiliation>Jerusalem College of Technology , Lev Academic Center</affiliation></author>
       <pages>826-831</pages>
       <abstract>The system integrates a generative Large Language Model (Llama-3 8B, fine-tuned via LoRA) with a dual-expert bidirectional cross-encoder (DeBERTa-v3-large) optimized for both semantic similarity and Natural Language Inference (NLI). By aggregating these complementary models, the system effectively captures complex contextual dependencies. In the official test set, our architecture ranked 22nd out of 79 systems, achieving a Spearman Rank Correlation of 0.71 and an accuracy within the standard deviation of 82.04%.</abstract>
       <pdf hash="f9397c38"/>
-      <bibkey>laufer-etal-2026-jct</bibkey>
+      <bibkey>laufer-etal-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.115</doi>
     </paper>
     <paper id="116">
@@ -1840,15 +1841,15 @@
     </paper>
     <paper id="142">
       <!-- https://aclanthology.org/2026.semeval-1.142/ -->
-      <title>king001 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 7: Cross-Language Cultural Everyday Knowledge <fixed-case>QA</fixed-case> System Based on <fixed-case>RAG</fixed-case></title>
+      <title>king001 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 7: Cross-Language Cultural Everyday Knowledge <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case> System Based on <fixed-case>RAG</fixed-case></title>
       <author><first>Meizhi</first><last>Jin</last><affiliation>MeiZhi Jin</affiliation></author>
       <author><first>Zhichao</first><last>Meng</last><affiliation>PA</affiliation></author>
       <author><first>Junqi</first><last>Yin</last><affiliation>PA</affiliation></author>
       <author><first>Lianxin</first><last>Jiang</last><affiliation>PA</affiliation></author>
       <author><first>Jianyu</first><last>Li</last><affiliation>PA</affiliation></author>
-      <pages>1032-1049</pages>
-      <abstract>This paper describes our system used in the SemEval-2026 Task 7: Cross-Language Cultural Everyday Knowledge QA (track 1). Cultural knowledge typically exhibits significant regional specificity and is deeply rooted in particular linguistic conventions, posing severe challenges to general-purpose large language models (LLMs). We propose a retrieval-augmented generation (RAG) framework: this framework utilizes text-embedding-v4 as the retrieval core to precisely extract social knowledge and expression patterns from region-specific large-scale multilingual cultural knowledge bases, and drives the gpt-5.2-chat model to generate concise answers that are both logically factual and highly aligned with the target region’s cultural context. In the official evaluation, our system ranked first among all participating teams with a total score of 78.7672, fully demonstrating the method’s outstanding performance in cross-cultural accuracy and linguistic authenticity.</abstract>
-      <pdf hash="62fa4d53"/>
+      <pages>1032-1037</pages>
+      <abstract>This paper describes our system used in the SemEval-2026 Task 7: Cross-Language Cultural Everyday Knowledge QA (track 1)(Ousidhoum et al., 2026). Cultural knowledge typically exhibits significant regional specificity and is deeply rooted in particular linguistic conventions, posing severe challenges to general-purpose large language models (LLMs). We propose a retrieval-augmented generation (RAG) framework (Lewis et al., 2020): this framework utilizes text-embedding-v4 as the retrieval core to precisely extract social knowledge and expression patterns from region-specific large-scale multilingual cultural knowledge bases, and drives the gpt-5.2-chat model to generate concise answers that are both logically factual and highly aligned with the target region’s cultural context. In the official evaluation, our system ranked first among all participating teams with a total score of 78.7672, fully demonstrating the method’s outstanding performance in cross-cultural accuracy and linguistic authenticity.</abstract>
+      <pdf hash="726e202c"/>
       <bibkey>jin-etal-2026-king001</bibkey>
       <doi>10.18653/v1/2026.semeval-1.142</doi>
     </paper>
@@ -1881,7 +1882,7 @@
     </paper>
     <paper id="145">
       <!-- https://aclanthology.org/2026.semeval-1.145/ -->
-      <title><fixed-case>IITK</fixed-case>an<fixed-case>BD</fixed-case>one at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: <fixed-case>MTRAGE</fixed-case>val - Evaluating Multi-Turn <fixed-case>RAG</fixed-case> Conversations</title>
+      <title><fixed-case>IITK</fixed-case>an<fixed-case>BD</fixed-case>one at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: <fixed-case>ELSER</fixed-case>-Based Sparse Retrieval with Mistral-7<fixed-case>B</fixed-case> for Multi-Turn <fixed-case>RAG</fixed-case> Evaluation</title>
       <author><first>Soumendra</first><last>Ray</last><affiliation>Indian Institute of Technology, Kanpur</affiliation></author>
       <author><first>Garima</first><last>Gupta</last><affiliation>IIT Kanpur</affiliation></author>
       <pages>1063-1067</pages>
@@ -2272,7 +2273,7 @@
     </paper>
     <paper id="175">
       <!-- https://aclanthology.org/2026.semeval-1.175/ -->
-      <title><fixed-case>AILS</fixed-case>-<fixed-case>NTUA</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: Evaluating Multi-Turn <fixed-case>RAG</fixed-case> Conversations</title>
+      <title><fixed-case>AILS</fixed-case>-<fixed-case>NTUA</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 8: Query Diversity via Nested Reciprocal Rank Fusion and Evidence-Guided Agentic Generation for Multi-Turn <fixed-case>RAG</fixed-case></title>
       <author><first>Dimosthenis</first><last>Athanasiou</last><affiliation>National Technical University of Athens</affiliation></author>
       <author id="maria-lymperaiou" orcid="0000-0001-9442-4186"><first>Maria</first><last>Lymperaiou</last><affiliation>National Technical University of Athens</affiliation></author>
       <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
@@ -2835,7 +2836,7 @@
     </paper>
     <paper id="218">
       <!-- https://aclanthology.org/2026.semeval-1.218/ -->
-      <title><fixed-case>H</fixed-case>ausa<fixed-case>NLP</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 7: Prompt-based <fixed-case>H</fixed-case>ausa Cultural Question Answering</title>
+      <title><fixed-case>H</fixed-case>ausa<fixed-case>NLP</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 7: A Locale-Conditional, Multi-Model Prompting Pipeline for <fixed-case>H</fixed-case>ausa Cultural Question Answering</title>
       <author id="faisal-muhammad-adam" orcid="0009-0004-7521-0827"><first>Faisal</first><last>Adam</last><affiliation>National Open University of Nigeria</affiliation></author>
       <author><first>Lukman</first><last>Aliyu</last><affiliation>HausaNLP</affiliation></author>
       <author id="sani-aji" orcid="0000-0001-8745-2517"><first>Sani</first><last>Aji</last><affiliation>Gombe State University, Nigeria</affiliation></author>
@@ -3255,13 +3256,13 @@
     <paper id="249">
       <!-- https://aclanthology.org/2026.semeval-1.249/ -->
       <title>Team <fixed-case>YTY</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val 2026 task 12: Option-Aware Retrieval and Cross-Encoder Reasoning Framework for Abductive Event Reasoning</title>
-      <author><first>Junxin</first><last>Lin</last><affiliation>linjx03123@outlook.com</affiliation></author>
-      <author><first>Zhichao</first><last>Meng</last><affiliation>EX-MENGZHICHAO001@pingan.com.cn</affiliation></author>
-      <author><first>Lianxin</first><last>Jiang</last><affiliation>JIANGLIANXIN769@pingan.com.cn</affiliation></author>
+      <author><first>Younghee</first><last>Jeong</last></author>
+      <author><first>Yixin</first><last>Zhao</last></author>
+      <author><first>Hoang Bao Trung</first><last>Le</last></author>
       <pages>1979-1987</pages>
-      <abstract>We describe a unified system for SemEval-2026 Task 9 on multilingual polarization detection. The task requires binary polarization detection, multi-label target type classification, and multi-label manifestation identification across languages and events with severe class imbalance. Our approach combines (i) targeted data augmentation for low-frequency labels, (ii) merged multitask fine-tuning of Subtask 2 and Subtask 3, and (iii) model fusion to improve cross-lingual stability. Subtask 1 predictions are derived via calibrated inference from the multi-label head. On the development set, multitask training consistently out-performs single-task variants, and fusion yields additional gains, especially for rare labels. We also report ablations and error analyses, highlighting remaining challenges such as implicit polarization and partial-label uncertainty.</abstract>
+      <abstract>Abductive reasoning—the capacity to infer the most plausible explanation from incomplete or noisy observations—remains a significant hurdle for language models that often rely on simple associative patterns. In this paper, we present our framework for the SemEval 2026 Task 12. We propose an Option-Aware Retrieval and Cross-Encoder Reasoning Framework designed to bridge the gap between evidence acquisition and causal inference. Our architecture utilizes a dual-track retrieval strategy that gathers both global background and option-specific evidence, ensuring high recall of decisive clues. This is coupled with a 4-pass independent cross-encoder validation using DeBERTa-v3-large, which isolates individual hypotheses to prevent attention dispersion. Experimental results on the official dataset show that our system achieves a robust test score of 0.8358.</abstract>
       <pdf hash="7e7e6398"/>
-      <bibkey>lin-etal-2026-team</bibkey>
+      <bibkey>jeong-etal-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.249</doi>
     </paper>
     <paper id="250">
@@ -3375,16 +3376,6 @@
       <attachment hash="db55fb75" type="SupplementaryMaterial">2026.semeval-1.258.SupplementaryMaterial.zip</attachment>
       <bibkey>marogel-popescu-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.258</doi>
-    </paper>
-    <paper id="259">
-      <!-- https://aclanthology.org/2026.semeval-1.259/ -->
-      <title><fixed-case>AGAI</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 10: Enhancing Conspiracy Detection via Instruction-tuned <fixed-case>LLM</fixed-case>s</title>
-      <author><first>Xiandong</first><last>Ran</last><affiliation>appgallery.ai</affiliation></author>
-      <pages>2065-2069</pages>
-      <abstract>This paper presents our solution for subtask2, which focuses on the automated detection of conspiracy in text. Unlike traditional toxic text detection, conspiracy identification is particularly challenging as it often lacks explicit semantic indicators. To address this, we leveraged a Large Language Model (LLM) as our backbone and employed Low-Rank Adaptation (LoRA) for fine-tuning to enhance detection performance. To generate probabilistic confidence scores while maintaining the generative capabilities of the LLM, we implemented a hybrid loss function that integrates both generative and token classification losses. Additionally, semi-supervised learning with unlabeled data was incorporated to further refine classification accuracy. Our approach achieved a test accuracy of 0.87, ranking 2nd in both stages of the competition leaderboard.</abstract>
-      <pdf hash="29e75a19"/>
-      <bibkey>ran-2026-agai</bibkey>
-      <doi>10.18653/v1/2026.semeval-1.259</doi>
     </paper>
     <paper id="260">
       <!-- https://aclanthology.org/2026.semeval-1.260/ -->
@@ -3629,8 +3620,8 @@
       <author><first>Le Ngoc</first><last>Toan</last><affiliation>University of Science (VNU-HUS)</affiliation></author>
       <author id="ha-linh" orcid="0000-0003-4719-2014"><first>Ha</first><last>Linh</last><affiliation>VNU University of Science</affiliation></author>
       <pages>2200-2208</pages>
-      <abstract>Dimensional Aspect-Based Sentiment Analysis (DimABSA) extends traditional ABSA by predicting continuous sentiment intensity in the Valence-Arousal space. To tackle the regression subtasks (DimASR and DimStance), we propose a Dual-Stream Syntax-Aware architecture synergizing contextual semantics with a Deep Syntax-Guided Graph Convolutional Network (GCN). It utilizes a Context-Aware Anchor for semantic filtering and post-norm residuals to prevent oversmoothing. For generative extraction, we apply Direct Preference Optimization (DPO) via a resource-efficient, heuristic-based data perturbation strategy to construct preference pairs without costly LLMs. Across multilingual settings, our regression model achieves top-5 rankings in nine domains and obtains the best result on the Chinese-Finance dataset. Empirical analysis shows that explicit syntactic modeling consistently improves continuous sentiment regression, while DPO provides modest but stable gains for boundary-constrained extraction.</abstract>
-      <pdf hash="5202ba57"/>
+      <abstract>Dimensional Aspect-Based Sentiment Analysis (DimABSA) extends traditional ABSA by predicting continuous sentiment intensity in the Valence-Arousal space. To tackle the regression subtasks (DimASR and DimStance), we propose a Dual-Stream Syntax-Aware architecture synergizing contextual semantics with a Deep Syntax-Guided Graph Convolutional Network (GCN). It utilizes a Context-Aware Anchor for semantic filtering and post-norm residuals to prevent oversmoothing. For generative extraction, we apply Direct Preference Optimization (DPO) via a resource-efficient, heuristic-based data perturbation strategy to construct preference pairs without costly LLMs. Across multilingual settings, our regression model achieves top-5 rankings in nine domains and obtains the best result on the Chinese-Finance dataset. Empirical analysis shows that explicit syntactic modeling consistently improves continuous sentiment regression, while DPO provides modest but stable gains for boundary-constrained extraction. Our source code is publicly available in our GitHub repository.</abstract>
+      <pdf hash="c142375e"/>
       <bibkey>cao-etal-2026-hus</bibkey>
       <doi>10.18653/v1/2026.semeval-1.278</doi>
     </paper>
@@ -4342,7 +4333,7 @@
     </paper>
     <paper id="333">
       <!-- https://aclanthology.org/2026.semeval-1.333/ -->
-      <title><fixed-case>UPR</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Multi-Label Classification of Polarization Across Social Dimensions and Manifestation Identification in <fixed-case>U</fixed-case>rdu</title>
+      <title><fixed-case>UPR</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 9: Multi-Label Polarization and Manifestation Detection in <fixed-case>U</fixed-case>rdu</title>
       <author><first>Mtayyaba</first><last>Shahzad</last><affiliation>University of Poonch Rawalakot</affiliation></author>
       <author><first>Inzmam</first><last>Khadam</last><affiliation>University of Poonch Rawalakot</affiliation></author>
       <author><first>Zaufishan</first><last>Mahmood</last><affiliation>University of Poonch Rawalakot</affiliation></author>
@@ -4383,7 +4374,7 @@
     </paper>
     <paper id="336">
       <!-- https://aclanthology.org/2026.semeval-1.336/ -->
-      <title><fixed-case>M</fixed-case>ood<fixed-case>M</fixed-case>etric at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 4:Narrative Story Similarity and Narrative Representation Learning</title>
+      <title><fixed-case>M</fixed-case>ood<fixed-case>M</fixed-case>etric at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 4: Dense Transformer Networks for Narrative Story Similarity and Representation</title>
       <author><first>Samanvitha</first><last>Bolisetty</last><affiliation>Student</affiliation></author>
       <author><first>Shreya</first><last>Ashar</last><affiliation>Sardar Vallabhbhai National Institute of Technology</affiliation></author>
       <author><first>Nishchay</first><last>Mittal</last><affiliation>Sardar Vallabhbhai National Institute of Technology (SVNIT)</affiliation></author>
@@ -4465,7 +4456,7 @@
     </paper>
     <paper id="342">
       <!-- https://aclanthology.org/2026.semeval-1.342/ -->
-      <title><fixed-case>GUNLP</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 10: Psycholinguistic Conspiracy Marker Extraction and Detection (<fixed-case>P</fixed-case>sy<fixed-case>C</fixed-case>o<fixed-case>M</fixed-case>ark)</title>
+      <title><fixed-case>GUNLP</fixed-case> at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 10: Emotion-Aware Multi-Task Learning for Conspiracy Detection</title>
       <author><first>Rojin</first><last>Ziaei</last><affiliation>Georgetown University</affiliation></author>
       <author><first>Mahsa</first><last>Khoshnoodi</last><affiliation>Georgetown University</affiliation></author>
       <author id="nazli-goharian" orcid="0000-0002-6349-5237"><first>Nazli</first><last>Goharian</last><affiliation>Georgetown University</affiliation></author>
@@ -5056,12 +5047,12 @@
     </paper>
     <paper id="388">
       <!-- https://aclanthology.org/2026.semeval-1.388/ -->
-      <title>Tifin <fixed-case>I</fixed-case>ndia at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: Semantic Bridge: Augmented Encoding for Word Sense Plausibility</title>
+      <title>Team p1 at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 5: Semantic Bridge - Augmented Encoding for Word Sense Plausibility</title>
       <author><first>Pawan</first><last>Rajpoot</last><affiliation>Self</affiliation></author>
       <pages>3095-3102</pages>
       <abstract>We present a hybrid system for SemEval 2026Task 5: Rating Plausibility of Word Senses inAmbiguous Stories. Our approach reframesLLMs as feature generators rather than directpredictors. We combine two subsystems: onethat appends LLM-generated hints to the in-put context and trains an encoder-based regres-sion model, and another that feeds structuredhints from multiple LLM configurations into alightweight regression ensemble. We generatemultilingual enrichments to probe LLMs forcomplementary signals and take advantage ofthe fact that translation into certain languagesimplicitly disambiguates word senses, makingthe encoder more robust. The 50/50 ensem-ble achieves 859/930 (92.37%) accuracy withSpearman ρ= 0.8384 on the test set, exceed-ing the estimated human ceiling of 89.2%. Thesame LLM enrichments, processed through fun-damentally different paradigms (tabular regres-sion vs. full-text encoding), produce comple-mentary errors that cancel under ensembling.Notably, simple 50/50 averaging captures thisgain without any learned combiner, suggest-ing that</abstract>
       <pdf hash="e8a633d5"/>
-      <bibkey>rajpoot-2026-tifin</bibkey>
+      <bibkey>rajpoot-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.388</doi>
     </paper>
     <paper id="389">
@@ -5529,7 +5520,7 @@
     </paper>
     <paper id="424">
       <!-- https://aclanthology.org/2026.semeval-1.424/ -->
-      <title>Truth Gradient at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 10:Conspiracy Belief Detection via Narrative Density and Mean Pooling</title>
+      <title>Truth Gradient at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 10: Mean Pooling and Narrative Density for Conspiracy Belief Detection</title>
       <author id="ekansh-goyal" orcid="0009-0008-3402-439X"><first>Ekansh</first><last>Goyal</last><affiliation>Department of Language Technologies Research Centre (LTRC), International Institute of Information Technology Hyderabad, Hyderabad, India</affiliation></author>
       <pages>3422-3431</pages>
       <abstract>Conspiracy believers use significantly more psycholinguistic markers per post than nonbelievers (Cohen’s d = 0.56, p 10⁻⁸⁰), a pattern we term narrative density, suggesting that belief manifests as structurally denser conspiratorial frames distributed across the full text rather than concentrated in specific lexical cues.We present Truth Gradient’s system for SemEval-2026 Task 10 Subtask 2 (Samory et al., 2026): a DeBERTaV3-large model with mean pooling and a 5-seed probability-averaging ensemble achieving macro F1 = 0.829 on the 77-sample development set and 0.75 on the official test set. The 5-fold CV estimate (0.734 ± 0.007) proves the more reliable predictor of test performance, and we recommend it as standard practice for low-resource shared tasks.Two convergent tests support the narrative density account: masking annotated marker spans drops F1 by 5.3 pp, and direct marker-count fusion recovers +0.9 pp, though we note these are not conclusive given the small dev set. Cross-validated ablation identifies encoder fine-tuning as the dominant design factor (−7.2 pts), and layer-wise probing confirms belief information peaks at mid-stack layers (layer 16/24).</abstract>
@@ -5660,12 +5651,11 @@
     <paper id="434">
       <!-- https://aclanthology.org/2026.semeval-1.434/ -->
       <title>Team Vivek Dhayaal at <fixed-case>S</fixed-case>em<fixed-case>E</fixed-case>val-2026 Task 13 Subtask <fixed-case>B</fixed-case>: Multi-Class Authorship Detection</title>
-      <author><first>David</first><last>Rodriguez</last><affiliation>INFOTEC</affiliation></author>
-      <author><first>Mario</first><last>Graff</last><affiliation>INFOTEC</affiliation></author>
+      <author><first>Vivek</first><last>Dhayal</last></author>
       <pages>3520-3523</pages>
-      <abstract>This paper describes the system for SemEval-2026 Task 10 Subtask 2 on conspiracy detection. We explore a progressive modeling strategy comparing traditional lexical representations with contextual transformer models. Lexical baselines include Bag-of-Words and TF-IDF features combined with Logistic Regression and Ridge classifiers. We then fine-tune a DistilRoBERTa transformer model for binary classification.All experiments were conducted using only the official task data in a CPU-only environment without external datasets or data augmentation. Our objective was to achieve acceptable performance while minimizing computational resources and model complexity. Results show that the transformer model improves the best lexical baseline from 0.67 to 0.75. The work highlights that competitive performance in conspiracy detection can be obtained with lightweight and reproducible configurations.</abstract>
+      <abstract>The widespread adoption of Large Language Models (LLMs) has accelerated significant progress in code generation while simultaneously giving rise to concerns related to academic honesty, software security, and the attribution of authorship. Traditional detection tools often fail when faced with diverse programming languages and modern LLMs. We introduce GPAD (Generative-Process-Aware Detection), an extension of CodeBERT that augments the attention mechanism with token-level entropy signals and stylometric features, improving robustness across generators and domains. Our Solution is designed for the SemEval-2026 Task 13 on detecting machine-generated code under diverse conditions by evaluating generalization to unseen languages, generator families, and code application scenarios.</abstract>
       <pdf hash="b9b715db"/>
-      <bibkey>rodriguez-graff-2026-team</bibkey>
+      <bibkey>dhayal-2026-team</bibkey>
       <doi>10.18653/v1/2026.semeval-1.434</doi>
     </paper>
     <paper id="435">
