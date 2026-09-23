@@ -393,6 +393,9 @@ def load_distinguished_service_awards(anthology, cohorts, fellows):
                 "year": year,
             }
             award.update(fellow_photos.get(person_id, {}))
+            for key in ("photo", "photo_alt", "photo_credit", "photo_source"):
+                if value := entry.get(key):
+                    award[key] = value
             awards.append(award)
 
     return sorted(
