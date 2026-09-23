@@ -98,7 +98,7 @@
           {{ end }}
 
           {{ $page := printf "/papers/%s" . }}
-          {{ ($.Site.GetPage $page).Render "list-entry-author" }}
+          {{ partial "papers/list-entry-author.html" (dict "page" ($.Site.GetPage $page) "person_id" $person.slug) }}
         {{ end }}
       {{ end }}
     </div>
