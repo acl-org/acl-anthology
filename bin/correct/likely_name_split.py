@@ -16,7 +16,6 @@ from collections import defaultdict
 from docopt import docopt
 import json
 import os
-import warnings
 import logging as log
 
 # ruff: noqa: F403, F405
@@ -24,7 +23,6 @@ from math import log as LOG
 from math import inf
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -161,9 +159,8 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(category=NameSpecResolutionWarning, action="ignore"):
-        anthology = Anthology.from_within_repo()
-        anthology.load_all()
+    anthology = Anthology.from_within_repo()
+    anthology.load_all()
 
     splitter = NameSplitter(anthology)
 

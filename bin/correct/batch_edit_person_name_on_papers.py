@@ -22,13 +22,11 @@ If necessary this will add name variants to the database (but will not remove na
 Optionally restrict to a subset of papers with `--only` or `--except`.
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 from typing import Optional
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -101,18 +99,17 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        name = Name(first=args["FIRST"], last=args["LAST"])
-        oldname = None
-        if args["--old"]:
-            oldfirst, oldlast = args["--old"], args["OLDLAST"]
-            oldname = Name(first=oldfirst, last=oldlast)
-        msg = batch_edit_names(
-            author_id=args["AUTHORID"],
-            name=name,
-            oldname=oldname,
-            specific_paper_ids=args["--only"][0].split() if args["--only"] else [],
-            exclude_paper_ids=args["--except"][0].split() if args["--except"] else [],
-        )
+    name = Name(first=args["FIRST"], last=args["LAST"])
+    oldname = None
+    if args["--old"]:
+        oldfirst, oldlast = args["--old"], args["OLDLAST"]
+        oldname = Name(first=oldfirst, last=oldlast)
+    msg = batch_edit_names(
+        author_id=args["AUTHORID"],
+        name=name,
+        oldname=oldname,
+        specific_paper_ids=args["--only"][0].split() if args["--only"] else [],
+        exclude_paper_ids=args["--except"][0].split() if args["--except"] else [],
+    )
 
-        print(f'Now run>>> git commit -a -m "{msg}"')
+    print(f'Now run>>> git commit -a -m "{msg}"')
