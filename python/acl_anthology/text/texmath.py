@@ -1,4 +1,4 @@
-# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
 
 import csv
 import pkgutil
+import warnings
 from attrs import define, field
 from lxml import etree
 from TexSoup import TexSoup
 from TexSoup.data import TexCmd, TexText, TexGroup, TexMathModeEnv
 from typing import Literal, Tuple, Union, overload
 
+from ..exceptions import TeXParserWarning
 from ..utils.logging import get_logger
 
 log = get_logger()
@@ -192,7 +194,7 @@ class _TexMath:
             self._parse(args, trg)
         # Handle fractions
         elif name == "frac":
-            self._parse_fraction(args, trg)
+            self._parse_fraction(code, trg)
         # Handle commands with simple HTML tag substitutions
         elif name in TEX_TO_HTML:
             if args:
@@ -206,12 +208,18 @@ class _TexMath:
                 self._parse(args, trg)
         # Give up, but preserve element
         else:
-            log.warning(f"Unknown TeX-math command: {code}")
+            warnings.warn(TeXParserWarning(code, f"Unknown TeX-math command: {code}"))
             self._append_unparsed(code, trg)
 
-    def _parse_fraction(self, args: list[TexEverything], trg: etree._Element) -> None:
+    def _parse_fraction(self, code: TexCmd, trg: etree._Element) -> None:
+        # assumes that `code` is a \frac{...}{...}
+        args = list(code.args)
         if len(args) != 2:
-            log.warning(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
+            warnings.warn(
+                TeXParserWarning(
+                    code, f"Couldn't parse \\frac: got {len(args)} arguments, expected 2"
+                )
+            )
             self._append_unparsed(TexCmd("frac", args=args), trg)
         else:
             # Represent numerator of fraction as superscript

@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING
 import warnings
 
 if TYPE_CHECKING:
+    from TexSoup.data import TexCmd
     from .files import FileReference
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
@@ -129,7 +130,7 @@ class MaintainerWarning(UserWarning):
 
 
 class NameSpecResolutionWarning(MaintainerWarning):
-    """Same as `NameSpecResolutionError`, but for less critical issues that shouldn't be blockers.
+    """Same as [NameSpecResolutionError][acl_anthology.exceptions.NameSpecResolutionError], but for less critical issues that shouldn't be blockers.
 
     This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_, but the person is implicit (unverified).
 
@@ -140,6 +141,18 @@ class NameSpecResolutionWarning(MaintainerWarning):
     def __init__(self, name_spec: NameSpecification, message: str) -> None:
         super().__init__(message)
         self.name_spec = name_spec
+
+
+class TeXParserWarning(MaintainerWarning):
+    """Raised when the TeX parsing routines encounter input they cannot handle.
+
+    Attributes:
+        code: The TeX command that causes the problem.
+    """
+
+    def __init__(self, code: TexCmd, message: str) -> None:
+        super().__init__(message)
+        self.code = code
 
 
 def enable_maintainer_warnings() -> None:
