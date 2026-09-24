@@ -912,7 +912,9 @@ if __name__ == "__main__":
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
 
-    anthology = Anthology(datadir=args["--importdir"]).load_all()
+    anthology = Anthology(
+        datadir=args["--importdir"], enable_all_warnings=True
+    ).load_all()
     if tracker.highest >= log.ERROR:
         exit(1)
 

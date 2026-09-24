@@ -48,5 +48,5 @@ from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 setup_rich_logging(level="INFO")
-anthology = Anthology.from_within_repo()
+anthology = Anthology.from_within_repo(enable_all_warnings=True)
 print(f">>> anthology = {anthology}")

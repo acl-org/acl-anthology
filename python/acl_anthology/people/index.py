@@ -30,6 +30,7 @@ from ..containers import SlottedDict
 from ..exceptions import (
     AnthologyException,
     AnthologyInvalidIDError,
+    MaintainerWarning,
     NameSpecResolutionError,
     NameSpecResolutionWarning,
     PersonDefinitionError,
@@ -261,7 +262,7 @@ class PersonIndex(SlottedDict[Person]):
             if self.data[slug].orcid is None:
                 # ...but existing person is verified without an ORCID -> warn
                 warnings.warn(
-                    UserWarning(
+                    MaintainerWarning(
                         f"Generating new person ID '{pid}', but '{slug}' exists and has no ORCID -> same person?",
                     )
                 )
@@ -365,8 +366,10 @@ class PersonIndex(SlottedDict[Person]):
 
             # Check for unprocessed keys to catch errors
             if entry:
-                log.warning(
-                    f"people.json: entry '{pid}' has unknown keys: {entry.keys()}"
+                warnings.warn(
+                    MaintainerWarning(
+                        f"people.json: entry '{pid}' has unknown keys: {entry.keys()}"
+                    )
                 )  # pragma: no cover
 
     def add_person(self, person: Person) -> None:

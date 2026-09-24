@@ -74,7 +74,6 @@ Options:
     --except PAPERIDS   Assign to this author all papers on selected pages except the ones listed here.
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 from typing import Optional, Tuple
@@ -82,7 +81,6 @@ from typing import Optional, Tuple
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper, Volume
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import Name, NameSpecification, Person
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 from acl_anthology.utils.logging import setup_rich_logging
@@ -488,36 +486,31 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        if args["AUTHORID"]:
-            if any(
-                ":" in x for x in args["AUTHORID"]
-            ):  # this is actually paperID:nameslug
-                args["PAPERID:NAMESLUG"] = args["AUTHORID"]
-                args["AUTHORID"] = None
-            else:
-                msg = verify_by_author_id(
-                    orcid=args["ORCID"],
-                    author_ids=args["AUTHORID"],
-                    degree=args["--degree"],
-                    suffix=args["--suffix"],
-                    canonical_name=parse_canonical(args["--canonical"]),
-                    except_paper_ids=(
-                        args["--except"].split() if args["--except"] else None
-                    ),
-                )
-
-        if not args["AUTHORID"]:
-            assert args["PAPERID:NAMESLUG"], args
-            msg = verify_by_paper(
+    if args["AUTHORID"]:
+        if any(":" in x for x in args["AUTHORID"]):  # this is actually paperID:nameslug
+            args["PAPERID:NAMESLUG"] = args["AUTHORID"]
+            args["AUTHORID"] = None
+        else:
+            msg = verify_by_author_id(
                 orcid=args["ORCID"],
-                paper_ids=args["PAPERID:NAMESLUG"],
+                author_ids=args["AUTHORID"],
                 degree=args["--degree"],
                 suffix=args["--suffix"],
                 canonical_name=parse_canonical(args["--canonical"]),
-                only_these_papers=args["--only"],
+                except_paper_ids=(args["--except"].split() if args["--except"] else None),
             )
 
-        if args["--issue"]:
-            msg += f" (closes #{args['--issue']})"
-        print(f'Now run>>> git commit -a -m "{msg}"')
+    if not args["AUTHORID"]:
+        assert args["PAPERID:NAMESLUG"], args
+        msg = verify_by_paper(
+            orcid=args["ORCID"],
+            paper_ids=args["PAPERID:NAMESLUG"],
+            degree=args["--degree"],
+            suffix=args["--suffix"],
+            canonical_name=parse_canonical(args["--canonical"]),
+            only_these_papers=args["--only"],
+        )
+
+    if args["--issue"]:
+        msg += f" (closes #{args['--issue']})"
+    print(f'Now run>>> git commit -a -m "{msg}"')
