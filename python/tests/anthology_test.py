@@ -35,32 +35,32 @@ def test_relaxng(anthology):
 
 
 def test_get_collection(anthology):
-    # Fetch 2022.acl
-    collection = anthology.get_collection("2022.acl-long.1")
+    # Fetch 2022.facl
+    collection = anthology.get_collection("2022.facl-long.1")
     assert collection is not None
-    assert collection.id == "2022.acl"
-    assert collection is anthology.collections.get("2022.acl")
-    assert collection is anthology.get_collection("2022.acl")
-    assert collection is anthology.get_collection("2022.acl-long")
+    assert collection.id == "2022.facl"
+    assert collection is anthology.collections.get("2022.facl")
+    assert collection is anthology.get_collection("2022.facl")
+    assert collection is anthology.get_collection("2022.facl-long")
 
 
 def test_get_volume(anthology):
-    # Fetch 2022.acl-long -- these should all be identical
-    volume = anthology.get_volume("2022.acl-long")
+    # Fetch 2022.facl-long -- these should all be identical
+    volume = anthology.get_volume("2022.facl-long")
     assert volume is not None
-    assert volume.full_id == "2022.acl-long"
-    assert volume is anthology.get_volume(("2022.acl", "long", None))
-    assert volume is anthology.get_volume("2022.acl-long.42")
-    assert volume is anthology.get("2022.acl-long")
-    assert volume is anthology.get(("2022.acl", "long", None))
+    assert volume.full_id == "2022.facl-long"
+    assert volume is anthology.get_volume(("2022.facl", "long", None))
+    assert volume is anthology.get_volume("2022.facl-long.42")
+    assert volume is anthology.get("2022.facl-long")
+    assert volume is anthology.get(("2022.facl", "long", None))
 
 
 def test_get_paper(anthology):
-    # Fetch 2022.acl-long.1
-    paper = anthology.get_paper("2022.acl-long.1")
+    # Fetch 2022.facl-long.1
+    paper = anthology.get_paper("2022.facl-long.1")
     assert paper is not None
     assert paper.id == "1"
-    assert paper.full_id == "2022.acl-long.1"
+    assert paper.full_id == "2022.facl-long.1"
 
 
 def test_get_paper_that_doesnt_exist(anthology):
@@ -71,9 +71,9 @@ def test_get_paper_that_doesnt_exist(anthology):
 @pytest.mark.parametrize(
     "bibkey, full_id",
     (
-        ("feng-etal-2022-dynamic", "2022.acl-long.10"),
-        ("gubelmann-etal-2022-philosophically", "2022.naloma-1.5"),
-        ("cl-1989-linguistics-15-number-4", "J89-4000"),
+        ("feng-etal-2022-dynamic", "2022.facl-long.10"),
+        ("callahan-etal-2022-fabricated", "2022.natfake-1.5"),
+        ("fcl-1989-linguistics-15-number-4", "Q89-4000"),
     ),
 )
 def test_get_paper_by_bibkey(anthology, bibkey, full_id):
@@ -83,7 +83,7 @@ def test_get_paper_by_bibkey(anthology, bibkey, full_id):
 
 
 @pytest.mark.parametrize(
-    "id_", ("2022.acl-short.0", "2022.naloma-1.0", "J89-4000", "L06-1000")
+    "id_", ("2022.facl-short.0", "2022.natfake-1.0", "Q89-4000", "K06-1000")
 )
 def test_get_frontmatter(anthology, id_):
     paper = anthology.get_paper(id_)
@@ -94,7 +94,7 @@ def test_get_frontmatter(anthology, id_):
 
 def test_volumes(anthology):
     # Iterate over all volumes
-    expected = set(("2022.acl", "2022.naloma", "J89", "L06"))
+    expected = set(("2022.facl", "2022.natfake", "Q89", "K06"))
     found = set()
     count = 0
     for volume in anthology.volumes():
@@ -105,17 +105,17 @@ def test_volumes(anthology):
 
 
 def test_volumes_by_id(anthology):
-    # Iterate over 2022.acl volumes
+    # Iterate over 2022.facl volumes
     expected = set(("long", "short", "demo", "tutorials", "srw"))
     found = set()
-    for volume in anthology.volumes("2022.acl"):
+    for volume in anthology.volumes("2022.facl"):
         found.add(volume.id)
     assert expected == found
 
 
 def test_papers(anthology):
     # Iterate over all papers
-    expected = set(("2022.acl", "2022.naloma", "J89", "L06"))
+    expected = set(("2022.facl", "2022.natfake", "Q89", "K06"))
     found = set()
     count = 0
     for paper in anthology.papers():
@@ -123,59 +123,59 @@ def test_papers(anthology):
         found.add(paper.collection_id)
     assert expected == found
     # TODO: can we compare this against counting "<paper>" tags or something?
-    assert count == 855
+    assert count == 117
 
 
 def test_papers_by_collection_id(anthology):
     count = 0
-    for paper in anthology.papers("2022.naloma"):
-        assert paper.collection_id == "2022.naloma"
+    for paper in anthology.papers("2022.natfake"):
+        assert paper.collection_id == "2022.natfake"
         count += 1
     assert count == 10
 
 
 def test_papers_by_volume_id(anthology):
-    # Iterate over J89-1 papers
+    # Iterate over Q89-1 papers
     expected = set(str(i) for i in range(0, 15))
     found = set()
-    for paper in anthology.papers("J89-1"):
-        assert paper.collection_id == "J89"
+    for paper in anthology.papers("Q89-1"):
+        assert paper.collection_id == "Q89"
         assert paper.volume_id == "1"
         found.add(paper.id)
     assert expected == found
 
 
 def test_get_event(anthology):
-    event = anthology.get_event("acl-2022")
+    event = anthology.get_event("facl-2022")
     assert event is not None
-    assert event.id == "acl-2022"
+    assert event.id == "facl-2022"
     assert event.is_explicit
 
 
 def test_get_person(anthology):
-    person = anthology.get_person("yang-liu-microsoft")
+    person = anthology.get_person("wen-zhao-megasoft")
     assert person is not None
-    assert person.canonical_name == Name("Yang", "Liu")
-    assert person.comment == "Microsoft Cognitive Services Research"
+    assert person.canonical_name == Name("Wen", "Zhao")
+    assert person.comment == "Megasoft Cognitive Fabrication Research"
 
 
 def test_find_people(anthology):
-    people = anthology.find_people("Oliviero Stock")
+    people = anthology.find_people("Elena Voss")
     assert len(people) == 1
-    assert people[0].canonical_name == Name("Oliviero", "Stock")
+    assert people[0].canonical_name == Name("Elena", "Voss")
 
 
 def test_resolve_single_author(anthology):
-    name_spec = anthology.get_paper("J89-1001").authors[0]
+    name_spec = anthology.get_paper("Q89-1001").authors[0]
     person = name_spec.resolve()
-    assert person.canonical_name == Name("Oliviero", "Stock")
+    assert person.canonical_name == Name("Elena", "Voss")
 
 
 def test_resolve_author_list(anthology):
-    name_specs = anthology.get_paper("J89-1001").authors
+    name_specs = anthology.get_paper("Q89-1001").authors
     person = [ns.resolve() for ns in name_specs]
     assert len(person) == 1
-    assert person[0].canonical_name == Name("Oliviero", "Stock")
+    assert person[0].canonical_name == Name("Elena", "Voss")
 
 
 @pytest.mark.parametrize("verbose", (True, False))
@@ -183,7 +183,7 @@ def test_load_all(anthology, verbose):
     anthology.verbose = verbose
     anthology.load_all()
     assert anthology.collections.is_data_loaded
-    assert anthology.collections["J89"].is_data_loaded
+    assert anthology.collections["Q89"].is_data_loaded
     assert anthology.collections.bibkeys.is_data_loaded
     assert anthology.events.is_data_loaded
     assert anthology.people.is_data_loaded
@@ -193,8 +193,8 @@ def test_load_all(anthology, verbose):
 
 def test_save_all(anthology):
     anthology.load_all()
-    anthology.collections["J89"].is_modified = True
-    anthology.collections["2022.acl"].is_modified = True
+    anthology.collections["Q89"].is_modified = True
+    anthology.collections["2022.facl"].is_modified = True
     with (
         patch.object(Collection, "save", autospec=True) as mock,
         patch.object(PersonIndex, "save") as people_mock,
@@ -205,8 +205,8 @@ def test_save_all(anthology):
 
         # Get the instances that called save (first argument is self)
         called_instances = [call[0][0] for call in mock.call_args_list]
-        assert anthology.collections["J89"] in called_instances
-        assert anthology.collections["2022.acl"] in called_instances
+        assert anthology.collections["Q89"] in called_instances
+        assert anthology.collections["2022.facl"] in called_instances
         assert mock.call_count == 2  # no other instances have called save
 
         # Check the others

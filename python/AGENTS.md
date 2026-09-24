@@ -29,10 +29,10 @@ Equivalently with plain `uv`/`pytest`:
   `CHANGELOG.md`; keep this very concise unless there are major changes.
 - Functional changes should always be covered by tests in `tests/`.
   - The structure of `tests/` mirrors the package layout.
-  - `conftest.py` provides an `anthology` fixture built from a **self-contained
-    fake data tree** (`tests/data/anthology/`) via `pytest-datadir` — based on
-    real proceedings but with deliberately fabricated data; never overwrite it
-    from the real data.
+  - `conftest.py` provides an `anthology` fixture built from a **self-contained,
+    entirely fabricated data tree** (`tests/data/anthology/`) via
+    `pytest-datadir` — no real people, papers, venues, or SIGs; never overwrite
+    it from the real data.
 
 ## Architecture of `acl_anthology` (`python/acl_anthology/`)
 

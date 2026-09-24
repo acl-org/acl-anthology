@@ -30,10 +30,10 @@ from acl_anthology.text import MarkupText
 
 test_cases_xml_collections = (
     # (filename, # volumes, # papers, has event?)
-    ("2022.acl.xml", 5, 779, True),
-    ("2022.naloma.xml", 1, 10, False),
-    ("J89.xml", 4, 61, False),
-    ("L06.xml", 1, 5, False),
+    ("2022.facl.xml", 5, 41, True),
+    ("2022.natfake.xml", 1, 10, False),
+    ("Q89.xml", 4, 61, False),
+    ("K06.xml", 1, 5, False),
 )
 
 
@@ -92,7 +92,7 @@ def test_collection_load_id_mismatch(collection_index, shared_datadir):
     collection = Collection(
         "2019.emnlp",
         parent=collection_index,
-        path=shared_datadir / "anthology" / "xml" / "2022.acl.xml",
+        path=shared_datadir / "anthology" / "xml" / "2022.facl.xml",
     )
     with pytest.raises(ValueError):
         collection.load()
@@ -140,45 +140,45 @@ def test_collection_roundtrip_save(
 
 
 def test_collection_create_volume_implicit(collection_index):
-    collection = collection_index.get("2022.acl")
+    collection = collection_index.get("2022.facl")
     assert not collection.is_modified
     volume = collection.create_volume(
         "keynotes",
-        title="Keynotes from ACL 2022",
+        title="Keynotes from FACL 2022",
     )
     assert collection.is_modified
     assert volume.id in collection
     assert volume.year == "2022"
     assert volume.id == "keynotes"
-    assert volume.title == "Keynotes from ACL 2022"
-    assert volume.full_id == "2022.acl-keynotes"
+    assert volume.title == "Keynotes from FACL 2022"
+    assert volume.full_id == "2022.facl-keynotes"
     assert volume.type == VolumeType.PROCEEDINGS
 
 
 def test_collection_create_volume_explicit(collection_index):
-    collection = collection_index.get("1989.cl")
+    collection = collection_index.get("1979.fcl")
     assert not collection.is_modified
     volume = collection.create_volume(
         id="99",
         title=MarkupText.from_string("Special Issue"),
-        year="1989",
+        year="1979",
         type="journal",
         journal_issue="99",
-        venue_ids=["cl"],
+        venue_ids=["fcl"],
     )
     assert collection.is_modified
     assert volume.id in collection
-    assert volume.year == "1989"
+    assert volume.year == "1979"
     assert volume.id == "99"
     assert volume.title == "Special Issue"
-    assert volume.full_id == "1989.cl-99"
+    assert volume.full_id == "1979.fcl-99"
     assert volume.type == VolumeType.JOURNAL
     assert volume.journal_issue == "99"
-    assert "cl" in volume.venue_ids
+    assert "fcl" in volume.venue_ids
 
 
 def test_collection_create_volume_should_parse_markup(collection_index):
-    collection = collection_index.get("2022.acl")
+    collection = collection_index.get("2022.facl")
     volume = collection.create_volume("infinity", title="Special issue on $\\infty$")
     assert volume.title.as_text() == "Special issue on ∞"
 
@@ -194,7 +194,7 @@ def test_collection_create_volume_should_parse_markup(collection_index):
 def test_collection_create_volume_case_normalizes_editor_names(
     before, after, collection_index
 ):
-    collection = collection_index.get("2022.acl")
+    collection = collection_index.get("2022.facl")
     editors = (NameSpecification(Name(*before)),)
     volume = collection.create_volume(
         "initials",
@@ -205,20 +205,20 @@ def test_collection_create_volume_case_normalizes_editor_names(
 
 
 def test_collection_create_volume_should_fail_in_oldstyle_volumes(collection_index):
-    collection = collection_index.get("L06")
+    collection = collection_index.get("K06")
     with pytest.raises(ValueError):
         _ = collection.create_volume(
             "keynotes",
-            title=MarkupText.from_string("Keynotes from LREC 2006"),
+            title=MarkupText.from_string("Keynotes from FLREC 2006"),
         )
 
 
 def test_collection_create_volume_should_fail_if_already_exists(collection_index):
-    collection = collection_index.get("2022.acl")
+    collection = collection_index.get("2022.facl")
     with pytest.raises(ValueError):
         _ = collection.create_volume(
             "long",
-            title=MarkupText.from_string("Long papers from ACL 2022"),
+            title=MarkupText.from_string("Long papers from FACL 2022"),
         )
 
 
@@ -227,11 +227,11 @@ def test_collection_create_volume_should_update_person(anthology, pre_load):
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
 
-    collection = anthology.collections.get("2022.acl")
-    editors = (NameSpecification("Rada Mihalcea"),)
+    collection = anthology.collections.get("2022.facl")
+    editors = (NameSpecification("Livia Marchetti"),)
     volume = collection.create_volume(
         "keynotes",
-        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        title=MarkupText.from_string("Keynotes from FACL 2022"),
         editors=editors,
     )
     assert volume.editors == editors
@@ -246,11 +246,11 @@ def test_collection_create_volume_should_update_personindex(anthology, pre_load)
     if pre_load:
         anthology.people.load()  # otherwise we test creation, not updating
 
-    collection = anthology.collections.get("2022.acl")
+    collection = anthology.collections.get("2022.facl")
     editors = (NameSpecification("Nonexistant, Guy Absolutely"),)
     volume = collection.create_volume(
         "keynotes",
-        title=MarkupText.from_string("Keynotes from ACL 2022"),
+        title=MarkupText.from_string("Keynotes from FACL 2022"),
         editors=editors,
     )
     assert volume.editors == editors
@@ -277,20 +277,20 @@ def test_collection_create_volume_should_create_event(anthology, pre_load, reset
     volume = collection.create_volume(
         "1",
         title=MarkupText.from_string("Empty volume"),
-        venue_ids=["acl"],
+        venue_ids=["facl"],
     )
 
     if reset:
         anthology.reset_indices()
 
     # New implicit event should exist in the event index
-    assert "acl-2000" in anthology.events
+    assert "facl-2000" in anthology.events
     assert (
-        anthology.events["acl-2000"].colocated_ids.get(volume.full_id_tuple)
+        anthology.events["facl-2000"].colocated_ids.get(volume.full_id_tuple)
         == EventLink.INFERRED
     )
     assert volume.full_id_tuple in anthology.events.reverse
-    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2000"}
+    assert anthology.events.reverse[volume.full_id_tuple] == {"facl-2000"}
 
 
 @pytest.mark.parametrize(
@@ -306,25 +306,25 @@ def test_collection_create_volume_should_update_event(anthology, pre_load, reset
     if pre_load:
         anthology.events.load()  # otherwise we test creation, not updating
 
-    collection = anthology.collections.get("2022.acl")
+    collection = anthology.collections.get("2022.facl")
     collection.is_data_loaded = True
     volume = collection.create_volume(
         "keynotes",
-        title=MarkupText.from_string("Keynotes from ACL 2022"),
-        venue_ids=["acl"],
+        title=MarkupText.from_string("Keynotes from FACL 2022"),
+        venue_ids=["facl"],
     )
 
     if reset:
         anthology.reset_indices()
 
     # New volume should be added to existing event
-    assert "acl-2022" in anthology.events
+    assert "facl-2022" in anthology.events
     assert (
-        anthology.events["acl-2022"].colocated_ids.get(volume.full_id_tuple)
+        anthology.events["facl-2022"].colocated_ids.get(volume.full_id_tuple)
         == EventLink.INFERRED
     )
     assert volume.full_id_tuple in anthology.events.reverse
-    assert anthology.events.reverse[volume.full_id_tuple] == {"acl-2022"}
+    assert anthology.events.reverse[volume.full_id_tuple] == {"facl-2022"}
 
 
 @pytest.mark.parametrize(
@@ -344,14 +344,14 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
     volume = collection.create_volume(
         "1",
         title=MarkupText.from_string("Empty volume"),
-        venue_ids=["acl"],
+        venue_ids=["facl"],
     )
 
     if reset:
         anthology.reset_indices()
 
     # Nev volume should be added to existing venue
-    assert volume.full_id_tuple in anthology.venues["acl"].item_ids
+    assert volume.full_id_tuple in anthology.venues["facl"].item_ids
 
 
 @pytest.mark.parametrize(
@@ -371,43 +371,43 @@ def test_collection_create_volume_should_update_sig(anthology, pre_load, reset):
     volume = collection.create_volume(
         "1",
         title=MarkupText.from_string("Empty volume"),
-        sig_ids=["sigdat"],
+        sig_ids=["sigfake1"],
     )
 
     if reset:
         anthology.reset_indices()
 
     # Nev volume should be added to existing venue
-    assert volume.full_id_tuple in anthology.sigs["sigdat"].item_ids
+    assert volume.full_id_tuple in anthology.sigs["sigfake1"].item_ids
 
 
 def test_collection_create_event_oldstyle_ids(collection_index):
-    collection = collection_index.get("L06")
+    collection = collection_index.get("K06")
 
     # For old-style ID collections, an ID must be explicitly given
     with pytest.raises(ValueError):
         _ = collection.create_event()
 
-    event = collection.create_event(id="lrec-2006")
-    assert event.id == "lrec-2006"
+    event = collection.create_event(id="flrec-2006")
+    assert event.id == "flrec-2006"
 
     # Trying to create yet another event in the same collection should raise
     with pytest.raises(ValueError):
-        _ = collection.create_event(id="lrecagain-2006")
+        _ = collection.create_event(id="flrecagain-2006")
 
 
 def test_collection_create_event_newstyle_ids(collection_index):
-    collection = collection_index.get("1989.cl")
+    collection = collection_index.get("1979.fcl")
     assert not collection.is_modified
 
     # For new-style ID collections, an explicit event ID is not required
     event = collection.create_event()
     assert collection.is_modified
-    assert event.id == "cl-1989"
+    assert event.id == "fcl-1979"
 
     # Trying to create yet another event in the same collection should raise
     with pytest.raises(ValueError):
-        _ = collection.create_event(id="cl-1989")
+        _ = collection.create_event(id="fcl-1979")
 
 
 @pytest.mark.parametrize("pre_load", (True, False))
@@ -415,8 +415,8 @@ def test_collection_create_event_should_update_eventindex(pre_load, anthology):
     if pre_load:
         anthology.events.load()  # otherwise we test creation, not updating
 
-    collection = anthology.collections.get("L06")
-    event = collection.create_event(id="lrec-2006")
+    collection = anthology.collections.get("K06")
+    event = collection.create_event(id="flrec-2006")
 
     if pre_load:
         # Volume should automatically have been added
