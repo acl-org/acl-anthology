@@ -45,7 +45,6 @@ from acl_anthology import Anthology
 from acl_anthology.collections import Collection
 from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.collections.volume import Volume
-from acl_anthology.exceptions import enable_maintainer_warnings
 from acl_anthology.files import (
     AttachmentReference,
     EventFileReference,
@@ -1191,7 +1190,6 @@ def register_volume_with_sig(
 
 def main(args):
     setup_rich_logging()
-    enable_maintainer_warnings()
 
     # Validate all proceedings up front, before loading the (slow) Anthology.
     formats: Dict[str, str] = {}
@@ -1204,7 +1202,7 @@ def main(args):
         log.info(f"Detected {format_} format for {source}")
         formats[source] = format_
 
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(enable_all_warnings=True)
 
     anthology.load_all()
 

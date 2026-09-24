@@ -56,7 +56,6 @@ from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.types import EventLink
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
-from acl_anthology.exceptions import enable_maintainer_warnings
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
@@ -913,8 +912,9 @@ if __name__ == "__main__":
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
 
-    enable_maintainer_warnings()
-    anthology = Anthology(datadir=args["--importdir"]).load_all()
+    anthology = Anthology(
+        datadir=args["--importdir"], enable_all_warnings=True
+    ).load_all()
     if tracker.highest >= log.ERROR:
         exit(1)
 
