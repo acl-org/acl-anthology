@@ -366,8 +366,10 @@ class PersonIndex(SlottedDict[Person]):
 
             # Check for unprocessed keys to catch errors
             if entry:
-                log.warning(
-                    f"people.json: entry '{pid}' has unknown keys: {entry.keys()}"
+                warnings.warn(
+                    MaintainerWarning(
+                        f"people.json: entry '{pid}' has unknown keys: {entry.keys()}"
+                    )
                 )  # pragma: no cover
 
     def add_person(self, person: Person) -> None:

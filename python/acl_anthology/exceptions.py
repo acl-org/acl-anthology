@@ -19,6 +19,8 @@ import warnings
 
 if TYPE_CHECKING:
     from TexSoup.data import TexCmd
+    from pylatexenc.latexwalker import LatexNode
+
     from .files import FileReference
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
@@ -147,10 +149,10 @@ class TeXParserWarning(MaintainerWarning):
     """Raised when the TeX parsing routines encounter input they cannot handle.
 
     Attributes:
-        code: The TeX command that causes the problem.
+        code: The TeX command that raised the problem.  We currently use both TexSoup and pylatexenc in different parts of the library, so the type of this object depends on which part raised the warning.
     """
 
-    def __init__(self, code: TexCmd, message: str) -> None:
+    def __init__(self, code: TexCmd | LatexNode, message: str) -> None:
         super().__init__(message)
         self.code = code
 
