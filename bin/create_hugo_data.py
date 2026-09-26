@@ -290,7 +290,7 @@ def volume_to_dict(volume):
     return data
 
 
-def explicitly_colocated_volume_ids(anthology):
+def explicitly_colocated_volume_ids(anthology: Anthology):
     """Return volumes explicitly attached to a parent event."""
     return {
         volume_id
@@ -300,9 +300,7 @@ def explicitly_colocated_volume_ids(anthology):
     }
 
 
-def latest_owned_ingest_date(
-    volumes, explicitly_colocated_ids, default=UNKNOWN_INGEST_DATE
-):
+def latest_owned_ingest_date(volumes: list[Volume], explicitly_colocated_ids):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
@@ -310,11 +308,13 @@ def latest_owned_ingest_date(
             for volume in volumes
             if volume.full_id_tuple not in explicitly_colocated_ids
         ),
-        default=default,
+        default=UNKNOWN_INGEST_DATE,
     )
 
 
-def newly_ingested_years(volumes, current_date=None, excluded_volume_ids=frozenset()):
+def newly_ingested_years(
+    volumes: list[Volume], current_date=None, excluded_volume_ids=frozenset()
+):
     """Return years containing a volume ingested within the past 45 days."""
     current_date = current_date or date.today()
     cutoff = current_date - timedelta(days=45)
@@ -352,7 +352,7 @@ def homepage_venue_sort_key(venue_id, acronym, homepage_group):
     return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
-def homepage_stats(anthology):
+def homepage_stats(anthology: Anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -371,7 +371,7 @@ def homepage_stats(anthology):
     }
 
 
-def export_homepage_stats(anthology, builddir, dryrun):
+def export_homepage_stats(anthology: Anthology, builddir, dryrun):
     data = homepage_stats(anthology)
     if not dryrun:
         with open(f"{builddir}/data/homepage.json", "wb") as f:
@@ -379,7 +379,7 @@ def export_homepage_stats(anthology, builddir, dryrun):
     return data
 
 
-def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
+def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_count=None):
     all_volumes = {}
     with make_progress() as progress:
         if paper_count is None:
@@ -638,13 +638,15 @@ def export_people(anthology: Anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
-            data["latest_ingest_date"] = latest_owned_ingest_date(
+            latest_ingest_date = latest_owned_ingest_date(
                 [paper.parent for paper in papers],
                 [],
-                default=date(
-                    2018, 1, 1
-                ),  # We don't have actual ingestion dates before 2019, so use this in place of missing value
-            ).isoformat()
+            )
+            if latest_ingest_date == UNKNOWN_INGEST_DATE:
+                # Write 2018-01-01 by default (earliest recorded ingest date is in 2019)
+                # instead of 1900-01-01, which may be disregarded by search engines
+                latest_ingest_date = date(2018, 1, 1)
+            data["latest_ingest_date"] = latest_ingest_date.isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
             if debut_years:
                 data["first_year"] = min(debut_years)
