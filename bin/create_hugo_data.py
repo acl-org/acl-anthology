@@ -636,6 +636,10 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            data["latest_ingest_date"] = latest_owned_ingest_date(
+                {vol for paper in papers for vol in paper.volume},
+                [],
+            ).isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
             if debut_years:
                 data["first_year"] = min(debut_years)
