@@ -6,6 +6,7 @@
       "aliases" $person.aliases
       "params" (dict "name" $person_id "lastname" $person.last)
       "title" $person.full
+      "dates" (dict "date" (time.AsTime $person.latest_ingest_date))
    }}
    {{ $.AddPage $page }}
 {{ end }}
