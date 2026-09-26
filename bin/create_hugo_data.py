@@ -637,7 +637,7 @@ def export_people(anthology: Anthology, builddir, dryrun):
                 ),
             }
             data["latest_ingest_date"] = latest_owned_ingest_date(
-                {vol for paper in papers for vol in paper.parent},
+                [paper.parent for paper in papers],
                 [],
             ).isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
