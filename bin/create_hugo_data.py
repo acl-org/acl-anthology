@@ -300,7 +300,9 @@ def explicitly_colocated_volume_ids(anthology):
     }
 
 
-def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
+def latest_owned_ingest_date(
+    volumes, explicitly_colocated_ids, default=UNKNOWN_INGEST_DATE
+):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
@@ -308,7 +310,7 @@ def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
             for volume in volumes
             if volume.full_id_tuple not in explicitly_colocated_ids
         ),
-        default=UNKNOWN_INGEST_DATE,
+        default=default,
     )
 
 
@@ -639,6 +641,9 @@ def export_people(anthology: Anthology, builddir, dryrun):
             data["latest_ingest_date"] = latest_owned_ingest_date(
                 [paper.parent for paper in papers],
                 [],
+                default=date(
+                    2018, 1, 1
+                ),  # We don't have actual ingestion dates before 2019, so use this in place of missing value
             ).isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
             if debut_years:
