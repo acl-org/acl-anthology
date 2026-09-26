@@ -54,7 +54,7 @@ import unicodedata
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.types import EventLink
-from acl_anthology.collections.volume import VolumeType
+from acl_anthology.collections.volume import Volume, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
@@ -594,7 +594,7 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
-def export_people(anthology, builddir, dryrun):
+def export_people(anthology: Anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
@@ -637,7 +637,7 @@ def export_people(anthology, builddir, dryrun):
                 ),
             }
             data["latest_ingest_date"] = latest_owned_ingest_date(
-                {vol for paper in papers for vol in paper.volume},
+                {vol for paper in papers for vol in paper.parent},
                 [],
             ).isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
@@ -760,7 +760,7 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
     return data
 
 
-def export_venues(anthology, builddir, dryrun):
+def export_venues(anthology: Anthology, builddir, dryrun):
     all_venues = {}
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
@@ -772,7 +772,7 @@ def export_venues(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_venues))
 
 
-def export_events(anthology, builddir, dryrun):
+def export_events(anthology: Anthology, builddir, dryrun):
     # Export events
     all_events = {}
     print("Exporting events...")
@@ -821,6 +821,7 @@ def export_events(anthology, builddir, dryrun):
         data["vol_venues"] = {}
         for vol_id in data["volumes"]:
             vol = anthology.get(vol_id)
+            assert isinstance(vol, Volume)
             data["vol_venues"][vol_id] = []
             for venue in vol.venues():
                 if venue.acronym.lower() == "ws":
@@ -839,7 +840,7 @@ def export_events(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_events))
 
 
-def export_sigs(anthology, builddir, dryrun):
+def export_sigs(anthology: Anthology, builddir, dryrun):
     all_sigs = {}
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
@@ -868,7 +869,7 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
-def export_anthology(anthology, builddir, clean=False, dryrun=False):
+def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
     to generate the website, as well as build/data-export/volumes/*.bib,
