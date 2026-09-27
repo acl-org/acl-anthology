@@ -36,6 +36,7 @@ from docopt import docopt
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
+from typing import Iterable
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -52,9 +53,9 @@ import shutil
 import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import PaperDeletionType
-from acl_anthology.collections.types import EventLink
-from acl_anthology.collections.volume import Volume, VolumeType
+from acl_anthology.collections.paper import Paper
+from acl_anthology.collections.types import EventLink, PaperDeletionType, VolumeType
+from acl_anthology.collections.volume import Volume
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
@@ -300,13 +301,13 @@ def explicitly_colocated_volume_ids(anthology: Anthology):
     }
 
 
-def latest_owned_ingest_date(volumes: list[Volume], explicitly_colocated_ids):
+def latest_owned_ingest_date(items: Iterable[Volume | Paper], explicitly_colocated_ids):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
-            volume.ingest_date
-            for volume in volumes
-            if volume.full_id_tuple not in explicitly_colocated_ids
+            item.ingest_date
+            for item in items
+            if item.full_id_tuple not in explicitly_colocated_ids
         ),
         default=UNKNOWN_INGEST_DATE,
     )
@@ -638,10 +639,7 @@ def export_people(anthology: Anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
-            latest_ingest_date = latest_owned_ingest_date(
-                [paper.parent for paper in papers],
-                [],
-            )
+            latest_ingest_date = latest_owned_ingest_date(papers, [])
             if latest_ingest_date == UNKNOWN_INGEST_DATE:
                 # Write 2018-01-01 by default (earliest recorded ingest date is in 2019)
                 # instead of 1900-01-01, which may be disregarded by search engines
