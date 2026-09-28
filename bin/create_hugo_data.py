@@ -885,6 +885,11 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
+def awarded_paper_ids(papers):
+    """Return IDs for papers that have at least one award."""
+    return [paper.full_id for paper in papers if paper.awards]
+
+
 def export_people(anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -927,6 +932,8 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            if award_papers := awarded_paper_ids(papers):
+                data["award_papers"] = award_papers
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
             if debut_years:
                 data["first_year"] = min(debut_years)

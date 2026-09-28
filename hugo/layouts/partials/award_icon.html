@@ -1,1 +1,6 @@
-<span class="align-middle me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ .name }}" aria-label="{{ .name }}"><i class="fas fa-award"></i></span>
+{{ $award := .award }}
+{{ with .href }}
+<a class="align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $award.name }}" aria-label="{{ $award.name }}"><i class="fas fa-award"></i></a>
+{{ else }}
+<span class="align-middle me-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ $award.name }}" aria-label="{{ $award.name }}"><i class="fas fa-award"></i></span>
+{{ end }}

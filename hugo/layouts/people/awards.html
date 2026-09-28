@@ -1,19 +1,32 @@
 {{ define "main" }}
+{{ $person := index hugo.Data.people .Params.name }}
 {{ $honorees := where hugo.Data.fellows.honorees "id" .Params.name }}
+{{ $honoree := dict }}
 {{ range first 1 $honorees }}
-{{ $honoree := . }}
+  {{ $honoree = . }}
+{{ end }}
+
 {{ $awards := slice }}
-{{ with .fellow_year }}
+{{ with $honoree.fellow_year }}
   {{ $awards = $awards | append (dict "kind" "fellow" "year" .) }}
 {{ end }}
-{{ with .lifetime_achievement_award_year }}
+{{ with $honoree.lifetime_achievement_award_year }}
   {{ $awards = $awards | append (dict "kind" "lifetime-achievement" "year" .) }}
 {{ end }}
-{{ with .distinguished_service_award_year }}
+{{ with $honoree.distinguished_service_award_year }}
   {{ $awards = $awards | append (dict "kind" "distinguished-service" "name" $honoree.distinguished_service_award_name "year" .) }}
 {{ end }}
+{{ range $person.award_papers }}
+  {{ $paper_id := . }}
+  {{ $collection_id := index (split $paper_id "-") 0 }}
+  {{ $paper := index (index hugo.Data.papers $collection_id) $paper_id }}
+  {{ range $award_index, $award := $paper.award }}
+    {{ $awards = $awards | append (dict "award" $award "award_index" $award_index "kind" "paper" "paper" $paper "paper_id" $paper_id "year" (int $paper.year)) }}
+  {{ end }}
+{{ end }}
+
 <section id="main" class="acl-person-awards">
-  <h2 id="title">{{ $.Title }}</h2>
+  <h2 id="title">{{ .Title }}</h2>
   <div class="acl-person-awards-list">
     {{ range sort $awards "year" "desc" }}
       {{ if eq .kind "fellow" }}
@@ -37,7 +50,7 @@
           {{ partial "fellows/acceptance-speech.html" $honoree }}
         </div>
       </section>
-      {{ else }}
+      {{ else if eq .kind "distinguished-service" }}
       <section class="acl-person-award" aria-labelledby="acl-service-award-heading">
         <header class="acl-person-award-header">
           <h3 id="acl-service-award-heading"><i class="fas fa-wrench" aria-hidden="true"></i> {{ .name }}</h3>
@@ -48,9 +61,24 @@
           {{ partial "fellows/distinguished-service-citation.html" $honoree }}
         </div>
       </section>
+      {{ else }}
+      {{ $heading_id := printf "paper-award-%s-%d" (replace .paper_id "." "-") .award_index }}
+      <section class="acl-person-award" aria-labelledby="{{ $heading_id }}">
+        <header class="acl-person-award-header">
+          <h3 id="{{ $heading_id }}"><i class="fas fa-award" aria-hidden="true"></i> {{ .award.name }}</h3>
+          <p class="acl-person-award-year">Awarded {{ .year }}</p>
+        </header>
+        <div class="acl-person-award-details">
+          <h4>Paper</h4>
+          <p class="acl-person-award-paper"><a href="{{ relref $ (printf "/papers/%s" .paper_id) }}">{{ .paper.title_html | safeHTML }}</a></p>
+          {{ with .award.reasoning }}
+          <h4>Citation</h4>
+          <p class="acl-fellow-reason">{{ . }}</p>
+          {{ end }}
+        </div>
+      </section>
       {{ end }}
     {{ end }}
   </div>
 </section>
-{{ end }}
 {{ end }}
