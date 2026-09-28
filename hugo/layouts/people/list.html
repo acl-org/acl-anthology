@@ -114,10 +114,14 @@
       <dd><a href="{{ relref . "/info/verification.md" }}">unverified pages</a></dd>
     </div>
   </dl>
+
+  {{ partial "author-metrics.html" . }}
 </main>
 {{ end }}
 
 {{ define "javascript" }}
+{{ $authorMetrics := resources.Get "js/author-metrics.js" | minify | fingerprint }}
+<script defer src="{{ $authorMetrics.RelPermalink }}"></script>
 <script>
   (function () {
     const directory = document.querySelector("[data-author-directory]");

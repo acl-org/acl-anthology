@@ -75,6 +75,54 @@ longer than a few minutes.  Manually, it can be run via:
 uv run python bin/create_hugo_data.py --clean
 ```
 
+#### Author-directory metrics
+
+The normal export computes current authorship and unique-author counts via the
+library and writes `build/data/author_current.json`. Authorships count author
+namespec occurrences, excluding editors, front matter, and deleted papers.
+Unique authors are deduplicated within each publication year; the pre-2020
+group is separately deduplicated across all earlier years. Database totals
+include all person pages, including editor-only pages.
+
+Monthly historical checkpoints are committed in
+[`hugo/assets/data/author-history.json`](hugo/assets/data/author-history.json).
+They are **not** recomputed during a normal site build. To update them:
+
+```bash
+git fetch origin master
+uv run --frozen python bin/author_stats.py
+# Optional reproducible cutoff:
+uv run --frozen python bin/author_stats.py --through 2026-09-01
+```
+
+This requires full Git history, chooses the last first-parent commit strictly
+before each month-start in UTC, and records the source commit. It extracts data
+and the Python library from that commit into a temporary directory and runs the
+current counting script with the historical library's **public API**, preserving
+historical identity resolution and supporting the earlier YAML format. Only use
+trusted repository refs: this imports Python code from the selected commits.
+Matching date/revision pairs are cached; each successful checkpoint is saved
+atomically, so interrupted backfills can resume. Remove the derived history file
+to recompute all checkpoints after a change to counting semantics.
+
+Before the July 2026 migration, all pages are classified as unverified, even
+when legacy name-variant records explicitly associated their names. A legacy
+page is counted as having an ORCID if any associated author/editor namespec has
+one; later snapshots use the person's ORCID. Counts therefore reflect both data
+changes and changes to identity resolution, not just newly published papers.
+
+The four-element arrays are ordered: verified with ORCID, verified without
+ORCID, unverified with ORCID, unverified without ORCID. Publication year `0`
+denotes the pre-2020 group. Source snapshots are read-only; authoritative
+metadata is never rewritten.
+
+The monthly **Update author statistics** workflow opens a data-only
+PR. It needs the repository setting allowing GitHub Actions to create PRs.
+For a manual refresh, run the commands above and commit the resulting JSON.
+Tests run with `uv run --frozen python -m pytest tests/test_author_stats.py
+tests/test_author_metrics_browser.py`; the browser-logic tests use Node.js when
+available and need no npm packages.
+
 ### Step 2: Create extra bibliography export files for papers
 
 > [!TIP]
