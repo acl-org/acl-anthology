@@ -271,11 +271,11 @@
     <paper id="24">
       <!-- https://aclanthology.org/2026.alvr-main.24/ -->
       <title>Efficient Visual Grounding in <fixed-case>VQA</fixed-case> via Question-Guided Sparse Attention</title>
-      <author><first/><last>Prasanth</last></author>
+      <author><first>Prasanth</first><last>Yadla</last></author>
       <pages>260-271</pages>
       <abstract>Visual Question Answering (VQA) models process all image patches uniformlydespite questions typically requiring only a small subset of visual information.This inefficiency leads to unnecessary computation and can result in attentiondilution across irrelevant image regions. We propose <b>Question-GuidedSparse Attention (QGSA)</b>, a plug-and-play mechanism that dynamically selectsrelevant image patches conditioned on question semantics. Our approach introducesthree components: (1)a differentiable patch selector based on Gumbel-Softmaxreparameterisation that enables end-to-end training with hard patch selection atinference; (2)a self-supervised grounding loss that encourages spatialselectivity without bounding-box annotations, combining contrastive patchselection with patch–word alignment via a frozen CLIP encoder; and (3)anadaptive sparsity mechanism that adjusts the number of selected patches accordingto estimated question complexity. Experiments on SmolVLM-256M-Instruct andSmolVLM-500M-Instruct across three VQA benchmarks (VQA-RAD, A-OKVQA, RefCOCO)demonstrate that QGSA reduces cross-attention FLOPs by 91–99% across inputresolutions, achieving up to <tex-math>76\times</tex-math> theoretical speedup at 576px resolution, whilemaintaining <i>exact</i> accuracy parity with the dense baseline (<tex-math>\Delta=0.0</tex-math> ppon all datasets).Wall-clock parity with the dense baseline is reached at 336px; realisedend-to-end speedup requires larger models where cross-attention dominates totalcompute. QGSA consistently selects an average of <tex-math>k\approx17</tex-math> patches out of576 (256M model), up to <tex-math>k\approx18</tex-math> (500M model), yielding up to a <tex-math>34\times</tex-math>reduction in the visual token sequence. These small-scale results validate thefeasibility of question-conditioned sparse attention and provide a foundation forscaling to larger VLMs.</abstract>
       <pdf hash="0e6d2610"/>
-      <bibkey>prasanth-2026-efficient</bibkey>
+      <bibkey>yadla-2026-efficient</bibkey>
       <doi>10.18653/v1/2026.alvr-main.24</doi>
     </paper>
     <paper id="26">

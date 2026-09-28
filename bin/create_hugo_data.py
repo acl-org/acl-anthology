@@ -36,6 +36,7 @@ from docopt import docopt
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
+from typing import Iterable
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -52,9 +53,9 @@ import shutil
 import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import PaperDeletionType
-from acl_anthology.collections.types import EventLink
-from acl_anthology.collections.volume import VolumeType
+from acl_anthology.collections.paper import Paper
+from acl_anthology.collections.types import EventLink, PaperDeletionType, VolumeType
+from acl_anthology.collections.volume import Volume
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
@@ -290,7 +291,7 @@ def volume_to_dict(volume):
     return data
 
 
-def explicitly_colocated_volume_ids(anthology):
+def explicitly_colocated_volume_ids(anthology: Anthology):
     """Return volumes explicitly attached to a parent event."""
     return {
         volume_id
@@ -300,19 +301,21 @@ def explicitly_colocated_volume_ids(anthology):
     }
 
 
-def latest_owned_ingest_date(volumes, explicitly_colocated_ids):
+def latest_owned_ingest_date(items: Iterable[Volume | Paper], explicitly_colocated_ids):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
-            volume.ingest_date
-            for volume in volumes
-            if volume.full_id_tuple not in explicitly_colocated_ids
+            item.ingest_date
+            for item in items
+            if item.full_id_tuple not in explicitly_colocated_ids
         ),
         default=UNKNOWN_INGEST_DATE,
     )
 
 
-def newly_ingested_years(volumes, current_date=None, excluded_volume_ids=frozenset()):
+def newly_ingested_years(
+    volumes: list[Volume], current_date=None, excluded_volume_ids=frozenset()
+):
     """Return years containing a volume ingested within the past 45 days."""
     current_date = current_date or date.today()
     cutoff = current_date - timedelta(days=45)
@@ -350,7 +353,7 @@ def homepage_venue_sort_key(venue_id, acronym, homepage_group):
     return f"{homepage_group}:{acronym.casefold().lstrip('*')}:{venue_id}"
 
 
-def homepage_stats(anthology):
+def homepage_stats(anthology: Anthology):
     """Compute collection statistics displayed on the homepage."""
     volumes = list(anthology.volumes())
     all_venues = list(anthology.venues.values())
@@ -369,7 +372,7 @@ def homepage_stats(anthology):
     }
 
 
-def export_homepage_stats(anthology, builddir, dryrun):
+def export_homepage_stats(anthology: Anthology, builddir, dryrun):
     data = homepage_stats(anthology)
     if not dryrun:
         with open(f"{builddir}/data/homepage.json", "wb") as f:
@@ -377,7 +380,7 @@ def export_homepage_stats(anthology, builddir, dryrun):
     return data
 
 
-def export_papers_and_volumes(anthology, builddir, dryrun, paper_count=None):
+def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_count=None):
     all_volumes = {}
     with make_progress() as progress:
         if paper_count is None:
@@ -594,7 +597,7 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
-def export_people(anthology, builddir, dryrun):
+def export_people(anthology: Anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
@@ -636,6 +639,12 @@ def export_people(anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
+            latest_ingest_date = latest_owned_ingest_date(papers, [])
+            if latest_ingest_date == UNKNOWN_INGEST_DATE:
+                # Write 2018-01-01 by default (earliest recorded ingest date is in 2019)
+                # instead of 1900-01-01, which may be disregarded by search engines
+                latest_ingest_date = date(2018, 1, 1)
+            data["latest_ingest_date"] = latest_ingest_date.isoformat()
             debut_years = [int(paper.year) for paper in papers if paper.year.isdigit()]
             if debut_years:
                 data["first_year"] = min(debut_years)
@@ -756,7 +765,7 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
     return data
 
 
-def export_venues(anthology, builddir, dryrun):
+def export_venues(anthology: Anthology, builddir, dryrun):
     all_venues = {}
     explicitly_colocated_ids = explicitly_colocated_volume_ids(anthology)
     print("Exporting venues...")
@@ -768,7 +777,7 @@ def export_venues(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_venues))
 
 
-def export_events(anthology, builddir, dryrun):
+def export_events(anthology: Anthology, builddir, dryrun):
     # Export events
     all_events = {}
     print("Exporting events...")
@@ -817,6 +826,7 @@ def export_events(anthology, builddir, dryrun):
         data["vol_venues"] = {}
         for vol_id in data["volumes"]:
             vol = anthology.get(vol_id)
+            assert isinstance(vol, Volume)
             data["vol_venues"][vol_id] = []
             for venue in vol.venues():
                 if venue.acronym.lower() == "ws":
@@ -835,7 +845,7 @@ def export_events(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_events))
 
 
-def export_sigs(anthology, builddir, dryrun):
+def export_sigs(anthology: Anthology, builddir, dryrun):
     all_sigs = {}
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
@@ -864,7 +874,7 @@ def export_sigs(anthology, builddir, dryrun):
             f.write(ENCODER.encode(all_sigs))
 
 
-def export_anthology(anthology, builddir, clean=False, dryrun=False):
+def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
     """
     Dumps files in build/data/*.json, which are used by Hugo templates
     to generate the website, as well as build/data-export/volumes/*.bib,
