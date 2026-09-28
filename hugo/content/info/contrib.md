@@ -135,7 +135,7 @@ If you are using the START system, this process is handled as part of the camera
 
 Otherwise, for copyright transfers, please use the form at:
 
-+ https://github.com/acl-org/ACLPUB/blob/master/templates/copyright/acl-copyright-transfer-2021.pdf
++ https://github.com/acl-org/ACLPUB/blob/master/templates/copyright/ACL-copyright-form.pdf
 
 Forms should be signed by authors and saved using the ACL Anthology identifiers as names.
 Please place these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
