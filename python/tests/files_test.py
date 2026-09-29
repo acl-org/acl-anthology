@@ -32,15 +32,15 @@ from acl_anthology.files import (
 test_cases_pdf = (
     (
         '<pdf hash="a8b4ae72"/>',
-        "2022.acl-demo.14",
-        "https://aclanthology.org/2022.acl-demo.14.pdf",
+        "2022.facl-demo.14",
+        "https://aclanthology.org/2022.facl-demo.14.pdf",
         "a8b4ae72",
         True,
     ),
     (
         '<pdf hash="f9ed34ae"/>',
-        "J89-3004",
-        "https://aclanthology.org/J89-3004.pdf",
+        "Q89-3004",
+        "https://aclanthology.org/Q89-3004.pdf",
         "f9ed34ae",
         True,
     ),
@@ -49,9 +49,9 @@ test_cases_pdf = (
 
 test_cases_video = (
     (
-        '<video href="2022.acl-long.225.mp4"/>',
-        "2022.acl-long.225.mp4",
-        "https://aclanthology.org/2022.acl-long.225.mp4",
+        '<video href="2022.facl-long.225.mp4"/>',
+        "2022.facl-long.225.mp4",
+        "https://aclanthology.org/2022.facl-long.225.mp4",
         True,
     ),
     (
