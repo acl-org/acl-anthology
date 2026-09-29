@@ -40,6 +40,7 @@ from typing import Iterable
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
+from typing import TYPE_CHECKING
 import os
 import re
 from rich.progress import (
@@ -64,6 +65,9 @@ from acl_anthology.utils.text import (
     month_str2num,
     remove_extra_whitespace,
 )
+
+if TYPE_CHECKING:
+    from acl_anthology.collections import Paper, Volume
 
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
@@ -127,7 +131,7 @@ def person_to_dict(person_id, ns):
     }
 
 
-def paper_to_dict(paper):
+def paper_to_dict(paper: Paper):
     """
     Turn a single paper into a dictionary as used by the Hugo templates.
     """
@@ -246,7 +250,7 @@ def paper_to_dict(paper):
     return data
 
 
-def volume_to_dict(volume):
+def volume_to_dict(volume: Volume):
     """
     Turn a single volume into a dictionary as used by the Hugo templates.
     """
@@ -261,6 +265,10 @@ def volume_to_dict(volume):
         "sigs": [],
         "url": volume.web_url,
         "venues": volume.venue_ids,
+        "bibkey": volume.bibkey,
+        "bibtype": volume.bibtype,
+        "citation": volume.to_markdown_citation(),
+        "citation_acl": volume.to_citation(),
     }
     for key in ("address", "doi", "isbn", "publisher"):
         if (value := getattr(volume, key)) is not None:

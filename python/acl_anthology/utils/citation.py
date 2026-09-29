@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any, Sequence, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..collections import Paper
+    from ..collections import Paper, Volume
     from ..people import NameSpecification
 
 
@@ -108,7 +108,7 @@ def _format_pages(pages: str) -> str:
     return pages.replace("--", "–").replace("-", "–")
 
 
-def render_acl_citation(paper: Paper) -> str:
+def render_acl_citation(paper: Paper | Volume) -> str:
     """Render a bibliography entry in ACL style.
 
     Arguments:
@@ -120,7 +120,10 @@ def render_acl_citation(paper: Paper) -> str:
     Note:
         This function re-implements (parts of) the ACL citation style in pure Python, making it a much faster alternative to [citeproc_render_html][acl_anthology.utils.citation.citeproc_render_html].
     """
-    if paper.authors:
+    is_volume_level = type(paper).__name__ == "Volume" or getattr(
+        paper, "is_frontmatter", False
+    )
+    if getattr(paper, "authors", None):
         authors = _format_names(paper.authors)
     else:
         editors = paper.editors
@@ -129,13 +132,15 @@ def render_acl_citation(paper: Paper) -> str:
             authors = ""
         else:
             authors = _format_names(editors)
-            if not paper.is_frontmatter:
+            if not is_volume_level:
                 authors = f"{authors} ({'eds.' if len(editors) > 1 else 'ed.'})"
     title = f'<a href="{paper.web_url}">{paper.title.as_text()}</a>'
-    if paper.is_frontmatter:
+    if is_volume_level:
         title = f"<i>{title}</i>"
     parent = []
     if paper.bibtype == "inproceedings":
+        if TYPE_CHECKING:
+            assert isinstance(paper, Paper)
         parent = [f"In <i>{paper.parent.title.as_text()}</i>"]
         if paper.pages:
             pages = _format_pages(paper.pages)
@@ -145,6 +150,8 @@ def render_acl_citation(paper: Paper) -> str:
         if paper.publisher:
             parent.append(f". {paper.publisher}")
     elif paper.bibtype == "article":
+        if TYPE_CHECKING:
+            assert isinstance(paper, Paper)
         parent = [f"<i>{paper.journal_title}</i>"]
         if paper.journal_volume:
             parent.append(f", {paper.journal_volume}")
