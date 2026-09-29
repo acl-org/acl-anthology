@@ -13,7 +13,7 @@
   });
   const categories = [
     "Verified with ORCID", "Verified without ORCID",
-    "Unverified with ORCID", "Unverified without ORCID",
+    "Unverified with ORCID", "Unverified with OpenReview only", "Unverified without either ID",
   ];
   const total = values => values.reduce((sum, value) => sum + value, 0);
   const share = values => total(values) ? percent.format(values[0] / total(values)) : "\u2014";
@@ -155,7 +155,7 @@
         return {
           label: current ? "" : checkpoint.date,
           shortLabel: current ? "" : shortDate(checkpoint.date),
-          values: row ? row[count.value] : [0, 0, 0, 0],
+          values: row ? row[count.value] : Array(categories.length).fill(0),
         };
       }),
     }));

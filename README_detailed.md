@@ -102,17 +102,20 @@ current counting script with the historical library's **public API**, preserving
 historical identity resolution and supporting the earlier YAML format. Only use
 trusted repository refs: this imports Python code from the selected commits.
 Matching date/revision pairs are cached; each successful checkpoint is saved
-atomically, so interrupted backfills can resume. Remove the derived history file
-to recompute all checkpoints after a change to counting semantics.
+atomically, so interrupted backfills can resume. Schema upgrades recompute all
+checkpoints; remove the derived history file to recompute after other changes
+to counting semantics.
 
-Before the July 2026 migration, all pages are classified as unverified, even
-when legacy name-variant records explicitly associated their names. A legacy
-page is counted as having an ORCID if any associated author/editor namespec has
-one; later snapshots use the person's ORCID. Counts therefore reflect both data
-changes and changes to identity resolution, not just newly published papers.
+Before the JSON person database, verified pages were explicitly defined in
+`name_variants.yaml`. Legacy ORCID coverage comes from author/editor namespecs;
+later snapshots use the person's ORCID. OpenReview coverage comes from associated
+namespecs in either format, and counts only for unverified pages without an ORCID.
+Counts reflect data changes and changes to identity resolution, not just newly
+published papers.
 
-The four-element arrays are ordered: verified with ORCID, verified without
-ORCID, unverified with ORCID, unverified without ORCID. Publication year `0`
+The five-element arrays are ordered: verified with ORCID, verified without
+ORCID, unverified with ORCID, unverified with OpenReview only, unverified without
+either ID. Publication year `0`
 denotes the pre-2020 group. Source snapshots are read-only; authoritative
 metadata is never rewritten.
 

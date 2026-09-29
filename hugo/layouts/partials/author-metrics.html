@@ -1,6 +1,6 @@
 {{ with hugo.Data.author_current }}
 {{ $history := resources.Get "data/author-history.json" | transform.Unmarshal }}
-{{ $categories := slice "Verified with ORCID" "Verified without ORCID" "Unverified with ORCID" "Unverified without ORCID" }}
+{{ $categories := slice "Verified with ORCID" "Verified without ORCID" "Unverified with ORCID" "Unverified with OpenReview only" "Unverified without either ID" }}
 {{ $data := dict "current" . "checkpoints" $history.checkpoints }}
 {{ $download := resources.FromString "people/author-metrics.json" ($data | jsonify) }}
 <section class="acl-people-histogram acl-author-metrics" aria-labelledby="author-metrics-heading" data-author-metrics>
@@ -107,8 +107,9 @@
   <p class="acl-people-histogram__caption">
     Historical checkpoints use the last main-branch commit before the first of each month (UTC),
     starting January 2026. Verification and ORCID status reflect each checkpoint, not today's status.
-    Checkpoints before the July 2026 verified-author migration classify all pages as unverified;
-    a legacy page has an ORCID if any of its associated author or editor names supplied one.
+    Before the JSON person database, verified pages were explicitly defined in the YAML name-variant
+    database. Legacy ORCID and OpenReview coverage comes from associated author or editor names;
+    later snapshots use the person's ORCID and associated names' OpenReview IDs.
     Historical name resolution follows the library at that checkpoint, so the migration itself
     can also change the number of unique pages.
     Unverified pages can conflate different people with the same name or split one person across names.
