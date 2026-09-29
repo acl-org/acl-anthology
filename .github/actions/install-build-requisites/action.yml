@@ -1,0 +1,33 @@
+name: Install build prerequisites
+description: Installs prerequisites common to all workflows that build the website
+
+runs:
+  using: composite
+  env:
+    HUGO_VERSION: 0.160.0
+    DART_SASS_VERSION: 1.97.1
+  steps:
+    - name: Install Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: ${HUGO_VERSION}
+        extended: true
+
+    - name: Install Dart Sass
+      run: |
+        mkdir -p "${HOME}/.local"
+        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v10.2.0
+      # This always installs the latest version of uv - if this ever needs to be
+      # fixed, fix it in `pyproject.toml`, not here
+      # (https://docs.astral.sh/uv/reference/settings/#required-version)
+
+    - name: Install other dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
