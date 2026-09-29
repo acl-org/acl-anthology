@@ -1,6 +1,6 @@
 {{ with hugo.Data.author_current }}
 {{ $history := resources.Get "data/author-history.json" | transform.Unmarshal }}
-{{ $categories := slice "Verified with ORCID" "Verified without ORCID" "Unverified with ORCID" "Unverified with OpenReview only" "Unverified without either ID" }}
+{{ $categories := slice "Verified with ORCID" "Verified without ORCID" "Unverified with OpenReview only" "Unverified without either ID" }}
 {{ $data := dict "current" . "checkpoints" $history.checkpoints }}
 {{ $download := resources.FromString "people/author-metrics.json" ($data | jsonify) }}
 <section class="acl-people-histogram acl-author-metrics" aria-labelledby="author-metrics-heading" data-author-metrics>
@@ -22,7 +22,7 @@
     <div>
       <label class="form-label" for="author-metrics-checkpoints">Database checkpoints</label>
       <select class="form-select form-select-sm" id="author-metrics-checkpoints">
-        <option value="bimonthly">Every two months</option>
+        <option value="bimonthly">Every two months (plus latest)</option>
         <option value="monthly">Every month</option>
         <option value="current">Current database (all publication years)</option>
       </select>
@@ -106,12 +106,12 @@
   </details>
   <p class="acl-people-histogram__caption">
     Historical checkpoints use the last main-branch commit before the first of each month (UTC),
-    starting January 2026. Verification and ORCID status reflect each checkpoint, not today's status.
-    Before the JSON person database, verified pages were explicitly defined in the YAML name-variant
-    database. Legacy ORCID and OpenReview coverage comes from associated author or editor names;
-    later snapshots use the person's ORCID and associated names' OpenReview IDs.
-    Historical name resolution follows the library at that checkpoint, so the migration itself
-    can also change the number of unique pages.
+    starting February 2026, after the January author-system transition. Verification and ORCID
+    status reflect each checkpoint, not today's status. Before the JSON person database,
+    verified pages were explicitly defined in the YAML name-variant database.
+    OpenReview coverage comes from associated author or editor names; later snapshots
+    use the person's ORCID. Historical name resolution follows the library at that
+    checkpoint, so later data migrations can change the number of unique pages.
     Unverified pages can conflate different people with the same name or split one person across names.
     <a href="{{ $download.RelPermalink }}" download>Download the chart data (JSON)</a>.
   </p>

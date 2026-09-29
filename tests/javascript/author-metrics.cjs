@@ -19,7 +19,7 @@ class Element {
   addEventListener(type, callback) { this.listeners[type] = callback; }
 }
 
-function setup() {
+function setup({ addLatestMay = false } = {}) {
   const root = new Element();
   const elements = new Map();
   root.querySelector = selector => elements.get(selector);
@@ -29,24 +29,27 @@ function setup() {
   }
   const row = (year, authorships, authors) => ({ year, authorships, authors });
   const snapshots = [
-    { date: "2026-01-01", years: [row(0, [10, 20, 5, 0, 65], [1, 2, 1, 0, 6]),
-      row(2026, [0, 0, 0, 0, 0], [0, 0, 0, 0, 0])], totals: [10, 20, 5, 0, 65] },
-    { date: "2026-02-01", years: [row(0, [20, 20, 5, 0, 55], [2, 2, 1, 0, 5])], totals: [20, 20, 5, 0, 55] },
-    { date: "2026-03-01", years: [row(0, [30, 20, 5, 0, 45], [3, 2, 1, 0, 4]),
-      row(2026, [4, 2, 0, 1, 3], [2, 1, 0, 1, 2])], totals: [34, 22, 5, 1, 48] },
+    { date: "2026-02-01", years: [row(0, [10, 20, 0, 70], [1, 2, 0, 7]),
+      row(2026, [0, 0, 0, 0], [0, 0, 0, 0])], totals: [10, 20, 0, 70] },
+    { date: "2026-03-01", years: [row(0, [20, 20, 0, 60], [2, 2, 0, 6])], totals: [20, 20, 0, 60] },
+    { date: "2026-04-01", years: [row(0, [30, 20, 5, 45], [3, 2, 1, 4]),
+      row(2026, [4, 2, 1, 3], [2, 1, 1, 2])], totals: [34, 22, 6, 48] },
   ];
+  if (addLatestMay) {
+    snapshots.push({ ...snapshots[2], date: "2026-05-01" });
+  }
   const data = new Element();
   data.textContent = JSON.stringify({
     checkpoints: snapshots,
-    current: { years: [row(0, [30, 20, 5, 0, 45], [3, 2, 1, 0, 4]),
-      row(2019, [3, 2, 0, 1, 4], [1, 1, 0, 1, 1]), row(2026, [4, 2, 0, 1, 3], [2, 1, 0, 1, 2])] },
+    current: { years: [row(0, [30, 20, 5, 45], [3, 2, 1, 4]),
+      row(2019, [3, 2, 1, 4], [1, 1, 1, 1]), row(2026, [4, 2, 1, 3], [2, 1, 1, 2])] },
   });
   const count = new Element("select");
   count.value = "authorships";
   const checkpoints = new Element("select");
   checkpoints.value = "bimonthly";
   checkpoints.selectedIndex = 0;
-  checkpoints.options = [{ text: "Every two months" }, { text: "Every month" }, { text: "Current database" }];
+  checkpoints.options = [{ text: "Every two months (plus latest)" }, { text: "Every month" }, { text: "Current database" }];
   const byId = { "author-metrics-data": data, "author-metrics-count": count, "author-metrics-checkpoints": checkpoints };
   const document = {
     documentElement: { lang: "en" },
@@ -66,13 +69,13 @@ function table(state) {
     Array.from(row.children, cell => cell.textContent));
 }
 
-test("default checkpoints, five categories, percentages and undefined denominators", () => {
+test("default checkpoints, four categories, percentages and undefined denominators", () => {
   const state = setup();
   assert.deepEqual(table(state), [
-    ["Pre-2020", "2026-01-01", "10", "20", "5", "0", "65", "100", "10%"],
-    ["Pre-2020", "2026-03-01", "30", "20", "5", "0", "45", "100", "30%"],
-    ["2026", "2026-01-01", "0", "0", "0", "0", "0", "0", "\u2014"],
-    ["2026", "2026-03-01", "4", "2", "0", "1", "3", "10", "40%"],
+    ["Pre-2020", "2026-02-01", "10", "20", "0", "70", "100", "10%"],
+    ["Pre-2020", "2026-04-01", "30", "20", "5", "45", "100", "30%"],
+    ["2026", "2026-02-01", "0", "0", "0", "0", "0", "\u2014"],
+    ["2026", "2026-04-01", "4", "2", "1", "3", "10", "40%"],
   ]);
   const svg = state.elements.get("[data-authorship-chart]").children[0];
   const lines = svg.children.filter(child => child.tag === "polyline");
@@ -86,8 +89,8 @@ test("unique authors use deduplicated backend values, including pre-2020", () =>
   const state = setup();
   state.count.value = "authors";
   state.count.listeners.change();
-  assert.deepEqual(table(state)[0], ["Pre-2020", "2026-01-01", "1", "2", "1", "0", "6", "10", "10%"]);
-  assert.deepEqual(table(state)[3], ["2026", "2026-03-01", "2", "1", "0", "1", "2", "6", "33.3%"]);
+  assert.deepEqual(table(state)[0], ["Pre-2020", "2026-02-01", "1", "2", "0", "7", "10", "10%"]);
+  assert.deepEqual(table(state)[3], ["2026", "2026-04-01", "2", "1", "1", "2", "6", "33.3%"]);
 });
 
 test("monthly selection includes all checkpoints and fills absent years with zero", () => {
@@ -96,7 +99,7 @@ test("monthly selection includes all checkpoints and fills absent years with zer
   state.checkpoints.selectedIndex = 1;
   state.checkpoints.listeners.change();
   assert.equal(table(state).length, 6);
-  assert.deepEqual(table(state)[4], ["2026", "2026-02-01", "0", "0", "0", "0", "0", "0", "\u2014"]);
+  assert.deepEqual(table(state)[4], ["2026", "2026-03-01", "0", "0", "0", "0", "0", "\u2014"]);
   const growth = state.elements.get("[data-author-growth-chart]").children[0];
   assert.equal(growth.children.filter(child => child.tag === "circle").length, 3);
 });
@@ -107,7 +110,13 @@ test("current view shows every publication year without double counting pre-2020
   state.checkpoints.selectedIndex = 2;
   state.checkpoints.listeners.change();
   assert.deepEqual(table(state), [
-    ["2019", "Current", "3", "2", "0", "1", "4", "10", "30%"],
-    ["2026", "Current", "4", "2", "0", "1", "3", "10", "40%"],
+    ["2019", "Current", "3", "2", "1", "4", "10", "30%"],
+    ["2026", "Current", "4", "2", "1", "3", "10", "40%"],
   ]);
+});
+
+test("bimonthly selection includes latest odd-month checkpoint", () => {
+  const state = setup({ addLatestMay: true });
+  assert.deepEqual(table(state).slice(0, 3).map(row => row[1]),
+    ["2026-02-01", "2026-04-01", "2026-05-01"]);
 });

@@ -84,7 +84,8 @@ Unique authors are deduplicated within each publication year; the pre-2020
 group is separately deduplicated across all earlier years. Database totals
 include all person pages, including editor-only pages.
 
-Monthly historical checkpoints are committed in
+Monthly historical checkpoints, starting February 2026 after the January
+author-system transition, are committed in
 [`hugo/assets/data/author-history.json`](hugo/assets/data/author-history.json).
 They are **not** recomputed during a normal site build. To update them:
 
@@ -107,15 +108,17 @@ checkpoints; remove the derived history file to recompute after other changes
 to counting semantics.
 
 Before the JSON person database, verified pages were explicitly defined in
-`name_variants.yaml`. Legacy ORCID coverage comes from author/editor namespecs;
+`name_variants.yaml`. Their ORCID coverage comes from author/editor namespecs;
 later snapshots use the person's ORCID. OpenReview coverage comes from associated
 namespecs in either format, and counts only for unverified pages without an ORCID.
+An unverified person with an ORCID is invalid for these categories and stops
+generation rather than silently dropping any counts.
 Counts reflect data changes and changes to identity resolution, not just newly
 published papers.
 
-The five-element arrays are ordered: verified with ORCID, verified without
-ORCID, unverified with ORCID, unverified with OpenReview only, unverified without
-either ID. Publication year `0`
+The four-element arrays are ordered: verified with ORCID, verified without
+ORCID, unverified with OpenReview only, unverified without either ID.
+Publication year `0`
 denotes the pre-2020 group. Source snapshots are read-only; authoritative
 metadata is never rewritten.
 

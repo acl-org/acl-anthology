@@ -13,7 +13,7 @@
   });
   const categories = [
     "Verified with ORCID", "Verified without ORCID",
-    "Unverified with ORCID", "Unverified with OpenReview only", "Unverified without either ID",
+    "Unverified with OpenReview only", "Unverified without either ID",
   ];
   const total = values => values.reduce((sum, value) => sum + value, 0);
   const share = values => total(values) ? percent.format(values[0] / total(values)) : "\u2014";
@@ -143,8 +143,9 @@
 
   function renderAuthorships() {
     const current = checkpoints.value === "current";
-    const selected = current ? [data.current] : data.checkpoints.filter(checkpoint =>
-      checkpoints.value === "monthly" || Number(checkpoint.date.slice(5, 7)) % 2 === 1);
+    const selected = current ? [data.current] : data.checkpoints.filter((checkpoint, index) =>
+      checkpoints.value === "monthly" || Number(checkpoint.date.slice(5, 7)) % 2 === 0 ||
+      index === data.checkpoints.length - 1);
     const years = [...new Set(selected.flatMap(checkpoint => checkpoint.years.map(row => row.year)))]
       .filter(year => current ? year !== 0 : year === 0 || year >= 2020)
       .sort((a, b) => a - b);
