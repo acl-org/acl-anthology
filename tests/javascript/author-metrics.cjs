@@ -27,6 +27,7 @@ function setup({ addLatestMay = false } = {}) {
     "authorship-chart", "author-growth-chart"]) {
     elements.set(`[data-${name}]`, new Element());
   }
+  elements.get("[data-author-growth-chart]").clientWidth = 480;
   const row = (year, authorships, authors) => ({ year, authorships, authors });
   const snapshots = [
     { date: "2026-02-01", years: [row(0, [10, 20, 0, 70], [1, 2, 0, 7]),
@@ -78,6 +79,11 @@ test("default checkpoints, four categories, percentages and undefined denominato
     ["2026", "2026-04-01", "4", "2", "1", "3", "10", "40%"],
   ]);
   const svg = state.elements.get("[data-authorship-chart]").children[0];
+  const clips = svg.children[0];
+  assert.equal(clips.tag, "defs");
+  assert.equal(clips.children.length, 3, "only nonempty bars need rounded clipping");
+  assert.ok(clips.children.every(clip => clip.children[0].attributes.d.includes(" Q ")));
+  assert.equal(svg.children.filter(child => child.attributes.class === "acl-author-metrics__bar").length, 4);
   const lines = svg.children.filter(child => child.tag === "polyline");
   assert.equal(lines.length, 2, "percentage lines must not connect year groups");
   assert.equal(svg.children.filter(child => child.tag === "circle").length, 3,
@@ -102,6 +108,11 @@ test("monthly selection includes all checkpoints and fills absent years with zer
   assert.deepEqual(table(state)[4], ["2026", "2026-03-01", "0", "0", "0", "0", "0", "\u2014"]);
   const growth = state.elements.get("[data-author-growth-chart]").children[0];
   assert.equal(growth.children.filter(child => child.tag === "circle").length, 3);
+  const growthBars = growth.children.filter(child => child.attributes.class === "acl-author-metrics__bar");
+  assert.equal(growth.children[0].children.length, 3);
+  assert.ok(growthBars.every(bar => bar.children[1].attributes.width === 46));
+  assert.ok(growthBars[0].children[1].attributes.x < 200,
+    "the first bar should be visible without scrolling past empty plot space");
 });
 
 test("current view shows every publication year without double counting pre-2020", () => {

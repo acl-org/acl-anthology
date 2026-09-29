@@ -27,18 +27,22 @@
     return element;
   }
 
-  function renderChart(container, groups, label, description) {
+  function renderChart(container, groups, label, description, growth = false) {
     if (!groups.length || groups.every(group => !group.bars.length)) {
       container.textContent = "No data is available for this selection.";
       container.hidden = false;
       return;
     }
     const left = 76, right = 60, top = 35, plotHeight = 240, bottom = 88;
+    if (growth) container.hidden = false;
     const compact = groups.every(group => group.bars.length === 1 && !group.bars[0].label);
-    const groupWidths = groups.map(group => compact ? 24 : Math.max(72, group.bars.length * 18 + 20));
+    const groupWidths = groups.map(group => growth ? group.bars.length * 48 + 20
+      : compact ? 24 : Math.max(72, group.bars.length * 18 + 20));
     const naturalWidth = total(groupWidths);
-    const plotWidth = Math.max(860, naturalWidth);
-    const scale = plotWidth / naturalWidth;
+    const plotWidth = growth
+      ? Math.max(naturalWidth, (container.clientWidth || 0) - left - right)
+      : Math.max(860, naturalWidth);
+    const scale = growth ? 1 : plotWidth / naturalWidth;
     const width = left + plotWidth + right;
     const height = top + plotHeight + bottom;
     const max = Math.max(1, ...groups.flatMap(group => group.bars.map(bar => total(bar.values))));
@@ -48,6 +52,8 @@
       viewBox: `0 0 ${width} ${height}`, width, height, role: "img",
       "aria-label": description, class: "acl-author-metrics__chart",
     });
+    const clips = svgElement("defs", {});
+    svg.append(clips);
     svg.append(svgElement("title", {}, description));
     svg.append(svgElement("text", { x: left, y: 18 }, label));
     svg.append(svgElement("text", { x: width - right, y: 18, "text-anchor": "end" }, "Verified with ORCID (%)"));
@@ -57,12 +63,12 @@
       svg.append(svgElement("text", { x: left - 8, y: y + 4, "text-anchor": "end" }, number.format(ceiling * tick / 4)));
       svg.append(svgElement("text", { x: width - right + 8, y: y + 4 }, `${tick * 25}%`));
     }
-    let start = left;
+    let start = left + (growth ? (plotWidth - naturalWidth) / 2 : 0);
     groups.forEach((group, groupIndex) => {
       const groupWidth = groupWidths[groupIndex] * scale;
       const gap = compact ? 4 : 20;
       const step = (groupWidth - gap) / group.bars.length;
-      const barWidth = Math.min(38, step * 0.72);
+      const barWidth = Math.min(growth ? 46 : 38, step - 2);
       let points = [];
       const drawLine = () => {
         if (points.length) svg.append(svgElement("polyline", { points: points.join(" "), class: "acl-author-metrics__line" }));
@@ -71,12 +77,26 @@
       group.bars.forEach((bar, index) => {
         const x = start + gap / 2 + step * (index + 0.5);
         const sum = total(bar.values);
-        const barGroup = svgElement("g", {});
+        const barGroup = svgElement("g", { class: "acl-author-metrics__bar" });
         barGroup.append(svgElement("title", {}, [
           `${group.label}, ${bar.label}: ${number.format(sum)} ${label.toLowerCase()}`,
           ...categories.map((category, i) => `${category}: ${number.format(bar.values[i])}`),
           `Verified with ORCID / total: ${share(bar.values)}`,
         ].join("\n")));
+        if (sum) {
+          const baseline = top + plotHeight;
+          const barTop = baseline - sum / ceiling * plotHeight;
+          const radius = Math.min(3, barWidth / 2, (baseline - barTop) / 2);
+          const barLeft = x - barWidth / 2;
+          const barRight = x + barWidth / 2;
+          const clipId = `acl-${growth ? "growth" : "authorships"}-${groupIndex}-${index}`;
+          const clip = svgElement("clipPath", { id: clipId });
+          clip.append(svgElement("path", {
+            d: `M ${barLeft} ${baseline} V ${barTop + radius} Q ${barLeft} ${barTop} ${barLeft + radius} ${barTop} H ${barRight - radius} Q ${barRight} ${barTop} ${barRight} ${barTop + radius} V ${baseline} Z`,
+          }));
+          clips.append(clip);
+          barGroup.setAttribute("clip-path", `url(#${clipId})`);
+        }
         let y = top + plotHeight;
         bar.values.forEach((value, i) => {
           const barHeight = value / ceiling * plotHeight;
@@ -175,7 +195,7 @@
     bars: data.checkpoints.map(checkpoint => ({
       label: checkpoint.date, shortLabel: shortDate(checkpoint.date), values: checkpoint.totals,
     })),
-  }], "Author pages", "Author pages at monthly checkpoints. Exact counts and source commits are in the following table.");
+  }], "Author pages", "Author pages at monthly checkpoints. Exact counts and source commits are in the following table.", true);
   root.querySelector("[data-metrics-controls]").hidden = false;
   count.addEventListener("change", renderAuthorships);
   checkpoints.addEventListener("change", renderAuthorships);

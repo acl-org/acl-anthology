@@ -107,20 +107,12 @@ atomically, so interrupted backfills can resume. Schema upgrades recompute all
 checkpoints; remove the derived history file to recompute after other changes
 to counting semantics.
 
-Before the JSON person database, verified pages were explicitly defined in
-`name_variants.yaml`. Their ORCID coverage comes from author/editor namespecs;
-later snapshots use the person's ORCID. OpenReview coverage comes from associated
-namespecs in either format, and counts only for unverified pages without an ORCID.
-An unverified person with an ORCID is invalid for these categories and stops
-generation rather than silently dropping any counts.
-Counts reflect data changes and changes to identity resolution, not just newly
-published papers.
+Changes to counts reflect newly published papers as well as corrections and
+changes to identity resolution.
 
 The four-element arrays are ordered: verified with ORCID, verified without
 ORCID, unverified with OpenReview only, unverified without either ID.
-Publication year `0`
-denotes the pre-2020 group. Source snapshots are read-only; authoritative
-metadata is never rewritten.
+Publication year `0` denotes the pre-2020 group.
 
 The monthly **Update author statistics** workflow opens a data-only
 PR. It needs the repository setting allowing GitHub Actions to create PRs.
