@@ -681,7 +681,7 @@ test_cases_papercitation = (
     # Article in proceedings, many authors, no page numbers
     (
         "K06-1060",
-        'Nadia Corwin, Mireille Harkness, Emeka Vantage, Simone Farrow, Malik Johnston, Jeremiah Kestrel, Wen Zhao, Marisol Ostrander, Jon Halvorsen, Anya Krasnovsky, Mateo Leclair, Izabela Shafik, Mattias Snowden, Robyn Stanfield, and Lena Yuen. 2006. <a href="https://aclanthology.org/K06-1060/">FParseval: Evaluation Metrics for Fabricated Speech Parsing</a>. In <i>Proceedings of the Fifth International Conference on Fabricated Language Resources and Evaluation (FLREC’06)</i>, Faketon, Ambazon. Fabricated Language Resources Association (FLRA).',
+        'Nadia Corwin, Mireille Harkness, Emeka Vantage, Simone Farrow, Malik Johnston, Jeremiah Kestrel, Wen Zhao, Marisol Ostrander, Jon Halvorsen, Anya Krasnovsky, Mateo Leclair, Izabela Shafik, Mattias Snowden, Robyn Stanfield, and Lena Yuen. 2006. <a href="https://aclanthology.org/K06-1060/">FParseval: Evaluation Metrics for Fabricated Speech Parsing</a>. In <i>Fake Proceedings of the Fifth International Conference on Fabricated Language Resources and Evaluation (FLREC’06)</i>, Faketon, Ambazon. Fabricated Language Resources Association (FLRA).',
     ),
     # Article in proceedings, one author, single page
     (
