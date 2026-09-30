@@ -46,11 +46,11 @@ def test_load_people_index(index_stub):
     index._load_people_index()
     index.is_data_loaded = True
     for pid in (
-        "emily-prudhommeaux",
-        "steven-krauwer",
-        "yang-liu-icsi",
-        "yang-liu-ict",
-        "yang-liu-microsoft",
+        "maeve-oconnell",
+        "derek-holloway",
+        "wen-zhao-labx",
+        "wen-zhao-instx",
+        "wen-zhao-megasoft",
     ):
         assert pid in index
 
@@ -60,8 +60,8 @@ def test_load_people_index_registers_names(index_stub):
     index.reset()
     index._load_people_index()
     index.is_data_loaded = True
-    n1 = Name("Steven", "Krauwer")
-    n2 = Name("S.", "Krauwer")
+    n1 = Name("Derek", "Holloway")
+    n2 = Name("D.", "Holloway")
     assert n1 in index.by_name
     assert n2 in index.by_name
     pid = index.by_name[n1]
@@ -72,36 +72,36 @@ def test_load_people_index_registers_names(index_stub):
 def test_add_person(index_stub):
     index = index_stub
     index.reset()
-    p1 = Person("yang-liu", index, [Name("Yang", "Liu")])
+    p1 = Person("wen-zhao", index, [Name("Wen", "Zhao")])
     index.add_person(p1)
     index.is_data_loaded = True  # to prevent it attempting to build itself
-    assert "yang-liu" in index
-    assert Name("Yang", "Liu") in index.by_name
-    assert index.by_name[Name("Yang", "Liu")] == ["yang-liu"]
-    assert index.get_by_name(Name("Yang", "Liu"))[0] is p1
-    assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
-    assert index.get("yang-liu") is p1
+    assert "wen-zhao" in index
+    assert Name("Wen", "Zhao") in index.by_name
+    assert index.by_name[Name("Wen", "Zhao")] == ["wen-zhao"]
+    assert index.get_by_name(Name("Wen", "Zhao"))[0] is p1
+    assert index.get_by_namespec(NameSpecification(Name("Wen", "Zhao"))) is p1
+    assert index.get("wen-zhao") is p1
     with pytest.raises(ValueError):
-        index.add_person(Person("yang-liu", index))
+        index.add_person(Person("wen-zhao", index))
 
 
 def test_remove_person(index):
     # Preconditions
-    pid = "xu-huang-nanjing"
-    name = Name("Xu", "Huang")
+    pid = "lin-feng-tsingcity"
+    name = Name("Lin", "Feng")
     person = index[pid]
-    assert index._by_orcid.get("0009-0006-0385-4054") == pid
+    assert index._by_orcid.get("0009-0003-6567-8920") == pid
     assert pid in index._by_name[name]
-    assert pid in index._slugs_to_verified_ids["xu-huang"]
+    assert pid in index._slugs_to_verified_ids["lin-feng"]
     assert len(person.item_ids) == 0
 
     # Remove person
     index.remove_person(person)
 
     assert pid not in index
-    assert index._by_orcid.get("0009-0006-0385-4054") is None
+    assert index._by_orcid.get("0009-0003-6567-8920") is None
     assert pid not in index._by_name[name]
-    assert pid not in index._slugs_to_verified_ids["xu-huang"]
+    assert pid not in index._slugs_to_verified_ids["lin-feng"]
 
     with pytest.raises(ValueError):
         # Can't remove again...
@@ -109,14 +109,14 @@ def test_remove_person(index):
 
 
 def test_remove_person_should_raise(index):
-    assert "yang-liu/unverified" in index
-    person1 = index["yang-liu/unverified"]
+    assert "wen-zhao/unverified" in index
+    person1 = index["wen-zhao/unverified"]
     # Can't remove unverified
     with pytest.raises(ValueError):
         index.remove_person(person1)
 
-    assert "yang-liu-icsi" in index
-    person2 = index["yang-liu-icsi"]
+    assert "wen-zhao-labx" in index
+    person2 = index["wen-zhao-labx"]
     assert len(person2.item_ids) > 0
     # Can't remove if papers still attached to Person
     with pytest.raises(ValueError):
@@ -128,21 +128,21 @@ def test_similar_names_defined_in_people_index(index_stub):
     index.reset()
     index._load_people_index()
     index.is_data_loaded = True
-    similar = index.similar.subset("pranav-a")
-    assert similar == {"pranav-a", "pranav-anand"}
+    similar = index.similar.subset("ravi-b")
+    assert similar == {"ravi-b", "ravi-bishnu"}
 
 
 def test_similar_names_through_same_canonical_name(index):
     assert not index.is_data_loaded
     index.build(show_progress=False)
     assert index.is_data_loaded
-    similar = index.similar.subset("yang-liu-ict")
+    similar = index.similar.subset("wen-zhao-instx")
     assert similar == {
-        "yang-liu",
-        "yang-liu-icsi",
-        "yang-liu-ict",
-        "yang-liu-microsoft",
-        "yang-liu/unverified",
+        "wen-zhao",
+        "wen-zhao-labx",
+        "wen-zhao-instx",
+        "wen-zhao-megasoft",
+        "wen-zhao/unverified",
     }
 
 
@@ -150,15 +150,15 @@ def test_build_personindex(index):
     assert not index.is_data_loaded
     index.build(show_progress=True)
     assert index.is_data_loaded
-    assert "yang-liu/unverified" in index
-    assert "yang-liu-microsoft" in index
-    assert Name("Nicoletta", "Calzolari") in index.by_name
-    assert "0000-0003-2598-8150" in index.by_orcid
+    assert "wen-zhao/unverified" in index
+    assert "wen-zhao-megasoft" in index
+    assert Name("Petra", "Lindholm") in index.by_name
+    assert "0009-0001-4567-8902" in index.by_orcid
 
 
 def test_build_personindex_automatically(index):
     assert not index.is_data_loaded
-    persons = index.get_by_name(Name("Nicoletta", "Calzolari"))
+    persons = index.get_by_name(Name("Petra", "Lindholm"))
     assert index.is_data_loaded
     assert len(persons) == 1
 
@@ -179,63 +179,63 @@ def test_canonical_name_never_has_script(index):
 
 def test_get_person_coauthors(index):
     index.load()
-    person = index.by_name[Name("Kathleen", "Dahlgren")][0]
+    person = index.by_name[Name("Marguerite", "Solvang")][0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 1
-    assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
+    assert coauthors[0].canonical_name == Name("Owen", "Castellane")
 
-    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    person = index.get_by_name(Name("Dario", "Pretto"))[0]
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 2
-    # Both volumes where Preslav Nakov is editor have frontmatter, so should still be counted
+    # Both volumes where Dario Pretto is editor have frontmatter, so should still be counted
     coauthors = index.find_coauthors(person, include_volumes=False)
     assert len(coauthors) == 2
 
 
 def test_get_person_coauthors_counter(index):
     coauthors = index.find_coauthors_counter(
-        UNVERIFIED_PID_FORMAT.format(pid="kathleen-dahlgren")
+        UNVERIFIED_PID_FORMAT.format(pid="marguerite-solvang")
     )
     assert len(coauthors) == 1
-    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="joyce-mcdowell")] == 1
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="owen-castellane")] == 1
 
-    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    person = index.get_by_name(Name("Dario", "Pretto"))[0]
     coauthors = index.find_coauthors_counter(person)
     assert len(coauthors) == 2
-    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="joyce-mcdowell")] == 0
-    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio")] == 2
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="owen-castellane")] == 0
+    assert coauthors[UNVERIFIED_PID_FORMAT.format(pid="selin-aksoy")] == 2
 
 
 def test_get_by_namespec(index):
     ns1 = NameSpecification(Name("Li", "Feng"))  # does not exist
-    ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
+    ns2 = NameSpecification(Name("Wen", "Zhao"), id="wen-zhao-megasoft")
     with pytest.raises(NameSpecResolutionError):
         index.get_by_namespec(ns1)
     person = index.get_by_namespec(ns2)
-    assert person.id == "yang-liu-microsoft"
-    assert person.canonical_name == Name("Yang", "Liu")
+    assert person.id == "wen-zhao-megasoft"
+    assert person.canonical_name == Name("Wen", "Zhao")
 
 
 def test_get_by_name_variants(index):
     # It should be possible to find a person by a name variant
-    persons = index.get_by_name(Name("洋", "刘"))
+    persons = index.get_by_name(Name("赵", "文"))
     assert len(persons) == 1
-    assert persons[0].id == "yang-liu-ict"
+    assert persons[0].id == "wen-zhao-labx"
 
 
 def test_get_by_orcid(index):
-    person = index.get_by_orcid("0000-0003-2598-8150")
+    person = index.get_by_orcid("0009-0001-4567-8902")
     assert person is not None
-    assert person.id == "marcel-bollmann"
+    assert person.id == "alex-fenwick"
     assert index.get_by_orcid("0000-0000-0000-0000") is None
 
 
 def test_change_orcid(index):
-    person = index.get_by_orcid("0000-0003-2598-8150")
+    person = index.get_by_orcid("0009-0001-4567-8902")
     assert person is not None
-    assert person.id == "marcel-bollmann"
+    assert person.id == "alex-fenwick"
     person.orcid = "0000-0002-2909-0906"
-    assert index.get_by_orcid("0000-0003-2598-8150") is None
+    assert index.get_by_orcid("0009-0001-4567-8902") is None
     assert index.get_by_orcid("0000-0002-2909-0906") is person
 
 
@@ -248,23 +248,28 @@ test_cases_generate_person_id_from_name = (
         "matt-post",
     ),  # suffix/orcid not needed
     (
-        Name("Marcel", "Bollmann"),
+        Name("Alex", "Fenwick"),
         None,
         None,
         AnthologyException,
-    ),  # marcel-bollmann already exists
-    (Name("Marcel", "Bollmann"), "rub", None, "marcel-bollmann-rub"),
-    (Name("Marcel", "Bollmann"), "RUB", None, "marcel-bollmann-rub"),
-    (Name("Marcel", "Bollmann"), None, "0000-0003-2598-8150", "marcel-bollmann-8150"),
-    (Name("Marcel", "Bollmann"), "rub", "0000-0003-2598-8150", "marcel-bollmann-rub"),
+    ),  # alex-fenwick already exists
+    (Name("Alex", "Fenwick"), "fakerhausen", None, "alex-fenwick-fakerhausen"),
+    (Name("Alex", "Fenwick"), "FAKERHAUSEN", None, "alex-fenwick-fakerhausen"),
+    (Name("Alex", "Fenwick"), None, "0009-0001-4567-8902", "alex-fenwick-8902"),
     (
-        Name("Yang", "Liu"),
-        "icsi",
+        Name("Alex", "Fenwick"),
+        "fakerhausen",
+        "0009-0001-4567-8902",
+        "alex-fenwick-fakerhausen",
+    ),
+    (
+        Name("Wen", "Zhao"),
+        "labx",
         None,
         AnthologyException,
-    ),  # yang-liu-icsi already exists
-    (Name("Yang", "Liu"), "icsi", "0000-0000-0000-018X", UserWarning),
-    (Name("Xu", "Huang"), "nanjing", "0000-0000-0000-018X", "xu-huang-018x"),
+    ),  # wen-zhao-labx already exists
+    (Name("Wen", "Zhao"), "labx", "0000-0000-0000-018X", UserWarning),
+    (Name("Lin", "Feng"), "tsingcity", "0000-0000-0000-018X", "lin-feng-018x"),
 )
 
 
@@ -285,15 +290,18 @@ def test_generate_person_id_from_name(index, name, suffix, orcid, expected_resul
 
 
 def test_generate_person_id_from_person(index):
-    person = index["marcel-bollmann"]
+    person = index["alex-fenwick"]
     # Would add suffix to generate new ID for disambiguation
-    assert index.generate_person_id(person, suffix="rub") == "marcel-bollmann-rub"
+    assert (
+        index.generate_person_id(person, suffix="fakerhausen")
+        == "alex-fenwick-fakerhausen"
+    )
     # Would add ORCID to generate new ID for disambiguation
-    assert index.generate_person_id(person) == "marcel-bollmann-8150"
+    assert index.generate_person_id(person) == "alex-fenwick-8902"
     # Would add supplied ORCID to generate new ID for disambiguation
     assert (
         index.generate_person_id(person, orcid="0000-0002-2909-0906")
-        == "marcel-bollmann-0906"
+        == "alex-fenwick-0906"
     )
 
 
@@ -302,12 +310,12 @@ def test_generate_person_id_should_warn(index):
     index._load_people_index()
     # This person exists (as verified), but without an ORCID, so generating an
     # ID with an ORCID suffix should emit a warning
-    name = Name.from_dict({"first": "Steven", "last": "Krauwer"})
+    name = Name.from_dict({"first": "Derek", "last": "Holloway"})
 
     with pytest.warns(UserWarning):
         pid = index.generate_person_id(name, orcid="0000-0002-4236-2611")
 
-    assert pid == "steven-krauwer-2611"
+    assert pid == "derek-holloway-2611"
 
 
 def test_create_person(index):
@@ -323,12 +331,12 @@ def test_create_person(index):
 
 
 def test_create_person_changes_namespec_resolution(index):
-    implicit_person = index[UNVERIFIED_PID_FORMAT.format(pid="yongfeng-zhang")]
+    implicit_person = index[UNVERIFIED_PID_FORMAT.format(pid="torvald-nyman")]
     namespecs = list(implicit_person.namespecs())
     assert len(namespecs) > 0
     explicit_person = index.create(
-        id="yongfeng-zhang",
-        names=[Name("Yongfeng", "Zhang")],
+        id="torvald-nyman",
+        names=[Name("Torvald", "Nyman")],
     )
     # Papers that resolved to implicit_person before should resolve to explicit_person now
     assert all(ns.resolve() is explicit_person for ns in namespecs)
@@ -337,24 +345,24 @@ def test_create_person_changes_namespec_resolution(index):
 
 
 def test_create_person_creates_ambiguous_name(index):
-    person1 = index["hinrich-schuetze"]
+    person1 = index["torsten-baumann"]
     # Precondition: This person has both explicitly and implicitly linked papers
     assert len(person1.item_ids) == 5
-    assert sum(ns.id == "hinrich-schuetze" for ns in person1.namespecs()) == 2
-    # Precondition: No unverified "hinrich-schuetze" exists
-    assert UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze") not in index
+    assert sum(ns.id == "torsten-baumann" for ns in person1.namespecs()) == 2
+    # Precondition: No unverified "torsten-baumann" exists
+    assert UNVERIFIED_PID_FORMAT.format(pid="torsten-baumann") not in index
 
     person2 = index.create(
-        id="hinrich-schuetze-two",
-        names=[Name("Hinrich", "Schuetze")],
+        id="torsten-baumann-two",
+        names=[Name("Torsten", "Baumann")],
     )
     # No papers should resolve to person2
     assert len(person2.item_ids) == 0
     # Only explicitly linked papers should resolve to person1 now
     assert len(person1.item_ids) == 2
-    assert all(ns.id == "hinrich-schuetze" for ns in person1.namespecs())
-    # An unverified "hinrich-schuetze" should now exist with the remaining three papers
-    person3 = index[UNVERIFIED_PID_FORMAT.format(pid="hinrich-schuetze")]
+    assert all(ns.id == "torsten-baumann" for ns in person1.namespecs())
+    # An unverified "torsten-baumann" should now exist with the remaining three papers
+    person3 = index[UNVERIFIED_PID_FORMAT.format(pid="torsten-baumann")]
     assert person3 is not None
     assert len(person3.item_ids) == 3
     assert all(ns.id is None for ns in person3.namespecs())
@@ -363,17 +371,17 @@ def test_create_person_creates_ambiguous_name(index):
 def test_create_person_should_fail_on_duplicate_orcid(index):
     with pytest.raises(ValueError):
         index.create(
-            id="marcel-bollmann-twin",
-            names=[Name("Marcel", "Bollmann")],
-            orcid="0000-0003-2598-8150",  # already assigned to "marcel-bollmann"
+            id="alex-fenwick-twin",
+            names=[Name("Alex", "Fenwick")],
+            orcid="0009-0001-4567-8902",  # already assigned to "alex-fenwick"
         )
 
 
 def test_create_person_should_fail_on_duplicate_id(index):
     with pytest.raises(AnthologyInvalidIDError):
         index.create(
-            id="marcel-bollmann",  # already exists
-            names=[Name("Marcel", "Bollmann")],
+            id="alex-fenwick",  # already exists
+            names=[Name("Alex", "Fenwick")],
         )
 
 
@@ -411,8 +419,8 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
     # Case 1 – should resolve to different persons
     index._add_to_index(
         [
-            NameSpecification(Name("Yang", "Liu"), id="yang-liu-ict"),
-            NameSpecification(Name("Yang", "Liu")),
+            NameSpecification(Name("Wen", "Zhao"), id="wen-zhao-instx"),
+            NameSpecification(Name("Wen", "Zhao")),
         ],
         example_id,
     )
@@ -420,8 +428,8 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
     with pytest.warns(NameSpecResolutionWarning):
         index._add_to_index(
             [
-                NameSpecification(Name("Yang", "Liu")),
-                NameSpecification(Name("Yang", "Liu")),
+                NameSpecification(Name("Wen", "Zhao")),
+                NameSpecification(Name("Wen", "Zhao")),
             ],
             example_id,
         )
@@ -429,8 +437,8 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
     with pytest.raises(NameSpecResolutionError):
         index._add_to_index(
             [
-                NameSpecification(Name("Steven", "Krauwer"), id="steven-krauwer"),
-                NameSpecification(Name("S.", "Krauwer"), id="steven-krauwer"),
+                NameSpecification(Name("Derek", "Holloway"), id="derek-holloway"),
+                NameSpecification(Name("D.", "Holloway"), id="derek-holloway"),
             ],
             example_id,
         )
@@ -443,69 +451,69 @@ def test_add_to_index_behavior_on_duplicate_namespecs(index):
 
 def test_person_id_change_should_fail_on_existing_items(anthology):
     index = anthology.people
-    person = index["marcel-bollmann"]
+    person = index["alex-fenwick"]
     # Cannot change this directly – there are items associated with the old ID!
     with pytest.raises(PersonDefinitionError):
-        person.id = "marcel-bollmann-rub"
+        person.id = "alex-fenwick-fakerhausen"
 
 
 def test_person_id_change_should_update_index(anthology):
     index = anthology.people
-    person = index["marcel-bollmann"]
+    person = index["alex-fenwick"]
     # Unlink all items first
     for ns in person.namespecs():
         ns.orcid = None
         ns.id = None
     # Now, the ID can be changed
-    person.id = "marcel-bollmann-rub"
-    assert "marcel-bollmann" not in index
-    assert "marcel-bollmann-rub" in index
-    assert index.by_orcid["0000-0003-2598-8150"] == "marcel-bollmann-rub"
-    assert index.by_name[Name("Marcel", "Bollmann")] == ["marcel-bollmann-rub"]
+    person.id = "alex-fenwick-fakerhausen"
+    assert "alex-fenwick" not in index
+    assert "alex-fenwick-fakerhausen" in index
+    assert index.by_orcid["0009-0001-4567-8902"] == "alex-fenwick-fakerhausen"
+    assert index.by_name[Name("Alex", "Fenwick")] == ["alex-fenwick-fakerhausen"]
 
 
 def test_person_orcid_change_should_update_index(anthology):
     index = anthology.people
-    person = index["yang-liu-ict"]
+    person = index["wen-zhao-instx"]
     orcid = "0000-0003-4154-7507"
     assert orcid not in index.by_orcid
     person.orcid = orcid
     assert orcid in index.by_orcid
-    assert index.by_orcid[orcid] == "yang-liu-ict"
+    assert index.by_orcid[orcid] == "wen-zhao-instx"
 
 
 def test_person_add_name_should_update_index(anthology):
     index = anthology.people
-    person = index["marcel-bollmann"]
-    name = Name("Marc Marcel", "Bollmann")
+    person = index["alex-fenwick"]
+    name = Name("Marc Alex", "Fenwick")
     assert not index.by_name[name]
     person.add_name(name)
-    assert index.by_name[name] == ["marcel-bollmann"]
-    assert index.slugs_to_verified_ids[name.slugify()] == set(["marcel-bollmann"])
+    assert index.by_name[name] == ["alex-fenwick"]
+    assert index.slugs_to_verified_ids[name.slugify()] == set(["alex-fenwick"])
 
 
 def test_person_remove_name_should_update_index(anthology):
     index = anthology.people
-    person = index["steven-krauwer"]
-    name = Name("Steven", "Krauwer")
-    assert index.by_name[name] == ["steven-krauwer"]
+    person = index["derek-holloway"]
+    name = Name("Derek", "Holloway")
+    assert index.by_name[name] == ["derek-holloway"]
     person.remove_name(name)
-    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="derek-holloway")]
     assert not index.slugs_to_verified_ids[name.slugify()]
 
 
 def test_person_setting_names_should_update_index(anthology):
     index = anthology.people
-    person = index["steven-krauwer"]
-    names = [Name("S.", "Krauwer"), Name("Steven J.", "Krauwer")]
+    person = index["derek-holloway"]
+    names = [Name("D.", "Holloway"), Name("Derek J.", "Holloway")]
     person.names = names
     # previously existing name
-    assert index.by_name[names[0]] == ["steven-krauwer"]
+    assert index.by_name[names[0]] == ["derek-holloway"]
     # added name
-    assert index.by_name[names[1]] == ["steven-krauwer"]
+    assert index.by_name[names[1]] == ["derek-holloway"]
     # removed name, now resolves to unverified
-    assert index.by_name[Name("Steven", "Krauwer")] == [
-        UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")
+    assert index.by_name[Name("Derek", "Holloway")] == [
+        UNVERIFIED_PID_FORMAT.format(pid="derek-holloway")
     ]
 
 
@@ -528,80 +536,80 @@ test_cases_resolve_namespec = (
     ),
     #### "One match" cases
     (  # Name exists in people.json, unambiguous
-        {"first": "Steven", "last": "Krauwer"},
+        {"first": "Derek", "last": "Holloway"},
         {},
-        "steven-krauwer",
+        "derek-holloway",
     ),
     (  # Name exists in people.json, unambiguous, but not as canonical name
-        {"first": "Emily T.", "last": "Prud’hommeaux"},
+        {"first": "Maeve T.", "last": "O’Connell"},
         {},
-        "emily-prudhommeaux",
+        "maeve-oconnell",
     ),
     (  # Person unambiguous, but has `disable_name_matching: true`
-        {"first": "Pranav", "last": "Anand"},
+        {"first": "Ravi", "last": "Bishnu"},
         {},
-        UNVERIFIED_PID_FORMAT.format(pid="pranav-anand"),
+        UNVERIFIED_PID_FORMAT.format(pid="ravi-bishnu"),
     ),
     (  # `disable_name_matching: true` doesn't affect NameSpecs with explicit ID
-        {"first": "Pranav", "last": "Anand"},
-        {"id": "pranav-anand"},
-        "pranav-anand",
+        {"first": "Ravi", "last": "Bishnu"},
+        {"id": "ravi-bishnu"},
+        "ravi-bishnu",
     ),
     (  # Name exists in people.json with an ORCID, unambiguous
-        {"first": "Marcel", "last": "Bollmann"},
+        {"first": "Alex", "last": "Fenwick"},
         {},
-        "marcel-bollmann",
+        "alex-fenwick",
     ),
     (  # ... with explicit ID
-        {"first": "Marcel", "last": "Bollmann"},
-        {"id": "marcel-bollmann"},
-        "marcel-bollmann",
+        {"first": "Alex", "last": "Fenwick"},
+        {"id": "alex-fenwick"},
+        "alex-fenwick",
     ),
     (  # ... with explicit ID & ORCID
-        {"first": "Marcel", "last": "Bollmann"},
-        {"id": "marcel-bollmann", "orcid": "0000-0003-2598-8150"},
-        "marcel-bollmann",
+        {"first": "Alex", "last": "Fenwick"},
+        {"id": "alex-fenwick", "orcid": "0009-0001-4567-8902"},
+        "alex-fenwick",
     ),
     (  # ... with explicit ID & ORCID, but ORCID doesn't match
-        {"first": "Marcel", "last": "Bollmann"},
-        {"id": "marcel-bollmann", "orcid": "0000-0002-7491-7669"},
+        {"first": "Alex", "last": "Fenwick"},
+        {"id": "alex-fenwick", "orcid": "0000-0002-7491-7669"},
         PersonDefinitionError,
     ),
     (  # ... with explicit ID & ORCID, but name isn't listed in people.json
-        {"first": "Marc Marcel", "last": "Bollmann"},
-        {"id": "marcel-bollmann", "orcid": "0000-0003-2598-8150"},
+        {"first": "Marc Alex", "last": "Fenwick"},
+        {"id": "alex-fenwick", "orcid": "0009-0001-4567-8902"},
         PersonDefinitionError,
     ),
     (  # Name matches an existing, unambiguous name via slugification
-        {"first": "Stèven", "last": "Kräuwer"},
+        {"first": "Dérek", "last": "Hólloway"},
         {},
-        "steven-krauwer",
+        "derek-holloway",
     ),
     (  # ... even when it's not the canonical name
-        {"first": "Emily T.", "last": "Prüd’hommeaux"},
+        {"first": "Maeve T.", "last": "Ó’Connell"},
         {},
-        "emily-prudhommeaux",
+        "maeve-oconnell",
     ),
     (  # ... even with different first/last split
-        {"first": "Emily", "last": "T. Prud’hommeaux"},
+        {"first": "Maeve", "last": "T. O’Connell"},
         {},
-        "emily-prudhommeaux",
+        "maeve-oconnell",
     ),
     #### "2+ matches" cases
     (  # Name exists in people.json for several people
-        {"first": "Yang", "last": "Liu"},
+        {"first": "Wen", "last": "Zhao"},
         {},
-        UNVERIFIED_PID_FORMAT.format(pid="yang-liu"),
+        UNVERIFIED_PID_FORMAT.format(pid="wen-zhao"),
     ),
     (  # ... will resolve to known person with explicit ID
-        {"first": "Yang", "last": "Liu"},
-        {"id": "yang-liu-icsi"},
-        "yang-liu-icsi",
+        {"first": "Wen", "last": "Zhao"},
+        {"id": "wen-zhao-labx"},
+        "wen-zhao-labx",
     ),
     (  # ... affiliation is NOT used in any way for name resolution
-        {"first": "Yang", "last": "Liu"},
+        {"first": "Wen", "last": "Zhao"},
         {"affiliation": "Microsoft Cognitive Services Research"},
-        UNVERIFIED_PID_FORMAT.format(pid="yang-liu"),
+        UNVERIFIED_PID_FORMAT.format(pid="wen-zhao"),
     ),
     #### Malformed name specifications
     (  # Person with explicit ORCID, but no explicit ID (always disallowed)
@@ -610,8 +618,8 @@ test_cases_resolve_namespec = (
         NameSpecResolutionError,
     ),
     (  # ... even if the person exists (ID is still required)
-        {"first": "Marcel", "last": "Bollmann"},
-        {"orcid": "0000-0003-2598-8150"},
+        {"first": "Alex", "last": "Fenwick"},
+        {"orcid": "0009-0001-4567-8902"},
         NameSpecResolutionError,
     ),
 )
@@ -671,29 +679,29 @@ test_cases_namelink = (
     # Names that are explicitly defined in people.json should always have
     # NameLink.EXPLICIT after resolve_namespec()
     (
-        {"first": "Steven", "last": "Krauwer"},
+        {"first": "Derek", "last": "Holloway"},
         NameLink.EXPLICIT,
     ),
     (
-        {"first": "S.", "last": "Krauwer"},
+        {"first": "D.", "last": "Holloway"},
         NameLink.EXPLICIT,
     ),
     (
-        {"first": "Marcel", "last": "Bollmann"},
+        {"first": "Alex", "last": "Fenwick"},
         NameLink.EXPLICIT,
     ),
     # Names that are matched via slugification should always have
     # NameLink.INFERRED after resolve_namespec()
     (
-        {"first": "Stèven", "last": "Kräuwer"},
+        {"first": "Dérek", "last": "Hólloway"},
         NameLink.INFERRED,
     ),
     (
-        {"first": "Emily T.", "last": "Prüd’hommeaux"},
+        {"first": "Maeve T.", "last": "Ó’Connell"},
         NameLink.INFERRED,
     ),
     (
-        {"first": "Emily", "last": "T. Prud’hommeaux"},
+        {"first": "Maeve", "last": "T. O’Connell"},
         NameLink.INFERRED,
     ),
 )
@@ -716,45 +724,45 @@ def test_check_namelink_after_resolve_namespec(name_dict, expected_namelink, ind
 def test_person_add_name_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: 3 papers resolve to this explicit person
-    person1 = index["yang-liu-icsi"]
+    person1 = index["wen-zhao-labx"]
     assert len(person1.item_ids) == 3
     # Precondition: 1 paper resolves to this unverified person
-    person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-liu")]
+    person2 = index[UNVERIFIED_PID_FORMAT.format(pid="alexander-zhao")]
     assert len(person2.item_ids) == 1
     all_papers = person1.item_ids | person2.item_ids
 
     # Adding a name should move unverified papers to this person via name matching
-    name = Name("Alexander", "Liu")
+    name = Name("Alexander", "Zhao")
     person1.add_name(name)
-    assert "yang-liu-icsi" in index.by_name[name]
+    assert "wen-zhao-labx" in index.by_name[name]
     assert set(person1.item_ids) == all_papers
     assert len(person2.item_ids) == 0
 
 
 def test_person_remove_name_affects_name_resolution(anthology):
     index = anthology.people
-    person = index["steven-krauwer"]
+    person = index["derek-holloway"]
     # Precondition: 2 papers resolve to this person
     assert len(person.item_ids) == 2
 
     # Remove a name should move implicitly-linked papers to unverified person
-    name = Name("Steven", "Krauwer")
+    name = Name("Derek", "Holloway")
     person.remove_name(name)
-    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
-    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer")]
+    assert UNVERIFIED_PID_FORMAT.format(pid="derek-holloway") in index
+    assert index.by_name[name] == [UNVERIFIED_PID_FORMAT.format(pid="derek-holloway")]
     assert len(person.item_ids) == 1
 
 
 def test_person_disable_name_matching_affects_name_resolution(anthology):
     index = anthology.people
-    person = index["steven-krauwer"]
+    person = index["derek-holloway"]
     # Precondition: 2 papers resolve to this person
     assert len(person.item_ids) == 2
 
     # Setting disable_name_matching should move implicitly-linked papers to
     # unverified person
     person.disable_name_matching = True
-    assert UNVERIFIED_PID_FORMAT.format(pid="steven-krauwer") in index
+    assert UNVERIFIED_PID_FORMAT.format(pid="derek-holloway") in index
     assert len(person.item_ids) == 1
 
     # Setting it back should change it back
@@ -765,17 +773,17 @@ def test_person_disable_name_matching_affects_name_resolution(anthology):
 def test_namespec_change_name_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a given unverified person
-    item_id = ("2022.acl", "long", "187")
+    item_id = ("2022.facl", "long", "187")
     namespec = anthology.get_paper(item_id).authors[2]
-    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="nathan-noiry"))
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="soren-kessling"))
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
 
     # Changing the name should move the paper to another person
-    namespec.name = Name("Nathan Middlename", "Noiry")
+    namespec.name = Name("Soren Middlename", "Kessling")
     person2 = namespec.resolve()
     assert person2 is not person1
-    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nathan-middlename-noiry")
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="soren-middlename-kessling")
     assert item_id not in person1.item_ids
     assert item_id in person2.item_ids
 
@@ -783,21 +791,19 @@ def test_namespec_change_name_affects_name_resolution(anthology):
 def test_namespec_change_name_affects_volume_and_frontmatter(anthology):
     index = anthology.people
     # Precondition: Find a volume that resolves to a given (unverified) person
-    item_id = ("2022.acl", "long", None)
-    frontmatter_id = ("2022.acl", "long", "0")
+    item_id = ("2022.facl", "long", None)
+    frontmatter_id = ("2022.facl", "long", "0")
     namespec = anthology.get_volume(item_id).editors[-1]
-    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio"))
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="nadia-ferris"))
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
     assert frontmatter_id in person1.item_ids
 
     # Changing the name should move the volume AND its frontmatter
-    namespec.name = Name("Aline Middlename", "Villavicencio")
+    namespec.name = Name("Nadia Middlename", "Ferris")
     person2 = namespec.resolve()
     assert person2 is not person1
-    assert person2.id == UNVERIFIED_PID_FORMAT.format(
-        pid="aline-middlename-villavicencio"
-    )
+    assert person2.id == UNVERIFIED_PID_FORMAT.format(pid="nadia-middlename-ferris")
     assert item_id not in person1.item_ids
     assert frontmatter_id not in person1.item_ids
     assert item_id in person2.item_ids
@@ -807,16 +813,16 @@ def test_namespec_change_name_affects_volume_and_frontmatter(anthology):
 def test_namespec_change_id_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a given verified person
-    item_id = ("2022.acl", "long", "88")
+    item_id = ("2022.facl", "long", "88")
     namespec = anthology.get_paper(item_id).authors[-2]
-    person1 = index.get("yang-liu-icsi")
-    person2 = index.get("yang-liu-microsoft")
+    person1 = index.get("wen-zhao-labx")
+    person2 = index.get("wen-zhao-megasoft")
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
     assert item_id not in person2.item_ids
 
     # Changing the ID should move the paper to another person
-    namespec.id = "yang-liu-microsoft"
+    namespec.id = "wen-zhao-megasoft"
     assert namespec.resolve() is person2
     assert item_id not in person1.item_ids
     assert item_id in person2.item_ids
@@ -825,19 +831,19 @@ def test_namespec_change_id_affects_name_resolution(anthology):
 def test_namespec_change_id_affects_volume_and_frontmatter(anthology):
     index = anthology.people
     # Precondition: Find a volume that resolves to a given (unverified) person
-    item_id = ("2022.acl", "long", None)
-    frontmatter_id = ("2022.acl", "long", "0")
+    item_id = ("2022.facl", "long", None)
+    frontmatter_id = ("2022.facl", "long", "0")
     namespec = anthology.get_volume(item_id).editors[-1]
-    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="aline-villavicencio"))
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="nadia-ferris"))
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
     assert frontmatter_id in person1.item_ids
 
     # Changing the name should move the volume AND its frontmatter
-    namespec.id = "aline-villavicencio-test"
+    namespec.id = "nadia-ferris-test"
     person2 = namespec.resolve()
     assert person2 is not person1
-    assert person2.id == "aline-villavicencio-test"
+    assert person2.id == "nadia-ferris-test"
     assert item_id not in person1.item_ids
     assert frontmatter_id not in person1.item_ids
     assert item_id in person2.item_ids
@@ -847,10 +853,10 @@ def test_namespec_change_id_affects_volume_and_frontmatter(anthology):
 def test_namespec_remove_id_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a given verified person
-    item_id = ("2022.acl", "long", "88")
+    item_id = ("2022.facl", "long", "88")
     namespec = anthology.get_paper(item_id).authors[-2]
-    person1 = index.get("yang-liu-icsi")
-    person2 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
+    person1 = index.get("wen-zhao-labx")
+    person2 = index.get(UNVERIFIED_PID_FORMAT.format(pid="wen-zhao"))
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
     assert item_id not in person2.item_ids
@@ -865,16 +871,16 @@ def test_namespec_remove_id_affects_name_resolution(anthology):
 def test_namespec_add_id_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a given verified person
-    item_id = ("2022.naloma", "1", "6")
+    item_id = ("2022.natfake", "1", "6")
     namespec = anthology.get_paper(item_id).authors[0]
-    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="yang-liu"))
-    person2 = index.get("yang-liu-icsi")
+    person1 = index.get(UNVERIFIED_PID_FORMAT.format(pid="wen-zhao"))
+    person2 = index.get("wen-zhao-labx")
     assert namespec.resolve() is person1
     assert item_id in person1.item_ids
     assert item_id not in person2.item_ids
 
     # Changing the ID should move the paper to another person
-    namespec.id = "yang-liu-icsi"
+    namespec.id = "wen-zhao-labx"
     assert namespec.resolve() is person2
     assert item_id not in person1.item_ids
     assert item_id in person2.item_ids
@@ -883,18 +889,18 @@ def test_namespec_add_id_affects_name_resolution(anthology):
 def test_namespec_normalize_affects_person_names_unverified(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a person with all-lowercase name
-    item_id = ("2022.naloma", "1", "4")
+    item_id = ("2022.natfake", "1", "4")
     namespec = anthology.get_paper(item_id).authors[-1]
-    person = index.get(UNVERIFIED_PID_FORMAT.format(pid="mihalis-yannakakis"))
+    person = index.get(UNVERIFIED_PID_FORMAT.format(pid="petros-angelidis"))
     assert namespec.resolve() is person
-    assert namespec.name == Name("mihalis", "yannakakis")
-    assert person.names == [Name("mihalis", "yannakakis")]
+    assert namespec.name == Name("petros", "angelidis")
+    assert person.names == [Name("petros", "angelidis")]
 
     # Normalizing should update the person's name
     namespec.normalize()
-    assert namespec.name == Name("Mihalis", "Yannakakis")
+    assert namespec.name == Name("Petros", "Angelidis")
     assert (
-        Name("Mihalis", "Yannakakis") in person.names
+        Name("Petros", "Angelidis") in person.names
     )  # for an unverified person, it's fine that the old name is still in here
 
 
@@ -911,19 +917,19 @@ test_cases_ingest_namespec = (
     ),
     #### ORCID in the ingestion material, matches a person in our `people.json`
     (
-        {"first": "Marcel", "last": "Bollmann"},
-        {"orcid": "0000-0003-2598-8150"},
-        "marcel-bollmann",
+        {"first": "Alex", "last": "Fenwick"},
+        {"orcid": "0009-0001-4567-8902"},
+        "alex-fenwick",
     ),
     (  # ... even if the name wasn't recorded yet in `people.json`
-        {"first": "Marc Marcel", "last": "Bollmann"},
-        {"orcid": "0000-0003-2598-8150"},
-        "marcel-bollmann",
+        {"first": "Marc Alex", "last": "Fenwick"},
+        {"orcid": "0009-0001-4567-8902"},
+        "alex-fenwick",
     ),
     (  # ... and even if the ORCID is given in URL style
-        {"first": "Marcel", "last": "Böllmann"},
-        {"orcid": "https://orcid.org/0000-0003-2598-8150"},
-        "marcel-bollmann",
+        {"first": "Alex", "last": "Fénwick"},
+        {"orcid": "https://orcid.org/0009-0001-4567-8902"},
+        "alex-fenwick",
     ),
     #### ORCID in the ingestion material, no match in our `people.json`
     (  # Person should be created
@@ -932,20 +938,20 @@ test_cases_ingest_namespec = (
         "matt-post",
     ),
     (  # It shouldn't matter if other persons with the same name exist, only ORCID matters
-        {"first": "Xu", "last": "Huang"},
+        {"first": "Lin", "last": "Feng"},
         {"orcid": "0000-0003-4154-7507"},
-        "xu-huang-7507",
+        "lin-feng-7507",
     ),
     (  # When generated ID is already taken, append the last four digits of ORCID
-        {"first": "Marcel", "last": "Bollmann"},
+        {"first": "Alex", "last": "Fenwick"},
         {"orcid": "0000-0003-3750-1098"},
-        "marcel-bollmann-1098",
+        "alex-fenwick-1098",
     ),
     #### Edge cases
     (  # If function is already called with an ID for some reason, nothing happens
-        {"first": "Marcel", "last": "Bollmann"},
-        {"id": "marcel-bollmann"},
-        "marcel-bollmann",
+        {"first": "Alex", "last": "Fenwick"},
+        {"id": "alex-fenwick"},
+        "alex-fenwick",
     ),
 )
 
@@ -1000,9 +1006,9 @@ def test_add_fields_to_people_data(index, tmp_path):
     data_out = tmp_path / "people.add_fields.json"
 
     # Modifications
-    person = index["marcel-bollmann"]
-    person.add_name(Name("Marc Marcel", "Bollmann"))
-    person.degree = "Ruhr-Universität Bochum"
+    person = index["alex-fenwick"]
+    person.add_name(Name("Marc Alex", "Fenwick"))
+    person.degree = "Fakerhausen University"
 
     # Test that modifications are saved to people.json
     index.save(data_out)
@@ -1011,13 +1017,13 @@ def test_add_fields_to_people_data(index, tmp_path):
         out = f.read()
 
     assert (
-        """  "marcel-bollmann": {
+        """  "alex-fenwick": {
     "names": [
-      {"first": "Marcel", "last": "Bollmann"},
-      {"first": "Marc Marcel", "last": "Bollmann"}
+      {"first": "Alex", "last": "Fenwick"},
+      {"first": "Marc Alex", "last": "Fenwick"}
     ],
-    "degree": "Ruhr-Universität Bochum",
-    "orcid": "0000-0003-2598-8150"
+    "degree": "Fakerhausen University",
+    "orcid": "0009-0001-4567-8902"
   }"""
         in out
     )
@@ -1028,8 +1034,8 @@ def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
     data_out = tmp_path / "people.make_explicit.json"
 
     # Modifications
-    person = index[UNVERIFIED_PID_FORMAT.format(pid="preslav-nakov")]
-    person.make_explicit("preslav-nakov")
+    person = index[UNVERIFIED_PID_FORMAT.format(pid="dario-pretto")]
+    person.make_explicit("dario-pretto")
     person.orcid = "0000-0002-3600-1510"
 
     # Test that modifications are saved to people.json
@@ -1039,9 +1045,9 @@ def test_add_person_to_people_data_via_make_explicit(index, tmp_path):
         out = f.read()
 
     assert (
-        """  "preslav-nakov": {
+        """  "dario-pretto": {
     "names": [
-      {"first": "Preslav", "last": "Nakov"}
+      {"first": "Dario", "last": "Pretto"}
     ],
     "orcid": "0000-0002-3600-1510"
   }"""
@@ -1055,8 +1061,8 @@ def test_add_person_to_people_data_via_create_person(index, tmp_path):
 
     # Modifications
     index.create(
-        id="preslav-nakov",
-        names=[Name("Preslav", "Nakov")],
+        id="dario-pretto",
+        names=[Name("Dario", "Pretto")],
         orcid="0000-0002-3600-1510",
     )
 
@@ -1067,9 +1073,9 @@ def test_add_person_to_people_data_via_create_person(index, tmp_path):
         out = f.read()
 
     assert (
-        """  "preslav-nakov": {
+        """  "dario-pretto": {
     "names": [
-      {"first": "Preslav", "last": "Nakov"}
+      {"first": "Dario", "last": "Pretto"}
     ],
     "orcid": "0000-0002-3600-1510"
   }"""

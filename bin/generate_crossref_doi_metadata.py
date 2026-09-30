@@ -56,7 +56,7 @@ log = logging.getLogger(__name__)
 
 # CONSTANTS
 MAX_FILE_BYTES = 10_000_000
-DOI_PREFIX = "10.18653/v1/"
+DOI_PREFIX = "10.18653/"
 CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 PUBLISHER_PLACE = "Stroudsburg, PA, USA"
 DEPOSITOR_NAME = "Matt Post"

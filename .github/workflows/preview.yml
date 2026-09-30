@@ -39,53 +39,36 @@ jobs:
       (github.event.action != 'labeled' || github.event.label.name == 'preview')
     runs-on:
       labels: ubuntu-latest-m
-    env:
-      HUGO_VERSION: 0.160.0
-      DART_SASS_VERSION: 1.97.1
     steps:
-    - name: install hugo
-      run: wget "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" && sudo dpkg -i "hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
-    - name: Install Dart Sass
-      run: |
-        mkdir -p "${HOME}/.local"
-        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
-        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
-    - name: install uv
-      uses: astral-sh/setup-uv@v10.1.0
-    - name: update
-      run: sudo apt-get update
-    - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - name: dump secret key
-      env:
-        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
-      run: |
-        mkdir -p $HOME/.ssh/
-        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
-        chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v7
       with:
         # Check out the PR's actual head commit (not the ephemeral merge
         # commit that `pull_request` checks out by default), so the preview
         # reflects exactly what's on the branch.
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: fetch master branch
+
+    - id: prerequisites
+      uses: ./.github/actions/install-build-prerequisites
+
+    - name: Dump secret key
+      env:
+        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+      run: |
+        mkdir -p $HOME/.ssh/
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+
+    - name: Fetch master branch
       run: |
         git fetch origin master
-    - name: install pip dependencies
-      run: |
-        python -m pip install -U pip
-        python -m pip install lxml
-    - name: extract branch name
+    - name: Extract branch name
       shell: bash
       run: |
         raw_branch="${GITHUB_HEAD_REF}"
         branch="${raw_branch//\//___}"
         echo "branch=$(echo ${branch})" >> $GITHUB_OUTPUT
       id: extract_branch
-    - name: list changes
+    - name: List changes
       shell: bash
       run: echo "changes=$(git diff --name-only HEAD origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
       id: list_changes
@@ -94,10 +77,7 @@ jobs:
 #      run: |
 #        git diff --name-only HEAD origin/master
 #        git diff --name-only HEAD origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
-    - name: Download NLTK data
-      # Needed by bin/fixedcase (imported via bin/ingest.py) during `make check`.
-      run: uv run python -c "import nltk; nltk.download('punkt_tab')"
-    - name: preview
+    - name: Build website preview
       shell: bash
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
