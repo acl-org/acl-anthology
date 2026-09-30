@@ -12,6 +12,7 @@ from acl_anthology.collections.paper import PaperDeletionNotice
 from acl_anthology.collections.types import PaperType
 from acl_anthology.people import Name, NameSpecification
 from bin.author_stats import (
+    Category,
     checkpoint_revision,
     compute_authorship_stats,
     month_starts,
@@ -83,20 +84,18 @@ def test_counts_namespecs_and_deduplicates_aliases_and_earlier_years(anthology):
     assert stats["totals"] == [a + b for a, b in zip(baseline["totals"], [1, 2, 0, 2])]
 
 
-def test_legacy_explicit_people_are_verified_and_orcid_is_on_namespecs(anthology):
+def test_orcid_coverage_uses_person_even_without_orcid_on_namespec(anthology):
     person = anthology.people.create(
-        "metrics-legacy", [Name("Legacy", "Metrics")], orcid="0000-0002-1825-0097"
+        "metrics-orcid", [Name("Orcid", "Metrics")], orcid="0000-0002-1825-0097"
     )
     volume = anthology.create_collection("2019.metrics").create_volume(
-        "main", title="Legacy"
+        "main", title="Metrics"
     )
     volume.create_paper(
-        title="Legacy paper",
-        authors=[
-            NameSpecification(Name("Legacy", "Metrics"), id=person.id, orcid=person.orcid)
-        ],
+        title="ORCID on person only",
+        authors=[NameSpecification(Name("Orcid", "Metrics"), id=person.id)],
     )
-    stats = compute_authorship_stats(anthology, legacy=True)
+    stats = compute_authorship_stats(anthology)
     row = next(row for row in stats["years"] if row["year"] == 2019)
     assert row["authorships"] == [1, 0, 0, 0]
     assert row["authors"] == [1, 0, 0, 0]
@@ -158,7 +157,7 @@ def test_history_cache_and_changed_revision(tmp_path, monkeypatch):
 
     def compute(repo, revision):
         calls.append(revision)
-        return {"years": [], "totals": [1, 2, 3, 4], "identity_model": "verified"}
+        return {"years": [], "totals": [1, 2, 3, 4]}
 
     monkeypatch.setattr("bin.author_stats.compute_checkpoint", compute)
     update_history(tmp_path, "main", date(2026, 3, 1), output)
@@ -173,12 +172,13 @@ def test_history_cache_and_changed_revision(tmp_path, monkeypatch):
     assert json.loads(output.read_text())["checkpoints"][1]["revision"] == "new-mar"
 
 
-def test_old_history_schema_recomputes_checkpoints(tmp_path, monkeypatch):
+@pytest.mark.parametrize("old_version", [1, 2, 3])
+def test_old_history_schema_recomputes_checkpoints(tmp_path, monkeypatch, old_version):
     output = tmp_path / "history.json"
     output.write_text(
         json.dumps(
             {
-                "schema_version": 2,
+                "schema_version": old_version,
                 "checkpoints": [
                     {"date": "2026-01-01", "revision": "jan"},
                     {"date": "2026-02-01", "revision": "feb"},
@@ -193,19 +193,17 @@ def test_old_history_schema_recomputes_checkpoints(tmp_path, monkeypatch):
         lambda *args: {
             "years": [],
             "totals": [1, 0, 0, 0],
-            "identity_model": "legacy",
         },
     )
     update_history(tmp_path, "main", date(2026, 2, 1), output)
     assert json.loads(output.read_text()) == {
-        "schema_version": 3,
+        "schema_version": 4,
         "checkpoints": [
             {
                 "date": "2026-02-01",
                 "revision": "feb",
                 "years": [],
                 "totals": [1, 0, 0, 0],
-                "identity_model": "legacy",
             }
         ],
     }
@@ -231,7 +229,7 @@ def test_failed_checkpoint_preserves_previous_results(tmp_path, monkeypatch):
     def compute(repo, revision):
         if revision == "2026-03-01":
             raise RuntimeError("Unable to load historical data")
-        return {"years": [], "totals": [0, 0, 0, 1], "identity_model": "legacy"}
+        return {"years": [], "totals": [0, 0, 0, 1]}
 
     monkeypatch.setattr("bin.author_stats.compute_checkpoint", compute)
     with pytest.raises(RuntimeError, match="historical data"):
@@ -244,14 +242,14 @@ def test_failed_checkpoint_preserves_previous_results(tmp_path, monkeypatch):
 def test_persisted_history_has_provenance_and_consistent_counts():
     repo = Path(__file__).resolve().parents[1]
     history = json.loads((repo / "hugo/assets/data/author-history.json").read_text())
-    assert history["schema_version"] == 3
+    assert history["schema_version"] == 4
     checkpoints = history["checkpoints"]
     assert [entry["date"] for entry in checkpoints] == [
         str(month) for month in month_starts(date.fromisoformat(checkpoints[-1]["date"]))
     ]
     for checkpoint in checkpoints:
         assert len(checkpoint["revision"]) == 40
-        assert checkpoint["identity_model"] in ("legacy", "verified")
+        assert "identity_model" not in checkpoint
         assert len(checkpoint["totals"]) == 4
         rows = {row["year"]: row for row in checkpoint["years"]}
         for row in rows.values():
@@ -264,11 +262,47 @@ def test_persisted_history_has_provenance_and_consistent_counts():
             sum(row["authorships"][i] for year, row in rows.items() if 0 < year < 2020)
             for i in range(4)
         ]
-    assert all(
-        sum(entry["totals"][:2]) > 0
-        for entry in checkpoints
-        if entry["identity_model"] == "legacy"
-    )
+    assert all(sum(entry["totals"][:2]) > 0 for entry in checkpoints)
     assert all(
         entry["totals"][2] > 0 for entry in checkpoints if entry["date"] >= "2026-08-01"
     )
+
+
+def test_editor_only_and_unpublished_people_only_affect_database_totals(anthology):
+    baseline = compute_authorship_stats(anthology)
+    anthology.people.create("metrics-unpublished", [Name("Unpublished", "Metrics")])
+    volume = anthology.create_collection("2026.metrics").create_volume(
+        "main",
+        title="Metrics",
+        editors=[
+            NameSpecification(Name("Editor", "Metrics"), openreview="~Editor_Metrics1")
+        ],
+    )
+    volume.create_paper(title="Front matter", type=PaperType.FRONTMATTER)
+    stats = compute_authorship_stats(anthology)
+    assert stats["years"] == baseline["years"]
+    expected = baseline["totals"].copy()
+    expected[Category.VERIFIED_WITHOUT_ORCID] += 1
+    expected[Category.UNVERIFIED_WITH_OPENREVIEW] += 1
+    assert stats["totals"] == expected
+
+
+def test_category_array_order_is_stable():
+    assert list(Category) == [
+        Category.VERIFIED_WITH_ORCID,
+        Category.VERIFIED_WITHOUT_ORCID,
+        Category.UNVERIFIED_WITH_OPENREVIEW,
+        Category.UNVERIFIED_WITHOUT_ID,
+    ]
+    assert [int(category) for category in Category] == [0, 1, 2, 3]
+
+
+def test_may_checkpoint_matches_reviewed_2026_orcid_counts():
+    repo = Path(__file__).resolve().parents[1]
+    history = json.loads((repo / "hugo/assets/data/author-history.json").read_text())
+    checkpoint = next(
+        entry for entry in history["checkpoints"] if entry["date"] == "2026-05-01"
+    )
+    assert checkpoint["revision"] == "2a5452a3c2ec40d87f37f4a6b67b03d8c70509f7"
+    row = next(row for row in checkpoint["years"] if row["year"] == 2026)
+    assert row["authors"] == [2315, 85, 0, 3726]

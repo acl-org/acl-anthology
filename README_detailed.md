@@ -102,6 +102,9 @@ and the Python library from that commit into a temporary directory and runs the
 current counting script with the historical library's **public API**, preserving
 historical identity resolution and supporting the earlier YAML format. Only use
 trusted repository refs: this imports Python code from the selected commits.
+All retained checkpoints use person-level verification and ORCID records; the
+on-disk YAML/JSON format does not change how these metrics are computed.
+OpenReview coverage is determined from associated author/editor namespecs.
 Matching date/revision pairs are cached; each successful checkpoint is saved
 atomically, so interrupted backfills can resume. Schema upgrades recompute all
 checkpoints; remove the derived history file to recompute after other changes

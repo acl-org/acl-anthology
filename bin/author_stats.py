@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter, defaultdict
 from datetime import date, datetime, timezone
+from enum import IntEnum
 import json
 import os
 from pathlib import Path
@@ -15,13 +16,22 @@ import tempfile
 from typing import TypedDict
 
 from acl_anthology import Anthology, config
+from acl_anthology.utils.ids import is_verified_person_id
 from omegaconf import OmegaConf
 
 START = date(2026, 2, 1)
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT = ROOT / "hugo/assets/data/author-history.json"
-SCHEMA_VERSION = 3
-CATEGORY_COUNT = 4
+SCHEMA_VERSION = 4
+
+
+class Category(IntEnum):
+    """Array indices shared with the chart data consumers."""
+
+    VERIFIED_WITH_ORCID = 0
+    VERIFIED_WITHOUT_ORCID = 1
+    UNVERIFIED_WITH_OPENREVIEW = 2
+    UNVERIFIED_WITHOUT_ID = 3
 
 
 class YearCounts(TypedDict):
@@ -35,50 +45,47 @@ class AuthorStats(TypedDict):
     totals: list[int]
 
 
-def compute_authorship_stats(
-    anthology: Anthology, *, legacy: bool = False
-) -> AuthorStats:
-    """Count namespec occurrences and distinct people, excluding editors/deletions.
+def compute_authorship_stats(anthology: Anthology) -> AuthorStats:
+    """Compute publication-year authorship counts and whole-database person totals.
 
-    Arrays are ordered: verified with/without ORCID, unverified with
-    OpenReview only, unverified without either ID.
-    Year 0 is a separately deduplicated pre-2020 group. Database totals
-    include every person, including editor-only pages.
+    The ``years`` entries count author namespec occurrences and distinct authors
+    on non-frontmatter, non-deleted papers; editorships are excluded. Year 0
+    separately deduplicates authors across all pre-2020 papers.
 
-    Legacy explicit people were defined in name_variants.yaml; their ORCIDs
-    lived on namespecs. Snapshots use their own library's name resolution.
+    In contrast, ``totals`` counts every person in the database, including
+    editor-only pages and people without eligible papers. All arrays follow
+    Category order. Snapshots use their own library's name resolution.
     """
     anthology.load_all()
-    orcid_ids: set[str] = set()
     openreview_ids: set[str] = set()
+    # Scan author/editor namespecs for people with at least one OpenReview ID.
     for volume in anthology.volumes():
         for spec in volume.editors:
-            if legacy and spec.orcid:
-                orcid_ids.add(anthology.people.get_by_namespec(spec).id)
             if getattr(spec, "openreview", None):
                 openreview_ids.add(anthology.people.get_by_namespec(spec).id)
     for paper in anthology.papers():
         for spec in (*paper.authors, *paper.editors):
-            if legacy and spec.orcid:
-                orcid_ids.add(anthology.people.get_by_namespec(spec).id)
             if getattr(spec, "openreview", None):
                 openreview_ids.add(anthology.people.get_by_namespec(spec).id)
-    if not legacy:
-        from acl_anthology.utils.ids import is_verified_person_id
 
-    categories = {}
+    categories: dict[str, Category] = {}
     for person in anthology.people.values():
-        verified = person.is_explicit if legacy else is_verified_person_id(person.id)
-        has_orcid = person.id in orcid_ids if legacy else bool(person.orcid)
+        verified = is_verified_person_id(person.id)
+        has_orcid = bool(person.orcid)
         if has_orcid and not verified:
             raise ValueError(f"Unverified person {person.id} has an ORCID")
-        categories[person.id] = (
-            (0 if has_orcid else 1)
-            if verified
-            else (2 if person.id in openreview_ids else 3)
-        )
+        if verified:
+            categories[person.id] = (
+                Category.VERIFIED_WITH_ORCID
+                if has_orcid
+                else Category.VERIFIED_WITHOUT_ORCID
+            )
+        elif person.id in openreview_ids:
+            categories[person.id] = Category.UNVERIFIED_WITH_OPENREVIEW
+        else:
+            categories[person.id] = Category.UNVERIFIED_WITHOUT_ID
 
-    authorships: dict[int, Counter[int]] = defaultdict(Counter)
+    authorships: dict[int, Counter[Category]] = defaultdict(Counter)
     authors: dict[int, set[str]] = defaultdict(set)
     for paper in anthology.papers():
         if paper.is_frontmatter or paper.is_deleted:
@@ -97,12 +104,12 @@ def compute_authorship_stats(
         years.append(
             {
                 "year": year,
-                "authorships": [authorships[year][i] for i in range(CATEGORY_COUNT)],
-                "authors": [unique[i] for i in range(CATEGORY_COUNT)],
+                "authorships": [authorships[year][category] for category in Category],
+                "authors": [unique[category] for category in Category],
             }
         )
     totals = Counter(categories.values())
-    return {"years": years, "totals": [totals[i] for i in range(CATEGORY_COUNT)]}
+    return {"years": years, "totals": [totals[category] for category in Category]}
 
 
 def git(repo: Path, *args: str) -> str:
@@ -153,7 +160,6 @@ def compute_checkpoint(repo: Path, revision: str) -> dict:
                 check=True,
             )
         subprocess.run(["tar", "-xf", str(archive), "-C", tmp], check=True)
-        legacy = not (directory / "data/json/people.json").exists()
         output = directory / "counts.json"
         env = os.environ.copy()
         env["PYTHONPATH"] = str(directory / "python")
@@ -165,15 +171,11 @@ def compute_checkpoint(repo: Path, revision: str) -> dict:
                 str(directory / "data"),
                 "--output",
                 str(output),
-                *(["--legacy"] if legacy else []),
             ],
             env=env,
             check=True,
         )
-        return {
-            **json.loads(output.read_text()),
-            "identity_model": "legacy" if legacy else "verified",
-        }
+        return json.loads(output.read_text())
 
 
 def update_history(repo: Path, ref: str, through: date, output: Path) -> None:
@@ -188,7 +190,7 @@ def update_history(repo: Path, ref: str, through: date, output: Path) -> None:
         if output.exists()
         else {"schema_version": SCHEMA_VERSION, "checkpoints": []}
     )
-    if existing["schema_version"] not in (1, 2, SCHEMA_VERSION):
+    if existing["schema_version"] not in (1, 2, 3, SCHEMA_VERSION):
         raise ValueError("Unsupported author-history schema version")
     cached = (
         {entry["date"]: entry for entry in existing["checkpoints"]}
@@ -231,13 +233,10 @@ def main() -> None:
     )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--snapshot-data", type=Path, help=argparse.SUPPRESS)
-    parser.add_argument("--legacy", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
     OmegaConf.resolve(config)
     if args.snapshot_data:
-        stats = compute_authorship_stats(
-            Anthology(args.snapshot_data), legacy=args.legacy
-        )
+        stats = compute_authorship_stats(Anthology(args.snapshot_data))
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(stats) + "\n")
     else:
