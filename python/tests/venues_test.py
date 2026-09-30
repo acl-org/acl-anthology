@@ -17,7 +17,7 @@ import pytest
 
 from acl_anthology.venues import VenueIndex, Venue
 
-all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma", "ws")
+all_toy_venue_ids = ("facl", "fcl", "humfake", "flrec", "natfake", "ws")
 
 
 def test_venue_defaults():
@@ -60,33 +60,33 @@ def test_venueindex_create_with_invalid_id(anthology):
         anthology.venues.create(id="acl-a", acronym="ACLA", name="ACL Anthology Workshop")
 
 
-def test_venueindex_cl(anthology):
+def test_venueindex_fcl(anthology):
     index = anthology.venues
-    venue = index.get("cl")
-    assert venue.id == "cl"
-    assert venue.acronym == "CL"
-    assert venue.name == "Computational Linguistics"
+    venue = index.get("fcl")
+    assert venue.id == "fcl"
+    assert venue.acronym == "FCL"
+    assert venue.name == "Journal of Fabricated Computational Linguistics"
     assert venue.is_acl
     assert venue.is_toplevel
-    assert venue.oldstyle_letter == "J"
+    assert venue.oldstyle_letter == "Q"
     assert venue.item_ids == {
-        ("J89", "1", None),
-        ("J89", "2", None),
-        ("J89", "3", None),
-        ("J89", "4", None),
+        ("Q89", "1", None),
+        ("Q89", "2", None),
+        ("Q89", "3", None),
+        ("Q89", "4", None),
     }
 
 
 def test_venue_volumes(anthology):
     index = anthology.venues
-    venue = index.get("cl")
+    venue = index.get("fcl")
     volumes = list(venue.volumes())
     assert len(volumes) == 4
     assert set(volume.full_id_tuple for volume in volumes) == {
-        ("J89", "1", None),
-        ("J89", "2", None),
-        ("J89", "3", None),
-        ("J89", "4", None),
+        ("Q89", "1", None),
+        ("Q89", "2", None),
+        ("Q89", "3", None),
+        ("Q89", "4", None),
     }
 
 
@@ -100,7 +100,7 @@ def test_venueindex_noindex(anthology, caplog):
     """Accessing venues with no_item_ids=True should not load XML files."""
     with caplog.at_level(logging.DEBUG):
         index = VenueIndex(anthology, no_item_ids=True)
-        _ = index.get("cl").name
+        _ = index.get("fcl").name
     assert not any("XML data file" in rec.message for rec in caplog.records)
 
 
