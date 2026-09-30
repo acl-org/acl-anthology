@@ -84,7 +84,8 @@ Unique authors are deduplicated within each publication year; the pre-2020
 group is separately deduplicated across all earlier years. Database totals
 include all person pages, including editor-only pages.
 
-Monthly historical checkpoints are committed in
+Monthly historical checkpoints, starting February 2026 after the January
+author-system transition, are committed in
 [`hugo/assets/data/author-history.json`](hugo/assets/data/author-history.json).
 They are **not** recomputed during a normal site build. To update them:
 
@@ -102,19 +103,16 @@ current counting script with the historical library's **public API**, preserving
 historical identity resolution and supporting the earlier YAML format. Only use
 trusted repository refs: this imports Python code from the selected commits.
 Matching date/revision pairs are cached; each successful checkpoint is saved
-atomically, so interrupted backfills can resume. Remove the derived history file
-to recompute all checkpoints after a change to counting semantics.
+atomically, so interrupted backfills can resume. Schema upgrades recompute all
+checkpoints; remove the derived history file to recompute after other changes
+to counting semantics.
 
-Before the July 2026 migration, all pages are classified as unverified, even
-when legacy name-variant records explicitly associated their names. A legacy
-page is counted as having an ORCID if any associated author/editor namespec has
-one; later snapshots use the person's ORCID. Counts therefore reflect both data
-changes and changes to identity resolution, not just newly published papers.
+Changes to counts reflect newly published papers as well as corrections and
+changes to identity resolution.
 
 The four-element arrays are ordered: verified with ORCID, verified without
-ORCID, unverified with ORCID, unverified without ORCID. Publication year `0`
-denotes the pre-2020 group. Source snapshots are read-only; authoritative
-metadata is never rewritten.
+ORCID, unverified with OpenReview only, unverified without either ID.
+Publication year `0` denotes the pre-2020 group.
 
 The monthly **Update author statistics** workflow opens a data-only
 PR. It needs the repository setting allowing GitHub Actions to create PRs.

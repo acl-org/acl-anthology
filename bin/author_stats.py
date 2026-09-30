@@ -17,9 +17,11 @@ from typing import TypedDict
 from acl_anthology import Anthology, config
 from omegaconf import OmegaConf
 
-START = date(2026, 1, 1)
+START = date(2026, 2, 1)
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT = ROOT / "hugo/assets/data/author-history.json"
+SCHEMA_VERSION = 3
+CATEGORY_COUNT = 4
 
 
 class YearCounts(TypedDict):
@@ -38,37 +40,43 @@ def compute_authorship_stats(
 ) -> AuthorStats:
     """Count namespec occurrences and distinct people, excluding editors/deletions.
 
-    Arrays are ordered: verified with/without ORCID, unverified with/without
-    ORCID. Year 0 is a separately deduplicated pre-2020 group. Database totals
+    Arrays are ordered: verified with/without ORCID, unverified with
+    OpenReview only, unverified without either ID.
+    Year 0 is a separately deduplicated pre-2020 group. Database totals
     include every person, including editor-only pages.
 
-    Before the verified-person migration, ORCIDs lived on namespecs and no
-    person was verified in today's sense. Those snapshots use their own
-    library's name resolution, never today's person registry.
+    Legacy explicit people were defined in name_variants.yaml; their ORCIDs
+    lived on namespecs. Snapshots use their own library's name resolution.
     """
     anthology.load_all()
     orcid_ids: set[str] = set()
-    if legacy:
-        for volume in anthology.volumes():
-            for spec in volume.editors:
-                if spec.orcid:
-                    orcid_ids.add(anthology.people.get_by_namespec(spec).id)
-        for paper in anthology.papers():
-            for spec in (*paper.authors, *paper.editors):
-                if spec.orcid:
-                    orcid_ids.add(anthology.people.get_by_namespec(spec).id)
-        categories = {
-            person.id: 2 if person.id in orcid_ids else 3
-            for person in anthology.people.values()
-        }
-    else:
+    openreview_ids: set[str] = set()
+    for volume in anthology.volumes():
+        for spec in volume.editors:
+            if legacy and spec.orcid:
+                orcid_ids.add(anthology.people.get_by_namespec(spec).id)
+            if getattr(spec, "openreview", None):
+                openreview_ids.add(anthology.people.get_by_namespec(spec).id)
+    for paper in anthology.papers():
+        for spec in (*paper.authors, *paper.editors):
+            if legacy and spec.orcid:
+                orcid_ids.add(anthology.people.get_by_namespec(spec).id)
+            if getattr(spec, "openreview", None):
+                openreview_ids.add(anthology.people.get_by_namespec(spec).id)
+    if not legacy:
         from acl_anthology.utils.ids import is_verified_person_id
 
-        categories = {
-            person.id: (0 if is_verified_person_id(person.id) else 2)
-            + (0 if person.orcid else 1)
-            for person in anthology.people.values()
-        }
+    categories = {}
+    for person in anthology.people.values():
+        verified = person.is_explicit if legacy else is_verified_person_id(person.id)
+        has_orcid = person.id in orcid_ids if legacy else bool(person.orcid)
+        if has_orcid and not verified:
+            raise ValueError(f"Unverified person {person.id} has an ORCID")
+        categories[person.id] = (
+            (0 if has_orcid else 1)
+            if verified
+            else (2 if person.id in openreview_ids else 3)
+        )
 
     authorships: dict[int, Counter[int]] = defaultdict(Counter)
     authors: dict[int, set[str]] = defaultdict(set)
@@ -89,12 +97,12 @@ def compute_authorship_stats(
         years.append(
             {
                 "year": year,
-                "authorships": [authorships[year][i] for i in range(4)],
-                "authors": [unique[i] for i in range(4)],
+                "authorships": [authorships[year][i] for i in range(CATEGORY_COUNT)],
+                "authors": [unique[i] for i in range(CATEGORY_COUNT)],
             }
         )
     totals = Counter(categories.values())
-    return {"years": years, "totals": [totals[i] for i in range(4)]}
+    return {"years": years, "totals": [totals[i] for i in range(CATEGORY_COUNT)]}
 
 
 def git(repo: Path, *args: str) -> str:
@@ -103,7 +111,7 @@ def git(repo: Path, *args: str) -> str:
 
 def month_starts(through: date) -> list[date]:
     if through < START:
-        raise ValueError("Checkpoints start in January 2026")
+        raise ValueError("Checkpoints start in February 2026")
     return [
         date(year, month, 1)
         for year in range(START.year, through.year + 1)
@@ -178,11 +186,15 @@ def update_history(repo: Path, ref: str, through: date, output: Path) -> None:
     existing = (
         json.loads(output.read_text())
         if output.exists()
-        else {"schema_version": 1, "checkpoints": []}
+        else {"schema_version": SCHEMA_VERSION, "checkpoints": []}
     )
-    if existing["schema_version"] != 1:
+    if existing["schema_version"] not in (1, 2, SCHEMA_VERSION):
         raise ValueError("Unsupported author-history schema version")
-    cached = {entry["date"]: entry for entry in existing["checkpoints"]}
+    cached = (
+        {entry["date"]: entry for entry in existing["checkpoints"]}
+        if existing["schema_version"] == SCHEMA_VERSION
+        else {}
+    )
     for checkpoint in month_starts(through):
         revision = checkpoint_revision(repo, ref, checkpoint)
         key = checkpoint.isoformat()
@@ -200,7 +212,7 @@ def update_history(repo: Path, ref: str, through: date, output: Path) -> None:
         temporary.write_text(
             json.dumps(
                 {
-                    "schema_version": 1,
+                    "schema_version": SCHEMA_VERSION,
                     "checkpoints": [cached[key] for key in sorted(cached)],
                 },
                 indent=2,
