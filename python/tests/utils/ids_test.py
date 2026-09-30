@@ -25,17 +25,17 @@ test_cases_ids = (
     ("D19-5702", ("D19", "57", "2")),
     ("C69-1234", ("C69", "12", "34")),
     ("C68-1234", ("C68", "1", "234")),
-    ("2022.acl-main.0", ("2022.acl", "main", "0")),
-    ("2022.acl-main.1", ("2022.acl", "main", "1")),
+    ("2022.facl-main.0", ("2022.facl", "main", "0")),
+    ("2022.facl-main.1", ("2022.facl", "main", "1")),
     ("2023.mwe-1.5", ("2023.mwe", "1", "5")),
     ("P18-1", ("P18", "1", None)),
     ("W18-63", ("W18", "63", None)),
     ("D19-1", ("D19", "1", None)),
     ("D19-57", ("D19", "57", None)),
-    ("2022.acl-main", ("2022.acl", "main", None)),
+    ("2022.facl-main", ("2022.facl", "main", None)),
     ("2023.mwe-1", ("2023.mwe", "1", None)),
     ("P18", ("P18", None, None)),
-    ("2022.acl", ("2022.acl", None, None)),
+    ("2022.facl", ("2022.facl", None, None)),
 )
 
 
@@ -64,7 +64,7 @@ test_cases_years = (
     ("D19-1001", "2019"),
     ("C69-1234", "1969"),
     ("C68-1234", "1968"),
-    ("2022.acl-main.1", "2022"),
+    ("2022.facl-main.1", "2022"),
     ("2023.mwe-1.5", "2023"),
     ("W99-1", "1999"),
     ("1971.fake-entry", "1971"),
@@ -77,13 +77,13 @@ def test_infer_year(anthology_id, year):
 
 
 def test_is_valid_collection_id():
-    assert ids.is_valid_collection_id("2022.acl")
+    assert ids.is_valid_collection_id("2022.facl")
     assert ids.is_valid_collection_id("1996.nlp4call")
     assert ids.is_valid_collection_id("W09")
     assert ids.is_valid_collection_id("Q87")
     assert not ids.is_valid_collection_id("2022-a b c")
     assert not ids.is_valid_collection_id("2022-acl")
-    assert not ids.is_valid_collection_id("2022.acl-main")
+    assert not ids.is_valid_collection_id("2022.facl-main")
     assert not ids.is_valid_collection_id("")
     assert not ids.is_valid_collection_id(".")
     assert not ids.is_valid_collection_id("2025.")
