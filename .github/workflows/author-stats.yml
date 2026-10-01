@@ -23,7 +23,7 @@ jobs:
           ref: master
           fetch-depth: 0
           persist-credentials: false
-      - uses: astral-sh/setup-uv@v10.1.0
+      - uses: astral-sh/setup-uv@v10.2.0
       - name: Compute missing monthly checkpoints
         run: uv run --frozen python bin/author_stats.py
       - name: Open a data-only pull request
