@@ -75,6 +75,60 @@ longer than a few minutes.  Manually, it can be run via:
 uv run python bin/create_hugo_data.py --clean
 ```
 
+#### Author-directory metrics
+
+The normal export computes current authorship and unique-author counts via the
+library and writes `build/data/author_current.json`. Authorships count author
+namespec occurrences, excluding editors, front matter, and deleted papers.
+Unique authors are deduplicated within each publication year; the pre-2020
+group is separately deduplicated across all earlier years. Database totals
+include all person pages, including editor-only pages.
+
+Monthly historical checkpoints, starting February 2026 after the January
+author-system transition, are committed in
+[`hugo/assets/data/author-history.json`](hugo/assets/data/author-history.json).
+They are **not** recomputed during a normal site build. To update them:
+
+```bash
+git fetch origin master
+uv run --frozen python bin/author_stats.py
+# Optional reproducible cutoff:
+uv run --frozen python bin/author_stats.py --through 2026-09-01
+```
+
+This requires full Git history, chooses the last first-parent commit strictly
+before each month-start in UTC, and records the source commit. It extracts data
+and the Python library from that commit into a temporary directory and runs the
+current counting script with the historical library's **public API**, preserving
+historical identity resolution and supporting the earlier YAML format. Only use
+trusted repository refs: this imports Python code from the selected commits.
+All retained checkpoints use person-level verification and ORCID records; the
+on-disk YAML/JSON format does not change how these metrics are computed.
+OpenReview coverage is determined from associated author/editor namespecs.
+Matching date/revision pairs are cached; each successful checkpoint is saved
+atomically, so interrupted backfills can resume. Schema upgrades recompute all
+checkpoints; remove the derived history file to recompute after other changes
+to counting semantics.
+
+Changes to counts reflect newly published papers as well as corrections and
+changes to identity resolution.
+
+The four-element arrays are ordered: verified with ORCID, verified without
+ORCID, unverified with OpenReview only, unverified without either ID.
+Publication year `0` denotes the pre-2020 group.
+
+The **Update author statistics** workflow runs at 06:17 UTC on the first of each
+month and opens a data-only PR. Scheduled runs only use the workflow on the
+default branch, so this schedule becomes active after the workflow is merged.
+A missed run is not triggered retroactively. After merging, use **Run workflow**
+in the Actions tab (or `gh workflow run author-stats.yml --ref master`) for an
+immediate refresh; the generator fills in all missing monthly checkpoints.
+It needs the repository setting allowing GitHub Actions to create PRs.
+Alternatively, run the commands above locally and commit the resulting JSON.
+Tests run with `uv run --frozen python -m pytest tests/test_author_stats.py
+tests/test_author_metrics_browser.py`; the browser-logic tests use Node.js when
+available and need no npm packages.
+
 ### Step 2: Create extra bibliography export files for papers
 
 > [!TIP]

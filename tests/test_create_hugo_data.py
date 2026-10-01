@@ -19,6 +19,7 @@ from bin.create_hugo_data import (
     compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
     export_author_index,
+    export_author_metrics,
     export_homepage_stats,
     homepage_venue_group,
     homepage_venue_sort_key,
@@ -135,6 +136,25 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
     assert not stale_paper_index.exists()
+
+
+def test_author_metrics_export(tmp_path, monkeypatch):
+    stats = {
+        "years": [{"year": 2026, "authorships": [2, 1, 0, 1], "authors": [1, 1, 0, 1]}],
+        "totals": [1, 1, 0, 1],
+    }
+    marker = object()
+
+    def compute(anthology):
+        assert anthology is marker
+        return stats
+
+    monkeypatch.setattr("bin.create_hugo_data.compute_authorship_stats", compute)
+    (tmp_path / "data").mkdir()
+    assert export_author_metrics(marker, tmp_path, dryrun=True) == stats
+    assert not (tmp_path / "data" / "author_current.json").exists()
+    assert export_author_metrics(marker, tmp_path) == stats
+    assert json.loads((tmp_path / "data" / "author_current.json").read_text()) == stats
 
 
 def test_author_index_includes_hyphenated_name_parts():
