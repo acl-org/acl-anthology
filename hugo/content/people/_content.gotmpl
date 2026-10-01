@@ -9,4 +9,14 @@
       "dates" (dict "date" (time.AsTime $person.latest_ingest_date))
    }}
    {{ $.AddPage $page }}
+   {{ if or (where hugo.Data.fellows.honorees "id" $person_id) $person.award_papers }}
+      {{ $awards_page := dict
+         "kind" "page"
+         "layout" "awards"
+         "path" (printf "%s/awards" $person_id)
+         "params" (dict "name" $person_id)
+         "title" (printf "Awards for %s" $person.full)
+      }}
+      {{ $.AddPage $awards_page }}
+   {{ end }}
 {{ end }}

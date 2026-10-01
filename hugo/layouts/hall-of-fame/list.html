@@ -1,0 +1,105 @@
+{{ define "main" }}
+{{ $honorees := hugo.Data.fellows.honorees }}
+{{ $latest_fellow_year := 0 }}
+{{ $latest_award_year := 0 }}
+{{ $latest_service_award_year := 0 }}
+{{ range $honorees }}
+  {{ with .fellow_year }}
+    {{ if gt . $latest_fellow_year }}{{ $latest_fellow_year = . }}{{ end }}
+  {{ end }}
+  {{ with .lifetime_achievement_award_year }}
+    {{ if gt . $latest_award_year }}{{ $latest_award_year = . }}{{ end }}
+  {{ end }}
+  {{ with .distinguished_service_award_year }}
+    {{ if gt . $latest_service_award_year }}{{ $latest_service_award_year = . }}{{ end }}
+  {{ end }}
+{{ end }}
+
+<main class="acl-fellows">
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+  </article>
+
+  <section class="acl-fellows-section" aria-labelledby="recent-honorees">
+    <h2 id="recent-honorees">{{ $latest_fellow_year }} Honorees</h2>
+    <h3 class="acl-fellows-group-label">{{ $latest_award_year }} ACL Lifetime Achievement Award</h3>
+    <div class="acl-fellows-gallery acl-fellows-gallery--recent">
+      {{ range where $honorees "lifetime_achievement_award_year" $latest_award_year }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+
+    <h3 class="acl-fellows-group-label">{{ $latest_service_award_year }} ACL Dragomir Radev Distinguished Service Award</h3>
+    <div class="acl-fellows-gallery acl-fellows-gallery--recent">
+      {{ range where $honorees "distinguished_service_award_year" $latest_service_award_year }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+
+    <h3 class="acl-fellows-group-label">{{ $latest_fellow_year }} ACL Fellows</h3>
+    <div class="acl-fellows-gallery acl-fellows-gallery--recent">
+      {{ range where $honorees "fellow_year" $latest_fellow_year }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="acl-fellows-section" aria-labelledby="all-honorees">
+    <div class="acl-fellows-section-heading">
+      <h2 id="all-honorees">All honorees</h2>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Sort all honorees">
+        <button class="btn btn-outline-primary" type="button" data-honoree-sort="chronological" aria-pressed="false">Chronological</button>
+        <button class="btn btn-outline-primary active" type="button" data-honoree-sort="alphabetical" aria-pressed="true">Alphabetical</button>
+      </div>
+    </div>
+    <div class="acl-fellows-gallery" data-all-honorees>
+      {{ range sort $honorees "name" "asc" }}
+        {{ partial "fellows/card.html" (dict "page" $ "honoree" .) }}
+      {{ end }}
+    </div>
+  </section>
+</main>
+{{ end }}
+
+{{ define "javascript" }}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const gallery = document.querySelector("[data-all-honorees]");
+    const buttons = document.querySelectorAll("[data-honoree-sort]");
+    const collator = new Intl.Collator(undefined, { sensitivity: "base" });
+
+    if (!gallery || !buttons.length) {
+      return;
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const mode = button.dataset.honoreeSort;
+        const cards = Array.from(gallery.children);
+
+        cards.sort(function (left, right) {
+          if (mode === "chronological") {
+            const yearDifference = Number(right.dataset.honoreeYear) - Number(left.dataset.honoreeYear);
+            if (yearDifference) {
+              return yearDifference;
+            }
+          }
+          return collator.compare(left.dataset.honoreeName, right.dataset.honoreeName);
+        });
+        cards.forEach(function (card) {
+          gallery.appendChild(card);
+        });
+
+        buttons.forEach(function (sortButton) {
+          const isActive = sortButton === button;
+          sortButton.classList.toggle("active", isActive);
+          sortButton.setAttribute("aria-pressed", isActive.toString());
+        });
+      });
+    });
+  });
+</script>
+{{ end }}
