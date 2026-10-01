@@ -26,7 +26,7 @@
 {{ end }}
 
 <section id="main" class="acl-person-awards">
-  <h2 id="title">{{ .Title }}</h2>
+  <h2 id="title">Awards for <a href="{{ relref . (printf "/people/%s" $person.slug) }}">{{ $person.full }}</a></h2>
   <div class="acl-person-awards-list">
     {{ range sort $awards "year" "desc" }}
       {{ if eq .kind "fellow" }}
