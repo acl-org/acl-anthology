@@ -117,9 +117,14 @@ The four-element arrays are ordered: verified with ORCID, verified without
 ORCID, unverified with OpenReview only, unverified without either ID.
 Publication year `0` denotes the pre-2020 group.
 
-The monthly **Update author statistics** workflow opens a data-only
-PR. It needs the repository setting allowing GitHub Actions to create PRs.
-For a manual refresh, run the commands above and commit the resulting JSON.
+The **Update author statistics** workflow runs at 06:17 UTC on the first of each
+month and opens a data-only PR. Scheduled runs only use the workflow on the
+default branch, so this schedule becomes active after the workflow is merged.
+A missed run is not triggered retroactively. After merging, use **Run workflow**
+in the Actions tab (or `gh workflow run author-stats.yml --ref master`) for an
+immediate refresh; the generator fills in all missing monthly checkpoints.
+It needs the repository setting allowing GitHub Actions to create PRs.
+Alternatively, run the commands above locally and commit the resulting JSON.
 Tests run with `uv run --frozen python -m pytest tests/test_author_stats.py
 tests/test_author_metrics_browser.py`; the browser-logic tests use Node.js when
 available and need no npm packages.

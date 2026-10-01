@@ -53,7 +53,8 @@ def compute_authorship_stats(anthology: Anthology) -> AuthorStats:
     separately deduplicates authors across all pre-2020 papers.
 
     In contrast, ``totals`` counts every person in the database, including
-    editor-only pages and people without eligible papers. All arrays follow
+    editor-only pages, people whose only papers are front matter or have been
+    deleted, and person records not linked to any papers. All arrays follow
     Category order. Snapshots use their own library's name resolution.
     """
     anthology.load_all()
