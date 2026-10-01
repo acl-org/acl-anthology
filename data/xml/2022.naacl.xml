@@ -7507,11 +7507,11 @@
     <paper id="1">
       <!-- https://aclanthology.org/2022.naacl-industry.1/ -->
       <title>Scalable and Robust Self-Learning for Skill Routing in Large-Scale Conversational <fixed-case>AI</fixed-case> Systems</title>
-      <author><first>Mohammad</first><last>Kachuee</last></author>
-      <author><first>Jinseok</first><last>Nam</last></author>
-      <author><first>Sarthak</first><last>Ahuja</last></author>
-      <author><first>Jin-Myung</first><last>Won</last></author>
-      <author id="sungjin-lee"><first>Sungjin</first><last>Lee</last></author>
+      <author openreview="~Mohammad_Kachuee1"><first>Mohammad</first><last>Kachuee</last></author>
+      <author openreview="~Jinseok_Nam1"><first>Jinseok</first><last>Nam</last></author>
+      <author openreview="~Sarthak_Ahuja1"><first>Sarthak</first><last>Ahuja</last></author>
+      <author openreview="~Jin-Myung_Won1"><first>Jin-Myung</first><last>Won</last></author>
+      <author id="sungjin-lee" openreview="~SUNGJIN_LEE1"><first>Sungjin</first><last>Lee</last></author>
       <pages>1-8</pages>
       <abstract>Skill routing is an important component in large-scale conversational systems. In contrast to traditional rule-based skill routing, state-of-the-art systems use a model-based approach to enable natural conversations. To provide supervision signal required to train such models, ideas such as human annotation, replication of a rule-based system, relabeling based on user paraphrases, and bandit-based learning were suggested. However, these approaches: (a) do not scale in terms of the number of skills and skill on-boarding, (b) require a very costly expert annotation/rule-design, (c) introduce risks in the user experience with each model update. In this paper, we present a scalable self-learning approach to explore routing alternatives without causing abrupt policy changes that break the user experience, learn from the user interaction, and incrementally improve the routing via frequent model refreshes. To enable such robust frequent model updates, we suggest a simple and effective approach that ensures controlled policy updates for individual domains, followed by an off-policy evaluation for making deployment decisions without any need for lengthy A/B experimentation. We conduct various offline and online A/B experiments on a commercial large-scale conversational system to demonstrate the effectiveness of the proposed method in real-world production settings.</abstract>
       <pdf hash="98471458"/>
@@ -7522,11 +7522,11 @@
     <paper id="2">
       <!-- https://aclanthology.org/2022.naacl-industry.2/ -->
       <title><fixed-case>CREATER</fixed-case>: <fixed-case>CTR</fixed-case>-driven Advertising Text Generation with Controlled Pre-Training and Contrastive Fine-Tuning</title>
-      <author><first>Penghui</first><last>Wei</last></author>
-      <author><first>Xuanhua</first><last>Yang</last></author>
-      <author><first>ShaoGuo</first><last>Liu</last></author>
-      <author><first>Liang</first><last>Wang</last></author>
-      <author><first>Bo</first><last>Zheng</last></author>
+      <author openreview="~Penghui_Wei1"><first>Penghui</first><last>Wei</last></author>
+      <author openreview="~Xuanhua_Yang1"><first>Xuanhua</first><last>Yang</last></author>
+      <author openreview="~ShaoGuo_Liu1"><first>ShaoGuo</first><last>Liu</last></author>
+      <author openreview="~Liang_Wang15"><first>Liang</first><last>Wang</last></author>
+      <author openreview="~Bo_Zheng5"><first>Bo</first><last>Zheng</last></author>
       <pages>9-17</pages>
       <abstract>This paper focuses on automatically generating the text of an ad, and the goal is that the generated text can capture user interest for achieving higher click-through rate (CTR). We propose CREATER, a CTR-driven advertising text generation approach, to generate ad texts based on high-quality user reviews. To incorporate CTR objective, our model learns from online A/B test data with contrastive learning, which encourages the model to generate ad texts that obtain higher CTR. To make use of large-scale unpaired reviews, we design a customized self-supervised objective reducing the gap between pre-training and fine-tuning. Experiments on industrial datasets show that CREATER significantly outperforms current approaches. It has been deployed online in a leading advertising platform and brings uplift on core online metrics.</abstract>
       <pdf hash="eea50163"/>
@@ -7537,7 +7537,7 @@
     <paper id="3">
       <!-- https://aclanthology.org/2022.naacl-industry.3/ -->
       <title>Augmenting Poetry Composition with <fixed-case>V</fixed-case>erse by <fixed-case>V</fixed-case>erse</title>
-      <author id="david-c-uthus"><first>David</first><last>Uthus</last></author>
+      <author id="david-c-uthus" openreview="~David_Uthus1"><first>David</first><last>Uthus</last></author>
       <author><first>Maria</first><last>Voitovich</last></author>
       <author><first>R.J.</first><last>Mical</last></author>
       <pages>18-26</pages>
@@ -7550,10 +7550,10 @@
     <paper id="4">
       <!-- https://aclanthology.org/2022.naacl-industry.4/ -->
       <title><fixed-case>AB</fixed-case>/<fixed-case>BA</fixed-case> analysis: A framework for estimating keyword spotting recall improvement while maintaining audio privacy</title>
-      <author><first>Raphael</first><last>Petegrosso</last></author>
-      <author><first>VasistaKrishna</first><last>Baderdinnni</last></author>
-      <author><first>Thibaud</first><last>Senechal</last></author>
-      <author><first>Benjamin</first><last>Bullough</last></author>
+      <author openreview="~Raphael_Petegrosso1"><first>Raphael</first><last>Petegrosso</last></author>
+      <author openreview="~VasistaKrishna_Baderdinnni1"><first>VasistaKrishna</first><last>Baderdinnni</last></author>
+      <author openreview="~Thibaud_Senechal4"><first>Thibaud</first><last>Senechal</last></author>
+      <author openreview="~Benjamin_Bullough1"><first>Benjamin</first><last>Bullough</last></author>
       <pages>27-36</pages>
       <abstract>Evaluation of keyword spotting (KWS) systems that detect keywords in speech is a challenging task under realistic privacy constraints. The KWS is designed to only collect data when the keyword is present, limiting the availability of hard samples that may contain false negatives, and preventing direct estimation of model recall from production data. Alternatively, complementary data collected from other sources may not be fully representative of the real application. In this work, we propose an evaluation technique which we call AB/BA analysis. Our framework evaluates a candidate KWS model B against a baseline model A, using cross-dataset offline decoding for relative recall estimation, without requiring negative examples. Moreover, we propose a formulation with assumptions that allow estimation of relative false positive rate between models with low variance even when the number of false positives is small. Finally, we propose to leverage machine-generated soft labels, in a technique we call Semi-Supervised AB/BA analysis, that improves the analysis time, privacy, and cost. Experiments with both simulation and real data show that AB/BA analysis is successful at measuring recall improvement in conjunction with the trade-off in relative false positive rate.</abstract>
       <pdf hash="bdc84369"/>
@@ -7564,10 +7564,10 @@
     <paper id="5">
       <!-- https://aclanthology.org/2022.naacl-industry.5/ -->
       <title>Temporal Generalization for Spoken Language Understanding</title>
-      <author><first>Judith</first><last>Gaspers</last></author>
-      <author><first>Anoop</first><last>Kumar</last></author>
-      <author><first>Greg</first><last>Ver Steeg</last></author>
-      <author><first>Aram</first><last>Galstyan</last></author>
+      <author openreview="~Judith_Gaspers1"><first>Judith</first><last>Gaspers</last></author>
+      <author openreview="~Anoop_Kumar1"><first>Anoop</first><last>Kumar</last></author>
+      <author openreview="~Greg_Ver_Steeg1"><first>Greg</first><last>Ver Steeg</last></author>
+      <author openreview="~Aram_Galstyan1"><first>Aram</first><last>Galstyan</last></author>
       <pages>37-44</pages>
       <abstract>Spoken Language Understanding (SLU) models in industry applications are usually trained offline on historic data, but have to perform well on incoming user requests after deployment. Since the application data is not available at training time, this is formally similar to the domain generalization problem, where domains correspond to different temporal segments of the data, and the goal is to build a model that performs well on unseen domains, e.g., upcoming data. In this paper, we explore different strategies for achieving good temporal generalization, including instance weighting, temporal fine-tuning, learning temporal features and building a temporally-invariant model. Our results on data of large-scale SLU systems show that temporal information can be leveraged to improve temporal generalization for SLU models.</abstract>
       <pdf hash="c34842ac"/>
@@ -7578,12 +7578,12 @@
     <paper id="6">
       <!-- https://aclanthology.org/2022.naacl-industry.6/ -->
       <title>An End-to-End Dialogue Summarization System for Sales Calls</title>
-      <author><first>Abedelkadir</first><last>Asi</last></author>
-      <author id="song-wang-602x"><first>Song</first><last>Wang</last></author>
-      <author><first>Roy</first><last>Eisenstadt</last></author>
+      <author openreview="~Abedelkadir_Asi1"><first>Abedelkadir</first><last>Asi</last></author>
+      <author id="song-wang-602x" openreview="~Song_Wang10"><first>Song</first><last>Wang</last></author>
+      <author openreview="~Roy_Eisenstadt1"><first>Roy</first><last>Eisenstadt</last></author>
       <author><first>Dean</first><last>Geckt</last></author>
       <author><first>Yarin</first><last>Kuper</last></author>
-      <author><first>Yi</first><last>Mao</last></author>
+      <author openreview="~Yi_Mao1"><first>Yi</first><last>Mao</last></author>
       <author><first>Royi</first><last>Ronen</last></author>
       <pages>45-53</pages>
       <abstract>Summarizing sales calls is a routine task performed manually by salespeople. We present a production system which combines generative models fine-tuned for customer-agent setting, with a human-in-the-loop user experience for an interactive summary curation process. We address challenging aspects of dialogue summarization task in a real-world setting including long input dialogues, content validation, lack of labeled data and quality evaluation. We show how GPT-3 can be leveraged as an offline data labeler to handle training data scarcity and accommodate privacy constraints in an industrial setting. Experiments show significant improvements by our models in tackling the summarization and content validation tasks on public datasets.</abstract>
@@ -7595,12 +7595,12 @@
     <paper id="7">
       <!-- https://aclanthology.org/2022.naacl-industry.7/ -->
       <title>Controlled Data Generation via Insertion Operations for <fixed-case>NLU</fixed-case></title>
-      <author><first>Manoj</first><last>Kumar</last></author>
-      <author><first>Yuval</first><last>Merhav</last></author>
-      <author><first>Haidar</first><last>Khan</last></author>
-      <author><first>Rahul</first><last>Gupta</last></author>
-      <author><first>Anna</first><last>Rumshisky</last></author>
-      <author><first>Wael</first><last>Hamza</last></author>
+      <author openreview="~Manoj_Kumar2"><first>Manoj</first><last>Kumar</last></author>
+      <author openreview="~Yuval_Merhav1"><first>Yuval</first><last>Merhav</last></author>
+      <author openreview="~Haidar_Khan1"><first>Haidar</first><last>Khan</last></author>
+      <author openreview="~Rahul_Gupta3"><first>Rahul</first><last>Gupta</last></author>
+      <author openreview="~Anna_Rumshisky1"><first>Anna</first><last>Rumshisky</last></author>
+      <author openreview="~Wael_Hamza1"><first>Wael</first><last>Hamza</last></author>
       <pages>54-61</pages>
       <abstract>Use of synthetic data is rapidly emerging as a realistic alternative to manually annotating live traffic for industry-scale model building. Manual data annotation is slow, expensive and not preferred for meeting customer privacy expectations. Further, commercial natural language applications are required to support continuously evolving features as well as newly added experiences. To address these requirements, we propose a targeted synthetic data generation technique by inserting tokens into a given semantic signature. The generated data are used as additional training samples in the tasks of intent classification and named entity recognition. We evaluate on a real-world voice assistant dataset, and using only 33% of the available training set, we achieve the same accuracy as training with all available data. Further, we analyze the effects of data generation across varied real-world applications and propose heuristics that improve the task performance further.</abstract>
       <pdf hash="5a1d7102"/>
@@ -7611,14 +7611,14 @@
     <paper id="8">
       <!-- https://aclanthology.org/2022.naacl-industry.8/ -->
       <title>Easy and Efficient Transformer: Scalable Inference Solution For Large <fixed-case>NLP</fixed-case> Model</title>
-      <author><first>Gongzheng</first><last>Li</last></author>
-      <author><first>Yadong</first><last>Xi</last></author>
+      <author openreview="~Li_GongZheng_LGZ1"><first>Gongzheng</first><last>Li</last></author>
+      <author openreview="~Yadong_Xi1"><first>Yadong</first><last>Xi</last></author>
       <author><first>Jingzhen</first><last>Ding</last></author>
       <author><first>Duan</first><last>Wang</last></author>
-      <author><first>Ziyang</first><last>Luo</last></author>
-      <author><first>Rongsheng</first><last>Zhang</last></author>
+      <author openreview="~Ziyang_Luo2"><first>Ziyang</first><last>Luo</last></author>
+      <author openreview="~Rongsheng_Zhang1"><first>Rongsheng</first><last>Zhang</last></author>
       <author><first>Bai</first><last>Liu</last></author>
-      <author><first>Changjie</first><last>Fan</last></author>
+      <author openreview="~Changjie_Fan1"><first>Changjie</first><last>Fan</last></author>
       <author><first>Xiaoxi</first><last>Mao</last></author>
       <author><first>Zeng</first><last>Zhao</last></author>
       <pages>62-68</pages>
@@ -7631,12 +7631,12 @@
     <paper id="9">
       <!-- https://aclanthology.org/2022.naacl-industry.9/ -->
       <title>Aspect-based Analysis of Advertising Appeals for Search Engine Advertising</title>
-      <author><first>Soichiro</first><last>Murakami</last></author>
-      <author><first>Peinan</first><last>Zhang</last></author>
-      <author id="sho-hoshino"><first>Sho</first><last>Hoshino</last></author>
-      <author><first>Hidetaka</first><last>Kamigaito</last></author>
-      <author><first>Hiroya</first><last>Takamura</last></author>
-      <author id="manabu-okumura"><first>Manabu</first><last>Okumura</last></author>
+      <author openreview="~Soichiro_Murakami1"><first>Soichiro</first><last>Murakami</last></author>
+      <author openreview="~Peinan_Zhang1"><first>Peinan</first><last>Zhang</last></author>
+      <author id="sho-hoshino" openreview="~Sho_Hoshino2"><first>Sho</first><last>Hoshino</last></author>
+      <author openreview="~Hidetaka_Kamigaito2"><first>Hidetaka</first><last>Kamigaito</last></author>
+      <author openreview="~Hiroya_Takamura1"><first>Hiroya</first><last>Takamura</last></author>
+      <author id="manabu-okumura" openreview="~Manabu_Okumura1"><first>Manabu</first><last>Okumura</last></author>
       <pages>69-78</pages>
       <abstract>Writing an ad text that attracts people and persuades them to click or act is essential for the success of search engine advertising. Therefore, ad creators must consider various aspects of advertising appeals (A<tex-math>^3</tex-math>) such as the price, product features, and quality. However, products and services exhibit unique effective A<tex-math>^3</tex-math> for different industries. In this work, we focus on exploring the effective A<tex-math>^3</tex-math> for different industries with the aim of assisting the ad creation process. To this end, we created a dataset of advertising appeals and used an existing model that detects various aspects for ad texts. Our experiments demonstrated %through correlation analysis that different industries have their own effective A<tex-math>^3</tex-math> and that the identification of the A<tex-math>^3</tex-math> contributes to the estimation of advertising performance.</abstract>
       <pdf hash="a2ec38f9"/>
@@ -7647,13 +7647,13 @@
     <paper id="10">
       <!-- https://aclanthology.org/2022.naacl-industry.10/ -->
       <title>Self-supervised Product Title Rewrite for Product Listing Ads</title>
-      <author><first>Xue</first><last>Zhao</last></author>
-      <author id="dayiheng-liu" orcid="0000-0002-8755-8941"><first>Dayiheng</first><last>Liu</last></author>
-      <author><first>Junwei</first><last>Ding</last></author>
-      <author><first>Liang</first><last>Yao</last></author>
-      <author><first>Mahone</first><last>Yan</last></author>
-      <author><first>Huibo</first><last>Wang</last></author>
-      <author><first>Wenqing</first><last>Yao</last></author>
+      <author openreview="~Xue_Zhao1"><first>Xue</first><last>Zhao</last></author>
+      <author id="dayiheng-liu" orcid="0000-0002-8755-8941" openreview="~Dayiheng_Liu1"><first>Dayiheng</first><last>Liu</last></author>
+      <author openreview="~Junwei_Ding1"><first>Junwei</first><last>Ding</last></author>
+      <author openreview="~Liang_Yao3"><first>Liang</first><last>Yao</last></author>
+      <author openreview="~Mahone_Yan1"><first>Mahone</first><last>Yan</last></author>
+      <author openreview="~Huibo_wang1"><first>Huibo</first><last>Wang</last></author>
+      <author openreview="~Wenqing_Yao1"><first>Wenqing</first><last>Yao</last></author>
       <pages>79-85</pages>
       <abstract>Product Listing Ads (PLAs) are primary online advertisements merchants pay to attract more customers. However, merchants prefer to stack various attributes to the title and neglect the fluency and information priority. These seller-created titles are not suitable for PLAs as they fail to highlight the core information in the visible part in PLAs titles. In this work, we present a title rewrite solution. Specifically, we train a self-supervised language model to generate high-quality titles in terms of fluency and information priority. Extensive offline test and real-world online test have demonstrated that our solution is effective in reducing the cost and gaining more profit as it lowers our CPC, CPB while improving CTR in the online test by a large amount.</abstract>
       <pdf hash="25eaf32a"/>
@@ -7664,7 +7664,7 @@
     <paper id="11">
       <!-- https://aclanthology.org/2022.naacl-industry.11/ -->
       <title>Efficient Semi-supervised Consistency Training for Natural Language Understanding</title>
-      <author><first>George</first><last>Leung</last></author>
+      <author openreview="~George_Leung1"><first>George</first><last>Leung</last></author>
       <author><first>Joshua</first><last>Tan</last></author>
       <pages>86-93</pages>
       <abstract>Manually labeled training data is expensive, noisy, and often scarce, such as when developing new features or localizing existing features for a new region. In cases where labeled data is limited but unlabeled data is abundant, semi-supervised learning methods such as consistency training can be used to improve model performance, by training models to output consistent predictions between original and augmented versions of unlabeled data. In this work, we explore different data augmentation methods for consistency training (CT) on Natural Language Understanding (NLU) domain classification (DC) in the limited labeled data regime. We explore three types of augmentation techniques (human paraphrasing, back-translation, and dropout) for unlabeled data and train DC models to jointly minimize both the supervised loss and the consistency loss on unlabeled data. Our results demonstrate that DC models trained with CT methods and dropout based augmentation on only 0.1% (2,998 instances) of labeled data with the remainder as unlabeled can achieve a top-1 relative accuracy reduction of 12.25% compared to fully supervised model trained with 100% of labeled data, outperforming fully supervised models trained on 10x that amount of labeled data. The dropout-based augmentation achieves similar performance compare to back-translation based augmentation with much less computational resources. This paves the way for applications of using large scale unlabeled data for semi-supervised learning in production NLU systems.</abstract>
@@ -7676,9 +7676,9 @@
     <paper id="12">
       <!-- https://aclanthology.org/2022.naacl-industry.12/ -->
       <title>Distantly Supervised Aspect Clustering And Naming For <fixed-case>E</fixed-case>-Commerce Reviews</title>
-      <author><first>Prateek</first><last>Sircar</last></author>
-      <author><first>Aniket</first><last>Chakrabarti</last></author>
-      <author id="deepak-gupta"><first>Deepak</first><last>Gupta</last></author>
+      <author openreview="~Prateek_Sircar1"><first>Prateek</first><last>Sircar</last></author>
+      <author openreview="~Aniket_Chakrabarti1"><first>Aniket</first><last>Chakrabarti</last></author>
+      <author id="deepak-gupta" openreview="~DEEPAK_GUPTA5"><first>Deepak</first><last>Gupta</last></author>
       <author><first>Anirban</first><last>Majumdar</last></author>
       <pages>94-102</pages>
       <abstract>Product aspect extraction from reviews is a critical task for e-commerce services to understand customer preferences and pain points. While aspect phrases extraction and sentiment analysis have received a lot of attention, clustering of aspect phrases and assigning human readable names to clusters in e-commerce reviews is an extremely important and challenging problem due to the scale of the reviews that makes human review infeasible. In this paper, we propose fully automated methods for clustering aspect words and generating human readable names for the clusters without any manually labeled data. We train transformer based sentence embeddings that are aware of unique e-commerce language characteristics (eg. incomplete sentences, spelling and grammar errors, vernacular etc.). We also train transformer based sequence to sequence models to generate human readable aspect names from clusters. Both the models are trained using heuristic based distant supervision. Additionally, the models are used to improve each other. Extensive empirical testing showed that the clustering model improves the Silhouette Score by 64% when compared to the state-of-the-art baseline and the aspect naming model achieves a high ROUGE-L score of 0.79.</abstract>
@@ -7690,8 +7690,8 @@
     <paper id="13">
       <!-- https://aclanthology.org/2022.naacl-industry.13/ -->
       <title>Local-to-global learning for iterative training of production <fixed-case>SLU</fixed-case> models on new features</title>
-      <author><first>Yulia</first><last>Grishina</last></author>
-      <author><first>Daniil</first><last>Sorokin</last></author>
+      <author openreview="~Yulia_Grishina1"><first>Yulia</first><last>Grishina</last></author>
+      <author openreview="~Daniil_Sorokin1"><first>Daniil</first><last>Sorokin</last></author>
       <pages>103-111</pages>
       <abstract>In production SLU systems, new training data becomes available with time so that ML models need to be updated on a regular basis. Specifically, releasing new features adds new classes of data while the old data remains constant. However, retraining the full model each time from scratch is computationally expensive. To address this problem, we propose to consider production releases from the curriculum learning perspective and to adapt the local-to-global learning (LGL) schedule (Cheng et. al, 2019) for a statistical model that starts with fewer output classes and adds more classes with each iteration. We report experiments for the tasks of intent classification and slot filling in the context of a production voice-assistant. First, we apply the original LGL schedule on our data and then adapt LGL to the production setting where the full data is not available at initial training iterations. We demonstrate that our method improves model error rates by 7.3% and saves up to 25% training time for individual iterations.</abstract>
       <pdf hash="bce801a1"/>
@@ -7702,13 +7702,13 @@
     <paper id="14">
       <!-- https://aclanthology.org/2022.naacl-industry.14/ -->
       <title><fixed-case>CULG</fixed-case>: Commercial Universal Language Generation</title>
-      <author><first>Haonan</first><last>Li</last></author>
-      <author><first>Yameng</first><last>Huang</last></author>
-      <author><first>Yeyun</first><last>Gong</last></author>
-      <author><first>Jian</first><last>Jiao</last></author>
-      <author><first>Ruofei</first><last>Zhang</last></author>
-      <author id="timothy-baldwin"><first>Timothy</first><last>Baldwin</last></author>
-      <author><first>Nan</first><last>Duan</last></author>
+      <author openreview="~Haonan_Li2"><first>Haonan</first><last>Li</last></author>
+      <author openreview="~yameng_huang1"><first>Yameng</first><last>Huang</last></author>
+      <author openreview="~Yeyun_Gong2"><first>Yeyun</first><last>Gong</last></author>
+      <author openreview="~Jian_Jiao2"><first>Jian</first><last>Jiao</last></author>
+      <author openreview="~Ruofei_Zhang1"><first>Ruofei</first><last>Zhang</last></author>
+      <author id="timothy-baldwin" openreview="~Timothy_Baldwin1"><first>Timothy</first><last>Baldwin</last></author>
+      <author openreview="~Nan_Duan1"><first>Nan</first><last>Duan</last></author>
       <pages>112-120</pages>
       <abstract>Pre-trained language models (PLMs) have dramatically improved performance for many natural language processing (NLP) tasks in domains such as finance and healthcare. However, the application of PLMs in the domain of commerce, especially marketing and advertising, remains less studied. In this work, we adapt pre-training methods to the domain of commerce, by proposing CULG, a large-scale commercial universal language generation model which is pre-trained on a corpus drawn from 10 markets across 7 languages. We propose 4 commercial generation tasks and a two-stage training strategy for pre-training, and demonstrate that the proposed strategy yields performance improvements on three generation tasks as compared to single-stage pre-training. Extensive experiments show that our model outperforms other models by a large margin on commercial generation tasks, and we conclude with a discussion on additional applications over other markets, languages, and tasks.</abstract>
       <pdf hash="f76f0776"/>
@@ -7730,15 +7730,15 @@
     <paper id="16">
       <!-- https://aclanthology.org/2022.naacl-industry.16/ -->
       <title>Explaining the Effectiveness of Multi-Task Learning for Efficient Knowledge Extraction from Spine <fixed-case>MRI</fixed-case> Reports</title>
-      <author id="arijit-sehanobish" orcid="0000-0003-2769-2003"><first>Arijit</first><last>Sehanobish</last></author>
-      <author><first>McCullen</first><last>Sandora</last></author>
-      <author><first>Nabila</first><last>Abraham</last></author>
+      <author id="arijit-sehanobish" orcid="0000-0003-2769-2003" openreview="~Arijit_Sehanobish1"><first>Arijit</first><last>Sehanobish</last></author>
+      <author openreview="~McCullen_Sandora1"><first>McCullen</first><last>Sandora</last></author>
+      <author openreview="~Nabila_Abraham1"><first>Nabila</first><last>Abraham</last></author>
       <author><first>Jayashri</first><last>Pawar</last></author>
       <author><first>Danielle</first><last>Torres</last></author>
-      <author><first>Anasuya</first><last>Das</last></author>
+      <author openreview="~Anasuya_Das1"><first>Anasuya</first><last>Das</last></author>
       <author><first>Murray</first><last>Becker</last></author>
       <author><first>Richard</first><last>Herzog</last></author>
-      <author><first>Benjamin</first><last>Odry</last></author>
+      <author openreview="~Benjamin_Odry1"><first>Benjamin</first><last>Odry</last></author>
       <author><first>Ron</first><last>Vianu</last></author>
       <pages>130-140</pages>
       <abstract>Pretrained Transformer based models finetuned on domain specific corpora have changed the landscape of NLP. However, training or fine-tuning these models for individual tasks can be time consuming and resource intensive. Thus, a lot of current research is focused on using transformers for multi-task learning (Raffel et al., 2020) and how to group the tasks to help a multi-task model to learn effective representations that can be shared across tasks (Standley et al., 2020; Fifty et al., 2021) . In this work, we show that a single multi-tasking model can match the performance of task specific model when the task specific models show similar representations across all of their hidden layers and their gradients are aligned, i.e. their gradients follow the same direction. We hypothesize that the above observations explain the effectiveness of multi-task learning. We validate our observations on our internal radiologist-annotated datasets on the cervical and lumbar spine. Our method is simple and intuitive, and can be used in a wide range of NLP problems.</abstract>
@@ -7750,12 +7750,12 @@
     <paper id="17">
       <!-- https://aclanthology.org/2022.naacl-industry.17/ -->
       <title><fixed-case>FPI</fixed-case>: Failure Point Isolation in Large-scale Conversational Assistants</title>
-      <author><first>Rinat</first><last>Khaziev</last></author>
-      <author><first>Usman</first><last>Shahid</last></author>
+      <author openreview="~Rinat_Khaziev1"><first>Rinat</first><last>Khaziev</last></author>
+      <author openreview="~Usman_Shahid1"><first>Usman</first><last>Shahid</last></author>
       <author><first>Tobias</first><last>Röding</last></author>
-      <author><first>Rakesh</first><last>Chada</last></author>
+      <author openreview="~Rakesh_Chada1"><first>Rakesh</first><last>Chada</last></author>
       <author><first>Emir</first><last>Kapanci</last></author>
-      <author><first>Pradeep</first><last>Natarajan</last></author>
+      <author openreview="~Pradeep_Natarajan1"><first>Pradeep</first><last>Natarajan</last></author>
       <pages>141-148</pages>
       <abstract>Large-scale conversational assistants such as Cortana, Alexa, Google Assistant and Siri process requests through a series of modules for wake word detection, speech recognition, language understanding and response generation. An error in one of these modules can cascade through the system. Given the large traffic volumes in these assistants, it is infeasible to manually analyze the data, identify requests with processing errors and isolate the source of error. We present a machine learning system to address this challenge. First, we embed the incoming request and context, such as system response and subsequent turns, using pre-trained transformer models. Then, we combine these embeddings with encodings of additional metadata features (such as confidence scores from different modules in the online system) using a “mixing-encoder” to output the failure point predictions. Our system obtains 92.2% of human performance on this task while scaling to analyze the entire traffic in 8 different languages of a large-scale conversational assistant. We present detailed ablation studies analyzing the impact of different modeling choices.</abstract>
       <pdf hash="7fee073e"/>
@@ -7766,13 +7766,13 @@
     <paper id="18">
       <!-- https://aclanthology.org/2022.naacl-industry.18/ -->
       <title>Asynchronous Convergence in Multi-Task Learning via Knowledge Distillation from Converged Tasks</title>
-      <author id="weiyi-liu"><first>Weiyi</first><last>Lu</last></author>
-      <author><first>Sunny</first><last>Rajagopalan</last></author>
-      <author><first>Priyanka</first><last>Nigam</last></author>
-      <author><first>Jaspreet</first><last>Singh</last></author>
-      <author><first>Xiaodi</first><last>Sun</last></author>
-      <author><first>Yi</first><last>Xu</last></author>
-      <author><first>Belinda</first><last>Zeng</last></author>
+      <author id="weiyi-liu" openreview="~Weiyi_Lu2"><first>Weiyi</first><last>Lu</last></author>
+      <author openreview="~Sunny_Rajagopalan1"><first>Sunny</first><last>Rajagopalan</last></author>
+      <author openreview="~Priyanka_Nigam1"><first>Priyanka</first><last>Nigam</last></author>
+      <author openreview="~Jaspreet_Singh1"><first>Jaspreet</first><last>Singh</last></author>
+      <author openreview="~Xiaodi_Sun1"><first>Xiaodi</first><last>Sun</last></author>
+      <author openreview="~Yi_Xu10"><first>Yi</first><last>Xu</last></author>
+      <author openreview="~Belinda_Zeng1"><first>Belinda</first><last>Zeng</last></author>
       <author><first>Trishul</first><last>Chilimbi</last></author>
       <pages>149-159</pages>
       <abstract>Multi-task learning (MTL) aims to solve multiple tasks jointly by sharing a base representation among them. This can lead to more efficient learning and better generalization, as compared to learning each task individually. However, one issue that often arises in MTL is the convergence speed between tasks varies due to differences in task difficulty, so it can be a challenge to simultaneously achieve the best performance on all tasks with a single model checkpoint. Various techniques have been proposed to address discrepancies in task convergence rate, including weighting the per-task losses and modifying task gradients. In this work, we propose a novel approach that avoids the problem of requiring all tasks to converge at the same rate, but rather allows for “asynchronous” convergence among the tasks where each task can converge on its own schedule. As our main contribution, we monitor per-task validation metrics and switch to a knowledge distillation loss once a task has converged instead of continuing to train on the true labels. This prevents the model from overfitting on converged tasks while it learns the remaining tasks. We evaluate the proposed method in two 5-task MTL setups consisting of internal e-commerce datasets. The results show that our method consistently outperforms existing loss weighting and gradient balancing approaches, achieving average improvements of 0.9% and 1.5% over the best performing baseline model in the two setups, respectively.</abstract>
@@ -7801,9 +7801,9 @@
     <paper id="20">
       <!-- https://aclanthology.org/2022.naacl-industry.20/ -->
       <title>Retrieval Based Response Letter Generation For a Customer Care Setting</title>
-      <author id="biplob-biswas" orcid="0000-0002-7105-8782"><first>Biplob</first><last>Biswas</last></author>
-      <author><first>Renhao</first><last>Cui</last></author>
-      <author id="rajiv-ramnath" orcid="0000-0003-0093-8560"><first>Rajiv</first><last>Ramnath</last></author>
+      <author id="biplob-biswas" orcid="0000-0002-7105-8782" openreview="~Biplob_Biswas1"><first>Biplob</first><last>Biswas</last></author>
+      <author openreview="~Renhao_Cui1"><first>Renhao</first><last>Cui</last></author>
+      <author id="rajiv-ramnath" orcid="0000-0003-0093-8560" openreview="~Rajiv_Ramnath2"><first>Rajiv</first><last>Ramnath</last></author>
       <pages>168-175</pages>
       <abstract>Letter-like communications (such as email) are a major means of customer relationship management within customer-facing organizations. These communications are initiated on a channel by requests from customers and then responded to by the organization on the same channel. For decades, the job has almost entirely been conducted by human agents who attempt to provide the most appropriate reaction to the request. Rules have been made to standardize the overall customer service process and make sure the customers receive professional responses. Recent progress in natural language processing has made it possible to automate response generation. However, the diversity and open nature of customer queries and the lack of structured knowledge bases make this task even more challenging than typical task-oriented language generation tasks. Keeping those obstacles in mind, we propose a deep-learning based response letter generation framework that attempts to retrieve knowledge from historical responses and utilize it to generate an appropriate reply. Our model uses data augmentation to address the insufficiency of query-response pairs and employs a ranking mechanism to choose the best response from multiple potential options. We show that our technique outperforms the baselines by significant margins while producing consistent and informative responses.</abstract>
       <pdf hash="85819e7d"/>
@@ -7814,8 +7814,8 @@
     <paper id="21">
       <!-- https://aclanthology.org/2022.naacl-industry.21/ -->
       <title><fixed-case>M</fixed-case>edical Coding with Biomedical Transformer Ensembles and Zero/Few-shot Learning</title>
-      <author><first>Angelo</first><last>Ziletti</last></author>
-      <author><first>Alan</first><last>Akbik</last></author>
+      <author openreview="~Angelo_Ziletti1"><first>Angelo</first><last>Ziletti</last></author>
+      <author openreview="~Alan_Akbik2"><first>Alan</first><last>Akbik</last></author>
       <author><first>Christoph</first><last>Berns</last></author>
       <author><first>Thomas</first><last>Herold</last></author>
       <author><first>Marion</first><last>Legler</last></author>
@@ -7832,7 +7832,7 @@
       <title>Knowledge extraction from aeronautical messages (<fixed-case>NOTAM</fixed-case>s) with self-supervised language models for aircraft pilots</title>
       <author><first>Alexandre</first><last>Arnold</last></author>
       <author><first>Fares</first><last>Ernez</last></author>
-      <author><first>Catherine</first><last>Kobus</last></author>
+      <author openreview="~Catherine_Kobus2"><first>Catherine</first><last>Kobus</last></author>
       <author><first>Marion-Cécile</first><last>Martin</last></author>
       <pages>188-196</pages>
       <abstract>During their pre-flight briefings, aircraft pilots must analyse a long list of NoTAMs (NOtice To AirMen) indicating potential hazards along the flight route, sometimes up to pages for long-haul flights. NOTAM free-text fields typically have a very special phrasing, with lots of acronyms and domain-specific vocabulary, which makes it differ significantly from standard English. In this paper, we pretrain language models derived from BERT on circa 1 million unlabeled NOTAMs and reuse the learnt representations on three downstream tasks valuable for pilots: criticality prediction, named entity recognition and translation into a structured language called Airlang. This self-supervised approach, where smaller amounts of labeled data are enough for task-specific fine-tuning, is well suited in the aeronautical context since expert annotations are expensive and time-consuming. We present evaluation scores across the tasks showing a high potential for an operational usability of such models (by pilots, airlines or service providers), which is a first to the best of our knowledge.</abstract>
@@ -7844,11 +7844,11 @@
     <paper id="23">
       <!-- https://aclanthology.org/2022.naacl-industry.23/ -->
       <title>Intent Discovery for Enterprise Virtual Assistants: Applications of Utterance Embedding and Clustering to Intent Mining</title>
-      <author><first>Minhua</first><last>Chen</last></author>
-      <author><first>Badrinath</first><last>Jayakumar</last></author>
+      <author openreview="~Minhua_Chen3"><first>Minhua</first><last>Chen</last></author>
+      <author openreview="~Badrinath_Jayakumar2"><first>Badrinath</first><last>Jayakumar</last></author>
       <author id="michael-johnston"><first>Michael</first><last>Johnston</last></author>
-      <author><first>S. Eman</first><last>Mahmoodi</last></author>
-      <author><first>Daniel</first><last>Pressel</last></author>
+      <author openreview="~S._Eman_Mahmoodi1"><first>S. Eman</first><last>Mahmoodi</last></author>
+      <author openreview="~Daniel_Pressel1"><first>Daniel</first><last>Pressel</last></author>
       <pages>197-208</pages>
       <abstract>A key challenge in the creation and refinement of virtual assistants is the ability to mine unlabeled utterance data to discover common intents. We develop an approach to this problem that combines large-scale pre-training and multi-task learning to derive a semantic embedding that can be leveraged to identify clusters of utterances that correspond to unhandled intents. An utterance encoder is first trained with a language modeling objective and subsequently adapted to predict intent labels from a large collection of cross-domain enterprise virtual assistant data using a multi-task cosine softmax loss. Experimental evaluation shows significant advantages for this multi-step pre-training approach, with large gains in downstream clustering accuracy on new applications compared to standard sentence embedding approaches. The approach has been incorporated into an interactive discovery tool that enables visualization and exploration of intents by system analysts and builders.</abstract>
       <pdf hash="eb8cf882"/>
@@ -7859,11 +7859,11 @@
     <paper id="24">
       <!-- https://aclanthology.org/2022.naacl-industry.24/ -->
       <title><fixed-case>R</fixed-case>e<fixed-case>F</fixed-case>in<fixed-case>ED</fixed-case>: An Efficient Zero-shot-capable Approach to End-to-End Entity Linking</title>
-      <author><first>Tom</first><last>Ayoola</last></author>
-      <author><first>Shubhi</first><last>Tyagi</last></author>
-      <author><first>Joseph</first><last>Fisher</last></author>
-      <author id="christos-christodoulopoulos" orcid="0000-0001-7708-0051"><first>Christos</first><last>Christodoulopoulos</last></author>
-      <author><first>Andrea</first><last>Pierleoni</last></author>
+      <author openreview="~Tom_Ayoola1"><first>Tom</first><last>Ayoola</last></author>
+      <author openreview="~Shubhi_Tyagi1"><first>Shubhi</first><last>Tyagi</last></author>
+      <author openreview="~Joseph_Fisher1"><first>Joseph</first><last>Fisher</last></author>
+      <author id="christos-christodoulopoulos" orcid="0000-0001-7708-0051" openreview="~Christos_Christodoulopoulos1"><first>Christos</first><last>Christodoulopoulos</last></author>
+      <author openreview="~Andrea_Pierleoni1"><first>Andrea</first><last>Pierleoni</last></author>
       <pages>209-220</pages>
       <abstract>We introduce ReFinED, an efficient end-to-end entity linking model which uses fine-grained entity types and entity descriptions to perform linking. The model performs mention detection, fine-grained entity typing, and entity disambiguation for all mentions within a document in a single forward pass, making it more than 60 times faster than competitive existing approaches. ReFinED also surpasses state-of-the-art performance on standard entity linking datasets by an average of 3.7 F1. The model is capable of generalising to large-scale knowledge bases such as Wikidata (which has 15 times more entities than Wikipedia) and of zero-shot entity linking. The combination of speed, accuracy and scale makes ReFinED an effective and cost-efficient system for extracting entities from web-scale datasets, for which the model has been successfully deployed.</abstract>
       <pdf hash="e74f6131"/>
@@ -7874,10 +7874,10 @@
     <paper id="25">
       <!-- https://aclanthology.org/2022.naacl-industry.25/ -->
       <title>Lightweight Transformers for Conversational <fixed-case>AI</fixed-case></title>
-      <author><first>Daniel</first><last>Pressel</last></author>
-      <author><first>Wenshuo</first><last>Liu</last></author>
+      <author openreview="~Daniel_Pressel1"><first>Daniel</first><last>Pressel</last></author>
+      <author openreview="~Wenshuo_Liu1"><first>Wenshuo</first><last>Liu</last></author>
       <author id="michael-johnston"><first>Michael</first><last>Johnston</last></author>
-      <author><first>Minhua</first><last>Chen</last></author>
+      <author openreview="~Minhua_Chen3"><first>Minhua</first><last>Chen</last></author>
       <pages>221-229</pages>
       <abstract>To understand how training on conversational language impacts performance of pre-trained models on downstream dialogue tasks, we build compact Transformer-based Language Models from scratch on several large corpora of conversational data. We compare the performance and characteristics of these models against BERT and other strong baselines on dialogue probing tasks. Commercial dialogue systems typically require a small footprint and fast execution time, but recent trends are in the other direction, with an ever-increasing number of parameters, resulting in difficulties in model deployment. We focus instead on training fast, lightweight models that excel at natural language understanding (NLU) and can replace existing lower-capacity conversational AI models with similar size and speed. In the process, we develop a simple but unique curriculum-based approach that moves from general-purpose to dialogue-targeted both in terms of data and objective. Our resultant models have around 1/3 the number of parameters of BERT-base and produce better representations for a wide array of intent detection datasets using linear and Mutual-Information probing techniques. Additionally, the models can be easily fine-tuned on a single consumer GPU card and deployed in near real-time production environments.</abstract>
       <pdf hash="003de177"/>
@@ -7888,10 +7888,10 @@
     <paper id="26">
       <!-- https://aclanthology.org/2022.naacl-industry.26/ -->
       <title><fixed-case>NER-MQMRC</fixed-case>: <fixed-case>F</fixed-case>ormulating Named Entity Recognition as Multi Question Machine Reading Comprehension</title>
-      <author><first>Anubhav</first><last>Shrimal</last></author>
-      <author><first>Avi</first><last>Jain</last></author>
-      <author><first>Kartik</first><last>Mehta</last></author>
-      <author><first>Promod</first><last>Yenigalla</last></author>
+      <author openreview="~Anubhav_Shrimal1"><first>Anubhav</first><last>Shrimal</last></author>
+      <author openreview="~Avi_Jain1"><first>Avi</first><last>Jain</last></author>
+      <author openreview="~Kartik_Mehta1"><first>Kartik</first><last>Mehta</last></author>
+      <author openreview="~Promod_Yenigalla2"><first>Promod</first><last>Yenigalla</last></author>
       <pages>230-238</pages>
       <abstract>NER has been traditionally formulated as a sequence labeling task. However, there has been recent trend in posing NER as a machine reading comprehension task (Wang et al., 2020; Mengge et al., 2020), where entity name (or other information) is considered as a question, text as the context and entity value in text as answer snippet. These works consider MRC based on a single question (entity) at a time. We propose posing NER as a multi-question MRC task, where multiple questions (one question per entity) are considered at the same time for a single text. We propose a novel BERT-based multi-question MRC (NER-MQMRC) architecture for this formulation. NER-MQMRC architecture considers all entities as input to BERT for learning token embeddings with self-attention and leverages BERT-based entity representation for further improving these token embeddings for NER task. Evaluation on three NER datasets show that our proposed architecture leads to average 2.5 times faster training and 2.3 times faster inference as compared to NER-SQMRC framework based models by considering all entities together in a single pass. Further, we show that our model performance does not degrade compared to single-question based MRC (NER-SQMRC) (Devlin et al., 2019) leading to F1 gain of +0.41%, +0.32% and +0.27% for AE-Pub, Ecommerce5PT and Twitter datasets respectively. We propose this architecture primarily to solve large scale e-commerce attribute (or entity) extraction from unstructured text of a magnitude of 50k+ attributes to be extracted on a scalable production environment with high performance and optimised training and inference runtimes.</abstract>
       <pdf hash="dcd352b4"/>
@@ -7902,10 +7902,10 @@
     <paper id="27">
       <!-- https://aclanthology.org/2022.naacl-industry.27/ -->
       <title>What Do Users Care About? Detecting Actionable Insights from User Feedback</title>
-      <author><first>Kasturi</first><last>Bhattacharjee</last></author>
-      <author><first>Rashmi</first><last>Gangadharaiah</last></author>
-      <author id="kathleen-mckeown"><first>Kathleen</first><last>McKeown</last></author>
-      <author><first>Dan</first><last>Roth</last></author>
+      <author openreview="~Kasturi_Bhattacharjee1"><first>Kasturi</first><last>Bhattacharjee</last></author>
+      <author openreview="~Rashmi_Gangadharaiah2"><first>Rashmi</first><last>Gangadharaiah</last></author>
+      <author id="kathleen-mckeown" openreview="~Kathleen_McKeown1"><first>Kathleen</first><last>McKeown</last></author>
+      <author openreview="~Dan_Roth3"><first>Dan</first><last>Roth</last></author>
       <pages>239-246</pages>
       <abstract>Users often leave feedback on a myriad of aspects of a product which, if leveraged successfully, can help yield useful insights that can lead to further improvements down the line. Detecting actionable insights can be challenging owing to large amounts of data as well as the absence of labels in real-world scenarios. In this work, we present an aggregation and graph-based ranking strategy for unsupervised detection of these insights from real-world, noisy, user-generated feedback. Our proposed approach significantly outperforms strong baselines on two real-world user feedback datasets and one academic dataset.</abstract>
       <pdf hash="4b9fadb9"/>
@@ -7916,9 +7916,9 @@
     <paper id="28">
       <!-- https://aclanthology.org/2022.naacl-industry.28/ -->
       <title><fixed-case>CTM</fixed-case> - A Model for Large-Scale Multi-View Tweet Topic Classification</title>
-      <author><first>Vivek</first><last>Kulkarni</last></author>
-      <author><first>Kenny</first><last>Leung</last></author>
-      <author><first>Aria</first><last>Haghighi</last></author>
+      <author openreview="~Vivek_Kulkarni2"><first>Vivek</first><last>Kulkarni</last></author>
+      <author openreview="~Kenny_Leung1"><first>Kenny</first><last>Leung</last></author>
+      <author openreview="~Aria_Haghighi1"><first>Aria</first><last>Haghighi</last></author>
       <pages>247-258</pages>
       <abstract>Automatically associating social media posts with topics is an important prerequisite for effective search and recommendation on many social media platforms. However, topic classification of such posts is quite challenging because of (a) a large topic space (b) short text with weak topical cues, and (c) multiple topic associations per post. In contrast to most prior work which only focuses on post-classification into a small number of topics (<tex-math>10-20</tex-math>), we consider the task of large-scale topic classification in the context of Twitter where the topic space is 10 times larger with potentially multiple topic associations per Tweet. We address the challenges above and propose a novel neural model, that (a) supports a large topic space of 300 topics (b) takes a holistic approach to tweet content modeling – leveraging multi-modal content, author context, and deeper semantic cues in the Tweet. Our method offers an effective way to classify Tweets into topics at scale by yielding superior performance to other approaches (a relative lift of <tex-math>\mathbf{20}\%</tex-math> in median average precision score) and has been successfully deployed in production at Twitter.</abstract>
       <pdf hash="70a239fb"/>
@@ -7929,7 +7929,7 @@
     <paper id="29">
       <!-- https://aclanthology.org/2022.naacl-industry.29/ -->
       <title>Developing a Production System for <fixed-case>P</fixed-case>urpose of <fixed-case>C</fixed-case>all Detection in Business Phone Conversations</title>
-      <author><first>Elena</first><last>Khasanova</last></author>
+      <author openreview="~Elena_Khasanova1"><first>Elena</first><last>Khasanova</last></author>
       <author><first>Pooja</first><last>Hiranandani</last></author>
       <author><first>Shayna</first><last>Gardiner</last></author>
       <author><first>Cheng</first><last>Chen</last></author>
@@ -7945,9 +7945,9 @@
     <paper id="30">
       <!-- https://aclanthology.org/2022.naacl-industry.30/ -->
       <title>Adversarial Text Normalization</title>
-      <author><first>Joanna</first><last>Bitton</last></author>
-      <author><first>Maya</first><last>Pavlova</last></author>
-      <author><first>Ivan</first><last>Evtimov</last></author>
+      <author openreview="~Joanna_Bitton1"><first>Joanna</first><last>Bitton</last></author>
+      <author openreview="~Maya_Pavlova1"><first>Maya</first><last>Pavlova</last></author>
+      <author openreview="~Ivan_Evtimov2"><first>Ivan</first><last>Evtimov</last></author>
       <pages>268-279</pages>
       <abstract>Text-based adversarial attacks are becoming more commonplace and accessible to general internet users. As these attacks proliferate, the need to address the gap in model robustness becomes imminent. While retraining on adversarial data may increase performance, there remains an additional class of character-level attacks on which these models falter. Additionally, the process to retrain a model is time and resource intensive, creating a need for a lightweight, reusable defense. In this work, we propose the Adversarial Text Normalizer, a novel method that restores baseline performance on attacked content with low computational overhead. We evaluate the efficacy of the normalizer on two problem areas prone to adversarial attacks, i.e. Hate Speech and Natural Language Inference. We find that text normalization provides a task-agnostic defense against character-level attacks that can be implemented supplementary to adversarial retraining solutions, which are more suited for semantic alterations.</abstract>
       <pdf hash="13d19c54"/>
@@ -7958,9 +7958,9 @@
     <paper id="31">
       <!-- https://aclanthology.org/2022.naacl-industry.31/ -->
       <title>Constraint-based Multi-hop Question Answering with Knowledge Graph</title>
-      <author id="sayantan-mitra" orcid="0000-0001-8140-6499"><first>Sayantan</first><last>Mitra</last></author>
-      <author><first>Roshni</first><last>Ramnani</last></author>
-      <author><first>Shubhashis</first><last>Sengupta</last></author>
+      <author id="sayantan-mitra" orcid="0000-0001-8140-6499" openreview="~Sayantan_Mitra1"><first>Sayantan</first><last>Mitra</last></author>
+      <author openreview="~Roshni_Ramnani1"><first>Roshni</first><last>Ramnani</last></author>
+      <author openreview="~Shubhashis_Sengupta1"><first>Shubhashis</first><last>Sengupta</last></author>
       <pages>280-288</pages>
       <abstract>The objective of a Question-Answering system over Knowledge Graph (KGQA) is to respond to natural language queries presented over the KG. A complex question answering system typically addresses one of the two categories of complexity: questions with constraints and questions involving multiple hops of relations. Most of the previous works have addressed these complexities separately. Multi-hop KGQA necessitates reasoning across numerous edges of the KG in order to arrive at the correct answer. Because KGs are frequently sparse, multi-hop KGQA presents extra complications. Recent works have developed KG embedding approaches to reduce KG sparsity by performing missing link prediction. In this paper, we tried to address multi-hop constrained-based queries using KG embeddings to generate more flexible query graphs. Empirical results indicate that the proposed methodology produces state-of-the-art outcomes on three KGQA datasets.</abstract>
       <pdf hash="2b7ea111"/>
@@ -7971,7 +7971,7 @@
     <paper id="32">
       <!-- https://aclanthology.org/2022.naacl-industry.32/ -->
       <title>Fast Bilingual Grapheme-To-Phoneme Conversion</title>
-      <author><first>Hwa-Yeon</first><last>Kim</last></author>
+      <author openreview="~Hwa-Yeon_Kim1"><first>Hwa-Yeon</first><last>Kim</last></author>
       <author><first>Jong-Hwan</first><last>Kim</last></author>
       <author><first>Jae-Min</first><last>Kim</last></author>
       <pages>289-296</pages>
@@ -7986,8 +7986,8 @@
     <paper id="33">
       <!-- https://aclanthology.org/2022.naacl-industry.33/ -->
       <title>Knowledge Extraction From Texts Based on <fixed-case>W</fixed-case>ikidata</title>
-      <author><first>Anastasia</first><last>Shimorina</last></author>
-      <author><first>Johannes</first><last>Heinecke</last></author>
+      <author openreview="~Anastasia_Shimorina1"><first>Anastasia</first><last>Shimorina</last></author>
+      <author openreview="~Johannes_Heinecke1"><first>Johannes</first><last>Heinecke</last></author>
       <author><first>Frédéric</first><last>Herledan</last></author>
       <pages>297-304</pages>
       <abstract>This paper presents an effort within our company of developing knowledge extraction pipeline for English, which can be further used for constructing an entreprise-specific knowledge base. We present a system consisting of entity detection and linking, coreference resolution, and relation extraction based on the Wikidata schema. We highlight existing challenges of knowledge extraction by evaluating the deployed pipeline on real-world data. We also make available a database, which can serve as a new resource for sentential relation extraction, and we underline the importance of having balanced data for training classification models.</abstract>
@@ -8020,16 +8020,16 @@
     <paper id="35">
       <!-- https://aclanthology.org/2022.naacl-industry.35/ -->
       <title>Parameter-efficient Continual Learning Framework in Industrial Real-time Text Classification System</title>
-      <author><first>Tao</first><last>Zhu</last></author>
-      <author><first>Zhe</first><last>Zhao</last></author>
-      <author id="weijie-liu" orcid="0000-0002-8023-9913"><first>Weijie</first><last>Liu</last></author>
-      <author><first>Jiachi</first><last>Liu</last></author>
-      <author id="yiren-chen" orcid="0000-0001-5608-5144"><first>Yiren</first><last>Chen</last></author>
-      <author><first>Weiquan</first><last>Mao</last></author>
-      <author><first>Haoyan</first><last>Liu</last></author>
-      <author><first>Kunbo</first><last>Ding</last></author>
-      <author id="yudong-li" orcid="0000-0001-6779-8836"><first>Yudong</first><last>Li</last></author>
-      <author><first>Xuefeng</first><last>Yang</last></author>
+      <author openreview="~Tao_Zhu3"><first>Tao</first><last>Zhu</last></author>
+      <author openreview="~Zhe_Zhao1"><first>Zhe</first><last>Zhao</last></author>
+      <author id="weijie-liu" orcid="0000-0002-8023-9913" openreview="~Weijie_Liu2"><first>Weijie</first><last>Liu</last></author>
+      <author openreview="~Jiachi_Liu1"><first>Jiachi</first><last>Liu</last></author>
+      <author id="yiren-chen" orcid="0000-0001-5608-5144" openreview="~Yiren_Chen1"><first>Yiren</first><last>Chen</last></author>
+      <author openreview="~Weiquan_Mao1"><first>Weiquan</first><last>Mao</last></author>
+      <author openreview="~Haoyan_Liu1"><first>Haoyan</first><last>Liu</last></author>
+      <author openreview="~Kunbo_Ding1"><first>Kunbo</first><last>Ding</last></author>
+      <author id="yudong-li" orcid="0000-0001-6779-8836" openreview="~Yudong_Li1"><first>Yudong</first><last>Li</last></author>
+      <author openreview="~Xuefeng_Yang1"><first>Xuefeng</first><last>Yang</last></author>
       <pages>315-323</pages>
       <abstract>Catastrophic forgetting is a challenge for model deployment in industrial real-time systems, which requires the model to quickly master a new task without forgetting the old one. Continual learning aims to solve this problem; however, it usually updates all the model parameters, resulting in extensive training times and the inability to deploy quickly. To address this challenge, we propose a parameter-efficient continual learning framework, in which efficient parameters are selected through an offline parameter selection strategy and then trained using an online regularization method. In our framework, only a few parameters need to be updated, which not only alleviates catastrophic forgetting, but also allows the model to be saved with the changed parameters instead of all parameters. Extensive experiments are conducted to examine the effectiveness of our proposal. We believe this paper will provide useful insights and experiences on developing deep learning-based online real-time systems.</abstract>
       <pdf hash="53bc3d4b"/>
@@ -8040,11 +8040,11 @@
     <paper id="36">
       <!-- https://aclanthology.org/2022.naacl-industry.36/ -->
       <title>Self-Aware Feedback-Based Self-Learning in Large-Scale Conversational <fixed-case>AI</fixed-case></title>
-      <author id="pragaash-ponnusamy" orcid="0000-0002-3790-5757"><first>Pragaash</first><last>Ponnusamy</last></author>
-      <author><first>Clint Solomon</first><last>Mathialagan</last></author>
-      <author><first>Gustavo</first><last>Aguilar</last></author>
-      <author id="chengyuan-ma" orcid="0000-0001-5126-5883"><first>Chengyuan</first><last>Ma</last></author>
-      <author><first>Chenlei</first><last>Guo</last></author>
+      <author id="pragaash-ponnusamy" orcid="0000-0002-3790-5757" openreview="~Pragaash_Ponnusamy1"><first>Pragaash</first><last>Ponnusamy</last></author>
+      <author openreview="~Clint_Solomon_Mathialagan2"><first>Clint Solomon</first><last>Mathialagan</last></author>
+      <author openreview="~Gustavo_Aguilar1"><first>Gustavo</first><last>Aguilar</last></author>
+      <author id="chengyuan-ma" orcid="0000-0001-5126-5883" openreview="~Chengyuan_Ma1"><first>Chengyuan</first><last>Ma</last></author>
+      <author openreview="~Chenlei_Guo1"><first>Chenlei</first><last>Guo</last></author>
       <pages>324-333</pages>
       <abstract>Self-learning paradigms in large-scale conversational AI agents tend to leverage user feedback in bridging between what they say and what they mean. However, such learning, particularly in Markov-based query rewriting systems have far from addressed the impact of these models on future training where successive feedback is inevitably contingent on the rewrite itself, especially in a continually updating environment. In this paper, we explore the consequences of this inherent lack of self-awareness towards impairing the model performance, ultimately resulting in both Type I and II errors over time. To that end, we propose augmenting the Markov Graph construction with a superposition-based adjacency matrix. Here, our method leverages an induced stochasticity to reactively learn a locally-adaptive decision boundary based on the performance of the individual rewrites in a bi-variate beta setting. We also surface a data augmentation strategy that leverages template-based generation in abridging complex conversation hierarchies of dialogs so as to simplify the learning process. All in all, we demonstrate that our self-aware model improves the overall PR-AUC by 27.45%, achieves a relative defect reduction of up to 31.22%, and is able to adapt quicker to changes in global preferences across a large number of customers.</abstract>
       <pdf hash="617ae801"/>
@@ -8055,11 +8055,11 @@
     <paper id="37">
       <!-- https://aclanthology.org/2022.naacl-industry.37/ -->
       <title>Fast and Light-Weight Answer Text Retrieval in Dialogue Systems</title>
-      <author><first>Hui</first><last>Wan</last></author>
+      <author openreview="~Hui_Wan1"><first>Hui</first><last>Wan</last></author>
       <author><first>Siva Sankalp</first><last>Patel</last></author>
-      <author><first>J William</first><last>Murdock</last></author>
-      <author><first>Saloni</first><last>Potdar</last></author>
-      <author id="sachindra-joshi"><first>Sachindra</first><last>Joshi</last></author>
+      <author openreview="~J_William_Murdock1"><first>J William</first><last>Murdock</last></author>
+      <author openreview="~Saloni_Potdar1"><first>Saloni</first><last>Potdar</last></author>
+      <author id="sachindra-joshi" openreview="~Sachindra_Joshi1"><first>Sachindra</first><last>Joshi</last></author>
       <pages>334-343</pages>
       <abstract>Dialogue systems can benefit from being able to search through a corpus of text to find information relevant to user requests, especially when encountering a request for which no manually curated response is available. The state-of-the-art technology for neural dense retrieval or re-ranking involves deep learning models with hundreds of millions of parameters. However, it is difficult and expensive to get such models to operate at an industrial scale, especially for cloud services that often need to support a big number of individually customized dialogue systems, each with its own text corpus. We report our work on enabling advanced neural dense retrieval systems to operate effectively at scale on relatively inexpensive hardware. We compare with leading alternative industrial solutions and show that we can provide a solution that is effective, fast, and cost-efficient.</abstract>
       <pdf hash="e150f233"/>
@@ -8070,7 +8070,7 @@
     <paper id="38">
       <!-- https://aclanthology.org/2022.naacl-industry.38/ -->
       <title><fixed-case>BLINK</fixed-case> with <fixed-case>E</fixed-case>lasticsearch for Efficient Entity Linking in Business Conversations</title>
-      <author id="md-tahmid-rahman-laskar"><first>Md Tahmid Rahman</first><last>Laskar</last></author>
+      <author id="md-tahmid-rahman-laskar" openreview="~Md_Tahmid_Rahman_Laskar2"><first>Md Tahmid Rahman</first><last>Laskar</last></author>
       <author><first>Cheng</first><last>Chen</last></author>
       <author><first>Aliaksandr</first><last>Martsinovich</last></author>
       <author><first>Jonathan</first><last>Johnston</last></author>
@@ -8087,8 +8087,8 @@
     <paper id="39">
       <!-- https://aclanthology.org/2022.naacl-industry.39/ -->
       <title><fixed-case>Q</fixed-case>2<fixed-case>R</fixed-case>: A Query-to-Resolution System for Natural-Language Queries</title>
-      <author><first>Shiau Hong</first><last>Lim</last></author>
-      <author><first>Laura</first><last>Wynter</last></author>
+      <author openreview="~Shiau_Hong_Lim1"><first>Shiau Hong</first><last>Lim</last></author>
+      <author openreview="~Laura_Wynter1"><first>Laura</first><last>Wynter</last></author>
       <pages>353-361</pages>
       <abstract>We present a system for document retrieval that combines direct classification with standard content-based retrieval approaches to significantly improve the relevance of the retrieved documents. Our system exploits the availability of an imperfect but sizable amount of labeled data from past queries. For domains such as technical support, the proposed approach enhances the system’s ability to retrieve documents that are otherwise ranked very low based on content alone. The system is easy to implement and can make use of existing text ranking methods, augmenting them through the novel Q2R orchestration framework. Q2R has been extensively tested and is in use at IBM.</abstract>
       <pdf hash="d6b75b37"/>
