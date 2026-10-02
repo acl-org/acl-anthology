@@ -10,6 +10,7 @@ from acl_anthology.collections.types import VolumeType
 from acl_anthology.text import MarkupText
 from acl_anthology.people import Name
 from bin.ingest import (
+    add_page_numbers,
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
@@ -21,6 +22,55 @@ from bin.ingest import (
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+def test_add_page_numbers_preserves_supplied_pagination(tmp_path):
+    papers = [
+        {
+            "id": "preface",
+            "archival": True,
+            "start_page": None,
+            "end_page": None,
+        },
+        {
+            "id": "1",
+            "archival": True,
+            "start_page": 9,
+            "end_page": 13,
+        },
+    ]
+
+    result = add_page_numbers(papers, str(tmp_path))
+
+    assert "pages" not in result[0]
+    assert result[1]["pages"] == "9-13"
+
+
+def test_add_page_numbers_rejects_partial_supplied_pagination(tmp_path):
+    papers = [
+        {
+            "id": "1",
+            "archival": True,
+            "start_page": 9,
+            "end_page": None,
+        }
+    ]
+
+    with pytest.raises(ValueError, match="must define both start_page and end_page"):
+        add_page_numbers(papers, str(tmp_path))
+
+
+def test_add_page_numbers_computes_missing_pagination_from_pdf(tmp_path):
+    pdf_dir = tmp_path / "watermarked_pdfs"
+    pdf_dir.mkdir()
+    (pdf_dir / "1.pdf").write_bytes(b"pdf")
+    papers = [{"id": "1", "file": "1.pdf", "archival": True}]
+
+    with patch("bin.ingest.pypdf.PdfReader") as pdf_reader:
+        pdf_reader.return_value.pages = [object(), object(), object()]
+        result = add_page_numbers(papers, str(tmp_path))
+
+    assert result[0]["pages"] == "1-3"
 
 
 def test_resegment_name_accepts_explicit_index():
