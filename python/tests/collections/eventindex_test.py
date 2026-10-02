@@ -28,42 +28,52 @@ def test_eventindex_load(anthology):
 
 def test_all_defined_events(anthology):
     index = EventIndex(anthology)
-    expected_ids = {"acl-2022", "nlma-2022", "cl-1989", "lrec-2006", "ws-2022"}
+    expected_ids = {
+        "facl-2022",
+        "natfake-2022",
+        "fcl-1989",
+        "flrec-2006",
+        "ws-2022",
+    }
     event_ids = set(index.keys())
     assert event_ids == expected_ids
 
 
 def test_are_events_correctly_defined_as_explicit_implicit(anthology):
     index = EventIndex(anthology)
-    assert index["acl-2022"].is_explicit
+    assert index["facl-2022"].is_explicit
     assert index["ws-2022"].is_explicit
-    assert not index["nlma-2022"].is_explicit
-    assert not index["cl-1989"].is_explicit
-    assert not index["lrec-2006"].is_explicit
+    assert not index["natfake-2022"].is_explicit
+    assert not index["fcl-1989"].is_explicit
+    assert not index["flrec-2006"].is_explicit
 
 
 def test_implicit_event_data(anthology):
     index = EventIndex(anthology)
-    event = index["nlma-2022"]
+    event = index["natfake-2022"]
     assert (
-        event.title.as_text() == "Workshop on Natural Logic Meets Machine Learning (2022)"
+        event.title.as_text()
+        == "Workshop on Fabricated Logic Meets Machine Learning (2022)"
     )
     assert event.location is None
     assert event.dates is None
     assert list(event.colocated_ids.items()) == [
-        (("2022.naloma", "1", None), EventLink.INFERRED)
+        (("2022.natfake", "1", None), EventLink.INFERRED)
     ]
 
 
 def test_implicit_and_explicit_event_data(anthology):
     index = EventIndex(anthology)
+    # This event is explicitly defined in 2022.fws.xml (colocated with a
+    # nonexistent volume) and now also implicitly picks up 2022.natfake-1,
+    # since that volume also declares <venue>ws</venue>.
     event = index["ws-2022"]
-    # assert event.title.as_text() == "Other Workshops and Events (2022)"
+    # assert event.title.as_text() == "Other Fabricated Workshops and Events (2022)"
     assert event.location is None
     assert event.dates is None
     assert list(event.colocated_ids.items()) == [
         (("2022.nonexistant", "1", None), EventLink.EXPLICIT),
-        (("2022.naloma", "1", None), EventLink.INFERRED),
+        (("2022.natfake", "1", None), EventLink.INFERRED),
     ]
 
 
@@ -72,36 +82,38 @@ def test_event_should_always_get_title(anthology):
     index = EventIndex(anthology)
     event = index["ws-2022"]
     # Currently not created when event is implicitly defined...
-    assert event.title.as_text() == "Other Workshops and Events (2022)"
+    assert event.title.as_text() == "Other Fabricated Workshops and Events (2022)"
 
 
 def test_explicit_event_data(anthology):
     index = EventIndex(anthology)
-    event = index["acl-2022"]
+    event = index["facl-2022"]
     assert (
         event.title.as_text()
-        == "60th Annual Meeting of the Association for Computational Linguistics"
+        == "60th Annual Fabricated Meeting on Computational Linguistics"
     )
-    assert event.location == "Dublin, Ireland"
-    assert event.dates == "May 22–27, 2022"
+    assert event.location == "Porto, Portugal"
+    assert event.dates == "May 16–21, 2022"
     assert list(event.colocated_ids.items()) == [
-        (("2022.acl", "long", None), EventLink.INFERRED),
-        (("2022.acl", "short", None), EventLink.INFERRED),
-        (("2022.acl", "srw", None), EventLink.INFERRED),
-        (("2022.acl", "demo", None), EventLink.INFERRED),
-        (("2022.acl", "tutorials", None), EventLink.INFERRED),
-        (("2022.findings", "acl", None), EventLink.EXPLICIT),
-        (("2022.bigscience", "1", None), EventLink.EXPLICIT),
-        (("2022.naloma", "1", None), EventLink.EXPLICIT),
-        (("2022.wit", "1", None), EventLink.EXPLICIT),
+        (("2022.facl", "long", None), EventLink.INFERRED),
+        (("2022.facl", "short", None), EventLink.INFERRED),
+        (("2022.facl", "srw", None), EventLink.INFERRED),
+        (("2022.facl", "demo", None), EventLink.INFERRED),
+        (("2022.facl", "tutorials", None), EventLink.INFERRED),
+        (("2022.ffindings", "facl", None), EventLink.EXPLICIT),
+        (("2022.fabscience", "1", None), EventLink.EXPLICIT),
+        (("2022.natfake", "1", None), EventLink.EXPLICIT),
+        (("2022.fwit", "1", None), EventLink.EXPLICIT),
     ]
 
 
 def test_event_by_volume(anthology):
     index = EventIndex(anthology)
-    assert index.by_volume("2022.acl-demo") == [index["acl-2022"]]
-    assert index.by_volume("L06-1") == [index["lrec-2006"]]
-    events = index.by_volume("2022.naloma-1")
-    assert {event.id for event in events} == {"acl-2022", "nlma-2022", "ws-2022"}
+    assert index.by_volume("2022.facl-demo") == [index["facl-2022"]]
+    assert index.by_volume("K06-1") == [index["flrec-2006"]]
+    events = index.by_volume("2022.natfake-1")
+    # "facl-2022" is also picked up here because 2022.facl.xml's own event
+    # explicitly lists this volume's collection under its <colocated> tag.
+    assert {event.id for event in events} == {"natfake-2022", "ws-2022", "facl-2022"}
     # This volume is defined under <colocated>, even though it doesn't exist in the toy data
-    assert index.by_volume("2022.bigscience-1") == [index["acl-2022"]]
+    assert index.by_volume("2022.fabscience-1") == [index["facl-2022"]]

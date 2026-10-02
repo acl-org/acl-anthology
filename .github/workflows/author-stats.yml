@@ -1,0 +1,53 @@
+name: Update author statistics
+
+on:
+  schedule:
+    - cron: '17 6 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: author-statistics
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    if: github.repository == 'acl-org/acl-anthology'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+      - name: Compute missing monthly checkpoints
+        run: uv run --frozen python bin/author_stats.py
+      - name: Open a data-only pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- hugo/assets/data/author-history.json; then
+            echo "All monthly checkpoints are already up to date."
+            exit 0
+          fi
+          branch="author-stats-$(date -u +%Y-%m)"
+          existing=$(gh pr list --head "$branch" --state open --json url --jq '.[0].url // empty')
+          if [ -n "$existing" ]; then
+            echo "Monthly update already awaiting review: $existing"
+            exit 0
+          fi
+          git switch -c "$branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hugo/assets/data/author-history.json
+          git commit -m "Update monthly author statistics"
+          gh auth setup-git
+          git push origin "$branch"
+          gh pr create --base master --head "$branch" \
+            --title "Update monthly author statistics" \
+            --body "Refresh cached author-directory checkpoints from main-branch history. Each checkpoint records its source commit. Follow-up to #9857."
