@@ -158,7 +158,7 @@ class TeXParserWarning(MaintainerWarning):
 
 
 def suppress_maintainer_warnings(
-    flag_or_names: bool | Iterable[str | MaintainerWarning],
+    flag_or_names: bool | Iterable[str | type[MaintainerWarning]],
 ) -> None:
     """Suppress or re-enable MaintainerWarnings.
 
@@ -174,12 +174,13 @@ def suppress_maintainer_warnings(
                 if isinstance(name, type) and issubclass(name, MaintainerWarning):
                     category = name
                 elif isinstance(name, str):
-                    category = globals().get(name)
+                    resolved = globals().get(name)
                     if not (
-                        isinstance(category, type)
-                        and issubclass(category, MaintainerWarning)
+                        isinstance(resolved, type)
+                        and issubclass(resolved, MaintainerWarning)
                     ):
                         raise ValueError(f"{name!r} is not a known MaintainerWarning")
+                    category = resolved
                 else:
                     raise ValueError(
                         f"{name!r} cannot be interpreted as a MaintainerWarning"

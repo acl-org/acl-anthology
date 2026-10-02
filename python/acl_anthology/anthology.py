@@ -75,7 +75,9 @@ class Anthology:
     def __init__(
         self,
         datadir: StrPath,
-        suppress_warnings: Optional[bool | Iterable[str | MaintainerWarning]] = None,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = None,
         verbose: Optional[bool] = None,
     ) -> None:
         if not Path(datadir).is_dir():  # pragma: no cover
@@ -126,7 +128,9 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[StrPath] = None,
-        suppress_warnings: Optional[bool | Iterable[str | MaintainerWarning]] = False,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = False,
         verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
@@ -160,7 +164,9 @@ class Anthology:
     @classmethod
     def from_within_repo(
         cls,
-        suppress_warnings: Optional[bool | Iterable[str | MaintainerWarning]] = False,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = False,
         verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from within its own Git repo, using the repo's main data folder.
