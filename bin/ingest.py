@@ -171,19 +171,6 @@ def add_page_numbers(
     for paper in papers:
         if not paper["archival"]:
             continue
-        has_start_page = "start_page" in paper
-        has_end_page = "end_page" in paper
-        if has_start_page or has_end_page:
-            start_page = paper.get("start_page")
-            end_page = paper.get("end_page")
-            if (start_page is None) != (end_page is None):
-                raise ValueError(
-                    f"Paper {paper['id']} must define both start_page and end_page"
-                )
-            if start_page is not None:
-                paper["pages"] = f"{start_page}-{end_page}"
-            continue
-
         assert "file" in paper.keys(), f"{paper['id']} is missing key 'file'"
         paper_id = str(paper["id"])
         paper_path = paper["file"]
