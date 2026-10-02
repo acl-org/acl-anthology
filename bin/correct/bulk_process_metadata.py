@@ -158,7 +158,9 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         log.info("Loading anthology")
-        self.anthology = Anthology.from_within_repo(verbose=self.verbose)
+        self.anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",), verbose=self.verbose
+        )
         # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:

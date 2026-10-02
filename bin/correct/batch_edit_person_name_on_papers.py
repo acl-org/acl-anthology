@@ -40,7 +40,9 @@ def batch_edit_names(
 ):
     assert not (specific_paper_ids and exclude_paper_ids)
     changes = f"Setting names for author {author_id} to {name.first or ''}{' | ' if name.as_full().count(' ') > 1 else ' '}{name.last}"
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     person = anthology.get_person(author_id)
     assert person is not None, f"Could not find person: {author_id}"

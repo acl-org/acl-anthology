@@ -43,7 +43,9 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
     changes = ""
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     person = anthology.get_person(author_id)
 

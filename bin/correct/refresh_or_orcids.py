@@ -127,7 +127,9 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
 
 
 def refresh_or_orcids(username=None, password=None):
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     user2nses = defaultdict(list)
     nORCIDOnly, nOROnly, nBoth, nNeither = 0, 0, 0, 0

@@ -42,7 +42,9 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 def rename_person(author_id, new_id):
     changes = f"Renaming author ID: {author_id} -> {new_id}"
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     person = anthology.get_person(author_id)
     assert person is not None, f"Could not find person: {author_id}"

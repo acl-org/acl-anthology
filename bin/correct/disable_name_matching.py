@@ -33,7 +33,9 @@ from acl_anthology.utils.logging import setup_rich_logging
 
 def disable_name_matching(author_ids):
     changes = 0
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     for author_id in author_ids:
         person = anthology.get_person(author_id)

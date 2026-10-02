@@ -181,10 +181,13 @@ def main() -> None:
 
     include_main = not args.colocated_only
     include_colocated = not args.main_only
+    suppress_warnings = (
+        False if args.show_resolution_warnings else ("NameSpecResolutionWarning",)
+    )
 
     anthology = Anthology(
         datadir=args.datadir,
-        enable_all_warnings=args.show_resolution_warnings,
+        suppress_warnings=suppress_warnings,
         verbose=False,
     )
     volumes = event_volumes(

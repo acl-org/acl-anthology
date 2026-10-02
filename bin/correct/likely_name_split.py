@@ -159,7 +159,9 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
     anthology.load_all()
 
     splitter = NameSplitter(anthology)
