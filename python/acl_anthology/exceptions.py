@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 import warnings
 
 if TYPE_CHECKING:
@@ -157,6 +157,31 @@ class TeXParserWarning(MaintainerWarning):
         self.code = code
 
 
-def enable_maintainer_warnings() -> None:
-    """Re-enables MaintainerWarnings."""
-    warnings.filterwarnings("default", category=MaintainerWarning)
+def suppress_maintainer_warnings(
+    flag_or_names: bool | Iterable[str | MaintainerWarning],
+) -> None:
+    """Suppress or re-enable MaintainerWarnings.
+
+    Parameters:
+      arg: If True, suppresses all warnings. If False, (re-)enables them. If given a list of warnings, will (re-)enable all except the given ones.
+    """
+    if isinstance(flag_or_names, bool) and flag_or_names:
+        warnings.filterwarnings("ignore", category=MaintainerWarning)
+    else:
+        warnings.filterwarnings("default", category=MaintainerWarning)
+        if not isinstance(flag_or_names, bool):
+            for name in flag_or_names:
+                if isinstance(name, type) and issubclass(name, MaintainerWarning):
+                    category = name
+                elif isinstance(name, str):
+                    category = globals().get(name)
+                    if not (
+                        isinstance(category, type)
+                        and issubclass(category, MaintainerWarning)
+                    ):
+                        raise ValueError(f"{name!r} is not a known MaintainerWarning")
+                else:
+                    raise ValueError(
+                        f"{name!r} cannot be interpreted as a MaintainerWarning"
+                    )
+                warnings.filterwarnings("ignore", category=category)
