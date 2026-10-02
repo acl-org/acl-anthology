@@ -1,0 +1,40 @@
+name: Install build prerequisites
+description: Installs prerequisites common to all workflows that build the website
+
+inputs:
+  hugo-version:
+    default: 0.160.0
+  dart-sass-version:
+    default: 1.97.1
+
+runs:
+  using: composite
+  steps:
+    - name: Install Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: ${{ inputs.hugo-version }}
+        extended: true
+
+    - name: Install Dart Sass
+      shell: bash
+      env:
+        DART_SASS_VERSION: ${{ inputs.dart-sass-version }}
+      run: |
+        mkdir -p "${HOME}/.local"
+        curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz"
+        echo "${HOME}/.local/dart-sass" >> "${GITHUB_PATH}"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v10.2.0
+      # This always installs the latest version of uv - if this ever needs to be
+      # fixed, fix it in `pyproject.toml`, not here
+      # (https://docs.astral.sh/uv/reference/settings/#required-version)
+
+    - name: Install other dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev

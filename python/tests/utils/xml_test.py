@@ -378,19 +378,19 @@ test_cases_ensure_minimal_diff = (
     ),
     (  # Complex reordering with multiple, order-sensitive child tags is not supported -- but if logically equivalent, reference will just be copied
         """<paper>
-             <attachment type="software" hash="079d4f4a">2022.acl-long.48.software.txt</attachment>
-             <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
+             <attachment type="software" hash="079d4f4a">2022.facl-long.48.software.txt</attachment>
+             <attachment type="software" hash="079d4f4b">2022.facl-long.48.software.zip</attachment>
              <bibkey>feng-etal-2022-legal</bibkey>
            </paper>""",
         """<paper>
-             <attachment type="software" hash="079d4f4a">2022.acl-long.48.software.txt</attachment>
+             <attachment type="software" hash="079d4f4a">2022.facl-long.48.software.txt</attachment>
              <bibkey>feng-etal-2022-legal</bibkey>
-             <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
+             <attachment type="software" hash="079d4f4b">2022.facl-long.48.software.zip</attachment>
            </paper>""",
         """<paper>
-             <attachment type="software" hash="079d4f4a">2022.acl-long.48.software.txt</attachment>
+             <attachment type="software" hash="079d4f4a">2022.facl-long.48.software.txt</attachment>
              <bibkey>feng-etal-2022-legal</bibkey>
-             <attachment type="software" hash="079d4f4b">2022.acl-long.48.software.zip</attachment>
+             <attachment type="software" hash="079d4f4b">2022.facl-long.48.software.zip</attachment>
            </paper>""",
     ),
     # Added markup after <tex-math>

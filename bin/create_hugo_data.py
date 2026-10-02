@@ -65,6 +65,11 @@ from acl_anthology.utils.text import (
     remove_extra_whitespace,
 )
 
+if __package__:
+    from .author_stats import compute_authorship_stats
+else:
+    from author_stats import compute_authorship_stats
+
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
@@ -597,6 +602,15 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
+def export_author_metrics(anthology: Anthology, builddir, dryrun=False):
+    """Export current authorship counts without accessing historical Git data."""
+    stats = compute_authorship_stats(anthology)
+    if not dryrun:
+        with open(f"{builddir}/data/author_current.json", "wb") as f:
+            f.write(ENCODER.encode(stats))
+    return stats
+
+
 def export_people(anthology: Anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -896,6 +910,7 @@ def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
         anthology, builddir, dryrun, paper_count=stats["paper_count"]
     )
     export_people(anthology, builddir, dryrun)
+    export_author_metrics(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
