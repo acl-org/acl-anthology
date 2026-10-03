@@ -90,6 +90,20 @@ def test_venue_volumes(anthology):
     }
 
 
+def test_venue_sigs(anthology):
+    index = anthology.venues
+    venue = index.get("natfake")
+    sigs = venue.sigs()
+    assert len(sigs) == 1
+    assert sigs[0].id == "sigfake2"
+
+
+def test_venue_sigs_empty(anthology):
+    index = anthology.venues
+    venue = index.get("fcl")
+    assert venue.sigs() == []
+
+
 def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
     venue_ids = index.keys()
@@ -102,6 +116,13 @@ def test_venueindex_noindex(anthology, caplog):
         index = VenueIndex(anthology, no_item_ids=True)
         _ = index.get("fcl").name
     assert not any("XML data file" in rec.message for rec in caplog.records)
+
+
+def test_venueindex_noindex_skips_sig_reverse_index(anthology):
+    """With no_item_ids=True, reverse-indexing of SIGs via `Venue.sigs()` is also skipped."""
+    index = VenueIndex(anthology, no_item_ids=True)
+    venue = index.get("natfake")
+    assert venue.sigs() == []
 
 
 def test_venueindex_roundtrip_data(anthology, tmp_path):
