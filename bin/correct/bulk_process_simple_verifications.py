@@ -43,7 +43,6 @@ Options:
 """
 
 import os
-import warnings
 import logging as log
 from datetime import datetime
 
@@ -354,15 +353,14 @@ if __name__ == "__main__":
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
-        updater = AnthologyMetadataUpdater(github_token)
-        updater.process_verification_issues(
-            issue_ids=args.issue_ids,
-            verbose=not args.quiet,
-            skip_validation=args.skip_validation,
-            dry_run=args.dry_run,
-            no_branch=args.no_branch,
-        )
+    updater = AnthologyMetadataUpdater(github_token)
+    updater.process_verification_issues(
+        issue_ids=args.issue_ids,
+        verbose=not args.quiet,
+        skip_validation=args.skip_validation,
+        dry_run=args.dry_run,
+        no_branch=args.no_branch,
+    )
 
     for stat in updater.stats:
         log.info(f"{stat}: {updater.stats[stat]}")

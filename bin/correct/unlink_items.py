@@ -34,18 +34,18 @@ Options:
     --keep              Keep only the specified items; unlink all others.
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
 
 def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
     changes = ""
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     person = anthology.get_person(author_id)
 
@@ -109,13 +109,12 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        msg = unlink_items(
-            author_id=args["AUTHORID"],
-            paper_ids=args["PAPERID"],
-            keep_only_these_papers=args["--keep"],
-        )
+    msg = unlink_items(
+        author_id=args["AUTHORID"],
+        paper_ids=args["PAPERID"],
+        keep_only_these_papers=args["--keep"],
+    )
 
-        if args["--issue"]:
-            msg += f" (closes #{args['--issue']})"
-        print(f'Now run>>> git commit -a -m "{msg}"')
+    if args["--issue"]:
+        msg += f" (closes #{args['--issue']})"
+    print(f'Now run>>> git commit -a -m "{msg}"')

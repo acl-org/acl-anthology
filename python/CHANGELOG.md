@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+## Changed
+
+- Warnings that are mostly relevant to ACL Anthology maintainers, and not end users of the library, now subclass from `MaintainerWarning` and are suppressed by default.  This means considerably fewer (if any) warning messages in ordinary usage.
+
 ## [1.3.3] — 2026-09-15
 
 ### Changed

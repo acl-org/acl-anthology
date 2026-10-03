@@ -1202,7 +1202,7 @@ def main(args):
         log.info(f"Detected {format_} format for {source}")
         formats[source] = format_
 
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(suppress_warnings=False)
 
     anthology.load_all()
 

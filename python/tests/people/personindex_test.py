@@ -19,6 +19,7 @@ from acl_anthology.exceptions import (
     NameSpecResolutionError,
     NameSpecResolutionWarning,
     PersonDefinitionError,
+    MaintainerWarning,
 )
 from acl_anthology.people import (
     Name,
@@ -268,7 +269,7 @@ test_cases_generate_person_id_from_name = (
         None,
         AnthologyException,
     ),  # wen-zhao-labx already exists
-    (Name("Wen", "Zhao"), "labx", "0000-0000-0000-018X", UserWarning),
+    (Name("Wen", "Zhao"), "labx", "0000-0000-0000-018X", MaintainerWarning),
     (Name("Lin", "Feng"), "tsingcity", "0000-0000-0000-018X", "lin-feng-018x"),
 )
 
@@ -281,8 +282,12 @@ def test_generate_person_id_from_name(index, name, suffix, orcid, expected_resul
         pid = index.generate_person_id(name, suffix=suffix, orcid=orcid)
         assert pid == expected_result
     elif isinstance(expected_result, type):
-        with pytest.raises(expected_result):
-            index.generate_person_id(name, suffix=suffix, orcid=orcid)
+        if issubclass(expected_result, Warning):
+            with pytest.warns(expected_result):
+                index.generate_person_id(name, suffix=suffix, orcid=orcid)
+        else:
+            with pytest.raises(expected_result):
+                index.generate_person_id(name, suffix=suffix, orcid=orcid)
     else:
         raise ValueError(
             f"Test cannot take expected result of type {type(expected_result)}"

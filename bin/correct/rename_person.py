@@ -33,18 +33,18 @@ Options:
     --issue NUM         GitHub issue number to include in commit message.
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
 
 def rename_person(author_id, new_id):
     changes = f"Renaming author ID: {author_id} -> {new_id}"
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     person = anthology.get_person(author_id)
     assert person is not None, f"Could not find person: {author_id}"
@@ -64,9 +64,8 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        msg = rename_person(author_id=args["AUTHORID"], new_id=args["NEWID"])
+    msg = rename_person(author_id=args["AUTHORID"], new_id=args["NEWID"])
 
-        if args["--issue"]:
-            msg += f" (closes #{args['--issue']})"
-        print(f'Now run>>> git commit -a -m "{msg}"')
+    if args["--issue"]:
+        msg += f" (closes #{args['--issue']})"
+    print(f'Now run>>> git commit -a -m "{msg}"')

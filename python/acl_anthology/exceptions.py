@@ -14,9 +14,13 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
+import warnings
 
 if TYPE_CHECKING:
+    from TexSoup.data import TexCmd
+    from pylatexenc.latexwalker import LatexNode
+
     from .files import FileReference
     from .people import NameSpecification
     from .utils.ids import AnthologyIDTuple
@@ -81,20 +85,6 @@ class NameSpecResolutionError(AnthologyException):
         self.name_spec = name_spec
 
 
-class NameSpecResolutionWarning(UserWarning):
-    """Same as `NameSpecResolutionError`, but for less critical issues that shouldn't be blockers.
-
-    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_, but the person is implicit (unverified).
-
-    Attributes:
-        name_spec (NameSpecification): The name specification that raised the error.
-    """
-
-    def __init__(self, name_spec: NameSpecification, message: str) -> None:
-        super().__init__(message)
-        self.name_spec = name_spec
-
-
 class PersonDefinitionError(NameSpecResolutionError):
     """Raised when a NameSpecification defines an ID, but either the ID or one of its fields is not compatible with the definition in `people.json`.
 
@@ -133,3 +123,66 @@ class SchemaMismatchWarning(UserWarning):
             "Data directory contains a different schema.rnc as this library; "
             "you might need to update the data or the acl-anthology library."
         )  # pragma: no cover
+
+
+class MaintainerWarning(UserWarning):
+    """Base class for warnings that are almost exclusively relevant for ACL Anthology maintainers, and should be hidden to end users of the library by default."""
+
+    pass
+
+
+class NameSpecResolutionWarning(MaintainerWarning):
+    """Same as [NameSpecResolutionError][acl_anthology.exceptions.NameSpecResolutionError], but for less critical issues that shouldn't be blockers.
+
+    This can happen when a NameSpecification would be resolved to the same person as another NameSpecification _on the same item_, but the person is implicit (unverified).
+
+    Attributes:
+        name_spec (NameSpecification): The name specification that raised the error.
+    """
+
+    def __init__(self, name_spec: NameSpecification, message: str) -> None:
+        super().__init__(message)
+        self.name_spec = name_spec
+
+
+class TeXParserWarning(MaintainerWarning):
+    """Raised when the TeX parsing routines encounter input they cannot handle.
+
+    Attributes:
+        code: The TeX command that raised the problem.  We currently use both TexSoup and pylatexenc in different parts of the library, so the type of this object depends on which part raised the warning.
+    """
+
+    def __init__(self, code: TexCmd | LatexNode, message: str) -> None:
+        super().__init__(message)
+        self.code = code
+
+
+def suppress_maintainer_warnings(
+    flag_or_names: bool | Iterable[str | type[MaintainerWarning]],
+) -> None:
+    """Suppress or re-enable MaintainerWarnings.
+
+    Parameters:
+      arg: If True, suppresses all warnings. If False, (re-)enables them. If given a list of warnings, will (re-)enable all except the given ones.
+    """
+    if isinstance(flag_or_names, bool) and flag_or_names:
+        warnings.filterwarnings("ignore", category=MaintainerWarning)
+    else:
+        warnings.filterwarnings("default", category=MaintainerWarning)
+        if not isinstance(flag_or_names, bool):
+            for name in flag_or_names:
+                if isinstance(name, type) and issubclass(name, MaintainerWarning):
+                    category = name
+                elif isinstance(name, str):
+                    resolved = globals().get(name)
+                    if not (
+                        isinstance(resolved, type)
+                        and issubclass(resolved, MaintainerWarning)
+                    ):
+                        raise ValueError(f"{name!r} is not a known MaintainerWarning")
+                    category = resolved
+                else:
+                    raise ValueError(
+                        f"{name!r} cannot be interpreted as a MaintainerWarning"
+                    )
+                warnings.filterwarnings("ignore", category=category)

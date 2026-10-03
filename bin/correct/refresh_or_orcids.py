@@ -33,10 +33,8 @@ from openreview import Profile
 import openreview.api
 import logging as log
 import os
-import warnings
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -129,7 +127,9 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
 
 
 def refresh_or_orcids(username=None, password=None):
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     user2nses = defaultdict(list)
     nORCIDOnly, nOROnly, nBoth, nNeither = 0, 0, 0, 0
@@ -244,7 +244,6 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        username = os.getenv("OR1")
-        password = os.getenv("OR2")
-        refresh_or_orcids(username=username, password=password)
+    username = os.getenv("OR1")
+    password = os.getenv("OR2")
+    refresh_or_orcids(username=username, password=password)
