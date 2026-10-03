@@ -139,6 +139,7 @@ class AnthologyMetadataUpdater:
         closed_issues = []
 
         for issue in issues:
+            log.debug(f'[issue {issue.number}]')
             # Flag non-simple issues that are not already labeled as such
             issuetype = []
             issuelabels = [label.name for label in issue.get_labels()]
@@ -237,7 +238,9 @@ class AnthologyMetadataUpdater:
                     assert person.id == new_author_id, (
                         f"Explicit ID is {person.id}, expected {new_author_id}"
                     )
+                    log.debug("[save_all]")
                     self.anthology.save_all()
+                    log.debug("[/save_all]")
                 except Exception as e:
                     log.error(
                         f"Failed to apply changes to #{issue.number}: {e}",
@@ -248,12 +251,15 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
+                log.debug('[commit add]')
                 self.local_repo.index.add(
                     [xml_repo_path + "/*.xml", json_repo_path + "/*.json"]
                 )
+                log.debug('[commit]')
                 self.local_repo.index.commit(
                     f"Process verification for {author_id} (closes #{issue.number})"
                 )
+                log.debug('[/commit]')
 
                 closed_issues.append(issue)
 
