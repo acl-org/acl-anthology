@@ -79,7 +79,7 @@ class SIG:
         name: The SIG's full name.
         url: A website URL for the SIG.
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
-        venue_ids: A list of venues associated with this SIG.  See also [venues()][acl_anthology.sigs.SIG.venues].
+        venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
     """
 
@@ -177,7 +177,11 @@ class SIG:
             self.venue_ids = tuple(x for x in self.venue_ids if x != venue_id)
 
     def venues(self) -> list[Venue]:
-        """A list of venues associated with this volume."""
+        """A list of venues associated with this SIG.
+
+        Note:
+            This is only used as an aid during ingestion; these associations are _not_ propagated automatically to volumes (i.e. volumes belonging to this SIG are not automatically associated with these venues, too).
+        """
         try:
             return [self.root.venues[vid] for vid in self.venue_ids]
         except KeyError as exc:  # pragma: no cover

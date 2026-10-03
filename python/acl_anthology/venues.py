@@ -110,9 +110,11 @@ class Venue:
     def sigs(self) -> list[SIG]:
         """
         Returns:
-            A list of SIGs associated with this volume.
+            A list of SIGs normally associated with this venue, to be used as a hint at ingestion time.
 
         Note:
+            This is only used as an aid during ingestion; these associations are _not_ propagated automatically to volumes (i.e. volumes belonging to this venue are not automatically associated with these SIGs, too).
+
             To change the association of a venue to a SIG, modify [SIG.venue_ids][acl_anthology.sigs.SIG.venue_ids].
         """
         try:
