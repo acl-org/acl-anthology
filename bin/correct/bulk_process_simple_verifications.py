@@ -210,8 +210,7 @@ class AnthologyMetadataUpdater:
                 author_id = data["author_id"]
 
                 # XML file path relative to repo root (for reading current state)
-                xml_repo_path = "data/xml/"
-                json_repo_path = "data/json/"
+                data_repo_path = "data/"
                 if verbose:
                     log.info(f"-> Applying changes to database for author {author_id}")
 
@@ -248,7 +247,7 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
-                self.local_repo.git.add(update=True)
+                self.local_repo.git.add(data_repo_path, update=True)
                 self.local_repo.index.commit(
                     f"Process verification for {author_id} (closes #{issue.number})"
                 )
