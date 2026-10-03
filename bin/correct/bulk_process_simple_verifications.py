@@ -251,13 +251,10 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
-                log.debug('[commit add]')
-                self.local_repo.index.add(
-                    [xml_repo_path + "/*.xml", json_repo_path + "/*.json"]
-                )
                 log.debug('[commit]')
-                self.local_repo.index.commit(
-                    f"Process verification for {author_id} (closes #{issue.number})"
+                self.local_repo.git.commit(
+                    f"Process verification for {author_id} (closes #{issue.number})",
+                    a=True,
                 )
                 log.debug('[/commit]')
 
