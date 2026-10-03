@@ -1442,7 +1442,7 @@
       <author openreview="~Ivan_Sviridov1"><first>Ivan</first><last>Sviridov</last><affiliation>Applied AI Institute</affiliation></author>
       <author openreview="~Amina_Miftakhova1"><first>Amina</first><last>Miftakhova</last><affiliation>Applied AI Institute</affiliation></author>
       <author id="ilseyar-alimova" orcid="0000-0003-4528-6631" openreview="~Ilseyar_Alimova1"><first>Ilseyar</first><last>Alimova</last><affiliation>Kazan Federal University</affiliation></author>
-      <author openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
+      <author id="alexander-panchenko" openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
       <author id="alexander-kapitanov" orcid="0009-0009-6359-2019" openreview="~Alexander_Kapitanov1"><first>Alexander</first><last>Kapitanov</last><affiliation>Salute Devices</affiliation></author>
       <author openreview="~Alena_Fenogenova1"><first>Alena</first><last>Fenogenova</last></author>
       <pages>2114-2161</pages>
@@ -7812,7 +7812,7 @@
       <!-- https://aclanthology.org/2026.eacl-srw.31/ -->
       <title>Acceleration of Backpropagation in Linear Layers of Transformer Models Based on Gradient Structure</title>
       <author openreview="~Dmitrii_Topchii1"><first>Dmitrii</first><last>Topchii</last></author>
-      <author openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
+      <author id="alexander-panchenko" openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
       <author id="viktoriia-a-chekalina" orcid="0000-0001-7739-6398" openreview="~Viktoriia_A._Chekalina1"><first>Viktoriia A.</first><last>Chekalina</last><affiliation>FusionBrain Lab</affiliation></author>
       <pages>426-436</pages>
       <abstract>Fine-tuning Transformer models is often dominated by the backward computation in linear layers. In many NLP tasks, input sequences are short and padded to a fixed context length, inducing structured sparsity in the output gradients. We propose Sparsity-Exploiting Backward Pass (SEBP), a heuristic method that reduces backward computation by exploiting this sparsity with negligible memory overhead. We show that, for short input sequences, the output gradients of BERT-based and LLaMA models exhibit pronounced sparsity, allowing for optimisation in the backward computation. We optimized the autograd function in the linear layers, significantly reducing the number of FLOPs during the backward.Our method achieves a backward pass speedup of approximately 2.15x for BERT-base on GLUE tasks and 1.99x for a 3B LLaMA model on reasoning benchmarks, while maintaining memory usage nearly identical to the regular PyTorch fine-tuning. Crucially, this speedup comes at no cost to performance. We show that our method matches standard convergence rates, offering a memory-efficient way to accelerate LLM fine-tuning.</abstract>
@@ -8168,7 +8168,7 @@
       <author openreview="~Danila_Rozhevskii1"><first>Danila</first><last>Rozhevskii</last></author>
       <author openreview="~Dennis_Svirin1"><first>Dennis</first><last>Svirin</last></author>
       <author id="konstantin-polev" orcid="0000-0002-0504-5940" openreview="~Konstantin_Polev2"><first>Konstantin</first><last>Polev</last><affiliation>SB AI Lab</affiliation></author>
-      <author openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
+      <author id="alexander-panchenko" openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
       <pages>797-810</pages>
       <abstract>Efficient long-context processing remains a crucial challenge for contemporary large language models (LLMs), especially in resource-constrained environments. Soft compression architectures promise to extend effective context length by replacing long token sequences with smaller sets of learned compressed tokens. Yet, the limits of compressibility – and when compression begins to erase task-relevant content – remain underexplored. In this paper, we define token overflow as a regime in which compressed representations no longer contain sufficient information to answer a given query, and propose a methodology to characterize and detect it. In the xRAG soft-compression setting, we find that query-agnostic saturation statistics reliably separate compressed from uncompressed token representations, providing a practical tool for identifying compressed tokens but showing limited overflow detection capability. Lightweight probing classifiers over both query and context xRAG representations detect overflow with 0.72 AUC-ROC on average on HotpotQA, SQuADv2, and TriviaQA datasets, demonstrating that incorporating query information improves detection performance. These results advance from query-independent diagnostics to query-aware detectors, enabling low-cost pre-LLM gating to mitigate compression-induced errors.</abstract>
       <pdf hash="f786abcd"/>
