@@ -14,6 +14,7 @@ from bin.ingest import (
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    normalize_book_title,
     read_ingest_metadata,
     read_meta,
     resegment_name,
@@ -140,6 +141,72 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
 
     assert metadata["volume_type"] == VolumeType.PROCEEDINGS
     assert metadata["venue_ids"] == ["ynlg", "ws"]
+
+
+@pytest.mark.parametrize(
+    ("title", "expected"),
+    [
+        ("Proceedings of the the Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the The Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the Theory Workshop", "Proceedings of the Theory Workshop"),
+    ],
+)
+def test_aclpub2_normalizes_book_title(tmp_path, title, expected):
+    source = tmp_path / "source"
+    source.mkdir()
+    meta = {
+        "anthology_venue_id": "YNLG",
+        "event_name": "Workshop on Young Researchers in Natural Language Generation",
+        "year": "2025",
+        "volume_name": "main",
+        "book_title": title,
+        "editors": [],
+    }
+
+    with (
+        patch("bin.ingest.parse_conf_yaml", return_value=meta),
+        patch("bin.ingest.ensure_venue", return_value=("ynlg", "workshop")),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub2", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == expected
+
+
+def test_aclpub_normalizes_frontmatter_book_title_preserving_markup(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text(
+        "abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n"
+    )
+    title = MarkupText.from_latex(r"Proceedings of the The \textit{Workshop}")
+
+    with (
+        patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")),
+        patch("bin.ingest._aclpub_frontmatter_data", return_value={"title": title, "editors": [], "authors": []}),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_xml() == "Proceedings of the <i>Workshop</i>"
+
+
+def test_aclpub_normalizes_meta_book_title(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text(
+        "abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n"
+        "booktitle Proceedings of the the Workshop\n"
+    )
+
+    with patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == "Proceedings of the Workshop"
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():

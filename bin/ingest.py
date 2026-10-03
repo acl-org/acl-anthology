@@ -594,6 +594,22 @@ def _aclpub_frontmatter_data(
     return read_bib_entry(bib0, "0")
 
 
+def normalize_book_title(title: MarkupText | str) -> MarkupText | str:
+    """Remove a duplicated article from an ingested volume title."""
+    pattern = r"\bthe [Tt]he\b"
+    if isinstance(title, str):
+        return re.sub(pattern, "the", title)
+    if not re.search(pattern, title.as_text()):
+        return title
+    element = title.to_xml()
+    for node in element.iter():
+        if node.text:
+            node.text = re.sub(pattern, "the", node.text)
+        if node.tail:
+            node.tail = re.sub(pattern, "the", node.tail)
+    return MarkupText.from_xml(element)
+
+
 def read_ingest_metadata(
     anthology: Anthology, source: str, format_: str, args: argparse.Namespace
 ) -> Dict[str, Any]:
@@ -629,6 +645,7 @@ def read_ingest_metadata(
             or normalize_latex(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
+        volume_title = normalize_book_title(volume_title)
         volume_editors = []
         if frontmatter_data is not None:
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
@@ -717,7 +734,9 @@ def read_ingest_metadata(
             "month": meta.get("month"),
             "publisher": meta.get("publisher"),
             "address": meta.get("location"),
-            "title": normalize_latex(meta["book_title"]) or meta["book_title"],
+            "title": normalize_book_title(
+                normalize_latex(meta["book_title"]) or meta["book_title"]
+            ),
             "editors": [namespec_from_author(author) for author in meta["editors"]],
             "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
