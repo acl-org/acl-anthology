@@ -22,7 +22,7 @@
     <paper id="1">
       <!-- https://aclanthology.org/2022.autosimtrans-1.1/ -->
       <title>Findings of the Third Workshop on Automatic Simultaneous Translation</title>
-      <author><first>Ruiqing</first><last>Zhang</last></author>
+      <author openreview="~Ruiqing_Zhang1"><first>Ruiqing</first><last>Zhang</last></author>
       <author><first>Chuanqiang</first><last>Zhang</last></author>
       <author><first>Zhongjun</first><last>He</last></author>
       <author><first>Hua</first><last>Wu</last></author>
@@ -40,10 +40,10 @@
     <paper id="2">
       <!-- https://aclanthology.org/2022.autosimtrans-1.2/ -->
       <title>Over-Generation Cannot Be Rewarded: Length-Adaptive Average Lagging for Simultaneous Speech Translation</title>
-      <author id="sara-papi" orcid="0000-0002-4494-8886"><first>Sara</first><last>Papi</last></author>
-      <author id="marco-gaido" orcid="0000-0003-4217-1396"><first>Marco</first><last>Gaido</last></author>
-      <author id="matteo-negri" orcid="0000-0002-8811-4330"><first>Matteo</first><last>Negri</last></author>
-      <author id="marco-turchi" orcid="0000-0002-5899-4496"><first>Marco</first><last>Turchi</last></author>
+      <author id="sara-papi" orcid="0000-0002-4494-8886" openreview="~Sara_Papi1"><first>Sara</first><last>Papi</last></author>
+      <author id="marco-gaido" orcid="0000-0003-4217-1396" openreview="~Marco_Gaido1"><first>Marco</first><last>Gaido</last></author>
+      <author id="matteo-negri" orcid="0000-0002-8811-4330" openreview="~Matteo_Negri1"><first>Matteo</first><last>Negri</last></author>
+      <author id="marco-turchi" orcid="0000-0002-5899-4496" openreview="~Marco_Turchi1"><first>Marco</first><last>Turchi</last></author>
       <pages>12-17</pages>
       <abstract>Simultaneous speech translation (SimulST) systems aim at generating their output with the lowest possible latency, which is normally computed in terms of Average Lagging (AL). In this paper we highlight that, despite its widespread adoption, AL provides underestimated scores for systems that generate longer predictions compared to the corresponding references. We also show that this problem has practical relevance, as recent SimulST systems have indeed a tendency to over-generate. As a solution, we propose LAAL (Length-Adaptive Average Lagging), a modified version of the metric that takes into account the over-generation phenomenon and allows for unbiased evaluation of both under-/over-generating systems.</abstract>
       <pdf hash="2210de52"/>
@@ -65,7 +65,7 @@
     <paper id="4">
       <!-- https://aclanthology.org/2022.autosimtrans-1.4/ -->
       <title>System Description on Third Automatic Simultaneous Translation Workshop</title>
-      <author id="zhang-yiqiao" orcid="0000-0002-9425-5455"><first>Zhang</first><last>Yiqiao</last></author>
+      <author id="zhang-yiqiao" orcid="0000-0002-9425-5455" openreview="~Zhang_Yiqiao1"><first>Zhang</first><last>Yiqiao</last></author>
       <pages>22-24</pages>
       <abstract>This paper shows my submission to the Third Automatic Simultaneous Translation Workshop at NAACL2022.The submission includes Chinese audio to English text task, Chinese text to English text tast, and English text to Spanish text task. For the two text-to-text tasks, I use the STACL model of PaddleNLP. As for the audio-to-text task, I first use DeepSpeech2 to translate the audio into text, then apply the STACL model to handle the text-to-text task. The submission results show that the used method can get low delay with a few training samples.</abstract>
       <pdf hash="261361ac"/>
@@ -75,10 +75,10 @@
     <paper id="5">
       <!-- https://aclanthology.org/2022.autosimtrans-1.5/ -->
       <title>End-to-End Simultaneous Speech Translation with Pretraining and Distillation: Huawei <fixed-case>N</fixed-case>oah’s System for <fixed-case>A</fixed-case>uto<fixed-case>S</fixed-case>im<fixed-case>T</fixed-case>ran<fixed-case>S</fixed-case> 2022</title>
-      <author><first>Xingshan</first><last>Zeng</last></author>
-      <author><first>Pengfei</first><last>Li</last></author>
-      <author id="liangyou-li" orcid="0000-0002-0279-003X"><first>Liangyou</first><last>Li</last></author>
-      <author id="qun-liu" orcid="0000-0002-7000-1792"><first>Qun</first><last>Liu</last></author>
+      <author openreview="~Xingshan_Zeng1"><first>Xingshan</first><last>Zeng</last></author>
+      <author openreview="~Pengfei_Li5"><first>Pengfei</first><last>Li</last></author>
+      <author id="liangyou-li" orcid="0000-0002-0279-003X" openreview="~Liangyou_Li1"><first>Liangyou</first><last>Li</last></author>
+      <author id="qun-liu" orcid="0000-0002-7000-1792" openreview="~Qun_Liu1"><first>Qun</first><last>Liu</last></author>
       <pages>25-33</pages>
       <abstract>This paper describes the system submitted to AutoSimTrans 2022 from Huawei Noah’s Ark Lab, which won the first place in the audio input track of the Chinese-English translation task. Our system is based on RealTranS, an end-to-end simultaneous speech translation model. We enhance the model with pretraining, by initializing the acoustic encoder with ASR encoder, and the semantic encoder and decoder with NMT encoder and decoder, respectively. To relieve the data scarcity, we further construct pseudo training corpus as a kind of knowledge distillation with ASR data and the pretrained NMT model. Meanwhile, we also apply several techniques to improve the robustness and domain generalizability, including punctuation removal, token-level knowledge distillation and multi-domain finetuning. Experiments show that our system significantly outperforms the baselines at all latency and also verify the effectiveness of our proposed methods.</abstract>
       <pdf hash="8bcdac35"/>
@@ -88,15 +88,15 @@
     <paper id="6">
       <!-- https://aclanthology.org/2022.autosimtrans-1.6/ -->
       <title><fixed-case>BIT</fixed-case>-Xiaomi’s System for <fixed-case>A</fixed-case>uto<fixed-case>S</fixed-case>im<fixed-case>T</fixed-case>rans 2022</title>
-      <author><first>Mengge</first><last>Liu</last></author>
-      <author><first>Xiang</first><last>Li</last></author>
+      <author openreview="~Mengge_Liu1"><first>Mengge</first><last>Liu</last></author>
+      <author openreview="~Xiang_Li30"><first>Xiang</first><last>Li</last></author>
       <author><first>Bao</first><last>Chen</last></author>
-      <author><first>Yanzhi</first><last>Tian</last></author>
+      <author openreview="~Yanzhi_Tian1"><first>Yanzhi</first><last>Tian</last></author>
       <author><first>Tianwei</first><last>Lan</last></author>
       <author><first>Silin</first><last>Li</last></author>
-      <author><first>Yuhang</first><last>Guo</last></author>
+      <author openreview="~Yuhang_Guo1"><first>Yuhang</first><last>Guo</last></author>
       <author><first>Jian</first><last>Luan</last></author>
-      <author><first>Bin</first><last>Wang</last></author>
+      <author openreview="~Bin_Wang13"><first>Bin</first><last>Wang</last></author>
       <pages>34-42</pages>
       <abstract>This system paper describes the BIT-Xiaomi simultaneous translation system for Autosimtrans 2022 simultaneous translation challenge. We participated in three tracks: the Zh-En text-to-text track, the Zh-En audio-to-text track and the En-Es test-to-text track. In our system, wait-k is employed to train prefix-to-prefix translation models. We integrate streaming chunking to detect boundaries as the source streaming read in. We further improve our system with data selection, data-augmentation and R-drop training methods. Results show that our wait-k implementation outperforms organizer’s baseline by 8 BLEU score at most, and our proposed streaming chunking method further improves about 2 BLEU in low latency regime.</abstract>
       <pdf hash="04afefe1"/>
