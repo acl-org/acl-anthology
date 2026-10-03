@@ -251,10 +251,11 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
+                log.debug('[git add]')
+                self.local_repo.git.add(update=True)
                 log.debug('[commit]')
-                self.local_repo.git.commit(
-                    f"Process verification for {author_id} (closes #{issue.number})",
-                    a=True,
+                self.local_repo.index.commit(
+                    f"Process verification for {author_id} (closes #{issue.number})"
                 )
                 log.debug('[/commit]')
 
