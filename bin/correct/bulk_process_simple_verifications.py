@@ -113,7 +113,9 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         log.info("Loading anthology")
-        self.anthology = Anthology.from_within_repo()
+        self.anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",)
+        )
 
     def process_verification_issues(
         self,
