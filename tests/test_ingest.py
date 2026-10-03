@@ -14,7 +14,6 @@ from bin.ingest import (
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
-    normalize_book_title,
     read_ingest_metadata,
     read_meta,
     resegment_name,
@@ -177,14 +176,15 @@ def test_aclpub2_normalizes_book_title(tmp_path, title, expected):
 def test_aclpub_normalizes_frontmatter_book_title_preserving_markup(tmp_path):
     source = tmp_path / "source"
     source.mkdir()
-    (source / "meta").write_text(
-        "abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n"
-    )
+    (source / "meta").write_text("abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n")
     title = MarkupText.from_latex(r"Proceedings of the The \textit{Workshop}")
 
     with (
         patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")),
-        patch("bin.ingest._aclpub_frontmatter_data", return_value={"title": title, "editors": [], "authors": []}),
+        patch(
+            "bin.ingest._aclpub_frontmatter_data",
+            return_value={"title": title, "editors": [], "authors": []},
+        ),
     ):
         metadata = read_ingest_metadata(
             MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
