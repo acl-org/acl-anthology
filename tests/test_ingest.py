@@ -156,25 +156,35 @@ def test_register_volume_with_sig_stores_sig_on_volume():
 
 
 def test_register_suggested_sigs_stores_associations_from_venues(caplog):
-    anthology = SimpleNamespace(
-        sigs={
-            "sigann": SimpleNamespace(id="sigann", venue_ids=("starsem",)),
-            "sigdat": SimpleNamespace(id="sigdat", venue_ids=("emnlp",)),
-            "siglex": SimpleNamespace(id="siglex", venue_ids=("starsem", "semeval")),
-        }
-    )
+    sigann = SimpleNamespace(id="sigann")
+    siglex = SimpleNamespace(id="siglex")
+    starsem = MagicMock(id="starsem")
+    starsem.sigs.return_value = [siglex, sigann]
+    semeval = MagicMock(id="semeval")
+    semeval.sigs.return_value = [siglex]
+    ws = MagicMock(id="ws")
+    ws.sigs.return_value = []
     volume = MagicMock(
         full_id="2026.starsem-1",
-        venue_ids=("starsem", "ws"),
         sig_ids=("sigann",),
     )
+    volume.venues.return_value = [starsem, semeval, ws]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
 
     with caplog.at_level(logging.INFO):
-        register_suggested_sigs(anthology, volume)
+        register_suggested_sigs(volume)
+        register_suggested_sigs(volume)
 
-    volume.add_sig.assert_called_once_with(anthology.sigs["siglex"])
+    volume.add_sig.assert_called_once_with(siglex)
+    assert volume.sig_ids == ("sigann", "siglex")
+    for venue in (starsem, semeval, ws):
+        assert venue.sigs.call_count == 2
     assert "based on venue association(s): starsem" in caplog.text
-    assert "sigdat" not in caplog.text
+    assert len(caplog.records) == 1
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be
