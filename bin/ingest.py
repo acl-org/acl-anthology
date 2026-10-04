@@ -727,7 +727,7 @@ def read_ingest_metadata(
             "attachments_dest_dir": attachments_dest_dir,
             "proceedings_pdf_src": proceedings_pdf_src,
             "proceedings_pdf_dest": proceedings_pdf_dest,
-            "sig": None,
+            "sig": meta.get("sig"),
             "booktitle": meta.get("book_title"),
         }
 
@@ -1028,6 +1028,7 @@ def ingest(
             metadata["sig"],
             volume_obj,
         )
+    register_suggested_sigs(anthology, volume_obj)
     configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
@@ -1186,6 +1187,20 @@ def register_volume_with_sig(
 
     if sig_key not in volume.sig_ids:
         volume.sig_ids += (sig_key,)
+
+
+def register_suggested_sigs(anthology: Anthology, volume: Volume) -> None:
+    """Store SIG associations suggested by the volume's venues."""
+    venue_ids = set(volume.venue_ids)
+    for sig in sorted(anthology.sigs.values(), key=lambda item: item.id):
+        matching_venues = venue_ids.intersection(sig.venue_ids)
+        if not matching_venues or sig.id in volume.sig_ids:
+            continue
+        log.info(
+            f"Adding SIG '{sig.id}' to {volume.full_id} based on venue "
+            f"association(s): {', '.join(sorted(matching_venues))}"
+        )
+        volume.add_sig(sig)
 
 
 def main(args):

@@ -17,6 +17,7 @@ from bin.ingest import (
     read_ingest_metadata,
     read_meta,
     resegment_name,
+    register_suggested_sigs,
     register_volume_with_sig,
 )
 
@@ -128,6 +129,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
         "volume_name": "main",
         "book_title": "Proceedings of YNLG 2025",
         "editors": [],
+        "sig": "SIGGEN",
     }
 
     with (
@@ -140,6 +142,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
 
     assert metadata["volume_type"] == VolumeType.PROCEEDINGS
     assert metadata["venue_ids"] == ["ynlg", "ws"]
+    assert metadata["sig"] == "SIGGEN"
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
@@ -150,6 +153,28 @@ def test_register_volume_with_sig_stores_sig_on_volume():
     register_volume_with_sig(anthology, "sigdat", volume)
 
     assert volume.sig_ids == ("sigdat",)
+
+
+def test_register_suggested_sigs_stores_associations_from_venues(caplog):
+    anthology = SimpleNamespace(
+        sigs={
+            "sigann": SimpleNamespace(id="sigann", venue_ids=("starsem",)),
+            "sigdat": SimpleNamespace(id="sigdat", venue_ids=("emnlp",)),
+            "siglex": SimpleNamespace(id="siglex", venue_ids=("starsem", "semeval")),
+        }
+    )
+    volume = MagicMock(
+        full_id="2026.starsem-1",
+        venue_ids=("starsem", "ws"),
+        sig_ids=("sigann",),
+    )
+
+    with caplog.at_level(logging.INFO):
+        register_suggested_sigs(anthology, volume)
+
+    volume.add_sig.assert_called_once_with(anthology.sigs["siglex"])
+    assert "based on venue association(s): starsem" in caplog.text
+    assert "sigdat" not in caplog.text
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be
