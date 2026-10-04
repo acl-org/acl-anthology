@@ -113,7 +113,9 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         log.info("Loading anthology")
-        self.anthology = Anthology.from_within_repo()
+        self.anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",)
+        )
 
     def process_verification_issues(
         self,
@@ -208,8 +210,7 @@ class AnthologyMetadataUpdater:
                 author_id = data["author_id"]
 
                 # XML file path relative to repo root (for reading current state)
-                xml_repo_path = "data/xml/"
-                json_repo_path = "data/json/"
+                data_repo_path = "data/"
                 if verbose:
                     log.info(f"-> Applying changes to database for author {author_id}")
 
@@ -235,7 +236,7 @@ class AnthologyMetadataUpdater:
                     assert person.id == new_author_id, (
                         f"Explicit ID is {person.id}, expected {new_author_id}"
                     )
-                    self.anthology.save_all()
+                    self.anthology.save_all()  # Note: can be slow
                 except Exception as e:
                     log.error(
                         f"Failed to apply changes to #{issue.number}: {e}",
@@ -246,9 +247,7 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
-                self.local_repo.index.add(
-                    [xml_repo_path + "/*.xml", json_repo_path + "/*.json"]
-                )
+                self.local_repo.git.add(data_repo_path, update=True)
                 self.local_repo.index.commit(
                     f"Process verification for {author_id} (closes #{issue.number})"
                 )
