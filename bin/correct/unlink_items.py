@@ -22,7 +22,7 @@ For an existing verified author, remove explicit linking to specified papers
 See also: disable_name_matching.py (to turn off implicit linking)
 
 Usage:
-  unlink_items.py [--issue NUM] [--keep] AUTHORID PAPERID ...
+  unlink_items.py [--issue NUM] [--keep] [--remove-orcid] AUTHORID PAPERID ...
 
 Arguments:
     AUTHORID            Currently verified author ID.
@@ -32,6 +32,7 @@ Options:
     -h --help           Show this help message.
     --issue NUM         GitHub issue number to include in commit message.
     --keep              Keep only the specified items; unlink all others.
+    --remove-orcid      For any paper being unlinked, remove the ORCID attribute if present on the namespec.
 """
 
 import logging as log
@@ -41,7 +42,7 @@ from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 
-def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
+def unlink_items(author_id, paper_ids, keep_only_these_papers=False, remove_orcid=False):
     changes = ""
     anthology = Anthology.from_within_repo(
         suppress_warnings=("NameSpecResolutionWarning",)
@@ -78,7 +79,10 @@ def unlink_items(author_id, paper_ids, keep_only_these_papers=False):
                     for ns in item.namespecs:
                         if ns.id == person.id:
                             log.info(f"Unlinking {item.full_id} {ns}")
-                            assert ns.orcid is None, "ORCID expected to be None"
+                            if remove_orcid:
+                                ns.orcid = None
+                            else:
+                                assert ns.orcid is None, "ORCID expected to be None"
                             ns.id = None
                             numUnlinked += 1
     else:  # unlink the specified papers
@@ -113,6 +117,7 @@ if __name__ == "__main__":
         author_id=args["AUTHORID"],
         paper_ids=args["PAPERID"],
         keep_only_these_papers=args["--keep"],
+        remove_orcid=args['--remove-orcid'],
     )
 
     if args["--issue"]:
