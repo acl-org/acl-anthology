@@ -5,6 +5,7 @@
   </h2>
   <hr />
 
+  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div class="row acl-paper-details">
     <div class="col">
     <dl>
@@ -19,9 +20,12 @@
     </dl>
     </div>
   </div>
+
+  {{- with $venue.description }}
+  {{ $.RenderString (dict "display" "block") . }}
+  {{- end -}}
   <hr />
 
-  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}

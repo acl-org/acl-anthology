@@ -10,6 +10,10 @@
       <li><i class="fas fa-external-link-alt"></i>&nbsp; <a href="{{ $venue.url }}">Website of {{ .Params.acronym }}</a></li>
     </ul>
   </p>
+
+  {{- with $venue.description }}
+  {{ $.RenderString (dict "display" "block") . }}
+  {{- end -}}
   <hr />
 
   <div>

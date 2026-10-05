@@ -744,6 +744,8 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["oldstyle_letter"] = venue.oldstyle_letter
     if venue.url is not None:
         data["url"] = venue.url
+    if venue.description is not None:
+        data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
     data["volumes_by_year"] = {}
@@ -870,6 +872,8 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
         }
         if sig.url is not None:
             data["url"] = sig.url
+        if sig.description is not None:
+            data["description"] = sig.description
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:
