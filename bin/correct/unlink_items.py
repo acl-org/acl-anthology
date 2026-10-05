@@ -117,7 +117,7 @@ if __name__ == "__main__":
         author_id=args["AUTHORID"],
         paper_ids=args["PAPERID"],
         keep_only_these_papers=args["--keep"],
-        remove_orcid=args['--remove-orcid'],
+        remove_orcid=args["--remove-orcid"],
     )
 
     if args["--issue"]:
