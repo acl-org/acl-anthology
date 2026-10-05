@@ -55,6 +55,7 @@ class Venue:
         item_ids: An unordered set of volume IDs associated with this venue.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
+        description: A description text that appears on the website and may contain Markdown.
         type: The venue classification, currently "journal" or "workshop".
     """
 
@@ -75,9 +76,9 @@ class Venue:
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
     )
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    # TODO: Should we reconsider 'type'? Currently used to designate journals
-    # at the venue level; but journals are also marked on the individual
-    # volumes.
+    description: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
     # SIG–Venue associations are stored in SIGs, so this attribute is populated by SIG/SIGIndex
     _sig_ids: set[str] = field(factory=set, converter=set, repr=False, eq=False)

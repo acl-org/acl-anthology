@@ -78,6 +78,7 @@ class SIG:
         acronym: The SIG's acronym or short name, e.g. "SIGSEM".
         name: The SIG's full name.
         url: A website URL for the SIG.
+        description: A description text that appears on the website and may contain Markdown.
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
         venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
@@ -88,6 +89,9 @@ class SIG:
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    description: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
     external_meetings: list[SIGMeeting] = field(
         factory=list,
         repr=lambda x: f"<list[str | SIGMeeting] with {len(x)} item{'' if len(x) == 1 else 's'}>",
