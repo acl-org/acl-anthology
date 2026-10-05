@@ -38,7 +38,7 @@ from acl_anthology.collections import Paper
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
-EARLIEST_YEAR_WITH_OR_IDS = 2025
+EARLIEST_YEAR_WITH_OR_IDS = 2022
 
 
 def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[str, str]:
