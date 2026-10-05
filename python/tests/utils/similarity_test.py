@@ -15,20 +15,13 @@
 from acl_anthology.utils.similarity import SimilarityGroups
 
 
-def test_add_registers_singleton():
-    groups = SimilarityGroups()
-    groups.add("a")
-    assert "a" in groups
-    assert groups.subset("a") == {"a"}
-    # Adding twice is a no-op
-    groups.add("a")
-    assert groups.subset("a") == {"a"}
-
-
-def test_subset_of_unknown_item_is_singleton():
+def test_subset_of_never_merged_item_is_singleton():
     groups = SimilarityGroups()
     assert groups.subset("unknown") == {"unknown"}
+    # A never-merged item isn't actually tracked -- there's nothing to
+    # distinguish it from one that's merely unknown.
     assert "unknown" not in groups
+    assert len(groups) == 0
 
 
 def test_merge_combines_groups():
@@ -58,48 +51,6 @@ def test_merge_same_group_is_noop():
     assert groups.subset("a") == {"a", "b"}
 
 
-def test_connected_false_for_different_groups():
-    groups = SimilarityGroups()
-    groups.add("a")
-    groups.add("b")
-    assert not groups.connected("a", "b")
-
-
-def test_connected_true_for_item_with_itself():
-    # Regression test: a lone, never-merged item is represented internally
-    # by a `None` sentinel rather than an actual {item} set (see
-    # SimilarityGroups' docstring), so connected(a, a) must special-case
-    # this rather than comparing `None is None`.
-    groups = SimilarityGroups()
-    groups.add("a")
-    assert groups.connected("a", "a")
-
-
-def test_merge_singleton_with_singleton():
-    groups = SimilarityGroups()
-    groups.add("a")
-    groups.add("b")
-    groups.merge("a", "b")
-    assert groups.subset("a") == {"a", "b"}
-    assert groups.subset("b") == {"a", "b"}
-
-
-def test_merge_singleton_into_existing_group():
-    groups = SimilarityGroups()
-    groups.merge("a", "b")
-    groups.add("c")
-    groups.merge("a", "c")
-    assert groups.subset("c") == {"a", "b", "c"}
-
-
-def test_merge_existing_group_with_singleton():
-    groups = SimilarityGroups()
-    groups.merge("a", "b")
-    groups.add("c")
-    groups.merge("c", "a")
-    assert groups.subset("c") == {"a", "b", "c"}
-
-
 def test_merge_two_existing_groups():
     groups = SimilarityGroups()
     groups.merge("a", "b")
@@ -109,12 +60,41 @@ def test_merge_two_existing_groups():
     assert groups.subset("d") == {"a", "b", "c", "d"}
 
 
-def test_connected_false_for_unknown_items():
+def test_merge_never_merged_item_into_existing_group():
     groups = SimilarityGroups()
-    groups.add("a")
+    groups.merge("a", "b")
+    groups.merge("a", "c")  # "c" has never been seen before
+    assert groups.subset("c") == {"a", "b", "c"}
+
+
+def test_merge_existing_group_with_never_merged_item():
+    groups = SimilarityGroups()
+    groups.merge("a", "b")
+    groups.merge("c", "a")  # "c" has never been seen before
+    assert groups.subset("c") == {"a", "b", "c"}
+
+
+def test_connected_true_for_item_with_itself():
+    # Reflexive even for an item that was never merged with anything, same
+    # as subset(item) always including item itself.
+    groups = SimilarityGroups()
+    assert groups.connected("unknown", "unknown")
+    groups.merge("a", "b")
+    assert groups.connected("a", "a")
+
+
+def test_connected_false_for_different_groups():
+    groups = SimilarityGroups()
+    groups.merge("a", "x")
+    groups.merge("b", "y")
+    assert not groups.connected("a", "b")
+
+
+def test_connected_false_for_unrelated_never_merged_items():
+    groups = SimilarityGroups()
+    groups.merge("a", "b")
     assert not groups.connected("a", "unknown")
     assert not groups.connected("unknown", "a")
-    assert not groups.connected("unknown", "unknown")
 
 
 def test_subset_returns_independent_copy():
@@ -137,24 +117,27 @@ def test_remove_drops_item_from_group_and_index():
     assert groups.subset("b") == {"b"}
 
 
-def test_remove_unknown_item_is_noop():
+def test_remove_never_merged_item_is_noop():
     groups = SimilarityGroups()
-    groups.add("a")
+    groups.merge("a", "b")
     groups.remove("unknown")
-    assert groups.subset("a") == {"a"}
+    assert groups.subset("a") == {"a", "b"}
 
 
-def test_remove_last_item_in_group():
+def test_remove_leaves_singleton_behind():
+    # The remaining member of a dissolved pair keeps a real (now
+    # one-element) group rather than reverting to "never merged" -- this is
+    # a one-off cost on removal, not on the hot construction path.
     groups = SimilarityGroups()
-    groups.add("a")
-    groups.remove("a")
-    assert "a" not in groups
-    assert len(groups) == 0
+    groups.merge("a", "b")
+    groups.remove("b")
+    assert "a" in groups
+    assert groups.subset("a") == {"a"}
 
 
 def test_len_and_iter():
     groups = SimilarityGroups()
     groups.merge("a", "b")
-    groups.add("c")
-    assert len(groups) == 3
-    assert set(groups) == {"a", "b", "c"}
+    groups.merge("c", "d")
+    assert len(groups) == 4
+    assert set(groups) == {"a", "b", "c", "d"}

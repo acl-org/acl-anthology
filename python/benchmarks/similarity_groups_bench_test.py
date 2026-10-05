@@ -28,6 +28,14 @@ the *shape* of the workload (many singleton `add()`s, comparatively few
 exactly what's being replaced here, so the benchmark needs to keep working
 once it is.
 
+The trace still contains "add" entries for every person (not just ones that
+get merged): `SimilarityGroups` has no `add()` at all (nothing here needs to
+tell "unknown" from "known but never grouped" -- see its docstring) and
+`build_from_trace()` below just skips those entries for it, but
+`scipy.cluster.hierarchy.DisjointSet` still requires every item to be
+registered before `.subset()` can be called on it, which
+`test_similarity_groups_subset_all` does for every person, grouped or not.
+
 Two things are benchmarked:
 
 - Building the structure from scratch by replaying the trace (what happens
@@ -111,9 +119,13 @@ def similarity_workload() -> SimilarityWorkload:
 
 def build_from_trace(cls, trace):
     structure = cls()
+    add = getattr(
+        structure, "add", None
+    )  # SimilarityGroups has none; see module docstring
     for op in trace:
         if op[0] == "add":
-            structure.add(op[1])
+            if add is not None:
+                add(op[1])
         else:
             structure.merge(op[1], op[2])
     return structure

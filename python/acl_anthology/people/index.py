@@ -386,7 +386,6 @@ class PersonIndex(SlottedDict[Person]):
                 pid, f"A Person with ID '{pid}' already exists in the index"
             )
         self.data[pid] = person
-        self._similar.add(pid)
         if person.orcid is not None:
             if person.orcid in self._by_orcid:
                 raise ValueError(
@@ -396,7 +395,6 @@ class PersonIndex(SlottedDict[Person]):
         for name in person.names:
             self._add_name(pid, name, during_build=True)
         for similar_id in person.similar_ids:
-            self._similar.add(similar_id)  # might not have been added yet
             self._similar.merge(pid, similar_id)
 
     def remove_person(self, person: Person) -> None:
@@ -492,9 +490,9 @@ class PersonIndex(SlottedDict[Person]):
         person = self.data.pop(old_id)
         self.data[new_id] = person
 
-        self._similar.add(new_id)
-        self._similar.merge(old_id, new_id)
-        self._similar.remove(old_id)
+        if old_id in self._similar:
+            self._similar.merge(old_id, new_id)
+            self._similar.remove(old_id)
 
         if person.orcid is not None:
             self._by_orcid[person.orcid] = new_id
