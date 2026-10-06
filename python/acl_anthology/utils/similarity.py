@@ -20,15 +20,9 @@ from typing import Iterator
 
 
 class SimilarityGroups:
-    """Tracks groups of items (person IDs) considered "similar" to each other.
+    """Tracks groups of items (e.g. person IDs) considered "similar" to each other.
 
-    Functionally a union-find: [`merge()`][acl_anthology.utils.similarity.SimilarityGroups.merge] merges the groups of two items (registering either one first if it's new), and [`subset()`][acl_anthology.utils.similarity.SimilarityGroups.subset] returns all items grouped with a given one -- just `{item}` for an item that was never merged with anything, grouped or not. There is deliberately no separate "register a singleton" operation (unlike `scipy.cluster.hierarchy.DisjointSet`'s `add()`): nothing here needs to distinguish "unknown" from "known but never grouped", so an item only ever starts existing as a side effect of its first `merge()` call.
-
-    Unlike `scipy.cluster.hierarchy.DisjointSet` (this class's predecessor), items can also be removed again via [`remove()`][acl_anthology.utils.similarity.SimilarityGroups.remove]. This is needed here because groups change dynamically as Anthology data is edited (e.g. persons being merged, renamed, or deleted), rather than being computed once from static input.
-
-    Internally, each grouped item maps to the (shared) `set` object representing its group, rather than to a parent pointer in a tree. `merge()` always extends the larger of the two sets with the smaller one and repoints the smaller set's members to it; this is the standard "weighted union" trick and costs an amortized O(log n) pointer updates per item across all merges, the same complexity class as a tree-based union-find with union-by-size. The payoff is that `remove()` becomes a plain, O(1) `set.discard()` -- there is no parent chain that would need repairing.
-
-    Only ever storing real groups (not also a placeholder for every never-merged item) matters in practice: measured against the real Anthology corpus, fewer than 5% of persons are ever merged with anything. Registering the rest anyway -- which an eager `add()` would require -- was enough new-object churn (one dict entry per person) to noticeably slow down construction for no benefit, since nothing here ever needs to tell "unknown" and "known but alone" apart.
+    Functionally a union-find: [`merge()`][acl_anthology.utils.similarity.SimilarityGroups.merge] merges the groups of two items, and [`subset()`][acl_anthology.utils.similarity.SimilarityGroups.subset] returns all items grouped with a given one.  For performance reasons, there is no `add()` operation -- all items are considered to exist and be grouped with only themselves by default.
     """
 
     __slots__ = ("_groups",)
@@ -59,6 +53,12 @@ class SimilarityGroups:
         if group_a is not None and group_a is group_b:
             return  # already in the same group
 
+        # Each grouped item maps to a (shared) `set` object representing its
+        # group.  We always extends the larger of the two sets with the smaller
+        # one and repoint the smaller set's members to it; this is the standard
+        # "weighted union" trick and costs an amortized O(log n) pointer updates
+        # per item across all merges, the same complexity class as a tree-based
+        # union-find with union-by-size.
         if group_a is None and group_b is None:
             new_group = {a, b}
             self._groups[a] = new_group
@@ -104,7 +104,7 @@ class SimilarityGroups:
     def remove(self, item: str) -> None:
         """Remove `item` from its group, and from this structure entirely.
 
-        Unlike `scipy.cluster.hierarchy.DisjointSet`, this is supported, and takes constant time. Does nothing if `item` was never merged with anything.
+        Does nothing if `item` was never merged with anything.
 
         Parameters:
             item: An item.

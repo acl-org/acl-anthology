@@ -2,10 +2,10 @@
 
 ## [Unreleased]
 
-## Changed
+### Changed
 
 - Warnings that are mostly relevant to ACL Anthology maintainers, and not end users of the library, now subclass from `MaintainerWarning` and are suppressed by default.  This means considerably fewer (if any) warning messages in ordinary usage.
-- `PersonIndex.similar` is now backed by a new, internal `SimilarityGroups` structure instead of `scipy.cluster.hierarchy.DisjointSet`.  Unlike the latter, it correctly drops persons from `similar` when they're removed or given a new ID, rather than leaving stale entries behind; it's also faster.  This removes `scipy` as a dependency.
+- `PersonIndex.similar` now uses an internal `SimilarityGroups` structure instead of `scipy.cluster.hierarchy.DisjointSet`.  This is faster, removes `scipy` as a dependency, and allows for correct dynamic updating of this attribute when data is modified (`DisjointSet` does not support removing items).
 
 ## [1.3.3] — 2026-09-15
 
