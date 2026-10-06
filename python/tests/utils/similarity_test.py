@@ -37,6 +37,9 @@ def test_merge_is_transitive():
     groups.merge("a", "b")
     groups.merge("b", "c")
     groups.merge("d", "e")
+    assert groups.subset("b") == {"a", "b", "c"}
+    assert groups.subset("d") == {"d", "e"}
+    assert not groups.connected("a", "e")
     groups.merge("c", "d")
     assert groups.subset("a") == {"a", "b", "c", "d", "e"}
     assert groups.subset("e") == {"a", "b", "c", "d", "e"}

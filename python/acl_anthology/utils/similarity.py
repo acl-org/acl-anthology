@@ -54,7 +54,7 @@ class SimilarityGroups:
             return  # already in the same group
 
         # Each grouped item maps to a (shared) `set` object representing its
-        # group.  We always extends the larger of the two sets with the smaller
+        # group.  We always extend the larger of the two sets with the smaller
         # one and repoint the smaller set's members to it; this is the standard
         # "weighted union" trick and costs an amortized O(log n) pointer updates
         # per item across all merges, the same complexity class as a tree-based
@@ -111,4 +111,4 @@ class SimilarityGroups:
         """
         group = self._groups.pop(item, None)
         if group is not None:
-            group.discard(item)
+            group.remove(item)
