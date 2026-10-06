@@ -60,6 +60,26 @@ def test_merge_two_existing_groups():
     assert groups.subset("d") == {"a", "b", "c", "d"}
 
 
+def test_merge_two_existing_groups_extends_the_larger_one():
+    # Regression test for the swap branch: when merging two already-existing
+    # groups of different sizes, the *smaller* one must be absorbed into the
+    # larger one, regardless of which merge() argument it's passed as. The
+    # resulting subset() is the same either way (set union is symmetric), so
+    # this has to check object identity of the surviving backing set in
+    # _groups directly to actually exercise what the swap is for.
+    groups = SimilarityGroups()
+    groups.merge("a", "b")  # {a, b}, size 2
+    groups.merge("c", "d")
+    groups.merge("d", "e")  # {c, d, e}, size 3
+    larger_group = groups._groups["c"]
+    groups.merge("a", "c")  # "a"'s (smaller) group must be absorbed into "c"'s
+    assert groups.subset("a") == {"a", "b", "c", "d", "e"}
+    assert groups.subset("e") == {"a", "b", "c", "d", "e"}
+    assert groups._groups["a"] is larger_group
+    assert groups._groups["b"] is larger_group
+    assert groups._groups["c"] is larger_group
+
+
 def test_merge_never_merged_item_into_existing_group():
     groups = SimilarityGroups()
     groups.merge("a", "b")
