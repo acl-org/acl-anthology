@@ -20,7 +20,6 @@ import itertools as it
 from msgspec import json
 from pathlib import Path
 from rich.progress import track
-from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
 import warnings
 
@@ -39,6 +38,7 @@ from ..utils.attrs import attach_custom_repr
 from ..utils.ids import AnthologyIDTuple, is_verified_person_id
 from ..utils.json import collapse_names
 from ..utils.logging import get_logger
+from ..utils.similarity import SimilarityGroups
 from . import Person, Name, NameLink, NameSpecification
 
 if TYPE_CHECKING:
@@ -73,7 +73,7 @@ class PersonIndex(SlottedDict[Person]):
         by_orcid: A mapping of ORCIDs (as strings) to person IDs.
         by_name: A mapping of [Name][acl_anthology.people.name.Name] instances to lists of person IDs.
         slugs_to_verified_ids: A mapping of strings (representing slugified names) to lists of person IDs.
-        similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
+        similar: A [SimilarityGroups][acl_anthology.utils.similarity.SimilarityGroups] structure of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
@@ -86,7 +86,7 @@ class PersonIndex(SlottedDict[Person]):
     _slugs_to_verified_ids: dict[str, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
-    _similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
+    _similar: SimilarityGroups = field(init=False, repr=False, factory=SimilarityGroups)
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -108,7 +108,7 @@ class PersonIndex(SlottedDict[Person]):
         return self._by_name
 
     @property
-    def similar(self) -> DisjointSet:
+    def similar(self) -> SimilarityGroups:
         if not self.is_data_loaded:
             self.load()
         return self._similar
@@ -284,7 +284,7 @@ class PersonIndex(SlottedDict[Person]):
         self._by_orcid = {}
         self._by_name = defaultdict(list)
         self._slugs_to_verified_ids = defaultdict(set)
-        self._similar = DisjointSet()
+        self._similar = SimilarityGroups()
         self.is_data_loaded = False
 
     def build(self, show_progress: bool = False) -> None:
@@ -386,7 +386,6 @@ class PersonIndex(SlottedDict[Person]):
                 pid, f"A Person with ID '{pid}' already exists in the index"
             )
         self.data[pid] = person
-        self._similar.add(pid)
         if person.orcid is not None:
             if person.orcid in self._by_orcid:
                 raise ValueError(
@@ -396,7 +395,6 @@ class PersonIndex(SlottedDict[Person]):
         for name in person.names:
             self._add_name(pid, name, during_build=True)
         for similar_id in person.similar_ids:
-            self._similar.add(similar_id)  # might not have been added yet
             self._similar.merge(pid, similar_id)
 
     def remove_person(self, person: Person) -> None:
@@ -423,6 +421,7 @@ class PersonIndex(SlottedDict[Person]):
         person.orcid = None  # ensure ORCID gets removed from index
         for name in person.names:
             self._remove_name(pid, name)
+        self._similar.remove(pid)
         person.is_explicit = False
         del self.data[pid]
 
@@ -491,9 +490,9 @@ class PersonIndex(SlottedDict[Person]):
         person = self.data.pop(old_id)
         self.data[new_id] = person
 
-        # Note: cannot remove from DisjointSet
-        self._similar.add(new_id)
-        self._similar.merge(old_id, new_id)
+        if old_id in self._similar:
+            self._similar.merge(old_id, new_id)
+            self._similar.remove(old_id)
 
         if person.orcid is not None:
             self._by_orcid[person.orcid] = new_id
