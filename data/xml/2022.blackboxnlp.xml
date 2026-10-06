@@ -42,7 +42,7 @@
       <author openreview="~Nicola_De_Cao1"><first>Nicola</first><last>De Cao</last></author>
       <author openreview="~Leon_Schmid1"><first>Leon</first><last>Schmid</last></author>
       <author openreview="~Dieuwke_Hupkes1"><first>Dieuwke</first><last>Hupkes</last></author>
-      <author openreview="~Ivan_Titov1"><first>Ivan</first><last>Titov</last></author>
+      <author id="ivan-titov" orcid="0000-0002-8116-4749" openreview="~Ivan_Titov1"><first>Ivan</first><last>Titov</last></author>
       <pages>16-27</pages>
       <abstract>There has been a lot of interest in understanding what information is captured by hidden representations of language models (LMs). Typically, interpretation methods i) do not guarantee that the model actually uses the information found to be encoded, and ii) do not discover small subsets of neurons responsible for a considered phenomenon. Inspired by causal mediation analysis, we propose a method that discovers a small subset of neurons within a neural LM responsible for a particular linguistic phenomenon, i.e., subsets causing a change in the corresponding token emission probabilities. We use a differentiable relaxation to approximately search through the combinatorial space. An <tex-math>L_0</tex-math> regularization term ensures that the search converges to discrete and sparse solutions. We apply our method to analyze subject-verb number agreement and gender bias detection in LSTMs. We observe that it is fast and finds better solutions than alternatives such as REINFORCE and Integrated Gradients. Our experiments confirm that each of these phenomena is mediated through a small subset of neurons that do not play any other discernible role.</abstract>
       <pdf hash="ceb4bea1"/>
@@ -79,7 +79,7 @@
       <title>Post-Hoc Interpretation of Transformer Hyperparameters with Explainable Boosting Machines</title>
       <author openreview="~Kiron_Deb1"><first>Kiron</first><last>Deb</last></author>
       <author id="xuan-zhang" orcid="0000-0001-5460-1176" openreview="~Xuan_Zhang8"><first>Xuan</first><last>Zhang</last></author>
-      <author openreview="~Kevin_Duh1"><first>Kevin</first><last>Duh</last></author>
+      <author id="kevin-duh" orcid="0000-0001-8107-4383" openreview="~Kevin_Duh1"><first>Kevin</first><last>Duh</last></author>
       <pages>51-61</pages>
       <abstract>Hyperparameter tuning is important for achieving high accuracy in deep learning models, yet little interpretability work has focused on hyperparameters. We propose to use the Explainable Boosting Machine (EBM), a glassbox method, as a post-hoc analysis tool for understanding how hyperparameters influence model accuracy. We present a case study on Transformer models in machine translation to illustrate the kinds of insights that may be gleaned, and perform extensive analysis to test the robustness of EBM under different data conditions.</abstract>
       <pdf hash="5d14090b"/>
@@ -89,11 +89,11 @@
     <paper id="6">
       <!-- https://aclanthology.org/2022.blackboxnlp-1.6/ -->
       <title>Revisit Systematic Generalization via Meaningful Learning</title>
-      <author openreview="~Ning_Shi1"><first>Ning</first><last>Shi</last></author>
+      <author id="ning-shi" orcid="0000-0001-5727-991X" openreview="~Ning_Shi1"><first>Ning</first><last>Shi</last></author>
       <author openreview="~Boxin_Wang1"><first>Boxin</first><last>Wang</last></author>
       <author openreview="~Wei_Wang54"><first>Wei</first><last>Wang</last></author>
       <author openreview="~Xiangyu_Liu3"><first>Xiangyu</first><last>Liu</last></author>
-      <author openreview="~Zhouhan_Lin1"><first>Zhouhan</first><last>Lin</last></author>
+      <author id="zhouhan-lin" orcid="0009-0009-7204-0689" openreview="~Zhouhan_Lin1"><first>Zhouhan</first><last>Lin</last></author>
       <pages>62-79</pages>
       <abstract>Humans can systematically generalize to novel compositions of existing concepts. Recent studies argue that neural networks appear inherently ineffective in such cognitive capacity, leading to a pessimistic view and a lack of attention to optimistic results. We revisit this controversial topic from the perspective of meaningful learning, an exceptional capability of humans to learn novel concepts by connecting them with known ones. We reassess the compositional skills of sequence-to-sequence models conditioned on the semantic links between new and old concepts. Our observations suggest that models can successfully one-shot generalize to novel concepts and compositions through semantic linking, either inductively or deductively. We demonstrate that prior knowledge plays a key role as well. In addition to synthetic tests, we further conduct proof-of-concept experiments in machine translation and semantic parsing, showing the benefits of meaningful learning in applications. We hope our positive findings will encourage excavating modern neural networks’ potential in systematic generalization through more advanced learning schemes.</abstract>
       <pdf hash="cfab0963"/>
@@ -117,9 +117,9 @@
       <!-- https://aclanthology.org/2022.blackboxnlp-1.8/ -->
       <title>Post-hoc analysis of <fixed-case>A</fixed-case>rabic transformer models</title>
       <author openreview="~Ahmed_Abdelali3"><first>Ahmed</first><last>Abdelali</last></author>
-      <author openreview="~Nadir_Durrani1"><first>Nadir</first><last>Durrani</last></author>
-      <author id="fahim-dalvi" openreview="~Fahim_Dalvi1"><first>Fahim</first><last>Dalvi</last></author>
-      <author openreview="~Hassan_Sajjad1"><first>Hassan</first><last>Sajjad</last></author>
+      <author id="nadir-durrani" orcid="0000-0002-9378-4128" openreview="~Nadir_Durrani1"><first>Nadir</first><last>Durrani</last></author>
+      <author id="fahim-dalvi" orcid="0000-0003-1183-7837" openreview="~Fahim_Dalvi1"><first>Fahim</first><last>Dalvi</last></author>
+      <author id="hassan-sajjad" orcid="0000-0002-8584-6595" openreview="~Hassan_Sajjad1"><first>Hassan</first><last>Sajjad</last></author>
       <pages>91-103</pages>
       <abstract>Arabic is a Semitic language which is widely spoken with many dialects. Given the success of pre-trained language models, many transformer models trained on Arabic and its dialects have surfaced. While there have been an extrinsic evaluation of these models with respect to downstream NLP tasks, no work has been carried out to analyze and compare their internal representations. We probe how linguistic information is encoded in the transformer models, trained on different Arabic dialects. We perform a layer and neuron analysis on the models using morphological tagging tasks for different dialects of Arabic and a dialectal identification task. Our analysis enlightens interesting findings such as: i) word morphology is learned at the lower and middle layers, ii) while syntactic dependencies are predominantly captured at the higher layers, iii) despite a large overlap in their vocabulary, the MSA-based models fail to capture the nuances of Arabic dialects, iv) we found that neurons in embedding layers are polysemous in nature, while the neurons in middle layers are exclusive to specific properties.</abstract>
       <pdf hash="e2550024"/>
@@ -142,7 +142,7 @@
       <!-- https://aclanthology.org/2022.blackboxnlp-1.10/ -->
       <title>How (Un)Faithful is Attention?</title>
       <author openreview="~Hessam_Amini1"><first>Hessam</first><last>Amini</last></author>
-      <author openreview="~Leila_Kosseim1"><first>Leila</first><last>Kosseim</last></author>
+      <author id="leila-kosseim" orcid="0009-0009-8028-6646" openreview="~Leila_Kosseim1"><first>Leila</first><last>Kosseim</last></author>
       <pages>119-130</pages>
       <abstract>Although attention weights have been commonly used as a means to provide explanations for deep learning models, the approach has been widely criticized due to its lack of faithfulness. In this work, we present a simple approach to compute the newly proposed metric AtteFa, which can quantitatively represent the degree of faithfulness of the attention weights. Using this metric, we further validate the effect of the frequency of informative input elements and the use of contextual vs. non-contextual encoders on the faithfulness of the attention mechanism. Finally, we apply the approach on several real-life binary classification datasets to measure the faithfulness of attention weights in real-life settings.</abstract>
       <pdf hash="3364ec21"/>
@@ -192,7 +192,7 @@
     <paper id="14">
       <!-- https://aclanthology.org/2022.blackboxnlp-1.14/ -->
       <title>Human Ratings Do Not Reflect Downstream Utility: A Study of Free-Text Explanations for Model Predictions</title>
-      <author id="jenny-kunz" openreview="~Jenny_Kunz1"><first>Jenny</first><last>Kunz</last></author>
+      <author id="jenny-kunz" orcid="0009-0006-1001-0546" openreview="~Jenny_Kunz1"><first>Jenny</first><last>Kunz</last></author>
       <author openreview="~Martin_Jirenius1"><first>Martin</first><last>Jirenius</last></author>
       <author openreview="~Oskar_Holmström1"><first>Oskar</first><last>Holmström</last></author>
       <author id="marco-kuhlmann" orcid="0000-0002-2492-9872" openreview="~Marco_Kuhlmann1"><first>Marco</first><last>Kuhlmann</last></author>
@@ -283,7 +283,7 @@
     <paper id="21">
       <!-- https://aclanthology.org/2022.blackboxnlp-1.21/ -->
       <title>Controlling for Stereotypes in Multimodal Language Model Evaluation</title>
-      <author openreview="~Manuj_Malik1"><first>Manuj</first><last>Malik</last></author>
+      <author id="manuj-malik" orcid="0009-0003-5420-0358" openreview="~Manuj_Malik1"><first>Manuj</first><last>Malik</last></author>
       <author id="richard-johansson" orcid="0000-0002-9429-4884" openreview="~Richard_Johansson1"><first>Richard</first><last>Johansson</last></author>
       <pages>263-271</pages>
       <abstract>We propose a methodology and design two benchmark sets for measuring to what extent language-and-vision language models use the visual signal in the presence or absence of stereotypes. The first benchmark is designed to test for stereotypical colors of common objects, while the second benchmark considers gender stereotypes. The key idea is to compare predictions when the image conforms to the stereotype to predictions when it does not. Our results show that there is significant variation among multimodal models: the recent Transformer-based FLAVA seems to be more sensitive to the choice of image and less affected by stereotypes than older CNN-based models such as VisualBERT and LXMERT. This effect is more discernible in this type of controlled setting than in traditional evaluations where we do not know whether the model relied on the stereotype or the visual signal.</abstract>
@@ -321,7 +321,7 @@
     <paper id="24">
       <!-- https://aclanthology.org/2022.blackboxnlp-1.24/ -->
       <title>Probing <fixed-case>GPT</fixed-case>-3’s Linguistic Knowledge on Semantic Tasks</title>
-      <author openreview="~Lining_Zhang4"><first>Lining</first><last>Zhang</last></author>
+      <author id="lining-zhang" orcid="0009-0002-1795-5762" openreview="~Lining_Zhang4"><first>Lining</first><last>Zhang</last></author>
       <author openreview="~Mengchen_Wang2"><first>Mengchen</first><last>Wang</last></author>
       <author><first>Liben</first><last>Chen</last></author>
       <author><first>Wenxin</first><last>Zhang</last></author>
@@ -348,7 +348,7 @@
       <!-- https://aclanthology.org/2022.blackboxnlp-1.26/ -->
       <title>Testing Pre-trained Language Models’ Understanding of Distributivity via Causal Mediation Analysis</title>
       <author openreview="~Pangbo_Ban1"><first>Pangbo</first><last>Ban</last></author>
-      <author openreview="~Yifan_Jiang3"><first>Yifan</first><last>Jiang</last></author>
+      <author id="yifan-jiang-9627" orcid="0009-0007-5334-9627" openreview="~Yifan_Jiang3"><first>Yifan</first><last>Jiang</last></author>
       <author openreview="~Tianran_Liu1"><first>Tianran</first><last>Liu</last></author>
       <author id="shane-steinert-threlkeld" orcid="0000-0001-8906-266X" openreview="~Shane_Steinert-Threlkeld1"><first>Shane</first><last>Steinert-Threlkeld</last></author>
       <pages>314-324</pages>
@@ -375,7 +375,7 @@
       <title><fixed-case>DALLE</fixed-case>-2 is Seeing Double: Flaws in Word-to-Concept Mapping in <fixed-case>T</fixed-case>ext2<fixed-case>I</fixed-case>mage Models</title>
       <author openreview="~Royi_Rassin1"><first>Royi</first><last>Rassin</last></author>
       <author openreview="~Shauli_Ravfogel1"><first>Shauli</first><last>Ravfogel</last></author>
-      <author openreview="~Yoav_Goldberg1"><first>Yoav</first><last>Goldberg</last></author>
+      <author id="yoav-goldberg" orcid="0000-0002-6497-829X" openreview="~Yoav_Goldberg1"><first>Yoav</first><last>Goldberg</last></author>
       <pages>335-345</pages>
       <abstract>We study the way DALLE-2 maps symbols (words) in the prompt to their references (entities or properties of entities in the generated image). We show that in stark contrast to the way human process language, DALLE-2 does not follow the constraint that each word has a single role in the interpretation, and sometimes re-use the same symbol for different purposes. We collect a set of stimuli that reflect the phenomenon: we show that DALLE-2 depicts both senses of nouns with multiple senses at once; and that a given word can modify the properties of two distinct entities in the image, or can be depicted as one object and also modify the properties of another object, creating a semantic leakage of properties between entities. Taken together, our study highlights the differences between DALLE-2 and human language processing and opens an avenue for future study on the inductive biases of text-to-image models.</abstract>
       <pdf hash="70914903"/>
@@ -400,7 +400,7 @@
       <!-- https://aclanthology.org/2022.blackboxnlp-1.30/ -->
       <title>Identifying the Source of Vulnerability in Explanation Discrepancy: A Case Study in Neural Text Classification</title>
       <author openreview="~Ruixuan_Tang1"><first>Ruixuan</first><last>Tang</last></author>
-      <author openreview="~Hanjie_Chen1"><first>Hanjie</first><last>Chen</last></author>
+      <author id="hanjie-chen" orcid="0009-0001-5547-6634" openreview="~Hanjie_Chen1"><first>Hanjie</first><last>Chen</last></author>
       <author openreview="~Yangfeng_Ji1"><first>Yangfeng</first><last>Ji</last></author>
       <pages>356-370</pages>
       <abstract>Some recent works observed the instability of post-hoc explanations when input side perturbations are applied to the model. This raises the interest and concern in the stability of post-hoc explanations. However, the remaining question is: is the instability caused by the neural network model or the post-hoc explanation method? This work explores the potential source that leads to unstable post-hoc explanations. To separate the influence from the model, we propose a simple output probability perturbation method. Compared to prior input side perturbation methods, the output probability perturbation method can circumvent the neural model’s potential effect on the explanations and allow the analysis on the explanation method. We evaluate the proposed method with three widely-used post-hoc explanation methods (LIME (Ribeiro et al., 2016), Kernel Shapley (Lundberg and Lee, 2017a), and Sample Shapley (Strumbelj and Kononenko, 2010)). The results demonstrate that the post-hoc methods are stable, barely producing discrepant explanations under output probability perturbations. The observation suggests that neural network models may be the primary source of fragile explanations.</abstract>
@@ -437,8 +437,8 @@
       <author openreview="~Julia_Rozanova1"><first>Julia</first><last>Rozanova</last></author>
       <author openreview="~Deborah_Ferreira1"><first>Deborah</first><last>Ferreira</last></author>
       <author openreview="~Mokanarangan_Thayaparan1"><first>Mokanarangan</first><last>Thayaparan</last></author>
-      <author openreview="~Marco_Valentino1"><first>Marco</first><last>Valentino</last></author>
-      <author id="andre-freitas" openreview="~Andre_Freitas1"><first>Andre</first><last>Freitas</last></author>
+      <author id="marco-valentino" orcid="0000-0002-9959-8385" openreview="~Marco_Valentino1"><first>Marco</first><last>Valentino</last></author>
+      <author id="andre-freitas" orcid="0000-0002-4430-4837" openreview="~Andre_Freitas1"><first>Andre</first><last>Freitas</last></author>
       <pages>394-403</pages>
       <abstract>In the interest of interpreting neural NLI models and their reasoning strategies, we carry out a systematic probing study which investigates whether these modelscapture the crucial semantic features central to natural logic: monotonicity and concept inclusion. Correctly identifying valid inferences in downward-monotone contexts is a known stumbling block for NLI performance,subsuming linguistic phenomena such as negation scope and generalized quantifiers. To understand this difficulty, we emphasize monotonicity as a property of a context and examine the extent to which models capture relevant monotonicity information in the vector representations which are intermediate to their decision making process. Drawing on the recent advancement of the probing paradigm,we compare the presence of monotonicity features across various models. We find that monotonicity information is notably weak in the representations of popularNLI models which achieve high scores on benchmarks, and observe that previous improvements to these models based on fine-tuning strategies have introduced stronger monotonicity features together with their improved performance on challenge sets.</abstract>
       <pdf hash="b79d7a70"/>
@@ -460,9 +460,9 @@
     <paper id="35">
       <!-- https://aclanthology.org/2022.blackboxnlp-1.35/ -->
       <title>Look to the Right: Mitigating Relative Position Bias in Extractive Question Answering</title>
-      <author openreview="~Kazutoshi_Shinoda1"><first>Kazutoshi</first><last>Shinoda</last></author>
-      <author openreview="~Saku_Sugawara1"><first>Saku</first><last>Sugawara</last></author>
-      <author id="akiko-aizawa" openreview="~Akiko_Aizawa1"><first>Akiko</first><last>Aizawa</last></author>
+      <author id="kazutoshi-shinoda" orcid="0000-0003-1941-6172" openreview="~Kazutoshi_Shinoda1"><first>Kazutoshi</first><last>Shinoda</last></author>
+      <author id="saku-sugawara" orcid="0000-0002-0061-0680" openreview="~Saku_Sugawara1"><first>Saku</first><last>Sugawara</last></author>
+      <author id="akiko-aizawa" orcid="0000-0001-6544-5076" openreview="~Akiko_Aizawa1"><first>Akiko</first><last>Aizawa</last></author>
       <pages>418-425</pages>
       <abstract>Extractive question answering (QA) models tend to exploit spurious correlations to make predictions when a training set has unintended biases. This tendency results in models not being generalizable to examples where the correlations do not hold. Determining the spurious correlations QA models can exploit is crucial in building generalizable QA models in real-world applications; moreover, a method needs to be developed that prevents these models from learning the spurious correlations even when a training set is biased. In this study, we discovered that the relative position of an answer, which is defined as the relative distance from an answer span to the closest question-context overlap word, can be exploited by QA models as superficial cues for making predictions. Specifically, we find that when the relative positions in a training set are biased, the performance on examples with relative positions unseen during training is significantly degraded. To mitigate the performance degradation for unseen relative positions, we propose an ensemble-based debiasing method that does not require prior knowledge about the distribution of relative positions. We demonstrate that the proposed method mitigates the models’ reliance on relative positions using the biased and full SQuAD dataset. We hope that this study can help enhance the generalization ability of QA models in real-world applications.</abstract>
       <pdf hash="e644ee0c"/>
@@ -485,7 +485,7 @@
       <title>Universal and Independent: Multilingual Probing Framework for Exhaustive Model Interpretation and Evaluation</title>
       <author openreview="~Oleg_Serikov1"><first>Oleg</first><last>Serikov</last></author>
       <author openreview="~Vitaly_Protasov1"><first>Vitaly</first><last>Protasov</last></author>
-      <author openreview="~Ekaterina_Voloshina1"><first>Ekaterina</first><last>Voloshina</last></author>
+      <author id="ekaterina-voloshina" orcid="0009-0003-0203-5573" openreview="~Ekaterina_Voloshina1"><first>Ekaterina</first><last>Voloshina</last></author>
       <author><first>Viktoria</first><last>Knyazkova</last></author>
       <author openreview="~Tatiana_Shavrina1"><first>Tatiana</first><last>Shavrina</last></author>
       <pages>441-456</pages>

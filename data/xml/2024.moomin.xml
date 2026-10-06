@@ -28,7 +28,7 @@
       <!-- https://aclanthology.org/2024.moomin-1.1/ -->
       <title>Toward the Modular Training of Controlled Paraphrase Adapters</title>
       <author openreview="~Teemu_Vahtola1"><first>Teemu</first><last>Vahtola</last></author>
-      <author openreview="~Mathias_Creutz1"><first>Mathias</first><last>Creutz</last></author>
+      <author id="mathias-creutz" orcid="0000-0003-1862-4172" openreview="~Mathias_Creutz1"><first>Mathias</first><last>Creutz</last></author>
       <pages>1-6</pages>
       <abstract>Controlled paraphrase generation often focuses on a specific aspect of paraphrasing, for instance syntactically controlled paraphrase generation. However, these models face a limitation: they lack modularity. Consequently adapting them for another aspect, such as lexical variation, needs full retraining of the model each time. To enhance the flexibility in training controlled paraphrase models, our proposition involves incrementally training a modularized system for controlled paraphrase generation for English. We start by fine-tuning a pretrained language model to learn the broad task of paraphrase generation, generally emphasizing meaning preservation and surface form variation. Subsequently, we train a specialized sub-task adapter with limited sub-task specific training data. We can then leverage this adapter in guiding the paraphrase generation process toward a desired output aligning with the distinctive features within the sub-task training data. The preliminary results on comparing the fine-tuned and adapted model against various competing systems indicates that the most successful method for mastering both general paraphrasing skills and task-specific expertise follows a two-stage approach. This approach involves starting with the initial fine-tuning of a generic paraphrase model and subsequently tailoring it for the specific sub-task.</abstract>
       <pdf hash="3b47795b"/>
@@ -38,12 +38,12 @@
     <paper id="2">
       <!-- https://aclanthology.org/2024.moomin-1.2/ -->
       <title>Soft Prompt Tuning for Cross-Lingual Transfer: When Less is More</title>
-      <author openreview="~Fred_Philippy1"><first>Fred</first><last>Philippy</last></author>
+      <author id="fred-philippy" orcid="0000-0001-5842-4285" openreview="~Fred_Philippy1"><first>Fred</first><last>Philippy</last></author>
       <author openreview="~Siwen_Guo1"><first>Siwen</first><last>Guo</last></author>
-      <author openreview="~Shohreh_Haddadan1"><first>Shohreh</first><last>Haddadan</last></author>
-      <author openreview="~Cedric_Lothritz1"><first>Cedric</first><last>Lothritz</last></author>
-      <author openreview="~Jacques_Klein1"><first>Jacques</first><last>Klein</last></author>
-      <author openreview="~Tegawendé_F._Bissyandé1"><first>Tegawendé</first><last>F. Bissyandé</last></author>
+      <author id="shohreh-haddadan" orcid="0000-0001-5586-5675" openreview="~Shohreh_Haddadan1"><first>Shohreh</first><last>Haddadan</last></author>
+      <author id="cedric-lothritz" orcid="0000-0002-5372-7970" openreview="~Cedric_Lothritz1"><first>Cedric</first><last>Lothritz</last></author>
+      <author id="jacques-klein" orcid="0000-0003-4052-475X" openreview="~Jacques_Klein1"><first>Jacques</first><last>Klein</last></author>
+      <author id="tegawende-f-bissyande" orcid="0000-0001-7270-9869" openreview="~Tegawendé_F._Bissyandé1"><first>Tegawendé</first><last>F. Bissyandé</last></author>
       <pages>7-15</pages>
       <abstract>Soft Prompt Tuning (SPT) is a parameter-efficient method for adapting pre-trained language models (PLMs) to specific tasks by inserting learnable embeddings, or soft prompts, at the input layer of the PLM, without modifying its parameters. This paper investigates the potential of SPT for cross-lingual transfer. Unlike previous studies on SPT for cross-lingual transfer that often fine-tune both the soft prompt and the model parameters, we adhere to the original intent of SPT by keeping the model parameters frozen and only training the soft prompt. This does not only reduce the computational cost and storage overhead of full-model fine-tuning, but we also demonstrate that this very parameter efficiency intrinsic to SPT can enhance cross-lingual transfer performance to linguistically distant languages. Moreover, we explore how different factors related to the prompt, such as the length or its reparameterization, affect cross-lingual transfer performance.</abstract>
       <pdf hash="da41ef14"/>
@@ -53,9 +53,9 @@
     <paper id="3">
       <!-- https://aclanthology.org/2024.moomin-1.3/ -->
       <title>Modular Adaptation of Multilingual Encoders to Written <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Dialect</title>
-      <author openreview="~Jannis_Vamvas1"><first>Jannis</first><last>Vamvas</last></author>
-      <author openreview="~Noëmi_Aepli1"><first>Noëmi</first><last>Aepli</last></author>
-      <author openreview="~Rico_Sennrich1"><first>Rico</first><last>Sennrich</last></author>
+      <author id="jannis-vamvas" orcid="0009-0002-1821-1837" openreview="~Jannis_Vamvas1"><first>Jannis</first><last>Vamvas</last></author>
+      <author id="noemi-aepli" orcid="0000-0001-8264-478X" openreview="~Noëmi_Aepli1"><first>Noëmi</first><last>Aepli</last></author>
+      <author id="rico-sennrich" orcid="0000-0002-1438-4741" openreview="~Rico_Sennrich1"><first>Rico</first><last>Sennrich</last></author>
       <pages>16-23</pages>
       <abstract>Creating neural text encoders for written Swiss German is challenging due to a dearth of training data combined with dialectal variation. In this paper, we build on several existing multilingual encoders and adapt them to Swiss German using continued pre-training. Evaluation on three diverse downstream tasks shows that simply adding a Swiss German adapter to a modular encoder achieves 97.5% of fully monolithic adaptation performance. We further find that for the task of retrieving Swiss German sentences given Standard German queries, adapting a character-level model is more effective than the other adaptation strategies. We release our code and the models trained for our experiments.</abstract>
       <pdf hash="fe919a5d"/>
@@ -65,7 +65,7 @@
     <paper id="4">
       <!-- https://aclanthology.org/2024.moomin-1.4/ -->
       <title>The Impact of Language Adapters in Cross-Lingual Transfer for <fixed-case>NLU</fixed-case></title>
-      <author id="jenny-kunz" openreview="~Jenny_Kunz1"><first>Jenny</first><last>Kunz</last></author>
+      <author id="jenny-kunz" orcid="0009-0006-1001-0546" openreview="~Jenny_Kunz1"><first>Jenny</first><last>Kunz</last></author>
       <author openreview="~Oskar_Holmström1"><first>Oskar</first><last>Holmström</last></author>
       <pages>24-43</pages>
       <abstract>Modular deep learning has been proposed for the efficient adaption of pre-trained models to new tasks, domains and languages. In particular, combining language adapters with task adapters has shown potential where no supervised data exists for a language. In this paper, we explore the role of language adapters in zero-shot cross-lingual transfer for natural language understanding (NLU) benchmarks. We study the effect of including a target-language adapter in detailed ablation studies with two multilingual models and three multilingual datasets. Our results show that the effect of target-language adapters is highly inconsistent across tasks, languages and models. Retaining the source-language adapter instead often leads to an equivalent, and sometimes to a better, performance. Removing the language adapter after training has only a weak negative effect, indicating that the language adapters do not have a strong impact on the predictions.</abstract>

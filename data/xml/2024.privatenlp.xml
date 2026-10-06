@@ -30,7 +30,7 @@
       <title>Noisy Neighbors: Efficient membership inference attacks against <fixed-case>LLM</fixed-case>s</title>
       <author id="filippo-galli" orcid="0000-0002-2279-3545" openreview="~Filippo_Galli1"><first>Filippo</first><last>Galli</last><affiliation>Scuola Normale Superiore</affiliation></author>
       <author openreview="~Luca_Melis1"><first>Luca</first><last>Melis</last><affiliation>Meta</affiliation></author>
-      <author openreview="~Tommaso_Cucinotta1"><first>Tommaso</first><last>Cucinotta</last><affiliation>Scuola Superiore Sant’Anna Pisa</affiliation></author>
+      <author id="tommaso-cucinotta" orcid="0000-0002-0362-0657" openreview="~Tommaso_Cucinotta1"><first>Tommaso</first><last>Cucinotta</last><affiliation>Scuola Superiore Sant’Anna Pisa</affiliation></author>
       <pages>1-6</pages>
       <abstract>The potential of transformer-based LLMs risks being hindered by privacy concerns due to their reliance on extensive datasets, possibly including sensitive information. Regulatory measures like GDPR and CCPA call for using robust auditing tools to address potential privacy issues, with Membership Inference Attacks (MIA) being the primary method for assessing LLMs’ privacy risks. Differently from traditional MIA approaches, often requiring computationally intensive training of additional models, this paper introduces an efficient methodology that generates noisy neighbors for a target sample by adding stochastic noise in the embedding space, requiring operating the target model in inference mode only. Our findings demonstrate that this approach closely matches the effectiveness of employing shadow models, showing its usability in practical privacy auditing scenarios.</abstract>
       <pdf hash="59489a2c"/>
@@ -98,11 +98,11 @@
     <paper id="7">
       <!-- https://aclanthology.org/2024.privatenlp-1.7/ -->
       <title><fixed-case>PII</fixed-case>-Compass: Guiding <fixed-case>LLM</fixed-case> training data extraction prompts towards the target <fixed-case>PII</fixed-case> via grounding</title>
-      <author openreview="~Krishna_Kanth_Nakka2"><first>Krishna Kanth</first><last>Nakka</last></author>
+      <author id="krishna-kanth-nakka" orcid="0000-0002-2381-6593" openreview="~Krishna_Kanth_Nakka2"><first>Krishna Kanth</first><last>Nakka</last></author>
       <author openreview="~Ahmed_Frikha1"><first>Ahmed</first><last>Frikha</last></author>
       <author openreview="~Ricardo_Mendes1"><first>Ricardo</first><last>Mendes</last></author>
-      <author openreview="~Xue_Jiang2"><first>Xue</first><last>Jiang</last></author>
-      <author openreview="~Xuebing_Zhou1"><first>Xuebing</first><last>Zhou</last></author>
+      <author id="xue-jiang" orcid="0000-0002-4959-9910" openreview="~Xue_Jiang2"><first>Xue</first><last>Jiang</last></author>
+      <author id="xuebing-zhou" orcid="0000-0001-6883-3453" openreview="~Xuebing_Zhou1"><first>Xuebing</first><last>Zhou</last></author>
       <pages>63-73</pages>
       <abstract>The latest and most impactful advances in large models stem from their increased size. Unfortunately, this translates into an improved memorization capacity, raising data privacy concerns. Specifically, it has been shown that models can output personal identifiable information (PII) contained in their training data. However, reported PII extraction performance varies widely, and there is no consensus on the optimal methodology to evaluate this risk, resulting in underestimating realistic adversaries. In this work, we empirically demonstrate that it is possible to improve the extractability of PII by over ten-fold by grounding the prefix of the manually constructed extraction prompt with in-domain data. This approach achieves phone number extraction rates of 0.92%, 3.9%, and 6.86% with 1, 128, and 2308 queries, respectively, i.e., the phone number of 1 person in 15 is extractable.</abstract>
       <pdf hash="af5f2bb7"/>
@@ -144,9 +144,9 @@
     <paper id="10">
       <!-- https://aclanthology.org/2024.privatenlp-1.10/ -->
       <title><fixed-case>P</fixed-case>ocket<fixed-case>LLM</fixed-case>: Enabling On-Device Fine-Tuning for Personalized <fixed-case>LLM</fixed-case>s</title>
-      <author openreview="~Peng_Dan1"><first>Dan</first><last>Peng</last></author>
+      <author id="dan-peng" orcid="0000-0001-7836-518X" openreview="~Peng_Dan1"><first>Dan</first><last>Peng</last></author>
       <author id="zhihui-fu" orcid="0009-0003-3512-9656" openreview="~Zhihui_Fu1"><first>Zhihui</first><last>Fu</last></author>
-      <author openreview="~Jun_Wang38"><first>Jun</first><last>Wang</last><affiliation>OPPO Research Institute</affiliation></author>
+      <author id="jun-wang-5341" orcid="0000-0002-0481-5341" openreview="~Jun_Wang38"><first>Jun</first><last>Wang</last><affiliation>OPPO Research Institute</affiliation></author>
       <pages>91-96</pages>
       <abstract>Recent advancements in large language models (LLMs) have indeed showcased their impressive capabilities. On mobile devices, the wealth of valuable, non-public data generated daily holds great promise for locally fine-tuning personalized LLMs, while maintaining privacy through on-device processing. However, the constraints of mobile device resources pose challenges to direct on-device LLM fine-tuning, mainly due to the memory-intensive nature of derivative-based optimization required for saving gradients and optimizer states. To tackle this, we propose employing derivative-free optimization techniques to enable on-device fine-tuning of LLM, even on memory-limited mobile devices. Empirical results demonstrate that the RoBERTa-large model and OPT-1.3B can be fine-tuned locally on the OPPO Reno 6 smartphone using around 4GB and 6.5GB of memory respectively, using derivative-free optimization techniques. This highlights the feasibility of on-device LLM fine-tuning on mobile devices, paving the way for personalized LLMs on resource-constrained devices while safeguarding data privacy.</abstract>
       <pdf hash="6c33bbe2"/>
@@ -171,7 +171,7 @@
       <author openreview="~Tran_Duc-Hieu1"><first>Duc-Hieu</first><last>Tran</last></author>
       <author openreview="~Peter_Kairouz1"><first>Peter</first><last>Kairouz</last><affiliation>Google</affiliation></author>
       <author openreview="~Victor_Carbune1"><first>Victor</first><last>Cărbune</last><affiliation>Google</affiliation></author>
-      <author openreview="~Blaise_Aguera_y_Arcas1"><first>Blaise</first><last>Aguera Y Arcas</last></author>
+      <author id="blaise-aguera-y-arcas" orcid="0000-0003-2256-9823" openreview="~Blaise_Aguera_y_Arcas1"><first>Blaise</first><last>Aguera Y Arcas</last></author>
       <pages>107-122</pages>
       <abstract>Cascades are a common type of machine learning systems in which a large, remote model can be queried if a local model is not able to accurately label a user’s data by itself. Serving stacks for large language models (LLMs) increasingly use cascades due to their ability to preserve task performance while dramatically reducing inference costs. However, applying cascade systems in situations where the local model has access to sensitive data constitutes a significant privacy risk for users since such data could be forwarded to the remote model. In this work, we show the feasibility of applying cascade systems in such setups by equipping the local model with privacy-preserving techniques that reduce the risk of leaking private information when querying the remote model. To quantify information leakage in such setups, we introduce two privacy measures. We then propose a system that leverages the recently introduced social learning paradigm in which LLMs collaboratively learn from each other by exchanging natural language. Using this paradigm, we demonstrate on several datasets that our methods minimize the privacy loss while at the same time improving task performance compared to a non-cascade baseline.</abstract>
       <pdf hash="0c237a76"/>
@@ -183,7 +183,7 @@
       <author openreview="~Arij_Riabi1"><first>Arij</first><last>Riabi</last></author>
       <author><first>Menel</first><last>Mahamdi</last><affiliation>Inria, Paris</affiliation></author>
       <author><first>Virginie</first><last>Mouilleron</last><affiliation>Inria, Paris</affiliation></author>
-      <author id="djame-seddah" openreview="~Djamé_Seddah1"><first>Djamé</first><last>Seddah</last></author>
+      <author id="djame-seddah" orcid="0000-0003-0194-8197" openreview="~Djamé_Seddah1"><first>Djamé</first><last>Seddah</last></author>
       <pages>123-136</pages>
       <abstract>Protecting privacy is essential when sharing data, particularly in the case of an online radicalization dataset that may contain personal information. In this paper, we explore the balance between preserving data usefulness and ensuring robust privacy safeguards, since regulations like the European GDPR shape how personal information must be handled. We share our method for manually pseudonymizing a multilingual radicalization dataset, ensuring performance comparable to the original data. Furthermore, we highlight the importance of establishing comprehensive guidelines for processing sensitive NLP data by sharing our complete pseudonymization process, our guidelines, the challenges we encountered as well as the resulting dataset.</abstract>
       <pdf hash="c0464741"/>
@@ -194,7 +194,7 @@
       <title>Improving Authorship Privacy: Adaptive Obfuscation with the Dynamic Selection of Techniques</title>
       <author id="hemanth-kandula" orcid="0000-0003-4573-6727" openreview="~Hemanth_Kandula1"><first>Hemanth</first><last>Kandula</last><affiliation>Raytheon BBN</affiliation></author>
       <author openreview="~Damianos_Karakos2"><first>Damianos</first><last>Karakos</last></author>
-      <author openreview="~Haoling_Qiu1"><first>Haoling</first><last>Qiu</last><affiliation>Raytheon BBN Technologies Corp.</affiliation></author>
+      <author id="haoling-qiu" orcid="0009-0004-2460-9029" openreview="~Haoling_Qiu1"><first>Haoling</first><last>Qiu</last><affiliation>Raytheon BBN Technologies Corp.</affiliation></author>
       <author openreview="~Brian_Ulicny1"><first>Brian</first><last>Ulicny</last></author>
       <pages>137-142</pages>
       <abstract>Authorship obfuscation, the task of rewriting text to protect the original author’s identity, is becoming increasingly important due to the rise of advanced NLP tools for authorship attribution techniques. Traditional methods for authorship obfuscation face significant challenges in balancing content preservation, fluency, and style concealment. This paper introduces a novel approach, the Obfuscation Strategy Optimizer (OSO), which dynamically selects the optimal obfuscation technique based on a combination of metrics including embedding distance, meaning similarity, and fluency. By leveraging an ensemble of language models OSO achieves superior performance in preserving the original content’s meaning and grammatical fluency while effectively concealing the author’s unique writing style. Experimental results demonstrate that the OSO outperforms existing methods and approaches the performance of larger language models. Our evaluation framework incorporates adversarial testing against state-of-the-art attribution systems to validate the robustness of the obfuscation techniques. We release our code publicly at <url>https://github.com/BBN-E/ObfuscationStrategyOptimizer</url></abstract>
@@ -227,10 +227,10 @@
       <!-- https://aclanthology.org/2024.privatenlp-1.17/ -->
       <title>Reinforcement Learning-Driven <fixed-case>LLM</fixed-case> Agent for Automated Attacks on <fixed-case>LLM</fixed-case>s</title>
       <author openreview="~Xiangwen_Wang1"><first>Xiangwen</first><last>Wang</last></author>
-      <author openreview="~Jie_Peng4"><first>Jie</first><last>Peng</last><affiliation>University of Science and Technology of China</affiliation></author>
-      <author openreview="~Kaidi_Xu1"><first>Kaidi</first><last>Xu</last><affiliation>Drexel University</affiliation></author>
+      <author id="jie-peng-9326" orcid="0000-0003-3805-9326" openreview="~Jie_Peng4"><first>Jie</first><last>Peng</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <author id="kaidi-xu" orcid="0000-0003-4437-0671" openreview="~Kaidi_Xu1"><first>Kaidi</first><last>Xu</last><affiliation>Drexel University</affiliation></author>
       <author openreview="~Huaxiu_Yao1"><first>Huaxiu</first><last>Yao</last><affiliation>Department of Computer Science, University of North Carolina at Chapel Hill</affiliation></author>
-      <author openreview="~Tianlong_Chen1"><first>Tianlong</first><last>Chen</last></author>
+      <author id="tianlong-chen" orcid="0000-0001-7774-8197" openreview="~Tianlong_Chen1"><first>Tianlong</first><last>Chen</last></author>
       <pages>170-177</pages>
       <abstract>Recently, there has been a growing focus on conducting attacks on large language models (LLMs) to assess LLMs’ safety. Yet, existing attack methods face challenges, including the need to access model weights or merely ensuring LLMs output harmful information without controlling the specific content of their output. Exactly control of the LLM output can produce more inconspicuous attacks which could reveal a new page for LLM security. To achieve this, we propose RLTA: the Reinforcement Learning Targeted Attack, a framework that is designed for attacking language models (LLMs) and is adaptable to both white box (weight accessible) and black box (weight inaccessible) scenarios. It is capable of automatically generating malicious prompts that trigger target LLMs to produce specific outputs. We demonstrate RLTA in two different scenarios: LLM trojan detection and jailbreaking. The comprehensive experimental results show the potential of RLTA in enhancing the security measures surrounding contemporary LLMs.</abstract>
       <pdf hash="fd44e8f0"/>
