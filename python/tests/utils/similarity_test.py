@@ -15,7 +15,7 @@
 from acl_anthology.utils.similarity import SimilarityGroups
 
 
-def test_subset_of_never_merged_item_is_singleton():
+def test_similaritygroups_subset_of_never_merged_item_is_singleton():
     groups = SimilarityGroups()
     assert groups.subset("unknown") == {"unknown"}
     # A never-merged item isn't actually tracked -- there's nothing to
@@ -24,7 +24,7 @@ def test_subset_of_never_merged_item_is_singleton():
     assert len(groups) == 0
 
 
-def test_merge_combines_groups():
+def test_similaritygroups_merge_combines_groups():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     assert groups.subset("a") == {"a", "b"}
@@ -32,7 +32,7 @@ def test_merge_combines_groups():
     assert groups.connected("a", "b")
 
 
-def test_merge_is_transitive():
+def test_similaritygroups_merge_is_transitive():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("b", "c")
@@ -46,7 +46,7 @@ def test_merge_is_transitive():
     assert groups.connected("a", "e")
 
 
-def test_merge_same_group_is_noop():
+def test_similaritygroups_merge_same_group_is_noop():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("a", "b")
@@ -54,7 +54,7 @@ def test_merge_same_group_is_noop():
     assert groups.subset("a") == {"a", "b"}
 
 
-def test_merge_two_existing_groups():
+def test_similaritygroups_merge_two_existing_groups():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("c", "d")
@@ -63,7 +63,7 @@ def test_merge_two_existing_groups():
     assert groups.subset("d") == {"a", "b", "c", "d"}
 
 
-def test_merge_two_existing_groups_extends_the_larger_one():
+def test_similaritygroups_merge_two_existing_groups_extends_the_larger_one():
     # Regression test for the swap branch: when merging two already-existing
     # groups of different sizes, the *smaller* one must be absorbed into the
     # larger one, regardless of which merge() argument it's passed as. The
@@ -83,21 +83,21 @@ def test_merge_two_existing_groups_extends_the_larger_one():
     assert groups._groups["c"] is larger_group
 
 
-def test_merge_never_merged_item_into_existing_group():
+def test_similaritygroups_merge_never_merged_item_into_existing_group():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("a", "c")  # "c" has never been seen before
     assert groups.subset("c") == {"a", "b", "c"}
 
 
-def test_merge_existing_group_with_never_merged_item():
+def test_similaritygroups_merge_existing_group_with_never_merged_item():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("c", "a")  # "c" has never been seen before
     assert groups.subset("c") == {"a", "b", "c"}
 
 
-def test_connected_true_for_item_with_itself():
+def test_similaritygroups_connected_true_for_item_with_itself():
     # Reflexive even for an item that was never merged with anything, same
     # as subset(item) always including item itself.
     groups = SimilarityGroups()
@@ -106,21 +106,21 @@ def test_connected_true_for_item_with_itself():
     assert groups.connected("a", "a")
 
 
-def test_connected_false_for_different_groups():
+def test_similaritygroups_connected_false_for_different_groups():
     groups = SimilarityGroups()
     groups.merge("a", "x")
     groups.merge("b", "y")
     assert not groups.connected("a", "b")
 
 
-def test_connected_false_for_unrelated_never_merged_items():
+def test_similaritygroups_connected_false_for_unrelated_never_merged_items():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     assert not groups.connected("a", "unknown")
     assert not groups.connected("unknown", "a")
 
 
-def test_subset_returns_independent_copy():
+def test_similaritygroups_subset_returns_independent_copy():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     subset = groups.subset("a")
@@ -128,7 +128,7 @@ def test_subset_returns_independent_copy():
     assert groups.subset("a") == {"a", "b"}
 
 
-def test_remove_drops_item_from_group_and_index():
+def test_similaritygroups_remove_drops_item_from_group_and_index():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("b", "c")
@@ -140,14 +140,14 @@ def test_remove_drops_item_from_group_and_index():
     assert groups.subset("b") == {"b"}
 
 
-def test_remove_never_merged_item_is_noop():
+def test_similaritygroups_remove_never_merged_item_is_noop():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.remove("unknown")
     assert groups.subset("a") == {"a", "b"}
 
 
-def test_remove_leaves_singleton_behind():
+def test_similaritygroups_remove_leaves_singleton_behind():
     # The remaining member of a dissolved pair keeps a real (now
     # one-element) group rather than reverting to "never merged" -- this is
     # a one-off cost on removal, not on the hot construction path.
@@ -158,7 +158,7 @@ def test_remove_leaves_singleton_behind():
     assert groups.subset("a") == {"a"}
 
 
-def test_len_and_iter():
+def test_similaritygroups_len_and_iter():
     groups = SimilarityGroups()
     groups.merge("a", "b")
     groups.merge("c", "d")
