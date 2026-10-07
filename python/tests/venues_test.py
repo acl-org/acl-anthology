@@ -30,6 +30,7 @@ def test_venue_defaults():
     assert venue.oldstyle_letter is None
     assert venue.url is None
     assert venue.item_ids == set()
+    assert venue.related_ids == []
 
 
 def test_venue_set_itemids():
@@ -123,6 +124,31 @@ def test_venueindex_noindex_skips_sig_reverse_index(anthology):
     index = VenueIndex(anthology, no_item_ids=True)
     venue = index.get("natfake")
     assert venue.sigs() == []
+
+
+def test_venueindex_related(anthology):
+    index = anthology.venues
+    assert index.related.subset("facl") == {"facl", "fcl"}
+    assert index.related.subset("fcl") == {"facl", "fcl"}
+
+
+def test_venueindex_related_unrelated_venue_is_singleton(anthology):
+    index = anthology.venues
+    assert index.related.subset("humfake") == {"humfake"}
+
+
+def test_venueindex_related_triggers_load(anthology):
+    index = VenueIndex(anthology)
+    assert not index.is_data_loaded
+    assert index.related.subset("facl") == {"facl", "fcl"}
+    assert index.is_data_loaded
+
+
+def test_venueindex_reset_clears_related(anthology):
+    index = anthology.venues
+    assert index.related.subset("facl") == {"facl", "fcl"}
+    index.reset()
+    assert len(index._related) == 0
 
 
 def test_venueindex_roundtrip_data(anthology, tmp_path):

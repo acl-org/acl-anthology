@@ -26,6 +26,7 @@ def test_sig_defaults():
     assert sig.name == "Special Interest Group on Foobar"
     assert sig.url is None
     assert sig.venue_ids == ()
+    assert sig.related_ids == []
 
 
 def test_sigindex_create(anthology):
@@ -223,6 +224,26 @@ def test_sig_remove_venue_not_present_is_noop(anthology):
     sig.remove_venue("natfake")
 
     assert sig.venue_ids == ()
+
+
+def test_sigindex_related(anthology):
+    index = anthology.sigs
+    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
+    assert index.related.subset("sigfake2") == {"sigfake1", "sigfake2"}
+
+
+def test_sigindex_related_triggers_load(anthology):
+    index = SIGIndex(anthology)
+    assert not index.is_data_loaded
+    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
+    assert index.is_data_loaded
+
+
+def test_sigindex_reset_clears_related(anthology):
+    index = anthology.sigs
+    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
+    index.reset()
+    assert len(index._related) == 0
 
 
 def test_sigindex_roundtrip_data(anthology, tmp_path):
