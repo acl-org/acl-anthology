@@ -870,6 +870,7 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
         data = {
+            "acronym": sig.acronym,
             "name": sig.name,
             "slug": sig.id,
             "volumes_by_year": {},
