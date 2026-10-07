@@ -198,3 +198,45 @@ def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkey
     assert report["existing"] == 1
     assert report["new"] == 0
     collection.save.assert_called_once_with()
+
+
+def test_main_defaults_to_current_year_for_both_venues(monkeypatch):
+    args = INGEST_MITPRESS.build_parser().parse_args([])
+    discovered_venues = []
+    ingested_venues = []
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_papers",
+        lambda venue_args: discovered_venues.append(venue_args.venue) or [],
+    )
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "ingest_papers",
+        lambda venue_args, papers: ingested_venues.append(venue_args.venue) or {},
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "write_report", Mock())
+
+    INGEST_MITPRESS.main(args)
+
+    assert args.year == date.today().year
+    assert args.venue is None
+    assert discovered_venues == ["cl", "tacl"]
+    assert ingested_venues == ["cl", "tacl"]
+
+
+def test_main_respects_explicit_venue_and_year(monkeypatch):
+    args = INGEST_MITPRESS.build_parser().parse_args(
+        ["--venue", "tacl", "--year", "2025"]
+    )
+    discovered = []
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_papers",
+        lambda venue_args: discovered.append((venue_args.venue, venue_args.year)) or [],
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "ingest_papers", lambda *_args: {})
+    monkeypatch.setattr(INGEST_MITPRESS, "write_report", Mock())
+
+    INGEST_MITPRESS.main(args)
+
+    assert discovered == [("tacl", 2025)]

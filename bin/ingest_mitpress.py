@@ -13,6 +13,7 @@ This script is a single entrypoint for both discovery and ingestion:
 
 Example usage:
 
+    bin/ingest_mitpress.py
     bin/ingest_mitpress.py --venue tacl --year 2025 --volume 13 --dry-run
     bin/ingest_mitpress.py --venue cl --year 2025
 
@@ -846,12 +847,16 @@ def discover_papers(args) -> list[dict[str, Any]]:
 
 
 def main(args) -> None:
-    papers = discover_papers(args)
-    report = ingest_papers(args, papers)
-    write_report(report)
+    venues = [args.venue] if args.venue else [CL, TACL]
+    for venue in venues:
+        venue_args = argparse.Namespace(**vars(args))
+        venue_args.venue = venue
+        papers = discover_papers(venue_args)
+        report = ingest_papers(venue_args, papers)
+        write_report(report)
 
 
-if __name__ == "__main__":
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     anthology_path = os.path.join(os.path.dirname(sys.argv[0]), "..")
     parser.add_argument(
@@ -866,8 +871,18 @@ if __name__ == "__main__":
         default=os.path.join(os.environ["HOME"], "anthology-files"),
         help="Root path for placement of PDF files",
     )
-    parser.add_argument("--venue", choices=[TACL, CL], required=True)
-    parser.add_argument("--year", type=int, required=True)
+    parser.add_argument(
+        "--venue",
+        choices=[TACL, CL],
+        default=None,
+        help="Venue to ingest. By default, ingest both CL and TACL.",
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=date.today().year,
+        help="Year to ingest. Default: current year.",
+    )
     parser.add_argument("--volume", type=str, default=None)
 
     parser.add_argument(
@@ -889,6 +904,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
 
+    return parser
+
+
+if __name__ == "__main__":
+    parser = build_parser()
     args = parser.parse_args()
 
     setup_rich_logging(level=args.verbose)
