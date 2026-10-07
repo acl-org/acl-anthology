@@ -240,3 +240,49 @@ def test_main_respects_explicit_venue_and_year(monkeypatch):
     INGEST_MITPRESS.main(args)
 
     assert discovered == [("tacl", 2025)]
+
+
+def test_discover_crossref_items_requests_update_to_metadata(monkeypatch):
+    item = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Erratum: Example paper"],
+        "container-title": [
+            INGEST_MITPRESS.VENUE_CONFIG[INGEST_MITPRESS.TACL]["journal_title"]
+        ],
+        "ISSN": ["2307-387X"],
+        "published-print": {"date-parts": [[2026, 7, 31]]},
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    request = Mock(return_value={"message": {"items": [item]}})
+    monkeypatch.setattr(INGEST_MITPRESS, "crossref_request_json", request)
+
+    results = INGEST_MITPRESS.discover_crossref_items("tacl", 2026, None)
+
+    assert results == [item]
+    assert "update-to" in request.call_args.args[1]["select"]
+
+
+def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
+    item = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Erratum: Example paper"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS, "discover_crossref_items", Mock(return_value=[item])
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["doi"] == "10.1162/tacl.x.779"
+    assert "Crossref marks DOI 10.1162/tacl.x.779" in caplog.text
+    assert "correction to DOI 10.1162/tacl.a.742" in caplog.text
+    assert "ingestion is not automatically suppressed" in caplog.text

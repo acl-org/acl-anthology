@@ -332,7 +332,8 @@ def discover_crossref_items(
             "cursor": cursor,
             "select": (
                 "DOI,title,author,abstract,page,issue,volume,"
-                "container-title,ISSN,published-print,published-online,issued,type"
+                "container-title,ISSN,published-print,published-online,issued,type,"
+                "update-to"
             ),
         }
         payload = crossref_request_json(session, params)
@@ -837,6 +838,25 @@ def discover_papers(args) -> list[dict[str, Any]]:
     items = discover_crossref_items(args.venue, args.year, args.volume)
     papers = []
     for item in items:
+        for update in item.get("update-to") or []:
+            if not isinstance(update, dict) or update.get("type") != "correction":
+                continue
+            target_doi = normalize_doi(str(update.get("DOI", "")))
+            if target_doi:
+                logging.warning(
+                    "Crossref marks DOI %s as a correction to DOI %s; review it "
+                    "as an erratum rather than a standalone paper. Continuing "
+                    "discovery; ingestion is not automatically suppressed.",
+                    item.get("DOI", "(unknown DOI)"),
+                    target_doi,
+                )
+            else:
+                logging.warning(
+                    "Crossref marks DOI %s as a correction, but provides no "
+                    "target DOI; review it before standalone ingestion.",
+                    item.get("DOI", "(unknown DOI)"),
+                )
+
         paper = convert_crossref_item_to_paper(item, args.venue)
         if paper is None:
             continue
