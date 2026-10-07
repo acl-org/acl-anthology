@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
+
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
 
 all_toy_sigs = ("sigfake1", "sigfake2")
@@ -23,6 +25,7 @@ def test_sig_defaults():
     assert sig.acronym == "FOO"
     assert sig.name == "Special Interest Group on Foobar"
     assert sig.url is None
+    assert sig.venue_ids == ()
 
 
 def test_sigindex_create(anthology):
@@ -58,6 +61,10 @@ def test_sigindex_sigfake2(anthology):
     assert ("2022.natfake", "1", None) in sig.item_ids
     volume = next(sig.volumes())
     assert volume.full_id == "2022.natfake-1"
+    assert sig.venue_ids == ("natfake",)
+    venues = sig.venues()
+    assert len(venues) == 1
+    assert venues[0].id == "natfake"
 
 
 def test_sig_get_meetings_by_year_fake():
@@ -98,6 +105,124 @@ def test_sig_get_meetings_by_year_sigfake2(anthology):
         ],
         "2022": ["2022.natfake-1"],
     }
+
+
+def test_sig_with_nonexistent_venue(anthology):
+    sig = SIG(
+        "foo",
+        anthology.sigs,
+        "FOO",
+        "Special Interest Group on Foobar",
+        venue_ids=["doesntexist"],
+    )
+    with pytest.raises(KeyError):
+        _ = sig.venues()
+
+
+def test_sig_add_venue_updates_venue(anthology):
+    sig = anthology.sigs["sigfake2"]
+    natfake = anthology.venues["natfake"]
+    humfake = anthology.venues["humfake"]
+    assert sig in natfake.sigs()
+    assert sig not in humfake.sigs()
+
+    # Adding a venue to this SIG
+    sig.venue_ids += ("humfake",)
+
+    # Venues should be updated
+    assert sig in natfake.sigs()
+    assert sig in humfake.sigs()
+
+
+def test_sig_remove_venue_updates_venue(anthology):
+    sig = anthology.sigs["sigfake2"]
+    natfake = anthology.venues["natfake"]
+    assert sig in natfake.sigs()
+
+    # Removing a venue from this SIG
+    sig.venue_ids = ()
+
+    # Venue should be updated
+    assert sig not in natfake.sigs()
+
+
+def test_sig_add_venue_raises(anthology):
+    sig = anthology.sigs["sigfake1"]
+    anthology.venues.load()
+    with pytest.raises(ValueError):
+        # Adding a venue to this SIG that doesn't exist
+        sig.venue_ids += ("doesntexist",)
+
+
+def test_sig_add_venue_by_id(anthology):
+    sig = anthology.sigs["sigfake1"]
+    humfake = anthology.venues["humfake"]
+    assert "humfake" not in sig.venue_ids
+    assert sig not in humfake.sigs()
+
+    sig.add_venue("humfake")
+
+    assert sig.venue_ids == ("humfake",)
+    assert sig in humfake.sigs()
+
+
+def test_sig_add_venue_by_object(anthology):
+    sig = anthology.sigs["sigfake1"]
+    humfake = anthology.venues["humfake"]
+    assert "humfake" not in sig.venue_ids
+
+    sig.add_venue(humfake)
+
+    assert sig.venue_ids == ("humfake",)
+    assert sig in humfake.sigs()
+
+
+def test_sig_add_venue_already_present_is_noop(anthology):
+    sig = anthology.sigs["sigfake2"]
+    assert "natfake" in sig.venue_ids
+
+    sig.add_venue("natfake")
+
+    assert sig.venue_ids.count("natfake") == 1
+
+
+def test_sig_add_venue_nonexistent_raises(anthology):
+    sig = anthology.sigs["sigfake1"]
+    anthology.venues.load()
+    with pytest.raises(ValueError):
+        sig.add_venue("doesntexist")
+
+
+def test_sig_remove_venue_by_id(anthology):
+    sig = anthology.sigs["sigfake2"]
+    natfake = anthology.venues["natfake"]
+    assert "natfake" in sig.venue_ids
+    assert sig in natfake.sigs()
+
+    sig.remove_venue("natfake")
+
+    assert "natfake" not in sig.venue_ids
+    assert sig not in natfake.sigs()
+
+
+def test_sig_remove_venue_by_object(anthology):
+    sig = anthology.sigs["sigfake2"]
+    natfake = anthology.venues["natfake"]
+    assert "natfake" in sig.venue_ids
+
+    sig.remove_venue(natfake)
+
+    assert "natfake" not in sig.venue_ids
+    assert sig not in natfake.sigs()
+
+
+def test_sig_remove_venue_not_present_is_noop(anthology):
+    sig = anthology.sigs["sigfake1"]
+    assert sig.venue_ids == ()
+
+    sig.remove_venue("natfake")
+
+    assert sig.venue_ids == ()
 
 
 def test_sigindex_roundtrip_data(anthology, tmp_path):

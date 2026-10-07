@@ -17,6 +17,7 @@ from bin.ingest import (
     read_ingest_metadata,
     read_meta,
     resegment_name,
+    register_suggested_sigs,
     register_volume_with_sig,
 )
 
@@ -128,6 +129,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
         "volume_name": "main",
         "book_title": "Proceedings of YNLG 2025",
         "editors": [],
+        "sig": "SIGGEN",
     }
 
     with (
@@ -140,6 +142,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
 
     assert metadata["volume_type"] == VolumeType.PROCEEDINGS
     assert metadata["venue_ids"] == ["ynlg", "ws"]
+    assert metadata["sig"] == "SIGGEN"
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
@@ -150,6 +153,38 @@ def test_register_volume_with_sig_stores_sig_on_volume():
     register_volume_with_sig(anthology, "sigdat", volume)
 
     assert volume.sig_ids == ("sigdat",)
+
+
+def test_register_suggested_sigs_stores_associations_from_venues(caplog):
+    sigann = SimpleNamespace(id="sigann")
+    siglex = SimpleNamespace(id="siglex")
+    starsem = MagicMock(id="starsem")
+    starsem.sigs.return_value = [siglex, sigann]
+    semeval = MagicMock(id="semeval")
+    semeval.sigs.return_value = [siglex]
+    ws = MagicMock(id="ws")
+    ws.sigs.return_value = []
+    volume = MagicMock(
+        full_id="2026.starsem-1",
+        sig_ids=("sigann",),
+    )
+    volume.venues.return_value = [starsem, semeval, ws]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    with caplog.at_level(logging.INFO):
+        register_suggested_sigs(volume)
+        register_suggested_sigs(volume)
+
+    volume.add_sig.assert_called_once_with(siglex)
+    assert volume.sig_ids == ("sigann", "siglex")
+    for venue in (starsem, semeval, ws):
+        assert venue.sigs.call_count == 2
+    assert "based on venue association(s): starsem" in caplog.text
+    assert len(caplog.records) == 1
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be

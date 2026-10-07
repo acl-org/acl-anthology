@@ -6,7 +6,7 @@
       <booktitle>Proceedings of TextGraphs-17: Graph-based Methods for Natural Language Processing</booktitle>
       <editor><first>Dmitry</first><last>Ustalov</last></editor>
       <editor><first>Yanjun</first><last>Gao</last></editor>
-      <editor><first>Alexander</first><last>Panchenko</last></editor>
+      <editor id="alexander-panchenko"><first>Alexander</first><last>Panchenko</last></editor>
       <editor><first>Elena</first><last>Tutubalina</last></editor>
       <editor><first>Irina</first><last>Nikishina</last></editor>
       <editor><first>Arti</first><last>Ramesh</last></editor>
@@ -30,10 +30,10 @@
     <paper id="1">
       <!-- https://aclanthology.org/2024.textgraphs-1.1/ -->
       <title>Learning Human Action Representations from Temporal Context in Lifestyle Vlogs</title>
-      <author id="oana-ignat" orcid="0000-0003-0272-5147"><first>Oana</first><last>Ignat</last></author>
-      <author id="santiago-castro" orcid="0000-0001-8781-9323"><first>Santiago</first><last>Castro</last><affiliation>University of Michigan</affiliation></author>
-      <author><first>Weiji</first><last>Li</last><affiliation>Tesla</affiliation></author>
-      <author id="rada-mihalcea" orcid="0000-0002-0767-6703"><first>Rada</first><last>Mihalcea</last><affiliation>University of Michigan</affiliation></author>
+      <author id="oana-ignat" orcid="0000-0003-0272-5147" openreview="~Oana_Ignat1"><first>Oana</first><last>Ignat</last></author>
+      <author id="santiago-castro" orcid="0000-0001-8781-9323" openreview="~Santiago_Castro1"><first>Santiago</first><last>Castro</last><affiliation>University of Michigan</affiliation></author>
+      <author openreview="~Weiji_Li1"><first>Weiji</first><last>Li</last><affiliation>Tesla</affiliation></author>
+      <author id="rada-mihalcea" orcid="0000-0002-0767-6703" openreview="~Rada_Mihalcea1"><first>Rada</first><last>Mihalcea</last><affiliation>University of Michigan</affiliation></author>
       <pages>1-18</pages>
       <abstract>We address the task of human action representation and show how the approach to generating word representations based on co-occurrence can be adapted to generate human action representations by analyzing their co-occurrence in videos. To this end, we formalize the new task of human action co-occurrence identification in online videos, i.e., determine whether two human actions are likely to co-occur in the same interval of time.We create and make publicly available the Co-Act (Action Co-occurrence) dataset, consisting of a large graph of ~12k co-occurring pairs of visual actions and their corresponding video clips. We describe graph link prediction models that leverage visual and textual information to automatically infer if two actions are co-occurring.We show that graphs are particularly well suited to capture relations between human actions, and the learned graph representations are effective for our task and capture novel and relevant information across different data domains.</abstract>
       <pdf hash="9d7120c1"/>
@@ -42,13 +42,13 @@
     <paper id="2">
       <!-- https://aclanthology.org/2024.textgraphs-1.2/ -->
       <title><fixed-case>C</fixed-case>on<fixed-case>G</fixed-case>ra<fixed-case>T</fixed-case>: Self-Supervised Contrastive Pretraining for Joint Graph and Text Embeddings</title>
-      <author id="william-brannon" orcid="0000-0002-1435-8535"><first>William</first><last>Brannon</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author><first>Wonjune</first><last>Kang</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author><first>Suyash</first><last>Fulay</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author><first>Hang</first><last>Jiang</last></author>
-      <author><first>Brandon</first><last>Roy</last><affiliation>Massachusetts Institute of Technology and Brown University</affiliation></author>
-      <author id="deb-roy" orcid="0000-0002-4333-7194"><first>Deb</first><last>Roy</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author><first>Jad</first><last>Kabbara</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="william-brannon" orcid="0000-0002-1435-8535" openreview="~William_Brannon1"><first>William</first><last>Brannon</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author openreview="~Wonjune_Kang1"><first>Wonjune</first><last>Kang</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="suyash-fulay" orcid="0009-0001-6229-7562" openreview="~Suyash_Fulay1"><first>Suyash</first><last>Fulay</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="hang-jiang" orcid="0009-0000-9523-136X" openreview="~Hang_Jiang1"><first>Hang</first><last>Jiang</last></author>
+      <author id="brandon-roy" orcid="0009-0002-6739-203X" openreview="~Brandon_Roy1"><first>Brandon</first><last>Roy</last><affiliation>Massachusetts Institute of Technology and Brown University</affiliation></author>
+      <author id="deb-roy" orcid="0000-0002-4333-7194" openreview="~Deb_Roy1"><first>Deb</first><last>Roy</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="jad-kabbara" orcid="0009-0009-5611-4078" openreview="~Jad_Kabbara1"><first>Jad</first><last>Kabbara</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
       <pages>19-39</pages>
       <abstract>Learning on text-attributed graphs (TAGs), in which nodes are associated with one or more texts, has been the subject of much recent work. However, most approaches tend to make strong assumptions about the downstream task of interest, are reliant on hand-labeled data, or fail to equally balance the importance of both text and graph representations. In this work, we propose Contrastive Graph-Text pretraining (ConGraT), a general, self-supervised approach for jointly learning separate representations of texts and nodes in a TAG. Our method trains a language model (LM) and a graph neural network (GNN) to align their representations in a common latent space using a batch-wise contrastive learning objective inspired by CLIP. We further propose an extension to the CLIP objective that leverages graph structure to incorporate information about inter-node similarity. Extensive experiments demonstrate that ConGraT outperforms baselines on various downstream tasks, including node and text category classification, link prediction, and language modeling. Finally, we present an application of our method to community detection in social graphs, which enables finding more textually grounded communities, rather than purely graph-based ones.</abstract>
       <pdf hash="41af15d3"/>
@@ -67,12 +67,12 @@
     <paper id="4">
       <!-- https://aclanthology.org/2024.textgraphs-1.4/ -->
       <title>Financial Product Ontology Population with Large Language Models</title>
-      <author id="chanatip-saetia" orcid="0000-0002-9403-4388"><first>Chanatip</first><last>Saetia</last><affiliation>Kasikorn Business Technology Group</affiliation></author>
-      <author><first>Jiratha</first><last>Phruetthiset</last></author>
-      <author><first>Tawunrat</first><last>Chalothorn</last><affiliation>KASIKORN Business-Technology Group</affiliation></author>
-      <author><first>Monchai</first><last>Lertsutthiwong</last></author>
-      <author id="supawat-taerungruang" orcid="0000-0003-4124-0310"><first>Supawat</first><last>Taerungruang</last><affiliation>Chiang Mai University</affiliation></author>
-      <author id="pakpoom-buabthong" orcid="0000-0001-5538-138X"><first>Pakpoom</first><last>Buabthong</last><affiliation>Nakhon Ratchasima Rajabhat University</affiliation></author>
+      <author id="chanatip-saetia" orcid="0000-0002-9403-4388" openreview="~Chanatip_Saetia1"><first>Chanatip</first><last>Saetia</last><affiliation>Kasikorn Business Technology Group</affiliation></author>
+      <author openreview="~Jiratha_Phruetthiset1"><first>Jiratha</first><last>Phruetthiset</last></author>
+      <author openreview="~Tawunrat_Chalothorn2"><first>Tawunrat</first><last>Chalothorn</last><affiliation>KASIKORN Business-Technology Group</affiliation></author>
+      <author openreview="~Monchai_Lertsutthiwong1"><first>Monchai</first><last>Lertsutthiwong</last></author>
+      <author id="supawat-taerungruang" orcid="0000-0003-4124-0310" openreview="~Supawat_Taerungruang1"><first>Supawat</first><last>Taerungruang</last><affiliation>Chiang Mai University</affiliation></author>
+      <author id="pakpoom-buabthong" orcid="0000-0001-5538-138X" openreview="~Pakpoom_Buabthong1"><first>Pakpoom</first><last>Buabthong</last><affiliation>Nakhon Ratchasima Rajabhat University</affiliation></author>
       <pages>53-60</pages>
       <abstract>Ontology population, which aims to extract structured data to enrich domain-specific ontologies from unstructured text, typically faces challenges in terms of data scarcity and linguistic complexity, particularly in specialized fields such as retail banking. In this study, we investigate the application of large language models (LLMs) to populate domain-specific ontologies of retail banking products from Thai corporate documents. We compare traditional span-based approaches to LLMs-based generative methods, with different prompting techniques. Our findings reveal that while span-based methods struggle with data scarcity and the complex linguistic structure, LLMs-based generative approaches substantially outperform, achieving a 61.05% F1 score, with the most improvement coming from providing examples in the prompts. This improvement highlights the potential of LLMs for ontology population tasks, offering a scalable and efficient solution for structured information extraction in especially in low-resource language settings.</abstract>
       <pdf hash="37fdee69"/>
@@ -81,10 +81,10 @@
     <paper id="5">
       <!-- https://aclanthology.org/2024.textgraphs-1.5/ -->
       <title>Prompt Me One More Time: A Two-Step Knowledge Extraction Pipeline with Ontology-Based Verification</title>
-      <author><first>Alla</first><last>Chepurova</last></author>
-      <author id="yurii-kuratov"><first>Yuri</first><last>Kuratov</last><affiliation>AIRI, Artificial Intelligence Research Institute and Moscow Institute of Physics and Technology</affiliation></author>
-      <author><first>Aydar</first><last>Bulatov</last><affiliation>Moscow Institute of Physics and Technology</affiliation></author>
-      <author><first>Mikhail</first><last>Burtsev</last><affiliation>London Institute for Mathematical Sciences</affiliation></author>
+      <author id="alla-chepurova" orcid="0009-0000-5039-3875" openreview="~Alla_Chepurova1"><first>Alla</first><last>Chepurova</last></author>
+      <author id="yurii-kuratov" orcid="0009-0007-0718-0824" openreview="~Yuri_Kuratov2"><first>Yuri</first><last>Kuratov</last><affiliation>AIRI, Artificial Intelligence Research Institute and Moscow Institute of Physics and Technology</affiliation></author>
+      <author id="aydar-bulatov" orcid="0009-0003-1738-8208" openreview="~Aydar_Bulatov1"><first>Aydar</first><last>Bulatov</last><affiliation>Moscow Institute of Physics and Technology</affiliation></author>
+      <author id="mikhail-burtsev" orcid="0000-0003-1614-1695" openreview="~Mikhail_Burtsev1"><first>Mikhail</first><last>Burtsev</last><affiliation>London Institute for Mathematical Sciences</affiliation></author>
       <pages>61-77</pages>
       <abstract>This study explores a method for extending real-world knowledge graphs (specifically, Wikidata) by extracting triplets from texts with the aid of Large Language Models (LLMs). We propose a two-step pipeline that includes the initial extraction of entity candidates, followed by their refinement and linkage to the canonical entities and relations of the knowledge graph. Finally, we utilize Wikidata relation constraints to select only verified triplets. We compare our approach to a model that was fine-tuned on a machine-generated dataset and demonstrate that it performs better on natural data. Our results suggest that LLM-based triplet extraction from texts, with subsequent verification, is a viable method for real-world applications.</abstract>
       <pdf hash="563329d8"/>
@@ -104,10 +104,10 @@
     <paper id="7">
       <!-- https://aclanthology.org/2024.textgraphs-1.7/ -->
       <title>Leveraging Graph Structures to Detect Hallucinations in Large Language Models</title>
-      <author><first>Noa</first><last>Nonkes</last></author>
-      <author id="sergei-agaronian" orcid="0009-0002-5104-5922"><first>Sergei</first><last>Agaronian</last></author>
-      <author id="evangelos-kanoulas" orcid="0000-0002-8312-0694"><first>Evangelos</first><last>Kanoulas</last><affiliation>University of Amsterdam and University of Amsterdam</affiliation></author>
-      <author><first>Roxana</first><last>Petcu</last><affiliation>University of Amsterdam and University of Amsterdam</affiliation></author>
+      <author openreview="~Noa_Nonkes1"><first>Noa</first><last>Nonkes</last></author>
+      <author id="sergei-agaronian" orcid="0009-0002-5104-5922" openreview="~Sergei_Agaronian1"><first>Sergei</first><last>Agaronian</last></author>
+      <author id="evangelos-kanoulas" orcid="0000-0002-8312-0694" openreview="~Evangelos_Kanoulas1"><first>Evangelos</first><last>Kanoulas</last><affiliation>University of Amsterdam and University of Amsterdam</affiliation></author>
+      <author openreview="~Roxana_Petcu1"><first>Roxana</first><last>Petcu</last><affiliation>University of Amsterdam and University of Amsterdam</affiliation></author>
       <pages>93-104</pages>
       <abstract>Large language models are extensively applied across a wide range of tasks, such as customer support, content creation, educational tutoring, and providing financial guidance. However, a well-known drawback is their predisposition to generate hallucinations. This damages the trustworthiness of the information these models provide, impacting decision-making and user confidence. We propose a method to detect hallucinations by looking at the structure of the latent space and finding associations within hallucinated and non-hallucinated generations. We create a graph structure that connects generations that lie closely in the embedding space. Moreover, we employ a Graph Attention Network which utilizes message passing to aggregate information from neighboring nodes and assigns varying degrees of importance to each neighbor based on their relevance. Our findings show that 1) there exists a structure in the latent space that differentiates between hallucinated and non-hallucinated generations, 2) Graph Attention Networks can learn this structure and generalize it to unseen generations, and 3) the robustness of our method is enhanced when incorporating contrastive learning. When evaluated against evidence-based benchmarks, our model performs similarly without access to search-based methods.</abstract>
       <pdf hash="f436cee9"/>
@@ -116,9 +116,9 @@
     <paper id="8">
       <!-- https://aclanthology.org/2024.textgraphs-1.8/ -->
       <title>Semantic Graphs for Syntactic Simplification: A Revisit from the Age of <fixed-case>LLM</fixed-case></title>
-      <author><first>Peiran</first><last>Yao</last></author>
-      <author><first>Kostyantyn</first><last>Guzhva</last><affiliation>University of Alberta</affiliation></author>
-      <author><first>Denilson</first><last>Barbosa</last><affiliation>University of Alberta</affiliation></author>
+      <author id="peiran-yao" orcid="0000-0001-5300-1734" openreview="~Peiran_Yao1"><first>Peiran</first><last>Yao</last></author>
+      <author openreview="~Kostyantyn_Guzhva1"><first>Kostyantyn</first><last>Guzhva</last><affiliation>University of Alberta</affiliation></author>
+      <author openreview="~Denilson_Barbosa1"><first>Denilson</first><last>Barbosa</last><affiliation>University of Alberta</affiliation></author>
       <pages>105-115</pages>
       <abstract>Symbolic sentence meaning representations, such as AMR (Abstract Meaning Representation) provide expressive and structured semantic graphs that act as intermediates that simplify downstream NLP tasks. However, the instruction-following capability of large language models (LLMs) offers a shortcut to effectively solve NLP tasks, questioning the utility of semantic graphs. Meanwhile, recent work has also shown the difficulty of using meaning representations merely as a helpful auxiliary for LLMs. We revisit the position of semantic graphs in syntactic simplification, the task of simplifying sentence structures while preserving their meaning, which requires semantic understanding, and evaluate it on a new complex and natural dataset. The AMR-based method that we propose, AMRS<tex-math>^3</tex-math>, demonstrates that state-of-the-art meaning representations can lead to easy-to-implement simplification methods with competitive performance and unique advantages in cost, interpretability, and generalization. With AMRS<tex-math>^3</tex-math> as an anchor, we discover that syntactic simplification is a task where semantic graphs are helpful in LLM prompting. We propose AMRCoC prompting that guides LLMs to emulate graph algorithms for explicit symbolic reasoning on AMR graphs, and show its potential for improving LLM on semantic-centered tasks like syntactic simplification.</abstract>
       <pdf hash="69a1217a"/>
@@ -127,21 +127,21 @@
     <paper id="9">
       <!-- https://aclanthology.org/2024.textgraphs-1.9/ -->
       <title><fixed-case>T</fixed-case>ext<fixed-case>G</fixed-case>raphs 2024 Shared Task on Text-Graph Representations for Knowledge Graph Question Answering</title>
-      <author><first>Andrey</first><last>Sakhovskiy</last><affiliation>Kazan Federal University</affiliation></author>
-      <author><first>Mikhail</first><last>Salnikov</last><affiliation>Skolkovo Institute of Science and Technology</affiliation></author>
-      <author id="irina-nikishina" orcid="0000-0003-4910-8568"><first>Irina</first><last>Nikishina</last></author>
-      <author id="aida-usmanova" orcid="0009-0000-0124-8727"><first>Aida</first><last>Usmanova</last><affiliation>Leuphana Universität Lüneburg</affiliation></author>
-      <author><first>Angelie</first><last>Kraft</last><affiliation>Universität Hamburg</affiliation></author>
-      <author><first>Cedric</first><last>Möller</last><affiliation>Universität Hamburg</affiliation></author>
-      <author><first>Debayan</first><last>Banerjee</last><affiliation>Universität Hamburg</affiliation></author>
-      <author id="junbo-huang" orcid="0000-0002-3192-5896"><first>Junbo</first><last>Huang</last><affiliation>Universität Hamburg</affiliation></author>
-      <author id="longquan-jiang" orcid="0000-0002-7333-2589"><first>Longquan</first><last>Jiang</last><affiliation>Universität Hamburg</affiliation></author>
-      <author id="rana-abdullah" orcid="0009-0000-2652-5129"><first>Rana</first><last>Abdullah</last><affiliation>Universität Hamburg</affiliation></author>
-      <author><first>Xi</first><last>Yan</last><affiliation>Universität Hamburg</affiliation></author>
-      <author id="dmitry-ustalov" orcid="0000-0002-9979-2188"><first>Dmitry</first><last>Ustalov</last><affiliation>JetBrains</affiliation></author>
-      <author id="elena-tutubalina" orcid="0000-0001-7936-0284"><first>Elena</first><last>Tutubalina</last><affiliation>Kazan Federal University</affiliation></author>
-      <author id="ricardo-usbeck" orcid="0000-0002-0191-7211"><first>Ricardo</first><last>Usbeck</last><affiliation>Leuphana Universität Lüneburg</affiliation></author>
-      <author><first>Alexander</first><last>Panchenko</last><affiliation>Skoltech</affiliation></author>
+      <author id="andrey-sakhovskiy" orcid="0000-0003-2762-2910" openreview="~Andrey_Sakhovskiy1"><first>Andrey</first><last>Sakhovskiy</last><affiliation>Kazan Federal University</affiliation></author>
+      <author openreview="~Mikhail_Salnikov1"><first>Mikhail</first><last>Salnikov</last><affiliation>Skolkovo Institute of Science and Technology</affiliation></author>
+      <author id="irina-nikishina" orcid="0000-0003-4910-8568" openreview="~Irina_Nikishina1"><first>Irina</first><last>Nikishina</last></author>
+      <author id="aida-usmanova" orcid="0009-0000-0124-8727" openreview="~Aida_Usmanova1"><first>Aida</first><last>Usmanova</last><affiliation>Leuphana Universität Lüneburg</affiliation></author>
+      <author id="angelie-kraft" orcid="0000-0002-2980-952X" openreview="~Angelie_Kraft1"><first>Angelie</first><last>Kraft</last><affiliation>Universität Hamburg</affiliation></author>
+      <author openreview="~Cedric_Möller1"><first>Cedric</first><last>Möller</last><affiliation>Universität Hamburg</affiliation></author>
+      <author openreview="~Debayan_Banerjee1"><first>Debayan</first><last>Banerjee</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="junbo-huang" orcid="0000-0002-3192-5896" openreview="~Junbo_Huang1"><first>Junbo</first><last>Huang</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="longquan-jiang" orcid="0000-0002-7333-2589" openreview="~Longquan_Jiang1"><first>Longquan</first><last>Jiang</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="rana-abdullah" orcid="0009-0000-2652-5129" openreview="~Rana_Abdullah1"><first>Rana</first><last>Abdullah</last><affiliation>Universität Hamburg</affiliation></author>
+      <author openreview="~Xi_Yan2"><first>Xi</first><last>Yan</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="dmitry-ustalov" orcid="0000-0002-9979-2188" openreview="~Dmitry_Ustalov1"><first>Dmitry</first><last>Ustalov</last><affiliation>JetBrains</affiliation></author>
+      <author id="elena-tutubalina" orcid="0000-0001-7936-0284" openreview="~Elena_Tutubalina1"><first>Elena</first><last>Tutubalina</last><affiliation>Kazan Federal University</affiliation></author>
+      <author id="ricardo-usbeck" orcid="0000-0002-0191-7211" openreview="~Ricardo_Usbeck1"><first>Ricardo</first><last>Usbeck</last><affiliation>Leuphana Universität Lüneburg</affiliation></author>
+      <author id="alexander-panchenko" orcid="0000-0001-6097-6118" openreview="~Alexander_Panchenko1"><first>Alexander</first><last>Panchenko</last><affiliation>Skoltech</affiliation></author>
       <pages>116-125</pages>
       <abstract>This paper describes the results of the Knowledge Graph Question Answering (KGQA) shared task that was co-located with the TextGraphs 2024 workshop. In this task, given a textual question and a list of entities with the corresponding KG subgraphs, the participating system should choose the entity that correctly answers the question. Our competition attracted thirty teams, four of which outperformed our strong ChatGPT-based zero-shot baseline. In this paper, we overview the participating systems and analyze their performance according to a large-scale automatic evaluation. To the best of our knowledge, this is the first competition aimed at the KGQA problem using the interaction between large language models (LLMs) and knowledge graphs.</abstract>
       <pdf hash="ac49cbc6"/>
@@ -150,10 +150,10 @@
     <paper id="10">
       <!-- https://aclanthology.org/2024.textgraphs-1.10/ -->
       <title>nlp_enjoyers at <fixed-case>T</fixed-case>ext<fixed-case>G</fixed-case>raphs-17 Shared Task: Text-Graph Representations for Knowledge Graph Question Answering using all-<fixed-case>MPN</fixed-case>et</title>
-      <author><first>Nikita</first><last>Kurdiukov</last><affiliation>Skolkovo Institute of Science and Technology</affiliation></author>
-      <author><first>Viktoriia</first><last>Zinkovich</last></author>
-      <author><first>Sergey</first><last>Karpukhin</last></author>
-      <author><first>Pavel</first><last>Tikhomirov</last></author>
+      <author openreview="~Nikita_Kurdiukov1"><first>Nikita</first><last>Kurdiukov</last><affiliation>Skolkovo Institute of Science and Technology</affiliation></author>
+      <author id="viktoriia-zinkovich" orcid="0009-0009-6311-1887" openreview="~Viktoriia_Zinkovich1"><first>Viktoriia</first><last>Zinkovich</last></author>
+      <author openreview="~Sergey_Karpukhin1"><first>Sergey</first><last>Karpukhin</last></author>
+      <author openreview="~Pavel_Tikhomirov1"><first>Pavel</first><last>Tikhomirov</last></author>
       <pages>126-130</pages>
       <abstract>This paper presents a model for solving the Multiple Choice Question Answering (MCQA) problem, focusing on the impact of subgraph extraction from a Knowledge Graph on model performance. The proposed method combines textual and graph information by adding linearized subgraphs directly into the main question prompt with separate tokens, enhancing the performance of models working with each modality separately. The study also includes an examination of Large Language Model (LLM) backbones and the benefits of linearized subgraphs and sequence length, with efficient training achieved through fine-tuning with LoRA. The top benchmark, using subgraphs and MPNet, achieved an F1 score of 0.3887. The main limitation of the experiments is the reliance on pre-generated subgraphs/triplets from the graph, and the lack of exploration of in-context learning and prompting strategies with decoder-based architectures.</abstract>
       <pdf hash="747647d8"/>
@@ -162,18 +162,18 @@
     <paper id="11">
       <!-- https://aclanthology.org/2024.textgraphs-1.11/ -->
       <title><fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case> at <fixed-case>T</fixed-case>ext<fixed-case>G</fixed-case>raphs-17 Shared Task: Enhancing Inference Capabilities of <fixed-case>LLM</fixed-case>s with Knowledge Graphs</title>
-      <author id="wei-tang-4163" orcid="0000-0002-9250-4163"><first>Wei</first><last>Tang</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author id="xiaosong-qiao" orcid="0000-0003-2494-579X"><first>Xiaosong</first><last>Qiao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author><first>Xiaofeng</first><last>Zhao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author><first>Min</first><last>Zhang</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author><first>Chang</first><last>Su</last></author>
-      <author><first>Yuang</first><last>Li</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author id="yinglu-li" orcid="0000-0002-1643-9830"><first>Yinglu</first><last>Li</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author><first>Yilun</first><last>Liu</last></author>
-      <author><first>Feiyu</first><last>Yao</last></author>
-      <author><first>Shimin</first><last>Tao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
-      <author><first>Hao</first><last>Yang</last></author>
-      <author><first>He</first><last>Xianghui</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="wei-tang-4163" orcid="0000-0002-9250-4163" openreview="~Wei_Tang17"><first>Wei</first><last>Tang</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="xiaosong-qiao" orcid="0000-0003-2494-579X" openreview="~Xiaosong_Qiao1"><first>Xiaosong</first><last>Qiao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author openreview="~Xiaofeng_Zhao1"><first>Xiaofeng</first><last>Zhao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="min-zhang-6851" orcid="0000-0002-9624-6851" openreview="~Min_Zhang10"><first>Min</first><last>Zhang</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author openreview="~Chang_Su4"><first>Chang</first><last>Su</last></author>
+      <author id="yuang-li-0184" orcid="0000-0002-2244-0184" openreview="~Yuang_Li1"><first>Yuang</first><last>Li</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="yinglu-li" orcid="0000-0002-1643-9830" openreview="~Yinglu_Li1"><first>Yinglu</first><last>Li</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="yilun-liu-7728" orcid="0009-0002-2531-7728" openreview="~Yilun_Liu2"><first>Yilun</first><last>Liu</last></author>
+      <author openreview="~Feiyu_Yao1"><first>Feiyu</first><last>Yao</last></author>
+      <author id="shimin-tao" orcid="0000-0002-2795-6921" openreview="~shimin_tao1"><first>Shimin</first><last>Tao</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author id="hao-yang" orcid="0000-0001-8861-7010" openreview="~Hao_Yang7"><first>Hao</first><last>Yang</last></author>
+      <author openreview="~He_Xianghui1"><first>He</first><last>Xianghui</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
       <pages>131-136</pages>
       <abstract>In this paper, we present an effective method for TextGraphs-17 Shared Task. This task requires selecting an entity from the candidate entities that is relevant to the given question and answer. The selection process is aided by utilizing the shortest path graph in the knowledge graph, connecting entities in the query to the candidate entity. This task aims to explore how to enhance LLMs output with KGs, although current LLMs have certain logical reasoning capabilities, they may not be certain about their own outputs, and the answers they produce may be correct by chance through incorrect paths. In this case, we have introduced a LLM prompt design strategy based on self-ranking and emotion. Specifically, we let the large model score its own answer choices to reflect its confidence in the answer. Additionally, we add emotional incentives to the prompts to encourage the model to carefully examine the questions. Our submissions was conducted under zero-resource setting, and we achieved the second place in the task with an F1-score of 0.8321.</abstract>
       <pdf hash="9e567241"/>
@@ -208,8 +208,8 @@
     <paper id="14">
       <!-- https://aclanthology.org/2024.textgraphs-1.14/ -->
       <title>Skoltech at <fixed-case>T</fixed-case>ext<fixed-case>G</fixed-case>raphs-17 Shared Task: Finding <fixed-case>GPT</fixed-case>-4 Prompting Strategies for Multiple Choice Questions</title>
-      <author><first>Maria</first><last>Lysyuk</last></author>
-      <author id="pavel-braslavski" orcid="0000-0002-6964-458X"><first>Pavel</first><last>Braslavski</last><affiliation>Nazarbayev University</affiliation></author>
+      <author id="maria-marina" orcid="0009-0002-2274-4003" openreview="~Maria_Lysyuk1"><first>Maria</first><last>Lysyuk</last></author>
+      <author id="pavel-braslavski" orcid="0000-0002-6964-458X" openreview="~Pavel_Braslavski1"><first>Pavel</first><last>Braslavski</last><affiliation>Nazarbayev University</affiliation></author>
       <pages>149-153</pages>
       <abstract>In this paper, we present our solution to the TextGraphs-17 Shared Task on Text-Graph Representations for KGQA. GPT-4 alone, with chain-of-thought reasoning and a given set of answers, achieves an F1 score of 0.78. By employing subgraph size as a feature, Wikidata answer description as an additional context, and question rephrasing technique, we further strengthen this result. These tricks help to answer questions that were not initially answered and to eliminate irrelevant, identical answers. We have managed to achieve an F1 score of 0.83 and took 2nd place, improving the score by 0.05 over the baseline. An open implementation of our method is available on GitHub.</abstract>
       <pdf hash="66199c15"/>
@@ -218,9 +218,9 @@
     <paper id="15">
       <!-- https://aclanthology.org/2024.textgraphs-1.15/ -->
       <title><fixed-case>J</fixed-case>elly<fixed-case>B</fixed-case>ell at <fixed-case>T</fixed-case>ext<fixed-case>G</fixed-case>raphs-17 Shared Task: Fusing Large Language Models with External Knowledge for Enhanced Question Answering</title>
-      <author id="julia-belikova" orcid="0009-0007-7829-1249"><first>Julia</first><last>Belikova</last></author>
-      <author><first>Evegeniy</first><last>Beliakin</last></author>
-      <author><first>Vasily</first><last>Konovalov</last></author>
+      <author id="julia-belikova" orcid="0009-0007-7829-1249" openreview="~Julia_Belikova1"><first>Julia</first><last>Belikova</last></author>
+      <author openreview="~Evegeniy_Beliakin1"><first>Evegeniy</first><last>Beliakin</last></author>
+      <author id="vasily-konovalov" orcid="0000-0002-4745-4718" openreview="~Vasily_Konovalov1"><first>Vasily</first><last>Konovalov</last></author>
       <pages>154-160</pages>
       <abstract>This work describes an approach to develop Knowledge Graph Question Answering (KGQA) system for TextGraphs-17 shared task. The task focuses on the fusion of Large Language Models (LLMs) with Knowledge Graphs (KGs). The goal is to select a KG entity (out of several candidates) which corresponds to an answer given a textual question. Our approach applies LLM to identify the correct answer among the list of possible candidates. We confirm that integrating external information is particularly beneficial when the subject entities are not well-known, and using RAG can negatively impact the performance of LLM on questions related to popular entities, as the retrieved context might be misleading. With our result, we achieved 2nd place in the post-evaluation phase.</abstract>
       <pdf hash="598a3e88"/>

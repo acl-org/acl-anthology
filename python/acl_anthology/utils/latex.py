@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
+import warnings
 from functools import cache
 from lxml import etree
 from typing import Iterable, Optional, TypeAlias, TYPE_CHECKING
@@ -31,6 +32,7 @@ if TYPE_CHECKING:
     )
     """Any type that can be supplied to `make_bibtex_entry`."""
 
+from ..exceptions import TeXParserWarning
 from .logging import get_logger
 from .xml import append_text
 
@@ -515,7 +517,9 @@ def _parse_nodelist_to_element(
             append_text(element, LATEX_TO_TEXT.specials_node_to_text(node))
         else:
             # Comments or environments
-            log.warning(f"Unhandled node type: {node.nodeType}")
+            warnings.warn(
+                TeXParserWarning(node, f"Unhandled LaTeX node type: {node.nodeType()}")
+            )
 
 
 def parse_latex_to_xml(

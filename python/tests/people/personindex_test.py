@@ -19,6 +19,7 @@ from acl_anthology.exceptions import (
     NameSpecResolutionError,
     NameSpecResolutionWarning,
     PersonDefinitionError,
+    MaintainerWarning,
 )
 from acl_anthology.people import (
     Name,
@@ -102,6 +103,7 @@ def test_remove_person(index):
     assert index._by_orcid.get("0009-0003-6567-8920") is None
     assert pid not in index._by_name[name]
     assert pid not in index._slugs_to_verified_ids["lin-feng"]
+    assert pid not in index.similar
 
     with pytest.raises(ValueError):
         # Can't remove again...
@@ -141,6 +143,24 @@ def test_similar_names_through_same_canonical_name(index):
         "wen-zhao",
         "wen-zhao-labx",
         "wen-zhao-instx",
+        "wen-zhao-megasoft",
+        "wen-zhao/unverified",
+    }
+
+
+def test_change_id_updates_similar_group(index):
+    # Renaming a person should make the new ID inherit the old ID's
+    # similarity group, and drop the old ID from it entirely -- rather than
+    # permanently fusing both IDs together, which scipy's DisjointSet (the
+    # structure's previous implementation) couldn't avoid since it had no
+    # way to remove an item once added.
+    index["wen-zhao-instx"].change_id("wen-zhao-new")
+
+    assert "wen-zhao-instx" not in index.similar
+    assert index.similar.subset("wen-zhao-new") == {
+        "wen-zhao",
+        "wen-zhao-labx",
+        "wen-zhao-new",
         "wen-zhao-megasoft",
         "wen-zhao/unverified",
     }
@@ -268,7 +288,7 @@ test_cases_generate_person_id_from_name = (
         None,
         AnthologyException,
     ),  # wen-zhao-labx already exists
-    (Name("Wen", "Zhao"), "labx", "0000-0000-0000-018X", UserWarning),
+    (Name("Wen", "Zhao"), "labx", "0000-0000-0000-018X", MaintainerWarning),
     (Name("Lin", "Feng"), "tsingcity", "0000-0000-0000-018X", "lin-feng-018x"),
 )
 
@@ -281,8 +301,12 @@ def test_generate_person_id_from_name(index, name, suffix, orcid, expected_resul
         pid = index.generate_person_id(name, suffix=suffix, orcid=orcid)
         assert pid == expected_result
     elif isinstance(expected_result, type):
-        with pytest.raises(expected_result):
-            index.generate_person_id(name, suffix=suffix, orcid=orcid)
+        if issubclass(expected_result, Warning):
+            with pytest.warns(expected_result):
+                index.generate_person_id(name, suffix=suffix, orcid=orcid)
+        else:
+            with pytest.raises(expected_result):
+                index.generate_person_id(name, suffix=suffix, orcid=orcid)
     else:
         raise ValueError(
             f"Test cannot take expected result of type {type(expected_result)}"

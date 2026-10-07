@@ -25,8 +25,8 @@
     <paper id="1">
       <!-- https://aclanthology.org/2024.alvr-1.1/ -->
       <title><fixed-case>WISMIR</fixed-case>3: A Multi-Modal Dataset to Challenge Text-Image Retrieval Approaches</title>
-      <author id="florian-schneider" orcid="0000-0003-4141-1415"><first>Florian</first><last>Schneider</last><affiliation>Universität Hamburg</affiliation></author>
-      <author id="chris-biemann"><first>Chris</first><last>Biemann</last><affiliation>U Hamburg</affiliation></author>
+      <author id="florian-schneider" orcid="0000-0003-4141-1415" openreview="~Florian_Schneider1"><first>Florian</first><last>Schneider</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="chris-biemann" orcid="0000-0002-8449-9624" openreview="~Chris_Biemann1"><first>Chris</first><last>Biemann</last><affiliation>U Hamburg</affiliation></author>
       <pages>1-6</pages>
       <abstract>This paper presents WISMIR3, a multi-modal dataset comprising roughly 300K text-image pairs from Wikipedia. With a sophisticated automatic ETL pipeline, we scraped, filtered, and transformed the data so that WISMIR3 intrinsically differs from other popular text-image datasets like COCO and Flickr30k. We prove this difference by comparing various linguistic statistics between the three datasets computed using the pipeline. The primary purpose of WISMIR3 is to use it as a benchmark to challenge state-of-the-art text-image retrieval approaches, which already reach around 90% Recall@5 scores on the mentioned popular datasets. Therefore, we ran several text-image retrieval experiments on our dataset using current models, which show that the models, in fact, perform significantly worse compared to evaluation results on COCO and Flickr30k. In addition, for each text-image pair, we release features computed by Faster-R-CNN and CLIP models. With this, we want to ease and motivate the use of the dataset for other researchers.</abstract>
       <pdf hash="7eb44789"/>
@@ -36,10 +36,10 @@
     <paper id="2">
       <!-- https://aclanthology.org/2024.alvr-1.2/ -->
       <title>m<fixed-case>BLIP</fixed-case>: Efficient Bootstrapping of Multilingual Vision-<fixed-case>LLM</fixed-case>s</title>
-      <author><first>Gregor</first><last>Geigle</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
-      <author><first>Abhay</first><last>Jain</last></author>
-      <author id="radu-timofte" orcid="0000-0002-1478-0402"><first>Radu</first><last>Timofte</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg and ETH Zurich</affiliation></author>
-      <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author openreview="~Gregor_Geigle1"><first>Gregor</first><last>Geigle</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author openreview="~Abhay_Jain1"><first>Abhay</first><last>Jain</last></author>
+      <author id="radu-timofte" orcid="0000-0002-1478-0402" openreview="~Radu_Timofte1"><first>Radu</first><last>Timofte</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg and ETH Zurich</affiliation></author>
+      <author id="goran-glavas" orcid="0000-0002-1301-6314" openreview="~Goran_Glavaš1"><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
       <pages>7-25</pages>
       <abstract>Modular vision-language models (Vision-LLMs) align pretrained image encoders with (frozen) large language models (LLMs) and post-hoc condition LLMs to ‘understand’ the image input. With the abundance of readily available high-quality English image-text data as well as strong monolingual English LLMs, the research focus has been on English-only Vision-LLMs. Multilingual vision-language models are still predominantly obtained via expensive end-to-end pretraining, resulting in comparatively smaller models, trained on limited multilingual image data supplemented with text-only multilingual corpora. We present mBLIP, the first Vision-LLM leveraging multilingual LLMs, which we obtain in a computationally efficient manner on consumer-level hardware. To this end, we <i>re-align</i> an image encoder previously tuned to an English LLM to a new, multilingual LLM using only a few million multilingual training examples derived from a mix of vision-and-language tasks, which we obtain by machine-translating high-quality English data to 95 languages. On the IGLUE benchmark and XM3600, mBLIP yields results competitive with state-of-the-art models and it greatly outperforms strong English-only Vision-LLMs like Llava 1.5. We release our model, code, and train data at <url>https://github.com/gregor-ge/mBLIP</url>.</abstract>
       <pdf hash="0c6c41f7"/>
@@ -49,11 +49,11 @@
     <paper id="3">
       <!-- https://aclanthology.org/2024.alvr-1.3/ -->
       <title><fixed-case>LMPT</fixed-case>: Prompt Tuning with Class-Specific Embedding Loss for Long-Tailed Multi-Label Visual Recognition</title>
-      <author><first>Peng</first><last>Xia</last></author>
-      <author><first>Di</first><last>Xu</last></author>
-      <author><first>Ming</first><last>Hu</last></author>
-      <author><first>Lie</first><last>Ju</last></author>
-      <author><first>Zongyuan</first><last>Ge</last><affiliation>Monash University</affiliation></author>
+      <author id="peng-xia" orcid="0000-0003-2676-9128" openreview="~Peng_Xia1"><first>Peng</first><last>Xia</last></author>
+      <author openreview="~Di_Xu10"><first>Di</first><last>Xu</last></author>
+      <author openreview="~Ming_Hu4"><first>Ming</first><last>Hu</last></author>
+      <author openreview="~Lie_Ju1"><first>Lie</first><last>Ju</last></author>
+      <author id="zongyuan-ge" orcid="0000-0002-5880-8673" openreview="~Zongyuan_Ge1"><first>Zongyuan</first><last>Ge</last><affiliation>Monash University</affiliation></author>
       <pages>26-36</pages>
       <abstract>Long-tailed multi-label visual recognition (LTML) task is a highly challenging task due to the label co-occurrence and imbalanced data distribution. In this work, we propose a unified framework for LTML, namely prompt tuning with class-specific embedding loss (LMPT), capturing the semantic feature interactions between categories by combining text and image modality data and improving the performance synchronously on both head and tail classes. Specifically, LMPT introduces the embedding loss function with class-aware soft margin and re-weighting to learn class-specific contexts with the benefit of textual descriptions (captions), which could help establish semantic relationships between classes, especially between the head and tail classes. Furthermore, taking into account the class imbalance, the distribution-balanced loss is adopted as the classification loss function to further improve the performance on the tail classes without compromising head classes. Extensive experiments are conducted on VOC-LT and COCO-LT datasets, which demonstrates that our method significantly surpasses the previous state-of-the-art methods and zero-shot CLIP in LTML. Our codes are fully public at <url>https://github.com/richard-peng-xia/LMPT</url>.</abstract>
       <pdf hash="54d5db0c"/>
@@ -63,11 +63,11 @@
     <paper id="4">
       <!-- https://aclanthology.org/2024.alvr-1.4/ -->
       <title>Negative Object Presence Evaluation (<fixed-case>NOPE</fixed-case>) to Measure Object Hallucination in Vision-Language Models</title>
-      <author id="holy-lovenia" orcid="0000-0002-8995-5107"><first>Holy</first><last>Lovenia</last><affiliation>AI Singapore</affiliation></author>
-      <author><first>Wenliang</first><last>Dai</last><affiliation>NVIDIA</affiliation></author>
-      <author id="samuel-cahyawijaya" orcid="0000-0002-9891-1608"><first>Samuel</first><last>Cahyawijaya</last></author>
-      <author id="ziwei-ji" orcid="0000-0002-0206-7861"><first>Ziwei</first><last>Ji</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
-      <author><first>Pascale</first><last>Fung</last><affiliation>HKUST</affiliation></author>
+      <author id="holy-lovenia" orcid="0000-0002-8995-5107" openreview="~Holy_Lovenia1"><first>Holy</first><last>Lovenia</last><affiliation>AI Singapore</affiliation></author>
+      <author openreview="~Wenliang_Dai1"><first>Wenliang</first><last>Dai</last><affiliation>NVIDIA</affiliation></author>
+      <author id="samuel-cahyawijaya" orcid="0000-0002-9891-1608" openreview="~Samuel_Cahyawijaya1"><first>Samuel</first><last>Cahyawijaya</last></author>
+      <author id="ziwei-ji" orcid="0000-0002-0206-7861" openreview="~Ziwei_Ji2"><first>Ziwei</first><last>Ji</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author openreview="~Pascale_Fung1"><first>Pascale</first><last>Fung</last><affiliation>HKUST</affiliation></author>
       <pages>37-58</pages>
       <abstract>Object hallucination poses a significant challenge in vision-language (VL) models, often leading to the generation of nonsensical or unfaithful responses with non-existent objects. However, the absence of a general measurement for evaluating object hallucination in VL models has hindered our understanding and ability to mitigate this issue. In this work, we present NOPE (Negative Object Presence Evaluation), a novel benchmark designed to assess object hallucination in VL models through visual question answering (VQA). We propose a cost-effective and scalable approach utilizing large language models to generate 29.5k synthetic negative pronoun (<tex-math>NegP</tex-math>) data of high quality for NOPE. We extensively investigate the performance of 10 state-of-the-art VL models in discerning the non-existence of objects in visual questions, where the ground truth answers are denoted as (e.g., “none”). Additionally, we evaluate their standard performance on visual questions on 9 other VQA datasets. Through our experiments, we demonstrate that no VL model is immune to the vulnerability of object hallucination, as all models achieve accuracy below 10% on <tex-math>NegP</tex-math>. Furthermore, we uncover that lexically diverse visual questions, question types with large scopes, and scene-relevant objects capitalize the risk of object hallucination in VL models.</abstract>
       <pdf hash="3426030a"/>
@@ -77,9 +77,9 @@
     <paper id="5">
       <!-- https://aclanthology.org/2024.alvr-1.5/ -->
       <title>How and where does <fixed-case>CLIP</fixed-case> process negation?</title>
-      <author><first>Vincent</first><last>Quantmeyer</last></author>
-      <author id="pablo-mosteiro" orcid="0000-0001-7231-2773"><first>Pablo</first><last>Mosteiro</last><affiliation>Utrecht University</affiliation></author>
-      <author id="albert-gatt" orcid="0000-0001-6388-8244"><first>Albert</first><last>Gatt</last><affiliation>Utrecht University</affiliation></author>
+      <author openreview="~Vincent_Quantmeyer1"><first>Vincent</first><last>Quantmeyer</last></author>
+      <author id="pablo-mosteiro" orcid="0000-0001-7231-2773" openreview="~Pablo_Mosteiro1"><first>Pablo</first><last>Mosteiro</last><affiliation>Utrecht University</affiliation></author>
+      <author id="albert-gatt" orcid="0000-0001-6388-8244" openreview="~Albert_Gatt2"><first>Albert</first><last>Gatt</last><affiliation>Utrecht University</affiliation></author>
       <pages>59-72</pages>
       <abstract>Various benchmarks have been proposed to test linguistic understanding in pre-trained vision &amp; language (VL) models. Here we build on the existence task from the VALSE benchmark (Parcalabescu et al., 2022) which we use to test models’ understanding of negation, a particularly interesting issue for multimodal models. However, while such VL benchmarks are useful for measuring model performance, they do not reveal anything about the internal processes through which these models arrive at their outputs in such visio-linguistic tasks. We take inspiration from the growing literature on model interpretability to explain the behaviour of VL models on the understanding of negation. Specifically, we approach these questions through an in-depth analysis of the text encoder in CLIP (Radford et al., 2021), a highly influential VL model. We localise parts of the encoder that process negation and analyse the role of attention heads in this task. Our contributions are threefold. We demonstrate how methods from the language model interpretability literature (e.g., causal tracing) can be translated to multimodal models and tasks; we provide concrete insights into how CLIP processes negation on the VALSE existence task; and we highlight inherent limitations in the VALSE dataset as a benchmark for linguistic understanding.</abstract>
       <pdf hash="335a4595"/>
@@ -89,10 +89,10 @@
     <paper id="6">
       <!-- https://aclanthology.org/2024.alvr-1.6/ -->
       <title>Enhancing Continual Learning in Visual Question Answering with Modality-Aware Feature Distillation</title>
-      <author><first>Malvina</first><last>Nikandrou</last><affiliation>Heriot-Watt University</affiliation></author>
-      <author><first>Georgios</first><last>Pantazopoulos</last></author>
-      <author><first>Ioannis</first><last>Konstas</last><affiliation>Heriot-Watt University</affiliation></author>
-      <author id="alessandro-suglia" orcid="0000-0002-3177-5197"><first>Alessandro</first><last>Suglia</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author openreview="~Malvina_Nikandrou1"><first>Malvina</first><last>Nikandrou</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author openreview="~Georgios_Pantazopoulos1"><first>Georgios</first><last>Pantazopoulos</last></author>
+      <author openreview="~Ioannis_Konstas1"><first>Ioannis</first><last>Konstas</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author id="alessandro-suglia" orcid="0000-0002-3177-5197" openreview="~Alessandro_Suglia1"><first>Alessandro</first><last>Suglia</last><affiliation>Heriot-Watt University</affiliation></author>
       <pages>73-85</pages>
       <abstract>Continual learning focuses on incrementally training a model on a sequence of tasks with the aim of learning new tasks while minimizing performance drop on previous tasks. Existing approaches at the intersection of Continual Learning and Visual Question Answering (VQA) do not study how the multimodal nature of the input affects the learning dynamics of a model. In this paper, we demonstrate that each modality evolves at different rates across a continuum of tasks and that this behavior occurs in established encoder-only models as well as modern recipes for developing Vision &amp; Language (VL) models. Motivated by this observation, we propose a modality-aware feature distillation (MAFED) approach which outperforms existing baselines across models of varying scale in three multimodal continual learning settings. Furthermore, we provide ablations showcasing that modality-aware distillation complements experience replay. Overall, our results emphasize the importance of addressing modality-specific dynamics to prevent forgetting in multimodal continual learning.</abstract>
       <pdf hash="051945e3"/>
@@ -102,11 +102,11 @@
     <paper id="7">
       <!-- https://aclanthology.org/2024.alvr-1.7/ -->
       <title><fixed-case>E</fixed-case>nglish-to-<fixed-case>J</fixed-case>apanese Multimodal Machine Translation Based on Image-Text Matching of Lecture Videos</title>
-      <author><first>Ayu</first><last>Teramen</last></author>
-      <author><first>Takumi</first><last>Ohtsuka</last><affiliation>Ehime University</affiliation></author>
-      <author><first>Risa</first><last>Kondo</last></author>
-      <author><first>Tomoyuki</first><last>Kajiwara</last><affiliation>Ehime University</affiliation></author>
-      <author><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
+      <author openreview="~Ayu_Teramen1"><first>Ayu</first><last>Teramen</last></author>
+      <author openreview="~Takumi_Ohtsuka1"><first>Takumi</first><last>Ohtsuka</last><affiliation>Ehime University</affiliation></author>
+      <author openreview="~Risa_Kondo1"><first>Risa</first><last>Kondo</last></author>
+      <author id="tomoyuki-kajiwara" orcid="0000-0002-3233-4879" openreview="~Tomoyuki_Kajiwara1"><first>Tomoyuki</first><last>Kajiwara</last><affiliation>Ehime University</affiliation></author>
+      <author id="takashi-ninomiya" orcid="0000-0002-6411-9962" openreview="~Takashi_Ninomiya1"><first>Takashi</first><last>Ninomiya</last><affiliation>Ehime University</affiliation></author>
       <pages>86-91</pages>
       <abstract>We work on a multimodal machine translation of the audio contained in English lecture videos to generate Japanese subtitles. Image-guided multimodal machine translation is promising for error correction in speech recognition and for text disambiguation. In our situation, lecture videos provide a variety of images. Images of presentation materials can complement information not available from audio and may help improve translation quality. However, images of speakers or audiences would not directly affect the translation quality. We construct a multimodal parallel corpus with automatic speech recognition text and multiple images for a transcribed parallel corpus of lecture videos, and propose a method to select the most relevant ones from the multiple images with the speech text for improving the performance of image-guided multimodal machine translation. Experimental results on translating automatic speech recognition or transcribed English text into Japanese show the effectiveness of our method to select a relevant image.</abstract>
       <pdf hash="b1e24d3a"/>
@@ -116,12 +116,12 @@
     <paper id="8">
       <!-- https://aclanthology.org/2024.alvr-1.8/ -->
       <title><fixed-case>V</fixed-case>ideo<fixed-case>C</fixed-case>o<fixed-case>T</fixed-case>: A Video Chain-of-Thought Dataset with Active Annotation Tool</title>
-      <author><first>Yan</first><last>Wang</last></author>
-      <author><first>Yawen</first><last>Zeng</last><affiliation>ByteDance Inc.</affiliation></author>
-      <author><first>Jingsheng</first><last>Zheng</last></author>
-      <author><first>Xiaofen</first><last>Xing</last><affiliation>South China University of Technology</affiliation></author>
-      <author><first>Jin</first><last>Xu</last></author>
-      <author><first>Xiangmin</first><last>Xu</last><affiliation>South China University of Technology</affiliation></author>
+      <author openreview="~Yan_Wang32"><first>Yan</first><last>Wang</last></author>
+      <author id="yawen-zeng" orcid="0000-0003-1908-1157" openreview="~Yawen_Zeng1"><first>Yawen</first><last>Zeng</last><affiliation>ByteDance Inc.</affiliation></author>
+      <author id="jingsheng-zheng" orcid="0009-0008-4609-9719" openreview="~Jingsheng_Zheng1"><first>Jingsheng</first><last>Zheng</last></author>
+      <author id="xiaofen-xing" orcid="0000-0002-0016-9055" openreview="~Xiaofen_Xing1"><first>Xiaofen</first><last>Xing</last><affiliation>South China University of Technology</affiliation></author>
+      <author id="jin-xu-3532" orcid="0009-0001-8735-3532" openreview="~Jin_Xu14"><first>Jin</first><last>Xu</last></author>
+      <author openreview="~Xiangmin_Xu1"><first>Xiangmin</first><last>Xu</last><affiliation>South China University of Technology</affiliation></author>
       <pages>92-101</pages>
       <abstract>Multimodal large language models (MLLMs) are flourishing, but mainly focus on images with less attention than videos, especially in sub-fields such as prompt engineering, video chain-of-though (CoT), and instruction tuning on videos. Therefore, we try to explore the collection of CoT datasets in videos to lead to video OpenQA and improve the reasoning ability of MLLMs. Unfortunately, making such video CoT datasets is not an easy task. Given that human annotation is too cumbersome and expensive, while machine-generated is not reliable due to the hallucination issue, we develop an automatic annotation tool that combines machine and human experts, under the active learning paradigm. Active learning is an interactive strategy between the model and human experts, in this way, the workload of human labeling can be reduced and the quality of the dataset can be guaranteed. With the help of the automatic annotation tool, we strive to contribute three datasets, namely VideoCoT, TopicQA, TopicCoT. Furthermore, we propose a simple but effective benchmark based on the collected datasets, which exploits CoT to maximize the complex reasoning capabilities of MLLMs. Extensive experiments demonstrate the effectiveness our solution, and we will release our source codes and datasets to facilitate the research community.</abstract>
       <pdf hash="a5c93093"/>
@@ -131,10 +131,10 @@
     <paper id="9">
       <!-- https://aclanthology.org/2024.alvr-1.9/ -->
       <title>Enhancing Conceptual Understanding in Multimodal Contrastive Learning through Hard Negative Samples</title>
-      <author id="philipp-j-rosch" orcid="0000-0001-7004-8980"><first>Philipp J.</first><last>Rösch</last><affiliation>Bundeswehr University Munich</affiliation></author>
-      <author id="norbert-oswald" orcid="0009-0005-8361-2719"><first>Norbert</first><last>Oswald</last></author>
-      <author id="michaela-geierhos" orcid="0000-0002-8180-5606"><first>Michaela</first><last>Geierhos</last><affiliation>Universität der Bundeswehr München</affiliation></author>
-      <author id="jindrich-libovicky" orcid="0000-0001-7717-4090"><first>Jindřich</first><last>Libovický</last><affiliation>Charles University Prague</affiliation></author>
+      <author id="philipp-j-rosch" orcid="0000-0001-7004-8980" openreview="~Philipp_J._Rösch1"><first>Philipp J.</first><last>Rösch</last><affiliation>Bundeswehr University Munich</affiliation></author>
+      <author id="norbert-oswald" orcid="0009-0005-8361-2719" openreview="~Norbert_Oswald1"><first>Norbert</first><last>Oswald</last></author>
+      <author id="michaela-geierhos" orcid="0000-0002-8180-5606" openreview="~Michaela_Geierhos1"><first>Michaela</first><last>Geierhos</last><affiliation>Universität der Bundeswehr München</affiliation></author>
+      <author id="jindrich-libovicky" orcid="0000-0001-7717-4090" openreview="~Jindřich_Libovický1"><first>Jindřich</first><last>Libovický</last><affiliation>Charles University Prague</affiliation></author>
       <pages>102-115</pages>
       <abstract>Current vision-language models leveraging contrastive learning often face limitations in developing fine-grained conceptual understanding. This is due to random negative samples during pretraining, causing almost exclusively very dissimilar concepts to be compared in the loss function. Consequently, the models struggle with fine-grained semantic differences. To address this problem, we introduce a novel pretraining method incorporating synthetic hard negative text examples. The hard negatives replace terms corresponding to visual concepts, leading to a more fine-grained visual and textual concept alignment. Further, we introduce InpaintCOCO, a new challenging dataset for assessing the fine-grained alignment of colors, objects, and sizes in vision-language models. We created the dataset using generative inpainting from COCO images by changing the visual concepts so that the images no longer match their original captions. Our results show significant improvements in fine-grained concept understanding across various vision-language datasets, including our InpaintCOCO dataset.</abstract>
       <pdf hash="abc93b14"/>
@@ -144,15 +144,15 @@
     <paper id="10">
       <!-- https://aclanthology.org/2024.alvr-1.10/ -->
       <title>Vision Language Models for Spreadsheet Understanding: Challenges and Opportunities</title>
-      <author><first>Shiyu</first><last>Xia</last></author>
-      <author><first>Junyu</first><last>Xiong</last></author>
-      <author id="haoyu-dong" orcid="0000-0003-0692-2228"><first>Haoyu</first><last>Dong</last></author>
-      <author><first>Jianbo</first><last>Zhao</last></author>
-      <author><first>Yuzhang</first><last>Tian</last></author>
-      <author id="mengyu-zhou" orcid="0000-0002-0322-7513"><first>Mengyu</first><last>Zhou</last><affiliation>Microsoft Research</affiliation></author>
-      <author id="yeye-he" orcid="0000-0003-2824-5299"><first>Yeye</first><last>He</last><affiliation>Microsoft</affiliation></author>
-      <author id="shi-han" orcid="0000-0002-0360-6089"><first>Shi</first><last>Han</last><affiliation>Microsoft Research Asia</affiliation></author>
-      <author id="dongmei-zhang" orcid="0000-0002-9230-2799"><first>Dongmei</first><last>Zhang</last><affiliation>Microsoft and Microsoft</affiliation></author>
+      <author openreview="~Shiyu_Xia3"><first>Shiyu</first><last>Xia</last></author>
+      <author id="junyu-xiong" orcid="0009-0007-2753-7827" openreview="~Junyu_Xiong2"><first>Junyu</first><last>Xiong</last></author>
+      <author id="haoyu-dong" orcid="0000-0003-0692-2228" openreview="~Haoyu_Dong2"><first>Haoyu</first><last>Dong</last></author>
+      <author openreview="~Jianbo_Zhao3"><first>Jianbo</first><last>Zhao</last></author>
+      <author openreview="~Yuzhang_Tian1"><first>Yuzhang</first><last>Tian</last></author>
+      <author id="mengyu-zhou" orcid="0000-0002-0322-7513" openreview="~Mengyu_Zhou1"><first>Mengyu</first><last>Zhou</last><affiliation>Microsoft Research</affiliation></author>
+      <author id="yeye-he" orcid="0000-0003-2824-5299" openreview="~Yeye_He1"><first>Yeye</first><last>He</last><affiliation>Microsoft</affiliation></author>
+      <author id="shi-han" orcid="0000-0002-0360-6089" openreview="~Shi_Han1"><first>Shi</first><last>Han</last><affiliation>Microsoft Research Asia</affiliation></author>
+      <author id="dongmei-zhang" orcid="0000-0002-9230-2799" openreview="~Dongmei_Zhang2"><first>Dongmei</first><last>Zhang</last><affiliation>Microsoft and Microsoft</affiliation></author>
       <pages>116-128</pages>
       <abstract>This paper explores capabilities of Vision Language Models on spreadsheet comprehension. We propose three self-supervised challenges with corresponding evaluation metrics to comprehensively evaluate VLMs on Optical Character Recognition (OCR), spatial perception, and visual format recognition. Additionally, we utilize the spreadsheet table detection task to assess the overall performance of VLMs by integrating these challenges. To probe VLMs more finely, we propose three spreadsheet-to-image settings: column width adjustment, style change, and address augmentation. We propose variants of prompts to address the above tasks in different settings. Notably, to leverage the strengths of VLMs in understanding text rather than two-dimensional positioning, we propose to decode cell values on the four boundaries of the table in spreadsheet boundary detection. Our findings reveal that VLMs demonstrate promising OCR capabilities but produce unsatisfactory results due to cell omission and misalignment, and they notably exhibit insufficient spatial and format recognition skills, motivating future work to enhance VLMs’ spreadsheet data comprehension capabilities using our methods to generate extensive spreadsheet-image pairs in various settings.</abstract>
       <pdf hash="2fae71df"/>
@@ -162,10 +162,10 @@
     <paper id="11">
       <!-- https://aclanthology.org/2024.alvr-1.11/ -->
       <title><fixed-case>S</fixed-case>lide<fixed-case>AVSR</fixed-case>: A Dataset of Paper Explanation Videos for Audio-Visual Speech Recognition</title>
-      <author><first>Hao</first><last>Wang</last></author>
-      <author id="shuhei-kurita" orcid="0000-0001-7415-3120"><first>Shuhei</first><last>Kurita</last><affiliation>National Institute of Informatics and New York University</affiliation></author>
-      <author><first>Shuichiro</first><last>Shimizu</last></author>
-      <author id="daisuke-kawahara" orcid="0000-0002-3598-1027"><first>Daisuke</first><last>Kawahara</last><affiliation>Waseda University</affiliation></author>
+      <author openreview="~Hao_Wang74"><first>Hao</first><last>Wang</last></author>
+      <author id="shuhei-kurita" orcid="0000-0001-7415-3120" openreview="~Shuhei_Kurita1"><first>Shuhei</first><last>Kurita</last><affiliation>National Institute of Informatics and New York University</affiliation></author>
+      <author id="shuichiro-shimizu" orcid="0009-0003-4929-8995" openreview="~Shuichiro_Shimizu1"><first>Shuichiro</first><last>Shimizu</last></author>
+      <author id="daisuke-kawahara" orcid="0000-0002-3598-1027" openreview="~Daisuke_Kawahara1"><first>Daisuke</first><last>Kawahara</last><affiliation>Waseda University</affiliation></author>
       <pages>129-137</pages>
       <abstract>Audio-visual speech recognition (AVSR) is a multimodal extension of automatic speech recognition (ASR), using video as a complement to audio. In AVSR, considerable efforts have been directed at datasets for facial features such as lip-readings, while they often fall short in evaluating the image comprehension capabilities in broader contexts. In this paper, we construct SlideAVSR, an AVSR dataset using scientific paper explanation videos. SlideAVSR provides a new benchmark where models transcribe speech utterances with texts on the slides on the presentation recordings. As technical terminologies that are frequent in paper explanations are notoriously challenging to transcribe without reference texts, our SlideAVSR dataset spotlights a new aspect of AVSR problems. As a simple yet effective baseline, we propose DocWhisper, an AVSR model that can refer to textual information from slides, and confirm its effectiveness on SlideAVSR.</abstract>
       <pdf hash="9b180387"/>
@@ -175,8 +175,8 @@
     <paper id="12">
       <!-- https://aclanthology.org/2024.alvr-1.12/ -->
       <title>Causal and Temporal Inference in Visual Question Generation by Utilizing Pre-trained Models</title>
-      <author><first>Zhanghao</first><last>Hu</last></author>
-      <author id="frank-keller" orcid="0000-0002-8242-4362"><first>Frank</first><last>Keller</last><affiliation>University of Edinburgh</affiliation></author>
+      <author openreview="~Zhanghao_Hu1"><first>Zhanghao</first><last>Hu</last></author>
+      <author id="frank-keller" orcid="0000-0002-8242-4362" openreview="~Frank_Keller1"><first>Frank</first><last>Keller</last><affiliation>University of Edinburgh</affiliation></author>
       <pages>138-154</pages>
       <abstract>Visual Question Generation is a task at the crossroads of visual and language learning, impacting broad domains like education, medicine, and social media. While existing pre-trained models excel in fact-based queries with image pairs, they fall short of capturing human-like inference, particularly in understanding causal and temporal relationships within videos. Additionally, the computational demands of prevalent pre-training methods pose challenges. In response, our study introduces a framework that leverages vision-text matching pre-trained models to guide language models in recognizing event-entity relationships within videos and generating inferential questions. Demonstrating efficacy on the NExT-QA dataset, which is designed for causal and temporal inference in visual question answering, our method successfully guides pre-trained language models in recognizing video content. We present methodologies for abstracting causal and temporal relationships between events and entities, pointing out the importance of consistent relationships among input frames during training and inference phases and suggesting an avenue for future exploration.</abstract>
       <pdf hash="0977f51a"/>
@@ -186,10 +186,10 @@
     <paper id="13">
       <!-- https://aclanthology.org/2024.alvr-1.13/ -->
       <title>Improving Vision-Language Cross-Lingual Transfer with Scheduled Unfreezing</title>
-      <author><first>Max</first><last>Reinhardt</last></author>
-      <author><first>Gregor</first><last>Geigle</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
-      <author id="radu-timofte" orcid="0000-0002-1478-0402"><first>Radu</first><last>Timofte</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg and ETH Zurich</affiliation></author>
-      <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author openreview="~Max_Reinhardt1"><first>Max</first><last>Reinhardt</last></author>
+      <author openreview="~Gregor_Geigle1"><first>Gregor</first><last>Geigle</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
+      <author id="radu-timofte" orcid="0000-0002-1478-0402" openreview="~Radu_Timofte1"><first>Radu</first><last>Timofte</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg and ETH Zurich</affiliation></author>
+      <author id="goran-glavas" orcid="0000-0002-1301-6314" openreview="~Goran_Glavaš1"><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
       <pages>155-166</pages>
       <abstract>Large-scale pretraining of vision-language (VL) models brought dramatic improvements across numerous tasks, from visual question-answering to cross-modal retrieval but these gains are mostly limited to English. Massively multilingual VL encoder models (mVLMs) hold promise for other languages: after fine-tuning on only English task data, they can perform the task in other languages in what is termed zero-shot cross-lingual transfer (ZS-XLT). Still, ZS-XLT sees a large performance gap to English, especially for low-resource languages. In this work, we reduce this gap with a fine-tuning strategy known as <i>Scheduled Unfreezing</i> (SUF): instead of updating all parameters from the start, we begin with the top layer(s) of the vision-language encoder and gradually unfreeze (i.e., update) its layers top to bottom. SUF forces reliance on encoder’s representations from higher layers: the fact that in multilingual models these representations encode higher-level semantics rather than low-level language-specific idiosyncrasies, we hypothesize, should render SUF beneficial for ZS-XLT. Experiments with two mVLMs (UC2 &amp; CCLM) on three downstream tasks (xGQA, XVNLI, xFlickrCo) show that SUF brings consistent gains in ZS-XLT, especially for visual Q&amp;A (xGQA) by up to 10 points.</abstract>
       <pdf hash="e984bd97"/>
@@ -199,11 +199,11 @@
     <paper id="14">
       <!-- https://aclanthology.org/2024.alvr-1.14/ -->
       <title>Automatic Layout Planning for Visually-Rich Documents with Instruction-Following Models</title>
-      <author><first>Wanrong</first><last>Zhu</last></author>
-      <author><first>Ruiyi</first><last>Zhang</last><affiliation>Adobe Systems</affiliation></author>
-      <author><first>Jennifer</first><last>Healey</last><affiliation>Adobe Systems</affiliation></author>
-      <author><first>William Yang</first><last>Wang</last><affiliation>UC Santa Barbara</affiliation></author>
-      <author><first>Tong</first><last>Sun</last><affiliation>Adobe Systems</affiliation></author>
+      <author openreview="~Wanrong_Zhu1"><first>Wanrong</first><last>Zhu</last></author>
+      <author openreview="~Ruiyi_Zhang3"><first>Ruiyi</first><last>Zhang</last><affiliation>Adobe Systems</affiliation></author>
+      <author id="jennifer-healey" orcid="0000-0002-5700-4921" openreview="~Jennifer_Healey1"><first>Jennifer</first><last>Healey</last><affiliation>Adobe Systems</affiliation></author>
+      <author id="william-yang-wang" orcid="0000-0001-6938-0361" openreview="~William_Yang_Wang2"><first>William Yang</first><last>Wang</last><affiliation>UC Santa Barbara</affiliation></author>
+      <author id="tong-sun" orcid="0009-0007-5470-0167" openreview="~Tong_Sun1"><first>Tong</first><last>Sun</last><affiliation>Adobe Systems</affiliation></author>
       <pages>167-172</pages>
       <abstract>Recent advancements in instruction-following models have made user interactions with models more user-friendly and efficient, broadening their applicability. In graphic design, non-professional users often struggle to create visually appealing layouts due to limited skills and resources. In this work, we introduce a novel multimodal instruction-following framework for layout planning, allowing users to easily arrange visual elements into tailored layouts by specifying canvas size and design purpose, such as for book covers, posters, brochures, or menus. We developed three layout reasoning tasks to train the model in understanding and executing layout instructions. Experiments on two benchmarks show that our method not only simplifies the design process for non-professionals but also surpasses the performance of few-shot GPT-4V models, with mIoU higher by 12% on Crello. This progress highlights the potential of multimodal instruction-following models to automate and simplify the design process, providing an approachable solution for a wide range of design tasks on visually-rich documents.</abstract>
       <pdf hash="0f587c08"/>
@@ -213,10 +213,10 @@
     <paper id="15">
       <!-- https://aclanthology.org/2024.alvr-1.15/ -->
       <title><fixed-case>SEA</fixed-case>-<fixed-case>VQA</fixed-case>: <fixed-case>S</fixed-case>outheast <fixed-case>A</fixed-case>sian Cultural Context Dataset For Visual Question Answering</title>
-      <author><first>Norawit</first><last>Urailertprasert</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
-      <author><first>Peerat</first><last>Limkonchotiwat</last></author>
-      <author><first>Supasorn</first><last>Suwajanakorn</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
-      <author><first>Sarana</first><last>Nutanong</last></author>
+      <author openreview="~Norawit_Urailertprasert1"><first>Norawit</first><last>Urailertprasert</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author id="peerat-limkonchotiwat" orcid="0000-0002-7212-8228" openreview="~Peerat_Limkonchotiwat1"><first>Peerat</first><last>Limkonchotiwat</last></author>
+      <author openreview="~Supasorn_Suwajanakorn1"><first>Supasorn</first><last>Suwajanakorn</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author id="sarana-nutanong" orcid="0000-0003-1068-850X" openreview="~Sarana_Nutanong1"><first>Sarana</first><last>Nutanong</last></author>
       <pages>173-185</pages>
       <abstract>Visual Question Answering (VQA) is a critical task that requires the simultaneous understanding of visual and textual information. While significant advancements have been made with multilingual datasets, these often lack cultural specificity, especially in the context of Southeast Asia (SEA). In this paper, we introduce SEA-VQA aiming to highlight the challenges and gaps in existing VQA models when confronted with culturally specific content. Our dataset includes images from eight SEA countries, curated from the UNESCO Cultural Heritage collection. Our evaluation, comparing GPT-4 and GEMINI models, demonstrates substantial performance drops on culture-centric questions compared to the A-OKVQA dataset, a commonsense and world-knowledge VQA benchmark comprising approximately 25,000 questions. Our findings underscore the importance of cultural diversity in VQA datasets and reveal substantial gaps in the ability of current VQA models to handle culturally rich contexts. SEA-VQA serves as a crucial benchmark for identifying these gaps and guiding future improvements in VQA systems.</abstract>
       <pdf hash="b79546b2"/>
@@ -243,9 +243,9 @@
     <paper id="17">
       <!-- https://aclanthology.org/2024.alvr-1.17/ -->
       <title><fixed-case>V</fixed-case>erb<fixed-case>CLIP</fixed-case>: Improving Verb Understanding in Vision-Language Models with Compositional Structures</title>
-      <author><first>Hadi</first><last>Wazni</last></author>
-      <author id="kin-ian-lo" orcid="0000-0002-1300-396X"><first>Kin Ian</first><last>Lo</last><affiliation>University College London, University of London</affiliation></author>
-      <author id="mehrnoosh-sadrzadeh"><first>Mehrnoosh</first><last>Sadrzadeh</last><affiliation>University College London</affiliation></author>
+      <author openreview="~Hadi_Wazni1"><first>Hadi</first><last>Wazni</last></author>
+      <author id="kin-ian-lo" orcid="0000-0002-1300-396X" openreview="~Kin_Ian_Lo1"><first>Kin Ian</first><last>Lo</last><affiliation>University College London, University of London</affiliation></author>
+      <author id="mehrnoosh-sadrzadeh" openreview="~Mehrnoosh_Sadrzadeh2"><first>Mehrnoosh</first><last>Sadrzadeh</last><affiliation>University College London</affiliation></author>
       <pages>195-201</pages>
       <abstract>Verbs describe the dynamics of interactions between people, objects, and their environments. They play a crucial role in language formation and understanding. Nonetheless, recent vision-language models like CLIP predominantly rely on nouns and have a limited account of verbs. This limitation affects their performance in tasks requiring action recognition and scene understanding. In this work, we introduce VerbCLIP, a verb-centric vision-language model which learns meanings of verbs based on a compositional approach to statistical machine learning. Our methods significantly outperform CLIP in zero-shot performance on the VALSE, VL-Checklist, and SVO-Probes datasets, with improvements of +2.38%, +3.14%, and +1.47%, without fine-tuning. Fine-tuning resulted in further improvements, with gains of +2.85% and +9.2% on the VALSE and VL-Checklist datasets.</abstract>
       <pdf hash="a21f8202"/>

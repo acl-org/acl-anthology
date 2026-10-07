@@ -34,6 +34,7 @@ if TYPE_CHECKING:
     from _typeshed import StrPath
     from .anthology import Anthology
     from .collections import Volume
+    from .sigs import SIG
 
 
 VENUE_INDEX_FILE = "json/venues.json"
@@ -78,6 +79,8 @@ class Venue:
     # at the venue level; but journals are also marked on the individual
     # volumes.
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    # SIG–Venue associations are stored in SIGs, so this attribute is populated by SIG/SIGIndex
+    _sig_ids: set[str] = field(factory=set, converter=set, repr=False, eq=False)
 
     @property
     def root(self) -> Anthology:
@@ -103,6 +106,24 @@ class Venue:
                     f"Venue {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
             yield volume
+
+    def sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs normally associated with this venue, to be used as a hint at ingestion time.
+
+        Note:
+            This is only used as an aid during ingestion; these associations are _not_ propagated automatically to volumes (i.e. volumes belonging to this venue are not automatically associated with these SIGs, too).
+
+            To change the association of a venue to a SIG, modify [SIG.venue_ids][acl_anthology.sigs.SIG.venue_ids].
+        """
+        try:
+            return [self.root.sigs[sig] for sig in self._sig_ids]
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
+            )
+            raise exc
 
 
 @attach_custom_repr
@@ -192,6 +213,14 @@ class VenueIndex(SlottedDict[Venue]):
         """
         if self.no_item_ids:
             return
+        for sig_id, sig in self.parent.sigs.items():
+            for venue_id in sig.venue_ids:
+                try:
+                    self.data[venue_id]._sig_ids.add(sig_id)
+                except KeyError:  # pragma: no cover
+                    raise ValueError(
+                        f"SIG {sig.id} lists associated venue {venue_id}, which doesn't exist"
+                    )
         for volume in self.parent.volumes():
             for venue_id in volume.venue_ids:
                 try:
@@ -216,7 +245,7 @@ class VenueIndex(SlottedDict[Venue]):
             # Serialize everything except "id", "item_ids", "parent" and default values
             data[venue_id] = asdict(
                 venue,
-                filter=lambda a, v: a.name not in ("id", "item_ids", "parent")
+                filter=lambda a, v: a.name not in ("id", "item_ids", "parent", "_sig_ids")
                 and v != a.default,
             )
 

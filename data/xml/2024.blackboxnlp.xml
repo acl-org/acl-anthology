@@ -28,10 +28,10 @@
     <paper id="1">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.1/ -->
       <title>Optimal and efficient text counterfactuals using Graph Neural Networks</title>
-      <author id="dimitris-lymperopoulos" orcid="0009-0004-3312-8366"><first>Dimitris</first><last>Lymperopoulos</last><affiliation>National Technical University of Athens</affiliation></author>
-      <author id="maria-lymperaiou" orcid="0000-0001-9442-4186"><first>Maria</first><last>Lymperaiou</last></author>
-      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
-      <author><first>Giorgos</first><last>Stamou</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="dimitris-lymperopoulos" orcid="0009-0004-3312-8366" openreview="~Dimitris_Lymperopoulos1"><first>Dimitris</first><last>Lymperopoulos</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="maria-lymperaiou" orcid="0000-0001-9442-4186" openreview="~Maria_Lymperaiou1"><first>Maria</first><last>Lymperaiou</last></author>
+      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746" openreview="~Giorgos_Filandrianos1"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author openreview="~Giorgos_Stamou1"><first>Giorgos</first><last>Stamou</last><affiliation>National Technical University of Athens</affiliation></author>
       <pages>1-14</pages>
       <abstract>As NLP models become increasingly integral to decision-making processes, the need for explainability and interpretability has become paramount. In this work, we propose a framework that achieves the aforementioned by generating semantically edited inputs, known as counterfactual interventions, which change the model prediction, thus providing a form of counterfactual explanations for the model. We frame the search for optimal counterfactual interventions as a graph assignment problem and employ a GNN to solve it, thus achieving high efficiency. We test our framework on two NLP tasks - binary sentiment classification and topic classification - and show that the generated edits are contrastive, fluent and minimal, while the whole process remains significantly faster than other state-of-the-art counterfactual editors.</abstract>
       <pdf hash="87c7725b"/>
@@ -41,9 +41,9 @@
     <paper id="2">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.2/ -->
       <title>Routing in Sparsely-gated Language Models responds to Context</title>
-      <author><first>Stefan</first><last>Arnold</last></author>
-      <author><first>Marian</first><last>Fietta</last><affiliation>Friedrich-Alexander Universität Erlangen-Nürnberg</affiliation></author>
-      <author><first>Dilara</first><last>Yesilbas</last></author>
+      <author openreview="~Stefan_Arnold1"><first>Stefan</first><last>Arnold</last></author>
+      <author openreview="~Marian_Fietta1"><first>Marian</first><last>Fietta</last><affiliation>Friedrich-Alexander Universität Erlangen-Nürnberg</affiliation></author>
+      <author openreview="~Dilara_Yesilbas1"><first>Dilara</first><last>Yesilbas</last></author>
       <pages>15-22</pages>
       <abstract>Language Models (LMs) recently incorporate mixture-of-experts layers consisting of a router and a collection of experts to scale up their parameter count given a fixed computational budget. Building on previous efforts indicating that token-expert assignments are predominantly influenced by token identities and positions, we trace routing decisions of similarity-annotated text pairs to evaluate the context sensitivity of learned token-expert assignments. We observe that routing in encoder layers mainly depends on (semantic) associations, but contextual cues provide an additional layer of refinement. Conversely, routing in decoder layers is more variable and markedly less sensitive to context.</abstract>
       <pdf hash="799783ab"/>
@@ -53,8 +53,8 @@
     <paper id="3">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.3/ -->
       <title>Are there identifiable structural parts in the sentence embedding whole?</title>
-      <author id="vivi-nastase"><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
-      <author><first>Paola</first><last>Merlo</last><affiliation>Idiap Research Institute and University of Geneva, Switzerland</affiliation></author>
+      <author id="vivi-nastase" openreview="~Vivi_Nastase1"><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
+      <author openreview="~Paola_Merlo1"><first>Paola</first><last>Merlo</last><affiliation>Idiap Research Institute and University of Geneva, Switzerland</affiliation></author>
       <pages>23-42</pages>
       <abstract>Sentence embeddings from transformer models encode much linguistic information in a fixed-length vector. We investigate whether structural information – specifically, information about chunks and their structural and semantic properties – can be detected in these representations. We use a dataset consisting of sentences with known chunk structure, and two linguistic intelligence datasets, whose solution relies on detecting chunks and their grammatical number, and respectively, their semantic roles. Through an approach involving indirect supervision, and through analyses of the performance on the tasks and of the internal representations built during learning, we show that information about chunks and their properties can be obtained from sentence embeddings.</abstract>
       <pdf hash="1545d4d1"/>
@@ -66,8 +66,8 @@
     <paper id="4">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.4/ -->
       <title>Learning, Forgetting, Remembering: Insights From Tracking <fixed-case>LLM</fixed-case> Memorization During Training</title>
-      <author><first>Danny D.</first><last>Leybzon</last></author>
-      <author><first>Corentin</first><last>Kervadec</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
+      <author openreview="~Danny_D._Leybzon1"><first>Danny D.</first><last>Leybzon</last></author>
+      <author openreview="~Corentin_Kervadec2"><first>Corentin</first><last>Kervadec</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
       <pages>43-57</pages>
       <abstract>Large language models memorize portions of their training data verbatim. Our findings indicate that models exhibit higher memorization rates both early on and at the very end of their training, with the lowest rates occurring midway through the process. This phenomenon can be attributed to the models retaining most of the examples memorized early on, while forgetting many more examples as training progresses. Interestingly, these forgotten examples are sometimes re-memorized later on, often undergoing cycles of forgetting and re-memorization. Notably, examples memorized early in training are more likely to remain consistently retained, suggesting that they become more firmly ’crystallized’ in the model’s representation. Based on these insights, we tentatively recommend placing data that is more likely to be sensitive in the middle stages of the training process.</abstract>
       <pdf hash="090002df"/>
@@ -90,13 +90,13 @@
     <paper id="6">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.6/ -->
       <title><fixed-case>LLM</fixed-case> Internal States Reveal Hallucination Risk Faced With a Query</title>
-      <author id="ziwei-ji" orcid="0000-0002-0206-7861"><first>Ziwei</first><last>Ji</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
-      <author><first>Delong</first><last>Chen</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
-      <author id="etsuko-ishii" orcid="0000-0002-6423-539X"><first>Etsuko</first><last>Ishii</last><affiliation>Amazon</affiliation></author>
-      <author id="samuel-cahyawijaya" orcid="0000-0002-9891-1608"><first>Samuel</first><last>Cahyawijaya</last></author>
-      <author><first>Yejin</first><last>Bang</last></author>
-      <author id="bryan-wilie" orcid="0000-0001-6750-4236"><first>Bryan</first><last>Wilie</last></author>
-      <author><first>Pascale</first><last>Fung</last><affiliation>HKUST</affiliation></author>
+      <author id="ziwei-ji" orcid="0000-0002-0206-7861" openreview="~Ziwei_Ji2"><first>Ziwei</first><last>Ji</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author id="delong-chen" orcid="0000-0002-8172-2894" openreview="~Delong_Chen1"><first>Delong</first><last>Chen</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author id="etsuko-ishii" orcid="0000-0002-6423-539X" openreview="~Etsuko_Ishii1"><first>Etsuko</first><last>Ishii</last><affiliation>Amazon</affiliation></author>
+      <author id="samuel-cahyawijaya" orcid="0000-0002-9891-1608" openreview="~Samuel_Cahyawijaya1"><first>Samuel</first><last>Cahyawijaya</last></author>
+      <author openreview="~Yejin_Bang1"><first>Yejin</first><last>Bang</last></author>
+      <author id="bryan-wilie" orcid="0000-0001-6750-4236" openreview="~Bryan_Wilie1"><first>Bryan</first><last>Wilie</last></author>
+      <author openreview="~Pascale_Fung1"><first>Pascale</first><last>Fung</last><affiliation>HKUST</affiliation></author>
       <pages>88-104</pages>
       <abstract>The hallucination problem of Large Language Models (LLMs) significantly limits their reliability and trustworthiness. Humans have a self-awareness process that allows us to recognize what we don’t know when faced with queries. Inspired by this, our paper investigates whether LLMs can estimate their own hallucination risk before response generation. We analyze the internal mechanisms of LLMs broadly both in terms of training data sources and across 15 diverse Natural Language Generation (NLG) tasks, spanning over 700 datasets. Our empirical analysis reveals two key insights: (1) LLM internal states indicate whether they have seen the query in training data or not; and (2) LLM internal states show they are likely to hallucinate or not regarding the query. Our study explores particular neurons, activation layers, and tokens that play a crucial role in the LLM perception of uncertainty and hallucination risk. By a probing estimator, we leverage LLM self-assessment, achieving an average hallucination estimation accuracy of 84.32% at run time.</abstract>
       <pdf hash="66d6f28c"/>
@@ -106,10 +106,10 @@
     <paper id="7">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.7/ -->
       <title>Enhancing adversarial robustness in Natural Language Inference using explanations</title>
-      <author><first>Alexandros</first><last>Koulakos</last></author>
-      <author id="maria-lymperaiou" orcid="0000-0001-9442-4186"><first>Maria</first><last>Lymperaiou</last></author>
-      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
-      <author><first>Giorgos</first><last>Stamou</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author openreview="~Alexandros_Koulakos1"><first>Alexandros</first><last>Koulakos</last></author>
+      <author id="maria-lymperaiou" orcid="0000-0001-9442-4186" openreview="~Maria_Lymperaiou1"><first>Maria</first><last>Lymperaiou</last></author>
+      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746" openreview="~Giorgos_Filandrianos1"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author openreview="~Giorgos_Stamou1"><first>Giorgos</first><last>Stamou</last><affiliation>National Technical University of Athens</affiliation></author>
       <pages>105-117</pages>
       <abstract>The surge of state-of-the-art transformer-based models has undoubtedly pushed the limits of NLP model performance, excelling in a variety of tasks. We cast the spotlight on the underexplored task of Natural Language Inference (NLI), since models trained on popular well-suited datasets are susceptible to adversarial attacks, allowing subtle input interventions to mislead the model. In this work, we validate the usage of natural language explanation as a model-agnostic defence strategy through extensive experimentation: only by fine-tuning a classifier on the explanation rather than premise-hypothesis inputs, robustness under various adversarial attacks is achieved in comparison to explanation-free baselines. Moreover, since there is no standard strategy for testing the semantic validity of the generated explanations, we research the correlation of widely used language generation metrics with human perception, in order for them to serve as a proxy towards robust NLI models. Our approach is resource-efficient and reproducible without significant computational limitations.</abstract>
       <pdf hash="fbba30f0"/>
@@ -119,10 +119,10 @@
     <paper id="8">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.8/ -->
       <title><fixed-case>M</fixed-case>ulti<fixed-case>C</fixed-case>ontrievers: Analysis of Dense Retrieval Representations</title>
-      <author><first>Seraphina</first><last>Goldfarb-Tarrant</last></author>
-      <author><first>Pedro</first><last>Rodriguez</last><affiliation>Meta FAIR</affiliation></author>
-      <author><first>Jane</first><last>Dwivedi-Yu</last><affiliation>Meta AI</affiliation></author>
-      <author id="patrick-lewis" orcid="0000-0002-2192-9543"><first>Patrick</first><last>Lewis</last></author>
+      <author id="seraphina-goldfarb-tarrant" orcid="0009-0001-5102-4972" openreview="~Seraphina_Goldfarb-Tarrant1"><first>Seraphina</first><last>Goldfarb-Tarrant</last></author>
+      <author openreview="~Pedro_Rodriguez1"><first>Pedro</first><last>Rodriguez</last><affiliation>Meta FAIR</affiliation></author>
+      <author openreview="~Jane_Dwivedi-Yu1"><first>Jane</first><last>Dwivedi-Yu</last><affiliation>Meta AI</affiliation></author>
+      <author id="patrick-lewis" orcid="0000-0002-2192-9543" openreview="~Patrick_Lewis2"><first>Patrick</first><last>Lewis</last></author>
       <pages>118-139</pages>
       <abstract>Dense retrievers compress source documents into (possibly lossy) vector representations, yet there is little analysis of what information is lost versus preserved, and how it affects downstream tasks. We conduct the first analysis of the information captured by dense retrievers compared to the language models they are based on (e.g., BERT versus Contriever). We use 25 MultiBert checkpoints as randomized initialisations to train MultiContrievers, a set of 25 contriever models. We test whether specific pieces of information—such as genderand occupation—can be extracted from contriever vectors of wikipedia-like documents. We measure this extractability via information theoretic probing. We then examine the relationship of extractability to performance and gender bias, as well as the sensitivity of these results to many random initialisations and data shuffles. We find that (1) contriever models have significantly increased extractability, but extractability usually correlates poorly with benchmark performance 2) gender bias is present, but is not caused by the contriever representations 3) there is high sensitivity to both random initialisation and to data shuffle, suggesting that future retrieval research should test across a wider spread of both.</abstract>
       <pdf hash="be145a35"/>
@@ -132,13 +132,13 @@
     <paper id="9">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.9/ -->
       <title>Can We Statically Locate Knowledge in Large Language Models? Financial Domain and Toxicity Reduction Case Studies</title>
-      <author id="jordi-armengol-estape" orcid="0000-0001-8893-6185"><first>Jordi</first><last>Armengol-Estapé</last><affiliation>University of Edinburgh</affiliation></author>
-      <author><first>Lingyu</first><last>Li</last><affiliation>Bloomberg</affiliation></author>
-      <author><first>Sebastian</first><last>Gehrmann</last><affiliation>Bloomberg</affiliation></author>
-      <author><first>Achintya</first><last>Gopal</last></author>
-      <author id="david-s-rosenberg" orcid="0000-0002-4593-9340"><first>David S</first><last>Rosenberg</last><affiliation>Bloomberg</affiliation></author>
-      <author id="gideon-mann"><first>Gideon S.</first><last>Mann</last></author>
-      <author id="mark-dredze" orcid="0000-0002-0422-2474"><first>Mark</first><last>Dredze</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
+      <author id="jordi-armengol-estape" orcid="0000-0001-8893-6185" openreview="~Jordi_Armengol-Estapé1"><first>Jordi</first><last>Armengol-Estapé</last><affiliation>University of Edinburgh</affiliation></author>
+      <author openreview="~Lingyu_Li1"><first>Lingyu</first><last>Li</last><affiliation>Bloomberg</affiliation></author>
+      <author id="sebastian-gehrmann" orcid="0000-0002-8257-9516" openreview="~Sebastian_Gehrmann1"><first>Sebastian</first><last>Gehrmann</last><affiliation>Bloomberg</affiliation></author>
+      <author openreview="~Achintya_Gopal1"><first>Achintya</first><last>Gopal</last></author>
+      <author id="david-s-rosenberg" orcid="0000-0002-4593-9340" openreview="~David_S_Rosenberg1"><first>David S</first><last>Rosenberg</last><affiliation>Bloomberg</affiliation></author>
+      <author id="gideon-mann" openreview="~Gideon_S._Mann1"><first>Gideon S.</first><last>Mann</last></author>
+      <author id="mark-dredze" orcid="0000-0002-0422-2474" openreview="~Mark_Dredze1"><first>Mark</first><last>Dredze</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
       <pages>140-176</pages>
       <abstract>Current large language model (LLM) evaluations rely on benchmarks to assess model capabilities and their encoded knowledge. However, these evaluations cannot reveal where a model encodes its knowledge, and thus little is known about which weights contain specific information. We propose a method to statically (without forward or backward passes) locate topical knowledge in the weight space of an LLM, building on a prior insight that parameters can be decoded into interpretable tokens. If parameters can be mapped into the embedding space, it should be possible to directly search for knowledge via embedding similarity. We study the validity of this assumption across several LLMs for a variety of concepts in the financial domain and a toxicity detection setup. Our analysis yields an improved understanding of the promises and limitations of static knowledge location in real-world scenarios.</abstract>
       <pdf hash="8c3b7582"/>
@@ -148,8 +148,8 @@
     <paper id="10">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.10/ -->
       <title>Attend First, Consolidate Later: On the Importance of Attention in Different <fixed-case>LLM</fixed-case> Layers</title>
-      <author><first>Amit Ben</first><last>Artzy</last></author>
-      <author><first>Roy</first><last>Schwartz</last><affiliation>Hebrew University, Hebrew University of Jerusalem</affiliation></author>
+      <author id="amit-ben-artzy" orcid="0009-0004-2365-4100" openreview="~Amit_Ben_Artzy1"><first>Amit Ben</first><last>Artzy</last></author>
+      <author id="roy-schwartz" orcid="0000-0002-5351-6209" openreview="~Roy_Schwartz1"><first>Roy</first><last>Schwartz</last><affiliation>Hebrew University, Hebrew University of Jerusalem</affiliation></author>
       <pages>177-184</pages>
       <abstract>In decoder-based LLMs, the representation of a given layer serves two purposes: as input to the next layer during the computation of the current token; and as input to the attention mechanism of future tokens. In this work, we show that the importance of the latter role might be overestimated. To show that, we start by manipulating the representations of previous tokens; e.g. by replacing the hidden states at some layer <tex-math>k</tex-math> with random vectors.Our experimenting with four LLMs and four tasks show that this operation often leads to small to negligible drop in performance. Importantly, this happens if the manipulation occurs in the top part of the model—<tex-math>k</tex-math> is in the final 30–50% of the layers. In contrast, doing the same manipulation in earlier layers might lead to chance level performance.We continue by switching the hidden state of certain tokens with hidden states of other tokens from another prompt; e.g., replacing the word “Italy” with “France” in “What is the capital of Italy?”. We find that when applying this switch in the top 1/3 of the model, the model ignores it (answering “Rome”). However if we apply it before, the model conforms to the switch (“Paris”).Our results hint at a two stage process in transformer-based LLMs: the first part gathers input from previous tokens, while the second mainly processes that information internally.</abstract>
       <pdf hash="72085541"/>
@@ -159,12 +159,12 @@
     <paper id="11">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.11/ -->
       <title>Enhancing Question Answering on Charts Through Effective Pre-training Tasks</title>
-      <author><first>Ashim</first><last>Gupta</last></author>
-      <author><first>Vivek</first><last>Gupta</last><affiliation>Arizona State University</affiliation></author>
-      <author id="shuo-zhang" orcid="0000-0003-3179-4125"><first>Shuo</first><last>Zhang</last></author>
-      <author><first>Yujie</first><last>He</last><affiliation>Bloomberg L.P.</affiliation></author>
+      <author openreview="~Ashim_Gupta1"><first>Ashim</first><last>Gupta</last></author>
+      <author id="vivek-gupta" orcid="0009-0008-7634-4746" openreview="~Vivek_Gupta2"><first>Vivek</first><last>Gupta</last><affiliation>Arizona State University</affiliation></author>
+      <author id="shuo-zhang" orcid="0000-0003-3179-4125" openreview="~Shuo_Zhang1"><first>Shuo</first><last>Zhang</last></author>
+      <author openreview="~Yujie_He1"><first>Yujie</first><last>He</last><affiliation>Bloomberg L.P.</affiliation></author>
       <author><first>Ning</first><last>Zhang</last><affiliation>Bloomberg</affiliation></author>
-      <author><first>Shalin</first><last>Shah</last><affiliation>Bloomberg</affiliation></author>
+      <author openreview="~Shalin_Shah3"><first>Shalin</first><last>Shah</last><affiliation>Bloomberg</affiliation></author>
       <pages>185-192</pages>
       <abstract>To completely understand a document, the use of textual information is not enough. Understanding visual cues, such as layouts and charts, is also required. While the current state-of-the-art approaches for document understanding (both OCR-based and OCR-free) work well, a thorough analysis of their capabilities and limitations has not yet been performed. Therefore, in this work, we addresses the limitation of current VisualQA models when applied to charts and plots. To investigate shortcomings of the state-of-the-art models, we conduct a comprehensive behavioral analysis, using ChartQA as a case study. Our findings indicate that existing models particularly underperform in answering questions related to the chart’s structural and visual context, as well as numerical information. To address these issues, we propose three simple pre-training tasks that enforce the existing model in terms of both structural-visual knowledge, as well as its understanding of numerical questions. We evaluate our pre-trained model (called MatCha-v2) on three chart datasets - both extractive and abstractive question datasets - and observe that it achieves an average improvement of 1.7 % over the baseline model.</abstract>
       <pdf hash="607c97d7"/>
@@ -174,8 +174,8 @@
     <paper id="12">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.12/ -->
       <title>Faithfulness and the Notion of Adversarial Sensitivity in <fixed-case>NLP</fixed-case> Explanations</title>
-      <author><first>Supriya</first><last>Manna</last></author>
-      <author><first>Niladri</first><last>Sett</last><affiliation>SRM University</affiliation></author>
+      <author openreview="~Supriya_Manna1"><first>Supriya</first><last>Manna</last></author>
+      <author id="niladri-sett" orcid="0000-0002-4505-0090" openreview="~Niladri_Sett1"><first>Niladri</first><last>Sett</last><affiliation>SRM University</affiliation></author>
       <pages>193-206</pages>
       <abstract>Faithfulness is arguably the most critical metric to assess the reliability of explainable AI. In NLP, current methods for faithfulness evaluation are fraught with discrepancies and biases, often failing to capture the true reasoning of models. We introduce Adversarial Sensitivity as a novel approach to faithfulness evaluation, focusing on the explainer’s response when the model is under adversarial attack. Our method accounts for the faithfulness of explainers by capturing sensitivity to adversarial input changes. This work addresses significant limitations in existing evaluation techniques, and furthermore, quantifies faithfulness from a crucial yet underexplored paradigm.</abstract>
       <pdf hash="e8a96f75"/>
@@ -185,10 +185,10 @@
     <paper id="13">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.13/ -->
       <title>Transformers Learn Transition Dynamics when Trained to Predict <fixed-case>M</fixed-case>arkov Decision Processes</title>
-      <author><first>Yuxi</first><last>Chen</last></author>
-      <author><first>Suwei</first><last>Ma</last></author>
-      <author id="tony-dear" orcid="0000-0001-5780-3240"><first>Tony</first><last>Dear</last><affiliation>Columbia University</affiliation></author>
-      <author id="xu-chen-147x" orcid="0000-0002-7073-147X"><first>Xu</first><last>Chen</last></author>
+      <author openreview="~Yuxi_Chen2"><first>Yuxi</first><last>Chen</last></author>
+      <author openreview="~Suwei_Ma1"><first>Suwei</first><last>Ma</last></author>
+      <author id="tony-dear" orcid="0000-0001-5780-3240" openreview="~Tony_Dear1"><first>Tony</first><last>Dear</last><affiliation>Columbia University</affiliation></author>
+      <author id="xu-chen-147x" orcid="0000-0002-7073-147X" openreview="~Xu_Chen33"><first>Xu</first><last>Chen</last></author>
       <pages>207-216</pages>
       <abstract>Language models have displayed a wide array of capabilities, but the reason for their performance remains a topic of heated debate and investigation. Do these models simply recite the observed training data, or are they able to abstract away surface statistics and learn the underlying processes from which the data was generated? To investigate this question, we explore the capabilities of a GPT model in the context of Markov Decision Processes (MDPs), where the underlying transition dynamics and policies are not directly observed. The model is trained to predict the next state or action without any initial knowledge of the MDPs or the players’ policies. Despite this, we present evidence that the model develops emergent representations of the underlying parameters governing the MDPs.</abstract>
       <pdf hash="d9385db1"/>
@@ -210,10 +210,10 @@
     <paper id="15">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.15/ -->
       <title>An Adversarial Example for Direct Logit Attribution: Memory Management in <fixed-case>GELU</fixed-case>-4<fixed-case>L</fixed-case></title>
-      <author><first>Jett</first><last>Janiak</last><affiliation>AI Safety Camp</affiliation></author>
-      <author><first>Can</first><last>Rager</last></author>
-      <author id="james-dao" orcid="0000-0003-2596-9531"><first>James</first><last>Dao</last></author>
-      <author><first>Yeu-Tong</first><last>Lau</last></author>
+      <author openreview="~Jett_Janiak1"><first>Jett</first><last>Janiak</last><affiliation>AI Safety Camp</affiliation></author>
+      <author id="can-rager" orcid="0009-0009-9664-6618" openreview="~Can_Rager1"><first>Can</first><last>Rager</last></author>
+      <author id="james-dao" orcid="0000-0003-2596-9531" openreview="~James_Dao1"><first>James</first><last>Dao</last></author>
+      <author openreview="~Yeu-Tong_Lau1"><first>Yeu-Tong</first><last>Lau</last></author>
       <pages>232-237</pages>
       <abstract>Prior work suggests that language models manage the limited bandwidth of the residual stream through a “memory management” mechanism, where certain attention heads and MLP layers clear residual stream directions set by earlier layers. Our study provides concrete evidence for this erasure phenomenon in a 4-layer transformer, identifying heads that consistently remove the output of earlier heads. We further demonstrate that direct logit attribution (DLA), a common technique for interpreting the output of intermediate transformer layers, can show misleading results by not accounting for erasure.</abstract>
       <pdf hash="16c50e3c"/>
@@ -223,9 +223,9 @@
     <paper id="16">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.16/ -->
       <title>Uncovering Syllable Constituents in the Self-Attention-Based Speech Representations of Whisper</title>
-      <author id="erfan-a-shams" orcid="0000-0002-2283-559X"><first>Erfan</first><last>A Shams</last><affiliation>University College Dublin</affiliation></author>
-      <author id="iona-gessinger" orcid="0000-0001-5333-9794"><first>Iona</first><last>Gessinger</last></author>
-      <author id="julie-carson-berndsen" orcid="0000-0002-1851-3643"><first>Julie</first><last>Carson-Berndsen</last><affiliation>University College Dublin</affiliation></author>
+      <author id="erfan-a-shams" orcid="0000-0002-2283-559X" openreview="~Erfan_A_Shams1"><first>Erfan</first><last>A Shams</last><affiliation>University College Dublin</affiliation></author>
+      <author id="iona-gessinger" orcid="0000-0001-5333-9794" openreview="~Iona_Gessinger1"><first>Iona</first><last>Gessinger</last></author>
+      <author id="julie-carson-berndsen" orcid="0000-0002-1851-3643" openreview="~Julie_Carson-Berndsen1"><first>Julie</first><last>Carson-Berndsen</last><affiliation>University College Dublin</affiliation></author>
       <pages>238-247</pages>
       <abstract>As intuitive units of speech, syllables have been widely studied in linguistics. A syllable can be defined as a three-constituent unit with a vocalic centre surrounded by two (in some languages optional) consonant clusters. Syllables are also used to design automatic speech recognition (ASR) models. The significance of knowledge-driven syllable-based tokenisation in ASR over data-driven byte-pair encoding has often been debated. However, the emergence of transformer-based ASR models employing self-attention (SA) overshadowed this debate. These models learn the nuances of speech from large corpora without prior knowledge of the domain; yet, they are not interpretable by design. Consequently, it is not clear if the recent performance improvements are related to the extraction of human-interpretable knowledge. We probe such models for syllable constituents and use an SA head pruning method to assess the relevance of the SA weights. We also investigate the role of vowel identification in syllable constituent probing. Our findings show that the general features of syllable constituents are extracted in the earlier layers of the model and the syllable-related features mostly depend on the temporal knowledge incorporated in specific SA heads rather than on vowel identification.</abstract>
       <pdf hash="631a5569"/>
@@ -235,10 +235,10 @@
     <paper id="17">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.17/ -->
       <title>Recurrent Neural Networks Learn to Store and Generate Sequences using Non-Linear Representations</title>
-      <author><first>Róbert</first><last>Csordás</last><affiliation>Stanford University</affiliation></author>
-      <author id="christopher-potts" orcid="0000-0002-7978-6055"><first>Christopher</first><last>Potts</last><affiliation>Stanford University</affiliation></author>
-      <author id="christopher-d-manning" orcid="0000-0001-6155-649X"><first>Christopher D</first><last>Manning</last><affiliation>Computer Science Department, Stanford University</affiliation></author>
-      <author><first>Atticus</first><last>Geiger</last><affiliation>Pr(Ai)²R Group</affiliation></author>
+      <author openreview="~Róbert_Csordás1"><first>Róbert</first><last>Csordás</last><affiliation>Stanford University</affiliation></author>
+      <author id="christopher-potts" orcid="0000-0002-7978-6055" openreview="~Christopher_Potts1"><first>Christopher</first><last>Potts</last><affiliation>Stanford University</affiliation></author>
+      <author id="christopher-d-manning" orcid="0000-0001-6155-649X" openreview="~Christopher_D_Manning1"><first>Christopher D</first><last>Manning</last><affiliation>Computer Science Department, Stanford University</affiliation></author>
+      <author id="atticus-geiger" orcid="0000-0002-9170-506X" openreview="~Atticus_Geiger1"><first>Atticus</first><last>Geiger</last><affiliation>Pr(Ai)²R Group</affiliation></author>
       <pages>248-262</pages>
       <abstract>The Linear Representation Hypothesis (LRH) states that neural networks learn to encode concepts as directions in activation space, and a strong version of the LRH states that models learn only such encodings. In this paper, we present a counterexample to this strong LRH: when trained to repeat an input token sequence, gated recurrent neural networks (RNNs) learn to represent the token at each position with a particular order of magnitude, rather than a direction. These representations have layered features that are impossible to locate in distinct linear subspaces. To show this, we train interventions to predict and manipulate tokens by learning the scaling factor corresponding to each sequence position. These interventions indicate that the smallest RNNs find only this magnitude-based solution, while larger RNNs have linear representations. These findings strongly indicate that interpretability research should not be confined by the LRH.</abstract>
       <pdf hash="06d97eec"/>
@@ -248,11 +248,11 @@
     <paper id="18">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.18/ -->
       <title>Log Probabilities Are a Reliable Estimate of Semantic Plausibility in Base and Instruction-Tuned Language Models</title>
-      <author id="carina-kauf" orcid="0000-0002-2718-1978"><first>Carina</first><last>Kauf</last></author>
-      <author id="emmanuele-chersoni" orcid="0000-0001-8742-0451"><first>Emmanuele</first><last>Chersoni</last><affiliation>The Hong Kong Polytechnic University</affiliation></author>
-      <author id="alessandro-lenci" orcid="0000-0001-5790-4308"><first>Alessandro</first><last>Lenci</last><affiliation>University of Pisa</affiliation></author>
-      <author><first>Evelina</first><last>Fedorenko</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author id="anna-a-ivanova" orcid="0000-0002-1184-8299"><first>Anna A</first><last>Ivanova</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author id="carina-kauf" orcid="0000-0002-2718-1978" openreview="~Carina_Kauf1"><first>Carina</first><last>Kauf</last></author>
+      <author id="emmanuele-chersoni" orcid="0000-0001-8742-0451" openreview="~Emmanuele_Chersoni2"><first>Emmanuele</first><last>Chersoni</last><affiliation>The Hong Kong Polytechnic University</affiliation></author>
+      <author id="alessandro-lenci" orcid="0000-0001-5790-4308" openreview="~Alessandro_Lenci2"><first>Alessandro</first><last>Lenci</last><affiliation>University of Pisa</affiliation></author>
+      <author id="evelina-fedorenko" orcid="0000-0003-3823-514X" openreview="~Evelina_Fedorenko1"><first>Evelina</first><last>Fedorenko</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="anna-a-ivanova" orcid="0000-0002-1184-8299" openreview="~Anna_A_Ivanova1"><first>Anna A</first><last>Ivanova</last><affiliation>Georgia Institute of Technology</affiliation></author>
       <pages>263-277</pages>
       <abstract>Semantic plausibility (e.g. knowing that “the actor won the award” is more likely than “the actor won the battle”) serves as an effective proxy for general world knowledge. Language models (LMs) capture vast amounts of world knowledge by learning distributional patterns in text, accessible via log probabilities (LogProbs) they assign to plausible vs. implausible outputs. The new generation of instruction-tuned LMs can now also provide explicit estimates of plausibility via prompting. Here, we evaluate the effectiveness of LogProbs and basic prompting to measure semantic plausibility, both in single-sentence minimal pairs (Experiment 1) and short context-dependent scenarios (Experiment 2). We find that (i) in both base and instruction-tuned LMs, LogProbs offers a more reliable measure of semantic plausibility than direct zero-shot prompting, which yields inconsistent and often poor results; (ii) instruction-tuning generally does not alter the sensitivity of LogProbs to semantic plausibility (although sometimes decreases it); (iii) across models, context mostly modulates LogProbs in expected ways, as measured by three novel metrics of context-sensitive plausibility and their match to explicit human plausibility judgments. We conclude that, even in the era of prompt-based evaluations, LogProbs constitute a useful metric of semantic plausibility, both in base and instruction-tuned LMs.</abstract>
       <pdf hash="21fc08d3"/>
@@ -262,16 +262,16 @@
     <paper id="19">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.19/ -->
       <title>Gemma Scope: Open Sparse Autoencoders Everywhere All At Once on Gemma 2</title>
-      <author><first>Tom</first><last>Lieberum</last><affiliation>Google</affiliation></author>
-      <author><first>Senthooran</first><last>Rajamanoharan</last><affiliation>Google DeepMind</affiliation></author>
-      <author><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
-      <author><first>Lewis</first><last>Smith</last><affiliation>Google</affiliation></author>
-      <author><first>Nicolas</first><last>Sonnerat</last><affiliation>DeepMind</affiliation></author>
-      <author><first>Vikrant</first><last>Varma</last><affiliation>Google DeepMind</affiliation></author>
-      <author><first>Janos</first><last>Kramar</last><affiliation>DeepMind</affiliation></author>
-      <author><first>Anca</first><last>Dragan</last><affiliation>University of California Berkeley</affiliation></author>
-      <author><first>Rohin</first><last>Shah</last><affiliation>DeepMind</affiliation></author>
-      <author><first>Neel</first><last>Nanda</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Tom_Lieberum2"><first>Tom</first><last>Lieberum</last><affiliation>Google</affiliation></author>
+      <author openreview="~Senthooran_Rajamanoharan1"><first>Senthooran</first><last>Rajamanoharan</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Arthur_Conmy1"><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Lewis_Smith3"><first>Lewis</first><last>Smith</last><affiliation>Google</affiliation></author>
+      <author openreview="~Nicolas_Sonnerat1"><first>Nicolas</first><last>Sonnerat</last><affiliation>DeepMind</affiliation></author>
+      <author openreview="~Vikrant_Varma1"><first>Vikrant</first><last>Varma</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Janos_Kramar1"><first>Janos</first><last>Kramar</last><affiliation>DeepMind</affiliation></author>
+      <author openreview="~Anca_Dragan1"><first>Anca</first><last>Dragan</last><affiliation>University of California Berkeley</affiliation></author>
+      <author openreview="~Rohin_Shah1"><first>Rohin</first><last>Shah</last><affiliation>DeepMind</affiliation></author>
+      <author openreview="~Neel_Nanda1"><first>Neel</first><last>Nanda</last><affiliation>Google DeepMind</affiliation></author>
       <pages>278-300</pages>
       <abstract>Sparse autoencoders (SAEs) are an unsupervised method for learning a sparse decomposition of a neural network’s latent representations into seemingly interpretable features.Despite recent excitement about their potential, research applications outside of industry are limited by the high cost of training a comprehensive suite of SAEs.In this work, we introduce Gemma Scope, an open suite of JumpReLU SAEs trained on all layers and sub-layers of Gemma 2 2B and 9B and select layers of Gemma 2 27B base models.We primarily train SAEs on the Gemma 2 pre-trained models, but additionally release SAEs trained on instruction-tuned Gemma 2 9B for comparison.We evaluate the quality of each SAE on standard metrics and release these results.We hope that by releasing these SAE weights, we can help make more ambitious safety and interpretability research easier for the community. Weights and a tutorial can be found at <url>https://huggingface.co/google/gemma-scope</url> and an interactive demo can be found at <url>https://neuronpedia.org/gemma-scope</url>.</abstract>
       <pdf hash="75eb68f9"/>
@@ -281,9 +281,9 @@
     <paper id="20">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.20/ -->
       <title>Self-Assessment Tests are Unreliable Measures of <fixed-case>LLM</fixed-case> Personality</title>
-      <author><first>Akshat</first><last>Gupta</last><affiliation>University of California, Berkeley</affiliation></author>
-      <author><first>Xiaoyang</first><last>Song</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
-      <author><first>Gopala</first><last>Anumanchipalli</last><affiliation>University of California, Berkeley</affiliation></author>
+      <author openreview="~Akshat_Gupta1"><first>Akshat</first><last>Gupta</last><affiliation>University of California, Berkeley</affiliation></author>
+      <author openreview="~Xiaoyang_Song1"><first>Xiaoyang</first><last>Song</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author id="gopala-anumanchipalli" orcid="0000-0002-9714-7740" openreview="~Gopala_Anumanchipalli1"><first>Gopala</first><last>Anumanchipalli</last><affiliation>University of California, Berkeley</affiliation></author>
       <pages>301-314</pages>
       <abstract>As large language models (LLM) evolve in their capabilities, various recent studies have tried to quantify their behavior using psychological tools created to study human behavior. One such example is the measurement of “personality” of LLMs using self-assessment personality tests developed to measure human personality. Yet almost none of these works verify the applicability of these tests on LLMs. In this paper, we analyze the reliability of LLM personality scores obtained from self-assessment personality tests using two simple experiments. We first introduce the property of <i>prompt sensitivity</i>, where three semantically equivalent prompts representing three intuitive ways of administering self-assessment tests on LLMs are used to measure the personality of the same LLM. We find that all three prompts lead to very different personality scores, a difference that is statistically significant for all traits in a large majority of scenarios. We then introduce the property of <i>option-order symmetry</i> for personality measurement of LLMs. Since most of the self-assessment tests exist in the form of multiple choice question (MCQ) questions, we argue that the scores should also be robust to not just the prompt template but also the order in which the options are presented. This test unsurprisingly reveals that the self-assessment test scores are not robust to the order of the options. These simple tests, done on ChatGPT and three Llama2 models of different sizes, show that self-assessment personality tests created for humans are unreliable measures of personality in LLMs.</abstract>
       <pdf hash="91303c89"/>
@@ -293,9 +293,9 @@
     <paper id="21">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.21/ -->
       <title>How Language Models Prioritize Contextual Grammatical Cues?</title>
-      <author><first>Hamidreza</first><last>Amirzadeh</last></author>
-      <author><first>Afra</first><last>Alishahi</last><affiliation>Tilburg University</affiliation></author>
-      <author id="hosein-mohebbi" orcid="0000-0001-8184-7825"><first>Hosein</first><last>Mohebbi</last></author>
+      <author openreview="~Hamidreza_Amirzadeh1"><first>Hamidreza</first><last>Amirzadeh</last></author>
+      <author id="afra-alishahi" orcid="0009-0009-9237-3253" openreview="~Afra_Alishahi2"><first>Afra</first><last>Alishahi</last><affiliation>Tilburg University</affiliation></author>
+      <author id="hosein-mohebbi" orcid="0000-0001-8184-7825" openreview="~Hosein_Mohebbi1"><first>Hosein</first><last>Mohebbi</last></author>
       <pages>315-336</pages>
       <abstract>Transformer-based language models have shown an excellent ability to effectively capture and utilize contextual information. Although various analysis techniques have been used to quantify and trace the contribution of single contextual cues to a target task such as subject-verb agreement or coreference resolution, scenarios in which multiple relevant cues are available in the context remain underexplored.In this paper, we investigate how language models handle gender agreement when multiple gender cue words are present, each capable of independently disambiguating a target gender pronoun. We analyze two widely used Transformer-based models: BERT, an encoder-based, and GPT-2, a decoder-based model.Our analysis employs two complementary approaches: context mixing analysis, which tracks information flow within the model, and a variant of activation patching, which measures the impact of cues on the model’s prediction. We find that BERT tends to prioritize the first cue in the context to form both the target word representations and the model’s prediction, while GPT-2 relies more on the final cue. Our findings reveal striking differences in how encoder-based and decoder-based models prioritize and use contextual information for their predictions.</abstract>
       <pdf hash="f475a580"/>
@@ -305,11 +305,11 @@
     <paper id="22">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.22/ -->
       <title>Copy Suppression: Comprehensively Understanding a Motif in Language Model Attention Heads</title>
-      <author><first>Callum Stuart</first><last>McDougall</last></author>
-      <author><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
-      <author><first>Cody</first><last>Rushing</last><affiliation>University of Texas at Austin</affiliation></author>
-      <author><first>Thomas</first><last>McGrath</last><affiliation>Google</affiliation></author>
-      <author><first>Neel</first><last>Nanda</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Callum_Stuart_McDougall1"><first>Callum Stuart</first><last>McDougall</last></author>
+      <author openreview="~Arthur_Conmy1"><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Cody_Rushing1"><first>Cody</first><last>Rushing</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author openreview="~Thomas_McGrath1"><first>Thomas</first><last>McGrath</last><affiliation>Google</affiliation></author>
+      <author openreview="~Neel_Nanda1"><first>Neel</first><last>Nanda</last><affiliation>Google DeepMind</affiliation></author>
       <pages>337-363</pages>
       <abstract>We present the copy suppression motif: an algorithm implemented by attention heads in large language models that reduces loss.If i) language model components in earlier layers predict a certain token, ii) this token appears earlier in the context and iii) later attention heads in the model suppress prediction of the token, then this is copy suppression. To show the importance of copy suppression, we focus on reverse-engineering attention head 10.7 (L10H7) in GPT-2 Small. This head suppresses naive copying behavior which improves overall model calibration, which explains why multiple prior works studying certain narrow tasks found negative heads that systematically favored the wrong answer. We uncover the mechanism that the negative heads use for copy suppression with weights-based evidence and are able to explain 76.9% of the impact of L10H7 in GPT-2 Small, by this motif alone.To the best of our knowledge, this is the most comprehensive description of the complete role of a component in a language model to date. One major effect of copy suppression is its role in self-repair. Self-repair refers to how ablating crucial model components results in downstream neural network parts compensating for this ablation. Copy suppression leads to self-repair: if an initial overconfident copier is ablated, then there is nothing to suppress. We show that self-repair is implemented by several mechanisms, one of which is copy suppression, which explains 39% of the behavior in a narrow task. Interactive visualizations of the copy suppression phenomena may be seen at our web app <url>https://copy-suppression.streamlit.app/</url>.</abstract>
       <pdf hash="307f4989"/>
@@ -319,12 +319,12 @@
     <paper id="23">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.23/ -->
       <title><fixed-case>W</fixed-case>ell<fixed-case>D</fixed-case>unn: On the Robustness and Explainability of Language Models and Large Language Models in Identifying Wellness Dimensions</title>
-      <author><first>Seyedali</first><last>Mohammadi</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
-      <author id="edward-raff" orcid="0000-0002-9900-1972"><first>Edward</first><last>Raff</last><affiliation>University of Maryland, Baltimore County and Booz Allen Hamilton</affiliation></author>
-      <author><first>Jinendra</first><last>Malekar</last></author>
-      <author id="vedant-palit"><first>Vedant</first><last>Palit</last><affiliation>Indian Institute of Technology, Kharagpur</affiliation></author>
-      <author id="francis-ferraro" orcid="0000-0003-2413-9368"><first>Francis</first><last>Ferraro</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
-      <author id="manas-gaur" orcid="0000-0002-5411-2230"><first>Manas</first><last>Gaur</last><affiliation>University of Maryland Baltimore County</affiliation></author>
+      <author id="seyedali-mohammadi" orcid="0009-0004-5685-1899" openreview="~Seyedali_Mohammadi1"><first>Seyedali</first><last>Mohammadi</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
+      <author id="edward-raff" orcid="0000-0002-9900-1972" openreview="~Edward_Raff1"><first>Edward</first><last>Raff</last><affiliation>University of Maryland, Baltimore County and Booz Allen Hamilton</affiliation></author>
+      <author openreview="~Jinendra_Malekar2"><first>Jinendra</first><last>Malekar</last></author>
+      <author id="vedant-palit" orcid="0009-0000-8906-4593" openreview="~Vedant_Palit2"><first>Vedant</first><last>Palit</last><affiliation>Indian Institute of Technology, Kharagpur</affiliation></author>
+      <author id="francis-ferraro" orcid="0000-0003-2413-9368" openreview="~Francis_Ferraro1"><first>Francis</first><last>Ferraro</last><affiliation>University of Maryland, Baltimore County</affiliation></author>
+      <author id="manas-gaur" orcid="0000-0002-5411-2230" openreview="~Manas_Gaur1"><first>Manas</first><last>Gaur</last><affiliation>University of Maryland Baltimore County</affiliation></author>
       <pages>364-388</pages>
       <abstract>Language Models (LMs) are being proposed for mental health applications where the heightened risk of adverse outcomes means predictive performance may not be a sufficient litmus test of a model’s utility in clinical practice. A model that can be trusted for practice should have a correspondence between explanation and clinical determination, yet no prior research has examined the attention fidelity of these models and their effect on ground truth explanations. We introduce an evaluation design that focuses on the robustness and explainability of LMs in identifying Wellness Dimensions (WDs). We focus on two existing mental health and well-being datasets: (a) Multi-label Classification-based MultiWD, and (b) WellXplain for evaluating attention mechanism veracity against expert-labeled explanations. The labels are based on Halbert Dunn’s theory of wellness, which gives grounding to our evaluation. We reveal four surprising results about LMs/LLMs: (1) Despite their human-like capabilities, GPT-3.5/4 lag behind RoBERTa, and MedAlpaca, a fine-tuned LLM on WellXplain fails to deliver any remarkable improvements in performance or explanations. (2) Re-examining LMs’ predictions based on a confidence-oriented loss function reveals a significant performance drop. (3) Across all LMs/LLMs, the alignment between attention and explanations remains low, with LLMs scoring a dismal 0.0. (4) Most mental health-specific LMs/LLMs overlook domain-specific knowledge and undervalue explanations, causing these discrepancies. This study highlights the need for further research into their consistency and explanations in mental health and well-being.</abstract>
       <pdf hash="7047917d"/>
@@ -334,8 +334,8 @@
     <paper id="24">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.24/ -->
       <title>Do Metadata and Appearance of the Retrieved Webpages Affect <fixed-case>LLM</fixed-case>’s Reasoning in Retrieval-Augmented Generation?</title>
-      <author><first>Cheng-Han</first><last>Chiang</last></author>
-      <author><first>Hung-yi</first><last>Lee</last><affiliation>National Taiwan University</affiliation></author>
+      <author id="cheng-han-chiang" orcid="0009-0007-6786-9869" openreview="~Cheng-Han_Chiang1"><first>Cheng-Han</first><last>Chiang</last></author>
+      <author id="hung-yi-lee" orcid="0000-0002-9654-5747" openreview="~Hung-yi_Lee2"><first>Hung-yi</first><last>Lee</last><affiliation>National Taiwan University</affiliation></author>
       <pages>389-406</pages>
       <abstract>Large language models (LLMs) answering questions with retrieval-augmented generation (RAG) can face conflicting evidence in the retrieved documents. While prior works study how textual features like perplexity and readability influence the persuasiveness of evidence, humans consider more than textual content when evaluating conflicting information on the web. In this paper, we focus on the following question: When two webpages contain conflicting information to answer a question, does non-textual information affect the LLM’s reasoning and answer? We consider three types of non-textual information: (1) the webpage’s publication time, (2) the source where the webpage is from, and (3) the appearance of the webpage. We give the LLM a Yes/No question and two conflicting webpages that support yes and no, respectively. We exchange the non-textual information in the two webpages to see if the LLMs tend to use the information from a newer, more reliable, and more visually appealing webpage. We find that changing the publication time of the webpage can change the answer for most LLMs, but changing the webpage’s source merely affects the LLM’s answer. We also reveal that the webpage’s appearance has a strong causal effect on Claude-3’s answers.The codes and datasets used in the paper are available at <url>https://github.com/d223302/rag-metadata</url>.</abstract>
       <pdf hash="23b0cdf2"/>
@@ -345,9 +345,9 @@
     <paper id="25">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.25/ -->
       <title>Attribution Patching Outperforms Automated Circuit Discovery</title>
-      <author><first>Aaquib</first><last>Syed</last></author>
-      <author><first>Can</first><last>Rager</last></author>
-      <author><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
+      <author openreview="~Aaquib_Syed1"><first>Aaquib</first><last>Syed</last></author>
+      <author id="can-rager" orcid="0009-0009-9664-6618" openreview="~Can_Rager1"><first>Can</first><last>Rager</last></author>
+      <author openreview="~Arthur_Conmy1"><first>Arthur</first><last>Conmy</last><affiliation>Google DeepMind</affiliation></author>
       <pages>407-416</pages>
       <abstract>Automated interpretability research has recently attracted attention as a potential research direction that could scale explanations of neural network behavior to large models. Existing automated circuit discovery work applies activation patching to identify subnetworks responsible for solving specific tasks (circuits). In this work, we show that a simple method based on attribution patching outperforms all existing methods while requiring just two forward passes and a backward pass. We apply a linear approximation to activation patching to estimate the importance of each edge in the computational subgraph. Using this approximation, we prune the least important edges of the network. We survey the performance and limitations of this method, finding that averaged over all tasks our method has greater AUC from circuit recovery than other methods.</abstract>
       <pdf hash="80a20540"/>
@@ -357,9 +357,9 @@
     <paper id="26">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.26/ -->
       <title>Pruning for Protection: Increasing Jailbreak Resistance in Aligned <fixed-case>LLM</fixed-case>s Without Fine-Tuning</title>
-      <author><first>Adib</first><last>Hasan</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
-      <author><first>Ileana</first><last>Rugina</last></author>
-      <author id="alex-wang" orcid="0009-0001-1548-4090"><first>Alex</first><last>Wang</last></author>
+      <author openreview="~Adib_Hasan1"><first>Adib</first><last>Hasan</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author openreview="~Ileana_Rugina2"><first>Ileana</first><last>Rugina</last></author>
+      <author id="alex-wang" orcid="0009-0001-1548-4090" openreview="~Alex_Wang4"><first>Alex</first><last>Wang</last></author>
       <pages>417-430</pages>
       <abstract>This paper investigates the impact of model compression on the way Large Language Models (LLMs) process prompts, particularly concerning jailbreak resistance. We show that moderate WANDA pruning can enhance resistance to jailbreaking attacks without fine-tuning, while maintaining performance on standard benchmarks. To systematically evaluate this safety enhancement, we introduce a dataset of 225 harmful tasks across five categories. Our analysis of LLaMA-2 Chat, Vicuna 1.3, and Mistral Instruct v0.2 reveals that pruning benefits correlate with initial model safety levels. We interpret these results by examining changes in attention patterns and perplexity shifts, demonstrating that pruned models exhibit sharper attention and increased sensitivity to artificial jailbreak constructs. We extend our evaluation to the AdvBench harmful behavior tasks and the GCG attack method. We find that LLaMA-2 is much safer on AdvBench prompts than on our dataset when evaluated with manual jailbreak attempts, and that pruning is effective against both automated attacks and manual jailbreaking on Advbench.</abstract>
       <pdf hash="9a4b051a"/>
@@ -369,9 +369,9 @@
     <paper id="27">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.27/ -->
       <title><fixed-case>I</fixed-case>v<fixed-case>RA</fixed-case>: A Framework to Enhance Attention-Based Explanations for Language Models with Interpretability-Driven Training</title>
-      <author><first>Sean</first><last>Xie</last></author>
-      <author id="soroush-vosoughi" orcid="0000-0002-2564-8909"><first>Soroush</first><last>Vosoughi</last><affiliation>Dartmouth College</affiliation></author>
-      <author><first>Saeed</first><last>Hassanpour</last><affiliation>Dartmouth College</affiliation></author>
+      <author openreview="~Sean_Xie1"><first>Sean</first><last>Xie</last></author>
+      <author id="soroush-vosoughi" orcid="0000-0002-2564-8909" openreview="~Soroush_Vosoughi1"><first>Soroush</first><last>Vosoughi</last><affiliation>Dartmouth College</affiliation></author>
+      <author id="saeed-hassanpour" orcid="0000-0001-9460-6414" openreview="~Saeed_Hassanpour1"><first>Saeed</first><last>Hassanpour</last><affiliation>Dartmouth College</affiliation></author>
       <pages>431-451</pages>
       <abstract>Attention has long served as a foundational technique for generating explanations. With the recent developments made in Explainable AI (XAI), the multi-faceted nature of interpretability has become more apparent. Can attention, as an explanation method, be adapted to meet the diverse needs that our expanded understanding of interpretability demands? In this work, we aim to address this question by introducing IvRA, a framework designed to directly train a language model’s attention distribution through regularization to produce attribution explanations that align with interpretability criteria such as simulatability, faithfulness, and consistency. Our extensive experimental analysis demonstrates that IvRA outperforms existing methods in guiding language models to generate explanations that are simulatable, faithful, and consistent, in tandem with their predictions. Furthermore, we perform ablation studies to verify the robustness of IvRA across various experimental settings and to shed light on the interactions among different interpretability criteria.</abstract>
       <pdf hash="581524d7"/>
@@ -381,8 +381,8 @@
     <paper id="28">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.28/ -->
       <title>Counterfactuals As a Means for Evaluating Faithfulness of Attribution Methods in Autoregressive Language Models</title>
-      <author><first>Sepehr</first><last>Kamahi</last></author>
-      <author id="yadollah-yaghoobzadeh" orcid="0000-0003-0646-0852"><first>Yadollah</first><last>Yaghoobzadeh</last><affiliation>University of Tehran</affiliation></author>
+      <author openreview="~Sepehr_Kamahi1"><first>Sepehr</first><last>Kamahi</last></author>
+      <author id="yadollah-yaghoobzadeh" orcid="0000-0003-0646-0852" openreview="~Yadollah_Yaghoobzadeh2"><first>Yadollah</first><last>Yaghoobzadeh</last><affiliation>University of Tehran</affiliation></author>
       <pages>452-468</pages>
       <abstract>Despite the widespread adoption of autoregressive language models, explainability evaluation research has predominantly focused on span infilling and masked language models. Evaluating the faithfulness of an explanation method—how accurately it explains the inner workings and decision-making of the model—is challenging because it is difficult to separate the model from its explanation. Most faithfulness evaluation techniques corrupt or remove input tokens deemed important by a particular attribution (feature importance) method and observe the resulting change in the model’s output. However, for autoregressive language models, this approach creates out-of-distribution inputs due to their next-token prediction training objective. In this study, we propose a technique that leverages counterfactual generation to evaluate the faithfulness of attribution methods for autoregressive language models. Our technique generates fluent, in-distribution counterfactuals, making the evaluation protocol more reliable.</abstract>
       <pdf hash="9f01cd03"/>
@@ -392,9 +392,9 @@
     <paper id="29">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.29/ -->
       <title>Investigating Layer Importance in Large Language Models</title>
-      <author><first>Yang</first><last>Zhang</last></author>
-      <author><first>Yanfei</first><last>Dong</last><affiliation>PayPal Inc. and national university of singaore, National University of Singapore</affiliation></author>
-      <author><first>Kenji</first><last>Kawaguchi</last><affiliation>National University of Singapore</affiliation></author>
+      <author openreview="~Yang_Zhang22"><first>Yang</first><last>Zhang</last></author>
+      <author openreview="~Yanfei_Dong1"><first>Yanfei</first><last>Dong</last><affiliation>PayPal Inc. and national university of singaore, National University of Singapore</affiliation></author>
+      <author id="kenji-kawaguchi" orcid="0000-0003-1839-7504" openreview="~Kenji_Kawaguchi1"><first>Kenji</first><last>Kawaguchi</last><affiliation>National University of Singapore</affiliation></author>
       <pages>469-479</pages>
       <abstract>Large language models (LLMs) have gained increasing attention due to their prominent ability to understand and process texts. Nevertheless, LLMs largely remain opaque. The lack of understanding of LLMs has obstructed the deployment in safety-critical scenarios and hindered the development of better models. In this study, we advance the understanding of LLM by investigating the significance of individual layers in LLMs. We propose an efficient sampling method to faithfully evaluate the importance of layers using Shapley values, a widely used explanation framework in feature attribution and data valuation. In addition, we conduct layer ablation experiments to assess the performance degradation resulting from the exclusion of specific layers. Our findings reveal the existence of cornerstone layers, wherein certain early layers can exhibit a dominant contribution over others. Removing one cornerstone layer leads to a drastic collapse of the model performance, often reducing it to random guessing. Conversely, removing non-cornerstone layers results in only marginal performance changes. This study identifies cornerstone layers in LLMs and underscores their critical role for future research.</abstract>
       <pdf hash="22202972"/>
@@ -404,8 +404,8 @@
     <paper id="30">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.30/ -->
       <title>Mechanistic?</title>
-      <author><first>Naomi</first><last>Saphra</last><affiliation>Harvard University</affiliation></author>
-      <author><first>Sarah</first><last>Wiegreffe</last><affiliation>Allen Institute for Artificial Intelligence and University of Washington</affiliation></author>
+      <author id="naomi-saphra" orcid="0000-0001-8607-3515" openreview="~Naomi_Saphra1"><first>Naomi</first><last>Saphra</last><affiliation>Harvard University</affiliation></author>
+      <author id="sarah-wiegreffe" orcid="0009-0009-5210-6716" openreview="~Sarah_Wiegreffe1"><first>Sarah</first><last>Wiegreffe</last><affiliation>Allen Institute for Artificial Intelligence and University of Washington</affiliation></author>
       <pages>480-498</pages>
       <abstract>The rise of the term “mechanistic interpretability” has accompanied increasing interest in understanding neural models—particularly language models. However, this jargon has also led to a fair amount of confusion. So, what does it mean to be mechanistic? We describe four uses of the term in interpretability research. The most narrow technical definition requires a claim of causality, while a broader technical definition allows for any exploration of a model’s internals. However, the term also has a narrow cultural definition describing a cultural movement. To understand this semantic drift, we present a history of the NLP interpretability community and the formation of the separate, parallel mechanistic interpretability community. Finally, we discuss the broad cultural definition—encompassing the entire field of interpretability—and why the traditional NLP interpretability community has come to embrace it. We argue that the polysemy of “mechanistic” is the product of a critical divide within the interpretability community.</abstract>
       <pdf hash="42772d31"/>
@@ -415,11 +415,11 @@
     <paper id="31">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.31/ -->
       <title>Toward the Evaluation of Large Language Models Considering Score Variance across Instruction Templates</title>
-      <author><first>Yusuke</first><last>Sakai</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
-      <author id="adam-nohejl" orcid="0009-0001-3482-2470"><first>Adam</first><last>Nohejl</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
-      <author><first>Jiangnan</first><last>Hang</last></author>
-      <author id="hidetaka-kamigaito" orcid="0000-0002-5249-5813"><first>Hidetaka</first><last>Kamigaito</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
-      <author id="taro-watanabe" orcid="0000-0001-8349-3522"><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author id="yusuke-sakai" orcid="0009-0005-7670-9184" openreview="~Yusuke_Sakai1"><first>Yusuke</first><last>Sakai</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author id="adam-nohejl" orcid="0009-0001-3482-2470" openreview="~Adam_Nohejl1"><first>Adam</first><last>Nohejl</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author openreview="~JIANGNAN_HANG1"><first>Jiangnan</first><last>Hang</last></author>
+      <author id="hidetaka-kamigaito" orcid="0000-0002-5249-5813" openreview="~Hidetaka_Kamigaito2"><first>Hidetaka</first><last>Kamigaito</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author id="taro-watanabe" orcid="0000-0001-8349-3522" openreview="~Taro_Watanabe1"><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
       <pages>499-529</pages>
       <abstract>The natural language understanding (NLU) performance of large language models (LLMs) has been evaluated across various tasks and datasets. The existing evaluation methods, however, do not take into account the variance in scores due to differences in prompts, which leads to unfair evaluation and comparison of NLU performance. Moreover, evaluation designed for specific prompts is inappropriate for instruction tuning, which aims to perform well with any prompt. It is therefore necessary to find a way to measure NLU performance in a fair manner, considering score variance between different instruction templates. In this study, we provide English and Japanese cross-lingual datasets for evaluating the NLU performance of LLMs, which include multiple instruction templates for fair evaluation of each task, along with regular expressions to constrain the output format. Furthermore, we propose the Sharpe score as an evaluation metric that takes into account the variance in scores between templates. Comprehensive analysis of English and Japanese LLMs reveals that the high variance among templates has a significant impact on the fair evaluation of LLMs.</abstract>
       <pdf hash="8d0f757d"/>
@@ -429,10 +429,10 @@
     <paper id="32">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.32/ -->
       <title>Accelerating Sparse Autoencoder Training via Layer-Wise Transfer Learning in Large Language Models</title>
-      <author><first>Davide</first><last>Ghilardi</last></author>
-      <author id="federico-belotti" orcid="0009-0008-0140-3318"><first>Federico</first><last>Belotti</last></author>
-      <author><first>Marco</first><last>Molinari</last><affiliation>LSE.AI</affiliation></author>
-      <author><first>Jaehyuk</first><last>Lim</last></author>
+      <author openreview="~Davide_Ghilardi2"><first>Davide</first><last>Ghilardi</last></author>
+      <author id="federico-belotti" orcid="0009-0008-0140-3318" openreview="~Federico_Belotti1"><first>Federico</first><last>Belotti</last></author>
+      <author openreview="~Marco_Molinari1"><first>Marco</first><last>Molinari</last><affiliation>LSE.AI</affiliation></author>
+      <author openreview="~Jaehyuk_Lim1"><first>Jaehyuk</first><last>Lim</last></author>
       <pages>530-550</pages>
       <abstract>Sparse AutoEncoders (SAEs) have gained popularity as a tool for enhancing the interpretability of Large Language Models (LLMs). However, training SAEs can be computationally intensive, especially as model complexity grows. In this study, the potential of transfer learning to accelerate SAEs training is explored by capitalizing on the shared representations found across adjacent layers of LLMs. Our experimental results demonstrate that fine-tuning SAEs using pre-trained models from nearby layers not only maintains but often improves the quality of learned representations, while significantly accelerating convergence. These findings indicate that the strategic reuse of pretrained SAEs is a promising approach, particularly in settings where computational resources are constrained.</abstract>
       <pdf hash="7df7d2db"/>
@@ -442,9 +442,9 @@
     <paper id="33">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.33/ -->
       <title>Wrapper Boxes for Faithful Attribution of Model Predictions to Training Data</title>
-      <author><first>Yiheng</first><last>Su</last></author>
-      <author><first>Junyi Jessy</first><last>Li</last><affiliation>University of Texas, Austin</affiliation></author>
-      <author id="matthew-lease" orcid="0000-0002-0056-2834"><first>Matthew</first><last>Lease</last><affiliation>Amazon and University of Texas at Austin</affiliation></author>
+      <author openreview="~Yiheng_Su2"><first>Yiheng</first><last>Su</last></author>
+      <author id="junyi-jessy-li" orcid="0000-0002-2550-5262" openreview="~Junyi_Jessy_Li2"><first>Junyi Jessy</first><last>Li</last><affiliation>University of Texas, Austin</affiliation></author>
+      <author id="matthew-lease" orcid="0000-0002-0056-2834" openreview="~Matthew_Lease1"><first>Matthew</first><last>Lease</last><affiliation>Amazon and University of Texas at Austin</affiliation></author>
       <pages>551-576</pages>
       <abstract>Can we preserve the accuracy of neural models while also providing faithful explanations of model decisions to training data? We propose a “wrapper box” pipeline: training a neural model as usual and then using its learned feature representation in classic, interpretable models to perform prediction. Across seven language models of varying sizes, including four large language models (LLMs), two datasets at different scales, three classic models, and four evaluation metrics, we first show that the predictive performance of wrapper classic models is largely comparable to the original neural models. Because classic models are transparent, each model decision is determined by a known set of training examples that can be directly shown to users. Our pipeline thus preserves the predictive performance of neural language models while faithfully attributing classic model decisions to training data. Among other use cases, such attribution enables model decisions to be contested based on responsible training instances. Compared to prior work, our approach achieves higher coverage and correctness in identifying which training data to remove to change a model decision. To reproduce findings, our source code is online at: <url>https://github.com/SamSoup/WrapperBox</url>.</abstract>
       <pdf hash="6cb012cd"/>
@@ -454,9 +454,9 @@
     <paper id="34">
       <!-- https://aclanthology.org/2024.blackboxnlp-1.34/ -->
       <title>Multi-property Steering of Large Language Models with Dynamic Activation Composition</title>
-      <author id="daniel-scalena" orcid="0009-0006-0518-6504"><first>Daniel</first><last>Scalena</last><affiliation>University of Milan - Bicocca and University of Groningen</affiliation></author>
-      <author id="gabriele-sarti" orcid="0000-0001-8715-2987"><first>Gabriele</first><last>Sarti</last><affiliation>University of Groningen</affiliation></author>
-      <author><first>Malvina</first><last>Nissim</last><affiliation>University of Groningen</affiliation></author>
+      <author id="daniel-scalena" orcid="0009-0006-0518-6504" openreview="~Daniel_Scalena1"><first>Daniel</first><last>Scalena</last><affiliation>University of Milan - Bicocca and University of Groningen</affiliation></author>
+      <author id="gabriele-sarti" orcid="0000-0001-8715-2987" openreview="~Gabriele_Sarti1"><first>Gabriele</first><last>Sarti</last><affiliation>University of Groningen</affiliation></author>
+      <author id="malvina-nissim" orcid="0000-0001-5289-0971" openreview="~Malvina_Nissim1"><first>Malvina</first><last>Nissim</last><affiliation>University of Groningen</affiliation></author>
       <pages>577-603</pages>
       <abstract>Activation steering methods were shown to be effective in conditioning language model generation by additively intervening over models’ intermediate representations. However, the evaluation of these techniques has so far been limited to single conditioning properties and synthetic settings. In this work, we conduct a comprehensive evaluation of various activation steering strategies, highlighting the property-dependent nature of optimal parameters to ensure a robust effect throughout generation. To address this issue, we propose Dynamic Activation Composition, an information-theoretic approach to modulate the steering intensity of one or more properties throughout generation. Our experiments on multi-property steering show that our method successfully maintains high conditioning while minimizing the impact of conditioning on generation fluency.</abstract>
       <pdf hash="8ffd1cb2"/>
