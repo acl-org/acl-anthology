@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2026.tacl">
-  <volume id="1" type="journal" ingest-date="2026-09-08">
+  <volume id="1" type="journal" ingest-date="2026-10-07">
     <!-- https://aclanthology.org/2026.tacl-1/ -->
     <meta>
       <booktitle>Transactions of the Association for Computational Linguistics, Volume 14</booktitle>
@@ -1010,6 +1010,7 @@
       <pdf hash="0e6361a0"/>
       <doi>10.1162/tacl.a.742</doi>
       <bibkey>evelo-etal-2026-language</bibkey>
+      <erratum id="1" hash="7f0e66c3"/>
     </paper>
     <paper id="73">
       <!-- https://aclanthology.org/2026.tacl-1.73/ -->
@@ -1221,7 +1222,7 @@
       <author><first>Kai</first><last>Nakaishi</last></author>
       <author><first>Ryo</first><last>Yoshida</last></author>
       <author><first>Kohei</first><last>Kajikawa</last></author>
-      <author><first>Koji</first><last>Hukuahima</last></author>
+      <author><first>Koji</first><last>Hukushima</last></author>
       <author><first>Yohei</first><last>Oseki</last></author>
       <pages>1917–1934</pages>
       <abstract>Statistical analysis of corpora provides an approach to quantitatively investigate natural languages. This approach has revealed that several power laws consistently emerge across different corpora and languages, suggesting universal mechanisms underlying languages. In particular, the power-law decay of correlations has been interpreted as evidence of underlying hierarchical structures in syntax, semantics, and discourse. This perspective has also been extended beyond corpora produced by human adults, including child speech, birdsong, and chimpanzee action sequences. However, the argument supporting this interpretation has not been empirically tested in natural languages. To address this gap, the present study examines the validity of the argument for syntactic structures. Specifically, we test whether the statistical properties of parse trees align with the assumptions in the argument. Using English and Japanese corpora, we analyze the mutual information, deviations from probabilistic context-free grammars (PCFGs), and other properties in natural language parse trees, as well as in the PCFG that approximates these parse trees. Our results indicate that the assumptions do not hold for syntactic structures and that it is difficult to apply the proposed argument not only to sentences by human adults but also to other domains, highlighting the need to reconsider the relationship between the power law and hierarchical structures.</abstract>
@@ -1476,16 +1477,115 @@
       <doi>10.1162/tacl.a.802</doi>
       <bibkey>shen-etal-2026-vertical</bibkey>
     </paper>
-    <paper id="105">
-      <!-- https://aclanthology.org/2026.tacl-1.105/ -->
-      <title>Erratum: Language Models Can Resolve Reference Compositionally, But It’s Not Their Native Strength: The Case of the Personal Relation Task</title>
-      <author><first>Bart</first><last>Evelo</last></author>
-      <author><first>Meaghan</first><last>Fowlie</last></author>
-      <author><first>Denis</first><last>Paperno</last></author>
-      <pdf hash="7690a4b0"/>
-      <doi>10.1162/tacl.x.779</doi>
-      <bibkey>evelo-etal-2026-erratum</bibkey>
-      <pages>1826</pages>
+    <paper id="106">
+      <!-- https://aclanthology.org/2026.tacl-1.106/ -->
+      <title><fixed-case>S</fixed-case>truct<fixed-case>T</fixed-case>une: Structured Sparse Fine-Tuning for Efficient Adaptation of Large Language Models</title>
+      <author><first>Yuyang</first><last>Liu</last></author>
+      <author><first>Lai-Man</first><last>Po</last></author>
+      <author><first>Kwok-Wai</first><last>Cheung</last></author>
+      <author><first>Zeyu</first><last>Jiang</last></author>
+      <author><first>Haoxuan</first><last>Wu</last></author>
+      <author><first>Kun</first><last>Li</last></author>
+      <author><first>Xuyuan</first><last>Xu</last></author>
+      <pages>2318–2336</pages>
+      <abstract>Parameter-efficient fine-tuning (PEFT) methods like LoRA have become crucial for adapting large language models under computational constraints. While LoRA focuses on dense weight updates, recent sparse methods propose updating only selected portions of pretrained weights. However, these sparse approaches predominantly use element-wise parameter selection, overlooking inherent structured patterns in LLM weight distributions. We introduce StructTune1, a PEFT method that uses entire rows or columns as basic units for identifying task-relevant sparse components. Our analysis reveals LLaMA models exhibit distinct structured patterns in pretrained weights, with fine-tuning updates showing structured amplification rather than uniform changes. We develop a sensitivity-based framework to efficiently identify task-relevant weight structures without full fine-tuning. Experiments on mathematical reasoning and code generation demonstrate StructTune’s structured sparse updates outperform both dense LoRA and element-wise sparse methods while maintaining computational efficiency. Ablation studies validate our sensitivity-based selection strategy, confirming the efficacy of exploiting structured weight patterns in PEFT.</abstract>
+      <pdf hash="a2033b14"/>
+      <doi>10.1162/tacl.a.803</doi>
+      <bibkey>liu-etal-2026-structtune</bibkey>
+    </paper>
+    <paper id="107">
+      <!-- https://aclanthology.org/2026.tacl-1.107/ -->
+      <title>Let Guidelines Guide You: A Prescriptive Guideline-Centered Data Annotation Methodology</title>
+      <author><first>Federico</first><last>Ruggeri</last></author>
+      <author><first>Eleonora</first><last>Misino</last></author>
+      <author><first>Arianna</first><last>Muti</last></author>
+      <author><first>Katerina</first><last>Korre</last></author>
+      <author><first>Paolo</first><last>Torroni</last></author>
+      <author><first>Alberto</first><last>Barrón-Cedeño</last></author>
+      <pages>2337–2356</pages>
+      <abstract>We introduce Guideline-Centered Annotation Methodology (GCAM), a novel methodology designed to report the annotation guidelines associated with each data instance. GCAM addresses four key limitations of the standard application of the prescriptive annotation methodology by reducing the information loss during annotation, ensuring adherence to guidelines, and enabling the efficient reuse of annotated data across multiple tasks that rely on the same guidelines. We evaluate GCAM with a focus on text classification tasks through (i) a human annotation study and (ii) an experimental evaluation with several machine learning models. Our results highlight the advantages of GCAM from multiple perspectives, guaranteeing a transparent evaluation of the successful application of the prescriptive paradigm and enabling a fine-grained model error analysis.</abstract>
+      <pdf hash="c804c71f"/>
+      <doi>10.1162/tacl.a.804</doi>
+      <bibkey>ruggeri-etal-2026-guidelines</bibkey>
+    </paper>
+    <paper id="108">
+      <!-- https://aclanthology.org/2026.tacl-1.108/ -->
+      <title>Friend or Foe: How <fixed-case>LLM</fixed-case>s’ Safety Mind Gets Fooled by Intent Shift Attack</title>
+      <author><first>Peng</first><last>Ding</last></author>
+      <author><first>Jun</first><last>Kuang</last></author>
+      <author><first>Wen</first><last>Sun</last></author>
+      <author><first>Zongyu</first><last>Wang</last></author>
+      <author><first>Xuezhi</first><last>Cao</last></author>
+      <author><first>Xunliang</first><last>Cai</last></author>
+      <author><first>Jiajun</first><last>Chen</last></author>
+      <author><first>Shujian</first><last>Huang</last></author>
+      <pages>2357–2373</pages>
+      <abstract>Large language models (LLMs) remain vulnerable to jailbreaking attacks despite their impressive capabilities. Investigating these vulnerabilities is crucial for developing robust safety mechanisms. Existing attacks primarily bypass LLM safeguards by introducing additional context or adversarial tokens, while leaving the core harmful intent intact. In this paper, we introduce ISA (Intent Shift Attack), which conceals malicious intent from LLMs through subtle edits. More specifically, we establish a taxonomy of intent transformations and leverage them to generate attacks that may be misperceived by LLMs as benign requests. Unlike prior methods relying on complex tokens or lengthy context, our approach requires only limited modifications to the original request, yielding natural, fluent, and seemingly harmless prompts. Extensive experiments on both open-source and commercial LLMs demonstrate that ISA effectively induces safety failures, achieving high attack success rates through simple linguistic transformations. More critically, fine-tuning models solely on benign data reformulated with ISA templates elevates the success rates to nearly 100%. For defense, we evaluate existing methods and demonstrate their limited effectiveness against ISA, while exploring both training-free and training-based mitigation strategies. Our findings reveal fundamental challenges in intent inference for LLM safety and underscore the need for more effective defenses. Our code and datasets are available at https://github.com/NJUNLP/ISA.</abstract>
+      <pdf hash="563b6a30"/>
+      <doi>10.1162/tacl.a.805</doi>
+      <bibkey>ding-etal-2026-friend</bibkey>
+    </paper>
+    <paper id="109">
+      <!-- https://aclanthology.org/2026.tacl-1.109/ -->
+      <title>Multi-Test Nation Bias Benchmarking of <fixed-case>LLM</fixed-case>s with Explicit Unbiased Baselines</title>
+      <author><first>Jonghyeon</first><last>Choi</last></author>
+      <author><first>Yeonjun</first><last>Choi</last></author>
+      <author><first>Beakcheol</first><last>Jang</last></author>
+      <pages>2374–2390</pages>
+      <abstract>While prior work has highlighted that systematic nation-level bias in large language models (LLMs) can pose operational risks for international relations (IR) applications, many existing evaluations still lack a clearly specified unbiased reference (ground truth), limiting fully quantitative and cross-setting measurement. Using an expanded corpus of 722 official UN Security Council (UNSC) records, we measure nation-level bias with five complementary tests, thereby extending prior approaches to cover a broader set of bias expression channels: opinion ranking (WOW), association sorting (AK+-), vote simulation (PVS), opposition attribution (F-Oppose), and framing (Headliner). To enable grounded bias evaluation, we explicitly define an unbiased status for each test; in particular, for WOW and AK+-where ground truth is difficult to specify, we propose an action-based pseudo unbiased status derived from observable voting behavior to construct a quantifiable baseline. Benchmarking 4 LLMs (GPT-4o-mini, Llama 3.3-70B, Mistral-22B-Small, and Qwen3-30B) across the five permanent members of the UNSC, we find a test-agnostic macro-pattern: relative to the reference baselines defined for each test, model outputs lean toward the opposition (red) side for China and Russia and toward the supportive (blue) side for the U.K., the U.S., and France. These results underscore the need to audit IR-facing LLM deployments with grounded, multi-test benchmarks tied to explicit reference points.</abstract>
+      <pdf hash="e5aa3bee"/>
+      <doi>10.1162/tacl.a.806</doi>
+      <bibkey>choi-etal-2026-multi</bibkey>
+    </paper>
+    <paper id="110">
+      <!-- https://aclanthology.org/2026.tacl-1.110/ -->
+      <title>One Model to Translate Them All? A Journey to Mount Doom for Multilingual Model Merging</title>
+      <author><first>Baban</first><last>Gain</last></author>
+      <author><first>Trilok Nath</first><last>Singh</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <pages>2377–2398</pages>
+      <abstract>Weight-space model merging combines independently fine-tuned checkpoints without access to the original training data. While merging has shown promise in multitask settings, its behavior in multilingual generative systems remains underexplored. We systematically study weight-space merging for multilingual machine translation by fully fine-tuning language models on large-scale bilingual corpora and evaluating representative merging strategies across shared-source, shared-target, and bidirectional consolidation settings. Our experiments reveal a strong directional asymmetry. Merging is comparatively more effective when models share a target language, improving multilingual coverage over the base model, but it still fails to preserve the peak performance of language-specific checkpoints. In contrast, when target languages differ, performance degrades sharply, especially in shared-source and bidirectional settings. To explain this behavior, we analyze internal representations and find that fine-tuning does not create disjoint language-specific sub-networks. Instead, independently fine-tuned models activate largely overlapping neurons while reshaping upper-layer target-generation representations into incompatible geometries. These findings suggest that multilingual merging failures arise from target-side geometric misalignment within shared computational units, challenging the assumptions underlying standard weight-space merging for multilingual translation. We make the code publicly available at https://github.com/babangain/mt-model-merging.</abstract>
+      <pdf hash="9ee16919"/>
+      <doi>10.1162/tacl.a.808</doi>
+      <bibkey>gain-etal-2026-one</bibkey>
+    </paper>
+    <paper id="111">
+      <!-- https://aclanthology.org/2026.tacl-1.111/ -->
+      <title>What Do You Mean? Exploring the Alleged Theory of Mind Abilities of Large Language Models</title>
+      <author><first>Agnese</first><last>Lombardi</last></author>
+      <author><first>Alessandro</first><last>Lenci</last></author>
+      <pages>2391–2410</pages>
+      <abstract>This study explores the capacity of Large Language Models (LLMs) to perform tasks requiring Theory of Mind (ToM), a critical component of pragmatic language understanding. Although previous work suggests that LLMs may exhibit emergent ToM abilities, this research examines whether such capabilities genuinely involve reasoning about beliefs or merely reflect the reliance on shallow statistical cues. Through a series of controlled experiments featuring indirect speech acts and verbal irony, we assess how belief contexts influence LLM interpretations. The results reveal that, although LLMs occasionally succeed in decoding communicative intentions, their performance is not attributable to human-like ToM reasoning. This work underscores the limitations of LLMs in simulating humanlike ToM and offers insight into their interpretive biases, contributing to a deeper understanding of their linguistic capabilities.1</abstract>
+      <pdf hash="dae0075f"/>
+      <doi>10.1162/tacl.a.807</doi>
+      <bibkey>lombardi-lenci-2026-mean</bibkey>
+    </paper>
+    <paper id="112">
+      <!-- https://aclanthology.org/2026.tacl-1.112/ -->
+      <title>Learning-to-Context Slope: Evaluating In-Context Learning Effectiveness Beyond Performance Illusions</title>
+      <author><first>Dingzirui</first><last>Wang</last></author>
+      <author><first>Xuanliang</first><last>Zhang</last></author>
+      <author><first>Keyan</first><last>Xu</last></author>
+      <author><first>Qingfu</first><last>Zhu</last></author>
+      <author><first>Wanxiang</first><last>Che</last></author>
+      <author><first>Yang</first><last>Deng</last></author>
+      <pages>2399–2424</pages>
+      <abstract>The effectiveness of in-context learning (ICL) varies significantly across models and tasks, posing challenges for practitioners to determine when ICL reliably improves performance. Current evaluation approaches, reliant on performance changes after applying ICL, suffer from low reliability, poor attribution, and impracticality in data-insufficient scenarios. We propose the Learning-to-Context Slope (LCS), a novel metric that quantifies ICL effectiveness by modeling the slope between learning gain (loss decrease from demonstrations) and contextual relevance (demonstration-input relevance). LCS addresses key limitations of performance-based metrics: (i) it captures loss changes even when outputs are incorrect; (ii) its formulation attributes ICL failures to weak contextual alignment or strong output calibration; (iii) it minimizes reliance on labeled data via synthetic evaluation. Experiments show that LCS can better reflect ICL effectiveness when performance change fails, demonstrating its effectiveness.</abstract>
+      <pdf hash="c0e40a9b"/>
+      <doi>10.1162/tacl.a.809</doi>
+      <bibkey>wang-etal-2026-learning-context</bibkey>
+    </paper>
+    <paper id="113">
+      <!-- https://aclanthology.org/2026.tacl-1.113/ -->
+      <title>Byte-pair Encoding Captures Aspects of Word Meaning that Distributional Semantics Overlooks</title>
+      <author><first>David A.</first><last>Haslett</last></author>
+      <author><first>Antoni B.</first><last>Chan</last></author>
+      <author><first>Janet H.</first><last>Hsiao</last></author>
+      <pages>2425–2448</pages>
+      <abstract>Large language models learn word meanings through distributional semantics (i.e., patterns in text), and distribution does not always capture information about taxonomy and function, which are essential to human representations of word meaning. However, sound and spelling often conveys such information, and language models decompose many words into subword tokens, which may identify category markers. For example, GPT-5 segments fluorine and bromine into fluor + ine and brom + ine, which share the category marker ine. We provide evidence that, across 18 languages, shared tokens predict greater semantic priming effects in humans (e.g., people recognize bromine faster after reading fluorine), beyond what distributional similarity explains. Furthermore, across seven languages, shared tokens boost semantic priming beyond what shared morphemes explain. This suggests that subword tokens could help language models arrive at human-like representations of word meanings. However, we also provide evidence that the trend towards larger vocabularies of tokens obscures category markers, and even when language models have access to subword tokens, they underestimate the semantic relatedness of words that share tokens.</abstract>
+      <pdf hash="6a75d52e"/>
+      <doi>10.1162/tacl.a.810</doi>
+      <bibkey>haslett-etal-2026-byte</bibkey>
     </paper>
   </volume>
 </collection>

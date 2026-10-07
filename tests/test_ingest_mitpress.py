@@ -162,7 +162,7 @@ def test_maybe_download_pdf_fails_when_verification_finds_watermark(
     assert not destination.exists()
 
 
-def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
+def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkeypatch):
     existing_paper = SimpleNamespace(
         doi="10.1162/coli.a.605",
         authors=[],
@@ -178,8 +178,7 @@ def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))
     monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download_pdf)
-    pdf_reference = object()
-    from_file = Mock(return_value=pdf_reference)
+    from_file = Mock()
     monkeypatch.setattr(INGEST_MITPRESS.PDFReference, "from_file", from_file)
     args = SimpleNamespace(
         anthology_dir=str(tmp_path),
@@ -193,9 +192,133 @@ def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
         args, [{"doi": "10.1162/coli.a.605", "authors": []}]
     )
 
-    destination = tmp_path / "pdf" / "cl" / "2026.cl-2.1.pdf"
-    download_pdf.assert_called_once_with("10.1162/coli.a.605", destination, args.dry_run)
-    from_file.assert_called_once_with(destination)
-    assert existing_paper.pdf is pdf_reference
-    assert report["existing_pdf_downloaded"] == 1
+    download_pdf.assert_not_called()
+    from_file.assert_not_called()
+    assert existing_paper.pdf is None
+    assert report["existing"] == 1
+    assert report["new"] == 0
     collection.save.assert_called_once_with()
+
+
+def test_main_defaults_to_current_year_for_both_venues(monkeypatch):
+    args = INGEST_MITPRESS.build_parser().parse_args([])
+    discovered_venues = []
+    ingested_venues = []
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_papers",
+        lambda venue_args: discovered_venues.append(venue_args.venue) or [],
+    )
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "ingest_papers",
+        lambda venue_args, papers: ingested_venues.append(venue_args.venue) or {},
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "write_report", Mock())
+
+    INGEST_MITPRESS.main(args)
+
+    assert args.year == date.today().year
+    assert args.venue is None
+    assert discovered_venues == ["cl", "tacl"]
+    assert ingested_venues == ["cl", "tacl"]
+
+
+def test_main_respects_explicit_venue_and_year(monkeypatch):
+    args = INGEST_MITPRESS.build_parser().parse_args(
+        ["--venue", "tacl", "--year", "2025"]
+    )
+    discovered = []
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_papers",
+        lambda venue_args: discovered.append((venue_args.venue, venue_args.year)) or [],
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "ingest_papers", lambda *_args: {})
+    monkeypatch.setattr(INGEST_MITPRESS, "write_report", Mock())
+
+    INGEST_MITPRESS.main(args)
+
+    assert discovered == [("tacl", 2025)]
+
+
+def test_discover_crossref_items_requests_update_to_metadata(monkeypatch):
+    item = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Erratum: Example paper"],
+        "container-title": [
+            INGEST_MITPRESS.VENUE_CONFIG[INGEST_MITPRESS.TACL]["journal_title"]
+        ],
+        "ISSN": ["2307-387X"],
+        "published-print": {"date-parts": [[2026, 7, 31]]},
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    request = Mock(return_value={"message": {"items": [item]}})
+    monkeypatch.setattr(INGEST_MITPRESS, "crossref_request_json", request)
+
+    results = INGEST_MITPRESS.discover_crossref_items("tacl", 2026, None)
+
+    assert results == [item]
+    assert "update-to" in request.call_args.args[1]["select"]
+
+
+def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
+    correction = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Erratum: Example paper"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    target = {
+        "DOI": "10.1162/tacl.a.742",
+        "title": ["Example paper"],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[correction, target]),
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["doi"] == "10.1162/tacl.x.779"
+    assert "Crossref identifies DOI 10.1162/tacl.x.779" in caplog.text
+    assert "as a correction/erratum for" in caplog.text
+    assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
+    assert "not automatically suppressed" in caplog.text
+
+
+def test_discover_papers_warns_for_revision_and_identifies_target(monkeypatch, caplog):
+    revision = {
+        "DOI": "10.1162/tacl.a.900",
+        "title": ["Revised: Example paper"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "new-version", "label": "New version"}
+        ],
+    }
+    target = {
+        "DOI": "10.1162/tacl.a.742",
+        "title": ["Example paper"],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[revision, target]),
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["doi"] == "10.1162/tacl.a.900"
+    assert "as a revision/new-version update" in caplog.text
+    assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
+    assert "attach it to the target paper" in caplog.text
