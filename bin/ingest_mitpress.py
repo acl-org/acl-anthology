@@ -836,25 +836,51 @@ def write_report(report: dict[str, Any]) -> None:
 
 def discover_papers(args) -> list[dict[str, Any]]:
     items = discover_crossref_items(args.venue, args.year, args.volume)
+    items_by_doi = {
+        normalize_doi(str(item["DOI"])): item for item in items if item.get("DOI")
+    }
     papers = []
     for item in items:
         for update in item.get("update-to") or []:
-            if not isinstance(update, dict) or update.get("type") != "correction":
+            if not isinstance(update, dict):
                 continue
+            update_type = str(update.get("type") or "unspecified")
+            if update_type == "correction":
+                update_description = "correction/erratum"
+            elif update_type in {"revision", "new-version"}:
+                update_description = "revision/new-version update"
+            else:
+                update_description = f"update (type {update_type!r})"
+
             target_doi = normalize_doi(str(update.get("DOI", "")))
             if target_doi:
+                target_item = items_by_doi.get(target_doi)
+                target_titles = target_item.get("title") if target_item else None
+                target_title = (
+                    parse_crossref_title(str(target_titles[0])) if target_titles else None
+                )
+                target_description = (
+                    f'"{target_title}" (DOI {target_doi})'
+                    if target_title
+                    else f"DOI {target_doi}"
+                )
                 logging.warning(
-                    "Crossref marks DOI %s as a correction to DOI %s; review it "
-                    "as an erratum rather than a standalone paper. Continuing "
-                    "discovery; ingestion is not automatically suppressed.",
+                    "Crossref identifies DOI %s (%s) as a %s for %s; review "
+                    "whether to ingest it standalone or attach it to the target "
+                    "paper. Continuing discovery; ingestion is not automatically "
+                    "suppressed.",
                     item.get("DOI", "(unknown DOI)"),
-                    target_doi,
+                    (item.get("title") or ["(untitled)"])[0],
+                    update_description,
+                    target_description,
                 )
             else:
                 logging.warning(
-                    "Crossref marks DOI %s as a correction, but provides no "
-                    "target DOI; review it before standalone ingestion.",
+                    "Crossref identifies DOI %s (%s) as a %s, but provides no "
+                    "target DOI; review before standalone ingestion.",
                     item.get("DOI", "(unknown DOI)"),
+                    (item.get("title") or ["(untitled)"])[0],
+                    update_description,
                 )
 
         paper = convert_crossref_item_to_paper(item, args.venue)

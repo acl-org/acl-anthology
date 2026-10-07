@@ -266,7 +266,7 @@ def test_discover_crossref_items_requests_update_to_metadata(monkeypatch):
 
 
 def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
-    item = {
+    correction = {
         "DOI": "10.1162/tacl.x.779",
         "title": ["Erratum: Example paper"],
         "volume": "14",
@@ -274,8 +274,14 @@ def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
             {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
         ],
     }
+    target = {
+        "DOI": "10.1162/tacl.a.742",
+        "title": ["Example paper"],
+    }
     monkeypatch.setattr(
-        INGEST_MITPRESS, "discover_crossref_items", Mock(return_value=[item])
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[correction, target]),
     )
 
     papers = INGEST_MITPRESS.discover_papers(
@@ -283,6 +289,36 @@ def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
     )
 
     assert papers[0]["doi"] == "10.1162/tacl.x.779"
-    assert "Crossref marks DOI 10.1162/tacl.x.779" in caplog.text
-    assert "correction to DOI 10.1162/tacl.a.742" in caplog.text
-    assert "ingestion is not automatically suppressed" in caplog.text
+    assert "Crossref identifies DOI 10.1162/tacl.x.779" in caplog.text
+    assert "as a correction/erratum for" in caplog.text
+    assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
+    assert "not automatically suppressed" in caplog.text
+
+
+def test_discover_papers_warns_for_revision_and_identifies_target(monkeypatch, caplog):
+    revision = {
+        "DOI": "10.1162/tacl.a.900",
+        "title": ["Revised: Example paper"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "new-version", "label": "New version"}
+        ],
+    }
+    target = {
+        "DOI": "10.1162/tacl.a.742",
+        "title": ["Example paper"],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[revision, target]),
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["doi"] == "10.1162/tacl.a.900"
+    assert "as a revision/new-version update" in caplog.text
+    assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
+    assert "attach it to the target paper" in caplog.text
