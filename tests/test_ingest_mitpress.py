@@ -162,7 +162,7 @@ def test_maybe_download_pdf_fails_when_verification_finds_watermark(
     assert not destination.exists()
 
 
-def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
+def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkeypatch):
     existing_paper = SimpleNamespace(
         doi="10.1162/coli.a.605",
         authors=[],
@@ -178,8 +178,7 @@ def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))
     monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download_pdf)
-    pdf_reference = object()
-    from_file = Mock(return_value=pdf_reference)
+    from_file = Mock()
     monkeypatch.setattr(INGEST_MITPRESS.PDFReference, "from_file", from_file)
     args = SimpleNamespace(
         anthology_dir=str(tmp_path),
@@ -193,9 +192,9 @@ def test_ingest_papers_refreshes_existing_pdf_reference(tmp_path, monkeypatch):
         args, [{"doi": "10.1162/coli.a.605", "authors": []}]
     )
 
-    destination = tmp_path / "pdf" / "cl" / "2026.cl-2.1.pdf"
-    download_pdf.assert_called_once_with("10.1162/coli.a.605", destination, args.dry_run)
-    from_file.assert_called_once_with(destination)
-    assert existing_paper.pdf is pdf_reference
-    assert report["existing_pdf_downloaded"] == 1
+    download_pdf.assert_not_called()
+    from_file.assert_not_called()
+    assert existing_paper.pdf is None
+    assert report["existing"] == 1
+    assert report["new"] == 0
     collection.save.assert_called_once_with()

@@ -705,8 +705,6 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         "new_dois": [],
         "existing_dois": [],
         "no_pdf_dois": [],
-        "existing_pdf_downloaded": 0,
-        "existing_pdf_downloaded_dois": [],
         "existing_authors_updated": 0,
         "existing_authors_updated_dois": [],
     }
@@ -745,27 +743,6 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
                         doi,
                         existing_paper.full_id,
                     )
-                destination = pdf_destination / f"{existing_paper.full_id}.pdf"
-                if not destination.is_file() or destination.stat().st_size == 0:
-                    logging.info(
-                        "Existing DOI %s is missing local PDF; downloading %s",
-                        doi,
-                        destination.name,
-                    )
-                    ok, pdf_url = maybe_download_pdf(doi, destination, args.dry_run)
-                    if not ok:
-                        report["no_pdf"] += 1
-                        report["no_pdf_dois"].append(doi)
-                        if pdf_url:
-                            report["errors"].append(
-                                f"{doi}: PDF fetch failed ({pdf_url})"
-                            )
-                        raise RuntimeError(
-                            f"PDF download failed for existing DOI {doi} ({pdf_url}); aborting ingestion."
-                        )
-                    existing_paper.pdf = PDFReference.from_file(destination)
-                    report["existing_pdf_downloaded"] += 1
-                    report["existing_pdf_downloaded_dois"].append(doi)
             continue
 
         required = ["title", "issue_id", "journal_volume", "booktitle"]
