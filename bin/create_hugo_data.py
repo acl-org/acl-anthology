@@ -748,7 +748,7 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
-    related = anthology.venues.related.subset(venue_id)
+    related = venue.parent.related.subset(venue_id)
     related.remove(venue_id)
     if related:
         data["related"] = related
