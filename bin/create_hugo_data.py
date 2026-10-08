@@ -880,7 +880,9 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
             data["description"] = sig.description
         related = anthology.sigs.related.get(sig.id)
         if related:
-            data["related"] = set(related)
+            data["related"] = set(
+                map(lambda sig_id: anthology.sigs[sig_id].acronym, related)
+            )
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:

@@ -18,8 +18,8 @@
   <p class="fw-light text-muted">
     {{ $len := (len .) }}
     <span class="fst-italic">See also:</span>
-    {{ range $index, $rel_id := . }}
-    {{ $rel_sig := index hugo.Data.sigs $rel_id }}<a href="{{ relref $ (printf "/sigs/%s" $rel_id) }}" title="{{ $rel_sig.name }}">{{- $rel_sig.acronym -}}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ range $index, $rel_acronym := . }}
+    {{ $rel_sig := index hugo.Data.sigs $rel_acronym }}<a href="{{ relref $ (printf "/sigs/%s" $rel_sig.id) }}" title="{{ $rel_sig.name }}">{{- $rel_sig.acronym -}}</a>{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{- end -}}
