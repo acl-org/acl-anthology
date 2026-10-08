@@ -11,6 +11,12 @@ This script is a single entrypoint for both discovery and ingestion:
 4) Ingest new papers into data/xml/<year>.<venue>.xml using the Python library.
 5) Download PDFs via DOI URL and place them under anthology-files/pdf/<venue>/.
 
+PDF and Crossref retries honor Retry-After headers in seconds or HTTP-date form,
+without shortening the server's delay. Publisher access blocks (HTTP 403/429 or
+crawlprevention redirects) stop downloads unless a valid Retry-After permits a
+later attempt. Retry counts remain bounded. Failed downloads leave existing PDFs
+unchanged. Browser access does not imply that automated access is allowed.
+
 Example usage:
 
     bin/ingest_mitpress.py
@@ -28,12 +34,15 @@ import re
 import sys
 import tempfile
 import time
-from datetime import date
+from datetime import date, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import urlsplit
 
 import requests
 from pypdf import PdfReader, PdfWriter
+from pypdf.errors import PyPdfError
 from pypdf.generic import ArrayObject, DecodedStreamObject, NameObject
 
 from acl_anthology import Anthology
@@ -101,6 +110,30 @@ PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 DOWNLOAD_CHUNK_SIZE = 1024 * 1024
 PDF_FILE_MODE = 0o644
+
+
+class PublisherBlockedError(requests.HTTPError):
+    """The publisher rejected an automated PDF download."""
+
+
+def retry_after_delay(response: Optional[requests.Response]) -> Optional[float]:
+    """Return the server's retry delay, or None if absent or invalid."""
+    if response is None:
+        return None
+    value = response.headers.get("Retry-After")
+    if value is None:
+        return None
+    value = value.strip()
+    if re.fullmatch(r"[0-9]+", value):
+        return int(value)
+    try:
+        retry_at = parsedate_to_datetime(value)
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=timezone.utc)
+        return max(0.0, retry_at.timestamp() - time.time())
+    except (ValueError, TypeError, OverflowError):
+        logging.warning("Invalid Retry-After header %r from %s", value, response.url)
+        return None
 
 
 def collapse_spaces(text: str) -> str:
@@ -248,6 +281,15 @@ def retrieve_url(url: str, destination: str, timeout_sec: int = 120) -> bool:
         stream=True,
         timeout=timeout_sec,
     ) as response:
+        if response.status_code in {403, 429} or (
+            "/crawlprevention" in urlsplit(response.url).path.lower()
+        ):
+            retry_after = response.headers.get("Retry-After")
+            retry_hint = f" Retry-After: {retry_after}." if retry_after else ""
+            raise PublisherBlockedError(
+                f"Publisher access block (HTTP {response.status_code}).{retry_hint}",
+                response=response,
+            )
         response.raise_for_status()
         with target.open("wb") as out_f:
             for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
@@ -295,7 +337,9 @@ def crossref_request_json(
         except requests.RequestException as exc:
             if attempt == retries:
                 raise
-            wait_s = min(2**attempt, 10)
+            wait_s = retry_after_delay(exc.response)
+            if wait_s is None:
+                wait_s = min(2**attempt, 10)
             logging.warning("Crossref request failed (%s). Retrying in %ss", exc, wait_s)
             time.sleep(wait_s)
 
@@ -450,43 +494,58 @@ def maybe_download_pdf(
 
     for attempt in range(1, PDF_DOWNLOAD_RETRIES + 1):
         try:
-            retrieve_url(pdf_url, str(destination))
-            if destination.is_file() and destination.stat().st_size > 0:
-                removed = maybe_remove_mitpress_watermark(destination)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(
+                dir=destination.parent, prefix=f"{destination.name}."
+            ) as directory:
+                staged = Path(directory) / destination.name
+                retrieve_url(pdf_url, str(staged))
+                if not staged.is_file() or staged.stat().st_size == 0:
+                    raise RuntimeError("downloaded file missing or empty")
+                removed = maybe_remove_mitpress_watermark(staged)
                 if removed == 0:
                     raise RuntimeError(
                         "no MIT Press watermark streams were removed; "
                         "the PDF format may have changed"
                     )
-                remaining_pages = find_mitpress_watermark_pages(destination)
+                remaining_pages = find_mitpress_watermark_pages(staged)
                 if remaining_pages:
                     raise RuntimeError(
                         "MIT Press watermark remains on page(s) "
                         + ", ".join(map(str, remaining_pages))
                     )
-                logging.info(
-                    "Removed %s watermark content stream(s) from %s",
-                    removed,
-                    destination.name,
+                staged.chmod(PDF_FILE_MODE)
+                staged.replace(destination)
+            logging.info(
+                "Removed %s watermark content stream(s) from %s",
+                removed,
+                destination.name,
+            )
+            return True, pdf_url
+        except (requests.RequestException, OSError, RuntimeError, PyPdfError) as exc:
+            wait_s = (
+                retry_after_delay(exc.response)
+                if isinstance(exc, requests.RequestException)
+                else None
+            )
+            if isinstance(exc, PublisherBlockedError) and wait_s is None:
+                logging.error(
+                    "PDF download blocked for DOI %s: %s Not retrying without a "
+                    "valid Retry-After. Stop automated downloads until the publisher "
+                    "permits access again, or contact MIT Press for approved "
+                    "automated access. Existing PDF unchanged.",
+                    doi,
+                    exc,
                 )
-                destination.chmod(PDF_FILE_MODE)
-                return True, pdf_url
-            raise RuntimeError("downloaded file missing or empty")
-        except Exception as exc:
-            # Avoid keeping a partial file between retries.
-            try:
-                if destination.exists():
-                    destination.unlink()
-            except OSError:
-                pass
-
+                return False, pdf_url
             if attempt == PDF_DOWNLOAD_RETRIES:
                 logging.warning(
                     "Failed to download and clean PDF for DOI %s: %s", doi, exc
                 )
                 return False, pdf_url
 
-            wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
+            if wait_s is None:
+                wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
             logging.warning(
                 "PDF download or cleanup failed for DOI %s (attempt %s/%s): %s. Retrying in %ss",
                 doi,
