@@ -11,6 +11,9 @@ This script is a single entrypoint for both discovery and ingestion:
 4) Ingest new papers into data/xml/<year>.<venue>.xml using the Python library.
 5) Download PDFs via DOI URL and place them under anthology-files/pdf/<venue>/.
 
+Author name splits follow the Anthology's canonical preference when unambiguous,
+rather than preserving an upstream split simply because it exists as an alias.
+
 PDF and Crossref retries honor Retry-After headers in seconds or HTTP-date form,
 without shortening the server's delay. Publisher access blocks (HTTP 403/429 or
 crawlprevention redirects) stop downloads unless a valid Retry-After permits a

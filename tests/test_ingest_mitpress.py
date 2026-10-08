@@ -35,6 +35,76 @@ def test_normalize_author_specs_keeps_unknown_name_split():
     assert authors[0].name == INGEST_MITPRESS.Name("New", "Author")
 
 
+@pytest.fixture
+def anthology_with_preferred_author():
+    canonical = INGEST_MITPRESS.Name("Barbara", "Di Eugenio")
+    alias = INGEST_MITPRESS.Name("Barbara Di", "Eugenio")
+    person = SimpleNamespace(
+        canonical_name=canonical,
+        is_explicit=True,
+        disable_name_matching=False,
+    )
+    paper = SimpleNamespace(
+        doi="10.1162/tacl.a.748",
+        full_id="2026.tacl-1.78",
+        authors=[INGEST_MITPRESS.NameSpec(canonical)],
+    )
+    collection = Mock()
+    collection.papers.return_value = [paper]
+    anthology = SimpleNamespace(
+        collections={"2026.tacl": collection},
+        people=SimpleNamespace(
+            by_name={canonical: ["barbara-di-eugenio"], alias: ["barbara-di-eugenio"]},
+            values=lambda: iter([person]),
+        ),
+    )
+    return SimpleNamespace(
+        anthology=anthology, canonical=canonical, paper=paper, collection=collection
+    )
+
+
+def test_normalize_author_specs_uses_canonical_split(anthology_with_preferred_author):
+    state = anthology_with_preferred_author
+    index = INGEST_MITPRESS.build_name_split_index(state.anthology)
+
+    authors = INGEST_MITPRESS.normalize_author_specs(
+        index, [{"first": "Barbara Di", "last": "Eugenio"}]
+    )
+
+    assert authors[0].name == state.canonical
+
+
+def test_ingest_papers_does_not_replace_canonical_split_with_alias(
+    tmp_path, monkeypatch, anthology_with_preferred_author
+):
+    state = anthology_with_preferred_author
+    monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=state.anthology))
+    download = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download)
+    args = SimpleNamespace(
+        anthology_dir=str(tmp_path),
+        pdfs_dir=str(tmp_path),
+        venue="tacl",
+        year=2026,
+        dry_run=False,
+    )
+
+    report = INGEST_MITPRESS.ingest_papers(
+        args,
+        [
+            {
+                "doi": state.paper.doi,
+                "authors": [{"first": "Barbara Di", "last": "Eugenio"}],
+            }
+        ],
+    )
+
+    assert report["existing"] == 1
+    assert report["existing_authors_updated"] == 0
+    assert state.paper.authors[0].name == state.canonical
+    download.assert_not_called()
+
+
 def test_ensure_volume_updates_existing_volume_ingest_date():
     existing_volume = SimpleNamespace(ingest_date=None)
     collection = Mock()
@@ -427,7 +497,7 @@ def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkey
     collection.papers.return_value = [existing_paper]
     anthology = SimpleNamespace(
         collections={"2026.cl": collection},
-        people=SimpleNamespace(by_name={}),
+        people=SimpleNamespace(by_name={}, values=lambda: iter(())),
     )
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))

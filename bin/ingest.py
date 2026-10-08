@@ -265,8 +265,8 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
 
 
 # Maps (slugified full name, number of spaces in the full name) -> set of
-# observed split points (i.e. the number of whitespace-delimited tokens in the
-# first name) seen in the existing Anthology data. Populated once in main() and
+# preferred or observed split points (the number of tokens in the first name).
+# A unique explicit canonical split takes precedence over aliases. Built in main()
 # used by resegment_name() to align ingested name splits with existing ones.
 NameSplitIndex = Dict[Tuple[str, int], set[int]]
 _name_split_index: Optional[NameSplitIndex] = None
@@ -286,7 +286,10 @@ def build_name_split_index(anthology: Anthology) -> NameSplitIndex:
     The index is keyed by the slugified full name together with the number of
     spaces in the full name (so that, e.g., "Jean-Pierre Dupont" and
     "Jean Pierre Dupont" -- which share a slug but differ in token count -- are
-    kept distinct). The value is the set of split points observed for that name.
+    kept distinct). A unique canonical split from explicitly defined persons
+    takes precedence over aliases and historical paper names. Persons with
+    name matching disabled do not supply preferences. If canonical splits
+    conflict or no canonical preference exists, retain the observed splits.
 
     Returns:
         The index, which can be assigned to the module-level ``_name_split_index``.
@@ -300,6 +303,21 @@ def build_name_split_index(anthology: Anthology) -> NameSplitIndex:
         if num_spaces < 2:
             continue
         index[(name.slugify(), num_spaces)].add(len(name.first.split()))
+
+    canonical_splits: NameSplitIndex = defaultdict(set)
+    for person in anthology.people.values():
+        if not person.is_explicit or person.disable_name_matching:
+            continue
+        name = person.canonical_name
+        if not name.first or name.script is not None:
+            continue
+        num_spaces = name.as_first_last().count(" ")
+        if num_spaces < 2:
+            continue
+        canonical_splits[(name.slugify(), num_spaces)].add(len(name.first.split()))
+    for key, splits in canonical_splits.items():
+        if len(splits) == 1:
+            index[key] = splits
     return index
 
 
