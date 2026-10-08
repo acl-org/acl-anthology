@@ -36,6 +36,22 @@ just fetch the paper and set its `doi` attribute:
 >>> paper.doi = '10.18653/v1/2022.acl-long.99'
 ```
 
+Published correction notices can have their own DOI. Store that DOI on the
+erratum, without changing the original paper's DOI:
+
+```python
+from acl_anthology.collections.paper import PaperErratum
+from acl_anthology.files import PDFReference
+
+paper.errata += (
+    PaperErratum(
+        id="1",
+        pdf=PDFReference.from_file("2022.acl-long.99e1.pdf"),
+        doi="10.1234/example.correction",
+    ),
+)
+```
+
 !!! tip "Rule of thumb"
 
     As a general rule, all classes perform **automatic input conversion and validation**.  This means that setting attributes should either "do the right thing" or raise a `TypeError`.

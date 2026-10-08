@@ -782,6 +782,7 @@ test_cases_papererratum = (
         "P18-1188e1",
         "8eecd4c3",
         "2022-09-20",
+        None,
     ),
     (
         '<erratum id="42" hash="8edae19f"/>',
@@ -789,14 +790,23 @@ test_cases_papererratum = (
         "C12-1115e42",
         "8edae19f",
         None,
+        None,
+    ),
+    (
+        '<erratum id="1" hash="8eecd4c3" date="2022-09-20" doi="10.1234/example.correction"/>',
+        "1",
+        "2022.test-1.1e1",
+        "8eecd4c3",
+        "2022-09-20",
+        "10.1234/example.correction",
     ),
 )
 
 
 @pytest.mark.parametrize(
-    "xml, id_, pdf_name, pdf_checksum, date", test_cases_papererratum
+    "xml, id_, pdf_name, pdf_checksum, date, doi", test_cases_papererratum
 )
-def test_papererratum_from_xml(xml, id_, pdf_name, pdf_checksum, date):
+def test_papererratum_from_xml(xml, id_, pdf_name, pdf_checksum, date, doi):
     element = etree.fromstring(xml)
     erratum = PaperErratum.from_xml(element)
     assert erratum.id == id_
@@ -805,14 +815,15 @@ def test_papererratum_from_xml(xml, id_, pdf_name, pdf_checksum, date):
     assert erratum.pdf.name == ""
     assert erratum.pdf.checksum == pdf_checksum
     assert erratum.date == date
+    assert erratum.doi == doi
 
 
 @pytest.mark.parametrize(
-    "xml, id_, pdf_name, pdf_checksum, date", test_cases_papererratum
+    "xml, id_, pdf_name, pdf_checksum, date, doi", test_cases_papererratum
 )
-def test_papererratum_to_xml(xml, id_, pdf_name, pdf_checksum, date):
+def test_papererratum_to_xml(xml, id_, pdf_name, pdf_checksum, date, doi):
     erratum = PaperErratum(
-        id_, PDFReference(name=pdf_name, checksum=pdf_checksum), date=date
+        id_, PDFReference(name=pdf_name, checksum=pdf_checksum), date=date, doi=doi
     )
     assert etree.tostring(erratum.to_xml(), encoding="unicode") == xml
 
@@ -825,6 +836,11 @@ def test_papererratum_must_get_pdfreference():
 def test_papererratum_must_be_local():
     with pytest.raises(ValueError):
         _ = PaperErratum("42", PDFReference(name="https://aclanthology.org/somefile.pdf"))
+
+
+def test_papererratum_doi_must_be_string():
+    with pytest.raises(TypeError):
+        _ = PaperErratum("1", PDFReference(name=""), doi=123)
 
 
 test_cases_paperrevision = (

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Errata can store the DOI of their correction notice independently of the original paper's DOI.
 - SIGs can now store `venue_ids` to indicate venues that are/have been supported by the SIG.
 
 ### Changed

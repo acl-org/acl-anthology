@@ -2,6 +2,7 @@
 
 import importlib.util
 import sys
+import pytest
 from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
@@ -174,6 +175,7 @@ def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkey
     anthology = SimpleNamespace(
         collections={"2026.cl": collection},
         people=SimpleNamespace(by_name={}),
+        save_all=Mock(),
     )
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))
@@ -197,7 +199,196 @@ def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkey
     assert existing_paper.pdf is None
     assert report["existing"] == 1
     assert report["new"] == 0
-    collection.save.assert_called_once_with()
+    anthology.save_all.assert_called_once_with()
+
+
+@pytest.fixture
+def erratum_ingestion(tmp_path, monkeypatch):
+    target = SimpleNamespace(
+        doi="10.1162/tacl.a.742",
+        full_id="2026.tacl-1.72",
+        authors=[],
+        errata=(),
+    )
+    collection = Mock()
+    collection.papers.return_value = [target]
+    anthology = SimpleNamespace(
+        collections={"2026.tacl": collection},
+        people=SimpleNamespace(by_name={}),
+        papers=lambda: iter([target]),
+        save_all=Mock(),
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
+    download = Mock(return_value=(True, "https://example.test/erratum.pdf"))
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download)
+    monkeypatch.setattr(
+        INGEST_MITPRESS.PDFReference,
+        "from_file",
+        lambda path: INGEST_MITPRESS.PDFReference(Path(path).stem, checksum="12345678"),
+    )
+    args = SimpleNamespace(
+        anthology_dir=str(tmp_path),
+        pdfs_dir=str(tmp_path),
+        venue="tacl",
+        year=2026,
+        dry_run=False,
+    )
+    return SimpleNamespace(
+        target=target,
+        collection=collection,
+        anthology=anthology,
+        download=download,
+        args=args,
+        notice={
+            "doi": "10.1162/tacl.x.779",
+            "correction_targets": ["10.1162/tacl.a.742"],
+        },
+    )
+
+
+def test_ingest_papers_attaches_correction_once(erratum_ingestion):
+    state = erratum_ingestion
+
+    first = INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+    second = INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    assert first["new"] == second["new"] == 0
+    assert first["errata_attached"] == 1
+    assert second["errata_attached"] == 0
+    assert second["existing_errata"] == 1
+    assert len(state.target.errata) == 1
+    erratum = state.target.errata[0]
+    assert erratum.id == "1"
+    assert erratum.doi == "10.1162/tacl.x.779"
+    assert erratum.pdf.name == "2026.tacl-1.72e1"
+    state.download.assert_called_once_with(
+        "10.1162/tacl.x.779",
+        Path(state.args.pdfs_dir) / "pdf/tacl/2026.tacl-1.72e1.pdf",
+        False,
+    )
+    state.collection.create_volume.assert_not_called()
+    state.collection.save.assert_not_called()
+    assert state.anthology.save_all.call_count == 2
+
+
+def test_ingest_papers_correction_can_target_new_paper(erratum_ingestion):
+    state = erratum_ingestion
+    state.collection.papers.return_value = []
+    state.target.title = INGEST_MITPRESS.MarkupText.from_string("Example paper")
+    volume = Mock(full_id="2026.tacl-1")
+    volume.generate_paper_id.return_value = "72"
+    volume.create_paper.return_value = state.target
+    state.collection.get.return_value = volume
+    original = {
+        "doi": state.target.doi,
+        "title": "Example paper",
+        "authors": [],
+        "issue_id": "1",
+        "journal_volume": "14",
+        "booktitle": "Example journal",
+    }
+
+    report = INGEST_MITPRESS.ingest_papers(state.args, [state.notice, original])
+
+    assert report["new"] == 1
+    assert report["errata_attached"] == 1
+    assert state.target.errata[0].doi == state.notice["doi"]
+    assert state.download.call_count == 2
+
+
+def test_ingest_papers_correction_dry_run(erratum_ingestion):
+    state = erratum_ingestion
+    state.args.dry_run = True
+
+    report = INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    assert report["new"] == 0
+    assert report["errata_attached"] == 1
+    assert state.target.errata == ()
+    state.anthology.save_all.assert_not_called()
+    assert state.download.call_args.args[2] is True
+
+
+def test_ingest_papers_correction_can_target_another_collection(erratum_ingestion):
+    state = erratum_ingestion
+    state.target.full_id = "2025.tacl-1.72"
+    state.collection.papers.return_value = []
+
+    report = INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    assert report["errata_attached"] == 1
+    assert state.target.errata[0].pdf.name == "2025.tacl-1.72e1"
+    state.anthology.save_all.assert_called_once_with()
+
+
+def test_ingest_papers_correction_uses_legacy_pdf_directory(erratum_ingestion):
+    state = erratum_ingestion
+    state.target.full_id = "Q19-1001"
+
+    INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    state.download.assert_called_once_with(
+        state.notice["doi"],
+        Path(state.args.pdfs_dir) / "pdf/Q/Q19/Q19-1001e1.pdf",
+        False,
+    )
+
+
+def test_ingest_papers_correction_download_failure_does_not_save(erratum_ingestion):
+    state = erratum_ingestion
+    state.download.return_value = (False, "https://example.test/erratum.pdf")
+
+    with pytest.raises(RuntimeError, match="PDF download failed for correction DOI"):
+        INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    assert state.target.errata == ()
+    state.anthology.save_all.assert_not_called()
+
+
+@pytest.mark.parametrize("targets", [[], ["10.1162/tacl.a.missing"]])
+def test_ingest_papers_correction_requires_target(erratum_ingestion, targets):
+    state = erratum_ingestion
+    state.notice["correction_targets"] = targets
+
+    with pytest.raises(RuntimeError, match="target DOI"):
+        INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    state.download.assert_not_called()
+    state.anthology.save_all.assert_not_called()
+    state.collection.create_volume.assert_not_called()
+
+
+def test_ingest_papers_correction_refuses_ambiguous_legacy_errata(erratum_ingestion):
+    state = erratum_ingestion
+    state.target.errata = (
+        INGEST_MITPRESS.PaperErratum(
+            id="1",
+            pdf=INGEST_MITPRESS.PDFReference("2026.tacl-1.72e1", checksum="12345678"),
+        ),
+    )
+
+    with pytest.raises(RuntimeError, match="existing errata have no DOI"):
+        INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    state.download.assert_not_called()
+    state.anthology.save_all.assert_not_called()
+
+
+def test_ingest_papers_correction_preserves_existing_erratum_ids(erratum_ingestion):
+    state = erratum_ingestion
+    state.target.errata = (
+        INGEST_MITPRESS.PaperErratum(
+            id="2",
+            pdf=INGEST_MITPRESS.PDFReference("2026.tacl-1.72e2", checksum="12345678"),
+            doi="10.1162/tacl.x.previous",
+        ),
+    )
+
+    report = INGEST_MITPRESS.ingest_papers(state.args, [state.notice])
+
+    assert report["errata_attached"] == 1
+    assert [erratum.id for erratum in state.target.errata] == ["2", "3"]
+    assert state.target.errata[1].pdf.name == "2026.tacl-1.72e3"
 
 
 def test_main_defaults_to_current_year_for_both_venues(monkeypatch):
@@ -288,11 +479,16 @@ def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
         SimpleNamespace(venue="tacl", year=2026, volume=None)
     )
 
-    assert papers[0]["doi"] == "10.1162/tacl.x.779"
+    assert papers == [
+        {
+            "doi": "10.1162/tacl.x.779",
+            "correction_targets": ["10.1162/tacl.a.742"],
+        }
+    ]
     assert "Crossref identifies DOI 10.1162/tacl.x.779" in caplog.text
     assert "as a correction/erratum for" in caplog.text
     assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
-    assert "not automatically suppressed" in caplog.text
+    assert "attached as an erratum, not ingested standalone" in caplog.text
 
 
 def test_discover_papers_warns_for_revision_and_identifies_target(monkeypatch, caplog):

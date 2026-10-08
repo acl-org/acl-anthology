@@ -117,6 +117,9 @@ class PaperErratum:
     )
     """The date where this erratum was added."""
 
+    doi: Optional[str] = field(default=None)
+    """The DOI of the correction notice, if it has one; distinct from the original paper's DOI."""
+
     @pdf.validator
     def _check_pdf(self, _: Any, value: Any) -> None:
         # The PDFReference for an erratum must be a local filename according to the schema
@@ -136,6 +139,7 @@ class PaperErratum:
             id=str(element.get("id")),
             pdf=PDFReference.from_xml(element),
             date=element.get("date"),
+            doi=element.get("doi"),
         )
 
     def to_xml(self) -> etree._Element:
@@ -146,6 +150,8 @@ class PaperErratum:
         elem = E.erratum(id=self.id, hash=str(self.pdf.checksum))
         if self.date is not None:
             elem.set("date", self.date)
+        if self.doi is not None:
+            elem.set("doi", self.doi)
         return elem
 
 

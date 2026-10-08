@@ -10,6 +10,12 @@ This script is a single entrypoint for both discovery and ingestion:
 3) Skip already-ingested DOIs in the target collection.
 4) Ingest new papers into data/xml/<year>.<venue>.xml using the Python library.
 5) Download PDFs via DOI URL and place them under anthology-files/pdf/<venue>/.
+6) Attach Crossref correction notices as errata to their target papers, recording
+   each notice's DOI so subsequent runs do not add duplicate attachments.
+
+Existing errata without a DOI must be identified and annotated before attaching
+another correction to that paper. Revision/new-version notices remain subject
+to manual review.
 
 Example usage:
 
@@ -37,10 +43,12 @@ from pypdf import PdfReader, PdfWriter
 from pypdf.generic import ArrayObject, DecodedStreamObject, NameObject
 
 from acl_anthology import Anthology
+from acl_anthology.collections.paper import PaperErratum
 from acl_anthology.files import PDFReference
 from acl_anthology.people import Name, NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 from acl_anthology.utils import setup_rich_logging
+from acl_anthology.utils.ids import parse_id
 
 from fixedcase.protect import protect
 from ingest import NameSplitIndex, build_name_split_index, resegment_name
@@ -709,6 +717,10 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         "no_pdf_dois": [],
         "existing_authors_updated": 0,
         "existing_authors_updated_dois": [],
+        "errata_attached": 0,
+        "errata_attached_dois": [],
+        "existing_errata": 0,
+        "existing_errata_dois": [],
     }
 
     doi_set = existing_dois(collection)
@@ -721,6 +733,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         pdf_destination.mkdir(parents=True, exist_ok=True)
 
     valid_papers: list[dict[str, Any]] = []
+    correction_notices: list[dict[str, Any]] = []
     for paper in papers:
         doi = normalize_doi(str(paper.get("doi", "")))
         if not doi:
@@ -729,6 +742,9 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
             continue
 
         paper["doi"] = doi
+        if "correction_targets" in paper:
+            correction_notices.append(paper)
+            continue
         if doi in doi_set:
             report["existing"] += 1
             report["existing_dois"].append(doi)
@@ -817,11 +833,100 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         report["new"] += 1
         report["ingested"] += 1
         report["new_dois"].append(paper_data["doi"])
+        existing_papers_by_doi[paper_data["doi"]] = paper_obj
+
+    for notice in correction_notices:
+        doi = notice["doi"]
+        target_dois = notice["correction_targets"]
+        if not target_dois:
+            raise RuntimeError(
+                f"Correction DOI {doi} has no target DOI; cannot attach it as an erratum."
+            )
+        for target_doi in target_dois:
+            target = existing_papers_by_doi.get(target_doi)
+            if target is None:
+                target = next(
+                    (
+                        paper
+                        for paper in anthology.papers()
+                        if paper.doi and normalize_doi(paper.doi) == target_doi
+                    ),
+                    None,
+                )
+            if target is None:
+                raise RuntimeError(
+                    f"Correction DOI {doi}: target DOI {target_doi} was not found "
+                    "in the Anthology; refusing standalone ingestion."
+                )
+            matching_errata = [
+                erratum
+                for erratum in target.errata
+                if erratum.doi and normalize_doi(erratum.doi) == doi
+            ]
+            if len(matching_errata) > 1:
+                raise RuntimeError(
+                    f"Correction DOI {doi} is attached more than once to {target.full_id}."
+                )
+            if matching_errata:
+                report["existing_errata"] += 1
+                report["existing_errata_dois"].append(doi)
+                logging.info(
+                    "Correction DOI %s is already attached to %s as erratum %s",
+                    doi,
+                    target.full_id,
+                    matching_errata[0].id,
+                )
+                continue
+            if any(not erratum.doi for erratum in target.errata):
+                raise RuntimeError(
+                    f"Cannot safely attach correction DOI {doi} to {target.full_id}: "
+                    "existing errata have no DOI. Identify and annotate them first "
+                    "to avoid duplicate attachments."
+                )
+
+            erratum_id = str(max((int(e.id) for e in target.errata), default=0) + 1)
+            collection_id, _, _ = parse_id(target.full_id)
+            if collection_id[0].isdigit():
+                venue_path = Path(collection_id.split(".", 1)[-1])
+            else:
+                venue_path = Path(collection_id[0]) / collection_id
+            destination = (
+                Path(args.pdfs_dir)
+                / "pdf"
+                / venue_path
+                / f"{target.full_id}e{erratum_id}.pdf"
+            )
+            ok, pdf_url = maybe_download_pdf(doi, destination, args.dry_run)
+            if not ok:
+                report["no_pdf"] += 1
+                report["no_pdf_dois"].append(doi)
+                raise RuntimeError(
+                    f"PDF download failed for correction DOI {doi} ({pdf_url}); "
+                    "aborting ingestion."
+                )
+            if not args.dry_run:
+                target.errata += (
+                    PaperErratum(
+                        id=erratum_id,
+                        pdf=PDFReference.from_file(destination),
+                        date=ingest_date,
+                        doi=doi,
+                    ),
+                )
+            report["errata_attached"] += 1
+            report["errata_attached_dois"].append(doi)
+            logging.info(
+                "%s correction DOI %s to %s as erratum %s",
+                "Would attach" if args.dry_run else "Attached",
+                doi,
+                target.full_id,
+                erratum_id,
+            )
 
     if args.dry_run:
         logging.info("Dry-run mode: no XML changes written")
     else:
-        collection.save()
+        anthology.save_all()
 
     return report
 
@@ -829,7 +934,8 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
 def write_report(report: dict[str, Any]) -> None:
     summary = (
         "discovered={discovered} new={new} existing={existing} invalid={invalid} "
-        "no_pdf={no_pdf}"
+        "no_pdf={no_pdf} errata_attached={errata_attached} "
+        "existing_errata={existing_errata}"
     ).format(**report)
     logging.info("Summary: %s", summary)
 
@@ -841,18 +947,23 @@ def discover_papers(args) -> list[dict[str, Any]]:
     }
     papers = []
     for item in items:
+        correction_targets = []
+        is_correction = False
         for update in item.get("update-to") or []:
             if not isinstance(update, dict):
                 continue
             update_type = str(update.get("type") or "unspecified")
             if update_type == "correction":
                 update_description = "correction/erratum"
+                is_correction = True
             elif update_type in {"revision", "new-version"}:
                 update_description = "revision/new-version update"
             else:
                 update_description = f"update (type {update_type!r})"
 
             target_doi = normalize_doi(str(update.get("DOI", "")))
+            if update_type == "correction" and target_doi:
+                correction_targets.append(target_doi)
             if target_doi:
                 target_item = items_by_doi.get(target_doi)
                 target_titles = target_item.get("title") if target_item else None
@@ -864,24 +975,38 @@ def discover_papers(args) -> list[dict[str, Any]]:
                     if target_title
                     else f"DOI {target_doi}"
                 )
+                action = (
+                    "It will be attached as an erratum, not ingested standalone."
+                    if update_type == "correction"
+                    else "Review whether to ingest it standalone or attach it to "
+                    "the target paper. Continuing discovery; ingestion is not "
+                    "automatically suppressed."
+                )
                 logging.warning(
-                    "Crossref identifies DOI %s (%s) as a %s for %s; review "
-                    "whether to ingest it standalone or attach it to the target "
-                    "paper. Continuing discovery; ingestion is not automatically "
-                    "suppressed.",
+                    "Crossref identifies DOI %s (%s) as a %s for %s. %s",
                     item.get("DOI", "(unknown DOI)"),
                     (item.get("title") or ["(untitled)"])[0],
                     update_description,
                     target_description,
+                    action,
                 )
             else:
                 logging.warning(
                     "Crossref identifies DOI %s (%s) as a %s, but provides no "
-                    "target DOI; review before standalone ingestion.",
+                    "target DOI; review before ingestion.",
                     item.get("DOI", "(unknown DOI)"),
                     (item.get("title") or ["(untitled)"])[0],
                     update_description,
                 )
+
+        if is_correction:
+            papers.append(
+                {
+                    "doi": normalize_doi(str(item.get("DOI", ""))),
+                    "correction_targets": list(dict.fromkeys(correction_targets)),
+                }
+            )
+            continue
 
         paper = convert_crossref_item_to_paper(item, args.venue)
         if paper is None:
