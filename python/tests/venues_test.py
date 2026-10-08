@@ -128,25 +128,25 @@ def test_venueindex_noindex_skips_sig_reverse_index(anthology):
 
 def test_venueindex_related(anthology):
     index = anthology.venues
-    assert index.related.subset("facl") == {"facl", "fcl"}
-    assert index.related.subset("fcl") == {"facl", "fcl"}
+    assert index.related["facl"] == {"fcl"}
+    assert index.related["fcl"] == {"facl"}
 
 
-def test_venueindex_related_unrelated_venue_is_singleton(anthology):
+def test_venueindex_related_unrelated_venue_has_no_entry(anthology):
     index = anthology.venues
-    assert index.related.subset("humfake") == {"humfake"}
+    assert "humfake" not in index.related
 
 
 def test_venueindex_related_triggers_load(anthology):
     index = VenueIndex(anthology)
     assert not index.is_data_loaded
-    assert index.related.subset("facl") == {"facl", "fcl"}
+    assert index.related["facl"] == {"fcl"}
     assert index.is_data_loaded
 
 
 def test_venueindex_reset_clears_related(anthology):
     index = anthology.venues
-    assert index.related.subset("facl") == {"facl", "fcl"}
+    assert index.related["facl"] == {"fcl"}
     index.reset()
     assert len(index._related) == 0
 

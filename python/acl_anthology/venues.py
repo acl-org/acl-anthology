@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, validators as v, asdict
+from collections import defaultdict
 from msgspec import json
 from pathlib import Path
 from typing import Any, Iterator, Optional, TYPE_CHECKING
@@ -27,7 +28,6 @@ else:
 
 from .utils.attrs import attach_custom_repr, auto_validate_types, repr_item_ids
 from .utils.ids import AnthologyIDTuple, build_id_from_tuple
-from .utils.similarity import SimilarityGroups
 from .constants import RE_VENUE_ID
 from .containers import SlottedDict
 
@@ -57,7 +57,7 @@ class Venue:
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
         description: A description text that appears on the website and may contain Markdown.
-        related_ids: A list of venue IDs that should be considered related to this one.  Do **not** use this to _find_ related venues; that should be done via [`VenueIndex.related`][acl_anthology.venues.VenueIndex].
+        related_ids: A list of venue IDs that should be considered related to this one.  This induces a symmetric relationship.  Do **not** use this to _find_ related venues; that should be done via [`VenueIndex.related`][acl_anthology.venues.VenueIndex].
         type: The venue classification, currently "journal" or "workshop".
     """
 
@@ -141,14 +141,16 @@ class VenueIndex(SlottedDict[Venue]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `venues.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
-        related: A [SimilarityGroups][acl_anthology.utils.similarity.SimilarityGroups] structure of venues with some relationship to each other.
+        related: A dictionary mapping venue IDs to a set of related venue IDs.
         is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
-    _related: SimilarityGroups = field(init=False, repr=False, factory=SimilarityGroups)
+    _related: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -158,7 +160,7 @@ class VenueIndex(SlottedDict[Venue]):
         return self.parent.datadir / Path(VENUE_INDEX_FILE)
 
     @property
-    def related(self) -> SimilarityGroups:
+    def related(self) -> dict[str, set[str]]:
         if not self.is_data_loaded:
             self.load()
         return self._related
@@ -215,7 +217,7 @@ class VenueIndex(SlottedDict[Venue]):
     def reset(self) -> None:
         """Reset the index."""
         self.data = {}
-        self._related = SimilarityGroups()
+        self._related = defaultdict(set)
         self.is_data_loaded = False
 
     def build(self) -> None:
@@ -226,7 +228,8 @@ class VenueIndex(SlottedDict[Venue]):
         """
         for venue_id, venue in self.data.items():
             for related_id in venue.related_ids:
-                self._related.merge(venue_id, related_id)
+                self._related[venue_id].add(related_id)
+                self._related[related_id].add(venue_id)
         if self.no_item_ids:
             return
         for sig_id, sig in self.parent.sigs.items():

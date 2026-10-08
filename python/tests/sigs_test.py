@@ -228,20 +228,20 @@ def test_sig_remove_venue_not_present_is_noop(anthology):
 
 def test_sigindex_related(anthology):
     index = anthology.sigs
-    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
-    assert index.related.subset("sigfake2") == {"sigfake1", "sigfake2"}
+    assert index.related["sigfake1"] == {"sigfake2"}
+    assert index.related["sigfake2"] == {"sigfake1"}
 
 
 def test_sigindex_related_triggers_load(anthology):
     index = SIGIndex(anthology)
     assert not index.is_data_loaded
-    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
+    assert index.related["sigfake1"] == {"sigfake2"}
     assert index.is_data_loaded
 
 
 def test_sigindex_reset_clears_related(anthology):
     index = anthology.sigs
-    assert index.related.subset("sigfake1") == {"sigfake1", "sigfake2"}
+    assert index.related["sigfake1"] == {"sigfake2"}
     index.reset()
     assert len(index._related) == 0
 

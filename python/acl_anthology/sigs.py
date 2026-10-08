@@ -31,7 +31,6 @@ from .collections import Volume
 from .containers import SlottedDict
 from .utils.attrs import attach_custom_repr, into_str_tuple, repr_item_ids
 from .utils.ids import AnthologyID, AnthologyIDTuple, build_id_from_tuple
-from .utils.similarity import SimilarityGroups
 from .venues import Venue
 
 if TYPE_CHECKING:
@@ -80,7 +79,7 @@ class SIG:
         name: The SIG's full name.
         url: A website URL for the SIG.
         description: A description text that appears on the website and may contain Markdown.
-        related_ids: A list of SIG IDs that should be considered related to this one.  Do **not** use this to _find_ related SIGs; that should be done via [`SIGIndex.related`][acl_anthology.sigs.SIGIndex].
+        related_ids: A list of SIG IDs that should be considered related to this one.  This induces a symmetric relationship.  Do **not** use this to _find_ related SIGs; that should be done via [`SIGIndex.related`][acl_anthology.sigs.SIGIndex].
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
         venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
@@ -225,14 +224,16 @@ class SIGIndex(SlottedDict[SIG]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `sigs.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
-        related: A [SimilarityGroups][acl_anthology.utils.similarity.SimilarityGroups] structure of SIGs with some relationship to each other.
+        related: A dictionary mapping SIG IDs to a set of related SIG IDs.
         is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
-    _related: SimilarityGroups = field(init=False, repr=False, factory=SimilarityGroups)
+    _related: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -242,7 +243,7 @@ class SIGIndex(SlottedDict[SIG]):
         return self.parent.datadir / Path(SIG_INDEX_FILE)
 
     @property
-    def related(self) -> SimilarityGroups:
+    def related(self) -> dict[str, set[str]]:
         if not self.is_data_loaded:
             self.load()
         return self._related
@@ -299,7 +300,7 @@ class SIGIndex(SlottedDict[SIG]):
     def reset(self) -> None:
         """Reset the index."""
         self.data = {}
-        self._related = SimilarityGroups()
+        self._related = defaultdict(set)
         self.is_data_loaded = False
 
     def build(self) -> None:
@@ -310,7 +311,8 @@ class SIGIndex(SlottedDict[SIG]):
         """
         for sig_id, sig in self.data.items():
             for related_id in sig.related_ids:
-                self._related.merge(sig_id, related_id)
+                self._related[sig_id].add(related_id)
+                self._related[related_id].add(sig_id)
         if self.no_item_ids:
             return
         for volume in self.parent.volumes():

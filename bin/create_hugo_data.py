@@ -748,10 +748,9 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
-    related = venue.parent.related.subset(venue_id)
-    related.remove(venue_id)
+    related = venue.parent.related.get(venue_id)
     if related:
-        data["related"] = related
+        data["related"] = set(related)
     data["volumes_by_year"] = {}
     sorted_volumes = sorted(
         venue.volumes(),
@@ -879,10 +878,9 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
             data["url"] = sig.url
         if sig.description is not None:
             data["description"] = sig.description
-        related = anthology.sigs.related.subset(sig.id)
-        related.remove(sig.id)
+        related = anthology.sigs.related.get(sig.id)
         if related:
-            data["related"] = related
+            data["related"] = set(related)
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:
