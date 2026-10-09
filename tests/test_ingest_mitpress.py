@@ -612,11 +612,104 @@ def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
         SimpleNamespace(venue="tacl", year=2026, volume=None)
     )
 
-    assert papers[0]["doi"] == "10.1162/tacl.x.779"
+    assert papers == [
+        {
+            "doi": "10.1162/tacl.x.779",
+            "erratum_targets": ["10.1162/tacl.a.742"],
+        }
+    ]
     assert "Crossref identifies DOI 10.1162/tacl.x.779" in caplog.text
     assert "as a correction/erratum for" in caplog.text
     assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
-    assert "not automatically suppressed" in caplog.text
+    assert "title identifies it as an erratum" in caplog.text
+    assert "unless the target already has an erratum" in caplog.text
+
+
+def test_discover_papers_does_not_attach_correction_without_erratum_title(monkeypatch):
+    correction = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Correction notice"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[correction]),
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["title"] == "Correction notice"
+    assert "erratum_targets" not in papers[0]
+
+
+@pytest.mark.parametrize("has_existing_erratum", [False, True])
+def test_ingest_papers_attaches_erratum_only_when_target_has_none(
+    tmp_path, monkeypatch, has_existing_erratum
+):
+    existing_erratum = SimpleNamespace(id="1") if has_existing_erratum else None
+    target_collection = Mock()
+    target = SimpleNamespace(
+        doi="10.1162/tacl.a.742",
+        authors=[],
+        full_id="2026.tacl-1.1",
+        errata=(existing_erratum,) if existing_erratum else (),
+        collection=target_collection,
+    )
+    collection = Mock()
+    collection.papers.return_value = [target]
+    anthology = SimpleNamespace(
+        collections={"2026.tacl": collection},
+        people=SimpleNamespace(by_name={}, values=lambda: iter(())),
+        papers=lambda: iter([target]),
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
+    download_pdf = Mock(return_value=(True, "https://example.test/erratum.pdf"))
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download_pdf)
+    pdf_reference = Mock()
+    monkeypatch.setattr(
+        INGEST_MITPRESS.PDFReference, "from_file", Mock(return_value=pdf_reference)
+    )
+    paper_erratum = Mock(return_value=SimpleNamespace(id="1"))
+    monkeypatch.setattr(INGEST_MITPRESS, "PaperErratum", paper_erratum)
+    args = SimpleNamespace(
+        anthology_dir=str(tmp_path),
+        pdfs_dir=str(tmp_path),
+        venue="tacl",
+        year=2026,
+        dry_run=False,
+    )
+
+    report = INGEST_MITPRESS.ingest_papers(
+        args,
+        [
+            {
+                "doi": "10.1162/tacl.x.779",
+                "erratum_targets": ["10.1162/tacl.a.742"],
+            }
+        ],
+    )
+
+    if has_existing_erratum:
+        download_pdf.assert_not_called()
+        paper_erratum.assert_not_called()
+        assert report["existing_errata"] == 1
+        assert report["errata_attached"] == 0
+    else:
+        download_pdf.assert_called_once()
+        paper_erratum.assert_called_once_with(
+            id="1",
+            pdf=pdf_reference,
+            date=date.today(),
+        )
+        assert target.errata[0].id == "1"
+        assert report["existing_errata"] == 0
+        assert report["errata_attached"] == 1
 
 
 def test_discover_papers_warns_for_revision_and_identifies_target(monkeypatch, caplog):
