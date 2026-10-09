@@ -5,7 +5,7 @@
 ### Added
 
 - SIGs can now store `venue_ids` to indicate venues that are/have been supported by the SIG.
-- `Venue` and `SIG` can now store `description` and `related_ids`; the latter are exposed via `VenueIndex.related` and `SIGIndex.related`, working identically to `PersonIndex.similar`.
+- `Venue` and `SIG` can now store `description` and `related_ids`; the latter are symmetric relations exposed via `VenueIndex.related` and `SIGIndex.related`.
 
 ### Changed
 
