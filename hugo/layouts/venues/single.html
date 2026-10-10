@@ -5,6 +5,7 @@
   </h2>
   <hr />
 
+  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div class="row acl-paper-details">
     <div class="col">
     <dl>
@@ -19,9 +20,21 @@
     </dl>
     </div>
   </div>
+
+  {{- with $venue.description }}
+  {{ $.RenderString (dict "display" "block") . }}
+  {{- end -}}
+  {{- with $venue.related }}
+  <p class="fw-light text-muted">
+    {{ $len := (len .) }}
+    <span class="fst-italic">See also:</span>
+    {{ range $index, $rel_id := . }}
+    {{ $rel_venue := index hugo.Data.venues $rel_id }}<a href="{{ relref $ (printf "/venues/%s" $rel_id) }}" title="{{ $rel_venue.name }}">{{- $rel_venue.acronym -}}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{- end -}}
   <hr />
 
-  {{ $venue := index hugo.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}

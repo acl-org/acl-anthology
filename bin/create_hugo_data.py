@@ -686,13 +686,13 @@ def export_people(anthology: Anthology, builddir, dryrun):
                 data["comment"] = person.comment
             if person.orcid is not None:
                 data["orcid"] = person.orcid
-            similar = anthology.people.similar.subset(person_id)
-            similar.remove(person_id)
-            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
-                data["similar_verified"] = sorted(list(similar_verified))
-                similar.difference_update(similar_verified)
-            if similar:  # any remaining IDs are unverified
-                data["similar_unverified"] = sorted(list(similar))
+            similar = person.similar()
+            data["similar_verified"] = sorted(
+                person.id for person in similar if person.is_explicit
+            )
+            data["similar_unverified"] = sorted(
+                person.id for person in similar if not person.is_explicit
+            )
             people[person_id] = data
             progress.update(task, advance=1)
 
@@ -744,8 +744,12 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["oldstyle_letter"] = venue.oldstyle_letter
     if venue.url is not None:
         data["url"] = venue.url
+    if venue.description is not None:
+        data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
+    if related := venue.related():
+        data["related"] = set(r.id for r in related)
     data["volumes_by_year"] = {}
     sorted_volumes = sorted(
         venue.volumes(),
@@ -864,12 +868,17 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
         data = {
+            "acronym": sig.acronym,
             "name": sig.name,
             "slug": sig.id,
             "volumes_by_year": {},
         }
         if sig.url is not None:
             data["url"] = sig.url
+        if sig.description is not None:
+            data["description"] = sig.description
+        if related := sig.related():
+            data["related"] = set(r.acronym for r in related)
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:

@@ -30,6 +30,7 @@ def test_venue_defaults():
     assert venue.oldstyle_letter is None
     assert venue.url is None
     assert venue.item_ids == set()
+    assert venue.related_ids == []
 
 
 def test_venue_set_itemids():
@@ -123,6 +124,50 @@ def test_venueindex_noindex_skips_sig_reverse_index(anthology):
     index = VenueIndex(anthology, no_item_ids=True)
     venue = index.get("natfake")
     assert venue.sigs() == []
+
+
+def test_venueindex_related(anthology):
+    index = anthology.venues
+    assert index.related["facl"] == {"fcl"}
+    assert index.related["fcl"] == {"facl"}
+
+
+def test_venueindex_related_unrelated_venue_has_no_entry(anthology):
+    index = anthology.venues
+    assert "humfake" not in index.related
+
+
+def test_venueindex_related_triggers_load(anthology):
+    index = VenueIndex(anthology)
+    assert not index.is_data_loaded
+    assert index.related["facl"] == {"fcl"}
+    assert index.is_data_loaded
+
+
+def test_venueindex_reset_clears_related(anthology):
+    index = anthology.venues
+    assert index.related["facl"] == {"fcl"}
+    index.reset()
+    assert len(index._related) == 0
+
+
+def test_venue_related(anthology):
+    facl = anthology.venues["facl"]
+    fcl = anthology.venues["fcl"]
+    assert facl.related() == [fcl]
+    assert fcl.related() == [facl]
+
+
+def test_venue_related_empty(anthology):
+    venue = anthology.venues["humfake"]
+    assert venue.related() == []
+
+
+def test_venue_related_with_nonexistent_venue_raises(anthology):
+    venue = anthology.venues["facl"]
+    anthology.venues.related["facl"].add("doesntexist")
+    with pytest.raises(KeyError):
+        _ = venue.related()
 
 
 def test_venueindex_roundtrip_data(anthology, tmp_path):
