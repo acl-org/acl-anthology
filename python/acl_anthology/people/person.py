@@ -101,7 +101,7 @@ class Person:
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
-        similar_ids: A list of person IDs with names that should be considered similar to this one.  To _find_ people with similar names, use [`Person.similar()`][acl_anthology.people.person.Person.similar].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
+        similar_ids: A list of person IDs with names that should be considered similar to this one.  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.  To _find_ people with similar names, use [`Person.similar()`][acl_anthology.people.person.Person.similar].
         is_explicit: If True, this person's ID is explicitly defined in `people.json`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
