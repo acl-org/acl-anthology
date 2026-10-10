@@ -10,6 +10,17 @@ This script is a single entrypoint for both discovery and ingestion:
 3) Skip already-ingested DOIs in the target collection.
 4) Ingest new papers into data/xml/<year>.<venue>.xml using the Python library.
 5) Download PDFs via DOI URL and place them under anthology-files/pdf/<venue>/.
+6) Attach items whose titles contain "Erratum:" to their target papers when the
+   target does not already have an erratum.
+
+Author name splits follow the Anthology's canonical preference when unambiguous,
+rather than preserving an upstream split simply because it exists as an alias.
+
+PDF and Crossref retries honor Retry-After headers in seconds or HTTP-date form,
+without shortening the server's delay. Publisher access blocks (HTTP 403/429 or
+crawlprevention redirects) stop downloads unless a valid Retry-After permits a
+later attempt. Retry counts remain bounded. Failed downloads leave existing PDFs
+unchanged. Browser access does not imply that automated access is allowed.
 
 Example usage:
 
@@ -28,19 +39,24 @@ import re
 import sys
 import tempfile
 import time
-from datetime import date
+from datetime import date, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import urlsplit
 
 import requests
 from pypdf import PdfReader, PdfWriter
+from pypdf.errors import PyPdfError
 from pypdf.generic import ArrayObject, DecodedStreamObject, NameObject
 
 from acl_anthology import Anthology
+from acl_anthology.collections.paper import PaperErratum
 from acl_anthology.files import PDFReference
 from acl_anthology.people import Name, NameSpecification as NameSpec
 from acl_anthology.text import MarkupText
 from acl_anthology.utils import setup_rich_logging
+from acl_anthology.utils.ids import parse_id
 
 from fixedcase.protect import protect
 from ingest import NameSplitIndex, build_name_split_index, resegment_name
@@ -101,6 +117,30 @@ PDF_DOWNLOAD_RETRIES = 5
 PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC = 2
 DOWNLOAD_CHUNK_SIZE = 1024 * 1024
 PDF_FILE_MODE = 0o644
+
+
+class PublisherBlockedError(requests.HTTPError):
+    """The publisher rejected an automated PDF download."""
+
+
+def retry_after_delay(response: Optional[requests.Response]) -> Optional[float]:
+    """Return the server's retry delay, or None if absent or invalid."""
+    if response is None:
+        return None
+    value = response.headers.get("Retry-After")
+    if value is None:
+        return None
+    value = value.strip()
+    if re.fullmatch(r"[0-9]+", value):
+        return int(value)
+    try:
+        retry_at = parsedate_to_datetime(value)
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=timezone.utc)
+        return max(0.0, retry_at.timestamp() - time.time())
+    except (ValueError, TypeError, OverflowError):
+        logging.warning("Invalid Retry-After header %r from %s", value, response.url)
+        return None
 
 
 def collapse_spaces(text: str) -> str:
@@ -248,6 +288,15 @@ def retrieve_url(url: str, destination: str, timeout_sec: int = 120) -> bool:
         stream=True,
         timeout=timeout_sec,
     ) as response:
+        if response.status_code in {403, 429} or (
+            "/crawlprevention" in urlsplit(response.url).path.lower()
+        ):
+            retry_after = response.headers.get("Retry-After")
+            retry_hint = f" Retry-After: {retry_after}." if retry_after else ""
+            raise PublisherBlockedError(
+                f"Publisher access block (HTTP {response.status_code}).{retry_hint}",
+                response=response,
+            )
         response.raise_for_status()
         with target.open("wb") as out_f:
             for chunk in response.iter_content(chunk_size=DOWNLOAD_CHUNK_SIZE):
@@ -295,7 +344,9 @@ def crossref_request_json(
         except requests.RequestException as exc:
             if attempt == retries:
                 raise
-            wait_s = min(2**attempt, 10)
+            wait_s = retry_after_delay(exc.response)
+            if wait_s is None:
+                wait_s = min(2**attempt, 10)
             logging.warning("Crossref request failed (%s). Retrying in %ss", exc, wait_s)
             time.sleep(wait_s)
 
@@ -450,43 +501,58 @@ def maybe_download_pdf(
 
     for attempt in range(1, PDF_DOWNLOAD_RETRIES + 1):
         try:
-            retrieve_url(pdf_url, str(destination))
-            if destination.is_file() and destination.stat().st_size > 0:
-                removed = maybe_remove_mitpress_watermark(destination)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(
+                dir=destination.parent, prefix=f"{destination.name}."
+            ) as directory:
+                staged = Path(directory) / destination.name
+                retrieve_url(pdf_url, str(staged))
+                if not staged.is_file() or staged.stat().st_size == 0:
+                    raise RuntimeError("downloaded file missing or empty")
+                removed = maybe_remove_mitpress_watermark(staged)
                 if removed == 0:
                     raise RuntimeError(
                         "no MIT Press watermark streams were removed; "
                         "the PDF format may have changed"
                     )
-                remaining_pages = find_mitpress_watermark_pages(destination)
+                remaining_pages = find_mitpress_watermark_pages(staged)
                 if remaining_pages:
                     raise RuntimeError(
                         "MIT Press watermark remains on page(s) "
                         + ", ".join(map(str, remaining_pages))
                     )
-                logging.info(
-                    "Removed %s watermark content stream(s) from %s",
-                    removed,
-                    destination.name,
+                staged.chmod(PDF_FILE_MODE)
+                staged.replace(destination)
+            logging.info(
+                "Removed %s watermark content stream(s) from %s",
+                removed,
+                destination.name,
+            )
+            return True, pdf_url
+        except (requests.RequestException, OSError, RuntimeError, PyPdfError) as exc:
+            wait_s = (
+                retry_after_delay(exc.response)
+                if isinstance(exc, requests.RequestException)
+                else None
+            )
+            if isinstance(exc, PublisherBlockedError) and wait_s is None:
+                logging.error(
+                    "PDF download blocked for DOI %s: %s Not retrying without a "
+                    "valid Retry-After. Stop automated downloads until the publisher "
+                    "permits access again, or contact MIT Press for approved "
+                    "automated access. Existing PDF unchanged.",
+                    doi,
+                    exc,
                 )
-                destination.chmod(PDF_FILE_MODE)
-                return True, pdf_url
-            raise RuntimeError("downloaded file missing or empty")
-        except Exception as exc:
-            # Avoid keeping a partial file between retries.
-            try:
-                if destination.exists():
-                    destination.unlink()
-            except OSError:
-                pass
-
+                return False, pdf_url
             if attempt == PDF_DOWNLOAD_RETRIES:
                 logging.warning(
                     "Failed to download and clean PDF for DOI %s: %s", doi, exc
                 )
                 return False, pdf_url
 
-            wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
+            if wait_s is None:
+                wait_s = min(PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC * (2 ** (attempt - 1)), 30)
             logging.warning(
                 "PDF download or cleanup failed for DOI %s (attempt %s/%s): %s. Retrying in %ss",
                 doi,
@@ -709,6 +775,10 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         "no_pdf_dois": [],
         "existing_authors_updated": 0,
         "existing_authors_updated_dois": [],
+        "errata_attached": 0,
+        "errata_attached_dois": [],
+        "existing_errata": 0,
+        "existing_errata_dois": [],
     }
 
     doi_set = existing_dois(collection)
@@ -721,6 +791,7 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         pdf_destination.mkdir(parents=True, exist_ok=True)
 
     valid_papers: list[dict[str, Any]] = []
+    erratum_notices: list[dict[str, Any]] = []
     for paper in papers:
         doi = normalize_doi(str(paper.get("doi", "")))
         if not doi:
@@ -729,6 +800,9 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
             continue
 
         paper["doi"] = doi
+        if "erratum_targets" in paper:
+            erratum_notices.append(paper)
+            continue
         if doi in doi_set:
             report["existing"] += 1
             report["existing_dois"].append(doi)
@@ -817,11 +891,93 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         report["new"] += 1
         report["ingested"] += 1
         report["new_dois"].append(paper_data["doi"])
+        existing_papers_by_doi[paper_data["doi"]] = paper_obj
+
+    modified_target_collections = []
+    for notice in erratum_notices:
+        doi = notice["doi"]
+        target_dois = notice["erratum_targets"]
+        if not target_dois:
+            raise RuntimeError(f"Erratum DOI {doi} has no target DOI; cannot attach it.")
+
+        for target_doi in target_dois:
+            target = existing_papers_by_doi.get(target_doi)
+            if target is None:
+                target = next(
+                    (
+                        paper
+                        for paper in anthology.papers()
+                        if paper.doi and normalize_doi(paper.doi) == target_doi
+                    ),
+                    None,
+                )
+            if target is None:
+                raise RuntimeError(
+                    f"Erratum DOI {doi}: target DOI {target_doi} was not found "
+                    "in the Anthology; refusing standalone ingestion."
+                )
+            if target.errata:
+                report["existing_errata"] += 1
+                report["existing_errata_dois"].append(doi)
+                logging.info(
+                    "Target %s already has an erratum; not attaching DOI %s",
+                    target.full_id,
+                    doi,
+                )
+                continue
+
+            erratum_id = "1"
+            collection_id, _, _ = parse_id(target.full_id)
+            if collection_id[0].isdigit():
+                venue_path = Path(collection_id.split(".", 1)[-1])
+            else:
+                venue_path = Path(collection_id[0]) / collection_id
+            destination = (
+                Path(args.pdfs_dir)
+                / "pdf"
+                / venue_path
+                / f"{target.full_id}e{erratum_id}.pdf"
+            )
+            ok, pdf_url = maybe_download_pdf(doi, destination, args.dry_run)
+            if not ok:
+                report["no_pdf"] += 1
+                report["no_pdf_dois"].append(doi)
+                if pdf_url:
+                    report["errors"].append(
+                        f"{doi}: erratum PDF fetch failed ({pdf_url})"
+                    )
+                raise RuntimeError(
+                    f"PDF download failed for erratum DOI {doi} ({pdf_url}); "
+                    "aborting ingestion."
+                )
+            if not args.dry_run:
+                target.errata += (
+                    PaperErratum(
+                        id=erratum_id,
+                        pdf=PDFReference.from_file(destination),
+                        date=ingest_date,
+                    ),
+                )
+                if target.collection is not collection and all(
+                    target.collection is not saved
+                    for saved in modified_target_collections
+                ):
+                    modified_target_collections.append(target.collection)
+            report["errata_attached"] += 1
+            report["errata_attached_dois"].append(doi)
+            logging.info(
+                "%s erratum DOI %s to %s",
+                "Would attach" if args.dry_run else "Attached",
+                doi,
+                target.full_id,
+            )
 
     if args.dry_run:
         logging.info("Dry-run mode: no XML changes written")
     else:
         collection.save()
+        for target_collection in modified_target_collections:
+            target_collection.save()
 
     return report
 
@@ -829,7 +985,8 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
 def write_report(report: dict[str, Any]) -> None:
     summary = (
         "discovered={discovered} new={new} existing={existing} invalid={invalid} "
-        "no_pdf={no_pdf}"
+        "no_pdf={no_pdf} errata_attached={errata_attached} "
+        "existing_errata={existing_errata}"
     ).format(**report)
     logging.info("Summary: %s", summary)
 
@@ -841,6 +998,10 @@ def discover_papers(args) -> list[dict[str, Any]]:
     }
     papers = []
     for item in items:
+        titles = item.get("title") or []
+        title = parse_crossref_title(str(titles[0])) if titles else ""
+        is_erratum = "Erratum:" in title
+        erratum_targets = []
         for update in item.get("update-to") or []:
             if not isinstance(update, dict):
                 continue
@@ -853,6 +1014,8 @@ def discover_papers(args) -> list[dict[str, Any]]:
                 update_description = f"update (type {update_type!r})"
 
             target_doi = normalize_doi(str(update.get("DOI", "")))
+            if is_erratum and target_doi:
+                erratum_targets.append(target_doi)
             if target_doi:
                 target_item = items_by_doi.get(target_doi)
                 target_titles = target_item.get("title") if target_item else None
@@ -864,15 +1027,21 @@ def discover_papers(args) -> list[dict[str, Any]]:
                     if target_title
                     else f"DOI {target_doi}"
                 )
+                action = (
+                    "Its title identifies it as an erratum; it will be attached "
+                    "unless the target already has an erratum."
+                    if is_erratum
+                    else "Review whether to ingest it standalone or attach it to "
+                    "the target paper. Continuing discovery; ingestion is not "
+                    "automatically suppressed."
+                )
                 logging.warning(
-                    "Crossref identifies DOI %s (%s) as a %s for %s; review "
-                    "whether to ingest it standalone or attach it to the target "
-                    "paper. Continuing discovery; ingestion is not automatically "
-                    "suppressed.",
+                    "Crossref identifies DOI %s (%s) as a %s for %s. %s",
                     item.get("DOI", "(unknown DOI)"),
                     (item.get("title") or ["(untitled)"])[0],
                     update_description,
                     target_description,
+                    action,
                 )
             else:
                 logging.warning(
@@ -882,6 +1051,15 @@ def discover_papers(args) -> list[dict[str, Any]]:
                     (item.get("title") or ["(untitled)"])[0],
                     update_description,
                 )
+
+        if is_erratum:
+            papers.append(
+                {
+                    "doi": normalize_doi(str(item.get("DOI", ""))),
+                    "erratum_targets": list(dict.fromkeys(erratum_targets)),
+                }
+            )
+            continue
 
         paper = convert_crossref_item_to_paper(item, args.venue)
         if paper is None:

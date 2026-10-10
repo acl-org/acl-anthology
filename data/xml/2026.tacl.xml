@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2026.tacl">
-  <volume id="1" type="journal" ingest-date="2026-10-07">
+  <volume id="1" type="journal" ingest-date="2026-10-08">
     <!-- https://aclanthology.org/2026.tacl-1/ -->
     <meta>
       <booktitle>Transactions of the Association for Computational Linguistics, Volume 14</booktitle>
@@ -765,7 +765,7 @@
       <author><first>Urban</first><last>Knupleš</last></author>
       <author><first>Diego</first><last>Frassinelli</last></author>
       <author><first>Alexander</first><last>Fraser</last></author>
-      <author><first>Sabine Schulte im</first><last>Walde</last></author>
+      <author><first>Sabine</first><last>Schulte im Walde</last></author>
       <pages>1205–1224</pages>
       <abstract>While existing concreteness norms primarily target words in isolation, little attention has been paid to concreteness in context. To address this, we systematically collect multilingual concreteness ratings using Best-Worst Scaling (BWS) for 5,814 verb-direct object noun expressions in three languages with different degrees of resource availability: English, German, and Slovene. We identify consistent patterns where the concreteness of verb-noun combinations is more strongly influenced by the nominal object than the verb. Through comparative analyses on an English subset, we demonstrate that BWS guarantees more reliable concreteness judgments than traditional rating scales. Expanding beyond our human-generated data, we use traditional and LLM-based automatic extrapolation methods to generate a large-scale multilingual resource of over 430,000 expressions. Additionally, we conduct a study examining the interaction between concreteness and literal vs. figurative judgments for a subset of 1,800 expressions in all three languages, along with example usage sentences. Our findings show that lower concreteness ratings correlate with figurative language, thus reinforcing the link between abstractness and figurativeness. All resources are available from https://github.com/urbikn/multilingual-concreteness-vo.</abstract>
       <pdf hash="c927c2bf"/>
@@ -1008,9 +1008,9 @@
       <pages>1605–1618</pages>
       <abstract>Do neural models, such as Large Language Models, genuinely acquire compositional abilities for interpretation of natural language? When we talk about semantic interpretation, we can distinguish two complementary aspects: establishing what an expression refers to in the world (which we call the Extensional task) and representing its sense in a structured way (which we call the Intensional task). We evaluate LLMs and humans on both tasks in the setting of the Personal Relation Task (Paperno, 2022) in which, given a universe of people and their relationships with each other, one is asked to interpret a noun phrase such as Amber’s parent’s friend. Here, for the Intensional task, the answer is the formula friend(parent(amber)), and for the Extensional task, the person. We find that humans and LLMs show opposite strengths: humans perform better on Extensional than Intensional tasks, and LLMs vice versa. Our methodology brings greater nuance to the understanding of compositional abilities in modern machine learning models. Our results support the notion that the lack of referential grounding in LLM training is a crucial missing component in mimicking humanlike language understanding.</abstract>
       <pdf hash="0e6361a0"/>
+      <erratum id="1" hash="7f0e66c3"/>
       <doi>10.1162/tacl.a.742</doi>
       <bibkey>evelo-etal-2026-language</bibkey>
-      <erratum id="1" hash="7f0e66c3"/>
     </paper>
     <paper id="73">
       <!-- https://aclanthology.org/2026.tacl-1.73/ -->
@@ -1224,9 +1224,9 @@
       <author><first>Kohei</first><last>Kajikawa</last></author>
       <author><first>Koji</first><last>Hukushima</last></author>
       <author><first>Yohei</first><last>Oseki</last></author>
-      <pages>1917–1934</pages>
+      <pages>1917–1935</pages>
       <abstract>Statistical analysis of corpora provides an approach to quantitatively investigate natural languages. This approach has revealed that several power laws consistently emerge across different corpora and languages, suggesting universal mechanisms underlying languages. In particular, the power-law decay of correlations has been interpreted as evidence of underlying hierarchical structures in syntax, semantics, and discourse. This perspective has also been extended beyond corpora produced by human adults, including child speech, birdsong, and chimpanzee action sequences. However, the argument supporting this interpretation has not been empirically tested in natural languages. To address this gap, the present study examines the validity of the argument for syntactic structures. Specifically, we test whether the statistical properties of parse trees align with the assumptions in the argument. Using English and Japanese corpora, we analyze the mutual information, deviations from probabilistic context-free grammars (PCFGs), and other properties in natural language parse trees, as well as in the PCFG that approximates these parse trees. Our results indicate that the assumptions do not hold for syntactic structures and that it is difficult to apply the proposed argument not only to sentences by human adults but also to other domains, highlighting the need to reconsider the relationship between the power law and hierarchical structures.</abstract>
-      <pdf hash="d5fe2ada"/>
+      <pdf hash="61b18461"/>
       <doi>10.1162/tacl.a.785</doi>
       <bibkey>nakaishi-etal-2026-rethinking</bibkey>
     </paper>
@@ -1586,6 +1586,70 @@
       <pdf hash="6a75d52e"/>
       <doi>10.1162/tacl.a.810</doi>
       <bibkey>haslett-etal-2026-byte</bibkey>
+    </paper>
+    <paper id="114">
+      <!-- https://aclanthology.org/2026.tacl-1.114/ -->
+      <title>The Extractive-Abstractive Spectrum: Uncovering Verifiability Trade-offs in <fixed-case>LLM</fixed-case> Generations</title>
+      <author><first>Theodora</first><last>Worledge</last></author>
+      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <author><first>Carlos</first><last>Guestrin</last></author>
+      <pages>2449–2474</pages>
+      <abstract>Across all fields, respected experts cite their sources. While large language models (LLMs) excel at synthesizing information, they do not reliably cite sources, making it difficult to verify provided information. In contrast, search engines make sources readily accessible but burden users with synthesizing information. To rigorously examine the interplay between verifiability and utility, we build on classic theories of abstraction to propose an extractive-abstractive spectrum for cited generations; we define five operating points that span the extreme endpoints of extractive search engine outputs and abstractive LLM generations without reliable citation. We perform an analysis of the drawbacks and benefits of seven systems across the spectrum in the QA settings of search queries, information simplification, multi-hop reasoning, and health advice. As outputs become more abstractive, our human evaluations find that the proportion of properly cited sentences decreases by as much as 50%. Simultaneously, perceived utility improves by as much as 200% and users take up to 3 times as long to verify cited information. We recommend operating points for specific task settings and our failure analysis informs methods for citation identification, information retrieval, and multi-operating point systems.</abstract>
+      <pdf hash="b3035c6b"/>
+      <doi>10.1162/tacl.a.811</doi>
+      <bibkey>worledge-etal-2026-extractive</bibkey>
+    </paper>
+    <paper id="115">
+      <!-- https://aclanthology.org/2026.tacl-1.115/ -->
+      <title>All Learning Has an Emotional Basis, So Does Task-Oriented Dialogue</title>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Hsien-chin</first><last>Lin</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Benjamin</first><last>Ruppik</last></author>
+      <author><first>Renato</first><last>Vukovic</last></author>
+      <author><first>Milica</first><last>Gašić</last></author>
+      <pages>2475–2499</pages>
+      <abstract>Task-oriented dialogue (ToD) systems aim to help users accomplish goals through natural language interaction. Beyond task success, effective ToD systems must also maintain positive emotional interaction and accurately convey information in inherently noisy and ambiguous conversational environments. Recent advances in large language models (LLMs) have substantially improved conversational fluency and contextual understanding. However, although emotion has been incorporated into existing ToD systems, its integration is typically confined to limited roles, restricting its influence on overall dialogue behaviour and user experience. To address this, we propose a novel end-to-end framework that combines fully lexicalised representations with an LLM backbone for improved semantic accuracy and employs online reinforcement learning with short-term emotional and long-term task-success rewards for joint optimisation of emotional interaction and task success. We further develop a challenging and realistic simulation environment that enables systematic evaluation across diverse ToD set-ups. Experiments show that incorporating coarse affective signals improves task success and sentiment rating in aggregate. Furthermore, integrating emotional interaction throughout the dialogue system using our proposed framework results in more pronounced improvements in both task success and user emotional experience.1</abstract>
+      <pdf hash="ca07390e"/>
+      <doi>10.1162/tacl.a.812</doi>
+      <bibkey>feng-etal-2026-learning</bibkey>
+    </paper>
+    <paper id="116">
+      <!-- https://aclanthology.org/2026.tacl-1.116/ -->
+      <title>Exploring Hallucination of Large Multimodal Models in Video Understanding: Benchmark, Analysis and Mitigation</title>
+      <author><first>Hongcheng</first><last>Gao</last></author>
+      <author><first>Jiashu</first><last>Qu</last></author>
+      <author><first>Jingyi</first><last>Tang</last></author>
+      <author><first>Baolong</first><last>Bi</last></author>
+      <author><first>Yue</first><last>Liu</last></author>
+      <author><first>Hongyu</first><last>Chen</last></author>
+      <author><first>Liang</first><last>Li</last></author>
+      <author><first>Li</first><last>Su</last></author>
+      <author><first>Qingming</first><last>Huang</last></author>
+      <pages>2500–2527</pages>
+      <abstract>Hallucinations in large multimodal models (LMMs), where responses appear correct but are factually wrong, limit their reliability in practical applications. This paper focuses on hallucinations in video understanding, a more dynamic and challenging domain than static modalities. We present HAVEN, a comprehensive benchmark with 6K questions spanning three dimensions: hallucination causes, aspects, and question formats. Then, we systematically evaluate 18 LMMs and analyze seven influential factors affecting hallucinations, including video duration, model size, and reasoning capabilities. Additionally, we explore two reasoning-based strategies to reduce hallucinations in LMMs: (1) text-based reasoning via rejection fine-tuning on reasoning datasets and segment-weighted Direct Preference Optimization, and (2) video-based reasoning through a tool-augmented frame-level operations on video optimized via supervised tool learning and Hallucination-aware Group Relative Policy Optimization (HGRPO). Extensive experiments and analyses demonstrate the effectiveness. Remarkably, video-based reasoning strategy improves the Qwen2.5-VL-7B-Instruct by 10.16% in accuracy and reduces the bias score by 4.89%.</abstract>
+      <pdf hash="a8ef4bb3"/>
+      <doi>10.1162/tacl.a.813</doi>
+      <bibkey>gao-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="117">
+      <!-- https://aclanthology.org/2026.tacl-1.117/ -->
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>V</fixed-case>iew<fixed-case>D</fixed-case>x: Evidence-Linked Multi-View Clinical Diagnosis</title>
+      <author><first>Junda</first><last>Wang</last></author>
+      <author><first>Zonghai</first><last>Yao</last></author>
+      <author><first>Yujan</first><last>Ting</last></author>
+      <author><first>Eric Z.</first><last>Chen</last></author>
+      <author><first>Hieu</first><last>Tran</last></author>
+      <author><first>Hong</first><last>Yu</last></author>
+      <author><first>Weijing</first><last>Huang</last></author>
+      <author><first>Terrence</first><last>Chen</last></author>
+      <pages>2528–2554</pages>
+      <abstract>Medical multimodal large language models (MLLMs) can perform well on existing medical visual question answering (MedVQA) benchmarks, but their training data often does not match clinical diagnosis. Most supervision is organized around isolated images or short QA pairs, leaving two structures weakly specified: how evidence leads to a decision, and how views, series, modalities, and patient context from the same case are linked. We introduce MultiViewDx, a partly physician-validated multimodal instruction dataset for evidence-linked multi-view medical imaging diagnosis. Multi-ViewDx uses the clinical case as the supervision unit. It links imaging studies with patient context, normalizes heterogeneous reports into an evidence-linked workflow (evidence → findings → differential discussion → diagnosis), and uses a unified image-text retriever to constrain instruction synthesis to source-supported evidence. It covers X-ray, CT, MRI, ultrasound, histopathology, and other clinical visual sources. We fine-tune MultiViewDx-8B-AN and evaluate it on both existing MedVQA benchmarks and real-world case-based diagnostic reasoning. Across four MedVQA benchmarks, it achieves the best average accuracy among compared systems (79.0%), outperforming HuatuoGPT-Vision-34B (66.7%) and Claude3-Opus (55.7%). Beyond Med-VQA, on JAMA Clinical Challenge cases, it receives the strongest overall rating under a physician-designed rubric for key clinical points, diagnostic inference, and evidence grounding. Controlled ablations and clinician evaluation show that both case-level multi-view organization and evidence-linked reasoning targets contribute to the gain.1</abstract>
+      <pdf hash="ca031dd1"/>
+      <doi>10.1162/tacl.a.814</doi>
+      <bibkey>wang-etal-2026-multiviewdx</bibkey>
     </paper>
   </volume>
 </collection>
