@@ -79,7 +79,7 @@ class SIG:
         name: The SIG's full name.
         url: A website URL for the SIG.
         description: A description text that appears on the website and may contain Markdown.
-        related_ids: A list of SIG IDs that should be considered related to this one.  This induces a symmetric relationship.  Do **not** use this to _find_ related SIGs; that should be done via [`SIGIndex.related`][acl_anthology.sigs.SIGIndex].
+        related_ids: A list of SIG IDs that should be considered related to this one.  This induces a symmetric relationship.  To _find_ related SIGs, use [`SIG.related()`][acl_anthology.sigs.SIG.related].
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
         venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
@@ -181,6 +181,21 @@ class SIG:
         venue_id = venue.id if isinstance(venue, Venue) else venue
         if venue_id in self.venue_ids:
             self.venue_ids = tuple(x for x in self.venue_ids if x != venue_id)
+
+    def related(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs marked as being related to this SIG.
+        """
+        try:
+            return [
+                self.parent[related_id] for related_id in self.parent.related[self.id]
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
 
     def venues(self) -> list[Venue]:
         """A list of venues associated with this SIG.

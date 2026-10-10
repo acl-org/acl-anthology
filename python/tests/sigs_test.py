@@ -246,6 +246,27 @@ def test_sigindex_reset_clears_related(anthology):
     assert len(index._related) == 0
 
 
+def test_sig_related(anthology):
+    sigfake1 = anthology.sigs["sigfake1"]
+    sigfake2 = anthology.sigs["sigfake2"]
+    assert sigfake1.related() == [sigfake2]
+    assert sigfake2.related() == [sigfake1]
+
+
+def test_sig_related_empty(anthology):
+    sig = anthology.sigs.create(
+        id="sigfake3", acronym="SIGFAKE3", name="Another Fake Interest Group"
+    )
+    assert sig.related() == []
+
+
+def test_sig_related_with_nonexistent_sig_raises(anthology):
+    sig = anthology.sigs["sigfake1"]
+    anthology.sigs.related["sigfake1"].add("doesntexist")
+    with pytest.raises(KeyError):
+        _ = sig.related()
+
+
 def test_sigindex_roundtrip_data(anthology, tmp_path):
     index = anthology.sigs
     index.load()

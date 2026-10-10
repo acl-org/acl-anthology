@@ -151,6 +151,25 @@ def test_venueindex_reset_clears_related(anthology):
     assert len(index._related) == 0
 
 
+def test_venue_related(anthology):
+    facl = anthology.venues["facl"]
+    fcl = anthology.venues["fcl"]
+    assert facl.related() == [fcl]
+    assert fcl.related() == [facl]
+
+
+def test_venue_related_empty(anthology):
+    venue = anthology.venues["humfake"]
+    assert venue.related() == []
+
+
+def test_venue_related_with_nonexistent_venue_raises(anthology):
+    venue = anthology.venues["facl"]
+    anthology.venues.related["facl"].add("doesntexist")
+    with pytest.raises(KeyError):
+        _ = venue.related()
+
+
 def test_venueindex_roundtrip_data(anthology, tmp_path):
     index = anthology.venues
     index.load()

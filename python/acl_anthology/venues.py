@@ -57,7 +57,7 @@ class Venue:
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
         description: A description text that appears on the website and may contain Markdown.
-        related_ids: A list of venue IDs that should be considered related to this one.  This induces a symmetric relationship.  Do **not** use this to _find_ related venues; that should be done via [`VenueIndex.related`][acl_anthology.venues.VenueIndex].
+        related_ids: A list of venue IDs that should be considered related to this one.  This induces a symmetric relationship.  To _find_ related venues, use [`Venue.related()`][acl_anthology.venues.Venue.related].
         type: The venue classification, currently "journal" or "workshop".
     """
 
@@ -110,6 +110,21 @@ class Venue:
                     f"Venue {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
             yield volume
+
+    def related(self) -> list[Venue]:
+        """
+        Returns:
+            A list of venues marked as being related to this venue.
+        """
+        try:
+            return [
+                self.parent[related_id] for related_id in self.parent.related[self.id]
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
 
     def sigs(self) -> list[SIG]:
         """
