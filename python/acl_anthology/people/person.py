@@ -441,3 +441,20 @@ class Person:
                         f"Person {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                     )  # pragma: no cover
                 yield volume
+
+    def similar(self) -> list[Person]:
+        """
+        Returns:
+            A list of persons with names considered similar to this one.
+        """
+        try:
+            return [
+                self.parent[pid]
+                for pid in self.parent.similar.subset(self.id)
+                if pid != self.id
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, non-existent person ID '{exc.args[0]}' appears in a 'similar' entry in people.json"
+            )
+            raise exc
