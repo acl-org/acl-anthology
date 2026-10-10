@@ -686,13 +686,13 @@ def export_people(anthology: Anthology, builddir, dryrun):
                 data["comment"] = person.comment
             if person.orcid is not None:
                 data["orcid"] = person.orcid
-            similar = anthology.people.similar.subset(person_id)
-            similar.remove(person_id)
-            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
-                data["similar_verified"] = sorted(list(similar_verified))
-                similar.difference_update(similar_verified)
-            if similar:  # any remaining IDs are unverified
-                data["similar_unverified"] = sorted(list(similar))
+            similar = person.similar()
+            data["similar_verified"] = sorted(
+                person.id for person in similar if person.is_explicit
+            )
+            data["similar_unverified"] = sorted(
+                person.id for person in similar if not person.is_explicit
+            )
             people[person_id] = data
             progress.update(task, advance=1)
 
@@ -748,9 +748,8 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
-    related = venue.parent.related.get(venue_id)
-    if related:
-        data["related"] = set(related)
+    if related := venue.related():
+        data["related"] = set(r.id for r in related)
     data["volumes_by_year"] = {}
     sorted_volumes = sorted(
         venue.volumes(),
@@ -878,11 +877,8 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
             data["url"] = sig.url
         if sig.description is not None:
             data["description"] = sig.description
-        related = anthology.sigs.related.get(sig.id)
-        if related:
-            data["related"] = set(
-                map(lambda sig_id: anthology.sigs[sig_id].acronym, related)
-            )
+        if related := sig.related():
+            data["related"] = set(r.acronym for r in related)
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:
