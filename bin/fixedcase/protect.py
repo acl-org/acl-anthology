@@ -4,7 +4,7 @@
 # looks for file "truelist" in current dir
 
 # cd data/xml
-# for i in *xml ; do (cd ../../tools/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; echo $i ); done > log
+# for i in *xml ; do (cd ../../bin/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; mv /tmp/$i ../../data/xml/$i ; echo $i ); done > log
 
 
 import lxml.etree as ET
