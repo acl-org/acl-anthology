@@ -116,7 +116,11 @@ def protect(node):
             assert rawtext.lower() == recased.lower(), (rawtext, recased)
 
     if recased:
-        newnode = protect_recurse(node, recased)
+        try:
+            newnode = protect_recurse(node, recased)
+        except AssertionError:
+            print(rawtext, file=sys.stderr)
+            raise
         newnode.tail = node.tail  # tail of top level is not protected
         replace_node(node, newnode)
 

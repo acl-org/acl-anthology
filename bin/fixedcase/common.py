@@ -108,9 +108,10 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None, raw=None):
         and any(c.isdigit() for c in ws[2])
     ):
         # e.g. "K-12" => <fixed-case>K</fixed-case>-12; "Covid-19", many system/event names ("Senseval-3")
-        if ws[0] in ("Task", "Subtask", "Top", "Sub"):
-            return [None, False, False]
-        return [True, False, False]
+        # Part after hyphen may contain alphabetic characters that should themselves be fixed-case: "R1-T1"
+        if ws[0] in ("Task", "Subtask", "Top", "Sub", "Pre", "Post"):
+            return [None, False]
+        return [True, False]
     return [fixedcase_word(ws[0], truelist=truelist)]
 
 
