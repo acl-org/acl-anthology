@@ -70,6 +70,9 @@ def fixedcase_word(w, truelist=None):
     if len(w) == 2 and w[1] == "." and w[0].isupper():
         # initial with period
         return True
+    if w[0].isupper() and w.lower() != "seq2seq" and any(c.isdigit() for c in w[1:]):
+        # capitalized word containing digit, e.g. "Qwen3"
+        return True
 
 
 def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
@@ -96,6 +99,11 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
     if ws[0] in {"L", "D"} and len(ws) >= 2 and ws[1] == "’":
         # French contractions: don't apply fixed-case
         return [False, False]
+    if len(ws) > 2 and ws[0][0].isupper() and is_hyphen(ws[1]) and ws[2].isdigit():
+        # e.g. "K-12" => <fixed-case>K</fixed-case>-12; "Covid-19", many system/event names ("Senseval-3")
+        if ws[0] in ("Task", "Subtask", "Top", "Sub"):
+            return [None, False, False]
+        return [True, False, False]
     return [fixedcase_word(ws[0], truelist=truelist)]
 
 
