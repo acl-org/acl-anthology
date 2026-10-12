@@ -75,7 +75,7 @@ def fixedcase_word(w, truelist=None):
         return True
 
 
-def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
+def fixedcase_prefix(ws, truelist=None, phrase_truelist=None, raw=None):
     """Returns a list of 1 or more bools: True if some prefix of the tuple 'ws' should be fixed-case,
     False if not, None if unsure."""
     # phrase_truelist is sorted in descending order by phrase length
@@ -103,6 +103,8 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
         len(ws) > 2
         and ws[0][0].isupper()
         and is_hyphen(ws[1])
+        and (ws[0] + " " + ws[1])
+        not in raw  # "Writing - 50 Years" would be a false positive
         and any(c.isdigit() for c in ws[2])
     ):
         # e.g. "K-12" => <fixed-case>K</fixed-case>-12; "Covid-19", many system/event names ("Senseval-3")
@@ -113,7 +115,12 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
 
 
 def fixedcase_title(
-    ws, truelist=None, phrase_truelist=None, amodifiers=None, ndescriptors=None
+    ws,
+    truelist=None,
+    phrase_truelist=None,
+    amodifiers=None,
+    ndescriptors=None,
+    raw=None,
 ):
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
@@ -122,7 +129,9 @@ def fixedcase_title(
     ws = tuple(ws)
     i = 0
     while i < len(ws):
-        b = fixedcase_prefix(ws[i:], truelist=truelist, phrase_truelist=phrase_truelist)
+        b = fixedcase_prefix(
+            ws[i:], truelist=truelist, phrase_truelist=phrase_truelist, raw=raw
+        )
         if i == 0:
             pass
         elif b[0] and amodifiers and ws[i - 1] in amodifiers:  # e.g. North America

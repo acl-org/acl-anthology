@@ -74,6 +74,7 @@ def protect(node):
             phrase_truelist=phrase_truelist,
             amodifiers=amodifiers,
             ndescriptors=ndescriptors,
+            raw=rawtext,
         )
         if any(fixed):
             # Generate the recased string so we know where to look in the XML
