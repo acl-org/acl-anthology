@@ -99,7 +99,12 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
     if ws[0] in {"L", "D"} and len(ws) >= 2 and ws[1] == "’":
         # French contractions: don't apply fixed-case
         return [False, False]
-    if len(ws) > 2 and ws[0][0].isupper() and is_hyphen(ws[1]) and ws[2].isdigit():
+    if (
+        len(ws) > 2
+        and ws[0][0].isupper()
+        and is_hyphen(ws[1])
+        and any(c.isdigit() for c in ws[2])
+    ):
         # e.g. "K-12" => <fixed-case>K</fixed-case>-12; "Covid-19", many system/event names ("Senseval-3")
         if ws[0] in ("Task", "Subtask", "Top", "Sub"):
             return [None, False, False]
