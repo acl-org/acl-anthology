@@ -13,6 +13,7 @@ This script is a single entrypoint for both discovery and ingestion:
 
 Example usage:
 
+    bin/ingest_mitpress.py
     bin/ingest_mitpress.py --venue tacl --year 2025 --volume 13 --dry-run
     bin/ingest_mitpress.py --venue cl --year 2025
 
@@ -331,7 +332,8 @@ def discover_crossref_items(
             "cursor": cursor,
             "select": (
                 "DOI,title,author,abstract,page,issue,volume,"
-                "container-title,ISSN,published-print,published-online,issued,type"
+                "container-title,ISSN,published-print,published-online,issued,type,"
+                "update-to"
             ),
         }
         payload = crossref_request_json(session, params)
@@ -705,8 +707,6 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
         "new_dois": [],
         "existing_dois": [],
         "no_pdf_dois": [],
-        "existing_pdf_downloaded": 0,
-        "existing_pdf_downloaded_dois": [],
         "existing_authors_updated": 0,
         "existing_authors_updated_dois": [],
     }
@@ -745,27 +745,6 @@ def ingest_papers(args, papers: list[dict[str, Any]]) -> dict[str, Any]:
                         doi,
                         existing_paper.full_id,
                     )
-                destination = pdf_destination / f"{existing_paper.full_id}.pdf"
-                if not destination.is_file() or destination.stat().st_size == 0:
-                    logging.info(
-                        "Existing DOI %s is missing local PDF; downloading %s",
-                        doi,
-                        destination.name,
-                    )
-                    ok, pdf_url = maybe_download_pdf(doi, destination, args.dry_run)
-                    if not ok:
-                        report["no_pdf"] += 1
-                        report["no_pdf_dois"].append(doi)
-                        if pdf_url:
-                            report["errors"].append(
-                                f"{doi}: PDF fetch failed ({pdf_url})"
-                            )
-                        raise RuntimeError(
-                            f"PDF download failed for existing DOI {doi} ({pdf_url}); aborting ingestion."
-                        )
-                    existing_paper.pdf = PDFReference.from_file(destination)
-                    report["existing_pdf_downloaded"] += 1
-                    report["existing_pdf_downloaded_dois"].append(doi)
             continue
 
         required = ["title", "issue_id", "journal_volume", "booktitle"]
@@ -857,8 +836,53 @@ def write_report(report: dict[str, Any]) -> None:
 
 def discover_papers(args) -> list[dict[str, Any]]:
     items = discover_crossref_items(args.venue, args.year, args.volume)
+    items_by_doi = {
+        normalize_doi(str(item["DOI"])): item for item in items if item.get("DOI")
+    }
     papers = []
     for item in items:
+        for update in item.get("update-to") or []:
+            if not isinstance(update, dict):
+                continue
+            update_type = str(update.get("type") or "unspecified")
+            if update_type == "correction":
+                update_description = "correction/erratum"
+            elif update_type in {"revision", "new-version"}:
+                update_description = "revision/new-version update"
+            else:
+                update_description = f"update (type {update_type!r})"
+
+            target_doi = normalize_doi(str(update.get("DOI", "")))
+            if target_doi:
+                target_item = items_by_doi.get(target_doi)
+                target_titles = target_item.get("title") if target_item else None
+                target_title = (
+                    parse_crossref_title(str(target_titles[0])) if target_titles else None
+                )
+                target_description = (
+                    f'"{target_title}" (DOI {target_doi})'
+                    if target_title
+                    else f"DOI {target_doi}"
+                )
+                logging.warning(
+                    "Crossref identifies DOI %s (%s) as a %s for %s; review "
+                    "whether to ingest it standalone or attach it to the target "
+                    "paper. Continuing discovery; ingestion is not automatically "
+                    "suppressed.",
+                    item.get("DOI", "(unknown DOI)"),
+                    (item.get("title") or ["(untitled)"])[0],
+                    update_description,
+                    target_description,
+                )
+            else:
+                logging.warning(
+                    "Crossref identifies DOI %s (%s) as a %s, but provides no "
+                    "target DOI; review before standalone ingestion.",
+                    item.get("DOI", "(unknown DOI)"),
+                    (item.get("title") or ["(untitled)"])[0],
+                    update_description,
+                )
+
         paper = convert_crossref_item_to_paper(item, args.venue)
         if paper is None:
             continue
@@ -869,12 +893,16 @@ def discover_papers(args) -> list[dict[str, Any]]:
 
 
 def main(args) -> None:
-    papers = discover_papers(args)
-    report = ingest_papers(args, papers)
-    write_report(report)
+    venues = [args.venue] if args.venue else [CL, TACL]
+    for venue in venues:
+        venue_args = argparse.Namespace(**vars(args))
+        venue_args.venue = venue
+        papers = discover_papers(venue_args)
+        report = ingest_papers(venue_args, papers)
+        write_report(report)
 
 
-if __name__ == "__main__":
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     anthology_path = os.path.join(os.path.dirname(sys.argv[0]), "..")
     parser.add_argument(
@@ -889,8 +917,18 @@ if __name__ == "__main__":
         default=os.path.join(os.environ["HOME"], "anthology-files"),
         help="Root path for placement of PDF files",
     )
-    parser.add_argument("--venue", choices=[TACL, CL], required=True)
-    parser.add_argument("--year", type=int, required=True)
+    parser.add_argument(
+        "--venue",
+        choices=[TACL, CL],
+        default=None,
+        help="Venue to ingest. By default, ingest both CL and TACL.",
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=date.today().year,
+        help="Year to ingest. Default: current year.",
+    )
     parser.add_argument("--volume", type=str, default=None)
 
     parser.add_argument(
@@ -912,6 +950,11 @@ if __name__ == "__main__":
 
     parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
 
+    return parser
+
+
+if __name__ == "__main__":
+    parser = build_parser()
     args = parser.parse_args()
 
     setup_rich_logging(level=args.verbose)

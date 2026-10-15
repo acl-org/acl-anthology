@@ -1,0 +1,115 @@
+{{ with hugo.Data.author_current }}
+{{ $history := resources.Get "data/author-history.json" | transform.Unmarshal }}
+{{ $categories := slice "Verified with ORCID" "Verified without ORCID" "Unverified with OpenReview only" "Unverified without either ID" }}
+{{ $data := dict "current" . "checkpoints" $history.checkpoints }}
+{{ $download := resources.FromString "people/author-metrics.json" ($data | jsonify) }}
+<section class="acl-people-histogram acl-author-metrics" aria-labelledby="author-metrics-heading" data-author-metrics>
+  <div class="acl-people-histogram__heading">
+    <div>
+      <h2 id="author-metrics-heading">Authorship and verification over time</h2>
+      <p>Compare publication years across database checkpoints, or explore the current database.</p>
+    </div>
+    <i class="fas fa-chart-bar" aria-hidden="true"></i>
+  </div>
+  <div class="d-flex flex-wrap gap-3 mb-3" data-metrics-controls hidden>
+    <div>
+      <label class="form-label" for="author-metrics-count">Count</label>
+      <select class="form-select form-select-sm" id="author-metrics-count">
+        <option value="authorships">Authorships</option>
+        <option value="authors">Unique authors</option>
+      </select>
+    </div>
+    <div>
+      <label class="form-label" for="author-metrics-checkpoints">Database checkpoints</label>
+      <select class="form-select form-select-sm" id="author-metrics-checkpoints">
+        <option value="bimonthly">Every two months (plus latest)</option>
+        <option value="monthly">Every month</option>
+        <option value="current">Current database (all publication years)</option>
+      </select>
+    </div>
+  </div>
+  <div class="acl-people-histogram__legend mb-3" aria-label="Verification and ORCID status">
+    {{ range $i, $category := $categories }}
+    <span><i class="acl-people-histogram__swatch acl-author-metrics__category-{{ $i }}" aria-hidden="true"></i>{{ $category }}</span>
+    {{ end }}
+    <span><i class="acl-author-metrics__line-key" aria-hidden="true"></i>Verified with ORCID / total (right axis)</span>
+  </div>
+  <p class="small text-muted" id="author-metrics-description">
+    An authorship is one author name on one paper. Unique authors count each resolved author page once
+    per publication-year group, not just in their debut year. “Pre-2020” deduplicates across all earlier years.
+    Editors, front matter, and deleted papers are excluded.
+  </p>
+  <div class="acl-author-metrics__scroll" data-authorship-chart tabindex="0"
+       role="region" aria-label="Authorship chart; scroll horizontally for more years"
+       aria-describedby="author-metrics-description" hidden></div>
+  <p class="small text-muted" role="status" data-metrics-status></p>
+  <details class="mt-3">
+    <summary>View counts as a table</summary>
+    <div class="table-responsive">
+      <table class="table table-sm acl-author-metrics__table">
+        <caption data-metrics-caption>Current database: authorships by publication year</caption>
+        <thead>
+          <tr>
+            <th scope="col">Publication year</th>
+            <th scope="col">Checkpoint</th>
+            {{ range $categories }}<th scope="col">{{ . }}</th>{{ end }}
+            <th scope="col">Total</th>
+            <th scope="col">Verified with ORCID / total</th>
+          </tr>
+        </thead>
+        <tbody data-metrics-table>
+          {{ range .years }}{{ if ne (int .year) 0 }}
+          {{ $total := 0 }}{{ range .authorships }}{{ $total = add $total . }}{{ end }}
+          <tr>
+            <th scope="row">{{ .year }}</th><td>Current</td>
+            {{ range .authorships }}<td>{{ lang.FormatNumberCustom 0 . }}</td>{{ end }}
+            <td>{{ lang.FormatNumberCustom 0 $total }}</td>
+            <td>{{ if gt $total 0 }}{{ lang.FormatNumberCustom 1 (mul 100 (div (float (index .authorships 0)) $total)) }}%{{ else }}&mdash;{{ end }}</td>
+          </tr>
+          {{ end }}{{ end }}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <noscript><p class="small">JavaScript is needed for the interactive charts. Current authorship counts and historical database totals are available in the tables.</p></noscript>
+
+  <h3 class="h5 mt-4">Growth of the author database</h3>
+  <p class="small text-muted">
+    All author pages at the start of each month, including editor-only pages and pages without papers.
+    Each page counts once. Merges, splits, corrections, and ingestions can change these totals.
+  </p>
+  <div class="acl-author-metrics__scroll" data-author-growth-chart tabindex="0"
+       role="region" aria-label="Monthly author database growth chart; scroll horizontally for more months" hidden></div>
+  <details class="mt-3">
+    <summary>View monthly totals and source commits</summary>
+    <div class="table-responsive">
+      <table class="table table-sm acl-author-metrics__table">
+        <caption>Author pages at monthly checkpoints (UTC)</caption>
+        <thead><tr>
+          <th scope="col">Checkpoint</th>
+          {{ range $categories }}<th scope="col">{{ . }}</th>{{ end }}
+          <th scope="col">Total</th><th scope="col">Source commit</th>
+        </tr></thead>
+        <tbody>
+          {{ range $history.checkpoints }}
+          <tr>
+            <th scope="row">{{ .date }}</th>
+            {{ $total := 0 }}
+            {{ range .totals }}<td>{{ lang.FormatNumberCustom 0 . }}</td>{{ $total = add $total . }}{{ end }}
+            <td>{{ lang.FormatNumberCustom 0 $total }}</td>
+            <td><a href="https://github.com/acl-org/acl-anthology/commit/{{ .revision }}">{{ substr .revision 0 8 }}</a></td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <p class="acl-people-histogram__caption">
+    Historical checkpoints use the last main-branch commit before the first of each month (UTC),
+    starting February 2026. Verification and ORCID status reflect each checkpoint, not today's status.
+    Unverified pages can conflate different people with the same name or split one person across names.
+    <a href="{{ $download.RelPermalink }}" download>Download the chart data (JSON)</a>.
+  </p>
+  <script type="application/json" id="author-metrics-data">{{ $data | jsonify | safeJS }}</script>
+</section>
+{{ end }}

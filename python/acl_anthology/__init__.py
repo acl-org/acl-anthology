@@ -12,7 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import warnings
+
 from .anthology import Anthology
 from .config import config, primary_console
+from .exceptions import MaintainerWarning
+
+# Hide MaintainerWarnings from end users by default
+warnings.filterwarnings("ignore", category=MaintainerWarning)
+
 
 __all__ = ["Anthology", "config", "primary_console"]

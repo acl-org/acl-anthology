@@ -16,6 +16,11 @@ Prefixes:
 + **2014--2015:** 10.3115
 + **2015--current:** 10.18653
 
+DOIs assigned under `10.18653` through September 2026 use `v1/` before the
+Anthology ID (`10.18653/v1/{Anthology ID}`). DOIs assigned after September 2026
+omit `v1/` (`10.18653/{Anthology ID}`). Existing DOIs are unchanged; use the
+DOI listed on a publication's Anthology page rather than inferring it from its ID.
+
 *We strongly encourage the publication of DOIs in citing bibliographies to help
 better cross-reference ACL materials.*
 

@@ -20,13 +20,17 @@ Fixed-caseness is determined by this decision list:
 5. The French contracted forms "L’" and "D’" are not fixed-case.
 6. Any tokenized word consisting of a single uppercase letter other than "A", "K" or "N",
    or a single uppercase letter plus ".", is fixed-case.
-7. If one of a short list of adjectival modifiers including "North" and "Modern"
+7. Any initial-capitalized word containing a digit -- with the exception of "Seq2seq" -- is
+   fixed-case (e.g., "Qwen3").
+8. For any initial-capitalized word followed by a hyphen and a number (e.g., "K-12",
+   "Covid-19"), the capitalized word is fixed-case.
+9. If one of a short list of adjectival modifiers including "North" and "Modern"
    precedes a fixed-case word, optionally separated by a hyphen,
    the modifier is also fixed-case. (See `amodifiers` in `common.py`.)
-8. If one of a short list of noun descriptors including "Island" and "University"
+10. If one of a short list of noun descriptors including "Island" and "University"
    immediately follows a fixed-case word, or precedes it separated by "of",
    the descriptor is also fixed-case. (See `ndescriptors` in `common.py`.)
-9. Otherwise, the word is not fixed-case.
+11. Otherwise, the word is not fixed-case.
 
 Examples:
 

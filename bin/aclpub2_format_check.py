@@ -143,6 +143,14 @@ def main(args):
         if value is None or (isinstance(value, str) and not value.strip()):
             logger.error(f"No (or blank) '{field}' found in '{conference_details_path}'")
 
+    book_title = conference_details.get("book_title")
+    if isinstance(book_title, str) and re.search(
+        r"\bthe the\b", book_title, flags=re.IGNORECASE
+    ):
+        logger.error(
+            f"Book title in '{conference_details_path}' contains duplicated 'the'"
+        )
+
     # every volume needs editors
     if "editors" not in conference_details:
         logger.error("No editors found in conference_details")

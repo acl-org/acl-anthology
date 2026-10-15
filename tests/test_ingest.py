@@ -17,6 +17,7 @@ from bin.ingest import (
     read_ingest_metadata,
     read_meta,
     resegment_name,
+    register_suggested_sigs,
     register_volume_with_sig,
 )
 
@@ -128,6 +129,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
         "volume_name": "main",
         "book_title": "Proceedings of YNLG 2025",
         "editors": [],
+        "sig": "SIGGEN",
     }
 
     with (
@@ -140,6 +142,74 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
 
     assert metadata["volume_type"] == VolumeType.PROCEEDINGS
     assert metadata["venue_ids"] == ["ynlg", "ws"]
+    assert metadata["sig"] == "SIGGEN"
+
+
+@pytest.mark.parametrize(
+    ("title", "expected"),
+    [
+        ("Proceedings of the the Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the The Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the Theory Workshop", "Proceedings of the Theory Workshop"),
+    ],
+)
+def test_aclpub2_normalizes_book_title(tmp_path, title, expected):
+    source = tmp_path / "source"
+    source.mkdir()
+    meta = {
+        "anthology_venue_id": "YNLG",
+        "event_name": "Workshop on Young Researchers in Natural Language Generation",
+        "year": "2025",
+        "volume_name": "main",
+        "book_title": title,
+        "editors": [],
+    }
+
+    with (
+        patch("bin.ingest.parse_conf_yaml", return_value=meta),
+        patch("bin.ingest.ensure_venue", return_value=("ynlg", "workshop")),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub2", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == expected
+
+
+def test_aclpub_normalizes_frontmatter_book_title_preserving_markup(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text("abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n")
+    title = MarkupText.from_latex(r"Proceedings of the The \textit{Workshop}")
+
+    with (
+        patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")),
+        patch(
+            "bin.ingest._aclpub_frontmatter_data",
+            return_value={"title": title, "editors": [], "authors": []},
+        ),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_xml() == "Proceedings of the <i>Workshop</i>"
+
+
+def test_aclpub_normalizes_meta_book_title(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text(
+        "abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n"
+        "booktitle Proceedings of the the Workshop\n"
+    )
+
+    with patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == "Proceedings of the Workshop"
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
@@ -150,6 +220,38 @@ def test_register_volume_with_sig_stores_sig_on_volume():
     register_volume_with_sig(anthology, "sigdat", volume)
 
     assert volume.sig_ids == ("sigdat",)
+
+
+def test_register_suggested_sigs_stores_associations_from_venues(caplog):
+    sigann = SimpleNamespace(id="sigann")
+    siglex = SimpleNamespace(id="siglex")
+    starsem = MagicMock(id="starsem")
+    starsem.sigs.return_value = [siglex, sigann]
+    semeval = MagicMock(id="semeval")
+    semeval.sigs.return_value = [siglex]
+    ws = MagicMock(id="ws")
+    ws.sigs.return_value = []
+    volume = MagicMock(
+        full_id="2026.starsem-1",
+        sig_ids=("sigann",),
+    )
+    volume.venues.return_value = [starsem, semeval, ws]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    with caplog.at_level(logging.INFO):
+        register_suggested_sigs(volume)
+        register_suggested_sigs(volume)
+
+    volume.add_sig.assert_called_once_with(siglex)
+    assert volume.sig_ids == ("sigann", "siglex")
+    for venue in (starsem, semeval, ws):
+        assert venue.sigs.call_count == 2
+    assert "based on venue association(s): starsem" in caplog.text
+    assert len(caplog.records) == 1
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be

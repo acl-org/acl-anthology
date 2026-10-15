@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import pytest
-import logging
 from lxml import etree
+from acl_anthology.exceptions import TeXParserWarning
 from acl_anthology.text import TexMath
 
 test_cases_unicode = (
@@ -322,14 +322,10 @@ def test_texmath_to_html(inp, out):
     assert actual_out == out
 
 
-def test_texmath_should_warn(caplog):
+def test_texmath_should_warn():
     element = etree.fromstring("<tex-math>\\somecustomcommand</tex-math>")
-    with caplog.at_level(logging.WARNING):
+    with pytest.warns(TeXParserWarning, match=r"Unknown TeX-math command"):
         TexMath.to_html(element)
-    assert any(
-        "Unknown TeX-math command: \\somecustomcommand" in rec.message
-        for rec in caplog.records
-    )
 
 
 def test_texmath_unhandled_element_raises():

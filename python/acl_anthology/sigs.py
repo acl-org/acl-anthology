@@ -14,7 +14,8 @@
 
 from __future__ import annotations
 
-from attrs import define, field, validators as v, asdict
+import attrs
+from attrs import define, field, setters, validators as v, asdict
 from collections import defaultdict
 from msgspec import json
 from pathlib import Path
@@ -28,8 +29,9 @@ else:
 
 from .collections import Volume
 from .containers import SlottedDict
-from .utils.attrs import attach_custom_repr, repr_item_ids
+from .utils.attrs import attach_custom_repr, into_str_tuple, repr_item_ids
 from .utils.ids import AnthologyID, AnthologyIDTuple, build_id_from_tuple
+from .venues import Venue
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -38,6 +40,31 @@ if TYPE_CHECKING:
 
 
 SIG_INDEX_FILE = "json/sigs.json"
+
+
+def _update_venues(
+    sig: SIG, attr: attrs.Attribute[Any], value: tuple[str, ...]
+) -> tuple[str, ...]:
+    """Update reverse-mapping from venues based on a SIG's `venue_ids`.
+
+    Intended to be called from `on_setattr` of an [attrs.field][].
+    """
+    venue_index = sig.root.venues
+    if not venue_index.is_data_loaded:
+        return value
+
+    old_value = getattr(sig, attr.name)
+    for venue in set(old_value) - set(value):
+        # Venues that are being removed from this SIG
+        venue_index[venue]._sig_ids.discard(sig.id)
+
+    for venue in set(value) - set(old_value):
+        # Venues that are being added to this volume
+        try:
+            venue_index[venue]._sig_ids.add(sig.id)
+        except KeyError:
+            raise ValueError(f"Tried setting venue that doesn't exist: {venue}")
+    return value
 
 
 @attach_custom_repr
@@ -51,7 +78,10 @@ class SIG:
         acronym: The SIG's acronym or short name, e.g. "SIGSEM".
         name: The SIG's full name.
         url: A website URL for the SIG.
+        description: A description text that appears on the website and may contain Markdown.
+        related_ids: A list of SIG IDs that should be considered related to this one.  This induces a symmetric relationship.  To _find_ related SIGs, use [`SIG.related()`][acl_anthology.sigs.SIG.related].
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
+        venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
     """
 
@@ -60,9 +90,22 @@ class SIG:
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    description: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    related_ids: list[str] = field(factory=list)
     external_meetings: list[SIGMeeting] = field(
         factory=list,
         repr=lambda x: f"<list[str | SIGMeeting] with {len(x)} item{'' if len(x) == 1 else 's'}>",
+    )
+    venue_ids: tuple[str, ...] = field(
+        default=(),
+        converter=into_str_tuple,
+        on_setattr=[
+            setters.convert,
+            setters.validate,
+            _update_venues,
+        ],
     )
     item_ids: set[AnthologyIDTuple] = field(
         factory=set, converter=set, repr=repr_item_ids, eq=False
@@ -106,6 +149,68 @@ class SIG:
                 )
             yield volume
 
+    def add_venue(self, venue: str | Venue) -> None:
+        """Associate a venue with this SIG.
+
+        If the venue is already associated with this SIG, this will do nothing.
+
+        Arguments:
+            venue: A Venue object, or a string representing a venue ID.
+
+        Raises:
+            ValueError: If a string was given, but the venue does not exist.
+        """
+        if isinstance(venue, str):
+            venue_id = venue
+            if venue_id not in self.root.venues:
+                raise ValueError(f"Venue doesn't exist: '{venue_id}'")
+        else:
+            venue_id = venue.id
+        if venue_id in self.venue_ids:
+            return
+        self.venue_ids += (venue_id,)
+
+    def remove_venue(self, venue: str | Venue) -> None:
+        """Remove a venue association from this SIG.
+
+        If the venue is not associated with this SIG, this will do nothing.
+
+        Arguments:
+            venue: A Venue object, or a string representing a venue ID.
+        """
+        venue_id = venue.id if isinstance(venue, Venue) else venue
+        if venue_id in self.venue_ids:
+            self.venue_ids = tuple(x for x in self.venue_ids if x != venue_id)
+
+    def related(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs marked as being related to this SIG.
+        """
+        try:
+            return [
+                self.parent[related_id] for related_id in self.parent.related[self.id]
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
+
+    def venues(self) -> list[Venue]:
+        """A list of venues associated with this SIG.
+
+        Note:
+            This is only used as an aid during ingestion; these associations are _not_ propagated automatically to volumes (i.e. volumes belonging to this SIG are not automatically associated with these venues, too).
+        """
+        try:
+            return [self.root.venues[vid] for vid in self.venue_ids]
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
+
 
 @attach_custom_repr
 @define(unsafe_hash=True)
@@ -134,12 +239,16 @@ class SIGIndex(SlottedDict[SIG]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `sigs.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
+        related: A dictionary mapping SIG IDs to a set of related SIG IDs.
         is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
+    _related: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -147,6 +256,12 @@ class SIGIndex(SlottedDict[SIG]):
     @path.default
     def _path(self) -> Path:
         return self.parent.datadir / Path(SIG_INDEX_FILE)
+
+    @property
+    def related(self) -> dict[str, set[str]]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._related
 
     def load(self) -> None:
         """Load and parse the `sigs.json` file.
@@ -200,6 +315,7 @@ class SIGIndex(SlottedDict[SIG]):
     def reset(self) -> None:
         """Reset the index."""
         self.data = {}
+        self._related = defaultdict(set)
         self.is_data_loaded = False
 
     def build(self) -> None:
@@ -208,6 +324,10 @@ class SIGIndex(SlottedDict[SIG]):
         Raises:
             ValueError: If a volume lists a SIG ID that doesn't exist (i.e., isn't defined in `sigs.json`).
         """
+        for sig_id, sig in self.data.items():
+            for related_id in sig.related_ids:
+                self._related[sig_id].add(related_id)
+                self._related[related_id].add(sig_id)
         if self.no_item_ids:
             return
         for volume in self.parent.volumes():
