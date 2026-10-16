@@ -66,6 +66,11 @@ jobs:
         if: ${{ matrix.python-version == '3.14' }}
         run: uv run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
 
+      # Build documentation, but only once to save time (doesn't depend on OS/Python version)
+      - name: Build documentation
+        if: ${{ matrix.python-version == '3.14' && matrix.os == 'ubuntu-latest' }}
+        run: uv run mkdocs build
+
       # Coverage report
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v7
