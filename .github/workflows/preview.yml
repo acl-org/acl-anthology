@@ -1,17 +1,24 @@
-# Builds a preview of a branch's associated pull request and publishes it
-# to https://preview.aclanthology.org/BRANCHNAME
+# Builds a preview of a branch's associated pull request and publishes it to
+# https://preview.aclanthology.org/BRANCHNAME
 #
-# This only runs for open PRs carrying the "preview" label, since a full
-# preview build is expensive. The label is added automatically for certain
-# PR types (see add-preview-label.yml); for anything else, add the
-# "preview" label to the PR to request a build. Removing the label stops
-# further builds on subsequent pushes.
+# This only runs for open PRs carrying the "preview" label, since a full preview
+# build is expensive. Removing the label stops further builds on subsequent
+# pushes; adding it (re-)triggers one.
+#
+# The "preview" label is added automatically on PR creation/title-edit for PR
+# types that reliably need one (e.g. ingestion PRs, metadata correction
+# PRs). For anything else, add the "preview" label to the PR manually to request
+# a build.
+#
+# PRs coming from forks never get preview builds for security reasons – this
+# workflow will post a notice on the PR to clarify this if a preview would
+# otherwise be expected.
 
 name: Create website preview
 
 on:
   pull_request:
-    types: [opened, synchronize, labeled]
+    types: [opened, edited, synchronize, labeled]
     branches:
     - master
 
@@ -26,17 +33,84 @@ permissions:
   pull-requests: write
 
 jobs:
+  # Decides whether `preview` should build before instantiating an expensive
+  # runner, and auto-attaches the "preview" label for PR types that reliably
+  # need one:
+  #   - ingestion PRs (title starts with "ingest")
+  #   - metadata correction PRs (title contains "corrections")
+  decide:
+    # If we're running from a "labeled" event, only continue if the label is "preview"
+    if: github.event.action != 'labeled' || github.event.label.name == 'preview'
+    runs-on: ubuntu-latest
+    outputs:
+      should_build: ${{ steps.check.outputs.should_build }}
+      fork_notice: ${{ steps.check.outputs.fork_notice }}
+    steps:
+      - id: check
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const action = context.payload.action;
+            const title = pr.title;
+
+            // Matches ingestions and corrections
+            const matchesKeywords = /^ingest\b/i.test(title) || /corrections/i.test(title);
+            const hasLabel = pr.labels.some(l => l.name === 'preview');
+            const isSameRepo = pr.head.repo?.full_name === pr.base.repo.full_name;
+
+            // Should this event result in a preview build?
+            //  - If the "preview" label is present, build on anything except
+            //    a bare "edited" (so an unrelated title/body edit doesn't
+            //    re-trigger a build).
+            //  - If the "preview" label is not present, but the event is
+            //    "opened"/"edited", a direct keyword match on the title decides
+            //    if the label is added + the preview is built.
+            const shouldBuild = hasLabel
+              ? action !== 'edited'
+              : (action === 'opened' || action === 'edited') && matchesKeywords;
+            core.setOutput('should_build', (shouldBuild && isSameRepo).toString());
+
+            // Add the "preview" label, if applicable. ---
+            // Implementation note: This should NOT retrigger this workflow
+            // (via the `labeled` event) as per GitHub's docs here:
+            // <https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#triggering-a-workflow-from-a-workflow>
+            if (matchesKeywords && !hasLabel && (action === 'opened' || action === 'edited') && isSameRepo) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: ['preview'],
+              });
+            }
+
+            // Forks never get a preview build -- if one would be expected,
+            // post a notice instead of silently doing nothing.
+            core.setOutput('fork_notice', (!isSameRepo && shouldBuild).toString());
+
+      - name: Post notice on PRs from forks
+        if: steps.check.outputs.fork_notice == 'true'
+        uses: mshick/add-pr-comment@v3
+        with:
+          message-id: fork-preview-notice
+          message: |
+            This PR would normally get a website preview build (based on its title or the `preview` label), but since it comes from a fork, one can't be built automatically for security reasons.
+
+            A maintainer can build one manually by checking out the branch locally.
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-repeats: false
+
   preview:
+    needs: decide
     # IMPORTANT: `head.repo.full_name == github.repository` restricts this to
     # PRs from branches within our own repo. Do not remove this check: this job
     # runs arbitrary repo code (`make check site preview`) and publishes with a
     # secret SSH key, so it must never run against a fork's code.
     if: >
+      needs.decide.outputs.should_build == 'true' &&
       github.repository == 'acl-org/acl-anthology' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
-      github.head_ref != 'master' &&
-      contains(github.event.pull_request.labels.*.name, 'preview') &&
-      (github.event.action != 'labeled' || github.event.label.name == 'preview')
+      github.head_ref != 'master'
     runs-on:
       labels: ubuntu-latest-m
     steps:
