@@ -11,6 +11,7 @@ from acl_anthology.text import MarkupText
 from acl_anthology.people import Name
 from bin.ingest import (
     abstract_has_empty_markup,
+    build_name_split_index,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
@@ -29,6 +30,90 @@ def test_resegment_name_accepts_explicit_index():
     name_split_index = {(name.slugify(), 2): {1}}
 
     assert resegment_name(name, name_split_index) == Name("Arnab", "Sen Sharma")
+
+
+@pytest.fixture
+def name_split_preferences():
+    canonical = Name("Alex", "De Silva")
+    alias = Name("Alex De", "Silva")
+    people = [
+        SimpleNamespace(
+            canonical_name=canonical,
+            is_explicit=True,
+            disable_name_matching=False,
+        )
+    ]
+    anthology = SimpleNamespace(
+        people=SimpleNamespace(
+            by_name={canonical: ["alex-de-silva"], alias: ["alex-de-silva"]},
+            values=lambda: iter(people),
+        )
+    )
+    return SimpleNamespace(
+        anthology=anthology, canonical=canonical, alias=alias, people=people
+    )
+
+
+def test_name_split_index_prefers_explicit_canonical_name(name_split_preferences):
+    state = name_split_preferences
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1}
+    assert resegment_name(state.alias, index) == state.canonical
+
+
+def test_name_split_preference_preserves_spelling_and_case(name_split_preferences):
+    index = build_name_split_index(name_split_preferences.anthology)
+
+    assert resegment_name(Name("ALEX DE", "SILVA"), index) == Name("ALEX", "DE SILVA")
+
+
+@pytest.mark.parametrize("is_explicit, disabled", [(False, False), (True, True)])
+def test_name_split_index_without_canonical_preference(
+    name_split_preferences, is_explicit, disabled
+):
+    state = name_split_preferences
+    state.people[0].is_explicit = is_explicit
+    state.people[0].disable_name_matching = disabled
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
+
+
+def test_name_split_index_preserves_conflicting_canonical_splits(name_split_preferences):
+    state = name_split_preferences
+    state.people.append(
+        SimpleNamespace(
+            canonical_name=state.alias,
+            is_explicit=True,
+            disable_name_matching=False,
+        )
+    )
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
+    assert resegment_name(state.canonical, index) == state.canonical
+
+
+@pytest.mark.parametrize(
+    "canonical",
+    [Name("Alexandre", "De Silva"), Name("Alex-De", "Silva")],
+)
+def test_name_split_preference_requires_matching_full_form(
+    name_split_preferences, canonical
+):
+    state = name_split_preferences
+    state.people[0].canonical_name = canonical
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
 
 
 def test_read_meta_accepts_multiple_spaces_between_key_and_value(tmp_path):
