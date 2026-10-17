@@ -1,0 +1,8 @@
+{{ with .distinguished_service_award_reason }}
+<p class="acl-fellow-reason">
+  {{ . }}
+  {{- with $.distinguished_service_award_url }}
+  <a href="{{ . }}" rel="external noopener">Source</a>
+  {{- end }}
+</p>
+{{ end }}

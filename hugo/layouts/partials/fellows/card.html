@@ -1,0 +1,22 @@
+{{ $page := .page }}
+{{ $honoree := .honoree }}
+<article class="acl-fellow-card acl-fellow-card--{{ $honoree.honor }}" data-honoree-name="{{ $honoree.name }}" data-honoree-year="{{ $honoree.year }}">
+  <div class="acl-fellow-portrait">
+    {{ with $honoree.photo }}
+      {{ $photo_url := cond (hasPrefix . "http") . (relURL .) }}
+      <img src="{{ $photo_url }}" alt="{{ default (printf "Portrait of %s" $honoree.name) $honoree.photo_alt }}" width="400" height="600" loading="lazy" decoding="async">
+    {{ else }}
+      <span aria-hidden="true">{{ $honoree.initials }}</span>
+    {{ end }}
+  </div>
+
+  <div class="acl-fellow-copy">
+    <h3><a href="{{ relref $page (printf "/people/%s" $honoree.id) }}">{{ $honoree.name }}</a></h3>
+    {{ partial "fellows/honors.html" $honoree }}
+    <div class="acl-fellow-details">
+      {{ with $honoree.photo_source }}
+      <a class="acl-fellow-credit" href="{{ . }}" rel="external noopener">{{ default "Photo source" $honoree.photo_credit }}</a>
+      {{ end }}
+    </div>
+  </div>
+</article>
