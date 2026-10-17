@@ -46,7 +46,13 @@ from acl_anthology.collections import Paper
 from acl_anthology.utils.logging import setup_rich_logging
 
 
-def unlink_items(author_id, paper_ids: Optional[list[str]], keep_only_these_papers=False, openreview: Optional[list[str]]=None, remove_orcid=False):
+def unlink_items(
+    author_id,
+    paper_ids: Optional[list[str]],
+    keep_only_these_papers=False,
+    openreview: Optional[list[str]] = None,
+    remove_orcid=False,
+):
     changes = ""
     anthology = Anthology.from_within_repo(
         suppress_warnings=("NameSpecResolutionWarning",)
@@ -69,7 +75,11 @@ def unlink_items(author_id, paper_ids: Optional[list[str]], keep_only_these_pape
     paper_and_namespec = []
     for paper_id, paper in items:
         # match the author of the paper by name slug
-        namespecs = paper.editors if isinstance(paper, Paper) and paper.is_frontmatter else paper.namespecs
+        namespecs = (
+            paper.editors
+            if isinstance(paper, Paper) and paper.is_frontmatter
+            else paper.namespecs
+        )
         matches = [namespec for namespec in namespecs if namespec.id == author_id]
         if not paper_ids and not matches:
             continue  # Skip paper with implicit match
@@ -79,7 +89,9 @@ def unlink_items(author_id, paper_ids: Optional[list[str]], keep_only_these_pape
         matched_namespec = matches[0]
         if openreview and matched_namespec.openreview not in openreview:
             continue
-        log.info(f"In {paper_id}, matched author {matched_namespec.name} openreview={matched_namespec.openreview or ''!r}")
+        log.info(
+            f"In {paper_id}, matched author {matched_namespec.name} openreview={matched_namespec.openreview or ''!r}"
+        )
         paper_and_namespec.append((paper, matched_namespec))
 
     numUnlinked = 0
@@ -128,14 +140,14 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    assert args['PAPERID'], args['PAPERID']
-    targets = None if args['PAPERID'] == ["*"] else args['PAPERID']
+    assert args["PAPERID"], args["PAPERID"]
+    targets = None if args["PAPERID"] == ["*"] else args["PAPERID"]
 
     msg = unlink_items(
         author_id=args["AUTHORID"],
         paper_ids=targets,
         keep_only_these_papers=args["--keep"],
-        openreview=(args["--orid"] or '').split(),
+        openreview=(args["--orid"] or "").split(),
         remove_orcid=args["--remove-orcid"],
     )
 
