@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.wnut">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.wnut-1/ -->
+    <meta>
+      <booktitle>Proceedings of the 11th Workshop on Natural User-generated Text</booktitle>
+      <editor><first>JinYeong</first><last>Bak</last></editor>
+      <editor><first>Rob</first><last>van der Goot</last></editor>
+      <editor><first>Hyeju</first><last>Jang</last></editor>
+      <editor><first>Weerayut</first><last>Buaphet</last></editor>
+      <editor><first>Alan</first><last>Ramponi</last></editor>
+      <editor><first>Wei</first><last>Xu</last></editor>
+      <editor><first>Alan</first><last>Ritter</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-470-5</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="50342f61"/>
+      <venue>wnut</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.wnut-1.0/ -->
+      <pdf hash="6e112f5b"/>
+      <bibkey>wnut-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.wnut-1.1/ -->
+      <title>A Precision-First Whitespace Restoration Pipeline for Noisy <fixed-case>U</fixed-case>rdu Tafseer Text</title>
+      <author><first>Muhammad Mubashir</first><last>Hassan</last></author>
+      <pages>1-9</pages>
+      <abstract>Document conversion and import are a large but under-studied source of real-world noisy text, distinct from the social-media noise usually studied in normalization. We study missing-space artifacts in a low-resource, Arabic-script setting: an Urdu Qur’anic tafseer exported from InPage .inp to .txt and then to JSON/markdown, a pipeline that fuses adjacent words into single tokens (e.g., اورقرآن for اور قرآن, "and the Qur’an"). Restoring spaces is hard: Urdu’s cursive Arabic script does not require spaces at word boundaries, and the text interleaves Urdu prose with Qur’anic Arabic, proper names, and markdown, so a careless split can corrupt preservation-sensitive content. We cast this as precision-first normalization and present a confidence-gated pipeline that proposes only space-insertion edits, verifies a character-preservation invariant, and holds protected regions out of automatic correction. On a 1,000-row silver-labeled sample, the high-confidence auto-accept operating point reaches 96.9% strict precision on decisive cases, against 30.5% for an ungated function-word splitter and 39.7% for a frequency-only baseline, with 0 character-altering edits. This suggests that confidence gating is necessary before applying whitespace restoration to preservation-sensitive Urdu–Arabic text. As our labels are model-assisted silver rather than expert-gold, we treat the precision figures as provisional and release derived artifacts for reproducibility.</abstract>
+      <pdf hash="f52e1875"/>
+      <bibkey>hassan-2026-precision</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.wnut-1.2/ -->
+      <title>Are More Emotion Theories Better? Joint Prompting Improves Emotion Categorization Robustness</title>
+      <author id="albina-sarymsakova" orcid="0000-0003-0381-0239"><first>Albina</first><last>Sarymsakova</last><affiliation>Spanish National Research Council and Universidad de Santiago de Compostela</affiliation></author>
+      <author id="roman-klinger" orcid="0000-0002-2014-6619"><first>Roman</first><last>Klinger</last><affiliation>Otto-Friedrich Universität Bamberg</affiliation></author>
+      <pages>10-25</pages>
+      <abstract>Emotion analysis systems are expected by users to provide reliable results. Optimizing their robustness, in addition to accuracy, is particularly challenging in noisy environments, such as social media data or other forms of naturally expressed language. Our hypothesis is that robustness can be improved by guiding a language model to pay attention to multiple emotion signals in the input text. Therefore, requesting labels according to multiple emotion theories may improve robustness. To study this hypothesis, we run permutation experiments on input instances to test the robustness of LLM configurations based on basic emotions only, and jointly with valence–arousal, and cognitive appraisals. We find that adding valence–arousal and cognitive appraisal along with basic emotion instructions to the emotion classification improves robustness, with the effect being most pronounced for adding appraisals. In a further analysis, we find that this improvement is less susceptible to word order permutations and more to random word substitutions and deletions. These differences hold across multiple LLMs studied in our work.</abstract>
+      <pdf hash="35f1a293"/>
+      <bibkey>sarymsakova-klinger-2026-emotion</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.wnut-1.3/ -->
+      <title>Beyond Clean Text: Evaluating Encoder and Decoder Robustness for <fixed-case>B</fixed-case>angla Event Detection in Noisy Text</title>
+      <author id="tanvir-ahmed-sijan" orcid="0009-0002-2397-0600"><first>Tanvir Ahmed</first><last>Sijan</last></author>
+      <author><first>S M Golam</first><last>Rifat</last><affiliation>Bangladesh Army University of Science and Technology</affiliation></author>
+      <author><first>Nayeemul</first><last>Islam</last></author>
+      <author id="md-musfique-anwar" orcid="0000-0001-5159-1865"><first>Md Musfique</first><last>Anwar</last></author>
+      <pages>26-48</pages>
+      <abstract>Event detection (ED) systems are typically evaluated on clean, curated text, leaving their robustness to real-world noise largely unexplored, particularly for low-resource languages such as Bangla. We introduce a generalized Bangla news event ontology and a benchmark comprising 9,979 annotated sentences across 40 event subtypes, spanning clean news text, real-world Automatic Speech Recognition (ASR) transcripts, and orthographically corrupted text. We systematically evaluate fine-tuned encoder-only models (BanglaBERT and XLM-R) alongside instruction-tuned decoder-only large language models (Llama 3 and Gemma 3). Our results reveal a clear architectural trade-off: encoder models achieve higher performance on clean text but degrade substantially under noise, whereas decoder-only LLMs are markedly more robust, particularly when event triggers are corrupted. We further show that embedding annotation guidelines during instruction tuning establishes a higher performance baseline on noisy text but yields inconsistent reductions in performance degradation across noisy conditions. Finally, model scaling consistently improves the robustness of decoder-only LLMs, while combined training on clean and noisy data serves as an effective regularization strategy that disproportionately benefits encoder architectures, significantly narrowing the robustness gap.</abstract>
+      <pdf hash="571e430a"/>
+      <bibkey>sijan-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.wnut-1.4/ -->
+      <title><fixed-case>C</fixed-case>risis<fixed-case>KD</fixed-case>: Five-Stage Knowledge Distillation for Aspect-Level Sentiment and Emotion Analysis in Crisis Discourse</title>
+      <author id="marko-haralovic" orcid="0009-0004-1178-9964"><first>Marko</first><last>Haralovic</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
+      <author id="onat-dogan-akca" orcid="0009-0005-3326-2474"><first>Onat Dogan</first><last>Akca</last></author>
+      <author id="salih-eren-yuceturk" orcid="0009-0000-6241-9956"><first>Salih Eren</first><last>Yücetürk</last><affiliation>University of Twente</affiliation></author>
+      <author id="minsi-li" orcid="0000-0002-9719-239X"><first>Minsi</first><last>Li</last></author>
+      <author id="mariet-theune-2029" orcid="0000-0002-8258-2029"><first>Mariët</first><last>Theune</last><affiliation>University of Twente</affiliation></author>
+      <pages>49-64</pages>
+      <abstract>Identifying the targets of emotional words and phrases in crisis situations, particularly health-related crises, is essential for understanding public concerns across cultural and linguistic contexts. We propose CrisisKD, a five-stage teacher–student knowledge distillation framework for aspect-level sentiment and emotion analysis on unannotated social media data. A teacher large language model generates aspect-level labels and reasoning traces to supervise a smaller student model across five tasks: aspect extraction, syntactic parsing, opinion extraction, sentiment classification, and emotion classification. Using this framework, we construct and release a dataset containing 50,615 aspect-level annotations, along with the annotation pipeline and fine-tuned student models as open-source resources. The resulting student model supports end-to-end aspect-based sentiment analysis and emotion detection at substantially lower inference cost than the teacher, making the approach suitable for practitioners with limited access to annotated data and large-scale computational resources. Because CrisisKD requires only raw text and a dependency parser, the framework is architecturally portable to other crisis domains and to languages supported by suitable multilingual parsers.</abstract>
+      <pdf hash="477ff7bb"/>
+      <bibkey>haralovic-etal-2026-crisiskd</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.wnut-1.5/ -->
+      <title>Discourse-Structural Noise in <fixed-case>LLM</fixed-case>-Generated Explanations</title>
+      <author><first>Raghvi</first><last>Baloni</last></author>
+      <author id="achim-rettinger" orcid="0000-0003-4950-1167"><first>Achim</first><last>Rettinger</last><affiliation>FZI Forschungszentrum Informatik and Trier University</affiliation></author>
+      <pages>65-71</pages>
+      <abstract>Large language models (LLMs) are increasingly utilized to generate explanations of complex phenomena, yet existing evaluation frameworks assess quality extensively through semantic similarity to human references, a measure blind to discourse organization. We conduct a computational study of 300 ELI5 question pairs, comparing Llama-3.1 8B, Gemma-2 9B, and Mistral-7B against human-written responses using PDTB-grounded connective analysis across five relation types. All three models exhibit elaborative dominance, i.e. Elaborative connectives account for 56-66% of discourse markers versus 38% in human writing, with Causal, Contrastive, and Conditional relations systematically suppressed. This 18-28 percentage point gap persists after connective sense disambiguation (11-20 pp), ruling out measurement artifact. Across three semantic similarity metrics, PDTB connective noise explains less than 8% of shared variance (<tex-math>r^2{&lt;}0.08</tex-math>), confirming it captures evaluation signal invisible to existing approaches. We establish discourse-structural noise as a distinct, measurable evaluation dimension for LLM-generated explanations.</abstract>
+      <pdf hash="1b148a73"/>
+      <bibkey>baloni-rettinger-2026-discourse</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.wnut-1.6/ -->
+      <title>Do <fixed-case>LLM</fixed-case>s Give Consistent Opinions? Evaluating Response Reliability Under Varying <fixed-case>L</fixed-case>ikert-Scale Formulations in Survey-Style <fixed-case>MCQA</fixed-case></title>
+      <author><first>Martin</first><last>Kandlinger</last></author>
+      <author id="bolei-ma" orcid="0009-0000-0511-550X"><first>Bolei</first><last>Ma</last><affiliation>Ludwig-Maximilians-Universität München and University of Maryland, College Park</affiliation></author>
+      <author id="anna-carolina-haensch" orcid="0000-0001-6772-0393"><first>Anna-Carolina</first><last>Haensch</last><affiliation>University of Maryland, College Park and Ludwig-Maximilians-Universität München</affiliation></author>
+      <author id="matthias-assenmacher" orcid="0000-0003-2154-5774"><first>Matthias</first><last>Aßenmacher</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <pages>72-88</pages>
+      <abstract>Survey methodology requires that equivalent question formulations elicit stable responses from the same respondent, regardless of how the Likert-type answer scale is presented. As LLMs are increasingly deployed as synthetic survey respondents, a critical but underexplored question arises: do they satisfy this basic parallel-forms reliability standard when answer scales vary in wording, cardinality, polarity, or option order? We extend the OpinionQA into two stress-test benchmarks, 1,235 subjective questions each paired with five reworded scale variants and six positional permutations, evaluated across four prompt-label formats. Using a four-metric consistency framework, we benchmark eight open-weight models from four families in both base and instruction-tuned configurations. Three findings emerge. First, base models fail basic reliability requirements: they exhibit severe mechanical instability driven by primacy bias, label sensitivity, and formatting failures, including full polarity inversions for the same question. Second, instruction tuning acts as a reliability filter, reducing response variance by approximately 50% and enabling models to treat semantically equivalent scales as equivalent. Third, for instruction-tuned models under randomized option ordering, removing explicit labels paradoxically increases consistency by eliminating symbol-binding conflicts. These findings establish that response reliability is an engineered property of LLMs requiring both alignment training and deliberate prompt design, with concrete implications for survey-like MCQA evaluations.</abstract>
+      <pdf hash="f3cd1c56"/>
+      <bibkey>kandlinger-etal-2026-llms</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.wnut-1.7/ -->
+      <title>Evaluating Token Probabilities as Confidence Estimators in Human Behavior Simulations: A Case Study in <fixed-case>L</fixed-case>uxembourgish Next Like Prediction</title>
+      <author id="nils-schwager" orcid="0009-0007-8313-2066"><first>Nils</first><last>Schwager</last><affiliation>Trier University and Trier University</affiliation></author>
+      <author id="simon-munker" orcid="0000-0003-1850-5536"><first>Simon</first><last>Münker</last></author>
+      <author id="alistair-plum" orcid="0000-0003-0977-3467"><first>Alistair</first><last>Plum</last><affiliation>University of Luxembourg</affiliation></author>
+      <author id="achim-rettinger" orcid="0000-0003-4950-1167"><first>Achim</first><last>Rettinger</last><affiliation>FZI Forschungszentrum Informatik and Trier University</affiliation></author>
+      <pages>89-100</pages>
+      <abstract>As large language models (LLMs) are increasingly used to simulate human behavior, their operational validity is typically assessed through accuracy alone, implicitly treating human behavior as deterministic. We argue that on noisy digital trace data, a model’s performance depends not only on predicting the correct outcome but on its calibration. We present a case study testing whether the token probabilities of open-weight LLMs can serve as confidence estimates in a Next Like Prediction task: predicting how a user of the Luxembourgish news platform RTL.lu rates a comment, conditioned on their prior interactions. Evaluating Ministral 3 (3B, 8B), we find that, with in-context learning only, the tested models are overconfident and are outperformed on accuracy and calibration by a simple statistical baseline. Accuracy and calibration do not move together: scaling from 3B to 8B improves accuracy while degrading calibration, and longer behavioral histories raise accuracy while confidence declines. Task-specific supervised fine-tuning acts as an effective calibration intervention, reducing Expected Calibration Error from 0.2 to 0.006 while improving accuracy from 0.536 to 0.758. We conclude that confidence estimation should be evaluated alongside accuracy to improve validity when using LLM-based agents.</abstract>
+      <pdf hash="c98b29aa"/>
+      <bibkey>schwager-etal-2026-evaluating</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.wnut-1.8/ -->
+      <title>From Errors to Precision: A Taxonomy-Guided Approach for <fixed-case>LLM</fixed-case> Flood Cause Extraction</title>
+      <author id="jane-arleth-dela-cruz" orcid="0000-0002-4261-927X"><first>Jane Arleth</first><last>dela Cruz</last><affiliation>Radboud University</affiliation></author>
+      <author id="iris-hendrickx" orcid="0000-0002-9351-6449"><first>Iris</first><last>Hendrickx</last><affiliation>Radboud University Nijmegen, the Netherlands</affiliation></author>
+      <author><first>Martha</first><last>Larson</last><affiliation>Radboud University</affiliation></author>
+      <pages>101-116</pages>
+      <abstract>Large language models (LLMs) offer disaster risk management (DRM) practitioners a promising “plug-and-play” solution for information extraction on online media data. However, they can struggle with the strict precision required for identifying semantically and structurally complex disaster causes. We evaluated how off-the shelf LLMs extract causal information from flood-related texts and found a strong recall bias. To diagnose these errors, our primary contribution is a comprehensive, human-annotated qualitative error taxonomy using inductive and deductive coding. We identified specific linguistic traps, i.e., impact descriptions, background context, and subjective opinions, trigger over-extraction, indicating models have a patterned failure. As an exploratory second step, we apply this taxonomy to design an ablation study of prompt-based interventions using definitions and exclusions. Our results show that our approach successfully shifts models along the precision–recall trade-off, i.e., curbing over-extraction, improving precision and domain-specific F0.5-score for recall-biased models. We demonstrate that by leveraging qualitative error analysis, domain experts can not only characterize and refine off-the-shelf LLMs, but also navigate the tradeoffs of prompting.</abstract>
+      <pdf hash="2b47ac90"/>
+      <bibkey>dela-cruz-etal-2026-errors</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.wnut-1.9/ -->
+      <title><fixed-case>G</fixed-case>e<fixed-case>NER</fixed-case>score: Semantic Alignment Metrics for Generative Named Entity Recognition</title>
+      <author id="gianmarco-pappacoda" orcid="0009-0001-6609-4156"><first>Gianmarco</first><last>Pappacoda</last><affiliation>University of Bologna</affiliation></author>
+      <author id="federico-ruggeri" orcid="0000-0002-1697-8586"><first>Federico</first><last>Ruggeri</last><affiliation>University of Bologna</affiliation></author>
+      <author id="paolo-torroni" orcid="0000-0002-9253-8638"><first>Paolo</first><last>Torroni</last><affiliation>University of Bologna</affiliation></author>
+      <pages>117-140</pages>
+      <abstract>Traditional Named Entity Recognition (NER) metrics rely on syntactic span and type matching. While this may be appropriate if NER is framed as a sequence labeling task, the advent of generative models allows for alternative approaches, where model outputs are not extracted, but generated. In this perspective, generative NER calls for more semantically-aware scoring mechanisms. Generative models may produce valid aliases, paraphrases, or type variants that differ from the annotated gold, while also producing unsupported predictions. We propose a taxonomy of such cases and introduce an embedding-based parametric method to evaluate generative NER based on three metrics: soft precision, soft recall and unsupported rate. We validate this framework using standard and noisy datasets, across state-of-the-art systems such as GPT and GLiNER alongside older encoder-based models. We find that our metrics mostly agree with traditional ones on better-established, less noisy benchmarks, but differ in more recent, noisier ones, and can capture edge cases that arise from free-form generation.</abstract>
+      <pdf hash="7efa8270"/>
+      <bibkey>pappacoda-etal-2026-generscore</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.wnut-1.10/ -->
+      <title>How Noisy is Automatic Annotation? Characterizing Label Noise from Generative Models in Multi-Dimensional <fixed-case>S</fixed-case>panish Subjectivity Annotation</title>
+      <author><first>Alba</first><last>Pérez-Montero</last></author>
+      <author id="elena-lloret" orcid="0000-0002-2926-294X"><first>Elena</first><last>Lloret</last></author>
+      <author id="paloma-moreda-pozo" orcid="0000-0002-7193-1561"><first>Paloma</first><last>Moreda Pozo</last><affiliation>Universidad de Alicante</affiliation></author>
+      <pages>141-153</pages>
+      <abstract>Although human variability has traditionally been the primary source of annotation noise, the increasing use of Large Language Models (LLMs) for automated labeling is shifting this landscape toward systematic, machine-generated label noise. This challenge is particularly severe in Subjectivity Detection (SD), where the behavior of automated errors remains largely unexamined. This study characterizes the extent and linguistic nature of automated annotation noise in Spanish SD. Errors are evaluated as omissions (under-generation) or additions (over-generation) across six subjectivity dimensions: Doubt, Certainty, Specificity, Non-specificity, Distancing, and Participation. Using an expert-annotated human gold standard as a reference, a traditional machine learning control is benchmarked against three state-of-the-art LLM families (GPT, Gemini, and Llama). The results reveal a clear architectural divide: while the traditional ML framework predominantly generates omission errors (63.99%), only detecting markers it was explicitly programmed to recognize, LLMs like Gemini and Llama lean heavily toward addition errors (exceeding 51%), guessing and hallucinating markers instead of leaving uncertain cases unlabeled. Although Gemini minimizes overall noise, achieving F1-scores up to 0.96 in specific dimensions, Certainty remains highly susceptible to errors, showing a 53.96% error rate in the traditional ML control. Ultimately, this diagnostic evaluation of LLMs as annotators in this specific subjective task reveals that automated systems introduce systematic label noise, demonstrating that human-in-the-loop participation is indispensable to resolve these errors and ensure reliable dataset curation.</abstract>
+      <pdf hash="25e2b167"/>
+      <bibkey>perez-montero-etal-2026-noisy</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.wnut-1.11/ -->
+      <title>Increasing the Robustness of the Fine-tuned Multilingual Machine-Generated Text Detectors</title>
+      <author id="dominik-macko" orcid="0000-0002-8235-2004"><first>Dominik</first><last>Macko</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author id="robert-moro" orcid="0000-0002-3052-8290"><first>Robert</first><last>Moro</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author id="ivan-srba" orcid="0000-0003-3511-5337"><first>Ivan</first><last>Srba</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <pages>154-166</pages>
+      <abstract>Since the proliferation of LLMs, there have been concerns about their misuse for harmful content creation and dissemination. Recent studies justify such fears, providing evidence of LLM vulnerabilities and high misuse potential. It has been shown that humans struggle to reliably distinguish high-quality machine-generated text from authentic human-written text. Therefore, it is crucial to develop automated means to accurately detect machine-generated content. While multiple detectors of machine-generated texts have been researched so far, a known issue is their low generalizability to unseen generators, domains or languages. This work addresses the problem by proposing a robustness-oriented LLM training methodology for the detection task, making the detectors more robust against obfuscation and more generalizable to out-of-distribution data. The fixed-size ablation study confirms that the gains are not simply a function of more data.</abstract>
+      <pdf hash="4b725f71"/>
+      <bibkey>macko-etal-2026-increasing</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.wnut-1.12/ -->
+      <title><fixed-case>LLM</fixed-case>s are Easily Startled: Fragility Testing with Lookalike Character Noise</title>
+      <author><first>Peter</first><last>deJonge</last><affiliation>United States Naval Academy</affiliation></author>
+      <author><first>Nathanael</first><last>Chambers</last><affiliation>Williams College</affiliation></author>
+      <pages>167-181</pages>
+      <abstract>Language models are dependent on the character sets of the languages seen during training. Some languages use large character sets, like Chinese and Korean, while others are very small, like English. When the input during inference diverges from the trained character set, it can lead to unexpected behavior. While many researchers have looked at using this weakness for adversarial attacks, these studies typically focus on extreme cases that lead to model failure. But we don’t have a strong understanding of how brittle models are to more casual and routine character substitutions. In fact, many ‘known’ characters have Unicode lookalikes that users enjoy using without malicious purposes. This paper studies the fragility of models when faced with such character noise. When input contains innocuous character substitutions, do models robustly handle the distortion? How does the tokenizer and overall model size affect performance? This paper presents analyses of tokenizers and a series of fragility tests to answer these questions. We find that tokenization is not the only stumbling block, and neither is a larger model size the assured solution. We present a formal benchmark, publicly release a Fragility Scorer, and describe our experimental results on a variety of open-source models. Implications and suggestions for improving fragility are then presented.</abstract>
+      <pdf hash="9854bac1"/>
+      <bibkey>dejonge-chambers-2026-llms</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.wnut-1.13/ -->
+      <title>Multi-author style detection with stylistic embeddings</title>
+      <author><first>Man-Ling</first><last>Sung</last><affiliation>RTX BBN Technologies</affiliation></author>
+      <author><first>Chak-Fai</first><last>Li</last></author>
+      <author><first>Damianos</first><last>Karakos</last><affiliation>RTX BBN Technologies</affiliation></author>
+      <author><first>Frederick E.</first><last>Bernardin III</last><affiliation>RTX BBN Technologies</affiliation></author>
+      <author><first>Brian</first><last>Ulicny</last><affiliation>RTX BBN Technologies</affiliation></author>
+      <pages>182-194</pages>
+      <abstract>We investigate the use of Large Language Models (LLMs) in multi-author style change detection. Using off-the-shelf LLMs or supervised fine-tuning solely within the target domain fails to yield effective features; for this reason, we propose cross-domain transfer learning with LLM-based embeddings fine-tuned for authorship verification. We fine-tune Mistral-7B embedding model and compare it with DeBERTa, used in the the state-of-the-art (SOTA) systems in PAN-25 multi-author writing style analysis challenge. Results show that DeBERTa and Mistral excel in different user-generated text scenarios. We exploit this diversity by combining both embeddings, leading to more effective style change detection.</abstract>
+      <pdf hash="73d9dd94"/>
+      <bibkey>sung-etal-2026-multi</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.wnut-1.14/ -->
+      <title><fixed-case>NERQ</fixed-case>ual: Evaluating the Robustness of Named Entity Recognition Models to Data Quality Issues</title>
+      <author id="denis-trautner" orcid="0009-0001-0059-2021"><first>Denis</first><last>Trautner</last></author>
+      <author id="philippe-thomas" orcid="0000-0001-9136-9660"><first>Philippe</first><last>Thomas</last><affiliation>German Research Center for AI</affiliation></author>
+      <pages>195-209</pages>
+      <abstract>Transformer-based models for Named Entity Recognition (NER) achieve strong performance on clean benchmarks, yet their reliability in real-world settings remains insufficiently understood. In practical applications, NER systems are frequently exposed to degraded input originating from optical character recognition, automatic speech recognition, and user-generated text. We address this gap by deriving a taxonomy of data quality perturbations from a systematic literature review, consolidating fragmented prior work into a unified framework. Guided by this taxonomy, we conduct controlled experiments evaluating six widely used transformer architectures under varying perturbation types, intensities, and training configurations. Our results show that syntactic perturbations cause the most severe performance degradation across models, while architectural features such as character-level processing and disentangled attention confer specific robustness advantages. Furthermore, we demonstrate that targeted training with perturbed data can recover more than half of the lost performance with minimal impact on clean-data accuracy.</abstract>
+      <pdf hash="1035e238"/>
+      <bibkey>trautner-thomas-2026-nerqual</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.wnut-1.15/ -->
+      <title>Not All Duplicates Are Coordination: Generic vs. Non-Generic Duplicate Campaigns in Information Operations</title>
+      <author id="ashfaq-ali-shafin" orcid="0000-0002-0135-0091"><first>Ashfaq Ali</first><last>Shafin</last><affiliation>Augustana College</affiliation></author>
+      <author><first>Khandaker Mamun</first><last>Ahmed</last><affiliation>Dakota State University</affiliation></author>
+      <pages>210-216</pages>
+      <abstract>Duplicate content is widely used to study coordinated behavior in social media information operations (IOs), but not all repetition provides equally meaningful evidence of coordination. Generic, reusable, or low-information posts may create noisy account-account links when projected into coordination graphs. We study this problem using 187,000 English-language tweets from six Russian Twitter Information Operations datasets. We introduce a generic/non-generic distinction for duplicate campaigns, label tweets using an LLM-assisted protocol with independent human validation, and train supervised classifiers over sentence embeddings to scale the labels. We construct duplicate campaigns using lexical similarity and two embedding-based methods. Generic campaigns are rare under lexical matching but account for nearly 39% of campaigns detected by embedding-based methods. Restricting graphs to non-generic campaigns reduces graph size and the largest connected component while increasing density, suggesting a smaller but more focused coordination structure. These findings show that duplicate-based coordination analysis should consider both textual similarity and semantic specificity.</abstract>
+      <pdf hash="61c3a78f"/>
+      <bibkey>shafin-ahmed-2026-duplicates</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.wnut-1.16/ -->
+      <title>Personalized Emotion Analysis via Prompting Large Language Models with Writer Information</title>
+      <author id="kentaro-hanafusa" orcid="0009-0007-6198-2916"><first>Kentaro</first><last>Hanafusa</last></author>
+      <author id="daisuke-maekawa" orcid="0009-0005-2551-5224"><first>Daisuke</first><last>Maekawa</last><affiliation>Ehime University</affiliation></author>
+      <author id="tomoyuki-kajiwara" orcid="0000-0002-3233-4879"><first>Tomoyuki</first><last>Kajiwara</last><affiliation>Ehime University</affiliation></author>
+      <pages>217-226</pages>
+      <abstract>Personalized emotion analysis aims to account for individual differences in emotional expression by adapting predictions to each writer.Existing personalization methods typically require dedicated feature extraction modules or modifications to model architectures, increasing model complexity. In this paper, we propose a prompt-based personalization framework for emotion analysis that incorporates writer information into the input prompt of a large language model (LLM), without requiring fine-tuning or architectural changes.Specifically, we investigate two complementary types of writer information: personality traits representing stable writer characteristics and post history representing writer-specific patterns of emotional expression. Experimental results on the WRIME corpus in Japanese show that incorporating temporally close post history consistently improves emotion intensity estimation across multiple LLMs. Personality information alone provides limited improvements, but yields additional gains for several models when combined with post history. These findings suggest that prompt-based personalization is a practical alternative to architecture-level personalization for LLM-based emotion analysis.</abstract>
+      <pdf hash="57cad3a3"/>
+      <bibkey>hanafusa-etal-2026-personalized</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.wnut-1.17/ -->
+      <title>Predicting Steering Vectors and Adapter Weights for Few-Shot Author-Style Transfer</title>
+      <author><first>Leonard</first><last>Popp</last></author>
+      <author id="danni-liu" orcid="0000-0001-5419-1963"><first>Danni</first><last>Liu</last><affiliation>Karlsruher Institut für Technologie</affiliation></author>
+      <author id="supriti-sinhamahapatra" orcid="0009-0003-0252-6399"><first>Supriti</first><last>Sinhamahapatra</last><affiliation>Karlsruher Institut für Technologie</affiliation></author>
+      <author id="jan-niehues" orcid="0000-0002-4231-6543"><first>Jan</first><last>Niehues</last></author>
+      <pages>227-243</pages>
+      <abstract>Adapting large language models to an individual author’s style from a few examples is challenging, and scientific writing sharpens the difficulty: formal conventions leave little surface variation, and authors write about their own topics, so extracted “style” easily entangles with content. We study style-conditioned abstract generation from a few example abstracts per author and propose three methods: (1) contrastive activation steering, (2) a network that predicts steering vectors, and (3) a hypernetwork that predicts LoRA adapters. We find a consistent trade-off between style imitation and output quality: fine-tuning buys most of the available style signal but forfeits fluency, while the hypernetwork achieves the best trade-off on both seen and unseen authors. Our steering operates at author level, contrasting an author’s abstracts against style-neutral generations for the same content. This holds topic fixed, removes the need for a predefined style inventory, and outperforms inventory-based steering. Moreover, our analyses demonstrate that manually extracted and predicted steering vectors are near-orthogonal yet score comparably, indicating that style conditioning here can admit at least two unrelated directions rather than requiring one particular axis.</abstract>
+      <pdf hash="026e3ee3"/>
+      <bibkey>popp-etal-2026-predicting</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.wnut-1.18/ -->
+      <title><fixed-case>Q</fixed-case>uery<fixed-case>D</fixed-case>iagram<fixed-case>E</fixed-case>val: Evaluating and Benchmarking <fixed-case>LLM</fixed-case> Diagram Generation under Noisy Conditions</title>
+      <author><first>Ted</first><last>Zhang</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Souvik</first><last>Das</last><affiliation>J.P. Morgan Chase</affiliation></author>
+      <author><first>Kai</first><last>Ni</last><affiliation>J.P. Morgan Chase</affiliation></author>
+      <author><first>Aditya</first><last>Agrawal</last></author>
+      <author><first>Xin</first><last>Guo</last></author>
+      <author><first>Denis</first><last>Kochedykov</last><affiliation>J.P. Morgan Chase</affiliation></author>
+      <pages>244-265</pages>
+      <abstract>Chat assistants increasingly ask large language models to turn free-form user prose into structured, executable diagrams. These requests are noisy user-generated text: informal, hedged, jargon-mixed, incomplete, and often describing the target only indirectly—in workflow language rather than diagram vocabulary. Evaluation is hard because many distinct diagrams satisfy the same noisy request, making reference-based metrics too rigid where no ground truth exists, while reference-free LLM judges give weak, hard-to-reproduce diagnostics. We introduce <sc>QueryDiagramEval</sc> (QDE), a reference-free protocol scoring diagram generation directly against raw, noisy queries via two levels: deterministic compilation gates (syntax, rendering, diagram-type correctness), then a semantic-fidelity layer where a multimodal auditor is grounded in type-specific structural facts parsed from the code. On 255 annotated predictions, QDE aligns strongly with holistic human ratings (<tex-math>\rho=0.715</tex-math>), outperforming an ungrounded LLM judge. We also release <sc>MermaidBench</sc>, a source-grounded benchmark of 1,150 query–gold pairs over 11 diagram types, four query-difficulty tiers, and a multi-turn track, with the gold held fixed to isolate robustness to input-side noise. Furthermore, we conduct experiments on eight frontier-model and harnesses to show that the our agentic framework reaches near-gold quality while failures concentrate in topology preservation, label grounding, and type-specific syntax.</abstract>
+      <pdf hash="4dc5daab"/>
+      <bibkey>zhang-etal-2026-querydiagrameval</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.wnut-1.19/ -->
+      <title>Robust Dual-Signal Fusion: Hybrid Neuro-Symbolic Gating with Compressed Chain-of-Thought Refinement for Irony Detection in Social Media Texts</title>
+      <author id="ankit-bhattacharjee" orcid="0009-0003-1870-9915"><first>Ankit</first><last>Bhattacharjee</last></author>
+      <author><first>Krityapriya</first><last>Bhaumik</last></author>
+      <pages>266-285</pages>
+      <abstract>Small-scale Large Language Models (LLMs) natively default to literal semantic interpretations, making few-shot irony detection a persistent challenge in noisy, user-generated text. In this study, we show that, despite this limitation, inference from compact LLMs can still be effectively harnessed for this task. We introduce the Robust Dual-Signal (RDS) Fusion framework, a hybrid neuro-symbolic architecture that utilizes a compressed Chain-of-Thought (CoT) of an LLM, alongside a static, pretrained RoBERTa and a symbolic prior module in two downstream fusions. RDS Fusion demonstrates better performance than an unrestricted reasoning ablation, while requiring substantially lower inference time. We also find that in our experiments, unrestricted reasoning does not yield better results than restricted reasoning. Evaluated on a strictly held-out TweetEval test set (<tex-math>N=734</tex-math>), RDS Fusion achieves 78.1% accuracy and a Macro F1 of 0.777, which is comparable to a finetuned BERTweet-base. On the heavily imbalanced iSarcasm dataset, the frozen CoT pipeline suppresses 22.5% of baseline false positives, yielding a Macro F1 of 0.6726 and Ironic F1 of 0.4821, outperforming multiple heavily supervised SemEval transformer ensembles. Paired McNemar’s tests show that, while adding the symbolic prior to the neural baseline yields an insignificant gain, and the RDS Fusion is statistically insignificant compared to the combined RoBERTa and symbolic prior ablation; the concurrent fusion achieves a statistically significant improvement over the standalone baseline (<tex-math>p=0.005</tex-math>).</abstract>
+      <pdf hash="d76004b1"/>
+      <bibkey>bhattacharjee-bhaumik-2026-robust</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.wnut-1.20/ -->
+      <title><fixed-case>RSPC</fixed-case>: A Benchmark for Modeling Stress and Psychiatric Conditions in Digitally Mediated Relationships using Psychiatrist Annotations</title>
+      <author id="parmitha-vangapandu" orcid="0009-0001-9368-1989"><first>Parmitha</first><last>Vangapandu</last></author>
+      <author id="sai-ganesh-m" orcid="0009-0007-7199-9009"><first>Sai Ganesh</first><last>M</last></author>
+      <author><first>Sathwik</first><last>Narkedimilli</last></author>
+      <author id="msvpj-sathvik" orcid="0000-0003-4544-4011"><first>Msvpj</first><last>Sathvik</last><affiliation>University of Birmingham</affiliation></author>
+      <author><first>Timothy</first><last>Liu</last><affiliation>NVIDIA</affiliation></author>
+      <author id="simon-see" orcid="0000-0002-4958-9237"><first>Simon</first><last>See</last><affiliation>NVIDIA</affiliation></author>
+      <author><first>Johannes C</first><last>Eichstaedt</last><affiliation>Stanford University</affiliation></author>
+      <pages>286-312</pages>
+      <abstract>In NLP, mental health conditions are often modeled as isolated phenomena, without interpersonal context. We use Reddit posts about long-distance relationships to capture both mental health distress and associated relational triggers. We introduce the Relational Stress and Psychiatry Corpus (RSPC), containing 1,799 Reddit posts annotated by psychiatrists for diagnostic categories, including the most prevalent mood disorders (anxiety and depression), relational stressor triggers, and indications of relationship phase. We benchmark seven fine-tuned transformer models and five large language models across the tasks of multi-label disorder classification, relational trigger detection, and temporal phase prediction. We find clear task-dependent differences between model families, with Claude-3-Haiku achieving the best disorder classification performance (Macro-F1 = 0.538) and GPT-4o obtaining the strongest relational trigger detection performance (Macro-F1 = 0.519), suggesting distinct model capabilities. We further find strong associations between anxiety disorders and chronic relational uncertainty. Overall, RSPC establishes a benchmark for NLP tasks that consider relational context and supports a shift from individual-centric to context-aware mental health modeling, capturing the social and temporal dynamics of distress.</abstract>
+      <pdf hash="2c8f49c6"/>
+      <bibkey>vangapandu-etal-2026-rspc</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.wnut-1.21/ -->
+      <title>Spoiler Court: Interpretable Spoiler Detection via Adversarial Multi-Agent <fixed-case>LLM</fixed-case> Judgement</title>
+      <author><first>Sangmin</first><last>Song</last></author>
+      <author><first>Hari</first><last>Kang</last></author>
+      <author><first>Suhyeon</first><last>Park</last><affiliation>GS Neotek</affiliation></author>
+      <author><first>Seongwoo</first><last>Choi</last></author>
+      <author><first>Sungkyun</first><last>Im</last></author>
+      <author><first>Sangoh</first><last>Lee</last></author>
+      <pages>313-324</pages>
+      <abstract>We present Spoiler Court, a multi-agent adversarial framework for interpretable spoiler detection in movie reviews. Three LLM agents, acting as the Plaintiff, Defendant, and Judge, engage in a multi-round courtroom debate to identify spoiler spans, challenge them, and deliver a final judgement with an interpretable audit trail grounded in the movie’s plot summary. Unlike prior work that produces only binary labels, Spoiler Court outputs which sentences are spoilers, why (via plot fact citations), and how the decision was reached (via adversarial debate transcripts). To evaluate the effectiveness of our approach, we construct a multi-genre evaluation dataset spanning 4 movies with binary and character-level span annotations. Under controlled conditions, Spoiler Court achieves an average F1 of 0.733 across 4 movies, outperforming other baselines including a dedicated spoiler detection framework.</abstract>
+      <pdf hash="1e4db0f0"/>
+      <bibkey>song-etal-2026-spoiler</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.wnut-1.22/ -->
+      <title>The Curse of Multilinguality in Lexical Normalization</title>
+      <author id="saman-rahbar" orcid="0009-0007-2328-9328"><first>Saman</first><last>Rahbar</last><affiliation>Dialpad AI , Nurty Technologies Inc, University of Calgary and University of British Columbia</affiliation></author>
+      <pages>325-331</pages>
+      <abstract>Lexical normalization rewrites the noisy, nonstandard words that fill user-generated text (tmrw, u, gr8) into their standard forms. Because labelled data is scarce for most languages, a popular shortcut is to train a single model on many languages at once. We ask a simple question: how many languages should such a model be trained on? Using one fixed-capacity character-level model and twelve languages from a standard benchmark, we vary the number of jointly trained languages from one to twelve and measure per-language accuracy. We find a clear curse of multilinguality: accuracy is highest when a language is trained with only a few others, often just one to four, and then falls steadily and substantially, dropping by about forty percent as the rest are piled on. A control that holds the total amount of training data constant makes the decline arrive sooner and fall further, which points to competition among the languages for one fixed-size model rather than to how much data is available. We also test whether a language’s typological distance from the others predicts its ideal number of cotraining languages, and find no dependable rule: any apparent relationship rests on a couple of languages and does not hold up. For compact normalization models, less can be more: a few languages beat pooling everything into a single model.</abstract>
+      <pdf hash="68701af3"/>
+      <bibkey>rahbar-2026-curse</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.wnut-1.23/ -->
+      <title>Topic Matching in the Wild: Benchmark and Lessons from Real-World <fixed-case>ASR</fixed-case> Transcripts</title>
+      <author id="saman-rahbar" orcid="0009-0007-2328-9328"><first>Saman</first><last>Rahbar</last><affiliation>Dialpad AI , Nurty Technologies Inc, University of Calgary and University of British Columbia</affiliation></author>
+      <author><first>Xiliang</first><last>Zhu</last><affiliation>Dialpad Inc.</affiliation></author>
+      <author><first>Irvin</first><last>Cardoza</last></author>
+      <author><first>David</first><last>Rossouw</last></author>
+      <pages>332-340</pages>
+      <abstract>In contact centers, real-time agent-assist tools determine, for each of many predefined topics, whether a live customer utterance is relevant and display a coaching card to the agent when it is. The input is noisy and challenging: ASR (Automatic Speech Recognition) transcripts of spontaneous phone conversations, which can be unclear, repetitive, and mostly lack punctuation. To systematically study this real-world task, we curate a human-annotated topic-utterance judgments dataset sourced from real call-center transcripts. We compare three types of matchers: a regex-based baseline, zero-shot sentence-embedding encoders, and Gemini-based LLM matchers. In addition, two types of topic representations are studied in our benchmark: keyphrases and natural language description. Our empirical experiments highlight the superior performance of lightweight LLM matchers when equipped with natural language descriptions.</abstract>
+      <pdf hash="c366c038"/>
+      <bibkey>rahbar-etal-2026-topic</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.wnut-1.24/ -->
+      <title><fixed-case>T</fixed-case>ur<fixed-case>E</fixed-case>ng<fixed-case>M</fixed-case>ix: A Text Corpus and Benchmark for <fixed-case>T</fixed-case>urkish-<fixed-case>E</fixed-case>nglish Code-Mixed Language Identification and Named Entity Recognition</title>
+      <author><first>Ilayda</first><last>Dogan</last></author>
+      <author id="phuong-anh-nguyen-le" orcid="0009-0006-2477-2381"><first>Phuong-Anh</first><last>Nguyen-Le</last></author>
+      <author id="julia-mendelsohn" orcid="0000-0002-8584-2578"><first>Julia</first><last>Mendelsohn</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>341-355</pages>
+      <abstract>Natural language processing systems underperform on code-mixed text, particularly for low-resource language pairs. Turkish-English poses a further challenge: it lets English stems combine with Turkish suffixes to form single mixed-language tokens. We introduce TurEngMix, a corpus of 5.5K noisy, naturally occurring social media posts (486,974 tokens) rich in Turkish-English code-mixing. From this corpus, we construct a new Turkish-English benchmark for code-mixed language identification (LID) and named entity recognition (NER), comprising 15K expert-annotated tokens. Evaluating both decoder LLM and fine-tuned encoder baselines, we find that monolingual Turkish and English tokens are labeled reliably, but all models have high error rates on mixed-language tokens for both LID and NER. For morphologically integrated tokens, NER error rates were 5.2× and 6.3× higher for GPT-4o and Qwen, respectively. This highlights how morphological integration remains a challenge. We release the corpus, annotations, and code to support future computational and sociolinguistic research on Turkish-English code-mixing.</abstract>
+      <pdf hash="9bf5c3ca"/>
+      <bibkey>dogan-etal-2026-turengmix</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.wnut-1.26/ -->
+      <title>Where Does Noise Robustness Live? Evidence from Ablation, Role Swaps, and Cross-Lingual Transfer in Code-Mixed Banking <fixed-case>NLU</fixed-case></title>
+      <author><first>Piyush</first><last>Agarwal</last><affiliation>IDFC FIRST Bank</affiliation></author>
+      <pages>356-367</pages>
+      <abstract>Conversational banking assistants on messaging platforms face language that their natural-language-understanding (NLU) pipelines were never designed for: vowel-dropped shorthand (blnc chk krdo), romanized code-mixing, colloquial verb frames. Layered pipelines stack repair rules, learned retrieval, and an LLM, but which layer carries the noise robustness is rarely measured. We conduct targeted interventions on three candidate robustness-bearing components (the normalizer, rules engine, and conditional LLM arbiter) within a fixed 13-layer Hinglish banking NLU (163 intents), with replacement and transfer probes, on BankStress-330, a released three-tier diagnostic stress set, with at least three repeats per LLM-bearing BankStress-330 configuration. LLM-in-the-loop configurations flip up to approximately 3% of verdicts across identical temperature-0 runs, defeating single-run ablation. A 2×2 factorial shows the Hinglish normalizer helps a base encoder but is redundant after noisy-query fine-tuning; the post-fine-tuning redundancy also holds on public Hinglish-TOP (n=6,513, McNemar z=5.0, p≈5×10⁻⁷). Only removing the conditional LLM arbiter collapses adversarial accuracy (.739→.545); neither tested substitute matched it, yet the same fine-tuned cross-encoder improves both noisy tiers while preserving clean accuracy when restricted to reranking (directional, unresolved at n=330). On native-reviewed Tamil and Telugu probes, normalization is unstable in sign. Robustness appears to migrate into tuned components, only for the pair tuned on.</abstract>
+      <pdf hash="1cdeba55"/>
+      <bibkey>agarwal-2026-noise</bibkey>
+    </paper>
+  </volume>
+</collection>
