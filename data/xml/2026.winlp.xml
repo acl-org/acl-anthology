@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.winlp">
+  <volume id="main" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.winlp-main/ -->
+    <meta>
+      <booktitle>Proceedings of the 10th Widening <fixed-case>NLP</fixed-case> Workshop</booktitle>
+      <editor><first>Chen</first><last>Zhang</last></editor>
+      <editor><first>Emily</first><last>Allaway</last></editor>
+      <editor><first>Meryem</first><last>M’hamdi</last></editor>
+      <editor><first>Peerat</first><last>Limkonchotiwat</last></editor>
+      <editor><first>Richard He</first><last>Bai</last></editor>
+      <editor><first>Santosh</first><last>T.Y.S.S.</last></editor>
+      <editor><first>Surendrabikram</first><last>Thapa</last></editor>
+      <editor><first>Yinqiao</first><last>Li</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-472-9</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="f04f0816"/>
+      <venue>winlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.winlp-main.0/ -->
+      <pdf hash="0608ae72"/>
+      <bibkey>winlp-2026-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.winlp-main.1/ -->
+      <title>Tug-of-War Tuning: Capacity and Cross-Lingual Transfer in Zero-Shot <fixed-case>NER</fixed-case></title>
+      <author id="tanushree-ravindra-pratap-yadav" orcid="0009-0004-0411-255X"><first>Tanushree Ravindra Pratap</first><last>Yadav</last></author>
+      <pages>1-9</pages>
+      <abstract>We investigate how the amount of fine-tuned capacity affects zero-shot cross-lingual transfer for named entity recognition (NER). Training exclusively on English WikiANN and evaluating on 14 typologically diverse target languages, we find a consistent inverted-U pattern: cross-lingual transfer is worst at both ends of the parameter-efficiency spectrum. Full fine-tuning, which updates all parameters, transfers worst overall and collapses on non-Latin-script languages, while the most parameter-efficient methods, (IA)³ and prefix tuning, also underperform. Methods with an intermediate number of trainable parameters (Low-Rank Adaptation, LoRA; Hu et al., 2022, and Houlsby adapters) transfer best, with LoRA outperforming full fine-tuning by roughly 7 F1 points on average and by over 10 points on languages such as Chinese and Japanese. We find the same inverted-U shape within LoRA alone: a sweep over ranks shows cross-lingual transfer peaking at an intermediate rank, distinct from the higher rank that maximises in-language English performance, revealing a rank–transfer tradeoff. We also examine, and do not find clean support for, the common assumption that better preservation of cross-lingual representational alignment explains PEFT’s transfer benefits: the method that best preserves a standard alignment measure transfers worst, while LoRA’s larger alignment shift coincides with its best transfer. Given known limitations of this alignment measure, we present this as a preliminary, metric-dependent observation that motivates further analysis with more robust alignment metrics, rather than a settled claim.</abstract>
+      <pdf hash="90203097"/>
+      <bibkey>yadav-2026-tug</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.winlp-main.2/ -->
+      <title>Beyond Calibration: Temporal <fixed-case>LLM</fixed-case> Confidence Assessment Across Languages and Local Settings</title>
+      <author id="sahil-kale" orcid="0009-0009-0028-4780"><first>Sahil</first><last>Kale</last><affiliation>Eindhoven University of Technology and Knowledge Verse AI</affiliation></author>
+      <pages>10-19</pages>
+      <abstract>Large language models are increasingly expected to estimate their own uncertainty, with confidence signals being used to guide retrieval, adaptive compute allocation, routing, and selective abstention. In this work, we investigate whether confidence signals measured at different temporal stages of problem solving encode distinct forms of epistemic information, and whether such signals remain reliable beyond English-centric settings. Inspired by classical meta-memory theory, we distinguish between anticipatory pre-solve confidence (Feeling-of-Knowing, FOK) and retrospective post-solve confidence (Judgement-of-Learning, JOL). We evaluate these signals across frontier LLMs, multiple reasoning domains, translated Marathi benchmarks, and a newly constructed benchmark of genuinely local Marathi factual questions. Across settings, the cheaper pre-solve signal remains weakly calibrated, while post-solve confidence generally provides stronger epistemic alignment despite additional inference cost. We further find that confidence behaviour transfers surprisingly well under direct language translation, with calibration trends largely preserved between English and Marathi. In contrast, confidence reliability degrades substantially on local Marathi knowledge, suggesting that linguistic transfer alone is insufficient to capture the challenges posed by region-specific information needs. Finally, hallucinated responses maintain persistently elevated confidence even after answer generation, highlighting important limitations of current LLM self-assessment mechanisms.</abstract>
+      <pdf hash="c9795c4f"/>
+      <bibkey>kale-2026-beyond</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.winlp-main.3/ -->
+      <title><fixed-case>A</fixed-case>mharic<fixed-case>S</fixed-case>tory<fixed-case>QA</fixed-case>: A Multicultural Story Question Answering Benchmark in <fixed-case>A</fixed-case>mharic</title>
+      <author id="israel-abebe-azime" orcid="0000-0001-9063-1137"><first>Israel Abebe</first><last>Azime</last></author>
+      <author><first>Abenezer</first><last>Angamo</last></author>
+      <author><first>Hana Mekonen</first><last>Tamiru</last><affiliation>Addis Ababa University and Haramaya University</affiliation></author>
+      <author id="dagnachew-mekonnen-marilign" orcid="0009-0004-0123-5140"><first>Dagnachew Mekonnen</first><last>Marilign</last></author>
+      <author id="philipp-slusallek" orcid="0000-0002-2189-2429"><first>Philipp</first><last>Slusallek</last><affiliation>German Research Center for Artificial Intelligence (DFKI) and Saarland University</affiliation></author>
+      <author id="seid-muhie-yimam" orcid="0000-0002-8289-388X"><first>Seid Muhie</first><last>Yimam</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="dietrich-klakow" orcid="0000-0002-4147-9690"><first>Dietrich</first><last>Klakow</last></author>
+      <pages>20-36</pages>
+      <abstract>With the growing emphasis on multilingual and cultural evaluation benchmarks for large language models, language and culture are often treated as synonymous, and performance is commonly used as a proxy for a model’s understanding of a given language. In this work, we argue that such evaluations overlook meaningful cultural variation that exists within a single language. We address this gap by focusing on narratives from different regions of Ethiopia and demonstrate that, despite shared linguistic characteristics, region-specific and domain-specific content substantially influences language evaluation outcomes. To this end, we introduce AmharicStoryQA, a long-sequence story question answering benchmark grounded in culturally diverse narratives from Amharic-speaking regions. Using this benchmark, we reveal a significant narrative understanding gap in existing LLMs, highlight pronounced regional differences in evaluation results, and show that supervised fine-tuning yields uneven improvements across regions and evaluation settings. Our findings emphasize the need for culturally grounded benchmarks that go beyond language-level evaluation to more accurately assess and improve narrative understanding in low-resource languages.</abstract>
+      <pdf hash="b4000a30"/>
+      <bibkey>azime-etal-2026-amharicstoryqa</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.winlp-main.4/ -->
+      <title>What Improves Multimodal Misinformation Detection? Answers from a Large-Scale Empirical Study</title>
+      <author id="akshit-sharma" orcid="0009-0001-3072-8508"><first>Akshit</first><last>Sharma</last><affiliation>Oracle</affiliation></author>
+      <author id="prashant-w-patil" orcid="0000-0003-2604-6501"><first>Prashant W</first><last>Patil</last><affiliation>Indian Institute of Technology, Guwahati, Indian institute of science, Bangalore</affiliation></author>
+      <pages>37-47</pages>
+      <abstract>Multimodal misinformation is increasingly crafted to look convincing by pairing a textual claim with an image that appears to "prove" it. Yet in practice, building effective detectors often hinges on a small set of design choices that are rarely examined in a controlled way. In this paper, we conduct a large-scale study of multimodal design choices for misinformation detection with over 3,375 experiments- spanning three benchmark datasets and a broad range of pre-trained vision and language backbones. Through systematic comparisons and targeted robustness analyses, we distill practical guidance on which design choices help, when do they fail silently, and what aspects of the pipeline most strongly shape model behavior, answering 4 key Research Questions (RQs). We aim to provide a reliable foundation for designing stronger and more dependable multimodal misinformation detection systems, thus contributing to the broader research community.</abstract>
+      <pdf hash="bc909fbf"/>
+      <bibkey>sharma-patil-2026-improves</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.winlp-main.5/ -->
+      <title>How Well Does It Generalize? A Robustness Study of <fixed-case>H</fixed-case>ausa Machine-Generated Text Detection</title>
+      <author id="abdulhamid-abubakar" orcid="0009-0008-2973-0134"><first>Abdulhamid</first><last>Abubakar</last><affiliation>Nasarawa State University Keffi</affiliation></author>
+      <author id="faisal-muhammad-adam" orcid="0009-0004-7521-0827"><first>Faisal Muhammad</first><last>Adam</last><affiliation>Maryam Abacha American University of Nigeria</affiliation></author>
+      <author id="shamsuddeen-hassan-muhammad" orcid="0000-0001-7708-0799"><first>Shamsuddeen Hassan</first><last>Muhammad</last><affiliation>Imperial College London and Bayero University, Kano-Nigeria</affiliation></author>
+      <author><first>Abubakar Auwal</first><last>Khalid</last></author>
+      <author><first>Babangida</first><last>Sani</last><affiliation>Bayero University Kano</affiliation></author>
+      <pages>48-60</pages>
+      <abstract>Sani et al. (2025) introduced the first dedicated Hausa machine-generated text (MGT) detec- tor, an AfroXLMR-large classifier trained on 2,586 paired articles from seven Hausa news outlets and Gemini 2.0 Flash, reporting F1 of 0.9921 on a headline-grouped split. They iden- tified three limitations of their work: a single news domain, a small batch and short train- ing schedule, and a single generator (Gemini 2.0 Flash) for the machine-generated data. We extend their work along the third axis. First, we replicate their reported result across four random seeds, obtaining F1 of 0.992 ±0.005. Test recall on the AI class is 1.000 at every seed. Second, we analyse the detector’s false positives. All errors fall on Human articles, and two native-speaker reviewers confirm these are genuine, natural Hausa journalism. The clear- est correlate of misclassification is the absence of numerical content: the median digit frac- tion is 0.0% in misclassified articles vs. 0.6% in correctly classified ones. Third, we test the detector on six non-training generators span- ning four model families. Detection rates span from 0% (Aya-Expanse 8B) to nearly 100% (Gemma 4). All three Google-family models in our experiment (training-distribution Gemini 2.0 Flash and the two non-training Gemma 4 variants) are detected at rates above 98% with mean P(machine) above 0.98. No non-Google generator exceeds 21%. Three contamination checks fail to explain this away: generated articles overlap very little with their human sources, detection barely moves when we re- move every article that shares a 13-gram with its source, and the Google output that gets de- tected is at least as diverse as everyone else’s, so it is not memorised or templated text. What the detector has learned looks less like a general Hausa MGT signal and more like a Gemini- family stylistic fingerprint. We discuss what this means for deployment, including a 3.1% false-positive rate on real Hausa journalists.</abstract>
+      <pdf hash="3c3395c9"/>
+      <bibkey>abubakar-etal-2026-well</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.winlp-main.6/ -->
+      <title>The Energy-Accuracy Frontier: Benchmarking <fixed-case>SNN</fixed-case>s on Low-Resource <fixed-case>I</fixed-case>ndian Linguistic Tasks</title>
+      <author><first>Priyam</first><last>Saha</last></author>
+      <author id="debiprasanna-sahoo" orcid="0000-0003-1438-0617"><first>Debiprasanna</first><last>Sahoo</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <author id="abhik-jana" orcid="0000-0002-4485-0002"><first>Abhik</first><last>Jana</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <pages>61-67</pages>
+      <abstract>The increasing complexity of state-of-the-art neural networks creates significant computational energy overhead in Natural Language Processing (NLP) applications. A few studies have explored opportunities to reduce overhead by using a Spiking Neural Network (SNN) instead of a mainstream artificial neural network (ANN) in computer vision and sensory domains. A comprehensive analysis of SNN’s usability for NLP tasks in low-resource languages has yet to be conducted. Hence, in this paper, we present the first-ever comparative energy-overhead analysis of ANNs vs. SNNs for text classification tasks in low-resource Indian languages such as Hindi, Bengali, and Telugu. Our experiments show that although we lose classification accuracy by an acceptable margin when replacing an ANN with an SNN, we save significant energy, which highlights the potential for efficient utilization of edge computing devices to run NLP tasks for low-resource languages. This work shows a direction for advancing energy-efficient NLP applications, especially for low-resource languages. We make code and dataset publicly available [&lt; https://github.com/PS1076/Energy-Accuracy-Frontier&gt;].</abstract>
+      <pdf hash="4a34e585"/>
+      <bibkey>saha-etal-2026-energy</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.winlp-main.7/ -->
+      <title><fixed-case>A</fixed-case>mh<fixed-case>TTS</fixed-case>: A Low-Resource <fixed-case>A</fixed-case>mharic Text-to-Speech System</title>
+      <author id="walelign-tewabe-sewunetie" orcid="0000-0003-2787-8019"><first>Walelign Tewabe</first><last>Sewunetie</last><affiliation>AIMS-Research &amp; Innovation Centre</affiliation></author>
+      <author><first>Rahel Mekonen</first><last>Tamiru</last><affiliation>Ethiopian Artificial Intelligence Institute-</affiliation></author>
+      <author id="israel-d-gebru" orcid="0000-0003-1433-5891"><first>Israel D.</first><last>Gebru</last><affiliation>Facebook</affiliation></author>
+      <pages>68-76</pages>
+      <abstract>The scarcity of high-quality, phonetically diverse datasets for low-resource languages like Amharic remains a significant barrier to high-fidelity speech synthesis. We present AmhTTS, the first open, natively evaluated Amharic text-to-speech system, developed by fine-tuning SpeechT5 on a curated 25-hour, single-speaker Amharic corpus paired with a HiFi-GAN vocoder. Unlike Meta MMS, the only other publicly available Amharic TTS system, which requires Latin script transliteration and reports no Amharic-specific evaluation, AmhTTS operates natively on Ethiopic script and is the first system to report human MOS scores on Amharic speech synthesis. To address the orthographic complexities of the Ethiopic script, we implement a three-stage text normalisation pipeline covering homophone unification, Ge’ez numeral expansion, and Amharic punctuation handling. System quality is assessed through a rigorous human evaluation via a purpose-built web platform, involving 28 native Amharic-speaking voluntary evaluators who rated 35 linguistically motivated samples across four domains: phonetic coverage (ejectives and labialized consonants), gemination and prosody, numeral and date reading, and conversational fluency. Results yield an overall naturalness MOS of 3.71 and intelligibility MOS of 4.02 on a 5-point scale, demonstrating that the rich pre-trained representations of SpeechT5 transfer effectively to a low-resource language with only 25 hours of data a fraction of the 460 hours used in the original English fine-tuning. While the system achieves high phonetic accuracy (MOS: 4.22/4.36), numeral synthesis and gemination modeling remain areas for future improvement. Given the demonstrated community demand for accessibility tools, we publicly release our fine-tuned model weights, the AmhTTS corpus, and evaluation data to advance low-resource TTS research. Our web application is currently active, serving users at multiple university disability centers in Ethiopia.</abstract>
+      <pdf hash="f44b48af"/>
+      <bibkey>sewunetie-etal-2026-amhtts</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.winlp-main.8/ -->
+      <title>Marker Signal Void: Linguistic Deception Fingerprinting and Transformer Benchmarking on a Domain-Stratified <fixed-case>B</fixed-case>angla Rumour Corpus</title>
+      <author><first>Farzana Zahid</first><last>Manoshi</last></author>
+      <author><first>Sadman Bin</first><last>Rashid</last></author>
+      <author><first>Israt Jahan</first><last>Anika</last></author>
+      <author id="md-rakibul-islam" orcid="0009-0003-6420-8257"><first>Md. Rakibul</first><last>Islam</last></author>
+      <pages>77-86</pages>
+      <abstract>Rumour detection in Bangla remains severely under-resourced, with prior work conflating it with fake news classification and lacking domain-stratified analysis of the linguistic properties that distinguish misinformation from authentic content. We introduce MisInfo-11K, a domain-stratified corpus of 11,198 instances spanning seven topical domains, constructed from Bangla fact-checking portals and verified news outlets. Using 14 linguistically motivated markers, we show via chi-square and Kruskal-Wallis analysis that 13 of 14 exhibit significant cross-domain variation, revealing distinct deception strategies (e.g., authority mimicry in political rumours, fear amplification in health rumours). Building on this, we introduce the Marker Signal Void (MSV), a chi-square-weighted scoring framework identifying rumour instances with no net discriminative surface signal, establishing Macro-F1 = 0.9843 as the ceiling achievable by this 14-marker set. Benchmarking three pretrained transformers (BanglaBERT, MuRIL, XLM-RoBERTa) against five traditional models, MuRIL achieves the strongest performance (Macro-F1 0.9800), while a marker-augmented Random Forest reaches 0.9750, surpassing XLM-RoBERTa. The gap between the MSV ceiling and transformer performance quantifies the contribution of contextual semantic representations beyond surface-level linguistic cues.</abstract>
+      <pdf hash="1503e850"/>
+      <bibkey>manoshi-etal-2026-marker</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.winlp-main.9/ -->
+      <title>Does Live Browser Context Improve <fixed-case>LLM</fixed-case>-Assisted End-to-End Test Script Repair? An Empirical Study of Playwright <fixed-case>MCP</fixed-case></title>
+      <author><first>Divi Galih Prasetyo</first><last>Putri</last><affiliation>Universitas Gadjah Mada</affiliation></author>
+      <pages>87-95</pages>
+      <abstract>Automated End-to-End test scripts are inherently fragile. Modifications to the User Interface (UI) cause automation test script failures, imposing significant maintenance overhead. Automated test script repair using Large Language Model (LLM) has shown promise, but existing approaches operate without real-time access to the application under test. To the best of our knowledge, no prior controlled study has compared LLM-based test-script repair with and without MCP-mediated live browser access while keeping the remaining repair settings consistent. Through a controlled experiment on a web application, we inject 30 failure scenarios across two categories of UI modifications (locator changes and DOM structural changes) and evaluate two LLM models (GPT 5.0 Mini and Claude Haiku 4.5) with two conditions (with and without MCP access). Configurations with MCP achieve a correct patch rate of 65%, compared with 25% without MCP. The plausible patch rate reached 98% (vs. 87%), the failure rate dropped from 13.3% to 1.7%, and MTTR decreased by 31 seconds. These results suggest that providing agents with MCP-mediated live browser access primarily enhances repair correctness rather than merely increasing re-execution success rates.</abstract>
+      <pdf hash="c9e7841d"/>
+      <bibkey>putri-2026-live</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.winlp-main.10/ -->
+      <title>Assessing Large Language Models as Automated Writing Evaluation and Feedback Tools: A Human-<fixed-case>AI</fixed-case> Agreement Study on <fixed-case>L</fixed-case>2 <fixed-case>E</fixed-case>nglish Writing</title>
+      <author><first>Kowshik</first><last>Saha</last></author>
+      <author><first>Moyen</first><last>Uddin</last></author>
+      <author><first>Md Tanvirul Islam</first><last>Turad</last></author>
+      <author><first>Mizanur</first><last>Rahman</last></author>
+      <pages>96-104</pages>
+      <abstract>Large language models (LLMs) are often suggested as tools for grading student writing and giving feedback, but it is unclear how far we can trust them on the separate skills that make up good writing. We compare two LLM graders (Gemini and Llama) with eight professional English teachers on 20 paragraphs written in second-language English by Bengali-speaking undergraduates in Bangladesh, each graded by two teachers, scoring content, organization, vocabulary, and grammar separately as well as the total. We then run a second stage in which teachers read each model’s written explanation, judge whether they agree with it, and rate the feedback. The LLMs match the teachers on the total score, content, and organization, but are unreliable on vocabulary and grammar, where the two models do not even agree with each other. We also show that one low agreement score is misleading: it comes from graders giving very similar marks (score clustering), not from real disagreement. In the second stage, teachers found the AI feedback safe and useful most of the time (<tex-math>\geq</tex-math> 77.5%), with very few made-up errors (2.5%), and preferred Gemini’s stricter grammar score to their own 20% of the time. LLMs can help grade writing, but a teacher should audit their output, with extra care on vocabulary and grammar.</abstract>
+      <pdf hash="8d81a8e1"/>
+      <bibkey>saha-etal-2026-assessing</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.winlp-main.11/ -->
+      <title>Improved Personalized Typing Predictions via Long Left Context</title>
+      <author><first>Soufia</first><last>Bahmani</last></author>
+      <author><first>Keith</first><last>Vertanen</last><affiliation>Michigan Technological University</affiliation></author>
+      <pages>105-120</pages>
+      <abstract>We study how to improve predictive typing via per-user personalization of a pretrained large language model (LLM). We evaluate personalization in a time-ordered setting, using each user’s earlier messages for adaptation as we try to predict their next message. We compare: (1) personalization versus a non-personalized base model, (2) differing amounts of left context, (3) one-time adaptation versus making small periodic updates, and (4) full fine-tuning versus parameter-efficient fine-tuning. We find both static and personalized LLMs significantly outperform an n-gram language model. This includes when the n-gram was mixed with a user model learned via prediction by partial matching (PPM). Using long recent user-specific context provided the largest personalization gains: conditioning on up to 1024 previous characters reduced the base model’s perplexity by 18%. We found fine-tuning model weights provided only a small additional gain.</abstract>
+      <pdf hash="9ae98996"/>
+      <bibkey>bahmani-vertanen-2026-improved</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.winlp-main.12/ -->
+      <title>Do Multilingual Encoders Produce Language-Consistent Semantic <fixed-case>ID</fixed-case>s?</title>
+      <author id="abhinav-bohra" orcid="0009-0008-8377-0604"><first>Abhinav</first><last>Bohra</last><affiliation>Amazon</affiliation></author>
+      <author id="anuj-bohra" orcid="0009-0005-0532-0745"><first>Anuj</first><last>Bohra</last></author>
+      <pages>121-127</pages>
+      <abstract>Semantic IDs (SIDs) compress item embeddings into discrete code sequences used as the item vocabulary in generative retrieval. If the encoder is multilingual, it is tempting to assume the resulting SIDs are language-agnostic. We test this assumption on Amazon ESCI dataset (CITATION) rendered in English, Spanish, and Japanese. It fails at two separate points. Multilingual E5 places translations of the same product measurably apart, and residual quantization converts that displacement into a discrete prefix failure: under an English-heavy fit, a Japanese translation recovers the first SID code of its English counterpart in only 7.7% of cases, against 89.0% for an English rewording. A product-directed control shows the quantizer does not selectively increase language directions, instead the damage originates in the encoder. Most surprisingly, fitting the quantizer on a balanced language mixture makes cross-lingual agreement worse, not better, even as it equalizes codebook use. An English only fit preserves the first code for 67.6% of Spanish translations, the balanced fit preserves it for 6.6%. The results show that multilingual exposure alone does not buy consistent SIDs across languages. Cross-lingual SID agreement has to be optimized directly, or retrieval must tolerate code variation.</abstract>
+      <pdf hash="4a8845a4"/>
+      <bibkey>bohra-bohra-2026-multilingual</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.winlp-main.13/ -->
+      <title>When a Name Is Not a Name: A Benchmark Dataset and Distilled Reasoning for Culturally Entangled <fixed-case>B</fixed-case>angla Homographs in Low-Resource <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Md. Asaduzzaman</first><last>Shuvo</last></author>
+      <author><first>Md. Adnanul</first><last>Islam</last></author>
+      <pages>128-140</pages>
+      <abstract>Many Bangla words are at once personal names and culturally loaded common nouns: মায়া (Maya) is both a girl’s name and a word for affectionate compassion. Choosing the right reading demands cultural knowledge that is scarce in the pretraining data of modern language models. We introduce Bangla Culturally Entangled Homograph (BanglaCEH) disambiguation and build a Bangla benchmark of 1,516 expert-verified sentences and 3,032 labelled occurrences in which one word appears twice with two distinct readings, each labelled with a culturally grounded category and an explanation of the reasoning behind it. Across open- and closed-source models, we find a systematic dominant-meaning bias, models default to the common-noun sense and overlook the name. A Bangla-specific model fails under every prompting regime we test, showing that language-specific pretraining alone does not confer cultural grounding. We further show that contrastive chain-of-thought prompting can sharply reduce this bias without training, and that distilling cultural explanations teaches small (1–3B) models to reason toward the correct reading rather than memorise labels, cutting dominant-meaning bias from as high as 100% to under 5% and turning the failed Bangla-specific model into our strongest system.</abstract>
+      <pdf hash="ad25e006"/>
+      <bibkey>shuvo-islam-2026-name</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.winlp-main.14/ -->
+      <title><fixed-case>ASCRIBE</fixed-case>: Atomic and Significance-Based Reasoning for <fixed-case>T</fixed-case>hai Clinical <fixed-case>SOAP</fixed-case> Note Generation</title>
+      <author><first>Tarm</first><last>Kalavantavanich</last><affiliation>Looloo Technology</affiliation></author>
+      <author><first>Teerawut</first><last>Ponarchar</last><affiliation>Looloo Technology</affiliation></author>
+      <author><first>Pattaramanee</first><last>Arsomngern</last><affiliation>Looloo Technology</affiliation></author>
+      <author><first>Jenta</first><last>Wonglertsakul</last></author>
+      <author id="watcharakorn-chuthong" orcid="0009-0008-8970-9871"><first>Watcharakorn</first><last>Chuthong</last></author>
+      <author id="chiraphat-boonnag" orcid="0000-0001-5429-9659"><first>Chiraphat</first><last>Boonnag</last></author>
+      <author><first>Knot</first><last>Pipatsrisawat</last><affiliation>Looloo Technology Co., Ltd.</affiliation></author>
+      <author id="titipat-achakulvisut" orcid="0000-0002-2124-2979"><first>Titipat</first><last>Achakulvisut</last><affiliation>Mahidol University</affiliation></author>
+      <pages>141-172</pages>
+      <abstract>Automatic SOAP note generation can ease the documentation burden on physicians, but existing reasoning methods often omit clinically important information and generate unsupported content. Progress in Thai is also further hindered by the lack of publicly available datasets. We propose ASCRIBE, a physician-inspired framework that ascribes a clinical-significance level to each extracted atomic fact in the conversation before summarization, making a general-purpose LLM a more reliable scribe. We also release ThaiClinicBench, the first de-identified Thai clinical summarization benchmark of real encounters, together with a synthetic training corpus. As a prompt, ASCRIBE outperforms chain-of-thought prompting on GPT-5.4 and Gemini 3.1 Pro across the physician-aligned LLM-judge metrics and improves on standard prompting by up to 10.3 points of completeness LLM-judge metric. As a GRPO reward, it enables a Gemma-4-E4B model trained solely on synthetic data to match Gemini 3.1 Pro in factual precision and surpass it in completeness. Code and data will be released upon acceptance.</abstract>
+      <pdf hash="f1413fc6"/>
+      <bibkey>kalavantavanich-etal-2026-ascribe</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.winlp-main.15/ -->
+      <title><fixed-case>K</fixed-case>u<fixed-case>MMLU</fixed-case>: A Multitask Language Understanding Benchmark for <fixed-case>C</fixed-case>entral <fixed-case>K</fixed-case>urdish</title>
+      <author id="akam-nawzad" orcid="0009-0009-3139-8203"><first>Akam</first><last>Nawzad</last></author>
+      <pages>173-180</pages>
+      <abstract>Language models are now tested across many languages, but Kurdish is mostly missing from these efforts. We present KuMMLU, a multiple-choice benchmark for Central Kurdish (Sorani) built from the national examinations of the Kurdistan Region of Iraq. It contains 3,272 questions across 18 subjects: 2,256 native examination questions, with answers taken from the official keys published by the Ministry of Education, and 1,016 questions from six subjects translated from English MMLU. We evaluate 32 language models, including proprietary systems, open-weight models, and multilingual models built for wide language coverage. The best models reach about 88% accuracy, while the five multilingual baselines score between 15.8% and 37.2%, at most modestly above the 25% chance level and well below the strongest general-purpose systems; this includes the one model whose published language list contains Kurdish. Every model scores higher on the translated subset than on the native questions. We examine this gap in light of subject difficulty and possible overlap with training data, and release the benchmark to support Kurdish language technology.</abstract>
+      <pdf hash="91eec3fa"/>
+      <bibkey>nawzad-2026-kummlu</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.winlp-main.16/ -->
+      <title>A Theoretical Model of Hallucinations in <fixed-case>NLP</fixed-case> Large Language Models</title>
+      <author id="vicente-ivan-sanchez-carmona" orcid="0009-0003-9332-437X"><first>Vicente Ivan</first><last>Sanchez Carmona</last><affiliation>Ricoh Software Research Center (Beijing) Co., Ltd</affiliation></author>
+      <author><first>Yuming</first><last>Zhang</last><affiliation>Ricoh Software Research Center Beijing Co., Ltd</affiliation></author>
+      <author><first>Junyu</first><last>Zhou</last></author>
+      <author id="shanshan-jiang" orcid="0009-0004-8604-166X"><first>Shanshan</first><last>Jiang</last></author>
+      <author id="bin-dong-0644" orcid="0009-0000-8431-0644"><first>Bin</first><last>Dong</last><affiliation>Ricoh Company, Ltd.</affiliation></author>
+      <pages>181-207</pages>
+      <abstract>NLP Large Language Models have had a deep impact not only on research but also on society. However, there is one problem underlying their own nature which forbids them to be fully trusted and accountable: Hallucinations – a phenomenon that calls for a scientific account in the form of a theoretical model that represents the underlying rationale of how it emerges. In this paper, we present such a model. In the same spirit as in other fields proposing models of natural phenomena – such as rainfall – or social phenomena – such as knowledge creation in organizations – we propose a theoretical model that serves to explain hallucinations by synthesizing in an abstract and structured framework how the interrelations and interactions of more than 50 factors give rise to this phenomenon helping us to better understand its complexity and idiosyncrasies.</abstract>
+      <pdf hash="85975164"/>
+      <bibkey>sanchez-carmona-etal-2026-theoretical</bibkey>
+    </paper>
+  </volume>
+</collection>
