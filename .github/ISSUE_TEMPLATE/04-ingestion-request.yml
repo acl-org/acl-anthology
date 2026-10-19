@@ -85,6 +85,18 @@ body:
       options:
         - label: We will instruct authors to supply ORCID information in their profiles in the submission platform ([instructions](https://aclanthology.org/info/author-pages/)). (Not necessary for historical volumes.)
           required: true
+  - type: dropdown
+    id: doi_request
+    attributes:
+      label: DOI Creation
+      description: |
+        [Our policy](https://aclanthology.org/faq/doi/) is to create DOIs for ACL events only (main conference, associated workshops, and SIG-sponsored).
+      multiple: false
+      options:
+        - This is an ACL event and I wish to have DOIs created.
+        - This is a non-ACL event, or an ACL event that does not need DOIs.
+    validations:
+      required: true
   - type: checkboxes
     id: delivery_method
     attributes:
