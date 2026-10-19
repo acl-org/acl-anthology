@@ -1,0 +1,761 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.uncertainlp">
+  <volume id="main" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.uncertainlp-main/ -->
+    <meta>
+      <booktitle>The Proceedings of the Third Workshop on Uncertainty-Aware <fixed-case>NLP</fixed-case></booktitle>
+      <editor><first>Wilker</first><last>Aziz</last></editor>
+      <editor><first>Jonathan</first><last>Berant</last></editor>
+      <editor><first>Bryan</first><last>Eikema</last></editor>
+      <editor><first>Evgenia</first><last>Ilia</last></editor>
+      <editor><first>Marie-Catherine</first><last>de Marneffe</last></editor>
+      <editor><first>Barbara</first><last>Plank</last></editor>
+      <editor><first>Artem</first><last>Shelmanov</last></editor>
+      <editor><first>Swabha</first><last>Swayamdipta</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
+      <editor><first>Artem</first><last>Vazhentsev</last></editor>
+      <editor><first>Raúl</first><last>Vázquez</last></editor>
+      <editor><first>Chrysoula</first><last>Zerva</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-486-6</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="0b3ec2d9"/>
+      <venue>uncertainlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.uncertainlp-main.0/ -->
+      <pdf hash="12b43525"/>
+      <bibkey>uncertainlp-2026-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.1/ -->
+      <title>Confident in a Confidence Score: Investigating the Sensitivity of the Calibration of Confidence Scores to Supervised Fine-Tuning in Generation Tasks</title>
+      <author><first>Lorenzo Jaime Yu</first><last>Flores</last></author>
+      <author><first>Cesare</first><last>Spinoso-Di Piano</last></author>
+      <author><first>Jackie Chi Kit</first><last>Cheung</last></author>
+      <pages>1-18</pages>
+      <abstract>Uncertainty quantification (UQ) techniques measure confidence in language model outputs to support critical applications like hallucination detection and selective prediction. While prior work has developed various confidence metrics and demonstrated their calibration for classification tasks or using verbalized confidence, the robustness of probability-based and self-consistency-based UQ metrics for natural language generation (NLG) remains underexplored—particularly under model adaptation. Since practitioners routinely apply supervised fine-tuning (SFT) to adapt models to new tasks, a key question arises: do confidence metrics maintain their calibration when models are fine-tuned? We investigate this question across NLG tasks including translation, question answering, and mathematical reasoning. We find that calibration shifts substantially after SFT: across 216 configurations, it degrades in 112 cases and improves in 104, with confidence scores shifting due to factors beyond output quality, such as proximity to the training distribution. Degradation is therefore neither universal nor rare, and its direction cannot be anticipated from the pre-SFT model. Through a downstream task evaluation, we show that this miscalibration substantially reduces the practical utility of confidence scores for identifying correct answers. Our findings reveal that existing confidence metrics for NLG cannot be reliably deployed off-the-shelf after fine-tuning, highlighting the need for calibration-robust UQ methods under model adaptation.</abstract>
+      <pdf hash="379a4bf0"/>
+      <bibkey>flores-etal-2026-confident</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.2/ -->
+      <title>Tokenization Risk as a Control Signal for Adaptive <fixed-case>RAG</fixed-case></title>
+      <author><first>Norbert</first><last>Braunschweiler</last></author>
+      <author><first>Rama</first><last>Doddipatla</last></author>
+      <author><first>Nigel</first><last>Collier</last></author>
+      <pages>19-29</pages>
+      <abstract>Retrieval-Augmented Generation (RAG) systems can degrade on inputs containing specialized, low-frequency vocabulary, where subword tokenization introduces fragmentation that disrupts both retrieval and generation. We introduce tokenization risk, a lightweight metric that predicts these failures. We show that (i) tokenization risk strongly correlates with degradation in retrieval and answer quality, and (ii) static mitigations (e.g., hybrid retrieval) provide only partial gains. To address this, we propose risk-based routing, which adaptively switches retrieval and generation strategies based on risk. Experiments on SpecialVocabBench, a risk-stratified benchmark of technical documents, demonstrate that this approach consistently improves retrieval accuracy and answer correctness with small system changes, establishing tokenization risk as an effective control signal for adaptive RAG.</abstract>
+      <pdf hash="9b7fbc91"/>
+      <bibkey>braunschweiler-etal-2026-tokenization</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.3/ -->
+      <title><fixed-case>A</fixed-case>ttention<fixed-case>CD</fixed-case>: Reducing Factuality Hallucinations in Large Language Models using Task-specific Head-based Contrastive Decoding</title>
+      <author><first>Viju</first><last>Sudhi</last></author>
+      <author><first>Regina</first><last>Stodden</last></author>
+      <author><first>Philipp</first><last>Cimiano</last></author>
+      <pages>30-47</pages>
+      <abstract>Despite the tremendous volume of data they are trained on, Large Language Models (LLMs) can generate plausibly sounding but non-factual responses. These factually hallucinated responses reduce users’ trust in such models and hinder their adoption in safety-critical applications. Among the many training-free hallucination mitigation strategies proposed, contrastive decoding strategies have received wide attention. Most of the work in this direction explores how contrasting probability distributions from different decoder layers can help in reducing factuality hallucinations. This work, in contrast, investigates whether masking of attention heads can provide reliable contrastive signals. In particular, we propose AttentionCD, a decoding strategy that masks task-specific attention heads to yield better contrastive signals to reduce factuality hallucinations in LLMs. Our approach shows competitive performance with the existing layer-based contrastive decoding strategies and offers an average performance improvement of over +11.1% over greedy decoding across different tasks and models.</abstract>
+      <pdf hash="9ec82726"/>
+      <bibkey>sudhi-etal-2026-attentioncd</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.4/ -->
+      <title>Self-Aware Knowledge Probing: Evaluating Language Models’ Relational Knowledge through Confidence Calibration</title>
+      <author><first>Christopher</first><last>Kissling</last></author>
+      <author><first>Elena</first><last>Merdjanovska</last></author>
+      <author><first>Alan</first><last>Akbik</last></author>
+      <pages>48-60</pages>
+      <abstract>Knowledge probing quantifies how much relational knowledge a language model (LM) has acquired during pre-training. Existing knowledge probes evaluate model capabilities through metrics like prediction accuracy and precision. Such evaluations fail to account for the model’s reliability, reflected in the calibration of its confidence scores. In this paper, we establish a framework to evaluate the calibration of relational knowledge in a closed answer-set setting. We cover three modalities of model confidence: (1) intrinsic confidence, (2) paraphrase consistency and (3) linguistic confidence. Our extensive analysis of 21 causal and 6 masked language models reveals that most models, but especially those pre-trained with the masking objective, are overconfident. The best-calibrated scores come from confidence estimates that account for inconsistencies due to statement rephrasing. Moreover, calibration improves when increasing the number of answer options.</abstract>
+      <pdf hash="2f4c157c"/>
+      <bibkey>kissling-etal-2026-self</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.5/ -->
+      <title><fixed-case>STEP</fixed-case>: Soft Trajectory Estimation of Prediction Correctness via Per-Step Probability Scoring</title>
+      <author><first>Chenyang</first><last>Yu</last></author>
+      <author><first>Zifan</first><last>Zeng</last></author>
+      <author><first>Qunli</first><last>Zhang</last></author>
+      <author><first>Feng</first><last>Liu</last></author>
+      <pages>61-72</pages>
+      <abstract>Estimating the correctness of large language model (LLM) predictions without access to ground truth is critical for reliable deployment in high-stakes settings. Existing approaches, such as entropy and perplexity, operate solely on final output statistics, discarding the rich information encoded in intermediate reasoning steps. To address this limitation, we propose STEP (Soft Trajectory Estimation of Prediction correctness), a training-free framework that scores each reasoning step via lightweight forward passes to obtain a soft probability distribution <tex-math>q_i</tex-math> over candidate answers, from which we derive a set of soft trajectory features capturing per-step confidence and its progression toward the final answer. Extensive experiments on various benchmarks demonstrate consistent and substantial improvements, particularly in AUROC, over output-based baselines and hard-indicator trajectory methods. Notably, Temporally-Weighted Consistency, which assigns higher importance to later reasoning steps where answer distributions have stabilized, contributes the largest gains, highlighting the importance of temporal structure in reasoning trajectories. These results further validate the advantage of preserving continuous probability signals over binary discretization.</abstract>
+      <pdf hash="c3724a6b"/>
+      <bibkey>yu-etal-2026-step</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.6/ -->
+      <title>Calibration as a First-Class Criterion in <fixed-case>LLM</fixed-case> Evaluation</title>
+      <author><first>Mario</first><last>Sanz-Guerrero</last></author>
+      <author><first>Katharina</first><last>von der Wense</last></author>
+      <pages>73-80</pages>
+      <abstract>Calibration of language models – the alignment between expressed or implicit confidence and empirical correctness – is a well-studied subfield within NLP. Methods to measure it already exist. The problem is adoption: outside this subfield, NLP research regularly introduces new models, datasets, and benchmarks without checking whether the model’s confidence scores are meaningful. We argue that this adoption gap is a major obstacle to trustworthy LLM evaluation. Miscalibration causes problems in two distinct areas: at deployment, where overconfident mistakes cause real harm, and inside the research pipeline, where methods like LLM-as-a-judge, synthetic data generation, and active learning rely on calibrated confidence without verifying it. Standard calibration metrics only require two inputs per example: a confidence score and a correctness judgment. Most benchmarks in use today already provide both, meaning calibration can be reported immediately. For open-ended generation, however, defining these two inputs is still an open challenge. We argue that each NLP subfield should pair its main performance metric with a calibration score and call for treating calibration as an essential property of every model rather than a niche topic.</abstract>
+      <pdf hash="e755821a"/>
+      <bibkey>sanz-guerrero-von-der-wense-2026-calibration</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.7/ -->
+      <title>Idiomatic Blind Spots in Discrete Diffusion Models</title>
+      <author><first>Joshua</first><last>Chaz Rivera</last></author>
+      <author><first>Vincent</first><last>Gripon</last></author>
+      <author><first>Bastien</first><last>Pasdeloup</last></author>
+      <pages>81-93</pages>
+      <abstract>Discrete diffusion language models have emerged as a compelling alternative to autoregressive approaches, offering a range of structural advantages. This is due to their bidirectional attention allowing a global semantic view across intermediate denoising steps that enables flexible, order-agnostic generation. Despite this promise, they have received considerably less attention in ongoing research, and existing work has focused narrowly on mathematics and formal reasoning tasks. Their language comprehension capabilities, particularly for figurative language, remain entirely unevaluated, leaving open fundamental questions about how these models handle complex idiomatic structures, especially for languages other than English. We find that diffusion models do possess many strong idiomatic processing abilities, demonstrated through competitive token recovery in cloze tests and strong semantic ability from multiple-choice accuracy. However, this advantage fails to surface during inference as confidence-based demasking appears poorly suited for idioms, as early committed tokens override internal representations and discourage certain types of multi-token structures from generation, limiting their linguistic abilities.</abstract>
+      <pdf hash="1964eb2e"/>
+      <bibkey>chaz-rivera-etal-2026-idiomatic</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.8/ -->
+      <title>Trajectory-Triggered Sparse Collaborative Decoding</title>
+      <author><first>Amit</first><last>Ranjan Trivedi</last></author>
+      <author><first>Sruthikesh</first><last>Surineni</last></author>
+      <author><first>Kyong</first><last>Ho Lee</last></author>
+      <author><first>Mohit</first><last>Mittal</last></author>
+      <author><first>Steven</first><last>Li</last></author>
+      <author><first>Rex</first><last>Hill</last></author>
+      <pages>94-110</pages>
+      <abstract>Uncertainty estimates in language models are typically computed locally, from the predictive distribution at an individual decoding step. In multi-step reasoning, however, the outcome of interest is often trajectory-level: whether the final answer produced after many intermediate steps will be correct. We show that these two notions of uncertainty can diverge sharply, and study what an uncertainty signal should look like when the prediction target is failure of the complete reasoning trajectory. We first quantify the limitation of local uncertainty for predicting final-answer failure. On GSM8K with a Qwen-1.5B draft model, token-level entropy predicts final incorrectness at AUC 0.531, negative log-likelihood at 0.528, and logit margin at 0.474. Short-window changes in these quantities remain between 0.498 and 0.503. A model can therefore remain locally confident while following an incorrect derivation, or become locally uncertain at a step from which it subsequently recovers. Next-token uncertainty does not directly measure the risk accumulated over a reasoning trajectory. The shape of the confidence trajectory is substantially more informative. We represent each observed prefix using approximately 85 statistics describing the evolution of entropy, likelihood, logit margin, and probability concentration, including means, extrema, percentiles, slopes, variances, temporal changes, and position-dependent behavior. A lightweight logistic predictor trained only on draft trajectories labeled by final correctness reaches AUC 0.864, while the strongest individual trajectory feature reaches 0.803. Its learned weights associate failure with declining logit-margin separation, increasing temporal volatility, and weaker top-k probability concentration. A complementary wavelet analysis finds elevated mid-frequency oscillation in incorrect trajectories, suggesting that persistent instability and unresolved competition between reasoning paths carry more information than isolated uncertainty spikes.<par/>For an uncertainty estimate used during generation, full-trajectory discrimination can be misleading because the estimate must become reliable before the trajectory is complete. We therefore evaluate prefix-conditioned uncertainty. On GSM8K, the Qwen-1.5B predictor rises from AUC 0.60 after 16 tokens to 0.82 after 128 tokens and 0.86 on the complete trajectory. Across GSM8K drafts, AUC at 128 tokens ranges from 0.69 to 0.82. On MATH-500, full-trajectory AUC reaches 0.73-0.78, yet AUC at 128 tokens remains only 0.57-0.59. Harder symbolic problems accumulate evidence more slowly. These results motivate prefix-conditioned AUC as an operational measure of uncertainty quality for systems that must act during decoding.<par/>We test whether this distinction matters in a downstream decision problem. In sparse collaborative decoding, a small draft model generates most of a reasoning trajectory, while a stronger target model is invoked only for short textual corrections when predicted failure risk crosses a threshold. Perturbation experiments reveal a fundamental timing tradeoff: early interventions have greater influence on the eventual trajectory, precisely when uncertainty estimates are least reliable, while later estimates are more accurate but have less ability to redirect generation.<par/>Across five GSM8K draft-target configurations, trajectory-triggered intervention improves over the best fixed insertion schedule by 5.3-20.0 accuracy points and over draft-only decoding by as much as 43.0 points. On StrategyQA it improves over the best open-loop schedule by 5.0-8.3 points, demonstrating transfer beyond arithmetic reasoning. On MATH-500 it gains 7.0-13.5 points in successful configurations but loses when early trajectory prediction is weak. The failure cases expose an important practical distinction between retrospective and actionable uncertainty: a predictor can discriminate failures well after a trajectory is complete while remaining too unreliable at the prefix where a decision must be made. Target behavior introduces a second source of uncertainty. Corrective interventions that degrade an otherwise correct draft exhibit higher entropy and negative log-likelihood and lower maximum probability and logit margin than successful interventions. Consequently, stronger standalone target accuracy does not guarantee better corrective behavior. Reliable collaborative reasoning requires both an uncertainty estimate that identifies failing trajectories early enough to act and a target continuation that is itself sufficiently reliable.<par/>Overall, our results suggest that uncertainty for multi-step language-model reasoning should be treated as a property of an evolving trajectory rather than an isolated token. Aggregate confidence dynamics reveal failure signals that local uncertainty largely misses, while prefix-conditioned evaluation distinguishes uncertainty that predicts eventual failure from uncertainty that is available early enough.</abstract>
+      <pdf hash="719000f7"/>
+      <bibkey>ranjan-trivedi-etal-2026-trajectory</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.9/ -->
+      <title><fixed-case>S</fixed-case>elect<fixed-case>ED</fixed-case>: Selective <fixed-case>LLM</fixed-case> Refinement for Entity Disambiguation</title>
+      <author><first>Susanna</first><last>Rücker</last></author>
+      <author><first>Alexander</first><last>Reinicke</last></author>
+      <author><first>Alan</first><last>Akbik</last></author>
+      <pages>111-137</pages>
+      <abstract>Efficient architectures for Entity Disambiguation (ED) typically pair a dual encoder for candidate retrieval with a cross encoder for re-ranking. While large language models (LLMs) have recently emerged as powerful alternatives for the ranking stage, their application remains constrained by two primary factors: only a limited number of candidate entities can be provided within the model’s input context, and invoking LLMs for every entity mention leads to prohibitive computational cost.<par/>In this work, we propose SelectED, a confidence-guided hybrid framework for efficient entity disambiguation. Our method uses a dual encoder as a fast primary model and selectively invokes an LLM only for uncertain mentions. A central focus is the systematic study of selective LLM refinement, including uncertainty estimation, thresholding, and prompt design choices for balancing accuracy and efficiency. Experiments on the ZELDA benchmark show that selective prompting improves accuracy by 4.3%, establishing a new best result among directly comparable ZELDA-trained systems while requiring LLM inference for only about 20% of mentions. Moreover, SelectED surpasses full LLM prompting, suggesting that selective refinement can avoid LLM-induced errors on high-confidence mentions.</abstract>
+      <pdf hash="ba1060f5"/>
+      <bibkey>rucker-etal-2026-selected</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.10/ -->
+      <title>Rethinking Aleatoric Uncertainty: Partitioning Irreducible States for Large Language Model Agents</title>
+      <author><first>Renato Okabayashi</first><last>Miyaji</last></author>
+      <author><first>Matias</first><last>Valdenegro-Toro</last></author>
+      <pages>138-161</pages>
+      <abstract>While Uncertainty Quantification (UQ) remains an active research field for Large Language Models (LLMs), the current literature lacks a rigorous understanding of what constitutes aleatoric uncertainty and its exact sources. Existing methodologies largely rely on the traditional dichotomy of aleatoric and epistemic uncertainty, which inadequately treats uncertainty as a static snapshot. To bridge this gap, this position paper challenges the static treatment of uncertainty. Supported by empirical evidence, we posit that aleatoric uncertainty in LLM agents is fundamentally dynamic and must be partitioned into strictly and temporarily irreducible states—differentiating intrinsic task variance, such as multiple valid answers, from resolvable noise, including input ambiguity, typographical errors, and contextual conflict. Through episodic empirical evaluations across multi-turn scenarios, we demonstrate how targeted agentic interventions can actively resolve temporarily irreducible noise, transitioning the interaction into an epistemic regime. When data uncertainty is strictly irreducible, model interventions cannot isolate a single correct distribution. While we acknowledge that the traditional static dichotomy remains a valuable framework for non-agentic settings, we urge the community to develop new decomposition paradigms that track uncertainty along the timeline of interaction. Embracing this dynamic perspective is essential to achieve robust uncertainty quantification for modern LLM agents.</abstract>
+      <pdf hash="80de0176"/>
+      <bibkey>miyaji-valdenegro-toro-2026-rethinking</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.11/ -->
+      <title>Semantic Calibration Prevails Where Token Confidence Fails: Benchmarking Long-Form Scientific <fixed-case>QA</fixed-case></title>
+      <author><first>Philip</first><last>Müller</last></author>
+      <author><first>Nicholas</first><last>Popovič</last></author>
+      <author><first>Michael</first><last>Färber</last></author>
+      <author><first>Peter</first><last>Steinbach</last></author>
+      <pages>162-200</pages>
+      <abstract>Reliable uncertainty quantification (UQ) is essential for safe deployment of large language models (LLMs) in scientific question answering, where long-form outputs exceed practical human verification at scale. We introduce the first large-scale benchmark for UQ calibration in long-form, reasoning-demanding scientific QA, evaluating four UQ methods on 685,000 responses across up to 20 LLMs and seven datasets, supported by an extensible open-source framework whose shared-generation design enables reproducible cross-method comparisons. Instruction tuning is shown to associate with systematic token probability polarization, collapsing confidence distributions and undermining the reliability of token-level uncertainty signals. Reasoning model families diverge: some reproduce this polarization while others actively mitigate it, a pattern that clusters by provider and suggests training pipeline design as a key differentiating factor. Verbalized and token-aggregation sequence-level methods fail systematically. Only semantic consistency, as measured by consistency of the final answer, yields well-calibrated outputs, providing the first large-scale evidence that semantic calibration persists in multi-step, dependency-rich reasoning settings.</abstract>
+      <pdf hash="12543786"/>
+      <bibkey>muller-etal-2026-semantic</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.12/ -->
+      <title>The Variance of a Judge: Zero-Variance Rewards by Deterministic Regression</title>
+      <author><first>Kabir</first><last>Murjani</last></author>
+      <author><first>Parth</first><last>Vyas</last></author>
+      <author><first>Akshita</first><last>Abrol</last></author>
+      <author><first>Rajesh</first><last>Gupta</last></author>
+      <author><first>Sudeep</first><last>Tanwar</last></author>
+      <author><first>Zhengkui</first><last>Wang</last></author>
+      <pages>201-218</pages>
+      <abstract>Large Language Model (LLM) judges score responses by generating rating tokens, so their rewards carry uncertainty from the scoring mechanism itself, not only from genuine disagreement about quality. Sampling variance, prompt phrasing, and self-preference bias inject epistemic, generation-induced noise. Neighbour-Oriented Reward Anchoring (NORA) replaces generative scoring with retrieval-augmented regression: a small MLP, the Optimised Response Latent Inference (ORLI) judge, scores each query-response pair over a frozen embedding manifold anchored to human-rated neighbours. Because no language model generates the score, the reward is deterministic and its generation-induced variance is zero by construction, leaving a residual error (MAE=0.736 on the 1-5 scale) with no run-to-run component. This relocates the error rather than removing it: a per-tier breakdown shows the residual is dominated by systematic bias, the scorer compressing predictions toward the interior of the scale, rather than by aleatoric annotation noise. ORLI is still a learned reward, so NORA curbs over-optimisation with a retrieval-guided curriculum and a contrastive penalty against known-poor examples. Improvements are asymmetric and largest where quality is lowest: a 0.5B actor on Recipe4U raises 1-2 star responses by up to +0.77 ORLI points while leaving 5-star outputs essentially unchanged, the pattern holds on HelpSteer2, and a blinded human evaluation reproduces it. Ablations identify the curriculum as the primary contributor.</abstract>
+      <pdf hash="d7829ad1"/>
+      <bibkey>murjani-etal-2026-variance</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.13/ -->
+      <title>Detection of parametric or contextual knowledge: are the schemas similar across modalities?</title>
+      <author><first>Binesh</first><last>Arakkal Remesh</last></author>
+      <author><first>Thomas</first><last>Gerald</last></author>
+      <author><first>Camille</first><last>Guinaudeau</last></author>
+      <author><first>Sahar</first><last>Ghannay</last></author>
+      <author><first>Eva</first><last>Feillet</last></author>
+      <pages>219-234</pages>
+      <abstract>In LLMs, the source of information used to produce an answer is necessary to explain the generation process.This work considers the case where the answer can be extracted from the question’s context ( contextual knowledge) or from the model weights (parametric knowledge). While methods have been developed to uncover the grounding sources of LLMs in question answering, these approaches mainly rely on the text modality, whereas most tasks involve multiple modalities. This study proposes to uncover LLMs’ internal signals to determine whether they use parametric or contextual knowledge in a bimodal setting. To this end, we create a counterfactual dataset to evaluate whether the model relies on parametric or contextual knowledge on text and/or image-based questions. We leverage probing methods based on the internal attention and the different latent representations to determine the model’s source of information. We evaluate the performances of the probing methods, focusing on the different modalities. We show that models share common signals across the corpus and modalities. This study opens the way to develop controllable methods by uncovering common signals in LLMs to determine the knowledge used in generation.</abstract>
+      <pdf hash="9ab19a13"/>
+      <bibkey>arakkal-remesh-etal-2026-detection</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.14/ -->
+      <title>Credal Ensembles for Uncertainty Quantification in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Vani</first><last>Kanjirangat</last></author>
+      <author><first>Oscar</first><last>William Lithgow-Serrano</last></author>
+      <author><first>Alessandro</first><last>Antonucci</last></author>
+      <pages>235-244</pages>
+      <abstract>We consider the problem of uncertainty quantification in LLMs from a black-box perspective. To effectively disentangle aleatoric and epistemic uncertainty, we use an ensemble method that produces responses paired with so-called <i>credal</i> sets of distributions. We combine different ensembling techniques, based on temperature variation, multiple models, paraphrasing, and permutations, with semantic-similarity and verbalized elicitation methods, resulting in new, computationally cheap measures of uncertainty. A benchmark on closed-ended (BoolQ and CommonsenseQA) and open-ended (AmbigQA) questions shows good correlation with predictive accuracy. Notably, when considering ambiguous tasks, our analysis reveals a tendency of LLMs to focus on a single interpretation, an important flaw in current LLM-based solutions.</abstract>
+      <pdf hash="a02279e9"/>
+      <bibkey>kanjirangat-etal-2026-credal</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.15/ -->
+      <title>Calibration Is Not Enough: Evaluating Confidence Estimation Under Language Variations</title>
+      <author><first>Yuxi</first><last>Xia</last></author>
+      <author><first>Dennis</first><last>Ulmer</last></author>
+      <author><first>Terra</first><last>Blevins</last></author>
+      <author><first>Yihong</first><last>Liu</last></author>
+      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <author><first>Benjamin</first><last>Roth</last></author>
+      <pages>245-274</pages>
+      <abstract>Confidence estimation (CE) indicates how reliable the answers of large language models are and impacts user trust and decision-making. Existing evaluations mainly concern the alignment between confidence and correctness, but ignore the variability of language: confidence estimates should remain consistent under semantically equivalent prompts or answer variations, while changing when answer meaning differs, as this may indicate a change in correctness. Therefore, we introduce a novel evaluation framework based on three complementary properties: robustness to prompt perturbations, stability across semantically equivalent answers, and sensitivity to semantically different answers. We show that these metrics are largely independent of existing CE metrics, and that common CE methods often fail on them: while most methods achieve high robustness and stability, they struggle to distinguish semantically different answers, potentially because they do not effectively leverage generation-side information. Overall, our framework exposes overlooked limitations of current CE evaluations and provides guidance for selecting confidence estimators for real-world applications.</abstract>
+      <pdf hash="c08dd484"/>
+      <bibkey>xia-etal-2026-calibration</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.16/ -->
+      <title>Explicit State Gating and Implicit Refusal for Unreadable Scene Text</title>
+      <author><first>Dayeon</first><last>Jang</last></author>
+      <author><first>Yuseok</first><last>Bae</last></author>
+      <author><first>Kimin</first><last>Yun</last></author>
+      <pages>275-279</pages>
+      <abstract>Scene text recognition systems must decide what to do when an image contains no reliably readable text. We compare two abstention contracts for a vision-language scene-text recognizer. Under implicit refusal, the model signals unreadability inside its own transcription output. Under explicit state gating, a separate five-way state classifier decides whether a transcription is emitted at all. Across four training variants sharing the same backbone, direct OCR yields similar accuracy on readable text; the two contracts differ mainly in how they handle inputs with no readable text. Gating reduces false transcription (emitting text where none is readable) from 45.9% to 1.7%, at the cost of falsely abstaining on 3.8% of readable inputs. Which contract is preferable, however, cannot be determined without first specifying how much a correct abstention is worth. When rejected inputs are excluded from scoring, all gated configurations show similar risk; when a correct abstention is credited as a useful outcome, gating lowers risk on the diagnostic set. We present this preliminary analysis not as a context-free model ranking, but as a framework for choosing an abstention contract at deployment time. These results motivate future systems that use the predicted state to select a recovery action before abstaining.</abstract>
+      <pdf hash="a0a9f000"/>
+      <bibkey>jang-etal-2026-explicit</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.17/ -->
+      <title>The Temporal Tug-of-War: Visualizing and Detecting <fixed-case>RAG</fixed-case> Conflicts in Diffusion Models via Trajectory Variance</title>
+      <author><first>Sravan</first><last>Karthick T</last></author>
+      <author><first>Pranav</first><last>Darshan</last></author>
+      <author><first>Pranav</first><last>A</last></author>
+      <author><first>Minal</first><last>Moharir</last></author>
+      <author><first>Ivan P.</first><last>Yamshchikov</last></author>
+      <pages>280-288</pages>
+      <abstract>Retrieval-Augmented Generation (RAG) introduces a specific failure mode in discrete diffusion language models: when retrieved context contradicts parametric knowledge, the iterative denoising process becomes a visible battleground between competing knowledge sources. We identify temporal semantic divergence as an observable for detecting these conflicts and introduce the Trajectory Variance Score (TVS), a simple and interpretable measure of this divergence. TVS computes the mean pairwise cosine distance of answer embeddings across independent stochastic denoising trajectories, capturing the temporal tug of war between parametric and contextual attractors. Requiring as few as two parallel inference runs, TVS is computationally lightweight. Across four diverse datasets (Synthetic, SciQ, PopQA, and CounterFact), a simple Logistic Regression classifier using TVS achieves 70.10% accuracy and 0.7647 AUROC on LLaDA. On Dream 7B, increasing the number of trajectories from two to five improves accuracy from 63.91% to 69.62%. More complex sequential models provide only marginal improvements over the linear classifier. Evaluation across LLaDA and Dream 7B demonstrates that conflict-induced trajectory dynamics and their key properties transfer across distinct diffusion architectures.</abstract>
+      <pdf hash="d15d41f1"/>
+      <bibkey>karthick-t-etal-2026-temporal</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.18/ -->
+      <title><fixed-case>FAST</fixed-case>-Eval and <fixed-case>FAST</fixed-case>-<fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>: Uncertainty Evaluation Framework and Low-Rank Adaptation for Finding Attributes with Supporting Text</title>
+      <author><first>Samuel</first><last>Forster</last></author>
+      <author><first>Inmaculada</first><last>Arnedillo-Sánchez</last></author>
+      <pages>289-300</pages>
+      <abstract>Many domains require reasoning over unstructured text to identify attributes of interest that are not stated in a standardised form. Useful judgements on the presence of these attributes should also express calibrated confidence statements and cite supporting text as evidence. We define this task as Finding Attributes with Supporting Text (FAST). We introduce FAST-Eval, an uncertainty evaluation framework for confidence calibration, attribute identification and evidential grounding in FAST, together with a dataset of 1,000 human-annotated (document, attribute) pairs validated against an independent recruitment expert (Spearman ρs = 0.853, binary κ = 0.715). Taking employability skills in CVs as a case study, we use FAST-Eval to test whether FAST-LoRA, a Low-Rank Adaptation (LoRA) adapter applied to Qwen3-8B, improves performance in these three dimensions. Trained on 500 pairs, FAST-LoRA outperforms its untuned Qwen3-8B counterpart and GPT-5 on unseen skill identification (F1 0.877 vs 0.736 and 0.766) and calibration, while matching GPT-5 on citation fidelity. Both untuned models assign the highest confidence level to about half their judgements; FAST-LoRA instead distributes confidence across the scale and makes fewer unsupported positive predictions. These results suggest that modest domain adaptation is a more effective strategy than scaling model parameters for FAST.</abstract>
+      <pdf hash="e75d2f00"/>
+      <bibkey>forster-arnedillo-sanchez-2026-fast</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.19/ -->
+      <title>Two Lawyers, Three Opinions: Can Output-Based <fixed-case>LLM</fixed-case> Uncertainty Find the Cases Where Experts Disagree?</title>
+      <author><first>Laura</first><last>Braun</last></author>
+      <author><first>Matthias</first><last>Aßenmacher</last></author>
+      <author><first>Martin</first><last>Hohenadler</last></author>
+      <author><first>Goeran</first><last>Kauermann</last></author>
+      <pages>301-311</pages>
+      <abstract>Legal natural language processing (NLP) tasks often lack a single objective ground truth, as reflected in label variation across experts’ annotations. We test whether two uncertainty signals based on outputs of large language models (LLMs), sampling entropy and verbalized probability, can identify posts where legal experts disagree. On 1,564 German social media posts annotated by three legal experts for punishability under the German Criminal Code, we evaluate four open-weight LLMs, with reasoning either enabled or disabled, and observe a drop in F1 score on contested posts. Sampling distributions collapse to near-deterministic judgments in most conditions, while verbalized probabilities track expert disagreement in aggregate and support deferral of model errors. Neither signal, however, reliably identifies individual contested posts: both detect the model’s own errors (AUROC up to 0.83) better than expert disagreement (up to 0.76), and which signal is more informative depends strongly on model and activation of reasoning mode.</abstract>
+      <pdf hash="54d96247"/>
+      <bibkey>braun-etal-2026-two</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.20/ -->
+      <title>Reliable but Design-Sensitive: Instrument Uncertainty in <fixed-case>LLM</fixed-case> Annotation</title>
+      <author><first>Thomas</first><last>Reiter</last></author>
+      <author><first>Christoph</first><last>Kern</last></author>
+      <author><first>Fedor</first><last>Miasnikov</last></author>
+      <author><first>Sofiia</first><last>Nikolenko</last></author>
+      <author><first>Rob</first><last>Chew</last></author>
+      <author><first>Stephanie</first><last>Eckman</last></author>
+      <author><first>Frauke</first><last>Kreuter</last></author>
+      <pages>312-327</pages>
+      <abstract>Large language models (LLMs) can give reliable labels under one setup yet change those labels when researchers make other reasonable design choices. We tested seven LLMs, 12 task designs, three independent runs, and 3,000 tweets labeled for offensive language and hate speech. Repeating the same model and task design produced high agreement (median Fleiss’ <tex-math>\kappa = 0.91</tex-math>). Agreement fell when we changed the task design for the same tweets (median Cohen’s <tex-math>\kappa = 0.76</tex-math>). Task design and model choice increased the variance of estimated prevalence by factors of 76.7 for offensive language and 110.6 for hate speech compared with sampling variance alone. Variation across LLM task designs reached 560–572 basis points, compared with 270–331 basis points across five human instrument versions. Confidence scores did not solve this problem. They tracked repeated model outputs more closely than agreement with human labels, and grouping six tweets in one prompt lowered mean offensive-language confidence by 660 basis points. We call the variation caused by task design and model choice <i>instrument uncertainty</i>. Researchers can measure it only by comparing reasonable task designs. Repeating one setup or relying on confidence scores cannot replace that test.</abstract>
+      <pdf hash="47cc5f88"/>
+      <bibkey>reiter-etal-2026-reliable</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.21/ -->
+      <title>Verbalized Uncertainty in Coding <fixed-case>LLM</fixed-case>s: A Contamination-Aware Study of Confidence Calibration</title>
+      <author><first>Hunter</first><last>Tuerlings</last></author>
+      <author><first>Matias</first><last>Valdenegro-Toro</last></author>
+      <pages>328-355</pages>
+      <abstract>Coding large language models (LLMs) can produce plausible solutions that fail hidden test cases, making it difficult to judge when to trust their output. This paper presents a contamination-aware comparison of established methods for eliciting verbalized confidence in generated code. Six instruction-tuned, coding-specialized LLMs from three model families are evaluated on 365 problems from a shared contamination-aware <sc>LiveCodeBench</sc> window. For each frozen code generation, confidence is elicited separately under three strategies, Direct numeric scoring, Chain-of-Thought reasoning followed by a score, and Linguistic confidence labels. Under strict scoring, all 18 model-strategy combinations have negative Net Calibration Error, showing a consistent tendency toward overconfidence. Linguistic elicitation achieves the lowest Expected Calibration Error for four of six models, but several favourable values result from collapsed confidence distributions. Eight of the 18 combinations are collapsed and five are unstable across repeated runs, including three Chain-of-Thought combinations. When outputs are ranked by confidence and the least confident are reviewed first, Direct elicitation gives the largest improvement over random selection in four of six models. Verbalized confidence cannot be reduced to a single trustworthy pass probability; calibration, ranking ability, distributional collapse, and stability must each be checked separately.</abstract>
+      <pdf hash="e74b93b7"/>
+      <bibkey>tuerlings-valdenegro-toro-2026-verbalized</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.22/ -->
+      <title>The Role of Ambiguity in Error Prediction via Uncertainty Quantification</title>
+      <author><first>Ieva Raminta</first><last>Staliunaite</last></author>
+      <author><first>James</first><last>Bishop</last></author>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <pages>356-380</pages>
+      <abstract>The task of Error Prediction, namely predicting whether a model output is correct, is commonly tackled with Uncertainty Quantification (UQ). However, while uncertainty metrics capture when models lack knowledge or capacity to make a prediction, they also reflect aleatoric uncertainty, inherent in the input and context. We improve error prediction for Large Language Models (LLMs) by disentangling input ambiguity from the UQ signal. We experiment on Question Answering (QA) with six UQ metrics and show that UQ metrics are more predictive of errors on unambiguous instances than on questions with multiple plausible answers. We use Gated Experts and Selective Prediction to incorporate gold and predicted ambiguity labels into the error prediction pipeline. We find that ambiguity information improves error prediction across model families, training and evaluation paradigms, and datasets (including allegedly unambiguous ones), with the gains concentrated on the UQ metrics that most entangle aleatoric and epistemic uncertainty, gaining over 10 PRR points for individual metrics.</abstract>
+      <pdf hash="b2440d6c"/>
+      <bibkey>staliunaite-etal-2026-role</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.23/ -->
+      <title>Uncertainty Meets Conformance: A Process Mining-based Multi-Objective Evaluation for Clinical Reasoning using <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Seon</first><last>Kim</last></author>
+      <author><first>Jeong-woo</first><last>Lee</last></author>
+      <author><first>Tae</first><last>Hoon Kong</last></author>
+      <author><first>Jongchan</first><last>Kim</last></author>
+      <pages>381-389</pages>
+      <abstract>We present a framework for evaluating LLM-based clinical reasoning using conformance metrics from process mining. Four local LLMs were tested on EMR data from 16 vertigo patients across four prompting methods, with five repetitions per combination, yielding six uncertainty metrics. Reasoning traces were converted into event logs and analyzed with Heuristic Miner to derive external conformance to other patients’ reasoning patterns and internal conformance across repeated runs. Treating these as joint objectives, Pareto, Hypervolume, and TOPSIS analyses identified distinct evaluation scenarios, showing that conformance metrics can complement outcome-based uncertainty by revealing how LLMs reach their conclusions.</abstract>
+      <pdf hash="1df27001"/>
+      <bibkey>kim-etal-2026-uncertainty</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.24/ -->
+      <title><fixed-case>D</fixed-case>eep<fixed-case>L</fixed-case>ook: Uncertainty-Guided Branching with Lookahead Confidence for Efficient Reasoning</title>
+      <author><first>Tingxin</first><last>Yang</last></author>
+      <author><first>Zefeng</first><last>Wang</last></author>
+      <author><first>Mengyue</first><last>Wang</last></author>
+      <author><first>Jinhe</first><last>Bi</last></author>
+      <author><first>Xingcheng</first><last>Zhou</last></author>
+      <author><first>Volker</first><last>Tresp</last></author>
+      <author><first>Yunpu</first><last>Ma</last></author>
+      <pages>390-407</pages>
+      <abstract>Test-time scaling improves large language model reasoning, but spends compute uniformly along a reasoning trace, even in stretches that are already stable. Motivated by the observation that reasoning failures show an early onset of uncertainty, we introduce DeepLook, a training-free decoding framework that monitors segment-level confidence, branches only at uncertainty bottlenecks, and ranks candidate continuations by Average Lookahead Confidence (ALC)—their mean confidence over fixed-horizon rollouts—before completing and voting over a pruned subset. On four competition mathematics benchmarks across four open models, DeepLook matches or exceeds the accuracy of DeepConf-low in 12 of 16 settings while generating 87.3% fewer tokens, showing that a model’s own confidence is informative enough to decide where extra decoding compute is worth spending. On knowledge-intensive GPQA-Diamond the accuracy advantage disappears even though the token saving does not: coherent hallucinations also receive high ALC, so internal confidence localizes instability, not falsehood. Code will be released upon acceptance.</abstract>
+      <pdf hash="c1f97d8f"/>
+      <bibkey>yang-etal-2026-deeplook</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.25/ -->
+      <title>"But Isn’t It All Just Semantics?" The Importance of Evaluating Uncertainty, Reliability, and Random Effects</title>
+      <author><first>Katarina</first><last>Pejcinovic</last></author>
+      <author><first>Marianne</first><last>Casilio</last></author>
+      <author><first>Robert C</first><last>Gale</last></author>
+      <author><first>Gerasimos</first><last>Fergadiotis</last></author>
+      <author><first>Steven</first><last>Bedrick</last></author>
+      <pages>408-419</pages>
+      <abstract>Picture naming tests, which involve showing images and asking patients to name them, are widely used clinical and research tools to evaluate a patient’s ability to retrieve and produce words. One essential aspect of such tests is categorizing the type of semantic similarity between the image and the patient’s response, as classifying errors is important for treatment planning and prognosis. These tests are tedious to score and prone to inter-rater variability, both of which could be improved with automation via LLMs. This task highlights the clinical potential of LLMs, but also the need for robust statistical testing of LLM performance. In this work, we show that traditional evaluation methods can be misleading for complex experimental designs. Using generalized linear mixed effects models and conformal prediction for uncertainty quantification, we identify sources of variation in model performance and estimate the uncertainty of model predictions. We show that seemingly large differences in model performance from traditional evaluations are misleading, driven instead by item-level and category difficulty. Additionally, uncertainty in predictions varies substantially between semantic categories. These results suggest that for NLP evaluations with nested, clustered, or uneven category distributions, uncertainty quantification can be necessary to avoid misleading conclusions for high-stakes clinical tasks.</abstract>
+      <pdf hash="5c9cca57"/>
+      <bibkey>pejcinovic-etal-2026-isnt</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.26/ -->
+      <title>Constrained Decoding Can Reverse Which Inputs Look Uncertain</title>
+      <author><first>Mayur</first><last>Parvatikar</last></author>
+      <pages>420-426</pages>
+      <abstract>Systems that must return valid JSON or a well-formed function call can request the format in the prompt or enforce it with constrained decoding, where a grammar blocks any token that would break the format and the remaining probabilities are rescaled to sum to one. Such systems may also read the entropy of that rescaled distribution as a confidence signal. When the grammar blocks the tokens holding most of the model’s probability, what remains had received little, and rescaling it can make a concentrated distribution look diffuse. We show this in an adversarial setting built for the purpose, a safety-aligned model refusing a harmful request the grammar does not let it express, against benign instructions. Reading both entropies at the first generated token on Qwen2.5-7B-Instruct and Llama-3.1-8B-Instruct, 50 prompts per class, the class ordering reverses, at AUROC 0.125 to 0.175 before the grammar and 0.613 to 0.750 after. Within a class the two readings are uncorrelated, so recalibration does not recover the pre-mask ordering. The two entropies measure different things, so systems should state which one they read, use the pre-mask one when the goal is the model’s own preference, and otherwise report how much probability the grammar let through. The reversal is confined to the first generated token and disappears once the prompt asks for the format, although the two readings then need not agree.</abstract>
+      <pdf hash="0fa7c870"/>
+      <bibkey>parvatikar-2026-constrained</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.27/ -->
+      <title>Overview of <fixed-case>SHROOM</fixed-case>-Visions 2026: A Shared Task on Hallucination Detection in Large Vision-Language Models</title>
+      <author><first>Raúl</first><last>Vázquez</last></author>
+      <author><first>Aman</first><last>Sinha</last></author>
+      <author><first>Chuyuan</first><last>Li</last></author>
+      <author><first>Artem</first><last>Shelmanov</last></author>
+      <author><first>Artem</first><last>Vazhentsev</last></author>
+      <author><first>Claudio</first><last>Savelli</last></author>
+      <author><first>Eduardo</first><last>Calò</last></author>
+      <author><first>Emilio</first><last>Raimond</last></author>
+      <author><first>Stella</first><last>Frank</last></author>
+      <author><first>Hengyu</first><last>Luo</last></author>
+      <author><first>Flavio</first><last>Giobergia</last></author>
+      <author><first>Vincent</first><last>Segonne</last></author>
+      <author><first>Lorenzo</first><last>Vaiani</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Timothee</first><last>Mickus</last></author>
+      <pages>427-452</pages>
+      <abstract>In 2026, we held the fourth iteration of the SHROOM Shared Task series: SHROOM-Visions (Shared-task on Hallucinations and Related Observable Overgeneration Mistakes in Vision language models), which is hosted at the UncertaiNLP Workshop co-located with EMNLP 2026. Following the success of the 2024 and 2025 tasks, this time we aim to tackle hallucinations through a model-agnostic detection task focused on large vision-language models. Building on the recently introduced SHEEP dataset, designed for long-term evaluation across model generations, the task invites participants to detect and classify fine-grained hallucination spans in image-conditioned text generation (VQA, image captioning, etc.). The evaluation uses a five-class taxonomy of hallucinations spanning four languages: Chinese, English, French, and Italian. The shared task generated strong interest in the NLP community worldwide, with 27 teams contributing 600+ system submissions. The best systems achieve average scores of 0.58 in character-level correlation, 0.46 in label-conditioned correlation, and 0.51 in intersection-over-union (IoU) across four languages, outperforming the baselines by 30–40 points.</abstract>
+      <pdf hash="37878619"/>
+      <bibkey>vazquez-etal-2026-overview</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.28/ -->
+      <title>But what is your honest answer? Aiding <fixed-case>LLM</fixed-case>-judges with honest alternatives using steering vectors</title>
+      <author><first>Leon</first><last>Eshuijs</last></author>
+      <author><first>Archie</first><last>Chaudhury</last></author>
+      <author><first>Alan</first><last>McBeth</last></author>
+      <author><first>Ethan</first><last>Nguyen</last></author>
+      <pages>453-474</pages>
+      <abstract>LLM-as-a-judge is widely used as a scalable substitute for human evaluation, yet judges are least reliable on subtle dishonesty such as sycophancy and manipulation, where a judge scoring a response in isolation lacks a reference point. We introduce Judge Using Safety-Steered Alternatives (JUSSA), a framework that reduces this evaluator uncertainty using the assessed model’s own internal representations. An honesty-promoting steering vector, optimized from a single training example, generates a contrastive alternative against which each response is judged. On a new manipulation dataset with human-validated response pairs, JUSSA improves detection for both GPT-4.1 (AUROC 0.893<tex-math>\rightarrow</tex-math>0.946) and Claude Haiku (0.859<tex-math>\rightarrow</tex-math>0.929) judges. The gains concentrate almost entirely on the pairs a judge would otherwise misrank and reverse once a judge has saturated a task, so contrastive evaluation helps when the judge retains headroom rather than as a function of model size. A layer-wise analysis further locates steering effectiveness in the middle layers, where model representations of honest and dishonest prompt processing diverge. Our work demonstrates that steering vectors can serve as tools for evaluation rather than for improving model outputs at inference, opening a new direction for white-box auditing.</abstract>
+      <pdf hash="0eacf7e1"/>
+      <bibkey>eshuijs-etal-2026-honest</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.29/ -->
+      <title><fixed-case>TAME</fixed-case>: Token Attribution and Masking for Emergent misalignment</title>
+      <author><first>Md</first><last>Rayhanul Masud</last></author>
+      <author><first>Md Rizwan</first><last>Parvez</last></author>
+      <pages>475-480</pages>
+      <abstract>Fine-tuning an aligned language model on narrow, flawed data can induce harmful behavior far outside the training domain, known as emergent misalignment (EM). Prior work has localized EM in model weights, activations, and training documents, but it remains unclear which training tokens carry the relevant fine-tuning signal. We introduce TAME (Token Attribution and Masking for Emergent misalignment), a three-stage framework: token attribution scores how strongly the fine-tuning update raises each response token’s likelihood, using forward passes through a released LoRA adapter; signal characterization finds patterns among high-attribution tokens; and causal validation tests them by attribution-guided loss masking. On released EM organisms and a 6,849-example medical-advice split, attribution is concentrated (top 5% of tokens hold 32% of the mass) and, in Llama, depleted for medical vocabulary but enriched for a register of unwarranted certainty, even after controlling for token rarity. Masking high-attribution tokens during fresh fine-tuning cuts EM 23× in Llama and 36× in Qwen, with the perplexity cost concentrated on the targeted register rather than on medical content; an equal random mask leaves EM unchanged. In Llama, the attribution pattern suggests that EM- relevant signal lies more in how confidently flawed content is expressed than in its domain vocabulary; the causal masking effect itself holds across both families.</abstract>
+      <pdf hash="fec3ab28"/>
+      <bibkey>rayhanul-masud-parvez-2026-tame</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.30/ -->
+      <title>Overlap-Based <fixed-case>OOD</fixed-case> Detection in Closed-Book Question Answering</title>
+      <author><first>Dries</first><last>Wedda</last></author>
+      <author><first>Matias</first><last>Valdenegro-Toro</last></author>
+      <pages>481-494</pages>
+      <abstract>Closed-book question answering requires models to answer using knowledge stored in their parameters, making uncertainty estimation important when that knowledge is limited. We study how total, aleatoric, and epistemic uncertainty respond to progressively weaker train-test overlap, from question paraphrase overlap to answer-only overlap to no overlap, and how well these estimates detect overlap-based out-of-distribution questions. Using T5-Large-SSM on WebQuestions and Open Natural Questions, we estimate token-level uncertainty with Deep Ensembles and Monte Carlo Dropout and sequence-level uncertainty with Deep Ensembles. Weaker overlap is associated with higher total and epistemic uncertainty, but aleatoric uncertainty also tends to increase. Epistemic uncertainty performs best for OOD detection on Open Natural Questions, but does not consistently outperform total or aleatoric uncertainty on WebQuestions. These findings show that train-test overlap is reflected in uncertainty estimates, but the response to weaker overlap is not consistently isolated to the epistemic component.</abstract>
+      <pdf hash="9aca548f"/>
+      <bibkey>wedda-valdenegro-toro-2026-overlap</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.31/ -->
+      <title>Uncertainty-Aware Fact Checking with <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Yulin</first><last>Chen</last></author>
+      <author><first>Shubhalaxmi</first><last>Mukherjee</last></author>
+      <author><first>Pradeep K.</first><last>Murukannaiah</last></author>
+      <pages>495-517</pages>
+      <abstract>Large Language Models (LLMs) offer a scalable approach to fact-checking, but their parametric knowledge remains unreliable for complex, specialized claims. Existing solutions unconditionally perform verification using Retrieval-Augmented Generation (RAG), which is computationally expensive and susceptible to performance-limiting noise. We propose an adaptive fact-checking pipeline that invokes RAG only when the LLM’s uncertainty surpasses a calibrated threshold. We introduce two UQ methods: (1) Adversarial Consistency Evaluation (ACE), a novel approach that detects model uncertainty by assessing its logical consistency, and (2) a trained ensemble that combines the strengths of several whitebox UQ methods and ACE. When evaluated on the SciFact and QuanTemp benchmarks, our adaptive pipeline preserves at least 88% of the top-performing baseline’s accuracy. Simultaneously, our approach reduces retrieval frequency and token consumption by up to 55.3% and 37.1%, respectively, consistently outperforming decomposition-based RAG baselines at a fraction of the cost.</abstract>
+      <pdf hash="4127a964"/>
+      <bibkey>chen-etal-2026-uncertainty-aware-fact</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.32/ -->
+      <title>From Pixels to Tokens: Adaptive <fixed-case>LLM</fixed-case> Decoding and Reliability Analysis with Otsu Thresholding</title>
+      <author><first>Eleni</first><last>Partalidou</last></author>
+      <author><first>Tatiana</first><last>Passali</last></author>
+      <author><first>Chrysoula</first><last>Zerva</last></author>
+      <author><first>Grigorios</first><last>Tsoumakas</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>518-543</pages>
+      <abstract>This paper investigates the relationship between generation-time uncertainty and output reliability in probabilistic Large Language Model (LLM) decoding. Specifically, we assess the correlation between several factuality, quality and certainty metrics to infer existing patterns across state-of-the-art decoding strategies, diverse tasks and instruction-tuned models. We also propose a novel, image processing-inspired decoding approach, Otsu Thresholding, that performs adaptive, parameter-free threshold selection directly from the next-token predictive confidence distribution. The proposed Otsu-based variants achieve competitive quality and factuality across tasks and models, while exhibiting concentrated predictive distributions comparable to strong truncation-based baselines. Furthermore, we employ a selective filtering setup to analyze the impact of removing highly uncertain instances on the quality and factuality metrics, ultimately revealing that filtering based on averaged token-level uncertainty metrics can be practically useful for identifying less reliable generations, with filtering frequently improving the quality or factuality of the retained outputs.</abstract>
+      <pdf hash="dc3417f8"/>
+      <bibkey>partalidou-etal-2026-pixels</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.33/ -->
+      <title>Are You Sure You’re Sure? On the Impact of Instruction Tuning on Confidence and Lexical Diversity</title>
+      <author><first>Irina</first><last>Proskurina</last></author>
+      <author><first>Mayank</first><last>Kumar</last></author>
+      <author><first>Oyindolapo</first><last>Olabisi Komolafe</last></author>
+      <pages>544-554</pages>
+      <abstract>Instruction-tuned language models achieve strong performance across a range of generation tasks but have recently been shown to exhibit verbalized overconfidence, which may manifest in less diverse supporting rationales for incorrect answers. However, whether such overconfidence is associated with rationale consistency remains an open question. In this paper, we study whether changes in the lexical diversity of generated answer rationales accompany changes in model confidence induced by instruction tuning. We evaluate three matched base and instruction-tuned models across question-answering benchmarks and find that instruction tuning consistently increases answer confidence, despite limited changes in predictive accuracy, while degrading likelihood-based calibration. Secondly, we observe a non-uniform effect of instruction tuning on rationale diversity: cross-rationale diversity consistently decreases, whereas surface-level lexical diversity varies in both direction and magnitude across models and benchmarks. Finally, we find that these differences persist after controlling for answer selection and rationale length, confirming that confidence and rationale diversity capture distinct effects of instruction tuning.</abstract>
+      <pdf hash="8debc04a"/>
+      <bibkey>proskurina-etal-2026-sure</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.34/ -->
+      <title>Paraphrase-Induced Retrieval Instability: Systematic Measurement and the Limits of Inference-Time Mitigation</title>
+      <author><first>Aravind</first><last>Mandiga</last></author>
+      <author><first>Guoming</first><last>Li</last></author>
+      <author><first>Jin</first><last>Lu</last></author>
+      <pages>555-569</pages>
+      <abstract>Dense retrieval can return different evidence when a query is paraphrased, even when the meaning stays the same. This means that linguistic variation can create uncertainty in the evidence given to a retrieval-augmented generation (RAG) system. We study this problem across HotpotQA, FEVER, and SQuAD 2.0 using five dense encoders spanning 22M to 8B parameters and multiple model families. Paraphrase Jaccard distance remains 32 to 50 percent, showing that retrieval instability persists with stronger and alternative encoders. We then ask how much this problem can be reduced at inference time. Multi-source consensus over paraphrased queries and different retrievers improves retrieval coverage. Fixed source-type weights can help in harder settings. However, adapting those weights to each query using retrieval stability changes Coverage@20 by at most ±0.3 percentage points per setting. Retrieval stability is more useful as a label-free routing signal: on HotpotQA/MiniLM, routing only unstable queries through the stability-conditioned consensus configuration reduces retrieval calls by 47 percent for a 0.6 percentage-point Coverage@20 cost compared with always using that configuration. Overall, paraphrase-induced retrieval instability is a persistent source of uncertainty in retrieved evidence, and the query-adaptive stability component provides only a small marginal refinement.</abstract>
+      <pdf hash="366d6cce"/>
+      <bibkey>mandiga-etal-2026-paraphrase</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.35/ -->
+      <title>Large Language Models as Automatic Annotators and Annotation Adjudicators for Fine-Grained Opinion Analysis</title>
+      <author><first>Gaurav</first><last>Negi</last></author>
+      <author><first>M.A.</first><last>Waskow</last></author>
+      <author><first>John Philip</first><last>McCrae</last></author>
+      <author><first>Omnia</first><last>Zayed</last></author>
+      <author><first>Paul</first><last>Buitelaar</last></author>
+      <pages>570-589</pages>
+      <abstract>Fine-grained opinion analysis enables a detailed understanding of expressed sentiments and their corresponding targets. However, annotating domain-specific datasets requires substantial human effort and financial resources. To address this limitation, we investigate the feasibility of using large language models (LLMs) as automatic annotators for fine-grained opinion analysis. We use a declarative annotation pipeline to reduce prompt engineering when identifying fine-grained opinion spans, and compare rule-based voting against an LLM-based adjudicator for reconciling conflicting predictions. We trial the pipeline across different model sizes on the Aspect Sentiment Triplet Extraction (ASTE) and Aspect-Category-Opinion-Sentiment (ACOS) tasks. Our findings indicate a critical performance bifurcation: LLMs are reliable at the span level yet struggle to faithfully reproduce the relational structures connecting those spans. The better aggregation strategy depends on this complexity: voting suffices for triplets, while quadruples require an adjudicator that re-reads the source. Treating annotator disagreement as an informative signal rather than noise, we further show that agreement between LLM annotators is a calibrated predictor of correctness and can be used to delegate cases with high annotator disagreement to humans.</abstract>
+      <pdf hash="b129139e"/>
+      <bibkey>negi-etal-2026-large</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.36/ -->
+      <title><fixed-case>BRAVE</fixed-case>: Budget-Aware Reflective <fixed-case>A</fixed-case>uto<fixed-case>P</fixed-case>rompting for Efficient Evolutionary Prompt Optimization</title>
+      <author><first>Kulin</first><last>Nikita</last></author>
+      <author><first>Zhuravlev</first><last>Viktor</last></author>
+      <author><first>Khairullin</first><last>Artur</last></author>
+      <author><first>Sergey</first><last>Muravyov</last></author>
+      <author><first>Ilya</first><last>Makarov</last></author>
+      <author><first>Daniil</first><last>Sukhorukov</last></author>
+      <pages>590-617</pages>
+      <abstract>Automatic prompt optimization is an uncertain sequential decision problem: an editing operator’s quality gain and context-dependent token cost are unknown before execution. We introduce BRAVE (Budget-Aware Reflective AutoPrompting for Efficient Evolutionary Prompt Optimization), a population-based optimizer that treats this operational uncertainty as a control signal. Its EVC Controller maintains per-operator Bayesian models of quality gain, token cost, and improvement probability, then selects among eleven generation and mutation operators by uncertainty-penalized predicted utility per token under a predicted-cost feasibility guard. An EMA return-on-investment mechanism revises this decision process from realized outcomes, while diversity management preserves alternative prompt hypotheses. On seven datasets, BRAVE outperforms EvoPrompt, PromptBreeder, and GEPA on 7/7 tasks; its advantage over the strongest external baseline ranges from 0.002 to 0.150 absolute score points. Under 20k, 40k, and 80k nominal budgets, BRAVE respectively achieves average quality 0.779, 0.807, and 0.812 versus GEPA’s 0.771, 0.775, and 0.781, while using 21.4k, 41.0k, and 72.4k tokens versus 46.1k, 65.2k, and 96.5k. BRAVE therefore formulates reliable prompt optimization as uncertainty-aware resource allocation: uncertainty about an edit’s value and cost directly changes the action selected.</abstract>
+      <pdf hash="7d0129c6"/>
+      <bibkey>nikita-etal-2026-brave</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.37/ -->
+      <title>Does Quantization Change What Agreement Means? A Paired Audit of Homogeneous <fixed-case>LLM</fixed-case> Panels</title>
+      <author><first>Ananto</first><last>Nayan Bala</last></author>
+      <pages>618-624</pages>
+      <abstract>Agreement among repeated large language model (LLM) responses is often used as a confidence signal. We test whether that signal changes after quantization by comparing five-response panels from the same checkpoints at FP16 and 4-bit NF4. We evaluate two open models on 300 TruthfulQA multiple-choice questions and 300 GSM8K problems, matching prompts, sampling settings, and seeds. Under strict parsing, quantization reduces GSM8K panel accuracy by 10.5 percentage points for Qwen2.5-3B and 6.3 for Phi-3.5-mini. The probability that all five responses are wrong rises by 9.0 and 5.0 points. Agreement also becomes less useful for selecting reliable answers, but all-wrong panels do not consistently become more likely to give one identical answer. Relaxed parsing preserves the selective-reliability result for both models, although Phi’s panel-accuracy and all-wrong differences become inconclusive. On TruthfulQA, Phi degrades while Qwen is largely stable. Quantization can therefore reduce panel reliability without consistently pushing all members toward the same wrong answer.</abstract>
+      <pdf hash="be78a130"/>
+      <bibkey>nayan-bala-2026-quantization</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.38/ -->
+      <title>What Counts as Hallucination? A Scoping Review of Tasks, Symptoms, and Convergence Expectations in <fixed-case>LLM</fixed-case> Research</title>
+      <author><first>Toshiki</first><last>Kuramoto</last></author>
+      <author><first>Ryohei</first><last>Kamei</last></author>
+      <author><first>Jun</first><last>Suzuki</last></author>
+      <pages>625-656</pages>
+      <abstract>Hallucination in large language models (LLMs) and related generative models has become a central issue for reliability and practical deployment. Yet prior work does not consistently define what is treated as hallucination or the level of expectation under which model outputs are evaluated. This study conducts a scoping review of 244 papers published between 2018 and 2025, analyzing definitions of hallucination, output-side symptoms, and Convergence Expectation (CE). The results show that approximately 90% of the papers provide some form of operational definition, but the symptoms targeted by these operationalizations vary substantially by task. "Addition" appears across many tasks as a common symptom, whereas "Transformation" and "Deviation" strongly depend on task structure and input constraints. Analyses by CE band further show that, even within the same task, the symptoms problematized as hallucination vary according to the strictness of expected output convergence. These findings indicate that hallucination is not a fixed failure inherent in model outputs, but a phenomenon shaped by task, input constraints, evaluation criteria, and the expectations of humans or evaluators. This study reframes hallucination as expectation mismatch and argues that definitions, symptom scope, and expectation levels must be made explicit when comparing research findings and designing evaluations.</abstract>
+      <pdf hash="e661c1b5"/>
+      <bibkey>kuramoto-etal-2026-counts</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.39/ -->
+      <title>Refer, Infer, or Abstain: Investigating Latent Skill Selection of Large Language Models under Contextual Question Answering Uncertainty</title>
+      <author><first>Emil</first><last>Kalbaliyev</last></author>
+      <author><first>Kairit</first><last>Sirts</last></author>
+      <pages>657-671</pages>
+      <abstract>Contextual question answering (CQA) involves uncertainty regarding the use of available knowledge in forming an answer. In CQA, large language models (LLMs) should decide whether to Refer to explicitly stated information, Infer from contextual evidence using commonsense knowledge, or Abstain when an answer cannot be supported. We investigate whether LLMs implicitly select among these skills under CQA uncertainty. Combining prompting analysis with layer-wise probing, we examine latent skill selection across instruction-tuned LLMs. We find that the models distinguish Refer from Infer more easily than Infer from Abstain. In particular, erroneous abstentions disproportionately occur on inference-based questions, and the Infer–Abstain distinction is the least separable in model representations. We further find that models represent contextual knowledge gaps more strongly than contextual knowledge sufficiency. These results characterize the emergence and limitations of latent skill selection in LLMs under CQA uncertainty.</abstract>
+      <pdf hash="78ff1b90"/>
+      <bibkey>kalbaliyev-sirts-2026-refer</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.40/ -->
+      <title>Tracing Recurrent and Emergent Hallucination Patterns in Decomposed Text-to-<fixed-case>SQL</fixed-case> Generation</title>
+      <author><first>Hayden</first><last>Moore</last></author>
+      <author><first>Abhinav</first><last>Verma</last></author>
+      <author><first>Anshuman</first><last>Dutt</last></author>
+      <pages>672-682</pages>
+      <abstract>Large language models can achieve strong Text-to-SQL benchmark performance while still producing schema and query-logic errors. Most evaluations characterize such failures only in the final generated query, making it difficult to determine whether a related error was also observed in an earlier, simpler step or appears only at the final stage. We present a drill-down evaluation framework that decomposes Text-to-SQL queries into progressively more complex executable sub-queries and corresponding natural-language questions, allowing rule-based hallucination categories to be examined across a generation path. We distinguish recurrent hallucinations, in which the same rule-based category is observed in an earlier step and again in the final query, from emergent hallucinations, in which the category is observed at the final step without an earlier detection in the same path. Across five LLMs evaluated on an expanded BIRD-mini benchmark, several categories show appreciable recurrence probabilities, while clause abuse shows comparatively higher conditional emergence. Under the conversational-history condition, recurrence probabilities are generally higher and emergence probabilities are generally lower. These observations indicate that the two conditional measures do not move uniformly in the same direction under additional context and motivate trajectory-level analysis in addition to final-output evaluation. Code and evaluation artifacts are available in the project repository: https://github.com/HaydenMM/bird-mini-drilldown</abstract>
+      <pdf hash="7db929a9"/>
+      <bibkey>moore-etal-2026-tracing</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.41/ -->
+      <title>Beyond Global Calibration: Analyzing Class-Specific Miscalibration and High-Confidence Errors in Text Classification</title>
+      <author><first>Claudio Moisés Valiense de</first><last>Andrade</last></author>
+      <author><first>Guilherme</first><last>Fonseca</last></author>
+      <author><first>Washington</first><last>Cunha</last></author>
+      <author><first>Celso</first><last>França</last></author>
+      <author><first>Adriana Silvina</first><last>Pagano</last></author>
+      <author><first>Leonardo Chaves Dutra da</first><last>Rocha</last></author>
+      <author><first>Marcos</first><last>André Gonçalves</last></author>
+      <pages>683-692</pages>
+      <abstract>Confidence scores are increasingly used to assess uncertainty in text classification, yet aggregate calibration metrics may hide localized reliability failures. We investigate this issue across seven sentiment and topic classification datasets by comparing global and class-specific calibration and analyzing high-confidence errors. Our results show that low global calibration error can coexist with substantial class-specific variation, particularly in multi-class settings. We also find that high-confidence errors are not randomly distributed: they concentrate in specific true–predicted class confusions, with some incorrect predictions receiving confidence scores close to 1.0. These findings show that globally calibrated models can still exhibit systematic uncertainty failures, motivating class-aware and error-level analyses when confidence is used as an indicator of prediction reliability.</abstract>
+      <pdf hash="01eab85f"/>
+      <bibkey>andrade-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.42/ -->
+      <title>Confidence Drift During Task-Specific Language Model Fine-Tuning</title>
+      <author><first>Soham</first><last>Tripathy</last></author>
+      <pages>693-703</pages>
+      <abstract>Task-specific fine-tuning can change not only what a language model predicts, but also how confident it is in those predictions. We study confidence and accuracy drifts throughout LoRA fine-tuning of seven decoder-only language models spanning multiple families and scales. Models are fine-tuned on AG News and evaluated at intermediate checkpoints on the source task and five untouched cross-task benchmarks. We find that cross-task accuracy generally remains stable or degrades, while confidence increases on both correct and incorrect predictions. Across many settings, confidence follows a non-monotonic trajectory: after an early transient and a relatively stable middle stage, it rises again late in training, coinciding with increasing train–validation NLL divergence. Our results show that accuracy-only evaluation can miss confidence drifts introduced by task-specific fine-tuning.</abstract>
+      <pdf hash="2307ee65"/>
+      <bibkey>tripathy-2026-confidence</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.43/ -->
+      <title>Moral Entropy: Auditing Bias and Uncertainty in Moral Judgment</title>
+      <author><first>Maciej</first><last>Skorski</last></author>
+      <pages>704-714</pages>
+      <abstract>Most work in computational ethics treats annotator disagreement on moral content as noise to be voted away, collapsed into *majority* vote or the more permissive *any-annotator* rule which assigns a label as soon as any annotator flags it.<par/>We argue this uncertainty should instead be modeled and learned from.<par/>We introduce **Moral Entropy**, a Bayesian framework that estimates a full posterior over the true label and decomposes its entropy into *aleatoric* uncertainty (irreducible disagreement about the moral content) and *epistemic* uncertainty (from insufficient or noisy annotation). This lets any heuristic consensus rule be audited against a calibrated ground truth via entropy methods such as cross-entropy/KL, Brier score, and expected calibration error.<par/>Running this model on over 100,000 posts from three corpora spanning fifteen discourse domains, we audit the standard aggregation rules against the resulting posterior and reveal systematic differences in moral labels. Across MFTC and MFRC, the any-annotator rule yields mean false-positive rates of 10.2–19.9% and mean false-negative rates of 38.9–54.8% relative to the Bayesian consensus, while majority-vote and two-vote rules miss 63–83% of reference-positive labels.</abstract>
+      <pdf hash="0fcef31e"/>
+      <bibkey>skorski-2026-moral</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.44/ -->
+      <title>Team <fixed-case>H</fixed-case>alluci<fixed-case>N</fixed-case>auts at <fixed-case>SHROOM</fixed-case>-Visions: Anchor-Preserving Dual-Resolution Grounding for Fine-Grained Vision Hallucination Detection</title>
+      <author><first>Khang Nhat Hoang</first><last>Vo</last></author>
+      <pages>715-721</pages>
+      <abstract>We describe our submission to the SHROOM-Visions 2026 English task, which requires detecting hallucinated character spans in image-conditioned responses, assigning confidence scores, and classifying each span as invention, mischaracterization, OCR error, miscounting, or other. Our system combines ModernBERT-large with frozen SigLIP2 patch features at <tex-math>224\times224</tex-math> and <tex-math>384\times384</tex-math> resolutions. A primary cross-modal detector produces token-level predictions, while a high-resolution branch adds bounded grounding and anchor-preserving residual corrections. The system uses only the official English training data and publicly available pretrained backbones, without retrieval, generated captions, external OCR, or additional labeled data. Post-hoc ablations show that the anchor-preserving correction provides the clearest incremental gain, while mismatched-image supervision has negligible development impact and histogram calibration is not beneficial. The submitted system achieves 0.2942 <sc>Cor</sc> and 0.2140 <sc>Cor+Lbl</sc> on the public leaderboard.</abstract>
+      <pdf hash="e1880aec"/>
+      <bibkey>vo-2026-team</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.45/ -->
+      <title>Dynamos at <fixed-case>SHROOM</fixed-case>-Visions: Metric-Aligned Token Tagging and Ensembles for Multilingual Vision-Language Hallucination-Span Detection</title>
+      <author><first>Muhammad</first><last>Yamin</last></author>
+      <author><first>Sheikh Abdul</first><last>Wahid</last></author>
+      <author><first>Ali</first><last>Arshad</last></author>
+      <pages>722-728</pages>
+      <abstract>Vision-language models describe images fluently and, too often, wrongly. SHROOM-Visions 2026 asks systems to mark exactly which characters of such a description are hallucinated, and of what kind, in Chinese, English, French, and Italian. Working on this task we find that how a system reads predictions out of a model matters as much as which model it uses: the metric is a rank correlation against soft, multi-annotator labels, and aligning the prediction pipeline to it is worth as much as a larger encoder. We treat the problem as per-character sequence tagging. Starting from a fine-tuned XLM-RoBERTa tagger, we (i) formulate the task with one independent probability head per hallucination class, which matches the labelled and unlabelled correlation metrics; (ii) reconstruct spans in a way that respects the scorer’s tie-breaking behaviour; and (iii) tune per-class decision thresholds with cross-validated Bayesian search. These changes lift the score substantially with no change to the underlying model. Keeping this output layer fixed, we then compare encoders: a text-only tagger with added visual features, and a fine-tuned vision-language model. The vision-language model, adapted with low-rank updates and read out through the same five heads, is our strongest system in every language and improves most on the labelled score, which is the part of the task that needs the image. It also transfers cleanly from validation to test, in contrast to the tuned text ensembles, whose threshold choices overfit the validation split.</abstract>
+      <pdf hash="7f386f81"/>
+      <bibkey>yamin-etal-2026-dynamos-shroom</bibkey>
+    </paper>
+    <paper id="46">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.46/ -->
+      <title>Sparse-Positive Hallucination Evaluation Entangles Detection and Prevalence</title>
+      <author><first>Srinivas</first><last>Harish</last></author>
+      <pages>729-733</pages>
+      <abstract>Span-level hallucination metrics aggregate outputs whose references contain hallucinated spans with outputs whose references are empty. Under scoring rules that award a perfect match to an empty prediction against empty gold, the aggregate entangles detection performance with empty-gold prevalence. We write the exact decomposition as <tex-math>s=ea+(1-e)d</tex-math>, where <tex-math>e</tex-math> is empty-gold prevalence, <tex-math>a</tex-math> is performance on empty-gold items, and <tex-math>d</tex-math> is performance on non-empty-gold items. Under the benchmark’s metric conventions, an empty submission identifies <tex-math>e</tex-math> from leaderboard values without access to closed labels. Applied to a multilingual vision-language hallucination benchmark, this recovers rates from 0.1549 to 0.2554. Assuming perfect empty-gold performance gives a maximum contribution equal to 47.3–64.8% of the mean team score and a conservative lower bound on <tex-math>d</tex-math>. Under this bound, the highest-ranked language moves from best for 17 of 18 teams to best for none and falls from rank 1 to rank 3. Released annotations show that union-over-annotators gold retains 4.09 times as many characters as majority-agreement gold, while 71.7% of annotated spans were marked by one of three annotators. Cross-split comparisons therefore require reporting both empty-gold prevalence and system performance on empty-gold items alongside aggregate scores.</abstract>
+      <pdf hash="36369e76"/>
+      <bibkey>harish-2026-sparse</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.47/ -->
+      <title><fixed-case>USP</fixed-case> at <fixed-case>SHROOM</fixed-case>-Visions: Why Informative Proxy Visual Signals Do Not Localize Hallucinated Spans</title>
+      <author><first>Rafael M.</first><last>Fernandes</last></author>
+      <pages>734-742</pages>
+      <abstract>SHROOM-Visions 2026 asks systems to mark the exact characters hallucinated in a vision–language model’s response. The generating model is withheld, so any model-derived signal is a proxy, and we ask whether it improves character-level localization. We first characterize the metric: span position dominates attainable Cor under the benchmark metric, and constant scores within a response give no ranking signal; an oracle sentence-level detector reaches Cor 0.476 where gold spans reach 0.970. Testing three proxy signals and one direct adjudication baseline, sentence-level signals add at most 0.002 Cor, as predicted. Representation shift is not explained by that account: a probe recovers a fine-grained signal across all four languages (macro AUROC 0.652) yet adds only +0.009. Its discrimination is uneven across error categories, strongest on smaller ones such as OCR errors, but reweighting that mixture accounts for at most 0.028 AUROC. The tested factors do not explain the remaining gap.</abstract>
+      <pdf hash="64c21adc"/>
+      <bibkey>fernandes-2026-usp-shroom</bibkey>
+    </paper>
+    <paper id="48">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.48/ -->
+      <title><fixed-case>CAML</fixed-case> at <fixed-case>SHROOM</fixed-case>-Visions: Competency-Aware Intermediate-Layer Readouts for Multilingual Hallucination Localization</title>
+      <author><first>Jiwon</first><last>Jeong</last></author>
+      <author><first>Kimin</first><last>Yun</last></author>
+      <author><first>Yuseok</first><last>Bae</last></author>
+      <pages>743-749</pages>
+      <abstract>We present CAML for multilingual hallucination localization at character level in SHROOM-Visions 2026. The system combines intermediate hidden states and four uncertainty features from a frozen Qwen3.5-4B evaluator, mapping supplied responses to character probabilities and five error categories. Probes from five cross-validation folds use temperature scaling and probability averaging, with about 3.37M trainable parameters in total. We compare readout depths under a common training and evaluation protocol. Selection on validation yields fixed layer 19, with macro character IoU of 0.3704; bootstrap intervals do not resolve its small differences from adjacent depth policies. Separately, the official challenge summary for the team gives macro IoU of 0.3825 and Spearman correlation of 0.4670, averaged over four languages. Independently trained Gemma probes also support localization, with fixed L24 scoring above both tested Gemma submissions combining layers. Across backbones, a single intermediate-layer readout consistently proves effective for localization, although the best depth remains backbone-specific rather than universal.</abstract>
+      <pdf hash="a594f979"/>
+      <bibkey>jeong-etal-2026-caml</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.49/ -->
+      <title>Irums at <fixed-case>SHROOM</fixed-case>-Visions 2026: When One Fix Doesn’t Fit All — Category-Aware Hallucination Span Detection</title>
+      <author><first>Irum</first><last>Shehryar</last></author>
+      <pages>750-759</pages>
+      <abstract>This paper describes our system for the English subset of the SHROOM-Visions 2026 shared task, which requires detecting hallucinated spans in vision-language model outputs across Chinese, English, French, and Italian, and labeling them into five categories. We used Claude Haiku 4.5 as a zero-shot detector, with post-processing relabeling and Sonnet 5-based second-opinion verification for select categories. Our final system achieved 0.3015 (Cor+Lbl), 0.3949 (Cor) and 0.3421 (IoU). Our error analysis found that missed detections, low annotator agreement, and unresolved overlap between the invention and mischaracterization categories account for the majority of remaining errors, with additional score loss when the model finds the right content but its flagged text is a different length than gold’s, or is labeled with the wrong category. Systematically testing and comparing individual approaches shows that none of the methods we tried is effective across all categories on its own; category-specific, targeted fixes improved performance more reliably than any single general-purpose mechanism we tested.</abstract>
+      <pdf hash="1731f1bc"/>
+      <bibkey>shehryar-2026-irums</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.50/ -->
+      <title>Team Bubus at <fixed-case>SHROOM</fixed-case>-Visions: Probe–Judge Fusion for Hallucination Span Detection</title>
+      <author><first>Berk</first><last>Bubus</last></author>
+      <pages>760-770</pages>
+      <abstract>We describe the Bubus submission to the SHROOM-Visions shared task on character-level hallucination span detection in image-conditioned LVLM outputs (English track). Our system fuses two complementary signals: (i) a cross-model supervised probe ensemble — per-layer logistic regressions over the hidden states of Qwen3-VL-32B and InternVL3-38B, each teacher-forcing the response under evaluation — and (ii) a K=8 role-diverse multi-sample LLM judge whose per-character marking fraction matches the annotator-fraction shape of the gold signal. A fixed two-weight late fusion with an abstain gate reaches Spearman correlation 0.411 and character IoU 0.381 on a leakage-controlled held-out split, measured once, post-competition (majority baseline 0.249). On the official test set the system scores Cor 0.413 / IoU 0.379 / Cor_lbl 0.282 — ranks 14/12/16 of 28 teams, the last on the primary ranking metric — agreeing with the held-out measurement within 0.002 on Cor and IoU, consistent with a leakage-free protocol. Beyond the positive recipe, we contribute (a) an unusually broad set of controlled negative results — zero-shot white-box signals all fail in the shared-task setting, which we attribute to the mismatch between self-generated and teacher-forced foreign text; (b) evidence that error-map-driven prompt engineering recovers precisely the targeted deficits at no precision cost; and (c) two external-data attempts that a pre-specified bootstrap gate correctly rejected.</abstract>
+      <pdf hash="2960d539"/>
+      <bibkey>bubus-2026-team</bibkey>
+    </paper>
+    <paper id="51">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.51/ -->
+      <title>Team Eye-Be-Am at <fixed-case>SHROOM</fixed-case>-Visions</title>
+      <author><first>Eli</first><last>Schwartz</last></author>
+      <pages>771-779</pages>
+      <abstract>We present our system for the SHROOM-Visions 2026 shared task on character-level VLM hallucination detection. A small (4B-parameter) VLM is fine-tuned as a per-token classifier reading a two-token feature from its own hidden states—the token being judged together with the state that predicted it—and is ensembled with a ~400B zero-shot VLM judge at prediction time. Both components see off-the-shelf OCR of any visible in-image text. We use synthetic hallucination data generated by the large model as a source of ensemble diversity, and use validation to select feature layer, training data and OCR grounding. Our official entry reaches mean Cor 0.487 / Cor-lbl 0.387 on the hidden test set, placing 6th/28 (EN), 6th/21 (FR), 8th/21 (IT) and 7th/22 (ZH) on the task’s primary Cor-lbl metric.</abstract>
+      <pdf hash="09ad3023"/>
+      <bibkey>schwartz-2026-team</bibkey>
+    </paper>
+    <paper id="52">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.52/ -->
+      <title>Vroom-Vroom at <fixed-case>SHROOM</fixed-case>-Visions: A Multi-Judge Committee for Detecting Hallucinated Spans in Vision-Language Outputs</title>
+      <author><first>Toqeer</first><last>Ehsan</last></author>
+      <author><first>Nico</first><last>Penttilä</last></author>
+      <author><first>Richard</first><last>Schmidt</last></author>
+      <author><first>Arash</first><last>Hajikhani</last></author>
+      <author><first>Victoria</first><last>Palacin</last></author>
+      <pages>780-788</pages>
+      <abstract>This paper describes our submission to the SHROOM-Visions shared task on detecting and classifying hallucinated character spans in vision-language model outputs across four languages. We employ several fine-tuned vision-language models as independent annotators and combine their span predictions through character-level majority voting, and additionally explore activation probes. The approach ranks first in three of four languages and places on the podium in every language and metric. Our analysis indicates that disagreement among diverse models tracks disagreement among human annotators.</abstract>
+      <pdf hash="934d647d"/>
+      <bibkey>ehsan-etal-2026-vroom</bibkey>
+    </paper>
+    <paper id="53">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.53/ -->
+      <title><fixed-case>S</fixed-case>murf<fixed-case>C</fixed-case>at at <fixed-case>SHROOM</fixed-case>-Visions: Synthetic Augmentation for Multilingual Span-Level Hallucination Detection</title>
+      <author><first>Weerathep</first><last>Rattanajaratkul</last></author>
+      <author><first>Alexander</first><last>Panchenko</last></author>
+      <author><first>Elisei</first><last>Rykov</last></author>
+      <pages>789-796</pages>
+      <abstract>In this paper, we present our system for the SHROOM-Visions shared task, which focuses on character-level hallucination localization and five-category classification in responses to image-grounded questions across four languages. We investigate a synthetic-data augmentation pipeline that combines annotator-agreement- and class-rarity-aware upsampling with controlled hallucination injection conditioned on image and response signals. We use the resulting data to fine-tune Qwen3-VL-8B-Instruct with LoRA to generate localized hallucination spans, confidence scores, and category labels as structured JSON. Conservative augmentation improves average validation IoU and Cor+Lbl over training on the original data, but outperforms the baseline on the test set only for Chinese, indicating substantial language-dependent effects. In the official Cor+Lbl ranking, our submissions placed 7th among 28 teams for English, 5th among 21 for French, 6th among 21 for Italian, and 5th among 22 for Chinese.</abstract>
+      <pdf hash="705d513e"/>
+      <bibkey>rattanajaratkul-etal-2026-smurfcat</bibkey>
+    </paper>
+    <paper id="54">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.54/ -->
+      <title><fixed-case>WINNAR</fixed-case>749 at <fixed-case>SHROOM</fixed-case>-Visions: Model-Agnostic Fine-Grained Hallucination Detection in <fixed-case>VLM</fixed-case>s via <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case> Approach with Soft, Calibrated Targets</title>
+      <author><first>Ranjit</first><last>Raut</last></author>
+      <pages>797-805</pages>
+      <abstract>Vision-Language Models (VLMs) are showing remarkable performance in connecting vision and language, closely intertwined. However, they are vulnerable to hallucination and alignment problems. To address these issues, this paper describes a simple system for the SHROOM-visions shared task on character-level hallucination detection in image-conditioned text. The system attaches two lightweight linear heads to a pretrained VLM backbone and fine-tunes them, together with low-rank adapters on the backbone. As a result, they predict a per-character hallucination probability and a per-character distribution over five hallucination classes. We train directly against soft targets as the released annotations are themselves soft (overlapping, disagreeing multi-annotator spans), rather than collapsing them into hard span labels and fit a post-hoc isotonic calibration map so that predicted probabilities track empirical annotator agreement, the quantity the task’s Confidence Calibration metric rewards. The system we submitted to the official shared-task evaluation built on Qwen2.5-VL-3B-Instruct contained two implementation issues that we identified only after the submission deadline; we report the official results as submitted, document the issues and their fixes, and separately report unofficial post-evaluation results obtained after correcting them and porting the pipeline to Qwen3.5-4B.[The code is available at &lt;https://github.com/theranjitraut/SHROOM-Visions-2026&gt;]</abstract>
+      <pdf hash="9807bb10"/>
+      <bibkey>raut-2026-winnar749</bibkey>
+    </paper>
+    <paper id="55">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.55/ -->
+      <title><fixed-case>L</fixed-case>1cache at <fixed-case>SHROOM</fixed-case>-Visions: <fixed-case>M</fixed-case>yco<fixed-case>G</fixed-case>ate-<fixed-case>VL</fixed-case> for Scorer-Aware Multilingual Hallucination Detection</title>
+      <author><first>Aman</first><last>Behera</last></author>
+      <pages>806-815</pages>
+      <abstract>SHROOM-Visions 2026 asks systems to locate and categorize hallucinated spans in multilingual vision-language responses. We describe MycoGate-VL, which ranks characters with a mainly text-based multilingual detector ensemble, labels them with a vision-trained category head, abstains on likely clean documents with a learned gate, and orders its output spans to match how the released scorer rebuilds character probabilities. On the official final leaderboard our per-language submissions reach mean COR .378 and COR+LBL .274, about .2 below the top systems; no ZH IoU is available because that submission’s predictions were not available for the IoU scoring added later. Across our leaderboard submissions, most of the COR+LBL rise from .05 to .25 arrived with changes to output construction (per-category spans, clean-document routing, and span ordering), although these steps were bundled with model updates. The ordering step alone changes no model predictions. On our held-out split the system beats the mark-nothing and kit baselines on COR in every language but not on COR+LBL for English and Chinese. Zero-shot uncertainty, judging, and retrieval did not improve performance in our small-scale pilots, whereas a vision-trained category head did. Our central finding is that output encoding and abstention policy can substantially affect performance alongside the underlying detector, although closing the gap to the top systems requires better detection.</abstract>
+      <pdf hash="cf0a34f9"/>
+      <bibkey>behera-2026-l1cache</bibkey>
+    </paper>
+    <paper id="56">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.56/ -->
+      <title>Team Bit-by-bit at <fixed-case>SHROOM</fixed-case>-Visions: Adapt, Calibrate, and Average for Character-Level Hallucination Span Detection</title>
+      <author><first>Ioana</first><last>Branescu</last></author>
+      <author><first>Mihai</first><last>Dascalu</last></author>
+      <pages>816-822</pages>
+      <abstract>Vision-language models (VLMs) often produce details not supported by the input image. The SHROOM-Visions 2026 shared task studies this problem at the character level: given an image, a question, and a VLM-generated answer, systems must identify the hallucinated spans and assign an error type to each one. Our approach fine-tunes Qwen2.5-VL-7B and adds two lightweight classification heads to predict the hallucination probability and error type of each answer token. We map these predictions back to characters, decode spans aligned with word boundaries, and combine them with complementary components for selected languages. These include a fine-tuned InternVL3.5 model and a claim verification pipeline in which the base Qwen2.5-VL checks answer claims against the image. Across the 4 languages, our submissions reached an average Spearman correlation of 0.47 with human annotations, or 0.36 when the predicted error type must also be correct. Our best result is obtained on Italian, where combining the two fine-tuned models reaches 0.50 correlation, ranking sixth on the official leaderboard.</abstract>
+      <pdf hash="3c507392"/>
+      <bibkey>branescu-dascalu-2026-team</bibkey>
+    </paper>
+    <paper id="57">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.57/ -->
+      <title><fixed-case>SK</fixed-case>stars at <fixed-case>SHROOM</fixed-case>-Visions: Agreement-Guided Ensembling of Zero-Shot and <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-Adapted Vision–Language Models</title>
+      <author><first>Ali</first><last>Athar</last></author>
+      <author><first>Imran</first><last>Ahsan</last></author>
+      <author><first>Joon-Yong</first><last>Jung</last></author>
+      <pages>823-827</pages>
+      <abstract>This paper describes the SKstars submission to SHROOM-Visions 2026, a shared task on fine-grained hallucination detection in large vision-language model outputs. The task requires systems to identify hallucinated character spans, assign hallucination categories, and provide confidence estimates for their predictions. Our approach combines zero-shot predictions from Qwen2.5-VL-72B-Instruct with those of a LoRA-adapted Qwen2.5-VL-7B-Instruct model. The outputs of the two models are integrated through a lightweight ensemble procedure, followed by span refinement and confidence adjustment. We evaluate the main system components on a small internal development subset and report the performance of the submitted system on the official English test set. SKstars achieved a Cor+Lbl score of 0.2902, ranking 15th among 29 teams, and obtained Cor and IoU scores of 0.3642 and 0.3151, respectively, ranking 18th on both metrics. The results show that combining a large zero-shot model with a smaller adapted model provides a practical framework for multilingual and fine-grained hallucination localization, while also highlighting the difficulty of transferring development-set improvements to hidden test data.</abstract>
+      <pdf hash="aa43ae32"/>
+      <bibkey>athar-etal-2026-skstars</bibkey>
+    </paper>
+    <paper id="58">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.58/ -->
+      <title>Team <fixed-case>CPS</fixed-case> Lab at <fixed-case>SHROOM</fixed-case>-Visions: Parameter-Efficient Vision-Language Hallucination Detection with Threshold Tuning</title>
+      <author><first>Anika</first><last>Srivastava</last></author>
+      <author><first>Vishal</first><last>Kumar</last></author>
+      <author><first>Harshita</first><last>Sharma</last></author>
+      <author><first>Nitisha</first><last>Aggarwal</last></author>
+      <author><first>Geetika</first><last>Jain Saxena</last></author>
+      <author><first>Amit</first><last>Pundir</last></author>
+      <author><first>Sanjeev</first><last>Singh</last></author>
+      <pages>828-833</pages>
+      <abstract>Fine-grained large-vision-language hallucination detection presents the challenge of locating hallucinated content in image-grounded responses and classifying them with corresponding hallucination categories. Our method for the SHROOM-Visions 2026 Shared Task explores a parameter-efficient solution by fine-tuning a lightweight token-level classification head on the frozen weights of the Qwen3-VL-8B-Instruct vision-language model. We utilized category-specific thresholds calculated based on validation character-level IoU and designed a span merging post-processing step to facilitate span localization with fewer fragmented predictions. We also establish a possible connection between the annotator agreement and the operating thresholds. Our analysis suggests that, within our experimental setup, hallucination categories that had higher inter-annotator agreement tended to have higher optimal decision thresholds whereas categories with lower agreement tended to have lower optimal decision thresholds. Our parameter-efficient method achieved ranks 18th, 16th, 16th, and 15th place on the English, French, Italian, and Chinese tracks, respectively, showing promising performance for multilingual fine-grained hallucination detection.</abstract>
+      <pdf hash="24a86516"/>
+      <bibkey>srivastava-etal-2026-team</bibkey>
+    </paper>
+    <paper id="59">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.59/ -->
+      <title><fixed-case>S</fixed-case>pan<fixed-case>C</fixed-case>alib-<fixed-case>VLM</fixed-case>: Calibrated Hallucination Span Detection in Vision-Language Models</title>
+      <author><first>Amanuel Gizachew</first><last>Abebe</last></author>
+      <author><first>Yasmin</first><last>Moslem</last></author>
+      <pages>834-841</pages>
+      <abstract>Detecting hallucinations in Large Vision-Language Models (LVLMs) requires both accurate span localization and well-calibrated confidence scores. Fine-tuned generative VLMs excel at identifying hallucinated text spans but suffer from overconfidence and high inference latency. Discriminative sequence taggers offer deterministic speed and superior calibration but exhibit conservative span recall. We present SpanCalib-VLM, a hybrid dual-system for the SHROOM-Visions Shared Task that combines a multimodal sequence tagger, consisting of XLM-RoBERTa-Large fused with a SigLIP vision encoder via cross-attention, with our fine-tuned generative VLM (Qwen3.5-4B-SHROOM-SFT). Through a Union-Calibrated Fusion strategy, candidate spans from the generative model are re-scored with calibrated probabilities from the sequence tagger. On the SHROOM-Visions English validation split, our ensemble achieves a Pearson calibration correlation of 0.41 and an overall IoU of 0.39 (with a clean-response IoU of 0.91 and overall detection accuracy of 70.7%). On the official blind test set, SpanCalib-VLM achieves a Pearson correlation of 0.32 and an IoU of 0.25 on English, substantially outperforming the shared task baseline (0.15 on both metrics) and demonstrating consistent gains across all four languages. We make our model weights and code publicly available.</abstract>
+      <pdf hash="bb6fb1e5"/>
+      <bibkey>abebe-moslem-2026-spancalib</bibkey>
+    </paper>
+    <paper id="60">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.60/ -->
+      <title>Team hccl-jy at <fixed-case>SHROOM</fixed-case>-Visions: Confidence Signals from an Unmodified <fixed-case>VLM</fixed-case> Verifier</title>
+      <author><first>Junyoung</first><last>Jeon</last></author>
+      <author><first>Bongwon</first><last>Suh</last></author>
+      <pages>842-848</pages>
+      <abstract>Vision-language models (VLMs) can describe details an image does not support. Detecting such hallucinations requires locating the unsupported text rather than flagging whole responses. The SHROOM-Visions shared task asks systems to localize these spans, classify their error type, and assign character-level probabilities. This paper describes the hccl-jy English-track submission. We ask whether confidence from a pretrained VLM verifier can support this task without fine-tuning, and whether candidate-level gains survive extraction and aggregation. The system runs an unmodified Qwen2.5-VL verifier over spaCy candidates with exact character offsets. An aggregation model fitted on held-out calibration data converts candidate judgments into output spans. We compare verbalized confidence, verdict-token probability, and five-draw consistency against annotator agreement, calibration error, and the official metrics. Verdict-token probability separates high-agreement candidates from low-agreement ones more reliably at 32B than at 7B. Averaging repeated judgments improves this ranking further but does not improve the official score. Error analysis shows that the initial score comes mostly from correct empty predictions and that error typing is weak for invented content. Revising only the aggregation over cached judgments raises Cor on development and test data. The findings support evaluating confidence discrimination, calibration, and end-to-end performance as separate targets.</abstract>
+      <pdf hash="248fed63"/>
+      <bibkey>jeon-suh-2026-team</bibkey>
+    </paper>
+    <paper id="61">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.61/ -->
+      <title>Sckwoky at <fixed-case>SHROOM</fixed-case>-Visions: Character-Level Hallucination-Span Detection in Image-Conditioned <fixed-case>VLM</fixed-case>s via Dual-Prompted <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Decoders</title>
+      <author><first>Kulakov</first><last>Mikhail</last></author>
+      <author><first>Ruslan</first><last>Solikhov</last></author>
+      <author><first>Ivan</first><last>Bondarenko</last></author>
+      <pages>849-855</pages>
+      <abstract>We present our system for the SHROOM-visions 2026 shared task on character-level hallucination span detection in image-conditioned vision-language model (VLM) responses, evaluated across English, French, Italian, and Chinese. The detector is built on a frozen Gemma-4-12B-it backbone with trainable LoRA adapters (<tex-math>\sim</tex-math>10.7M parameters). Because the backbone is a causal decoder, hidden states read from a single copy of an answer cannot attend to subsequent tokens; we therefore repeat the candidate answer within one prompt and extract features from its second occurrence, giving every position approximate bidirectional context in a single non-autoregressive pass. A character-level locator combines intermediate hidden states to predict hallucination probabilities, BIO boundaries, and a response-level abstention score, while separate language-specific classifiers assign one of five hallucination types to each predicted span. On the closed test set, our system reaches a macro-averaged character IoU of 0.4400, roughly doubling the official baseline (0.1850), and ranks 5th–6th on IoU across the four languages. In deployments where the same Gemma-4-12B-it model also generates answers, its base weights can be reused, making the approach practical for local question-answering systems that cannot run a separate verifier.</abstract>
+      <pdf hash="5b762ef3"/>
+      <bibkey>mikhail-etal-2026-sckwoky</bibkey>
+    </paper>
+    <paper id="62">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.62/ -->
+      <title>Team champ at <fixed-case>SHROOM</fixed-case>-Visions: Transferring Fine-Grained Hallucination Detection with Hidden-State Probes and Backbone Adaptation</title>
+      <author><first>Aygalic</first><last>Jara–Mikolajczak</last></author>
+      <author><first>Thomas</first><last>Lavergne</last></author>
+      <author><first>Sophie</first><last>Rosset</last></author>
+      <pages>856-862</pages>
+      <abstract>We describe a multilingual, character-level hallucination detection system for vision-language models combining multi-layer hidden states, text-to-vision LoRA transfer, multitask learning, and language-specific span emission. Our submission achieved a validation Character AUPRC of 0.5530 and an average test Cor/Cor+lbl of 0.5243/0.4174. A controlled post-submission factorial analysis improved validation Character AUPRC to 0.5595. Team champ placed third in French, fourth in Italian and Chinese, and fifth in English.</abstract>
+      <pdf hash="47195408"/>
+      <bibkey>jara-mikolajczak-etal-2026-team</bibkey>
+    </paper>
+    <paper id="63">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.63/ -->
+      <title><fixed-case>TÜRKSAT</fixed-case> at <fixed-case>SHROOM</fixed-case>-Visions: Crowd-Emulating Judge Ensembles for Multilingual Hallucination Span Detection in Vision-Language Models</title>
+      <author><first>Alper</first><last>Karamanlioglu</last></author>
+      <author><first>Gökhan</first><last>Yurtalan</last></author>
+      <author><first>Berkan</first><last>Demirel</last></author>
+      <pages>863-868</pages>
+      <abstract>We describe our submission to SHROOM-Visions 2026, the shared task on generator-agnostic, character-level hallucination span detection and typing in vision-language model outputs across English, French, Italian, and Chinese. Rather than training a detector, we use a crowd-emulating judge ensemble: one instruction-tuned multimodal model, sampled at several temperatures and with several prompt variants, independently re-inspects each image, prompt, and response and proposes typed hallucination spans. Character-level vote fractions form soft probabilities that emulate the multi-annotator gold labels, while a cross-validated threshold per language produces hard spans. The black-box system requires no parameter updates and relies on guideline-derived prompt rules and language-specific few-shot examples. On the official closed test set, it ranks first for all English metrics and for Italian IoU, and second for every remaining language-metric combination. Official scores range from 0.4336 to 0.4845 for Cor+Lbl, 0.5474 to 0.5814 for Cor, and 0.4865 to 0.5240 for IoU. On held-out training folds, IoU is 0.32 to 0.39 on non-empty items. Ablations identify prompt design and few-shot conditioning as decisive, while an added adjudication stage does not improve performance. Vote fractions track annotator agreement but remain globally over-confident (ECE 0.08 to 0.12), motivating per-language thresholding.</abstract>
+      <pdf hash="798ce159"/>
+      <bibkey>karamanlioglu-etal-2026-turksat</bibkey>
+    </paper>
+    <paper id="64">
+      <!-- https://aclanthology.org/2026.uncertainlp-main.64/ -->
+      <title><fixed-case>H</fixed-case>allu<fixed-case>V</fixed-case>ision at <fixed-case>SHROOM</fixed-case>-Vision: Hallucination Span Detection with a Classifier over a Vision-Language Backbone</title>
+      <author><first>Mohammed</first><last>Sohail Pasha Qureshi</last></author>
+      <author><first>Surya</first><last>Charan</last></author>
+      <author><first>Alapan</first><last>Kuila</last></author>
+      <pages>869-876</pages>
+      <abstract>We present our system for the SHROOM-Visions 2026 shared task on fine-grained hallucination detection in vision-language model (VLM) outputs. Our approach uses three token-level internal signals from Qwen2.5-VL-3B-Instruct: hidden representations, the change in token confidence when the image is removed, and predictive uncertainty. A lightweight classifier combines these signals to predict hallucinated spans and their confidence, while LoRA enables parameter-efficient adaptation of the VLM backbone. Our submission achieves IoU scores of 0.36–0.42 and Spearman correlations of 0.41–0.46 on English, French, and Italian, ranking 10th in both French and Italian. We additionally analyze continued-training experiments that improved our local validation scores but consistently degraded official test performance. Our analysis attributes this discrepancy primarily to threshold tuning on a small validation split, which was only partially mitigated by subsequent adjustments. Increasing the backbone size from 3B to 7B parameters did not resolve the issue. These findings highlight the sensitivity of hallucination detection systems to validation size and decision-threshold selection.</abstract>
+      <pdf hash="78cb9b16"/>
+      <bibkey>sohail-pasha-qureshi-etal-2026-halluvision</bibkey>
+    </paper>
+  </volume>
+</collection>
