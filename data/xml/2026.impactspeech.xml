@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.impactspeech">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.impactspeech-1/ -->
+    <meta>
+      <booktitle>Proceedings of the <fixed-case>IMPACT</fixed-case>-<fixed-case>SPEECH</fixed-case> Workshop: Identifying, Measuring, Preventing, and Assessing Consequences of Bias in Speech <fixed-case>LLM</fixed-case>s</booktitle>
+      <editor><first>Ravi</first><last>Shekhar</last></editor>
+      <editor><first>Monorama</first><last>Swain</last></editor>
+      <editor><first>Jagabandhu</first><last>Mishra</last></editor>
+      <editor><first>Sandipan</first><last>Dhar</last></editor>
+      <editor><first>Haralambos</first><last>Mouratidis</last></editor>
+      <editor><first>Matthew</first><last>Purver</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-479-8</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="80f2e8e5"/>
+      <venue>impactspeech</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.impactspeech-1.0/ -->
+      <pdf hash="fac440e8"/>
+      <bibkey>impact-speech-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.impactspeech-1.1/ -->
+      <title>A Probe Shift Is Not a Fairness Fix: The Limits of Representation Steering in Speech Models</title>
+      <author><first>Nicolas</first><last>Bourrel</last><affiliation>Department of Advanced Computing Sciences, Maastricht University</affiliation></author>
+      <author><first>Abderrahmane</first><last>Issam</last><affiliation>Department of Advanced Computing Sciences, Maastricht University</affiliation></author>
+      <author><first>Gerasimos</first><last>Spanakis</last><affiliation>Department of Advanced Computing Sciences, Maastricht University</affiliation></author>
+      <pages>1-9</pages>
+      <abstract>Automatic speech recognition (ASR) systems exhibit unequal error rates across speaker groups, motivating interventions on their internal representations. We ask whether speakerlinked attributes that are linearly readable from pretrained ASR encoders yield useful directions for reducing group word-error-rate (WER) gaps. Across Whisper-medium, HuBERT-large, and Wav2Vec2-large on Common Voice and the Speech Accent Archive, we probe every encoder layer for metadata-derived sex/gender, age, and native/accent labels; construct centroid and probe-derived directions; inject them at selected layers; and compare downstream probe trajectories with matched WER changes. Sex labels are highly decodable (best macroF1 0.924–0.941), native/accent labels are also above chance (0.544–0.696), and age is weaker (0.354–0.397). Of 22 post-selected reruns, nine have 95% paired-bootstrap intervals entirely below zero, yet every absolute source-group WER reduction is below 0.7 percentage points. Conversely, a local target-class probe rate can rise from 8.09% to 99.87% while WER worsens. Linear readability is therefore neither evidence of causal use nor a reliable mitigation method. Our results motivate evaluating speech-bias interventions jointly at representation, propagation, and task levels.</abstract>
+      <pdf hash="7e8aeae3"/>
+      <bibkey>bourrel-etal-2026-probe</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.impactspeech-1.2/ -->
+      <title><fixed-case>AIP</fixed-case>-Speech: Auditing Speech <fixed-case>LLM</fixed-case> Robustness to Background Interference</title>
+      <author><first>Aiden</first><last>Dsouza</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Shreyansh</first><last>Mishra</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Yashraj</first><last>Suneja</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Rohan</first><last>Swain</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Samyak</first><last>Borkar</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Arjun</first><last>Jaishankar</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <author><first>Tanmay</first><last>Urade</last><affiliation>IvLabs, Visvesvaraya National Institute of Technology (VNIT), India</affiliation></author>
+      <pages>10-19</pages>
+      <abstract>Speech Large Language Models (Speech LLMs) are increasingly deployed in real-world acoustic environments, yet it remains unclear which measurable properties of background sounds best explain performance degradation. We present AIP-Speech, an inference-only benchmark that evaluates Speech LLM robustness under controlled mixtures of realworld background recordings. Rather than comparing robustness across background categories alone, we characterize each recording using interpretable acoustic descriptors and examine their associations with degradation. Across five open Speech LLMs, we find that simple acoustic descriptors—including Zero Crossing Rate, Spectral Centroid, and Spectral Rolloff—consistently exhibit strong associations with degradation. We further quantify robustness disparities across accents and evaluate whether inference-time prompting improves resilience under adverse acoustic conditions. AIP-Speech provides a reproducible benchmark and descriptor-annotated background corpus for analyzing Speech LLM robustness.</abstract>
+      <pdf hash="f2498496"/>
+      <bibkey>dsouza-etal-2026-aip</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.impactspeech-1.3/ -->
+      <title>Can Large Audio-Language Models Ignore Multilingual Distractors? An Evaluation of Their Selective Auditory Attention Capabilities</title>
+      <author><first>Heejoon</first><last>Koo</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <pages>20-32</pages>
+      <abstract>Robust selective auditory attention under multilingual interference is critical for reliable LALM deployment. We introduce MUSI, a cocktail party-inspired controlled diagnostic evaluation of source-grounded spokenlanguage understanding and reasoning. Each item pairs an English target dialogue with a plausible distractor in English, Spanish, Korean, or Chinese, and evaluates models under (1) single-stream, (2) separation-based, and (3) end-to-end cocktail party settings across controlled SNRs. Across four open-weight and two closed-source LALMs, we find modeldependent language-conditioned variation and heightened vulnerability at adverse SNRs. Errors are dominated by distractor-grounded source confusion, while separation reduces acoustic overlap but often leaves source attribution unresolved. These findings highlight selective auditory attention as a primary capability for reliable LALM deployment.</abstract>
+      <pdf hash="94afbccf"/>
+      <bibkey>koo-2026-large</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.impactspeech-1.4/ -->
+      <title>Early Warning for Target-Speaker Extraction: Reliability under Distribution and Failure-Definition Shift</title>
+      <author><first>Shubham</first><last>Sharma</last><affiliation>Department of Computer Science and Information Systems, Birla Institute of Technology and Science Pilani, Hyderabad Campus, Hyderabad, India</affiliation></author>
+      <author><first>Manik</first><last>Gupta</last><affiliation>Department of Computer Science and Information Systems, Birla Institute of Technology and Science Pilani, Hyderabad Campus, Hyderabad, India</affiliation></author>
+      <pages>33-41</pages>
+      <abstract>Target-speaker extraction (TSE) systems are typically evaluated only after the complete output has been produced, limiting the ability to identify potentially unreliable outputs during generation. We investigate whether failure risk can instead be estimated causally from only the first three seconds of the emitted TSE waveform. We develop an early-warning monitor using 11,946 outputs spanning five conversational corpora and six TSE systems. Because independent failure labels are unavailable for this discovery cohort, we define a proxy adverse outcome from seven complete-output indicators of degraded or atypical TSE behaviour. After excluding monitoring features that overlap with the proxy construction, the monitor predicts this eventual outcome from the early waveform with an AUROC of 0.8062 and an AUPRC of 0.6606. At a 15% review budget, it identifies 54.47% of proxy-adverse outputs with 66.29% precision. To test whether this early-warning signal transfers beyond the discovery setting, we freeze the monitor and evaluate it unchanged on 2,000 unseen outputs with independently computed SI-SDRi. When failure is defined as SI-SDRi ≤ 0 dB, performance falls to near chance (AUROC 0.5354; AUPRC 0.0700). Yet, on the same external outputs, the frozen predictions remain strongly associated with the original proxy outcome (AUROC 0.8092; AUPRC 0.8481). The proxy and SI-SDRi failure definitions agree only weakly ( κ = 0 .028, MCC= 0 .064), while substantial featuredistribution shift is observed between the discovery and external cohorts (45 of 63 features have PSI ≥ 0.25). These results show that short-prefix monitoring can provide useful early risk prioritization within the setting in which the monitor is developed, but that such signals do not automatically transfer to independently defined failure outcomes. Reliable deployment therefore requires explicit attention to both distribution shift and the definition of failure.</abstract>
+      <pdf hash="08ef5e6c"/>
+      <bibkey>sharma-gupta-2026-early</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.impactspeech-1.5/ -->
+      <title>Evaluating Bias in Phoneme-Based Automatic Speech Recognition Systems: An Analysis of <fixed-case>IPA</fixed-case> Transcription Models</title>
+      <author><first>Maneesha Rani</first><last>Saha</last><affiliation>University of Utah</affiliation></author>
+      <author><first>Catherine</first><last>Bao</last><affiliation>University of Utah</affiliation></author>
+      <author><first>Neal</first><last>Patwari</last><affiliation>University of Utah</affiliation></author>
+      <pages>42-60</pages>
+      <abstract>As automatic speech recognition (ASR) systems shift toward multilingual support and lowresource language modeling, phoneme-based layers serve as a critical language-agnostic foundation. However, most evaluations of ASR’s demographic biases related to race, age, gender, and accent focus on standard grapheme-based ASR systems with comparatively little emphasis on phoneme-based systems. In this study, we evaluate the performance of WhisperIPA and ZIPA, two state-ofthe-art open-source systems that generate International Phonetic Alphabet (IPA) transcriptions. Our evaluation includes existing multilingual speech corpora and demographically annotated English-language corpora, comparing modelgenerated IPA transcriptions against graphemeto-phoneme (G2P) systems using both standard phoneme error rate (PER) and a proposed Soft PER metric that tolerates linguistically similar phoneme substitutions. Our analysis examines how performance varies across language, gender, accent, ethnicity, and age, revealing persistent disparities even after accounting for acceptable phonemic variation. These findings, while limited, provide insight into potential sources of bias and inform the development of more inclusive and linguistically robust phonemebased ASR systems. Our code and data are publicly available.</abstract>
+      <pdf hash="b79ea814"/>
+      <bibkey>saha-etal-2026-evaluating</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.impactspeech-1.6/ -->
+      <title>Lost in Compression: Calibration Bias and the Accent-<fixed-case>WER</fixed-case> Gap in Speech <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Angad Ripudaman Singh</first><last>Bajwa</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>61-66</pages>
+      <abstract>GPTQ and similar calibration-based quantization methods tune their rounding to a small calibration sample, in practice usually convenient, native-accented read speech. Edge devices disproportionately run quantized models, so the speakers most likely to depend on the compressed model are often the ones calibration represented least. Compression is known to amplify bias in text LLMs and across languages in multilingual speech models, but whether it does so within a single language, between native and non-native accents, in a modern speech LLM, remains untested. We quantize the LLM backbone of Qwen2-Audio-7B-Instruct with GPTQ, hold the recipe fixed and vary only which EdAcc speakers fill the calibration set (native-only, balanced, L2-only), measuring the native-vs-L2 word error rate (WER) gap at matched overall WER. We expected nativeonly calibration to widen the gap and balanced calibration to close it. Instead, homogeneous calibration, native-only or L2-only, narrows the gap while balanced calibration does almost nothing. It recurs when we quantize the audio encoder, weakens at 3-bit and collapses at 2-bit.</abstract>
+      <pdf hash="72b83274"/>
+      <bibkey>bajwa-2026-lost</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.impactspeech-1.7/ -->
+      <title>Pruning for Efficiency, Paying in Fairness: Demographic Disparities in Pruned Speech-<fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ganesh Pavan Kartikeya Bharadwaj</first><last>Kolluri</last><affiliation>School of Computer Science and Electronic Engineering, University of Essex, UK</affiliation></author>
+      <author><first>Michael</first><last>Kampouridis</last><affiliation>School of Computer Science and Electronic Engineering, University of Essex, UK</affiliation></author>
+      <author><first>Ravi</first><last>Shekhar</last><affiliation>School of Computer Science and Electronic Engineering, University of Essex, UK</affiliation></author>
+      <pages>67-80</pages>
+      <abstract>Speech-LLMs are expensive to run, making compression important for real-world deployment. However, compressed models are usually selected using aggregate word error rate (WER), which can hide how pruning affects different demographic groups. In this work, we systematically study the effect of audio encoder pruning on SLAM-ASR for different demographic groups. Using the Fair-Speech and Common Voice datasets, we found that the pruning does not affect all demographic groups equally; the gap between best- and worstperforming groups increases in fold. These disparities appear across all three encoder scales, but only the largest model initially hides them behind aggregate WER. LoRA adaptation improves WER for every group, but benefits groups already performing well more strongly and widens for certain groups. On Common Voice English, Danish, and Dutch, accent gaps persist but do not clearly widen, showing that the fairness effects of pruning vary across datasets and must be measured directly. Our findings suggest that for pruned models, deployment decisions should include per-group WER, with the worst-performing group’s error rate as an explicit criterion.</abstract>
+      <pdf hash="bfd98030"/>
+      <bibkey>kolluri-etal-2026-pruning</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.impactspeech-1.8/ -->
+      <title>Temporal Taxation Compounds Under Post-Training Compression of Whisper Models</title>
+      <author><first>Srishti</first><last>Ginjala</last><affiliation>The Ohio State University, Columbus, OH, USA</affiliation></author>
+      <author><first>Eric</first><last>Fosler-Lussier</last><affiliation>The Ohio State University, Columbus, OH, USA</affiliation></author>
+      <author><first>Christopher W.</first><last>Myers</last><affiliation>Air Force Research Laboratory, USA</affiliation></author>
+      <author><first>Srinivasan</first><last>Parthasarathy</last><affiliation>The Ohio State University, Columbus, OH, USA</affiliation></author>
+      <pages>81-94</pages>
+      <abstract>Automatic speech recognition models are audited for demographic fairness at full precision, yet the models that ship to production have been quantized, pruned, and distilled. We ask whether post-training weight compression, which alters model weights rather than the audio signal or its feature representation, redistributes error burden across demographic groups. Across the Whisper family on FairSpeech, Common Voice 25, and AfriSpeech200, 50% Wanda pruning of Whisper-largev3 sharply widens the Black/AA-vs-Asian temporal-taxation differential on Fair-Speech: the absolute word-error-rate gap between the worst- and best-served groups more than doubles; at an assumed cost of five seconds of correction effort per transcription error this is a rise from 30 to 64 seconds of correction time per minute of speech. This +111% relative increase is invariant to the assumed per-error cost, survives an audio-quality control, and is only partly mitigated by beam-search decoding, which still leaves an +86% increase. At edge model size, INT4 HQQ quantization compounds catastrophic transcript loops on West African accents by factors of five to seven. Distillation, by contrast, narrows demographic gaps in 21 of 27 evaluated settings (teacherstudent pair, precision, and dataset), with the exceptions concentrated on a single model pair. We cast the temporal-taxation construct of Choi and Choi (2025) as a quantitative metric, and show that single-snapshot fairness audits on full-precision models do not capture the deployment-time burden that compression places on already-marginalized speakers.</abstract>
+      <pdf hash="0a1bf366"/>
+      <bibkey>ginjala-etal-2026-temporal</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.impactspeech-1.9/ -->
+      <title><fixed-case>T</fixed-case>urk<fixed-case>SV</fixed-case>-Bench: Assessing Demographic Bias and Preprocessing Effects in Speaker Verification</title>
+      <author><first>Ahmet Berkay</first><last>Kantarcı</last><affiliation>Ostim Technical University</affiliation></author>
+      <author><first>Abdulkadir</first><last>Parlak</last></author>
+      <author><first>Ahmet</first><last>Karazor</last><affiliation>TURKSAT</affiliation></author>
+      <pages>95-103</pages>
+      <abstract>In this study, TurkSV-Bench is introduced as a novel benchmark dataset to evaluate the zero-shot cross-lingual performance and demographic biases of Turkish speaker verification (SV) systems. Created via an automated pipeline from YouTube data, this dataset comprises 1,844 audio recordings from 461 speakers representing diverse age groups, genders, and regional dialects. Evaluation of existing models identifies ResNet34-LM as the most successful baseline architecture. Subgroup analyses demonstrate the models’ generalization capabilities across different gender and age demographics, while revealing distinct performance variations among regional dialects. Comprehensive evaluations of various preprocessing techniques highlight the baseline architecture’s structural robustness, identifying specific configurations that maintain or refine verification performance without requiring aggressive signal filtering.</abstract>
+      <pdf hash="8f8f1d2f"/>
+      <bibkey>kantarci-etal-2026-turksv</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.impactspeech-1.10/ -->
+      <title>What Drives Dialectal Jailbreaks? An Ablation of Surface Form, Cultural Framing, and Strategy Banks</title>
+      <author><first>Qingyang</first><last>Xu</last><affiliation>Independent Researcher, Shanghai, China</affiliation></author>
+      <pages>104-118</pages>
+      <abstract>Recent work suggests that obscure language registers can weaken large language model refusal behavior, especially when paired with black-box prompt optimization. It remains unclear whether failures stem from non-standard surface form, culturally grounded framing, or optimization over an expressive promptstrategy space. We study Chinese registers by extending a classical-Chinese red-teaming framework to Shanghainese and Cantonese and running a 36-cell ablation across surface forms, strategy-bank variants, and two target models. The main finding is corrective: dialectal surface form is neither necessary nor sufficient for high attack success. Non-optimized English, Mandarin, and naive dialect translations remain below 8% attack success rate, whereas all conditions that retain an optimizer-controlled strategy bank reach 98–100%. A culture-neutral generic strategy bank reaches the same ceiling at near-single-query cost, further indicating that strategy-bank expressiveness, rather than dialectal or cultural content, accounts for most of the observed effect. Dialect choice still affects query efficiency and response severity, and qualitative coding identifies recurring highlevel mechanisms such as semantic glossing and procedural scaffolding. We qualify the absolute ceiling-level attack success rate by showing sensitivity to judge calibration and noting that the design does not fully separate one-shot strategy construction from iterative search.</abstract>
+      <pdf hash="99af37f4"/>
+      <bibkey>xu-2026-drives</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.impactspeech-1.11/ -->
+      <title>When How You Speak Changes What Models Refuse: Investigating Prosody-Conditioned Safety Divergence in Audio-Language Models</title>
+      <author><first>Akash</first><last>Das</last><affiliation>Fidelity Investments</affiliation></author>
+      <author><first>Ishan</first><last>Roy</last><affiliation>Fidelity Investments</affiliation></author>
+      <pages>119-139</pages>
+      <abstract>Audio-Language Models (ALMs) natively fuse lexical content with continuous paralinguistic acoustics such as intonation, tone, and speaker identity. While considerable progress has been made in aligning the semantic outputs of text-based models against harmful instructions, current ALM safety alignment evaluation largely treats speech as a noisy text channel, leaving modality-specific vulnerabilities unexamined. In this work, we introduce and investigate Prosody-Conditioned Safety Divergence: a vulnerability where an ALM’s safety behavior shifts systematically based entirely on paralinguistic variation, even when lexical semantic payload is held completely constant. Rather than assuming the existence of coarse, high-variance acoustic “authority” subspaces, we conduct a controlled causal analysis to track how specific prosodic manipulations—including variations in pitch contour and intensity—interact with safety-associated latent directions across the encoder, projector, and decoder layers. Our preliminary empirical evaluations characterize the localization of this divergence, establishing a framework for targeted inference-time interventions that restore alignment metrics without compromising baseline utility on benign speech tasks.</abstract>
+      <pdf hash="29a02179"/>
+      <bibkey>das-roy-2026-speak</bibkey>
+    </paper>
+  </volume>
+</collection>
