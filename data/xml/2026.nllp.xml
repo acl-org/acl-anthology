@@ -1,0 +1,615 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.nllp">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.nllp-1/ -->
+    <meta>
+      <booktitle>Proceedings of the Natural Legal Language Processing Workshop 2026</booktitle>
+      <editor><first>Nikolaos</first><last>Aletras</last></editor>
+      <editor><first>Ilias</first><last>Chalkidis</last></editor>
+      <editor><first>Leslie</first><last>Barrett</last></editor>
+      <editor><first>Cătălina</first><last>Goanță</last></editor>
+      <editor><first>Daniel</first><last>Preoțiuc-Pietro</last></editor>
+      <editor><first>Gerasimos</first><last>Spanakis</last></editor>
+      <editor><first>Shanshan</first><last>Xu</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-470-5</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="c60b347b"/>
+      <venue>nllp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.nllp-1.0/ -->
+      <pdf hash="a34ecf4a"/>
+      <bibkey>nllp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.nllp-1.1/ -->
+      <title>thylinao at <fixed-case>C</fixed-case>hild<fixed-case>S</fixed-case>afe<fixed-case>A</fixed-case>ds 2026: A Six-Member Ensemble and What Each Level of Data Access Provided</title>
+      <author><first>Maksim</first><last>Silchenko</last><affiliation>National University of Singapore</affiliation></author>
+      <pages>1-11</pages>
+      <abstract>This paper describes the thylinao system for the ChildSafeAds shared task on monitoring sponsored segments in child-facing YouTube videos. The system is a six-member ensemble: two fine-tuned encoders, a zero-shot prompted Qwen3-32B, a LoRA-tuned Qwen3-14B used for ST2 only, a TF-IDF baseline, and a level-2 stacker for the compliance sub-task, blended at equal weight behind a decision layer whose every parameter is fitted on channel-grouped out-of-fold predictions. The system scores mean macro-F1 0.6537 on the evaluation split; inference over the 503 test instances is dominated by one measured 14-minute GPU pass of the 32B member. The zero-shot member is the most valuable and nearly the cheapest, while removing the fine-tuned DeBERTa changes nothing measurable. An ablation over the task’s four data access levels, run on the zero-shot member, finds the channel name adds nothing and the product-page crawl helps product identification but not, measurably, compliance. Validating these changes also surfaced properties of the evaluation, reported as feedback: the metric’s divisor dominates score variance and is recoverable in closed form from a published baseline row, and the benchmark is channel-disjoint but substantially advertiser-overlapping. The final submitted entry additionally contained three labels set by hand, which the task Terms prohibit; this was disclosed to the organisers and is documented in Section 7. The system-only score is reported throughout and no rank is claimed.</abstract>
+      <pdf hash="b32f4734"/>
+      <bibkey>silchenko-2026-thylinao-childsafeads</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.nllp-1.2/ -->
+      <title>Can <fixed-case>LLM</fixed-case>s Time Travel? Enhancing Temporal Consistency in Legal Agentic Search through Reinforcement Learning</title>
+      <author><first>Wei</first><last>Fan</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>ZHOU</first><last>Yining</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Mufan</first><last>Zhang</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>WENG</first><last>Yanbing</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Yiran</first><last>HU</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
+      <author><first>Tianshi</first><last>Zheng</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Baixuan</first><last>Xu</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Chunyang</first><last>Li</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Jianhui</first><last>Yang</last><affiliation>Tsinghua University</affiliation></author>
+      <author><first>Haoran</first><last>Li</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Yangqiu</first><last>Song</last><affiliation>Hong Kong University of Science and Technology</affiliation></author>
+      <pages>12-12</pages>
+      <abstract>While large language models (LLMs) augmented with agentic search capabilities show promise for legal reasoning, they overlook a fundamental constraint that applicable law must match the temporal context of each case, as retroactive application of statutes violates core legal principles and leads to erroneous conclusions. Our observations reveal that current legal LLMs suffer from temporal bias anchored to their training cutoff, while search agents rarely incorporate temporal constraints into queries, and that web search alone cannot provide the precise statute and precedent citations that legal reasoning demands. To address these challenges, we propose LegalSearch-R1, an end-to-end reinforcement learning framework that pairs local statute RAG for precise article matching with online web search for broader legal knowledge, trained on temporally-indexed data spanning multiple amendment periods to enforce temporal consistency. Extensive experiments on our benchmark covering 13 legal tasks demonstrate that our 7B-parameter agent outperforms state-of-the-art deep research frameworks and specialized legal LLMs by 12.9% to 29.8%, surpasses baselines by 57.7% to 80.3% on temporal consistency, and exhibits robust out-of-domain generalization. The code and data are available at https://anonymous.4open.science/r/LegalSearch-R1.</abstract>
+      <pdf hash="f0266b67"/>
+      <bibkey>fan-etal-2026-llms</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.nllp-1.3/ -->
+      <title><fixed-case>GRACE</fixed-case>: Grounded Adversarial Reasoning over <fixed-case>C</fixed-case>anadian Law</title>
+      <author><first>Jiakang</first><last>Xu</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Wantong</first><last>Huo</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Udom</first><last>Silparcha</last><affiliation>UTOA Computing Analytics</affiliation></author>
+      <author><first>Jonathan H.</first><last>Chan</last><affiliation>King Mongkut's University of Technology Thonburi</affiliation></author>
+      <pages>13-13</pages>
+      <abstract>Large language models have shown strong performance across a range of legal tasks, but existing benchmarks rarely evaluate the ability to take and defend a legal position, reason under incomplete information, or synthesize multiple statutory provisions. This gap is particularly pronounced for Canadian law, which remains underrepresented in legal NLP. We introduce GRACE (Grounded Reasoning Adversarial Canadian IEgal examples), a dataset of 1,915 question–reasoning–answer instances grounded in Canadian federal legislation. GRACE covers three reasoning modes: adversarial advocacy, uncertainty, and applied reasoning. We develop a pipeline that partitions raw statutory text, generates scenario-based questions and reasoning, and filters examples through model-free citation verification and LLM-based quality auditing. As a proof of concept, we fine-tune CLeAR-4B (Canadian Legal Adversarial Reasoning), a lightweight model for grounded legal reasoning, and evaluate it against the unmodified Qwen3-4B base model in open- and closed-book settings. CLeAR-4B substantially improves agreement with teacher outputs and statutory citation behavior when the relevant act text is provided, while its grounding degrades sharply when the statute is withheld. These results suggest that GRACE can support the development of lightweight legal models that reason more effectively from supplied statutory text.</abstract>
+      <pdf hash="a7220602"/>
+      <bibkey>xu-etal-2026-grace</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.nllp-1.4/ -->
+      <title><fixed-case>O</fixed-case>bl<fixed-case>E</fixed-case>x26: A Multi-Jurisdictional Benchmark for Structured Obligation Extraction from Anti-Money Laundering Regulations</title>
+      <author><first>Philip</first><last>Moore</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Giovanni</first><last>Bandi</last><affiliation>Cambridge University</affiliation></author>
+      <author><first>Tim Luka</first><last>Horstmann</last><affiliation>QuantCo</affiliation></author>
+      <author><first>Russell</first><last>Moore</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Robert H.</first><last>Wardrop</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>14-28</pages>
+      <abstract>Anti-money laundering and counter-terrorism financing (AML/CFT) regulations impose complex obligations on financial institutions. Auditing these obligations requires thousands of hours of manual review by legal experts, yet automated structured obligation extraction remains underexplored. In this paper we: 1) Introduce OblEx26, the first multi-jurisdictional benchmarking dataset designed for evaluating structured obligation extraction from regulatory documents. The dataset contains 48 expert-annotated documents spanning 14 jurisdictions, consisting of 43 documents in English and 5 in Brazilian Portuguese and Mandarin. Grounded in Hohfeldian legal theory and deontic logic, each obligation is decomposed into six components "Holder", "Type", "Beneficiary", "Antecedent", "Consequent", "Source / Legal Channel" and is anchored to exact quotes, enabling verifiable provenance; 2) Compare four open-weight methods for structured obligation extraction that can run privately on consumer-grade hardware: token-classification encoders; a joint classification and obligation-linking architecture; zero-shot with LLMs; and fine-tuned SLMs. Our fine-tuned SLM Qwen3.5-27B achieves a soft-match F1 score of 0.728, with 0.991 exact quote anchoring on English language data, and 0.659 F1 with 1.000 anchoring when used zero-shot on the cross-lingual data. Fine-tuned SLMs substantially outperform zero-shot LLMs and encoder-based approaches, establishing a strong baseline for automated legal compliance. OblEx26 evaluation data is publicly released.</abstract>
+      <pdf hash="04348397"/>
+      <bibkey>moore-etal-2026-oblex26</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.nllp-1.5/ -->
+      <title><fixed-case>L</fixed-case>egal<fixed-case>P</fixed-case>incite: Multi-level Legal Information Retrieval Dataset</title>
+      <author><first>Theresia Veronika</first><last>Rampisela</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Henrik Palmer</first><last>Olsen</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Giovanni</first><last>Colavizza</last><affiliation>Copenhagen University</affiliation></author>
+      <pages>29-41</pages>
+      <abstract>A common task in legal Information Retrieval (IR) is to find relevant legal sources from case-law collections. While legal practice often requires pinpoint citations (pincites) to specific case paragraphs, most existing public legal IR datasets lack paragraph-level citation annotations. Yet, publicly available datasets with such information contain data leakage in the query text and exclude paragraphs that are neither citing nor cited from the corpora, creating an unrealistic and oversimplified retrieval setting, potentially leading to inflated performance. To address these limitations, we contribute a large-scale legal IR dataset constructed from Court of Justice of the European Union (CJEU) judgments. The dataset contains: (i) masked case/paragraph queries, with removed citation information; (ii) a corpus that includes all paragraphs; and (iii) case- and paragraph-level ground truth citations, with partial human expert validation. Our dataset supports both the development and rigorous evaluation of legal IR methods, at multiple query-document levels (case-to-case, paragraph-to-case, and paragraph-to-paragraph retrieval). Link to dataset and code: https://huggingface.co/datasets/theresiavr/legalpincite</abstract>
+      <pdf hash="2f882bb4"/>
+      <bibkey>rampisela-etal-2026-legalpincite</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.nllp-1.6/ -->
+      <title>Persuading the Judge: Adversarial Robustness and <fixed-case>RAG</fixed-case> Mitigation in <fixed-case>LLM</fixed-case>-Based Legal Citation Verification</title>
+      <author><first>Rohann Rahul</first><last>Shah</last><affiliation>Pes University</affiliation></author>
+      <author><first>Rishabh Kartik</first><last>Jawagal</last><affiliation>Pes University</affiliation></author>
+      <author><first>Gowri</first><last>Srinivasa</last><affiliation>PES University, Bengaluru, India</affiliation></author>
+      <pages>42-54</pages>
+      <abstract>Automated legal citation verification systems are critical for ensuring the factual integrity of AI-assisted legal research and drafting, but large language models (LLMs) serving as verifiers remain vulnerable to adversarial persuasion. We introduce a three-class benchmark dataset (valid, real_wrong_content, fabricated) derived from CourtListener opinions via a hybrid extraction and dual-model validation pipeline, and evaluate two model families (Llama, GPT-OSS) plus a cross-family adversarial pairing across control, authority-appeal, and fabricated-citation conditions, both ungrounded and retrieval-grounded. Within-model logistic regressions with item-clustered robust standard errors show that authority appeals massively increase the odds of a correct GPT-OSS 20B verification flipping to incorrect (OR=23.333, p&lt;0.0001) and show strong effects in Llama 70B (OR=11.953, p=0.0029), avoiding small-model contamination. Retrieval grounding broadly reduces flip rates in large models (GPT-OSS 120B OR_Grounded=0.123; Llama 70B OR_Grounded=0.239). Cross-family attacks (GPT-OSS 120B → Llama 70B) achieve 98.0% ungrounded authority true_ASR vs. a 70.6% control baseline, and grounding does not eliminate this gap (+39.7pp, p&lt;0.000001). Beyond these findings, we argue that persuasion benchmarks require a content-free control condition and a Confidence-Weighted Attack Success Rate (CW-ASR) to separate genuine "confident override" from "hesitant doubt": authority appeals make verifiers confidently wrong (mean final confidence 8.56/10; 96.8% of flips at confidence ≥ 8), whereas content-free reconsideration produces hesitant, low-confidence reversals (mean 6.80/10).</abstract>
+      <pdf hash="e2394be7"/>
+      <bibkey>shah-etal-2026-persuading</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.nllp-1.7/ -->
+      <title>Evidence-Grounded Contract Clause Classification with Small Language Models</title>
+      <author><first>Dina Mohamed</first><last>Ali</last><affiliation>Queen's University</affiliation></author>
+      <author><first>Hager Hamed Abd Elrady</first><last>Allam</last><affiliation>Queen's University</affiliation></author>
+      <author><first>Hayam Abdelbaset</first><last>Rezk</last><affiliation>Queen's University</affiliation></author>
+      <author><first>Rahatara</first><last>Ferdousi</last><affiliation>Queen's University</affiliation></author>
+      <author><first>Mohammed Anber</first><last>AbdElhamed</last><affiliation>Queen's University</affiliation></author>
+      <pages>55-63</pages>
+      <abstract>Commercial contract clauses exhibit substantial linguistic variation and semantic overlap, making fine-grained classification challenging for small language models (SLMs). We investigate whether retrieving semantically similar labeled clauses can provide task-specific evidence at inference time and improve classification without modifying the underlying SLM. Using the Contract Understanding Atticus Dataset (CUAD), we formulate clause classification as a retrieval-conditioned prediction task in which relevant training clauses are retrieved and provided as in-context demonstrations to a locally deployed SLM. We evaluate prompting-only, retrieval-only, and retrieval-conditioned configurations on the same contract-disjoint held-out set of 1,679 clauses. The proposed retrieval-conditioned SLM achieves 66.41% accuracy and 51.72% macro-F1, compared with 35.80% and 31.41% for the zero-shot SLM and 50.98% and 40.93% for the random few-shot SLM, respectively. Retrieval-only nearest-neighbor baselines achieve 47.48–47.82% macro-F1, while conditioning the SLM on the same retrieved evidence increases macro-F1 to 51.72%. These results show that retrieval provides substantial task-specific context and that SLM conditioning provides additional improvement beyond direct nearest-neighbor label assignment, without task-specific parameter fine-tuning. The findings support retrieval-conditioned SLMs as a promising direction for evidence-grounded and locally deployable legal NLP</abstract>
+      <pdf hash="15bfb78e"/>
+      <bibkey>ali-etal-2026-evidence</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.nllp-1.8/ -->
+      <title>Alphastream at <fixed-case>C</fixed-case>hild<fixed-case>S</fixed-case>afe<fixed-case>A</fixed-case>ds 2026: Gated Per-Label Merging and an Advertiser-Precedent Rule for Rare Compliance Classes</title>
+      <author><first>Raghavendra Prasad</first><last>Narayan</last><affiliation>alphastream pvt limited</affiliation></author>
+      <pages>64-75</pages>
+      <abstract>We describe our system for ChildSafeAds 2026, the shared task on commercial content in child-facing YouTube videos: it labels each sponsored segment for commercial type (ST1), product category (ST2) and EU compliance flags (ST3). A multi-task ModernBERT-large encoder and an entailment-style reformulation of the compliance subtask supply seed-averaged probabilities, merged label by label under a paired bootstrap and a dev-to-test count check. Inference uses eight fine-tuned encoders and no generative model; the 503 test instances are estimated at under one GPU-hour, and all experiments cost about US<tex-math>17. It scored 0.7645 mean macro-F1 on development and 0.6798 on test, 0.046 of it from a rule keyed on advertiser identity for one ST1 class absent from development. Our official entry, a variant using one leaderboard probe, scored 0.7022, fourth of 21 teams. A single-seed ablation values the four access levels at +0.042, against +0.128 from encoder scale. We also report five negative results, among them seed variance matching our largest modelling gains, synthetic data helping one architecture and breaking the other, and 21\% more training data lowering the test score; separately, near-duplicate training instances agree on the full flag set only 43–63\% of the time, often on identical cited evidence.</tex-math></abstract>
+      <pdf hash="d7e4dc11"/>
+      <bibkey>narayan-2026-alphastream</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.nllp-1.9/ -->
+      <title>Structuring license permissiveness from pairwise comparisons</title>
+      <author><first>Hamidah</first><last>Oderinwale</last><affiliation>McGill University</affiliation></author>
+      <author><first>Rachel</first><last>Hong</last><affiliation>University of Washington</affiliation></author>
+      <author><first>David</first><last>Atkinson</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Art</first><last>Abal</last></author>
+      <author><first>Benjamin</first><last>Laufer</last><affiliation>Cornell University</affiliation></author>
+      <pages>76-93</pages>
+      <abstract>Licenses are legal instruments that inventors rely upon to govern the diffusion of an invention. The unstructured nature of the ecosystem’s governance, however, has made licenses difficult to compare and thus difficult to enforce at scale—when is one license considered more permissive than the other, and when are their terms incomparable to each other? Currently, there is a growing list of licenses that are introduced and used, yet no systematic way to study their relationships. This matters for platforms such as Hugging Face, GitHub, and the Python Package Index, where developers publish or build upon technologies that each have their own licenses. Using large language models (LLMs) and calibrating with human judgement, we introduce methods for comparing licenses at scale: first, in a pairwise fashion to construct and validate a partial ordering based on permissiveness; and by drawing on existing taxonomies of software licenses. Then, by employing a Bradley–Terry model to efficiently recover the permissiveness structure, we observe a performance loss of ~20%–and attribute this loss to the limitations of feature coverage. The partial ordering coupled with model rationale allows us to trace restrictiveness, while the existing taxonomies allows us to understand license selection as a combination of shared provisions.</abstract>
+      <pdf hash="4bac544b"/>
+      <bibkey>oderinwale-etal-2026-structuring</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.nllp-1.10/ -->
+      <title>Privacy Later: Reflections on Design Decisions, Lessons Learned, and Open Problems of the <fixed-case>OPP</fixed-case>-115 Corpus a Decade After Release</title>
+      <author><first>Shomir</first><last>Wilson</last><affiliation>Pennsylvania State University</affiliation></author>
+      <author><first>Florian</first><last>Schaub</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Norman</first><last>Sadeh</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>94-100</pages>
+      <abstract>The OPP-115 Corpus of annotated privacy policies was released by the Usable Privacy Policy Project in 2016 and was the first large-scale effort to annotate privacy policies in a fine level of detail. Since then, it has been used by natural language processing (NLP) researchers working on automated analysis of websites’ and applications privacy policy documents, with efforts continuing in the present day. We share reflections on design decisions that went into the creation of the corpus and lessons learned from obstacles associated with it. Additionally, we describe open problems in research on privacy documents that the OPP-115 Corpus introduced or brought attention toward. These open problems show the continuing need for research on privacy policy text to support consumers’ digital privacy.</abstract>
+      <pdf hash="829ec12a"/>
+      <bibkey>wilson-etal-2026-privacy</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.nllp-1.11/ -->
+      <title>The <fixed-case>EUR</fixed-case>-Lex Retrieval Dataset: A Section-Aware and Human-Annotated Dataset for Long-Form Similar Case Retrieval</title>
+      <author><first>Christof</first><last>Koolen</last><affiliation>KU Leuven</affiliation></author>
+      <pages>101-118</pages>
+      <abstract>This paper introduces the EUR-Lex Retrieval Dataset (EUR-LexRD): an evaluation benchmark for long-form similar case retrieval based on the case law handed down by the Court of Justice of the European Union (CJEU). The EUR-LexRD contains 20,697 English CJEU judgments published between 1954 and 2025. All cases are enriched with metadata and a case summary and have been segmented into six sections (e.g., legal context, facts, and reasoning). Each judgment also details outgoing citations to other European Case Law Identifiers.<par/>The evaluation set features 100 query cases and a seeded candidate pool created with seven different retrieval strategies. The resulting benchmark consists of 12,365 query-candidate pairs, which were human-annotated by nine legal experts on a four-tiered relevance scale in order to establish a high-quality gold standard. The dataset’s features, namely the long document length and section segmentation, present new hurdles for retrieval and reranker models.<par/>The EUR-LexRD is intended as a resource to advance the field of legal information retrieval by (i) making it possible to compare lexical, dense, hybrid and long-document retrieval strategies and (ii) supporting the fine-tuning of existing encoder or reranker models. The EUR-LexRD is released under a CC BY 4.0 license.</abstract>
+      <pdf hash="80c34792"/>
+      <bibkey>koolen-2026-eur</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.nllp-1.12/ -->
+      <title>Verdict Without the Rule: Diagnosing and Auditing Regulatory Rule Sensitivity in <fixed-case>LLM</fixed-case> Compliance Systems</title>
+      <author><first>Saisab</first><last>Sadhu</last><affiliation>Indian Institute of Science Education and Research Bhopal</affiliation></author>
+      <author><first>Aadit</first><last>Sengupta</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Vinay kumar</first><last>Sankarapu</last><affiliation>Lithasa Technologies Private Limited</affiliation></author>
+      <author><first>Pratinav</first><last>Seth</last><affiliation>Lexsi.ai</affiliation></author>
+      <pages>119-132</pages>
+      <abstract>Large language model compliance systems are deployed on the assumption that a verdict depends on the regulatory rule it is given. We test this directly across five models and 20 regulatory and platform-policy domains: delete, swap, or negate the governing rule while holding the case fixed, and check whether the verdict changes (OCS) or the model’s internal representation of compliance shifts at all (ICS-delta). Neither moves much: models’ verdicts are often invariant to substantial perturbations of the supplied rule, and the guard model, evaluated here under a custom-rule adaptation of its native taxonomy, is the least rule-sensitive and least accurate of the five, barely above chance (51%, versus 90–92% for general-purpose models). This reflects easy cases more than blanket neglect: on cases where deleting the rule changes a previously correct model prediction, models do track it closely. Neither better prompting nor direct intervention on the model’s internal representations closes this gap. Accuracy alone does not establish that a compliance verdict is grounded in the supplied rule.</abstract>
+      <pdf hash="dfb6218f"/>
+      <bibkey>sadhu-etal-2026-verdict</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.nllp-1.13/ -->
+      <title>What the Public Asked to Change, and What It Would Touch? Complaint-to-Statute Grounding for <fixed-case>T</fixed-case>hailand’s Regulatory Reform</title>
+      <author><first>Pawitsapak</first><last>Akarajaradwong</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Wuttikrai</first><last>Lertprasertphakorn</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author><first>Chompakorn</first><last>Chaksangchaichot</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Sarana</first><last>Nutanong</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <pages>133-141</pages>
+      <abstract>When a government reviews its laws, the public speaks in everyday words and rarely names a provision directly, so turning complaints into amendment targets is still expert work done by hand. We describe a pipeline deployed inside Thailand’s 2026 Regulatory Guillotine that maps 199,771 social media posts and 63 proposals from business associations to the related specific provisions. Our pipeline first removes irrelevant posts. A legal language model then labels each post with a written rationale, and the posts’ embeddings are clustered into 309 issues. The model grounds each issue in specific provisions using a Thai legal knowledge graph, which it must read before it cites, leaving 799 verified sections in 80 laws. The same graph then shows what an amendment would touch, namely the other sections, definitions, and case law that depend on each targeted section, a check that drafters currently do by hand. We report the system, what the Thai public asked to change, and the blast radius of the sections they targeted.</abstract>
+      <pdf hash="00935761"/>
+      <bibkey>akarajaradwong-etal-2026-public</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.nllp-1.14/ -->
+      <title><fixed-case>ARGUS</fixed-case>: Role-Aware Event Knowledge Graphs for <fixed-case>U</fixed-case>.<fixed-case>S</fixed-case>. Employment-Discrimination Complaints</title>
+      <author><first>Sriram</first><last>Kannan</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
+      <author><first>Swetha</first><last>Saseendran</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
+      <author><first>Vishnu Vardhan Reddy</first><last>Kandi</last><affiliation>University of Massachusetts at Amherst</affiliation></author>
+      <author><first>Leslie</first><last>Barrett</last><affiliation>Bloomberg, LP</affiliation></author>
+      <author><first>Madhavan</first><last>Seshadri</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Enrico</first><last>Santus</last><affiliation>Bloomberg</affiliation></author>
+      <pages>142-155</pages>
+      <abstract>U.S. employment-discrimination complaints describe complex event sequences that are not explicitly captured by lexical or embedding-based representations alone. We present ARGUS, a source-grounded pipeline that combines a 5W1H-inspired schema, legal-domain models, and LLM-based structured generation to construct document-level Event Knowledge Graphs (EKGs) from CourtListener complaints. ARGUS extracts fact-bearing statements, builds chunk-level event graphs with participant, temporal, and causal structure, and merges them into document-level representations. We evaluate graph quality through human and multi-model assessment and test downstream utility on claim classification and legal QA. The graph-structured classifier outperforms raw and linearized baselines on the held-out set, and EKG-only retrieval improves document-scoped QA, while open-retrieval gains remain limited by low first-stage candidate recall. These results suggest that EKGs are most useful for organizing and reasoning over evidence once relevant material has been retrieved.</abstract>
+      <pdf hash="3988586f"/>
+      <bibkey>kannan-etal-2026-argus</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.nllp-1.15/ -->
+      <title>Where Experts Disagree, Models Fail: Detecting Implicit Legal Citations in <fixed-case>F</fixed-case>rench Court Decisions</title>
+      <author><first>Avrile</first><last>Floro</last><affiliation>Institut Polytechnique de Paris</affiliation></author>
+      <author><first>Tamara</first><last>Dhorasoo</last><affiliation>Université Polytechnique Hauts-de-France</affiliation></author>
+      <author><first>Soline</first><last>Pellez</last><affiliation>Université Polytechnique Hauts-de-France</affiliation></author>
+      <author><first>Nils</first><last>Holzenberger</last><affiliation>Télécom Paris</affiliation></author>
+      <pages>156-175</pages>
+      <abstract>Applying computational methods to law at scale requires separating genuine legal reasoning from surface similarity. We study this through a concrete task: detecting *implicit* citations of the French Civil Code, where a court applies a statutory rule without naming it (a *post-hoc* question about the reasoning a court actually used). We release a benchmark of 1,015 passage–article pairs annotated by three legal experts. Our central finding is that their disagreement is itself informative: the third of cases the experts dispute are where models fail. Our best ensemble reaches an F1 score of 0.70 overall. Yet, two-thirds of its false positives fall on those disputed cases, a concentration that holds across all ten models we evaluate. Expert disagreement thus signals uncertainty in the task and in its gold label, which aggregate metrics hide. This should not block useful tools, however: reframed as top-<tex-math>k</tex-math> ranking with multi-model consensus, the same signals reach 76% precision for the top-200 candidates of the benchmark without supervision.</abstract>
+      <pdf hash="7da1a044"/>
+      <bibkey>floro-etal-2026-experts</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.nllp-1.16/ -->
+      <title>Tensions Between Copyright, Contract, Accessibility and Technology in <fixed-case>A</fixed-case>ustralia: A Case Study on Legal Information Access</title>
+      <author><first>Hunter</first><last>Briegel</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Sumedh</first><last>Vemuganti</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
+      <author><first>J. Shane</first><last>Culpepper</last><affiliation>University of Queensland</affiliation></author>
+      <pages>176-182</pages>
+      <abstract>Australian law permits the use of copyright material in certain circumstances to facilitate access by people with disabilities. These consumers are increasingly turning to accessibility software incorporating AI/ML systems for text simplification, semantic search and website navigation. Despite the remarkable growth of AI/ML use by people with disabilities, legal information providers may forbid or block these methods. We examine the position of AustLII on AI within the Australian legal-policy environment and its implications for inclusive access to justice. Comparable entities within the global Free Access to Law Movement face similar pressures: our analysis may provide insights beyond the Australian context. The case study is illustrative of a larger unresolved tension between copyright, contract and accessibility as AI technologies proliferate alongside countermeasures intended to restrict them. We argue emerging mechanisms to authenticate assistive technology agents, and scope their purposes, can begin to reconcile various conflicting legitimate interests.</abstract>
+      <pdf hash="86af354b"/>
+      <bibkey>briegel-etal-2026-tensions</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.nllp-1.17/ -->
+      <title>A Strong Harness Narrows the Model Gap: A Comparative Evaluation for Legislative Document-to-<fixed-case>XML</fixed-case> Conversion</title>
+      <author><first>Palvika</first><last>Bansal</last><affiliation>Thomson Reuters</affiliation></author>
+      <author><first>Rittika</first><last>Jindal</last><affiliation>Thomson Reuters</affiliation></author>
+      <author><first>Ruichong</first><last>Wang</last><affiliation>Thomson Reuters</affiliation></author>
+      <pages>183-198</pages>
+      <abstract>Legal-content reproduction requires matching the source exactly in section hierarchy, verbatim text, citations, and amendment spans; a dropped citation or mislabeled amendment carries into the products lawyers rely on. We report an industrial pipeline converting U.S. state legislation into strict, schemaconstrained XML, and hypothesize that its accuracy comes from harness engineering, the deterministic tooling built around a model, more than the model itself. Our controlled ablation crosses three harnesses (zero-shot, a single tool-using agent, and a decomposed multiagent pipeline) with three Claude models on 153 gold bills from two jurisdictions. The harness narrows the model gap: the weakest model in the full pipeline beats the strongest model alone (0.948 versus 0.806, paired bootstrap p less than 0.001). Because the two agentic harnesses share identical tools, their gap comes from orchestration: decomposition plus the persisted state and per-agent context it brings. Across four scored dimensions, the model spread at zero-shot (0.68 to 0.81) narrows to 0.95 at the full pipeline; the residual sits almost entirely in citation normalization, where the canonical identifier is retrieved from an external authority rather than generated from the weights, so a deterministic lookup tool supplies the exactness that a larger model does not.</abstract>
+      <pdf hash="48cf0ae8"/>
+      <bibkey>bansal-etal-2026-strong</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.nllp-1.18/ -->
+      <title>A Dataset of Motion-Response Text Pairs from <fixed-case>US</fixed-case> District Court Cases for Legal Judgment Prediction</title>
+      <author><first>Damian</first><last>Curran</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Eduard</first><last>Hovy</last><affiliation>University of Melbourne</affiliation></author>
+      <author><first>Lea</first><last>Frermann</last><affiliation>Eberhard-Karls-Universität Tübingen</affiliation></author>
+      <pages>199-211</pages>
+      <abstract>Many existing Legal Judgment Prediction (LJP) datasets are based on test conditions which do not resemble real-world contexts, in that both the input to the task and the predicted case outcome labels are drawn from the same document. In other words, the outcome was known at the time the input was written. By utilizing the chronological event logs of court cases in US district courts, called dockets, we create a 1.6k instance outcome prediction dataset called MOP-2026 where the text inputs predate the outcome. We describe the collection, filtering and labelling of the pairs of opposing argument text and define a new subtask of LJP called motion-outcome prediction with a ternary label set. We provide baseline results and measure the performance of a variety of LLMs on the task. While exceeding naive baselines, even the latest LLMs perform below most reported metrics in LJP, supporting recent commentary that valid test conditions greatly impact predictive performance, and that many earlier LJP systems appear to overstate predictive capability in real world settings. We close with a discussion of the inherent challenges of LJP.</abstract>
+      <pdf hash="2cf02b48"/>
+      <bibkey>curran-etal-2026-dataset</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.nllp-1.19/ -->
+      <title>An Empirical Study of Evidence Retrieval for Retrieval Augmented Generation over the <fixed-case>T</fixed-case>hai Royal Gazette</title>
+      <author><first>Pantai</first><last>Suyasri</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author><first>Pawitsapak</first><last>Akarajaradwong</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Chompakorn</first><last>Chaksangchaichot</last><affiliation>Chulalongkorn University</affiliation></author>
+      <pages>212-236</pages>
+      <abstract>Retrieval-augmented generation depends on both the retrieval method and the units over which retrieval operates. Yet retrieval-unit choices remain underexplored for Thai legal documents, where language and document structure challenge common chunking assumptions. We introduce a 2,000-question Thai Royal Gazette dataset with single-hop and multi-hop tasks. The dataset annotates gold evidence as document character spans, which permits unit-independent evaluation. We compare 19 configurations across chunk sizes, boundary strategies, contextual chunks, atomic facts, whole documents, and retrieval methods. We evaluate them with span recall and precision, an Evidence-Fit judge, and pairwise judgments of answers generated from retrieved evidence. Contextual 200-word chunks with hybrid retrieval provide the strongest practical balance of evidence coverage, answer quality, and query cost. Across configurations, downstream scores correlate strongly with span recall, while span precision shows little association. These results favor retrieval designs that first recover complete evidence, then control cost and localization.</abstract>
+      <pdf hash="acb3ab90"/>
+      <bibkey>suyasri-etal-2026-empirical</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.nllp-1.20/ -->
+      <title>Terms and Conditions Apply: Evaluating Consumer <fixed-case>LLM</fixed-case> Reliability in <fixed-case>NDA</fixed-case> Interpretation to Investigate the Non-Linear Role of Reasoning</title>
+      <author><first>Simeon</first><last>Sayer</last><affiliation>Harvard University, Harvard University</affiliation></author>
+      <author><first>Shaurya Jain</first><last>Mathur</last><affiliation>GEMS Modern Academy</affiliation></author>
+      <pages>237-256</pages>
+      <abstract>This paper uses the standardized structure of NDA’s to first explore how advances in reasoning models impact everyday legal tasks for the average consumer, and second to use the comparative model performance to examine pitfalls of traditional model benchmarking. Typically, Large language model (LLM) benchmarks express performance as a single score. This makes progress easy to compare, but not necessarily easy to understand: a higher-scoring model may gain one capability while losing another that the benchmark average no longer makes visible. This paper uses consumer interpretation of non-disclosure agreements as a practical, standardised case study, while simultaneously highlighting the relative reliability of an everyday legal task. Gemini 2.5 Flash-Lite and GPT-5.5 evaluated 2,091 NDA-hypothesis pairs derived from a human classified as either Entailment, Contradiction, or NotMentioned. While GPT performed better overall, particularly in recognising contradictions, Gemini remained uniquely correct in 247 cases, particularly in asserting that claims were NotMentioned. GPT inferred unfounded hypotheses more readily and sometimes appeared to ’overthink’ and reason itself into false Contradictions. The lack of correlation between NDA performance and reasoning means that while GPT alone was correct 80.2% of the time, a hypothetical model selector that optimally chose the correct system could achieve 92.0% accuracy. The results show both that advances in model capabilities translate into improved legal advice for a typical consumer and that a rising benchmark score can conceal an exchange of capabilities rather than a uniform improvement. The results also point to broader lessons for similar benchmarking so that evaluations report error direction, correctness overlap, and task-level reversals alongside aggregate accuracy. For consumers, the results indicate that while LLMs remain useful for preliminary contract review, the results do not support treating them as autonomous legal advisers.</abstract>
+      <pdf hash="82ed7430"/>
+      <bibkey>sayer-mathur-2026-terms</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.nllp-1.21/ -->
+      <title>Cross-Lingual Legal <fixed-case>QA</fixed-case> for <fixed-case>V</fixed-case>ietnamese Labour Law: Retrieval, Translation, and Verifier-Guided Correction</title>
+      <author><first>Nguyen Minh</first><last>Chi</last><affiliation>VinUniversity</affiliation></author>
+      <author><first>Mo</first><last>El-Haj</last><affiliation>VinUniversity</affiliation></author>
+      <author><first>Nguyen Ha</first><last>Thanh</last><affiliation>VinUniversity</affiliation></author>
+      <author><first>Dawn</first><last>Knight</last><affiliation>Cardiff University</affiliation></author>
+      <author><first>Paul</first><last>Rayson</last><affiliation>Lancaster University</affiliation></author>
+      <pages>257-257</pages>
+      <abstract>Cross-lingual legal question answering must retrieve statutes across languages while preventing unsupported legal claims. We introduce a bilingual evaluation suite of 231 Vietnamese–English question–answer pairs from Vietnamese labour law. Of these, 75 questions are additionally annotated for five challenging legal reasoning phenomena. We evaluate a verifier-guided pipeline that decomposes answers into claims, checks citation reachability and entailment, and corrects citation failures and contradictions. We also introduce six automatic diagnostics of faithfulness to retrieved evidence, covering citations, modality, exceptions, procedures, conclusions, and evidential support. Experiments show that learned-sparse retrieval performs poorly for English-to-Vietnamese retrieval (R@5 = 0.032), whereas dense retrieval reaches 0.358 and slightly outperforms hybrid retrieval. Translation placement has no statistically detectable effect on these automatic diagnostics in our controlled comparison and supporting sensitivity analyses. Verifier-guided correction improves citation preservation by 0.022–0.034 at the system level but produces no reliable gains on the remaining dimensions. Human evaluation further highlights weaknesses that are not fully captured by automatic diagnostics, particularly in procedural completeness and the coverage of legally required conditions and steps.</abstract>
+      <pdf hash="87d6accc"/>
+      <bibkey>chi-etal-2026-cross</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.nllp-1.22/ -->
+      <title>Recall Is Not Completeness: Retrieving All the Evidence a Question Needs</title>
+      <author><first>Sebastien</first><last>Kawada</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>Adhiban</first><last>Arulselvan</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>Manolis</first><last>Kellis</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <pages>258-258</pages>
+      <abstract>Questions in law, policy, the life sciences, and the humanities often require evidence from many sources, all of which retrieval must find. We prove that recall can be high even when few questions have all of their gold items retrieved, that is, are complete. We demonstrate that completeness strongly affects answer correctness. On HotpotQA questions where Quorum, our learned fusion of diverse retrievers, is the only retriever to retrieve all of the supporting paragraphs, our reader’s exact match rises from 0.212 to 0.553. We find that recall hides poor completeness. On Housing Statute QA questions that cite four or more statutes, Quorum’s top-ten results include an average of 39.3% of the gold items, yet are complete for only 2.3% of the questions. Recall exceeds completeness by 17- to 81-fold on this subset for all seven systems we evaluate. The candidate pools contain all of the gold items for 65% of these questions, meaning that the reranker causes more failures of completeness than the candidate retrieval. Quorum significantly outperforms the baseline, improving completeness@5 over dense retrieval from 0.453 to 0.670 on MuSiQue and accuracy on the agent-memory benchmark LongMemEval-V2 from 0.385 to 0.530. Benchmarks where multiple items must be retrieved should report completeness conditioned on the number of gold items.</abstract>
+      <pdf hash="496cbbdf"/>
+      <bibkey>kawada-etal-2026-recall</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.nllp-1.23/ -->
+      <title><fixed-case>AI</fixed-case>-Monitors at <fixed-case>C</fixed-case>hild<fixed-case>S</fixed-case>afe<fixed-case>A</fixed-case>ds 2026: A Routed Hybrid for Commercial Content in Child-Facing <fixed-case>Y</fixed-case>ou<fixed-case>T</fixed-case>ube Videos</title>
+      <author><first>Pragyananda</first><last>sahoo</last><affiliation>Swami Rama Himalayan University</affiliation></author>
+      <author><first>Vishnu</first><last>Tripathi</last><affiliation>CAIR Lab, Institute of AI, Dev Sanskriti Vishwavidyalaya</affiliation></author>
+      <author><first>Prakhar</first><last>joshi</last><affiliation>Center For Artificial Intelligence And Research(CAIR))</affiliation></author>
+      <author><first>Gaurav</first><last>Kumar</last><affiliation>Center for Artificial Intelligence and Research</affiliation></author>
+      <author><first>Neel</first><last>Mani</last><affiliation>dev sanskriti university</affiliation></author>
+      <pages>259-270</pages>
+      <abstract>We describe AI-Monitors, our system for the ChildSafeAds shared task at NLLP@EMNLP 2026. The task labels sponsored segments in YouTube videos aimed at teenagers with their commercial type, product category and compliance-risk flags, and provides the input at four levels of increasing collection cost, from the free transcript to a crawled product page. Our system gives each sub-task its own input level and model: a fine-tuned ModernBERT-large encoder reading all four levels predicts commercial type and product category, the latter averaged with a TF-IDF classifier; a second encoder reading only the transcript predicts the compliance flags, averaged on the two disclosure flags with a QLoRA-tuned Qwen2.5-7B-Instruct that also reads the video metadata, before rules from the task’s taxonomy are applied. The system scored 0.6223 mean macro-F1 on the test set, 11th of 21 teams, and labels the 503 test instances in 25.5 GPU-minutes. We report the experiments behind each design choice: in our runs the crawled page helped product categorisation but not compliance flagging, the taxonomy’s definitions helped a prompted model while the legal provisions added little, and in two cases our validation procedure was misleading.</abstract>
+      <pdf hash="e14b898e"/>
+      <bibkey>sahoo-etal-2026-ai</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.nllp-1.24/ -->
+      <title>Do Small Models Use the Law You Give Them? Measuring Context Use on a Bilingual <fixed-case>B</fixed-case>angladesh Legal Benchmark</title>
+      <author><first>Moniruzzaman</first><last>Mahadi</last><affiliation>North South University</affiliation></author>
+      <author><first>Abrar Mohammed Tanzim</first><last>Alam</last><affiliation>North South University</affiliation></author>
+      <author><first>Mir Mohammad Asif</first><last>Abdullah</last><affiliation>North South University</affiliation></author>
+      <author><first>Sayma Siddika</first><last>Monalisa</last><affiliation>North South University</affiliation></author>
+      <author><first>Swakkhar</first><last>Shatabda</last><affiliation>BRAC University</affiliation></author>
+      <author><first>Md Adnan</first><last>Arefeen</last><affiliation>North South University</affiliation></author>
+      <pages>271-289</pages>
+      <abstract>Fine-tuning improves measured accuracy on legal question answering, but does it improve how models use supplied law? We investigate this question in bilingual Bangladeshi legal QA, distinguishing gains due to scoring and retrieval from changes in reliance on the governing provision. We adapt six small instruction-tuned models with LoRA across three random seeds and evaluate them using constrained option-letter scoring, cyclic option rotation, and matched contexts that include or omit the governing provision. Scoring choices substantially change the apparent benefit of adaptation: a 50.0% gain under exact-line parsing falls to 3.0% under option scoring, and, for one model, the two methods reverse the ranking of systems. Supplied law improves accuracy, and removing the governing provision degrades performance for both base and adapted models. However, difference-in-differences estimates detect no increase in reliance on that provision after fine-tuning. These findings identify a limit to interpreting accuracy gains as evidence of legal adaptation: improved performance need not imply improved use of legal context. Evaluations must therefore distinguish scorer, retriever, and model effects. We release a hierarchy-preserving statutory corpus, 2,165 reviewed bilingual training examples, a 150-item supplied-law benchmark, and evaluation code at <url>https://github.com/m-mahadi/bangladesh-legal-qa</url>.</abstract>
+      <pdf hash="f282a35f"/>
+      <bibkey>mahadi-etal-2026-small</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.nllp-1.25/ -->
+      <title>Beyond the Single-Expert Ceiling: Localizing <fixed-case>LLM</fixed-case>-as-Judge Stability on Free-Form Legal Essays</title>
+      <author><first>Pawitsapak</first><last>Akarajaradwong</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Wuttikrai</first><last>Lertprasertphakorn</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <author><first>Chompakorn</first><last>Chaksangchaichot</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Sarana</first><last>Nutanong</last><affiliation>Vidyasirimedhi Institute of Science and Technology</affiliation></author>
+      <pages>290-302</pages>
+      <abstract>Free-form legal essay evaluation in NLP treats expert inter-rater stability as a single ceiling number: a correlation score between credentialed examiners is reported and used as the target that an LLM judge should approach. Whether that ceiling is uniform across items has rarely been tested on the expert side. We test it on Thai bar exam essays. Three Bar Council examiners and three anchor LLM judges (Claude 4.6 Opus, Gemini 3.1 Pro, GPT-5.4 Pro) independently graded the same 15 answers from the same four inputs: question, official rubric, gold answer, and student answer. On 10 of the 15 answers, both panels reach <tex-math>\alpha = 0.75</tex-math>. On the remaining 5, drawn from one question where the rubric does not prescribe how to grade a correct answer that omits a decisive citation, the human panel collapses to <tex-math>\alpha = -0.34</tex-math> while the LLM panel holds at <tex-math>\alpha = 0.68</tex-math>. One examiner’s stricter reading of this underspecified rubric drives the gap. The cluster pattern replicates across seven of eight LLMs that took the exam in Phase 1 and were reused as judges, regardless of their own exam scores: the same model behaves differently in the two roles. The expert stability ceiling is not flat: free-form essay rubrics combine a deterministic correctness element (grounded by the gold answer) with an interpretive quality element (judged without one), and expert disagreement lives entirely on the interpretive element. The bottleneck of free-form essay evaluation is the rubric’s interpretive coverage, not LLM capability.</abstract>
+      <pdf hash="2928a699"/>
+      <bibkey>akarajaradwong-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.nllp-1.26/ -->
+      <title>What Drives an <fixed-case>LLM</fixed-case>’s Legal Reasoning? Measuring Faithfulness at the Concept Level</title>
+      <author><first>Yassine</first><last>Thlija</last><affiliation>Ruhr-Universität Bochum</affiliation></author>
+      <author><first>Lena</first><last>Held</last><affiliation>Ruhr-Universität Bochum</affiliation></author>
+      <author><first>Ivan</first><last>Habernal</last><affiliation>Ruhr-Universität Bochum</affiliation></author>
+      <pages>303-320</pages>
+      <abstract>Faithfulness assesses whether a model’s explanation reflects what actually drove its answer, which is different from assessing answer correctness. But does faithfulness also apply in expert domains such as law, where the relevant factors that decide the answer, also called concepts, are diffuse and only implicitly expressed? We measure faithfulness in two expert-annotated legal reasoning multiple-choice question answering (QA) datasets and show that existing methods are not tailor-made for the legal domain. We therefore introduce a detailed, per-concept measure which reveals how each concept is being relied on and expressed by a model. We test our method with a small, open-weight LLM and find that faithfulness is generally low on legal datasets and that simple supervised fine-tuning lowers faithfulness even further, despite giving plausible legal explanations.</abstract>
+      <pdf hash="7846d1c7"/>
+      <bibkey>thlija-etal-2026-drives</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.nllp-1.27/ -->
+      <title><fixed-case>CLARE</fixed-case>: A Criminal-Law <fixed-case>DSL</fixed-case> for Neuro-Symbolic Long-Form Legal Reasoning</title>
+      <author><first>Jaehoon</first><last>Jeong</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Jay-Yoon</first><last>Lee</last><affiliation>Seoul National University</affiliation></author>
+      <pages>321-321</pages>
+      <abstract>Long-form criminal-law generation requires factual interpretation, issue selection, and structured formulation of legal conclusions across offense elements and general doctrines. But existing neuro-symbolic approaches encode only task-specific decision rules, not a reusable representation of criminal-law structure. We introduce CLARE, a domain-specific language for reusable criminal-law structure, which we instantiate with Korean criminal law. CLARE compiles definitions of each unit offense into an executable legal program that constrains case-time legal reasoning. The resulting program then composes case-level judgments before long-form generation. We evaluate CLARE on long-form generation and component-level Korean legal benchmarks, showing that symbolic composition improves reliability over domain-specific baselines. Our results suggest that explicitly representing criminal-law structure provides a practical foundation for reliable neuro-symbolic long-form legal generation.</abstract>
+      <pdf hash="b0ec0e7c"/>
+      <bibkey>jeong-lee-2026-clare</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.nllp-1.28/ -->
+      <title><fixed-case>CANLEGALRAGBENCH</fixed-case>: Evaluating Retrieval-Augmented Generation on <fixed-case>C</fixed-case>anadian Case Law</title>
+      <author><first>Ethan</first><last>Zhao</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Maksym</first><last>Taranukhin</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Wei</first><last>Cui</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Moira</first><last>Aikenhead</last><affiliation>University of British Columbia</affiliation></author>
+      <author><first>Vered</first><last>Shwartz</last><affiliation>University of British Columbia</affiliation></author>
+      <pages>322-322</pages>
+      <abstract>RAG-based legal assistants have been growing in popularity, but LLM hallucinations remain a key issue and potentially undermines justice. While benchmarks have been developed to evaluate progress, many rely on synthetic queries rather than realistic legal scenarios. Moreover, Canadian law remains underrepresented in existing evaluations. To address this gap, we introduce CanLegalRAGBench, a Canadian legal QA benchmark based on realistic queries and expert-annotated answers grounded in case law. Our evaluation shows that retrieval performance is sensitive to design choices and that open-source embedding models are competitive with closed source models. However, it also reveals the limitation of automatic evaluations that penalize systems for retrieving alternative relevant documents. We also find that generated answers often diverge from gold responses, either with hallucinations or by producing overly detailed or irrelevant content, with 8-29% of claims not being supported by the retrieved documents. We hope this benchmark will help drive continued progress in addressing limitations of legal RAG systems. Code: https://github.com/NLP-UBC/CanLegalRAGBench</abstract>
+      <pdf hash="bacbc342"/>
+      <bibkey>zhao-etal-2026-canlegalragbench</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.nllp-1.29/ -->
+      <title>Nürnberg <fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>hild<fixed-case>S</fixed-case>afe<fixed-case>A</fixed-case>ds 2026: Structurally Dissimilar Voter Ensembles under Four Levels of Data Access</title>
+      <author><first>Philipp</first><last>Steigerwald</last><affiliation>Technische Hochschule Nürnberg Georg Simon Ohm</affiliation></author>
+      <author><first>Eric</first><last>Rudolph</last><affiliation>Technische Hochschule Nürnberg Georg Simon Ohm</affiliation></author>
+      <author><first>Jens</first><last>Albrecht</last><affiliation>Technische Hochschule Nürnberg Georg Simon Ohm</affiliation></author>
+      <pages>323-333</pages>
+      <abstract>We describe the Nürnberg NLP system for ChildSafeAds 2026. The shared task asks what a monitoring system for commercial content in child-facing YouTube videos can achieve at a given level of data access. We answer with per-subtask ensembles of nine voters, organised into three branches that differ in backbone, adaptation method and class scope. Selection rests on channel-disjoint cross-validation, with the development set as a transfer check. The system wins two of the three subtasks. Its product-category score (ST2, 0.8243) and its compliance-flag score (ST3, 0.6530) are the best of the 22 final entries, and it places third on the task mean (0.7079). We further compare four access levels and report the cost at test-set scale.</abstract>
+      <pdf hash="18ae5104"/>
+      <bibkey>steigerwald-etal-2026-nurnberg-nlp</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.nllp-1.30/ -->
+      <title><fixed-case>L</fixed-case>egal<fixed-case>B</fixed-case>ench.<fixed-case>PT</fixed-case>: A Benchmark for <fixed-case>P</fixed-case>ortuguese Law</title>
+      <author><first>Beatriz</first><last>Canaverde</last><affiliation>Instituto Superior Técnico</affiliation></author>
+      <author><first>Telmo</first><last>Pires</last><affiliation>Apple</affiliation></author>
+      <author><first>Andre</first><last>Martins</last><affiliation>Instituto Superior Técnico</affiliation></author>
+      <pages>334-349</pages>
+      <abstract>The growing use of LLMs in the legal field has spurred the creation of benchmarks across various jurisdictions and languages, yet none specifically focused on the Portuguese legal system. We present LegalBench.PT, the first comprehensive benchmark for Portuguese law. To develop it, we first collect long-form questions and answers from real law exams, and then use GPT-4o to convert them into multiple-choice, true/false, and matching formats. Once generated, the questions are filtered and processed to improve the quality of the dataset. To ensure accuracy and relevance, we validate our approach by having a legal professional review a sample of the generated questions. Although synthetically generated, we show that their basis in human-created exams and our rigorous filtering and processing methods applied result in a reliable benchmark for assessing LLMs’ legal knowledge and reasoning abilities. Finally, we evaluate the performance of leading LLMs on LegalBench.PT and investigate potential biases in GPT-4o’s responses. We also assess the performance of Portuguese lawyers on a sample of questions to establish a baseline for model comparison and validate the benchmark.</abstract>
+      <pdf hash="5457bd15"/>
+      <bibkey>canaverde-etal-2026-legalbench</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.nllp-1.31/ -->
+      <title>Retrieval for Legal <fixed-case>AI</fixed-case>: Complementarity and Cross-Collection Interference in <fixed-case>B</fixed-case>razilian Legal Collections</title>
+      <author><first>Flavio</first><last>Soriano</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <author><first>Guilherme Henrique Gomes</first><last>Evangelista</last><affiliation>Federal University of Minas Gerais</affiliation></author>
+      <author><first>Celso</first><last>França</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <author><first>Gisele L.</first><last>Pappa</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <author><first>Wagner Meira</first><last>Jr.</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <author><first>Marcos André</first><last>Gonçalves</last><affiliation>Universidade Federal de Minas Gerais, Universidade Federal de Minas Gerais</affiliation></author>
+      <pages>350-360</pages>
+      <abstract>Modern Legal AI systems rely on retrieval to ground answers in heterogeneous sources, including precedents, normative acts, legislative proposals, and explanatory materials. We study retrieval across five Brazilian legal collections, evaluated separately and in a pooled global index, using lexical, dense, fusion, and generative reranking architectures. The union of BM25 and dense top-10 results covers 55.4–60.3% of judged positives, 2.7–3.4 percentage points more than the better individual retriever, demonstrating substantial lexical–semantic complementarity. Reciprocal Rank Fusion (RRF) exploits part of this complementarity, but a per-query selector oracle consistently outperforms it, indicating that the preferred retrieval signal varies across queries. Pooling the collections reduces NDCG@10 by 18.5–25.9% under the original source-local judgments, showing substantial degradation when the relevant source is not known in advance; exact duplicates account for only a small fraction of this measured loss. RRF remains the strongest fixed first-stage architecture, yet we find no evidence that its gains are preserved after generative reranking at the dataset-macro level, indicating that stronger first-stage retrieval does not necessarily translate into better final rankings. These findings characterize heterogeneous legal retrieval as a multi-stage problem of source selection, signal selection, and evidence promotion.</abstract>
+      <pdf hash="50cd336b"/>
+      <bibkey>soriano-etal-2026-retrieval</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.nllp-1.32/ -->
+      <title><fixed-case>G</fixed-case>reek<fixed-case>B</fixed-case>ar<fixed-case>R</fixed-case>etrieval: A Benchmark for <fixed-case>G</fixed-case>reek Statutory Retrieval</title>
+      <author><first>Ernest</first><last>Beta</last><affiliation>Athens University of Economics and Business</affiliation></author>
+      <author><first>Odysseas S.</first><last>Chlapanis</last><affiliation>Athens University of Economics and Business</affiliation></author>
+      <author><first>Dimitris</first><last>Galanis</last><affiliation>Athena Research and Innovation Centre</affiliation></author>
+      <author><first>Ion</first><last>Androutsopoulos</last><affiliation>Athens University of Economics and Business</affiliation></author>
+      <pages>361-380</pages>
+      <abstract>Statutory retrieval is necessary for citation-grounded legal question answering, but remains underexplored for Greek. We introduce GreekBarRetrieval, a public retrieval benchmark derived from, and complementing GreekBarBench, which did not include retrieval. The new benchmark comprises 283 bar-exam questions, each accompanied by the facts of the case it refers to, and 6,308 candidate statutory articles to retrieve from. Questions and facts are stated in everyday language, but need to be mapped to the formal terminology of statutes and their abstract legal concepts. A further complication is that not all of the case facts are relevant to each question of a case. Experimenting with three BM25 variants and nine dense retrievers, we find that vanilla dense retrieval far outperforms vanilla sparse retrieval in Recall@100. However, LLM-based query reformulation helps BM25 close that gap, while also improving dense retrieval. With a ten-round ReAct-like LLM reformulation loop that we introduce, BM25 improves further in Recall@100 and obtains the best nDCG and MAP scores of all tested retrievers. Query reformulation also outperforms pseudo-relevance feedback, sparse-dense fusion, and English translation.</abstract>
+      <pdf hash="d1f080ba"/>
+      <bibkey>beta-etal-2026-greekbarretrieval</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.nllp-1.33/ -->
+      <title>Imitation Thresholds: Quantifying Influence Propagation in Large Language Models</title>
+      <author><first>Gil</first><last>Semo</last><affiliation>Darrow</affiliation></author>
+      <author><first>Dor</first><last>Bernsohn</last><affiliation>catchagent</affiliation></author>
+      <author><first>Lior</first><last>Magen</last><affiliation>Darrow</affiliation></author>
+      <author><first>Kfir</first><last>Bar</last><affiliation>Reichman University</affiliation></author>
+      <author><first>Gila</first><last>Hayat</last><affiliation>Darrow</affiliation></author>
+      <pages>381-381</pages>
+      <abstract>As large language models (LLMs) increasingly support sensitive decision-making, understanding their vulnerability to bias becomes critical for maintaining system integrity. However, we lack reliable methods to measure how easily these systems can be compromised through biased training data. We present the first approach to quantifying “imitation thresholds“, defined as the minimum number of training examples needed to significantly shift decision patterns in LLMs applied to legal decision-making. Our experiments span four models across two size categories, 24 judicial personas, and four legal domains, revealing distinct patterns of susceptibility and resistance to persona-driven biases that persist across model architectures and scales. By incrementally fine-tuning LLMs with persona-specific text, we identify thresholds at which model predictions diverge meaningfully from control decision patterns. Our findings show that as few as 80 training examples can reliably alter model behavior, with significant variation across domains and influencer persona types. We further find that susceptibility scales with model capacity, with larger models showing substantially stronger effects, particularly for negative influence. Our work provides a foundational understanding of bias propagation mechanisms in LLMs. We publicly release our datasets and code to support future research in this area.</abstract>
+      <pdf hash="7f70d324"/>
+      <bibkey>semo-etal-2026-imitation</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.nllp-1.34/ -->
+      <title>Discovering Hierarchical Semantic Structures in <fixed-case>EU</fixed-case> Regulatory Embeddings: A Comparison of Two K-means Solutions and Their Alignment with <fixed-case>E</fixed-case>uro<fixed-case>V</fixed-case>oc</title>
+      <author><first>Kayoko</first><last>Fukasawa</last><affiliation>Honda Motor Co., Ltd.</affiliation></author>
+      <pages>382-398</pages>
+      <abstract>EU regulations govern interconnected domains, yet the hierarchical organization and granularity of regulatory semantic structures remain insufficiently understood. We analyze 717 provisions from nine EU regulations, represented as 746 embedding units, using K-means and Ward linkage. Two independently optimized 80-cluster solutions reveal recurring domain specific and cross-regulatory themes but differ in hierarchical organization. Cross-solution analysis shows high centroid-level semantic correspondence (mean matched-centroid cosine similarity = 0.943) despite lower partition agreement (ARI = 0.520; mean membership Jaccard similarity = 0.492). We identify 10 split and nine merge candidates, suggesting potential local differences in semantic boundaries or granularity. Post-hoc EuroVoc alignment shows partial agreement with established categories and identifies two qualitative candidate branches spanning taxonomy boundaries. These findings suggest that broadly corresponding regulatory semantic structures can coexist with local differences in membership, hierarchy, and granularity.</abstract>
+      <pdf hash="4273ed9e"/>
+      <bibkey>fukasawa-2026-discovering</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.nllp-1.35/ -->
+      <title>Deka Retrieval: Component-Level Criteria for Mining Legal Case Pairs in <fixed-case>T</fixed-case>hai <fixed-case>S</fixed-case>upreme <fixed-case>C</fixed-case>ourt Decisions</title>
+      <author><first>Pasin</first><last>Buakhaw</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Pawitsapak</first><last>Akarajaradwong</last><affiliation>Chulalongkorn University</affiliation></author>
+      <author><first>Chompakorn</first><last>Chaksangchaichot</last><affiliation>Chulalongkorn University</affiliation></author>
+      <pages>399-419</pages>
+      <abstract>Legal case retrieval (LCR) defines relevance beyond text similarity, judgments may describe near-identical events yet be decided under different charges. Existing synthesis pipelines mine training pairs from text similarity and shared charges, which separates positives from negatives but leaves the difficulty of each pair implicit. We present Deka Retrieval, an LCR benchmark on Thai Supreme Court decisions with an LLM relevance cases mining pipeline for a civil-law jurisdiction. We decompose each judgment into case components (Charge, Fact, Reasoning, Decision) and split easy/hard level on exist binary signals and introduce an anomaly variant a conflict judgment that shares the anchor’s charge and facts but reaching a different reasoning and decision. Retriever performance follows query length: Fact &gt; Lawyer expert &gt; Lay people. Fine-tuning gains most on the weakest type, lifting Lay R@10 by 2.6x (7.6 -&gt; 19.5) versus 1.5x on Lawyer and 1.3x on Fact. Training on the shortest query also transfers to the longer ones, but not the reverse. Adding anomaly cases as positives raises the chance of retrieving them at test time and degrades performance relative to training without them. Our dataset and models are available at https://hf.co/collections/VISAI-AI/deka-retrieval.</abstract>
+      <pdf hash="82b076aa"/>
+      <bibkey>buakhaw-etal-2026-deka</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.nllp-1.36/ -->
+      <title><fixed-case>FIRAC</fixed-case>-<fixed-case>APPEALS</fixed-case>: A Structured <fixed-case>I</fixed-case>ndian Appellate Judgments Dataset for Summarisation and Reasoning-Aware Legal <fixed-case>NLP</fixed-case></title>
+      <author><first>Martin</first><last>Borčin</last><affiliation>University of Glasgow</affiliation></author>
+      <author><first>Joemon M.</first><last>Jose</last><affiliation>University of Glasgow</affiliation></author>
+      <pages>420-431</pages>
+      <abstract>Legal natural language processing (NLP) resources often flatten judgments into full texts paired with summaries or outcome labels, despite appellate reasoning being organised around facts, issues, authorities, analysis, and dispositions. We introduce , a public dataset and annotation pipeline that converts 45,020 Indian Supreme Court appeals into FIRAC-style case briefs with metadata, leakage-controlled Facts, typed Rules/Authorities, Analysis, Conclusion and outcome labels. This structure supports headnote generation, issue spotting, authority recommendation, reasoning-aware audit, and leakage-aware outcome prediction. Human legal evaluation, large language model (LLM) screening, summarisation comparisons, and downstream baselines demonstrate the dataset’s usability beyond conventional summarisation or outcome-only legal judgment prediction, providing a practical foundation for more structured and inspectable legal NLP.</abstract>
+      <pdf hash="ed2e05f5"/>
+      <bibkey>borcin-jose-2026-firac</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.nllp-1.37/ -->
+      <title>Outside the Four Corners: Charting the Missing Evidence in <fixed-case>K</fixed-case>orean <fixed-case>AI</fixed-case> Training-Data License Screening</title>
+      <author><first>Jiwoo</first><last>Lee</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Sungwon</first><last>Chae</last><affiliation>Seoul National University</affiliation></author>
+      <pages>432-455</pages>
+      <abstract>As training corpora grow, screening licenses for AI training data at scale is likely to fall to large language models, but a screening system must distinguish when a document settles a proposed use from when the answer depends on facts outside it. We formalize this distinction under Korean copyright law. Supreme Court of Korea authority supports five types of extrinsic fact that may be required to decide whether a grant reaches a use or binds the rightsholder: consideration, usage of trade, the rightsholder’s conduct, market substitution, and upstream title. A practicing Korean intellectual property lawyer applies this framework to Korean licenses, terms of service, and standard-form contracts, yielding a benchmark of whether each document settles five AI-related uses and, if not, which facts are missing. We evaluate frontier proprietary, open-weight, and Korean-specialized models under increasingly detailed legal procedures and broader retrieved context. Neither the lawyer’s screening procedure, additional context, nor even the governing clause reliably improves models’ ability to distinguish determinate from indeterminate cases; the governing clause instead increases abstention on many determinate items. These interventions mainly shift decision thresholds rather than discriminability, a difference obscured by aggregate accuracy. Automated license screening has two limits: some questions are indeterminate from the instrument because resolving them requires facts outside it, and models over-abstain on questions the document does settle.</abstract>
+      <pdf hash="e97e96c5"/>
+      <bibkey>lee-chae-2026-outside</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.nllp-1.38/ -->
+      <title><fixed-case>G</fixed-case>ap<fixed-case>T</fixed-case>o<fixed-case>C</fixed-case>ompliance: A Taxonomy-Driven Agentic <fixed-case>AI</fixed-case> Framework for Automated <fixed-case>AI</fixed-case> Act Gap Analysis and Remediation</title>
+      <author><first>Ilias</first><last>Driouich</last><affiliation>Amadeus</affiliation></author>
+      <author><first>Hongliu</first><last>Cao</last><affiliation>Amadeus</affiliation></author>
+      <author><first>Eoin</first><last>Thomas</last><affiliation>Amadeus IT Group</affiliation></author>
+      <pages>456-467</pages>
+      <abstract>Assessing regulatory compliance for high-risk AI systems requires systematic identification of technical gaps such as missing controls, inadequate processes, or shallow evaluation of practices. Compliance officers typically administer structured questionnaires collecting evidence of current practices, where organizations respond with descriptions of their existing processes, technical capabilities, and architectural choices. However, translating these compliance questionnaire responses into typed, actionable gap diagnoses remains unsystematic. In this paper, we present a literature-grounded taxonomy of technical compliance gaps covering areas such as accuracy, robustness, logging, and human oversight, and embed it in <b>GapToCompliance</b>, a two-stage agentic framework coordinating two specialized agents: a <i>Gap Extraction Agent</i> that performs hierarchical reasoning from compliance areas to specific gap types, and a <i>Remediation Planning Agent</i> that ranks remediation actions from a remediation catalog via multi-signal scoring combining semantic similarity, regulatory alignment, and effort estimation. We evaluate this framework against four automatic compliance gap detection baselines across 9 AI systems and 6 AI families. Our approach achieves a gap-type F1 of 0.831 (vs. 0.533 for the strongest baseline) and remediation P@5 of 0.872 (vs. 0.635 for retrieval methods), demonstrating promising potential for automated compliance workflows. The structured agent coordination reveals a path toward human-in-the-loop compliance systems where automated gap extraction reduces expert burden while maintaining auditability, and the taxonomy-driven design enables extension to emerging regulatory frameworks beyond the EU AI Act.</abstract>
+      <pdf hash="6071d58f"/>
+      <bibkey>driouich-etal-2026-gaptocompliance</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.nllp-1.39/ -->
+      <title>The Bluebook as Code: A Deterministic Engine for Legal Citation</title>
+      <author><first>Eric H</first><last>Martínez</last><affiliation>Texas A&amp;M University - College Station</affiliation></author>
+      <author><first>Matthew</first><last>Dahl</last><affiliation>Yale University</affiliation></author>
+      <pages>468-468</pages>
+      <abstract>Legal citation is the bedrock of legal practice and scholarship, but formatting citations correctly requires navigating complex manuals such as the Bluebook, the notoriously exacting 500-page rulebook governing U.S. citation form. We present a deterministic execution engine that verifiably implements the rules of the Bluebook for the first time, covering 113 citation types across the manual’s practitioner and academic regimes, including jurisdiction-specific conventions for the U.S. federal and state systems and 44 foreign jurisdictions, as well as the required italics and small capitals. Its rule-mirrored architecture and facts-only input schema make its decisions transparent and allow it to serve as a reusable component of legal NLP systems. We show that the engine reproduces 99.1% of the manual’s printed examples and 97.9% of a held-out sample of 962 Harvard Law Review citations under exact string matching with typeface enforced. Given gold source information for the same inputs, six frontier language models average only 33.9% on the same task, with reasoning yielding minimal improvement and in-context rule text closing only part of the gap. We release our engine as a public web application and API for programmatic integration.</abstract>
+      <pdf hash="1e93f7c8"/>
+      <bibkey>martinez-dahl-2026-bluebook</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.nllp-1.40/ -->
+      <title><fixed-case>OPENER</fixed-case>: A Frugal Open-World <fixed-case>NER</fixed-case> Pipeline for the Legal Domain</title>
+      <author><first>Thibault</first><last>GAREL</last><affiliation>Ecole Centrale d'Electronique - ECE</affiliation></author>
+      <author><first>Faiza</first><last>BELBACHIR</last><affiliation>Ecole Centrale d'Electronique - ECE</affiliation></author>
+      <author><first>Assia</first><last>Soukane</last></author>
+      <pages>469-483</pages>
+      <abstract>Legal text is hard for named entity recognition. New statutes, parties and courts appear continually, and expert annotation is costly. Open-world NER can assign types that were not fixed at training time. These systems are built on general-domain text, though, and legal uses adapt them corpus by corpus and language by language. <fixed-case>We take the opposite route, and apply OPENER unchanged</fixed-case>, a frugal pipeline of ready-to-use components. Its entity embedder stays generic, and no part of it is ever fitted to a legal schema. We test its two typing heads on four legal corpora, in English, Portuguese and German. One needs no target label at all, the other fits a small linear probe. We compare them against GLiNER, GNER, OWNER and a 4-bit Qwen, on quality, latency and energy at once. The transfer holds in English, and weakens across languages. The label-free head degrades sharply. The supervised probe is barely affected, and scores best overall (35.9 AMI end-to-end, 61.4 on gold mentions). Both stay one to two orders of magnitude cheaper than the generative baselines. <fixed-case>Detection, not typing, is what caps every system here. The English detectors recover as little as 10.2% of the German mentions. On the ones they do find, our supervised head assigns the right type 78.7% of the time on average over the four corpora, against 64.6% for the detector alone. Yet typing all of them correctly would still stop at 70 AMI out of 100.</fixed-case> Where labels exist, the supervised head is the practical operating point, and in-language detection is where adaptation should go first.</abstract>
+      <pdf hash="1b847820"/>
+      <bibkey>garel-etal-2026-opener</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.nllp-1.41/ -->
+      <title>Building Structured Sentencing Data from Federal Criminal Docket Entries: An Ontology and Entity Extraction Study</title>
+      <author><first>David</first><last>Guecha</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Aanan</first><last>Biswas</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Charlotte S.</first><last>Alexander</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>484-507</pages>
+      <abstract>The U.S. Sentencing Commission provides substantial data about federal criminal sentences but omits judge- and defendant-specific identifiers, as well as many non-incarceration components of sentences. To support research on these gaps, we construct a domain-specific ontology and an annotated dataset from federal sentencing docket entries. These short, contemporaneous records describe counts, incarceration, supervision, monetary penalties, and other sentencing conditions; however, their formatting varies across clerks, judges, and courts. We compare six approaches under a shared labeled-span evaluation: ontology-guided Gemini 2.5 Flash, CRFsuite, ModernBERT, Legal-BERT, zero-shot GLiNER, and fine-tuned GLiNER. On 100 manually annotated docket entries, fine-tuned GLiNER achieves the highest exact-span micro-F1 at .703 ± .009, followed by CRFsuite at .655. Gemini achieves .463 ± .038 exact F1 but the highest relaxed F1 of .787 ± .013 under a diagnostic that credits a prediction only when its label matches and either normalized span text contains the other. The contrast shows that recovering compatible entity text and reproducing ontology-defined boundaries are materially different abilities. The results emphasize the continuing value of domain-specific task definitions, annotation ontologies, and supervised adaptation for legal information extraction. contains the other. The contrast shows that recovering compatible entity text and reproducing ontology-defined boundaries are materially different abilities. The results emphasize the continuing value of domain-specific task definitions, annotation ontologies, and supervised adaptation for legal information extraction.</abstract>
+      <pdf hash="8752e8ae"/>
+      <bibkey>guecha-etal-2026-building</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.nllp-1.42/ -->
+      <title>Cited but Not Consulted: A Counterfactual Audit of Legal Chain-of-Thought Faithfulness</title>
+      <author><first>Saisab</first><last>Sadhu</last><affiliation>Indian Institute of Science Education and Research Bhopal</affiliation></author>
+      <author><first>Shreeyans</first><last>Arora</last><affiliation>Indian Institute of Information Technology, Nagpur</affiliation></author>
+      <author><first>Pratinav</first><last>Seth</last><affiliation>Lexsi.ai</affiliation></author>
+      <pages>508-523</pages>
+      <abstract>Large language models increasingly justify legal decisions by naming the statute or precedent behind a verdict, treated as evidence the decision follows from it. We test this directly: holding case facts fixed, we substitute the named legal authority for an unrelated one and decode a model’s evolving verdict from its hidden states. Across seven open-weight models (8B–70B) and four benchmarks spanning judicial and contractual reasoning, when explicitly required to justify a verdict by naming the governing authority, models name the correct one in 66.7%–100% of generations, while the verdict changing when the authority changes is far less consistent: 0.0%–21.7% on CaseHOLD, 30.0%–76.7% on ECHR and SCOTUS, and 43.3%–50.0% on ContractNLI. Neither scale nor a purpose-built legal-reasoning model (a best-effort LoRA reproduction; Section 6) closes this gap. A red-teaming evaluation on five core models finds compliance with an adversarial instruction hidden in the case facts (73.3%–96.4%) exceeds verdict-swap sensitivity by a wide margin, holding without exception regardless of cross-model ranking. Naming a legal authority is thus a poor proxy for a verdict’s dependence on it, and the same verdict remains separately vulnerable to adversarial manipulation; both findings replicate across checks ruling out prompt-wording noise and confounded sampling, and bear directly on using generated legal explanations as compliance or audit artefacts.</abstract>
+      <pdf hash="46b6495e"/>
+      <bibkey>sadhu-etal-2026-cited</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.nllp-1.43/ -->
+      <title><fixed-case>NELSR</fixed-case>: A <fixed-case>N</fixed-case>epali Legal Benchmark for Case-to-Statute Retrieval</title>
+      <author><first>Anjan</first><last>Parajuli</last><affiliation>Tribhuvan University Kathmandu</affiliation></author>
+      <author><first>Darshan</first><last>Kunwar</last><affiliation>Tribhuvan University</affiliation></author>
+      <pages>524-534</pages>
+      <abstract>Legal professionals spend considerable time identifying statutes relevant to legal cases by navigating lengthy and hierarchically structured legal documents. While automated statute retrieval has advanced for high-resource languages to resolve the problem, the Nepali legal domain still lacks a standardized benchmark for realistic case-to-statute retrieval and systematic evaluation. To address this gap, we introduce NELSR (Nepali Legal Statute Retrieval Benchmark), comprising 5,731 case-derived queries extracted from Supreme Court judgments and a corpus of 302 federal statutes. NELSR is constructed using a citation-aware query construction approach that establishes reliable query–statute relevance pairs and legal structure-aware segmentation to preserve the semantic and hierarchical organization of statutory units. We establish retrieval baselines by evaluating sparse, dense, and hybrid retrieval methods and investigate the contributions of lexical and semantic retrieval signals through ablation studies. Experimental results show that hybrid retrieval achieves the best performance, with a Recall@100 of 0.66, nDCG@10 of 0.34, and MRR@10 of 0.32.</abstract>
+      <pdf hash="67a85b35"/>
+      <bibkey>parajuli-kunwar-2026-nelsr</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.nllp-1.44/ -->
+      <title>Evaluating <fixed-case>LLM</fixed-case>s on Explicit Knowledge of <fixed-case>I</fixed-case>talian Legal Concepts</title>
+      <author id="mattia-proietti" orcid="0009-0002-0447-680X"><first>Mattia</first><last>Proietti</last></author>
+      <author id="lucia-c-passaro" orcid="0000-0003-4934-5344"><first>Lucia</first><last>Passaro</last></author>
+      <author id="alessandro-lenci" orcid="0000-0001-5790-4308"><first>Alessandro</first><last>Lenci</last><affiliation>University of Pisa</affiliation></author>
+      <pages>535-547</pages>
+      <abstract>Despite their growing usage in downstream applications, LLMs remain under-evaluated in specialized non-English domains such as healthcare, finance, and law. This creates gaps not only in linguistic assessment, but also in the evaluation of language-specific technical knowledge, calling for high-quality resources tailored to narrow domains. We address the evaluation gap of LLMs’ Explicit Knowledge of Italian Legal Concepts, introducing a set of evaluation resources derived from institutional and expert-crafted sources, and specifically aimed at assessing Italian Legal knowledge across various subdomains. We organize these resources around three tasks targeting both generative and discriminative LLMs abilities and evaluate diverse frontier and small open models, both Italian-specific and general-purpose, across multiple metrics and settings.</abstract>
+      <pdf hash="22c007db"/>
+      <bibkey>proietti-etal-2026-evaluating</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.nllp-1.45/ -->
+      <title>Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training</title>
+      <author><first>Ibrahim</first><last>Siddig</last><affiliation>Technische Hochschule Ingolstadt</affiliation></author>
+      <author id="munir-georges" orcid="0000-0002-5542-149X"><first>Munir</first><last>Georges</last><affiliation>Technische Hochschule Ingolstadt</affiliation></author>
+      <pages>548-561</pages>
+      <abstract>Legal language understanding requires reasoning over semi-structured regulatory documents, yet standard pre-training objectives do not explicitly target this structural capability. Because current legal language models rely solely on masked language modeling, they treat statutory text as flat token sequences and ignore the underlying hierarchical constraints. To bridge this gap, we present a multi-task pre-training approach for German traffic law (StVO). Our approach combines three complementary objectives: Next Sentence Prediction (NSP), Knowledge Graph (KG) Guided Clustering (CLU), and Knowledge Graph (KG) Aware Paragraph Classification (CLS). This approach explicitly encodes structured legal knowledge directly into the model weights. This encoding enables zero-shot legal reasoning at inference time and removes the need for discrete graph traversal. We evaluate our approach across nine Transformer-based encoders and 324 experimental runs. On synthetic StVO question answering, our models demonstrate consistent relative improvements between 10.3% and 155.0% over baselines. Furthermore, our architecture establishes new state-of-the-art (SOTA) results on four legal benchmarks. It also achieves consistent zero-shot transfer gains between 3.4% and 15.8% on Austrian driving regulations. These experimental results indicate that our training approach generalizes successfully beyond the initial training legal domain.</abstract>
+      <pdf hash="e57483ca"/>
+      <bibkey>siddig-georges-2026-enhancing</bibkey>
+    </paper>
+    <paper id="46">
+      <!-- https://aclanthology.org/2026.nllp-1.46/ -->
+      <title>Legal Experts Disagree With Rationale Extraction Techniques for Explaining <fixed-case>EC</fixed-case>t<fixed-case>HR</fixed-case> Case Outcome Classification</title>
+      <author><first>Mahammad</first><last>Namazov</last><affiliation>Ruhr-Universität Bochum</affiliation></author>
+      <author><first>Tomáš</first><last>Koref</last></author>
+      <author id="ivan-habernal" orcid="0000-0002-0990-4554"><first>Ivan</first><last>Habernal</last><affiliation>Ruhr-Universität Bochum</affiliation></author>
+      <pages>562-586</pages>
+      <abstract>Interpretability is critical for applications of large language models (LLMs) in the legal domain, where trust and transparency are essential. A central NLP task in this setting is legal outcome prediction, where models forecast whether a court will find a violation of a given right. We study this task on decisions from the European Court of Human Rights (ECtHR), introducing a new ECtHR dataset with carefully curated positive (violation) and negative (non-violation) cases. Existing works propose both task-specific approaches and model-agnostic techniques to explain downstream performance, but it remains unclear which techniques best explain legal outcome prediction. To address this, we propose a comparative analysis framework for model-agnostic interpretability methods. We focus on two rationale extraction techniques that justify model outputs with concise, human-interpretable text fragments from the input. We evaluate faithfulness via normalized sufficiency and comprehensiveness metrics, and plausibility via legal expert judgments of the extracted rationales. We also assess the feasibility of using LLM-as-a-Judge, using these expert evaluations as reference. Our experiments on the new ECtHR dataset show that models’ “reasons” for predicting violations differ substantially from those of legal experts, despite strong faithfulness scores.</abstract>
+      <pdf hash="5a85a2f3"/>
+      <bibkey>namazov-etal-2026-legal</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.nllp-1.47/ -->
+      <title>Protecting De-identified Documents from Search-based Linkage Attacks</title>
+      <author id="pierre-lison" orcid="0000-0002-7649-0689"><first>Pierre</first><last>Lison</last><affiliation>Norwegian Computing Center</affiliation></author>
+      <author id="mark-anderson" orcid="0000-0002-3104-4693"><first>Mark</first><last>Anderson</last><affiliation>Norsk Regnesentral</affiliation></author>
+      <pages>587-608</pages>
+      <abstract>While de-identification models can help conceal the identity of the individuals mentioned in a document, they fail to address linkage risks, defined as the potential to map the de-identified text back to its source. Linkages can potentially propagate harmful outcomes back to individuals and should therefore be prevented. One straightforward way to perform such linkages is to extract phrases from the de-identified document and check their presence in the original dataset. This paper presents a method to counter search-based linkage attacks while preserving the semantic integrity of the text. The method proceeds in two steps. We first construct an inverted index of the N-grams occurring in the text collection, making it possible to efficiently determine which N-grams appear in fewer than <tex-math>k</tex-math> documents, either alone or in combination with other N-grams. An LLM-based rewriter is then iteratively queried to reformulate those spans until linkage is no longer possible. Experimental results on two datasets (court cases and Wikipedia biographies) show that the rewriting method can effectively prevent search-based linkages while remaining faithful to the original content. However, we also highlight that linkages remain feasible with the help of more advanced, semantics-oriented approaches.</abstract>
+      <pdf hash="0dae8e96"/>
+      <bibkey>lison-anderson-2026-protecting</bibkey>
+    </paper>
+    <paper id="48">
+      <!-- https://aclanthology.org/2026.nllp-1.48/ -->
+      <title><fixed-case>UCVE</fixed-case>: Graph Structured Retrieval for Compliance Validation</title>
+      <author><first>Emily</first><last>Chen</last><affiliation>CapitalOne</affiliation></author>
+      <author><first>Michelle</first><last>Menachery</last><affiliation>CapitalOne</affiliation></author>
+      <author id="rahul-nenavath" orcid="0000-0002-9774-1037"><first>Rahul</first><last>Nenavath</last><affiliation>CapitalOne</affiliation></author>
+      <author id="himanshu-kumar" orcid="0009-0002-1356-0253"><first>Himanshu</first><last>Kumar</last></author>
+      <author><first>Amirfarrokh</first><last>Iranitalab</last><affiliation>CapitalOne</affiliation></author>
+      <pages>609-627</pages>
+      <abstract>Structured compliance validation requires determining whether every obligation in a predefined requirement space is satisfied, violated, or unaddressed by a given document. This can be described as a coverage problem that existing retrieval and classification systems, by treating requirements as independent, are not designed to solve. We introduce <b><fixed-case>UCVE</fixed-case></b>, a domain-agnostic framework that represents compliance requirement spaces as a <fixed-case>CRG</fixed-case> and performs retrieval via spectral reranking over its reinforcement learning-weighted Laplacian. Edges between requirement nodes are learned via reinforcement learning with a traversal reward grounded in violation detection, reshaping the graph’s community structure such that low-pass spectral filtering distinguishes relevant from irrelevant obligation clusters. Evaluating across three compliance domains, <fixed-case>UCVE</fixed-case> averages 4.3% matched-<tex-math>K</tex-math> recall lift over flat cosine retrieval and consistently outperforms strong retrieval and graph-based baselines.</abstract>
+      <pdf hash="612394dc"/>
+      <bibkey>chen-etal-2026-ucve</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.nllp-1.49/ -->
+      <title>Right Code, Wrong Reasons: An Audit Trail Benchmark for Customs Classification</title>
+      <author id="kancharla-aditya-hari" orcid="0009-0005-8349-0643"><first>Kancharla</first><last>Aditya Hari</last><affiliation>Adalat AI</affiliation></author>
+      <author><first>Sai</first><last>Khadloya</last></author>
+      <author><first>Arghya</first><last>Bhattacharya</last><affiliation>Adalat AI</affiliation></author>
+      <author id="kumarmanas-nethil" orcid="0009-0003-0730-6897"><first>Kumarmanas</first><last>Nethil</last><affiliation>Adalat AI</affiliation></author>
+      <pages>628-639</pages>
+      <abstract>Several high-stakes administrative tasks require supporting verdicts and decisions with auditable reasoning. While the application of LLMs in this regard has been studied, existing benchmarks are unsuitable because they either score only the final answer or evaluate citation quality separately from outcome correctness. We introduce HS-BENCH, a benchmark for customs classification, to study this problem. The task involves assigning tariff codes to products with reasoning grounded in legal authorities. HS-BENCH consists of 1,390 product descriptions paired with supporting legal authorities across diverse sources, including dictionary definitions, statutory notes, and prior rulings. We propose Strict Support Accuracy (SSA), a metric that credits a prediction only when both the outcome and the reasoning are well supported. Evaluating frontier models in closed-book and oracle-evidence regimes, we find that classification accuracy and SSA diverge sharply: models often reach the correct outcome through incorrect reasoning. We release the dataset, extraction pipeline, and evaluation code at https://github.com/adalat-ai-tech/hs-bench to support research on auditable LLM systems in administrative law.</abstract>
+      <pdf hash="cedb3994"/>
+      <bibkey>aditya-hari-etal-2026-right</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.nllp-1.50/ -->
+      <title>From Legal Text to Executable Process: <fixed-case>LLM</fixed-case>-Based Extraction of <fixed-case>DCR</fixed-case> Determinations from <fixed-case>D</fixed-case>anish Administrative Law</title>
+      <author><first>Ali</first><last>Al-Laith</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Manex</first><last>Agirrezabal</last><affiliation>University of Copenhagen</affiliation></author>
+      <pages>640-640</pages>
+      <abstract>Formal representations of legal text can ground conversational legal assistants in structured, verifiable knowledge rather than relying solely on a language models latent understanding. A key bottleneck in building such representations is extracting the underlying legal "determinations" from natural language documents. We investigate whether large language models can perform this extraction directly via prompting. We prompt six open-weight models to extract determinations from chunked sections of the document, and evaluate their output against a manually built gold standard using both character-level and semantic metrics, in both gold-to-predicted and predicted-to-gold directions, alongside a novel pseudo-precision/recall formulation. Results show that models vary substantially in schema conformance, output length, and number of determinations retrieved, with no single model dominating across all metrics: some achieve stronger semantic alignment with gold determinations, while others better preserve one-to-one correspondence in the reverse direction.</abstract>
+      <pdf hash="80424175"/>
+      <bibkey>al-laith-agirrezabal-2026-legal</bibkey>
+    </paper>
+    <paper id="51">
+      <!-- https://aclanthology.org/2026.nllp-1.51/ -->
+      <title><fixed-case>C</fixed-case>hild<fixed-case>S</fixed-case>afe<fixed-case>A</fixed-case>ds Shared Task 2026: Commercial Content in Child-Facing <fixed-case>Y</fixed-case>ou<fixed-case>T</fixed-case>ube Videos</title>
+      <author><first>Thales</first><last>Bertaglia</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Catalina</first><last>Goanta</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Gerasimos</first><last>Spanakis</last><affiliation>Maastricht University</affiliation></author>
+      <author><first>Gunes</first><last>Acar</last><affiliation>Radboud University</affiliation></author>
+      <pages>641-649</pages>
+      <abstract>ChildSafeAds is a shared task on commercial content in YouTube videos likely to reach children and teenagers. The dataset contains 3,360 videos from 939 channels, each starting with a sponsor segment submitted to SponsorBlock. We pair each segment with its transcript, video, and channel information, plus a sales or service page linked from the video description. Systems determine the type of offer being promoted (ST1), assign product categories (ST2), and identify potential legal risks (ST3). Evidence is divided into four cumulative access levels, from the transcript to the linked page, so performance can be compared against the cost of collecting additional data. YouTube "Includes paid promotion" label was absent from 45.5% of the videos. GPT-5.4 produced the labels after the organiser team, including a legal expert, reviewed samples and iterated on the taxonomy, prompts and model choices. GPT-5.6-luna independently labelled the development set to measure cross-model agreement. The evaluation received 21 entries; the highest mean macro-F1 was 0.735, while the best transcript-only entry reached 0.652. Across four system papers, the linked promotional page mainly helped identify what was being sold and added little to compliance-risk classification. The competition also exposed sensitivity to rare labels, advertiser overlap across splits and substantial variation in the ST3 labels.</abstract>
+      <pdf hash="f5e3d62e"/>
+      <bibkey>bertaglia-etal-2026-childsafeads</bibkey>
+    </paper>
+  </volume>
+</collection>
