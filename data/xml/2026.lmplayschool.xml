@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.lmplayschool">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.lmplayschool-1/ -->
+    <meta>
+      <booktitle>The Proceedings of Improving Language Models through Learning from Dialogue Game Interaction</booktitle>
+      <editor><first>Alessandro</first><last>Suglia</last></editor>
+      <editor><first>Mario</first><last>Giulianelli</last></editor>
+      <editor><first>David</first><last>Schlangen</last></editor>
+      <editor><first>Raffaella</first><last>Bernardi</last></editor>
+      <editor><first>Raquel</first><last>Fernández</last></editor>
+      <editor><first>Sherzod</first><last>Hakimov</last></editor>
+      <editor><first>Sabrina</first><last>McCallum</last></editor>
+      <editor><first>Davide</first><last>Mazzaccara</last></editor>
+      <editor><first>Dieu-Thu</first><last>Le</last></editor>
+      <editor><first>Oliver</first><last>Lemon</last></editor>
+      <editor><first>Alexander</first><last>Koller</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-467-5</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="1d867116"/>
+      <venue>lmplayschool</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.lmplayschool-1.0/ -->
+      <pdf hash="1ede8191"/>
+      <bibkey>lm-playschool-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.1/ -->
+      <title>Beyond Sally-Anne: Evaluating Theory of Mind in Large Language Models using Epistemic Schelling Points</title>
+      <author id="roberta-rocca" orcid="0000-0001-9017-8088"><first>Roberta</first><last>Rocca</last><affiliation>Aarhus University</affiliation></author>
+      <author><first>Sami</first><last>Boukortt</last><affiliation>Google</affiliation></author>
+      <author><first>Geoff</first><last>Keeling</last><affiliation>Google</affiliation></author>
+      <author><first>Winnie</first><last>Street</last><affiliation>Google</affiliation></author>
+      <pages>1-18</pages>
+      <abstract>Text-based evaluations of Theory of Mind (ToM) in Large Language Models (LLMs) often involve cognitive tests akin to the Sally-Anne task that can be gamed due to exposure to relevantly similar tasks in pre-training and do not obviously test models’ functional ToM abilities in ways that generalize to naturalistic settings. To address these issues, we introduce the Epistemic (A)symmetry Schelling Task (EAST), a two-player dialogue game designed to benchmark robust and generalizable ToM abilities. By requiring LLM-LLM dyads to independently converge on semantic Schelling points under varying states of epistemic transparency, we evaluate whether models can robustly apply ToM to achieve coordination. Our results reveal a significant capability gap in functional social reasoning, with only frontier models successfully navigating the varying epistemic demands of the tasks. Analysis of reasoning traces shows that coordination failures are primarily driven by epistemic tracking errors, such as conflating private knowledge with mutual knowledge. Despite high performance on traditional static benchmarks, our study shows that robust social reasoning and epistemic tracking remain a critical bottleneck, providing concrete targets for future LLM evaluation and development.</abstract>
+      <pdf hash="645792fa"/>
+      <bibkey>rocca-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.2/ -->
+      <title>Can Faithful <fixed-case>C</fixed-case>o<fixed-case>T</fixed-case> Improve Multi-turn <fixed-case>LLM</fixed-case> Agents? Effectiveness, Boundaries, and Paradoxes</title>
+      <author id="tianle-gu" orcid="0009-0005-1546-8196"><first>Tianle</first><last>Gu</last></author>
+      <author id="xinqi-yang" orcid="0009-0004-7309-288X"><first>Xinqi</first><last>Yang</last></author>
+      <author id="yan-teng" orcid="0000-0002-7069-4728"><first>Yan</first><last>Teng</last><affiliation>Shanghai Artificial Intelligence Laboratory</affiliation></author>
+      <pages>19-29</pages>
+      <abstract>Faithful chain-of-thought (CoT) reasoning is widely regarded as a hallmark of capable language models. Yet its role in multi-turn interactive agents remains largely unexplored. We present the first systematic invesigation of action-level CoT faithfulness in multi-turn Large Language Model (LLM) agents, decomposing it into two interpretable and verifiable dimensions: consistency, which measures CoT-action alignment, and determinacy, which captures the degree to which CoT uniquely determines the selected action. We evaluate across Qwen family models of varying scales on Wordle tasks with increasing difficulty. Strikingly, simple inference-time resampling based on CoT faithfulness unlocks non-trivial performance from a zero baseline in weaker models, and yields gains of up to 30 ClemScore points in larger models, all without any additional training. However, our results reveal that faithfulness is not universally beneficial: its effectiveness is bounded by model capability and task difficulty, and jointly enforcing multiple dimensions may introduce competing constraints. These findings suggest that CoT faithfulness should not be viewed as an inherently beneficial property, but rather as a nuanced mechanism whose impact depends on when and how it is utilized in multi-turn agent reasoning.</abstract>
+      <pdf hash="ee67fd8e"/>
+      <bibkey>gu-etal-2026-faithful</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.3/ -->
+      <title><fixed-case>P</fixed-case>rocess<fixed-case>P</fixed-case>ref<fixed-case>B</fixed-case>ench: Evaluating Cross-Task Transfer of Individual Process Preferences from Naturalistic Human–<fixed-case>AI</fixed-case> Interaction</title>
+      <author><first>Yiwen</first><last>Yang</last><affiliation>Independent</affiliation></author>
+      <author id="guanming-liu" orcid="0009-0001-8760-0978"><first>Guanming</first><last>Liu</last></author>
+      <pages>30-40</pages>
+      <abstract>In natural human–AI dialogue, users’ corrections, requests, and self-descriptions carry reusable signals about how they want work to be done. These signals reveal individual process preferences, user-specific standards for evidence, depth, analytical focus, procedure, and delivery. We ask whether a preference revealed in one dialogue can shape an assistant’s later answer when the task does not restate it. ProcessPrefBench uses three months of natural dialogues from two knowledge workers to build 66 source–target cases separately judged for source evidence and target applicability. Sources are preselected, so the benchmark tests application rather than retrieval. We test three models with target-only, full-history, and distilled-preference prompts. Target-specific 0–2 rubrics score preference realization, and a task gate flags severe failures. Compared with target-only prompting, full-history and imperative distilled-preference prompting raise preference realization by 0.204 and 0.244 points on the 0–2 scale, respectively, with no reliable advantage from distillation. Fabricated-evidence failures rise from 5.8% under target-only prompting to 10.1% under full-history and 10.4% under imperative prompting. ProcessPrefBench highlights a tension in learning from dialogue, where drawing on prior interactions can improve preference realization yet also invite fabricated evidence. We hope it helps build assistants that honor a user’s process preferences without sacrificing factual reliability.</abstract>
+      <pdf hash="96824cbd"/>
+      <bibkey>yang-liu-2026-processprefbench</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.4/ -->
+      <title>Role-Specific Strengths and Alignment in <fixed-case>LLM</fixed-case> Cross-Play and Self-Play</title>
+      <author><first>Kata</first><last>Naszadi</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="christof-monz" orcid="0000-0003-1872-1888"><first>Christof</first><last>Monz</last><affiliation>University of Amsterdam, University of Amsterdam</affiliation></author>
+      <pages>41-48</pages>
+      <abstract>Dialogue-game benchmarks usually pair a model with itself, and the resulting self-play score is treated as a measure of that model’s ability. We test whether self-play scores measure partner-independent ability by comparing them with cross-play evaluations. Across nine Clembench games, we evaluate every possible seating of three popular open-weight models. The cross-play reading exposes additional model strengths and weaknesses that are not detectable in self-play. In four of nine games, a mixed pair of two different models beats the best self-play score; in another four cases, a model does better paired with itself than paired with the strongest available partner. Looking at the transcripts, two mechanisms explain most of this: some pairs succeed because one partner writes more detailed messages that keep the interaction on track, while some self-play scores are inflated because both copies of a model make the same mistake and agree by accident.</abstract>
+      <pdf hash="44254bf6"/>
+      <bibkey>naszadi-monz-2026-role</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.5/ -->
+      <title><fixed-case>I</fixed-case>nterview<fixed-case>A</fixed-case>rena: Estimating Uninformative Participants through Interactive Dialogue under Incomplete Information</title>
+      <author id="raika-koki" orcid="0009-0004-3346-5450"><first>Raika</first><last>Koki</last><affiliation>University of Electro-Communications, Tokyo Institute of Technology</affiliation></author>
+      <author><first>Karina</first><last>Karasawa</last></author>
+      <author><first>Ryoki</first><last>Kanayama</last></author>
+      <author><first>Yuki</first><last>Suzumura</last></author>
+      <author id="haruto-fujita" orcid="0009-0001-0443-4055"><first>Haruto</first><last>Fujita</last><affiliation>University of Electro-Communications, Tokyo Institute of Technology</affiliation></author>
+      <author id="ryoma-obara" orcid="0009-0009-2869-6218"><first>Ryoma</first><last>Obara</last><affiliation>NEC</affiliation></author>
+      <author id="yusuke-sakai" orcid="0009-0005-7670-9184"><first>Yusuke</first><last>Sakai</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author id="hidetaka-kamigaito" orcid="0000-0002-5249-5813"><first>Hidetaka</first><last>Kamigaito</last><affiliation>CyberAgent, Inc. and Nara Institute of Science and Technology</affiliation></author>
+      <author id="katsuhiko-hayashi" orcid="0000-0002-3240-4697"><first>Katsuhiko</first><last>Hayashi</last><affiliation>The University of Tokyo</affiliation></author>
+      <author id="shogo-matsuno" orcid="0000-0002-6813-2320"><first>Shogo</first><last>Matsuno</last><affiliation>University of Electro-Communications</affiliation></author>
+      <pages>49-56</pages>
+      <abstract>We introduce InterviewArena, an interview-style multi-agent framework for evaluating large language models (LLMs) under incomplete information. By treating missing information as a single factor, we disentangle missing-information identification from dialogue-based reasoning. Experimental results show that while LLMs can capture relative differences between participants, predicting specific missing information remains unstable, highlighting the need to evaluate these capabilities separately.</abstract>
+      <pdf hash="96b5169b"/>
+      <bibkey>koki-etal-2026-interviewarena</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.6/ -->
+      <title>Protocol Competence of Small Language Models in Interactive Language Game Environments</title>
+      <author id="suchir-salhan" orcid="0000-0001-7201-7387"><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>57-79</pages>
+      <abstract>Learning from interaction requires more than producing appropriate responses: learners must maintain a shared interaction with a partner, following its rules while adapting to feedback and contingencies. We argue that this depends on a prerequisite we call **protocol competence**: the ability to produce valid actions, maintain interaction structure, and respond appropriately across turns. In this paper, we investigate protocol competence in Small Language Models (SLMs) from the Qwen family across five interactive dialogue games from clembench, finding 51.3% of episodes from Qwen3.5-0.8B terminate in protocol violations. However, teacher demonstrations from a larger language model can scaffold participation, raising Wordle play from 0/30 to 29/30. Once models can reliably participate, we find self-improving reinforcement learning becomes effective: a single round of self-generated reinforcement learning (self-ReST) yields large gains from a small number of successful trajectories. Comparing adaptive learning strategies, we find that credit-weighted training provides the most reliable improvements, reducing variance relative to uniform supervision. Together, these results suggest that interactive learning follows a staged trajectory: SLMs must first acquire the competence to participate before they can exploit the contingencies generated by interaction.</abstract>
+      <pdf hash="11db064b"/>
+      <bibkey>salhan-buttery-2026-protocol</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.7/ -->
+      <title><fixed-case>P</fixed-case>areto-Dominant Clarification: Post-Training Coding <fixed-case>LLM</fixed-case>s via <fixed-case>PPO</fixed-case>-<fixed-case>L</fixed-case>agrangian Budget Constraints</title>
+      <author id="abhinav-rajput" orcid="0009-0002-7016-1638"><first>Abhinav</first><last>Rajput</last></author>
+      <author id="acey-vogelstein" orcid="0009-0008-7668-5671"><first>Acey</first><last>Vogelstein</last><affiliation>New York University</affiliation></author>
+      <pages>80-96</pages>
+      <abstract>Coding agents operating under ambiguous instructions or user prompts must decide whether to ask clarifying questions or attempt a solution directly. While clarification from the user may improve the correctness of the agent’s solution, each back-and-forth interaction incurs user and system costs, forming an explicit accuracy vs. efficiency tradeoff. Existing works study clarification behavior but do not train policies under enforceable clarification budgets; penalty-based approaches typically require separate coefficient tuning swept across all clarification budget levels. We formulate clarification as a Constrained Markov Decision Process (CMDP) and post-train Qwen2.5-Coder-7B-Instruct with PPO-Lagrangian to optimize coding accuracy, subject to an expected question-budget constraint. Evaluated on HumanEvalComm with a GPT-4o-mini oracle simulator, the resulting policies reveal that untuned clarification behavior is Pareto-inefficient: budget-constrained policies can simultaneously achieve higher accuracy and lower clarification rates than the baseline model. Across budget levels, we observe a log-shaped Pareto frontier with diminishing returns to additional clarification. Gains arise not from simply asking more questions overall, but from improved question targeting and better code generation under ambiguity. Without explicit supervision, trained policies learn to allocate clarification budget non-uniformly, asking more frequently on tougher (multi-degradation) tasks. These results suggest that unconstrained interactive LLM systems may systematically use clarification inefficiently.</abstract>
+      <pdf hash="f1d53ffd"/>
+      <bibkey>rajput-vogelstein-2026-pareto</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.8/ -->
+      <title>An Empirical Study on Improving an <fixed-case>LLM</fixed-case>s based Interviewer Against Human Interviewees</title>
+      <author><first>Rikuto</first><last>Tsuchida</last></author>
+      <author><first>Ryo</first><last>Hasegawa</last></author>
+      <author id="tetsuya-sonoda" orcid="0009-0005-1008-0504"><first>Tetsuya</first><last>Sonoda</last></author>
+      <author id="takehito-utsuro" orcid="0000-0003-4072-1833"><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <pages>97-109</pages>
+      <abstract>This paper presents a semi-structured interview system composed of multiple LLM components, in which an LLM-based interviewer conducts dialogue and another LLM estimates interviewee persona attributes from the dialogue history and dynamically updated slot information. The system prioritizes questions related to important yet unconfirmed attributes to support efficient interviews. We evaluate persona attribute estimation performance when interviewing both human participants and an LLM-based pseudo interviewee under zero-shot and few-shot prompting conditions. Experiments across three domains (IT engineer, store staff, and school teacher) with a total of 39 interviews show that persona attribute estimation is more challenging for human interviewees than for the LLM pseudo interviewee under zero-shot prompting. However, introducing few-shot prompting consistently improves estimation performance for human interviewees, primarily by increasing recall. On the other hand, its effect on the LLM pseudo interviewee is mixed across domains. A case study confirms, through case-based analysis, that persona attribute estimation improves when illustrative examples are provided.</abstract>
+      <pdf hash="27b3f8cb"/>
+      <bibkey>tsuchida-etal-2026-empirical</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.9/ -->
+      <title>The <fixed-case>LM</fixed-case> Playschool Challenge 2026</title>
+      <author><first>Sherzod</first><last>Hakimov</last><affiliation>University of Potsdam</affiliation></author>
+      <author><first>Dimitrije</first><last>Ristic</last><affiliation>University of Potsdam</affiliation></author>
+      <author><first>Philipp</first><last>Sadler</last><affiliation>University of Potsdam</affiliation></author>
+      <author><first>Davide</first><last>Mazzaccara</last><affiliation>University of Trento</affiliation></author>
+      <author><first>Sabrina</first><last>McCallum</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Filippo</first><last>Momentè</last><affiliation>University of Trento</affiliation></author>
+      <author><first>Maria</first><last>Manina</last><affiliation>University of Potsdam</affiliation></author>
+      <author><first>Karl</first><last>Osswald</last><affiliation>University of Potsdam</affiliation></author>
+      <author><first>Dieu-Thu</first><last>Le</last><affiliation>Amazon AGI, Germany</affiliation></author>
+      <author><first>Oliver</first><last>Lemon</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author><first>Alexander</first><last>Koller</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Raffaella</first><last>Bernardi</last><affiliation>Free University of Bozen-Bolzano</affiliation></author>
+      <author><first>Raquel</first><last>Fernández</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Mario</first><last>Giulianelli</last><affiliation>UCL</affiliation></author>
+      <author><first>Alessandro</first><last>Suglia</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>David</first><last>Schlangen</last><affiliation>University of Potsdam, DFKI</affiliation></author>
+      <pages>110-126</pages>
+      <abstract>Children acquire language from far less input than language models, and social interaction is widely thought to be part of the reason. Dialogue games cannot fully replicate human interaction, but they offer a controllable environment for simulating situated language use and for studying how models learn from and through interaction. The LM Playschool Challenge builds on this idea, shifting language model training away from observational data towards multi-turn language use. Participants were free to post-train a language model of any size, using any data or method, with one objective in mind — to improve its performance on an unseen set of dialogue games. Our findings suggest that post-training on dialogue games effectively teaches game rules and structure and can support generalisation, especially for small models — the best system achieved gains of roughly seven and three times its baseline score on held-out instances of seen games and on unseen games, respectively. However, gains on unseen games were concentrated in a few games, and larger models improved mainly by achieving better completion rates. General ability was largely retained across submitted systems, owing to the fact that fine-tuning on dialogue games produces shorter responses — and in turn, trigger fewer formatting errors on static benchmarks. Nearly all submissions relied on supervised fine-tuning, often followed by preference optimisation, and none trained on the dense turn-level feedback offered by Playpen, leaving this an open direction for future iterations of the challenge.</abstract>
+      <pdf hash="3939b035"/>
+      <bibkey>hakimov-etal-2026-lm</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.10/ -->
+      <title>Enhancing <fixed-case>LLM</fixed-case> Performance via <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> <fixed-case>SFT</fixed-case> and <fixed-case>DPO</fixed-case> for the <fixed-case>LM</fixed-case> Playschool Challenge</title>
+      <author><first>Vasamsetti Nihal</first><last>Tej</last></author>
+      <author><first>Velineni</first><last>Harshavaishnav</last></author>
+      <author id="shreya-ghosh" orcid="0000-0002-6970-8889"><first>Shreya</first><last>Ghosh</last><affiliation>IIT Bhubaneswar</affiliation></author>
+      <pages>127-131</pages>
+      <abstract>Large Language Models (LLMs) have achieved SOTA results in many natural language pro- cessing tasks. However, they are primarily trained for static text generation and often strug- gle in interactive, goal-oriented environments that require multi-turn reasoning, state track- ing, and need to give structured output formats. This paper presents our team’s submission to the LM Playschool Workshop Shared Task at EMNLP 2026. The LM Playschool Workshop Shared Task at EMNLP 2026 addresses this challenge by evaluating language models as in- teractive agents in structured dialogue games. We hereby explored different fine-tuning strate- gies for Qwen 4B and Qwen 7B models to improve their interactive capabilities and eval- uated them. We perform a comparison of Su- pervised Fine-Tuning (SFT) and Direct Pref- erence Optimization (DPO) using multi-turn training data. Our study analyzes the effective- ness of each optimization strategy for learning robust dialogue behaviors while maintaining models stability towards interactive games and also not to forget its language linguistics by different evaluating metrics. Experimental re- sults show that although supervised fine-tuning provides consistent interactive performance, di- rectly optimizing the foundation model using DPO reduces optimization errors and leads to improved agent behavior. Our best-performing model achieved a clemscore of 38.23 on the official LM Playschool leaderboard, evaluated using the Playpen workbench.</abstract>
+      <pdf hash="56d40c7d"/>
+      <bibkey>tej-etal-2026-enhancing</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.11/ -->
+      <title>Adapting <fixed-case>SC</fixed-case>o<fixed-case>R</fixed-case>e to Single-Player Dialogue Games: Initial Experiments on <fixed-case>PLAYPEN</fixed-case></title>
+      <author id="neda-foroutan" orcid="0009-0007-9859-5573"><first>Neda</first><last>Foroutan</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Valhari</first><last>Meshram</last><affiliation>Universität Potsdam</affiliation></author>
+      <pages>132-139</pages>
+      <abstract>Large Language Models (LLMs) are increasingly deployed as autonomous agents that solve tasks through multi-step interactions. However, most post-training methods are designed for single-turn reasoning or instruction-following tasks and provide limited supervision for long-horizon conversational decision making. In this work, we investigate whether Self-Correction via Reinforcement Learning (SCoRe), originally proposed for single-step mathematical reasoning and code generation, can improve agentic performance in multi-turn dialogue games. We adapt SCoRe to the PLAYPEN benchmark by fine-tuning Qwen3.5-9B on five single-player dialogue games using interaction-level rewards and iterative self-correction. Experimental results show that the resulting model substantially improves performance on the trained single-player games and further generalizes to unseen multi-player dialogue games, increasing the overall ClemScore from 41.18 to 43.31. Although a slight decrease is observed on the aggregate StatScore, the model largely retains its general language understanding and reasoning capabilities. These findings demonstrate that self-correction reinforcement learning is an effective approach for improving long-horizon conversational agent behavior beyond single-step reasoning tasks.</abstract>
+      <pdf hash="2fc58b3b"/>
+      <bibkey>foroutan-meshram-2026-adapting</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.12/ -->
+      <title>First Make It Playable, Then Make It Good: Staged Interaction Learning for Small Dialogue-Game Agents</title>
+      <author id="syed-mahbubul-huq" orcid="0009-0007-8326-8967"><first>Syed Mahbubul</first><last>Huq</last><affiliation>City St George's, University of London</affiliation></author>
+      <author id="pranava-madhyastha" orcid="0000-0002-4438-8161"><first>Pranava</first><last>Madhyastha</last><affiliation>Alan Turing Institute, City, University of London and Imperial College London</affiliation></author>
+      <pages>140-147</pages>
+      <abstract>We present Qwen-GuidePlay-2B, a 2B-parameter language model for dialogue-game interaction. We fine-tune Qwen3.5-2B using three steps: a) SFT on only successful game trajectories from Playpen, b) weighted turn-level SFT, and c) teacher-guided SFT. The teacher model (which is a larger model) is only used to fix formatting and evaluate examples, but does not create new gold actions. Our final model scores 57.12 clemscore and 42.68 statscore on the public Playpen validation. In the officially released challenge results, our model obtains the second-highest Playpen clemscore delta among submitted systems (which is ≈+36 over its base model). Our findings suggest that imitating full trajectories helps with playability, while turn-level and teacher-guided training usually improve decision-making and increase the overall score. Alternative procedurally heavy approaches like replay-repair and hard-example mining did not help, which suggests that small models are performant simply by using careful curation strategies rather than aggressive changes. We make available both the model and the code for reproducibility.</abstract>
+      <pdf hash="c95b9b0d"/>
+      <bibkey>huq-madhyastha-2026-first</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.13/ -->
+      <title>Raising a Small Language Model: From Imitation to Curiosity-Driven Learning in Dialogue Games</title>
+      <author><first>Varad</first><last>Srivastava</last><affiliation>Barclays</affiliation></author>
+      <pages>148-159</pages>
+      <abstract>Children do not learn language from text corpora, rather they learn it in interaction by imitating competent speakers, receiving feedback, practicing, being corrected, and playing. The LM Playschool Challenge asks whether language models can profit from analogous regimes. We take the smallest recommended base model, Qwen3.5-2B (clemscore 13.63 in our evaluation environment), and traverse a sequence of five interaction-derived learning regimes that mirror a developmental progression: imitation of competent others (supervised fine-tuning on success-filtered transcripts), learning from outcome contrasts (direct preference optimisation), self-imitation (fine-tuning on the model’s own successes), corrective feedback (contrastive pairs from the model’s own failures against its own and expert successes), and intrinsically motivated trial-and-error (online GRPO with a novelty bonus). The offline regimes carry the model to 67.6 clemscore on our validation evaluation (<tex-math>+54.0</tex-math> over the base model). On the organisers’ held-out evaluation, our two submitted checkpoints achieve the largest out-of-domain gains of any submission in the challenge (<tex-math>+11.9</tex-math> and <tex-math>+10.8</tex-math> clemscore, against a maximum of <tex-math>+6.5</tex-math> for any other entry), with in-domain gains of <tex-math>+33.2</tex-math> and <tex-math>+37.3</tex-math> and static-benchmark performance unchanged. Online GRPO <i>regresses</i> from its initialisation (<tex-math>-5.0</tex-math>) unless augmented with a random-network-distillation novelty bonus, which fully recovers the loss (<tex-math>+5.0</tex-math> over the plain-GRPO control), evidence that the bonus primarily counteracts the forgetting that narrow online training induces on untrained games.</abstract>
+      <pdf hash="c774beb6"/>
+      <bibkey>srivastava-2026-raising</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.14/ -->
+      <title>Teaching or Sharpening? An Exploration of the Potential of <fixed-case>DPO</fixed-case> Post-Training for Dialogue Games</title>
+      <author id="marika-sarzotti" orcid="0009-0008-4433-9272"><first>Marika</first><last>Sarzotti</last><affiliation>Universität Potsdam</affiliation></author>
+      <author><first>Simone</first><last>Baratella</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>160-169</pages>
+      <abstract>Direct Preference Optimization (DPO) has emerged as a lightweight alternative to RLHF for post-training LLMs, yet it remains unclear whether it can teach novel skills or only sharpen existing ones. We investigate this question in the context of dialogue games, constructing multiple sets of on-policy preference pairs from the rollouts of supervised-fine-tuned Qwen3.5 models (2B and 9B) on the clembench benchmark, targeting rule adherence, strategic behaviour and excessive verbosity. Across all ablations, performance tracks a single variable, namely the distance of the chosen response from the policy’s own distribution. Pairs built from the model’s own winning moves raise the clemscore from 58.82 to 70.21, while pairs built around GPT-corrected moves land below the baseline at both scales. Transcript analysis points to a structural reason: bare preference pairs reduce conditional rules to unconditional preferences, so that DPO proves able to elicit successful behaviour already latent in the policy, but not to instill behaviour it does not yet exhibit.</abstract>
+      <pdf hash="a7302378"/>
+      <bibkey>sarzotti-baratella-2026-teaching</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.lmplayschool-1.15/ -->
+      <title>Acquire, Repair, Preserve: A Diagnosis-Guided Post-Training Recipe for Small-Model Dialogue Game Agents</title>
+      <author id="nan-li-utrecht" orcid="0009-0001-5559-4788"><first>Nan</first><last>Li</last><affiliation>Utrecht University</affiliation></author>
+      <pages>170-183</pages>
+      <abstract>Interactive dialogue games test a capability that static benchmarks largely leave implicit: a model must carry state across turns, interpret feedback, and choose valid actions under changing constraints. We study this setting in the LM Playschool Challenge with a 2B open-weight model, and find that many failures are not only broad knowledge failures but also local decision failures: repeated guesses, malformed actions, and violations of feedback that the model has just seen. These diagnostics motivate a training recipe organized around three steps: acquire broad game participation through supervised fine-tuning, repair mechanically verifiable failures within one targeted dialogue-game family using turn-local preference pairs, and preserve general capabilities beyond these dialogue games. In the official final evaluation, our submission improves public clemscore from 10.67 to 38.92 and closed in-domain score from 13.41 to 41.17, while approximately preserving aggregate static performance (44.14 vs. 44.24 for the baseline). Out-of-domain clemscore remains low at 7.88, with the largest gains concentrated in unseen variants of the targeted family. Our results suggest that broad SFT brings most of the model’s capability improvement; turn-local supervision can be effective when failure detection is precise, with observed transfer concentrated primarily within-family.</abstract>
+      <pdf hash="72e8a171"/>
+      <bibkey>li-2026-acquire</bibkey>
+    </paper>
+  </volume>
+</collection>
