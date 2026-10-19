@@ -27,7 +27,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.1/ -->
       <title>Efficient Multilingual Neural Machine Translation via Corpus-Driven Vocabulary Pruning: An <fixed-case>E</fixed-case>nglish-<fixed-case>A</fixed-case>rabic Case Study.</title>
       <author><first>Ahmed Amine</first><last>Aliane</last><affiliation>Research Center on Scientific and Technical Information, Algeria</affiliation></author>
-      <author><first>Nasredine</first><last>Semmar</last><affiliation>CEA LIST</affiliation></author>
+      <author id="nasredine-semmar" orcid="0000-0002-4685-6053"><first>Nasredine</first><last>Semmar</last><affiliation>CEA LIST</affiliation></author>
       <author><first>Hassina</first><last>Aliane</last><affiliation>Research Center On Scientific and Technical Information</affiliation></author>
       <pages>1-13</pages>
       <abstract>The adoption of large pre-trained multilingual models for neural machine translation (MNMT) faces a major challenge: excessive memory and computational consumption due to overly large vocabularies and embedding layers. Although existing compression methods like pruning, quantization and knowledge distillation reduce parameter redundancy, they mainly preserve the structure of the original vocabulary, leaving a major source of inefficiency unresolved. We propose in this paper a general optimization framework combining a vocabulary pruning method with a targeted finetuning protocol for MNMT models. We evaluate the proposed framework using three models (M2M100, NLLB-200, mBART-50) on the English-Arabic language pair. Our approach reduces the vocabulary size by 82-87% depending on the architecture, without any loss in performance. Results show that optimized multilingual models can match or exceed the performance of dedicated bilingual baselines. In particular, the pruned and fine-tuned M2M100 model achieves a competitive BLEU score of 42.04 (against 44.59 for the OPUS-MT-en-ar bilingual model) while it significantly outperforms it on the COMET metric (0.8730 vs 0.7911) revealing superior semantic adequacy and fluency.</abstract>
@@ -59,11 +59,11 @@
     <paper id="4">
       <!-- https://aclanthology.org/2026.wmt-main.4/ -->
       <title>The Constitution Speaks Nheengatu: An Open <fixed-case>MT</fixed-case> System and Reproducible Corpus Pipeline for the <fixed-case>A</fixed-case>mazonian Língua Geral</title>
-      <author><first>Fabrício</first><last>Carraro</last><affiliation>Universidad Internacional Menéndez Pelayo</affiliation></author>
-      <author><first>Rodolfo</first><last>Zevallos</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
+      <author id="fabricio-carraro" orcid="0009-0007-9392-7305"><first>Fabrício</first><last>Carraro</last><affiliation>Universidad Internacional Menéndez Pelayo</affiliation></author>
+      <author id="rodolfo-zevallos" orcid="0000-0003-0192-7740"><first>Rodolfo</first><last>Zevallos</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
       <author><first>Rodrigo</first><last>Gonçalves De Souza</last><affiliation>Tribunal Regional Federal da 1ª Região</affiliation></author>
       <author><first>Caio</first><last>Faustino Da Silva</last><affiliation>PUC-Rio</affiliation></author>
-      <author><first>John E.</first><last>Ortega</last><affiliation>Northeastern University</affiliation></author>
+      <author id="john-e-ortega" orcid="0000-0002-2328-3205"><first>John E.</first><last>Ortega</last><affiliation>Northeastern University</affiliation></author>
       <pages>47-63</pages>
       <abstract>Nheengatu (yrl), the Amazonian Língua Geral, has 6-10 thousand speakers and is co-official in São Gabriel da Cachoeira (Brazil), yet remains poorly served by evaluated Portuguese-Nheengatu MT resources. We present the largest parallel corpus assembled for the language (14.5k Portuguese-Nheengatu pairs), anchored by the 2023 official translation of the Brazilian Federal Constitution; the first MT evaluation set built from transcribed spontaneous speech; and, to our knowledge, the first open-weight MT models dedicated to bidirectional Portuguese-Nheengatu translation.<par/>Three findings organize the paper. First, translation into Nheengatu on held-out constitutional articles plateaus on development data regardless of training length or model size, and much of the remaining error sits in conventional legal terms that the written sources do not attest consistently; a terminology success rate over a frozen lexicon shows that glossary mechanisms at training time and lexical constraints at decoding each raise term realization, the latter at a cost in repetitive output that chrF++ barely registers. Second, a corpus expansion that adds transcribed conversation raises speech chrF++ by 24-27 points while leaving written domains unchanged, a register gap that written-only benchmarks cannot see. Third, a larger NLLB model helps translation into Portuguese but not into Nheengatu on legal or speech text. For Portuguese-to-Nheengatu translation, our final systems reach 31.7-32.8 chrF++ on article-disjoint constitutional text, 64.1-64.5 on the near-domain set (62.1 after removing items with target-side content overlap), and 45.2-47.5 on speech.</abstract>
       <pdf hash="6c63faca"/>
@@ -77,7 +77,7 @@
       <author><first>Masum</first><last>Hasan</last><affiliation>University of Rochester</affiliation></author>
       <author><first>Soham</first><last>Khisa</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
       <author><first>Chumui</first><last>Tripura</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
-      <author><first>Rifat</first><last>Shahriyar</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author id="rifat-shahriyar" orcid="0000-0001-9540-315X"><first>Rifat</first><last>Shahriyar</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
       <pages>64-81</pages>
       <abstract>We present a systematic study of machine translation for Chakma, an endangered and extremely low-resource Indo-Aryan language. We introduce a large Chakma–Bangla machine translation resource comprising 15,021 parallel translation pairs, 42,783 Chakma monolingual sentences, and a trilingual evaluation benchmark. To address data scarcity and the script mismatch between Chakma and Bangla, we develop a character-level transliteration framework that enables transfer from Bangla and multilingual pretrained models. We evaluate from-scratch machine translation systems, fine-tuned pretrained models, and large language models using in-context learning. Our results show that transliteration is crucial for the tested pretrained models and that performance is strongly direction-dependent: in-context learning performs best for Chakma-to-Bangla translation, while Bangla-to-Chakma remains considerably more challenging, with the strongest approach depending on the evaluation metric.</abstract>
       <pdf hash="20ac070c"/>
@@ -87,7 +87,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.6/ -->
       <title><fixed-case>T</fixed-case>erm<fixed-case>J</fixed-case>udge: A Document-Level Metric Judging, Not Counting, Terminology in Machine Translation Evaluation</title>
       <author><first>Nicolas</first><last>Dahan</last><affiliation>Inria</affiliation></author>
-      <author><first>François</first><last>Yvon</last><affiliation>ISIR, CNRS \&amp; Sorbonne Université</affiliation></author>
+      <author id="francois-yvon" orcid="0000-0002-7972-7442"><first>François</first><last>Yvon</last><affiliation>ISIR, CNRS \&amp; Sorbonne Université</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
       <pages>82-115</pages>
       <abstract>Existing automatic metrics for evaluating terminological use in machine translation (MT) penalise any divergence from a fixed reference, conflating translation errors with the valid terminological variation that human translators routinely produce. We introduce TermJudge, a document-level terminology metric that assigns an interpretable verdict to every term occurrence: glossary-conforming occurrences are settled deterministically, while divergences are assessed under a two-step LLM-as-judge procedure using the full document context: the first detects and labels terminology errors; the second sorts valid document-level variations from inconsistencies. Validated against expert error annotations and document-level human MQM scores, TermJudge ranks first in both system- and segment-level meta-evaluation, ahead of glossary-conformity and quality-estimation baselines. When applied to eight systems translating academic documents, under two prompting conditions, we observe that glossary injection improves terminology translation in all paired comparisons, by removing genuine errors rather than valid variation. TermJudge is released as open-source code.</abstract>
@@ -100,7 +100,7 @@
       <author><first>Priyanka</first><last>Dasari</last><affiliation>IIITHyderabad</affiliation></author>
       <author><first>Yuvrajsinh</first><last>Bodana</last><affiliation>IIIT-Hyderabad</affiliation></author>
       <author><first>Vandan</first><last>Mujadia</last><affiliation>IIIT-H</affiliation></author>
-      <author><first>Arafat</first><last>Ahsan</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author id="arafat-ahsan" orcid="0009-0009-9709-3832"><first>Arafat</first><last>Ahsan</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Dipti</first><last>Sharma</last><affiliation>IIIT, Hyderabad</affiliation></author>
       <author><first>Parameswari</first><last>Krishnamurthy</last><affiliation>Assistant Professor, IIIT Hyderabad</affiliation></author>
       <pages>116-145</pages>
@@ -125,8 +125,8 @@
       <!-- https://aclanthology.org/2026.wmt-main.9/ -->
       <title>Balancing Global Quality and Pronoun-Specific Feedback for Context-Aware Machine Translation</title>
       <author><first>Harshit</first><last>Dhankhar</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
-      <author><first>Baban</first><last>Gain</last><affiliation>Indian Institute of Technology, Patna</affiliation></author>
-      <author><first>Asif</first><last>Ekbal</last><affiliation>IIT Patna</affiliation></author>
+      <author id="baban-gain" orcid="0000-0001-8673-7078"><first>Baban</first><last>Gain</last><affiliation>Indian Institute of Technology, Patna</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>IIT Patna</affiliation></author>
       <author><first>Yogesh</first><last>Tripathi</last><affiliation>IIT Patna</affiliation></author>
       <pages>157-167</pages>
       <abstract>Context-aware machine translation can expose the evidence needed for pronoun choice, but standard fine-tuning does not explicitly prioritize these sparse discourse-sensitive decisions. We study ProNMT, a reward-guided iterative self-training method that combines sentence-level quality estimation with a signed confidence signal at generated pronoun positions. For each current sentence and its preceding source context, ProNMT samples candidate translations, scores them using reference-free quality estimation together with a reference-derived pronoun label, and fine-tunes on the highest-scoring candidate. On filtered English–German Europarl and English–French News Commentary data, ProNMT improves over context-aware supervised fine-tuning on BLEU and COMET. Ablations show that pronoun-only feedback can severely degrade sentence-level translation quality on these pronoun-focused data, while hard binary feedback underperforms confidence-weighted feedback. These results indicate that targeted linguistic feedback is most useful when combined with both a global quality signal and the context relevant to the targeted decision. We make the code publicly available at https://github.com/Harshit2807161/ProNMT.</abstract>
@@ -136,7 +136,7 @@
     <paper id="10">
       <!-- https://aclanthology.org/2026.wmt-main.10/ -->
       <title>Compact Models for Machine Translation in the Bioinformatics Domain: Synthetic Data, Domain Adaptation, and Expert Evaluation</title>
-      <author><first>Jurgi</first><last>Giraud</last><affiliation>The University of Edinburgh</affiliation></author>
+      <author id="jurgi-giraud" orcid="0009-0000-2614-3382"><first>Jurgi</first><last>Giraud</last><affiliation>The University of Edinburgh</affiliation></author>
       <author><first>Andrew</first><last>Gargett</last><affiliation>The Open University (UK)</affiliation></author>
       <pages>168-182</pages>
       <abstract>Bioinformatics is almost invisible in Machine Translation (MT) research, despite being a hard case: dense specialised terminology, a high density of Multiword Expressions (MWEs), and an acute scarcity of parallel data. We address this gap for English-French. We compile a bioinformatics parallel corpus (14,467 sentence pairs) and expand it to 236k pairs through four augmentation strategies, each profiled for lexical diversity before use, then fine-tune five compact models (223M-8B parameters) under an incremental data ablation. We evaluate with automatic metrics and with a three-rater MQM evaluation involving professional life-sciences translators and using an error typology extended with a dedicated MWE category. Domain adaptation improves every system on every metric, with fine-tuned models surpassing much larger state-of-the-art commercial models on our domain test set. Expert judgements reveal a more structured picture with Accuracy errors falling by up to 68.8% and MWE errors by up to 51.1%, while also highlighting an accuracy-fluency trade-off that the automatic metrics conceal. Notably, the least lexically diverse augmentation sources contribute gains comparable to the most diverse ones, which we advance as one candidate account of the trade-off. We release all corpora, synthetic data, and adapted models.</abstract>
@@ -158,7 +158,7 @@
       <title><fixed-case>L</fixed-case>oc<fixed-case>QE</fixed-case>: Principled Domain Adaptation for Localisation Quality Estimation by Leveraging Post-Edits</title>
       <author><first>Kathy</first><last>Haemmerl</last><affiliation>Technical University of Munich</affiliation></author>
       <author><first>Gabriel</first><last>Bretschner</last><affiliation>Lilt</affiliation></author>
-      <author><first>Joern</first><last>Wuebker</last><affiliation>Lilt, Inc.</affiliation></author>
+      <author id="joern-wuebker" orcid="0000-0002-8780-5287"><first>Joern</first><last>Wuebker</last><affiliation>Lilt, Inc.</affiliation></author>
       <pages>199-219</pages>
       <abstract>Learned quality estimation (QE) models such as COMETKiwi are widespread and work well for general machine translation evaluation. However, they are known to struggle on unseen domains, limiting their performance in a real-world localisation context. We show that they are insensitive to some important factors in localisation, such as whether numbers are translated accurately, or even whether the correct number of spaces and punctuation are preserved in a translation. Further, a key capability for optimisation of machine translation is the ability of QE models to accurately rank different translations of a single segment, which suffers significantly from the domain transfer. In the absence of large-scale direct assessment data, we propose principled fine-tuning approaches to reduce the domain gap with even small amounts of post-editing data. Using a multi-task fine-tuning approach and a simple tokeniser intervention, we create a QE model which proves markedly better at distinguishing preferred post-edits from rejected initial translations in a localisation context. We show that preferences and artificial continuous scores stabilise each other, and argue that to calibrate metrics both in terms of their absolute scores and comparisons between translation of the same source, both types of signal are needed.</abstract>
       <pdf hash="04062edf"/>
@@ -168,8 +168,8 @@
       <!-- https://aclanthology.org/2026.wmt-main.13/ -->
       <title>Low-resource machine translation using a general-purpose <fixed-case>LLM</fixed-case> informed by a dedicated <fixed-case>NMT</fixed-case> model and lexical resources: A case study on <fixed-case>A</fixed-case>inu–<fixed-case>J</fixed-case>apanese translation</title>
       <author><first>Nagito</first><last>Hara</last><affiliation>University of Yamanashi</affiliation></author>
-      <author><first>Karol</first><last>Nowakowski</last><affiliation>University of Yamanashi</affiliation></author>
-      <author><first>Michal</first><last>Ptaszynski</last><affiliation>Kitami Institute of Technology</affiliation></author>
+      <author id="karol-nowakowski" orcid="0000-0001-7435-4061"><first>Karol</first><last>Nowakowski</last><affiliation>University of Yamanashi</affiliation></author>
+      <author id="michal-ptaszynski" orcid="0000-0002-1910-9183"><first>Michal</first><last>Ptaszynski</last><affiliation>Kitami Institute of Technology</affiliation></author>
       <author><first>Lloyd</first><last>Overacker</last><affiliation>Kitami Institute of Technology</affiliation></author>
       <author><first>Masahiro</first><last>Toyoura</last><affiliation>University of Yamanashi</affiliation></author>
       <pages>220-238</pages>
@@ -181,7 +181,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.14/ -->
       <title><fixed-case>SNAPP</fixed-case>: Segment-Level Neural Alignment Post-Processing for Low-Resource Parallel Sentence Mining</title>
       <author><first>Niklas</first><last>Hettich</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Shu</first><last>Okabe</last><affiliation>TUM Heilbronn</affiliation></author>
+      <author id="shu-okabe" orcid="0009-0003-0169-3689"><first>Shu</first><last>Okabe</last><affiliation>TUM Heilbronn</affiliation></author>
       <author><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <pages>239-253</pages>
       <abstract>Machine Translation (MT) for low-resource languages has been challenging so far, mainly due to the small size or lack of parallel sentences. Parallel sentence mining and filtering are two automatic approaches which aim to identify and curate such resources. Yet, they usually rely on multilingual representation as a backend, which is known to be of poorer quality for low-resource language pairs, leading to the introduction of noisy pairs. We devise SNAPP, a post-processing pipeline which combines a segment-level filtering technique with an unsupervised neural aligner to remove highly similar but non-parallel sentence pairs. Modular components further enable more specific adaptation to the language pair under consideration. We evaluate filtering performance on three language pairs of varying typological distance. Finally, we show improvement on the downstream MT performance with our post-processing pipeline for the two harder language pairs.</abstract>
@@ -193,7 +193,7 @@
       <title>Dynamic Lagging using Stable-Prefix Training for Simultaneous Translation</title>
       <author><first>Hieu</first><last>Hoang</last><affiliation>Microsoft</affiliation></author>
       <author><first>Amittai</first><last>Axelrod</last><affiliation>none</affiliation></author>
-      <author><first>Matt</first><last>Post</last><affiliation>Microsoft</affiliation></author>
+      <author id="matt-post" orcid="0000-0002-1297-6794"><first>Matt</first><last>Post</last><affiliation>Microsoft</affiliation></author>
       <pages>254-268</pages>
       <abstract>In streaming simultaneous speech translation, the speech translation system is trained to learn a read-write policy that alternates between consuming source words and generating target ones. In a cascaded setting, the output from the speech recognizer is passed to a separate machine translation component, making it more difficult to learn such a policy. Approximations such as fixed wait-k strategies or target-suffix deletion can be employed, but these approaches do not provide the model with a streaming system’s flexibility to make contextual read-write decisions. This paper presents a training strategy for a cascaded machine translation system that enables it to dynamically decide how much of the growing source prefix to translate. We achieve this by fine-tuning a large language model (Qwen3-8B) on stable prefixes of the training data, which are produced by pairing every source sentence prefix in the training data with the longest translation of that prefix that is shared with the full source sentence translation. We fine-tune variants of the model on different subsets of the prefixes and compare against wait-k and target-suffix deletion. We also investigate the effect of fine-tuning the target-token generation confidence. Our experiments show that stable prefixes improve the quality-latency tradeoff when translating from English into German, Japanese, and Chinese across a range of test sets.</abstract>
       <pdf hash="44b6de3e"/>
@@ -229,7 +229,7 @@
       <author><first>Abderrahmane</first><last>Issam</last><affiliation>Maastricht University</affiliation></author>
       <author><first>Yusuf Can</first><last>Semerci</last><affiliation>Maastricht University</affiliation></author>
       <author><first>Jan</first><last>Scholtes</last><affiliation>Professor at Maastricht University</affiliation></author>
-      <author><first>Gerasimos</first><last>Spanakis</last><affiliation>Maastricht University</affiliation></author>
+      <author id="gerasimos-spanakis" orcid="0000-0002-0799-0241"><first>Gerasimos</first><last>Spanakis</last><affiliation>Maastricht University</affiliation></author>
       <pages>304-317</pages>
       <abstract>While Large Language Models excel in natural language processing, efficiently extending their capabilities to spoken input remains a significant challenge. Existing methods for building SpeechLLMs often rely on computationally expensive full-model fine-tuning, or employ parameter-efficient projectors that suffer from inefficient token sequence lengths and costly full-model supervision. In this paper, we introduce Aligned Continuous Integrate-and-Fire, a highly efficient framework for zero-shot speech processing. Our method dynamically compresses continuous acoustic frames into the exact discrete token length of the target text utilizing explicit Dynamic Time Warping alignments. This allows our initial training stage to establish a robust acoustic-to-semantic bridge using lightweight distance metrics, entirely bypassing the computationally expensive LLM forward pass. For subsequent fine-tuning, we propose a memory-efficient knowledge distillation objective that targets a single LLM layer, performing competitively with full-model cross-entropy training at a fraction of the computational cost. Through extensive evaluations on Automatic Speech Recognition and Speech Translation, we demonstrate that our method achieves superior performance compared to prior parameter-efficient baselines.</abstract>
       <pdf hash="83bd7fc5"/>
@@ -238,20 +238,20 @@
     <paper id="19">
       <!-- https://aclanthology.org/2026.wmt-main.19/ -->
       <title><fixed-case>I</fixed-case>ndic<fixed-case>QE</fixed-case>-<fixed-case>APE</fixed-case>: A Consolidated Benchmark for Quality Estimation and Automatic Post-Editing over <fixed-case>I</fixed-case>ndic Languages</title>
-      <author><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
-      <author><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
-      <author><first>Sourabh</first><last>Deoghare</last><affiliation>IIT Bombay</affiliation></author>
+      <author id="diptesh-kanojia" orcid="0000-0001-8814-0080"><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
+      <author id="archchana-sindhujan" orcid="0000-0002-6467-6873"><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
+      <author id="sourabh-deoghare" orcid="0000-0003-3566-888X"><first>Sourabh</first><last>Deoghare</last><affiliation>IIT Bombay</affiliation></author>
       <author><first>Daria</first><last>Sokova</last><affiliation>University of Surrey</affiliation></author>
       <author><first>Shenbin</first><last>Qian</last><affiliation>University of Oslo</affiliation></author>
       <author><first>Girish</first><last>Koushik</last><affiliation>University of Surrey</affiliation></author>
-      <author><first>Tharindu</first><last>Ranasinghe</last><affiliation>Lancaster University</affiliation></author>
-      <author><first>Constantin</first><last>Orasan</last><affiliation>University of Surrey</affiliation></author>
-      <author><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
-      <author><first>Ricardo</first><last>Rei</last><affiliation>Unbabel/INESC-ID</affiliation></author>
-      <author><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
+      <author id="tharindu-ranasinghe" orcid="0000-0003-3207-3821"><first>Tharindu</first><last>Ranasinghe</last><affiliation>Lancaster University</affiliation></author>
+      <author id="constantin-orasan" orcid="0000-0003-2067-8890"><first>Constantin</first><last>Orasan</last><affiliation>University of Surrey</affiliation></author>
+      <author id="chrysoula-zerva" orcid="0000-0002-4031-9492"><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="ricardo-rei" orcid="0000-0001-8265-1939"><first>Ricardo</first><last>Rei</last><affiliation>Unbabel/INESC-ID</affiliation></author>
+      <author id="frederic-blain" orcid="0000-0003-3017-3722"><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
       <author><first>André</first><last>Martins</last><affiliation>Unbabel, Instituto de Telecomunicacoes</affiliation></author>
-      <author><first>Marco</first><last>Turchi</last><affiliation>Zoom Communications</affiliation></author>
-      <author><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <author id="marco-turchi" orcid="0000-0002-5899-4496"><first>Marco</first><last>Turchi</last><affiliation>Zoom Communications</affiliation></author>
+      <author id="matteo-negri" orcid="0000-0002-8811-4330"><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
       <author><first>Anoop</first><last>Kunchukuttan</last><affiliation>Microsoft AI and Research</affiliation></author>
       <author><first>Mitesh M.</first><last>Khapra</last><affiliation>Indian Institute of Technology Madras</affiliation></author>
       <author><first>Pushpak</first><last>Bhattacharyya</last><affiliation>Indian Institute of Technology Bombay and Patna</affiliation></author>
@@ -264,7 +264,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.20/ -->
       <title>Text-Only vs. Image-Aware <fixed-case>VLM</fixed-case> Judges for Manga Translation Evaluation</title>
       <author><first>Subaru</first><last>Kimura</last><affiliation>Tohoku University</affiliation></author>
-      <author><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University / RIKEN Center for AIP</affiliation></author>
+      <author id="jun-suzuki" orcid="0000-0003-2108-1340"><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University / RIKEN Center for AIP</affiliation></author>
       <pages>345-367</pages>
       <abstract>In manga translation, visual context outside speech-bubble text, including speaker identities, referents, and scene tone, is depicted in page images, making it natural to refer to images during translation evaluation. However, most conventional manga translation evaluations rely solely on text-only automatic metrics, leaving the impact of image input insufficiently explored. We propose a practical validation framework that employs the same vision-language model (VLM) as both a text-only judge (TOJ) and an image-aware judge (IAJ) to investigate evaluation divergences associated with image-aware evaluation procedures. We use a Japanese-English manga dataset of official translations aligned at the page and speech-bubble levels. First, adding page images to TOJ enabled the primary VLM to detect more degraded translations. Second, we analyzed evaluation divergences between TOJ and IAJ, finding different error counts and error-category distributions. Human verification did not reveal a consistent preference between TOJ and IAJ.</abstract>
       <pdf hash="2d928dc2"/>
@@ -282,7 +282,7 @@
     <paper id="22">
       <!-- https://aclanthology.org/2026.wmt-main.22/ -->
       <title>Translationese as a Rational Response to Translation Task Difficulty</title>
-      <author><first>Maria</first><last>Kunilovskaya</last><affiliation>University of Technology Nuremberg</affiliation></author>
+      <author id="maria-kunilovskaya" orcid="0000-0002-1473-4684"><first>Maria</first><last>Kunilovskaya</last><affiliation>University of Technology Nuremberg</affiliation></author>
       <pages>380-397</pages>
       <abstract>Translated texts exhibit systematic differences from comparable texts originally written in the target language. Explaining this phenomenon, commonly known as translationese, remains an open challenge. Translationese has been attributed to production tendencies (e.g. interference, simplification), socio-cultural variables, and language-pair effects, yet a unified explanatory account is lacking. We investigate the hypothesis that translationese is a response to the cognitive load inherent in the translation task. We test whether observable translationese can be predicted from quantifiable measures of translation task difficulty. Translationese is measured as a segment-level probability of being a translation produced by an automatic classifier (translatedness score). Translation task difficulty includes source-text and cross-lingual transfer components. They are captured by information-theoretic metrics based on LLM surprisal and by established syntactic and semantic alternatives. We use a bidirectional English-German corpus comprising written and spoken subcorpora. Results indicate that translationese can only be explained in part by translation task difficulty, especially in the English-to-German direction. For most experiments, cross-lingual transfer difficulty contributes more than source-text complexity. Information-theoretic indicators match or outperform traditional features in written mode, but offer no advantage in spoken mode. Source-text syntactic complexity and translation-solution entropy emerged as the strongest predictors of translationese across language pairs and modes.</abstract>
       <pdf hash="568d42b7"/>
@@ -303,8 +303,8 @@
       <title>Multilingual Reasoning Cascades Need More Context</title>
       <author><first>Arnav</first><last>Mazumder</last><affiliation>University of Washington</affiliation></author>
       <author><first>Dengjia</first><last>Zhang</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Shuyue Stella</first><last>Li</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Yulia</first><last>Tsvetkov</last><affiliation>University of Washington</affiliation></author>
+      <author id="shuyue-stella-li" orcid="0000-0003-1769-6772"><first>Shuyue Stella</first><last>Li</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author id="yulia-tsvetkov" orcid="0000-0002-4634-7128"><first>Yulia</first><last>Tsvetkov</last><affiliation>University of Washington</affiliation></author>
       <author><first>Niyati</first><last>Bafna</last><affiliation>Center for Language and Speech Processing, Johns Hopkins University</affiliation></author>
       <pages>412-461</pages>
       <abstract>Translation cascades for reasoning translate the query from another language to English, reason in English, and translate the answer back to the original language. This is a competitive approach to multilingual reasoning, but structurally lossy, since each stage discards information later stages may need, including cues for cultural grounding, register, and disambiguation. We examine the benefits of a simple and training-free intervention: a context-aware translation cascade, which additionally provides the original question, the English-translated question, and the reasoning trace to the final cascade stage for target-language generation. We evaluate gains across ten multilingual benchmarks including various task types, three backbone models, and 285 high-, mid-, and low-resource languages, and demonstrate strong gains for open-ended generation across models and resource regimes. We show that the original language question carries most of the beneficial context. Our study emphasizes the need to better design information flow in multilingual reasoning cascades for mitigating error propagation, and provides a simple and actionable default strategy: preserve the original user question until the end of the pipeline.</abstract>
@@ -317,13 +317,13 @@
       <author><first>Dongwon</first><last>Noh</last><affiliation>Hanbat National University</affiliation></author>
       <author><first>Donghyeok</first><last>Koh</last><affiliation>Hanbat National University</affiliation></author>
       <author><first>Yeon-Soo</first><last>Lim</last><affiliation>LG AI Research</affiliation></author>
-      <author><first>Seohyeong</first><last>Jeong</last><affiliation>42dot</affiliation></author>
+      <author id="seohyeong-jeong" orcid="0000-0002-3292-0691"><first>Seohyeong</first><last>Jeong</last><affiliation>42dot</affiliation></author>
       <author><first>Yunsu</first><last>Kim</last><affiliation>LILT</affiliation></author>
-      <author><first>Gyuwan</first><last>Kim</last><affiliation>University of California, Santa Barbara</affiliation></author>
+      <author id="gyuwan-kim" orcid="0000-0002-5081-3945"><first>Gyuwan</first><last>Kim</last><affiliation>University of California, Santa Barbara</affiliation></author>
       <author><first>Soojong</first><last>Do</last><affiliation>Hyundai Motor Group</affiliation></author>
-      <author><first>Jinyeong</first><last>Bak</last><affiliation>Sungkyunkwan University</affiliation></author>
-      <author><first>Sugyeong</first><last>Eo</last><affiliation>Korea University</affiliation></author>
-      <author><first>Cheoneum</first><last>Park</last><affiliation>Hanbat National University</affiliation></author>
+      <author id="jinyeong-bak" orcid="0000-0002-3212-5241"><first>Jinyeong</first><last>Bak</last><affiliation>Sungkyunkwan University</affiliation></author>
+      <author id="sugyeong-eo" orcid="0000-0002-8008-6160"><first>Sugyeong</first><last>Eo</last><affiliation>Korea University</affiliation></author>
+      <author id="cheoneum-park" orcid="0000-0001-5386-0483"><first>Cheoneum</first><last>Park</last><affiliation>Hanbat National University</affiliation></author>
       <pages>462-491</pages>
       <abstract>Translations generated by Large Language Models (LLMs) often exhibit unnatural stylistic traces distinct from human-written translations, which we refer to as LLM translationese. We propose \textit{MELT}, a training-free post-editing framework for mitigating LLM translationese across five target languages (Korean, Chinese, Japanese, German, and French) without weight updates. MELT defines translationese patterns based on faithfulness, voice, register, naturalness, and surface form, and combines a three-stage verification gate with selective multi-agent debate to preserve meaning and mitigate self-bias. Experiments on FLORES-200 show that verification contributes most to quality improvement and that MELT achieves the lowest calibration error with respect to Oracle preference across the five languages. Our analysis further shows that LLM translationese exhibits language-specific realizations while sharing a common mechanism of English-structure mimicry.</abstract>
       <pdf hash="a9365eae"/>
@@ -369,7 +369,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.29/ -->
       <title>How many raters do we need to recognize a bad translation via perplexity?</title>
       <author><first>Antonín</first><last>Otmar</last><affiliation>Charles University in Prague</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>530-540</pages>
       <abstract>We evaluated candidate translation pairs with various kinds of damage using perplexity assigned to them by LLMs to see how it holds up as a fluency and adequacy metric. We also explored how the discriminating power of perplexity can be improved by ensembling.</abstract>
       <pdf hash="d1d7e186"/>
@@ -401,7 +401,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.32/ -->
       <title><fixed-case>T</fixed-case>rans<fixed-case>C</fixed-case>lean: A Benchmark for Detecting and Extracting Clean Translations from Large Language Model Outputs</title>
       <author><first>Shenbin</first><last>Qian</last><affiliation>University of Oslo</affiliation></author>
-      <author><first>Yves</first><last>Scherrer</last><affiliation>University of Oslo</affiliation></author>
+      <author id="yves-scherrer" orcid="0000-0001-5247-5073"><first>Yves</first><last>Scherrer</last><affiliation>University of Oslo</affiliation></author>
       <pages>574-589</pages>
       <abstract>Large language models (LLMs) are increasingly used for machine translation, yet their outputs often contain additional text beyond the translation itself, such as language labels, explanations or bilingual repetitions, which we term translation noise. Despite its prevalence, this problem lacks dedicated benchmarks and systematic study. We analyze over 790,000 translation outputs from 12 LLMs across 22 language pairs (LPs) and identify 12 recurring noise patterns, which we group into formatting and content noise. Building on the observed patterns, we construct TransClean, a controlled benchmark of 9,900 pairs of noisy and clean translation outputs, comprising 8,800 synthetically generated instances and 1,100 manually curated authentic instances. We evaluate two extraction approaches on the TransClean benchmark: 1) a span-based extraction method leveraging translation quality estimation models for span detection, and 2) an LLM-based extraction method that prompts an LLM to isolate the translation. Our benchmark and analysis provide the first systematic framework to evaluate and improve the cleanliness of LLM translation outputs.</abstract>
       <pdf hash="f013e465"/>
@@ -411,7 +411,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.33/ -->
       <title>Unlocking Reasoning Capability on Machine Translation in Large Language Models</title>
       <author><first>Sara</first><last>Rajaee</last><affiliation>University of Amsterdam</affiliation></author>
-      <author><first>Sebastian</first><last>Vincent</last><affiliation>University of Sheffield</affiliation></author>
+      <author id="sebastian-vincent" orcid="0000-0001-8975-165X"><first>Sebastian</first><last>Vincent</last><affiliation>University of Sheffield</affiliation></author>
       <author><first>Alexandre</first><last>Berard</last><affiliation>Naver Labs Europe</affiliation></author>
       <author><first>Marzieh</first><last>Fadaee</last><affiliation>Cohere for AI</affiliation></author>
       <author><first>Kelly</first><last>Marchisio</last><affiliation>Cohere</affiliation></author>
@@ -447,8 +447,8 @@
     <paper id="36">
       <!-- https://aclanthology.org/2026.wmt-main.36/ -->
       <title>Fine-Tuning <fixed-case>LLM</fixed-case>s for Translation: General Forgetting Mitigation Does Not Preserve <fixed-case>MT</fixed-case>-Specific Instruction Following</title>
-      <author><first>Niklas</first><last>Scholz</last><affiliation>Apptek GmbH</affiliation></author>
-      <author><first>David</first><last>Thulke</last><affiliation>RWTH Aachen University | AppTek</affiliation></author>
+      <author id="niklas-scholz" orcid="0009-0007-5754-6011"><first>Niklas</first><last>Scholz</last><affiliation>Apptek GmbH</affiliation></author>
+      <author id="david-thulke" orcid="0000-0002-9808-7073"><first>David</first><last>Thulke</last><affiliation>RWTH Aachen University | AppTek</affiliation></author>
       <author><first>Abdallah</first><last>Nasir</last><affiliation>AppTek</affiliation></author>
       <author><first>Will</first><last>Allred</last><affiliation>AppTek</affiliation></author>
       <author><first>Evgeny</first><last>Matusov</last><affiliation>AppTek</affiliation></author>
@@ -525,8 +525,8 @@
       <author><first>Šárka</first><last>Uramová</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
       <author><first>Petar</first><last>Petrov</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
       <author><first>Josef</first><last>Jon</last><affiliation>Charles University</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
-      <author><first>Michal</first><last>Novák</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="michal-novak" orcid="0000-0002-6052-7459"><first>Michal</first><last>Novák</last><affiliation>Charles University, Faculty of Mathematics and Physics</affiliation></author>
       <pages>765-781</pages>
       <abstract>Text-in-image translation aims to translate all textual content embedded in an image. In Text Image Translation (TIT), the output is translated text; In-Image Machine Translation (IIMT) additionally renders the translation back into the image. We introduce ImgMT, a massively multilingual dataset and benchmark mined from localized SVG illustrations on Wikimedia Commons, focusing on diagrams, maps, and infographics. ImgMT contains 35,612 aligned image pairs grouped into 1,855 image sets, spanning 129 languages, 20+ writing systems, and 4,886 language pairs.<par/>We propose a multi-level evaluation protocol that measures source-side text-region detection and OCR accuracy alongside target-side translation quality. We benchmark several multimodal large language models and a dedicated TIT system in English-to-X and X-to-English settings, and find that the source language and writing system substantially affect TIT quality. Finally, we show that ImgMT is not well suited for isolating the contribution of visual information in multimodal translation.</abstract>
       <pdf hash="8ffc6ade"/>
@@ -571,13 +571,13 @@
     <paper id="47">
       <!-- https://aclanthology.org/2026.wmt-main.47/ -->
       <title>Contrastive <fixed-case>ESA</fixed-case>: Human Evaluation of Multiple Translations at Once</title>
-      <author><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
       <author><first>Roman</first><last>Grundkiewicz</last><affiliation>Microsoft</affiliation></author>
       <author><first>Sara</first><last>Rajaee</last><affiliation>University of Amsterdam</affiliation></author>
       <author><first>Parker</first><last>Riley</last><affiliation>Google</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
       <author><first>Philipp</first><last>Koehn</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Marine</first><last>Carpuat</last><affiliation>University of Maryland</affiliation></author>
+      <author id="marine-carpuat" orcid="0000-0003-1693-0782"><first>Marine</first><last>Carpuat</last><affiliation>University of Maryland</affiliation></author>
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <pages>860-872</pages>
       <abstract>Current human evaluation of machine translation typically assesses single outputs in isolation, a paradigm that suffers from high annotator noise and cost. We introduce Contrastive Error Span Annotation (cESA), a protocol that presents multiple translations of the source input (text, video, audio, image). In cESA, the annotator sees multiple translations of the same document, marks major and minor error spans, and then assigns a score from 0% to 100% on absolute scale. By allowing annotators to access the shared context across multiple outputs, cESA facilitates more consistent and efficient judgments. We validate cESA using a large-scale human evaluation of English-Japanese translations of 12 models, demonstrating reductions in annotation time and noise compared to standard pointwise evaluation. Unlike existing contrastive ranking methods, cESA yields absolute quality judgments that enable simple, interpretable non-parametric model rankings without the need for post-hoc corrections.</abstract>
@@ -589,35 +589,35 @@
       <title>Findings of the <fixed-case>WMT</fixed-case>26 General Machine Translation Shared Task: Contrastive Dynamic Human Evaluation at Scale</title>
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Ekaterina</first><last>Artemova</last><affiliation>Toloka.AI</affiliation></author>
-      <author><first>Eleftherios</first><last>Avramidis</last><affiliation>Alangu; German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author id="eleftherios-avramidis" orcid="0000-0002-5671-573X"><first>Eleftherios</first><last>Avramidis</last><affiliation>Alangu; German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <author><first>Sergey</first><last>Dukanov</last><affiliation>Dubformer</affiliation></author>
       <author><first>Anton</first><last>Dvorkovich</last><affiliation>Yandex</affiliation></author>
-      <author><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
+      <author id="mark-fishel" orcid="0000-0003-1932-2600"><first>Mark</first><last>Fishel</last><affiliation>University of Tartu</affiliation></author>
       <author><first>Markus</first><last>Freitag</last><affiliation>Google Research</affiliation></author>
-      <author><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
-      <author><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
+      <author id="samuel-frontull" orcid="0009-0004-1230-4666"><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
+      <author id="thamme-gowda" orcid="0000-0001-5422-8674"><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
       <author><first>Roman</first><last>Grundkiewicz</last><affiliation>Microsoft</affiliation></author>
       <author><first>Barry</first><last>Haddow</last><affiliation>University of Edinburgh \&amp; Aveni</affiliation></author>
       <author><first>Stan</first><last>Kharevich</last><affiliation>Alconost</affiliation></author>
       <author><first>Philipp</first><last>Koehn</last><affiliation>Johns Hopkins University</affiliation></author>
       <author><first>Zheng</first><last>Li</last><affiliation>Tencent</affiliation></author>
-      <author><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
+      <author id="jean-maillard" orcid="0000-0003-0025-1021"><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
       <author><first>Christof</first><last>Monz</last><affiliation>University of Amsterdam</affiliation></author>
       <author><first>Alexander</first><last>Murauski</last><affiliation>Alconost</affiliation></author>
       <author><first>Kenton</first><last>Murray</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Masaaki</first><last>Nagata</last><affiliation>NTT, Inc.</affiliation></author>
-      <author><first>Stefano</first><last>Perrella</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author id="masaaki-nagata" orcid="0009-0006-6115-4566"><first>Masaaki</first><last>Nagata</last><affiliation>NTT, Inc.</affiliation></author>
+      <author id="stefano-perrella" orcid="0000-0001-8900-8049"><first>Stefano</first><last>Perrella</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Martin</first><last>Popel</last><affiliation>Charles University, Faculty of Mathematics and Physics, UFAL</affiliation></author>
       <author><first>Maja</first><last>Popović</last><affiliation>IU University</affiliation></author>
-      <author><first>Lorenzo</first><last>Proietti</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author id="lorenzo-proietti" orcid="0000-0002-2428-5878"><first>Lorenzo</first><last>Proietti</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Sara</first><last>Rajaee</last><affiliation>University of Amsterdam</affiliation></author>
       <author><first>Parker</first><last>Riley</last><affiliation>Google</affiliation></author>
       <author><first>Mariya</first><last>Shmatova</last><affiliation>Toloka AI</affiliation></author>
       <author><first>Steinthór</first><last>Steingrímsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
       <author><first>Lisa</first><last>Yankovskaya</last><affiliation>University of Tartu</affiliation></author>
-      <author><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
       <pages>873-923</pages>
       <abstract>This paper presents the results of the General Machine Translation Task organized under the 2026 Conference on Machine Translation (WMT). Participants build systems for any of the 23 language pairs spanning four to five domains. This year we brought major changes to the human evaluation: (1) new annotation platform Pearmut for better reproducibility, (2) new human protocol "contrastive Error Span Annotation" for higher quality and side-by-side evaluation, and (3) Dynamic human evaluation that allows assessing all submitted models while evaluating higher-performing models more frequently. Beyond human evaluation, we (4) extended difficulty sampling with a human-driven stage, (5) added two new domains, (6) made the test sets fully document-level without requiring segment-level alignment and relying on HTML or JSON structure, (7) prepared some human references by post-editing open-weight model outputs, and (8) introduced contextual instructions governing formality and structural style. We evaluated 46 systems in total: 30 submitted by participants and 16 consisting of translations from large language models (LLMs) and industry translation providers.</abstract>
       <pdf hash="7edc1d1d"/>
@@ -628,19 +628,19 @@
       <title>Findings of the <fixed-case>WMT</fixed-case>26 Shared Task on Automated Translation Quality Evaluation Systems: Compact Open Models are Competitive Quality Evaluators</title>
       <author><first>Alon</first><last>Lavie</last><affiliation>Unbabel/Carnegie Mellon University</affiliation></author>
       <author><first>Greg</first><last>Hanneman</last><affiliation>currently none</affiliation></author>
-      <author><first>Stefano</first><last>Perrella</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author id="stefano-perrella" orcid="0000-0001-8900-8049"><first>Stefano</first><last>Perrella</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Shuoyang</first><last>Ding</last><affiliation>NVIDIA</affiliation></author>
-      <author><first>Eleftherios</first><last>Avramidis</last><affiliation>Alangu; German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
-      <author><first>Lorenzo</first><last>Proietti</last><affiliation>Sapienza University of Rome</affiliation></author>
-      <author><first>Chi-Kiu</first><last>Lo</last><affiliation>National Research Council of Canada</affiliation></author>
+      <author id="eleftherios-avramidis" orcid="0000-0002-5671-573X"><first>Eleftherios</first><last>Avramidis</last><affiliation>Alangu; German Research Center for Artificial Intelligence (DFKI)</affiliation></author>
+      <author id="lorenzo-proietti" orcid="0000-0002-2428-5878"><first>Lorenzo</first><last>Proietti</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author id="chi-kiu-lo" orcid="0000-0001-8714-7846"><first>Chi-Kiu</first><last>Lo</last><affiliation>National Research Council of Canada</affiliation></author>
       <author><first>Ammon</first><last>Shurtz</last><affiliation>Brigham Young University</affiliation></author>
-      <author><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
-      <author><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
-      <author><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
-      <author><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
-      <author><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
+      <author id="chrysoula-zerva" orcid="0000-0002-4031-9492"><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="archchana-sindhujan" orcid="0000-0002-6467-6873"><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="diptesh-kanojia" orcid="0000-0001-8814-0080"><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
+      <author id="frederic-blain" orcid="0000-0003-3017-3722"><first>Frederic</first><last>Blain</last><affiliation>Tilburg University</affiliation></author>
       <author><first>Brian</first><last>Thompson</last><affiliation>Amazon</affiliation></author>
-      <author><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
       <author><first>Orfeas</first><last>Menis Mastromichalakis</last><affiliation>Instituto de Telecomunicações</affiliation></author>
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Pranav</first><last>Gupta</last><affiliation>Cisco</affiliation></author>
@@ -652,7 +652,7 @@
     <paper id="50">
       <!-- https://aclanthology.org/2026.wmt-main.50/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case>26 Multilingual Instruction Shared Task: Small Models Are Not Yet Polyglots</title>
-      <author><first>Patricia</first><last>Schmidtova</last><affiliation>Charles University</affiliation></author>
+      <author id="patricia-schmidtova" orcid="0009-0008-5516-798X"><first>Patricia</first><last>Schmidtova</last><affiliation>Charles University</affiliation></author>
       <author><first>Ekaterina</first><last>Artemova</last><affiliation>Toloka.AI</affiliation></author>
       <author><first>Seth</first><last>Aycock</last><affiliation>University of Amsterdam</affiliation></author>
       <author><first>Niyati</first><last>Bafna</last><affiliation>Center for Language and Speech Processing, Johns Hopkins University</affiliation></author>
@@ -660,16 +660,16 @@
       <author><first>Manmeet</first><last>Kaur</last><affiliation>Voice Arena</affiliation></author>
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Philipp</first><last>Koehn</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Danni</first><last>Liu</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
+      <author id="danni-liu" orcid="0000-0001-5419-1963"><first>Danni</first><last>Liu</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
       <author><first>Nam</first><last>Luu</last><affiliation>Charles University</affiliation></author>
-      <author><first>Sara</first><last>Papi</last><affiliation>Google</affiliation></author>
+      <author id="sara-papi" orcid="0000-0002-4494-8886"><first>Sara</first><last>Papi</last><affiliation>Google</affiliation></author>
       <author><first>Beatrice</first><last>Savoldi</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
       <author><first>Mariya</first><last>Shmatova</last><affiliation>Independent Researcher</affiliation></author>
       <author><first>Hanuman</first><last>Sidh</last><affiliation>Voice Arena</affiliation></author>
       <author><first>Evfrosiniya</first><last>Zerminova</last><affiliation>Toloka AI</affiliation></author>
-      <author><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
-      <author><first>Maike</first><last>Züfle</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
-      <author><first>Pinzhen</first><last>Chen</last><affiliation>Queen's University Belfast</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="maike-zufle" orcid="0009-0001-7238-7705"><first>Maike</first><last>Züfle</last><affiliation>Karlsruhe Institute of Technology</affiliation></author>
+      <author id="pinzhen-chen" orcid="0000-0003-0089-5118"><first>Pinzhen</first><last>Chen</last><affiliation>Queen's University Belfast</affiliation></author>
       <pages>1024-1045</pages>
       <abstract>We present the findings of the WMT26 Multilingual Instruction Shared Task (MIST), evaluating small (=10B parameter) open-weight language models across 24 languages on three sub-tasks: context-based QA, cross-lingual summarization, and open-ended generation. Submissions from eight teams explore fine-tuning, knowledge distillation, and prompt engineering. Our findings demonstrate that small models are not yet polyglots: while leading systems perform well on high-resource languages, performance drops sharply on low-resource varieties, and comprehension degrades significantly when transferring across non-English language pairs. In open-ended generation, human evaluation and automatic rule-based verification exhibit strong overall rank correlation (0.79) but diverge locally at the top: human evaluators favor distilled pipelines with superior fluency and cross-lingual equity, whereas automatic verifiers reward concise prompt-engineered systems. Furthermore, multi-stage pipelines suffer from prompt-language inertia on cross-lingual instructions, and summarization exhibits severe English leakage unless penalized by language gating. Finally, while baseline fluency is largely achieved by modern small models, multi-constraint instruction following and unanswerable question refusal remain the primary performance bottlenecks. We release all test sets, system outputs, human judgments, and evaluation code under a permissive license.</abstract>
       <pdf hash="667da232"/>
@@ -679,17 +679,17 @@
       <!-- https://aclanthology.org/2026.wmt-main.51/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case>26 Terminology Translation Task: The Hard Part is Finding the Terms, Not Using Them</title>
       <author><first>Adrian</first><last>Charkiewicz</last><affiliation>Laniqo</affiliation></author>
-      <author><first>Pinzhen</first><last>Chen</last><affiliation>Queen's University Belfast</affiliation></author>
+      <author id="pinzhen-chen" orcid="0000-0003-0089-5118"><first>Pinzhen</first><last>Chen</last><affiliation>Queen's University Belfast</affiliation></author>
       <author><first>Thierry</first><last>Etchegoyhen</last><affiliation>Vicomtech</affiliation></author>
-      <author><first>Harritxu</first><last>Gete</last><affiliation>Vicomtech</affiliation></author>
+      <author id="harritxu-gete" orcid="0009-0005-3955-5059"><first>Harritxu</first><last>Gete</last><affiliation>Vicomtech</affiliation></author>
       <author><first>Kamil</first><last>Guttmann</last><affiliation>Laniqo, Adam Mickiewicz University in Poznań</affiliation></author>
-      <author><first>Xu</first><last>Huang</last><affiliation>Nanjing University</affiliation></author>
+      <author id="xu-huang-nanjing" orcid="0009-0006-0385-4054"><first>Xu</first><last>Huang</last><affiliation>Nanjing University</affiliation></author>
       <author><first>David</first><last>Ponce</last><affiliation>Vicomtech</affiliation></author>
-      <author><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
+      <author id="artur-nowakowski" orcid="0000-0003-4473-0008"><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
       <author><first>Frederic</first><last>Odermatt</last><affiliation>ETH Zürich</affiliation></author>
       <author><first>Arturo</first><last>Oncevay</last><affiliation>JPMorgan</affiliation></author>
       <author><first>Dawei</first><last>Zhu</last><affiliation>Saarland Univeristy</affiliation></author>
-      <author><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
       <author><first>Kirill</first><last>Semenov</last><affiliation>University of Zurich</affiliation></author>
       <pages>1046-1079</pages>
       <abstract>The WMT26 Terminology Translation Task aims to evaluate machine translation in high-stakes, term-heavy domains (technology, finance, medicine). This year, we focus solely on document-level translation and run two tasks: (1) MT with explicit document-level dictionaries, (2) MT with bitext samples that contain the specific terms. Participants are presented with the texts in three translation directions, two of which feature mid-to-low-resourced morphologically rich languages: Spanish${\rightarrow}$Basque, English${\rightarrow}$Polish, and Traditional Chinese${\rightarrow}$English. This year, the main metrics were multiple variants of overall translation quality and terminology success rate; in line with previous shared tasks, we also compared systems with no terminology, proper dictionaries, and random dictionaries to causally analyze terminology utility. 17 teams participated in our task, submitting 21 systems to Track 1 and 18 systems to Track 2. The results show that document-level translation with explicit dictionaries is close to saturation, and the best systems nearly reach the reference texts. In contrast, for translation with sample bitexts, the spread of the systems is bigger, and the best scores are lower, highlighting the need to concentrate on terminology extraction rather than its use from an explicit source. We also evaluate the grammaticality of the generated texts in Basque and Polish and observe slight trends toward using dictionary forms of the terms and assigning the most frequent grammemes.</abstract>
@@ -699,10 +699,10 @@
     <paper id="52">
       <!-- https://aclanthology.org/2026.wmt-main.52/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case> 2026 Shared Task on Model Compression: No Free Lunch at Extreme Compression</title>
-      <author><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Marco</first><last>Gaido</last><affiliation>Fondazione Bruno Kessler, University of Trento</affiliation></author>
+      <author id="thamme-gowda" orcid="0000-0001-5422-8674"><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
+      <author id="marco-gaido" orcid="0000-0003-4217-1396"><first>Marco</first><last>Gaido</last><affiliation>Fondazione Bruno Kessler, University of Trento</affiliation></author>
       <author><first>Roman</first><last>Grundkiewicz</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
+      <author id="matteo-negri" orcid="0000-0002-8811-4330"><first>Matteo</first><last>Negri</last><affiliation>Fondazione Bruno Kessler</affiliation></author>
       <pages>1080-1090</pages>
       <abstract>We present the second edition of the WMT 2026 Model Compression (WMT26MC) shared task, which studies how large language models can be made efficient for machine translation under model-size and latency constraints. WMT26MC offers a constrained track based on Gemma~3~12B and an unconstrained track for compressing models below 20B. Both tracks cover cs-de, en-zh, and en-ar. Participants submit complete runnable systems, which we run in a standardized environment on single H100 GPU. Evaluation jointly considers translation quality, model size on disk, and decoding speed, analyzing the resulting quality–size and quality–speed trade-offs. We received 41 submissions from 13 teams. The proposed systems span weight and activation quantization, structured and expert pruning, low-rank factorization, knowledge distillation, vocabulary and vision-component removal, mixed precision, and inference-time reranking. Evaluating with reference-free quality-estimation metrics on the blind test sets, we find that post-training quantization is the reliable lever: INT4 and FP8 systems shrink the constrained base to roughly a quarter of its on-disk size and run up to an order of magnitude faster while staying within quality-estimation noise of the uncompressed model, whereas aggressive low-rank and structural pruning collapse quality.</abstract>
       <pdf hash="8f020092"/>
@@ -711,7 +711,7 @@
     <paper id="53">
       <!-- https://aclanthology.org/2026.wmt-main.53/ -->
       <title>Findings of <fixed-case>WMT</fixed-case> 2026 shared task on Low-resource <fixed-case>I</fixed-case>ndic Languages Translation</title>
-      <author><first>Partha</first><last>Pakray</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author id="partha-pakray" orcid="0000-0003-3834-5154"><first>Partha</first><last>Pakray</last><affiliation>National Institute of Technology Silchar</affiliation></author>
       <author><first>Santanu</first><last>Pal</last><affiliation>TUM Germany</affiliation></author>
       <author><first>Advaitha</first><last>Vetagiri</last><affiliation>SRM AP</affiliation></author>
       <author><first>Kshetrimayum Boynao</first><last>Singh</last><affiliation>NIT Silchar</affiliation></author>
@@ -733,8 +733,8 @@
     <paper id="54">
       <!-- https://aclanthology.org/2026.wmt-main.54/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case> 2026 Shared Task on Low-Resource <fixed-case>A</fixed-case>rabic-<fixed-case>A</fixed-case>sian Language Translation</title>
-      <author><first>Sahinur Rahman</first><last>Laskar</last><affiliation>UPES Dehradun</affiliation></author>
-      <author><first>Firoj</first><last>Alam</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
+      <author id="sahinur-rahman-laskar" orcid="0000-0002-8413-2718"><first>Sahinur Rahman</first><last>Laskar</last><affiliation>UPES Dehradun</affiliation></author>
+      <author id="firoj-alam" orcid="0000-0001-7172-1997"><first>Firoj</first><last>Alam</last><affiliation>Qatar Computing Research Institute, HBKU</affiliation></author>
       <author><first>Bishwaraj</first><last>Paul</last><affiliation>Bahash-AI, Silchar, India</affiliation></author>
       <author><first>Irfan</first><last>Ahmad</last><affiliation>KFUPM, Saudi Arabia</affiliation></author>
       <author><first>Maya Silvi</first><last>Lydia</last><affiliation>USU, Medan, Indonesia</affiliation></author>
@@ -760,7 +760,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.56/ -->
       <title>Findings of the Second Shared Task for Creole Language Machine Translation, at <fixed-case>WMT</fixed-case> 2026</title>
       <author><first>Nathaniel</first><last>Robinson</last><affiliation>Johns Hopkins University</affiliation></author>
-      <author><first>Ruth-Ann</first><last>Armstrong</last><affiliation>Stanford University</affiliation></author>
+      <author id="ruth-ann-armstrong" orcid="0000-0001-8012-1387"><first>Ruth-Ann</first><last>Armstrong</last><affiliation>Stanford University</affiliation></author>
       <author><first>Claire</first><last>Bizon Monroc</last><affiliation>Inria, Paris, France</affiliation></author>
       <author><first>Rasul</first><last>Dent</last><affiliation>Inria</affiliation></author>
       <author><first>Pranav</first><last>Gupta</last><affiliation>Cisco</affiliation></author>
@@ -775,10 +775,10 @@
     <paper id="57">
       <!-- https://aclanthology.org/2026.wmt-main.57/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case> 2026 Shared Task of the Open Language Data Initiative</title>
-      <author><first>Laurie</first><last>Burchell</last><affiliation>Common Crawl Foundation</affiliation></author>
-      <author><first>David</first><last>Dale</last><affiliation>Meta AI</affiliation></author>
-      <author><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
-      <author><first>Idris</first><last>Abdulmumin</last><affiliation>University of Pretoria</affiliation></author>
+      <author id="laurie-burchell" orcid="0000-0003-0724-350X"><first>Laurie</first><last>Burchell</last><affiliation>Common Crawl Foundation</affiliation></author>
+      <author id="david-dale" orcid="0000-0003-2045-6833"><first>David</first><last>Dale</last><affiliation>Meta AI</affiliation></author>
+      <author id="jean-maillard" orcid="0000-0003-0025-1021"><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
+      <author id="idris-abdulmumin" orcid="0000-0002-3795-8381"><first>Idris</first><last>Abdulmumin</last><affiliation>University of Pretoria</affiliation></author>
       <author><first>Antonios</first><last>Anastasopoulos</last><affiliation>George Mason University</affiliation></author>
       <author><first>Isaac</first><last>Caswell</last><affiliation>Google Research</affiliation></author>
       <author><first>Philipp</first><last>Koehn</last><affiliation>Johns Hopkins University</affiliation></author>
@@ -800,11 +800,11 @@
     <paper id="59">
       <!-- https://aclanthology.org/2026.wmt-main.59/ -->
       <title>Findings of the <fixed-case>WMT</fixed-case> 2026 Shared Task: Multitask <fixed-case>LLM</fixed-case>s with Limited Resources</title>
-      <author><first>Shu</first><last>Okabe</last><affiliation>TUM Heilbronn</affiliation></author>
+      <author id="shu-okabe" orcid="0009-0003-0169-3689"><first>Shu</first><last>Okabe</last><affiliation>TUM Heilbronn</affiliation></author>
       <author><first>Marion</first><last>Di Marco</last><affiliation>TUM</affiliation></author>
       <author><first>Kathy</first><last>Haemmerl</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Daryna</first><last>Dementieva</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Lukas</first><last>Edman</last><affiliation>TU Munich</affiliation></author>
+      <author id="daryna-dementieva" orcid="0000-0003-0929-4140"><first>Daryna</first><last>Dementieva</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>TU Munich</affiliation></author>
       <author><first>Marko</first><last>Měškank</last><affiliation>WITAJ-Sprachzentrum</affiliation></author>
       <author><first>Anita</first><last>Hendrichowa</last><affiliation>WITAJ-Sprachzentrum</affiliation></author>
       <author><first>Alexander</first><last>Fraser</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
@@ -818,8 +818,8 @@
       <title><fixed-case>L</fixed-case>i<fixed-case>L</fixed-case>a at <fixed-case>WMT</fixed-case> 2026 General <fixed-case>MT</fixed-case> Task: Exploring Beyond <fixed-case>NMT</fixed-case> and Learning the Limits of <fixed-case>LLM</fixed-case> Adaptation for <fixed-case>L</fixed-case>igurian and <fixed-case>L</fixed-case>adin</title>
       <author><first>Mirelle</first><last>Bueno</last><affiliation>University of Campinas</affiliation></author>
       <author><first>Lucas</first><last>Domingues</last><affiliation>Eldorado Research Institute</affiliation></author>
-      <author><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
-      <author><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
+      <author id="samuel-frontull" orcid="0009-0004-1230-4666"><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
+      <author id="jean-maillard" orcid="0000-0003-0025-1021"><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
       <author><first>Sushil</first><last>Garg</last><affiliation>Motorola Mobility</affiliation></author>
       <pages>1203-1212</pages>
       <abstract>We describe LiLa, our submission to the constrained track of the WMT 2026 General Machine Translation Task. Motivated by recent advances in large language models (LLMs) and their increasing availability as open models, we investigate the adaptation of LLMs for Ligurian and Ladin, two low-resource languages included in the shared task. We evaluate several adaptation strategies for Gemma-4, including Instruction Tuning (IT-only), continuous pre-training followed by Instruction Tuning (CPT+IT), and Low-Rank Adaptation (LoRA), and compare them with a dedicated encoder-decoder pipeline based on fine-tuned No-Language Left Behind (NLLB) models. Our experiments show that, under the evaluated conditions, fine-tuned NLLB models achieve higher automatic translation scores than the investigated LLM adaptation strategies. Based on these results, our final submission adopts a fine-tuned NLLB-based translation pipeline. We discuss the main observations from the different approaches explored during development. We release the code and models produced in these experiments through a publicly accessible GitHub repository https://github.com/schtailmuel/wmt26-lila/</abstract>
@@ -842,10 +842,10 @@
     <paper id="62">
       <!-- https://aclanthology.org/2026.wmt-main.62/ -->
       <title><fixed-case>GRIAL</fixed-case>-<fixed-case>TA</fixed-case> participation in the <fixed-case>WMT</fixed-case>26 General Translation Shared Task: <fixed-case>S</fixed-case>alamandra<fixed-case>TA</fixed-case>7b<fixed-case>FFT</fixed-case></title>
-      <author><first>Marta</first><last>Cozzini</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
-      <author><first>Antoni</first><last>Oliver</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="marta-cozzini" orcid="0009-0004-1992-9132"><first>Marta</first><last>Cozzini</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="antoni-oliver" orcid="0000-0001-8399-3770"><first>Antoni</first><last>Oliver</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
       <author><first>Gonzalo</first><last>López-Sánchez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
-      <author><first>Mercè</first><last>Vàzquez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="merce-vazquez" orcid="0000-0002-7983-4029"><first>Mercè</first><last>Vàzquez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
       <author><first>Patricia</first><last>Morales-Hurtado</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
       <author><first>Sergi</first><last>Alvarez-Vidal</last><affiliation>Universitat Autònoma de Barcelona</affiliation></author>
       <pages>1221-1230</pages>
@@ -880,8 +880,8 @@
     <paper id="65">
       <!-- https://aclanthology.org/2026.wmt-main.65/ -->
       <title>Grammatist at <fixed-case>WMT</fixed-case> 2026 General <fixed-case>MT</fixed-case> Task: An Agentic <fixed-case>LLM</fixed-case> Framework for Machine Translation with Explicit Linguistic Knowledge</title>
-      <author><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
-      <author><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
+      <author id="samuel-frontull" orcid="0009-0004-1230-4666"><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
+      <author id="jean-maillard" orcid="0000-0003-0025-1021"><first>Jean</first><last>Maillard</last><affiliation>Meta AI</affiliation></author>
       <author><first>Christopher</first><last>Haberland</last><affiliation>University of Washington</affiliation></author>
       <author><first>Ruth</first><last>Videsott</last><affiliation>Free University of Bozen–Bolzano</affiliation></author>
       <author><first>Stefano</first><last>Lusito</last><affiliation>University of Innsbruck</affiliation></author>
@@ -898,10 +898,10 @@
       <author><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
       <author><first>Jiaxin</first><last>Guo</last><affiliation>Huawei Translation Services Center</affiliation></author>
       <author><first>Yuanchang</first><last>Luo</last><affiliation>Huawei Translation Services Center</affiliation></author>
-      <author><first>Hengchao</first><last>Shang</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
-      <author><first>Zongyao</first><last>Li</last><affiliation>Huawei Translation Services Center</affiliation></author>
+      <author id="hengchao-shang" orcid="0000-0002-5211-3221"><first>Hengchao</first><last>Shang</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author id="zongyao-li" orcid="0000-0001-7196-2782"><first>Zongyao</first><last>Li</last><affiliation>Huawei Translation Services Center</affiliation></author>
       <author><first>Jinlong</first><last>Yang</last><affiliation>Huawei Technologies Co., Ltd</affiliation></author>
-      <author><first>Zhanglin</first><last>Wu</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author id="zhanglin-wu" orcid="0000-0002-2920-0773"><first>Zhanglin</first><last>Wu</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
       <author><first>Boqi</first><last>Huang</last><affiliation>Huawei Translation Service Center</affiliation></author>
       <pages>1258-1263</pages>
       <abstract>Machine translation based on large language models (LLMs) has achieved remarkable progress in recent years. However, relying on a single translation model and fixed translation instructions often limits translation quality, especially for multilingual and multi-domain scenarios. To address this issue, we propose HW-TSC-Agent, a multi-stage translation agent framework that integrates translation model fine-tuning, dual-model candidate generation, and instruction-aware translation refinement into a unified pipeline. First, we perform Supervised Fine-Tuning (SFT) and Contrastive Preference Optimization (CPO) on openPangu-Embedded-7B using high-quality bilingual data to enhance its multilingual translation capabilities. The fine-tuned openPangu-Embedded-7B and HY-MT2-7B are then used to generate candidate translations. Finally, source-language analysis, candidate translations, and task-specific instructions are incorporated into a dynamic prompt, which guides DeepSeek-V4-Flash to compare, refine, and fuse the candidate translations to produce the final output. Our system is submitted to the WMT2026 General Machine Translation Shared Task, covering 13 translation directions. On the WMT2025 English-to-Chinese development test set, enriching the dynamic prompt generally improves translation quality over an instruction-only DeepSeek-V4-Flash baseline.</abstract>
@@ -913,7 +913,7 @@
       <title><fixed-case>CUNI</fixed-case>-<fixed-case>MH</fixed-case> and <fixed-case>CUNI</fixed-case>-<fixed-case>E</fixed-case>d<fixed-case>UK</fixed-case>ate at the <fixed-case>WMT</fixed-case>26 General <fixed-case>MT</fixed-case> Shared Task</title>
       <author><first>Miroslav</first><last>Hrabal</last><affiliation>Charles University</affiliation></author>
       <author><first>Josef</first><last>Jon</last><affiliation>Charles University</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>1264-1270</pages>
       <abstract>We describe our constrained CUNI-MH-v3 (based on Qwen3-14B) and unconstrained CUNI-EdUKate (based on Granite 4.1 8B) submissions for the WMT26 General MT shared task. Both submissions use a three-stage training procedure: QLoRA supervised fine-tuning on synthetic sentence pairs, continued supervised fine-tuning on a smaller mixture of paragraph-level and instruction-oriented examples, and iterative preference optimization with automatically generated and scored preference pairs. We document the data construction, training setup, checkpoint selection, and evaluation. We also share the training data and model checkpoints for our constrained system.</abstract>
       <pdf hash="db01e80f"/>
@@ -925,7 +925,7 @@
       <author><first>Josef</first><last>Jon</last><affiliation>Charles University</affiliation></author>
       <author><first>Rawan</first><last>Bondok</last><affiliation>TU Darmstadt</affiliation></author>
       <author><first>Miroslav</first><last>Hrabal</last><affiliation>Charles University</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>1271-1283</pages>
       <abstract>We describe the Charles University CUNI-AR submission to the WMT26 General Translation shared task for English into Egyptian Arabic. Our pipeline is built around GEMBA (LLM-as-judge quality) estimator that scores translations independently for accuracy and dialect authenticity. We use it throughout our pipeline: to filter training data, to construct preference pairs for DPO, to select best checkpoints, and to pick the best hypothesis per segment at inference time. Our primary translation model is Gemma-4-12B-it finetuned via QLoRA, we also finetune Jais-2-8B-Chat and Aya-expanse-8B. Gemma-4-12B-it provides a high-quality Egyptian Arabic translation, so SFT yields only marginal quality gains in automatic metrics; DPO is able to improve the metrics it optimizes for, but the real gain in translation quality is to be assessed by human evaluation. The final submission selects the best-scoring translation per segment from 31 candidate checkpoints, with the unmodified base model contributing 31\% of the output.</abstract>
       <pdf hash="5dd87bb7"/>
@@ -934,10 +934,10 @@
     <paper id="69">
       <!-- https://aclanthology.org/2026.wmt-main.69/ -->
       <title>In the Blind: Building Pseudo-References for <fixed-case>MT</fixed-case> Evaluation</title>
-      <author><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
-      <author><first>Chi-Kiu</first><last>Lo</last><affiliation>National Research Council of Canada</affiliation></author>
-      <author><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
-      <author><first>Samuel</first><last>Larkin</last><affiliation>National Research Council Canada</affiliation></author>
+      <author id="diptesh-kanojia" orcid="0000-0001-8814-0080"><first>Diptesh</first><last>Kanojia</last><affiliation>University of Surrey</affiliation></author>
+      <author id="chi-kiu-lo" orcid="0000-0001-8714-7846"><first>Chi-Kiu</first><last>Lo</last><affiliation>National Research Council of Canada</affiliation></author>
+      <author id="archchana-sindhujan" orcid="0000-0002-6467-6873"><first>Archchana</first><last>Sindhujan</last><affiliation>PhD student</affiliation></author>
+      <author id="samuel-larkin" orcid="0009-0000-6147-9631"><first>Samuel</first><last>Larkin</last><affiliation>National Research Council Canada</affiliation></author>
       <author><first>Greg</first><last>Hanneman</last><affiliation>currently none</affiliation></author>
       <author><first>Alon</first><last>Lavie</last><affiliation>Unbabel/Carnegie Mellon University</affiliation></author>
       <pages>1284-1304</pages>
@@ -951,9 +951,9 @@
       <author><first>Tom</first><last>Kocmi</last><affiliation>Cohere</affiliation></author>
       <author><first>Alexandre</first><last>Berard</last><affiliation>Naver Labs Europe</affiliation></author>
       <author><first>Phil</first><last>Blunsom</last><affiliation>University of Oxford</affiliation></author>
-      <author><first>Samuel</first><last>Cahyawijaya</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
-      <author><first>Shaun</first><last>Cassini</last><affiliation>University of Sheffield</affiliation></author>
-      <author><first>Ona</first><last>De Gibert</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="samuel-cahyawijaya" orcid="0000-0002-9891-1608"><first>Samuel</first><last>Cahyawijaya</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="shaun-cassini" orcid="0009-0006-3821-7688"><first>Shaun</first><last>Cassini</last><affiliation>University of Sheffield</affiliation></author>
+      <author id="ona-de-gibert" orcid="0000-0002-7163-4807"><first>Ona</first><last>De Gibert</last><affiliation>University of Helsinki</affiliation></author>
       <author><first>Aidan</first><last>Gomez</last><affiliation>University of Oxford</affiliation></author>
       <author><first>Nithya</first><last>Govindarajan</last><affiliation>Cohere</affiliation></author>
       <author><first>Shun</first><last>Kiyono</last><affiliation>SB Intuitions</affiliation></author>
@@ -968,7 +968,7 @@
       <author><first>Trisha</first><last>Starostina</last><affiliation>Cohere</affiliation></author>
       <author><first>Daan</first><last>Van Stigt</last><affiliation>Unbabel</affiliation></author>
       <author><first>Spencer</first><last>Rarrick</last><affiliation>Microsoft</affiliation></author>
-      <author><first>Sebastian</first><last>Vincent</last><affiliation>University of Sheffield</affiliation></author>
+      <author id="sebastian-vincent" orcid="0000-0001-8975-165X"><first>Sebastian</first><last>Vincent</last><affiliation>University of Sheffield</affiliation></author>
       <author><first>Ivan</first><last>Zhang</last><affiliation>Cohere</affiliation></author>
       <author><first>Nicholas</first><last>Frosst</last><affiliation>Cohere</affiliation></author>
       <pages>1305-1317</pages>
@@ -988,12 +988,12 @@
     <paper id="72">
       <!-- https://aclanthology.org/2026.wmt-main.72/ -->
       <title><fixed-case>BSC</fixed-case> Submission for <fixed-case>WMT</fixed-case>26 General Machine Translation Shared Task</title>
-      <author><first>Audrey</first><last>Mash</last><affiliation>BSC</affiliation></author>
+      <author id="audrey-mash" orcid="0009-0006-6625-5841"><first>Audrey</first><last>Mash</last><affiliation>BSC</affiliation></author>
       <author><first>Jonathan</first><last>Ayebakuro</last><affiliation>BSC</affiliation></author>
       <author><first>Ella</first><last>Bohman</last><affiliation>BSC</affiliation></author>
       <author><first>Xixian</first><last>Liao</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
-      <author><first>Francesca</first><last>De Luca Fornaciari</last><affiliation>BSC Barcelona Supercomputing Center</affiliation></author>
-      <author><first>Maite</first><last>Melero</last><affiliation>AI Institute - Barcelona Supercomputing Center</affiliation></author>
+      <author id="francesca-de-luca-fornaciari" orcid="0009-0002-7821-1433"><first>Francesca</first><last>De Luca Fornaciari</last><affiliation>BSC Barcelona Supercomputing Center</affiliation></author>
+      <author id="maite-melero" orcid="0000-0001-9933-3224"><first>Maite</first><last>Melero</last><affiliation>AI Institute - Barcelona Supercomputing Center</affiliation></author>
       <pages>1327-1343</pages>
       <abstract>We present the BSC submission to the WMT26 General Machine Translation shared task: a 7B decoder-only model covering 23 directions, adapted from the SALAMANDRA (Gonzalez-Agirre et al., 2025) family through vocabulary replacement, two rounds of continued pre-training (monolingual, followed by instruction-formatted parallel data), supervised fine-tuning on a translation-only instruction mixture, and preference optimisation applied selectively to six weak directions via CPO-SimPO (Xu et al., 2024; Meng et al., 2024) with LoRA adapters (Hu et al., 2021). Submissions are decoded with Minimum Bayes Risk selection over a candidate pool filtered for truncation, degeneracy and off-target script. As official human evaluation was unavailable at the time of writing, we report a stage-wise internal evaluation on FLORES+ and WMT24++, together with automatic scores for the submitted system on the 12 test-set directions for which references have been released. Instruction tuning accounts for almost all measurable gain, but its size differs by an order of magnitude between the two evaluation sets; preference optimisation moves automatic metrics by less than the drift among untreated directions. The model is released under a Research-Only Licence and is available on request.</abstract>
       <pdf hash="bb585f69"/>
@@ -1005,9 +1005,9 @@
       <author><first>Ryosuke</first><last>Matsuda</last><affiliation>Tohoku university</affiliation></author>
       <author><first>Keito</first><last>Kudo</last><affiliation>Tohoku University / RIKEN Center for AIP</affiliation></author>
       <author><first>Ryo</first><last>Fujii</last><affiliation>Future Corporation</affiliation></author>
-      <author><first>Takumi</first><last>Ito</last><affiliation>Langsmith Inc. / Tohoku University</affiliation></author>
+      <author id="takumi-ito" orcid="0000-0002-7380-2587"><first>Takumi</first><last>Ito</last><affiliation>Langsmith Inc. / Tohoku University</affiliation></author>
       <author><first>Makoto</first><last>Morishita</last><affiliation>Future Corporation</affiliation></author>
-      <author><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University / RIKEN Center for AIP</affiliation></author>
+      <author id="jun-suzuki" orcid="0000-0003-2108-1340"><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University / RIKEN Center for AIP</affiliation></author>
       <pages>1344-1371</pages>
       <abstract>We participated in the constrained (open-weight) track of the WMT 2026 General MT Task for the English-to-Japanese and Simplified Chinese-to-Japanese directions. Our system builds on Marco-MT-Algharb, a strong open-weight translation model from the previous WMT General MT task. We further fine-tuned this model to generate more natural Japanese translations. To this end, we constructed a Context-Aware JApanese Linguistic Acceptability dataset (CAJALA). During annotation, human annotators were shown multiple paraphrased variants of a segment within its document-level context and asked to select the most natural one. We then back-translated the CAJALA dataset to create parallel data for Direct Preference Optimization (DPO). We also trained the model to perform fill-in-the-middle (FIM) translation, in which the model reconstructs target-side segments from their surrounding document. At inference, we use Minimum Bayes Risk (MBR) decoding, followed by selective FIM post-editing of low-quality segments.</abstract>
       <pdf hash="1a7f2056"/>
@@ -1027,8 +1027,8 @@
       <title><fixed-case>R</fixed-case>e<fixed-case>M</fixed-case>ova: Fine-tuning <fixed-case>LLM</fixed-case>s for <fixed-case>E</fixed-case>nglish to <fixed-case>B</fixed-case>elarusian translation</title>
       <author><first>Mikita</first><last>Pilinka</last><affiliation>University of Oslo</affiliation></author>
       <author><first>Aliaksandr</first><last>Kliuyeu</last><affiliation>Independent Researcher</affiliation></author>
-      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo, Language Technology Group</affiliation></author>
-      <author><first>Yves</first><last>Scherrer</last><affiliation>University of Oslo</affiliation></author>
+      <author id="david-samuel" orcid="0000-0003-2866-1022"><first>David</first><last>Samuel</last><affiliation>University of Oslo, Language Technology Group</affiliation></author>
+      <author id="yves-scherrer" orcid="0000-0001-5247-5073"><first>Yves</first><last>Scherrer</last><affiliation>University of Oslo</affiliation></author>
       <pages>1378-1390</pages>
       <abstract>This paper presents a Belarusian-specific data-cleaning pipeline and fine-tuning for English-Belarusian machine translation. Our cleaning pipeline distinguishes itself from others by employing a correction tool that addresses the issue of the two orthographies of the Belarusian language, noise in the training data, interference from other languages, and other misspelling issues common in Belarusian on the internet. A matched ablation on unfiltered training data shows substantial benefits from filtering for all fine-tuned models, with the LLM-based models gaining roughly twice as much from filtering as the dedicated encoder-decoder MT system, supporting the view that for Belarusian MT one of the primary bottlenecks is data quality.</abstract>
       <pdf hash="0b92d355"/>
@@ -1037,7 +1037,7 @@
     <paper id="76">
       <!-- https://aclanthology.org/2026.wmt-main.76/ -->
       <title>Apertium-sme-eng for <fixed-case>WMT</fixed-case>2026 shared task—creating new pair by crossing dictionaries and translating rules</title>
-      <author><first>Flammie</first><last>Pirinen</last><affiliation>UiT Norgga Árktalaš universitehta</affiliation></author>
+      <author id="flammie-a-pirinen" orcid="0000-0003-1207-5395"><first>Flammie</first><last>Pirinen</last><affiliation>UiT Norgga Árktalaš universitehta</affiliation></author>
       <pages>1391-1396</pages>
       <abstract>In this article I describe an experiment on creation of a new rule-based machine translation model build on two existing models. I built Apertium system between North Sámi and English based on existing translation models between North Sámi and Finnish, and Finnish and English. There were two expert-driven processes involved in building of the system: firstly crossing and validating the bilingual dictionaries and secondly translating and modifying the grammatical and structural rules. I breifly explain why there are no pre-existing systems for this language pair and what limitations and ethical issues are related to it. I will also evaluate some of the training and development corpora provided in the shared task to elaborate on the problem that automatic low quality machine translation can cause to vulnerable minority languages.</abstract>
       <pdf hash="44f42ba3"/>
@@ -1078,9 +1078,9 @@
     <paper id="79">
       <!-- https://aclanthology.org/2026.wmt-main.79/ -->
       <title>What a <fixed-case>DRAG</fixed-case> (it is being small): The <fixed-case>AMI</fixed-case> Submission to the <fixed-case>WMT</fixed-case> 2026 General Translation Shared Task</title>
-      <author><first>Steinthór</first><last>Steingrímsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author id="steinthor-steingrimsson" orcid="0000-0002-9776-9507"><first>Steinthór</first><last>Steingrímsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
       <author><first>Sveinbjörn</first><last>Thórdharson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
-      <author><first>Jón</first><last>Dadason</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author id="jon-dadason" orcid="0009-0009-5817-674X"><first>Jón</first><last>Dadason</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
       <pages>1414-1424</pages>
       <abstract>We describe the AMI team’s submission to the WMT 2026 General Translation shared task, participating in the English-Icelandic translation direction. Building on our 2025 submission, which relied on a 3B-parameter model and substantial rule-based post-processing, this year we aim to reduce that dependency and rely more on the translation model itself. We continually pre-train a Qwen3-4B checkpoint on a mixture of Icelandic, English, code, math, and structured data, then fine-tune it with LoRA on a retrieval-augmented, domain-conditioned instruction-tuning dataset covering five domains. At both training and inference time, source sentences are enriched with dictionary entries and back-translated example translations similar to the sentence being translated, retrieved by a dedicated RAG server, and served through a self-healing inference client that retries and validates generations. We report COMET and chrF++ scores comparing this system against last year’s submission, a larger Llama-3.1-8B model adapted with the same recipe, and an instruction-tuned Qwen3-4B baseline, alongside ablations that isolate the contribution of each part of the retrieval-augmented prompt.</abstract>
       <pdf hash="14233539"/>
@@ -1164,13 +1164,13 @@
     <paper id="85">
       <!-- https://aclanthology.org/2026.wmt-main.85/ -->
       <title><fixed-case>T</fixed-case>rans<fixed-case>C</fixed-case>ore: The <fixed-case>N</fixed-case>ew<fixed-case>T</fixed-case>ranx Submission to the Constrained Track of the <fixed-case>WMT</fixed-case>26 General Machine Translation Shared Task</title>
-      <author><first>Hao</first><last>Yu</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="hao-yu-6816" orcid="0009-0004-2060-6816"><first>Hao</first><last>Yu</last><affiliation>Dalian University of Technology</affiliation></author>
       <author><first>Ziyan</first><last>Chen</last><affiliation>NewTranx Tech</affiliation></author>
       <author><first>Hongyu</first><last>Zhao</last><affiliation>NewTranx Tech</affiliation></author>
       <author><first>Yulong</first><last>Zhang</last><affiliation>NewTranx Tech</affiliation></author>
       <author><first>Xiaogang</first><last>Wang</last><affiliation>NewTranx Tech</affiliation></author>
       <author><first>Kaiyu</first><last>Huang</last><affiliation>Beijing Jiaotong University</affiliation></author>
-      <author><first>Degen</first><last>Huang</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="degen-huang" orcid="0000-0002-8860-7805"><first>Degen</first><last>Huang</last><affiliation>Dalian University of Technology</affiliation></author>
       <pages>1477-1483</pages>
       <abstract>This paper describes TransCore, the NewTranx submission to the WMT26 General Machine Translation Shared Task constrained track. Our system is built upon the Qwen3-8B large language model and adopts a two-stage supervised fine-tuning framework trained exclusively on publicly available data. Our approach focuses on high-quality multilingual data construction, including parallel corpus construction, knowledge-distilled corpus construction, and instruction-following data construction. For the parallel corpus, we construct a high-quality multilingual training corpus through multilingual data collection and automatic quality filtering. For knowledge distillation, we construct a KD corpus from publicly available monolingual resources using a large language model, followed by automatic quality filtering. To support the instruction-following evaluation introduced in WMT26, we further construct instruction data covering immutable entity preservation, document-level translation, and structured translation, which are incorporated into the first-stage supervised fine-tuning. Our system participates in four language directions of the WMT26 General Machine Translation Shared Task: English$\rightarrow$Indonesian, English$\rightarrow$Kazakh, English$\rightarrow$Thai, and Chinese$\rightarrow$Japanese.</abstract>
       <pdf hash="e052ef25"/>
@@ -1208,13 +1208,13 @@
     <paper id="88">
       <!-- https://aclanthology.org/2026.wmt-main.88/ -->
       <title>Mind the Gap: Exposing <fixed-case>LLM</fixed-case> Translation Blind Spots Using the <fixed-case>A</fixed-case>lpha<fixed-case>MWE</fixed-case> Multilingual Parallel Corpus</title>
-      <author><first>Lifeng</first><last>Han</last><affiliation>The University of Manchester</affiliation></author>
+      <author id="lifeng-han" orcid="0000-0002-3221-2185"><first>Lifeng</first><last>Han</last><affiliation>The University of Manchester</affiliation></author>
       <author><first>Jiahui</first><last>Liang</last><affiliation>Leiden University</affiliation></author>
-      <author><first>Anna</first><last>Latusek</last><affiliation>Institute of Computer Science, PAS</affiliation></author>
-      <author><first>Karim</first><last>El Haff</last><affiliation>University of Ljubljana</affiliation></author>
-      <author><first>Amal</first><last>Haddad Haddad</last><affiliation>Universidad de Granada</affiliation></author>
+      <author id="anna-latusek" orcid="0009-0001-5439-6149"><first>Anna</first><last>Latusek</last><affiliation>Institute of Computer Science, PAS</affiliation></author>
+      <author id="karim-el-haff" orcid="0009-0000-0519-6418"><first>Karim</first><last>El Haff</last><affiliation>University of Ljubljana</affiliation></author>
+      <author id="amal-haddad-haddad" orcid="0000-0002-7949-612X"><first>Amal</first><last>Haddad Haddad</last><affiliation>Universidad de Granada</affiliation></author>
       <author><first>Josua</first><last>Höfgen</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Kilian</first><last>Evang</last><affiliation>Heinrich Heine University Düsseldorf</affiliation></author>
+      <author id="kilian-evang" orcid="0000-0003-0895-9841"><first>Kilian</first><last>Evang</last><affiliation>Heinrich Heine University Düsseldorf</affiliation></author>
       <author><first>Min</first><last>Ma</last><affiliation>Google DeepMind</affiliation></author>
       <author><first>Maryia</first><last>Zhyrko</last><affiliation>Leiden University</affiliation></author>
       <pages>1533-1554</pages>
@@ -1245,9 +1245,9 @@
     <paper id="91">
       <!-- https://aclanthology.org/2026.wmt-main.91/ -->
       <title>Translating Syntactic Structures: An <fixed-case>E</fixed-case>nglish-<fixed-case>I</fixed-case>celandic Test Suite for Syntactic Divergence</title>
-      <author><first>Einar</first><last>Sigurdsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author id="einar-freyr-sigurdsson" orcid="0009-0005-2783-9388"><first>Einar</first><last>Sigurdsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
       <author><first>Steinthór</first><last>Steingrímsson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
-      <author><first>Bjarki</first><last>Ármannsson</last><affiliation>Árni Magnússon Institute for Icelandic Studies</affiliation></author>
+      <author id="bjarki-armannsson" orcid="0009-0008-3279-8439"><first>Bjarki</first><last>Ármannsson</last><affiliation>Árni Magnússon Institute for Icelandic Studies</affiliation></author>
       <author><first>Atli</first><last>Jasonarson</last><affiliation>The Árni Magnússon Institute</affiliation></author>
       <author><first>Helga Svala</first><last>Sigurdardottir</last><affiliation>Reykjavik University</affiliation></author>
       <author><first>Jón</first><last>Markússon</last><affiliation>University of Iceland</affiliation></author>
@@ -1269,8 +1269,8 @@
       <!-- https://aclanthology.org/2026.wmt-main.93/ -->
       <title>Finding the Gaps in <fixed-case>LLM</fixed-case> Translation with <fixed-case>C</fixed-case>o<fixed-case>ST</fixed-case></title>
       <author><first>Saumitra</first><last>Yadav</last><affiliation>International Institute of Information Technology, Hyderabad</affiliation></author>
-      <author><first>Ananya</first><last>Mukherjee</last><affiliation>IIIT Hyderabad</affiliation></author>
-      <author><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <author id="ananya-mukherjee" orcid="0009-0001-2254-0548"><first>Ananya</first><last>Mukherjee</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author id="manish-shrivastava" orcid="0000-0001-8705-6637"><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
       <pages>1602-1614</pages>
       <abstract>Large language models (LLMs) have advanced machine translation substantially, but generic benchmarks often fail to expose where these systems struggle with complex linguistic structures and stylistic nuance. We use CoST (Complex Structures Test), a challenge suite of 1,947 English-Hindi sentences spanning eight genres, autobiography, conversation, legal, mixed, narration, play, poetry, and technical writing, previously introduced for WMT24, to evaluate 22 machine translation systems submitted to the WMT26 General Translation Shared Task for English-Hindi with reference-free, reference-based, and manual evaluation. Our results reveal a consistent genre-level pattern: systems perform well on narrative text such as autobiography and play, but degrade sharply on poetry, legal, and conversational text. We further identify a distinct failure mode in poetry translation, where systems reproduce memorized canonical Hindi verse instead of translating the given English text, and manual analysis surfaces recurring issues in named-entity handling, wrong-language output, and lexical choice, several of which persist from our prior CoST evaluation on WMT24 submissions. Our test suite is available at https://github.com/deciphyre/CoST-WMT-26-Test-Suite-Task.</abstract>
       <pdf hash="49e35579"/>
@@ -1280,7 +1280,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.94/ -->
       <title>Phrase at <fixed-case>WMT</fixed-case>26 Automated <fixed-case>MT</fixed-case> Evaluation Task</title>
       <author><first>Alan</first><last>Eckhardt</last><affiliation>Phrase a.s.</affiliation></author>
-      <author><first>Ondrej</first><last>Glembek</last><affiliation>Phrase a.s.</affiliation></author>
+      <author id="ondrej-glembek" orcid="0000-0003-4665-6550"><first>Ondrej</first><last>Glembek</last><affiliation>Phrase a.s.</affiliation></author>
       <author><first>Craig</first><last>Stewart</last><affiliation>Phrase a.s.</affiliation></author>
       <pages>1615-1623</pages>
       <abstract>We describe the Phrase submission to WMT26’s shared task on automated MT quality evaluation, covering all three of its tasks: segment-level error detection and span annotation (T1), segment-level quality score prediction (T2), and detection of error-free segments (T3). Treating independent LLMs as a panel of ESA (Error Span Annotation)-style error-span judges, we measure a ceiling: a perfect filter over the panel’s pooled spans would raise MPP-F (our span-matching F-score) by roughly two thirds over the strongest single judge. An exhaustive search for how to realize that headroom (diversity, rank-weighted aggregation, a per-judge reliability prior, and boundary refinement) never beats the strongest single judge on MPP-F (T1), because the judges’ shared recall is too low for any gold-free span selection to close the gap. The two tasks derived from the same spans behave differently: a static reliability prior wins the segment score (T2), and simple agreement wins the binary error-free decision (T3). Our primary submission, Phrase01, follows this split; a secondary submission, Phrase02, forces in a third judge (UFAL’s cat-v4) across all tasks as an explicit ablation, despite evidence it does not help. The lever for span-level detection is annotation coverage through generation, not aggregation; for the derived tasks, it is matching the aggregation mechanism to the metric.</abstract>
@@ -1301,7 +1301,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.96/ -->
       <title>Pterodactyl: Pushing the Limits of Efficient Automated Translation Evaluation</title>
       <author><first>Evelyn</first><last>Garland</last><affiliation>1020 Group, Acta-Transphere</affiliation></author>
-      <author><first>Carola</first><last>Berger</last><affiliation>1020 Group, CFB Scientific Translations LLC</affiliation></author>
+      <author id="carola-berger" orcid="0009-0005-5745-9351"><first>Carola</first><last>Berger</last><affiliation>1020 Group, CFB Scientific Translations LLC</affiliation></author>
       <pages>1638-1643</pages>
       <abstract>In this paper, we present 1020 Group’s submission to the WMT26 shared task on automated quality evaluation. Our system, Pterodactyl, was engineered specifically for subtasks 2 and 3, that is, segment-level quality score prediction and the detection of error-free segments. Pterodactyl is a highly customizable, ultra-low-cost system optimized for binary classification in translation triage and data curation. It is based on an LLM-as-a-judge approach, with prompt engineering and model selection guided by ROC analysis. We also developed several variants of Pterodactyl that were specifically adapted for subtasks 3.</abstract>
       <pdf hash="87a7d7ae"/>
@@ -1311,7 +1311,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.97/ -->
       <title><fixed-case>AGGREE</fixed-case>: An Aggregation-Grounded Challenge Set for Segment-Level <fixed-case>MT</fixed-case> Metric Evaluation</title>
       <author><first>Lena</first><last>Griesbeck</last><affiliation>University of the Bundeswehr Munich</affiliation></author>
-      <author><first>Michaela</first><last>Geierhos</last><affiliation>Universitaet der Bundeswehr Muenchen</affiliation></author>
+      <author id="michaela-geierhos" orcid="0000-0002-8180-5606"><first>Michaela</first><last>Geierhos</last><affiliation>Universitaet der Bundeswehr Muenchen</affiliation></author>
       <pages>1644-1651</pages>
       <abstract>This paper introduces AGGREE, a WMT26 Metrics shared task challenge set, which is designed for the diagnostic evaluation of automatic machine translation quality evaluation systems. It is motivated by the observation that metric agreement can be inflated by aggregation as metrics may correlate well at a system level, but disagree at an individual segment level. AGGREE therefore focuses on naturally occurring system outputs where automatic metrics disagree locally or diverge from available WMT human judgments. The challenge set contains 350 single-hypothesis examples across six language pairs drawn from WMT23 and WMT24 system outputs. The submitted set was mined using diagnostics for metric disagreement and metric-human mismatch, then filtered using strict automated quality control. This WMT26 analysis serves only to describe the behavior of the metrics in AGGREE and does not provide an assessment of the performance degradation compared to standard test data.</abstract>
       <pdf hash="83876df0"/>
@@ -1321,7 +1321,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.98/ -->
       <title><fixed-case>CUNI</fixed-case> at the <fixed-case>WMT</fixed-case>26 Automated <fixed-case>MT</fixed-case> Evaluation Shared Task</title>
       <author><first>Miroslav</first><last>Hrabal</last><affiliation>Charles University</affiliation></author>
-      <author><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <pages>1652-1657</pages>
       <abstract>We describe the CUNI submissions to the WMT26 Automated MT Evaluation Shared Task. We take part in error-span prediction (Task~1) and segment-level quality score prediction (Task~2). Our systems use a single open-weight Gemma 4 31B instruction-tuned model as a backbone. For Task~1, we decompose error prediction into semantic error detection, self-review, and a separate span-alignment step that maps free-form error descriptions to source and target character spans. We submit two variants of this approach, one additionally predicting MQM-style error categories. For Task~2, we explore two complementary approaches: regression over features extracted from the Task~1 predictions and LLM-based direct assessment on a 0–100 scale.</abstract>
       <pdf hash="8e1c69f5"/>
@@ -1332,7 +1332,7 @@
       <title><fixed-case>HUFS</fixed-case>-<fixed-case>DILAB</fixed-case> at <fixed-case>WMT</fixed-case> 2026 Automated Translation Quality Evaluation Task 1: Language-Pair Prompt Routing for Error Span Annotation</title>
       <author><first>Jisoo</first><last>Jang</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
       <author><first>Haewon</first><last>Cho</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
-      <author><first>Seungtaek</first><last>Choi</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
+      <author id="seungtaek-choi" orcid="0000-0003-3570-0907"><first>Seungtaek</first><last>Choi</last><affiliation>Hankuk University of Foreign Studies</affiliation></author>
       <pages>1658-1666</pages>
       <abstract>This paper describes HUFS-DILAB’s submission to Task 1, segment-level error detection and span annotation, of the WMT26 Automated Translation Quality Evaluation task. We investigate how far an off-the-shelf LLM can be taken as a judge without task-specific training: Gemma-4-31B-it is prompted to annotate error spans, omissions, and severities as constrained JSON given the source, the reference, and the translation, with each language pair routed to a prompt variant specialized for that pair. This design is motivated by the observation that, even with the same prompt, the judge exhibits different severity and error-density distributions across language pairs. These pair-specific patterns recur in at least 24 of the 26 MT systems, suggesting systematic tendencies of the judge rather than effects specific to individual MT systems. To address these tendencies, we calibrate each prompt variant against human annotations where available. We also correct a rule-based wrong-language filter whose errors on closely related languages were silently overriding the judge’s annotations. Our submission achieves a score of 0.5854 on the official metric, averaged over the eight prioritized language pairs.</abstract>
       <pdf hash="599a2887"/>
@@ -1341,7 +1341,7 @@
     <paper id="100">
       <!-- https://aclanthology.org/2026.wmt-main.100/ -->
       <title><fixed-case>FACET</fixed-case> at <fixed-case>WMT</fixed-case> 2026 Automated Translation Quality Evaluation Task</title>
-      <author><first>Ahrii</first><last>Kim</last><affiliation>Soongsil University</affiliation></author>
+      <author id="ahrii-kim" orcid="0000-0003-2989-3220"><first>Ahrii</first><last>Kim</last><affiliation>Soongsil University</affiliation></author>
       <author><first>Chanjun</first><last>Park</last><affiliation>Soongsil University</affiliation></author>
       <author><first>Seong-Heum</first><last>Kim</last><affiliation>Soongsil University</affiliation></author>
       <pages>1667-1677</pages>
@@ -1362,10 +1362,10 @@
       <!-- https://aclanthology.org/2026.wmt-main.102/ -->
       <title>Benchmarking Gender Bias in Machine Translation Evaluation Metrics across Occupations</title>
       <author><first>Orfeas</first><last>Menis Mastromichalakis</last><affiliation>Instituto de Telecomunicações</affiliation></author>
-      <author><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last><affiliation>National Technical University of Athens</affiliation></author>
       <author><first>Wafaa</first><last>Mohammed</last><affiliation>University of Amsterdam</affiliation></author>
-      <author><first>Giuseppe</first><last>Attanasio</last><affiliation>Instituto de Telecomunicacoes</affiliation></author>
-      <author><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="giuseppe-attanasio" orcid="0000-0001-6945-3698"><first>Giuseppe</first><last>Attanasio</last><affiliation>Instituto de Telecomunicacoes</affiliation></author>
+      <author id="chrysoula-zerva" orcid="0000-0002-4031-9492"><first>Chrysoula</first><last>Zerva</last><affiliation>National Technical University of Athens</affiliation></author>
       <pages>1689-1699</pages>
       <abstract>Gender bias remains a persistent concern in machine translation (MT), affecting both generated translations and their automatic evaluation. When a source text leaves a person’s gender unspecified, translations may realize that person using masculine or feminine forms, and both MT systems and evaluation metrics may exhibit systematic preferences between these alternatives despite the source providing no basis for such a distinction. We study this behavior in the WMT 2026 Automated Translation Quality Evaluation Systems Shared Task using an occupation-balanced subset of GAMBIT+. We consider seven English-source language pairs, six from the original dataset, targeting Arabic, Czech, Greek, Icelandic, Russian, and Ukrainian, and extend the original resource with German. The subset contains 1,308 masculine/feminine translation pairs per target language, with three examples for each of the 436 ISCO-08 occupational groups. We evaluate shared-task submissions and baselines for score prediction and error annotation, examining the direction, magnitude, and frequency of gender-related differences. We find an overall tendency for masculine translations to receive higher scores, as well as differences per occupation following stereotypical gender representations, although the strength and consistency of this preference vary considerably across evaluators and languages. Our results show that gender bias remains present in MT evaluation, but that capturing its extent requires looking beyond a single aggregate measure to complementary dimensions of evaluator behavior.</abstract>
       <pdf hash="48985c4f"/>
@@ -1417,9 +1417,9 @@
       <!-- https://aclanthology.org/2026.wmt-main.107/ -->
       <title>Leveraging Verbalized Confidence in <fixed-case>LLM</fixed-case>-as-a-Judge for Automated Translation Quality Evaluation</title>
       <author><first>Richard</first><last>Servajean</last><affiliation>National Institute of Advanced Industrial Science and Technology</affiliation></author>
-      <author><first>Mohammad Golam</first><last>Sohrab</last><affiliation>Artificial Intelligence Research Centre at AIST</affiliation></author>
+      <author id="mohammad-golam-sohrab" orcid="0000-0001-5540-7834"><first>Mohammad Golam</first><last>Sohrab</last><affiliation>Artificial Intelligence Research Centre at AIST</affiliation></author>
       <author><first>Lucie</first><last>Kunitomo-Jacquin</last><affiliation>AIST</affiliation></author>
-      <author><first>Matiss</first><last>Rikters</last><affiliation>AIST</affiliation></author>
+      <author id="matiss-rikters" orcid="0000-0002-3530-6873"><first>Matiss</first><last>Rikters</last><affiliation>AIST</affiliation></author>
       <pages>1730-1738</pages>
       <abstract>This paper presents the AIST AIRC team’s contributions to subtasks 1 (segment-level error detection and span annotation), 2 (segment-level quality score prediction) and 3 (detection of error-free segments) of the automated translation quality evaluation systems shared task in WMT 2026. Our approach to address each of the 3 subtasks relies on an LLM-as-a-judge system. Specifically, for subtasks 2, we follow an LLM-as-a-judge approach within the Multidimensional Quality Metrics (MQM) error typology, with the novel addition of prompting the large language model (LLM) to verbalize its confidence in each error type assessment. We then train a Multilayer Perceptron (MLP) Regressor on error severities with and without associated confidence ratings to predict human annotations. First, our results provide further evidence for the relevance of integrating LLMs into automated translation quality evaluation pipelines. Second, this work aims to advance ongoing efforts to make these pipelines uncertainty-aware through the integration of verbalized confidence. Our code is freely available at https://github.com/sshrichard/WMT-Evaluation-Shared-Task-2026.</abstract>
       <pdf hash="bb19bd07"/>
@@ -1455,8 +1455,8 @@
     <paper id="111">
       <!-- https://aclanthology.org/2026.wmt-main.111/ -->
       <title>Beyond Rankings: Insights from <fixed-case>ALTAE</fixed-case>’s <fixed-case>PTT</fixed-case>-<fixed-case>MULTITAN</fixed-case> Submission to the <fixed-case>WMT</fixed-case> 2026 Shared Task on Automated Translation Quality Evaluation Systems</title>
-      <author><first>Lichao</first><last>Zhu</last><affiliation>Université Paris Cité</affiliation></author>
-      <author><first>Maria</first><last>Zimina-Poirot</last><affiliation>ALTAE, UniversitÃ© Paris CitÃ©</affiliation></author>
+      <author id="lichao-zhu" orcid="0000-0003-4432-0236"><first>Lichao</first><last>Zhu</last><affiliation>Université Paris Cité</affiliation></author>
+      <author id="maria-zimina-poirot" orcid="0000-0002-0892-2531"><first>Maria</first><last>Zimina-Poirot</last><affiliation>ALTAE, UniversitÃ© Paris CitÃ©</affiliation></author>
       <author><first>Nicolas</first><last>Froeliger</last><affiliation>ALTAE, Université Paris Cité</affiliation></author>
       <pages>1763-1771</pages>
       <abstract>We describe PTT-MULTITAN, our submission to the WMT26 MT Evaluation shared task, Task 3 (error-free segment detection). The task requires a binary decision — does a machine translation contain any error? — without ac- cess to reference translations, and is scored with the Matthews Correlation Coefficient (MCC). Our system combines a supervised classifier fitted on WMT25 human error-span annotations with three families of reference- free indicators: structural and phraseological cues, corpus-linguistic association measures computed over an LLM-as-judge model, and format/locale conformity checks. We have im- proved our system submissions, whose MCC rises from 0.159 to 0.168. We submitted six language pairs from the official WMT26 test set. The pairs were from English into Belaru- sian, German, Russian, Ukrainian, Simplified Chinese, and Traditional Chinese.</abstract>
@@ -1476,7 +1476,7 @@
     <paper id="113">
       <!-- https://aclanthology.org/2026.wmt-main.113/ -->
       <title><fixed-case>U</fixed-case>ni<fixed-case>OR</fixed-case>-<fixed-case>MT</fixed-case>: An Agentic Pipeline for Terminology Translation</title>
-      <author><first>Antonio</first><last>Castaldo</last><affiliation>University of Naples "L'Orientale"</affiliation></author>
+      <author id="antonio-castaldo" orcid="0009-0008-3325-787X"><first>Antonio</first><last>Castaldo</last><affiliation>University of Naples "L'Orientale"</affiliation></author>
       <author><first>Giulia</first><last>Speranza</last><affiliation>University of Naples "L'Orientale"</affiliation></author>
       <author><first>Maria Carmen</first><last>Staiano</last><affiliation>University of Macerata</affiliation></author>
       <author><first>Petra</first><last>Giommarelli</last><affiliation>University of Naples "L'Orientale"</affiliation></author>
@@ -1490,7 +1490,7 @@
     <paper id="114">
       <!-- https://aclanthology.org/2026.wmt-main.114/ -->
       <title>Agenteak: A Multi-Agent Pipeline for Terminology-Constrained <fixed-case>S</fixed-case>panish-<fixed-case>B</fixed-case>asque Translation</title>
-      <author><first>Jurgi</first><last>Giraud</last><affiliation>The University of Edinburgh</affiliation></author>
+      <author id="jurgi-giraud" orcid="0009-0000-2614-3382"><first>Jurgi</first><last>Giraud</last><affiliation>The University of Edinburgh</affiliation></author>
       <author><first>Andrew</first><last>Gargett</last><affiliation>The Open University (UK)</affiliation></author>
       <pages>1791-1800</pages>
       <abstract>This paper describes the OpenU’s submission to the WMT26 Terminology Translation Task for Spanish into Basque (Track 1), covering the automotive and energy domains. We present AGENTEAK, a multi-agent system built on LangGraph in which three compact open-weight models (4-8B parameters) cooperate: a reasoning model that selects and disambiguates the terminology relevant to each segment, a domain fine-tuned translation model, and a verification model that checks and repairs terminology in the draft translation. To adapt the translator, we mined in-domain Spanish-Basque bitext from Wikipedia using multilingual sentence embeddings and complemented the data with in-domain synthetic parallel paragraphs generated by an instruction-tuned Basque LLM. Domain-tagged fine-tuning improves the base model by up to 10.4 BLEU and 3.9 COMET points on our in-domain test sets. On the shared task data, supplying the pipeline with correct terminology raises terminology success rate from 0.613 to 0.757 (automotive) and from 0.601 to 0.774 (energy).</abstract>
@@ -1504,10 +1504,10 @@
       <author><first>Daimeng</first><last>Wei</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
       <author><first>Jiaxin</first><last>Guo</last><affiliation>Huawei Translation Services Center</affiliation></author>
       <author><first>Yuanchang</first><last>Luo</last><affiliation>Huawei Translation Services Center</affiliation></author>
-      <author><first>Hengchao</first><last>Shang</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
-      <author><first>Zongyao</first><last>Li</last><affiliation>Huawei Translation Services Center</affiliation></author>
+      <author id="hengchao-shang" orcid="0000-0002-5211-3221"><first>Hengchao</first><last>Shang</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author id="zongyao-li" orcid="0000-0001-7196-2782"><first>Zongyao</first><last>Li</last><affiliation>Huawei Translation Services Center</affiliation></author>
       <author><first>Jinlong</first><last>Yang</last><affiliation>Huawei Technologies Co., Ltd</affiliation></author>
-      <author><first>Zhanglin</first><last>Wu</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
+      <author id="zhanglin-wu" orcid="0000-0002-2920-0773"><first>Zhanglin</first><last>Wu</last><affiliation>Huawei Technologies Co., Ltd.</affiliation></author>
       <author><first>Yu</first><last>He</last><affiliation>Huawei Translation Service Center</affiliation></author>
       <author><first>Xiaoqing</first><last>Lan</last><affiliation>Huawei Translation Service Center</affiliation></author>
       <pages>1801-1806</pages>
@@ -1519,7 +1519,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.116/ -->
       <title><fixed-case>S</fixed-case>alamandra<fixed-case>TA</fixed-case> at <fixed-case>WMT</fixed-case> 2026 Terminology Shared Task: Hard Examples Are Better Teachers</title>
       <author><first>Xixian</first><last>Liao</last><affiliation>Barcelona Supercomputing Center</affiliation></author>
-      <author><first>Maite</first><last>Melero</last><affiliation>AI Institute - Barcelona Supercomputing Center</affiliation></author>
+      <author id="maite-melero" orcid="0000-0001-9933-3224"><first>Maite</first><last>Melero</last><affiliation>AI Institute - Barcelona Supercomputing Center</affiliation></author>
       <pages>1807-1818</pages>
       <abstract>Terminology-aware translation asks for more than a correct translation: the output must use the exact terms a glossary prescribes. The standard recipe, fine-tuning on glossary-annotated translation pairs, hides an inefficiency: for most examples the glossary prescribes exactly what the model would have produced anyway, so they teach nothing about following a glossary. We therefore keep only the examples where the model’s own translation contradicts the glossary. In a controlled study at fixed data volume, this selection alone raises term accuracy from 78.7% to 89.9%. The filtered data, built by a two-way synthetic pipeline on open models, is part of the instruction-tuning mixture of our public release SalamandraTA-7b-instruct v3.0, which, used exactly as released and wrapped in a document-level inference pipeline, forms the BSC submission to the WMT26 Terminology Shared Task Track 1. At the official WMT26 evaluation, our system achieves 94.2% term success at 74.6 chrF++, with only two of the twenty-two submissions outperforming it on both metrics. On last year’s benchmark, it also surpasses our GRPO-based system, despite being trained solely with ordinary supervised fine-tuning.</abstract>
       <pdf hash="a4b7f0d2"/>
@@ -1529,9 +1529,9 @@
       <!-- https://aclanthology.org/2026.wmt-main.117/ -->
       <title><fixed-case>GRIAL</fixed-case>-<fixed-case>TA</fixed-case> participation in the <fixed-case>WMT</fixed-case>26 Terminology Shared Task</title>
       <author><first>Gonzalo</first><last>López-Sánchez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
-      <author><first>Antoni</first><last>Oliver</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
-      <author><first>Marta</first><last>Cozzini</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
-      <author><first>Mercè</first><last>Vàzquez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="antoni-oliver" orcid="0000-0001-8399-3770"><first>Antoni</first><last>Oliver</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="marta-cozzini" orcid="0009-0004-1992-9132"><first>Marta</first><last>Cozzini</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <author id="merce-vazquez" orcid="0000-0002-7983-4029"><first>Mercè</first><last>Vàzquez</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
       <author><first>Patricia</first><last>Morales-Hurtado</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
       <author><first>Sergi</first><last>Alvarez-Vidal</last><affiliation>Universitat Autònoma de Barcelona</affiliation></author>
       <pages>1819-1829</pages>
@@ -1543,9 +1543,9 @@
       <!-- https://aclanthology.org/2026.wmt-main.118/ -->
       <title><fixed-case>ST</fixed-case>a<fixed-case>R</fixed-case>-<fixed-case>MT</fixed-case>: Select, Translate, and Revise Pipeline for Terminology Aware Machine Translation</title>
       <author><first>Guilherme</first><last>Marchetti</last><affiliation>LIACC, Faculdade de Engenharia, Universidade do Porto</affiliation></author>
-      <author><first>Gil</first><last>Rocha</last><affiliation>LIACC, Faculty of Engineering, University of Porto</affiliation></author>
-      <author><first>Henrique</first><last>Lopes Cardoso</last><affiliation>University of Porto</affiliation></author>
-      <author><first>Rui</first><last>Sousa-Silva</last><affiliation>University of Porto - Faculty of Arts and Humanities</affiliation></author>
+      <author id="gil-rocha" orcid="0000-0001-8252-7292"><first>Gil</first><last>Rocha</last><affiliation>LIACC, Faculty of Engineering, University of Porto</affiliation></author>
+      <author id="henrique-lopes-cardoso" orcid="0000-0003-1252-7515"><first>Henrique</first><last>Lopes Cardoso</last><affiliation>University of Porto</affiliation></author>
+      <author id="rui-sousa-silva" orcid="0000-0002-5249-0617"><first>Rui</first><last>Sousa-Silva</last><affiliation>University of Porto - Faculty of Arts and Humanities</affiliation></author>
       <pages>1830-1839</pages>
       <abstract>To assess the progress in terminology-aware machine translation, the Terminology Shared Task is hosted alongside the Conference on Machine Translation (WMT). In this paper, we describe our submission to the shared task: STaR-MT. This is a three-step pipeline composed of (S)election, (T)ranslation, (a)nd (R)evision, focused on terminology-aware machine translation (MT). Our methodology adopts a lightweight agent-based design that selects relevant entries or examples and presents them to the translation agent, which uses a general-purpose LLM with a large context window to produce the initial output. Next, the revision agent uses language-specific models to improve translation quality for selected target languages. Experiments on the FLORES+ dataset with different model sizes in the pipeline suggest that machine translation pipelines can benefit from combining large general-purpose translation models with smaller, language-specific revision models, at least in some language pairs. While simple in architecture, this approach allows us to generate translations at the document level, with no need for pre-processing or paragraph splitting, and with minimal errors across most languages.</abstract>
       <pdf hash="ed61df8c"/>
@@ -1577,7 +1577,7 @@
     <paper id="121">
       <!-- https://aclanthology.org/2026.wmt-main.121/ -->
       <title>Tilde’s Submission for the <fixed-case>WMT</fixed-case>2026 Shared Task on Terminology Translation</title>
-      <author><first>Marcis</first><last>Pinnis</last><affiliation>Tilde</affiliation></author>
+      <author id="marcis-pinnis-5600" orcid="0000-0001-6832-5600"><first>Marcis</first><last>Pinnis</last><affiliation>Tilde</affiliation></author>
       <author><first>Martins</first><last>Kronis</last><affiliation>SIA TILDE</affiliation></author>
       <author><first>Emils</first><last>Grims</last><affiliation>Tilde</affiliation></author>
       <author><first>Ervins</first><last>Jakovelis</last><affiliation>Tilde</affiliation></author>
@@ -1638,7 +1638,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.126/ -->
       <title>Laniqo at <fixed-case>WMT</fixed-case>26 Multilingual Instruction Shared Task (<fixed-case>MIST</fixed-case>): Full-Parameter Knowledge Distillation with Task-Conditional Pivot Decoding Under a 10<fixed-case>B</fixed-case>-Parameter Constraint</title>
       <author><first>Adrian</first><last>Charkiewicz</last><affiliation>Laniqo</affiliation></author>
-      <author><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
+      <author id="artur-nowakowski" orcid="0000-0003-4473-0008"><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
       <pages>1906-1916</pages>
       <abstract>We describe our submission to the WMT26 Multilingual Instruction Shared Task (MIST). Our system is google/gemma-4-E4B-it (8B total / 4.5B effective parameters), fully fine-tuned via knowledge distillation from a larger teacher model (Gemma-4-31B-it) on teacher-generated responses spanning three sub-tasks and 24 languages. We find that (i) a two-judge quality-agreement filter on the distillation data provides no measurable benefit over using the teacher’s outputs unfiltered, at both LoRA and full-parameter training scale, and (ii) a task- conditional decoding strategy (using two-turn English drafting for open-ended generation and summarization, versus single-turn direct decod- ing for context-grounded question answering) significantly improves quality where applied and is harmless where it is not. Our final submission combines full-parameter distillation with this task-conditional decoding scheme.</abstract>
       <pdf hash="31b3b63f"/>
@@ -1667,10 +1667,10 @@
     <paper id="129">
       <!-- https://aclanthology.org/2026.wmt-main.129/ -->
       <title>Probe Before you Answer! Answerability Probing for Abstention in Cross-Lingual Context-Based Question Answering</title>
-      <author><first>Lea</first><last>Krause</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
-      <author><first>Stefan</first><last>Schouten</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
-      <author><first>Michiel</first><last>Van Der Meer</last><affiliation>Leiden Institute of Advanced Computer Science</affiliation></author>
-      <author><first>Piek</first><last>Vossen</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author id="lea-krause" orcid="0000-0001-7187-5224"><first>Lea</first><last>Krause</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author id="stefan-schouten" orcid="0000-0001-9839-9985"><first>Stefan</first><last>Schouten</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author id="michiel-van-der-meer" orcid="0000-0003-1877-6002"><first>Michiel</first><last>Van Der Meer</last><affiliation>Leiden Institute of Advanced Computer Science</affiliation></author>
+      <author id="piek-vossen" orcid="0000-0002-6238-5941"><first>Piek</first><last>Vossen</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
       <pages>1933-1948</pages>
       <abstract>We separate answering from abstention in a context-based question answering task, where a language model answers a question about a document in a possibly different language or abstains when the document contains no answer. A LoRA adapter on Qwen3.5-9B, trained only on answerable questions, generates the answer, while a linear probe on the frozen base model’s activations decides answerability independently and returns the required refusal string when it predicts none exists. This isolates the model’s answerability signal from its instruction-following. The probe’s ranking of answerable against unanswerable questions transfers across languages, corpora, and negative constructions it was not trained on, but its decision threshold does not; training on in-domain multilingual data, rather than recalibrating the threshold, closes most of that gap. For the adapter, how the answer target is constructed trades off automatic correctness metrics against well-formedness and answer length.</abstract>
       <pdf hash="c6e468aa"/>
@@ -1680,7 +1680,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.130/ -->
       <title><fixed-case>CUNI</fixed-case>-<fixed-case>UFAL</fixed-case> at <fixed-case>WMT</fixed-case>26 Multilingual Instruction Shared Task</title>
       <author><first>Aleš Manuel</first><last>Papáček</last><affiliation>Charles University, Faculty of Mathematics and Physics, Prague</affiliation></author>
-      <author><first>Patricia</first><last>Schmidtova</last><affiliation>Charles University</affiliation></author>
+      <author id="patricia-schmidtova" orcid="0009-0008-5516-798X"><first>Patricia</first><last>Schmidtova</last><affiliation>Charles University</affiliation></author>
       <pages>1949-1958</pages>
       <abstract>We describe our submission to the WMT26 Multilingual Instruction Shared Task, which evaluates sub-10B-parameter models on multilingual question answering, open-ended generation, and cross-lingual summarization. We compare four open-weight models and vary the system prompt, reasoning mode, and decoding parameters. On our development set, the tested prompt and reasoning changes have a larger effect on LLM-judge scores than the difference between the two finalist models in their best settings. Gemma 4 E4B obtains the highest overall judge score, whereas Qwen 3.5 9B follows hard constraints more reliably on our internal benchmark. We therefore submit Qwen as our primary system and Gemma as a secondary system. We also introduce a 1,283-example diagnostic benchmark for grounded QA, constrained generation, and abstract writing from ACL papers in 24 languages. Using it for QLoRA fine-tuning does not work in our setup, it lowers validation loss but does not improve quality under our LLM judge. In the official automatic evaluation, our Gemma system ranks first overall and our Qwen system second; Qwen wins QA-context, while Gemma wins QA-OEG and places second in summarization.</abstract>
       <pdf hash="0d07d6bf"/>
@@ -1689,7 +1689,7 @@
     <paper id="131">
       <!-- https://aclanthology.org/2026.wmt-main.131/ -->
       <title><fixed-case>PSK</fixed-case> at <fixed-case>WMT</fixed-case> 2026 <fixed-case>MIST</fixed-case>: Task-Specialized <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case> Adapters for Multilingual Summarization and Question Answering</title>
-      <author><first>Srikar Kashyap</first><last>Pulipaka</last><affiliation>Independent</affiliation></author>
+      <author id="srikar-kashyap-pulipaka" orcid="0009-0002-0107-3319"><first>Srikar Kashyap</first><last>Pulipaka</last><affiliation>Independent</affiliation></author>
       <pages>1959-1964</pages>
       <abstract>We describe the PSK submission to the WMT 2026 Multilingual Instruction Shared Task. Our system uses the 3.35B-parameter Tiny Aya Global model with three QLoRA adapters, one for each task. The adapters are trained on multilingual document–summary pairs, passage-based question answering, and filtered standalone question answering. The summarization data also includes scientific papers with their author-written abstracts. On our held-out split, the context and summarization adapters perform better than our multitask adapter, while results for open QA are mixed. Official evaluation ranks PSK sixth overall and fourth for summarization. Context QA and open QA remain weaker, and the multitask open-QA route outperforms both specialized open-QA adapters.</abstract>
       <pdf hash="49a283b8"/>
@@ -1698,7 +1698,7 @@
     <paper id="132">
       <!-- https://aclanthology.org/2026.wmt-main.132/ -->
       <title>Task-Preserving Multilingual Instruction Tuning for Open-Ended <fixed-case>QA</fixed-case> at <fixed-case>WMT</fixed-case> 2026 <fixed-case>MIST</fixed-case></title>
-      <author><first>Aleix</first><last>Sant</last><affiliation>Telefónica Innovación Digital</affiliation></author>
+      <author id="aleix-sant" orcid="0009-0007-7259-656X"><first>Aleix</first><last>Sant</last><affiliation>Telefónica Innovación Digital</affiliation></author>
       <author><first>Jordi</first><last>Luque Serrano</last><affiliation>Telefónica Innovación Digital</affiliation></author>
       <author><first>Carlos</first><last>Escolano Peinado</last><affiliation>Universitat Politècnica de Catalunya</affiliation></author>
       <pages>1965-1972</pages>
@@ -1722,7 +1722,7 @@
       <author><first>Anish</first><last>Racherla</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Kolupoti</first><last>Kiran</last><affiliation>IIIT Hyderabad</affiliation></author>
       <author><first>Saumitra</first><last>Yadav</last><affiliation>International Institute of Information Technology, Hyderabad</affiliation></author>
-      <author><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <author id="manish-shrivastava" orcid="0000-0001-8705-6637"><first>Manish</first><last>Shrivastava</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
       <pages>1979-1985</pages>
       <abstract>Large language models have significantly improved machine translation quality but remain expensive to deploy due to high computational and memory requirements. This paper describes our submissions to the WMT 2026 Model Compression Shared Task, targeting English–Chinese translation through structural compression of two multilingual models: Aya Expanse 8B and Gemma-3-12B. Both pipelines share a common 6-stage data curation process that filters 25 million raw WMT English–Chinese sentence pairs into a quality and diverse training corpus for fine-tuning. For Aya Expanse 8B, we use COMET-QE to identify and prune four layers with the least impact on translation quality, followed by QLoRA fine-tuning and INT8 inference. For Gemma-3-12B, we apply Fisher Information-based importance scoring to guide a two-step compression, pruning 8 transformer layers followed by feed-forward neuron pruning, recovered through QLoRA fine-tuning and INT4 inference. Results on the FLORES-200 benchmark show both pipelines achieve substantial reductions in GPU memory usage and gains in inference throughput while maintaining competitive translation quality. Our findings demonstrate that importance-guided structural pruning, combined with parameter-efficient fine-tuning and quantization, can achieve substantial model size reduction while maintaining comparable English–Chinese translation quality.</abstract>
       <pdf hash="f4820fb3"/>
@@ -1740,7 +1740,7 @@
     <paper id="136">
       <!-- https://aclanthology.org/2026.wmt-main.136/ -->
       <title>Quantize, Qualify, Rerank: A Recipe for Compressing <fixed-case>LLM</fixed-case>s Without Losing Quality</title>
-      <author><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
+      <author id="thamme-gowda" orcid="0000-0001-5422-8674"><first>Thamme</first><last>Gowda</last><affiliation>Microsoft</affiliation></author>
       <pages>1991-1998</pages>
       <abstract>Compressing large language models lowers serving cost, but a single automatic metric may miss quality loss. For the WMT26 Model Compression constrained track, we compress ‘google/gemma-3-12b-it‘ (24.4 GB in bf16) for three translation directions on one H100. Paired bootstrap analysis exposes metric disagreement on 4-bit quantization; guided by WMT24 human meta-evaluation, we use MetricX24-XXL as primary and CometKiwi-XXL as a cross-check. Removing the unused vision stack and non-task vocabulary and using int8 weights or fp8 activations causes no measurable loss, whereas int4 leaves a small residual. QLoRA healing overfits its calibration domain. A cheap Cometoid best-of-4 reranker at ‘T=0.3‘ improves both the 8-bit and 4-bit systems under held-out CometKiwi-XXL and reference-based MetricX24-XXL. Both surpass greedy bf16 on CometKiwi-XXL; the 8-bit system also surpasses it on MetricX24-XXL, while the 4-bit system nearly matches it.</abstract>
       <pdf hash="29534579"/>
@@ -1752,7 +1752,7 @@
       <author><first>Martins</first><last>Kronis</last><affiliation>SIA TILDE</affiliation></author>
       <author><first>Toms</first><last>Bergmanis</last><affiliation>Tilde</affiliation></author>
       <author><first>Ingus</first><last>Pretkalniņš</last><affiliation>Tilde</affiliation></author>
-      <author><first>Marcis</first><last>Pinnis</last><affiliation>Tilde</affiliation></author>
+      <author id="marcis-pinnis-5600" orcid="0000-0001-6832-5600"><first>Marcis</first><last>Pinnis</last><affiliation>Tilde</affiliation></author>
       <pages>1999-2008</pages>
       <abstract>This paper describes Tilde’s submission to the unconstrained track of the WMT~2026 Model Compression task in the Czech-German direction. Our baseline is TildeOpen-15B-64k, a model distilled from the TildeOpen-30B-64k European foundation model. We adapt it for CS-DE translation, using supervised fine-tuning followed by GRPO-based reinforcement learning. From this baseline, we explore two axes of compression: post-training quantisation and knowledge distillation. For quantisation, we use LLM Compressor to produce a GPTQ-calibrated model with 4-bit NVFP4 weights (10.1\,GB, $\times$3 smaller than the 30.3\,GB footprint of the 15B baseline) and a data-free RTN model with FP8 weights and activations (16.3\,GB). In parallel, we prune and distil the base 15B model into an 8B student and fine-tune it with the same supervised fine-tuning recipe. Applying the two quantisation schemes to the 8B model yields our smallest models at 8.9\,GB and 5.7\,GB. The latter is over $\times$5 more compact and $\times$1.8 faster than the 15B baseline. Evaluation on four test sets across a variety of metrics shows that quantisation and distillation have minimal impact on translation quality. The NVFP4-quantised 15B model offers the best quality/size/speed trade-off and is our primary submission for this competition. All six models are publicly released.</abstract>
       <pdf hash="7a0ca195"/>
@@ -1814,8 +1814,8 @@
     <paper id="143">
       <!-- https://aclanthology.org/2026.wmt-main.143/ -->
       <title>The <fixed-case>ILSP</fixed-case>/<fixed-case>ARC</fixed-case> submission to the <fixed-case>WMT</fixed-case>26 Model Compression Task</title>
-      <author><first>Sokratis</first><last>Sofianopoulos</last><affiliation>Researcher</affiliation></author>
-      <author><first>Prokopis</first><last>Prokopidis</last><affiliation>ILSP/Athena RC</affiliation></author>
+      <author id="sokratis-sofianopoulos" orcid="0000-0001-7305-5289"><first>Sokratis</first><last>Sofianopoulos</last><affiliation>Researcher</affiliation></author>
+      <author id="prokopis-prokopidis" orcid="0000-0003-3963-3000"><first>Prokopis</first><last>Prokopidis</last><affiliation>ILSP/Athena RC</affiliation></author>
       <pages>2051-2060</pages>
       <abstract>This paper describes our submission to the constrained track of the WMT26 Model Compression task, filed under the team name arc/ilsp. The task requires the compression of google/gemma-3-12b-it for translation in cs→de, en→zh, and en→ar in the Egyptian register. Our systems combine the removal of the vision tower, the pruning of the vocabulary by Unicode script, and GPTQ W4A16 quantization. The two checkpoints we file as primary models occupy 6.64 and 7.08 GiB, i.e. 29% and 31% respectively of the 22.7 GiB disk footprint of the bf16 original. No interval separates the pruned vocabulary from the full-vocabulary INT4 checkpoint on any direction, and at the paragraph granularity on which the task scores, our vocab-INT4 primary costs 0.0048 COMET against bf16 on cs→de and nothing measurable on the other two directions. We also submit two contrastive systems: an FP8 system that is faster than the bf16 original at lower memory, and a self-MBR decoder that adds roughly 0.009 COMET on en→ar without any additional parameters. We do not submit a depthpruned system; a default generation cap had clipped the distillation targets and taught the student to end a turn mid-paragraph, a defect whose repair recovers a quarter of the deficit against full depth.</abstract>
       <pdf hash="23bc58b1"/>
@@ -1848,7 +1848,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.146/ -->
       <title><fixed-case>ADI</fixed-case>-<fixed-case>IITP</fixed-case>: Reward-Guided Preference Optimization for Low-Resource <fixed-case>E</fixed-case>nglish-<fixed-case>A</fixed-case>ssamese Machine Translation</title>
       <author><first>Aditya</first><last>Aditya</last><affiliation>KIIT, Bhubaneshwar</affiliation></author>
-      <author><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
       <pages>2078-2085</pages>
       <abstract>This paper describes our submission to the WMT 2026 shared task on Low-Resource Indic Language Translation for the English-Assamese pair. Our systems build on the compact, distilled 200M-parameter IndicTrans2 model, adapted with parameter-efficient Low-Rank Adaptation (LoRA). Beyond standard supervised fine-tuning (SFT), we built a preference-optimization pipeline that generates candidate translations, scores them with a composite reward combining a GEMBA-style LLM-as-judge score, a reference-free CometKiwi quality-estimation signal, and an xCOMET score, and then trains with Direct Preference Optimization (DPO) on the resulting preference pairs. We used this pipeline to guide our system choices: for Assamese-to-English the SFT-only model scored best on our development set, so we submitted it as primary and the SFT-then-DPO model as a contrastive system; for English-to-Assamese we went with SFT-then-DPO as primary. On the official WMT 2026 blind test set, the Assamese-to-English primary system scored 24.08 BLEU (25.11 for the contrastive system), and the English-to-Assamese primary system scored 15.57 BLEU. We also report METEOR, TER, chrF++, BERTScore, and COMET.</abstract>
       <pdf hash="d35e8fd9"/>
@@ -1895,7 +1895,7 @@
       <author><first>Aashish</first><last>Dhawan</last><affiliation>University of Florida</affiliation></author>
       <author><first>Christopher</first><last>Driggers-Ellis</last><affiliation>University of Florida</affiliation></author>
       <author><first>Dzmitry</first><last>Kasinets</last><affiliation>University of Florida</affiliation></author>
-      <author><first>Christan</first><last>Grant</last><affiliation>University of Florida</affiliation></author>
+      <author id="christan-grant" orcid="0000-0002-6684-3620"><first>Christan</first><last>Grant</last><affiliation>University of Florida</affiliation></author>
       <author><first>Zhe</first><last>Wang</last><affiliation>University of Florida</affiliation></author>
       <pages>2111-2123</pages>
       <abstract>This paper describes the University of Florida gators submission to the WMT26 Low-Resource Indic Language Translation shared task. We adapt the retrieval-augmented many-shot translation pipeline from our AmericasNLP 2026 system to translate between English and eleven North-Eastern Indian languages in both directions. At inference time, BM25 retrieves the most similar parallel examples from a language-specific training bank, and Gemini 2.5 Flash translates the input conditioned on these examples. No model fine-tuning is involved. Training banks combine official WMT26 data with publicly available corpora such as Samanantar and prior WMT shared task releases. A grid search over retrieval count r and development exemplar count d across all 22 language-direction pairs selects the best configuration for each submission.</abstract>
@@ -1907,7 +1907,7 @@
       <title><fixed-case>A</fixed-case>kiba<fixed-case>NLP</fixed-case>-<fixed-case>TUT</fixed-case>: Improving Low-Resource Machine Translation via Language-Specific and Length-Adaptive Noise Injection</title>
       <author><first>Takumi</first><last>Kachi</last><affiliation>Toyohashi University of Technology</affiliation></author>
       <author><first>Tomoyosi</first><last>Akiba</last><affiliation>Toyohashi University of Technology</affiliation></author>
-      <author><first>Hajime</first><last>Tsukada</last><affiliation>Aichi Sangyo University</affiliation></author>
+      <author id="hajime-tsukada" orcid="0000-0002-7917-1843"><first>Hajime</first><last>Tsukada</last><affiliation>Aichi Sangyo University</affiliation></author>
       <pages>2124-2134</pages>
       <abstract>We present a language-specific word-level noise injection method for low-resource machine translation that eliminates the need for an external monolingual corpus by constructing the low-resource language vocabulary directly from the source-side text of the target dataset. We also investigate two important hyperparameters of the original method: the maximum edit distance used for candidate word selection and the target noise ratio. Specifically, we propose a dynamic edit-distance constraint based on word length and evaluate multiple noise ratios from 5% to 30%. Experiments on Assamese-English translation show that the proposed dynamic constraint consistently outperforms the fixed edit-distance setting across all evaluated noise ratios, while a moderate noise ratio achieves the best translation performance. We further report our official results for the WMT 2026 Low-Resource Indic Language Translation Shared Task and discuss the effectiveness and limitations of the proposed approach under different resource conditions.</abstract>
       <pdf hash="06524952"/>
@@ -1916,7 +1916,7 @@
     <paper id="152">
       <!-- https://aclanthology.org/2026.wmt-main.152/ -->
       <title><fixed-case>TIP</fixed-case>-<fixed-case>RBG</fixed-case>-<fixed-case>AI</fixed-case>: Overcoming Orthographic Discrepancies via Algorithmic Translinear Pipelines and Phylogenetic Script Mapping</title>
-      <author><first>Barathi Ganesh</first><last>Hb</last><affiliation>Kitami Institute of Technology</affiliation></author>
+      <author id="barathi-ganesh-hb" orcid="0000-0002-1150-2773"><first>Barathi Ganesh</first><last>Hb</last><affiliation>Kitami Institute of Technology</affiliation></author>
       <author><first>Michal</first><last>Ptaszynski</last><affiliation>Kitami Institute of Technology, Kitami, Hokkaido, Japan</affiliation></author>
       <author><first>Meenakshi</first><last>Sharma</last><affiliation>RBG AI Research, RBG.AI, Coimbatore, Tamil Nadu, India</affiliation></author>
       <author><first>Jairam</first><last>R</last><affiliation>RBG AI Research, RBG.AI, Coimbatore, Tamil Nadu, India</affiliation></author>
@@ -2006,7 +2006,7 @@
     <paper id="159">
       <!-- https://aclanthology.org/2026.wmt-main.159/ -->
       <title><fixed-case>DELAB</fixed-case>-<fixed-case>IIITM</fixed-case> <fixed-case>WMT</fixed-case>26: Full Fine-Tuning and <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case>-Based Adaptation for <fixed-case>E</fixed-case>nglish-to-Low-Resource <fixed-case>I</fixed-case>ndic Translation</title>
-      <author><first>Dingku</first><last>Oinam</last><affiliation>Indian Institute of Information Technology, Senapati, Manipur</affiliation></author>
+      <author id="dingku-oinam" orcid="0009-0001-4554-1885"><first>Dingku</first><last>Oinam</last><affiliation>Indian Institute of Information Technology, Senapati, Manipur</affiliation></author>
       <author><first>Navanath</first><last>Saharia</last><affiliation>IIIT Senapati, Manipur</affiliation></author>
       <pages>2199-2206</pages>
       <abstract>This paper describes DELAB-IIITM’s submission system for the WMT26 machine translation shared task. We participated in the English-to-low-resource Indic translation direction, covering four language pairs: English to Assamese (Bengali), English to Manipuri (Bengali), English to Manipuri (Meitei Mayek) and English to Bodo (Devanagari). Our fine-tuning process leverages two pre-trained multilingual models: NLLB-200-Distilled-600M (Meta AI) and IndicTrans2-1.1B (AI4Bharat). For NLLB-200, we perform full fine-tuning on English-to-Assamese and English-to-Manipuri (Bengali) directions.nFor IndicTrans2, we employ Low-Rank Adaptation (LoRA) on English-to-Manipuri (Meitei Mayek) and English-to-Bodo directions, reducing trainable parameters from 1.1B to approximately 5.9M. All models are fine-tuned exclusively on the WMT26-provided training data. Our submissions achieved competitive results across all four language pairs. The contrastive systems consistently outperformed the primary systems for Assamese, Manipuri (Bengali) and Bodo, achieving improvements of up to +2.89 BLEU for Bodo and +3.14 BLEU for Manipuri (Bengali). However, an interesting anomaly was observed for Manipuri (Meitei Mayek), where the primary system outperformed the contrastive system despite the latter being subjectively better. We analyze this discrepancy and attribute it to BLEU’s sensitivity to surface-level n-gram matching rather than semantic quality.</abstract>
@@ -2019,7 +2019,7 @@
       <author><first>Soujanya</first><last>Rao</last><affiliation>International Institute of Information Technology - Hyderabad</affiliation></author>
       <author><first>Sakhil</first><last>Taneja</last><affiliation>International Institute of Information Technology - Hyderabad</affiliation></author>
       <author><first>Krishna</first><last>Chaitanya</last><affiliation>International Institute of Information Technology - Hyderabad</affiliation></author>
-      <author><first>Radhika</first><last>Mamidi</last><affiliation>Language Technologies Research Centre, IIIT Hyderabad</affiliation></author>
+      <author id="radhika-mamidi" orcid="0000-0003-0171-0816"><first>Radhika</first><last>Mamidi</last><affiliation>Language Technologies Research Centre, IIIT Hyderabad</affiliation></author>
       <pages>2207-2212</pages>
       <abstract>This study tackles the WMT 2026 Low-Resource Indic Language Translation task, covering English → Assamese, Bodo, Mizo and Nagamese. Low-resource languages lack parallel corpora of sufficient size and quality to train machine translation models. To address this challenge, we propose Morphology-Aware Lexicon Filtering of Back-Translated data to generate good-quality parallel corpora. Initially, monolingual text from publicly available sources is back-translated to English with an NLLB-200-3.3B model fine-tuned on the official training data. To filter this synthetic data, we introduce MALM (Morphology-Aware Lexicon Matching), a filter that checks whether words from a bilingual lexicon are preserved in a translation, using Morfessor stems to handle rich morphology and edit-distance matching to handle borrowed words. For our primary method, training occurs in two stages: fine-tuning on filtered synthetic (back-translated) data followed by fine-tuning on the official parallel data. Whereas for the contrastive method, we are only fine-tuning on the official parallel data. We fine-tune the NLLB-200-3.3B model for Assamese, Mizo, Nagamese and the IndicTrans2-1B model for Bodo. Our primary systems ranked first among primary submissions on two Category-2 pairs viz. English → Bodo and English → Nagamese. On Nagamese, where only 2,000 official sentence pairs exist, of the two methods we used, the primary system improved by a BLEU score of 8.33.</abstract>
       <pdf hash="03e2a909"/>
@@ -2067,7 +2067,7 @@
     <paper id="164">
       <!-- https://aclanthology.org/2026.wmt-main.164/ -->
       <title><fixed-case>BRS</fixed-case>-<fixed-case>NK</fixed-case>: Bidirectional Finetuning of <fixed-case>NLLB</fixed-case>-200 for Low-Resource <fixed-case>I</fixed-case>ndic Languages: <fixed-case>A</fixed-case>ssamese-<fixed-case>E</fixed-case>nglish and <fixed-case>B</fixed-case>odo-<fixed-case>E</fixed-case>nglish Machine Translation</title>
-      <author><first>Bipesh</first><last>Subedi</last><affiliation>Department of Computer Science and Engineering, Kathmandu University</affiliation></author>
+      <author id="bipesh-subedi" orcid="0000-0002-6427-7434"><first>Bipesh</first><last>Subedi</last><affiliation>Department of Computer Science and Engineering, Kathmandu University</affiliation></author>
       <author><first>Nischal</first><last>Karki</last><affiliation>Kathmandu University</affiliation></author>
       <pages>2239-2246</pages>
       <abstract>This paper describes our submission to the WMT 2026 Low-Resource Indic Language Translation Shared Task for the English-Assamese and English-Bodo pairs in both translation directions. We fine-tune the pretrained NLLB-200 distilled 600M model for primary as well as contrastive tasks. Since Bodo is not supported by NLLB-200, we use the Hindi (hin_Deva) language tag as a proxy for Bodo during fine-tuning and inference, based on an empirical evaluation of Devanagari-script language tags. The constrained systems are trained exclusively on the official task data, while the contrastive systems additionally incorporate publicly available parallel corpora, including AI4Bharat BPCC and Google Smol. A rigorous preprocessing pipeline, combined with the extra parallel data, yields consistent gains across all automatic metrics, with the largest improvements observed for the lower-resource English-Bodo pair.</abstract>
@@ -2156,7 +2156,7 @@
       <author><first>Pramit</first><last>Jana</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Arindam</first><last>Adhikari</last><affiliation>Jadavpur University</affiliation></author>
       <author><first>Priyobroto</first><last>Acharya</last><affiliation>Jadavpur University</affiliation></author>
-      <author><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
+      <author id="dipankar-das" orcid="0000-0002-8110-9344"><first>Dipankar</first><last>Das</last><affiliation>Jadavpur University</affiliation></author>
       <pages>2311-2317</pages>
       <abstract>We describe the IndicMT submission to the WMT 2026 Shared Task on Low-Resource Arabic-Asian Language Translation. Our system covers all ten translation directions between Arabic and Bangla, English, Hindi, Indonesian, and Urdu. For each direction, we fully fine-tune a separate NLLB-200-distilled-600M model using two NVIDIA T4 graphics processing units. The training pipeline combines Unicode normalization and length filtering with direction-specific round-trip consistency filtering of the available parallel data. We additionally augment each direction with 500 source-side sentences whose target translations are generated by the pretrained NLLB model, a procedure corresponding to forward self-training rather than conventional back-translation. On the official test set, our strongest relative results are obtained for Arabic$\rightarrow$Indonesian and Indonesian$\rightarrow$Arabic. Across all five language pairs, translation from Arabic obtains higher BLEU scores than translation into Arabic. Our results demonstrate that full adaptation of a compact multilingual translation model, combined with model-based data selection and synthetic-target augmentation, provides a practical baseline under limited computational resources.</abstract>
       <pdf hash="4dfb2604"/>
@@ -2193,7 +2193,7 @@
       <author><first>Mo</first><last>Ahtasam</last><affiliation>Indian institute of technology Patna</affiliation></author>
       <author><first>Kshetrimayum Boynao</first><last>Singh</last><affiliation>National Institute of Technology Silchar</affiliation></author>
       <author><first>Deepak</first><last>Kumar</last><affiliation>IIT PATNA</affiliation></author>
-      <author><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology Patna</affiliation></author>
       <pages>2329-2337</pages>
       <abstract>We investigate low-resource Arabic-Asian machine translation across six Arabic-centric translation directions: Arabic↔English, Arabic↔Hindi, and Arabic↔Urdu. Fine-tuned MADLAD-400 ranks first in four of the six directions on the official primary leaderboard and places within the top three in the remaining two. We fine-tune three pretrained multilingual models, MADLAD-400, NLLB-200, and GemmaX2, and compare them with their zero-shot counterparts using BLEU, chrF2++, COMET-22, and TER. Across all language pairs, supervised fine-tuning consistently outperforms zero-shot inference. Among the evaluated models, fine-tuned MADLAD-400 achieves the strongest overall performance, NLLB-200 delivers competitive results, and GemmaX2-28-9B exhibits the largest relative improvement over its zero-shot baseline. These findings demonstrate the effectiveness of supervised adaptation for low-resource Arabic-Asian machine translation and highlight MADLAD-400 as the most robust model across the evaluated translation directions.</abstract>
       <pdf hash="9891bb0f"/>
@@ -2225,7 +2225,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.178/ -->
       <title><fixed-case>SLPG</fixed-case>_<fixed-case>FJWU</fixed-case> at <fixed-case>WMT</fixed-case> 2026: Domain Adapted Augmentation for Low-Resource <fixed-case>A</fixed-case>rabic-<fixed-case>A</fixed-case>sian Language Translation</title>
       <author><first>Shomaiza</first><last>Zafar</last><affiliation>Fatima Jinnah Women University</affiliation></author>
-      <author><first>Sadaf</first><last>Abdul Rauf</last><affiliation>International Islamic University</affiliation></author>
+      <author id="sadaf-abdul-rauf" orcid="0000-0003-0400-3869"><first>Sadaf</first><last>Abdul Rauf</last><affiliation>International Islamic University</affiliation></author>
       <author><first>Sheema</first><last>Firdous</last><affiliation>Aston University</affiliation></author>
       <author><first>Muhammad</first><last>Munir</last><affiliation>Aitchison College</affiliation></author>
       <author><first>Nadeem</first><last>Fakhar</last><affiliation>Fatima Jinnah Women University</affiliation></author>
@@ -2278,7 +2278,7 @@
       <author><first>Yuxin</first><last>Huang</last><affiliation>Kunming University of Science and Technology</affiliation></author>
       <author><first>Kaiwen</first><last>Tan</last><affiliation>Kunming University of Science and Technology</affiliation></author>
       <author><first>Zhengtao</first><last>Yu</last><affiliation>Kunming University of Science and Technology</affiliation></author>
-      <author><first>Shengxiang</first><last>Gao</last><affiliation>Kunming University of Science and Technology</affiliation></author>
+      <author id="shengxiang-gao" orcid="0000-0002-2980-8420"><first>Shengxiang</first><last>Gao</last><affiliation>Kunming University of Science and Technology</affiliation></author>
       <author><first>Cunli</first><last>Mao</last><affiliation>Kunming University of Science and Technology</affiliation></author>
       <author><first>Siqi</first><last>Zhang</last><affiliation>Kunming University of Science and Technology</affiliation></author>
       <author><first>Shuting</first><last>Jiang</last><affiliation>Kunming University of Science and Technology</affiliation></author>
@@ -2309,7 +2309,7 @@
     <paper id="185">
       <!-- https://aclanthology.org/2026.wmt-main.185/ -->
       <title><fixed-case>HT</fixed-case> <fixed-case>WMT</fixed-case> 2026 <fixed-case>C</fixed-case>reole<fixed-case>MT</fixed-case> System Description: Learning Hierarchies for Low-Resource Creole Language Identification</title>
-      <author><first>Ananya</first><last>Ayasi</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author id="ananya-ayasi" orcid="0009-0008-9086-7666"><first>Ananya</first><last>Ayasi</last><affiliation>Carnegie Mellon University</affiliation></author>
       <pages>2405-2413</pages>
       <abstract>This work is a submission to the Creole MT Creole Language Identification Shared Task conducted as a part of the Eleventh Conference on Machine Translation (WMT ’26) colocated with EMNLP 2026, investigating whether hierarchical classification can improve language identification for closely related French-lexifier Creoles. We compare expert-designed linguistic hierarchies with data-driven hierarchies learned from model confusions and representation similarity, together with both hard and soft routing strategies. All models are built on a shared character-level TF–IDF representation with linear classifiers and are evaluated against a strong flat LinearSVC baseline and the multilingual GlotLID system. The best-performing approach is a data-driven combined hierarchy with soft routing, achieving a Macro-F1 of 87.54 while maintaining one of the lowest Macro False Positive Rates (0.00485). Analysis shows that training data availability remains the strongest predictor of language-level performance, with recall significantly correlated with training set size. Manual inspection further reveals that most remaining errors arise from named entities, lexical borrowing, noisy text, and confusions between closely related Creole varieties. Overall, our results demonstrate that learned hierarchical organization provides a practical and effective alternative to expert-designed taxonomies for low-resource language identification while offering improved balance between classification performance and false-positive control.</abstract>
       <pdf hash="1bbc519f"/>
@@ -2320,7 +2320,7 @@
       <title>Enhancing Cultural Awareness for <fixed-case>H</fixed-case>aitian <fixed-case>C</fixed-case>reole Machine Translation</title>
       <author><first>Tabitha</first><last>Bellune</last><affiliation>Universite du Quebec a Montreal</affiliation></author>
       <author><first>Ngoc Tan</first><last>Le</last><affiliation>Universite du Quebec a Montreal</affiliation></author>
-      <author><first>Fatiha</first><last>Sadat</last><affiliation>UQAM</affiliation></author>
+      <author id="fatiha-sadat" orcid="0000-0002-9292-722X"><first>Fatiha</first><last>Sadat</last><affiliation>UQAM</affiliation></author>
       <pages>2414-2420</pages>
       <abstract>Natural Language Processing for low-resource languages faces a major challenge: the lack of structured and culturally grounded data. This article presents our contribution to the machine translation task from Haitian Creole to English/French. Our hybrid approach relies on the creation of an original parallel corpus of 19,148 sentence pairs, derived primarily from 55 hours of transcriptions from the Atlas Linguistique d’Haïti, combined with the synthetic generation of code-switching data. By comparing a Transformer model trained from scratch with the fine-tuning of the pre-trained NLLB- 200 multilingual model, we demonstrate that cultural adaptation is crucial. Our best system records a dramatic increase in its BLEU score of 53.61% on the cultural domain and achieves an average CSI-Match score of 76.99% in the direction of hat-eng, and 30.69% BLEU and and 73.56% in terms of average CSI-Match in the direction of hat-fra respectively, proving its capacity to accurately translate complex idiomatic expressions.</abstract>
       <pdf hash="92e5f420"/>
@@ -2350,8 +2350,8 @@
     <paper id="189">
       <!-- https://aclanthology.org/2026.wmt-main.189/ -->
       <title>The <fixed-case>U</fixed-case>niversity of <fixed-case>M</fixed-case>elbourne <fixed-case>WMT</fixed-case> 2026 <fixed-case>C</fixed-case>reole<fixed-case>MT</fixed-case> Submission: A Domain-Balanced Approach to Low-Resource Pacific Creole Machine Translation</title>
-      <author><first>Raphael</first><last>Merx</last><affiliation>University of Melbourne</affiliation></author>
-      <author><first>Nick</first><last>Thieberger</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="raphael-merx" orcid="0009-0007-3242-2311"><first>Raphael</first><last>Merx</last><affiliation>University of Melbourne</affiliation></author>
+      <author id="nick-thieberger" orcid="0000-0001-8797-1018"><first>Nick</first><last>Thieberger</last><affiliation>University of Melbourne</affiliation></author>
       <author><first>Ekaterina</first><last>Vylomova</last><affiliation>University of Melbourne</affiliation></author>
       <pages>2455-2462</pages>
       <abstract>For our submission to the WMT26 Creole Language Translation Shared Task, we focus on MT models for Pacific creoles: Tok Pisin, Bislama, and Solomon Pijin, with particular attention to broad domain performance. After pre-training on a large mix of domain-imbalanced data, we continue fine-tuning on a diverse mix of domain-balanced data. We rely on a number of data collection and preparation techniques, including LLM-assisted respelling and alignment, back-translation, and distillation from Gemini for domains originally not present in training data. Evaluated on Bouquet and a novel test set made of spoken transcripts, our models beat open model baselines by 3+ chrF++ points in all directions with human-original references. Looking ahead, we plan to develop human-translated test sets for Solomon Pijin and Bislama, and to distil our best models into much smaller ones that retain broad domain coverage.</abstract>
@@ -2400,7 +2400,7 @@
     <paper id="194">
       <!-- https://aclanthology.org/2026.wmt-main.194/ -->
       <title>Adding ciofs and ciüfs to <fixed-case>BOUQ</fixed-case>u<fixed-case>ET</fixed-case>: Benchmark Extension to <fixed-case>L</fixed-case>adin</title>
-      <author><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
+      <author id="samuel-frontull" orcid="0009-0004-1230-4666"><first>Samuel</first><last>Frontull</last><affiliation>University of Innsbruck</affiliation></author>
       <author><first>Lara</first><last>Castlunger</last><affiliation>University of Innsbruck</affiliation></author>
       <author><first>Maximilian</first><last>Oberhollenzer</last><affiliation>Eurac Research</affiliation></author>
       <author><first>Karin</first><last>Comploj</last><affiliation>Istitut Ladin Micurá de Rü</affiliation></author>
@@ -2436,9 +2436,9 @@
     <paper id="197">
       <!-- https://aclanthology.org/2026.wmt-main.197/ -->
       <title>A <fixed-case>F</fixed-case>rench Version of the <fixed-case>S</fixed-case>mol<fixed-case>S</fixed-case>ent Corpus</title>
-      <author><first>Malik</first><last>Marmonier</last><affiliation>Inria</affiliation></author>
+      <author id="malik-marmonier" orcid="0009-0001-7398-7067"><first>Malik</first><last>Marmonier</last><affiliation>Inria</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
-      <author><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
+      <author id="benoit-sagot" orcid="0000-0002-0107-8526"><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
       <pages>2517-2526</pages>
       <abstract>We present a French version of the SmolSent corpus, a contribution to the WMT 2026 Open Language Data Initiative (OLDI) shared task. Originally curated to maximize unique-word coverage across 863 English sentences, SmolSent constitutes a valuable, token-efficient training set for the machine translation of low-resource languages. We describe our translation workflow, which relied on a custom-built interface to select and refine translation hypotheses generated by a traditional encoder-decoder model, alongside two state-of-the-art reasoning-enabled large language models (LLMs). Experimental validation based on the MetricX-24-XXL model for quality estimation, supported by bootstrap resampling significance tests, indicates that human post-editing results in significant quality improvements over all raw model outputs, even as reasoning models like Gemma-4-31B-it achieve a competitive 39.51% zero-edit rate. This French partition is not an end in itself, but a pivot resource meant to facilitate ongoing data collection efforts for under-resourced regional languages of France, such as Savoyard and Gallo.</abstract>
       <pdf hash="63869108"/>
@@ -2447,9 +2447,9 @@
     <paper id="198">
       <!-- https://aclanthology.org/2026.wmt-main.198/ -->
       <title>A Savoyard Version of the <fixed-case>FLORES</fixed-case>+ Corpus</title>
-      <author><first>Malik</first><last>Marmonier</last><affiliation>Inria</affiliation></author>
+      <author id="malik-marmonier" orcid="0009-0001-7398-7067"><first>Malik</first><last>Marmonier</last><affiliation>Inria</affiliation></author>
       <author><first>Alain</first><last>Favre</last><affiliation>Institut de la langue savoyarde</affiliation></author>
-      <author><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
+      <author id="benoit-sagot" orcid="0000-0002-0107-8526"><first>Benoît</first><last>Sagot</last><affiliation>Inria</affiliation></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
       <pages>2527-2546</pages>
       <abstract>We present a Savoyard version of the FLORES+ corpus, a contribution to the Open Language Data Initiative (OLDI) shared task at WMT 2026. Savoyard, an endangered Arpitan dialect of the Gallo-Romance language family, is currently undergoing active revitalization. We give an overview of its linguistic history, describe our data collection process, and report baseline scores for a range of systems on the resulting French-Savoyard evaluation set as a point of comparison for future work. We hope that this dataset will stimulate further data collection efforts for Savoyard and the broader Arpitan dialect continuum, supporting the development of NLP resources for these endangered languages and contributing to the preservation of humanity’s linguistic heritage.</abstract>
@@ -2459,8 +2459,8 @@
     <paper id="199">
       <!-- https://aclanthology.org/2026.wmt-main.199/ -->
       <title><fixed-case>FIÙR</fixed-case>: A Benchmark Dataset for <fixed-case>E</fixed-case>astern <fixed-case>L</fixed-case>ombard Machine Translation</title>
-      <author><first>Edoardo</first><last>Signoroni</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
-      <author><first>Pavel</first><last>Rychly</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
+      <author id="edoardo-signoroni" orcid="0000-0002-1029-8299"><first>Edoardo</first><last>Signoroni</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
+      <author id="pavel-rychly-4610" orcid="0000-0001-5097-4610"><first>Pavel</first><last>Rychly</last><affiliation>NLP Centre, Faculty of Informatics, Masaryk University</affiliation></author>
       <pages>2547-2560</pages>
       <abstract>While recent initiatives have expanded machine translation benchmarks to include low-resource and minoritized languages, regional dialect continuums remain severely underrepresented. Current datasets for the Lombard language predominantly feature Western Lombard, with Eastern Lombard varieties almost absent from the digital landscape. In this paper, we introduce, a new benchmark dataset providing an Eastern Lombard translation of the FLORES+ dev and devtest splits. We detail the methodology of translating a largely oral, unstandardized language, including orthographic regularization and the handling of Italian loanwords. Finally, we establish zero-shot baselines by prompting current LLMs and MT models, demonstrating that existing systems struggle with Lombard varieties overall, and exhibit a strong Western Lombard bias, struggling even more to accurately generate Eastern Lombard text.</abstract>
       <pdf hash="c9b2218d"/>
@@ -2470,8 +2470,8 @@
       <!-- https://aclanthology.org/2026.wmt-main.200/ -->
       <title>Script Matters: Benchmarking Open-Source Machine Translation for <fixed-case>M</fixed-case>anipuri in Meetei-Mayek and <fixed-case>B</fixed-case>engali Script</title>
       <author><first>Kshetrimayum Boynao</first><last>Singh</last><affiliation>National Institute of Technology Silchar</affiliation></author>
-      <author><first>Asif</first><last>Ekbal</last><affiliation>IIT Patna</affiliation></author>
-      <author><first>Partha</first><last>Pakray</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>IIT Patna</affiliation></author>
+      <author id="partha-pakray" orcid="0000-0003-3834-5154"><first>Partha</first><last>Pakray</last><affiliation>National Institute of Technology Silchar</affiliation></author>
       <pages>2561-2570</pages>
       <abstract>Manipuri (Meiteilon) officially recognised the Meetei-Mayek script alongside the Bengali script in 2021, with both scripts permitted for concurrent use during a 10-year transition period. However, the FLORES-200 devtest release still encodes Manipuri only as Bengali script, leaving the language’s current official script without a standard benchmark. We address this gap by contributing the Meetei-Mayek script (mni_Mtei) layer, aligned with the existing Bengali-script (mni_Beng) data, to form a four-way parallel resource comprising English, Hindi, Meetei-Mayek Manipuri, and Bengali-script Manipuri, with 1,012 sentences per language. This resource enables separate evaluation of open-source MT and LLM systems on the two Manipuri scripts, rather than treating them as a single "Manipuri" target. Across three IndicTrans2 checkpoint families, Sarvam-Translate, and five general-purpose LLMs, evaluated using six automatic metrics, we find that legacy Bengali-script output often scores higher than Meetei-Mayek despite the latter being the official script; IndicTrans2’s family degrades sharply on Bengali-script Manipuri; Sarvam-Translate cannot produce Bengali script at all; and none of the five general-purpose LLMs we test can reliably read or write Meetei-Mayek. Script identity is therefore a first-class evaluation variable for Manipuri MT: a single "Manipuri" score can mask large, direction-dependent quality gaps.</abstract>
       <pdf hash="5a236c93"/>
@@ -2515,7 +2515,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.204/ -->
       <title>Laniqo at <fixed-case>WMT</fixed-case>26 Video Subtitle Translation Shared Task: Multi-Objective Fusion of <fixed-case>P</fixed-case>areto-Optimal Candidates</title>
       <author><first>Kamil</first><last>Guttmann</last><affiliation>Laniqo, Adam Mickiewicz University in Poznań</affiliation></author>
-      <author><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
+      <author id="artur-nowakowski" orcid="0000-0003-4473-0008"><first>Artur</first><last>Nowakowski</last><affiliation>Laniqo / Adam Mickiewicz University</affiliation></author>
       <pages>2608-2615</pages>
       <abstract>This paper describes Laniqo’s submission to the WMT26 Video Subtitle Translation Shared Task, translating subtitles from Simplified Chinese into English, Thai, Indonesian, Malay, and Traditional Chinese under a 20B-parameter, open-license model constraint. Our system optimizes translation quality and subtitle compliance entirely at inference time, without fine-tuning, by combining hedged multi-prompt candidate generation, language-identification and compliance pruning, multi-objective Pareto reranking, reasoning-based candidate fusion, and a fallback/compression step. We screened four open-weight models and compared the two strongest, Qwen3.5-9B and Gemma-4-12B-it, across the full pipeline on the complete test corpus. Gemma-4-12B-it reached significantly higher compliance rates in every target language, thus it was chosen as our final system.</abstract>
       <pdf hash="6cd5e24b"/>
@@ -2538,7 +2538,7 @@
       <author><first>Pieter</first><last>Yudhistira</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
       <author><first>Sayyidah</first><last>Azzahra</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
       <author><first>Dzaki</first><last>Malik</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
-      <author><first>Tirana Noor</first><last>Fatyanosa</last><affiliation>Universitas Brawijaya</affiliation></author>
+      <author id="tirana-noor-fatyanosa" orcid="0000-0002-2801-5947"><first>Tirana Noor</first><last>Fatyanosa</last><affiliation>Universitas Brawijaya</affiliation></author>
       <pages>2623-2630</pages>
       <abstract>We present the training-free subtitle translation system developed by Team ~rupiah for the WMT26 Video Subtitle Translation shared task. The system translates Chinese subtitles into English and Indonesian using Hy-MT2-7B while preserving the source cue indices and timestamps. To support discourse and terminology consistency, each cue is conditioned on episode metadata, preceding source cues, translation history, and an automatically constructed episode glossary. At inference time, the system generates candidates at six temperatures, removes exact duplicates, filters candidates containing Han characters, and selects a hypothesis using reference-free CometKiwi quality estimation. A deterministic lexical-recovery step then replaces glossary terms that remain untranslated in the selected hypothesis. In the preliminary official evaluation over 100 videos per direction, ~rupiah ranks fifth of eight systems for Chinese-to-English and third of four for Chinese-to-Indonesian. Rubric-level results indicate that the largest performance gap relative to the top-ranked system is in accuracy and fidelity, whereas the gaps in fluency and subtitle conventions are smaller. Reference-based scores over 89 videos per direction provide additional diagnostics of the complete pipeline. These aggregate evaluations do not isolate the contribution of individual components. Source code available and can be accessed here: https://github.com/Pieter414/-rupiah-training-free-video-translation-subtitle</abstract>
       <pdf hash="0df8a342"/>
@@ -2584,7 +2584,7 @@
       <!-- https://aclanthology.org/2026.wmt-main.211/ -->
       <title>Getting More from Small <fixed-case>LLM</fixed-case>s and Limited Data: Fuzzy-Match Retrieval and Candidate Scoring for Multitask Sorbian <fixed-case>NLP</fixed-case></title>
       <author><first>Thomas</first><last>Moerman</last><affiliation>Ghent University, LT3</affiliation></author>
-      <author><first>Arda</first><last>Tezcan</last><affiliation>LT3, Language and Translation Technology Team, Ghent University</affiliation></author>
+      <author id="arda-tezcan" orcid="0000-0002-8707-6176"><first>Arda</first><last>Tezcan</last><affiliation>LT3, Language and Translation Technology Team, Ghent University</affiliation></author>
       <pages>2668-2681</pages>
       <abstract>We describe LT3’s submission to the WMT26 shared task on Multitask LLMs with Limited Resources for Upper Sorbian (hsb) and Lower Sorbian (dsb): one QLoRA-fine-tuned Qwen3.5-2B model serves machine translation, multiple-choice question answering, spell checking, grammar checking, and maths reasoning. Our approach centres on three components. First, retrieval augmentation: fuzzy-match (FM) exemplars, retrieved by character- and embedding-based similarity from authentic and back-translated sentence pools, are included in prompts at training and inference times. Second, synthetic task data: training data for spell- and grammar-checking is generated from dictionaries and monolingual text. Third, a scoring-based inference system: the model generates free text only for the open-ended tasks–translation and maths reasoning–while, for the other three tasks, it scores candidates from constrained spaces by ranking multiple-choice options in place and selecting spelling and grammar corrections from dictionary-derived candidates. Our primary system was the joint winner of the Sorbian track, ranking first or second across all five tasks and outperforming the next-best system by 7.7 accuracy points on question answering and 1.4 points on mathematical reasoning. These results show that, for low-resource languages, FM augmentation combined with back-translation can improve MT performance for a relatively small LLM, while inference-level strategies can further improve its performance on other tasks without compromising MT performance.</abstract>
       <pdf hash="df3f5c5c"/>
@@ -2619,7 +2619,7 @@
       <author><first>Cong</first><last>Zhang</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>
       <author><first>Yutong</first><last>Wang</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
       <author><first>Xuebo</first><last>Liu</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>
-      <author><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
+      <author id="min-zhang" orcid="0000-0002-3895-5510"><first>Min</first><last>Zhang</last><affiliation>Harbin Institute of Technology (Shenzhen)</affiliation></author>
       <pages>2697-2709</pages>
       <abstract>We describe the HITSZ system submitted to the Sorbian track of the WMT 2026 Shared Task on Multitask LLMs with Limited Resources. The track requires a single Qwen3.5-2B model to jointly perform machine translation (MT), question answering (QA), spell checking (SC), grammar checking (GC), and mathematical reasoning (MR) for Upper and Lower Sorbian. To strengthen the model’s limited Sorbian linguistic knowledge while retaining previously acquired capabilities, we first perform mixed continued pre-training (CPT) on Sorbian monolingual and parallel data together with multilingual and task-oriented replay. We then apply full-parameter multitask supervised fine-tuning (SFT) to align the adapted model with the five heterogeneous task formats. Compared with the official Qwen3.5-2B baseline, our primary submission improves MT by 41.44 chrF++ points and improves QA, SC, GC, and MR by 13.94, 66.47, 60.77, and 13.20 points, respectively, ranking third overall in the Sorbian track. Additional analysis shows that removing CPT reduces our five-task development score by 5.24 points, with the largest losses on SC, MT, and GC. We also find that heavily increasing MT supervision does not further improve translation and can degrade other jointly trained tasks.</abstract>
       <pdf hash="22a9e2f7"/>
