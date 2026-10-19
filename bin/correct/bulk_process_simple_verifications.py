@@ -119,7 +119,7 @@ class AnthologyMetadataUpdater:
 
     def process_verification_issues(
         self,
-        issue_ids=[],
+        issue_ids: list[int] = [],
         verbose=False,
         skip_validation=False,
         dry_run=False,
@@ -127,9 +127,12 @@ class AnthologyMetadataUpdater:
     ):
         """Process all simple verification issues and create PR with changes."""
         # Get all open issues with required labels
-        issues = self.github_repo.get_issues(
-            state="open", labels=["author-page", "correction"]
-        )
+        if issue_ids and len(issue_ids) < 100:
+            issues = [self.github_repo.get_issue(num) for num in issue_ids]
+        else:
+            issues = self.github_repo.get_issues(
+                state="open", labels=["author-page", "correction"]
+            )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch(
             no_branch=no_branch
