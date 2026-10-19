@@ -1,0 +1,536 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.nlp4pi">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.nlp4pi-1/ -->
+    <meta>
+      <booktitle>Proceedings of the Fifth Workshop on <fixed-case>NLP</fixed-case> for Positive Impact (<fixed-case>NLP</fixed-case>4<fixed-case>PI</fixed-case>)</booktitle>
+      <editor><first>Katherine</first><last>Atwell</last></editor>
+      <editor><first>Angana</first><last>Borah</last></editor>
+      <editor><first>Daryna</first><last>Dementieva</last></editor>
+      <editor><first>Elisa</first><last>Kreiss</last></editor>
+      <editor><first>Neema</first><last>Kotonya</last></editor>
+      <editor><first>Jiarui</first><last>Liu</last></editor>
+      <editor><first>Liz</first><last>Olson</last></editor>
+      <editor><first>Ruyuan</first><last>Wan</last></editor>
+      <editor><first>Jieyu</first><last>Zhao</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-495-8</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="8d20a7af"/>
+      <venue>nlp4pi</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.nlp4pi-1.0/ -->
+      <pdf hash="cc03c585"/>
+      <bibkey>nlp4pi-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.1/ -->
+      <title>A Quantitative Gap Audit of <fixed-case>LLM</fixed-case>-era <fixed-case>NLP</fixed-case> for Education: Validity, Deployment, and Multilingual Equity</title>
+      <author><first>Farzana</first><last>Zahid</last></author>
+      <author id="md-rakibul-islam" orcid="0009-0003-6420-8257"><first>Md. Rakibul</first><last>Islam</last></author>
+      <author><first>Mayesha</first><last>Kader</last></author>
+      <author><first>Israt Jahan</first><last>Anika</last></author>
+      <pages>1-16</pages>
+      <abstract>It remains unclear whether LLM capabil- ity gains translate into measurable student learning. We analyze 137 educational NLP papers (2022–2025) across four sectors— assessment and grammatical error correc- tion, feedback and writing support, content and question generation, and tutoring and dialogue—introducing three metrics: Valid- ity Gap (VG, share of studies not evaluat- ing learning outcomes), Deployment Readi- ness Index (DRI, real-world evaluation ex- tent), and Multilingual Equity Index (MEI, language coverage). We find a high validity gap (VG = 0.927), low deployment readiness (DRI = 0.126), and limited multilingual cov- erage (MEI = 0.126); grammatical error cor- rection shows no learning-improvement evi- dence at all (VG = 1.000). DRI correlates with learning-outcome evaluation (ρ = 0.425, p &lt; 0.001). Our taxonomy and metrics offer the first quantitative audit of educational NLP in the LLM era.</abstract>
+      <pdf hash="49122643"/>
+      <bibkey>zahid-etal-2026-quantitative</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.2/ -->
+      <title>A Safety-Engineered Consumer Mental-Health Assistant: A Deployment Case Report on Retrieval-First Grounding, Release Gates, and the Non-Clinical Boundary</title>
+      <author><first>Robert</first><last>Sneiderman</last><affiliation>Independent and Statistics Canada</affiliation></author>
+      <pages>17-21</pages>
+      <abstract>A public mental-health content platform serves a retrieval-first AI assistant (here called the assistant) to anonymous visitors who arrive carrying personal distress. The assistant is a consumer information tool, not a clinical or diagnostic system, and the deployment risk is specific: a fluent unsupported sentence reaches a vulnerable reader under the platform’s authority. This report describes the safety and reliability architecture that constrains that risk in production: an input safety classifier, retrieval-first tool use that answers only from a corpus of roughly 800 reviewed articles, sentence-level source-support checks applied before release, a partial-answer recovery step that returns the cited portion instead of refusing outright, and a clarifying question when retrieval is ambiguous. On a fixed 107-probe credentialed evaluation the strict unsupported-claim rate moved from 6.5% to 0.9% (1 of 107) across three hardening iterations while the refusal rate fell from 51.4% to 21.5%, the inverse of the usual safety-versus-coverage trade. Anonymous, account-free access is the positive-impact target of this deployment, and the measurement above treats safety and access as one goal rather than opposing ones. We report the governance choices that bound the deployment (the non-clinical boundary and how it is communicated, anonymous access, retrieval-restricted answering) and the honest limits: this is a consumer tool with no clinical-efficacy study, and 0.9% is one held-out measurement, not a guarantee on open traffic. The contribution is a documented deployment pattern for releasing a health-adjacent LLM to the public with the unsupported-claim rate held against a fixed gate, not a claim of clinical benefit.</abstract>
+      <pdf hash="e5dde440"/>
+      <bibkey>sneiderman-2026-safety</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.3/ -->
+      <title>Accessible Translation from <fixed-case>S</fixed-case>tandard <fixed-case>A</fixed-case>rabic to <fixed-case>M</fixed-case>oroccan <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage: A Rule-Based System for Low-Resource Sign Languages</title>
+      <author><first>Abdelhadi</first><last>Soudi</last><affiliation>Ecole Nationale Superieure des Mines de Rabat</affiliation></author>
+      <author id="kristof-van-laerhoven" orcid="0000-0001-5296-5347"><first>Kristof</first><last>Van Laerhoven</last><affiliation>Universität Siegen</affiliation></author>
+      <author><first>Mohammed</first><last>Hannani</last></author>
+      <pages>22-29</pages>
+      <abstract>Access to information is a major challenge for deaf communities, especially in emergencies where communication is often delivered through spoken or written language that may not be fully accessible to sign language users, and in regions where sign language linguistic resources and technological tools are limited. This paper presents a system for translating Standard Arabic text into Moroccan Sign Language (MSL) using a rule-based architecture enhanced with Large Language Model (LLM)-based lexical disambiguation. The system uses Arabic linguistic analysis, contextual word sense disambiguation, rule-based grammatical transformations, and video-based sign generation to produce sign language output. The main contribution of the system is the introduction of an automated disambiguation mechanism that resolves polysemous Arabic words without requiring manual user intervention. The approach builds on previously developed linguistic resources, including a bilingual Arabic–MSL lexical database with approximately 3000 entries and data collected within the framework of a large-scale MSL corpus project involving deaf participants from the 12 regions of Morocco. Preliminary evaluation shows that contextual disambiguation improves translation performance when ambiguous Arabic words correspond to different MSL signs. The proposed system contributes to the development of accessibility technologies for under-resourced sign languages and supports improved access to information for deaf communities.</abstract>
+      <pdf hash="f331a0d5"/>
+      <bibkey>soudi-etal-2026-accessible</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.4/ -->
+      <title>Agentic <fixed-case>LLM</fixed-case> for Information Access among Refugees: A Field Report from a Resource-Constrained Organization</title>
+      <author><first>Nari</first><last>Yoo</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Youngah</first><last>Kim</last></author>
+      <pages>30-48</pages>
+      <abstract>Machine translation can make a government notice readable in a refugee’s language, but a faithful translation of bureaucratic Korean is still bureaucratic, and newcomers often cannot act on it. We report, with the operating organization as a co-author, what happened when a small refugee-serving organization in South Korea put a large language model in front of the translation step at the service it has operated since 2018. Scoped with the frontline staff who field refugees’ questions, the model rewrites the Korean source into plain language, explains Korea-specific terms where they appear, checks whether figures and deadlines have gone out of date, and pins proper names to a fixed glossary before anything is translated into seven languages. It covers most of the catalog and shortens the sentences readers meet. It also fails in ways a translation-only system never does. The stages allowed to search the web made corrections no translation could make, and they also wrote every serious error we found, including policy updates that were simply wrong; the stages without that access wrote a handful, none of them critical and all of them confined to metadata. Value and failure come from one capability, so the lesson is not to withhold it but to put the human check where it acts. For an organization with nobody on staff who reads the seven target languages, that check must be placed on the Korean source before publication, which makes Korean-language staff review the safeguard the whole design depends on.</abstract>
+      <pdf hash="ac0c5db1"/>
+      <bibkey>yoo-kim-2026-agentic</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.5/ -->
+      <title>Aligned for Whom? A <fixed-case>B</fixed-case>razilian Research Agenda for Culturally Grounded <fixed-case>AI</fixed-case> Safety Evaluation</title>
+      <author><first>Livy</first><last>Real</last></author>
+      <author id="roberta-viola" orcid="0009-0008-2382-5749"><first>Roberta</first><last>Viola</last></author>
+      <pages>49-56</pages>
+      <abstract>Frontier models were constructed within a few specific cultural and linguistic contexts and validated against a particular set of values. We argue this limitation operates at three levels: technical (safety evaluations fail silently in non-English languages), theoretical (alignment frameworks inherit an implicit universalism about human values that obscures cross-cultural variation), and governance (the power to declare a model safe remains concentrated in private laboratories unaccountable to the populations they affect). Brazilian Portuguese, spoken by over 215 million people, sits at the intersection of these three failures. We propose a Brazilian research agenda structured around three fronts: (i) culturally-grounded dangerous capability benchmarks constructed participatorily in Brazilian Portuguese; (ii) adaptive evaluation methodologies that keep evaluation responsive to evolving models and locally defined risks; and (iii) a distributed safety evaluation infrastructure in which nationally accountable institutions assess frontier models before large-scale deployment.</abstract>
+      <pdf hash="26dcb1d4"/>
+      <bibkey>real-viola-2026-aligned</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.6/ -->
+      <title>An Edge <fixed-case>AI</fixed-case>-Based Offline System for Educational Technology in Resource-Constrained Regions</title>
+      <author id="irin-jose" orcid="0000-0003-0820-6081"><first>Irin</first><last>Jose</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author id="nickolas-kenyeres" orcid="0009-0006-0854-1188"><first>Nickolas</first><last>Kenyeres</last></author>
+      <author><first>Kailey</first><last>Cozart-Quesada</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>57-66</pages>
+      <abstract>Many foundational studies have highlighted how AI can improve education, from automated grading to adaptive, real-time instruction. However, these benefits remain inaccessible to millions of students due to digital inequality. Traditional AI grading systems depend on constant cloud connectivity and high-power hardware, creating barriers for schools with limited electricity or minimal technological infrastructure. We present a proof of concept for an offline, browser-based educational assessment system that leverages on-device AI to provide automated grading without requiring internet connectivity or cloud infrastructure. The system combines WebAssembly-compiled optical character recognition with Google’s Gemini Nano language model, embedded directly in the Chrome browser, to process handwritten student submissions locally on a user’s device. This work grounds the discussion of offline, privacy-preserving educational AI in a proof-of-concept implementation. We also reflect on the ethical and societal implications of automated grading, including the risk of automation complacency and the limits of offline access in addressing educational inequity.</abstract>
+      <pdf hash="6bc2809e"/>
+      <bibkey>jose-etal-2026-edge</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.7/ -->
+      <title>Before You Trust the Count: Auditing Multilingual Sustainable Development Goal News</title>
+      <author id="sergey-volkov" orcid="0000-0001-9379-6543"><first>Sergey</first><last>Volkov</last><affiliation>The Chinese University of Hong Kong Shenzhen and Shenzhen Loop Area Institute</affiliation></author>
+      <pages>67-76</pages>
+      <abstract>News monitoring of the Sustainable Development Goals (SDGs) can be distorted by a missing archive interval, a broad lexical rule, or duplicated evidence. We study how to audit such conclusions when target-domain relevance labels are unavailable. Our case comprises 16,060,006 URL-unique candidates retrieved from English, Spanish, Russian, and Chinese GDELT Article List (GAL) titles observed in 2024–2025. We replace whole-day gap accounting with a minute-interval ledger, correct public-label processing to distinguish accepted, rejected, and unassessed text–goal pairs, and compare weak signals on source-grouped public benchmarks. We find that weak fusion does not satisfy our predefined retention rule. We therefore use a claim-level audit with three outcomes: supported under tested assumptions, reversed by a specific measurement choice, or blocked by missing evidence. Paired translated headlines reveal disagreement between language-specific instruments. Controlled engineering and semantic streams let us measure false releases, retained correct claims, and release rate against separate references. The audit lowers false-release rates on semantic tracks but abstains too often on the engineering track. The released artifact makes these tradeoffs reproducible. Agreement across specifications shows robustness to the tested checks; it does not prove semantic correctness or accuracy on unlabeled news titles.</abstract>
+      <pdf hash="80f1a7eb"/>
+      <bibkey>volkov-2026-trust</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.8/ -->
+      <title>Beyond Helpfulness: A Teaching-over-Solving Diagnostic for Measuring Educational Impact in <fixed-case>LLM</fixed-case> Tutors</title>
+      <author id="junyi-yao-2503" orcid="0009-0005-6375-2503"><first>Junyi</first><last>Yao</last><affiliation>Washington University, Saint Louis</affiliation></author>
+      <author><first>Zihao</first><last>Zheng</last></author>
+      <author><first>Baichuan</first><last>Li</last><affiliation>Southern Methodist University, Southern Methodist University</affiliation></author>
+      <pages>77-82</pages>
+      <abstract>Large language models are increasingly proposed as educational tutors, yet stronger task-solving ability does not necessarily imply stronger learning support. Motivated by recent calls to measure the social impact of NLP systems in practice, we study whether public LLM tutoring benchmarks distinguish learning-supportive behavior from mere answer production. We propose a lightweight diagnostic based on the gap between solving-oriented and pedagogy-oriented benchmark performance. Using public MathTutorBench leaderboard results, we show that these dimensions are only partially aligned: across eight publicly reported models, the correlation between solving and pedagogy composites is 0.421, and several models shift meaningfully in rank when evaluation moves from solving to pedagogy. We then analyze the public TutorBench sample and show that agency-relevant behaviors are explicitly encoded in benchmark rubrics, especially in active-learning settings that reward guiding questions, calibrated hints, and non-disclosive scaffolding. Together, these findings suggest that educational-impact evaluation should not treat task success as a sufficient proxy for learning support. We argue that public tutoring benchmarks can better support positive-impact evaluation by reporting solving-oriented and pedagogy-oriented scores separately and by making disclosure-sensitive, student-agency-preserving criteria more explicit.</abstract>
+      <pdf hash="18ba2c28"/>
+      <bibkey>yao-etal-2026-beyond-helpfulness</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.9/ -->
+      <title>Beyond the Flag: Clinical Framing Closes the Moderation Gap in Suicide Risk Measurement</title>
+      <author><first>Shreyas</first><last>Krishnan</last><affiliation>University of California, Berkeley</affiliation></author>
+      <author><first>Gun</first><last>Ahn</last></author>
+      <author><first>Jungjin</first><last>Kim</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <pages>83-102</pages>
+      <abstract>Moderation APIs are built to flag policy-violating content, not to measure graded clinical risk. But a platform’s duty does not end at detection: the response owed to passive distress differs sharply from the response owed to active planning with means access, and emerging regulation (e.g., California Senate Bill 243) is turning that distinction into a compliance requirement. We therefore ask how well deployed safety signals recover clinically meaningful severity. We release a benchmark of 516 r/SuicideWatch posts rated by a licensed psychiatrist on a four-level ordinal schema (Indicator, Ideation, Behavior, Attempt) grounded in the Columbia Suicide Severity Rating Scale, and evaluate moderation APIs, prompted LLMs, and supervised baselines under seven ordinal-aware metrics. Three findings. Vendor moderation APIs separate low- from high-severity posts well (0.860 high-risk F1) but measure severity poorly (0.395 macro F1), systematically over-predicting the most severe category. Clinically grounded zero-shot prompting recovers much of that gap (0.562 macro F1), and expert-authored framing (not fine-tuning, added reasoning, or naive multi-agent aggregation) is the effective lever. The value of reasoning depends on register: it hurts on long, noisy Reddit posts and helps on short, clinician-authored statements. We argue graded severity, not a binary flag, is what a proportionate duty of care requires, and release our evaluation framework to support that measurement.</abstract>
+      <pdf hash="f62a4428"/>
+      <bibkey>krishnan-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.10/ -->
+      <title><fixed-case>B</fixed-case>ody<fixed-case>C</fixed-case>am-<fixed-case>VQA</fixed-case>: Enhanced Body-Worn Camera Video Captioning via Multimodal Reasoning and Probe Question Generation</title>
+      <author id="karish-gupta" orcid="0009-0002-2902-0454"><first>Karish</first><last>Gupta</last></author>
+      <author><first>Matthew</first><last>Alex</last></author>
+      <author><first>Alex</first><last>Li</last></author>
+      <author id="yang-wu-3505" orcid="0009-0006-8438-3505"><first>Yang</first><last>Wu</last><affiliation>Axon</affiliation></author>
+      <author><first>Yun-Wei</first><last>Chu</last><affiliation>Axon</affiliation></author>
+      <author><first>Kashif</first><last>Munir</last><affiliation>Hippocraticai AI</affiliation></author>
+      <author><first>Xiaotian</first><last>Zhou</last><affiliation>Axon</affiliation></author>
+      <author><first>Zhengping</first><last>Ji</last><affiliation>Axon</affiliation></author>
+      <author id="xiaozhong-liu" orcid="0000-0003-3477-8323"><first>Xiaozhong</first><last>Liu</last><affiliation>Worcester Polytechnic Institute</affiliation></author>
+      <pages>103-115</pages>
+      <abstract>Police body-worn camera (BWC) footage has emerged as a critical aspect of law enforcement that ensures legal transparency, officer accountability, and the protection of civil rights. However, effectively processing this data remains a significant challenge due to its multimodal video format. BWC videos, in many cases, comprise chaotic scenes with low visual quality, rapid movement/interactions, and high-noise audio that make visual understanding a challenge for even SOTA multimodal models. Current Vision-Language Models (VLMs) frequently overlook critical forensic details, such as the presence of valuable evidence or the latent nuances of suspect-officer interactions, which are vital for fair legal outcomes and civilian/officer safety. To address these limitations, we propose an Adaptive Visual Question Answering (VQA) framework engineered for high-stakes law enforcement. Our framework employs a structured reasoning approach to extract fine-grained visual evidence that traditional captioning systems fail to capture. We experiment with multiple question generation models, including foundation models and fine-tuned open-weight models, to observe performance variation among question generation model implementations. Our results demonstrate that this VQA-driven architecture provides a more reliable, objective, and detailed record of enforcement events, ultimately serving as a powerful tool to protect both law enforcement officers and the public through AI-assisted forensic clarity.</abstract>
+      <pdf hash="de3846bd"/>
+      <bibkey>gupta-etal-2026-bodycam</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.11/ -->
+      <title>Computational Preservation of Endangered Pamiri Languages through <fixed-case>NLP</fixed-case>: Insights from Bartangi and a Roadmap for Digital Inclusion</title>
+      <author id="warda-tariq" orcid="0009-0003-6357-1177"><first>Warda</first><last>Tariq</last></author>
+      <pages>116-124</pages>
+      <abstract>Endangered languages remain significantly underrepresented in modern Natural Language Processing (NLP) due to the scarcity of foundational computational resources. Although recent advances in multilingual and low-resource NLP have improved language technologies for many underrepresented languages, evaluation commonly emphasizes technical measures such as corpus quality, representation quality, and downstream task performance. While these metrics are essential for assessing computational quality, they provide limited insight into the broader societal impact of NLP resource development, particularly for endangered languages where digital inclusion, cultural preservation, and long-term sustainability are central objectives. In this paper, we propose a conceptual framework for assessing the societal impact of NLP resource development for endangered languages. The framework complements conventional technical evaluation by introducing six dimensions: technical readiness, accessibility, community participation, educational and cultural value, research reusability, and sustainability. We illustrate the application of the framework through the development of computational resources for Bartangi, an endangered Pamiri language, demonstrating how it can be used to identify strengths, limitations, and future priorities beyond technical performance alone. Rather than replacing conventional evaluation, the proposed framework extends it by providing a structured perspective for understanding how foundational NLP resources contribute to responsible AI, digital inclusion, and the long-term computational preservation of endangered languages.</abstract>
+      <pdf hash="1901776d"/>
+      <bibkey>tariq-2026-computational</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.12/ -->
+      <title>Conjoint Auditing: A Framework for Measuring the Social Impact of <fixed-case>LLM</fixed-case> Deployment</title>
+      <author><first>Katrina M.</first><last>Jones</last></author>
+      <author id="lennart-kasserra" orcid="0009-0007-0052-5973"><first>Lennart</first><last>Kasserra</last></author>
+      <pages>125-139</pages>
+      <abstract>How can we rigorously measure the social impact of LLMs in high-stakes deployments? Existing bias benchmarks flag problems at the model level but offer limited insight into how bias manifests across contexts, magnitudes, attributes, and their interactions. We propose conjoint auditing, a framework that adapts conjoint experimental design from market research to LLM bias evaluation. By presenting randomly generated multi-attribute profiles in a simulated deployment scenario, it delivers deployment-specific estimates of attribute effects and their interactions. Applying the framework for a financial analyst hiring scenario across two commercial LLMs (GPT-5.4 mini and Claude Haiku 4.5; roughly 40,000 observations each), we find that protected attributes exert small but statistically significant and substantively meaningful effects (1-2% of explained variance), with directions and magnitudes varying sharply by model. We also detect clear intersectional patterns, such as amplified disability penalties for women and reduced returns to experience for Black candidates.</abstract>
+      <pdf hash="3bfa2282"/>
+      <bibkey>jones-kasserra-2026-conjoint</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.13/ -->
+      <title>Correction Is Not Response: Reframing the Unverifiable Majority of Health Infodemic Discourse as Communicative Acts</title>
+      <author><first>Minsu</first><last>Ko</last></author>
+      <author><first>Jongyoung</first><last>Lee</last><affiliation>themedical</affiliation></author>
+      <author><first>Woonho</first><last>Choi</last><affiliation>Mokpo National University</affiliation></author>
+      <pages>140-150</pages>
+      <abstract>Fact-checking assesses what available evidence supports, but an unresolved verdict does not determine how to address the concern an utterance expresses. We propose an NLP representation that records factual content, evidence status, and communicative functions, such as expressing distrust or demanding accountability, to inform human-reviewed responses. We reanalyze two selected Korean annotation sets containing 500 COVID-19 claims and 150 hantavirus claims. Insufficient verdicts account for 84.8% and 76.7%, respectively, reflecting source categories related to utterance form or limited evidence. Factual content and communicative function are treated as overlapping dimensions, allowing verification to accompany explanation, accountability, or empathy. In an exploratory three-rater follow-up on 200 stratified items, majority judgments identify both dimensions in 107 items (53.5%), including 65/110 items classified as structurally insufficient. Agreement varies across functions (<tex-math>\alpha=0.505</tex-math>–0.881), indicating that their boundaries require refinement. A sensitivity analysis examines the source grouping, and six source-linked examples on severe fever with thrombocytopenia syndrome illustrate combined responses. These findings support representing both what an utterance claims and what it communicates, while retaining uncertainty about each. The study provides a design proposal and descriptive evidence; broader validation of the function categories, response policies, and downstream effects remains necessary.</abstract>
+      <pdf hash="c18ef988"/>
+      <bibkey>ko-etal-2026-correction</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.14/ -->
+      <title>Detecting Coordinated Inauthentic Behavior on Social Media with Memory-Guided Causal Inference</title>
+      <author><first>Yi</first><last>Han</last><affiliation>Facebook</affiliation></author>
+      <author><first>Wen</first><last>Ding</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Xuanjing</first><last>Chen</last></author>
+      <author><first>Zhiguo</first><last>Tao</last></author>
+      <pages>151-160</pages>
+      <abstract>Coordinated inauthentic behavior (CIB) threatens the integrity of public conversation, yet existing detectors remain unreliable in practice. Most systems measure correlation between account activities, which conflates genuine influence with shared reactions to trending topics. They also apply fixed detection parameters and require extensive manual labeling, so configurations tuned on one campaign rarely transfer to another. We present ACCD (Adaptive Causal Coordination Detection), a framework that treats this problem as memory-guided causal inference. ACCD screens account pairs in three stages that each narrow the candidate set: it retrieves convergent-cross-mapping parameters from a context-indexed memory of past performance to estimate causal influence, concentrates annotation on uncertain accounts through active learning in a semi-supervised classifier whose labels filter the surviving pairs, and validates the remainder with estimators and thresholds chosen from prior experience. On the Twitter Internet Research Agency (IRA) dataset, ACCD improves pair-level F1 from 75.8% to 87.3% over a fixed-parameter causal baseline, reduces manual labeling by 68.3%, and cuts end-to-end detection time by 2.5×. On Reddit coordination traces it reaches 84.7% F1. On synthetic data with known causal structure, it recovers true influence edges at 0.934 area under the ROC curve (AUC) against 0.708 for correlation-based detection, and the gap widens to 0.861 against 0.586 once strong confounding is introduced. These results suggest that adapting causal configurations to detection context provides a practical and efficient screening tool for protecting online public discourse.</abstract>
+      <pdf hash="21b21f13"/>
+      <bibkey>han-etal-2026-detecting</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.15/ -->
+      <title>Evaluating Bias in <fixed-case>LLM</fixed-case>-Synthetic Data across Majority and Minority Groups on General and Stigmatized Topics: The Case of Multicultural and Monocultural Adolescents in <fixed-case>S</fixed-case>outh <fixed-case>K</fixed-case>orea</title>
+      <author><first>Jiyun</first><last>Beak</last></author>
+      <author><first>Myokyung</first><last>Han</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <author id="lanu-kim" orcid="0000-0002-7381-4959"><first>Lanu</first><last>Kim</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
+      <pages>161-174</pages>
+      <abstract>Large Language Models (LLMs) are increasingly used to replicate human responses in survey data, yet it remains unclear whether they perform equally well for social minorities and majorities. Using a unique survey conducted in South Korea that provided identical questionnaires to adolescents from multicultural and monocultural families, we examine group-level differences in the accuracy of LLM-generated synthetic data. We construct personas that mirror individual-level demographic profiles and prompt two LLMs, llama3:latest and gpt-4o, to answer 77 survey questions across 11 question domains. We find marginal differences in LLM performance between minority and majority groups. Instead, replication performance varies by whether question prompts contain socially stigmatized words and by which LLM model we use. These findings highlight both the potential and the limitations of using LLMs to generate synthetic survey data targeting social minorities.</abstract>
+      <pdf hash="8f61c2f7"/>
+      <bibkey>beak-etal-2026-evaluating</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.16/ -->
+      <title>Evaluating Therapist-in-the-Loop <fixed-case>NLP</fixed-case> in Comprehension Rehabilitation for Children with <fixed-case>SEND</fixed-case></title>
+      <author id="martina-galletti" orcid="0009-0002-2079-8999"><first>Martina</first><last>Galletti</last><affiliation>Sony Computer Science Laboratories-Paris</affiliation></author>
+      <author id="caterina-marchesi" orcid="0009-0009-5578-7676"><first>Caterina</first><last>Marchesi</last><affiliation>Centro Ricerca e Cura Roma</affiliation></author>
+      <author id="eleonora-pasqua" orcid="0000-0002-7153-6094"><first>Eleonora</first><last>Pasqua</last></author>
+      <pages>175-187</pages>
+      <abstract>Personalized rehabilitation can improve educational and clinical outcomes for children with special educational needs and disabilities (SEND), but creating individualized reading exercises, comprehension questions, lexical supports, and progress reports remains time-consuming for clinicians. We present ARTIS, a therapist-in-the-loop and natural-language-processing (NLP)-assisted platform that supports reading-comprehension rehabilitation while preserving expert oversight, and evaluate its deployment in a real clinical setting. We report a ten-session intervention involving ten children aged 9–11 years at a speech and language rehabilitation centre. Across the intervention, platform comprehension accuracy remained relatively stable, while pre/post analyses showed stronger gains in vocabulary knowledge and lexical competence than in standardized reading-comprehension scores. Changes in platform accuracy were positively associated with changes in standardized comprehension outcomes, although these exploratory results should be interpreted cautiously. Overall, the study demonstrates the feasibility of integrating therapist-supervised NLP into a real rehabilitation workflow and highlights its potential to facilitate personalized material preparation while maintaining clinician oversight.</abstract>
+      <pdf hash="b1400c94"/>
+      <bibkey>galletti-etal-2026-evaluating</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.17/ -->
+      <title>From Signals to Barriers: An <fixed-case>LLM</fixed-case>-Assisted Bow-Tie Framework for <fixed-case>NGO</fixed-case> Civic-Space Risk Monitoring</title>
+      <author id="noemi-orue-guerrero" orcid="0000-0001-9750-9724"><first>Noemí</first><last>Orué-Guerrero</last></author>
+      <author id="bernat-coma-puig" orcid="0000-0003-3944-797X"><first>Bernat</first><last>Coma-Puig</last></author>
+      <pages>188-197</pages>
+      <abstract>Non-governmental organisations (NGOs) increasingly operate in environments where regulatory, financial, administrative, and reputational pressures shift fast and unpredictably. The sector’s standard risk tools (registers, likelihood-impact matrices, key risk indicators) might help to analyse existing risks, but they do not expose the causal chain from an early signal to its operational consequence, and they do not stay updated without maintenance that under-resourced NGO staff simply cannot provide. We tackle both problems. First, we adapt the bow-tie methodology from safety-critical industries to the NGO context, anchored on a single top event: the loss of operational viability in a country, with five threat categories and explicit barriers. Second, we instantiate an LLM-assisted maintenance system that classifies incoming signals, updates a versioned, evidence-grounded knowledge base, and flags barriers for human verification, while leaving consequential decisions to people. We illustrate the framework with a worked example from public reports (CIVICUS, ICNL), showing structured, transparent decision support as a concrete form of positive impact for NLP applied to civic resilience.</abstract>
+      <pdf hash="a898eeb3"/>
+      <bibkey>orue-guerrero-coma-puig-2026-signals</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.18/ -->
+      <title>Generating Curriculum Grounded <fixed-case>N</fixed-case>epali Questions Based On Bloom’s Taxonomy</title>
+      <author id="prabigya-acharya" orcid="0009-0004-9526-9842"><first>Prabigya</first><last>Acharya</last><affiliation>NAAMII</affiliation></author>
+      <pages>198-210</pages>
+      <abstract>The development of conversational large language models has brought a drastic change in educational settings, both in school and at home. While the Curriculum Development Centre of Nepal publishes detailed guides for teachers to create and use teaching materials in their classrooms, for subjects like Nepali these remain largely unused: theoretical topics are taught by rote learning and reproduced in examinations, making it a subject in which students score lowest and feel least confident. With the advent of LLMs, there is a real opportunity to turn these unused guidelines into large amounts of diverse teaching and evaluation material without adding to teachers’ burden. In this work, we use conversational LLMs to generate curriculum-grounded questions for the Grade 7 and 10 Nepali subject and evaluate their usability in a classroom setting. Results show that Nepali objectives require more than one Bloom’s taxonomy level to define them: forcing a single level per objective drops teacher agreement to near chance <tex-math>\kappa = 0.13</tex-math>, while allowing multiple levels recovers agreement on at least one level for 84.6% of objectives. We also observe that LLMs consistently dumb down the taxonomy level of objectives, plateauing at roughly 0.50 Macro F1, whereas a supervised classifier over frozen multilingual encoders reaches 0.612. Finally, teachers evaluated the generated questions through a modified eight-item rubric: grounding questions in the relevant taxonomy levels raised teacher endorsement from 12.5% to 88%. The question generation tool made from this approach is currently deployed in a government school in Nepal.</abstract>
+      <pdf hash="6989cbdd"/>
+      <bibkey>acharya-2026-generating</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.19/ -->
+      <title>Grounded, Compute-Efficient <fixed-case>LLM</fixed-case> Policy Agents for Energy-Poverty Equity in Physically-Constrained Peer-to-Peer Energy Markets</title>
+      <author><first>Kunal</first><last>Jadhav</last></author>
+      <author><first>Siddhesh</first><last>More</last></author>
+      <pages>211-219</pages>
+      <abstract>Energy poverty is nearly absent from NLP-for-social-good, and the little existing work is either static retrieval/QA or relies on carbon-intensive cloud LLMs, a self-defeating "computational irony" for a humanitarian setting. We present EqGrid, a closed-loop simulation in which a low-frequency, open-weight LLM policy agent sets price and carbon bounds and targeted subsidies over a community of empirically-grounded household personas, while high-frequency multi-agent RL traders clear a continuous double auction constrained by a physical distribution grid (IEEE-33-bus with Dynamic Operating Envelopes). Our contribution is threefold and directly answers the workshop’s special theme of how to measure the social impact of AI: (i) grounded personas (region-matched socio-demographics) whose load curves are checked for shape and level realism against real smart-meter data; (ii) formal energy-poverty equity metrics (Energy Burden, Gini of EB, LIHC) showing the intervention reduces burden inequality without raising net grid cost; and (iii) a compute-efficiency frontier that measures how much equity performance survives compressing the policy agent from a 235B teacher down to a sub-1B model deployable on a laptop, in measured energy/carbon per decision. A decoupled-safety design (the LLM sets bounds; a validate-and-project grid gate executes) yields zero grid-constraint violations versus 55 under direct LLM control. We will release code and configs. On energy-poverty equity, the LLM policy lowers the Gini of energy burden to 0.305 (from 0.351) and mean burden by 28% while cutting cost (outperforming a tuned rule baseline), and a 3B-active model retains 95% of the benefit at ≈9× lower inference energy than the teacher, with even a 0.8B on-device model retaining 92% at ≈24× lower energy.</abstract>
+      <pdf hash="2002b694"/>
+      <bibkey>jadhav-more-2026-grounded</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.20/ -->
+      <title>Hate Speech as a Conflict-Period Marker: Evidence from <fixed-case>A</fixed-case>rabic Telegram in <fixed-case>S</fixed-case>udan</title>
+      <author id="tara-pai" orcid="0009-0003-0545-1409"><first>Tara</first><last>Pai</last></author>
+      <author id="poli-nemkova" orcid="0000-0001-6461-304X"><first>Poli</first><last>Nemkova</last><affiliation>Columbia University</affiliation></author>
+      <pages>220-231</pages>
+      <abstract>We investigate whether hate-speech intensity on public Telegram channels serves as a conflict signal, using 1,514 days of Arabic-language posts from Sudan aligned with ACLED conflict-event records. Applying a pretrained multilingual hate-speech classifier, we construct a daily intensity index and analyze its relationship to political violence using within-regime analysis and autocorrelation-robust moving-block bootstrap inference. Hate-speech intensity increases approximately fourfold over the months following war onset and remains elevated, but day-to-day fluctuations do not predict short-term changes in violence. Within the post-war period, the index is positively associated with explosions and remote violence (<tex-math>r=+0.37</tex-math>) and negatively associated with protests (<tex-math>r=-0.25</tex-math>) and riots (<tex-math>r=-0.30</tex-math>), with all three associations surviving multiple-comparison correction. These patterns also hold for continuous classifier-score measures, although the regime-level increase is closely intertwined with growth in posting volume and active-channel participation. We further show that pooling across conflict regimes inflates effect sizes, while naive inference on serially dependent time series overstates statistical significance. Hate-speech intensity should therefore be interpreted as a descriptive marker of the conflict-related Telegram environment rather than as an early-warning predictor of imminent violence.</abstract>
+      <pdf hash="43efb733"/>
+      <bibkey>pai-nemkova-2026-hate</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.21/ -->
+      <title>How Persona and Message Type in Conversation Initiation Influence Learners’ Experience with Educational Chatbots</title>
+      <author id="jingchao-fang" orcid="0000-0002-9412-4244"><first>Jingchao</first><last>Fang</last><affiliation>University of Chicago</affiliation></author>
+      <author><first>Qingxiaoyang</first><last>Zhu</last><affiliation>University of California, Davis</affiliation></author>
+      <author><first>Hao-Chuan</first><last>Wang</last><affiliation>University of California, Davis</affiliation></author>
+      <pages>232-248</pages>
+      <abstract>Video-based learning is widely adopted among online learners, but it often lacks interactivity and fails to engage learners. Advances in large language models (LLM) show promise in enabling role-playing characters as learning companion chatbots for interactive learning. While much research has focused on LLM-powered chatbots for question-answering or responding, fewer studies have explored their role as proactive conversation initiators and prompt learners to think and reflect. How do different styles of chatbots’ conversation initiation influence learners’ video-based learning experience? Through controlled empirical studies with learners (<tex-math>N=65</tex-math>), we find that learning companion chatbot’s <i>personas</i> and <i>message styles</i> influence learners’ perceptions, reactions, and overall learning experiences. Our findings provide key insights for designing engaging, effective education chatbots.</abstract>
+      <pdf hash="3e4c32c9"/>
+      <bibkey>fang-etal-2026-persona</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.22/ -->
+      <title>Human Values in Stories: Narrative-informed Directions for Value Discovery</title>
+      <author><first>Alexandra</first><last>Barancová</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="giovanni-sileno" orcid="0000-0001-5155-9021"><first>Giovanni</first><last>Sileno</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="sennay-ghebreab" orcid="0009-0007-5788-4635"><first>Sennay</first><last>Ghebreab</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>249-255</pages>
+      <abstract>This paper examines ways in which narrative inquiry might inform natural language processing methods to explore human values. Considering the centrality of storytelling to human sense-making and the far reach of stories across today’s digital infrastructures, we argue that a narrative lens could be fruitful for computational approaches to value analysis. In this paper, we bring together existing work on narrative understanding and value detection, identifying and elaborating on three focal points for NLP task design: narratives, corpora, and audiences.</abstract>
+      <pdf hash="f3d5d78f"/>
+      <bibkey>barancova-etal-2026-human</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.23/ -->
+      <title><fixed-case>LLM</fixed-case> Mental Health Response Manipulation</title>
+      <author id="cristina-maria-popescu" orcid="0009-0005-1868-1427"><first>Cristina Maria</first><last>Popescu</last><affiliation>University of Bucharest</affiliation></author>
+      <author><first>Anamaria</first><last>Hodivoianu</last></author>
+      <author id="ana-sabina-uban" orcid="0000-0003-2197-3947"><first>Ana Sabina</first><last>Uban</last><affiliation>Universitatea Bucuresti</affiliation></author>
+      <author id="sergiu-nisioi" orcid="0000-0003-2247-4488"><first>Sergiu</first><last>Nisioi</last><affiliation>University of Bucharest</affiliation></author>
+      <pages>256-268</pages>
+      <abstract>Large language models (LLMs) are increasingly used in conversations involving emotional distress, where responses should remain empathetic, validating, exploratory and safe. We investigate whether system prompts and user-level framing can manipulate these qualities in mental-health and interpersonal-harm scenarios. Our focus is on whether small open-weight models express empathy consistently, without assuming that an empathetic response is necessarily safe or appropriate all the time. Using 50 risk-stratified posts sampled from Reddit support communities we evaluate Llama 3.1 8B, Qwen3 4B and Gemma 3 4B across five system-prompt conditions and a complementary role-intent study contrasting victim and perpetrator perspectives. All responses are manually annotated and use a fixed GPT-5 judge to measure empathy, validation, exploration, safety, harmfulness and enabling behavior. We quantify prompt-induced changes through paired comparisons, attack-success rates and failure-oriented metrics. This work provides an initial framework for evaluating the robustness of supportive and safe behavior in small LLMs under different forms of prompt manipulation.</abstract>
+      <pdf hash="d056604c"/>
+      <bibkey>popescu-etal-2026-llm</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.24/ -->
+      <title><fixed-case>MATCHA</fixed-case>: <fixed-case>LLM</fixed-case>-Based Chart Summarization for Screen Reader Users</title>
+      <author id="lauren-claudia-kahn" orcid="0009-0006-7233-5450"><first>Lauren Claudia</first><last>Kahn</last></author>
+      <author><first>Jaime</first><last>Soto</last></author>
+      <author><first>Om</first><last>Arya</last></author>
+      <author><first>Audrey</first><last>Michal</last><affiliation>University of Michigan-Flint</affiliation></author>
+      <author id="steven-r-wilson" orcid="0000-0002-2458-0439"><first>Steven R</first><last>Wilson</last><affiliation>University of Michigan - Flint</affiliation></author>
+      <pages>269-282</pages>
+      <abstract>Online charts are ubiquitous, yet remain systematically inaccessible to screen reader users. This paper presents the process for developing the MATCHA Chart Summarizer (MCS), an interactive, browser-based system, leveraging multimodal LLM’s to generate accessible spoken chart summaries and support natural-language querying. MCS aims to enhance functional comprehension and narrow the reasoning gap for screen reader users when interacting with data visualizations. Through a three-stage mixed-methods, user-based evaluation (<tex-math>N = 126</tex-math> total), we conduct a needs assessment, design our prototype, and demonstrate that LLM-generated summaries can improve task accuracy and increase user confidence, informativeness, and usability. We also quantify how visualization flaws, such as missing labels or poor contrast, induce semantic drift in generated chart summaries. We contribute an accessible assistive NLP system, an impact-oriented evaluation framework, and evidence-based design recommendations for automated chart summarization.</abstract>
+      <pdf hash="f16f883c"/>
+      <bibkey>kahn-etal-2026-matcha</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.25/ -->
+      <title>Measuring Public Perceptions of the Social Impacts of Artificial Intelligence in <fixed-case>Y</fixed-case>ou<fixed-case>T</fixed-case>ube Discourse</title>
+      <author><first>Aarav</first><last>Gaur</last></author>
+      <pages>283-297</pages>
+      <abstract>Public discourse can show which consequences people associate with Artificial Intelligence (AI), which groups they expect to be affected, and whether they interpret those consequences as benefits or threats. We analyze public perceptions of AI’s social impacts across <tex-math>n=98{,}413</tex-math> YouTube comments collected from 2022 to 2025 using a two-stage LLM pipeline that filters neutral and off-topic content before annotating target sentiment, fear, sarcasm, and emotion. Target sentiment achieves Quadratic Weighted Kappa (QWK) <tex-math>=0.738</tex-math> against a human-labeled sample. In exploratory keyword-defined subsets, safety and human-control comments exhibit the highest fear (0.659) and most negative sentiment (<tex-math>-0.521</tex-math>), while comments mentioning children, families, and workers are more threat-oriented than those mentioning students and teachers. Negative sentiment remains common among the retained evaluative comments, but whether it rises or falls over time depends on how videos are weighted. Interestingly, sentiment changes near product releases are comparable to those at placebo dates. These results can help direct future research and policy attention toward the concerns most visible in public discourse, especially as a starting point for validation with affected groups.</abstract>
+      <pdf hash="97407cf9"/>
+      <bibkey>gaur-2026-measuring</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.26/ -->
+      <title>Measuring the Impact of <fixed-case>LLM</fixed-case>-Generated Scientific Summaries for Neurodivergent Readers</title>
+      <author><first>Abraham Ur</first><last>Rahman</last></author>
+      <author><first>Skyler</first><last>Koba</last></author>
+      <author><first>Audrey</first><last>Michal</last><affiliation>University of Michigan-Flint</affiliation></author>
+      <author id="steven-r-wilson" orcid="0000-0002-2458-0439"><first>Steven R</first><last>Wilson</last><affiliation>University of Michigan - Flint</affiliation></author>
+      <pages>298-311</pages>
+      <abstract>Language technologies increasingly mediate access to scientific information, yet their impact depends on whether they improve real reading experiences for diverse audiences. We study large language model (LLM)-generated scientific summaries as an accessibility intervention for neurodivergent adults, focusing on readers with ADHD and/or autism. Using a mixed-methods design, we first conducted a formative qualitative study with 10 neurodivergent adults to identify design needs. We then ran a quantitative experiment with 200 neurodivergent adults comparing five summary styles across lower- and higher-complexity scientific texts, measuring comprehension, trust, engagement, and cognitive load. Results show that writing-style effects depend on text complexity: structured LLM-generated summaries improved comprehension for higher-complexity articles but reduced comprehension for lower-complexity articles relative to a baseline human-generated extractive summary. Trust increased for simpler LLM summary styles, while engagement and cognitive load showed fewer robust writing-style effects. Our findings suggest that accessible NLP systems should adapt explanatory support to reader needs and text difficulty, rather than offering a single “best” summary style.</abstract>
+      <pdf hash="2c79c04c"/>
+      <bibkey>rahman-etal-2026-measuring</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.27/ -->
+      <title>Meridian: A Bivariate Perplexity Architecture for Trustworthy and Equitable <fixed-case>AI</fixed-case> Text Detection</title>
+      <author><first>Pranil</first><last>Raichura</last><affiliation>Massachusetts Institute of Technology and Granite Bay High School</affiliation></author>
+      <pages>312-325</pages>
+      <abstract>AI text detectors are widely deployed in educational institutions to enforce academic integrity, yet they systematically misidentify authentic writing by non-native English speakers as AI-generated, with false positive rates reaching 61-72% on English as a Second Language (ESL) student essays. This is a population-scale harm that falls disproportionately on the most linguistically vulnerable learners. Retraining detectors on learner data cannot close this gap: large language models can be prompted to mimic ESL writing patterns, and single-stream detectors are theoretically bounded to degrade toward random chance under such style-mimicry attacks. We present Meridian, a dual-stream architecture that maps each essay into a bivariate perplexity space with a Native-Expert (DistilGPT-2) axis measuring sub-word predictability and an ESL-Expert (character-level LSTM) axis capturing learner-specific morphological patterns. Meridian then classifies with an interpretable logistic boundary, deployable in under 2 seconds on CPU. Validated across three LLM families and two learner corpora (n=1,590), Meridian reduces wrongful ESL flags by 15.7x on held-out TOEFL11 with zero retraining, achieving 3.9% overall false positive rate and 0.0% for low-proficiency writers, while maintaining 98.3% detection of AI-mimicked ESL text. These results demonstrate that equitable AI text detection for diverse, non-WEIRD populations is achievable through principled multi-stream feature design that encodes complementary linguistic signals rather than a single native-English reference norm.</abstract>
+      <pdf hash="d12b768c"/>
+      <bibkey>raichura-2026-meridian</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.28/ -->
+      <title><fixed-case>NSIDD</fixed-case>x: A Design Framework for Neuro-Symbolic, Practitioner-First Differential Diagnosis in Low-Resource Settings</title>
+      <author id="aarav-singh" orcid="0009-0007-1900-2347"><first>Aarav</first><last>Singh</last></author>
+      <pages>326-338</pages>
+      <abstract>LLM-based diagnostic systems achieve high semantic accuracy on benchmarks, but open-ended evaluation on clinically uncommon presentations reveals a systematic gap between headline accuracy and verifiable clinical reliability. We evaluate an LLM+rare-disease RAG pipeline across two cohorts and show that the paradigm produces confident outputs that are frequently unverifiable and systematically resistant to clinician interrogation. We present NSIDDx (Neuro-Symbolic Integrated Differential Diagnosis System), a design framework arguing that DDx systems in low-resource settings must treat the clinician as an active reasoning agent. We instantiate this through a neuro-symbolic pipeline with ternary symptom encoding, contradiction detection, audit strings, and practitioner override — running offline on consumer hardware. We distill five design principles for clinician-in-the-loop clinical NLP and invite the prospective studies needed to validate the claim at scale.</abstract>
+      <pdf hash="505e22db"/>
+      <bibkey>singh-2026-nsiddx</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.29/ -->
+      <title>On the Neutrality of Model Confidence in <fixed-case>G</fixed-case>erman and <fixed-case>E</fixed-case>nglish Gender-Bias Benchmarks</title>
+      <author><first>Shalaka</first><last>Satheesh</last><affiliation>Fraunhofer Institute IAIS, Fraunhofer IAIS</affiliation></author>
+      <author><first>Nika</first><last>Jacob</last><affiliation>Fraunhofer Institute IAIS, Fraunhofer IAIS</affiliation></author>
+      <author id="katharina-beckh" orcid="0000-0002-7824-6647"><first>Katharina</first><last>Beckh</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn, Lamarr Institute for Machine Learning and Artificial Intelligence and Fraunhofer Institute IAIS, Fraunhofer IAIS</affiliation></author>
+      <pages>339-348</pages>
+      <abstract>Confidence, the probability a model assigns to its prediction, is commonly treated as a signal for correctness, and is central to quality monitoring and selective question answering. We ask whether this signal is neutral with respect to social stereotypes. A model’s confidence may reflect correctness well overall and yet be higher where its answers align with a stereotype and detecting this requires comparing confidence across stereotype directions. We investigate this on the gender subset of Bias Benchmark for Question Answering (BBQ) in English and in German (GG-BBQ), evaluating 22 base and instruction-tuned models from five providers. For some models, we find small but directionally consistent effects for both ambiguous and disambiguated questions, suggesting that confidence-based selection can favour stereotype-aligned content and that confidence is worth examining alongside answer-based scores in bias evaluations on multiple-choice questions.</abstract>
+      <pdf hash="1aed8e3a"/>
+      <bibkey>satheesh-etal-2026-neutrality</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.30/ -->
+      <title>Preference Optimization Improves Definition Generation: Semantic Change in <fixed-case>EU</fixed-case> Institutional Sustainable Finance Disclosures</title>
+      <author id="mariia-fedorova" orcid="0000-0002-5782-038X"><first>Mariia</first><last>Fedorova</last></author>
+      <author id="andrey-kutuzov" orcid="0000-0003-2540-5912"><first>Andrey</first><last>Kutuzov</last><affiliation>University of Oslo</affiliation></author>
+      <author id="gustavo-cadenas-delascio" orcid="0000-0002-4853-5560"><first>Gustavo Cadenas</first><last>Delascio</last><affiliation>University of Oslo</affiliation></author>
+      <pages>349-359</pages>
+      <abstract>Dictionary-like definition generators are known to be useful for lexical semantic change detection (LSCD). However, they suffer from overly granular sense distribution, producing excessive number of definitions for one and the same lexical sense. In this work, we show that fine-tuning with Direct Preference Optimization (DPO) helps to overcome this problem. We test our approach both quantitatively on a curated academic LSCD benchmark and qualitatively on real-world data for a practical task of auditing diachronic changes in sustainability terminology within project documentation of EU development finance.All models, code and predictions produced in this study are publicly available at https://github.com/ltgoslo/dpo-for-definition-generation.</abstract>
+      <pdf hash="3050a01d"/>
+      <bibkey>fedorova-etal-2026-preference</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.31/ -->
+      <title>Reading Between the Signs: Predicting Future Suicidal Ideation from Adolescent Social Media Texts</title>
+      <author><first>Paul</first><last>Blum</last></author>
+      <author id="enrico-liscio" orcid="0000-0002-8285-5867"><first>Enrico</first><last>Liscio</last></author>
+      <author id="ruixuan-zhang" orcid="0009-0005-3181-6189"><first>Ruixuan</first><last>Zhang</last></author>
+      <author><first>Caroline</first><last>Figueroa</last><affiliation>Delft University of Technology</affiliation></author>
+      <author id="pradeep-k-murukannaiah" orcid="0000-0002-1261-6908"><first>Pradeep K.</first><last>Murukannaiah</last><affiliation>Delft University of Technology</affiliation></author>
+      <pages>360-374</pages>
+      <abstract>Suicide is a leading cause of death, yet predicting it remains a significant challenge. Risk factors such as depression or substance use are commonly used for prediction, but their predictive performance is often only slightly better than chance. Additionally, many cases go undetected due to a lack of contact with mental health services. Social media, however, offers a unique opportunity, as people often share their thoughts and struggles online in real time. In this work, we propose a novel task and method intending to achieve a positive impact through earlier identification: we predict suicidal ideation and behavior (SIB) before a user ever expresses it on an online forum. We introduce Early-SIB, a transformer-based model that sequentially processes the posts a user writes and engages with to predict whether they will write a SIB post. Our model achieves a balanced accuracy of 0.73 in predicting future SIB on a Dutch youth forum, demonstrating that such tools can offer a meaningful addition to traditional methods. Additionally, we employ Shapley Additive Explanations to help human reviewers better understand the model’s predictions.</abstract>
+      <pdf hash="ca3c6aad"/>
+      <bibkey>blum-etal-2026-reading</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.32/ -->
+      <title>Right-Wing Rock or Just Rock? A Computational Linguistic Analysis of <fixed-case>F</fixed-case>rei.<fixed-case>W</fixed-case>ild</title>
+      <author id="carlotta-schneeberger" orcid="0009-0009-9060-453X"><first>Carlotta</first><last>Schneeberger</last></author>
+      <author id="kevin-tang" orcid="0000-0001-7382-9344"><first>Kevin</first><last>Tang</last><affiliation>Heinrich Heine University Düsseldorf and University of Florida</affiliation></author>
+      <pages>375-394</pages>
+      <abstract>Rechtsrock is a subgenre of rock music that spreads right-wing ideology, often instrumentalized to recruit adolescents into the radical scene. Monitoring institutions counteract this by manually examining and, in some cases, banning extremist content; however, there are border cases that evade regulation. We present a study aimed at determining whether such a case, the band Frei.Wild, should be classified as politically right-leaning or as part of the general German rock genre. We sampled a German rock dataset and created a corpus for right-wing rock to use as reference in this analysis and found that we can confirm the intuitions from previous investigations that Frei.Wild successfully maintains an ambiguity with regard to their political affiliation. However, the tendency is towards the right-wing spectrum. Lexical analyses reveal nationalistic narratives and two high-performing classifiers (up to 97% ROC-AUC score) label more than half of their songs as right-wing extremist. Our analysis provides insight into how computational methods can improve the process of identifying right-wing extremist tendencies in music, especially in borderline cases like Frei.Wild. The code and data are made available for future research.</abstract>
+      <pdf hash="e5871e4c"/>
+      <bibkey>schneeberger-tang-2026-right</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.33/ -->
+      <title>Roleplaying with Structure: Synthetic Therapist-Client Conversation Generation from Questionnaires</title>
+      <author><first>Doan Nam Long</first><last>Vu</last></author>
+      <author><first>Rui</first><last>Tan</last></author>
+      <author><first>Svenja Jule</first><last>Francke</last></author>
+      <author><first>Lena</first><last>Moench</last></author>
+      <author><first>Daniel</first><last>Woiwod</last></author>
+      <author><first>Florian</first><last>Thomas-Odenthal</last></author>
+      <author><first>Sanna</first><last>Stroth</last></author>
+      <author><first>Tilo</first><last>Kircher</last></author>
+      <author><first>Christiane</first><last>Hermann</last></author>
+      <author><first>Udo</first><last>Dannlowski</last></author>
+      <author><first>Hamidreza</first><last>Jamalabadi</last></author>
+      <author><first>Simone</first><last>Balloccu</last></author>
+      <author><first>Shaoxiong</first><last>Ji</last></author>
+      <pages>395-417</pages>
+      <abstract>Large Language Models (LLMs) are promising tools for synthetic data generation in mental health. However, privacy policies and restrictions forced previous work to rely mainly on generic information. We present a comprehensive corpus of synthetic therapist-client conversations generated through LLMs. We construct our generation pipeline, SQPsych (Structured Questionnaire-based Psychotherapy), which uses real structured client profiles and psychological questionnaires without leaking any sensitive data. We fine-tune various openweight LLMs on our generated corpus, SQPsychConv, and test them through both automatic benchmarks and human evaluation with trained psychotherapists. We find that standard benchmarks do not adequately capture the strengths of our dataset, but expert judgment shows that SQPsych makes LLMs significantly better at therapist roleplaying. Experts also consistently prefer therapy sessions generated by our models compared to other mental-health-oriented LLMs. We release our code, fine-tuned models SQPsychLLM, and corpora at https://ai-mh.github.io/SQPsych.html.</abstract>
+      <pdf hash="b8978cc7"/>
+      <bibkey>vu-etal-2026-roleplaying</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.34/ -->
+      <title><fixed-case>SEAL</fixed-case>: <fixed-case>S</fixed-case>ocio<fixed-case>E</fixed-case>conomic Alignment in <fixed-case>LLM</fixed-case>s</title>
+      <author id="elisa-bassignana" orcid="0009-0003-8374-7571"><first>Elisa</first><last>Bassignana</last><affiliation>IT University of Copenhagen and Bocconi University</affiliation></author>
+      <author id="lorena-calvo-bartolome" orcid="0000-0002-7611-6419"><first>Lorena</first><last>Calvo-Bartolomé</last><affiliation>Bocconi University</affiliation></author>
+      <author id="esra-donmez" orcid="0009-0007-6852-2779"><first>Esra</first><last>Dönmez</last><affiliation>Universität Stuttgart</affiliation></author>
+      <author id="marlene-lutz" orcid="0000-0002-8265-2410"><first>Marlene</first><last>Lutz</last><affiliation>Universität Mannheim</affiliation></author>
+      <author id="arianna-muti" orcid="0000-0002-3387-6557"><first>Arianna</first><last>Muti</last></author>
+      <author id="vera-neplenbroek" orcid="0000-0003-0158-6608"><first>Vera</first><last>Neplenbroek</last></author>
+      <author id="donya-rooein" orcid="0000-0002-0368-3084"><first>Donya</first><last>Rooein</last><affiliation>ETHZ - ETH Zurich</affiliation></author>
+      <pages>418-434</pages>
+      <abstract>According to the United Nations Sustainable Development Goals, socioeconomic inequality is one of the defining challenges of the 21st century, as it shapes access to resources and opportunities across societies worldwide. As large language models (LLMs) become widely used for everyday tasks, they have the potential to create positive social impact by expanding access to information, education, writing support, employment guidance, and administrative assistance. However, this potential depends on whether such systems perform equally well for users from different socioeconomic backgrounds. In this paper, we evaluate LLM-generated responses to prompts written by users across socioeconomic groups (lower, middle, and higher), examining disparities in helpfulness, sycophancy, human likeness, emotion, and text complexity. We find differences in quality of service across socioeconomic statuses (SES): lower-SES groups receive responses that are less helpful, less complex, less assertive, more negative in sentiment, less trust-oriented, and more sycophantically validating.</abstract>
+      <pdf hash="0cfd26ee"/>
+      <bibkey>bassignana-etal-2026-seal</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.35/ -->
+      <title><fixed-case>SOLIAS</fixed-case>: A Reporting Standard for Social-Impact Claims in <fixed-case>NLP</fixed-case></title>
+      <author id="srimonti-dutta" orcid="0000-0003-2666-4713"><first>Srimonti</first><last>Dutta</last><affiliation>Women in AI</affiliation></author>
+      <author><first>Akshata Kishore</first><last>Moharir</last><affiliation>Microsoft</affiliation></author>
+      <pages>435-451</pages>
+      <abstract>Socially motivated NLP research often connects technical contributions to intended benefits for people, institutions, or communities. The outcome invoked in a paper’s motivation, however, is not always the outcome evaluated in the study. This makes it difficult to determine what a result establishes, which transitions in the impact pathway remain assumptions, and how evidence should accumulate across technical, user, operational, and social studies. We introduce SOLIAS, Social Outcomes for Language-Integrated AI Systems, a reporting standard for social-impact claims in NLP. SOLIAS has three linked components: six evidence levels that identify the highest outcome layer directly evaluated, a claim-evidence alignment measure that relates conclusions to demonstrated outcomes, and a 20-item checklist for reporting populations, contexts, mechanisms, evaluation, safeguards, maintenance, and claim scope. In a retrospective audit of a multi-domain corpus of 168 research papers, demonstrated evidence is concentrated at the technical layer: 97.6% of papers are classified at Level 0, while 35.7% have a claim–evidence gap of at least two outcome layers. The audit illustrates how SOLIAS distinguishes valuable technical work from evidence about downstream outcomes without treating either as a substitute for the other. We release author and reviewer templates, operational definitions, worked examples, and a machine-readable schema to support adoption. SOLIAS is intended to make the scope of evidence explicit and to support research in which technical, user, institutional, and social outcomes are evaluated cumulatively.</abstract>
+      <pdf hash="38380030"/>
+      <bibkey>dutta-moharir-2026-solias</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.36/ -->
+      <title><fixed-case>S</fixed-case>tage<fixed-case>W</fixed-case>ell: A Process-Aligned <fixed-case>C</fixed-case>hinese Corpus for Positive-Psychology Support Dialogue</title>
+      <author><first>Yuxiong</first><last>Wang</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
+      <author id="ziwei-lin" orcid="0009-0005-8911-2758"><first>Ziwei</first><last>Lin</last></author>
+      <author id="bo-wang-5141" orcid="0000-0001-7587-5141"><first>Bo</first><last>Wang</last></author>
+      <author><first>Yu</first><last>Zhang</last></author>
+      <author id="shiguang-ni" orcid="0000-0002-4303-7386"><first>Shiguang</first><last>Ni</last><affiliation>Tsinghua University</affiliation></author>
+      <pages>452-481</pages>
+      <abstract>Positive psychology dialogue aims to support emotional distress and positive resource building, requiring models to produce not only empathetic replies but also coherent progression through a multi-turn support process. Existing resources often reduce supervision to turn-level strategies or holistic preference labels, leaving process position, support function, and local repair targets implicit. We introduce StageWell, a process-aligned Chinese corpus for positive psychology dialogue, together with HQS, a structured protocol for data construction and evaluation. StageWell organizes support into a six-stage support process and uses a multi-agent whole-dialogue rewriting workflow to construct 12,445 SFT instances, 1,849 DPO preference pairs, and a GroundTruth subset of 120 expert-revised dialogues and 977 QA pairs. Guided by HQS, DPO pairs are built as process-localized repairs: flawed model outputs are used as rejected responses, and targeted rewrites under the same context and stage constraint are used as chosen responses. Across four 9B–14B open-source LLMs, this supervision yields robust gains in process control, response quality, and safety. Averaged across models, BERTScore improves by 0.037, Q-Overall increases by 1.32 points, S-exact increases by 0.236, and the H-critical rate decreases by 0.167. These results highlight the value of modeling supportive dialogue as a structured multi-turn support process rather than as single-turn response generation. We make our dataset available for research.</abstract>
+      <pdf hash="7db5a162"/>
+      <bibkey>wang-etal-2026-stagewell</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.37/ -->
+      <title>Temporal Epistemic Graph of Thought: Uncertainty over Latent Reasoning Structure for Selective Abstention in Clinical Prediction</title>
+      <author id="govind-arun" orcid="0009-0002-2573-4003"><first>Govind</first><last>Arun</last></author>
+      <author id="sadhvik-bathini" orcid="0009-0007-1011-3761"><first>Sadhvik</first><last>Bathini</last><affiliation>Kakatiya University</affiliation></author>
+      <author id="balu-bhasuran" orcid="0000-0002-9890-4627"><first>Balu</first><last>Bhasuran</last><affiliation>Florida State University</affiliation></author>
+      <pages>482-492</pages>
+      <abstract>Reliable clinical prediction requires both accuracy and principled uncertainty quantification, so that a model can flag cases where it lacks a coherent basis for its prediction and defer to a clinician. We introduce the Temporal Epistemic Graph of Thought (TEGoT), a framework that fuses free-text clinical notes with structured temporal events and models uncertainty over latent reasoning structure. Patient trajectories are represented as temporal graphs integrated with note embeddings, and a variational reasoning graph induces a distribution over latent topologies, decomposing predictive uncertainty into aleatoric, epistemic, and structural components, where structural uncertainty measures variability across inferred reasoning graphs. On a retrospective MIMIC-IV ICU mortality task, using structured events available before 12 hours and discharge-summary-derived note embeddings as a proof-of-concept text source, TEGoT reaches AUROC 0.931, AUPRC 0.655, and ECE 0.021 after temperature scaling, comparable to or above tabular, neural, and graph baselines under the same cohort. Structural uncertainty gives stronger error detection (AUROC 0.724) than standard epistemic uncertainty (0.681), and its weak correlation with epistemic uncertainty (<tex-math>\rho{=}0.19</tex-math>) indicates a complementary signal rather than a repackaging of dropout variance. Using this signal for selective prediction raises retained AUROC from 0.931 to 0.963 at 50% coverage, with a net benefit of <tex-math>+0.083</tex-math> over treat-all and a decision-curve-positive range of <tex-math>[0.05, 0.42]</tex-math>, supporting reliable abstention. We argue that the social value of a clinical model should be measured not by discrimination alone but by the harm it averts when it defers, and we show that net benefit and risk–coverage trade-offs offer concrete, deployment-relevant ways to quantify that benefit.</abstract>
+      <pdf hash="2dfcdba3"/>
+      <bibkey>arun-etal-2026-temporal</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.38/ -->
+      <title>The <fixed-case>AI</fixed-case> Therapist: <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> Therapy Users at the Boundary of Human Therapy, Disillusionment, and <fixed-case>AI</fixed-case> Companionship on <fixed-case>R</fixed-case>eddit</title>
+      <author><first>Nari</first><last>Yoo</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Pengyu</first><last>Chen</last></author>
+      <pages>493-510</pages>
+      <abstract>People in distress increasingly talk to a consumer chatbot the way they would talk to a therapist: they vent to the model, work through feelings with it, and sometimes call it their therapist. We ask where that behavior is located in relation to the existing system of human care: which communities the people doing it belong to, what discourse crosses the boundary between those communities and human therapy, and in what order people arrive on the two sides. Across ten Reddit communities covering general chatbots, companion chatbots, an AI self-help community, mainstream human therapy, and therapy disillusionment, we combine the backbone of a user-by-community bipartite projection under the fixed degree sequence model, a directed reply network, a structural topic model, and an analysis of which side users reach first. Of the ten, the AI self-help community is the only one connecting the human-therapy and chatbot worlds, and its strongest backbone edge is to the therapy-disillusioned, at nine times the null expectation. Companion chatbots are as relational as the self-help community and their overlap with therapy grievance is still at chance, so relational chatbot use is not by itself adjacent to it; the adjacency is specific to purpose-built self-help. Visibility in the cross-community discourse is concentrated in one commercial account, and human-therapy participation predominantly precedes therapeutic chatbot use, though the data cannot establish that disillusionment drives the move. We interpret these patterns through the Network Episode Model.</abstract>
+      <pdf hash="44d28c05"/>
+      <bibkey>yoo-chen-2026-ai</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.39/ -->
+      <title>Towards Automated Situation Awareness: A <fixed-case>RAG</fixed-case>-Based Framework for Peacebuilding Reports</title>
+      <author id="poli-nemkova" orcid="0000-0001-6461-304X"><first>Poli</first><last>Nemkova</last><affiliation>Columbia University</affiliation></author>
+      <author id="suleyman-olcay-polat" orcid="0000-0003-1445-5914"><first>Suleyman Olcay</first><last>Polat</last><affiliation>University of North Texas</affiliation></author>
+      <author id="rafid-ishrak-jahan" orcid="0009-0005-3549-1924"><first>Rafid Ishrak</first><last>Jahan</last></author>
+      <author id="sagnik-ray-choudhury" orcid="0009-0001-0524-849X"><first>Sagnik Ray</first><last>Choudhury</last><affiliation>University of North Texas</affiliation></author>
+      <author><first>Sun-Joo</first><last>Lee</last><affiliation>United Nations Development Programme</affiliation></author>
+      <author><first>Shouryadipta</first><last>Sarkar</last><affiliation>UNDP</affiliation></author>
+      <author id="mark-v-albert" orcid="0000-0003-3977-2895"><first>Mark V.</first><last>Albert</last><affiliation>University of North Texas</affiliation></author>
+      <pages>511-529</pages>
+      <abstract>Timely and accurate situation awareness underpins effective decision-making in humanitarian response, conflict monitoring, and peacebuilding. Yet, synthesizing heterogeneous and rapidly evolving information from news, conflict databases, and economic indicators remains labor-intensive and delays critical interventions. We present a Retrieval-Augmented Generation (RAG) system that autonomously produces structured, evidence-backed situation awareness reports by integrating real-time data from GDELT, ACLED, ReliefWeb, and World Bank APIs. To rigorously assess report quality without ground-truth references, we introduce a three-level reference-free evaluation framework combining automated NLP metrics, expert review by United Nations crisis analysts, and scalable LLM-as-a-Judge assessment. In a multi-country study across 15 conflict-prone regions, our system generated coherent, relevant, and actionable reports, with UNDP analysts estimating a ~50% reduction in report preparation time. These findings demonstrate the feasibility of deploying RAG-based systems for peacebuilding and humanitarian operations and provide a reproducible framework for generating and evaluating AI-assisted situational intelligence at scale.</abstract>
+      <pdf hash="f385408c"/>
+      <bibkey>nemkova-etal-2026-towards</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.40/ -->
+      <title><fixed-case>U</fixed-case>kr<fixed-case>M</fixed-case>eme: Multimodal Explainable Persuasion Detection in <fixed-case>U</fixed-case>krainian Memes</title>
+      <author><first>Nazar</first><last>Andrushko</last></author>
+      <author id="vera-schmitt" orcid="0000-0002-9735-6956"><first>Vera</first><last>Schmitt</last><affiliation>Johannes-Gutenberg Universität Mainz and Technische Universität Berlin</affiliation></author>
+      <author id="veronika-solopova" orcid="0000-0003-0183-9433"><first>Veronika</first><last>Solopova</last><affiliation>Johannes-Gutenberg Universität Mainz</affiliation></author>
+      <pages>530-543</pages>
+      <abstract>Memes play a central role in modern online communication, especially in contexts of political conflict where visual and textual cues combine to convey persuasive messages. We study persuasive technique detection in Ukrainian memes using vision–language models (VLMs). We introduce UkrMeme, a dataset of 200 organically produced Ukrainian wartime memes annotated for persuasion techniques, and PTM-UA, a Ukrainian translation of a subset of the Propaganda 950 benchmark that preserves original visual content while translating meme text. We evaluate VLMs in a zero-shot prompting setup across image, text, and multimodal inputs using hierarchical F1 metrics. Finally, we compare Layer-wise Relevance Propagation (LRP) and model-generated token attributions and analyze the semantic categories of evidence emphasized by each explanation method.</abstract>
+      <pdf hash="21798b9e"/>
+      <bibkey>andrushko-etal-2026-ukrmeme</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.41/ -->
+      <title>Uncertainty Quantification to Improve the Reliability of <fixed-case>LLM</fixed-case>-Based Hate Speech Detection</title>
+      <author><first>Nehir Idil</first><last>Yuksel</last></author>
+      <author id="daryna-dementieva" orcid="0000-0003-0929-4140"><first>Daryna</first><last>Dementieva</last></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>544-574</pages>
+      <abstract>While Large Language Models (LLMs) have been tested for hate speech detection, their reliability in subjective annotation settings remains underexplored. Existing improved prompting approaches for hate speech classification often rely on continuous context retrieval, which can be computationally expensive and unnecessary for confident predictions. To address this, we propose an uncertainty-aware prompting pipeline that integrates Uncertainty Quantification (UQ) into LLM-based hate speech classification. The framework uses uncertainty scores to identify ambiguous and potentially unreliable predictions through threshold-based filtering, enabling selective application of advanced context-enriched prompting only when needed. We evaluate the approach on two benchmark datasets—Measuring Hate Speech (Sachdeva et al., 2022) and CREHate (Lee et al., 2024—across five LLMs using two advanced prompting strategies: Persona-Aware and Annotation-Grounded Few-Shot Prompting. Experimental results show that the proposed pipeline consistently improves classification performance and reduces uncertainty, leading to more reliable model behavior with improved computational efficiency.</abstract>
+      <pdf hash="e47ce47c"/>
+      <bibkey>yuksel-etal-2026-uncertainty</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.42/ -->
+      <title>When Cultures Move: Measuring and Improving Multicultural Text-to-Video Generation</title>
+      <author id="shuowei-li" orcid="0009-0006-1969-9423"><first>Shuowei</first><last>Li</last></author>
+      <author id="yuming-zhao-1376" orcid="0009-0003-1698-1376"><first>Yuming</first><last>Zhao</last><affiliation>Santa Clara University</affiliation></author>
+      <author id="parth-bhalerao" orcid="0009-0002-7415-9885"><first>Parth</first><last>Bhalerao</last><affiliation>Santa Clara University</affiliation></author>
+      <author id="oana-ignat" orcid="0000-0003-0272-5147"><first>Oana</first><last>Ignat</last><affiliation>Santa Clara University</affiliation></author>
+      <pages>575-591</pages>
+      <abstract>Text-to-video (T2V) generation has achieved strong visual fidelity, yet its ability to represent multiple cultures within a single scene remains largely unexplored, a gap with real consequences as generative video becomes a mainstream medium for cultural storytelling. We introduce multicultural text-to-video generation as a new task and present the first benchmark designed to study this setting: 243 culturally grounded prompts and 972 videos, spanning three cultures (Chinese, American, Romanian), three action categories, and both mono-cultural and cross-cultural scenarios. Using this benchmark, we analyze how current T2V models represent culture with CLIP-based metrics, VLM-as-judge assessments, and video quality measures. As one strategy for improving cultural fidelity, we explore MAVEN, which decomposes prompts into person, action, and location dimensions, each handled by a culturally specialized agent in parallel or sequentially. In our controlled setting, parallel specialization achieves the strongest cultural relevance while maintaining visual quality and temporal consistency, suggesting that structured prompt refinement is a promising direction for multicultural T2V generation. We release our dataset and code at: https://github.com/AIM-SCU/MAVEN.</abstract>
+      <pdf hash="f7371880"/>
+      <bibkey>li-etal-2026-cultures</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.43/ -->
+      <title>Where Do Predictions Go? Class-Level Shifts and Carbon Cost in Stance Detection</title>
+      <author id="nityaa-kalra" orcid="0009-0005-0958-553X"><first>Nityaa</first><last>Kalra</last><affiliation>Tilburg University</affiliation></author>
+      <author id="jisk-j-attema" orcid="0000-0002-0948-1176"><first>Jisk J</first><last>Attema</last><affiliation>Tilburg University</affiliation></author>
+      <author id="dimitar-shterionov" orcid="0000-0001-6300-797X"><first>Dimitar</first><last>Shterionov</last><affiliation>Tilburg University</affiliation></author>
+      <pages>592-604</pages>
+      <abstract>Stance detection is widely used to summarize public discourse by measuring support, opposition, and neutrality towards societal issues. Evaluation pipelines rely on aggregate metrics such as macro-F1 that can mask how models actually distribute predictions across stance classes. We study this limitation by comparing large language and (statistical) supervised models across three stance detection datasets with different definitions of neutrality. Our evaluation considers predictive performance, class-level behavior, and environmental impact. We find that language models do not consistently outperform supervised baselines, and some models exhibit class-level priors that persist across datasets and prompting strategies. In addition, performance gains tend to saturate in the 4B–8B parameter range. These findings suggest that aggregate performance scores alone are insufficient for responsible stance detection. When model outputs are used to measure public opinion at scale, class-level behavior and deployment cost matter as much as the overall accuracy.</abstract>
+      <pdf hash="7cf79e6c"/>
+      <bibkey>kalra-etal-2026-predictions</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.44/ -->
+      <title>Who Gets Annotated? Impact-Aware Active Learning for Robust Humanitarian Text Classification</title>
+      <author id="divyajot-singh" orcid="0009-0009-7931-3010"><first>Divyajot</first><last>Singh</last></author>
+      <pages>605-614</pages>
+      <abstract>Humanitarian organizations must adapt text classifiers to new crises with small annotation budgets, yet conventional active learning optimizes model uncertainty without representing operational criticality or coverage across disaster events. We study an impact-aware batch acquisition policy that combines expected criticality, uncertainty, representation-space diversity, and event balance. Our evaluation crosses three recent open embedding backbones, three representation treatments, five acquisition strategies, five paired seeds, and total budgets of 50–500 labels. We separate exploratory development, event-held-out robustness on HumAID, and an untouched cross-dataset confirmation on CrisisMMD. On CrisisMMD, impact-aware selection with a conservative residual adapter improves Qwen’s area under the learning curve over random sampling by 0.089 for critical-category recall, 0.026 for macro-F1, and 0.032 for worst-event macro-F1. It raises the critical share of the 500-example labeled set from 3.4% to 26.8% and allocates annotations more evenly across events. Critical-recall gains also hold for Harrier and EmbeddingGemma on CrisisMMD and transfer to unseen HumAID events for Harrier, but not Qwen, exposing a consequential representation–dataset interaction. No configuration dominates every operational objective. Finally, 512-dimensional Qwen halves embedding storage while remaining within 0.009 AULC of its full representation across primary outcomes and both test settings. These results support impact-aware acquisition as a useful, but not always-on, policy and motivate reporting Pareto trade-offs rather than a single aggregate score.</abstract>
+      <pdf hash="c9320465"/>
+      <bibkey>singh-2026-gets</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.nlp4pi-1.45/ -->
+      <title>Whose Good, Whose Place? The Moral Geography of Agentic <fixed-case>AI</fixed-case> for Social Good</title>
+      <author id="poli-nemkova" orcid="0000-0001-6461-304X"><first>Poli</first><last>Nemkova</last><affiliation>Columbia University</affiliation></author>
+      <author><first>Haeshitha</first><last>Indukuri</last></author>
+      <author><first>Jaedon</first><last>Charles</last><affiliation>Florida International University</affiliation></author>
+      <pages>615-632</pages>
+      <abstract>Agentic AI systems are increasingly proposed for social-good domains, often invoking the United Nations Sustainable Development Goals (SDGs). Yet such claims do not necessarily establish accountability to the communities these systems aim to serve. We present a structured survey of 112 papers on agentic AI for social good published between 2015 and 2026. Each paper is coded across eight dimensions using dual-LLM annotation (GPT-4o and Llama-3.3-70B) with stratified human validation on 50 papers.<par/>We identify a <i>moral-geographic asymmetry</i>: contextual underspecification is concentrated where local context matters most. Overall, 82 of 112 papers (73%) specify no geographic context. Papers aligned with health or physical/ecological SDGs name a geography 37–40% of the time, compared with only 13% for institutional and social-policy SDGs, and 0% under strict coding that requires a concrete country, city, region, or population (<tex-math>\chi^2(2)=8.78</tex-math>, <tex-math>p=.012</tex-math>, Cramér’s <tex-math>V=.283</tex-math>; strict: <tex-math>\chi^2(2)=7.60</tex-math>, <tex-math>p=.022</tex-math>, <tex-math>V=.263</tex-math>). The pattern is robust across seven of eight sensitivity analyses. SDG 16 is both the most-covered goal and the least geographically specified.<par/>We interpret this pattern as consistent with a form of moral abstraction: institutional good is framed more universally despite its dependence on local political, legal, and cultural conditions. Only 28 papers (25%) report any real-world deployment or small-scale test. We detect no statistically significant differences in deployment rates across architecture, era, or geographic specificity. We conclude with five accountability gaps and a minimal reporting standard for more context-specific, participatory, and accountable research.</abstract>
+      <pdf hash="941373f2"/>
+      <bibkey>nemkova-etal-2026-whose</bibkey>
+    </paper>
+  </volume>
+</collection>
