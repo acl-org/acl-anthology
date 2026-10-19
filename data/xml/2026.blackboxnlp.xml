@@ -1,0 +1,864 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.blackboxnlp">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.blackboxnlp-1/ -->
+    <meta>
+      <booktitle>Proceedings of the 9th <fixed-case>B</fixed-case>lackbox<fixed-case>NLP</fixed-case> Workshop: Analyzing and Interpreting Neural Networks for <fixed-case>NLP</fixed-case></booktitle>
+      <editor><first>Dana</first><last>Arad</last></editor>
+      <editor><first>Yonatan</first><last>Belinkov</last></editor>
+      <editor><first>Hanjie</first><last>Chen</last></editor>
+      <editor><first>Nils</first><last>Feldhus</last></editor>
+      <editor><first>Aaron</first><last>Mueller</last></editor>
+      <editor><first>Hosein</first><last>Mohebbi</last></editor>
+      <editor><first>Gabriele</first><last>Sarti</last></editor>
+      <editor><first>Martin</first><last>Tutek</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-476-7</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="484697f8"/>
+      <venue>blackboxnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.0/ -->
+      <pdf hash="b78c9b54"/>
+      <bibkey>blackboxnlp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.1/ -->
+      <title>import pandas as np: the numpy strikes back</title>
+      <author><first>Haotian</first><last>Yang</last></author>
+      <pages>1-14</pages>
+      <abstract>Python code imports numpy as np so consistently that, to a language model, the alias and the library are almost the same thing. We ask what a model does when a file breaks the convention, as in import pandas as np. Using templated minimal pairs, we score how strongly a model prefers the conventional library’s methods at the use site and compare the swapped binding with a control that binds the same library to an alias with no convention (zz). Across nine open models from 0.5B to 8B parameters, the swap shifts the preference toward the conventional library by 6.8 nats relative to the control (95% CI 4.6 to 9.1). The shift is larger for more frequent conventions, stays flat out to 8,192 tokens, and reaches generated code, where 74% of swapped completions call an attribute the bound library lacks. DeepSeek-V4-Pro makes the same mistake out to 128k tokens even though it names the bound library correctly when asked, and its thinking mode removes the error. In two Qwen2.5 models, activation patching and the logit lens show that the pull travels with the alias token at the use site. Patching the import line barely moves it.</abstract>
+      <pdf hash="73383f04"/>
+      <bibkey>yang-2026-import</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.2/ -->
+      <title>On The Effectiveness-Fluency Trade-Off In <fixed-case>LLM</fixed-case> Conditioning: A Systematic Study</title>
+      <author id="iuri-macocco" orcid="0000-0001-5701-7725"><first>Iuri</first><last>Macocco</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
+      <author id="pau-rodriguez" orcid="0000-0002-1689-8084"><first>Pau</first><last>Rodriguez</last><affiliation>Apple</affiliation></author>
+      <author><first>Arno</first><last>Blaas</last><affiliation>Apple</affiliation></author>
+      <author><first>Luca</first><last>Zappella</last><affiliation>Apple</affiliation></author>
+      <author id="marco-baroni" orcid="0000-0001-5066-3580"><first>Marco</first><last>Baroni</last><affiliation>Universitat Pompeu Fabra</affiliation></author>
+      <author><first>Xavier</first><last>Suau</last><affiliation>Apple</affiliation></author>
+      <pages>15-33</pages>
+      <abstract>Controlling the output of Large Language Models (LLMs) is a central challenge for their reliable deployment, yet a clear understanding of the involved trade-offs remains elusive. Current approaches to conditioning are often evaluated with a narrow focus on their effectiveness at injecting or removing a target concept, neglecting generation quality. We systematically investigate a range of conditioning methods in both injection and removal scenarios. We find that efficient steering methods frequently achieve conditioning at a steep cost to fluency. Furthermore, we identify a critical yet previously overlooked interaction with the training paradigm: activation steering methods are far less effective on instruction-tuned models than on their base counterparts. Simple prompting and full-fledged supervised fine-tuning, on the other hand, are viable options for concept injection, but are not as good at concept removal. Finally, cheaply computed textual metrics highly correlate to costly LLM-as-judge scores, and provide insights on the behavior of conditioning methods.</abstract>
+      <pdf hash="663bd69c"/>
+      <bibkey>macocco-etal-2026-effectiveness</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.3/ -->
+      <title>Cultural Binding Heads in Language Models</title>
+      <author><first>Avrile</first><last>Floro</last></author>
+      <author id="luca-benedetto" orcid="0000-0002-5113-4696"><first>Luca</first><last>Benedetto</last><affiliation>Telecom SudParis</affiliation></author>
+      <pages>34-48</pages>
+      <abstract>LLMs often default to equal treatment across cultural groups, even though context warrants differentiation: this is a lack of *difference awareness*. Using mechanistic interpretability and a factorial design on the N4 cultural appropriation benchmark from Wang et al. (2025), we identify 2–3 mid-layer attention heads per model that contribute causally to cultural binding across eight models (base and instruct versions of four architectures). Cultural binding is the process of associating a cultural item with its related identity. Knockout of the identity<tex-math>\rightarrow</tex-math>item edges on these heads lowers the binding strength by 9–23%. The identified heads transfer from instruct to base models, suggesting that cultural binding is created during pre-training. An <tex-math>\alpha</tex-math>-scaling shows a graded dose–response. Moderate amplification steering at generation (<tex-math>\alpha = 2</tex-math>–3) increases cultural differentiation accuracy by 1–3 pp while leaving reasoning on culturally neutral questions mostly intact. A knowledge probing task shows that models know 3–<tex-math>6\times</tex-math> more than they act upon, indicating that the bottleneck lies in routing and not knowledge.</abstract>
+      <pdf hash="17dd9001"/>
+      <bibkey>floro-benedetto-2026-cultural</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.4/ -->
+      <title>Lost in Specialization: Embedding Geometry and Retrieval Quality Across Specialized Corpora</title>
+      <author id="cornelia-ferner" orcid="0000-0003-1721-0453"><first>Cornelia</first><last>Ferner</last><affiliation>Salzburg University of Applied Sciences and University of Salzburg</affiliation></author>
+      <author id="stefan-wegenkittl" orcid="0000-0002-3297-7997"><first>Stefan</first><last>Wegenkittl</last><affiliation>Salzburg University of Applied Sciences</affiliation></author>
+      <pages>49-57</pages>
+      <abstract>Reliably operating LLMs in specialized domains often requires retrieval-augmented generation (RAG), which grounds the model’s responses in domain-specific information. Retrieval performance is critical for output quality, making retrieval model selection a key decision for specialized RAG deployments. To guide retrieval model selection, we ask whether domain-tuned encoders produce better-structured embedding spaces for specialized corpora than general-purpose encoders, and whether geometric regularity alone reliably indicates retrieval quality in these settings. Our results show that the answer is more nuanced than expected: domain-specific models show more pronounced geometric irregularity than general-domain encoders, while geometric regularity alone does not reliably indicate retrieval quality. Moreover, geometric and intervention patterns observed on MS-MARCO do not consistently transfer to specialized corpora.</abstract>
+      <pdf hash="3cdd2737"/>
+      <bibkey>ferner-wegenkittl-2026-lost</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.5/ -->
+      <title>Compact Language, Complex Model Shifts: How and Where Ambiguity and Underspecification Affect <fixed-case>LLM</fixed-case>s</title>
+      <author id="michaela-regneri" orcid="0000-0001-8644-7839"><first>Michaela</first><last>Regneri</last><affiliation>Hamburg University of Applied Sciences (HAW Hamburg)</affiliation></author>
+      <author><first>Nina</first><last>Scheller</last><affiliation>Universität Hamburg</affiliation></author>
+      <author><first>Sören</first><last>Laue</last><affiliation>Universität Hamburg</affiliation></author>
+      <pages>58-75</pages>
+      <abstract>We analyze how lexical ambiguity and underspecification affect language model training. We create artificial homonyms and artificial hypernyms as pseudowords and analyze the generative performance of language models as they are trained with increasing amounts of these ambiguous or underspecified pseudoword types. We further analyze whether the models disambiguate ambiguous or underspecified statements and provide a first mechanistic account of how ambiguity and disambiguation are represented internally. Our main results show that both ambiguity and underspecification increase model performance in ways that scale with their influence on the language’s type-token ratio. However, the accuracy of generating sequences containing ambiguous words or their synonyms decreases compared to other texts. We also show that internal representations of pseudowords reflect disambiguation of pseudo-homonyms, but underspecification of pseudo-hypernyms is maintained during the generative process.</abstract>
+      <pdf hash="2138b276"/>
+      <bibkey>regneri-etal-2026-compact</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.6/ -->
+      <title>How Much Do Modern Embeddings Reveal? Inversion Attacks on Commercial Embedding Models</title>
+      <author><first>Kareem</first><last>Elaasar</last></author>
+      <author><first>Cristina</first><last>Lopes</last><affiliation>University of California, Irvine</affiliation></author>
+      <pages>76-89</pages>
+      <abstract>Text embedding inversion reconstructs source text from fixed-dimensional vectors, posing a privacy risk to systems that store embeddings instead of raw text. We adapt the vec2text framework (Morris et al., 2023) to support text-embedding-3-small and mistral-embed alongside GTR-base. We evaluate 800 samples per category across general instructions, Wikipedia passages, paraphrased instructions, health-related instructions, and short literal code snippets, using a common 60–80-character range and paired original and paraphrased instructions. Under the evaluated vec2text configuration, text-embedding-3-small achieves the highest exact-match rate in all five categories, including 47.4% on health-related instructions and 24.5% on general instructions under the evaluation’s case-insensitive, whitespace-stripped matching rule. BERTScore F1 exceeds 87 on the 0–100 scale for every prose category and embedder, indicating high contextual similarity to the references. Short code snippets yield lower reconstruction scores. These findings characterize one attack configuration and the selected datasets; they do not establish attack-independent rankings or sensitive-attribute recovery rates. They nevertheless motivate explicit assessment of inversion risk and access controls for stored embeddings.</abstract>
+      <pdf hash="8e6abf49"/>
+      <bibkey>elaasar-lopes-2026-much</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.7/ -->
+      <title>Does the Greater-Than Circuit Generalize? A Reproducibility Study Across Models and Numerical Entailment</title>
+      <author id="vinay-setty" orcid="0000-0002-9777-6758"><first>Vinay</first><last>Setty</last><affiliation>Factiverse and University of Stavanger</affiliation></author>
+      <pages>90-102</pages>
+      <abstract>We reproduce the canonical GPT-2-small “greater-than” circuit in its original stack and independently, then test how far it generalizes across eight models (124M–12B) and to numerical entailment. The reported numbers replicate, and the late-MLP structure recurs at matched relative depth well above a size-matched null. Sparse faithfulness is high everywhere too, but only when the edge budget scales with the model’s own graph; since these graphs differ 96-fold in size, a fixed budget makes faithfulness appear to collapse with scale. On numerical entailment, no circuit-bearing model <fixed-case>passes the 0.6 gate</fixed-case>, while the one model that solves the task well cannot be posed the circuit’s own task.</abstract>
+      <pdf hash="4963237e"/>
+      <bibkey>setty-2026-greater</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.8/ -->
+      <title>A circuit for predicting hierarchical structure in-context in Large Language Models</title>
+      <author><first>Tankred</first><last>Saanum</last></author>
+      <author id="can-demircan" orcid="0000-0001-6069-1761"><first>Can</first><last>Demircan</last><affiliation>Helmholtz Zentrum München</affiliation></author>
+      <author><first>Samuel J.</first><last>Gershman</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Eric</first><last>Schulz</last><affiliation>Helmholtz Zentrum München</affiliation></author>
+      <pages>103-121</pages>
+      <abstract>Large Language Models (LLMs) rely on induction heads for in-context learning, yet how they manage complex hierarchical structures and contextual dependencies remains unclear. By evaluating a range of LLMs on synthetic tasks and natural language analogues, we identify adaptive induction heads in later layers that learn to attend to successor tokens based on hierarchical cues rather than simple bi-gram statistics. These heads are supported by a circuit of context matching heads that uncover latent transition relationships by routing information from distant past tokens to the current query. Controlled ablation experiments across model families confirm that this circuit is essential for accurate hierarchical predictions in context. Finally, we show that this mechanism is used in natural language to resolve ambiguities where single tokens have multiple potential successors. Our findings provide a mechanistic account of how LLMs learn to predict higher-order repetitive patterns in-context.</abstract>
+      <pdf hash="93b40324"/>
+      <bibkey>saanum-etal-2026-circuit</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.9/ -->
+      <title>Inside self-reflection: the geometry in multi-dimensional scoring of metacognitive structure</title>
+      <author id="praveen-suthaharan" orcid="0000-0002-2388-7009"><first>Praveen</first><last>Suthaharan</last></author>
+      <author id="philip-robert-corlett" orcid="0000-0002-5368-1992"><first>Philip Robert</first><last>Corlett</last></author>
+      <author><first>Yuen-Siang</first><last>Ang</last><affiliation>Singapore Institute of Technology</affiliation></author>
+      <pages>122-135</pages>
+      <abstract>Large language models (LLMs) increasingly score open-ended text along multidimensional rubrics, yet strong score recoverability need not imply that a dimension is distinct or relevant to downstream decisions. We examine how Gemma-2-2B represents five metacognitive-prompting dimensions in self-reflections from 486 participants on a probabilistic reversal learning task. Linear probes recover all dimensions across depth, with depth gradients ordered by the rubric hierarchy. Evaluation is strongly decoded but has the weakest coupling to independently measured task markers. Under the primary five-occurrence token filter, Evaluation-related vocabulary shows no detectable association with switching, whereas the negative Final Decision association is stable across frequency thresholds. Activation patching yields oppositely signed point estimates in a fixed linear win–switch readout when the Final Decision–Evaluation matched-pair contrast is injected in each direction, although no layer survives correction across the full sweep. These findings show that decodability alone is insufficient evidence for weighting rubric dimensions in downstream decisions.</abstract>
+      <pdf hash="0f66bf2c"/>
+      <bibkey>suthaharan-etal-2026-inside</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.10/ -->
+      <title>Data Attribution of Emergent Misalignment with Persona Features</title>
+      <author><first>Clemens</first><last>Vetter</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
+      <author id="david-kaczer" orcid="0000-0002-5430-235X"><first>David</first><last>Kaczér</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
+      <author id="lucie-flek" orcid="0000-0002-5995-8454"><first>Lucie</first><last>Flek</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
+      <author id="florian-mai" orcid="0000-0003-1370-9740"><first>Florian</first><last>Mai</last><affiliation>Rheinische Friedrich-Wilhelms Universität Bonn</affiliation></author>
+      <pages>136-165</pages>
+      <abstract>Emergent misalignment (EM) is the phenomenon where fine-tuning a language model on a narrow task leads to harmful behavior in unrelated domains. A leading mechanistic account attributes EM to persona features: latent directions representing misaligned personas, acquired during pre-training, are amplified during fine-tuning on misaligned data. We ask where these features come from, and whether naturally occurring human-written text suffices to induce EM. Using Sparse Autoencoder (SAE) based model diffing across four open-weight models, we find that misalignment fine-tuning amplifies features related to jailbreak personas, sarcasm, deception, and manipulation, while suppressing safety-relevant and assistant-identity features. Steering individual features controls EM in both directions: it induces misalignment rates of up to 62% in aligned models and re-aligns misaligned models to near-baseline rates. Attributing the causal features to one million web documents from an open pre-training corpus retrieves recurring narratives about villainous characters, domination, and harmful agency. Yet fine-tuning on these human-written documents does not reliably induce EM, whereas synthetic instruction-response pairs derived from the same content do, even across models. Semantic relevance alone is thus not sufficient: response structure or model-generated phrasing plays an important role in inducing EM.</abstract>
+      <pdf hash="46b53169"/>
+      <bibkey>vetter-etal-2026-data</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.11/ -->
+      <title>Specialized Attention Heads in Early Word Reconstruction</title>
+      <author><first>Gustaf</first><last>Gren</last></author>
+      <author id="robert-ostling" orcid="0000-0002-6027-4156"><first>Robert</first><last>Östling</last><affiliation>Stockholm University, Stockholm, Sweden</affiliation></author>
+      <author id="murathan-kurfali" orcid="0000-0002-7020-8275"><first>Murathan</first><last>Kurfali</last><affiliation>RISE Research Institutes of Sweden AB</affiliation></author>
+      <pages>166-177</pages>
+      <abstract>Large language models process text as sequences of tokens, raising the question of how coherent representations emerge from fragmented word pieces during inference. Prior work has proposed a <i>detokenization</i> stage in early layers, where tokens are recombined into larger linguistic units, but direct intervention-based evidence for the role of specific model components remains limited. This article investigates whether a small subset of attention heads (1/3/5%) contributes disproportionately to this process. Candidate heads are identified based on their preference for within-word attention, measured using attention weights and <tex-math>L_2</tex-math> norms, and their contribution is evaluated through targeted ablation and activation patching in a word reconstruction task. Across languages (English, Turkish, Chinese), tokenization schemes (BPE, SentencePiece, byte-level), and model families, ablating these heads generally produces greater degradation in reconstruction performance than random ablations. Results further show that larger models exhibit increased specialization, characterized by steeper and more pronounced early-layer retrieval peaks. These findings provide additional evidence for the detokenization hypothesis and suggest that early layers rely on specialized attention heads to construct internal word-level representations from fragmented inputs.</abstract>
+      <pdf hash="d4e672dd"/>
+      <bibkey>gren-etal-2026-specialized</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.12/ -->
+      <title>From Plausible to Actionable: A Position on <fixed-case>LLM</fixed-case> Self-Explanations</title>
+      <author id="elize-herrewijnen" orcid="0000-0002-2729-6599"><first>Elize</first><last>Herrewijnen</last><affiliation>Utrecht University</affiliation></author>
+      <author id="benedetta-muscato" orcid="0009-0000-3061-8408"><first>Benedetta</first><last>Muscato</last></author>
+      <author id="gizem-gezici" orcid="0000-0001-9782-5751"><first>Gizem</first><last>Gezici</last><affiliation>Scuola Normale Superiore</affiliation></author>
+      <author id="fosca-giannotti" orcid="0000-0003-3099-3835"><first>Fosca</first><last>Giannotti</last><affiliation>School of Education Pisa</affiliation></author>
+      <pages>178-188</pages>
+      <abstract>Large Language Models (LLMs) can generate natural language explanations that rationalize their own decisions, a phenomenon commonly referred to as self-explanations. Such explanations have emerged as a promising direction for explainable artificial intelligence (XAI), particularly for interpreting LLM behavior. However, while self-explanations often appear plausible, whether they faithfully reflect a model’s underlying reasoning process remains an open question. In this opinion paper, we argue that self-explanations can be highly plausible, questionably faithful, and yet highly actionable. From a traditional XAI perspective, we identify the limitations of standard evaluation protocols for LLM-generated self-explanations and propose practical guidelines for assessing their plausibility and faithfulness. Moreover, we argue that evaluation should extend beyond these criteria to actionability, highlighting applications of LLM rationalization capabilities that support informed decision-making and appropriate action across diverse stakeholders.</abstract>
+      <pdf hash="5762da4e"/>
+      <bibkey>herrewijnen-etal-2026-plausible</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.13/ -->
+      <title>How Far Do <fixed-case>SAE</fixed-case> Features Persist Across <fixed-case>LLM</fixed-case> Layers? An Empirical Study with an <fixed-case>FFN</fixed-case> Pruning Application</title>
+      <author id="vaishakh-sreekanth-menon" orcid="0009-0001-7965-7368"><first>Vaishakh Sreekanth</first><last>Menon</last><affiliation>Syle</affiliation></author>
+      <author id="asif-ekbal" orcid="0000-0003-3612-8834"><first>Asif</first><last>Ekbal</last><affiliation>Indian Institute of Technology, Jodhpur</affiliation></author>
+      <pages>189-200</pages>
+      <abstract>Sparse autoencoders (SAEs) are typically applied at the single layer they were trained on. We ask whether a pretrained SAE’s per-prompt feature activations persist when the same SAE is applied to residuals at deeper layers of the underlying language model, and whether the resulting cross-layer signal is strong enough to drive per-prompt FFN neuron pruning without any training or calibration data. Testing three SAE families on three roughly 8B-scale language models, we find adjacent-layer carry-through is high across families (0.72–0.82 at <tex-math>L_{\text{src}}{+}1</tex-math>) and its rate of decay differs qualitatively across sparsification mechanisms, with JumpReLU still activating half the features 17 layers downstream while TopK degrades within about five. We propose <b>FARN</b> (Feature and Anchor-based Removal of Neurons), a training-free per-prompt FFN pruner that scores each downstream neuron on the SAE’s decoder columns weighted by the current prompt’s active features, plus a prompt-independent anchor from the decoder bias. On six multiple-choice benchmarks, keeping roughly 17–20% of FFN neurons per layer, FARN closes the gap to an activation oracle (a baseline that peeks at the true downstream activations to pick the top-firing neurons) to within 1.5 percentage points and outperforms random, magnitude, and calibrated static-activation baselines on every model.</abstract>
+      <pdf hash="17e5bec2"/>
+      <bibkey>menon-ekbal-2026-far</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.14/ -->
+      <title>Decodability Is Not Computation: Examining Probing Claims</title>
+      <author><first>Kabir Singh</first><last>Grewal</last></author>
+      <pages>201-219</pages>
+      <abstract>High probe accuracy does not by itself establish that a language model computes and uses the decoded value. We examine this inference in a syntax-sensitive arithmetic testbed: Llama-3.1-8B often fails multiplication when an operand is wrapped in parentheses or an additive identity. In the primary operand band, an input-only linear baseline nearly matches the original hidden-state probe’s regression <tex-math>R^2 \approx 0.96</tex-math>. A classical variance decomposition gives an analytical headroom of only 0.031 for this baseline class. In wider bands, selection-separated reanalysis instead finds positive activation advantages, which increase with regularization tuning; joint input-and-activation probes also improve over the baseline. These predictive gains are distinct from exact integer recovery and causal use. In the primary band, tested answer-site steering and state transplants produce small average output shifts and no observed donor-answer emissions, whereas operand-site interventions produce large effects. Operand access is necessary, with a strong bottleneck at one attention layer. The causal tests do not cover the wider-band predictive gains. We advocate explicit input baselines, matched causal tests, and positive controls, with conclusions restricted to the distributions, representations, and interventions actually examined.</abstract>
+      <pdf hash="3db08a22"/>
+      <bibkey>grewal-2026-decodability</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.15/ -->
+      <title>Source Marking in Language Models: A Controlled Framework for Acquisition, Cue Sensitivity, and Reasoning</title>
+      <author><first>Daniil</first><last>Huryn</last><affiliation>Microsoft</affiliation></author>
+      <pages>220-231</pages>
+      <abstract>Language can affect how people think. We ask a computational version: if a language model is trained on English that marks propositions as observed, reported, or inferred, does it use evidence differently in ordinary English? We create matched corpora in which particles either mark these routes (EVID), appear in the same positions without predicting source (CTRL), or are absent (NOMARK), and remove them at evaluation.<par/>We test 405M-parameter Pythia models trained from scratch and Qwen3.5-4B Base and Post models adapted across three paired seeds. The models learn the mapping: Pythia reaches 92.8% before ordinary-English adaptation and retains 79.8% afterward; Qwen EVID averages about 80% for both Base and Post, with controls near chance. Visible markers shift Qwen’s scores. Once markers are removed, however, the Pythia tests cannot show whether the effect carries over. Base’s main Qwen result changes direction across seeds, and Post’s is negative in all three. A separate test suggests that Base may respond more to relevant context, but not specifically to source wording. No condition consistently improves reliability, multistep inference, or recognition of copied information. Source marking is easy to learn and can influence model scores, but we find no broader improvement in reasoning.</abstract>
+      <pdf hash="46c7c947"/>
+      <bibkey>huryn-2026-source</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.16/ -->
+      <title>Lost in Perception: Isolating Perceptual and Reasoning Failures in Multimodal Physics and Geometry Reasoning</title>
+      <author id="raj-jaiswal" orcid="0009-0008-5044-1409"><first>Raj</first><last>Jaiswal</last><affiliation>Indraprastha Institute of Information Technology, Delhi</affiliation></author>
+      <author><first>Sree Krishna</first><last>Uppalapati</last></author>
+      <author id="dhruvkumar-patel" orcid="0009-0005-6466-7650"><first>Dhruvkumar</first><last>Patel</last></author>
+      <author><first>Ria</first><last>Khatoniar</last></author>
+      <author><first>Tanuja</first><last>Ganu</last><affiliation>Microsoft</affiliation></author>
+      <author id="rajiv-shah" orcid="0000-0003-1028-9373"><first>Rajiv Ratn</first><last>Shah</last><affiliation>Indian Institute of Technology, Kanpur</affiliation></author>
+      <pages>232-268</pages>
+      <abstract>Multimodal LLMs report strong performance on scientific reasoning benchmarks, yet most treat perception and reasoning as a single measurable process. We introduce a five-task diagnostic experiment across physics and geometry benchmarks that isolates failures to perception, reasoning, or both. Incorrect diagram interpretation degrades performance even on problems models solve correctly from text alone, and accuracy generally rises from raw images to human-authored captions. Recovery under corrected captions is high for some models, separating perception-blocked failures from genuine reasoning bottlenecks. Which reasoning error follows a perception failure depends on domain: physics failures resolve into calculation errors, geometry into conceptual misapplication. As a discussion beyond our core experiments, InternS1-mini, despite heavy scientific pretraining and thinking capabilities, falls below the weakest model from experiments on every task, with reasoning traces frequently truncating before completion.</abstract>
+      <pdf hash="d2d302d4"/>
+      <bibkey>jaiswal-etal-2026-lost</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.17/ -->
+      <title>Probing for Knowledge Attribution in Large Language Models</title>
+      <author><first>Ivo</first><last>Brink</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Alexander</first><last>Boer</last><affiliation>KPMG Netherlands</affiliation></author>
+      <author id="dennis-ulmer" orcid="0009-0005-1622-8979"><first>Dennis</first><last>Ulmer</last></author>
+      <pages>269-293</pages>
+      <abstract>Large language model (LLM) hallucinations, meaning fluent but factually incorrect generations, fall into two types: faithfulness violations, where the model misuses provided context, and factuality violations, where answers reflect errors in internal knowledge. Proper mitigation depends on knowing which source drives each answer. We study contributive attribution, i.e. the classification of the dominant knowledge source behind each output, and show that a simple linear probe trained on hidden representations can reliably identify it. We introduce AttriWiki, a self-supervised pipeline that automatically generates labelled training data by prompting models to recall withheld entities from memory or read them from context without relying on knowledge conflicts. Probes trained on AttriWiki achieve up to 0.96 Macro-F1 on Llama-3.1-8B, Mistral-7B, and Qwen2.5-7B, transfer to SQuAD and WebQuestions with 0.92-0.99 accuracy, and generalize zero-shot to Tighidet et al. (2024)’s benchmark, outperforming their probe on conflicting settings without retraining. Furthermore, attribution mismatches raise error rates by up to 70%, though correct attribution does not guarantee correct answers, pointing to the need for broader detection frameworks.</abstract>
+      <pdf hash="c167afcc"/>
+      <bibkey>brink-etal-2026-probing</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.18/ -->
+      <title>Induction in Both Directions: A Mechanistic Analysis of In-Context Learning in Masked Diffusion Language Models</title>
+      <author><first>Andy Eduard</first><last>Catruna</last></author>
+      <author id="emilian-radoi" orcid="0000-0002-1177-5288"><first>Emilian</first><last>Radoi</last></author>
+      <pages>294-303</pages>
+      <abstract>While the internal mechanisms of autoregressive (AR) transformers have been studied extensively, much less is known about diffusion language models (DLMs), an emerging alternative that generates text by iterative denoising. In this work, we study how DLMs implement induction, a mechanism behind in-context learning in which the model finds a repeated context and copies the token that followed it. Our analysis compares attention-only AR models and absorbing-mask DLMs with matched architectures. We find that DLMs learn a bidirectional induction circuit, where previous-token and next-token heads write local context into the residual stream and later induction heads use it to find and copy the answer from the matching source position. The circuit is direction-symmetric, working whether the source appears in the past or in the future. When only left context is visible, matching what an AR model sees, the DLM does not outperform its AR counterpart in induction capabilities. However, we observe it has stronger induction when both sides of the masked token are visible, pointing to bidirectional context access rather than a stronger one-sided mechanism. Beyond induction, we provide causal evidence that DLMs compute the global fraction of masked tokens and use it as an implicit timestep, even though they are given no explicit timestep embedding.</abstract>
+      <pdf hash="ad265cbd"/>
+      <bibkey>catruna-radoi-2026-induction</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.19/ -->
+      <title>What Does <fixed-case>BERT</fixed-case> Know about Linguistic Features:  Probing <fixed-case>F</fixed-case>innish Model for Text Difficulty</title>
+      <author><first>Yiheng</first><last>Wu</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="jue-hou" orcid="0000-0001-9404-2022"><first>Jue</first><last>Hou</last><affiliation>University of Helsinki</affiliation></author>
+      <author id="roman-yangarber" orcid="0000-0001-5264-9870"><first>Roman</first><last>Yangarber</last><affiliation>University of Helsinki</affiliation></author>
+      <pages>304-315</pages>
+      <abstract>We observe that fine-tuned BERT outperforms feature-based models at estimation of text difficulty, but it is unclear what drives this advantage. We explore a state-of-the-art Finnish BERT difficulty estimator and analyze it against a strong feature-based model trained on 66 hand-crafted linguistic features. First, we find that BERT implicitly encodes the coarse length and complexity features, but not fine-grained morphology of Finnish. Second, BERT subsumes the information in the hand-crafted features and adds signal that they miss: the two models are evenly matched on most documents, and BERT’s advantage comes from rarely being very wrong, rather than from winning everywhere. Third, through input perturbation and layer-wise probing, we show that BERT’s predictions rely on sentence-internal structure rather than on lexical content alone. Our analysis explains why a neural difficulty estimator succeeds and what linguistic information it depends on.</abstract>
+      <pdf hash="ed8e74fc"/>
+      <bibkey>wu-etal-2026-bert</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.20/ -->
+      <title>Where <fixed-case>A</fixed-case>nimacy Lives in Large Language Models: Tracing the Circuits of the <fixed-case>A</fixed-case>nimacy Concept</title>
+      <author><first>Samuele</first><last>Punzo</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Giovanni</first><last>Cinà</last><affiliation>Amsterdam University Medical Center and University of Amsterdam</affiliation></author>
+      <author id="sandro-pezzelle" orcid="0000-0002-3969-7445"><first>Sandro</first><last>Pezzelle</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>316-348</pages>
+      <abstract>Distinguishing animate from inanimate concepts in written language requires more than shallow text processing, as it involves recognizing complex selectional constraints and contextual cues, such as verb-argument interactions. Yet, current large language models (LLMs) appear to be capable of doing it. We investigate whether this animacy-sensitive behavior of LLMs can be traced to a localized set of causally relevant components and connections. To do so, we construct a controlled dataset of minimal pairs and perform circuit discovery on four open-weight models. Through in-depth experiments and ablations, we show that a causal mechanism responsible for handling animacy in these models does exist, thus discovering an animacy circuit. At the same time, this circuit appears to be less localized compared to other known ones and generalizes only partially across models and animacy tasks, confirming the distributed, context-dependent, and somewhat graded nature of the animacy concept.</abstract>
+      <pdf hash="968b3153"/>
+      <bibkey>punzo-etal-2026-animacy</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.21/ -->
+      <title>Do Chess Explanations Reflect Model Decisions? Behavioral and Token-Level Tests of <fixed-case>LLM</fixed-case> Reasoning Faithfulness</title>
+      <author id="angelina-parfenova" orcid="0000-0002-5245-5571"><first>Angelina</first><last>Parfenova</last></author>
+      <pages>349-367</pages>
+      <abstract>Large language models can produce fluent explanations for chess moves, but plausible language does not necessarily reflect the reasoning behind a decision. We study this question in chess, where the board state is fully observable, legal actions can be enumerated, and move quality can be evaluated independently. Across 200 Lichess endgame puzzles, we test explanations using move recoverability, decoder-side controls, and token-level scoring of legal candidate moves. Unmasked explanations make generated moves easy to recover, but this advantage drops sharply after explicit move hints are removed. Under strict masking, explanations provide only small and decoder-dependent gains over the board state alone. Token-level scoring shows that explanations can nevertheless alter move preferences: random but plausible explanations from other puzzles reduce the probability of the correct move, indicating that irrelevant reasoning text is not simply ignored. We also find that recognizable endgame motifs can make generated moves easier to recover without reliably improving move correctness. Together, these results show that linguistic plausibility, consistency with a generated action, and solution correctness are distinct properties. Fluent chess explanations can influence action preferences and support a coherent move narrative while providing only limited evidence of faithful reasoning.</abstract>
+      <pdf hash="e4c13af7"/>
+      <bibkey>parfenova-2026-chess</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.22/ -->
+      <title>Do Large Language Models appeal to the Senses? Narrative Embodiment in Stories told by <fixed-case>L</fixed-case>lama and <fixed-case>Q</fixed-case>wen</title>
+      <author><first>Stefan</first><last>Arnold</last></author>
+      <author><first>Rene</first><last>Gröbner</last></author>
+      <pages>368-373</pages>
+      <abstract>Language Models (LMs) produce highly fluent narratives, yet cognitive probing suggests their semantic representations lack grounding in sensorimotor experiences. By projecting model-generated texts into a multidimensional sensorimotor vector space, we quantify narrative embodiment in storytelling. Specifically, we evaluate the impact of parameter scaling and conditional multimodality on perceptual grounding. We find that (1) model capacity monotonically widens the divergence from the human level of embodiment, demonstrating that scale alone cannot resolve narrative disembodiment, and (2) audio-language models demonstrate a distinct superiority over vision-language models, an effect we contextualize through the auditory scaffolding hypothesis. Ultimately, we demonstrate that authentic sensorimotor grounding is not an emergent property of autoregressive decoding or conditional encoding, highlighting a critical limitation in current generative architectures.</abstract>
+      <pdf hash="1f428dbe"/>
+      <bibkey>arnold-grobner-2026-large</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.23/ -->
+      <title>Reverse Engineering the Reversal Curse: What Entity Order in Pretraining Does and Does Not Explain</title>
+      <author id="ivan-samarskyi" orcid="0009-0001-5537-2253"><first>Ivan</first><last>Samarskyi</last></author>
+      <author id="ondrej-bojar" orcid="0000-0002-0606-0050"><first>Ondřej</first><last>Bojar</last><affiliation>Charles University Prague</affiliation></author>
+      <pages>374-383</pages>
+      <abstract>A causal large language model can retrieve the same fact more confidently in one direction than in the other. This asymmetry is known as the Reversal Curse. The usual explanation links it to next-token prediction: seeing “<tex-math>A</tex-math> is <tex-math>B</tex-math>” trains the model to predict <tex-math>B</tex-math> from <tex-math>A</tex-math>, but not <tex-math>A</tex-math> from <tex-math>B</tex-math>. Prior work supports this with controlled finetuning on synthetic facts. We ask whether the same account still holds in a real pretraining corpus, where facts appear many times, in different contexts, and in both orders. To test this, we work with OLMo 3 7B Base and Dolma, its 5.93-trillion-token stage-1 corpus. For 100 curated relation instances, we locate passages where both entities appear, have two LLM judges check which passages state the expected relation, and probe the model in both directions with contrastive likelihood scores. The raw specific-prompt forward-minus-reverse gap is small and uncertain (0.119, 95% CI <tex-math>[-0.228,0.486]</tex-math>). Once the generic-prompt gap is subtracted, relation naming helps reverse retrieval more than forward (<tex-math>\Delta^{\mathrm{rel}}=-0.467</tex-math>, <tex-math>[-0.673,-0.266]</tex-math>) on average, though not uniformly across families. That gap is not predicted by local entity order after we control for exposure, proximity, entity frequency, and relation family.</abstract>
+      <pdf hash="6fe91c99"/>
+      <bibkey>samarskyi-bojar-2026-reverse</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.24/ -->
+      <title>Can Interpretation Predict Behavior on Unseen Data?</title>
+      <author><first>Victoria R</first><last>Li</last></author>
+      <author id="jenny-kaufmann" orcid="0000-0002-6629-0341"><first>Jenny</first><last>Kaufmann</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Tian</first><last>Qin</last></author>
+      <author><first>Martin</first><last>Wattenberg</last><affiliation>Harvard University and Google</affiliation></author>
+      <author id="david-alvarez-melis" orcid="0000-0002-9591-8986"><first>David</first><last>Alvarez-Melis</last><affiliation>School of Engineering and Applied Sciences, Harvard University and Microsoft</affiliation></author>
+      <author id="naomi-saphra" orcid="0000-0001-8607-3515"><first>Naomi</first><last>Saphra</last><affiliation>Boston University, Boston University</affiliation></author>
+      <pages>384-407</pages>
+      <abstract>Interpretability research often predicts model responses to targeted mechanistic <tex-math>\textit{interventions}</tex-math>. But can we predict responses to unseen <tex-math>\textit{input data}</tex-math>? We propose and demonstrate this alternate objective by using model internals to predict their out-of-distribution (OOD) behavior. We train hundreds of Transformers on simple synthetic tasks, where perfect in-distribution accuracy is compatible with multiple OOD generalization rules. We successfully use attention patterns—observed only on in-distribution data—to predict which rule each model follows on OOD data. Our experiments decouple the mechanistic faithfulness of our interpretation from its predictive value; ablations reveal such internal patterns can <tex-math>\textit{suppress}</tex-math> rather than <tex-math>\textit{support}</tex-math> the rule they predict, showing observational analysis can forecast behavior even when causal analysis fails to support a simple cause-effect link. Our findings are a proof-of-concept for a new interpretability objective: understanding model internals to predict behavior and assess reliability under distribution shift.</abstract>
+      <pdf hash="b17f825e"/>
+      <bibkey>li-etal-2026-interpretation</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.25/ -->
+      <title>Multiple Recovery Paths in a Lesioned Transformer: Internal Rerouting and Readout Remapping</title>
+      <author><first>Lorenzo</first><last>Cannata</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="uri-hasson" orcid="0000-0002-8530-5051"><first>Uri</first><last>Hasson</last><affiliation>University of Trento</affiliation></author>
+      <pages>408-418</pages>
+      <abstract>Transformer circuits are often evaluated by ablating certain circuits or components and measuring the resulting performance drop. These interventions test circuit necessity only under a fixed model configuration, and it is unclear if the residual network can recover performance through alternative, parameter-efficient adaptations. Using BERT as a frozen encoder and a linear part-of-speech (POS) readout as a task classifier, we first use gate masking to learn a sparse core subnetwork sufficient for POS classification. Ablating this core produced a damaged model and a sharp drop in accuracy <tex-math>(95.0\\% \\rightarrow 16.8\\%)$. We then evaluated recovery from damage under four retraining pathways: readout-only, mask-only, joint readout+mask, and encoder-only with the ablation held fixed. Readout-only, mask-only, joint mask-and-readout, and encoder-only retraining arrived at 80.0\%, 69.7\%, 85.9\%, and 92.3\% accuracy, respectively. Some recovery pathways partially restored core-like geometry, but others recovered high performance without restoring the original encoder geometry. These results show that in a joint encoder--readout context, a sparse subnetwork can be sufficient and necessary for performance in the original fixed configuration, but need not remain necessary after recovery, and that recovered performance does not rely on recovering the original geometry.</tex-math></abstract>
+      <pdf hash="33f9345d"/>
+      <bibkey>cannata-hasson-2026-multiple</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.26/ -->
+      <title>Testing the Limits of Truth Directions in <fixed-case>LLM</fixed-case>s</title>
+      <author id="angelos-poulis" orcid="0009-0000-5466-3406"><first>Angelos</first><last>Poulis</last><affiliation>Boston University, Boston University</affiliation></author>
+      <author id="mark-crovella" orcid="0000-0002-5005-7019"><first>Mark</first><last>Crovella</last><affiliation>Boston University</affiliation></author>
+      <author><first>Evimaria</first><last>Terzi</last><affiliation>Boston University, Boston University</affiliation></author>
+      <pages>419-447</pages>
+      <abstract>Large language models (LLMs) have been shown to encode truth of statements in their activation space along a linear truth direction. Previous studies have argued that these directions are universal in certain aspects, while more recent work has questioned this conclusion drawing on limited generalization across some settings. In this work, we identify a number of limits of truth-direction universality that have not been previously understood. We first show that truth directions are highly layer-dependent, and that a full understanding of universality requires probing at many layers in the model. We then show that truth directions depend heavily on task type, emerging in earlier layers for factual and later layers for reasoning tasks; they also vary in performance across levels of task complexity. Finally, we show that model instructions can affect truth directions; simple correctness evaluation instructions significantly affect the geometry and the generalization ability of the truth probes. Our findings indicate that universality claims for truth directions are more limited than previously known, with significant differences observable for various model layers, task difficulties, task types, and prompt templates</abstract>
+      <pdf hash="2dd97207"/>
+      <bibkey>poulis-etal-2026-testing</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.27/ -->
+      <title>Forcing a Letter Suppresses Refusal: Mechanistic Evidence from <fixed-case>WMDP</fixed-case></title>
+      <author id="anna-antipova" orcid="0009-0008-1975-0473"><first>Anna</first><last>Antipova</last><affiliation>First Moscow State Medical University</affiliation></author>
+      <author><first>Stepan</first><last>Epifantsev</last><affiliation>Independent</affiliation></author>
+      <author><first>Oleg</first><last>Chernikov</last></author>
+      <author id="leon-strelkov" orcid="0009-0002-6060-559X"><first>Leon</first><last>Strelkov</last><affiliation>ITMO University</affiliation></author>
+      <author id="alexey-dontsov" orcid="0009-0002-1999-1644"><first>Alexey</first><last>Dontsov</last><affiliation>DS NLP Group</affiliation></author>
+      <pages>448-464</pages>
+      <abstract>Safety benchmarks for large language models (LLMs) commonly use multiple-choice question (MCQ) format. However, prior studies documented that MCQ format reduces refusal rates, which may significantly affect the safety behavior of the model. We provide a first mechanistic explanation of this effect on the Weapons of Mass Destruction Proxy (WMDP) dataset across two models – Llama-3.1-8B and Qwen3-8B. First, we use the tuned lens technique to show that when processing MCQ the model commits to an answer-letter token very quickly, which is in contrast to the gradual refusal build-up in open-ended formats. Additionally, we observe that activations on the MCQ format lie roughly <tex-math>3\times</tex-math> further from  the refusal direction,  compared with their open-ended counterparts. Moreover, ablating the attention heads that carry the MCQ format answer increases the refusal, which is a direct evidence that the MCQ answer-selection competes with refusal. These findings indicate that MCQ safety scores primarily measure knowledge capabilities and do not assess the safety-mechanisms.</abstract>
+      <pdf hash="e68a3ee2"/>
+      <bibkey>antipova-etal-2026-forcing</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.28/ -->
+      <title>Rewired or Gated? How Instruction Tuning Shapes Knowledge-Conflict Circuits in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Shubham Santosh</first><last>Pandere</last></author>
+      <author><first>Gautam</first><last>Ranka</last></author>
+      <author><first>Ritika</first><last>Varshney</last></author>
+      <author><first>Navya</first><last>Deshmukh</last></author>
+      <author><first>Roushni</first><last>Sareen</last></author>
+      <author><first>Roshan Kumar</first><last>Singh</last></author>
+      <pages>465-476</pages>
+      <abstract>In language models, the choice between believing the prompt and believing the weights is made by a handful of identifiable attention heads. Instruction tuning changes how models behave under conflict, but whether it rewires the underlying circuit or merely gates/reweights already present components, remains unknown. We provide the first mechanistic base-vs-instruct comparison of conflict-resolution circuits, across three families (Llama-3.2-3B, Qwen-2.5-3B, Gemma-3-4B). Five independent methods, node and edge attribution, superposition role analysis, causal ablation, and path patching, converge on gating, with the same heads, in the same late-layers, are found to be reweighted rather than replaced with a high node overlap (0.60–0.82). Behaviorally, tuning shifts models toward parametric memory, making instruct models reject a terse counterfactual context far more than base ones, the opposite of a naive user-following expectation. Yet this added skepticism is a factor of framing since it disappears when the same false claim is delivered as a coherent, evidential passage. The robustness that instruction tuning buys against terse injection is therefore real but narrow. More broadly, we believe that because the conflict circuit is preserved rather than rebuilt, interpretability and control tools calibrated on base models should transfer directly to their deployed instruct siblings.</abstract>
+      <pdf hash="ebcd3216"/>
+      <bibkey>pandere-etal-2026-rewired</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.29/ -->
+      <title>Belief or Circuitry? Causal Evidence for In-Context Graph Learning</title>
+      <author><first>Katharine</first><last>Kowalyshyn</last><affiliation>Tufts University</affiliation></author>
+      <author id="timothy-duggan" orcid="0009-0007-6955-2961"><first>Timothy</first><last>Duggan</last></author>
+      <author><first>Daniel</first><last>Little</last><affiliation>Tufts University</affiliation></author>
+      <author><first>Michael C</first><last>Hughes</last><affiliation>Tufts University</affiliation></author>
+      <pages>477-486</pages>
+      <abstract>How do LLMs learn in-context? Is it by pattern-matching recent tokens, or by inferring latent structure? We probe this question using a toy graph random-walk across two competing graph structures. We present behavioral, representational, and causal evidence that neither account alone is sufficient. First, a complexity-weighted sigmoid model captures topology-dependent evidence accumulation, and PCA shows that both graph topologies are visually recoverable at intermediate mixture ratios. Second, residual-stream activation patching and graph-difference steering causally intervene on this graph-family signal: late-layer patching almost fully transfers the clean graph preference, while linear steering moves predictions in the intended direction and fails under norm-matched and label-shuffled controls. An explicit transition-cache baseline reproduces the fitted asymmetry and held-out-edge transfer, however, so these results do not by themselves distinguish global inference from local copying. Taken together, our findings are consistent with a dual-mechanism account in which structure inference and induction circuits operate in parallel, but do not uniquely identify it.</abstract>
+      <pdf hash="37216866"/>
+      <bibkey>kowalyshyn-etal-2026-belief</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.30/ -->
+      <title>Does Out-of-Sight Equal Out-of-Mind in <fixed-case>C</fixed-case>o<fixed-case>T</fixed-case> Monitorability?</title>
+      <author><first>Pedro Lobato</first><last>Ferreira</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Wilker</first><last>Aziz</last><affiliation>University of Amsterdam</affiliation></author>
+      <author id="ivan-titov" orcid="0000-0002-8116-4749"><first>Ivan</first><last>Titov</last><affiliation>University of Edinburgh and University of Amsterdam</affiliation></author>
+      <pages>487-513</pages>
+      <abstract>Chain-of-thought (CoT) reasoning offers a window into the decision-making of large language models (LLMs), which can be monitored for target behaviors by reading the reasoning trace, motivating work on CoT monitorability. Latent CoT approaches, however, replace the explicit tokens with a small number of continuous states, lowering inference costs but removing the readable trace this monitoring relies on. Monitoring then requires alternative access to the model, such as probing its activations or verbalizing the latent states back into text, but how much monitorability these alternatives preserve is unclear. We study this question with a hint-based intervention setup, a proxy for behaviors where models exploit biasing input cues, e.g., an inadvertently leaked answer or a belief stated by the user, without acknowledging them. Taking hint-reliance as the monitorability target, we compare monitors across reasoning modes, from explicit CoT to weakly- and strongly-supervised latent CoT, on math reasoning and question answering. We find that, in this setup, monitorability depends more on properties of the task (such as whether the correct answer constrains the supporting reasoning) and the level of access to model internals than on the reasoning mode.</abstract>
+      <pdf hash="225628c9"/>
+      <bibkey>ferreira-etal-2026-sight</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.31/ -->
+      <title>Linear Layer Repair: Residual-Controlled Layer Profiling for Fault-Tolerant Transformer Inference</title>
+      <author><first>Jiya Sheetal</first><last>Rathi</last></author>
+      <author><first>André</first><last>Bauer</last><affiliation>Illinois Institute of Technology</affiliation></author>
+      <pages>514-522</pages>
+      <abstract>Deciding which transformer layers can be cheaply replaced - when a node fails mid-computation, or when a block is pruned - requires knowing what each layer actually computes. A straightforward approach is to fit a linear map between consecutive hidden states and read off its <tex-math>R^2</tex-math>. In our analysis, these fits look excellent, exceeding <tex-math>R^2</tex-math> of 0.97. However this number is largely an artifact of the residual stream: an untrained network scores just as well. The informative quantity is instead how linearly predictable a layer’s update <tex-math>h_{L+1}-h_L</tex-math> is. Measured this way, and across six models from three architecture families, layers fall into a clear U-shaped pattern: those at the beginning and end of the stack perform large but almost perfectly linear transformations, while those in the middle perform small nonlinear ones. Given these insights, we present Linear Layer Repair, a policy that reads a layer’s profile and prescribes one of three responses when it goes missing: (i) skip it, (ii) swap in a fitted linear map, or (iii) declare it unrecoverable. Using WikiText-103, we test Linear Layer Repair by removing layers and measuring the damage. The results show that the linear map beats plain skipping at all 16 LLaMA-3.2-1B layers and 26 of 28 in Qwen2-1.5B;  replacing a single middle layer costs under half a point of perplexity against a baseline of 15; even four consecutive layers cost only <tex-math>\sim</tex-math>2.5 points; and at an early layer, where skipping raises perplexity above <tex-math>10^5</tex-math>, the patch reduces it more than a thousand-fold. Task-level evaluations show corresponding recovery on prediction-sensitive behavior.</abstract>
+      <pdf hash="64228635"/>
+      <bibkey>rathi-bauer-2026-linear</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.32/ -->
+      <title>Pitfalls in Evaluating Interpretability Agents</title>
+      <author><first>Tal</first><last>Haklay</last><affiliation>Goodfire AI and Technion - Israel Institute of Technology, Technion</affiliation></author>
+      <author><first>Nikhil</first><last>Prakash</last></author>
+      <author id="sana-pandey" orcid="0009-0003-0151-4038"><first>Sana</first><last>Pandey</last></author>
+      <author><first>Antonio</first><last>Torralba</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author id="aaron-mueller" orcid="0009-0005-1148-5001"><first>Aaron</first><last>Mueller</last><affiliation>Boston University</affiliation></author>
+      <author id="jacob-andreas" orcid="0000-0002-3141-5845"><first>Jacob</first><last>Andreas</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>Tamar Rott</first><last>Shaham</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>Yonatan</first><last>Belinkov</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
+      <pages>523-560</pages>
+      <abstract>Automated interpretability systems aim to reduce the need for human labor and scale analysis to increasingly large models and diverse tasks. Recent efforts toward this goal leverage large language models (LLMs) at increasing levels of autonomy, ranging from fixed one-shot workflows to fully autonomous interpretability agents. This shift creates a corresponding need to scale evaluation approaches to keep pace with both the volume and complexity of generated explanations. We investigate this challenge in the context of automated circuit analysis—explaining the roles of model components when performing specific tasks. To this end, we build an agentic system in which a research agent iteratively designs experiments and refines hypotheses. When evaluated against human expert explanations across six circuit analysis tasks in the literature, the system appears competitive. However, closer examination reveals several pitfalls of replication-based evaluation: human expert explanations can be subjective or incomplete, outcome-based comparisons obscure the research process, and LLM-based systems may reproduce published findings via memorization or informed guessing. To address some of these pitfalls, we propose an unsupervised intrinsic evaluation based on the functional interchangeability of model components. Our work demonstrates fundamental challenges in evaluating complex automated interpretability systems and reveals key limitations of replication-based evaluation.</abstract>
+      <pdf hash="adc5dede"/>
+      <bibkey>haklay-etal-2026-pitfalls</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.33/ -->
+      <title><fixed-case>Z</fixed-case>ipf Made Me Do It: A Causal Account of Outlier Dimensions</title>
+      <author id="kartik-sharma-6539" orcid="0009-0009-2499-6539"><first>Kartik</first><last>Sharma</last></author>
+      <author id="shreshth-rai" orcid="0009-0008-5029-4816"><first>Shreshth</first><last>Rai</last></author>
+      <author id="nikunj-gupta" orcid="0009-0004-4122-4622"><first>Nikunj</first><last>Gupta</last></author>
+      <author><first>Dinesh K</first><last>Vishwakarma</last><affiliation>Delhi Technological University (Delhi College of Engineering),</affiliation></author>
+      <pages>561-572</pages>
+      <abstract>Outlier dimensions are a recurring geometric property of transformer representations that have been linked to token frequency in pretrained language models. However, studies on pretrained models cannot disentangle token frequency from semantic and optimization confounds, preventing a causal understanding of whether frequency itself drives outlier formation. These distortions also degrade probing accuracy and hinder model compression, motivating a controlled study of their origin. We address this issue by isolating frequency skew as a controlled variable in a synthetic transformer trained on data with a tunable Zipfian token distribution. We find that outlier magnitude remains stable under low skew but increases sharply beyond a moderate threshold. A frozen frequency-based output bias fails to reproduce this behavior, model capacity exhibits a non-monotonic U-shaped effect, and an <tex-math>L_2</tex-math>-normalized cosine softmax suppresses outlier geometry only under a large temperature not reached by standard training. These results identify frequency skew as a causal driver of outlier dimensions and show that removing their geometry requires an intervention beyond standard training.</abstract>
+      <pdf hash="325643f1"/>
+      <bibkey>sharma-etal-2026-zipf</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.34/ -->
+      <title>Are Arithmetic Heuristic Neurons Form-Invariant? A Mechanistic Analysis of Symbols, Text, and Code in <fixed-case>LLM</fixed-case>s</title>
+      <author id="sharath-naganna" orcid="0000-0003-3182-5745"><first>Sharath</first><last>Naganna</last></author>
+      <author id="tanvir-ahmed-sijan" orcid="0009-0002-2397-0600"><first>Tanvir Ahmed</first><last>Sijan</last></author>
+      <author><first>Uddipta</first><last>Kalita</last></author>
+      <pages>573-589</pages>
+      <abstract>Large language models often succeed on one formulation of a problem while failing on an equivalent formulation. Whether these failures arise from distinct internal circuits or different activation states of a shared circuit remains unknown. Recent mechanistic interpretability studies suggest that arithmetic in LLMs emerges from a "bag of heuristics," encoded by a sparse set of MLP neurons that represent distinct arithmetic strategies. We investigate whether arithmetic heuristic neurons are form-invariant across symbolic arithmetic, natural language word problems, and Python code in three Llama-3 models. In each format, we identify arithmetic heuristic neurons using a two-stage pipeline combining attribution patching and activation patching. A compact set of neurons is shared across all three formats, and targeted interventions show this shared circuit is both necessary and sufficient for late-layer arithmetic computation. Transferring the shared neurons’ activations from a successful execution in one format to a failed execution in another recovers most incorrect predictions, exceeding 97% for addition and subtraction, indicating that cross-format failures arise from activation states rather than distinct circuits. Moreover, shared neurons largely belong to the same heuristic families across formats, indicating that arithmetic computation in LLMs is substantially form-invariant at the neuron level.</abstract>
+      <pdf hash="da7dbcb3"/>
+      <bibkey>naganna-etal-2026-arithmetic</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.35/ -->
+      <title>A Multi-Dimensional Evaluation of Explainability in Media Bias Detection</title>
+      <author><first>Ting</first><last>Chen</last></author>
+      <author><first>Chengjun</first><last>Zhang</last></author>
+      <author id="benjamin-m-ampel" orcid="0000-0003-0603-0270"><first>Benjamin M.</first><last>Ampel</last><affiliation>Georgia State University</affiliation></author>
+      <author id="sagar-samtani" orcid="0000-0002-4513-805X"><first>Sagar</first><last>Samtani</last><affiliation>Indiana University at Bloomington</affiliation></author>
+      <pages>590-602</pages>
+      <abstract>Detecting media bias automatically is difficult because biased framing is often subtle, yet in domains such as news analysis, accurate predictions alone are insufficient without explanations that reflect the model’s underlying reasoning. We present a multi-dimensional evaluation of explainability in encoder-based media bias detection using the Bias Annotations By Experts (BABE) dataset. Specifically, we study BERT and RoBERTa as classifiers (base and large variants) along three complementary axes: predictive performance, explanation plausibility (token-level alignment with expert rationales), and mechanistic faithfulness (whether compact sets of attention heads recover predictive signal under counterfactual rationale masking). To induce variation in plausibility, we additionally investigate attention-supervised finetuning, which incorporates expert rationale annotations as an auxiliary training signal. Attention supervision serves as an intervention on attribution plausibility, while the effectiveness of attribution methods varies substantially across architectures. Circuit analysis further reveals substantial variation in mechanistic recoverability across architectures, suggesting that model scale alone does not determine circuit compressibility. Taken together, our findings suggest that predictive performance, attribution plausibility, and mechanistic faithfulness characterize different aspects of model behavior and should be evaluated separately when studying explainability in media bias detection.</abstract>
+      <pdf hash="b6f1d186"/>
+      <bibkey>chen-etal-2026-multi-dimensional</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.36/ -->
+      <title>Automatically Interpreting Attribution Graphs via Probe Prompting</title>
+      <author id="giuseppe-birardi" orcid="0000-0001-6494-8528"><first>Giuseppe</first><last>Birardi</last><affiliation>Ormai Lab srl</affiliation></author>
+      <author id="goncalo-paulo" orcid="0000-0002-2002-884X"><first>Gonçalo</first><last>Paulo</last><affiliation>EleutherAI</affiliation></author>
+      <pages>603-638</pages>
+      <abstract>Even though we know the precise computations that lead from a large language model (LLM) input to its output this computation remains very hard to interpret. One way to make it easier to understand this process is by creating a sparse computational graph that captures most of the model behavior with smallest number of computational nodes. Cross-layer transcoders (CLT) decompose the dense computations of the MLP but the resulting circuits still contain thousands of nodes even for short prompts. Existing automated interpretation methods label individual features from corpus activations, and it often happens that these labels are not validated by causal intervention. We introduce <i>probe prompting</i>, a transparent rule-based pipeline that groups the features of an attribution graph into concept-aligned supernodes from their responses on a small set of concept-targeted probe prompts, summarized as Cross-Prompt Activation Signatures (CPAS). Across four factual domains, on Gemma-2-2B with a public CLT dictionary and 45,596 entity-swap interventions, we find that the labeled supernodes have the predicted steering behavior in every one of them. Code, datasets, and an interactive demo are released anonymously as a reusable harness for calibrating supernode labels against causal interventions.</abstract>
+      <pdf hash="d6c3ea5f"/>
+      <bibkey>birardi-paulo-2026-automatically</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.37/ -->
+      <title>Sampling Reveals Style: Unsupervised, Training-Free Discovery of Prompt-Conditional Stylistic Axes in <fixed-case>LLM</fixed-case> Activations</title>
+      <author id="ajit-mallavarapu" orcid="0009-0002-5358-4073"><first>Ajit</first><last>Mallavarapu</last><affiliation>Cornell University</affiliation></author>
+      <author id="ziwei-gu" orcid="0000-0001-9044-2651"><first>Ziwei</first><last>Gu</last></author>
+      <pages>639-654</pages>
+      <abstract>Large language models (LLMs) encode rich stylistic structure in their hidden activations, but discovering which stylistic dimensions are salient for a given prompt typically requires supervised contrastive data. We present a training-free, prompt-conditional alternative: we repeatedly sample completions of a single prompt at elevated temperature, apply Principal Component Analysis (PCA) to the pooled hidden activations, and label the resulting axes automatically from the pole generations. We validate the discovered axes against 245 human-elicited stylistic annotations in a two-phase study. On our strongest model (Qwen3.5-4B), the top two axes match spontaneously requested human dimensions with 72.8% precision and 43.6% macro-recall, and 75.6% of validity ratings judge the axes’ polar generations accurate to their labels, with 90.9% adjacent inter-annotator agreement. Discoverability is strongly model-dependent: both Qwen models and Llama-3.2-3B expose human-salient axes, while DeepSeek-7B-Chat drops to 35.3% precision, its leading components dominated by structural rather than stylistic variance. Simple PCA over a model’s own decoding variance is thus an effective, low-cost probe of stylistic structure in LLM representations, one that also exposes sharp cross-model differences in how that structure is organized.</abstract>
+      <pdf hash="fa41b8b0"/>
+      <bibkey>mallavarapu-gu-2026-sampling</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.38/ -->
+      <title>Compositional Multilingual and Behavioral Attribute Steering</title>
+      <author><first>Hyun Gu</first><last>Kang</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <author id="daniil-gurgurov" orcid="0009-0007-5018-1187"><first>Daniil</first><last>Gurgurov</last></author>
+      <author id="tanja-baeumel" orcid="0000-0002-2398-3738"><first>Tanja</first><last>Baeumel</last></author>
+      <author id="josef-van-genabith" orcid="0000-0003-1322-7944"><first>Josef</first><last>Van Genabith</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
+      <author id="simon-ostermann" orcid="0000-0002-0899-0657"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
+      <pages>655-676</pages>
+      <abstract>This study examines the compositionality of steering vectors for language and behavioral control in large language models. Focusing on language, jailbreak, and conciseness, we investigate whether additive, training-free composition of attribute steering vectors can preserve the intended steering effect of each attribute, across four instruction-tuned models from two model families and two size scales. We find that single-attribute steering is reliable for all three attributes, but only within an appropriate combination of intervention layer and steering strength, with abstract behaviors (jailbreak, conciseness) favoring middle layers and language favoring earlier layers. We show that additive composition of two attribute vectors succeeds in steering both attributes simultaneously when each is injected at its own best-performing layer, and that this partially extends to three simultaneously composed attributes, addressing an inconsistency left open by prior work on training-free composition. We further analyze the geometric properties of these steering vectors, finding that they are approximately orthogonal in the residual stream, consistent with their compositional behavior.</abstract>
+      <pdf hash="6ba298b1"/>
+      <bibkey>kang-etal-2026-compositional</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.39/ -->
+      <title>Are <fixed-case>XAI</fixed-case> Metrics Meaningful Proxies for Human Judgment? Evaluation Explanation Quality in Claim Matching</title>
+      <author id="jaroslav-kopcan" orcid="0000-0002-7467-6615"><first>Jaroslav</first><last>Kopcan</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author><first>Ľuboš</first><last>Kriš</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author><first>Qiwei</first><last>Peng</last></author>
+      <author id="miroslav-blstak" orcid="0000-0002-8437-8769"><first>Miroslav</first><last>Blstak</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author id="vera-schmitt" orcid="0000-0002-9735-6956"><first>Vera</first><last>Schmitt</last><affiliation>Johannes-Gutenberg Universität Mainz and Technische Universität Berlin</affiliation></author>
+      <pages>677-695</pages>
+      <abstract>AutoXAI frameworks automatically select and optimize explainability methods using quantitative metrics such as faithfulness and plausibility. But do these metrics align with human perception of explanation quality? We investigate this question for attribution-based explanation methods, which assign token-level relevance scores to the input, in the context of claim matching, a core fact-checking task in which a bi-encoder model matches social media posts to previously fact-checked claims. Combining a large-scale evaluation of 11 XAI methods with a controlled user study, we find that methods recommended by AutoXAI metrics are perceived by users as most helpful for understanding the claim-post match, while deprioritized methods are judged as misleading. We further show that simple post-processing of explanations can improve human-perceived usefulness without degrading faithfulness. Because AutoXAI recommends the top-ranked method in practice, this alignment at the decisive top-versus-bottom boundary positions these metrics as reliable indicators for distinguishing clearly strong from clearly weak methods.</abstract>
+      <pdf hash="d83394a4"/>
+      <bibkey>kopcan-etal-2026-xai</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.40/ -->
+      <title>Your Judge Inherits Your Prompt: In-Context Label Bias in an <fixed-case>LLM</fixed-case>-as-Judge Is Directional, Not Symmetric</title>
+      <author><first>Abdullah</first><last>Ahmad</last><affiliation>Arizona State University</affiliation></author>
+      <author><first>Ahmed J O</first><last>Ahmed</last><affiliation>University of Essex</affiliation></author>
+      <author><first>Luca</first><last>Citi</last></author>
+      <pages>696-706</pages>
+      <abstract>LLM-as-judge has become a standard way to score open-ended model outputs, yet the judge is itself a frozen language model steered by a few in-context examples, and such models are known to absorb the label balance of their demonstrations rather than treat them as neutral illustrations. We ask whether this label bias reaches an LLM judge used inside a multimodal (video question answering) evaluation pipeline, and what form it takes. Using a fully frozen generator–judge pipeline, we hold the generated answers fixed and vary only the Yes/No balance of the judge’s few-shot examples across four demonstration sets. Each verdict is validated against a two-annotator human consensus on 200 examples per dataset. The judge’s acceptance rate stays close to human consensus when its examples are balanced or skewed toward rejection, but jumps sharply (by about 30 points on NExT-QA and 20 on MSVD-QA, with a strongly one-sided error profile) when the examples are skewed toward acceptance; the opposite skew produces no matching drop. The bias is therefore one-directional within the tested range of label ratios. A separate five-draw analysis shows that results from a single example draw are unreliable, varying by up to 18 points, more than any difference between prompting conditions. We conclude that demonstration label bias in an LLM judge is a directional, inflation-only failure mode that can fabricate apparent benchmark gains but not losses, and that it is cheaply avoided by balancing the judge’s examples and reporting results averaged over several draws.</abstract>
+      <pdf hash="26339572"/>
+      <bibkey>ahmad-etal-2026-judge</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.41/ -->
+      <title>Attend or Perish: Benchmarking Attention on Algorithmic Reasoning</title>
+      <author><first>Michal</first><last>Spiegel</last><affiliation>Kempelen Institute of Intelligent Technologies</affiliation></author>
+      <author id="michal-stefanik" orcid="0000-0003-1766-5538"><first>Michal</first><last>Štefánik</last><affiliation>National Institute of Informatics</affiliation></author>
+      <author id="marek-kadlcik" orcid="0000-0002-8293-7184"><first>Marek</first><last>Kadlčík</last><affiliation>Masaryk University</affiliation></author>
+      <author><first>Valeria</first><last>Ruscio</last></author>
+      <author id="martin-fajcik" orcid="0000-0002-8443-8071"><first>Martin</first><last>Fajčík</last><affiliation>Brno University of Technology</affiliation></author>
+      <author><first>Josef</first><last>Kuchař</last><affiliation>Masaryk University</affiliation></author>
+      <pages>707-725</pages>
+      <abstract>While Transformer models can learn algorithmic tasks and generalize reliably to unseen, in-distribution data, they often fail catastrophically when required to extrapolate to sequence lengths beyond their training regime. Using AttentionSpan, a suite of synthetic diagnostic tasks designed to enable inspection of internal model computations, we analyze the model’s behavior on length extrapolation. Our findings indicate that this failure is not fully explained by an inability to induce general rules for the task. Instead, we identify inconsistent attention patterns as a major contributing factor: information retrieval strategies learned by individual attention heads, which fail to remain stable as sequence length increases. Reinforcing a reference attention pattern at inference time, using no out-of-distribution data, largely recovers accuracy on String Reversal and partially on Value Assignment, while leaving multi-digit arithmetic unresolved. We also study <i>length adaptation</i>, how a model trained on one length adjusts to another by fine-tuning its Key and Query parameters, and find that a single dimension in every attention head is enough, across 4 algorithmic tasks and the RULER benchmark. Adaptation does not carry past the fine-tuned lengths, and our interventions are diagnostic rather than a proposed remedy. We make our benchmark and code publicly available.</abstract>
+      <pdf hash="347644cf"/>
+      <bibkey>spiegel-etal-2026-attend</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.42/ -->
+      <title>Dissecting Lie Expectancy in Language Models</title>
+      <author id="xingyuan-zhao" orcid="0009-0001-3460-0798"><first>Xingyuan</first><last>Zhao</last></author>
+      <author id="seana-coulson" orcid="0000-0003-1246-9394"><first>Seana</first><last>Coulson</last><affiliation>University of California, San Diego</affiliation></author>
+      <pages>726-738</pages>
+      <abstract>When the speaker has a motive to lie — profit, face-saving, fear of punishment — an informed reader expects the lie. Forming this expectation requires three distinct abilities: representing what is actually true in the described situation, aligning linguistic expectations with the speaker’s incentives to be truthful, and adapting those expectations across situations. We study whether twelve open Qwen3 and OLMo2 models possess these abilities, asking how each is organized, whether they are separable, and when each is acquired. Within each model, fact information is linearly decodable at mid depth but becomes directly expressed only in the final third of the network; motive recognition emerges slightly later, and both grow with scale. Two-layer ablations dissociate them: removing a mid-depth band of layers weakens fact expression and motive recognition together. Ablating a deeper pair of layers, in contrast, leaves both essentially intact while eliminating human alignment: being sensitive to motives and being sensitive in the way humans are turn out to be separable abilities. Across 19 public checkpoints of OLMo2-7B, fact representation and motive recognition become detectable at around 0.3T tokens and grow steadily throughout pretraining, while human alignment stays non-significant until mid-training — a brief continued training on curated data. Altogether, representing what is true and recognizing whether a speaker is motivated to lie are closely coordinated; matching human judgments about when lying is likely is a later and partially separable achievement.</abstract>
+      <pdf hash="10704648"/>
+      <bibkey>zhao-coulson-2026-dissecting</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.43/ -->
+      <title>The Geometry of Political Abstraction in Large Language Models</title>
+      <author><first>Noé</first><last>Durandard</last></author>
+      <author><first>Saurabh</first><last>Dhawan</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="thierry-poibeau" orcid="0000-0003-3669-4051"><first>Thierry</first><last>Poibeau</last><affiliation>CNRS</affiliation></author>
+      <pages>739-760</pages>
+      <abstract>Large language models encode high-level concepts with heterogeneous domain-specific manifestations, but it remains unclear whether their internal representations are organized in a form that supports cross-domain generalization. We investigate this question by adapting representational geometry methods from systems neuroscience and using political ideology as a naturalistic test case for a candidate latent variable spanning diverse policy domains. Across three open-weight LLMs, we analyze hidden states elicited by matched left- and right-leaning statements from ten policy domains. Within each domain, while political polarity is linearly decodable, lexical features achieve comparable performance. By contrast, cross-domain generalization substantially exceeds the lexical baseline and peaks in intermediate layers. This peak coincides with a marked reduction in participation ratio, suggesting that domain-specific political distinctions, instead of being maintained as independent axes, become aligned within a shared low-dimensional subspace. These findings suggest that LLMs transiently organize heterogeneous inputs into a common representational geometry that supports cross-domain abstraction, offering insight into how models structure complex social knowledge.</abstract>
+      <pdf hash="d108a3ef"/>
+      <bibkey>durandard-etal-2026-geometry</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.44/ -->
+      <title>How Much Sonority Structure Do Phonotactic Language Models Learn from Distribution?</title>
+      <author><first>Jia Can</first><last>Xu</last></author>
+      <author><first>Mario</first><last>Giulianelli</last><affiliation>University College London, University of London</affiliation></author>
+      <pages>761-782</pages>
+      <abstract>Sonority projection, the ability to rank unattested consonant clusters by their sonority contour, has been interpreted as evidence for innate phonological knowledge. We test whether neural phonotactic language models can acquire sonority structure from English phoneme distributions through a controlled comparison of four input geometries: articulatory features, trainable embeddings, feature vectors randomly reassigned to phonemes, and frozen random vectors. We train LSTMs and Transformers, probe whether sonority structure is linearly recoverable across representation spaces and throughout training, and evaluate phonotactic sensitivity using nonce-word violations and human acceptability judgements of unattested onsets. Sonority probes recover the consonant–vowel distinction from contextual phoneme representations under every input condition, whereas the hierarchy among consonant classes (obstruents, nasals, liquids, and glides) is most strongly recoverable with articulatory-feature input and less recoverable under the other conditions. Nevertheless, under all input geometry conditions, model surprisal discriminates phonotactic violations and correlates moderately with human judgements of unattested onsets. In summary, sonority structure and the tested phonotactic preferences can develop without sonority-aligned input representations: input geometry shapes how much fine-grained sonority structure is recoverable, but models with more recoverable structure, whether provided explicitly or learned during training, at the input or in the hidden states, show no consistent advantage on the phonotactic evaluations used here.</abstract>
+      <pdf hash="6201b273"/>
+      <bibkey>xu-giulianelli-2026-much</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.45/ -->
+      <title>Do <fixed-case>ICL</fixed-case> and Finetuned Misalignment Share a Causal Component? Evidence from Risky Financial Advice</title>
+      <author><first>Albrave Raphael</first><last>Albayda</last><affiliation>Independent</affiliation></author>
+      <pages>783-794</pages>
+      <abstract>Misalignment in language models can be induced through either in-context learning (ICL) or supervised finetuning (SFT), but it is uncertain whether they share an internal causal representation. We study this in Llama-3.1-8B-Instruct by comparing two setups built from a dataset promoting financial recklessness: the base model whose context window carries 1,024 examples, and a model organism finetuned on that dataset. We extract difference-in-means directions that contrast misaligned and benign responses to finance advice prompts. We make four observations. First, the two directions are aligned across depth, with cosine similarity 0.59 at layer 24. Second, the component transfers causally across induction routes: ablating the ICL direction from the SFT model lowers misalignment from 58.8% to 47.4%, ablating the SFT direction from the ICL model lowers it from 65.9% to 46.3%, and steering the ICL direction into the non-misaligned model raises it to 88.9%. Third, the component only partially represents the behavior: in the ICL model, the ICL direction is still causally much stronger than the SFT direction, and substantial misalignment remains even under repeated ablation. Finally, the component is domain-specific: finance-to-medical interventions do not transfer. On net the evidence supports a partial, domain-specific, and causal ICL–SFT bridge.</abstract>
+      <pdf hash="25caaf78"/>
+      <bibkey>albayda-2026-icl</bibkey>
+    </paper>
+    <paper id="46">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.46/ -->
+      <title>From Rage to Refusal : Using Social-Media Data to Steer Hostility-Related Affect in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Gayatri</first><last>Krishnakumar</last></author>
+      <author id="maximilian-puelma-touzel" orcid="0000-0002-8211-6503"><first>Maximilian</first><last>Puelma Touzel</last></author>
+      <author id="zachary-yang" orcid="0009-0009-6765-2293"><first>Zachary</first><last>Yang</last><affiliation>Mila - Quebec Artificial Intelligence Institute</affiliation></author>
+      <author><first>Jean-François</first><last>Godbout</last><affiliation>Université de Montréal</affiliation></author>
+      <author id="reihaneh-rabbany" orcid="0000-0003-2348-0353"><first>Reihaneh</first><last>Rabbany</last></author>
+      <pages>795-817</pages>
+      <abstract>Large language models (LLMs) are used as agents in social-media simulations, where behavioral fidelity may depend on preserving the affective intensity of real discourse. Using 3,692 unique Bluesky posts expanded into 14,768 activation records, we extract mild–strong affect directions in Qwen2.5 and Llama-3.1 Base and instruction-tuned checkpoints. Measured separation and reciprocal transfer to non-political hostility support a broader hostility-related feature rather than a uniquely partisan axis. In a six-prompt steering probe, checkpoints differ in their labeled hostile expression, refusal/deflection, and neutralization. Refusal/deflection includes substantive answers with disclaimers. Same-layer comparisons distinguish the hostility directions from a measured harmful-request contrast; removing that component changes behavioral counts non-uniformly and does not consistently return them to baseline. These descriptive results illustrate a representation–expression gap and motivate downstream fidelity audits.</abstract>
+      <pdf hash="aecb23d3"/>
+      <bibkey>krishnakumar-etal-2026-rage</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.47/ -->
+      <title>Where Does Authorship Signal Emerge in Encoder-Based Language Models?</title>
+      <author id="francis-kulumba" orcid="0000-0002-5647-0314"><first>Francis</first><last>Kulumba</last><affiliation>INRIA and Sorbonne Université</affiliation></author>
+      <author><first>Guillaume</first><last>Vimont</last><affiliation>Institut de Recherche en Informatique Fondamentale</affiliation></author>
+      <author id="laurent-romary" orcid="0000-0002-0756-0508"><first>Laurent</first><last>Romary</last><affiliation>INRIA</affiliation></author>
+      <author id="florian-cafiero" orcid="0000-0002-1951-6942"><first>Florian</first><last>Cafiero</last><affiliation>Ecole Pour l'Informatique et les Techniques Avancees, Graduate Institute - Geneva and PSL</affiliation></author>
+      <pages>818-834</pages>
+      <abstract>Authorship attribution asks whether two texts were written by the same author. Models fine-tuned for this task with the same pretrained encoder, data, and loss can still differ four-fold in Recall@20 depending only on their scoring mechanism. We use mechanistic interpretability tools to explain this gap. Stylistic features such as word length, punctuation density, and function-word frequency are similarly available at every layer in every model we probe, including an off-the-shelf control encoder, suggesting that differences in feature availability do not explain the gap. Instead, causal intervention shows that the scoring mechanism determines where the encoder consolidates authorship signal. Mean pooling forces consolidation in the middle third of the network, while late interaction defers it to the upper third. We further derive this difference from the gradient structure of each scorer, and training dynamics reveal distinct learning trajectories that follow from that difference.</abstract>
+      <pdf hash="f169bdaa"/>
+      <bibkey>kulumba-etal-2026-authorship</bibkey>
+    </paper>
+    <paper id="48">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.48/ -->
+      <title>A Survey on the Linear Representation Hypothesis</title>
+      <author id="sewoong-lee" orcid="0009-0004-6272-2671"><first>Sewoong</first><last>Lee</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
+      <author><first>Marc E.</first><last>Canby</last></author>
+      <author id="ikhyun-cho" orcid="0009-0008-5269-4768"><first>Ikhyun</first><last>Cho</last><affiliation>Department of Computer Science</affiliation></author>
+      <author id="julia-hockenmaier" orcid="0000-0003-2796-1752"><first>Julia</first><last>Hockenmaier</last><affiliation>University of Illinois, Urbana Champaign</affiliation></author>
+      <pages>835-851</pages>
+      <abstract>The term “linear representation hypothesis” (LRH) has appeared across diverse subfields of artificial intelligence, neuroscience, and cognitive science. But previous works have not consistently treated the LRH as a falsifiable scientific hypothesis; we analyze these inconsistencies and examine their implications for how prior theoretical and methodological results should be interpreted. Based on this analysis, we argue that claims regarding linear representations become well-defined only through careful examination of the model, representation location, feature definition, and evaluation dataset. We therefore propose a more rigorous formalization of the LRH that makes these dependencies explicit and allows the hypothesis to be evaluated as a falsifiable scientific claim. Finally, we identify some non-trivial open problems that warrant further attention from the research community.</abstract>
+      <pdf hash="a09ef065"/>
+      <bibkey>lee-etal-2026-survey</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.49/ -->
+      <title>The <fixed-case>L</fixed-case>atin Substrate: How Language Models Represent and Mediate Script Choice</title>
+      <author id="daniil-gurgurov" orcid="0009-0007-5018-1187"><first>Daniil</first><last>Gurgurov</last></author>
+      <author><first>Alan</first><last>Saji</last><affiliation>ai4bharat</affiliation></author>
+      <author><first>Katharina</first><last>Trinley</last><affiliation>Universität Hamburg</affiliation></author>
+      <author id="josef-van-genabith" orcid="0000-0003-1322-7944"><first>Josef</first><last>Van Genabith</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
+      <author id="simon-ostermann" orcid="0000-0002-0899-0657"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
+      <pages>852-878</pages>
+      <abstract>Many languages are written in multiple scripts, requiring large language models (LLMs) to generate equivalent linguistic content in distinct orthographic forms. While prior work suggests that LLMs route information through shared latent representations, how they internally mediate script variation remains poorly understood.<par/>We study this question by first examining per-layer output distributions with the logit lens, which reveals consistent latent romanization during transliteration, and then through representational and mechanistic analyses of script generation. At the <tex-math>\textit{representational}</tex-math> level, we show that scripts of the same language become increasingly separable across layers and that a simple linear steering direction can flip a model’s output script while largely preserving semantic content. The vectors generalizes asymmetrically to writing systems unseen during construction: it flips non-Latin output to Latin, but maps Latin output into varied non-Latin scripts. At the <tex-math>\textit{mechanistic}</tex-math> level, we localize a small set of late-layer attention heads that causally mediate script choice. These heads transfer across unrelated languages and writing systems, suggesting that script routing is implemented by language-agnostic components. Across both analyses, we observe a consistent directional asymmetry: non-Latin output is produced by a compact, identifiable gate, while Latin-script output emerges from diffuse contributions across the model. Overall, our findings hint that LLMs organize script variation around shared latent representations while exhibiting a privileged substrate toward Latin script.</abstract>
+      <pdf hash="7f452601"/>
+      <bibkey>gurgurov-etal-2026-latin</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.50/ -->
+      <title><fixed-case>MACE</fixed-case>-<fixed-case>XAI</fixed-case>: A Multi-Agent Crowd Evaluation Framework for Robust Natural Language Explanations</title>
+      <author><first>Renato Okabayashi</first><last>Miyaji</last><affiliation>Universidade de São Paulo</affiliation></author>
+      <pages>879-891</pages>
+      <abstract>The rapid integration of Machine Learning in critical decision-making has shifted the focus of Explainable Artificial Intelligence (XAI) toward human-centric Natural Language Explanations (NLEs). While Large Language Models (LLMs) can synthesize narrative justifications from technical feature attributions, ensuring the faithfulness and robustness of these explanations remains an open challenge. Although multi-agent ensembles and Crowd-based Comparative Evaluation (CCE) are emerging standards for evaluating open-ended dialogues, they fail to capture domain-specific hallucinations and structural omissions inherent to technical explanations. To bridge this gap, we introduce MACE-XAI, a novel neuro-symbolic framework engineered specifically for the robust assessment of NLEs in the context of tabular feature-attribution XAI. Rather than proposing isolated evaluators, our key innovation lies in the architectural synergy of its components: we orchestrate a heterogeneous crowd of LLM agents to evaluate pragmatic text quality and fluency, while anchoring them with a deterministic symbolic verification layer that audits textual claims against raw technical ground truths. Experimental results demonstrate that while standalone LLM-as-judge setups are easily swayed by linguistic surface features, MACE-XAI achieves an agreement with human experts (Cohen’s <tex-math>\kappa=0.64</tex-math>). While this represents a significant improvement over standalone neural judges, it also highlights the remaining alignment gap that must be addressed before fully autonomous evaluation in safety-critical deployments.</abstract>
+      <pdf hash="06096424"/>
+      <bibkey>miyaji-2026-mace</bibkey>
+    </paper>
+    <paper id="51">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.51/ -->
+      <title>Automated Taxonomy Discovery for Interpretable Diagnosis of Multi-Hop Question Answering Datasets</title>
+      <author><first>Ryoji</first><last>Osaki</last></author>
+      <author id="masaki-asada" orcid="0000-0002-7117-5962"><first>Masaki</first><last>Asada</last></author>
+      <author id="makoto-miwa" orcid="0000-0002-2330-6972"><first>Makoto</first><last>Miwa</last><affiliation>Toyota Technological Institute and AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <pages>892-918</pages>
+      <abstract>As Large Language Models (LLMs) continue to improve on complex tasks, evaluation has shifted from simple factoid retrieval to multi-hop reasoning. While existing studies analyze structural aspects of sequential steps, analysis from diverse multiple perspectives remains limited. This paper introduces a framework for the automated, multi-perspective analysis of QA datasets and its application to LLM answer diagnosis. An Analyst LLM is utilized to (1) generate explicit sequential steps from question-context-answer triples in a zero-shot setting, (2) synthesize a taxonomy of reasoning features from educational, logical, and professional perspectives. The resulting annotations are then used to (3) analyze associations between these features and Target LLM failures via decision tree training. Applied to the FRAMES, Multihop-RAG, and MuSiQue datasets, our decision tree analysis identifies dataset-specific bottlenecks such as Implicit Math in FRAMES, Conditioned Filtering in Multihop-RAG, and Temporal Order Logic Paradox in MuSiQue, overlooked by structural analysis.</abstract>
+      <pdf hash="16a70726"/>
+      <bibkey>osaki-etal-2026-automated</bibkey>
+    </paper>
+    <paper id="52">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.52/ -->
+      <title>Explaining the Influence of Nonverbal Streams Across Sentence Types</title>
+      <author id="lipisha-chaudhary" orcid="0000-0002-8863-1338"><first>Lipisha</first><last>Chaudhary</last></author>
+      <author id="ifeoma-nwogu" orcid="0000-0003-1414-6433"><first>Ifeoma</first><last>Nwogu</last><affiliation>State University of New York at Buffalo</affiliation></author>
+      <pages>919-936</pages>
+      <abstract>Sign Language Translation (SLT) models integrate multiple visual channels, including the hands, body, and face, to generate written text, yet it remains unclear which channels the model actually relies on. We introduce Causal Stream Intervention (CSI), an intervention-based framework that measures each channel’s contribution by suppressing it during decoding and observing the change in the model’s predictions. This goes beyond attention weights, which show where a model looks but not what it depends on. Across two American Sign Language (ASL) datasets, we find that hand streams drive content-word prediction, while face and body streams contribute in a more variable, context-dependent way, with no single stream consistently dominating during question generation. Attention and routing scores offer a partial signal, but targeted interventions, particularly in later decoding layers, reveal functional stream use more faithfully.</abstract>
+      <pdf hash="cad0559b"/>
+      <bibkey>chaudhary-nwogu-2026-explaining</bibkey>
+    </paper>
+    <paper id="53">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.53/ -->
+      <title><fixed-case>MERGE</fixed-case>: Minimal Expression-Replacement <fixed-case>GE</fixed-case>neralization Test for Natural Language Inference</title>
+      <author id="madalina-zgreaban" orcid="0000-0001-6824-7593"><first>Mădălina</first><last>Zgreabăn</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Tejaswini</first><last>Deoskar</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Lasha</first><last>Abzianidze</last><affiliation>Utrecht University</affiliation></author>
+      <pages>937-964</pages>
+      <abstract>As many benchmarks have become saturated, it is increasingly important to create new datasets that evaluate the generalization capacity of current state-of-the-art models in reasoning. However, creating high-quality reasoning datasets is challenging: manual construction is costly, and automatic generation is error-prone, with the community therefore relying on synthetic datasets with limited scope. In this paper, we propose the Minimal Expression Replacement GEneralization (MERGE) test, to evaluate the robustness of reasoning models against minimal and non-adversarial variants of existing evaluation datasets. First, high-quality variants are automatically obtained from the original instances using Masked Language Models (MLMs) for generation together with safeguarding filters, called Minimal Expression Replacement (MERE). We then apply the MERGE test to Natural Language Inference (NLI), a popular reasoning task, by using MERE on two popular existing NLI datasets. We evaluate multiple strong NLI models and LLMs, and the results indicate they generalize poorly: both struggle to consistently and correctly classify variants minimally different in form, but similar in reasoning, from the original ones. We also analyze how aspects of variant generation, such as word class and source MLMs, affect model performance.</abstract>
+      <pdf hash="4a59010a"/>
+      <bibkey>zgreaban-etal-2026-merge</bibkey>
+    </paper>
+    <paper id="54">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.54/ -->
+      <title>The Geometry of Metaphor: Probing and Steering Metaphor Representations in Large Language Models</title>
+      <author id="shihui-li" orcid="0009-0008-4224-6144"><first>Shihui</first><last>Li</last></author>
+      <author><first>Mette Friis</first><last>Andersen</last></author>
+      <author id="martha-lewis" orcid="0000-0002-9951-9413"><first>Martha</first><last>Lewis</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>965-985</pages>
+      <abstract>Metaphor is a crucial aspect of human cognition. As such, we would like to understand how it is represented in large language models (LLMs) and how it might be controlled. We use mechanistic interpretability techniques to identify causal subspaces in a range of LLMs covering different architectures and sizes. We show that we are able to steer output on classification tasks across different parts of speech. We are also able to steer output on generation tasks, indicating that these techniques can be used to control the metaphoricity of LLM output.</abstract>
+      <pdf hash="984e9c45"/>
+      <bibkey>li-etal-2026-geometry</bibkey>
+    </paper>
+    <paper id="55">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.55/ -->
+      <title>When Context Misleads: Surprisal, Energy and Attention Entropy as Metrics of Coherence Illusions in <fixed-case>LLM</fixed-case>s</title>
+      <author id="ece-takmaz" orcid="0000-0002-6349-1367"><first>Ece</first><last>Takmaz</last><affiliation>Utrecht University</affiliation></author>
+      <author id="nitin-kumar-6570" orcid="0009-0007-2496-6570"><first>Nitin</first><last>Kumar</last></author>
+      <author id="li-kloostra" orcid="0000-0002-2827-8122"><first>Li</first><last>Kloostra</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Jakub</first><last>Dotlacil</last><affiliation>Utrecht University</affiliation></author>
+      <pages>986-1006</pages>
+      <abstract>Psycholinguistics studies show that human readers fall for coherence illusions: an incoherent discourse can seem coherent simply because a distractor matches what comes next. We investigate whether Dutch language models (6 monolingual and 4 multilingual) show the same behavior on texts that link back to earlier context with words such as ’again’ and ’too’. First, we find that surprisal at the critical word tracks human acceptability judgments and eye-tracking data. Models are more surprised by incoherent continuations, but a matching distractor in the prior context reduces this surprisal. Second, attention entropy identifies heads that behave differently under coherence vs. incoherence. We find that ablating these heads shows transfer effects across experiments, suggesting a shared mechanism. Third, we introduce energy from the associative-memory literature as a metric to quantify discourse coherence. Taken together, our results show that coherence illusions arise in Dutch LLMs, with entropy and energy exposing mechanisms that operate across settings.</abstract>
+      <pdf hash="cba7bf5a"/>
+      <bibkey>takmaz-etal-2026-context</bibkey>
+    </paper>
+    <paper id="56">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.56/ -->
+      <title>Present but Barely Used: Reproducing the Emergent Othello World Model in a Masked Diffusion Language Model</title>
+      <author><first>Éric</first><last>Jacopin</last><affiliation>Cosmic AI</affiliation></author>
+      <pages>1007-1016</pages>
+      <abstract>Autoregressive (AR) sequence models trained only to predict legal Othello moves develop an emergent, linearly-decodable representation of the board in a player-relative (MINE/YOURS) frame (Li et al., 2023; Nanda et al., 2023). We ask whether this emergent linear world model survives a change of training objective: from next-token prediction to masked diffusion (Sahoo et al., 2024). On an identical GPT-2 backbone and identical data, we train an AR control and a masked diffusion language model (MDLM), reproduce the Li–Nanda linear/relative dissociation on the control, and probe the MDLM with the same battery. We find that the linear player-relative world model transfers to masked diffusion (the dissociation reproduces) but is substantially weaker (~0.79 vs. the AR’s 0.96 two-way accuracy). A Nanda-style causal intervention shows the representation is only minimally used: a statistically real but tiny and inconsistent effect (mean +0.02, 24% win-rate) against the AR’s strong, consistent +0.21 / 84%. Order-artifact controls confirm the representation is genuine rather than an artifact of an easy unmasking order. As a reproducibility contribution, this is a generalizability stress test of the Li–Nanda finding under a change of training objective, anchored throughout by random-weight and shuffled-label control tasks and by component ablations. We report a second implementation, in Rust on an independent interpretability stack, that reproduces our headline numbers. Code, data recipes, and model checkpoints are available anonymously for review at https://anonymous.4open.science/r/othello-mdlm-anon-DBC2/.</abstract>
+      <pdf hash="77ab13ed"/>
+      <bibkey>jacopin-2026-present</bibkey>
+    </paper>
+    <paper id="57">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.57/ -->
+      <title>Do Function Vectors and Task Vectors Generalize? A Reproducibility Study Across Model Families and Scale</title>
+      <author><first>Serendeep</first><last>Rudraraju</last><affiliation>University of Marburg</affiliation></author>
+      <pages>1017-1028</pages>
+      <abstract>A language model can learn a task from examples in its prompt. Function vectors (FVs) and task vectors (TVs) aim to transfer that behavior to a new prompt by modifying the model’s activations. We reproduce both methods on word-pair tasks across GPT-J, Llama-3.1, and Gemma-2. In held-out tests, FVs outperform random controls on GPT-J and Llama-3.1-8B. TVs outperform shuffled-label controls on GPT-J and both base and instruction-tuned Gemma; the Llama-8B comparison is inconclusive. Our FV implementation achieves zero accuracy on both Gemma checkpoints in a two-task follow-up. Sentiment classification shows a further limitation: in-context learning (ICL) achieves 73.5–94.0% accuracy with arbitrary labels, while TVs achieve only 49.6–52.7%. Successful transfer on word pairs therefore does not extend to this sentiment dataset. Separating vector construction, layer selection, and testing also shows why gains over zero-shot accuracy can overstate the evidence for transfer. Code and data are available online.</abstract>
+      <pdf hash="954d22da"/>
+      <bibkey>rudraraju-2026-function</bibkey>
+    </paper>
+    <paper id="58">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.58/ -->
+      <title>Memory vs. Context? Influential Factors of Factual Recall in Language Models</title>
+      <author><first>Guilhem</first><last>Fouilhé</last></author>
+      <author id="nicholas-asher" orcid="0000-0002-7689-8246"><first>Nicholas</first><last>Asher</last><affiliation>CNRS</affiliation></author>
+      <author id="philippe-muller" orcid="0000-0002-6765-4020"><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <pages>1029-1046</pages>
+      <abstract>We reproduce and stress-test the work of Yu et al. (2023), who characterize how language models (LMs) arbitrate between memorized knowledge and contradictory in-context statements. We replicate their world-capitals experiments on 31 models spanning Pythia, GPT-2, Qwen3, and Ministral families, including base and post-trained variants, and extend evaluations to five additional knowledge relation types from the ParaConflict dataset. We empirically confirm most of their original findings: larger models and higher-frequency entities tend to favor memorized answers, with substantial family-level variance.However, several conclusions do not generalize cleanly: entity-frequency effects disappear on Qwen3-14B and 32B; post-training shifts the memory-context trade-off inconsistently across families; question phrasing alone can change a model’s reliance on memorized knowledge by up to 80 percentage points; and semantically unrelated prose can mimic coherent supporting context. Our results clarify where Yu et al.’s claims hold and to what extent they generalize to other prompts.</abstract>
+      <pdf hash="6780a990"/>
+      <bibkey>fouilhe-etal-2026-memory</bibkey>
+    </paper>
+    <paper id="59">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.59/ -->
+      <title>Demystifying Entropy-based Selection for Chain-of-Thought Compression in Large Reasoning Models</title>
+      <author id="sara-candussio" orcid="0009-0004-5198-6970"><first>Sara</first><last>Candussio</last></author>
+      <author id="daniel-scalena" orcid="0009-0006-0518-6504"><first>Daniel</first><last>Scalena</last><affiliation>University of Milan - Bicocca and University of Groningen</affiliation></author>
+      <author><first>Elisabetta</first><last>Fersini</last><affiliation>University of Milan-Bicocca</affiliation></author>
+      <author id="luca-bortolussi" orcid="0000-0001-8874-4001"><first>Luca</first><last>Bortolussi</last><affiliation>University of Trieste</affiliation></author>
+      <author id="malvina-nissim" orcid="0000-0001-5289-0971"><first>Malvina</first><last>Nissim</last><affiliation>University of Groningen</affiliation></author>
+      <author id="gabriele-sarti" orcid="0000-0001-8715-2987"><first>Gabriele</first><last>Sarti</last><affiliation>Parallax</affiliation></author>
+      <pages>1047-1066</pages>
+      <abstract>Entropy-based pruning has been proposed as an effective method for compressing Chain-of-Thought (CoT) reasoning with negligible accuracy loss. We test the robustness of low- and high-entropy CoT step selection methods across various models and reasoning tasks, showing that entropy offers no advantage over random pruning in any evaluated setting. Moving from steps to tokens, we then show that retaining low-entropy tokens seems effective only on mathematical benchmarks. We find this is due to the inherently low-entropy nature of numeric tokens, which also convey semantic content in such problems. Finally, we demonstrate that patching a subset of a few CoT tokens with their original activations recovers near-perfect full-trace performance, providing causal evidence that task information is not concentrated in a small set of CoT tokens identifiable by heuristics, but rather distributed across the full reasoning chain.</abstract>
+      <pdf hash="fe412e32"/>
+      <bibkey>candussio-etal-2026-demystifying</bibkey>
+    </paper>
+    <paper id="60">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.60/ -->
+      <title>Limitations of Automated Simulatability: <fixed-case>LLM</fixed-case> Simulators Can Bypass Explanations</title>
+      <author id="antonin-poche" orcid="0009-0000-0930-3313"><first>Antonin</first><last>Poché</last><affiliation>Institut de Recherche en Informatique de Toulouse and IRT Saint Exupery</affiliation></author>
+      <author id="fanny-jourdan" orcid="0009-0002-9356-4907"><first>Fanny</first><last>Jourdan</last><affiliation>IRT Saint Exupery</affiliation></author>
+      <author id="nils-feldhus" orcid="0009-0008-7408-7483"><first>Nils</first><last>Feldhus</last></author>
+      <author id="qianli-wang" orcid="0009-0004-8336-1684"><first>Qianli</first><last>Wang</last></author>
+      <author id="jing-yang-campinas" orcid="0000-0002-0035-3960"><first>Jing</first><last>Yang</last></author>
+      <author id="simon-ostermann" orcid="0000-0002-0899-0657"><first>Simon</first><last>Ostermann</last><affiliation>German Research Center for AI and Universität des Saarlandes</affiliation></author>
+      <author id="nicholas-asher" orcid="0000-0002-7689-8246"><first>Nicholas</first><last>Asher</last><affiliation>CNRS</affiliation></author>
+      <author id="philippe-muller" orcid="0000-0002-6765-4020"><first>Philippe</first><last>Muller</last><affiliation>IRIT, University of Toulouse</affiliation></author>
+      <author id="vera-schmitt" orcid="0000-0002-9735-6956"><first>Vera</first><last>Schmitt</last><affiliation>Johannes-Gutenberg Universität Mainz and Technische Universität Berlin</affiliation></author>
+      <pages>1067-1099</pages>
+      <abstract>Simulatability is an evaluation protocol for explanations that quantifies their usefulness by how well they help a user predict a task model’s outputs. Since human evaluation is costly, automated simulatability replaces human explainees with LLM simulators, as proposed in ConSim (Poché et al., 2025) for large-scale experiments. We qualitatively replicate and extend ConSim’s ranking of explanation methods across the tested datasets, explanation families, and simulator LLMs, and identify two limitations. First, when class names are meaningful, simulators can obtain high simulatability by solving the classification task directly, without relying on the explanations. Second, class anonymization can reward explanations for leaking the hidden label mapping, a limitation we expose with a new classes-as-concepts baseline. These results are consistent with a shortcut hypothesis: in the tested settings, simulator predictions mainly rely on task priors, while explanations produce small changes. We derive recommendations for more robust automated simulatability evaluations.</abstract>
+      <pdf hash="f6d1f98b"/>
+      <bibkey>poche-etal-2026-limitations</bibkey>
+    </paper>
+    <paper id="61">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.61/ -->
+      <title>Recurrence Is Not Enough: Causally Validating Multilingual <fixed-case>SAE</fixed-case> Translation Features in Gemma 2 and 3</title>
+      <author id="giang-son-nguyen" orcid="0009-0001-1668-9717"><first>Giang Son</first><last>Nguyen</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author id="nhi-ngoc-yen-nguyen" orcid="0009-0009-3640-8597"><first>Nhi Ngoc-Yen</first><last>Nguyen</last></author>
+      <author id="wray-buntine" orcid="0000-0001-9292-1015"><first>Wray</first><last>Buntine</last><affiliation>Monash University and VinUniversity</affiliation></author>
+      <author id="dung-d-le" orcid="0000-0003-0364-9393"><first>Dung D.</first><last>Le</last><affiliation>VinUniversity</affiliation></author>
+      <pages>1100-1112</pages>
+      <abstract>Sparse autoencoder (SAE) features are increasingly used to explain and steer language-model behavior, but it remains unclear whether a feature found in one language context plays the same causal role when processing prompts in another language. We study this question using translation-initiation features (Wu et al., 2026). We reproduce the SAE feature discovery method from Wu et al. in Gemma 2 and extend it to multilingual settings that vary prompt language, source language, and target language. We then test whether features that recur across settings affect translation behavior by amplifying or ablating their activations during inference. We also examine whether the method can be applied to Gemma 3.<par/>In both models, we observe an identical finding: although we can find more than 20 features that activate frequently across all discovery settings, causal validation shows that nearly all have small or inconsistent effects. In contrast, one feature – Gemma 2’s (L10, 5717) and Gemma 3’s (L20, 2456) – consistently improves COMET scores when amplified and degrades them when ablated across 23 language settings. These results show that feature recurrence can overstate cross-lingual transfer, while identifying a language-agnostic translation-initiation direction in Gemma 2 and Gemma 3.</abstract>
+      <pdf hash="6ad607ba"/>
+      <bibkey>nguyen-etal-2026-recurrence</bibkey>
+    </paper>
+    <paper id="62">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.62/ -->
+      <title>Reproducing and Evaluating the Generalizability of Subliminal Learning in Open-Weight Models</title>
+      <author><first>Daan</first><last>van der Weijden</last></author>
+      <author id="nathan-brack" orcid="0009-0003-1129-9394"><first>Nathan</first><last>Brack</last><affiliation>University of Zurich and FHNW - Fachhochschule Nordwestschweiz</affiliation></author>
+      <author id="selene-baez-santamaria" orcid="0000-0003-3808-2614"><first>Selene</first><last>Baez Santamaria</last><affiliation>Department of Informatics, University of Zurich, University of Zurich</affiliation></author>
+      <pages>1113-1120</pages>
+      <abstract>In this reproduction paper we investigate subliminal learning, a consequence of distillation where teacher models transmit behavioral preference traits through semantically unrelated data. The original paper explores two types of traits (animal preferences and misalignment), three data modalities (number sequences, code, and chain of thought), and several model families. We reproduce their experiments and extend the setup along three axes: new preference categories (actors and politicians), a new task (chess move generation), and an additional open-weight model (Ministral8B). We also run a controlled ablation on the numbers task’s answer-space size (1-, 2-, and 3-digit sequences). We focus on open-weight models with accessible checkpoints on HuggingFace, since the original paper’s GPT-4.x fine-tuning is no longer available. Our reproduction supports the original paper’s claims, but our extensions show they are not universal as transmission strength varies across traits and tasks, and one model shows almost no effect at all.</abstract>
+      <pdf hash="0fa0021c"/>
+      <bibkey>van-der-weijden-etal-2026-reproducing</bibkey>
+    </paper>
+    <paper id="63">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.63/ -->
+      <title>Can Sparse <fixed-case>A</fixed-case>uto<fixed-case>E</fixed-case>ncoder-Based Interpretability Demonstrate Geographic Knowledge Beyond Orthographic Features?</title>
+      <author><first>Thomas</first><last>Hitchon</last></author>
+      <author id="remy-decoupes" orcid="0000-0003-0863-9581"><first>Rémy</first><last>Decoupes</last></author>
+      <author id="adrien-guille" orcid="0000-0002-1274-6040"><first>Adrien</first><last>Guille</last><affiliation>Université Lumiére (Lyon II)</affiliation></author>
+      <pages>1121-1127</pages>
+      <abstract>Large language models (LLMs) encode a wide range of information about the world, but understanding how such knowledge is represented remains a central challenge in mechanistic interpretability. In this work, we reproduce and extend a recent study investigating the representation of geographic information in LLMs using sparse autoencoders (SAEs). We focus on this work because, to the best of our knowledge, it is the only study that explicitly examines geographic representations in LLMs through the lens of feature-based interpretability. While the original study identifies SAE features that appear to encode geographic concepts, we extend the analysis to a broader set of locations spanning the globe and investigate the robustness of these findings. In particular, we hypothesize that some of the identified features may not represent geographic concepts directly, but may instead be driven by lexical properties of placenames, such as highly discriminative character sequences or syllables. To test this hypothesis, we introduce systematic perturbations of placenames that preserve their geographic reference while altering their orthographic form, and examine the resulting changes in SAE activation patterns and geographic activation maps. Our results provide a broader assessment of the reproducibility and generalizability of geographic representations identified by the original study, while highlighting potential confounds that should be considered when interpreting SAE features as semantic or conceptual representations. We position this work within the Generalizability and Baselines themes of the Reproducibility Challenge: we test whether the original findings hold beyond their initial experimental scope, and we introduce a simple lexical baseline that recovers most of the reported geographic signal from surface form alone, without access to the model’s internal representations.</abstract>
+      <pdf hash="9b5c7730"/>
+      <bibkey>hitchon-etal-2026-sparse</bibkey>
+    </paper>
+    <paper id="64">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.64/ -->
+      <title>Inoculate or Reflect? Two Training Interventions Under Prompting, Steering, and Patching</title>
+      <author><first>Ayesha</first><last>Imran</last><affiliation>PRISM Research and Women Who Do Data</affiliation></author>
+      <author><first>Muhammad</first><last>Aaliyan</last><affiliation>onecarnow</affiliation></author>
+      <pages>1128-1142</pages>
+      <abstract>Two recent training interventions suppress unwanted behavior by changing the context in which it is learned. [Inoculation prompting (IP)](https://arxiv.org/abs/2510.04340) adds an instruction that explicitly elicits the unwanted trait during fine-tuning, then removes that instruction at test time. Counterfactual reflection training (CRT), introduced by [Gurnee et al. (2026)](https://arxiv.org/abs/2607.15495) in their J-space study, supervises only what a model says when interrupted and asked to reflect. We compare what these methods change, not only whether the target behavior disappears. We induce sycophancy in Qwen3-8B, repeat four core conditions across seeds 42–44, and test default behavior, correct-user agreement, prompted re-elicitation, NNsight activation steering, activation patching, and LoRA geometry. Under a frozen speech-act rubric, contaminated SFT affirms wrong proposals on 99.7% of responses; Strong IP averages 27.3% and post-hoc CRT repair 2.0%. CRT repair disputes correct users 56.9% of the time, versus 11.9% for Strong IP. Generic re-elicitation averages 98.5% for Strong IP and 81.0% for CRT repair. At a predeclared layer-18 sensitivity condition, steering raises Strong IP to 46% and CRT repair to 4%, while patching produces small, non-selective changes. The results show why reproducibility studies should test suppression, replacement behavior, and restoration.</abstract>
+      <pdf hash="087b990a"/>
+      <bibkey>imran-aaliyan-2026-inoculate</bibkey>
+    </paper>
+    <paper id="65">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.65/ -->
+      <title>Is Refusal Direction Universal across Low-Resourced Languages?</title>
+      <author><first>Anastasia</first><last>Ivanova</last></author>
+      <pages>1143-1154</pages>
+      <abstract>Refusal directions have been shown to transfer cross-lingually with near-perfect effectiveness across safety-aligned languages (Wang et al., 2025), reportedly regardless of resource level. However, the only truly low-resourced language evaluated is Yoruba, which is strongly misaligned and shows limited transfer, leaving open how refusal directions behave for other low-resourced languages. We extend PolyRefuse to three additional low-resourced languages (Belarusian, Bashkir, and Tajik) and replicate the pipeline of (Wang et al., 2025) on Qwen2.5-14B-Instruct. We find that universality is graded rather than binary: directions from safety-aligned and partially-aligned languages transfer broadly, while those from strongly misaligned languages fail to reliably modulate refusal behavior on any target tested, including other misaligned languages, once ceiling effects are accounted for. Geometric alignment and behavioral transfer are further shown to be partially dissociated. These findings complicate the universality claim and suggest that users of the least-resourced, most strongly misaligned languages may face weaker safety guarantees.</abstract>
+      <pdf hash="43117de5"/>
+      <bibkey>ivanova-2026-refusal</bibkey>
+    </paper>
+    <paper id="66">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.66/ -->
+      <title>Scale-Invariant Normalization Hides Activation Scaling: Why Patch Site Matters for Demographic Bias Localization in Clinical Text Generation</title>
+      <author><first>Yoana</first><last>Tsoneva</last><affiliation>Technische Universität Berlin and German Research Center for AI</affiliation></author>
+      <author id="fedor-splitt" orcid="0009-0008-7316-3675"><first>Fedor</first><last>Splitt</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Awsam</first><last>Agbaria</last></author>
+      <author id="alexandra-tsiakalou" orcid="0009-0004-0568-0508"><first>Alexandra</first><last>Tsiakalou</last><affiliation>Technische Universität Berlin and Universität Potsdam</affiliation></author>
+      <author id="jing-yang-campinas" orcid="0000-0002-0035-3960"><first>Jing</first><last>Yang</last></author>
+      <author id="vera-schmitt" orcid="0000-0002-9735-6956"><first>Vera</first><last>Schmitt</last><affiliation>Johannes-Gutenberg Universität Mainz and Technische Universität Berlin</affiliation></author>
+      <pages>1155-1166</pages>
+      <abstract>What activation patching localizes can depend on where the patch is applied. Reproducing Ahsan et al. (2025) and extending it from four to ten models, we find the behavioral results largely reproduce and that medical adaptation improves calibration consistently only for gender with BioMistral, for MedGemma not at all. Two mechanistic findings are artifacts of the patch site. In Gemma-2 and OLMo-2 the patched MLP down-projection passes through a scale-invariant RMSNorm before the residual stream, so activation scaling is ineffective there. Patching after normalization restores it, raising the Gemma-2 flip rate on multiple sclerosis from 0.83, flat under scaling, to 1.00. It also lets a single layer recover the target race nearly as well as the reported sliding window (0.83 vs. 0.84, OLMo-2), so the window compensated for the site, not a distributed representation.</abstract>
+      <pdf hash="0190bf98"/>
+      <bibkey>tsoneva-etal-2026-scale</bibkey>
+    </paper>
+    <paper id="67">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.67/ -->
+      <title>Probing Without Labels: Contrast-only Reproductions of Interpretability Results</title>
+      <author id="stefan-schouten" orcid="0000-0001-9839-9985"><first>Stefan F.</first><last>Schouten</last></author>
+      <author id="peter-bloem" orcid="0000-0002-0189-5817"><first>Peter</first><last>Bloem</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <pages>1167-1183</pages>
+      <abstract>Contrastive interpretability methods use pairs (or tuples) of inputs whose elements differ in minimal but controlled ways. Contrast-Consistent Search (CCS) is one such method that can identify whether (language) models encode binary features, such as sentence truth, in their internal activations. One advantage is that this requires no labels, meaning there is no assumption that internal activations agree with those labels, as is the case for supervised methods. In this work, we (1) reproduce results previously obtained with CCS, (2) better understand CCS’s objective, (3) propose Tuple-Contrastive PCA (tcPCA), a method with closed-form solutions, as a spiritual successor, and (4) show how tcPCA has wider applicability than CCS by: allowing for n-ary rather than just binary variables; and, finding contrastive subspaces instead of directions. See https://contrast.stefanfs.me for code and interactive figures.</abstract>
+      <pdf hash="3f890894"/>
+      <bibkey>schouten-bloem-2026-probing</bibkey>
+    </paper>
+    <paper id="68">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.68/ -->
+      <title>Reproducing the Results, But not the Interpretations: Evidence for Artifacts in Automatic Creativity Scoring with <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Carl</first><last>Hermany</last></author>
+      <author id="omar-momen" orcid="0000-0001-8230-1453"><first>Omar</first><last>Momen</last></author>
+      <author id="sina-zarriess" orcid="0000-0002-1384-1218"><first>Sina</first><last>Zarrieß</last><affiliation>Bielefeld University</affiliation></author>
+      <pages>1184-1195</pages>
+      <abstract>Recent work has shown that finetuned language models can predict human creativity ratings of metaphors, motivating claims that they can comprehend creativity in non-literal language. We question the interpretation of a previously reported performance of finetuned GPT-2 and RoBERTa and investigate the signals underlying their predictions. Using ridge regression probes, random baselines, token-order ablations, and representation-evolution features, we find that pretrained representations perform comparably to finetuned models. Randomly initialized models retain moderate performance when token and positional information is preserved, and token shuffling does not eliminate the predictive signal. These results suggest that performance is supported largely by surface-level cues, including sentence length, token identity, and token co-occurrence. We therefore reproduce the original results but challenge the interpretation, highlighting the importance of controlled reproducibility studies on LM-related findings and claims from other domains.</abstract>
+      <pdf hash="694e93a7"/>
+      <bibkey>hermany-etal-2026-reproducing</bibkey>
+    </paper>
+    <paper id="69">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.69/ -->
+      <title><fixed-case>C</fixed-case>laude reinvestigates herself: A replication of different types of syntactic agreement recruit the same units in <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Elena</first><last>Polyakova</last></author>
+      <author><first>Shivan</first><last>Arora</last><affiliation>University of Cambridge</affiliation></author>
+      <author id="suchir-salhan" orcid="0000-0001-7201-7387"><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>1196-1222</pages>
+      <abstract>The representation of grammatical knowledge in individual LLM neurons and attention heads remains poorly understood. We replicate the feature-based approach of Kryvosheieva et al. (2026) that uses functional localisation to illustrate that distinct syntactic phenomena can recruit the same units. We reproduce and extend the paper to new minimal pair datasets (Dutch, Turkish, and Russian) and additional interpretability techniques: Attention-based analysis, Differential Binary Masking (DBM), and Distributed Alignment Search (DAS). We find reproducible and robust evidence for syntactic localisation in LLMs across several methods and languages. However, localisation strength depends on interpretability techniques (particularly for DBM) and varies across languages, highlighting the value of validating mechanistic claims using several techniques. Code and data available via https://anonymous.4open.science/r/syntax-interpretability-F4C3</abstract>
+      <pdf hash="c72ed088"/>
+      <bibkey>polyakova-etal-2026-claude</bibkey>
+    </paper>
+    <paper id="70">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.70/ -->
+      <title>Are Latent Reasoning Tokens Unnecessary for Model Performance?</title>
+      <author id="austin-long" orcid="0009-0002-4598-0850"><first>Austin</first><last>Long</last></author>
+      <author><first>Colin</first><last>Paterson</last><affiliation>University of York</affiliation></author>
+      <author><first>Jing</first><last>Xu</last><affiliation>University of York</affiliation></author>
+      <pages>1223-1232</pages>
+      <abstract>Training large language models to perform latent reasoning may improve performance, but the lack of legible reasoning poses challenges for model interpretability and safety assurance. This challenge has motivated interpretability research that aims to characterise the functional role of latent reasoning tokens. Some studies indicate that latent reasoning tokens are effective, whereas other work suggests that these tokens are under-utilised. In this paper, we consider the tension between existing findings by reproducing prior work which shows that some latent reasoning tokens are not necessary. Two interesting observations emerge from our experiments. First, we find that latent reasoning models often generate redundant tokens due to the fixed token budgets. Second, we observe that explicit reasoning models fine-tuned on gold reasoning traces may copy the result of the most recent reasoning step when generating an answer.</abstract>
+      <pdf hash="f2b8146d"/>
+      <bibkey>long-etal-2026-latent</bibkey>
+    </paper>
+    <paper id="71">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.71/ -->
+      <title>Same Sink, Different Plumbing: Reproducing and Refining the Mechanism of Attention Sinks</title>
+      <author id="abdullah-al-zubayer" orcid="0009-0008-5243-187X"><first>Abdullah</first><last>Al Zubayer</last></author>
+      <author id="syed-naveed-mahmood" orcid="0009-0000-7186-0030"><first>Syed Naveed</first><last>Mahmood</last></author>
+      <author id="md-rezaur-rahman-bhuiyan" orcid="0009-0008-5395-1092"><first>Md Rezaur Rahman</first><last>Bhuiyan</last></author>
+      <author id="mir-md-mohiuddin-abrar" orcid="0009-0000-9564-2943"><first>Mir Md Mohiuddin</first><last>Abrar</last></author>
+      <author id="jareen-tasneem-khondaker" orcid="0009-0008-7061-010X"><first>Jareen Tasneem</first><last>Khondaker</last></author>
+      <author id="tasfia-zaman" orcid="0009-0009-8423-1917"><first>Tasfia</first><last>Zaman</last><affiliation>BRAC University</affiliation></author>
+      <author id="farig-sadeque" orcid="0000-0001-6797-7826"><first>Farig</first><last>Sadeque</last><affiliation>BRAC University</affiliation></author>
+      <pages>1233-1247</pages>
+      <abstract>Attention sinks assign large, largely content-independent attention to the first position. Ran-Milo et al. (2026) explain GPT-2’s sink with a parameter-level circuit: a learned query bias <tex-math>\mathbf{b}_Q</tex-math> aligns with the key projection of the first position’s effective positional encoding, whose few massive coordinates amplify the score. They infer that other architectures build sinks differently but do not measure this claim. We reproduce the original intervention effects and stress-test their causal interpretation. Baseline plus nine interventions and four structural analyses reproduce under the original evaluation, with two scope qualifications; the massive coordinates are exactly <fixed-case>138, 378, 447</fixed-case>. Yet nullifying <tex-math>\mathbf{b}_Q</tex-math> leaves 44.5% of the sink, which follows an activation-dependent query route into the same first-position key. This *anchor*–*route* distinction unifies the extensions: with GPT-2 scale, the bias route fades while the activation-dependent route concentrates into fewer carrier heads; across 16 checkpoints in four families, no qualitative profile over mutually available conditions spans all families; and across five pre-training runs, anchoring recurs despite unstable coordinate identities. In GPT-2-small at 40 tokens, Swap EPE incurs about one quarter of the cross-entropy cost of Remove First PE. The stable phenomenon is an anchoring computation, not a universal parameter-level circuit, so mitigation must be validated against the target model’s wiring.</abstract>
+      <pdf hash="46fef6c7"/>
+      <bibkey>al-zubayer-etal-2026-sink</bibkey>
+    </paper>
+    <paper id="72">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.72/ -->
+      <title>Development of Linear Truth Encodings in Language Models: A Replication Study</title>
+      <author><first>Mingchuan</first><last>Zou</last></author>
+      <author id="suchir-salhan" orcid="0000-0001-7201-7387"><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>1248-1263</pages>
+      <abstract>Probing studies consistently find that language models (LMs) encode the truth of a statement along a low-dimensional linear direction of the residual stream. The Truth Co-occurrence Hypothesis (TCH) (Ravfogel et al., 2025) provides a mechanistic interpretation: tracking a latent truth variable is loss-reducing because true statements co-occur with true statements in natural text, evaluated using toy models and base LLMs. We replicate and extend the toy setting. In the tested fully trainable single-layer transformers, removing truth co-occurrence while preserving fact frequency eliminates linear truth decodability, supporting the necessity of co-occurrence in this setting. However, the same manipulation leaves the original toy model largely unchanged, revealing that probe-based evidence can arise from architectural artefacts rather than a functional truth-tracking mechanism. In pretrained Llama-3.1 models (8B and 70B), we reproduce the reported behavioural effect that false context reduces confidence in true facts, but show that nearly half of the original effect is explained by surface confounds. After controlling for these confounds, the effect remains robust across six factual relations. Under our probing protocol, cross-relation performance is closer to within-relation performance at 70B than at 8B. Our work characterises the emergence conditions for linear truth representations, and highlights the limitations of probe-based interpretability studies. Reproducibility Code is available here: https://github.com/Samzmc/truth-encoding-blackboxnlp26</abstract>
+      <pdf hash="c3afd96e"/>
+      <bibkey>zou-etal-2026-development</bibkey>
+    </paper>
+    <paper id="73">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.73/ -->
+      <title>Stress-Testing Random-Vector Controls for Activation Steering</title>
+      <author id="behnood-mashayekhi" orcid="0009-0002-3062-4001"><first>Behnood</first><last>Mashayekhi</last><affiliation>Amesha and Guilan University of Medical Sciences</affiliation></author>
+      <author><first>Parsa</first><last>Hosseini</last><affiliation>amesha</affiliation></author>
+      <author><first>Arian</first><last>Amiramjadi</last><affiliation>Amesha</affiliation></author>
+      <pages>1264-1272</pages>
+      <abstract>Random-vector controls provide a reference for interpreting activation-steering effects, but a single realization hides variation in that reference. We examine this variation and two separate implementation checks. In a released activation-addition (ActAdd) configuration on GPT-2-XL, we reproduce the steering arm over 57 prompts with a maximum absolute error of 1.74 × 10⁻⁶. At coefficient 10, 9 of 20 fresh random-control realizations have greater mean normalized Kullback–Leibler (KL) divergence than the steering arm, and 19 have lower means than the stored random realization. In a separate four-model study over 96 prompts, changing batch size or attention implementation changes the greedy next token for at most 5 and 6 prompts, respectively; an identical rerun changes none. Finally, an erroneous left-padding index in our own analysis pipeline, shared by the intervention and readout, overstates the maximum greedy-token change rate in 10 of 12 model-dose settings, with a median relative distortion of 46.8%. These findings support reporting realization-level variation, measuring configuration sensitivity, and validating intervention and readout indices. The results concern distributional change in the evaluated configurations, not semantic steering success.</abstract>
+      <pdf hash="ec984f17"/>
+      <bibkey>mashayekhi-etal-2026-stress</bibkey>
+    </paper>
+    <paper id="74">
+      <!-- https://aclanthology.org/2026.blackboxnlp-1.74/ -->
+      <title>Reproducing Transparent and Scrutable Recommendations: Exploring Open-Weight Models via Natural-Language User Profiles</title>
+      <author id="noah-mamie" orcid="0009-0003-0016-0063"><first>Noah</first><last>Mamié</last><affiliation>Department of Informatics, University of Zurich, University of Zurich</affiliation></author>
+      <author><first>Laurin</first><last>van den Bergh</last><affiliation>Department of Informatics, University of Zurich, University of Zurich</affiliation></author>
+      <pages>1273-1284</pages>
+      <abstract>In this reproducibility study, we investigate the transparency and scrutability of recommender systems enhanced by incorporating generated natural-language user profiles that represent user preferences. The original paper explores the synthesis of user profiles from raw user-generated review text across domains such as movies and accommodations (Amazon Movies TV, TripAdvisor). Crucially, these natural-language user profiles enable direct user interaction and intervention, allowing users to customize recommendations by correcting misattributed preferences or addressing cold-start settings. We successfully reproduce the core findings of the original study. Additionally, we extend the evaluation by conducting systematic context ablation experiments, multi-seed stability across five distinct random seeds to establish statistical reliability, and a mechanistic interpretability analysis using the nnsight framework to probe internal model representations under counterfactual profile perturbations. Our findings verify the original paper’s claim that User Profile Recommendation (UPR) achieves competitive performance under its test-set reranking protocol and makes recommendations more transparent. Perturbing the natural-language profiles does change predictions, but it shifts predicted ratings uniformly across genres with no detectable genre-selective effect, leaving rankings unchanged even under direct activation steering. We trace this back to the rating-regression objective rather than the profile interface, with ranking-objective models clearly exceeding in this task.</abstract>
+      <pdf hash="05ed9bab"/>
+      <bibkey>mamie-van-den-bergh-2026-reproducing</bibkey>
+    </paper>
+  </volume>
+</collection>
