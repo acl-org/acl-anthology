@@ -108,8 +108,10 @@ under a **different** slug, the id is wrong — use the existing slug. Examples:
 
 ### 2b-bis. Findings
 The Findings volume (usually already ingested with the main conference) must use
-`findings` as the **venue** and one of `acl`/`eacl`/`naacl` as the **volume name**
-(e.g. `2026.findings-acl`, `2026.findings-eacl`). Verify this if present.
+`findings` as the **venue** and one of `acl`/`eacl`/`emnlp`/`naacl` as the
+**volume name** (e.g. `2026.findings-acl`, `2026.findings-emnlp`). Verify this if
+present. **Findings: EMNLP must also be linked to SIGDAT**; verify this
+association after ingestion.
 
 ### 2c. New-venue names: strip ordinals, years, and conference prefixes
 Venue `name:` in `data/yaml/venues/<slug>.yaml` must be the **timeless** name.
