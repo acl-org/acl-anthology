@@ -1,0 +1,811 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.babylm">
+  <volume id="main" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.babylm-main/ -->
+    <meta>
+      <booktitle>Proceedings of the Second <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Workshop</booktitle>
+      <editor><first>Leshem</first><last>Choshen</last></editor>
+      <editor><first>Ryan</first><last>Cotterell</last></editor>
+      <editor><first>Mustafa Omer</first><last>Gul</last></editor>
+      <editor><first>Jaap</first><last>Jumelet</last></editor>
+      <editor><first>Tal</first><last>Linzen</last></editor>
+      <editor><first>Aaron</first><last>Mueller</last></editor>
+      <editor><first>Suchir</first><last>Salhan</last></editor>
+      <editor><first>Raj Sanjay</first><last>Shah</last></editor>
+      <editor><first>Alex</first><last>Warstadt</last></editor>
+      <editor><first>Ethan Gotlieb</first><last>Wilcox</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-475-0</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="049da3bc"/>
+      <venue>babylm</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.babylm-main.0/ -->
+      <pdf hash="66187d49"/>
+      <bibkey>babylm-2026-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.babylm-main.1/ -->
+      <title>Halved <fixed-case>CLM</fixed-case> Exposure Mitigates Late-Training Degradation in Small Recurrent Language Models</title>
+      <author><first>Yash</first><last>Maheshwari</last></author>
+      <pages>1-14</pages>
+      <abstract>Small recurrent language models can degrade late in training under standard causal language modeling (CLM). On the BabyLM Strict-Small corpus, vanilla RWKV-7 peaks near 69% BLiMP early, then loses 2.57 to 3.85 pp by step 18k across all three seeds we ran. Halving how often CLM updates the weights mitigates this decline, via two mechanisms: alternating a backward MLM objective every other step (BiRWKV-7), or skipping every other gradient step (vanilla-skip). Vanilla-skip carries no auxiliary objectives yet beats BiRWKV-7 on peak BLiMP in every seed, so the auxiliaries are not necessary for stability. What halving changes is coupled: it reduces the CLM update count and doubles the learning-rate decay in update space. A constant-rate control still degrades at the two higher rates we tested, so a low terminal rate is not necessary for the decline; but at fixed update count, flooring the rate earlier recovers most of it. The update-space rate trajectory therefore also modulates the decline; it stays coupled to update count, and our design does not separate the two. On the official BabyLM 2026 pipeline our submission scores 68.70% BLiMP, above the GPT-2 baseline (65.23%, 98.4M) at about 28% as many parameters.</abstract>
+      <pdf hash="967326ff"/>
+      <bibkey>maheshwari-2026-halved</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.babylm-main.2/ -->
+      <title>Sentence-Level Foresight in Small Language Models: A Diagnostic Study of Learning Signals and Calibration</title>
+      <author id="ahmet-rifat-ozturk" orcid="0009-0001-2941-0412"><first>Ahmet Rıfat</first><last>Öztürk</last><affiliation>Ethosoft</affiliation></author>
+      <author id="yagiz-ekrem-dalar" orcid="0009-0009-3522-4403"><first>Yağız Ekrem</first><last>Dalar</last></author>
+      <author id="nedim-mutlu-sezer" orcid="0009-0001-3499-6067"><first>Nedim Mutlu</first><last>Sezer</last><affiliation>Ethosoft</affiliation></author>
+      <author><first>Feyzi Arda</first><last>Salihoğlu</last></author>
+      <author id="omer-faruk-aksoy" orcid="0009-0000-4680-0431"><first>Ömer Faruk</first><last>Aksoy</last><affiliation>Ethosoft</affiliation></author>
+      <pages>15-23</pages>
+      <abstract>Small language models provide useful diagnostic settings for studying which learning signals can be acquired under limited computation and whether those signals translate into observable behavior. We study whether a DistilGPT-2-scale autoregressive language model can learn a sentence-level future signal from next-sentence prediction and self-loop hard negatives. Across three seeds on both WikiText-103 and WritingPrompts, ForesightLM-v2 consistently learns positive held-out hard-negative separation, indicating that the auxiliary future signal is learnable. Generation experiments, however, reveal a calibration gap between representation learning and behavioral utility. Five-candidate reranking substantially improves several automatic diagnostics, but comparable gains are obtained with generic reranking, random and shuffled future-score controls, and a matched training-free base-model reranking baseline. On the fixed five-candidate pool, removing the learned future term changes only 2 of 120 selected continuations. These results show that a small autoregressive model can acquire a measurable sentence-level future representation, while most observed generation gains are explained by candidate selection rather than by the learned future term itself. ForesightLM-v2 therefore serves as a controlled case study of the distinction between learning an auxiliary signal and making that signal behaviorally effective.</abstract>
+      <pdf hash="c4c596ca"/>
+      <bibkey>ozturk-etal-2026-sentence</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.babylm-main.3/ -->
+      <title>Hard-Wiring the Induction Head: The Surprising Effectiveness of Copy Mechanisms in Data-Efficient Language Modelling</title>
+      <author id="josh-taylor" orcid="0009-0009-7457-0878"><first>Josh</first><last>Taylor</last></author>
+      <pages>24-32</pages>
+      <abstract>Large language models need several orders of magnitude more text than a child hears to reach a comparable level of linguistic skill. One reason is that a particularly useful capability, the induction head (a circuit that completes a pattern of the form [A] [B] ... [A] by copying [B]), is not built in but must emerge during training, and does so only after the model has read a great deal of text. We ask whether supplying this capability directly, as a fixed part of the architecture, improves learning when data is scarce. We present a three-layer, attention-free language model of about 12M parameters in which all long-range mixing is performed by a non-learned, sub-quadratic induction operator (its cost grows more slowly than the square of the sequence length): for each position it finds recent earlier occurrences of the same token and copies the continuation of the best match. Trained on the 10M-word BabyLM Strict-Small corpus, the model learns markedly faster than a parameter-matched self-attention baseline and stays competitive at convergence; on the public BabyLM evaluation it is competitive with the challenge’s GPT-2 baselines on grammatical minimal pairs with a tenth of the parameters. Targeted interventions show the operator is used as intended: predictions travel along its links, the links are necessary, and stacking layers composes them into two-step retrieval. These results motivate hybrid designs that interleave exact look-back with attention.</abstract>
+      <pdf hash="a44f1664"/>
+      <bibkey>taylor-2026-hard</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.babylm-main.4/ -->
+      <title><fixed-case>H</fixed-case>ydra<fixed-case>LLM</fixed-case>: Adaptive Width Slicing for Elastic Text and Vision-Language Models</title>
+      <author id="oscar-kemme" orcid="0009-0002-0153-3020"><first>Oscar</first><last>Kemme</last><affiliation>Technische Universität Hamburg</affiliation></author>
+      <author id="janek-haberer" orcid="0000-0001-6115-4263"><first>Janek</first><last>Haberer</last><affiliation>Christian-Albrechts-Universität Kiel</affiliation></author>
+      <author id="ali-hojjat" orcid="0009-0001-0556-1080"><first>Ali</first><last>Hojjat</last></author>
+      <author id="olaf-landsiedel" orcid="0000-0001-6432-300X"><first>Olaf</first><last>Landsiedel</last><affiliation>Technische Universität Hamburg</affiliation></author>
+      <pages>33-49</pages>
+      <abstract>LLMs and LVLMs are increasingly deployed across heterogeneous hardware, ranging from data-center GPUs to resource-constrained edge devices. Their fixed-size architectures limit the ability to reuse a single model across deployment settings with different compute, latency, and model-size targets. We introduce HydraLLM, an elastic MQA-based architecture. Its number of active attention heads determines the effective widths of the embeddings, attention projections, feed-forward layers, and the output head, forming a nested family of subnetworks within a single parameter set. We introduce a static-to-elastic conversion pipeline that, starting from a pre-trained model checkpoint, includes importance-driven weight reordering and stochastic subnetwork training with knowledge distillation. We extend this principle to multimodal inference through an elastic projection module whose output width follows the active text width. HydraLLM covers a wider range of active parameter configurations than FFN-only elastic architectures. With 75% of heads active, HydraLLM achieves 2.2 percentage points higher TriviaQA accuracy than a state-of-the-art nested baseline configuration which has 17.25% more parameters. With 50% of heads active, our multimodal model achieves a CLIPScore comparable to that of the 7<tex-math>\times</tex-math> larger Gemma 3 4B model. With only 25% of heads active, HydraLLM increases token-generation throughput by 75.3% over the full-width configuration. We release our code as open source upon acceptance.</abstract>
+      <pdf hash="3994aad5"/>
+      <bibkey>kemme-etal-2026-hydrallm</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.babylm-main.5/ -->
+      <title>Can Child Language Acquisition be Modeled by Linear Causal or Bidirectional Masked Models Trained on Child-Directed Input?: A Comparison of Baby Language Models and Children in Acquiring Wanna Contraction</title>
+      <author><first>Haerim</first><last>Hwang</last><affiliation>The Chinese University of Hong Kong</affiliation></author>
+      <pages>50-64</pages>
+      <abstract>Children’s remarkable ability to acquire language remains one of the most fascinating questions in cognitive science. How do they develop sophisticated syntactic knowledge? To contribute to this question, the present study investigates the role of input and learning mechanisms by modeling child language acquisition across increasing age. Specifically, this study trains 30 baby language models (LMs) on naturalistic input directed to children up to ages 3 through 7 and compares their syntactic knowledge directly with that of children aged 3 to 7, focusing on the constraint on wanna contraction, a phenomenon not previously tested in language modeling. Furthermore, the study examines two major LM architectures: an autoregressive causal LM, represented by GPT, and a bidirectional masked LM, represented by RoBERTa. The results showed that children were sensitive to the constraint and displayed age-related development, but neither GPT-based nor RoBERTa-based baby models showed the same pattern. In this respect, the baby LMs do not seem to fully capture human-like development, possibly suggesting that the learning mechanisms underlying child language acquisition do not entirely align with the architectures tested here and cannot be reduced to input-driven learning alone within the context of these models.</abstract>
+      <pdf hash="7938719f"/>
+      <bibkey>hwang-2026-child</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.babylm-main.6/ -->
+      <title>Does Typological Distance Affect Cross-lingual Transfer?</title>
+      <author id="pengfei-ren-4066" orcid="0009-0001-1150-4066"><first>Pengfei</first><last>Ren</last><affiliation>nanjing university</affiliation></author>
+      <pages>65-74</pages>
+      <abstract>The Contrastive-Analysis Hypothesis (CAH) proposes that similarities between a learner’s first language (L1) and second language (L2) can facilitate L2 learning, while differences can make it more difficult. We ask a related computational question: under a limited, developmentally motivated data budget, does a coarse near/far relation between L1 and L2 predict grammatical performance when a language model is trained first on L1 and then on L2? We train GPT-2 Small models from scratch on English, Dutch, or Chinese with a fixed Qwen2.5 tokenizer, and continue training them on the corresponding L2 targets. Across five seeds, we compare zero-shot starting scores, terminal L2 scores, Transfer Increment (TI; terminal minus zero-shot), and Transfer Benefit (TB; terminal minus a same-budget target-only baseline). For English, NL<tex-math>\rightarrow</tex-math>EN and ZH<tex-math>\rightarrow</tex-math>EN have nearly identical TI. For Dutch, the near-L1 condition has a larger TI, but most of this difference comes from the zero-shot starting scores, while the terminal scores differ by only 0.9 percentage points. Headroom-normalized TI gives the same target-dependent picture. Across the tested pairs, the near/far contrast therefore does not produce a uniform, target-independent advantage for the near L1.</abstract>
+      <pdf hash="87764de9"/>
+      <bibkey>ren-2026-typological</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.babylm-main.7/ -->
+      <title>What Survives the <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Budget? A Controlled Study of Token Mixers and Generative Objectives</title>
+      <author id="filipe-laitenberger" orcid="0009-0003-7836-9828"><first>Filipe</first><last>Laitenberger</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author id="patrick-haller" orcid="0009-0006-0445-4765"><first>Patrick</first><last>Haller</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author><first>Jonas</first><last>Golde</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author id="alan-akbik" orcid="0009-0003-9551-6447"><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>75-92</pages>
+      <abstract>BabyLM is a pressure test for language-modeling assumptions: which ideas still work when the data budget is closer to a child’s linguistic input than to web-scale pretraining? We use the 2026 English tracks to ask this question in a controlled way, holding the corpus, tokenizer, backbone size family, training schedule, and public evaluation wrapper fixed while varying two token mixers and six objectives. Across 432 completed scale-grid runs on the 10M-word Strict-Small and 100M-word Strict tracks, the strongest result is also the most conservative one. Autoregressive Transformers are the best public-evaluation models at every tested scale, reaching peak fine-tuning macro scores of 64.88 and 66.94 and peak BLiMP scores of 64.70 and 75.13. Masked language modeling is the strongest non-autoregressive baseline. The negative results are informative: Gated DeltaNet improves Entity Tracking but loses grammar and broad transfer, while diffusion and flow objectives show local advantages in probes that rarely survive the official scoring interface. The lesson for BabyLM is not that newer objectives or recurrent mixers are unhelpful, but that small-data gains depend on matching the objective, architecture, sampler, and scorer.</abstract>
+      <pdf hash="5dc32c91"/>
+      <bibkey>laitenberger-etal-2026-survives</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.babylm-main.8/ -->
+      <title>Do Association-Reweighted <fixed-case>BPE</fixed-case> Merge Rules Help Data-Efficient Language Modeling?</title>
+      <author><first>Zy</first><last>Li</last><affiliation>Seattle University</affiliation></author>
+      <author><first>Phu</first><last>Han</last></author>
+      <author><first>Trinh</first><last>Tran</last></author>
+      <author><first>Lam</first><last>Duong</last></author>
+      <author><first>Andrew</first><last>Fang</last><affiliation>Seattle University</affiliation></author>
+      <pages>93-104</pages>
+      <abstract>Subword tokenization determines a language model’s symbol inventory and sequence length, yet standard BPE selects merges by frequency alone. We test whether association-reweighted merges help on BabyLM Strict-Small. Holding the merge budget and architecture fixed and approximately matching word exposure, we train 97M-parameter causal decoders with three seeds using standard BPE, the S-BPE merge score with fixed-budget stopping, and exponential positive-PMI reweighting (PMI-BPE). Neither alternative reliably improves held-out bits-per-byte (BPB) or BLiMP. PMI-BPE’s mean BPB is slightly higher than standard BPE’s, but no pairwise difference is statistically reliable at three seeds. Both alternatives alter the merge tables and measurably change compression, ruling out a trivial no-intervention explanation. Yet intrinsic association rankings depend on scoring measure and aggregation. Type-uniform rankings reverse between post-merge PMI and thresholded held-out PPMI, while application-weighted PPMI is nearly identical across tokenizers. These results do not rule out association-aware tokenization; they cover one merge budget, one operating point per score, and two evaluation axes. Within that scope, the tested scores do not reliably help, and intrinsic merge association does not consistently align with the BPB and BLiMP point-estimate orderings.</abstract>
+      <pdf hash="a9abf2b5"/>
+      <bibkey>li-etal-2026-association</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.babylm-main.9/ -->
+      <title>Retrieval Without Relevance: Prompt Dependence in Small Machine Translation Models</title>
+      <author id="heesu-kim" orcid="0009-0007-4834-2738"><first>Heesu</first><last>Kim</last></author>
+      <author id="shota-sato" orcid="0009-0003-3474-6417"><first>Shota</first><last>Sato</last><affiliation>Hitotsubashi University</affiliation></author>
+      <author id="mamoru-komachi" orcid="0000-0003-1166-1739"><first>Mamoru</first><last>Komachi</last><affiliation>Hitotsubashi University</affiliation></author>
+      <pages>105-122</pages>
+      <abstract>We study how a small machine translation model should allocate a fixed data budget between parametric training and retrieval memory. We define a shared 100M-token corpus-access ledger that charges pretraining, fine-tuning, and retrieval-datastore tokens alike. Using <tex-math>\approx</tex-math>42M-parameter models, we compare three uses of the same per-pair datastore across 12 directed pairs of English, Chinese, Japanese, and Korean: leaving it unused, training on it, or retrieving from it into the prompt. We evaluate retrieval additivity across all 12 pairs and analyze retrieval-conditioned behavior in a four-pair core set. Retrieval shows no consistent additive gain over simply not using the datastore, a result that persists under an off-budget dense retriever and pools up to approximately <tex-math>1000\times</tex-math> larger. On the four-pair core set, retrieval-trained models are nevertheless highly context-dependent: removing retrieved examples causes large score drops, while replacing them with query-unrelated, count-matched same-pair examples recovers nearly the full score. This suggests that the learned dependence is primarily on exemplar-shaped context rather than on query-specific information carried by the retrieved neighbors. Our training and evaluation code is available at https://github.com/kheesu/retrieval-without-relevance.</abstract>
+      <pdf hash="45348624"/>
+      <bibkey>kim-etal-2026-retrieval</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.babylm-main.10/ -->
+      <title>When Does Depth Recursion Pay? A Parameter-Matched Study of Weight-Tied Hybrid Transformers on 100<fixed-case>M</fixed-case> Unique Words</title>
+      <author><first>Aditya</first><last>Sasidhar</last></author>
+      <pages>123-133</pages>
+      <abstract>Weight-tied depth recursion trades computation for effective depth without adding learned parameters. We pre-train 21 hybrid Gated DeltaNet (GDN) + grouped-query attention (GQA) transformers from scratch on the BabyLM 2026 Strict corpus under one tokenizer, data order, and optimizer, and use them to ask on which budget axis recursion actually pays. Under a matched data-exposure budget, recursion is a robust win on language-model loss: two exact parameter-matched pairs improve validation loss by 0.0252 and 0.0195 nats (means over three training seeds; seed sd 0.0015 and 0.0005), and a domain-balanced re-evaluation over the full 17.4M-token dev set puts the advantage at 0.0270 and 0.0196 nats, positive in all six dev domains under all three seeds (36 of 36 cells). Grammatical accuracy does not support a claim either way: replicated over the same three seeds the mean zero-shot BLiMP gain is +0.58 (sd 2.44) and +1.84 (sd 2.05) points, against a seed-noise floor of up to 2.80 points sd for a single architecture retrained—so the +3.31 and +4.21 obtained from one seed are not separable from training noise. Under a matched compute budget it is not: the same non-recursive twins trained to 1B tokens, using two thirds of the recursive models’ training FLOPs, beat them by 0.0117 and 0.0088 nats. Two further controls sharpen the mechanism. Untying the re-applied layers—same depth, same FLOPs, three times the parameters—recovers a further 0.0467 and 0.0399 nats, pricing what tying costs. Replacing effective-depth residual scaling with unique-depth scaling changes loss by only 0.0034 and 0.0003 nats, so the gain comes from tying rather than from the initialization the two differ in. A 25M-token checkpoint grid locates the recursive models’ crossover with their twins at 75–125M tokens in the 2:1 pair, before either model has completed one pass over the corpus, ruling out repeated examples as the mechanism there; the crossover moves later as effective depth grows, consistent with an early optimization cost. Recursion is therefore best understood as a data-efficiency mechanism for the fixed-corpus regime this benchmark defines, not a compute- or inference-efficiency one.</abstract>
+      <pdf hash="2b19e737"/>
+      <bibkey>sasidhar-2026-depth</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.babylm-main.11/ -->
+      <title>Parameter Golf: What Really Works?</title>
+      <author><first>Prashanna Mani</first><last>Paudel</last></author>
+      <author id="shivanand-venkanna-sheshappanavar" orcid="0000-0003-4039-2910"><first>Shivanand Venkanna</first><last>Sheshappanavar</last><affiliation>University of Wyoming</affiliation></author>
+      <pages>134-147</pages>
+      <abstract>How far can a language model improve under a strict artifact budget? Parameter Golf posed this question as an open community challenge in which participants trained the best language model, with the complete artifact (training code + compressed weights) required to fit within 16 MB and to be trained in under ten minutes on 8xH100 SXM GPUs. Quality was measured in bits-per-byte (BPB), the average number of bits required to encode each byte of unseen text. We analyze 2,037 pull requests and 1,430 clean-scored submissions from the contest, build a taxonomy of 84 optimization techniques, and measure each technique’s contribution to BPB. The verified leaderboard score dropped from 1.2244 to 1.058 BPB across three phases, a 13.6% reduction, despite individual techniques rarely improving BPB by more than 1%. We show that most techniques’ gains shrink when re-measured among competitive submissions, isolating the few methods that help regardless of the surrounding stack. Code and data are available at https://github.com/PMP56/pmgolf-analysis.</abstract>
+      <pdf hash="43e7fa30"/>
+      <bibkey>paudel-sheshappanavar-2026-parameter</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.babylm-main.12/ -->
+      <title>Prosodic Structure as a Critical Component in Phonemic Language Modelling at <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Scale</title>
+      <author id="bill-k-s-ku" orcid="0000-0003-0667-499X"><first>Bill K. S.</first><last>Ku</last></author>
+      <author id="janet-pierrehumbert" orcid="0000-0002-5989-3574"><first>Janet B.</first><last>Pierrehumbert</last><affiliation>University of Oxford</affiliation></author>
+      <pages>148-164</pages>
+      <abstract>Human children learn language from continuous, prosodically structured speech long before they can read, yet almost all language models train on orthographic text. Building on previous phonemic BabyLM training (Goriely et al., 2024), we ask whether supplying an estimate of the prosody infants exploit improves phonemic language modelling at BabyLM scale. We compare an orthographic baseline to three conditions forming a ladder of phonological richness. All conditions are trained as BERT MLMs at 10M and 100M words. Addressing the ecological validity of existing metrics in the small-data regime, we build a lexical decision task and two semantic organisation tasks. Our new lexical decision task offers improved insights into the distinction between wordlikeness, token familiarity, and lexicality as factors. Triphone phonotactic control and pseudo-log-likelihood scoring shows that these scores reflect phonotactic familiarity rather than wordhood: every model sits near or below chance on an adversarial inverted condition, revealing prior results of this kind as partly artefactual. On our new semantic tasks, a prosodically annotated phoneme stream gives the strongest taxonomic organisation at both the 10M and 100M word scales. Phonemic models with boundary structure are competitive with the orthographic baseline. These findings suggest that prosodic structure is a key component of phonemic language modelling in the small-data regime most analogous to infant learning.</abstract>
+      <pdf hash="2331225c"/>
+      <bibkey>ku-pierrehumbert-2026-prosodic</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.babylm-main.13/ -->
+      <title>Augustinian <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>: What Ostensive Definition Can and Cannot Teach a Small Language Model</title>
+      <author><first>Lisa</first><last>Bylinina</last><affiliation>Utrecht University</affiliation></author>
+      <pages>165-178</pages>
+      <abstract>A language model normally begins training with random word embeddings: whatever ’banana’ means must be learned from training corpora. I implement St. Augustine’s picture of word learning, meaning by ostension, for a small masked language model (DeBERTa) trained on 10M words: before training, visually grounded tokens receive embeddings derived from the image regions they label; other tokens start random.<par/>Visual initialization leaves a measurable imprint that lasts until the end of training. At the same time, the effect remains invisible under most BabyLM benchmarks, which probe abstract grammatical knowledge: visual initialization does not affect performance there. The only zero-shot exception is object-property knowledge (COMPS), where seeding helps in every configuration. To follow up on this result, I build a corpus-tailored version of the Visual-Property Swap benchmark, which tests color, material, size, and shape knowledge, with per-item training frequency and seeded status. Here, vision-seeded models have a persistent, seed-replicated advantage, confined to the seeded words. As a causal test, I show that synthetic grounding of previously unseeded words transfers the advantage to exactly those words.<par/>Function words and abstract vocabulary also receive strong visual seeds and retain them throughout training, and the training objective draws on them: held-out mask-prediction loss falls for these words in every seed. However, no benchmark I run registers this. What evaluation would pick this up remains an open question.</abstract>
+      <pdf hash="799bb108"/>
+      <bibkey>bylinina-2026-augustinian</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.babylm-main.14/ -->
+      <title>How Far Is the Training Corpus from Real Infant Input? Auditing <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Against Day-Long Home Recordings, and What an Age-of-Acquisition Curriculum Does Not Buy</title>
+      <author><first>Imrul</first><last>Huda</last><affiliation>University of Chicago</affiliation></author>
+      <pages>179-186</pages>
+      <abstract>The BabyLM Challenge asks models to learn from developmentally plausible data, but how closely the standard corpus resembles the language infants actually hear has not been measured. We compare the Strict-Small corpus against SEEDLingS, a corpus of day-long home recordings from 44 infants with 358,300 hand-annotated noun tokens, over the 299 words the two share. Corpus word frequencies match real infant input only moderately (Spearman’s <tex-math>\rho = 0.42</tex-math>; all correlations reported here are Spearman rank correlations), and real input frequency predicts human age of acquisition (AoA) far better (<tex-math>\rho = -0.79</tex-math>) than the training corpus’s own frequencies do (<tex-math>\rho = -0.48</tex-math>).<par/>Breaking the corpus down by source locates the gap. CHILDES tracks real infant input at <tex-math>\rho = 0.55</tex-math> while the five other sources fall between 0.14 and 0.31, and the pooled corpus falls below CHILDES alone. The sources are not ordered by how speech-like they are: written text ranks above adult conversation. What separates them is child-directedness.<par/>Against this we set a curriculum intervention. We order the corpus by the AoA of the words each sentence contains, derived from the MacArthur-Bates Communicative Development Inventory (CDI), train GPT-2 Small on it and on a content-matched shuffled baseline, across three seeds and three training budgets up to 100M words. The curriculum reliably produces a model whose acquisition order matches the human one (<tex-math>\rho = 0.63</tex-math>–0.78 against 0.09–0.22), but the curriculum encodes human AoA at <tex-math>\rho = 0.96</tex-math> by construction and the alignment falls to <tex-math>\rho \approx 0.3</tex-math> once presentation order is partialled out. It confers no advantage on BLiMP at any budget. Improving what a corpus contains may matter more than the order in which it is presented.</abstract>
+      <pdf hash="b92a96f2"/>
+      <bibkey>huda-2026-far</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.babylm-main.15/ -->
+      <title>Linguistically Inspired Multilingual Pre-Pretraining</title>
+      <author><first>Masato</first><last>Mita</last><affiliation>Hitotsubashi University, Recruit Co.,Ltd. and The University of Tokyo</affiliation></author>
+      <author id="max-muller-eberstein" orcid="0000-0002-0006-0658"><first>Max</first><last>Müller-Eberstein</last><affiliation>The University of Tokyo and IT University of Copenhagen</affiliation></author>
+      <author><first>Misaki</first><last>Yamaguchi</last></author>
+      <author id="yohei-oseki" orcid="0000-0002-1189-1588"><first>Yohei</first><last>Oseki</last><affiliation>National Institute of Informatics and University of Tokyo</affiliation></author>
+      <pages>187-198</pages>
+      <abstract>Encoding Universal Grammar principles (UG) during pre-pretraining (PPT) has been shown to produce inductive biases in language models, which facilitate natural language acquisition. While UG principles should be language-agnostic, each language follows different typological parameters. To empirically validate this theory, we operationalize three levels of typological flexibility via PPT: non-typological <tex-math>k</tex-math>-shuffle Dyck, as well as MP-STRUCT, which encodes the Minimalist Program operations MERGE, AGREE, MOVE following fixed typological parameters. Additionally, we introduce MP-STRUCT BCC (BCC), which parameterizes typological features following the Borer–Chomsky Conjecture to allow for a more typologically flexible parametrization. Through a multilingual, subtask-level evaluation across 207 grammatical tasks for English, Dutch, and Chinese, we find that principles-driven PPT significantly improves average accuracy, but selectively degrades language-specific phenomena such as wh-island constructions. In contrast, structure-only PPT, as well as typologically flexible PPT eliminate wh-island degradation while preserving overall gains, demonstrating that typological parameterization offers a path toward multilingual syntactic priors. Exploratory model-internal analyses are consistent with these findings at the levels of output probabilities, attention structure, as well as cross-lingual representation alignment.</abstract>
+      <pdf hash="2cd5a9a0"/>
+      <bibkey>mita-etal-2026-linguistically</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.babylm-main.16/ -->
+      <title><fixed-case>BPE</fixed-case> vs. Morphology-Aware Tokenization: A Case Study on <fixed-case>A</fixed-case>rabic Language Modeling at <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Scale</title>
+      <author><first>Mohamed</first><last>Badawy</last></author>
+      <author><first>Marion Di</first><last>Marco</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>199-208</pages>
+      <abstract>Byte Pair Encoding (BPE) is blind to morphology, a poor fit for Arabic, whose words bundle conjunctions, articles, and inflection into one token. The leading morphology-aware strategy for Arabic, MorphBPE, relies on Farasa, a supervised segmenter disallowed under the BabyLM 2026 rule against off-the-shelf linguistic tools. We study Arabic segmentation under the BabyLM GPT-2 training pipeline and propose Morfessor+MorphBPE, an unsupervised morphology-aware tokenizer.<par/>We compare two dimensions: supervised vs. unsupervised morphological segmentation and the merging constraints used by BPE. All tokenizer variants cluster within a narrow accuracy band, with improvements rather on language understanding tasks than knowledge tasks, even though we do not observe consistent improvements over BPE. Furthermore, we find that holding the Farasa segmentation fixed, the MorphBPE constraint sharply lowers perplexity but barely changes downstream accuracy; and unsupervised Morfessor boundaries match supervised Farasa on aggregate while scoring higher on grammaticality (MultiBLiMP). Morfessor+MorphBPE thus offers a practical path to morphology-aware tokenization for Arabic.</abstract>
+      <pdf hash="fda21786"/>
+      <bibkey>badawy-etal-2026-bpe</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.babylm-main.17/ -->
+      <title>Structural priors for data-efficient language learning</title>
+      <author><first>Yana</first><last>Veitsman</last></author>
+      <author id="jonas-mayer-martins" orcid="0000-0002-8113-0856"><first>Jonas</first><last>Mayer Martins</last><affiliation>Georg-August Universität Göttingen</affiliation></author>
+      <author><first>Jonathan</first><last>Lautenschlager</last></author>
+      <author id="lisa-beinborn" orcid="0000-0001-8654-2190"><first>Lisa</first><last>Beinborn</last></author>
+      <pages>209-226</pages>
+      <abstract>Efficient language learning requires methods to reduce the reliance on large data and computational resources. We investigate *structural transfer*: First training models on non-language data to induce useful priors for natural language. This approach is a form of weight initialization for multilingual language modeling. We evaluate transfer via next-token-prediction loss, weight shifts in the model, and downstream linguistic benchmarks. Several symbolic data types—notably music, probabilistic grammars, and cellular automata—yield lower language-modeling loss than random initialization. These gains coincide with smaller weight shifts during subsequent language training, suggesting that structural transfer positions models in a more favorable region of the parameter space. However, a lower loss does not translate consistently into better downstream linguistic performance, and transfer from non-language data is less efficient than additional language data. We conclude that non-language data can serve as a partial substitute for language data for the training objective of next-token prediction but does not reliably support broader linguistic generalization.</abstract>
+      <pdf hash="bbd8622f"/>
+      <bibkey>veitsman-etal-2026-structural</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.babylm-main.18/ -->
+      <title><fixed-case>A</fixed-case>rabic <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>: Effects of Diglossia and Tokenisation</title>
+      <author><first>Mozafar</first><last>Haider</last></author>
+      <author><first>Burcu</first><last>Can</last><affiliation>University of Stirling</affiliation></author>
+      <pages>227-239</pages>
+      <abstract>This paper explores building a baby language model for Arabic in the context of the BabyLM challenge, with a pretraining corpus limited to 10 million words. We focus on two areas: 1. morphologically-aware segmentation and tokenisation methods suitable for Arabic, and 2. the unique challenges of data curation in diglossic linguistic settings, where the language spoken at home and in everyday communication (Dialectal Arabic) differs substantially from the written language used in formal education and most media (Modern Standard Arabic). We evaluate our models using the BabyBabelLM evaluation pipeline. We achieved a significant improvement in the grammaticality scores using different tokenisation and data composition strategies. We discuss these improvements in detail, especially what they reveal about the effect of mixing Modern Standard Arabic and Dialectal Arabic in baby Arabic language models, as well as the challenges they pose for building developmentally plausible models in Arabic.</abstract>
+      <pdf hash="159a90ee"/>
+      <bibkey>haider-can-2026-arabic</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.babylm-main.19/ -->
+      <title>Repetition Without Exclusivity: Scale Sensitivity of Referential Mechanisms in Child-Scale Language Models</title>
+      <author id="jon-paul-cacioli" orcid="0009-0000-7054-2014"><first>Jon-Paul</first><last>Cacioli</last><affiliation>University of Melbourne</affiliation></author>
+      <pages>240-249</pages>
+      <abstract>We present the first systematic evaluation of mutual exclusivity (ME), the bias to map novel words to novel referents, in text-only language models trained on child-directed speech. We operationalise ME as referential suppression and train 45 GPT-2 models (2.9M–33.5M parameters; 5–20 epochs on AO-CHILDES; 5 seeds) on a pre-registered ME battery. Across all 9 cells of the grid, models show robust anti-ME repetition priming, the opposite of ME, in 85–100% of items (all p &lt; 2.5 × 10⁻¹³), attenuating with improved language modelling (Spearman ρ = −0.533) but never crossing zero. A positive control on pretrained GPT-2 (124M–1.5B) shows the same priming, attenuating with scale but never reversing into significant ME, confirming the battery can detect suppression when present. The dissociation also holds on a size-matched non-CDS corpus (WikiText). A context-dependence diagnostic further shows that apparent ME-like patterns with nonce tokens reflect embedding similarity, not referential disambiguation. We connect this to the grounded cognition literature, where ME does emerge in visually grounded models, and argue that referential grounding, or another mechanism instantiating competition among candidate referents, may be required for ME-like behaviour to emerge.</abstract>
+      <pdf hash="b0eff5f8"/>
+      <bibkey>cacioli-2026-repetition</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.babylm-main.20/ -->
+      <title>Reading Acquisition Order out of <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Representations: Child-Scale Training Produces Developmentally Aligned Semantic Spaces</title>
+      <author id="chenyi-ding" orcid="0009-0001-0012-6266"><first>Chenyi</first><last>Ding</last></author>
+      <author id="zachary-nicholas-houghton" orcid="0000-0002-0320-8881"><first>Zachary Nicholas</first><last>Houghton</last><affiliation>Vail Systems, Inc.</affiliation></author>
+      <author><first>Masoud</first><last>Jasbi</last><affiliation>University of California, Davis</affiliation></author>
+      <pages>250-259</pages>
+      <abstract>Children learn words in a strikingly consistent order, and much of this order can be predicted from word-level properties such as frequency and concreteness. We ask whether acquisition order information is also implicitly present in the internal representations of language models, and what linguistic factors drive this. We probe 18 public checkpoints that span three architecture families at matched size, data scales from 10 million to roughly 180 billion words, and the winning systems and official baselines of the three previous BabyLM challenges. A ridge read-out of frozen hidden states predicts Wordbank age of acquisition for 619 CDI words, with the probing layer chosen on training folds only. Models trained on child-scale data match or exceed their full-scale counterparts in every family. Masked and hybrid training objectives yield more aligned spaces than purely causal training, and challenge winners are not the most aligned systems. Geometric measures of semantic structure add predictive value beyond classic predictors only for child-scale models. AoA decodability thus provides a training-free measure of developmental alignment for BabyLM evaluation.</abstract>
+      <pdf hash="c026d15f"/>
+      <bibkey>ding-etal-2026-reading</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.babylm-main.21/ -->
+      <title>Relational Attention for Data-Efficient Language Modeling</title>
+      <author id="adrian-brasoveanu-1113" orcid="0000-0001-8488-1113"><first>Adrian</first><last>Brasoveanu</last><affiliation>University of California, Santa Cruz</affiliation></author>
+      <author id="ece-takmaz" orcid="0000-0002-6349-1367"><first>Ece</first><last>Takmaz</last><affiliation>Utrecht University</affiliation></author>
+      <author><first>Jakub</first><last>Dotlacil</last><affiliation>Utrecht University</affiliation></author>
+      <pages>260-278</pages>
+      <abstract>We present Relational BabyLM, a system submission to the BabyLM 2026 challenge that combines two cognitively motivated inductive biases in a single decoder-only Trans- former. Architecturally, we replace standard self-attention with a Dual Attention Trans- former (DAT), which separates the routing of object-level (“sensory”) lexical features from structural/relational information (Altabaa and Lafferty, 2025; Altabaa et al., 2024; Webb et al., 2024; Kerg et al., 2022; Webb et al., 2021). Relational attention (RA) disentangled from self-attention greatly increases data efficiency and out-of-training-sample generalization on purely relational tasks, but language modeling requires object-level and relational infor- mation to be integrated as well as disentangled, and RA-based LMs have remained largely un- explored. BabyLM’s data-constrained training and comprehensive evaluation is an ideal testing ground for whether that data efficiency transfers. As a training intervention, we add a Next-Latent Prediction (NextLat; Teoh et al. 2026) objective that encourages hidden states to compress history incrementally into a dense belief state. Architecture is the dominant factor for structural linguistic generalization; the objective is secondary but still significant. DAT’s three relational attention types (full RA vs. the simpler RCA and DisRCA variants) are largely interchangeable at 10M words; full RA pulls ahead at 100M. We also introduce a novel symbol-retrieval mechanism (RoPE-based, as opposed to learned, relative symbols) that matches learned symbol libraries while adding no parameters. On the strict (100M- word) track, our best model ranks 6th of 55 overall and 3rd of 55 on the leaderboard’s NLP- task subset at the time of writing; our two strongest models outperform the GPT-2 base- line on most benchmarks, with one attaining the highest EWoK score among strict-track entries.</abstract>
+      <pdf hash="5cd510a5"/>
+      <bibkey>brasoveanu-etal-2026-relational</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.babylm-main.22/ -->
+      <title>Can Translation Bridge the Data Gap for Low-Resource Languages? A Case Study of <fixed-case>H</fixed-case>indi and <fixed-case>T</fixed-case>elugu</title>
+      <author id="venkata-naga-sai-vishnu-rohit-pulipaka" orcid="0009-0000-2444-3912"><first>Venkata Naga Sai Vishnu Rohit</first><last>Pulipaka</last></author>
+      <author id="libby-barak" orcid="0000-0003-1045-7701"><first>Libby</first><last>Barak</last><affiliation>Montclair State University</affiliation></author>
+      <pages>279-288</pages>
+      <abstract>Low-resource languages often lack sufficient training data for developing small language models, limiting the application of recent language acquisition benchmarks beyond English. Moreover, cross-language comparison is made harder given differences in training data composition and quality. We investigate whether machine translation can be used to create BabyLM-scale training corpora for low-resource languages by translating the English BabyLM corpus into Hindi and Telugu using IndicTrans2. We train GPT-BERT and GPT-Wee models and evaluate them using perplexity and linguistic benchmarks. GPT-BERT consistently outperforms GPT-Wee across both monolingual and bilingual settings. Although perplexity is lower on in-domain test data, this pattern is consistent across English and the translated languages, suggesting that the effect reflects domain similarity rather than artifacts introduced by translation. Furthermore, the models achieve competitive performance on linguistic evaluations relative to pretrained language models. These findings suggest that translation warrants further analysis to obtain data for developing and evaluating small language models in low-resource settings.</abstract>
+      <pdf hash="1722446e"/>
+      <bibkey>pulipaka-barak-2026-translation</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.babylm-main.23/ -->
+      <title>Causal, Hybrid, and Ternary Transformers under a Restricted Data Budget</title>
+      <author><first>Arnav</first><last>Srivastav</last><affiliation>University of California, Santa Cruz</affiliation></author>
+      <pages>289-298</pages>
+      <abstract>We evaluate five decoder-only Transformers trained in the BabyLM 2026 Strict-Small setting. In a closely matched training comparison, Causal-30M and Hybrid-30M share architecture, initialization, data, tokenization, optimization settings, seed, and training exposure. Causal-30M reaches lower held-out causal next-token loss. Their benchmark results come from different evaluation pipelines—server-held-out evaluation for Causal-30M and preliminary local evaluation for Hybrid-30M—so we report them descriptively and do not treat their benchmark differences as an objective-level ranking. A larger 64.57M-parameter hybrid configuration improves the preliminary NLP Average and substantially improves Entity Tracking, but its gains are not uniform across evaluation categories.<par/>Separately, we compare architecture- and exposure-matched dense and fake-quantized ternary models. In this single-seed comparison, Ternary-30M averages 42.90 across the eight categories measured for both models, against 43.45 for Dense-30M, retaining 98.73% of the dense model’s measured aggregate. The two models use different peak learning rates, so this result describes the tested training recipes, not the effect of ternarization alone. Overall, the experiments show benchmark-specific trade-offs across objectives, model configurations, and weight representations. The ternary experiment measures capability retention under fake quantization and does not assess packed storage or specialized low-bit inference.</abstract>
+      <pdf hash="73ee6f8b"/>
+      <bibkey>srivastav-2026-causal</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.babylm-main.24/ -->
+      <title>Can Randomly Permuting the <fixed-case>LM</fixed-case> Decoding Order Boost Data-Efficiency?</title>
+      <author id="max-ploner" orcid="0009-0007-4593-2353"><first>Max</first><last>Ploner</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author id="alan-akbik" orcid="0009-0003-9551-6447"><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>299-308</pages>
+      <abstract>Causal language models, typically trained with next-token prediction, condition each token’s probability on all preceding tokens. When pretraining is limited by the amount of available training data (rather than compute), repeating training over the same corpus yields a largely unchanged learning signal across epochs. In contrast, permutation language models (PLMs) predict tokens in a random order, conditioning each prediction on a bidirectional set of tokens and thereby increasing the diversity of contextual evidence a token can receive. We hypothesize that PLMs (1) profit more from longer training on repeated data, (2) outperform classical CLMs in data-limited settings where multiple epochs are allowed, and (3) excel on tasks where bidirectional context is useful.<par/>To test these hypotheses, we train multiple models on the BabyLM strict-small pretraining data consisting of only 10M words and evaluate how decoding order and bidirectional conditioning affect model performance under tight training-data budgets. We find that while PLMs profit from longer training, they do not generally outperform CLMs except on tasks where use of bidirectional context is required.</abstract>
+      <pdf hash="3ae88c5f"/>
+      <bibkey>ploner-akbik-2026-randomly</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.babylm-main.25/ -->
+      <title>When the Weakest Language Keeps Moving: <fixed-case>ARMOR</fixed-case>-<fixed-case>DP</fixed-case> for Multilingual <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author><first>Hanyu</first><last>Liao</last></author>
+      <author id="yijing-chen" orcid="0009-0008-5041-6203"><first>Yijing</first><last>Chen</last></author>
+      <author id="tao-ji" orcid="0000-0002-9957-6661"><first>Tao</first><last>Ji</last><affiliation>Fudan University</affiliation></author>
+      <pages>309-319</pages>
+      <abstract>Multilingual BabyLM systems typically fix language proportions statically while overlooking that the weakest language changes throughout training. We present ARMOR-DP, a modular diagnostic framework that identifies linguistic weakness arising from representation, exposure, capacity, and objective pressure, and dynamically adjusts sampling ratios according to per language validation loss. Controlled experiments show that equal character budgets lead to severe collapse in Chinese. Byte level representation resolves this issue, whereas increased exposure to Chinese subsequently shifts the bottleneck to English. ARMOR-DP tracks these transitions throughout training and maintains a better balance than fixed Chinese protection. On the official evaluation suite, our 100M parameter curriculum dynamic d768 checkpoint achieves 0.503 on the zero shot metric and 0.387 on the combined metric, attaining a multilingual leaderboard average of 38.32 with per language scores of 35.34 for English, 40.96 for Dutch, and 38.65 for Chinese. Dutch and Chinese substantially outperform the baseline, while English exhibits only a modest decrease, indicating that the overall model capacity is well preserved. On the POS task, the model records scores of 85.95% for English, 88.13% for Dutch, and 82.29% for Chinese, compared with official baselines of 84.7% on English MultiBLiMP, 92.4% on Dutch MultiBLiMP, and 78.5% on ZhoBLiMP, demonstrating strong morphological and syntactic competence. A matched d512 variant obtains 0.381 on the combined metric, outperforming static ZH50 at 0.359 while requiring only 6.46 Chinese corpus epochs instead of 9.78. Our findings suggest that multilingual BabyLM systems should treat linguistic weakness as a training time state rather than a fixed deficit.</abstract>
+      <pdf hash="39cb89c0"/>
+      <bibkey>liao-etal-2026-weakest</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.babylm-main.26/ -->
+      <title>Cross-Linguistic Effects in Bilingual Phoneme <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s</title>
+      <author><first>Nikitas</first><last>Theodoropoulos</last><affiliation>Independent</affiliation></author>
+      <author id="maria-lymperaiou" orcid="0000-0001-9442-4186"><first>Maria</first><last>Lymperaiou</last><affiliation>National Technical University of Athens</affiliation></author>
+      <author id="giorgos-filandrianos" orcid="0000-0002-7015-7746"><first>Giorgos</first><last>Filandrianos</last></author>
+      <pages>320-332</pages>
+      <abstract>Cross-linguistic effects are a central topic in bilingual first-language acquisition. Artificial learners can help investigate L1-L2 interactions by enabling controlled comparisons across language combinations and learning conditions. Recent work explores this direction by training bilingual language models under developmentally plausible constraints. However, human and model learners still diverge in fundamental ways, with one major difference being input modality: children learn primarily from spoken input, whereas language models are typically trained on orthographic text. To reduce this gap, researchers have trained models on phonemic representations of speech. In this work, we combine these research directions to train bilingual BabyLMs with phonemic input. We keep English fixed as the L2 and vary the L1 across German, Swedish, Persian, and Basque, selected to represent contrasting combinations of syntactic and phoneme-inventory distance from English. Our results show stronger L1-related variation in grammatical learning trajectories under phonemic than orthographic input, while early lexical differences align with phoneme-inventory similarity.</abstract>
+      <pdf hash="29cd51c8"/>
+      <bibkey>theodoropoulos-etal-2026-cross</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.babylm-main.27/ -->
+      <title><fixed-case>T</fixed-case>iny<fixed-case>L</fixed-case>ibrary: Do Age-Graded Curricula Help Small Vision-Language Models?</title>
+      <author id="dheeraj-varghese" orcid="0009-0000-1753-543X"><first>Dheeraj</first><last>Varghese</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>333-347</pages>
+      <abstract>Developmentally plausible curricula are a recurring hypothesis in research on cognitively plausible language-model training, but it remains unclear which notions of difficulty produce useful training curricula. We ask whether annotations derived from children’s literature yield a usable ordering signal. We introduce TinyLibrary, a corpus of 46K illustrated children’s-book pages drawn from a collection for readers aged 3-13. We infer each book’s age band from its OCR text and use the resulting label to condition the generation of multimodal training data. This design lets us test whether the developmental structure of children’s literature can be used to generate synthetic multimodal training data as an effective curriculum signal. We train small vision-language models for up to 10 epochs, using a pretrained vision encoder and a language model trained from scratch, and compare five curriculum orderings at matched token budgets. We evaluate the resulting models on the zero-shot BabyLM 2026 suite. Our results show that the age progression only partly aligns with teacher-model predictability: readability increases monotonically as intended, whereas teacher perplexity is U-shaped, with text for the youngest readers among the least predictable per token. Consistent with this mismatch, age-based ordering shows no reliable advantage over random ordering. Teacher-perplexity ordering achieves the highest mean BLiMP score and exceeds its seed-matched random counterpart in 10 of 12 comparisons, but this advantage transfers unevenly across teacher families and is entangled with annotation format. No ordering yields a reliable grounding advantage: Winoground remains at chance, while VQA is above chance but variable across conditions and seeds. We release the annotations and code.</abstract>
+      <pdf hash="b7161833"/>
+      <bibkey>varghese-2026-tinylibrary</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.babylm-main.28/ -->
+      <title>Not All Irregularity Is Equal: Causally Isolating a Rare Failure Mode in <fixed-case>J</fixed-case>apanese Morphological Inflection</title>
+      <author><first>Wen</first><last>Zhang</last></author>
+      <pages>348-357</pages>
+      <abstract>Neural morphological generation systems often achieve high aggregate accuracy on benchmark datasets, yet such performance can conceal systematic errors clustered in rare morphological subclasses. We present an orthography aware diagnosis of Japanese past-tense verb inflection, treating hiragana not merely as a transcriptional medium but as a representational system that encodes morphophonological structure. Using two character-level Transformer architectures evaluated across five random seeds, we show that although both systems exceed 97% aggregate accuracy, a single structurally specific irregular subtype, verbs whose stems end in /e/ and require gemination before the past-tense suffix and make up fewer than 1% of the data, accounts for a disproportionate 30–43% share of residual errors and contributes roughly 34–48× its prevalence to total errors. We then move from diagnosis to causal isolation: controlled ablation experiments show that removing this subtype alone produces larger accuracy gains than removing all irregular verbs combined. These findings indicate that error concentration in neural morphological learning is not driven by irregularity per se, but by the interaction between extreme low-frequency morphological patterns and specific orthographic processes. We argue that morphological evaluation should incorporate fine-grained subclass analysis, and discuss implications for data-efficient, developmentally plausible language model pretraining.</abstract>
+      <pdf hash="275572d0"/>
+      <bibkey>zhang-2026-irregularity</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.babylm-main.29/ -->
+      <title><fixed-case>TRLM</fixed-case>: Shared-Weight Recursive Reasoning for Non-Autoregressive Language Generation</title>
+      <author id="doga-oytac" orcid="0009-0008-8427-3570"><first>Doğa</first><last>Oytaç</last></author>
+      <pages>358-368</pages>
+      <abstract>Large language models achieve strong reasoning but require substantial parameters and memory, limiting deployment in resource-constrained settings. We introduce the Tiny Recursive Language Model (TRLM), a small masked non-autoregressive model that increases effective computation depth through shared-weight recursion. TRLM represents a masked sequence with input, answer, and latent reasoning states. A shared Transformer repeatedly refines the latent reasoning state, conditioning each update on trajectory time and step size via adaptive layer normalization. Training combines long- and short-trajectory answer-prediction losses with representation-level consistency. At inference, TRLM recursively refines latent states and fills all masked answer tokens in a single parallel decoding pass. We pretrain TRLM on approximately one billion OpenWebText and FineWeb-Edu tokens, then fine-tune and evaluate it on GSM8K and SVAMP against scratch-pretrained GPT-2-style, Gemma-4-Text-style, Diffusion-Gemma-style, and Mamba-2-style baselines. TRLM matches the best observed GSM8K result with 2.88% exact-match accuracy and achieves the highest SVAMP point estimate in our controlled comparison at 9.00%. Performance is non-monotonic with recursion depth: the highest observed GSM8K accuracy occurs at eight steps, whereas SVAMP peaks at four, suggesting that the preferred recursion depth may depend on the task in this setting.</abstract>
+      <pdf hash="00d008ca"/>
+      <bibkey>oytac-2026-trlm</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.babylm-main.30/ -->
+      <title>Right Tool, Right Job: Native-Language Evaluation, Tokenizer Sensitivity, and Methodological Findings from a <fixed-case>F</fixed-case>rench-Only <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author id="adam-zachary-wasserman" orcid="0009-0002-8865-6583"><first>Adam Zachary</first><last>Wasserman</last><affiliation>Open Honest Foundation</affiliation></author>
+      <author id="david-beauchemin" orcid="0000-0002-4084-8239"><first>David</first><last>Beauchemin</last><affiliation>Universite Laval, Université Laval</affiliation></author>
+      <pages>369-387</pages>
+      <abstract>We submit MÉTRON-FR, a 125M GPT-2 pretrained on 92.50M words of French, to the BabyLM 2026 Strict track. It scores <tex-math>85.97 \pm 0.17</tex-math>% on QFrBLiMP and 62.80% on the BabyLM-weighted leaderboard. A cross-lingual GLUE protocol that combines French task-data translation with rank-16 LoRA produces a sharp task-type gradient: relational tasks gain measurably, while world-knowledge tasks regress. Bilingual Lexicon Induction aligns the French embeddings to GPT-2 at p@1 = <tex-math>68.84 \pm 8.61</tex-math>%, <tex-math>32\times</tex-math> above chance, suggesting cross-lingual alignment tracks acquired grammatical competence rather than training duration. An ablation study shows that single-token zero-shot scoring is dominated by tokenizer and template artifacts at the child scale, motivating tokenizer-swap sensitivity, placebo-controlled prompting, and native-language minimal-pair benchmarks as standard diagnostics.</abstract>
+      <pdf hash="9eb36097"/>
+      <bibkey>wasserman-beauchemin-2026-right</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.babylm-main.31/ -->
+      <title>What Helped with Huge Data Hurt with Small Data: Standardization, Representational Geometry, and Data Scale</title>
+      <author id="catherine-finegan-dollak" orcid="0000-0003-4316-565X"><first>Catherine</first><last>Finegan-Dollak</last><affiliation>University of Richmond</affiliation></author>
+      <pages>388-402</pages>
+      <abstract>Training models on cognitively plausible (CP) amounts of data (tens or hundreds of millions of words) offers multiple advantages over the huge-data training (hundreds of billions to trillions of tokens) typical of current models, but achieving competitive performance at CP scale remains an open challenge. Understanding differences in representational geometry between CP- and huge-data models may help us design better CP-scale models. We identify differences in two aspects of representational geometry (anisotropy and rogue dimensionality) and a difference in effect of a geometry-targeted intervention.<par/>Although standardization—a technique to address anisotropy and rogue dimensions in LLM representational geometry—improves lexical similarity performance in huge-data models, the effect reverses for CP-data models. We also find that both rogue dimensionality and anisotropy correlate with data scale, further supporting the view that CP- and huge-scale models differ geometrically. However, statistical analysis of results across 18 models showed that neither rogue dimensions nor anisotropy significantly positively mediated the difference in standardization effect, except in one model per mechanism. This absence of mediation is itself a finding: it fails to support the two mechanisms most directly motivated by prior work on standardization, narrowing what plausibly explains the reversal. Thus, the observed qualitative difference in standardization effect may hint at as-yet undiscovered differences, geometric or otherwise, between CP-scale models and models trained on huge data.</abstract>
+      <pdf hash="782947a9"/>
+      <bibkey>finegan-dollak-2026-helped</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.babylm-main.32/ -->
+      <title>Compact Multilingual Pre-training under the <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> 100<fixed-case>M</fixed-case>-Word Budget with Regex-Guided Tokenization and Attention Residuals</title>
+      <author><first>Yihan</first><last>Liu</last><affiliation>Lund University</affiliation></author>
+      <author><first>Tongjing</first><last>Zhang</last></author>
+      <author id="pierre-nugues" orcid="0000-0002-9563-4000"><first>Pierre</first><last>Nugues</last><affiliation>Lund University</affiliation></author>
+      <pages>403-412</pages>
+      <abstract>Multilingual pre-training under severe data con straints can suffer from limited representational capacity and uneven tokenization across lan guages. Addressing the BabyLM 2026 Multi lingual Track, we study a compact pre-training recipe under the 100M-word budget. Our main contribution is a Calibrated Regex-Guided Byte-Level BPE (Regex-BBPE) tokenizer that combines script-aware pre-tokenization with byte-premium-adjusted tokenizer training in a 16K vocabulary. We pair this tokenizer with the previously proposed Attention Residuals mechanism and the Muon optimizer, and eval uate three English/Dutch/Chinese mixing ra tios. Among the tested mixtures, the Chinese dominant configuration (20% English, 20% Dutch, 60% Chinese) gives the strongest ag gregate fine-tuning results. Zero-shot results are mixed and remain slightly below the offi cial GPT-2 trilingual baseline on average, while fine-tuning improves the language-level aver ages by 8.55, 9.55, and 10.09 accuracy points for English, Dutch, and Chinese, respectively. The mixing-ratio experiments also show differ ent sensitivity patterns for the two West Ger manic languages and Chinese; we treat this as an observation within the tested language triple rather than a general cross-lingual law.</abstract>
+      <pdf hash="0b01b305"/>
+      <bibkey>liu-etal-2026-compact</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.babylm-main.33/ -->
+      <title>Different Corpora, Different Skills? A Paired Study of Small Language Models</title>
+      <author><first>Edoardo</first><last>Vaira</last></author>
+      <author><first>Georgios</first><last>Chavales</last></author>
+      <author id="pierre-nugues" orcid="0000-0002-9563-4000"><first>Pierre</first><last>Nugues</last><affiliation>Lund University</affiliation></author>
+      <pages>413-425</pages>
+      <abstract>Small language models are often trained under tight data budgets, where the choice of pretraining corpus may matter as much as model size or training recipe. We compare two contrasting corpora at matched 10-million- and 37-million-word budgets: the 1911 Encyclopaedia Britannica and the BabyLM 2026 strict pretraining corpus. For each corpus, we train teacher models, distilled 58-million-parameter Baby-Llama students, and no-distillation student ablations, using the same model families, training recipes, and evaluation protocol across corpora. Across BLiMP, BLiMP Supplement, EWoK, Entity Tracking, and COMPS, the corpora produce different skill profiles rather than a single quality ranking. BabyLM 2026 is consistently stronger on linguistic acceptability benchmarks, while Britannica is often stronger on Entity Tracking, a synthetic state-tracking task. The contrast appears across teacher and student models and at both budgets, with the cleanest cross-seed replication in the distilled student comparison. Targeted controls show that the central contrast persists after matching training exposure and at a longer diagnostic context; direct teacher ensembling also does not reproduce the 10M Britannica student’s Entity Tracking behavior. Entity Tracking magnitudes nevertheless remain sensitive to training dynamics. For this corpus pair, corpus choice can therefore produce different relative skill profiles at small scale, motivating multi-benchmark evaluation when comparing pretraining data.</abstract>
+      <pdf hash="5d53e998"/>
+      <bibkey>vaira-etal-2026-different</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.babylm-main.34/ -->
+      <title>Modeling the Developmental Shift in Telicity Acquisition</title>
+      <author id="ellie-xia" orcid="0000-0003-2894-7151"><first>Ellie</first><last>Xia</last></author>
+      <author id="parisa-kordjamshidi" orcid="0000-0002-4606-1824"><first>Parisa</first><last>Kordjamshidi</last><affiliation>Michigan State University</affiliation></author>
+      <author id="alan-hezao-ke" orcid="0000-0003-0873-0684"><first>Alan Hezao</first><last>Ke</last><affiliation>Michigan State University</affiliation></author>
+      <pages>426-437</pages>
+      <abstract>Acquiring telicity, which is the distinction between bounded (e.g., ate an apple) and unbounded (e.g., ate apples) events, requires first language (L1) learners to map surface-level and semantic cues to abstract event structures, but the computational trajectory of this mapping is not well understood. We introduce a Difference in Surprisal method that uses GPT2 token surprisal over paired temporal adverbial diagnostics (in an hour versus for an hour) to automatically label telicity across English CHILDES corpora, validated against expert linguist judgments. Using these labels, we train diagnostic logistic regression classifiers on 12 syntactic and lexical semantic features to compare how child speech and child-directed speech encode telicity. The two models diverge: the child model reaches near perfect accuracy through a single deterministic cue, the presence of a post-verbal determiner, while the adult model relies more heavily on verb class and other lexical semantic features, with the determiner cue neutralized. This trajectory supports Syntactic Bootstrapping: learners first exploit high-frequency structural cues to bootstrap, before developing fully compositional, verb-based event structures.</abstract>
+      <pdf hash="55f7129d"/>
+      <bibkey>xia-etal-2026-modeling</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.babylm-main.35/ -->
+      <title>Measuring Form and Function in Language Models</title>
+      <author id="hector-javier-vazquez-martinez" orcid="0009-0004-5200-553X"><first>Hector Javier</first><last>Vazquez Martinez</last></author>
+      <author><first>Charles</first><last>Yang</last><affiliation>University of Pennsylvania, University of Pennsylvania</affiliation></author>
+      <pages>438-458</pages>
+      <abstract>We introduce quantitative metrics for child language acquisition to evaluate language models. Our focus is on the formal syntactic and functional discourse properties of determiners in English, which young children acquire early and accurately. We propose Contextual Alternative Choice (CAC), a new prompting method which provides targeted tests for both syntactic and discourse knowledge of language. The method enables direct comparison of language models against children, and more importantly, against statistical benchmarks independently established in empirical research. No current model trained on a comparable amount of data simultaneously meet both formal and functional benchmarks like human children, but some very large models do. We present our results as methodological and technical contributions, with specific emphasis on cognitive status of language models.</abstract>
+      <pdf hash="46237b9b"/>
+      <bibkey>vazquez-martinez-yang-2026-measuring</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.babylm-main.36/ -->
+      <title>Stories for the Win: Creating and Evaluating a Synthetic <fixed-case>D</fixed-case>utch Children’s Storytelling Dataset</title>
+      <author><first>Sabijn</first><last>Perdijk</last></author>
+      <author id="gijs-wijnholds" orcid="0000-0002-7198-1024"><first>Gijs</first><last>Wijnholds</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <author id="suzan-verberne" orcid="0000-0002-9609-9505"><first>Suzan</first><last>Verberne</last><affiliation>Universiteit Leiden</affiliation></author>
+      <author id="max-van-duijn" orcid="0000-0003-0798-9598"><first>Max J.</first><last>van Duijn</last><affiliation>Leiden University, Leiden University</affiliation></author>
+      <pages>459-478</pages>
+      <abstract>Stories have been shown to be potentially valuable for language model pretraining because their semantics are largely self-grounded. Existing human storytelling datasets are relatively small, and existing synthetic datasets lack realism. Here we describe the guided synthesis of a story corpus that is both large and realistic. We evaluate a set of metrics for measuring the quality of individual stories, including coherence, surprise, complexity, as well for quality of the dataset as a whole. Using the metrics we extensively evaluate multiple prompting approaches and three small models (3-8B). Based on the results, we steer dataset generation to yield a high-quality ’synthetic twin’ of a Dutch children’s storytelling collection, similar in terms of lexical and semantic diversity, but much larger, which we call *Stories for the Win* (StoriesFTW). We validate our metrics and evaluate samples from our corpus with crowd, expert, and LLM judgements.</abstract>
+      <pdf hash="16cac422"/>
+      <bibkey>perdijk-etal-2026-stories</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.babylm-main.37/ -->
+      <title>Findings of the Fourth <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge &amp; Workshop: Going Beyond <fixed-case>E</fixed-case>nglish</title>
+      <author><first>Leshem</first><last>Choshen</last><affiliation>IBM Research, MIT</affiliation></author>
+      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
+      <author><first>Mustafa Omer</first><last>Gul</last><affiliation>Cornell University</affiliation></author>
+      <author><first>Jaap</first><last>Jumelet</last><affiliation>University of Groningen</affiliation></author>
+      <author><first>Tal</first><last>Linzen</last><affiliation>New York University</affiliation></author>
+      <author><first>Aaron</first><last>Mueller</last><affiliation>Boston University</affiliation></author>
+      <author><first>Suchir</first><last>Salhan</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Raj Sanjay</first><last>Shah</last><affiliation>Georgia Tech</affiliation></author>
+      <author><first>Alex</first><last>Warstadt</last><affiliation>UC San Diego</affiliation></author>
+      <author><first>Ethan Gotlieb</first><last>Wilcox</last><affiliation>Georgetown University</affiliation></author>
+      <pages>479-492</pages>
+      <abstract>This report summarizes the findings from the 4th BabyLM Challenge. The BabyLM Challenge is a shared task aimed at closing the data-efficiency gap between human and machine language learners. This year, the challenge was held as part of the 2nd BabyLM Workshop. We kept the text-only (strict and strict-small) tracks from previous years; interaction-based systems (which previously had a separate track) were folded into these existing tracks. We also introduced a new multilingual track, where language models were required to perform well on BabyLM evaluations in English, Dutch, and Mandarin Chinese. We observe that GPT-BERT remains a strong architectural foundation for sample-efficient pre-training, and that more training epochs, recursion/looping, and data preprocessing are associated with stronger performance in general. The winning submissions to the new multilingual track additionally demonstrate that LLM-generated parallel data can be quite effective at improving multilingual capabilities in low-data settings.</abstract>
+      <pdf hash="d208ebdc"/>
+      <bibkey>choshen-etal-2026-findings</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.babylm-main.38/ -->
+      <title>Exploring Auxiliary Objectives through Multi-Task Learning for Small-Data Language Model Pretraining: A <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> 2026 Submission</title>
+      <author id="alonso-palomino" orcid="0000-0002-7403-0427"><first>Alonso</first><last>Palomino</last></author>
+      <pages>493-503</pages>
+      <abstract>Pretraining optimizes a language model with self-supervised objectives over raw text, shaping the representations later measured by diagnostic evaluations. Masked language modeling (MLM) predicts hidden tokens from context, combining the distributional hypothesis with the cloze task. Less is known about alternative objectives under small data budgets. Using BabyLM 2026’s 10M-token Strict-Small setting, this paper asks whether auxiliary objectives jointly improve grammar, world-knowledge plausibility, entity tracking, and reading prediction, or instead benefit some areas at the expense of others. The experiments compare an MLM-only baseline with several multi-task objective mixtures while holding the corpus, architecture, tokenizer, training budget, and evaluation pipeline fixed. Results are selective: MLM-only is strongest on grammatical minimal-pair judgments, while auxiliary objectives improve entity-state tracking and reading prediction. Within the controlled fast evaluation, single-mask semantic cloze gives the clearest directional world-knowledge plausibility gain; grammar repair does not recover grammatical performance, and broad plausibility classification produces no positive EWoK delta. The central finding is objective-interface alignment: auxiliary objectives transfer most clearly when their loss format resembles the diagnostic interface used at evaluation time. Auxiliary objectives therefore act as targeted steering signals rather than uniform improvements over MLM.</abstract>
+      <pdf hash="0daa566d"/>
+      <bibkey>palomino-2026-exploring</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.babylm-main.39/ -->
+      <title><fixed-case>M</fixed-case>o<fixed-case>EP</fixed-case>+: Enhancing Modular Expert Paths for Data-Efficient Language Modeling</title>
+      <author><first>Noor Eidirhn</first><last>Mustafa</last><affiliation>Lund University / Lund Institute of Technology</affiliation></author>
+      <author><first>Valdemar</first><last>Melkersson</last><affiliation>Lund University / Lund Institute of Technology</affiliation></author>
+      <author id="pierre-nugues" orcid="0000-0002-9563-4000"><first>Pierre</first><last>Nugues</last><affiliation>Lund University</affiliation></author>
+      <pages>504-513</pages>
+      <abstract>We present MoEP+, an enhanced version of the Modular Expert Paths (MoEP) decoder. MoEP+ retains MoEP’s top-k routing over parallel expert paths, simplifies its dimensional mapping layers, and modernizes the backbone with RoPE, RMS normalization, and SwiGLU. It also introduces a projection-specialized routing scheme in which different experts apply nonlinear residual transformations to distinct attention projections. We evaluate MoEP+ on the BabyLM 2026 strict-small track, which is limited to 10 million words, and present it as a combined architectural recipe rather than attributing the observed gains to any single component.<par/>Under a matched training budget, MoEP+ outperforms the unmodified MoEP baseline on all eight zero-shot benchmarks. On five of these benchmarks, the advantage persists even when the baseline is trained for five times as many epochs. Most notably, MoEP+ is substantially more data-efficient: after only two epochs, it surpasses the unmodified MoEP’s ten-epoch BLiMP score. Despite its smaller size, it also remains competitive with the official BabyLM 2026 baselines, with its advantages concentrated in the reading-based measures.</abstract>
+      <pdf hash="a8654314"/>
+      <bibkey>mustafa-etal-2026-moep</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.babylm-main.40/ -->
+      <title>Four Kilobytes of Memory: A 10<fixed-case>M</fixed-case>-Parameter Fixed-State Recurrent <fixed-case>LM</fixed-case> for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Strict-Small</title>
+      <author><first>Sam</first><last>Furr</last><affiliation>College of Charleston</affiliation></author>
+      <pages>514-524</pages>
+      <abstract>How much language competence can a small recurrent model acquire when it must compress its context into a fixed-size state? We study this question with StateHead, a gated recurrent language model without attention or positional embeddings. Our BabyLM 2026 Strict-Small submission has 9.97M parameters and 2,160 recurrent state values, equivalent to 4.2 KiB in bf16. After 1.1 hours of training on a laptop, it scores 68.2 on BLiMP, compared with 65.2 for the official 98.4M-parameter GPT-2 baseline on the same benchmark suite. This advantage is specific to grammatical discrimination: StateHead is weaker on reading-time prediction and scores near or below chance on several semantic and entity-tracking evaluations. We characterize its computation and training trajectory, and compare recipes that reset or carry state across training chunks. The apparent entity-tracking gain is confined to items whose correct answer is “nothing”; both recipes score below chance on the revised benchmark. These results document both the useful capabilities and the limits of a language model with a very small recurrent memory.</abstract>
+      <pdf hash="7c3efe22"/>
+      <bibkey>furr-2026-four</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.babylm-main.41/ -->
+      <title>Weight-Tied Looped Depth for Data-Constrained Pretraining</title>
+      <author><first>Sebastian</first><last>Miles</last></author>
+      <pages>525-538</pages>
+      <abstract>The BabyLM Strict-Small track fixes the training corpus at 10M words and the budget at 10 epochs. Data cannot be added, so any gain has to come from the architecture. We ask whether weight-tied looped depth, applying the same transformer block stack twice per forward pass, helps under that constraint. On a 50M-parameter model built from <tt>nanochat</tt> it does. Held-out bits-per-byte (<tt>val_bpb</tt>, a per-byte cross-entropy that is comparable across tokenizers) falls from 1.3222 to 1.3175 as a three-seed mean, and every looped run lands below every baseline run, at no parameter cost. Downstream the effect points the same way, but we cannot resolve it: averaged over five zero-shot benchmarks under the official harness, the looped mean is 50.00 against the baseline’s 49.90, a gap of 0.10 points against a standard error of 0.17. The second pass is paid for in computation. Training takes <tex-math>1.71\times</tex-math> as long, and a 100M-parameter model trained for a comparable wall-clock time still scores better on both metrics. What looping buys here is parameter efficiency, not compute efficiency.<par/>The baseline these experiments run on was tuned by a human-directed agentic loop. The researcher proposed each hypothesis; an agent implemented it, trained for the fixed budget around the clock on one GPU, and kept or reverted the change under a fixed rule on <tt>val_bpb</tt>. We treat the loop as methodology and report its rejected hypotheses alongside the accepted ones.</abstract>
+      <pdf hash="68e2d755"/>
+      <bibkey>miles-2026-weight</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.babylm-main.42/ -->
+      <title><fixed-case>OLM</fixed-case>o2 with Hybrid <fixed-case>MLM</fixed-case>-<fixed-case>CLM</fixed-case> Training for the <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> 2026 Multilingual Challenge</title>
+      <author id="zichao-wei" orcid="0009-0008-7739-0648"><first>Zichao</first><last>Wei</last><affiliation>Universität des Saarlandes</affiliation></author>
+      <pages>539-542</pages>
+      <abstract>We present our submission to the BabyLM 2026 Multilingual Shared Task. Our system uses OLMo2, a modern decoder-only architecture with grouped-query attention, RoPE, and SwiGLU, trained from scratch on the official BabyLM trilingual corpus (English, Dutch, Chinese). We employ a hybrid training objective following (Charpentier and Samuel, 2024) that combines masked language modeling (87.5%) with causal language modeling (12.5%), enabling the decoder-only model to perform well on both bidirectional and autoregressive evaluation tasks. With a multilingual BPE tokenizer (32K vocabulary) and approximately 79M parameters, our model achieves a multilingual average of 47.12 on the official leaderboard. We release our model and training code.</abstract>
+      <pdf hash="dc353a02"/>
+      <bibkey>wei-2026-olmo2</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.babylm-main.43/ -->
+      <title>Loop Before You Leap: What Recurrent Depth Can and Cannot Buy in Data-Limited Pretraining</title>
+      <author><first>Daichi</first><last>Hotta</last><affiliation>Aoyama Gakuin University</affiliation></author>
+      <author id="yohei-kobashi" orcid="0000-0002-7666-9750"><first>Yohei</first><last>Kobashi</last><affiliation>The University of Tokyo, The University of Tokyo</affiliation></author>
+      <author id="takeshi-kojima" orcid="0000-0002-4081-7854"><first>Takeshi</first><last>Kojima</last><affiliation>The University of Tokyo</affiliation></author>
+      <author id="yusuke-iwasawa" orcid="0000-0002-1321-2622"><first>Yusuke</first><last>Iwasawa</last><affiliation>The University of Tokyo, The University of Tokyo</affiliation></author>
+      <author id="yutaka-matsuo" orcid="0000-0002-2106-8907"><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>543-562</pages>
+      <abstract>Multimodal models have often scored below text-only baselines in the BabyLM Challenge (Klerings et al., 2024; Takmaz et al., 2025). We test whether additional recurrent computation helps close this gap. Recurrence increases computation by reusing layers without adding parameters or training data. Using a single implementation, we compare standard and looped Transformers under a 100M-word budget, with three seeds per main condition. Each image is represented by one feature vector from a frozen DINOv2 encoder, used as a prefix token. Caption words count toward the budget, so multimodal training also changes the language data. In a pre-registered text-only comparison, a 12-layer stack repeated four times exceeds a standard 48-layer Transformer by 5.4 BLiMP percentage points at matched inference compute. However, multimodal training lowers BLiMP accuracy by about 3.8 points in both architectures, with no clear mitigation from recurrence. An exploratory loop-side no-image control, trained with the multimodal language data and batching schedule, scores 5.7 points below the text-only baseline. Adding the visual prefix raises accuracy by 1.85 points on average, but this contrast is uncertain with three seeds. These results suggest that changes in language data and its presentation are a major source of the drop. Diagnostic tests show that the models use visual information; its contribution to grammatical generalization remains uncertain under this single-vector interface.</abstract>
+      <pdf hash="942c2509"/>
+      <bibkey>hotta-etal-2026-loop</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.babylm-main.44/ -->
+      <title><fixed-case>URCHIN</fixed-case>: A Horizontal Spiking Language Model for Data-Constrained Pretraining</title>
+      <author id="po-han-chiang" orcid="0000-0003-4100-4051"><first>Po-Han</first><last>Chiang</last><affiliation>National Yang Ming Chiao Tung University</affiliation></author>
+      <pages>563-574</pages>
+      <abstract>The BabyLM challenge measures how much language a model can learn from developmentally-plausible, child-scale data rather than internet-scale corpora, yet prior language models forgo the biological constraints of the neural circuitry that acquires human language: spiking neurons separated into excitatory and inhibitory populations wired by a recurrent lateral connectome. This paper presents URCHIN (Unified Recurrent Connectome with Horizontal Integrate-and-fire Neurons), which applies the Parallelized Hierarchical Connectome Spiking State-space Model (PHCSSM) to language modeling: leaky integrate-and-fire neurons coupled by a Dale’s-law lateral connectome resolve each token through a multi-transmission loop that recirculates activity to a fixed point. The instantiation is deliberately minimal: a single horizontal layer of 128 neurons, no attention, and 4.23M parameters. Two implementations share one set of weights and produce identical benchmark scores, so URCHIN is trained once and deployed either way with no conversion step: a parallel state-space model (SSM) scan that is GPU-efficient for training, or an event-driven recurrent spiking neural network (RSNN) with constant-cost inference for CPU or neuromorphic edge deployment. Across all three BabyLM tracks (Strict-100M, Strict-Small, and Multilingual), URCHIN offers a biologically plausible, efficient, and directly deployable reference point.</abstract>
+      <pdf hash="38b4c95a"/>
+      <bibkey>chiang-2026-urchin</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.babylm-main.45/ -->
+      <title>The Impact of Preference Optimization Data Selection: Teaching Practical Life Skills to <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author id="barbora-stepankova-6180" orcid="0009-0008-2170-6180"><first>Barbora</first><last>Štěpánková</last><affiliation>Charles University Prague</affiliation></author>
+      <author id="vojtech-lanz" orcid="0009-0001-5742-0984"><first>Vojtěch</first><last>Lanz</last><affiliation>Charles University Prague</affiliation></author>
+      <author id="jakub-szymanik" orcid="0000-0002-6145-6322"><first>Jakub</first><last>Szymanik</last><affiliation>University of Trento</affiliation></author>
+      <pages>575-584</pages>
+      <abstract>This work investigates how the choice of preference optimization data affects small language models in the BabyLM setting. We apply SimPO to a GPT-2 model pretrained on 9M words, using 21 different 1M-word preference datasets, including UltraFeedback, which we cluster by topic, grammatical, and Reddit-based data. We show that preference datasets of the same size lead to different downstream performance. A combination of Business Content Creation, Food and Cooking, and Math and Calculations, which we refer to as the Practical Life Skills dataset, consistently improves Entity Tracking, MultiRC, and WSC tasks. The Entity Tracking gains are largely related to the model’s ability to handle cases where “nothing.” is a valid option, raising the question of whether models’ ability to abstain from selecting an answer in such cases or explicitly express uncertainty should receive more attention. Overall, we show that under strict data constraints, allocating the final 1M words to a different training objective can provide larger benefits than using them for additional pretraining.</abstract>
+      <pdf hash="1a001305"/>
+      <bibkey>stepankova-etal-2026-impact</bibkey>
+    </paper>
+    <paper id="46">
+      <!-- https://aclanthology.org/2026.babylm-main.46/ -->
+      <title>Subword Segmental <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s: Learning to Tokenise for Sample-Efficient Pretraining</title>
+      <author id="francois-meyer" orcid="0000-0001-5102-7535"><first>Francois</first><last>Meyer</last><affiliation>University of Cape Town</affiliation></author>
+      <pages>585-597</pages>
+      <abstract>In the standard LM training pipeline, subword tokenisation is applied as a preprocessing step. Subword segmental language modelling is an alternative paradigm in which tokenisation is learned during training, allowing the model to discover subword units that optimise its training objective. In this paper, we present our submission to the 2026 BabyLM Challenge, for which we develop two new subword segmental LMs: SubSegGPT and SubSegDeBERTa. SubSegGPT is a decoder-only model that learns tokenisation during autoregressive pretraining. SubSegDeBERTa is an encoder-based model that jointly learns to generate and tokenise masked words. We train both for the <sc>Strict</sc> and Strict-small tracks. Our top submission to Strict is SubSegDeBERTa, which achieves notable gains in zero-shot evaluation. Our top submission to Strict-small is SubSegGPT, which outperforms tokenisation-based baselines. Our results show that learnable subword tokenisation can improve sample-efficiency for BabyLM pretraining. We analyse the subword learning dynamics of our models and find that tokenisation gradually converges on subword units that balance morphological alignment and fine-grained segmentation.</abstract>
+      <pdf hash="80f459bd"/>
+      <bibkey>meyer-2026-subword</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.babylm-main.47/ -->
+      <title>Optimizing Multilingual <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>: The Roles of Tokenization, Data Packing, and Curriculum Learning</title>
+      <author><first>Fuming</first><last>Yang</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Kai-hao</first><last>Yang</last></author>
+      <author><first>Hsuan</first><last>Lien</last></author>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>598-610</pages>
+      <abstract>Training multilingual language models under strict data constraints remains a challenging problem. This paper presents our submission to the BabyLM 2026 Multilingual Track, focusing on English, Dutch, and Chinese. Three key challenges arise under the BabyLM constraints: efficiently sharing limited model capacity, maximizing sequence utilization, and allocating parameters efficiently under a fixed vocabulary budget. To address these challenges, we propose a three-stage curriculum learning strategy that dynamically adjusts language mixing ratios throughout training. Furthermore, we investigate data packing strategies, comparing naive chunking with document wrapping to maximize the learning signal within a strict 100M-token budget. Finally, we design a custom BPE tokenizer with an asymmetric sampling strategy. By reducing the size of the embedding matrix, the saved parameters are reallocated to the Transformer backbone, enabling highly efficient GPT-2 and BERT models. Experimental results show that combining our curriculum strategy with document packing consistently improves GPT-2 training convergence and achieves highly competitive multilingual performance.</abstract>
+      <pdf hash="63585f49"/>
+      <bibkey>yang-etal-2026-optimizing</bibkey>
+    </paper>
+    <paper id="48">
+      <!-- https://aclanthology.org/2026.babylm-main.48/ -->
+      <title>Pairing Original Text with Meaning-Preserving Rewrites for Sample-Efficient Small-Data Language Model Pretraining</title>
+      <author><first>Shaoxiang</first><last>Wu</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>611-623</pages>
+      <abstract>We investigate whether augmenting training data with LLM-generated rewrites can improve performance in small-data language model pretraining. We pair each training sentence with a meaning-preserving rewrite, so that masked tokens can be predicted using both the original and its paired version in the same training window. On FineWeb, we test three rewrite types: *simplification* (shorter and easier), *explanation* (longer and easier), and *paraphrasing* (similar length but harder to read). We also test simplification on OpenStax+BCCampus and Simple Wikipedia. We add a reverse masking curriculum: 7 epochs of whole-word masking (WWM), where entire words are masked instead of individual subword tokens, followed by 3 epochs of standard token-level masking (WWM7-to-Token3). The masking procedure is not rewrite-aware: it does not use alignments between the original sentence and its rewrite. All three FineWeb rewrite types improve EWoK and GLUE-style fine-tuning over source-matched baselines, and simplification improves Entity Tracking across all three sources. The EWoK and GLUE gains concentrate on concept-swap and sentence-pair tasks, suggesting that rewrite pairing especially helps models link meaning across different surface forms. Despite using only one-tenth as much training data, our best model surpasses the official BabyLM 100M GPT-2 baseline on EWoK, Entity Tracking, and GLUE, suggesting that paired rewrite augmentation can improve sample efficiency under a fixed small-data budget.</abstract>
+      <pdf hash="183dcd6a"/>
+      <bibkey>wu-etal-2026-pairing</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.babylm-main.49/ -->
+      <title>Qwenfant: Train Big Character-level <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s on Concise Parallel Text</title>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>624-630</pages>
+      <abstract>This work concerns our submission for the Multilingual track of the 2026 BabyLM Challenge. We improve on our baseline using data that has been summarized and translated by an LLM, showing that higher-quality data can come from synthetic sources. We further improve with 2 simple changes: using a larger model, and using a character-level vocabulary. Both of these changes require LoRA-style fine-tuning for realizing their full potential. We dub our final Qwen3-based model Qwenfant, which, at the time of submission, ranks 1st in the Multilingual track.</abstract>
+      <pdf hash="23f6aa43"/>
+      <bibkey>edman-fraser-2026-qwenfant</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.babylm-main.50/ -->
+      <title>Does a <fixed-case>D</fixed-case>ata2vec Auxiliary Help Small Masked Language Models? A <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>-2026 Strict-Small Study</title>
+      <author><first>Martin</first><last>Benedikt</last></author>
+      <author><first>Ivan</first><last>Dostál</last><affiliation>CIIRC, Czech Technical University, Czech Technical University of Prague</affiliation></author>
+      <author><first>Robin</first><last>Klubarski</last><affiliation>Czech Technical University of Prague</affiliation></author>
+      <pages>631-638</pages>
+      <abstract>We ask whether a low-weight data2vec-style Exponential Moving Average (EMA) self-distillation auxiliary (<tex-math>\lambda{=}0.1</tex-math>, <tex-math>\tau{=}0.999</tex-math>) improves a small masked language model at the BabyLM-2026 Strict-Small scale. Our base model is a 33M-parameter LTG-BERT encoder with GPT-BERT-style hybrid masked/causal training, trained from scratch on the official 10M-word corpus in 2.3 GPU-hours on a single NVIDIA L40S. A substantial gain in Entity-Tracking during early development from adding the auxiliary motivated the study, but disappeared in later re-evaluation. In a comparison across 6 seeds, no evaluation task changed significantly (aggregate effect <tex-math>p{=}0.29</tex-math>), and the early gain is best explained by seed noise. Several variants intended to strengthen the auxiliary do no better. We attribute the model’s competitive scores to its hybrid training recipe and to EMA weight-averaging, both already established.</abstract>
+      <pdf hash="ba882e24"/>
+      <bibkey>benedikt-etal-2026-data2vec</bibkey>
+    </paper>
+    <paper id="51">
+      <!-- https://aclanthology.org/2026.babylm-main.51/ -->
+      <title>Recursive Transformers for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> 2026</title>
+      <author><first>Serdar</first><last>Gülbahar</last></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>639-645</pages>
+      <abstract>The BabyLM shared task asks whether language models can acquire robust linguistic behavior from developmentally sized corpora. We study a causal transformer recipe for this setting that increases computation per token without adding a full stack of independent layers. Our RecGPT models reuse one transformer block recurrently, factorize the vocabulary maps to keep small models from being dominated by embeddings, and add a training-only next-latent auxiliary loss that encourages hidden states to support local transitions. We submit RecGPT-10M for Strict-Small and RecGPT-100M for Strict. Across the BabyLM 2026 zero-shot and finetuned evaluations, the submitted models improve over GPT-2 baselines and are competitive with GPT-BERT.</abstract>
+      <pdf hash="f27da41b"/>
+      <bibkey>gulbahar-etal-2026-recursive</bibkey>
+    </paper>
+    <paper id="52">
+      <!-- https://aclanthology.org/2026.babylm-main.52/ -->
+      <title>Spend the Wasted Epochs: Preference Post-Training from the Saturation Checkpoint for Sample-Efficient Language Modeling</title>
+      <author id="ujjwal-mishra" orcid="0009-0008-3161-2516"><first>Ujjwal</first><last>Mishra</last></author>
+      <author id="sudipta-roy" orcid="0000-0001-5161-9311"><first>Sudipta</first><last>Roy</last><affiliation>Jio Institute</affiliation></author>
+      <pages>646-658</pages>
+      <abstract>Sample-efficient pretraining under a developmental data budget, such as the ten million words and ten epochs of the BabyLM Strict-Small track, is usually approached by adding training signal: a new objective, optimizer, curriculum, or teacher. The budget itself receives less scrutiny. We show that much of it is spent after learning has stopped. A 33.0M-parameter GPT-BERT hybrid trained under the track rules saturates on downstream evaluations by roughly 70M words seen, about 70% of its permitted exposure, while training loss continues to fall; the final epochs improve fit, not competence. From this diagnosis we derive three design principles, timing, preservation, and alignment, and instantiate them as Minimal-Pair Preference Optimization (MPO): a short post-training phase, begun at the saturation checkpoint, that teaches the model to prefer real corpus sentences over length-preserving corruptions of them under a frozen-reference penalty. A controlled study of seven in-training interventions supports the principles: none improves on the baseline, and the unanchored ones damage the same cluster of long-distance dependencies first. MPO improves five of the seven official task averages, concedes under a point on the other two, is alone in repairing that cluster, and matches the fully trained baseline with 7.2 rather than 10 epochs.</abstract>
+      <pdf hash="558595b6"/>
+      <bibkey>mishra-roy-2026-spend</bibkey>
+    </paper>
+    <paper id="53">
+      <!-- https://aclanthology.org/2026.babylm-main.53/ -->
+      <title>Exploring Linguistic Parameters in <fixed-case>LM</fixed-case>s</title>
+      <author id="cristiano-chesi" orcid="0000-0003-1935-1348"><first>Cristiano</first><last>Chesi</last><affiliation>Istituto Universitario di Studi Superiori</affiliation></author>
+      <author id="achille-fusco" orcid="0000-0002-5389-8884"><first>Achille</first><last>Fusco</last><affiliation>University of Florence</affiliation></author>
+      <author id="guido-formichi" orcid="0009-0007-1307-194X"><first>Guido</first><last>Formichi</last></author>
+      <author id="sarah-rossi" orcid="0009-0007-2525-2457"><first>Sarah</first><last>Rossi</last><affiliation>Istituto Universitario di Studi Superiori</affiliation></author>
+      <author id="hanna-b-cygan" orcid="0000-0002-4518-8540"><first>Hanna B.</first><last>Cygan</last><affiliation>Istituto Universitario di Studi Superiori and Institute of Physiology and Pathology of Hearing</affiliation></author>
+      <author id="tommaso-sgrizzi" orcid="0000-0003-1375-1359"><first>Tommaso</first><last>Sgrizzi</last><affiliation>Istituto Universitario di Studi Superiori</affiliation></author>
+      <author id="asya-zanollo" orcid="0009-0001-3987-4843"><first>Asya</first><last>Zanollo</last></author>
+      <pages>659-677</pages>
+      <abstract>This work is an attempt to frame Principles and Parameters theory (Yang et al 2017) within the BabyLM Multilingual perspective. First, we compared tokenization and architectural strategies that make the incremental nature of language acquisition and processing more or less transparent (recurrent versus attention-based architectures). We then assessed our trained models with respect to specific linguistic generalizations, including morphological decomposition, learning trajectories, and binary parametric linguistic options. We observed that (i) morphologically informed tokenizers yield consistent benefits, both in terms of learning trajectories and performance on downstream minimal-pair tasks; (ii) recurrent architectures are substantially more data-efficient, converging earlier and achieving slightly better results on downstream evaluation tasks; and (iii) the parameter set-up objective leads to modest improvements and not in all the expected linguistic domains.</abstract>
+      <pdf hash="4666b618"/>
+      <bibkey>chesi-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="54">
+      <!-- https://aclanthology.org/2026.babylm-main.54/ -->
+      <title>Scaling Compute Instead of Parameters: Exploring Iterative Transformers for Data-Efficient Language Modeling</title>
+      <author id="wiktor-kamzela" orcid="0009-0002-1452-6102"><first>Wiktor</first><last>Kamzela</last><affiliation>Poznan University of Technology</affiliation></author>
+      <author id="ondrej-dusek" orcid="0000-0002-1415-1702"><first>Ondrej</first><last>Dusek</last><affiliation>Charles University, Prague</affiliation></author>
+      <author id="mateusz-lango" orcid="0000-0003-2881-5642"><first>Mateusz</first><last>Lango</last><affiliation>Charles University</affiliation></author>
+      <pages>678-688</pages>
+      <abstract>Neural language model architectures that iterate over their layers have recently shown superior performance on reasoning benchmarks and proved to be a promising method for reducing model size while maintaining performance at scale. However, the effectiveness of such architectures in data-constrained settings remains unexplored. We present a systematic study of layer-sharing transformer architectures trained on the BabyLM corpus (10M tokens), across various iteration strategies and a range of layer and iteration counts. We find that iterative architectures are highly effective under data-constrained setting: a 3-layer iterated model outperforms a standard 24-layer transformer model (ModernBERT-inspired) on SuperGLUE benchmark.</abstract>
+      <pdf hash="9043351b"/>
+      <bibkey>kamzela-etal-2026-scaling</bibkey>
+    </paper>
+    <paper id="55">
+      <!-- https://aclanthology.org/2026.babylm-main.55/ -->
+      <title>Growing Smarter, Not Bigger: Curriculum Pretraining and Layer Duplication in Small Language Models</title>
+      <author><first>Elizabeth Granda</first><last>Rodriguez</last></author>
+      <author><first>David Escobar</first><last>Ruiz</last><affiliation>Factored</affiliation></author>
+      <author><first>Adrián Rojas</first><last>Fernandez</last></author>
+      <author><first>Andres Felipe Gomez</first><last>Rojas</last><affiliation>Factored</affiliation></author>
+      <pages>689-701</pages>
+      <abstract>Children acquire language from a small fraction of the data used to train modern Language Models (LM), motivating interest in small LMs that learn efficiently from human-scale data. Under this constraint, it is unclear whether combining training-time and inference-time efficiency strategies can make a small LM smarter. We test this by combining two CL strategies with Repeat Yourself (RYS), a training-free method that duplicates transformer layers at inference, across five experiments trained under the BabyLM Strict-Small protocol. We find that CL alone yields marginal gains, but RYS applied on top produces up to +4.18 points over baseline. This exceeds prior RYS gains reported on 27B-72B models. Best repetitions are usually short, 1-2 layers. These results suggest depth-via-repetition can substitute for scale in data-constrained small language models.</abstract>
+      <pdf hash="2ea1d276"/>
+      <bibkey>rodriguez-etal-2026-growing</bibkey>
+    </paper>
+    <paper id="56">
+      <!-- https://aclanthology.org/2026.babylm-main.56/ -->
+      <title>Learning from Correction: Data-Efficient Language Model Training Through Adaptive Teacher-Model Feedback</title>
+      <author id="sadri-islam" orcid="0009-0002-3503-5177"><first>Sadri</first><last>Islam</last></author>
+      <author><first>Tagore Rao</first><last>Kosireddy</last><affiliation>Michigan Technological University</affiliation></author>
+      <author><first>Kevin</first><last>Li</last></author>
+      <author id="dylan-gaines" orcid="0000-0002-2747-7680"><first>Dylan</first><last>Gaines</last><affiliation>Kennesaw State University</affiliation></author>
+      <pages>702-714</pages>
+      <abstract>We present our submission to the Strict-Small track of the 2026 BabyLM Challenge. We study whether a developmentally-inspired curriculum, particularly an adaptive teacher-feedback curriculum based on the student’s own productions, can improve language model pre-training under a 10M word budget. We trained a 58M-parameter student from scratch under five separate conditions that shared the same architecture and tokenizer, isolating different aspects of the training data and curriculum structure. We built an official baseline trained on a cleaned version of the official Strict-Small corpus and also a synthetic baseline trained on teacher model generated data. Then, we developed a fixed curriculum to train a model on the same synthetic child-directed text in three developmental stages: infant, toddler, and child. Finally, we introduced an adaptive feedback curriculum in which the teachers generate additional training data by correcting the student’s productions during training, which adapts the training data according to the learner’s level of understanding. The fixed curriculum demonstrated superior performance on the BLiMP-Supplement, EWoK, and COMPS benchmarks, while the adaptive feedback curriculum substantially improved the Entity Tracking performance in one configuration. However, our official baseline model achieved the highest BLiMP, SuperGLUE, and overall macro-average scores, indicating that our curriculum methods did not produce the overall improvements that we had hypothesized. Our code is available at https://github.com/dcgaines/babylm-2026.</abstract>
+      <pdf hash="10ed2448"/>
+      <bibkey>islam-etal-2026-learning</bibkey>
+    </paper>
+    <paper id="57">
+      <!-- https://aclanthology.org/2026.babylm-main.57/ -->
+      <title>Miss Universal Grammar: Pretraining <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s with Linguistic and Non-Linguistic Sources</title>
+      <author><first>Erika</first><last>Varis Doggett</last><affiliation>Disney</affiliation></author>
+      <author id="mary-katie-kennedy" orcid="0009-0003-4843-4377"><first>Mary</first><last>Kennedy</last><affiliation>University of Southern California</affiliation></author>
+      <pages>715-734</pages>
+      <abstract>Inspired by linguistic theory and recent work exploring linguistic biasing of neural networks, we propose a "Universal Grammar" (UG) pretraining paradigm for transformer-based neural networks, preparing the network to learn language more effectively, especially in low data volume scenarios. We accomplish this "universal" pretraining with a combination of synthetic language-like sequences created with a context-free grammar, biological sequence sources like protein amino acids, and material sources like crystal structures. Experiments with the BabyLM Challenge datasets show improved language acquisition in English, Dutch, and Chinese with our MissUniverse models, compared to not using "UG" pretraining. This pretraining paradigm has interesting implications for both the future of language models, and potentially how we think about human Universal Grammar.</abstract>
+      <pdf hash="c8bc31a3"/>
+      <bibkey>varis-doggett-kennedy-2026-miss</bibkey>
+    </paper>
+    <paper id="58">
+      <!-- https://aclanthology.org/2026.babylm-main.58/ -->
+      <title>From Puzzle-Solver to Language Model: Recurrent Inductive Bias, Data Scale, and Benchmark Validity in <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author id="patrick-haller" orcid="0009-0006-0445-4765"><first>Patrick</first><last>Haller</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author id="filipe-laitenberger" orcid="0009-0003-7836-9828"><first>Filipe</first><last>Laitenberger</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author><first>Jonas</first><last>Golde</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <author id="alan-akbik" orcid="0009-0003-9551-6447"><first>Alan</first><last>Akbik</last><affiliation>Humboldt Universität Berlin</affiliation></author>
+      <pages>735-747</pages>
+      <abstract>In the small-data regime of the BabyLM Challenge, a model’s architecture still shapes what it learns. We ask how much an inductive bias toward recurrence helps, and whether current benchmarks can detect that help. Our model adapts the Hierarchical Reasoning Model, a small recurrent puzzle-solver that reuses one shared block many times per token instead of stacking more layers. We make three changes to turn it into a language model: a sequence-mixing layer that can carry order-dependent state, a gate on one of the two connections between its modules, and a tunable number of recurrent cycles. The result matches a parameter-matched GPT-2, and we use it to study three questions. <b>Q1:</b> recurrence buys depth without adding parameters. On a controlled state-tracking task, running more cycles of the same weights tracks longer sequences, even when the extra cycles are added only at inference. <b>Q2:</b> the advantage is largest where data is scarcest.  leads GPT-2 on BLiMP at  words, ties at , and, trained to convergence, still leads at  tokens (out of budget, where data and tokenizer also change). <b>Q3:</b> the benchmark meant to reward state-tracking cannot see it. A null model that never reads the puzzle outscores every trained model on <tt>entity_tracking</tt>, because 28.5% of its items reveal the answer in the option list and every trained model is at chance on the rest. Gains on that task measure how well a model has learned the frequency of one answer. Because the suite misses a capability we can demonstrate directly, we recommend pairing benchmarks with controlled architectural probes.</abstract>
+      <pdf hash="78491f9b"/>
+      <bibkey>haller-etal-2026-puzzle</bibkey>
+    </paper>
+    <paper id="59">
+      <!-- https://aclanthology.org/2026.babylm-main.59/ -->
+      <title>Language Allocation and Targeted Data Design for a Multilingual <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case></title>
+      <author><first>Naoki</first><last>Mori</last></author>
+      <author><first>Seiji</first><last>Kyo</last><affiliation>Osaka Metropolitan University</affiliation></author>
+      <author><first>Koki</first><last>Goda</last></author>
+      <pages>748-762</pages>
+      <abstract>Under a fixed multilingual pretraining budget, we study how language allocation, data design, and model configuration affect English–Dutch–Chinese pretraining. First, we trained three fixed language mixtures with three matched seeds. No pairwise difference in the mean of seven zero-shot benchmarks used for model selection was significant after Holm correction. Language-specific scores nevertheless differed: the 50/25/25 mixture scored 2.487 points higher than 27.5/27.5/45 in English, whereas 27.5/27.5/45 scored 2.151 points higher than 40/40/20 in Chinese, after correction within each language. In a 25M-word proxy experiment, an inverse-score controller changed language exposure but did not improve the aggregate score. Second, across four matched seeds, the targeted-augmentation condition scored higher on ZS16 than the real-text baseline (57.37 versus 56.57). The largest language-specific difference was observed for Chinese (<tex-math>+1.47</tex-math>). Both the ZS16 and Chinese differences remained significant after Holm correction over the four reported tests. Across three matched seeds, multi-token prediction showed no detectable improvement in ZS16. In single-run comparisons across parameter counts, the 213M-parameter model had the highest observed FT22 score (41.25). We treat all parameter-count comparisons and the remaining tokenizer and data ablations as descriptive because each used a single run. The 213M-parameter model obtained a leaderboard-reported Multilingual Average of 50.68.</abstract>
+      <pdf hash="61dfd3f8"/>
+      <bibkey>mori-etal-2026-language</bibkey>
+    </paper>
+    <paper id="60">
+      <!-- https://aclanthology.org/2026.babylm-main.60/ -->
+      <title>Feeding <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s Macaroni: Code-Switching Curricula Cause Cross-Lingual Convergence</title>
+      <author id="dries-rooryck" orcid="0009-0000-3350-6276"><first>Dries</first><last>Rooryck</last><affiliation>Harvard University</affiliation></author>
+      <author id="alexander-dazhen-cai" orcid="0000-0003-1308-6352"><first>Alexander Dazhen</first><last>Cai</last></author>
+      <author><first>Yonatan</first><last>Belinkov</last><affiliation>Technion - Israel Institute of Technology, Technion</affiliation></author>
+      <author id="david-alvarez-melis" orcid="0000-0002-9591-8986"><first>David</first><last>Alvarez-Melis</last><affiliation>School of Engineering and Applied Sciences, Harvard University and Microsoft</affiliation></author>
+      <author id="kiante-brantley" orcid="0000-0002-8395-594X"><first>Kianté</first><last>Brantley</last><affiliation>Harvard University</affiliation></author>
+      <pages>763-779</pages>
+      <abstract>Children in multilingual communities often code-switch, using multiple languages in a single utterance. Can we induce cross-lingual alignment in language models by training on code-switched text? We pretrain small decoder-only transformers on two 100M-word multilingual corpora: a base corpus formed by mixing the English, Dutch, and Chinese BabyBabelLM datasets, and a corpus generated from it by inserting word- and sentence-level code-switching using an LLM. We find that training on code-switched data aligns the representations of parallel text, particularly across different scripts, and that this alignment persists through training on monolingual documents. Under a learning curriculum that progresses from word-level code-switching, to sentence-level code-switching, to monolingual documents, models trained on code-switched data outperform baselines trained without it on the BabyLM evaluation suite. Our work characterizes code-switching curriculum learning as an effective data augmentation method for multilingual pretraining. We release our code, data, and models at https://github.com/drooryck/multilingual-macaroni.</abstract>
+      <pdf hash="6d9f0f89"/>
+      <bibkey>rooryck-etal-2026-feeding</bibkey>
+    </paper>
+    <paper id="61">
+      <!-- https://aclanthology.org/2026.babylm-main.61/ -->
+      <title>Parameter-Efficient Architectures for Developmentally Plausible Pretraining: Optimizing Embedding and Projection Layers under <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Strict-Small Constraints</title>
+      <author id="rafael-mosquera" orcid="0009-0009-0812-6330"><first>Rafael</first><last>Mosquera-Gómez</last></author>
+      <author id="juan-felipe-rodriguez" orcid="0000-0002-1302-500X"><first>Juan Felipe</first><last>Rodriguez</last><affiliation>Factored AI</affiliation></author>
+      <author><first>Mateo</first><last>Restrepo</last></author>
+      <author><first>Rodrigo Meireles</first><last>de Oliveira</last><affiliation>Factored</affiliation></author>
+      <author><first>Andres Felipe Gonzalez</first><last>Giraldo</last><affiliation>Factored A.I</affiliation></author>
+      <pages>780-787</pages>
+      <abstract>The BabyLM Strict-Small track asks whether language models can acquire robust linguistic generalizations from only 10 million words, a regime in which standard scaling practices leave little room for architectural waste. We study one such source of waste: the dense vocabulary-by-hidden-size embedding and output projection layers used by conventional Transformer encoders.<par/>Under a BabyLM-sized corpus, these layers devote millions of trainable parameters to a Zipfian long tail of subword types that receive sparse and noisy updates. Using a compact ModernBERT-style encoder as our baseline, we conduct a controlled comparison of 15 embedding configurations, including ALBERT-style factorization, nonlinear factorized projections, tensor-train embeddings, deterministic Fourier features over token identities, and byte-ngram composition with token residuals, frequency gating, and geometry regularization. We identify tied linear factorization and byte-ngram composition as the strongest parameter-quality tradeoffs in this comparison.</abstract>
+      <pdf hash="436a347b"/>
+      <bibkey>mosquera-gomez-etal-2026-parameter</bibkey>
+    </paper>
+    <paper id="62">
+      <!-- https://aclanthology.org/2026.babylm-main.62/ -->
+      <title><fixed-case>X</fixed-case>pert<fixed-case>GPT</fixed-case>: Multi-Scale Sparse Expert Routing for Data-Constrained Language Modeling</title>
+      <author><first>Soham</first><last>Jain</last></author>
+      <author><first>Harsh</first><last>Singh</last></author>
+      <author><first>Divija</first><last>Dewan</last></author>
+      <author id="atul-dev" orcid="0009-0007-7125-5851"><first>Atul</first><last>Dev</last></author>
+      <pages>788-799</pages>
+      <abstract>We introduce XpertGPT, a sparse decoder-only Transformer for data-constrained language modelling that routes tokens to parallel expert pathways operating at multiple contextual scales. Under the BabyLM strict-small budget of roughly ten million words, conventional dense Transformers spend identical computation on every token and impose a single fixed receptive field. Each XpertGPT layer pairs a dense global-attention stream with four sparse sliding-window expert branches, whose attention spans range from 64 down to 4 tokens, chosen by Expert-Choice routing that balances expert load by construction without any auxiliary loss, and applies rotary position embeddings and gated feed-forward networks throughout. Trained on the BabyLM 2026 Strict-Small corpus, our 52.6M-parameter model reaches an overall average of 38.42, surpassing the official GPT-2(98.4M) baseline (37.38) across grammatical acceptability, world-knowledge, and language-understanding benchmarks.</abstract>
+      <pdf hash="af0c88b1"/>
+      <bibkey>jain-etal-2026-xpertgpt</bibkey>
+    </paper>
+    <paper id="63">
+      <!-- https://aclanthology.org/2026.babylm-main.63/ -->
+      <title><fixed-case>B</fixed-case>aby<fixed-case>C</fixed-case>oncept<fixed-case>LM</fixed-case>: Exploring Dynamic Concept Computation under Restricted Language Exposure</title>
+      <author id="yizhe-xu" orcid="0009-0009-4201-6434"><first>Yizhe</first><last>Xu</last></author>
+      <author><first>Ming</first><last>Song</last><affiliation>East China Normal University</affiliation></author>
+      <author id="danni-he" orcid="0009-0007-2758-907X"><first>Danni</first><last>He</last><affiliation>East China Normal University</affiliation></author>
+      <author><first>Jianghao</first><last>Liu</last><affiliation>East China Normal University</affiliation></author>
+      <author><first>Yitong</first><last>Wang</last><affiliation>East China Normal University</affiliation></author>
+      <author><first>Qing</first><last>Cai</last><affiliation>East China Normal University</affiliation></author>
+      <pages>800-825</pages>
+      <abstract>Human language learning takes place under limited exposure and is shaped by structured regularities in the input, whereas standard Transformers apply a largely uniform sequence of computations at every token position. We ask whether dynamic latent segmentation can provide a useful inductive bias for language modeling under BabyLM-scale data constraints. BabyConceptLM causally encodes tokens, groups contextual states into learned contiguous latent segments, processes the shorter sequence with a deeper latent-level backbone, and returns to token resolution through a leakage-safe causal readout. We evaluate two profiles using recipe-matched token-only controls, with analyses of computational cost and segmentation behavior. Across English, multilingual, and Chinese comparisons, BabyConceptLM trails matched token-only controls by 0.60–1.47 points. Estimated padding-aware dense-forward FLOPs are reduced by 26% and 39% for the English and multilingual 5/8/3 models, respectively, but increase for the Chinese 2/4/2 configuration. Segmentation audits show weak alignment with word boundaries and predominantly length-driven behavior, with the larger model frequently reaching its eight-token segment cap. These results show that latent segmentation can yield a favorable compute–accuracy trade-off in some configurations, but does not by itself produce linguistically structured units or improved predictive performance. BabyConceptLM serves as a diagnostic test of hierarchical latent computation under restricted language exposure.</abstract>
+      <pdf hash="6a732a6d"/>
+      <bibkey>xu-etal-2026-babyconceptlm</bibkey>
+    </paper>
+    <paper id="64">
+      <!-- https://aclanthology.org/2026.babylm-main.64/ -->
+      <title>Introducing Code-Switched Contexts to Cognitively-Inspired Bilingual Model Training</title>
+      <author id="zhuojing-huang" orcid="0009-0000-5973-5392"><first>Zhuojing</first><last>Huang</last></author>
+      <author><first>Luise</first><last>Pohlmann</last></author>
+      <author id="lisa-beinborn" orcid="0000-0001-8654-2190"><first>Lisa</first><last>Beinborn</last></author>
+      <pages>826-843</pages>
+      <abstract>During language acquisition, bilingual children are regularly exposed to code-switched input and use it as a cognitive scaffold to accelerate vocabulary growth and cross-linguistic syntactic mapping. In contrast, computational bilingual models are conventionally pretrained on interleaved monolingual corpora. While introducing synthetic code-switching during pretraining has become a promising strategy to enhance cross-lingual alignment and downstream performance, the structural and developmental parameters governing the success remain poorly understood. In this work, we investigate the efficiency of training with synthetic code-switched data across two typologically distinct language pairs by controlling two key variables: the structural location of code-switches and the dynamic switching rate across training stages. Our results show that training with code-switched data improves cross-lingual alignment for typologically close languages.</abstract>
+      <pdf hash="aa049f79"/>
+      <bibkey>huang-etal-2026-introducing</bibkey>
+    </paper>
+    <paper id="65">
+      <!-- https://aclanthology.org/2026.babylm-main.65/ -->
+      <title><fixed-case>B</fixed-case>aby<fixed-case>S</fixed-case>teps at <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> 2026: Stronger Optimization and Causal Baselines for Data-Constrained Pretraining</title>
+      <author id="siddhi-satheesh" orcid="0000-0001-6159-9633"><first>Siddhi</first><last>Satheesh</last><affiliation>University of California, Davis</affiliation></author>
+      <author><first>Jorge C</first><last>Murillo</last></author>
+      <author><first>Yubei</first><last>Chen</last><affiliation>University of California, Davis</affiliation></author>
+      <pages>844-851</pages>
+      <abstract>We present three BabySteps systems that strengthen baselines for data-constrained pretraining in the strict-small (10M words) and strict (100M words) NLP tracks of the 2026 BabyLM Challenge. Across our GPT-BERT experiments, optimizer choice and learning-rate tuning produced our largest gains, highlighting the importance of well-tuned baselines for evaluating progress in sample-efficient pretraining. The curriculum, synthetic-data, teacher-supervision, and corpus-mixing interventions that we tested did not improve the final aggregate score.<par/>We also test whether the official GPT-2 checkpoint is a sufficiently strong reference for causal language modeling. A 127.6M-parameter Llama-style decoder trained with Muon and Liger-optimized kernels obtains a seven-suite NLP average of 56.18, compared with 52.79 for our completed reevaluation of the official BabyLM GPT-2 strict checkpoint, and scores higher on all seven categories. This is not a controlled architectural ablation: architecture, optimizer, implementation, and hyperparameters change together. Instead, it provides a stronger practical causal baseline. In addition, we report failed data interventions, a numerical failure caused by batches with no supervised target tokens, and substantial variance between small evaluation suites.</abstract>
+      <pdf hash="b008f104"/>
+      <bibkey>satheesh-etal-2026-babysteps</bibkey>
+    </paper>
+    <paper id="66">
+      <!-- https://aclanthology.org/2026.babylm-main.66/ -->
+      <title>Learning What Can Combine and What Can Substitute: Relational Inductive Biases for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Pretraining</title>
+      <author><first>Yuwei</first><last>Yang</last></author>
+      <author><first>Shihao</first><last>Pu</last><affiliation>Jiangsu Normal University</affiliation></author>
+      <author><first>Gefei</first><last>Feng</last><affiliation>Jiangsu Normal University</affiliation></author>
+      <author><first>Yiming</first><last>Yang</last><affiliation>Jiangsu Normal University</affiliation></author>
+      <pages>852-863</pages>
+      <abstract>Language can produce many expressions from a limited set of units because linguistic units participate in two basic relations. Syntagmatic relations determine which units can combine, while paradigmatic relations determine which units can substitute for one another in the same position. We study whether explicitly learning these relations helps language models generalize from limited data. We introduce two auxiliary objectives for masked language modeling. The Syntagmatic objective aligns a masked representation with relevant context selected by attention, while the Paradigmatic objective aligns it with the embedding neighbors of the target token. Both objectives are generated by the model itself and require no additional data, annotation, or trainable parameters. Experiments on BabyLM 2026 Strict-Small show that both single-relation systems improve mean Overall performance over Standard MLM, with Paradigmatic giving the most consistent gains across three seeds. Relay Joint combines the two objectives and shows a strong neighborhood-alignment signal at its submitted checkpoint, although its downstream gains vary across seeds. These results suggest that relational objectives can provide useful learning signals under limited data, while stronger internal alignment does not always lead to more stable downstream performance. Code is now publicly available on GitHub.</abstract>
+      <pdf hash="df7ddfc4"/>
+      <bibkey>yang-etal-2026-learning-combine</bibkey>
+    </paper>
+    <paper id="67">
+      <!-- https://aclanthology.org/2026.babylm-main.67/ -->
+      <title>Domain-Based Routing in Mixture-of-Experts Models for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s</title>
+      <author id="jeremias-bohn" orcid="0000-0002-6669-5285"><first>Jeremias</first><last>Bohn</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Sebastian</first><last>Feiertag</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Nicolas</first><last>Raube</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Emil</first><last>Schwenger</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="georg-groh" orcid="0000-0002-5942-2297"><first>Georg</first><last>Groh</last><affiliation>Technical University Munich</affiliation></author>
+      <pages>864-879</pages>
+      <abstract>Recent language model improvements were mostly achieved by increasing model scale, compute, and in particular training data size. This differs significantly from human language acquisition, which relies on significantly fewer words. The BabyLM challenge tackles this issue by encouraging approaches inspired by cognitive insights to reduce data dependency, thus lowering the barrier for NLP researchers to contribute to their field. We propose a Mixture-of-Experts approach with guided domain-based routing to learn subnetworks specialized on human-interpretable topics, thus making experts focus on domain knowledge and style rather than specific token features. Additionally, we apply a CEFR-based curriculum learning to mimic human language learning. Our model underperforms compared to the 7 times larger baseline model, but scores best on the BabyLM strict-small leaderboard among models with less than 25M parameters. Our code is publicly available at https://github.com/SmallLM-DBR-MoE-Submission-2026/Baby-DBR, and our model can be found at https://huggingface.co/elschr/BabyLM2026-DBR.</abstract>
+      <pdf hash="6a5751a2"/>
+      <bibkey>bohn-etal-2026-domain</bibkey>
+    </paper>
+    <paper id="68">
+      <!-- https://aclanthology.org/2026.babylm-main.68/ -->
+      <title>Dense Supervision, Gentle Decay: Curriculum-Guided Rebalancing of <fixed-case>ELECTRA</fixed-case>-Style <fixed-case>RTD</fixed-case> and <fixed-case>MLM</fixed-case> for Small-Data Pretraining</title>
+      <author><first>Aftab Hossain</first><last>Mikat</last></author>
+      <author><first>Tamjid Hasan</first><last>Fahim</last></author>
+      <pages>880-895</pages>
+      <abstract>When training data is very limited, the way different training signals are weighted over time can strongly affect what a model learns. We study hybrid replaced-token detection (RTD) and masked language modeling (MLM) pretraining under the BabyLM 2026 Strict-Small budget. We train five single-seed DeBERTa-v2 models along three curriculum axes: objective scheduling, masking policy, and data order. The primary system, bgb-decay, retains generator MLM, discriminator RTD, and auxiliary discriminator MLM throughout training while reducing the RTD coefficient in stages. We compare it with a matched fixed-RTD reference, a variant that adds easy-to-hard data ordering and adaptive auxiliary masking, and two stronger RTD-to-MLM handoff schedules with whole-word and adaptive masking. Among the five runs, bgb-decay achieves the best overall balance, while the more aggressive variants gain more on some tasks but drop more on others. Training diagnostics reveal a trade-off between replacement discrimination and auxiliary vocabulary prediction: under fixed high RTD weighting, RTD gradients are larger and nearly orthogonal to auxiliary-MLM gradients, while staged decay preserves RTD but shifts late optimization toward MLM. These results suggest that gradual objective rebalancing is a promising direction for small-data pretraining.</abstract>
+      <pdf hash="58efca1a"/>
+      <bibkey>mikat-fahim-2026-dense</bibkey>
+    </paper>
+    <paper id="69">
+      <!-- https://aclanthology.org/2026.babylm-main.69/ -->
+      <title>Tokens of Meaning: Semantically-Informed Morphological Tokenization in Low-Resource Language Modeling</title>
+      <author id="juan-diego-rodriguez" orcid="0009-0000-9088-1566"><first>Juan Diego</first><last>Rodriguez</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>896-912</pages>
+      <abstract>Subword tokenizers for language models are typically trained to efficiently encode text into short sequences of reusable units. These often produce tokens which are not linguistically meaningful, such as giraffe –&gt; g ira ffe. We ask whether a tokenizer that instead splits words into semantically meaningful morphemes can help a language model learn under a developmentally plausible data budget, where every training token is scarce and sharing evidence across related word forms should matter most. We build such a tokenizer for English by hand-curating a word-to-morpheme-segmentation dictionary, built on top of MorphyNet, a database of derivational and inflectional morphology. Each word is only split into morphemes when the pieces are productive and the whole word’s meaning is semantically related to them, thus splitting unhappiness into un happy ness, but keeping business whole. On the 10M-word BabyLM corpus this holds out-of-vocabulary tokens to 1.0%, with an inventory of ~37k tokens. We compare the tokenizer intrinsically against both statistical (BPE, Unigram, WordPiece) and morphology-aware (Morfessor, MorphPiece) baselines, and measure its effect on a child-scale language model. In a controlled comparison against an uncurated baseline built from the same morphological source, curation yields +1.4 BLiMP. Our submitted model, which adds masked next-token prediction and vocabulary pruning, reaches 72.53 BLiMP and ranks second on COMPS and third on EWoK on the BabyLM 2026 strict-small leaderboard.</abstract>
+      <pdf hash="8419017b"/>
+      <bibkey>rodriguez-2026-tokens</bibkey>
+    </paper>
+    <paper id="70">
+      <!-- https://aclanthology.org/2026.babylm-main.70/ -->
+      <title>What Does Input-Dependent Depth Routing Buy in Data-Limited Language Modeling?</title>
+      <author><first>Yupei</first><last>Wang</last><affiliation>University of California, San Diego</affiliation></author>
+      <pages>913-924</pages>
+      <abstract>Learned weighting of earlier layers, as used in ELC-BERT (Charpentier and Samuel, 2023), is a promising direction for sample-efficient language modeling. Attention Residuals (AttnRes; Kimi Team et al., 2026) extend this idea by computing input-dependent weights separately for each token, with reported gains in large-scale autoregressive models. We present a controlled study of whether such input-dependent depth routing helps in the data-limited regime where static routing first proved useful. Across the 10M- and 100M-word BabyLM budgets and three paired seeds, AttnRes consistently lowers test negative log-likelihood (NLL) compared to a residual baseline. It reaches the same development-set (dev) NLL after seeing fewer training words. In the 10M L32 control, AttnRes also lowers test NLL relative to static routing in all three seeds. Behavioral differences between AttnRes and the baseline are small and mixed. The BLiMP (Warstadt et al., 2020) advantage at equal training exposure disappears after matching on dev NLL. The trained 10M-word AttnRes models make causal use of routes from nonrecent depth blocks, but we find no clear evidence that categories with greater dependence on these sources achieve larger BLiMP gains over the baseline.</abstract>
+      <pdf hash="483b16fe"/>
+      <bibkey>wang-2026-input</bibkey>
+    </paper>
+    <paper id="71">
+      <!-- https://aclanthology.org/2026.babylm-main.71/ -->
+      <title>Language Exposure Matters: Distribution and Order in Multilingual <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Pre-training</title>
+      <author><first>JiWoo</first><last>Hwang</last><affiliation>Technical University of Munich</affiliation></author>
+      <author id="lukas-edman" orcid="0000-0001-8215-3614"><first>Lukas</first><last>Edman</last><affiliation>Technische Universität München</affiliation></author>
+      <author id="alexander-fraser" orcid="0000-0003-4891-682X"><first>Alexander</first><last>Fraser</last><affiliation>Technical University of Munich</affiliation></author>
+      <pages>925-932</pages>
+      <abstract>We investigate the effects of multilingual pre-training with limited data by addressing the problem of how language exposure should be distributed and ordered across English, Dutch, and Chinese. In particular, we compare balanced multilingual exposure to language-dominant exposure, where one language is exposed with more training data than the others. We also compare mixed training, where multilingual training data is used throughout training, with curriculum training, where monolingual exposure of the dominant language is followed by balanced multilingual exposure. Our results show that multilingual BabyLM performance varies with both the amount and order of language exposure. Mixed training outperforms curriculum learning across all 15 matched configurations, indicating that simultaneous multilingual exposure is more effective than staged exposure in our setting. For each primary language, the best language-dominant mixed training configuration outperforms the balanced configuration, suggesting that an equal distribution is not necessarily optimal under a limited data budget. Interestingly, the Dutch-primary configurations achieve the best overall performance.</abstract>
+      <pdf hash="2e87d065"/>
+      <bibkey>hwang-etal-2026-language</bibkey>
+    </paper>
+    <paper id="72">
+      <!-- https://aclanthology.org/2026.babylm-main.72/ -->
+      <title>Looped <fixed-case>GPT</fixed-case>-<fixed-case>BERT</fixed-case>: Trading Parameters for Computation in Small Language Modeling</title>
+      <author><first>Tingshuo</first><last>Fan</last></author>
+      <author><first>Hongtao</first><last>Mu</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Tianyu</first><last>Zhou</last><affiliation>Fudan University</affiliation></author>
+      <author><first>Hansen</first><last>Liu</last><affiliation>NA</affiliation></author>
+      <author id="tao-ji" orcid="0000-0002-9957-6661"><first>Tao</first><last>Ji</last><affiliation>Fudan University</affiliation></author>
+      <pages>933-942</pages>
+      <abstract>When training data are limited, increasing parameter count is not the only way to improve language-model performance. A small parameter set, when repeatedly applied, can also deliver comparable performance. We study Looped GPT-BERT in the BabyLM 2026 Strict-small setting, combining GPT-BERT’s masked next-token and causal language-modeling objectives with depth-wise parameter sharing. We train on a preprocessed 7.48M-word English corpus and compare objective ratios, non-looped and looped architectures, and loop counts. Our final <tex-math>4\times12</tex-math> model uses four physical layers for twelve recurrent traversals and contains 12.18M parameters. The BabyLM 2026 leaderboard reports an Overall Average of 35.42 and an NLP Average of 48.48. Compared with public BabyLM 10M Strict-small GPT-2 and GPT-BERT baselines, it achieves comparable performance on selected linguistic and downstream metrics, including BLiMP and GLUE, with fewer parameters. The loop ablations show that additional recurrent computation can improve training and preserve strong performance on selected linguistic tasks, whereas poorer performance on other tasks may reveal an inherent limitation of the looped design: using only a few physical layers restricts the model’s representational space.</abstract>
+      <pdf hash="006edaea"/>
+      <bibkey>fan-etal-2026-looped</bibkey>
+    </paper>
+  </volume>
+</collection>
