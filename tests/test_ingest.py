@@ -254,6 +254,47 @@ def test_register_suggested_sigs_stores_associations_from_venues(caplog):
     assert len(caplog.records) == 1
 
 
+@pytest.mark.parametrize(
+    ("venue_id", "volume_id", "initial_sigs", "expected_sigs"),
+    [
+        ("findings", "emnlp", (), ("sigdat",)),
+        ("findings", "emnlp", ("sigdat",), ("sigdat",)),
+        ("findings", "emnlp", ("sigann",), ("sigann", "sigdat")),
+        ("findings", "acl", (), ()),
+        ("findings", "eacl", (), ()),
+        ("findings", "naacl", (), ()),
+        ("other", "emnlp", (), ()),
+    ],
+)
+def test_findings_emnlp_inherits_emnlp_sigs(
+    venue_id, volume_id, initial_sigs, expected_sigs
+):
+    sigdat = SimpleNamespace(id="sigdat")
+    venue = MagicMock(id=venue_id)
+    venue.sigs.return_value = []
+    emnlp = MagicMock(id="emnlp")
+    emnlp.sigs.return_value = [sigdat]
+    volume = MagicMock(
+        id=volume_id,
+        full_id=f"2026.{venue_id}-{volume_id}",
+        venue_ids=(venue_id,),
+        sig_ids=initial_sigs,
+        root=SimpleNamespace(venues={"emnlp": emnlp}),
+    )
+    volume.venues.return_value = [venue]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    register_suggested_sigs(volume)
+    register_suggested_sigs(volume)
+
+    assert volume.sig_ids == expected_sigs
+    assert volume.add_sig.call_count == len(expected_sigs) - len(initial_sigs)
+
+
 # PDFs that still carry an "Anonymous ... submission" header and should be
 # flagged by check_for_anonymous_pdf. The supplementary attachments were
 # uploaded without de-anonymization, unlike their published main papers.
