@@ -1209,8 +1209,11 @@ def register_volume_with_sig(
 
 
 def register_suggested_sigs(volume: Volume) -> None:
-    """Store SIG associations suggested by the volume's venues."""
-    for venue in volume.venues():
+    """Store venue-suggested SIGs, including EMNLP's for Findings: EMNLP."""
+    venues = list(volume.venues())
+    if "findings" in volume.venue_ids and volume.id == "emnlp":
+        venues.append(volume.root.venues["emnlp"])
+    for venue in venues:
         for sig in sorted(venue.sigs(), key=lambda item: item.id):
             if sig.id in volume.sig_ids:
                 continue
