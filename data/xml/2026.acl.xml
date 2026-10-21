@@ -19487,10 +19487,12 @@
       <author id="guangquan-zhang" orcid="0000-0003-3960-0583" openreview="~Guangquan_Zhang2"><first>Guangquan</first><last>Zhang</last><affiliation>University of Technology Sydney (UTS)</affiliation></author>
       <pages>25273-25292</pages>
       <abstract>Detecting hallucinations in Retrieval-Augmented Generation remains a challenge. Prior approaches attribute hallucinations to a binary conflict between internal knowledge stored in FFNs and the retrieved context. However, this perspective is incomplete, failing to account for the impact of other components of the LLM, such as the user query, previously generated tokens, the self token, and the final LayerNorm adjustment. To comprehensively capture the impact of these components on hallucination detection, we propose TPA which mathematically attributes each token’s probability to seven distinct sources: Query, RAG Context, Past Token, Self Token, FFN, Final LayerNorm, and Initial Embedding. This attribution quantifies how each source contributes to the generation of the next token. Specifically, we aggregate these attribution scores by Part-of-Speech (POS) tags to quantify the contribution of each model component to the generation of specific linguistic categories within a response. By leveraging these patterns, such as detecting anomalies where Nouns rely heavily on LayerNorm, TPA effectively identifies hallucinated responses. Extensive experiments show that TPA achieves state-of-the-art performance.</abstract>
-      <pdf hash="e4a917d2"/>
+      <pdf hash="244b9b36"/>
       <attachment hash="81d16e5b" type="checklist">2026.acl-long.1159.checklist.pdf</attachment>
       <bibkey>lu-etal-2026-tpa</bibkey>
       <doi>10.18653/v1/2026.acl-long.1159</doi>
+      <revision id="1" hash="e4a917d2"/>
+      <revision id="2" hash="244b9b36" date="2026-10-21">Corrected baseline results in Tables 1 and 6 and updated the related discussion. The proposed method results and main conclusions are unchanged.</revision>
     </paper>
     <paper id="1160">
       <!-- https://aclanthology.org/2026.acl-long.1160/ -->
