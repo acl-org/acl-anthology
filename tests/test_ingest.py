@@ -10,6 +10,7 @@ from acl_anthology.collections.types import VolumeType
 from acl_anthology.text import MarkupText
 from acl_anthology.people import Name
 from bin.ingest import (
+    add_parent_event,
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
@@ -22,6 +23,32 @@ from bin.ingest import (
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+def test_add_parent_event_sorts_colocated_volumes():
+    anthology = MagicMock()
+    event = anthology.get_event.return_value
+    event.is_explicit = True
+    event.colocated_ids = {
+        ("2026", "zeta", None): "explicit",
+        ("2026", "alpha", None): "explicit",
+    }
+    volume = anthology.get_volume.return_value
+    volume.get_events.return_value = []
+
+    def add_colocated(_):
+        event.colocated_ids[("2026", "mrl", None)] = "explicit"
+
+    event.add_colocated.side_effect = add_colocated
+
+    add_parent_event(anthology, "emnlp-2026", "2026.mrl-1")
+
+    assert list(event.colocated_ids) == [
+        ("2026", "alpha", None),
+        ("2026", "mrl", None),
+        ("2026", "zeta", None),
+    ]
+    assert event.collection.is_modified is True
 
 
 def test_resegment_name_accepts_explicit_index():

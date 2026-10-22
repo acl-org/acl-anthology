@@ -427,6 +427,11 @@ def add_parent_event(
         event.add_colocated(volume_full_id)
         log.info(f"Created event entry in {parent_event} for {volume_full_id}")
 
+    sorted_colocated_ids = dict(sorted(event.colocated_ids.items()))
+    if list(event.colocated_ids) != list(sorted_colocated_ids):
+        event.colocated_ids = sorted_colocated_ids
+        event.collection.is_modified = True
+
 
 def configure_event(collection: Collection, args: argparse.Namespace) -> None:
     """Create or update event metadata supplied on the command line."""
@@ -1260,6 +1265,11 @@ def main(args):
         )
 
     anthology.save_all()
+    if args.parent_event:
+        event = anthology.get_event(args.parent_event)
+        if event is not None:
+            # Minimal-diff serialization preserves the previous colocated order.
+            event.collection.save(minimal_diff=False)
 
 
 if __name__ == "__main__":
