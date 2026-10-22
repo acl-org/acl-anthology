@@ -963,7 +963,8 @@ def ingest(
 ) -> None:
     """
     Ingests the volume and its papers into the Anthology, agnostic to the underlying
-    ingestion format.
+    ingestion format. Replacing a volume preserves its position and invalidates
+    the citation-key index so removed papers do not reserve replacement keys.
     """
     volume_full_id = metadata["volume_full_id"]
     if volume_full_id in seen_volume_ids:
@@ -973,8 +974,10 @@ def ingest(
     collection = anthology.get_collection(metadata["collection_id"])
     if collection is None:
         collection = anthology.collections.create(metadata["collection_id"])
-    if collection.get(metadata["volume_name"]) is not None:
+    original_volume_order = list(collection)
+    if metadata["volume_name"] in original_volume_order:
         del collection[metadata["volume_name"]]
+        anthology.collections.bibkeys.reset()
 
     volume_kwargs: Dict[str, Any] = {
         "id": metadata["volume_name"],
@@ -998,6 +1001,11 @@ def ingest(
         )
 
     volume_obj = collection.create_volume(**volume_kwargs)
+    if metadata["volume_name"] in original_volume_order:
+        for volume_id in original_volume_order:
+            volume = collection[volume_id]
+            del collection[volume_id]
+            collection[volume_id] = volume
 
     for paper in paper_stream:
         if not paper.get("archival", True):

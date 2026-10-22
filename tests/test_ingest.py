@@ -3,18 +3,21 @@
 import logging
 import pytest
 from pathlib import Path
+from shutil import copytree
 from unittest.mock import MagicMock, patch
 from types import SimpleNamespace
 
-from acl_anthology.collections.types import VolumeType
+from acl_anthology import Anthology
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.text import MarkupText
-from acl_anthology.people import Name
+from acl_anthology.people import Name, NameSpecification
 from bin.ingest import (
     add_parent_event,
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    ingest,
     read_ingest_metadata,
     read_meta,
     resegment_name,
@@ -23,6 +26,71 @@ from bin.ingest import (
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+@pytest.mark.parametrize("with_collision", [False, True])
+def test_reingest_preserves_bibkeys_and_volume_order(tmp_path, with_collision):
+    data = Path(__file__).resolve().parents[1] / "python/tests/data/anthology"
+    anthology = Anthology(copytree(data, tmp_path / "anthology"))
+    anthology.venues.create(
+        id="test", acronym="TEST", name="Test Conference", type="conference"
+    )
+    collection = anthology.collections.create("2026.test")
+    if with_collision:
+        sibling = collection.create_volume(
+            id="other", title="Other Proceedings", venue_ids=("test",)
+        )
+        sibling_paper = sibling.create_paper(
+            id="1",
+            title="Shared Ideas",
+            authors=[NameSpecification(Name("Alex", "Smith"))],
+        )
+        assert sibling_paper.bibkey == "smith-2026-shared"
+    metadata = {
+        "collection_id": "2026.test",
+        "volume_name": "1",
+        "volume_full_id": "2026.test-1",
+        "title": "Test Proceedings",
+        "year": "2026",
+        "volume_type": VolumeType.PROCEEDINGS,
+        "editors": [],
+        "venue_ids": ["test"],
+        "publisher": "Test Publisher",
+        "address": "Test Location",
+        "month": "October",
+    }
+    args = event_args(tmp_path, ingest_date="2026-10-22", parent_event=None)
+    for pass_number in range(3):
+        papers = iter(
+            [
+                {
+                    "id": "0",
+                    "type": PaperType.FRONTMATTER,
+                    "title": "Test Proceedings",
+                },
+                {
+                    "id": "1",
+                    "type": PaperType.PAPER,
+                    "title": "Shared Selective Memory",
+                    "authors": [NameSpecification(Name("Alex", "Smith"))],
+                },
+            ]
+        )
+        ingest(anthology, metadata, papers, set(), args)
+        if pass_number == 0:
+            collection.create_volume(
+                id="last", title="Last Proceedings", venue_ids=("test",)
+            )
+        assert list(collection) == (
+            ["other", "1", "last"] if with_collision else ["1", "last"]
+        )
+        volume = collection["1"]
+        assert volume["0"].bibkey == "test-2026-1"
+        assert volume["1"].bibkey == (
+            "smith-2026-shared-selective" if with_collision else "smith-2026-shared"
+        )
+        if with_collision:
+            assert sibling_paper.bibkey == "smith-2026-shared"
 
 
 def test_add_parent_event_sorts_colocated_volumes():
