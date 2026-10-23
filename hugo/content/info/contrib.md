@@ -5,6 +5,59 @@ subtitle: General information for submitting proceedings to the ACL Anthology (f
 date: "2025-08-26"
 ---
 
+<div class="alert alert-info" role="region" aria-labelledby="submission-start">
+  <h2 id="submission-start">Start here: open an ingestion request</h2>
+  <p>Register your event as early as possible. You do not need finished proceedings or final metadata to get started.</p>
+  <p><a class="btn btn-primary" href="https://github.com/acl-org/acl-anthology/issues/new?template=04-ingestion-request.yml">Open an ingestion request</a></p>
+  <p>Answer the questions, then use the personalized checklist and timeline added to your issue. <strong>Check off tasks as you complete them</strong> and keep dates and delivery links up to date.</p>
+  <p class="mb-0">Colocated workshop chairs: coordinate through your main conference publication chairs and their ingestion issue rather than opening a separate request.</p>
+</div>
+
+## Overview of the Submission Process
+
+Start with registration; the sections below explain each step in detail.
+
+<table class="table table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Deadline</th>
+      <th scope="col">Step</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>As soon as possible, before the paper submission deadline</td>
+      <td><a href="#register-your-meeting">Open an ingestion issue and agree a publication date</a></td>
+    </tr>
+    <tr>
+      <td>Before paper submission deadline</td>
+      <td><a href="#isbn-numbers">Request ISBNs (ACL-organized conferences, including chapter conferences)</a></td>
+    </tr>
+    <tr>
+      <td>Agreed cutoff, no later than 2 weeks before publication</td>
+      <td><a href="#submit-your-data">Freeze all volumes in one versioned snapshot</a></td>
+    </tr>
+    <tr>
+      <td>2 weeks before publication</td>
+      <td><a href="#submit-your-data">Submit your data</a></td>
+    </tr>
+    <tr>
+      <td>2 weeks before publication</td>
+      <td><a href="#copyright">Submit copyright transfer forms</a></td>
+    </tr>
+    <tr>
+      <td>After publication</td>
+      <td><a href="#errata-and-corrections">Making corrections</a></td>
+    </tr>
+  </tbody>
+</table>
+
+Your issue is the working checklist for your submission, not just a place to post the final files.
+An action uses your answers to add the appropriate tasks and dates.
+For unfinished tasks with a deadline, it mentions you once seven days before the deadline and daily starting the day after it.
+Check off completed tasks to stop their reminders; closing the issue also stops reminders.
+Publication dates and the resulting deadlines must be agreed with the Anthology.
+
 This page contains general information about submitting proceedings of a conference to the ACL Anthology.
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 **Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
@@ -26,46 +79,12 @@ We are happy to ingest and host material for **new venues**. We generally accept
 * The venue has high standards, which generally means that it is peer-reviewed by experts in the field.
 * The venue organizers either sign over paper copyrights to the ACL (preferred), or sign an agreement allowing us to share the papers under a Creative Commons [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
-## Overview of the Submission Process
-
-Please note the following important dates.
-
-<table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Deadline</th>
-      <th scope="col">Step</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Before paper submission deadline</td>
-      <td><a href="#register-your-meeting"">Register your meeting</a></td>
-    </tr>
-    <tr>
-      <td>Before paper submission deadline</td>
-      <td><a href="#isbn-numbers">Request ISBNs</a></td>
-    </tr>
-    <tr>
-      <td>2 weeks before publication</td>
-      <td><a href="#submit-your-data">Submit your data</a></td>
-    </tr>
-    <tr>
-      <td>2 weeks before publication</td>
-      <td><a href="#copyright">Submit copyright transfer forms</a></td>
-    </tr>
-    <tr>
-      <td>After publication</td>
-      <td><a href="#errata-and-corrections">Making corrections</a></td>
-    </tr>
-  </tbody>
-</table>
-
 ## Register your meeting
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
 (Workshop chairs should do this through your main conference publication chair).
-This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
+Start with a provisional list of volumes (main conference volumes and workshops) and the desired publication date, if known.
+Update your issue with the complete list and agreed date as these become available.
 Your proceedings will be due no later than **two weeks** prior to this negotiated date.
 
 This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=ingestion&template=04-ingestion-request.yml&title=Ingestion+Request%3A+%7Breplace+with+name+of+event%7D).
@@ -114,12 +133,40 @@ After your conference management software has collected all the camera-ready pap
 1. _ACLPUB_. If you're using Softconf, this will likely be the original ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html), because Softconf has built-in support for this.
 2. _aclpub2_. More recently, ACL has moved to using [aclpub2](https://github.com/rycolab/aclpub2/blob/main/README.md), which can be run standalone, but is designed to work with [ARR](https://aclrollingreview.org) and OpenReview.
 
+### Softconf
+
+Export and deliver Softconf/START's native ACLPUB **`proceedings.tgz`**.
+**Do not convert this export to aclpub2:** conversion can discard author ORCID iDs.
+
+### OpenReview
+
+Use aclpub2 to prepare your proceedings.
+For **every aclpub2 volume**, you must run the [Anthology format checker](https://github.com/acl-org/acl-anthology/blob/master/bin/aclpub2_format_check.py) and resolve its reported errors before delivery.
+From an ACL Anthology checkout, run:
+
+```sh
+uv run bin/aclpub2_format_check.py --import-dir /path/to/volume
+```
+
+### EasyChair
+
+We support EasyChair directly; you do not need to convert its ingestion export to aclpub2.
+Publication chairs must arrange to include authors' ORCID iDs in the ingestion metadata and verify that they are present in the delivered export.
+Do not assume that collecting an ORCID in a profile automatically adds it to the export.
+Coordinate any questions about that export through your ingestion issue.
+
+### Freeze and share your proceedings
+
+Agree a cutoff date no later than the delivery deadline and record it in your issue.
+At that cutoff, copy the complete proceedings into a **versioned snapshot**, rather than sharing a directory that continues to change.
 If you are submitting multiple volumes (e.g., main conference volumes and workshops), please group each volume's directory inside a single top-level folder for sharing.
-A link to this directory should be posted to the ingestion request Github issue you created, or alternately shared with the Anthology Director via email.
+A link to this directory, together with its version, should be posted to the ingestion request Github issue you created.
+For a GitHub repository, identify the exact commit or a tag that will not be moved; for archives or shared folders, use a distinct versioned name.
+If access details must be shared privately, send them to the Anthology Director and note the delivery in your issue.
 We prefer sharing via HTTP, FTP, or a private GitHub repo since these allow automated downloads, but we can accommodate other methods, such as Dropbox or Google Drive.
 This sharing should be done **two weeks prior to your desired publication date** (which was negotiated when you first contacted us) to give us time to process it.
-
-If you are using aclpub2, we suggest you run our [format checker](https://github.com/acl-org/acl-anthology/blob/master/bin/aclpub2_format_check.py) on each directory, which will surface errors.
+Verify that the Anthology can access the snapshot.
+Subsequent updates must have a new version and a summary of the changed volumes or files in the same issue; do not silently replace an already-delivered snapshot.
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
@@ -146,8 +193,8 @@ For both current and legacy events, it is good practice for the organizers to at
 ## ISBN Numbers
 
 If you plan to publish or print your proceedings, you will need an ISBN.
-The ACL can provide these for *ACL conferences.
-Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
+The ACL can provide these for ACL-organized conferences, including chapter conferences.
+Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](mailto:acl.rachford@gmail.com), the ACL Business Manager.
 
 ## Errata and Corrections
 
