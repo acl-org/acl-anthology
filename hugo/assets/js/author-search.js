@@ -166,12 +166,11 @@
     identity.className = classNames.identity || "";
     heading.className = classNames.heading || "";
     name.textContent = row[0];
-    acronym.className = "badge text-bg-secondary";
+    acronym.className = "badge rounded-pill text-bg-secondary flex-shrink-0";
     acronym.textContent = row[1];
-    meta.textContent = "Venue ID: " + row[2] + " \u00b7 "
-      + numberFormat.format(row[3]) + " " + volumeLabel;
+    meta.textContent = numberFormat.format(row[3]) + " " + volumeLabel;
 
-    heading.append(name, acronym);
+    heading.append(acronym, name);
     identity.append(heading, meta);
     return identity;
   }
