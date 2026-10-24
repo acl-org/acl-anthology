@@ -3,17 +3,21 @@
 import logging
 import pytest
 from pathlib import Path
+from shutil import copytree
 from unittest.mock import MagicMock, patch
 from types import SimpleNamespace
 
-from acl_anthology.collections.types import VolumeType
+from acl_anthology import Anthology
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.text import MarkupText
-from acl_anthology.people import Name
+from acl_anthology.people import Name, NameSpecification
 from bin.ingest import (
+    add_parent_event,
     abstract_has_empty_markup,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    ingest,
     read_ingest_metadata,
     read_meta,
     resegment_name,
@@ -22,6 +26,97 @@ from bin.ingest import (
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+@pytest.mark.parametrize("with_collision", [False, True])
+def test_reingest_preserves_bibkeys_and_volume_order(tmp_path, with_collision):
+    data = Path(__file__).resolve().parents[1] / "python/tests/data/anthology"
+    anthology = Anthology(copytree(data, tmp_path / "anthology"))
+    anthology.venues.create(
+        id="test", acronym="TEST", name="Test Conference", type="conference"
+    )
+    collection = anthology.collections.create("2026.test")
+    if with_collision:
+        sibling = collection.create_volume(
+            id="other", title="Other Proceedings", venue_ids=("test",)
+        )
+        sibling_paper = sibling.create_paper(
+            id="1",
+            title="Shared Ideas",
+            authors=[NameSpecification(Name("Alex", "Smith"))],
+        )
+        assert sibling_paper.bibkey == "smith-2026-shared"
+    metadata = {
+        "collection_id": "2026.test",
+        "volume_name": "1",
+        "volume_full_id": "2026.test-1",
+        "title": "Test Proceedings",
+        "year": "2026",
+        "volume_type": VolumeType.PROCEEDINGS,
+        "editors": [],
+        "venue_ids": ["test"],
+        "publisher": "Test Publisher",
+        "address": "Test Location",
+        "month": "October",
+    }
+    args = event_args(tmp_path, ingest_date="2026-10-22", parent_event=None)
+    for pass_number in range(3):
+        papers = iter(
+            [
+                {
+                    "id": "0",
+                    "type": PaperType.FRONTMATTER,
+                    "title": "Test Proceedings",
+                },
+                {
+                    "id": "1",
+                    "type": PaperType.PAPER,
+                    "title": "Shared Selective Memory",
+                    "authors": [NameSpecification(Name("Alex", "Smith"))],
+                },
+            ]
+        )
+        ingest(anthology, metadata, papers, set(), args)
+        if pass_number == 0:
+            collection.create_volume(
+                id="last", title="Last Proceedings", venue_ids=("test",)
+            )
+        assert list(collection) == (
+            ["other", "1", "last"] if with_collision else ["1", "last"]
+        )
+        volume = collection["1"]
+        assert volume["0"].bibkey == "test-2026-1"
+        assert volume["1"].bibkey == (
+            "smith-2026-shared-selective" if with_collision else "smith-2026-shared"
+        )
+        if with_collision:
+            assert sibling_paper.bibkey == "smith-2026-shared"
+
+
+def test_add_parent_event_sorts_colocated_volumes():
+    anthology = MagicMock()
+    event = anthology.get_event.return_value
+    event.is_explicit = True
+    event.colocated_ids = {
+        ("2026", "zeta", None): "explicit",
+        ("2026", "alpha", None): "explicit",
+    }
+    volume = anthology.get_volume.return_value
+    volume.get_events.return_value = []
+
+    def add_colocated(_):
+        event.colocated_ids[("2026", "mrl", None)] = "explicit"
+
+    event.add_colocated.side_effect = add_colocated
+
+    add_parent_event(anthology, "emnlp-2026", "2026.mrl-1")
+
+    assert list(event.colocated_ids) == [
+        ("2026", "alpha", None),
+        ("2026", "mrl", None),
+        ("2026", "zeta", None),
+    ]
+    assert event.collection.is_modified is True
 
 
 def test_resegment_name_accepts_explicit_index():
@@ -252,6 +347,47 @@ def test_register_suggested_sigs_stores_associations_from_venues(caplog):
         assert venue.sigs.call_count == 2
     assert "based on venue association(s): starsem" in caplog.text
     assert len(caplog.records) == 1
+
+
+@pytest.mark.parametrize(
+    ("venue_id", "volume_id", "initial_sigs", "expected_sigs"),
+    [
+        ("findings", "emnlp", (), ("sigdat",)),
+        ("findings", "emnlp", ("sigdat",), ("sigdat",)),
+        ("findings", "emnlp", ("sigann",), ("sigann", "sigdat")),
+        ("findings", "acl", (), ()),
+        ("findings", "eacl", (), ()),
+        ("findings", "naacl", (), ()),
+        ("other", "emnlp", (), ()),
+    ],
+)
+def test_findings_emnlp_inherits_emnlp_sigs(
+    venue_id, volume_id, initial_sigs, expected_sigs
+):
+    sigdat = SimpleNamespace(id="sigdat")
+    venue = MagicMock(id=venue_id)
+    venue.sigs.return_value = []
+    emnlp = MagicMock(id="emnlp")
+    emnlp.sigs.return_value = [sigdat]
+    volume = MagicMock(
+        id=volume_id,
+        full_id=f"2026.{venue_id}-{volume_id}",
+        venue_ids=(venue_id,),
+        sig_ids=initial_sigs,
+        root=SimpleNamespace(venues={"emnlp": emnlp}),
+    )
+    volume.venues.return_value = [venue]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    register_suggested_sigs(volume)
+    register_suggested_sigs(volume)
+
+    assert volume.sig_ids == expected_sigs
+    assert volume.add_sig.call_count == len(expected_sigs) - len(initial_sigs)
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be
