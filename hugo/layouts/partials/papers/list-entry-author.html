@@ -1,5 +1,7 @@
-{{ $collection_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index hugo.Data.papers $collection_id) .Params.anthology_id }}
+{{ $page := .page }}
+{{ $person_id := .person_id }}
+{{ $collection_id := index (split $page.Params.anthology_id "-") 0 }}
+{{ $paper := index (index hugo.Data.papers $collection_id) $page.Params.anthology_id }}
 <div class="d-sm-flex align-items-stretch mb-3">
   <div class="d-block me-2 list-button-row">
     <span class="d-inline d-sm-block text-nowrap">
@@ -9,17 +11,17 @@
       </a>
       {{- end -}}
       {{- if (fileExists (printf "/data-export/volumes/%s.bib" $paper.parent_volume_id)) -}}
-      <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" .Params.anthology_id) | relURL }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX" aria-label="Export to BibTeX">
+      <a class="badge text-bg-secondary align-middle me-1" href="{{ (printf "%s.bib" $page.Params.anthology_id) | relURL }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Export to BibTeX" aria-label="Export to BibTeX">
         bib
       </a>
       {{- end -}}
       {{- with $paper.abstract_html -}}
-      <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-bs-toggle="collapse" aria-expanded="false"  aria-controls="abstract-{{ replace $.Params.anthology_id "." "--" }}" title="Show Abstract" aria-label="Show Abstract">abs</a>
+      <a class="badge text-bg-info align-middle me-1" href="#abstract-{{ replace $page.Params.anthology_id "." "--" }}" data-bs-toggle="collapse" aria-expanded="false"  aria-controls="abstract-{{ replace $page.Params.anthology_id "." "--" }}" title="Show Abstract" aria-label="Show Abstract">abs</a>
       {{- end -}}
     </span>
     <span class="d-inline d-sm-block text-nowrap">
       {{- range $paper.award -}}
-      {{- partial "award_icon.html" . -}}
+      {{- partial "award_icon.html" (dict "award" . "href" (relref $page (printf "/people/%s/awards" $person_id))) -}}
       {{- end -}}
       {{- range $paper.urls -}}
       <a class="badge text-bg-primary align-middle me-1" href="{{ .url }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Open {{ .type }}" aria-label="Open {{ .type }}">{{ partial "url_repr.html" . }}</a>
@@ -34,14 +36,14 @@
   </div>
   <span class="d-block">
     {{ if eq hugo.Environment "development" }}
-      <span class="badge text-bg-light align-middle">{{ .Params.anthology_id }}</span>
+      <span class="badge text-bg-light align-middle">{{ $page.Params.anthology_id }}</span>
     {{ end }}
-    <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    <strong><a class="align-middle" href="{{ $page.RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
-        {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
+        {{ partial "author_link.html" (dict "ctx" $page "person" $person) }}
         {{ if ne (add $index 1) $len }} | {{ end }}
       {{ end }}
     {{ end }}
@@ -49,13 +51,13 @@
     {{- with $paper.parent_volume_id -}}
     {{ $volume := index hugo.Data.volumes . }}
     {{ $volume_page := printf "/volumes/%s" . }}
-    <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
+    <a href="{{ relref $page $volume_page }}" class="text-muted">{{ $volume.title }}</a>
     {{- end -}}
   </span>
 </div>
 
 {{ with $paper.abstract_html }}
-<div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id="abstract-{{ replace $.Params.anthology_id "." "--" }}">
+<div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id="abstract-{{ replace $page.Params.anthology_id "." "--" }}">
   <div class="card-body p-3 small">
     {{ . | safeHTML }}
   </div>
