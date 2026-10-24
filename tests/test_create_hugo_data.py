@@ -15,12 +15,14 @@ from bin.create_hugo_data import (
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
     build_author_search_index,
+    build_venue_search_index,
     compute_author_stats,
     compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
     export_author_index,
     export_author_metrics,
     export_homepage_stats,
+    export_venue_index,
     homepage_venue_group,
     homepage_venue_sort_key,
     homepage_stats,
@@ -214,6 +216,43 @@ def test_author_index_drops_trailing_empty_fields():
     (row,) = build_author_search_index(people)["a"]
 
     assert row == ["Ada Lovelace", AUTHOR_ID_FROM_NAME, 1]
+
+
+def test_venue_index_supports_name_acronym_id_and_volume_count(tmp_path):
+    venues = {
+        "emnlp": {
+            "name": "Empirical Methods in Natural Language Processing",
+            "acronym": "EMNLP",
+            "volumes_by_year": {
+                2025: ["2025.emnlp-main", "2025.emnlp-demo"],
+                2026: ["2026.emnlp-main"],
+            },
+        },
+        "acl": {
+            "name": "Annual Meeting of the Association for Computational Linguistics",
+            "acronym": "ACL",
+            "volumes_by_year": {2026: ["2026.acl-long", "2026.acl-short"]},
+        },
+    }
+
+    assert build_venue_search_index(venues) == [
+        [
+            "Annual Meeting of the Association for Computational Linguistics",
+            "ACL",
+            "acl",
+            2,
+        ],
+        [
+            "Empirical Methods in Natural Language Processing",
+            "EMNLP",
+            "emnlp",
+            3,
+        ],
+    ]
+
+    export_venue_index(venues, tmp_path)
+    with open(tmp_path / "static" / "venues" / "index.json") as f:
+        assert json.load(f) == build_venue_search_index(venues)
 
 
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
