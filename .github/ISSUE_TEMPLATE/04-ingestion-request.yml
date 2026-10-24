@@ -10,18 +10,33 @@ body:
     attributes:
       label: General information about this request
       description: |
-        Please make sure you have read our [information for submitters](https://aclanthology.org/info/contrib/) before you continue. If you are submitting a request for a venue that does not exist in the ACL Anthology yet, please also indicate this here.
+        Open this issue early; provisional information is welcome. An action will add a personalized checklist and timeline afterwards. Keep your answers current and check off completed tasks in that checklist. We will mention you seven days before unfinished deadlines and daily once overdue.
+        Colocated workshop chairs should coordinate through their main conference publication chairs and their issue.
+        Detailed instructions remain in our [information for submitters](https://aclanthology.org/info/contrib/).
       options:
-        - label: I confirm that I have read the [Information for Submitters](https://aclanthology.org/info/contrib/).
+        - label: I will keep this issue up to date and check off the submission tasks as they are completed.
           required: true
-        - label: "I am submitting a request for a **new venue** that does not exist in the ACL Anthology yet."
+        - label: "This request includes a **new venue** that does not exist in the ACL Anthology yet (including any new workshop venues)."
+        - label: This submission is historical material, rather than current proceedings or a current journal issue.
   - type: input
     id: venue_id
     attributes:
       label: Venue Identifier
       description: |
-        What is the (proposed) venue identifier for this submission? If you are not sure what the correct identifier for your venue is, you can look it up in the [list of existing venues](https://aclanthology.org/venues/).
-      placeholder: ex. emnlp, repl4nlp
+        What is the (proposed) venue identifier for this submission? If you are not sure what the correct identifier for your venue is, you can look it up in the [list of existing venues](https://aclanthology.org/venues/). A provisional identifier or "TBD" is fine when registering early.
+      placeholder: ex. emnlp, repl4nlp, or TBD
+    validations:
+      required: true
+  - type: dropdown
+    id: acl_organized
+    attributes:
+      label: ACL-organized Event
+      description: Is this event organized by the ACL or an ACL chapter? This determines the ISBN instructions; do not answer based only on whether the Anthology hosts the venue.
+      options:
+        - "Yes"
+        - "No"
+        - Not sure yet
+      default: 2
     validations:
       required: true
   - type: input
@@ -36,7 +51,7 @@ body:
     attributes:
       label: Volume Title
       description: |
-        What is the title of the (main) volume that should be published?
+        What is the title of the (main) volume that should be published? A provisional title is fine; update it once agreed.
       placeholder: ex. Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)
     validations:
       required: true
@@ -60,7 +75,14 @@ body:
       label: Date of Publication
       description: |
         When would you like the material to be published on the ACL Anthology? If you are submitting material that can be published immediately (e.g. for conferences that already happened in the past), you can leave this field blank.
-      placeholder: ex. 2023-12-31
+      placeholder: YYYY-MM-DD
+  - type: input
+    id: cutoff_date
+    attributes:
+      label: Proceedings Cutoff Date
+      description: |
+        If agreed, when will you freeze the versioned proceedings snapshot? Use YYYY-MM-DD. This must be no later than the delivery deadline (two weeks before publication). Leave blank if not yet agreed.
+      placeholder: YYYY-MM-DD
   - type: input
     id: volume_address
     attributes:
@@ -76,14 +98,15 @@ body:
       options:
         - label: OpenReview (proceedings compiled with [aclpub2](https://github.com/rycolab/aclpub2/))
         - label: Softconf/START (export the proceedings in ACLPUB format; no need to convert with aclpub2)
+        - label: EasyChair (direct ingestion export; arrange to include ORCID iDs in its metadata)
         - label: Other (explain)
   - type: checkboxes
     id: orcid_request
     attributes:
       label: ORCID iDs
-      description: The Anthology now expects that ORCID iDs will be supplied for as many authors as possible.
+      description: The Anthology expects ORCID iDs for as many authors as possible. Verify that collected iDs are included in the ingestion metadata, particularly with EasyChair; profiles alone are not enough.
       options:
-        - label: We will instruct authors to supply ORCID information in their profiles in the submission platform ([instructions](https://aclanthology.org/info/author-pages/)). (Not necessary for historical volumes.)
+        - label: We will request author ORCID iDs and include them in the ingestion metadata ([instructions](https://aclanthology.org/info/orcid/)). Historical material is exempt.
           required: true
   - type: checkboxes
     id: delivery_method

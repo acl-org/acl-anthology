@@ -8,10 +8,16 @@
   {{ end }}
   <hr />
 
-  {{ if not .Date.IsZero }}
+  {{ if and (not .Date.IsZero) (not .Params.date_in_footer) }}
   <p class="fw-light fst-italic text-muted">{{ .Date.Format "January 2, 2006" }}</p>
   {{ end }}
 
   {{ .Content }}
+
+  {{ if and (not .Date.IsZero) .Params.date_in_footer }}
+  <footer class="border-top pt-3 mt-4">
+    <p class="fw-light fst-italic text-muted">Last updated: {{ .Date.Format "January 2, 2006" }}</p>
+  </footer>
+  {{ end }}
 </main>
 {{ end }}

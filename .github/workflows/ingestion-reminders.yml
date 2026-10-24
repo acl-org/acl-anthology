@@ -1,0 +1,43 @@
+name: Remind ingestion submitters
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Optional issue number (otherwise check all managed ingestion issues)
+        type: string
+      dry_run:
+        description: Preview without editing issues or posting comments
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ingestion-deadline-reminders
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/github-script@v9
+        env:
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        with:
+          script: |
+            const { sendReminders } = require('./.github/scripts/ingestion-guidance.cjs');
+            await sendReminders({
+              github, context, core,
+              number: process.env.ISSUE_NUMBER,
+              dryRun: process.env.DRY_RUN === 'true',
+            });
