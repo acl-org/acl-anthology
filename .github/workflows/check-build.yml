@@ -17,6 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+
+    - name: Test page notice loader
+      run: node --test tests/javascript/page-status.cjs
+
     - id: prerequisites
       uses: ./.github/actions/install-build-prerequisites
 

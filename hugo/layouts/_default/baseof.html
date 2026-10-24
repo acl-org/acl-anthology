@@ -39,6 +39,10 @@
   {{ block "header" . }}{{ partialCached "header_navbar.html" . (index .Params "css_container") .IsHome }}{{ end }}
 
   <div id="main-container" class="{{ default "container" (index .Params "css_container" ) }}">
+    <div id="page-status" hidden aria-live="polite"
+      data-page-path="/{{ strings.TrimPrefix .Site.Home.RelPermalink .RelPermalink }}"
+      data-local-source="{{ relURL "page-status.tsv" }}"
+      data-wiki-source="https://raw.githubusercontent.com/wiki/acl-org/acl-anthology/Page-status.md"></div>
     {{ block "main" . }}{{ end }}
   </div>
   {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
@@ -50,6 +54,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   {{ $authorSearch := resources.Get "js/author-search.js" | minify | fingerprint }}
   <script src="{{ $authorSearch.RelPermalink }}"></script>
+  {{ $pageStatus := resources.Get "js/page-status.js" | minify | fingerprint }}
+  <script defer src="{{ $pageStatus.RelPermalink }}"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // tooltips
