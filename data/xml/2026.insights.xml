@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.insights">
+  <volume id="1" type="proceedings" ingest-date="2026-10-22">
+    <!-- https://aclanthology.org/2026.insights-1/ -->
+    <meta>
+      <booktitle>Proceedings of the Seventh Workshop on Insights from Negative Results in <fixed-case>NLP</fixed-case></booktitle>
+      <editor><first>João</first><last>Sedoc</last></editor>
+      <editor><first>Raphael</first><last>Shu</last></editor>
+      <editor><first>Aleksandr</first><last>Drozd</last></editor>
+      <editor><first>Arjun</first><last>Akula</last></editor>
+      <editor><first>Anna</first><last>Rogers</last></editor>
+      <editor><first>Salvatore</first><last>Giorgi</last></editor>
+      <editor><first>Adrian</first><last>Benton</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-480-4</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="cf79a166"/>
+      <venue>insights</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.insights-1.0/ -->
+      <pdf hash="bf719c88"/>
+      <bibkey>insights-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.insights-1.1/ -->
+      <title>Geometric Separation Without Functional Specialization: Auditing Subspace Disentanglement in Dual-Encoder <fixed-case>LLM</fixed-case> Paraphrase Detection</title>
+      <author><first>Govind</first><last>Arun</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Ashish</first><last>Abraham</last><affiliation>College of Engineering Trivandrum</affiliation></author>
+      <author><first>Gadha Lekshmi</first><last>P</last><affiliation>Rutgers</affiliation></author>
+      <pages>1-6</pages>
+      <abstract>Explicit subspace disentanglement, enforcing orthogonality and simplex constraints on learned projections, is an increasingly common recipe for paraphrase models claimed to separate lexical, syntactic, and semantic information. A dual-encoder hierarchical model trained with these constraints on the DiPPer corpus of LLM-generated paraphrases produces near-perfect geometric separation, a pairwise Centered Kernel Alignment (CKA) of roughly 0.0007, yet that separation is not evidence of functional linguistic specialization. Three results establish this. First, near-zero CKA is largely preordained by an explicit orthogonality penalty, which converges to <tex-math>4\times10^{-6}</tex-math>. Second, each of the three subspaces, including the nominally syntactic one for which we identify no functional probe, classifies paraphrase in isolation at <tex-math>F_1</tex-math> above 0.986, so the subspaces are not functionally distinct. Third, removing disentanglement at matched capacity costs only 0.013 <tex-math>F_1</tex-math>, leaving most of the reported gain attributable to dual-encoder capacity rather than disentanglement. Capacity-matched ablations and controlled functional probes, not CKA alone, are required to substantiate disentanglement claims; orthogonality penalties otherwise manufacture the very metric used to certify them.</abstract>
+      <pdf hash="8b6813d2"/>
+      <attachment hash="bb62c200" type="SupplementaryMaterial">2026.insights-1.1.SupplementaryMaterial.zip</attachment>
+      <attachment hash="a7b271f0" type="SupplementaryMaterial">2026.insights-1.1.SupplementaryMaterial.txt</attachment>
+      <bibkey>arun-etal-2026-geometric</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.insights-1.2/ -->
+      <title>Exploring Dowker Homology for Sentence Similarity</title>
+      <author><first>Marius</first><last>Huber</last><affiliation>University of Zurich</affiliation></author>
+      <author><first>Juri</first><last>Opitz</last><affiliation>University of Zurich</affiliation></author>
+      <pages>7-18</pages>
+      <abstract>Dowker homology is a topological tool that may be used to analyze the relative position of two point clouds living in a common space. We investigate whether Dowker homology captures sentence similarity information by treating the embeddings of the tokens that constitute a sentence pair as a pair of point clouds in the latent space of a transformer model, using both models that have and have not been fine-tuned for sentence similarity. We find that Dowker homology captures sentence similarity information, as measured by regressing Dowker homology features onto ground-truth similarity scores, and that it can be used for visual inspection of similarity data and models. In an attempt to make Dowker homology readily applicable, we derive from it single-number summaries that we expect to capture sentence similarity directly. These turn out to work reasonably well, but without outperforming standard sentence similarity measures based on established pooling methods.</abstract>
+      <pdf hash="f615d990"/>
+      <attachment hash="2176fd05" type="SupplementaryMaterial">2026.insights-1.2.SupplementaryMaterial.txt</attachment>
+      <attachment hash="f3601eca" type="SupplementaryMaterial">2026.insights-1.2.SupplementaryMaterial.zip</attachment>
+      <bibkey>huber-opitz-2026-exploring</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.insights-1.3/ -->
+      <title>Does Pragmatic Transfer Help Euphemism Detection? Evidence from Target-Span Marking</title>
+      <author><first>Whitney</first><last>Poh</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Noriko</first><last>Takahashi</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Patrick</first><last>Lee</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Julia</first><last>Sammartino</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Libby</first><last>Barak</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Jing</first><last>Peng</last><affiliation>Montclair State University</affiliation></author>
+      <author><first>Anna</first><last>Feldman</last><affiliation>Montclair State University</affiliation></author>
+      <pages>19-32</pages>
+      <abstract>Euphemism detection is often motivated as a pragmatic task: deciding whether a potentially euphemistic term (PET) is used euphemistically depends on context, communicative goals, politeness, topic sensitivity, and sentiment. A natural prediction is that auxiliary supervision from pragmatically related tasks should improve euphemism detection when target supervision is limited. We test this prediction for PET-style classification using XLM-R and mBERT in a feature-based transfer setting: auxiliary-tuned encoders are frozen and probed for euphemism detection. We compare sentence-level pragmatic proxy tasks with expression-level nonliteral tasks and with target inputs that either mark or omit the PET span. The results do not support a simple pragmatic-transfer account. Auxiliary transfer is unreliable, often reducing XLM-R performance and helping mBERT only inconsistently. The largest observed gains come from direct euphemism fine-tuning when the target PET is explicitly marked. The practical implication is to preserve target-span information and report source–target compatibility in transfer experiments.</abstract>
+      <pdf hash="77854f65"/>
+      <attachment hash="1e66c374" type="SupplementaryMaterial">2026.insights-1.3.SupplementaryMaterial.txt</attachment>
+      <bibkey>poh-etal-2026-pragmatic</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.insights-1.4/ -->
+      <title>Risk-Averse Failure Modes of <fixed-case>J</fixed-case>ensen-<fixed-case>S</fixed-case>hannon Distance in <fixed-case>RLVR</fixed-case> Distributional Alignment</title>
+      <author><first>Sebastian</first><last>Loftus</last><affiliation>CENTAL - UCLouvain</affiliation></author>
+      <author><first>Xinpeng</first><last>Wang</last><affiliation>Ludwig-Maximilians-Universitaet Muenchen</affiliation></author>
+      <author><first>Marie-Catherine</first><last>De Marneffe</last><affiliation>FNRS - UCLouvain</affiliation></author>
+      <author><first>Barbara</first><last>Plank</last><affiliation>LMU Munich</affiliation></author>
+      <pages>33-42</pages>
+      <abstract>Jensen-Shannon Distance (JSD) appears well-suited as a reward signal for aligning model predictions with human annotations, particularly for subjective tasks where label variation reflects legitimate disagreement. We demonstrate that JSD’s mathematical properties create exploitable reward landscapes in reinforcement learning. Via a study on preference distribution prediction, we show that two JSD-based reward formulations both fail to achieve alignment and instead lead to models converging at conservative, near-uniform predictions that maximize expected reward without matching human behavior. We trace this failure to JSD’s non-uniform sensitivity: it penalizes errors near balanced distributions less than errors near extreme distributions, creating risk asymmetry that incentivizes safe predictions over accurate ones. Our findings reveal fundamental challenges in using bounded symmetric divergence metrics as scalar rewards for distributional alignment.</abstract>
+      <pdf hash="300ca3c1"/>
+      <attachment hash="fe17b6ff" type="SupplementaryMaterial">2026.insights-1.4.SupplementaryMaterial.txt</attachment>
+      <bibkey>loftus-etal-2026-risk</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.insights-1.5/ -->
+      <title>Controlled Fine-Tuning for Two-Tower Recommenders: Why Gradual Unfreezing Can Fail and Cosine Regularization Suffices</title>
+      <author><first>Gabriel</first><last>Dershowitz</last><affiliation>YU</affiliation></author>
+      <author><first>Djallel</first><last>Bouneffouf</last><affiliation>IBM</affiliation></author>
+      <pages>43-47</pages>
+      <abstract>Controlled fine-tuning of pretrained text encoders — via gradual layer-wise unfreezing and anchoring — is widely assumed to benefit downstream tasks. We test this assumption in two-tower recommendation and findthree negative results. First, any fine-tuning dramatically beats a frozen encoder (≥ 2.7×cold Recall@10 lift); freezing the item tower is strongly counterproductive. Second, gradual unfreezing worsens performance compared to vanilla fine-tuning under realistic budgets (12epochs). Third, a fixed cosine drift penalty is the only consistently beneficial component; our full adaptive recipe does not outperform vanilla fine-tuning. Thus, for two-tower retrieval, practitioners should default to vanilla fine-tuning with light regularization — gradual unfreezing is unnecessary and harmful, challenging conventional wisdom from language model fine-tuning.</abstract>
+      <pdf hash="bcbe202c"/>
+      <attachment hash="e956d992" type="SupplementaryMaterial">2026.insights-1.5.SupplementaryMaterial.zip</attachment>
+      <attachment hash="78faff2b" type="SupplementaryMaterial">2026.insights-1.5.SupplementaryMaterial.txt</attachment>
+      <bibkey>dershowitz-bouneffouf-2026-controlled</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.insights-1.6/ -->
+      <title>Do Soft Prompts Have Useful Wavelet Structure? Negative Evidence In A Controlled Setup</title>
+      <author><first>Soumyadeep</first><last>Dey</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Srikanth</first><last>Tenneti</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Bamdev</first><last>Mishra</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Shobhit</first><last>Niranjan</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Mayur</first><last>Datar</last><affiliation>Microsoft</affiliation></author>
+      <pages>48-59</pages>
+      <abstract>Soft prompts are learned embedding sequences, but nothing guarantees that their token axis behaves like a signal with useful coarse and fine structure. We test that premise with the Discrete Wavelet Transform (DWT), which rewrites a sequence into approximation (coarse, low-frequency) and detail (local, high-frequency) coefficients. Wavelets help images and audio when most squared coefficient mass concentrates in the approximation band and the detail coefficients become sparse. Trained soft prompts meet neither condition. Our primary test decomposes a converged soft prompt into DWT bands, fine-tunes one band or both, and compares against a matched-budget baseline that continues vanilla training with no DWT. A constructed positive control first confirms that the procedure recovers a target displacement when the displacement is confined to the trainable band and rejects it when the required band is frozen. On SST-2 (67K) and AG News (120K) with Haar wavelets, and on an SST-2 check with Daubechies-2, no band-selective mode reliably beats the baseline, and the two bands are interchangeable within 0.2~pts. Direct measurement of the converged prompt finds coefficient mass roughly balanced across the bands and detail coefficients far denser than classical wavelet theory expects. Related variants behave the same way. An end-to-end wavelet prompt tuner does not reliably outperform vanilla, and a token-diversity variant makes prompt tokens more diverse without improving accuracy. On 250 held-out FLAN generation examples, existing Wavelet KD and Standard KD checkpoints are indistinguishable under token F1 and ROUGE-L.</abstract>
+      <pdf hash="b04a2cd3"/>
+      <attachment hash="e5d05ca8" type="SupplementaryMaterial">2026.insights-1.6.SupplementaryMaterial.txt</attachment>
+      <bibkey>dey-etal-2026-soft</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.insights-1.7/ -->
+      <title>Decomposing <fixed-case>LLM</fixed-case>-Judge–Human Agreement: How Much Is Inherited Surface Preference?</title>
+      <author><first>Gaurav</first><last>Kumar</last><affiliation>University of California San Diego</affiliation></author>
+      <pages>60-69</pages>
+      <abstract>LLM-as-judge evaluation is typically validated using judge-human agreement with standard benchmarks reporting agreement rates of roughly 80-85 %. We show that this aggregate metric can be misleading. Most of that agreement comes from pairs where both judge and human prefer the longer, better-formatted response, rather than from agreement on response quality. On the remaining pairs, agreement drops to chance levels on MT-Bench, and below chance when surface cues mislead. We show this with two simple logistic-regression baselines on length, structure, and lexical features: one predicts the human’s pick, one predicts the judge’s. The pattern holds across closed and open judges and both benchmarks, and is strongest on the expert annotations the field treats as the quality gold standard. We suggest reporting the inheritance share alongside aggregate agreement: a simple reporting metric we defined that shows whether a judge agrees with humans for the right reasons.</abstract>
+      <pdf hash="b17a1d55"/>
+      <attachment hash="1d6108a6" type="SupplementaryMaterial">2026.insights-1.7.SupplementaryMaterial.txt</attachment>
+      <attachment hash="96c6ed47" type="SupplementaryMaterial">2026.insights-1.7.SupplementaryMaterial.zip</attachment>
+      <bibkey>kumar-2026-decomposing</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.insights-1.8/ -->
+      <title>The Flip-Test: A Behavioral Diagnostic for Multi-Agent Debate Failures</title>
+      <author><first>Julia</first><last>Hu</last><affiliation>Amazon Web Service</affiliation></author>
+      <author><first>Alfred</first><last>Shen</last><affiliation>Amazon Web Service</affiliation></author>
+      <author><first>Kumar</first><last>Lakshmipathi</last><affiliation>Amazon Web Service</affiliation></author>
+      <pages>70-75</pages>
+      <abstract>Multi-agent debate has been proposed to improve language model reasoning through adversarial interaction, yet empirical studies report that debate underperforms simpler baselines on open-ended reasoning (Choi et al., 2025). We propose a behavioral diagnostic—the flip-test—that instruments debate at the example level and measures how often, and in which direction, agents change their answers between initial and final rounds. On 2,417 MuSiQue examples with each of Llama 3.1 8B and Ministral 3 8B, flips are common (65–70% of debates). Our central result conditions on opportunity: a flip destroys an available correct answer∼2.4×more often than it creates one (48.9% vs. 20.3% on Llama, 44.2% vs. 18.0% on Ministral; p 10−20). Unlike a raw directional split, this measure is invariant to how many correct answers were available, and it is statistically indistinguishable across the two model families. Three instruction-level interventions on a 100-example held-out set produce no improvement, suggesting simple prompt-level patches are insufficient. We separate this behavioral finding from mechanism: direct opponent-adoption is low (∼10%), so the asymmetry is consistent with sycophancy but does not establish it. The signature is also scale-dependent—on three 70B-class models the flip rate roughly halves and debate turns net-positive—placing the harmful regime in the 8B capacity band rather than in debate itself. We frame the flip-test as a cheap behavioural probe for locating that regime.</abstract>
+      <pdf hash="83658476"/>
+      <attachment hash="dbf43dc1" type="SupplementaryMaterial">2026.insights-1.8.SupplementaryMaterial.zip</attachment>
+      <attachment hash="73fa3896" type="SupplementaryMaterial">2026.insights-1.8.SupplementaryMaterial.txt</attachment>
+      <bibkey>hu-etal-2026-flip</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.insights-1.9/ -->
+      <title>Activation-Based Active Learning for In-Context Learning: Challenges and Insights</title>
+      <author><first>Yaseen</first><last>Osman</last><affiliation>University of Southampton</affiliation></author>
+      <author><first>Geoff</first><last>Merrett</last><affiliation>University of Southampton</affiliation></author>
+      <author><first>Stuart</first><last>Middleton</last><affiliation>University of Southampton</affiliation></author>
+      <pages>76-83</pages>
+      <abstract>Deep active learning has previously been explored for LLM in-context sample selection, but not with methods that utilise recent advances in understanding of transformer activations. In this paper, we test the hypothesis that model activations could provide a fine-grained signal to optimise the selection of in-context examples. We present a comprehensive analysis of MLP activation-based deep active learning methods applied to in-context learning, including how different attention masking strategies impact active learning across diverse classification and generative datasets, using both Llama-3.2-3B and Qwen2.5-3B base models. However, we find a negative result: MLP and embedding layer outputs, viewed through the lenses of massive activations or the first four moments, do not correlate with example quality or task performance. Specifically, the absolute Spearman correlation coefficient is at most 0.33 for all tasks and models we tested, showing that such activation-based sampling should not be used for in-context learning. We hypothesise that this may be due to superposition, whereby models represent more features than they have dimensionality, suggesting that methods like Sparse Autoencoders (SAEs) may be a promising future direction.</abstract>
+      <pdf hash="f861accb"/>
+      <attachment hash="3d4a7b86" type="SupplementaryMaterial">2026.insights-1.9.SupplementaryMaterial.txt</attachment>
+      <bibkey>osman-etal-2026-activation</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.insights-1.10/ -->
+      <title>The Architecture Was Doing the Work: Why <fixed-case>NLI</fixed-case> Debiasing Results Do Not Generalise</title>
+      <author><first>Prabhjot</first><last>Singh</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>84-89</pages>
+      <abstract>NLI debiasing research evaluates interventions on single architectures and datasets, leaving a critical assumption untested: do improvements reflect method quality or model capacity? We run 44 controlled experiments: eleven debiasing strategies across two architecturally distinct models (ELECTRA-small, RoBERTa-base) and two corpora (SNLI, MNLI), under identical conditions with Wilson 95% confidence intervals throughout. On ELECTRA-small, which achieves 87.4% in-domain accuracy, debiasing fails completely: all ten debiasing interventions fall within the baseline confidence interval on HANS (CoV = 0.75%). On RoBERTa-base, methods show genuine sensitivity (CoV = 10.76%, approximately 14x higher), yet the median intervention trends toward degrading OOD accuracy on SNLI, short of conventional significance (Wilcoxon p = 0.065), and method rankings across corpora are anti-correlated for ELECTRA (Spearman ρ = -0.42) but stable for RoBERTa (ρ = 0.75). Contrastive augmentation swings 5.6 pp across corpora (+3.59 pp MNLI, -2.02 pp SNLI). The positive robustness-accuracy correlation on RoBERTa (r = 0.848) inverts the assumed tradeoff: methods that improve HANS also preserve in-domain accuracy, while aggressive debiasers collapse both. The ELECTRA failure is not a pipeline artefact; the same codebase produces real gains on RoBERTa. It is a capacity failure: debiasing presupposes representational capacity that small architectures lack, a precondition the literature neither states nor tests.</abstract>
+      <pdf hash="a1e67aa7"/>
+      <attachment hash="ea6b63b4" type="SupplementaryMaterial">2026.insights-1.10.SupplementaryMaterial.zip</attachment>
+      <attachment hash="78f47676" type="SupplementaryMaterial">2026.insights-1.10.SupplementaryMaterial.txt</attachment>
+      <bibkey>singh-2026-architecture</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.insights-1.11/ -->
+      <title>When Learned Context Planning Fails to Beat Strong Retrieval: A Controlled Study of Planning, Routing, and Reranking for Long-Context <fixed-case>QA</fixed-case></title>
+      <author><first>Yingrui</first><last>Li</last><affiliation>Independent Researcher</affiliation></author>
+      <author><first>Han</first><last>Chen</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>90-94</pages>
+      <abstract>Learned context planning selects evidence atoms before an answer model reasons over them. We test whether this learned selection improves long-context multiple-choice QA after strong retrieval, routing, budgeted-selector, and reranking controls. Our primary diagnostic uses all 503 LongBench-v2 MCQ questions with Qwen2.5-7B-Instruct. The planner is SFT-trained on outcome-selected traces from 140 training and 28 development questions; because the 503-question analysis includes those questions, it is partly transductive. At an 18k-character budget, anchored hybrid retrieval reaches 36.18% accuracy and BM25 reaches 35.98%, while the best direct planner-guided method reaches 34.19%. On the untouched 152-question test split, anchored hybrid remains higher (42.11% versus 36.84%). Leakage-safe routers cannot convert a large oracle gap. Under tight budgets, the best planner is ahead by only 0.40 points at 6k and loses at 9k; planner-guided reranking has a +1.79-point estimate at 6k with a paired interval crossing zero and ties the control at 9k. Packing-order and score-flatness analyses did not identify a stable mechanism. Under this setup, learned planning is a weak relevance signal rather than a replacement for strong retrieval.</abstract>
+      <pdf hash="7ea4460a"/>
+      <attachment hash="674461b2" type="OptionalSupplementaryMaterial">2026.insights-1.11.OptionalSupplementaryMaterial.zip</attachment>
+      <attachment hash="926bd54c" type="LaTeXSource">2026.insights-1.11.LaTeXSource.zip</attachment>
+      <attachment hash="39cd44e5" type="SupplementaryMaterial">2026.insights-1.11.SupplementaryMaterial.txt</attachment>
+      <bibkey>li-chen-2026-learned</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.insights-1.12/ -->
+      <title>No Optimal Language Set Exists for Multilingual Instruction Tuning: Insights from a Linguistically-Informed Study</title>
+      <author><first>Gürkan</first><last>Soykan</last><affiliation>Wageningen University</affiliation></author>
+      <author><first>Gözde</first><last>Şahin</last><affiliation>FAU Erlangen-Nürnberg</affiliation></author>
+      <pages>95-101</pages>
+      <abstract>Multilingual instruction tuning (MIT) is challenged by the curse of multilinguality, data scarcity, and high computational cost. A natural hypothesis is that carefully selecting a linguistically diverse set of languages yields universally better models. We test this systematically by evaluating linguistically-informed selection strategies—based on typological, geographical, semantic, and learned features—against random baselines across three model families (mGPT, mT5-xl, BLOOM) and five multilingual benchmarks. Our key negative finding is that no universal language selection strategy emerges in our fixed-budget setting: performance is strongly task- and model-dependent, and adding more languages beyond a modest threshold triggers degradation consistent with the curse of multilinguality. We discuss implications for MIT data curation and the pitfalls of benchmark-averaged evaluation. All resources are publicly available at \url{https://github.com/GGLAB-KU/ling-informed-mit}.</abstract>
+      <pdf hash="a247a971"/>
+      <attachment hash="46b89c13" type="SupplementaryMaterial">2026.insights-1.12.SupplementaryMaterial.txt</attachment>
+      <attachment hash="533270d3" type="SupplementaryMaterial">2026.insights-1.12.SupplementaryMaterial.zip</attachment>
+      <bibkey>soykan-sahin-2026-optimal</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.insights-1.13/ -->
+      <title>Short-Context Gains, Long-Context Drift: Negative Results for Token-Conditioned <fixed-case>R</fixed-case>o<fixed-case>PE</fixed-case></title>
+      <author><first>Allan</first><last>Kazakov</last><affiliation>Bahcesehir University</affiliation></author>
+      <pages>102-109</pages>
+      <abstract>RoPE is a standard positional encoding for modern language models, but its fixed rotations can fail to distinguish positions and tokens in long contexts. Content-aware rotary methods such as CARoPE suggest that adapting rotary geometry to token content can improve language modeling. We report a negative-result study of four token-conditioned RoPE variants for language-model pretraining. DiPE adds token-dependent endpoint phase offsets; Gated DiPE bounds these offsets with learned gates; HSA-RoPE and PPA-RoPE instead modulate accumulated rotary frequency increments at the head and rotary-pair levels. Although these methods produce promising short-context gains, their improvements do not scale reliably. DiPE improves substantially at sequence length 1024 but weakens with larger models and longer contexts, while Gated DiPE fails to recover the lost benefit. HSA-RoPE and PPA-RoPE outperform RoPE at all tested sequence lengths, but their advantage shrinks with longer contexts and they fall substantially behind CARoPE at 8192 tokens.</abstract>
+      <pdf hash="3bfe226c"/>
+      <attachment hash="9b79e140" type="SupplementaryMaterial">2026.insights-1.13.SupplementaryMaterial.txt</attachment>
+      <attachment hash="46bdb751" type="SupplementaryMaterial">2026.insights-1.13.SupplementaryMaterial.zip</attachment>
+      <bibkey>kazakov-2026-short</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.insights-1.14/ -->
+      <title>When Gradient Importance Lies: Adaptive <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Rank Allocation Fails Under <fixed-case>GRPO</fixed-case></title>
+      <author><first>Yash</first><last>Sawant</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>110-114</pages>
+      <abstract>Adaptive rank allocation for LoRA—allocating more parameters to important layers and fewer to unimportant ones—consistently improves efficiency under supervised fine-tuning (SFT). We test whether this success transfers to reinforcement learning, specifically Group Relative Policy Optimization (GRPO). Using gradient-magnitude profiling on Qwen 2.5 1.5B with GSM8K, we find that, in our setting, it does not: proportional rank allocation degrades accuracy by 4.5 points compared to uniform allocation (70.0% vs. 74.5%), despite using identical parameter budgets. We identify two mechanisms behind this failure. First, the gradient landscape under GRPO is fundamentally flatter than under SFT—the max-to-min layer importance ratio is only 2.17×, whereas the layer concentration reported by Shi et al. (2024) for SFT (top 30% of layers carrying 80% of the gradient signal) implies a max/min ratio well above 10×. All layers carry meaningful gradient signal; none are truly idle. Second, we observe a gradient amplification effect: non-uniform allocation widens the importance spread from 2.17× to 3.00×, creating a positive feedback loop where high-rank layers absorb more gradient while low-rank layers are progressively silenced. A random-allocation control yields the same amplification (r=0.972 correlation between assigned rank and resulting gradient share), indicating that rank causally determines gradient importance rather than the reverse. The negative result is single-seed and single-task; we present it as preliminary evidence that gradient importance does not predict capacity requirements under RL, and that naïve transfer of SFT-era rank allocation strategies to alignment training should be evaluated cautiously.</abstract>
+      <pdf hash="f5521751"/>
+      <attachment hash="69d230dd" type="SupplementaryMaterial">2026.insights-1.14.SupplementaryMaterial.zip</attachment>
+      <attachment hash="a59c3889" type="SupplementaryMaterial">2026.insights-1.14.SupplementaryMaterial.txt</attachment>
+      <bibkey>sawant-2026-gradient</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.insights-1.15/ -->
+      <title>Do Not Score the Edited Answer: A Negative Result on Loose Evaluation for Verifiable Instruction Following</title>
+      <author><first>José Luis</first><last>Delgado</last><affiliation>Universitat Oberta de Catalunya</affiliation></author>
+      <pages>115-119</pages>
+      <abstract>Verifiable instruction-following benchmarks often include strict and loose scoring modes: strict scoring checks the original response, and loose scoring applies the checker to transformed versions of the response, for example after removing markdown or dropping boundary lines, to recover false negatives caused by harmless wrappers and formatting artifacts. We study a negative result for this repair strategy using a constructive suite of 144 canaries in which every valid wrapper is paired with an invalid deletion trap that has the same transformed-response checker outcomes under IFEval-style transformations. Loose scoring accepts all valid wrappers and all invalid traps; support over transformation functions accepts both classes, and a threshold that deduplicates passing edited strings rejects both classes. On the balanced suite, any scorer that observes only the transformed-view pass signature has a best possible accuracy of 0.50, and the canaries are solved only by a boundary-aware certificate that inspects the original deleted span. Deletion- or normalization-based loose evaluation therefore needs evidence-preservation checks when edited spans may affect instruction satisfaction.</abstract>
+      <pdf hash="46a5e0ca"/>
+      <attachment hash="b0c1eb76" type="SupplementaryMaterial">2026.insights-1.15.SupplementaryMaterial.txt</attachment>
+      <attachment hash="2580c58b" type="SupplementaryMaterial">2026.insights-1.15.SupplementaryMaterial.zip</attachment>
+      <bibkey>delgado-2026-score</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.insights-1.16/ -->
+      <title>Perturbation, Not Provenance: Why Activation Steering Does Not Make a Robust Text Watermark</title>
+      <author><first>Sergey</first><last>Pletenev</last><affiliation>Artificial Intelligence Research Institute</affiliation></author>
+      <pages>120-126</pages>
+      <abstract>Linear directions in the activation space of large language models causally and universally influence model behavior. This suggests that they might serve as a basis for a robust text watermark. The idea is to steer the generation along a specific semantic direction and then recover the mark by probing the activations of the re-encoded text. We test this hypothesis by conducting a series of experiments. We vary the strength of the steering and use four different directions (formality, sentiment, complexity, and a random control) across two different model families. We also test two paraphrasing attacks: a sentence-level one and a stronger paragraph-level one. The results show that activation-steering watermarks are outperformed by a standard logit-based watermark (KGW) in terms of detection accuracy. At a matched level of fluency (within 1.15 times the original text’s perplexity), KGW achieved an AUC of 0.81 against a sentence-level paraphraser, while the best steering direction only reached 0.65. A stronger paragraph-level paraphraser lowered both (0.65 for KGW and 0.59 for steering), narrowing the gap but not reversing it. On Qwen, it left the two indistinguishable but at near-chance levels for both. We further showed that the detectability provided by steering was not semantic: a random direction was just as detectable as a meaningful one. The signal was independent of which layer was probed and whether a surface feature control was used. We conclude that, in this case, semantic activation does not encode a localized, recoverable semantic mark, but rather a global, content-independent shift that can only be strongly detected when the text is degraded.</abstract>
+      <pdf hash="84854273"/>
+      <attachment hash="6e7814d0" type="SupplementaryMaterial">2026.insights-1.16.SupplementaryMaterial.zip</attachment>
+      <attachment hash="547719ac" type="SupplementaryMaterial">2026.insights-1.16.SupplementaryMaterial.txt</attachment>
+      <bibkey>pletenev-2026-perturbation</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.insights-1.17/ -->
+      <title><fixed-case>PEFT</fixed-case> Gains Need Hidden Baselines: Rank and Optimizer Sweeps Change <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> Conclusions</title>
+      <author><first>Ding</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>127-132</pages>
+      <abstract>New parameter-efficient fine-tuning (PEFT) methods are often credited with gains against a single default LoRA configuration, even though inexpensive tuning of vanilla LoRA may change the comparison. We present a deliberately small, descriptive case study of two claims: adaptive rank allocation with AdaLoRA and LoRA-specific optimization with LoRA-RITE. Using RoBERTa-base on capped subsets of three GLUE classification tasks, we compare each method with a pre-specified vanilla LoRA control sweep. AdaLoRA beats fixed LoRA at rank 8 in 4 of 7 dataset-seed cells, but beats the best tested fixed rank in only 1 of 7. LoRA-RITE beats default AdamW in 3 of 6 cells, but tuned AdamW in only 1 of 6. Several SST-2 runs collapse to the majority label, so these counts are illustrative rather than population-level estimates. The practical contribution is an attribution protocol: report modest vanilla rank/learning-rate sweeps, per-cell margins, instability checks, and budget accounting before attributing gains to a specialized PEFT mechanism.</abstract>
+      <pdf hash="e05cc1d4"/>
+      <attachment hash="9f97be5d" type="SupplementaryMaterial">2026.insights-1.17.SupplementaryMaterial.txt</attachment>
+      <bibkey>wu-2026-peft</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.insights-1.18/ -->
+      <title>When Relation-Free Retrieval Is Not Relation-Aware: A Directionality Stress Test for Linear Graph <fixed-case>RAG</fixed-case></title>
+      <author><first>Ding</first><last>Wu</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>133-136</pages>
+      <abstract>Relation-free graph retrieval avoids explicit relation extraction, but removing relation labels can weaken shallow ranking when argument order determines which evidence is correct. We test this boundary condition with the official LinearRAG retrieval-only pipeline. On a controlled set of 3,000 questions over nine asymmetric relation types, LinearRAG recovers the gold passage at rank 20 in 96.4% of cases but ranks it first in only 18.2%. Its top-1 output is a same-entity wrong-relation passage in 1,481 cases and a reversed-relation passage in 780 cases, for 2,261 direction errors (75.4%); a further 108 cases are same-relation wrong-entity errors and are reported separately. A local Qwen2.5 reader shows that shallow retrieval errors mainly propagate as abstention or answer failure. The result is deliberately bounded: it diagnoses first-stage retrieval under asymmetric ambiguity, not the strongest possible reranked GraphRAG system. We recommend relation-sensitive shallow-ranking and reader-propagation checks in addition to aggregate recall.</abstract>
+      <pdf hash="22f75cdf"/>
+      <attachment hash="abe36084" type="SupplementaryMaterial">2026.insights-1.18.SupplementaryMaterial.txt</attachment>
+      <bibkey>wu-2026-relation</bibkey>
+    </paper>
+  </volume>
+</collection>
