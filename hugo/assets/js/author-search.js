@@ -2,6 +2,7 @@
   "use strict";
 
   const bucketCache = new Map();
+  const venueIndexCache = new Map();
   const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
 
   function normalize(value) {
@@ -123,6 +124,58 @@
     return identity;
   }
 
+  function prepareVenueRows(rows) {
+    return rows.map(function (row) {
+      const values = [row[0], row[1], row[2]];
+      return {
+        row: row,
+        normalizedValues: values.map(normalize),
+        searchable: normalize(values.join(" ")),
+      };
+    });
+  }
+
+  function loadVenueIndex(indexUrl) {
+    if (!venueIndexCache.has(indexUrl)) {
+      const request = fetch(indexUrl, {
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("Venue index request failed");
+          return response.json();
+        })
+        .then(prepareVenueRows)
+        .catch(function (error) {
+          venueIndexCache.delete(indexUrl);
+          throw error;
+        });
+      venueIndexCache.set(indexUrl, request);
+    }
+    return venueIndexCache.get(indexUrl);
+  }
+
+  function makeVenueIdentity(entry, classNames) {
+    const row = entry.row;
+    const identity = document.createElement("span");
+    const heading = document.createElement("span");
+    const name = document.createElement("strong");
+    const acronym = document.createElement("span");
+    const meta = document.createElement("small");
+    const volumeLabel = row[3] === 1 ? "volume" : "volumes";
+
+    identity.className = classNames.identity || "";
+    heading.className = classNames.heading || "";
+    name.textContent = row[0];
+    acronym.className = "badge text-bg-secondary";
+    acronym.textContent = row[1];
+    meta.textContent = "Venue ID: " + row[2] + " \u00b7 "
+      + numberFormat.format(row[3]) + " " + volumeLabel;
+
+    heading.append(name, acronym);
+    identity.append(heading, meta);
+    return identity;
+  }
+
   function nameMatchRank(name, query) {
     if (name === query) return 0;
     if (name.startsWith(query)) return 1;
@@ -165,6 +218,39 @@
     return { query: query, matches: matches };
   }
 
+  async function findVenues(rawQuery, indexUrl) {
+    const query = rawQuery.trim();
+    const normalizedQuery = normalize(query);
+    if (normalizedQuery.length < 2) {
+      return { query: query, matches: [] };
+    }
+
+    const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+    const entries = await loadVenueIndex(indexUrl);
+    const matches = entries.filter(function (entry) {
+      return tokens.every(function (token) { return entry.searchable.includes(token); });
+    });
+
+    matches.sort(function (left, right) {
+      return venueMatchRank(left, normalizedQuery) - venueMatchRank(right, normalizedQuery)
+        || right.row[3] - left.row[3]
+        || compareText(left.normalizedValues[0], right.normalizedValues[0])
+        || compareText(left.row[2], right.row[2]);
+    });
+
+    return { query: query, matches: matches };
+  }
+
+  function venueMatchRank(entry, query) {
+    return entry.normalizedValues.reduce(function (rank, value) {
+      return Math.min(rank, nameMatchRank(value, query));
+    }, 3);
+  }
+
+  function venueUrl(venuesBase, venueId) {
+    return venuesBase + encodeURIComponent(venueId) + "/";
+  }
+
   function makeAuthorSuggestion(entry, peopleBase) {
     const row = entry.row;
     const item = document.createElement("li");
@@ -177,6 +263,25 @@
 
     link.href = authorUrl(peopleBase, row[1]);
     link.className = "acl-navbar-search__author";
+    arrow.className = "fas fa-arrow-right";
+    arrow.setAttribute("aria-hidden", "true");
+
+    link.append(identity, arrow);
+    item.append(link);
+    return item;
+  }
+
+  function makeVenueSuggestion(entry, venuesBase) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const identity = makeVenueIdentity(entry, {
+      identity: "acl-navbar-search__identity",
+      heading: "acl-navbar-search__venue-heading",
+    });
+    const arrow = document.createElement("i");
+
+    link.href = venueUrl(venuesBase, entry.row[2]);
+    link.className = "acl-navbar-search__venue";
     arrow.className = "fas fa-arrow-right";
     arrow.setAttribute("aria-hidden", "true");
 
@@ -209,6 +314,20 @@
     icon.className = "fas fa-users";
     icon.setAttribute("aria-hidden", "true");
     link.append(icon, "Browse all authors");
+    item.append(link);
+    return item;
+  }
+
+  function makeVenueDirectoryLink(venuesBase) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    const icon = document.createElement("i");
+
+    item.className = "acl-navbar-search__command";
+    link.href = venuesBase;
+    icon.className = "fas fa-building-columns";
+    icon.setAttribute("aria-hidden", "true");
+    link.append(icon, "Browse all venues");
     item.append(link);
     return item;
   }
@@ -392,25 +511,41 @@
       navigation.refresh();
     }
 
-    function renderResults(query, matches, emptyMessage) {
-      const visibleMatches = matches.slice(0, resultLimit);
+    function renderResults(query, authorMatches, venueMatches, errors) {
+      const visibleAuthors = authorMatches.slice(0, resultLimit);
+      const visibleVenues = venueMatches.slice(0, resultLimit);
       const children = [makeFullSearchLink(form, query), makeHeading("Author matches")];
 
-      if (visibleMatches.length === 0) {
-        children.push(makeNoAuthors(emptyMessage || "No matching authors"));
+      if (visibleAuthors.length === 0) {
+        children.push(makeNoAuthors(
+          errors.authors ? "Author suggestions unavailable" : "No matching authors"
+        ));
       } else {
-        children.push(...visibleMatches.map(function (entry) {
+        children.push(...visibleAuthors.map(function (entry) {
           return makeAuthorSuggestion(entry, form.dataset.peopleBase);
         }));
       }
       children.push(makeDirectoryLink(form.dataset.peopleBase));
+      children.push(makeHeading("Venue matches"));
+      if (visibleVenues.length === 0) {
+        children.push(makeNoAuthors(
+          errors.venues ? "Venue suggestions unavailable" : "No matching venues"
+        ));
+      } else {
+        children.push(...visibleVenues.map(function (entry) {
+          return makeVenueSuggestion(entry, form.dataset.venuesBase);
+        }));
+      }
+      children.push(makeVenueDirectoryLink(form.dataset.venuesBase));
 
       results.replaceChildren(...children);
       results.hidden = false;
       navigation.refresh();
-      status.textContent = matches.length === 1
-        ? "1 matching author. Press Return for full search."
-        : numberFormat.format(matches.length) + " matching authors. Press Return for full search.";
+      const authorLabel = authorMatches.length === 1 ? "author" : "authors";
+      const venueLabel = venueMatches.length === 1 ? "venue" : "venues";
+      status.textContent = numberFormat.format(authorMatches.length) + " matching "
+        + authorLabel + " and " + numberFormat.format(venueMatches.length)
+        + " matching " + venueLabel + ". Press Return for full search.";
     }
 
     async function search() {
@@ -422,16 +557,23 @@
         return;
       }
 
-      status.textContent = "Searching authors...";
-      try {
-        const outcome = await findAuthors(query, form.dataset.indexBase);
-        if (version !== searchVersion) return;
-        renderResults(query, outcome.matches);
-      } catch (error) {
-        if (version !== searchVersion) return;
-        renderResults(query, [], "Author suggestions unavailable");
-        status.textContent = "Author suggestions are temporarily unavailable. Press Return for full search.";
-      }
+      status.textContent = "Searching authors and venues...";
+      const outcomes = await Promise.allSettled([
+        findAuthors(query, form.dataset.indexBase),
+        findVenues(query, form.dataset.venueIndex),
+      ]);
+      if (version !== searchVersion) return;
+      const authorOutcome = outcomes[0];
+      const venueOutcome = outcomes[1];
+      renderResults(
+        query,
+        authorOutcome.status === "fulfilled" ? authorOutcome.value.matches : [],
+        venueOutcome.status === "fulfilled" ? venueOutcome.value.matches : [],
+        {
+          authors: authorOutcome.status === "rejected",
+          venues: venueOutcome.status === "rejected",
+        }
+      );
     }
 
     input.addEventListener("input", function () {
@@ -455,10 +597,13 @@
     cleanQuery: cleanQuery,
     createResultNavigation: createResultNavigation,
     findAuthors: findAuthors,
+    findVenues: findVenues,
     isVerified: isVerified,
     makeAuthorIdentity: makeAuthorIdentity,
+    makeVenueIdentity: makeVenueIdentity,
     normalize: normalize,
+    venueUrl: venueUrl,
   };
 
-  document.querySelectorAll("[data-navbar-author-search]").forEach(initNavbarSearch);
+  document.querySelectorAll("[data-navbar-search]").forEach(initNavbarSearch);
 })();
