@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.mathnlp">
+  <volume id="main" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.mathnlp-main/ -->
+    <meta>
+      <booktitle>The Proceedings of the 4th Workshop on Mathematical Natural Language Processing (<fixed-case>M</fixed-case>ath<fixed-case>NLP</fixed-case> 2026)</booktitle>
+      <editor><first>Marco</first><last>Valentino</last></editor>
+      <editor><first>Deborah</first><last>Ferreira</last></editor>
+      <editor><first>Mokanarangan</first><last>Thayaparan</last></editor>
+      <editor><first>Leonardo</first><last>Ranaldi</last></editor>
+      <editor><first>Jo-Ku</first><last>Cheng</last></editor>
+      <editor><first>Andre</first><last>Freitas</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-468-2</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="13384488"/>
+      <venue>mathnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.mathnlp-main.0/ -->
+      <pdf hash="fb93c2e0"/>
+      <bibkey>mathnlp-2026-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.mathnlp-main.1/ -->
+      <title>Beyond Better Helpers: A Shared-Kernel Study of Symbolic Interfaces for Auditable <fixed-case>LLM</fixed-case> Algebra</title>
+      <author id="norio-kosaka" orcid="0009-0001-1569-9905"><first>Norio</first><last>Kosaka</last><affiliation>NII, SOKENDAI and LY Corporation</affiliation></author>
+      <author><first>Genki</first><last>Osada</last><affiliation>LY Corporation</affiliation></author>
+      <author><first>Shinichi</first><last>Higashino</last><affiliation>LY Corporation</affiliation></author>
+      <author><first>Shuji</first><last>Yamaguchi</last><affiliation>LY Corporation</affiliation></author>
+      <pages>1-12</pages>
+      <abstract>Large language models can delegate algebra to external tools, but improvements attributed to a structured tool interface may instead come from the symbolic helper code hidden behind that interface. We isolate these factors on polynomial systems by holding the model, tasks, backend, and symbolic kernel fixed. Using Qwen3-8B, we compare text-only reasoning, unrestricted Python/SymPy generation, generated Python calling the same helper functions as the structured system, and a typed diagnosis–solve–check interface. On 36 tasks, the typed interface obtains 25/36 correct answers, compared with 14/36 for matched-helper code, 17/36 for raw SymPy, and 16/36 for text only. It also produces 23/36 automatically verified-correct answers versus 4/36 for the matched-helper control, and contains no execution-error runs versus 29/36. The largest separation occurs on exact finite-set tasks, where the typed interface solves 8/12 systems and both code conditions solve 0/12. Access to packaged helper functionality alone therefore does not reproduce the typed condition’s performance. The typed interface also removes the need to generate imports, API calls, control flow, and result-handling code, so the comparison measures end-to-end interface usability rather than mathematical reasoning or schema syntax in isolation. We interpret the result as a deployed-interface effect for one model and a development-informed task suite.</abstract>
+      <pdf hash="31d07d7b"/>
+      <bibkey>kosaka-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.mathnlp-main.2/ -->
+      <title>Hard or Just Unreached? Diagnosing the Sampling Blind Spot in Math-Reasoning Difficulty Estimation</title>
+      <author id="luca-zhou" orcid="0009-0001-8830-7327"><first>Luca</first><last>Zhou</last></author>
+      <author><first>Sajel</first><last>Shah</last><affiliation>Not Diamond</affiliation></author>
+      <author id="emanuele-rodola" orcid="0000-0003-0091-7241"><first>Emanuele</first><last>Rodolà</last><affiliation>Sapienza University of Rome</affiliation></author>
+      <author><first>Roberto</first><last>Dessi</last><affiliation>Not Diamond AI</affiliation></author>
+      <pages>13-29</pages>
+      <abstract>Math and science reasoning benchmarks rely on pass@k, the fraction of sampled chains that reach gold, as the canonical per-example difficulty signal. We show this proxy has a persistent blind spot on its hardest stratum: on the eight free-form math cells we test (GSM8K and MATH across four open-weight models), 10.3-22.9% of the examples that no sampling seed solves in six tries are instead solved at matched compute by a six-chain deterministic regime. These are greedy decoding plus five cheap residual-stream perturbations applied via activation grafting, while greedy alone solves at most 6% on these math cells. Recovery scales with the additional budget, across perturbations whose mechanistic distinctness we verify across all twelve cells (cross-kind fix-set Jaccard ≤ 0.47 in every setup. Activation grafting is used as an intervention on internal representations, not a decoding method; we use it purely as a diagnostic and diversification tool, and our recovered items show that the pass@k=0 stratum is structurally identifiable in the residual stream rather than that the unmodified model reaches them under ordinary inference.</abstract>
+      <pdf hash="c2983539"/>
+      <bibkey>zhou-etal-2026-hard</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.mathnlp-main.3/ -->
+      <title><fixed-case>B</fixed-case>lueprint<fixed-case>R</fixed-case>epair: Typed Local Edits for Failed Lean Proof Blueprints</title>
+      <author><first>Ruslan</first><last>Khrulev</last></author>
+      <pages>30-41</pages>
+      <abstract>LLM-based Lean proving systems increasingly organize a proof as a blueprint: a dependency graph of formal statements. We introduce BlueprintRepair, a repair interface that lets a model change this graph through ten schema-checked local operations. An operation names the node it edits, so the target theorem cannot be changed. Lean checks every applied change, and an accepted repair must declare every blueprint lemma its proof uses. We also release BlueprintTrace, a benchmark of 142 controlled failures with complete accepted and rejected repair trajectories. We compare typed edits, exact source patches, and complete module rewrites under matched source, feedback, model, and budget, one episode per state and interface. With DeepSeek-V4-Flash, the three interfaces solve almost the same number of the benchmark’s localized failures. Typed repair is the cheapest per solved state (patching is <tex-math>1.30\times</tex-math> as expensive, rewriting <tex-math>2.06\times</tex-math>), and within 10000 completion tokens per task it reaches almost all of its final coverage, while both free-form interfaces are well behind. A second model, Qwen3.6-Flash, solves fewer states but keeps typed repair cheapest, puts it ahead on the proof-authoring states, and repeats the localized pattern. Code, benchmark, and trajectories are available at https://github.com/Karifannaa/BlueprintRepair.</abstract>
+      <pdf hash="0154ca78"/>
+      <bibkey>khrulev-2026-blueprintrepair</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.mathnlp-main.4/ -->
+      <title>From Recognition to Reconstruction: Towards Robust Procedural Mathematical Reasoning</title>
+      <author id="fateme-mazdarani" orcid="0009-0008-8013-3458"><first>Fateme</first><last>Mazdarani</last></author>
+      <author><first>Carlos</first><last>Toxtli</last><affiliation>Clemson University</affiliation></author>
+      <pages>42-56</pages>
+      <abstract>Mathematical reasoning systems should be consistent when the same concept is expressed in equivalent forms. This requires not only recognizing shared mathematical meaning but also identifying the representation changes and reconstructing a traceable route between forms. We study this problem through mathematical theorems, whose equivalent formulations preserve the same underlying result while differing substantially in representation. In this setting, theorem recognition is only the first step: a robust system must also identify the intervening transformations and recover their order. We introduce an evaluation of robust procedural mathematical reasoning with three components: theorem identification, transformation identification, and ordered reconstruction. Using validated theorem–representation pairs from an existing corpus, we build a procedural-robustness dataset with typed operations, reference procedures, and matched contrasts that distinguish valid reformulations from invalid ones. We first measure closed-book performance of four open-weight models to establish a baseline, then evaluate retrieval-augmented generation (RAG) as support mechanism for the same task. Models identify theorem identity more reliably than they recover the transformations and ordered routes connecting equivalent representations. RAG improves every stage, but procedural reconstruction remains the main bottleneck. The framework supports more consistent and traceable mathematical systems, with potential applications in mathematical search, tutoring, autoformalization, and scientific discovery.</abstract>
+      <pdf hash="9ddcace7"/>
+      <bibkey>mazdarani-toxtli-2026-recognition</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.mathnlp-main.5/ -->
+      <title>Elision Markers in Mathematical Prose: Language Models Respond to Claimed Effort Rather Than Hidden Derivation Depth</title>
+      <author id="md-faisal-sheikh" orcid="0009-0003-8665-5568"><first>Md. Faisal</first><last>Sheikh</last></author>
+      <pages>57-68</pages>
+      <abstract>Mathematical prose omits most of its own derivation and says so in passing. "Clearly", "it follows that" and "a routine but tedious calculation yields" mark places where an author has skipped work and left the reader to supply or trust it. Whether a model reading such a passage responds to the amount of mathematics that was skipped, or to the phrase announcing the skip, cannot be settled observationally, because in real proofs a marker claiming the gap is small usually introduces a gap that is small. We separate the two by generation. ELIDE-BENCH contains 4,800 machine-verified passages in which a claim sits behind an elision of known depth <tex-math>d</tex-math> announced by a marker of known claimed effort <tex-math>S</tex-math>, with premise, visible steps and conclusion held byte-identical across the <tex-math>S</tex-math> conditions. Evaluating five open-weight models, we find that <tex-math>d</tex-math> has almost no influence on whether a false claim is accepted, while <tex-math>S</tex-math> has a large one, and that the direction is the reverse of what a laziness account predicts. Swapping "Clearly" for "a somewhat lengthy computation shows", and changing nothing else, raises false acceptance by 11.6 and 12.5 points in two model families (<tex-math>p &lt; 10^{-29}</tex-math>, paired within family). One tier of claimed effort moves a verdict as much as removing 2.3 to 2.6 hidden steps would. The models defer to asserted labour rather than to the mathematics that labour conceals, and one of them estimates elision depth accurately while still declining to use it.</abstract>
+      <pdf hash="71c86eef"/>
+      <bibkey>sheikh-2026-elision</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.mathnlp-main.6/ -->
+      <title><fixed-case>AMIR</fixed-case>-<fixed-case>GRPO</fixed-case>: Inducing Implicit Preference Signals into <fixed-case>GRPO</fixed-case></title>
+      <author id="amir-hossein-yari" orcid="0009-0007-3683-6917"><first>Amir Hossein</first><last>Yari</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="fajri-koto" orcid="0000-0002-3659-6761"><first>Fajri</first><last>Koto</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <pages>69-85</pages>
+      <abstract>Despite its effectiveness for post-training reasoning models, group relative policy optimization (GRPO) suffers from several key limitations. Specifically, it introduces response-level length bias, weakly penalizes low-quality trajectories, and reduces rich intra-group preference information to a simplified scalar reward, limiting direct pairwise comparison between reasoning trajectories. To address these issues, we propose AMIR-GRPO, which augments GRPO with an implicit DPO-style contrastive regularizer constructed directly from intra-group reward rankings, without requiring additional annotations. This mechanism strengthens suppression of low-reward trajectories, mitigates length bias, and converts each rollout group into a denser set of supervision constraints. Across multiple mathematical reasoning benchmarks, AMIR-GRPO consistently outperforms strong GRPO baselines, achieves clearer separation between correct and incorrect reasoning chains, and delivers broader coverage beyond instances solved by standard GRPO.</abstract>
+      <pdf hash="4ffffa7c"/>
+      <bibkey>yari-koto-2026-amir</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.mathnlp-main.7/ -->
+      <title>The Cost of Incoherent Context Grows with Capability: A Control for Exemplar Retrieval</title>
+      <author id="srinivas-harish" orcid="0009-0003-5589-5403"><first>Srinivas</first><last>Harish</last><affiliation>New York University</affiliation></author>
+      <pages>86-100</pages>
+      <abstract>Comparisons of retrieved and randomly selected exemplars in mathematical in-context learning confound query relevance with changes in the demonstration pool. We separate these effects by assigning each query the demonstrations retrieved for another query. This derangement preserves the aggregate demonstrations, counts, token budget and retrieval-induced selection bias while changing the query-to-exemplar assignment.<par/>On GSM8K, derangement changes accuracy by −0.24 pp (90% CI [−0.85, +0.37]). The pooled effect is equivalent to zero within 1.0 pp across conditions that include embedding retrieval, a gold-computational-graph oracle and a 7B model. On MathQA, the change is −8.36 pp. Near-duplicates occur above cosine 0.95 for 64.6% of MathQA queries and no GSM8K queries. Removing them changes the matching term by −13.56 pp relative to queries unaffected by removal.<par/>Pairing each retrieved problem with another retrieved rationale changes accuracy by −22.40 to −52.24 pp. Across 8 conditions and 3 model families, this change correlates with excess copying of demonstration answers (Spearman −0.976). Across 7 models, the correlation between the accuracy change and unpermuted accuracy is +0.286. These results support reporting pool near-duplicate density alongside retrieval gains and checking problem-rationale alignment during prompt construction, since retrieval metrics remain unchanged under this within-demonstration permutation.</abstract>
+      <pdf hash="6d85cc18"/>
+      <bibkey>harish-2026-cost</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.mathnlp-main.8/ -->
+      <title><fixed-case>I</fixed-case>nvariant<fixed-case>S</fixed-case>pec: Benchmarking <fixed-case>LLM</fixed-case> Autoformalization of Conservation and Dissipation Laws into Verifiable State-Space Constraints</title>
+      <author><first>Hikaru</first><last>Matsuoka</last></author>
+      <pages>101-111</pages>
+      <abstract>Mathematical descriptions of dynamical systems denote conjunctions of proof obligations—the advection–diffusion equation conserves mass and dissipates the <tex-math>L^2</tex-math> energy—yet common task designs ask language models to summarize a system with a single structure label, a target wrong by construction for mixed systems. We recast the problem as autoformalization: translating natural language, equations, and stated assumptions into a typed formal specification whose atoms are machine-checkable matrix conditions on a linear state-space generator (<tex-math>A^{\top}c=0</tex-math>, <tex-math>A^{\top}M+MA=0</tex-math>, <tex-math>A^{\top}M+MA\preceq 0</tex-math>, <tex-math>A^{\top}J+JA=0</tex-math>). We release InvariantSpec: 12 dynamical systems <tex-math>\times</tex-math> 5 linguistic variants <tex-math>\times</tex-math> 3 modality conditions (180 inputs) with verifier-executable gold specifications, contrastive minimal pairs (boundary conditions, conserved vs. non-increasing, sentence order, linear vs. nonlinear generators), and two systems whose correct answer is not representable by a fixed linear generator. A symbolic verifier checks every predicted obligation and returns typed counterexample feedback; verified specifications are then compiled into constrained generators, including a projector-based parameterization conserving a linear quantity while dissipating a quadratic one. Across four frontier LLMs, single-label structure selection has exact specification match 0.00—a ceiling imposed by the answer space, not the models—while autoformalization with one round of verifier-guided refinement reaches up to 0.88 with soundness 0.98–1.00; the residual gap is dominated by unstated side conditions, not by obligation algebra. Downstream, one-step MSE does not predict long-rollout structural fidelity: spec-compiled generators satisfy every verified conservation or dissipation obligation over 1000-step rollouts (worst conservation defect <tex-math>2.1\times10^{-10}</tex-math>), while unconstrained models with equal or better MSE violate them by up to <tex-math>10^{17}</tex-math>.</abstract>
+      <pdf hash="f4c348cf"/>
+      <bibkey>matsuoka-2026-invariantspec</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.mathnlp-main.9/ -->
+      <title><fixed-case>M</fixed-case>ath<fixed-case>Q</fixed-case>ueue: Reasoning Scheduling Helps Only Within a Narrow Budget, and Answer Extraction Decides Whether It Helps at All</title>
+      <author><first>Jonghyun</first><last>Lee</last><affiliation>Yonsei University</affiliation></author>
+      <author><first>Byungjun</first><last>Kim</last><affiliation>Yonsei University</affiliation></author>
+      <pages>112-125</pages>
+      <abstract>Chain-of-Thought (CoT) prompting treats every reasoning step as equally important, even though solving a mathematical problem depends largely on deciding which step to take first. We therefore formulate reasoning as a scheduling problem. MathQueue decomposes a problem into tasks, scores each task by how much subsequent work it enables, how much information it yields, and how likely it is to introduce an error, and then solves the tasks in that order. We evaluate this formulation on GSM8K with two models under a fixed limit on the number of tokens the model may generate, and find that it helps over a far narrower range of conditions than anticipated.<par/>Executing each task in a separate model call, with a verifier that may trigger replanning, performs substantially worse than standard CoT (83% to 72%) at three times the generated tokens and, once the re-sent context of twelve calls is counted, thirteen times the total; the replanning loop accounts for most of the loss. A single-pass variant performs better, but for reasons unrelated to prioritisation: it terminates in the required answer format on every problem, whereas CoT does so on only 87%, and it generates a third fewer tokens with a quarter of the variance in length, yet conditional on an answer being delivered it is never more accurate than CoT.<par/>Retaining this structure but suppressing the ranking leaves accuracy unchanged at loose budgets and costs 19 points at the single budget tight enough to make ordering consequential. Intervening on the scheduler directly rather than on the prompt then locates that effect: the task graphs the model generates are near-chains, so our priority rule reorders only 9 of 100 problems, and the gain therefore comes from committing to a ranked plan rather than from the particular scores we assign to tasks.<par/>Whether any of this constitutes an improvement depends on a factor we had not expected to matter: how the answer is parsed from a truncated generation. Scoring only well-formed answers favours MathQueue in all eight comparisons; reading the last number instead reverses six of them. We derive an identity explaining the reversal, adjudicate between the rules by manually inspecting every non-compliant generation, and confirm on a second model that what STRICT scoring rewards is the baseline’s format compliance rather than its reasoning. Budget-constrained evaluation of mathematical reasoning must therefore fix and report how the answer is read.</abstract>
+      <pdf hash="0f40cee8"/>
+      <bibkey>lee-kim-2026-mathqueue</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.mathnlp-main.10/ -->
+      <title>Typed Neuro-Symbolic Autoformalization of Quantitative Clinical Language: Executable Constraints and Selective Verification</title>
+      <author id="aleksandra-beliaeva" orcid="0009-0005-4627-3666"><first>Aleksandra</first><last>Beliaeva</last><affiliation>Applied AI Institute and University of Sharjah</affiliation></author>
+      <pages>126-135</pages>
+      <abstract>Clinical eligibility criteria express numerical comparisons and Boolean relations in prose. We translate them into executable typed formulas using a neural parser, grammar and ontology constraints, and an independent symbolic verifier. The formulas have precise semantics, source-linked predicates, and an auditable record of type, unit, grounding, and consistency checks. On 200 independently double- annotated criteria, a development-selected threshold yields 89.2% logical correctness at 78.5% coverage. At a matched 78% coverage, neuro-symbolic, neural, and rule selection achieve 89.7%, 88.5%, and 85.3% correctness, respectively. We evaluate these trade-offs with exact logical equivalence, confidence intervals, and full risk–coverage curves. Structural breakdowns, candidate oracles, augmentation experiments, and controlled edits across two backbones identify Boolean scope and omitted predicates as the main remaining errors. The symbolic interface makes these failures inspectable while separating formal validity from semantic correctness. The study provides an executable approach to quantitative semantic parsing and a controlled testbed for diagnosing its compositional bottlenecks.</abstract>
+      <pdf hash="78562529"/>
+      <bibkey>beliaeva-2026-typed</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.mathnlp-main.11/ -->
+      <title>Which Mathematical Context Supports Target-Aligned Conjecture Generation? A Paired Ablation Study</title>
+      <author><first>Austin</first><last>LaHue</last><affiliation>Clemson University</affiliation></author>
+      <author id="michael-burr" orcid="0000-0001-8921-4870"><first>Michael</first><last>Burr</last></author>
+      <author id="luis-david-garcia-puente" orcid="0000-0002-7645-0783"><first>Luis David Garcia</first><last>Puente</last><affiliation>Colorado College</affiliation></author>
+      <author id="vinita-gangaram-jansari" orcid="0000-0002-7175-2758"><first>Vinita Gangaram</first><last>Jansari</last><affiliation>Clemson University</affiliation></author>
+      <author><first>Benjamin E</first><last>Nye</last><affiliation>Colorado College</affiliation></author>
+      <author id="carlos-toxtli-hernandez" orcid="0000-0002-9430-2661"><first>Carlos Toxtli</first><last>Hernandez</last><affiliation>Clemson University</affiliation></author>
+      <pages>136-151</pages>
+      <abstract>Generating mathematical conjectures from natural-language context is challenging because theorem-relevant information is distributed across multiple forms of mathematical context, including definitions, objects, assumptions, and constructions. We study which of these contextual signals help a model recover the specific claim supported by the surrounding setup, using 61 main theorems from 12 papers across four mathematical domains. For each theorem, we redact the result and represent the remaining setup using six context components. A paired ablation design compares full context, six leave-one-out conditions, and six single-component conditions, yielding 793 generated conjectures. Context components were largely complementary: removing one component usually had little effect, whereas retaining only one substantially reduced expected-theorem alignment. Local Mathematical Objects provided the strongest standalone signal, while Structural Constraints and Conditions produced the largest alignment decrease when removed. These findings suggest that target-aligned conjecture generation depends on combining information that identifies relevant objects with information that constrains admissible claims.</abstract>
+      <pdf hash="3ff61bd4"/>
+      <bibkey>lahue-etal-2026-mathematical</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.mathnlp-main.12/ -->
+      <title>The Connective <i>but</i> in Informal Mathematical Proof: A Corpus-Based Study</title>
+      <author id="rinta-yamada" orcid="0009-0009-5927-8684"><first>Rinta</first><last>Yamada</last><affiliation>University of Electro-Communications and Keio University</affiliation></author>
+      <author id="sakiko-yamasaki" orcid="0009-0002-5110-1672"><first>Sakiko</first><last>Yamasaki</last></author>
+      <author id="risako-ando" orcid="0009-0001-1517-2572"><first>Risako</first><last>Ando</last><affiliation>Keio University</affiliation></author>
+      <author><first>Takayuki</first><last>Amamoto</last><affiliation>Keio University</affiliation></author>
+      <author><first>Ryota</first><last>Akiyoshi</last><affiliation>University of Electro-Communications, Tokyo Institute of Technology</affiliation></author>
+      <author id="koji-mineshima-9171" orcid="0000-0002-2801-9171"><first>Koji</first><last>Mineshima</last><affiliation>Keio University</affiliation></author>
+      <pages>152-166</pages>
+      <abstract>This study presents a focused case study of the explicit connective <i>but</i> in informal mathematical proofs. We propose an annotation scheme and analyze 261 occurrences found in 225 proofs from textbooks in logic, set theory, arithmetic, Boolean algebra, and formal semantics. The P-Label distinguishes proof-relevant content—material that forms an essential part of the proof—from metatextual comments on the proof, with contradiction-completing cases marked separately within the proof-relevant class. An optional R-Label records contrast or exception. Of the 261 occurrences, 221 (84.7%) were classified as proof-relevant. Three illustrative case studies with corresponding Lean formalizations show that informal transitions may align with formal operations but need not correspond to single proof lines, clarifying why proof relevance is not defined by line-level correspondence. In grouped five-fold prediction experiments, GPT-5.6 Terra attains 58.6% hierarchical accuracy from the target sentence. In these fixed runs, full-proof input yielded lower hierarchical accuracy in all four comparisons, with observed decreases of 15.3–26.1 points for Qwen3-8B. The study characterizes one connective rather than the full inventory of discourse relations in mathematics, providing a basis for future comparisons with other explicit connectives and implicit relations in informal mathematical proofs.</abstract>
+      <pdf hash="665dd222"/>
+      <bibkey>yamada-etal-2026-connective</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.mathnlp-main.13/ -->
+      <title><fixed-case>N</fixed-case>atural<fixed-case>PRISM</fixed-case>: A Natural Language Premise Retrieval Task for Research-level Intermediate Proof States</title>
+      <author><first>Harris</first><last>Proctor</last></author>
+      <author><first>Li</first><last>An</last></author>
+      <author><first>Austin</first><last>LaHue</last><affiliation>Clemson University</affiliation></author>
+      <author id="michael-burr" orcid="0000-0001-8921-4870"><first>Michael</first><last>Burr</last></author>
+      <author id="vinita-gangaram-jansari" orcid="0000-0002-7175-2758"><first>Vinita Gangaram</first><last>Jansari</last><affiliation>Clemson University</affiliation></author>
+      <author id="carlos-toxtli-hernandez" orcid="0000-0002-9430-2661"><first>Carlos Toxtli</first><last>Hernandez</last><affiliation>Clemson University</affiliation></author>
+      <author id="luis-david-garcia-puente" orcid="0000-0002-7645-0783"><first>Luis David Garcia</first><last>Puente</last><affiliation>Colorado College</affiliation></author>
+      <author><first>Benjamin E</first><last>Nye</last><affiliation>Colorado College</affiliation></author>
+      <pages>167-176</pages>
+      <abstract>As AI use progresses in research-level mathematics, automated information retrieval systems for constructing relevant prompts are increasingly important. Existing benchmarks and datasets for identifying which prior results are necessary to prove a statement do not align well with current workflows in which a natural language proof is in progress, but it is unclear what the next step(s) should be.<par/>We introduce NaturalPRISM, a benchmark task and dataset containing 1.7 million pairs of intermediate proof states and the premise invoked in the next step of the proof. All pairs are extracted from natural language research-level mathematics papers published on arXiv, and span all 32 subject categories.<par/>We evaluate the effect of fine-tuning retrieval models for domain-specific vs. domain-agnostic use cases, and find that the combination of sufficient training data with alignment between the training and testing distributions allows smaller specialized models to dramatically outperform larger general models.</abstract>
+      <pdf hash="9d6c2ca0"/>
+      <bibkey>proctor-etal-2026-naturalprism</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.mathnlp-main.14/ -->
+      <title>Improving Natural-Language Combinatorial-Optimization Accuracy in Resource-Constrained Language Models via Formal Abstractions</title>
+      <author id="shrenil-shaun-sharma" orcid="0009-0000-7092-3538"><first>Shrenil Shaun</first><last>Sharma</last><affiliation>Apple</affiliation></author>
+      <author id="avi-sharma" orcid="0009-0007-0967-2398"><first>Avi</first><last>Sharma</last><affiliation>University of California, Berkeley</affiliation></author>
+      <pages>177-193</pages>
+      <abstract>Combinatorial scheduling poses a significant challenge for language models, requiring them to identify feasible solutions within exponentially large search spaces while satisfying complex constraints. This challenge is especially pronounced in resource-constrained settings, where larger language models are impractical and selection is limited to smaller models which often fail to preserve feasibility when scheduling directly from natural language. To address these limitations, we introduce SDDL, a neuro-symbolic framework that translates natural-language scheduling problems into compact, solver-aligned representations of tasks, resources, constraints, and objectives, while delegating low-level modeling and search to a deterministic compiler and external solver. On a 300-instance, multi-family subset of scheduling problems, SDDL improves independently verified feasibility for every resource-constrained model tested. The two strongest SDDL configurations reach 55.3% and 28.3%, up from direct-generation baselines of 23.7% and 1.3% and solver-code baselines of 21.7% and 7.0%, with a 0.0% median optimality gap among feasible schedules. By expressing problem structure rather than generating solutions or solver code, SDDL enables smaller models to approach the strongest evaluated direct- and solver-code configurations, including substantially larger frontier models.</abstract>
+      <pdf hash="6434633d"/>
+      <bibkey>sharma-sharma-2026-improving</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.mathnlp-main.15/ -->
+      <title>Structural Signatures of Correct Mathematical Reasoning Traces</title>
+      <author id="maria-marina" orcid="0009-0002-2274-4003"><first>Maria</first><last>Marina</last></author>
+      <author><first>Alexander</first><last>Panchenko</last><affiliation>S-NLP group</affiliation></author>
+      <pages>194-200</pages>
+      <abstract>Self-consistency improves reasoning by voting over sampled final answers, but the vote discards how those answers were reached. We ask whether the internal organization of traces provides an interpretable signal that frequency misses. For each candidate answer, we cluster recurring intermediate statements into semantic checkpoints, retain checkpoint orders that are consistent across traces, and identify relations that appear both directly and with intermediate checkpoints inserted. These relations form answer-local shortcut graphs. Our score is the number of graph edges beyond a spanning tree in the most cross-linked component, normalized by answer frequency and smoothed over nearby sampling budgets. The intuition is deliberately structural: correct traces may agree on core dependencies while varying in local decomposition, whereas a wrong majority can arise from repeated copies of one failure route. On Math500 dataset, the structural selector is mostly neutral when evidence is scarce, but after sufficient sampling it frequently repairs majority errors, reaching up to 2% increase over majority vote scores.</abstract>
+      <pdf hash="e61d1a92"/>
+      <bibkey>marina-panchenko-2026-structural</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.mathnlp-main.16/ -->
+      <title>Simulating Student-Tutor Interactions with <fixed-case>LLM</fixed-case>s for Multilingual Math Feedback</title>
+      <author id="junior-cedric-tonga" orcid="0009-0001-3500-9422"><first>Junior Cedric</first><last>Tonga</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="kv-aditya-srivatsa" orcid="0000-0002-7583-7580"><first>Kv Aditya</first><last>Srivatsa</last><affiliation>Department of Computer Science, ETHZ - ETH Zurich</affiliation></author>
+      <author id="kaushal-maurya" orcid="0000-0003-0249-6508"><first>Kaushal Kumar</first><last>Maurya</last></author>
+      <author id="fajri-koto" orcid="0000-0002-3659-6761"><first>Fajri</first><last>Koto</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="ekaterina-kochmar" orcid="0000-0003-3328-1374"><first>Ekaterina</first><last>Kochmar</last><affiliation>University of Victoria</affiliation></author>
+      <pages>201-215</pages>
+      <abstract>Large language models (LLMs) have demonstrated the ability to generate formative feedback and instructional hints in English, making them increasingly relevant for AI-assisted education. However, their ability to provide effective instructional support across different languages, especially for mathematically grounded reasoning tasks, remains largely unexamined. In this work, we present the first large-scale simulation of multilingual student-tutor interactions using LLMs. A stronger model plays the role of the tutor, generating feedback in the form of hints, while a weaker model simulates the student. We explore 352 experimental settings across 11 typologically diverse languages, four state-of-the-art LLMs, and multiple prompting strategies to assess whether language-specific feedback leads to measurable learning gains. Our study examines how student input language, tutor feedback language, model choice, and language resource level jointly influence performance. Results show that English hints are generally preferred, even by multilingual student LLMs, with few exceptions that lead to improved student learning outcomes. These findings offer practical insights for developing multilingual, LLM-based educational tools that are both effective and inclusive.</abstract>
+      <pdf hash="b3c6980b"/>
+      <bibkey>tonga-etal-2026-simulating</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.mathnlp-main.17/ -->
+      <title>Beyond Accuracy: Diagnosing Algebraic Reasoning Failures in <fixed-case>LLM</fixed-case>s Across Nine Complexity Dimensions</title>
+      <author><first>Parth Shrikant</first><last>Patil</last></author>
+      <author id="yash-sinha" orcid="0000-0003-0477-5236"><first>Yash</first><last>Sinha</last><affiliation>Royal Melbourne Institute of Technology and BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
+      <author id="murari-mandal" orcid="0000-0002-0157-0967"><first>Murari</first><last>Mandal</last><affiliation>Kalinga Institute of Industrial Technology (KIIT) Bhubaneswar India</affiliation></author>
+      <author id="dhruv-kumar-1847" orcid="0000-0003-4831-1847"><first>Dhruv</first><last>Kumar</last><affiliation>BITS Pilani, Birla Institute of Technology and Science</affiliation></author>
+      <pages>216-239</pages>
+      <abstract>Aggregate mathematical accuracy does not usually identify the source of a model failure. In algebraic reasoning, errors may arise from nesting depth, operator identity, simultaneous intermediate values, branch-local composition, repeated-token counting, sequential dependence, or numeric magnitude. We introduce a nine-dimension algebraic complexity framework that converts these factors into controlled diagnostic variables. For each dimension, a parametric generator increases one target variable while holding the remaining variables at minimum values. Every retained problem is verified by a computer algebra system. We evaluate eight models, including six standard instruction- tuned models and two reasoning-specialised models. The results show that standard models exhibit a scale-limited D4 working-memory collapse in the 20–40 parallel-branch region. Notably, Qwen3 235B does not escape the transition band observed for Llama 3 8B, despite its much larger parameter scale. Reasoning- specialised models shift this limit to higher levels, but they do not remove it. D5 branch-local composition and D7 repeated-token counting produce distinct failures that are not reducible to aggregate length or depth.</abstract>
+      <pdf hash="808dfc5d"/>
+      <bibkey>patil-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.mathnlp-main.18/ -->
+      <title>Same Text, Different Transitions: Action Insufficiency in Lean Provers</title>
+      <author id="edison-yang" orcid="0009-0009-5156-8927"><first>Edison</first><last>Yang</last></author>
+      <author><first>Neel</first><last>Marripalapu</last><affiliation>University of Texas at Dallas</affiliation></author>
+      <author><first>Akshaj</first><last>Agadi</last><affiliation>Texas A&amp;M</affiliation></author>
+      <author id="andrew-kim" orcid="0009-0008-1794-2172"><first>Andrew</first><last>Kim</last><affiliation>Georgia State University</affiliation></author>
+      <pages>240-253</pages>
+      <abstract>Neural Lean provers usually give the model only the printed text of a proof state, and some searches reuse it to decide when two states are the same. Both uses assume that states printing identically behave identically under the same tactic. We show that this assumption fails. Searching Mathlib, we find 70 verified classes of identically printed states; in 68 of them, one tactic succeeds on one member and fails on another, yielding 103 contradictory cases verified by Lean. Controlled experiments trace the difference to elaborated structure that Lean’s notation hides, and reproduce it on current Lean and Mathlib. A compact structural representation recovers the missing signal for mechanisms seen in training and fails to transfer to unseen ones. In a constructed benchmark with a known proof, merging states by identical text discards that proof in 48.4% of alias arrivals, while a structural identity prevents every loss at 8% runtime overhead. This rate is conditional on meeting an alias; in blind sampling, confirmed aliases arise at only 0.29% of search roots. Text written for people is thus not necessarily a safe identifier for machine state, and we suggest giving the model that text while identifying search states by structure.</abstract>
+      <pdf hash="82a031bf"/>
+      <bibkey>yang-etal-2026-text</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.mathnlp-main.19/ -->
+      <title>Scoring-Location Sensitivity in Process Reward Models</title>
+      <author><first>Jai Kumar</first><last>Sharma</last></author>
+      <pages>254-267</pages>
+      <abstract>Process reward models (PRMs) assign scores to reasoning steps, but an evaluator must also choose where to score. We ask whether that choice changes the predicted earliest error while the reasoning text stays unchanged. On 800 selected ProcessBench questions we compare a punctuation policy and a near-midpoint policy that insert equal numbers of within-step scoring locations, preserve every reasoning byte, and map decisions back to the original steps. At threshold 0.5 the two policies disagree on the predicted earliest error for 10.4%, 14.5%, and 14.4% of questions for Qwen2.5-Math-PRM, Math-Shepherd, and Skywork, and for the marker interfaces the disagreement exceeds a separator-only comparison on the same questions. The direct comparison was identified post hoc; a disjoint, prospectively frozen 400-question panel again shows 10.0–14.3% disagreement. Two mechanisms are at work: marker-based policies can change scores at the original step endpoints, whereas Skywork keeps every token score fixed and changes the predicted earliest error only through which positions are inspected. These are controlled sensitivity measurements, not prevalence estimates for naturally occurring segmenters. PRM evaluations should report marker rendering, separators, readout positions, the mapping to original steps, and the decision threshold.</abstract>
+      <pdf hash="f7ceef13"/>
+      <bibkey>sharma-2026-scoring</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.mathnlp-main.20/ -->
+      <title>Embedding-Based Educational Taxonomies</title>
+      <author id="kia-karbasi" orcid="0009-0003-8148-4771"><first>Kia</first><last>Karbasi</last></author>
+      <author><first>Kaveh</first><last>Karbasi</last><affiliation>Tempus AI</affiliation></author>
+      <author><first>Gregory</first><last>Pottie</last><affiliation>University of California-Los Angeles</affiliation></author>
+      <pages>268-284</pages>
+      <abstract>Educational taxonomies organize educational content, such as exercise problems, into concepts, which are also called skills or knowledge components. These taxonomies define learning objectives in educational applications such as intelligent tutoring systems. Developed through human expertise and iterative refinement, they also provide fundamental structure for curricula, assessment, and models of student learning. Recent advances in semantic text embeddings make it possible to construct alternative educational taxonomies computationally from the content itself. In this paper, we investigate this possibility by clustering embeddings of math questions to construct embedding-based educational taxonomies. We compare these taxonomies with the existing Common Core State Standards (CCSS)-based knowledge-component taxonomies in two ASSISTments datasets and evaluate their utility in Deep Knowledge Tracing, a downstream task that relies on taxonomic mappings of questions to knowledge components. The embedding-based taxonomies exhibit substantial but incomplete correspondence with the existing taxonomies, revealing both preserved and alternative organizations of educational content. When used for knowledge tracing, they improve predictive performance by approximately 3–5 AUC percentage points. These results demonstrate the potential of semantic embeddings for automatically constructing educational taxonomies that both recover structure present in human-developed taxonomies and provide useful alternative representations for downstream educational modeling.</abstract>
+      <pdf hash="4af30a59"/>
+      <bibkey>karbasi-etal-2026-embedding</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.mathnlp-main.21/ -->
+      <title>Numbers Through Signs: How <fixed-case>LLM</fixed-case>s Connect Counts, Number Words, and Numerals</title>
+      <author><first>J. Albert</first><last>Yoo</last><affiliation>Eötvös Lorand University</affiliation></author>
+      <pages>285-290</pages>
+      <abstract>Large language models manipulate numerical expressions fluently, yet it is unclear whether a number inferred from a collection enters the same internal interface as an explicit numeral or number word. We test digits, English number words, and counts of repeated tokens in five Qwen3 base models from 0.6B to 14B. After each quantity expression but before a comparison, parity, or equality question, we interchange one residual-stream state between forms. Textual-count states preserve held-out cardinal order, even at fixed sequence length. In behaviourally competent 8B and 14B cases, digit and number-word states are bidirectionally interchangeable. At the tested collection boundary, however, a count state does not transfer even to a different count of the same form, and no count–sign direction meets the same one-shot criteria. A same-depth sweep and symbol-derived linear subspace do not recover a bidirectional local interface. Longer interventions and a separate mixture-of-experts model reveal strong but directional bridges. Counting information and correct behaviour can therefore coexist without a locally portable state at the tested boundary.</abstract>
+      <pdf hash="38e44b93"/>
+      <bibkey>yoo-2026-numbers</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.mathnlp-main.22/ -->
+      <title>Definition Modeling for Mathematics: Understanding Audience Bias and its Problem Solving Relevance</title>
+      <author><first>Carolina</first><last>Dias-Alexiou</last><affiliation>The University of Tokyo, Graduate School of Engineering and The University of Tokyo, Graduate School of Mathematical Sciences</affiliation></author>
+      <author id="edison-marrese-taylor" orcid="0000-0002-0328-0437"><first>Edison</first><last>Marrese-Taylor</last><affiliation>The Univesity of Tokyo and AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>A.</first><last>Solano</last><affiliation>The University of Tokyo, Tokyo Institute of Technology</affiliation></author>
+      <author id="yutaka-matsuo" orcid="0000-0002-2106-8907"><first>Yutaka</first><last>Matsuo</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>291-304</pages>
+      <abstract>Definition modeling is used as a probe of what a language model has internalized about a domain, and it has been studied on general lexicography and on jargon-heavy specialist domains. We extend this task to mathematics, where a term can be defined very differently for different communities. In this context we study the baseline capacity of models to retrieve generate definitions, and their audience-bias when explaining mathematical terms without specific guidance. We further asses to what extent can they follow a certain style when directed, and to which degree being exposed to definitions aid or hurt model performance when solving mathematical questions.</abstract>
+      <pdf hash="28ca030a"/>
+      <bibkey>dias-alexiou-etal-2026-definition</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.mathnlp-main.23/ -->
+      <title>Who Should Decide Mathematical <fixed-case>NLI</fixed-case>? Auditing Evidence Selection, Solver Gating, and Benchmark Shortcuts</title>
+      <author><first>Soumyadeep</first><last>Nag</last></author>
+      <author id="suparnojit-sarkar" orcid="0009-0006-6105-7395"><first>Suparnojit</first><last>Sarkar</last><affiliation>Glance AI</affiliation></author>
+      <pages>305-311</pages>
+      <abstract>Neuro-symbolic mathematical NLI combines the flexibility of language models with the exactness of formal solvers. The formal guarantee, however, applies only when selected evidence is relevant, generated constraints are faithful, and the solver actually determines the final label. We study credit assignment at this boundary.<par/>We audit a four-stage architecture combining knowledge-infused premise selection, Llama-3-8B-Instruct autoformalization, token-likelihood gating, and Z3 verification. Using the supplied implementation, original 500-example trace, and corrected JSON, we reconstruct the executable routing logic and evaluate selection, formalization, execution, fallback, and final-label correctness as separate stages.<par/>In this synthetic setting, premise selection attains 100.0% precision but 33.4% recall, while the gated and neural-only routes make identical predictions at 81.2 macro-F1 (<tex-math>p=1.0000</tex-math>). On the corrected JSON, a target-group-held-out hypothesis-only rule reaches 96.1 macro-F1, and the hypothesis string accounts for 89.7% of label entropy. These results expose two evaluation risks in this run: fallback can resemble verification, and hypothesis form can support premise-free prediction. We contribute an executable system account, a reproducible grouped shortcut diagnostic, and a trace-provenance checklist. The findings are scoped to the supplied benchmark and execution.</abstract>
+      <pdf hash="7658ead3"/>
+      <bibkey>nag-sarkar-2026-decide</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.mathnlp-main.24/ -->
+      <title>Proof Identity and Divisible Correspondence in Multi-Derivation Reasoning Evaluation</title>
+      <author id="toprak-seda-karaosmanoglu" orcid="0000-0002-6569-1549"><first>Toprak Seda</first><last>Karaosmanoğlu</last></author>
+      <pages>312-321</pages>
+      <abstract>Systems that return several valid derivations require explicit choices about proof identity and proof-set correspondence. This study examines both choices on ProofWriter. An application-aware representation distinguishes grounded uses of the same source rule through canonical premise derivations. Source-ID projection collapses distinct reference proofs in 28 of 400 stratified derivable questions (7.0%). The comparison includes exact proof-set F₁, flattened-atom F₁, Optimal Subpattern Assignment with Jaccard distance (Jaccard-OSPA), and MCT-J. The label MCT-J denotes a balanced optimal-transport distance with Jaccard distance as the ground metric. On 160 fixed outputs from 32 derivable questions, source-ID projection lowers MCT-J distance by 0.0606 on average. A cluster bootstrap over the underlying ProofWriter worlds gives a 95% interval of 0.0316–0.0955. MCT-J equals Jaccard-OSPA on all 117 equal-cardinality outputs, while Jaccard-OSPA has the larger distance on 38 of 43 unequal-cardinality outputs. Of 433 generated proof members, 430 pass independent rule-level replay. Excluding the three replay failures changes the mean representation effect from 0.0606 to 0.0589. Proof identity and proof-set correspondence therefore change structural evaluation on fixed outputs.</abstract>
+      <pdf hash="05e9c958"/>
+      <bibkey>karaosmanoglu-2026-proof</bibkey>
+    </paper>
+  </volume>
+</collection>

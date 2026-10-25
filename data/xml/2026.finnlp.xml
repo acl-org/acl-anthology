@@ -1,0 +1,774 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.finnlp">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.finnlp-1/ -->
+    <meta>
+      <booktitle>Proceedings of the 11th Workshop on Financial Technology and Natural Language Processing</booktitle>
+      <editor><first>Jimin</first><last>Huang</last></editor>
+      <editor><first>Yongjae</first><last>Lee</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Hsin-Hsi</first><last>Chen</last></editor>
+      <editor><first>Hiroya</first><last>Takamura</last></editor>
+      <editor><first>Chung-Chi</first><last>Chen</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-466-8</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="6df6756f"/>
+      <sig>sigfintech</sig>
+      <venue>finnlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.finnlp-1.0/ -->
+      <pdf hash="e8d900d7"/>
+      <bibkey>finnlp-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.finnlp-1.1/ -->
+      <title>Definitional or Computational? Decomposing <fixed-case>LLM</fixed-case> Numeric Fidelity in Financial-Statement Analysis with an <fixed-case>XBRL</fixed-case> Cascade Oracle</title>
+      <author id="oussama-chahed" orcid="0009-0009-8062-4377"><first>Oussama</first><last>Chahed</last><affiliation>Université Paris Dauphine - PSL and Bulbshead</affiliation></author>
+      <pages>1-9</pages>
+      <abstract>Large language models (LLMs) analyze corporate financial statements fluently, yet routinely emit wrong figures while preserving a confident, well-formatted narrative—the false-precision problem. Prior benchmarks measure answer accuracy or attach claims to source cells, but do not explain why a financial number is wrong. We introduce a deterministic, XBRL-grounded oracle that recomputes the intermediate-management-balances (SIG) and ratio cascade from SEC EDGAR facts, and use it to score numeric fidelity per financial concept, with fact-level attribution and error propagation along the ratio dependency DAG. A pinned/unpinned prompt contrast, an any-standard-definition oracle for convention-dependent composites, and a rule-based error-mode classifier jointly separate definitional divergence (the model applies a different but sometimes valid convention) from unexplained residual numerical error. Across six open and proprietary models on 729 firm-years (and a 345 firm-year subset common to all six), we find: (i) simple two-fact ratios are computed faithfully by all but the weakest model, while multi-input composites separate the panel by capability—the residual hardest concept (ROCE) is executed reliably only by the strongest models; (ii) supplying the exact formula and source tags (pinning) helps every capable model and only hurts the weakest, inverting an apparent "computational limit" that turns out to be a weak-model artifact; and (iii) source-fact attribution and fidelity are distinct and can decouple—one model computes correctly yet cites its source facts almost never ("right answer, no receipts"), while the strongest models pair high fidelity with high attribution. Program-of-thought prompting does not change fidelity, and most wrong composites are local errors rather than propagated ones. Code, frozen model responses and full provenance are released under a DOI.</abstract>
+      <pdf hash="28690d3b"/>
+      <bibkey>chahed-2026-definitional</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.finnlp-1.2/ -->
+      <title>Scripted Hesitation in a Financial Customer-Service Chatbot: A <fixed-case>B</fixed-case>razilian <fixed-case>P</fixed-case>ortuguese Case Study</title>
+      <author id="valeria-vieira-dos-santos" orcid="0009-0006-0023-6736"><first>Valeria Vieira</first><last>dos Santos</last></author>
+      <pages>10-14</pages>
+      <abstract>Financial customer service is a high-stakes conversational domain in which debt negotiation, cancellations, and complaints require pragmatic resources beyond fluent text generation. We present a case study of linguistic hesitation in approximately 3,000 WhatsApp customer-service interaction records (approximately 89k tokens) from one Brazilian financial company, contrasting clients, human agents, and one commercial scripted chatbot. A rule-based pipeline adapted a Conversation Analysis typology to written chat and identified 20,938 pattern occurrences across four formal categories. Client messages account for 59% of detections, but unavailable per-role token totals preclude rate comparisons. Archived within-role distributions place 40% of agent detections in sensitive contexts and 50% of chatbot detections in technical contexts. The chatbot also relies on only 3–5 recurrent surface forms. We interpret these results as descriptive evidence that human and scripted hesitation serve different interactional profiles, not as a general claim about financial chatbots or LLM-based agents. The study illustrates both the value of pragmatic analysis for financial conversational systems and the limits of conclusions drawn from a single-company, single-annotator corpus.</abstract>
+      <pdf hash="7a189554"/>
+      <bibkey>dos-santos-2026-scripted</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.finnlp-1.3/ -->
+      <title><fixed-case>F</fixed-case>in<fixed-case>LCR</fixed-case>: Scaling Financial Long-Context Reasoning via Curriculum Reinforcement Learning</title>
+      <author id="wenjie-qiu" orcid="0000-0002-2271-6443"><first>Wenjie</first><last>Qiu</last><affiliation>Amazon</affiliation></author>
+      <author id="yong-xie" orcid="0009-0003-1575-4104"><first>Yong</first><last>Xie</last><affiliation>Amazon</affiliation></author>
+      <author><first>Karan</first><last>Aggarwal</last><affiliation>Amazon and University of Minnesota, Minneapolis</affiliation></author>
+      <author><first>Aitzaz</first><last>Ahmad</last><affiliation>Amazon</affiliation></author>
+      <author><first>Stephen</first><last>Lau</last><affiliation>Amazon</affiliation></author>
+      <pages>15-25</pages>
+      <abstract>Long-context financial document understanding and reasoning pose significant challenges for small language models (SLMs). In this paper, we scale the financial long-context reasoning capability of SLMs through reinforcement learning. Specifically, we propose an efficient curriculum reinforcement learning recipe that features staged training across context lengths and difficulty-aware data sampling. To support our curriculum recipe, we curate Fin-Ladder, a difficulty-graded financial corpus spanning diverse datasets and context lengths. We apply the proposed corpus and recipe to train Financial Long-Context Reasoner (FinLCR), a 4-billion parameter model with enhanced financial reasoning capabilities. Experiments demonstrate that our curriculum learning recipe yields superior performance on financial numerical reasoning benchmarks.</abstract>
+      <pdf hash="7eaa0073"/>
+      <bibkey>qiu-etal-2026-finlcr</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.finnlp-1.4/ -->
+      <title>Can <fixed-case>LLM</fixed-case>s Catch a Rigged Backtest? A Clean-Control Calibration Benchmark</title>
+      <author><first>Makar</first><last>Ulesov</last></author>
+      <author id="vladislav-smirnov" orcid="0009-0008-4401-3379"><first>Vladislav</first><last>Smirnov</last></author>
+      <author id="omar-ibrahim" orcid="0009-0002-8778-935X"><first>Omar</first><last>Ibrahim</last></author>
+      <author><first>Arsenii</first><last>Bobovnikov</last></author>
+      <pages>26-30</pages>
+      <abstract>LLM backtest auditing is a calibration problem: a useful auditor must identify methodology flaws without falsely accusing matched clean strategies. We construct a 96-item paired benchmark in which every flawed backtest has a clean control that holds the strategy, dates, code style, labels, and reporting scaffold fixed while changing one methodology detail. The benchmark covers eight flaw classes, three difficulty strata, prose and code surfaces, and 1,440 cached audits from four smoke-tested text endpoints. A deterministic scorer separately evaluates flaw classification, clean-control false positives, evidence localization, and fix relevance. The primary auditor reaches 100.0% closed and clean-aware code recall, yet open prompts falsely flag 93.8% of clean code controls. A clean-aware warning reduces its code false-positive rate from 20.8% to 0.0% while preserving 100.0% recall, although clean-aware all-three specificity remains 87.5% because some proposed fixes are incomplete. Model behavior differs sharply under the same clean-aware prompt: some models produce no clean false positives, while another flags 38/48 clean controls despite retaining high recall. Reporting recall alone would therefore hide large differences in practical audit quality. The benchmark does not certify live trading systems; it isolates whether an LLM can identify a planted flaw without manufacturing one in a clean counterpart.</abstract>
+      <pdf hash="4efc9e03"/>
+      <bibkey>ulesov-etal-2026-llms</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.finnlp-1.5/ -->
+      <title><fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>vo: Financial Language Agents Shape the Markets That Evaluate Them</title>
+      <author id="mingxi-zou" orcid="0009-0004-6458-9026"><first>Mingxi</first><last>Zou</last></author>
+      <author id="jiaxiang-chen" orcid="0000-0002-9937-3960"><first>Jiaxiang</first><last>Chen</last><affiliation>Fudan University</affiliation></author>
+      <author id="langzhang-liang" orcid="0000-0001-8919-0215"><first>Langzhang</first><last>Liang</last><affiliation>Shanghai Innovation Institute and Fudan University</affiliation></author>
+      <author id="zhuo-wang" orcid="0009-0004-2286-523X"><first>Zhuo</first><last>Wang</last></author>
+      <author><first>Aotian</first><last>Luo</last></author>
+      <author><first>Chi</first><last>Zhang</last></author>
+      <author id="danny-dongning-sun" orcid="0009-0009-9604-705X"><first>Danny Dongning</first><last>Sun</last><affiliation>Pengcheng Laboratory and Chinese University of Hong Kong</affiliation></author>
+      <author id="zenglin-xu" orcid="0000-0001-5550-6461"><first>Zenglin</first><last>Xu</last><affiliation>Shanghai Academy of AI for Science and Fudan University</affiliation></author>
+      <pages>31-52</pages>
+      <abstract>Financial language agents are commonly evaluated through static prediction tasks or isolated historical backtests, where an agent’s decisions cannot affect subsequent prices or the behavior of competing strategies. This overlooks a defining property of real markets: interpretations of financial news influence order flow, price formation, and the competitive environment faced by other participants. We introduce FINEVO, a closed-loop evaluation framework that integrates time-stamped financial news, heterogeneous trading agents, a continuous double-auction market, and population-level capital reallocation. FINEVO evaluates language-based agents alongside technical, forecasting, reinforcement-learning, and informed strategies, reporting not only returns but also market concentration, strategic reorganization, regime-dependent standing, and recovery from shocks. Across 128-run suites of controlled market shocks and historical-news-conditioned episodes, we find that language-agent performance is strongly contingent on the surrounding market regime and agent population. Endogenous price formation also causes identical information schedules to produce different outcomes under different competitive compositions. Mechanism ablations further show that innovation is critical for maintaining contestability: removing it increases mean HHI from 0.189 to 0.477 and mean Top-1 capital share from 0.344 to 0.531. These results suggest that financial language agents should be evaluated not only by how accurately they interpret information, but also by how their decisions reshape the markets in which they operate.</abstract>
+      <pdf hash="1d9dcf95"/>
+      <bibkey>zou-etal-2026-finevo</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.finnlp-1.6/ -->
+      <title><fixed-case>TRUST</fixed-case>-<fixed-case>BENCH</fixed-case>: A Synthetic <fixed-case>J</fixed-case>apanese Financial-Group Benchmark for Enterprise Document Access in Coding Agents</title>
+      <author id="shamik-kundu" orcid="0009-0009-0367-045X"><first>Shamik</first><last>Kundu</last><affiliation>Trust Co. Ltd.</affiliation></author>
+      <author><first>Anand</first><last>Mekala</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
+      <author><first>Kazutaka</first><last>Yamasaki</last><affiliation>Trust Co., Ltd.</affiliation></author>
+      <pages>53-64</pages>
+      <abstract>In large financial institutions, what code should do is rarely recoverable from code alone: the authoritative rules live in internal business documents that are largely unreachable to coding agents. Benchmarks built on public repositories therefore cannot measure what reaching those documents is worth. We present TRUST-BENCH, a fully synthetic benchmark that measures the effect of enterprise document availability and of the channel through which it is delivered: the codebase of a fictional Japanese financial group-1,105 programs and 287k lines of code across five languages, a legacy COBOL/PL/I/RPG core of record surrounded by the Java and C periphery paired with 149 Japanese business documents and 93 maintenance tasks. Tasks are graded two ways: an LLM judge scores answers for correctness and completeness, and generated code is compiled, run, and checked against curated test cases.<par/>We describe the dataset-generation procedure in detail and report results over four context conditions: code only (the baseline); code with the raw documents on disk; code with documents behind a hybrid retrieval tool; and code with documents behind a knowledge-graph tool. Graph-mediated document access raised retrieval-task correctness from 0.68 to 0.94 while the strict build-task pass rate rose from 27% to 91%.</abstract>
+      <pdf hash="bbd597a3"/>
+      <bibkey>kundu-etal-2026-trust</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.finnlp-1.7/ -->
+      <title>One Advisor, Many Faces: How User Personas Shape <fixed-case>LLM</fixed-case> Stock Recommendations</title>
+      <author id="yuxian-he" orcid="0009-0002-1871-6616"><first>Yuxian</first><last>He</last></author>
+      <pages>65-74</pages>
+      <abstract>Large language models increasingly act as informal investment advisors, a role that for human professionals is governed by suitability obligations: advice must match the customer’s investment profile (FINRA Rule 2111; SEC Regulation Best Interest, 2019). Whether LLM advice is personalized in this normative sense—or merely stereotyped—is unknown. We audit six model arms from five vendors (2,396 unique single-turn queries, 2026-07-29; four vendors enter inferential analyses) by injecting synthetic user personas manipulating Big Five neuroticism and conscientiousness plus capital size, and score recommended five-stock portfolios against realized market data. Persona effects replicate in every arm analysed inferentially: low conscientiousness raises recommended volatility by 10–25% and increases portfolio beta by 40–96%, while capital size is largely ignored—a suitability inversion. The sign of the neuroticism effect splits across vendors, indicating that models have internalized different stereotypes rather than any consistent normative principle. Removing the stated risk preference amplifies persona spread by 55%, a dose-style signature of stereotype filling. Rationale texts show personas are explicitly mirrored in reasoning, yet this language accounts for under 15% of the behavioral effect: the persona effect resides in portfolio selection rather than in the accompanying rhetoric. We release all logs, prompts, and code.</abstract>
+      <pdf hash="fe5fc8a1"/>
+      <bibkey>he-2026-one</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.finnlp-1.8/ -->
+      <title>Diagnosing Fine-Grained Inconsistency Classification in Financial Disclosure Text</title>
+      <author id="aman-kumar" orcid="0000-0003-1991-3144"><first>Aman</first><last>Kumar</last><affiliation>Hitachi US</affiliation></author>
+      <author><first>Lasitha</first><last>Vidyaratne</last><affiliation>Hitachi US</affiliation></author>
+      <author><first>Dipanjan Dipak</first><last>Ghosh</last><affiliation>Hitachi America Ltd.</affiliation></author>
+      <author><first>Arnab</first><last>Chakrabarti</last></author>
+      <author id="ahmed-k-farahat" orcid="0000-0002-9828-8051"><first>Ahmed K.</first><last>Farahat</last><affiliation>Hitachi America, Ltd. R&amp;D</affiliation></author>
+      <pages>75-90</pages>
+      <abstract>Financial disclosures may contain numerical, temporal, referential, factual, and policy inconsistencies that require different evidence and reasoning to diagnose. We study fine-grained inconsistency classification: given a passage known to contain a conflict, the goal is to identify its type among 11 categories. Using a fixed snapshot of the synthetic SBID-FD benchmark, we compare frozen and fine-tuned encoders, evidence-augmented classifiers, prompted large language models, and LoRA-adapted generative models under a shared evaluation protocol. Task-specific adaptation yields large improvements over frozen representations, and a fine-tuned 300M encoder performs competitively with substantially larger prompted and adapted models. We further study whether localizing the conflicting claims improves classification through matched predicted-span, reference-span, and distractor-span conditions. The results show that automatically extracted evidence provides additional signal but recovers only part of the benefit obtained from reference spans. Per-class and confusion analyses further reveal that some inconsistency types are especially sensitive to localization quality, whereas others remain difficult even when the relevant evidence is supplied. These findings identify evidence localization and fine-grained type discrimination as distinct challenges and show that compact supervised encoders are strong baselines for this task.</abstract>
+      <pdf hash="58113f71"/>
+      <bibkey>kumar-etal-2026-diagnosing</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.finnlp-1.9/ -->
+      <title>Trust the Query, Not the Answer: Auditable Text-to-<fixed-case>SPARQL</fixed-case> over the <fixed-case>GLEIF</fixed-case> Register</title>
+      <author><first>Jannic Alexander</first><last>Cutura</last><affiliation>DSTI School of Engineering</affiliation></author>
+      <pages>91-97</pages>
+      <abstract>Ask which subsidiaries a conglomerate owns, and a language model returns a plausible list, unverifiable and partly wrong; in compliance or supervision, that will not do. So instead of trusting the answer, a local open-weight model translates each question into an auditable SPARQL query over the GLEIF register, returning the query and its source records. A 20B model answers 86.7% of held-out questions correctly, always with a valid query and declining the unanswerable, and no larger open or closed model does better. The method fits any ontology-described source; code and benchmark are released.</abstract>
+      <pdf hash="f38d923c"/>
+      <bibkey>cutura-2026-trust</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.finnlp-1.10/ -->
+      <title><fixed-case>M</fixed-case>ortar<fixed-case>B</fixed-case>ench: Evaluating Mortgage Loan Origination Agents</title>
+      <author id="matthew-toles" orcid="0009-0007-9625-3430"><first>Matthew</first><last>Toles</last></author>
+      <author id="yunan-lu" orcid="0009-0004-2085-9258"><first>Yunan</first><last>Lu</last><affiliation>Columbia University</affiliation></author>
+      <author id="manav-munjal" orcid="0009-0005-8649-1799"><first>Manav</first><last>Munjal</last></author>
+      <author id="bojun-liu" orcid="0009-0008-2432-2545"><first>Bojun</first><last>Liu</last></author>
+      <author id="yuanhao-deng" orcid="0009-0001-5022-1421"><first>Yuanhao</first><last>Deng</last></author>
+      <author id="stephanie-selig" orcid="0009-0006-0374-1295"><first>Stephanie</first><last>Selig</last><affiliation>Tidalwave</affiliation></author>
+      <author id="derek-rindner" orcid="0009-0004-9205-6665"><first>Derek</first><last>Rindner</last><affiliation>Tidalwave Tech Inc</affiliation></author>
+      <author id="cheng-li-5913" orcid="0009-0007-0448-5913"><first>Cheng</first><last>Li</last><affiliation>Tidalwave Tech Inc</affiliation></author>
+      <author id="zhou-yu" orcid="0000-0002-1524-5890"><first>Zhou</first><last>Yu</last><affiliation>Columbia University</affiliation></author>
+      <pages>98-109</pages>
+      <abstract>Loan origination is the process by which a lender creates a new loan, from application and underwriting through approval and funding. This process serves a critical role in evaluating the eligibility and level of risk posed by an applicant. Recently, firms have begun using mortgage loan agents to augment human loan officers, despite a lack of any public benchmark. To fill this gap, we present MortarBench, a loan origination agent benchmark. MortarBench uses a financial data synthesis and mutation pipeline to generate examples with broad edge case coverage that match real-world distributions and questions. We find that state-of-the-art large language models (LLMs) perform poorly, with closed-source models achieving at most 80.8% F1 accuracy. We also discover systematic biases in LLM perception of foreignness related to non-English names. Noting these weaknesses, we introduce CRIT, a confidence calibration framework. Our method increases peak F1 accuracy to 83.6% while improving risk management steering and reducing bias.</abstract>
+      <pdf hash="6a9ee9f9"/>
+      <bibkey>toles-etal-2026-mortarbench</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.finnlp-1.11/ -->
+      <title><fixed-case>CARPAS</fixed-case>: Towards Content-Aware Refinement of Provided Aspects for Summarization in Large Language Models</title>
+      <author id="yong-en-tian" orcid="0009-0006-2725-7799"><first>Yong-En</first><last>Tian</last></author>
+      <author id="yu-chien-tang" orcid="0009-0009-5935-4966"><first>Yu-Chien</first><last>Tang</last><affiliation>National Yang Ming Chiao Tung University</affiliation></author>
+      <author id="an-zi-yen" orcid="0000-0001-5304-7230"><first>An-Zi</first><last>Yen</last><affiliation>Department of Computer Science, National Yang Ming Chiao Tung University</affiliation></author>
+      <author id="wen-chih-peng" orcid="0000-0002-0172-7311"><first>Wen-Chih</first><last>Peng</last><affiliation>National Yang Ming Chiao Tung University</affiliation></author>
+      <pages>110-124</pages>
+      <abstract>Aspect-based summarization has attracted significant attention for its ability to generate more fine-grained and user-aligned summaries. While most existing approaches assume a set of predefined aspects as input, real-world scenarios often present challenges where these given aspects may be incomplete, irrelevant, or entirely missing from the document. Users frequently expect systems to adaptively refine or filter the provided aspects based on the actual content. In this paper, we initiate this novel task setting, termed Content-Aware Refinement of Provided Aspects for Summarization (CARPAS), with the aim of dynamically adjusting the provided aspects based on the document context before summarizing. We construct three new datasets and conduct pilot experiments with four representative prompting strategies. Our analysis reveals that LLMs often over-generate aspects, resulting in excessively long and misaligned summaries. Building on this observation, we introduce a two-stage framework that derives lightweight scope guidance before aspect refinement and summarization, improving focus and reducing over-generation. Our extensive experiments show that the proposed approach significantly improves performance across all datasets. Moreover, our deeper analyses uncover LLMs’ compliance when the requested number of aspects differs from their own estimations, establishing a crucial insight for the deployment of LLMs in similar real-world applications.</abstract>
+      <pdf hash="27b9d04e"/>
+      <bibkey>tian-etal-2026-carpas</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.finnlp-1.12/ -->
+      <title>What the Window Does Not Contain: Auditing Provenance in a Document-Grounded Instability Benchmark</title>
+      <author id="seyed-mosayeb-alam" orcid="0009-0002-7300-8436"><first>Seyed Mosayeb</first><last>Alam</last></author>
+      <pages>125-141</pages>
+      <abstract>Ask a language model the same question about the same document twenty times, and it sometimes returns two different answers. We built Probity, a benchmark of 60 tasks and 470 items from real venture-financing filings, to measure how often this happens. Then we audited our own corpus and found a defect any excerpt-built benchmark can carry: items whose evidence is missing from the window of text the model is shown. The audit flags 36 items and separates two failures a single flag would conflate: evidence genuinely absent from the window, and answers that must be computed from numbers the window does supply. Flagged items change their answers far more often, wobbling at 0.255 against 0.087 on the 427 clean items, and excluding them cuts apparent cross-model agreement by about a fifth. Before testing whether the missing evidence explains the instability, we registered a prediction: re-cut each window to hold its evidence, and instability should fall below a set threshold. It failed: the repair moved wobble by 0.058, with an interval containing zero. We report the association as correlational. Almost all measurements sit where instability cannot show, which bounds what a corpus built for accuracy can say about stability. We release the corpus, all 112,800 raw responses, and the audit as a runnable check for any document benchmark.</abstract>
+      <pdf hash="0ceac89f"/>
+      <bibkey>alam-2026-window</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.finnlp-1.13/ -->
+      <title>Auditing Bank Statement <fixed-case>PDF</fixed-case>s: A Multi-Tier Parser and Design Choices for the <fixed-case>NL</fixed-case>-to-<fixed-case>SQL</fixed-case> Query Layer Above It</title>
+      <author><first>Anamul Hoque</first><last>Emtiaj</last></author>
+      <author><first>Anindya</first><last>Iqbal</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <pages>142-152</pages>
+      <abstract>Bank statements are the primary evidentiary record in financial auditing, yet they reach auditors as heterogeneous PDFs—some digitally typeset, others scanned—transcribed by hand into spreadsheets and interrogated with brittle macros. We describe a system, built with and deployed for an industry partner, that replaces this workflow with (i) a multi-tier parser—a relational data conversion pipeline that routes digital pages to a deterministic table extractor (PyMuPDF) and scanned pages to an OCR/layout service (LlamaParse), standardizes column headers to a canonical schema, and repairs extraction errors with a balance-equation reconciliation engine; and (ii) a natural-language-to-SQL query layer over the resulting database, whose design choices we evaluate by varying context injection. On 23 real statements (20 banks, 1,672 transactions) the pipeline attains 0.9952 transaction-level accuracy. We compare five context-injection strategies across two model generations on 150 auditing queries with hand-authored gold SQL, scored by execution accuracy. Grounding the model on our parser’s structured context consistently helps, whereas raw-text context can degrade accuracy below the Zero-Context baseline; the benefit of self-correcting scaffolding and retrieval, while real, shrinks as the base model improves, so model choice often dominates agent complexity on simple schemas. We release code, two privacy-preserving sample statements, and a sample query set.</abstract>
+      <pdf hash="1be4e2e8"/>
+      <bibkey>emtiaj-iqbal-2026-auditing</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.finnlp-1.14/ -->
+      <title><fixed-case>S</fixed-case>pend<fixed-case>S</fixed-case>ight: Privacy-Preserving Personal Finance <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case> with Sub-2<fixed-case>B</fixed-case> <fixed-case>LLM</fixed-case>s</title>
+      <author id="sajag-swami" orcid="0000-0002-3046-221X"><first>Sajag</first><last>Swami</last><affiliation>Indian Institute of Technology, Roorkee</affiliation></author>
+      <author><first>Yash</first><last>Pandey</last><affiliation>Indian Institute of Technology, Roorkee</affiliation></author>
+      <pages>153-179</pages>
+      <abstract>People often speculate about their personal finances: *"Has my spending on groceries increased compared to past year?"*, *"How does my spending on clothes look for the past 6 months?"*. However, answering them with cloud-hosted LLMs transmits sensitive financial data to external servers, exposing users to data leakage and inferential privacy risks. We present **SpendSight**, a study of fully on-device personal finance Q A tool calling that keeps all data strictly local. We evaluate seven quantized models (six sub-2B and one 3B) across 115 test cases and five analytical tools, comparing single-agent against dual-agent (router-specialist) architectures. Dual-agent decomposition yields the largest time gains for the Qwen3.5 family. **Qwen3.5-0.8B** achieves **61.7% Correct Ratio** (**89.1% Task Accuracy**) in **3.0 s** with **1.2 GB RAM** in dual-agent mode. A 3B reference model (**G9v3-3B**, Q4_K_M) achieves **71.7% Correct Ratio** (**90.6% Task Accuracy**) at **2.3 s** in single agent mode, suggesting that larger models with aggressive quantization can bypass decomposition.</abstract>
+      <pdf hash="49a821f5"/>
+      <bibkey>swami-pandey-2026-spendsight</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.finnlp-1.15/ -->
+      <title><fixed-case>CORAL</fixed-case>: Closed-loop Oracle Alignment for Agentic Tax Engine Modernization</title>
+      <author><first>Maarten</first><last>De Raedt</last><affiliation>Thomson Reuters</affiliation></author>
+      <author><first>Ahmed</first><last>Abdullah</last><affiliation>J.P. Morgan Chase</affiliation></author>
+      <author><first>Abhinav</first><last>Agrawal</last><affiliation>Thomson Reuters</affiliation></author>
+      <pages>180-192</pages>
+      <abstract>Modernizing legacy software is often framed as code migration, an approach that assumes access to source code and an understanding of system internals. In practice these assumptions fail: source may be inaccessible, data in proprietary formats, and documentation dispersed. We study an underexplored regime in which a replacement is aligned to a legacy system treated as a black-box oracle, using only its input–output behavior.<par/>We present CORAL (Closed-loop Oracle Alignment), an agentic framework that aligns a modern U.S. individual income tax engine (Form 1040) to a production oracle (a system built over decades) by iteratively refining LLM-bootstrapped form schemas. Each round runs a scenario on both systems, compares e-file output field-by-field, and diagnoses discrepancies against an authoritative IRS knowledge base (KB), grounding every fix in published regulation rather than relying on model knowledge. An edit is kept only if re-execution shows no meaningful field-level <tex-math>F_1</tex-math> regression and all tests pass, a deterministic check rather than model self-assessment. Round-robin sequencing over under-covered forms then reaches the long tail of forms, not just the high-frequency ones a taxpayer shares with everyone.<par/>Across 119 tax-expert-authored scenarios, each a complete taxpayer return, CORAL repairs defects from single-field corrections to reviving entire non-functional forms (53 fixed; 13 escalated to human review, ensuring ambiguous rules and input-data gaps are audited manually), lifting macro-<tex-math>F_1</tex-math> on a 30-scenario held-out test split, averaged over returns, from an LLM-bootstrapped start (0.17) to 0.90.</abstract>
+      <pdf hash="85e2edcc"/>
+      <bibkey>de-raedt-etal-2026-coral</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.finnlp-1.16/ -->
+      <title>What Deterministic Verification Actually Fixes in Financial <fixed-case>QA</fixed-case>: A Diagnostic Analysis of Rule Heterogeneity Across Datasets</title>
+      <author><first>Aaditya Anand</first><last>Thokal</last></author>
+      <pages>193-200</pages>
+      <abstract>Deterministic, parameter-free post-hoc correction rules are an attractive way to address numerical errors in financial question answering: they are simple, cheap, and fully auditable. We ask whether such rules actually behave like general-purpose correctors, or whether their effect is contingent on properties of the dataset and model output distribution they are applied to. We evaluate a two-rule deterministic verification layer (DVL) — scale_mul100 and scale_div100 — on FinQA (n=873) and TAT-QA (n=718) using Mistral-7B-Instruct-v0.3. This same, fixed model-plus-rule configuration produces a striking cross-dataset divergence: harmful on FinQA (37.34%→16.04%, −21.31pp, McNemar p=1.76×10⁻³⁹) and beneficial on TAT-QA (26.32%→30.64%, +4.32pp, p=5.15×10⁻³). A rule-level transition analysis shows scale_mul100 is highly precise on TAT-QA (87.95%) but overwhelmingly imprecise on FinQA (3.39%), while scale_div100 produces zero observed corrections and only harm in both settings; removing it raises TAT-QA accuracy further, to 35.10%. We do not find evidence that these rules correct arithmetic, retrieval, or semantic reasoning failures. We conclude that this specific pair of scaling rules is better understood as a targeted, dataset-contingent representation normalizer than as a general reasoning corrector, and we characterize the boundary conditions under which it helps or hurts.</abstract>
+      <pdf hash="d72979a7"/>
+      <bibkey>thokal-2026-deterministic</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.finnlp-1.17/ -->
+      <title>Where A Small Language Model Helps in Invoice Categorisation, Understood Through Embedding Geometry</title>
+      <author><first>Emma</first><last>Ceccherini</last><affiliation>University of Bristol</affiliation></author>
+      <author id="daniel-john-lawson" orcid="0000-0002-5311-6213"><first>Daniel John</first><last>Lawson</last><affiliation>University of Bristol</affiliation></author>
+      <author><first>Anjulika</first><last>Salhan</last><affiliation>System-holdings Ltd</affiliation></author>
+      <pages>201-223</pages>
+      <abstract>Categorising invoices into the correct General Ledger (GL) code underpins financial reporting and tax compliance. This is a skilled accounting judgement rather than a routine task: the correct category depends subtly on the nature of the purchasing business, the vendor and the invoice text. Whilst AI is increasingly being adopted across industries to automate tasks, including invoice categorisation, implementations built on in-house small language models (SLMs) can simultaneously reduce cost and improve data security, confidentiality, and interpretability. We investigate this approach by first analysing the pre-trained embedding geometry of a small sentence transformer (SBERT) and classic SLM (DeBERTa). The sentence-embedding space of this financial corpus is globally anisotropic but composed of locally isotropic clusters, extending prior token-level findings to sentence embeddings in a financial setting, and these clusters are strongly correlated with the vendor identity. SBERT fine-tuned on a single GPU reaches 0.96 accuracy on invoice classification, above both a zero-shot locally deployable LLM and a vendor identity baseline, increasing performance for smaller, challenging categories and new clients. For this important generalisation problem, SBERT reaches 0.9 F1 with roughly 100 client-specific invoices, showing that an in-house SLM implementation is promising. Combining these results with geometric analysis shows that pre-trained embedding geometry is associated with classification performance and reveals a counterintuitive finding that a structured input that would help a human reader does not improve the SLM performance.</abstract>
+      <pdf hash="a802d3dc"/>
+      <bibkey>ceccherini-etal-2026-small</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.finnlp-1.18/ -->
+      <title><fixed-case>F</fixed-case>in<fixed-case>DRA</fixed-case>: Multi-Agent Financial Reasoning under Asymmetric Information and Unequal Authority</title>
+      <author id="inyoung-won" orcid="0009-0006-1968-9698"><first>Inyoung</first><last>Won</last></author>
+      <author><first>Yunyoung</first><last>Lee</last><affiliation>Sejong University</affiliation></author>
+      <pages>224-236</pages>
+      <abstract>We propose FinDRA, a multi-agent framework for financial question answering under asymmetric information access. FinDRA partitions a financial report into agent-specific evidence regions, allows agents to exchange only their answers, concise reasoning, and confidence estimates, and coordinates their revisions through full-document verifier feedback and authority-framed debate. Experiments on MultiHiertt show that the asymmetric verifier condition obtains the highest overall point estimates among the compared settings, with an EM score of 0.284 and a mean LLM-as-a-Judge score of 0.753 on a 0–2 scale. Importantly, the benefit of asymmetric access depends on evidence structure: it is strongest when question-relevant evidence remains within an agent-accessible region, whereas cross-partition questions expose a trade-off between semantic adequacy and exact numerical agreement. Agent-level analyses further show revision patterns consistent with the assigned authority framing, without attributing these differences to authority alone. Cross-dataset experiments on FinQA and TAT-QA similarly show that asymmetric access is not universally beneficial. These findings suggest that effective multi-agent financial reasoning depends not simply on providing more information, but on how evidence is partitioned, communicated, and verified.</abstract>
+      <pdf hash="9420a81a"/>
+      <bibkey>won-lee-2026-findra</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.finnlp-1.19/ -->
+      <title><fixed-case>FRED</fixed-case>-<fixed-case>S</fixed-case>em<fixed-case>B</fixed-case>ench: Evaluating Semantic Reliability in <fixed-case>LLM</fixed-case> Access to Macroeconomic Data</title>
+      <author><first>Wilson</first><last>Wang</last><affiliation>Kairos AI</affiliation></author>
+      <author><first>Chandler</first><last>Han</last></author>
+      <author><first>Peter</first><last>Zhang</last><affiliation>Kairos AI</affiliation></author>
+      <pages>237-242</pages>
+      <abstract>Access to authoritative financial data does not ensure semantically correct answers: a language model may retrieve a valid observation associated with the wrong series, transformation, unit, or temporal interpretation. We introduce FRED-SemBench, a 200-question benchmark candidate over independently selected Federal Reserve Economic Data (FRED) concepts that separates retrieval failures from semantic data-access failures. We also instantiate Iris, an ontology-backed semantic layer whose versioned concept contracts bind user intent to provider series, transformations, units, temporal semantics, provenance, and declared coverage. A controlled comparison of an unaided model, FRED and Web access, and Iris reveals a reliability trade-off: raw retrieval substantially improves numerical answering while suppressing abstention and reducing clarification accuracy on underspecified queries. Within its pre-declared support set, Iris preserves the numerical benefit, restores clarification behavior, and attains the strongest strict accuracy, suggesting that this trade-off is not intrinsic to data access. These pilot findings motivate evaluating macroeconomic data access jointly in terms of semantic correctness, boundary behavior, coverage, and operational cost.</abstract>
+      <pdf hash="8398ec5c"/>
+      <bibkey>wang-etal-2026-fred</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.finnlp-1.21/ -->
+      <title><fixed-case>B</fixed-case>ank<fixed-case>S</fixed-case>hield: Fairness-Aware Safety Guardrails for <fixed-case>I</fixed-case>ndian-Language Banking <fixed-case>AI</fixed-case></title>
+      <author><first>Piyush</first><last>Agarwal</last><affiliation>IDFC FIRST Bank</affiliation></author>
+      <pages>243-262</pages>
+      <abstract>Safety guards for Indian-language banking must detect discrimination without changing verdicts solely because a demographic identity changes. We introduce GuardAudit, an evaluation protocol combining decontamination, paired harmful/benign calibration, counterfactual identity tests, and deployed-action evaluation, plus two released banking benchmarks. Across six guards, the hardest matched test remains unresolved: the best system flags a coded proxy denial while clearing its matched actuarial control on only 37.5% of pairs. BankShield, used as a case study, reaches 20.0% and false-flags 75.0% of expert-validated legitimate controls. On separate BharatBBQ subsets, it achieves 0% flip on benign identity substitutions and 66.7% biased-content catch; these disjoint measurements do not establish joint per-example fairness. Its unadapted 12B backbone supplies near-invariance and attack recall, while adaptation and a discrimination probe raise biased-content catch from 24% to 43% and 66.7%, not significantly above a smaller Indic guard’s 56.9% (<tex-math>p=0.09</tex-math>). Detection also falls from 81.6% in English to 42.6% in Devanagari Hindi. BankShield is therefore a diagnostic case study, not a deployment-ready fairness solution. We release the protocol, benchmarks, and frozen predictions.</abstract>
+      <pdf hash="d37a6c1e"/>
+      <bibkey>agarwal-2026-bankshield</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.finnlp-1.22/ -->
+      <title><fixed-case>NLP</fixed-case> for Crowdfunding Success Prediction: A Systematic Mapping Review Exposes an Underexplored Equity Domain</title>
+      <author><first>Chaya</first><last>Liebeskind</last></author>
+      <author id="hana-tzur" orcid="0009-0003-5205-1133"><first>Hana</first><last>Tzur</last><affiliation>JCT Lev Academic Center</affiliation></author>
+      <author id="shmuel-liebeskind" orcid="0009-0006-3205-7038"><first>Shmuel</first><last>Liebeskind</last></author>
+      <pages>263-273</pages>
+      <abstract>Equity crowdfunding under U.S. Regulation Crowdfunding (Reg CF) raised over 1.4 billion across 5,969 offerings between May 2016 and December 2022 (Chang, 2024), generating a large public corpus of Form C business descriptions on SEC EDGAR. Yet regulated equity crowdfunding remains barely studied by the financial NLP community. We conduct a systematic mapping review using automated database search, independent dual-LLM screening, targeted human adjudication, and blind quality-control auditing. We screened 726 deduplicated papers and included 49 studies applying NLP directly to crowdfunding campaign text. Only one study examines U.S. Reg CF campaign text directly, using readability, with one pre-Reg-CF Title II near-neighbor using sentiment tone and description length. The available equity-crowdfunding evidence is therefore too limited and heterogeneous to support general conclusions about the strength of textual signals in regulated equity settings. We taxonomize the included studies into five NLP method families, synthesize representative cross-study evidence in the original reported units, and identify the near absence of regulated equity research across the methodological spectrum. We also discuss regulatory constraints, structured financial information, and text length as plausible but untested explanations for this gap. The annotated evidence base, screening records, and reproducibility materials are publicly available at https://github.com/jct-nlp/finNLP-crowdfunding</abstract>
+      <pdf hash="981c31dd"/>
+      <bibkey>liebeskind-etal-2026-nlp</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.finnlp-1.23/ -->
+      <title>When Words Move Markets: Sentiment and Semantic Complexity in Central Bank Communication and Equity Volatility</title>
+      <author><first>Arush</first><last>Sachdeva</last></author>
+      <author><first>Anirban</first><last>Dasgupta</last><affiliation>International Institute of Information Technology Hyderabad, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <pages>274-312</pages>
+      <abstract>Central bank communications influence market expectations, but their linguistic attributes are inadequately examined in emerging markets. We examine 337 Reserve Bank of India Monetary Policy Committee documents (2010–2025) and relate their textual features to minute-level and daily volatility in NIFTY indices. Our load-bearing result concerns sentiment. Within a pre-specified nine-test confirmatory family, negative-sentiment probability is associated with event-window equity volatility and CLS-based sentiment with event-window turbulence in India VIX; both survive Benjamini–Hochberg correction, rank correlation, bootstrap intervals and regime-conditional controls, both strengthen under a time-matched volatility baseline, and both outperform a Loughran–McDonald lexicon on an identical sample. The sentiment model is a fine-tuned FinBERT that we validate directly on human-annotated central-bank text (81.3% accuracy, macro-<tex-math>F_1 = 0.784</tex-math>, Cohen’s <tex-math>\kappa = 0.714</tex-math> against a human majority vote). Semantic complexity, measured with the DAST framework, plays a secondary, construct-level role: it is largely orthogonal to classical readability (<tex-math>|r|_{\max}=0.21</tex-math>) but behaves as an ordinal measure of generated semantic structure, and at the daily horizon a sentiment<tex-math>\times</tex-math>complexity interaction yields only small exploratory in-sample gains that are not significant under heteroskedasticity-robust inference and do not improve out-of-sample prediction, even after controlling for document length. A third candidate, attention concentration, is Bonferroni-significant under Pearson correlation yet reverses sign under Spearman and has a bootstrap interval spanning zero; we report it as a cautionary methodological result rather than a finding. A pre-specified February 20 Chow test and an endogenous break search near March 11, 2020 indicate pronounced COVID-period regime dependence. Overall, textual features add in-sample explanatory power over a GARCH plus policy-rate baseline but no incremental out-of-sample predictive value on any index.</abstract>
+      <pdf hash="db2f473f"/>
+      <bibkey>sachdeva-dasgupta-2026-words</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.finnlp-1.25/ -->
+      <title>Same Financials, Different Identity: A Counterfactual Audit of Demographic Sensitivity in <fixed-case>LLM</fixed-case>-Based Credit-Risk Scoring</title>
+      <author><first>Mustafa Furkan</first><last>Zenginoğlu</last></author>
+      <author><first>Zeynep Beyda</first><last>Kara</last><affiliation>TÜBİTAK (Türkiye Bilimsel ve Teknolojik Araştırma Kurumu)</affiliation></author>
+      <author id="hasan-fatih-durkaya" orcid="0009-0003-8412-5504"><first>Hasan Fatih</first><last>Durkaya</last><affiliation>TÜBİTAK (Türkiye Bilimsel ve Teknolojik Araştırma Kurumu)</affiliation></author>
+      <author id="mehmet-haklidir" orcid="0000-0003-4985-1116"><first>Mehmet</first><last>Haklidir</last><affiliation>Istanbul Technical University</affiliation></author>
+      <author><first>Tuna</first><last>Çakar</last></author>
+      <pages>313-331</pages>
+      <abstract>Large language models (LLMs) are being explored as decision-support tools for financial risk assessment. Their outputs may, however, respond to demographic descriptions that are unrelated to the underlying financial record. We study this behavior through a paired counterfactual audit. The same 100 commercial credit and cheque-payment profiles are evaluated repeatedly, with only one demographic descriptor changed at a time. The experiments cover 7 model variants, three prompting strategies, and descriptors related to gender, education, and citizenship. While paired gender score differences remain within a <tex-math>\pm1.5</tex-math> point equivalence margin in 12 of 21 model–strategy cells, education shows a strong, unambiguous effect. Risk decreases monotonically with education level (103 of 126 pairwise contrasts remain significant after Holm correction, score differences reaching 26.0 points between primary-school and doctorate descriptors), it flips up to 42% of approve/reject decisions, and elicited rationales name education as a risk factor even though education is not a financially legitimate predictor. Citizenship produces larger shifts still, flipping up to 51% of decisions while leaving AUC almost unchanged in most cells, and in one model weakening ranking (0.794 to 0.438). Similar to education, rationales name the descriptor as the reason. Unlike citizenship, whose jurisdictional cues can legitimately enter sanctions or AML/CFT screening, the education effect has no such justification, making it the clearest evidence of demographic bias. A follow-up experiment in English, Chinese, and Arabic shows that citizenship sensitivity depends on both prompt language and prompting strategy, affecting the magnitude and direction of score shifts. The study provides a standardized counterfactual framework for auditing LLM-generated scores before they are considered for high-stakes financial workflows.</abstract>
+      <pdf hash="af79bf61"/>
+      <bibkey>zenginoglu-etal-2026-financials</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.finnlp-1.26/ -->
+      <title><fixed-case>CAST</fixed-case>: An Interpretable Evidence-Based Confidence Estimation Tool for <fixed-case>RAG</fixed-case> with Human-in-the-Loop Verification</title>
+      <author id="xutong-liu" orcid="0000-0002-3831-5505"><first>Xutong</first><last>Liu</last><affiliation>University of Twente</affiliation></author>
+      <author><first>Morris Groot</first><last>Beumer</last><affiliation>ING Bank</affiliation></author>
+      <author id="joerg-robert-osterrieder" orcid="0000-0003-0189-8636"><first>Joerg Robert</first><last>Osterrieder</last></author>
+      <author><first>Max</first><last>Baak</last><affiliation>ING</affiliation></author>
+      <pages>332-341</pages>
+      <abstract>Large language models (LLMs) increasingly assist financial analysis tasks over filings, reports, and news via retrieval-augmented generation (RAG), but a human reviewer typically remains accountable for the final decision. In this setting, a confidence score must be more than well-calibrated: it must be evidence-based and explainable, so reviewers can see why an answer should be trusted. We introduce CAST (Confidence via Answer Support Testing), a Bayesian-inspired confidence method that compares a generated answer with a plausible competing alternative and evaluates how retrieved passages support each hypothesis. CAST produces both an answer-level confidence score and citation-level evidence for review. We also demonstrate CAST through an interactive reviewer-facing tool that visualizes supporting and opposing evidence for human verification. On 1,286 financial-report questions from MMDocRAG, CAST achieves the highest AUROC among seven evaluated methods (0.634 vs. 0.598 for the strongest baseline).</abstract>
+      <pdf hash="cbfb4c19"/>
+      <bibkey>liu-etal-2026-cast</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.finnlp-1.27/ -->
+      <title><fixed-case>GRPO</fixed-case> for Financial Advice Generation: Outperforming Commercial <fixed-case>LLM</fixed-case>s under <fixed-case>CATE</fixed-case> Evaluation</title>
+      <author id="ofir-ben-shoham" orcid="0009-0001-3531-5630"><first>Ofir</first><last>Ben Shoham</last><affiliation>Intuit and Ben Gurion University of the Negev</affiliation></author>
+      <author><first>Shrutendra</first><last>Harsola</last><affiliation>Intuit AI Bangalore India</affiliation></author>
+      <author><first>Vignesh</first><last>Subrahmaniam</last></author>
+      <author><first>Shravan</first><last>Mohan</last><affiliation>Intuit</affiliation></author>
+      <author><first>Yakov</first><last>Gazman</last><affiliation>Intuit</affiliation></author>
+      <author><first>Oded</first><last>Vainas</last><affiliation>Intuit</affiliation></author>
+      <pages>342-350</pages>
+      <abstract>Generating actionable financial advice from business records demands that models integrate numerical reasoning, domain knowledge, and sound judgment, while avoiding recommendations that could harm the business. Direct supervision is difficult: historical decisions are not necessarily optimal, and high-quality free-form labels are expensive to obtain. We formulate financial advice generation as a reinforcement learning problem and fine-tune an open-weight language model using Group Relative Policy Optimization (GRPO). Our reward is an LLM-as-a-judge rubric that scores each recommendation across multiple binary dimensions of advice quality, augmented with a safety gate for harm prevention.<par/>Since LLM-based evaluation alone cannot confirm whether improvements reflect genuine business value rather than adaptation to the judge, we complement it with a judge-independent audit based on a standard doubly-robust Conditional Average Treatment Effect (CATE) estimator. Under this observational off-policy audit, our trained LLM achieves approximately twice the estimated gross-profit lift of the strongest evaluated commercial baseline (0.0228 vs. 0.0104), together with the lowest downside rate and the least negative tail risk of any policy evaluated. Notably, the two evaluations do not rank the baselines identically: the untrained base model places last on the judge rubric but second on the causal audit, indicating that the audit captures a signal the judge does not. Our results demonstrate that GRPO with a finance-grounded reward signal can produce substantially more useful business recommendations than commercial LLMs, and that a judge-independent causal audit is a valuable complement to, rather than a confirmation of, LLM-as-a-judge assessment in financial NLP.</abstract>
+      <pdf hash="5b8904cb"/>
+      <bibkey>ben-shoham-etal-2026-grpo</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.finnlp-1.29/ -->
+      <title><fixed-case>L</fixed-case>atent<fixed-case>D</fixed-case>emand<fixed-case>B</fixed-case>ench: A Contamination-Resistant Diagnostic for Pre-Recognition Product–Need Ranking in Synthetic Economies</title>
+      <author><first>Avinash Goutham</first><last>Aluguvelly</last></author>
+      <pages>351-372</pages>
+      <abstract>An existing product may meet an unmet need before the market recognises the connection. Testing whether a language model can identify such opportunities is difficult when historical outcomes may already be in its training data. We introduce LatentDemandBench, a contamination-resistant benchmark that generates fictional economies with known realisation probabilities and noisy documentary evidence. Solvers rank product–need pairings by their chance of realisation within a fixed horizon. Market commentary is generated separately from realisation, allowing us to evaluate ranking both among discussed pairings and where market attention supplies no ordering. On 30 matched economies, two frontier models beat a mention-count control but trail a supervised logistic ranker using fourteen features recovered from the same dossiers by a template-aware parser. The stronger model, GPT-5.6-TERRA, scores 0.669 in top-K-imputed AUC, with a paired reference-minus-model gap of +0.047 [+0.025, +0.074]. Aggregating three completions under the same final top-K budget yields 0.659, leaving a reference gap of +0.058 [+0.031, +0.095]. The deficit is not uniform: an exploratory analysis finds it smaller on unmentioned pairings than on those already discussed. We release the generator, harness and artifacts to support evaluation on fresh economies</abstract>
+      <pdf hash="4555583b"/>
+      <bibkey>aluguvelly-2026-latentdemandbench</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.finnlp-1.30/ -->
+      <title>What Ensemble Brier Scores Hide: Evidence Routing at a Fixed Article-Exposure Budget in <fixed-case>LLM</fixed-case> Prediction-Market Forecasting</title>
+      <author><first>Avinash Goutham</first><last>Aluguvelly</last></author>
+      <pages>373-382</pages>
+      <abstract>We ask whether giving different evidence to different LLM forecasters creates useful diversity when the total article-exposure count is held fixed. Across 708 resolved prediction-market contracts, we compare six-member ensembles whose forecasters either share the same two article pair or are distributed evenly across three pairs, with both conditions using twelve article exposures. On 609 pre-market-end contracts, evidence routing reliably increases within-ensemble dispersion for GPT-4.1-mini, Qwen3-30B, and OLMo-3.1-32B. An exact Brier-score decomposition separates changes in member error, dispersion, and ensemble error, while a grouped-variance analysis attributes nearly all of the dispersion increase to differences between assigned article pairs rather than repeated sampling. Greater dispersion, however, does not automatically improve the en- semble: only Qwen’s reduction in ensemble Brier survives multiplicity correction, while GPT and OLMo show no statistically robust net improvement. Post-hoc controls show that more balanced routing further increases dispersion at a fixed evidence union, while an alterna- tive Qwen readout changes channel attribution without establishing a different net effect. Evidence routing therefore consistently increases forecast diversity in this setting, but its value depends on whether that diversity outweighs any loss in individual forecast quality.</abstract>
+      <pdf hash="1643b54f"/>
+      <bibkey>aluguvelly-2026-ensemble</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.finnlp-1.31/ -->
+      <title>Continuous Financial Knowledge Graph Construction with Citation-Grounded Agentic Question Answering</title>
+      <author><first>Arnau Rodon</first><last>Comas</last></author>
+      <pages>383-393</pages>
+      <abstract>Financial analysis requires crossing evidence modalities that arrive in incompatible forms — structured market data, reported text (news and regulatory filings), collective expectations from prediction markets, and private portfolio state — which existing systems either handle in isolation or collapse into a single index, destroying the distinction between observed measurements, attributed claims, probabilistic beliefs, and user-specific exposure. We present a continuously running financial NLP system that maintains these modalities natively, linked by canonical entities and time, through continuous knowledge graph construction with per-edge provenance and temporal decay, and answers questions via agentic tool use under a citation contract that is enforced structurally: every citation must resolve to a passage retrieved in the same session, and free-text figures must agree with provider-attributed tool outputs. A learned relevance gate formalises the extraction cost/quality tradeoff, reducing LLM extraction calls while retaining the majority of yield-positive documents. Over 284 benchmark questions executed three times under majority vote, 251 produce non-failing responses (205 strong, 20 pass, 26 weak), 23 fail, and 10 additional questions are data-absent under the evaluation protocol. A structural evaluation framework of eight deterministic pre-judge gates reaches κ = 0.860 with a human annotator. In a sample evaluation, grounding entity descriptions in retrieved passages cuts fabrication from 1.83 to 0.17 unverifiable claims per description.</abstract>
+      <pdf hash="cc9a8c1b"/>
+      <bibkey>comas-2026-continuous</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.finnlp-1.32/ -->
+      <title>Relevant Is Not Enough: Expert-Audited Decision-Grade Web Evidence for Financial Fact Verification</title>
+      <author id="hyunkyung-park" orcid="0009-0003-3960-9630"><first>Hyunkyung</first><last>Park</last><affiliation>Queen Mary, University of London</affiliation></author>
+      <author><first>Eui Hyun</first><last>Kim</last></author>
+      <author id="wooah-choi" orcid="0009-0000-4757-5977"><first>Wooah</first><last>Choi</last></author>
+      <author id="arkaitz-zubiaga" orcid="0000-0003-4583-3623"><first>Arkaitz</first><last>Zubiaga</last><affiliation>Queen Mary University of London</affiliation></author>
+      <pages>394-402</pages>
+      <abstract>Fact verification systems rank web evidence by relevance, yet relevant passages may lack verdict-critical facts. We define decision-grade evidence as credible, temporally valid, and claim-matched information independently sufficient to support or refute a claim. Using 750 expert-audited claim–passage pairs for 150 financial claims, we compare relevance and decision-grade supervision within two rerankers while holding candidate evidence pools and verifiers fixed. Within these pools, 66.5% of relevant pairs are insufficient, and claim-level decision-grade coverage trails relevance coverage by 40.0 percentage points. Compared with relevance supervision, decision-grade supervision improves the ranking of sufficient evidence in one reranker but shows no clear advantage in the other. Frozen (untuned) rerankers remain competitive, and downstream verification gains are modest and input-dependent. Thus, relevance is an unreliable proxy for verdict sufficiency; evidence availability, ordering, and verifier use require separate evaluation.</abstract>
+      <pdf hash="6f1b970f"/>
+      <bibkey>park-etal-2026-relevant</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.finnlp-1.33/ -->
+      <title>Helping Customers in Distress: An <fixed-case>LLM</fixed-case>-powered Agent that Converses, Probes, and Routes</title>
+      <author><first>Alankar</first><last>Atreya</last><affiliation>NatWest Bank</affiliation></author>
+      <author><first>Stefan Sylvius</first><last>Wagner</last><affiliation>NatWest Bank</affiliation></author>
+      <author><first>Devesh</first><last>Batra</last><affiliation>Data Science &amp; Innovation, NatWest Group</affiliation></author>
+      <author><first>Robert</first><last>Hankache</last><affiliation>NatWest</affiliation></author>
+      <author id="cristovao-iglesias-jr" orcid="0000-0002-6448-2083"><first>Cristovão</first><last>Iglesias Jr</last></author>
+      <author><first>Patrick</first><last>Sinclair</last><affiliation>NatWest Bank</affiliation></author>
+      <author><first>Giulio</first><last>Pelosio</last></author>
+      <author><first>Michael</first><last>McMillan</last><affiliation>NatWest Bank</affiliation></author>
+      <author><first>Greig A</first><last>Cowan</last><affiliation>NatWest Bank</affiliation></author>
+      <author id="raad-khraishi" orcid="0000-0002-6278-4942"><first>Raad</first><last>Khraishi</last><affiliation>NatWest Bank</affiliation></author>
+      <pages>403-407</pages>
+      <abstract>Banks receive millions of reports of fraud, scams, and disputed transactions every year, making it challenging to accurately direct customers to the appropriate specialist teams for assistance. The existing manual process driven by humans is slow and stressful for both customers and staff. To address this, we develop a customer-facing AI powered triaging agent that leverages large language models (LLMs) to conduct multi-turn conversations, ask relevant questions, and classify cases for accurate, policy-guided routing, making it embedded in the customer journey. To evaluate and continuously improve the agent, synthetic digital twins of real customers were simulated, generating realistic, labelled dialogues based on historical data to test a wide range of real-world scenarios. This work details the triage agent’s modelling approach, integration with policy, safety guardrails and reasoning frameworks, the use of the synthetic agent for scalable evaluation, and findings on the AI system’s accuracy, robustness, and compliance. Results show that the agent successfully improves triaging of historical cases, achieving a 30.6% increase in classification accuracy, with high satisfaction levels reported by our subject-matter experts, highlighting how targeted probing can lead to more effective triage in banking operations at scale.‘</abstract>
+      <pdf hash="82d5953d"/>
+      <bibkey>atreya-etal-2026-helping</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.finnlp-1.34/ -->
+      <title>Beyond Compressibility: Transferable Low-Dimensional Structure and the Limits of Compression in Financial Retrieval</title>
+      <author><first>Oddharak</first><last>Tyagi</last><affiliation>Ernst &amp; Young LLP</affiliation></author>
+      <author id="shashishekar-ramakrishna" orcid="0000-0002-2832-0415"><first>Shashishekar</first><last>Ramakrishna</last><affiliation>EY</affiliation></author>
+      <author><first>Chetan</first><last>Harsha</last><affiliation>Ernst &amp; Young</affiliation></author>
+      <author><first>Sridhar</first><last>Dasaratha</last><affiliation>AI Lab, EY</affiliation></author>
+      <pages>408-423</pages>
+      <abstract>Modern retrieval embeddings are highly compressible, often retaining most of their effectiveness after the removal of a large fraction of dimensions. This suggests that retrieval-relevant information is organized in a lower-dimensional structure, but it remains unclear how broadly that structure generalizes and what ultimately limits compression.<par/>We study this question in long-document financial retrieval where relevant evidence must be distinguished from many highly similar passages containing repeated entities, financial metrics, tables, and boilerplate. Across three financial retrieval benchmarks and eight retrievers, we find that PCA projections learned on one corpus transfer effectively to others, retaining most of the effectiveness of corpus-specific fitting. Transfer quality is strongly associated with principal-subspace overlap, consistent with substantial shared low-dimensional structure across financial corpora. We further show that global geometric measures such as intrinsic dimension only partially explain retrieval robustness under dimensionality reduction. A case study on a financial question answering benchmark links retrieval failures to dense clusters of competing table chunks: Removing these distractors substantially reduces performance degradation. These results suggest that transferability is enabled by low-dimensional structure that generalizes across financial corpora, while compression failures are associated with local retrieval competition that is not captured by existing global geometric measures.</abstract>
+      <pdf hash="ee508120"/>
+      <bibkey>tyagi-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.finnlp-1.35/ -->
+      <title>Same Meaning, Different Wording: Evaluating Paraphrase Robustness in Financial Natural Language Inference</title>
+      <author><first>Yike</first><last>Li</last></author>
+      <author id="adam-poliak" orcid="0000-0002-1903-8450"><first>Adam</first><last>Poliak</last><affiliation>Bryn Mawr College</affiliation></author>
+      <pages>424-433</pages>
+      <abstract>We present FinNLI-Para, a paraphrased version of financial natural language inference (FinNLI). We investigate how much predictions on FinNLI depend on the particular wording used to express a financial hypothesis. We generate three paraphrases for each FinNLI hypothesis and use them to test prediction consistency across eleven model–prompt configurations. Models change their predictions on 7.9–12.3% of paraphrased examples, despite 98.35% of paraphrases preserving the original NLI label, indicating that financial NLI systems remain sensitive to hypothesis wording.</abstract>
+      <pdf hash="fa7801b0"/>
+      <bibkey>li-poliak-2026-meaning</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.finnlp-1.36/ -->
+      <title>Regression-Aware Statistically Gated Policy Updating for <fixed-case>K</fixed-case>orean Financial <fixed-case>LLM</fixed-case> Input Guardrails</title>
+      <author><first>Eunjung</first><last>Cho</last><affiliation>Financial Security Institute (FSI)</affiliation></author>
+      <author id="dae-young-park" orcid="0000-0002-6898-1664"><first>Dae-Young</first><last>Park</last><affiliation>Korea Advanced Institute of Science &amp; Technology and Financial Security Institute</affiliation></author>
+      <author id="minwoo-kim" orcid="0009-0001-5235-9045"><first>Minwoo</first><last>Kim</last><affiliation>Ewha Women's University and DATUMO Inc.</affiliation></author>
+      <pages>434-440</pages>
+      <abstract>Financial institutions must prevent personally identifiable information (PII) and adversarial instructions from entering large language models (LLMs). We present regression-aware policy maintenance for Korean financial LLM input guardrails, supported by a cost-ordered Regex–NER–LLM cascade. On a privacy-preserving controlled set of 1,000 synthetic attacks and 200 routine requests, four manual iterations reduce in-distribution attack success rate (ASR) from 8.9% to 0.3% with a 0.5% false-positive rate (FPR) on the original tuning set. On a held-out split, a policy tuned only on the tuning split achieves 0/300 attack successes and 1/60 false positives, with Wilson 95% CIs of [0, 1.26]% and [0.29, 8.86]%, respectively. For policy maintenance, an LLM generates candidate patches, while paired McNemar tests, an FPR constraint, and cumulative regression checks determine acceptance or rejection. Paired regression testing detects an intermediate regression introduced in manual Round 3, while the gate rejects all five automatically generated candidates, preventing statistically unsupported changes from entering the policy. For boundary diagnosis, the rejected fifth-round candidate yields a pre-mitigation overall FPR of 28.9% across 350 benign examples, including 150 hard negatives, revealing context-blind Regex blocking and LLM-judge over-blocking hidden by routine benign requests. These results support regression-aware policy maintenance in the controlled setting while highlighting the need for broader boundary and deployment-specific evaluation.</abstract>
+      <pdf hash="af71ab87"/>
+      <bibkey>cho-etal-2026-regression</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.finnlp-1.37/ -->
+      <title>Characterizing Ambiguity in Financial Document Question Answering</title>
+      <author id="kelsey-rook" orcid="0000-0003-0471-7159"><first>Kelsey</first><last>Rook</last><affiliation>Rensselaer Polytechnic Institute</affiliation></author>
+      <author><first>Clare</first><last>Arrington</last><affiliation>Rensselaer Polytechnic Institute</affiliation></author>
+      <author><first>Tomek</first><last>Strzalkowski</last><affiliation>Rensselaer Polytechnic Institute</affiliation></author>
+      <author id="razvan-bunescu" orcid="0000-0003-2919-3566"><first>Razvan</first><last>Bunescu</last><affiliation>University of North Carolina at Charlotte</affiliation></author>
+      <pages>441-453</pages>
+      <abstract>Large Language Models (LLMs) have demonstrated strong performance in question answering (QA) over general knowledge. However, naturally occurring ambiguity in text poses significant challenges. Users may omit important contextual information from their queries, available context may be insufficient to answer a question without making assumptions, while frontier models tend to give confident answers rather than ask clarifying questions. Research on ambiguity in QA has focused primarily on factoid and general-knowledge settings that rely on LLM-internal knowledge, leaving a gap in research on domain-specific and document QA.<par/>We examine how natural ambiguity arises in financial document QA, focusing on hybrid documents containing both text and tables. To this aim, we annotate 200 questions sampled from the MultiHiertt dataset and find that 77% of them exhibit some degree of ambiguity, with 52% of that ambiguity at least partially due to the data itself. We propose an extended taxonomy that accounts for ambiguity source (document vs. query) and degree. Upon evaluating frontier LLMs on ambiguity detection, we observe sharp drops in accuracy across the ambiguity spectrum and high false positive rates. Additionally, inter-model agreement is low, suggesting that models lack a consistent notion of ambiguity.</abstract>
+      <pdf hash="d834f243"/>
+      <bibkey>rook-etal-2026-characterizing</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.finnlp-1.38/ -->
+      <title>How <fixed-case>LLM</fixed-case> Financial Agents Respond to Stated Affect Depends on Their Assigned Role</title>
+      <author id="da-chen-lian" orcid="0009-0006-4850-4824"><first>Da Chen</first><last>Lian</last></author>
+      <author><first>Yu-Lin</first><last>Chang</last></author>
+      <author><first>Yen-Hsi</first><last>Huang</last></author>
+      <author id="shu-kai-hsieh" orcid="0000-0001-9674-1249"><first>Shu-Kai</first><last>Hsieh</last><affiliation>National Taiwan University and National Taiwan University</affiliation></author>
+      <pages>454-468</pages>
+      <abstract>We test whether financial LLM agents respond differently to reports with identical facts, forecasts and recommendations but different wording. The reports differ only in a closing sentence stating the sender’s affect. The most consistent finding is linguistic: high-arousal wording increases readers’ word-based arousal scores on average and also changes teammates’ language. The response varies across rolespecific task instructions, although its magnitude and ordering change across prompt paraphrases, scoring methods, word-removal controls and model families. The central role comparison contains 7,080 generations, but all concern one underlying deposit-outflow event; the 59 matched pairs are seeded realizations of the same financial payload rather than independent financial situations. Separately varying alarm and urgency shows that both raise word-based arousal, while alarmed wording adds an apprehension component detected by an emotion classifier. Behavioral effects are less consistent: in the primary model, alarmed wording reduces adherence to BUY and SELL recommendations, but the SELL reported-size effect is not detected in two additional model families. A filter that removes explicit alarm while preserving checked financial fields leaves most of the linguistic response intact.</abstract>
+      <pdf hash="f468bf47"/>
+      <bibkey>lian-etal-2026-llm</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.finnlp-1.39/ -->
+      <title>Preliminary Study on <fixed-case>LLM</fixed-case>-as-a-Judge Evaluation of Causal Mechanism Explanations in Financial News and its Bias Analysis</title>
+      <author><first>Yucheng</first><last>Xie</last><affiliation>University of Tsukuba</affiliation></author>
+      <author><first>Yurina</first><last>Kosai</last></author>
+      <author><first>Rikuto</first><last>Tsuchida</last></author>
+      <author id="takehito-utsuro" orcid="0000-0003-4072-1833"><first>Takehito</first><last>Utsuro</last><affiliation>University of Tsukuba</affiliation></author>
+      <pages>469-485</pages>
+      <abstract>Evaluating causal mechanism explanations in generated financial news is challenging because stock price movements may have multiple plausible explanations without a unique gold explanation. We propose a reference-free LLM-as-a-Judge framework that evaluates explanations from three perspectives: Relevance, Completeness, and Economic Plausibility. We construct 200 articles from Chinese stock market data and compare Gemini 3.5 Flash, GPT-5.5, and Claude Opus 5 with human annotations under zero-shot and few-shot settings. Before aggregating the evaluation results, we applied a systematic matched-subset procedure to examine potential self-preference and generation-source bias. Based on the data examined in this study, these analyses found no statistically significant evidence of systematic bias, supporting the aggregation of all 200 articles for the overall agreement analysis. The results show moderate to high agreement with human evaluation, with Completeness generally showing higher agreement than Relevance. Few-shot prompting does not consistently improve agreement and generally leads to more conservative judgments. These findings demonstrate the potential of LLM-as-a-Judge for reference-free evaluation of causal mechanism explanations in financial news.</abstract>
+      <pdf hash="cf3ea28b"/>
+      <bibkey>xie-etal-2026-preliminary</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.finnlp-1.40/ -->
+      <title>Valid but Wrong: Domain Invariants and a Cross-Model Plan-Validity Benchmark for Household-Finance <fixed-case>LLM</fixed-case>s</title>
+      <author id="vignesh-coumarane" orcid="0009-0005-1221-3083"><first>Vignesh</first><last>Coumarane</last><affiliation>InvestEd and Lincare</affiliation></author>
+      <pages>486-490</pages>
+      <abstract>Today’s LLMs are good at solving scoped financial tasks. A plan may be type-correct, schema-valid, and executable, yet not financially sound: double-spending the same dollar, or leaving free employer-match money on the table. We call these valid but wrong, and show that today’s evaluations do not consider them. We contribute: (1) a validity hierarchy separating syntactic, schematic, and executional validity from domain validity; (2) a succinct list of domain invariants operationalizing this idea for household finance, divided into conservation and efficiency invariants, grounded in a real six-figure failure in a deployed system; (3) a cross-model measure: we ask eleven current LLMs to plan out a balanced scenario bank (N=585 surface-valid plans) and evaluate each using our invariants. All conform to type, schema, and execution, yet a nonzero fraction break domain invariants which escape detection in surface validity checks. We distinguish a dominance violation over capturable match (unassailable) from an instruction-following violation (does-it-sum) and a contested idle-cash violation. Pooled rates of violating unassailable invariants (the "floor") are 15.2% (95% CI 12–18%), driven by two small models and by instruction-following; the dominance-only floor is 6.2% pooled and 3.6% for the nine frontier models, whose per-model floors overlap. However, the best model (GPT-5) breaks no unassailable invariants, but parks cash idle on 41% of plans, while a small deployable model fails basic conservation 85% of the time. A median <tex-math>2,500 in guaranteed employer match is tossed aside per dominance violation. Floors hold even on trap-free controls (7.6\%). Using a tighter definition counting idle cash, which is a preference-based decision, we find an upper bound of 51.3\%. Capability improves on conservation errors but does not close the gap on domain validity.</tex-math></abstract>
+      <pdf hash="e64ed083"/>
+      <bibkey>coumarane-2026-valid</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.finnlp-1.41/ -->
+      <title><fixed-case>CLAIR</fixed-case>-Fin: An Adversarial Multi-Agent Framework for Claim-Level Verification and Adaptive Debate in Cross-Modal Financial <fixed-case>QA</fixed-case></title>
+      <author id="fatema-tuj-johora-faria" orcid="0009-0005-1684-8211"><first>Fatema Tuj Johora</first><last>Faria</last><affiliation>Ahsanullah University of Science &amp; Technology</affiliation></author>
+      <author id="mukaffi-bin-moin" orcid="0009-0001-9634-5809"><first>Mukaffi Bin</first><last>Moin</last><affiliation>Ahsanullah University of Science &amp; Technology</affiliation></author>
+      <author id="jubayer-al-mahmud" orcid="0000-0002-1967-1360"><first>Jubayer</first><last>Al Mahmud</last><affiliation>Jashore University of Science and Technology</affiliation></author>
+      <author id="m-f-mridha" orcid="0000-0001-5738-1631"><first>M. F.</first><last>Mridha</last><affiliation>American International University - Bangladesh</affiliation></author>
+      <author><first>Md. Alam</first><last>Hossain</last><affiliation>Jashore University of Science and Technology</affiliation></author>
+      <pages>491-517</pages>
+      <abstract>Existing defenses against hallucination in retrieval-augmented and multi-agent pipelines remain partial: evidence is trusted despite modality disagreement, debate verifies an aggregate report rather than individual claims, and such verification occurs only after drafting, leaving inter-agent errors undetected until the final text. To close this gap, we present CLAIR-Fin, a nine-agent framework that decomposes each question into atomic claims maintained in a typed Financial Claim Ledger. Each claim is resolved through Asymmetric Evidence Authority, which conditions evidence trust on claim type rather than treating all modalities as equally reliable; Chain-of-Custody Verification, which checks grounding at the hand-off between drafting and adversarial review rather than only at the pipeline’s exit; an Adaptive Rebuttal Cycle, which routes contested claims through adversarial debate whose depth scales with what that debate finds; and a terminal entailment audit paired with a continuous Hallucination Risk Index that distinguishes claims that passed scrutiny from claims never contested. We evaluate CLAIR-Fin on BB-FinQA-X, a 500-question cross-modal financial evaluation set built from Bangladesh Bank Annual Report material, stratified by query type, format, and difficulty. Relative to a single-pass retrieval-augmented generation baseline, it raises faithfulness (<tex-math>0.780 \rightarrow 0.889</tex-math>) while abstaining on 5.4% of questions when evidence is insufficient rather than forcing an unsupported response, and it exceeds stronger retrieval-strategy baselines such as HyDE and Graph-RAG on faithfulness (<tex-math>\leq 0.874</tex-math>).</abstract>
+      <pdf hash="4d598592"/>
+      <bibkey>faria-etal-2026-clair</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.finnlp-1.42/ -->
+      <title>When <fixed-case>FEVER</fixed-case> Meets Finance: A Controlled Benchmark Reveals Overlap-Driven Financial Claim Verification</title>
+      <author id="suprabhat-rapolu" orcid="0009-0007-8335-5868"><first>Suprabhat</first><last>Rapolu</last><affiliation>Dirmacs Private Limited</affiliation></author>
+      <pages>518-523</pages>
+      <abstract>Realistic financial misinformation is typically a single-token edit of a true statement, yet no public financial dataset supports per-edit statements about which factual changes a verification system can detect. We introduce a controlled benchmark of 1,489 claim-evidence pairs derived from SEC 10-K filings via documented FactCC-style perturbations (number changes, negation flips, entity swaps, evidence mismatches), each pair tagged with its generation rule, and use it to evaluate eleven models spanning three technological generations - TF-IDF linear classifiers, tree ensembles, and neural models including a fine-tuned transformer - all trained on FEVER under one protocol. Per-edit attribution is our central result: the strongest model verifies verbatim financial claims at 98.8% accuracy but detects single-token falsifications at 33% accuracy or below, with number changes and negation flips detected at similar rates and entity swaps far the hardest (2.6%, on 38 pairs). Two diagnoses follow. A hypothesis-only probe shows the classical tier’s in-domain competence is claim-surface artifact - a claim-only classifier reaches macro-F1 0.556 against 0.549 for full claim+evidence models - while our benchmark shows no such artifact under the same probe (0.358). And transfer to real financial claims collapses: on Fin-Fact, no learned model beats a tuned lexical-overlap heuristic (macro-F1 0.368), despite in-domain scores up to 0.841. We release the benchmark, generation code, and evaluation harness.</abstract>
+      <pdf hash="836e3aad"/>
+      <bibkey>rapolu-2026-fever</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.finnlp-1.43/ -->
+      <title>Perceived Professionalism in Financial Inquiry: An Interpretable and Empirically Grounded Linguistic Modeling of Textual Preference</title>
+      <author id="giulia-dagostino" orcid="0009-0007-8918-1440"><first>Giulia</first><last>D’Agostino</last><affiliation>Fraunhofer FKIE</affiliation></author>
+      <author id="chung-chi-chen" orcid="0000-0003-3680-9277"><first>Chung-Chi</first><last>Chen</last><affiliation>NII, Tokyo Institute of Technology</affiliation></author>
+      <pages>524-548</pages>
+      <abstract>Professionalism is a central yet underdefined aspect of expert communication. This study investigates whether perceived professionalism can be modeled computationally in financial Q A contexts, and whether non-expert preferences provide a meaningful basis for its annotation. We compile a mixed dataset of real and synthetically generated questions from earnings calls, annotated with human judgments of perceived professionalism and linguistically motivated features. Regression and classification experiments show that these features effectively capture evaluators’ preferences, enabling simple models to outperform both text-only and LLM baselines. The results demonstrate that interpretable, conceptually grounded linguistic features can rival more complex architectures while providing greater transparency, and support the value of linguistic awareness in NLP. More broadly, the study shows that modeling reader preferences can offers insights for the generation of professional questions.</abstract>
+      <pdf hash="1e5f8e89"/>
+      <bibkey>d-agostino-chen-2026-perceived</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.finnlp-1.44/ -->
+      <title>Selective Compliance in Financial Rule Reasoning: A Solver-Verified <fixed-case>C</fixed-case>hinese Benchmark and Empirical Analysis</title>
+      <author><first>Peng</first><last>Li</last></author>
+      <author><first>Yinchun</first><last>Wang</last></author>
+      <pages>549-565</pages>
+      <abstract>Selective compliance is important for financial LLM applications: an applicable context rule should override the LLM’s parametric rule, while an inapplicable rule should be ignored. Though previous studies recognize the importance of rule selection, dedicated evaluations tailored specifically to the financial domain remain absent. To bridge this gap, we build a controlled benchmark based on the CFLUE dataset, where intervention rules are synthesized and FOL logic is applied to ensure the correctness of the new derived answer. Furthermore, we designed three evaluation settings covering clean inputs, noisy inputs, and multi-hop reasoning scenarios. We conduct a systematic comparison across different rule selection strategies and models. Experiments show that: (1) For recent advanced LLMs, single-pass integrated reasoning approach (CAR-Joint) consistently outperforms the decoupled ‘route-then-answer’ approach (CAR-Route). (2) Our proposed post-hoc review method, CAR-Joint-Review, consistently outperforms CAR-Joint. Similarly, pre-hoc routing via the parametric rule elicitation method CAR-Elicit-Route surpasses CAR-Route in multi-hop settings. The performance gains are model-dependent. These findings reveal the trade-offs across various methods and LLMs in financial selective compliance.</abstract>
+      <pdf hash="e680d4f6"/>
+      <bibkey>li-wang-2026-selective</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.finnlp-1.45/ -->
+      <title>Hidden Below the Landing Page: Tracking Linked Pages and Relation-Centered <fixed-case>DOM</fixed-case> Summaries for Financial Phishing Detection</title>
+      <author><first>Hyeji</first><last>Heo</last><affiliation>Financial Security Institute</affiliation></author>
+      <author id="dae-young-park" orcid="0000-0002-6898-1664"><first>Dae-Young</first><last>Park</last><affiliation>Korea Advanced Institute of Science &amp; Technology and Financial Security Institute</affiliation></author>
+      <author id="minwoo-kim" orcid="0009-0001-5235-9045"><first>Minwoo</first><last>Kim</last><affiliation>Ewha Women's University and DATUMO Inc.</affiliation></author>
+      <pages>566-573</pages>
+      <abstract>Phishing can turn stolen personal information into financial harm, yet some sites hide data collection beyond the landing page. We present a site-level workflow for Korean-language phishing that tracks linked pages and supplies LLMs with relation-centered DOM summaries. The 256 landing URLs treated as phishing in the full collection were labeled primarily by the initial LLM, with human labels taking precedence for reviewed sites. Of these, 161 (62.9%) were detected by at least one VirusTotal engine; 215 of 217 linked URLs (99.1%) had no prior query record, and neither remaining URL was detected. On 70 human-validated landing pages, summarization increased Gemini 2.5 Flash-Lite’s F1 from 0.621 to 0.925, while F1 changes for the other three Gemini models ranged from -0.011 to +0.035. In a six-site case study, data collection was detected only on linked pages, while page-level aggregation retained landing-page impersonation targets more consistently than concatenation. These results highlight the importance of exploration scope and show model-dependent accuracy effects of relation-centered DOM summaries in phishing detection.</abstract>
+      <pdf hash="40928509"/>
+      <bibkey>heo-etal-2026-hidden</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.finnlp-1.47/ -->
+      <title>Prediction-Market Seed Capital Recovery from Noise-Dominant Flow</title>
+      <author id="yankai-chen" orcid="0000-0001-5741-2047"><first>Yankai</first><last>Chen</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="bowei-he" orcid="0000-0002-0360-2950"><first>Bowei</first><last>He</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="zhuohan-xie" orcid="0009-0008-2650-2857"><first>Zhuohan</first><last>Xie</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author id="zhiwei-liu" orcid="0000-0002-7015-5054"><first>Zhiwei</first><last>Liu</last></author>
+      <author><first>Fan</first><last>Zhang</last></author>
+      <author id="xueqing-peng" orcid="0009-0004-1484-0622"><first>Xueqing</first><last>Peng</last><affiliation>Yale University</affiliation></author>
+      <author id="yan-wang-9365" orcid="0000-0003-1036-9365"><first>Yan</first><last>Wang</last><affiliation>Yale University</affiliation></author>
+      <author id="lingfei-qian" orcid="0009-0007-8342-1837"><first>Lingfei</first><last>Qian</last><affiliation>Yale University</affiliation></author>
+      <author id="xue-liu" orcid="0000-0001-5252-3442"><first>Xue</first><last>Liu</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence and McGill University</affiliation></author>
+      <pages>574-589</pages>
+      <abstract>Automated prediction markets require sponsors to prefund liquidity before observing order flow, creating a financing challenge at launch. We study whether nonnegative charges conditioned on observable payoff direction can improve recovery of this prefunded capital while limiting their effect on informed participation. We develop Seed Capital Flow (SCF), a direction-conditioned levy, in a stylized binary cost- function market with informed and liquidity-motivated traders. When order composition differs across directions, SCF concentrates the permitted fee burden on the direction with relatively more liquidity-motivated flow, whereas a uniform fee spreads it across both directions. Under a common retention constraint, this allocation yields higher expected recovery capacity and can make additional liquidity choices financially viable. Synthetic numerical audits examine robustness to alternative flow patterns, stochastic arrivals, and label misspecification. The results characterize a mechanism-design tradeoff rather than an empirical prediction: the market remains prefunded, recovery is expected rather than guaranteed, and the analysis is limited to an opening-cohort setting.</abstract>
+      <pdf hash="dfbe80cf"/>
+      <bibkey>chen-etal-2026-prediction</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.finnlp-1.49/ -->
+      <title><fixed-case>D</fixed-case>e<fixed-case>X</fixed-case>posure-Claw: An Agent System for <fixed-case>D</fixed-case>e<fixed-case>F</fixed-case>i Risk Supervision</title>
+      <author><first>Aijie</first><last>Shu</last><affiliation>University of Edinburgh, University of Edinburgh</affiliation></author>
+      <author id="bowei-chen" orcid="0000-0002-4045-3253"><first>Bowei</first><last>Chen</last><affiliation>University of Glasgow</affiliation></author>
+      <author><first>Wenbin</first><last>Wu</last></author>
+      <author><first>Cathy Yi Hsuan</first><last>Chen</last><affiliation>University of Glasgow</affiliation></author>
+      <author id="fengxiang-he" orcid="0000-0001-5584-2385"><first>Fengxiang</first><last>He</last><affiliation>University of Edinburgh</affiliation></author>
+      <pages>590-600</pages>
+      <abstract>Decentralized finance exposes supervisors to fast-moving, networked credit risks that are difficult to inspect directly from raw on-chain records. We present DeXposure-Claw, an end-to-end decision-support system that converts forecasts of future exposure networks into bounded, auditable review tickets. DeXposure-FM produces future graph distributions. Deterministic monitors and stress scenarios organize forecast signals into a typed EvidenceBundle, and an LLM turns this record into ranked tickets with evidence-linked rationales. Data-health and confidence controls restrict intervention-level outputs when the supporting evidence is insufficient, while supervisors retain final authority. DeXposure-Bench evaluates the resulting workflow across forecasting, warning, calibration, stress analysis, ticket construction, and degraded-input behavior. The release schema separates forecast evidence, queue position, and control state for supervisory review. Retained legacy tickets do not contain every designed gate field. Code: https://github.com/EVIEHub/DeXposure-Claw/tree/finnlp-2026-code-snapshot-v1.</abstract>
+      <pdf hash="17776902"/>
+      <bibkey>shu-etal-2026-dexposure</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.finnlp-1.50/ -->
+      <title><fixed-case>D</fixed-case>elist<fixed-case>B</fixed-case>ench: Evaluating Search-Enabled <fixed-case>LLM</fixed-case>s for Auditable Corporate-Event Database Completion</title>
+      <author id="xuan-yao" orcid="0000-0002-9368-176X"><first>Xuan</first><last>Yao</last></author>
+      <author><first>Shuping</first><last>Li</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Yang</first><last>Dai</last><affiliation>National University of Singapore</affiliation></author>
+      <author><first>Yi</first><last>Zhou</last></author>
+      <author id="ke-wei-huang" orcid="0000-0002-9932-6195"><first>Ke-Wei</first><last>Huang</last></author>
+      <pages>601-610</pages>
+      <abstract>Financial institutions need an independent way to detect missing, stale, and misclassified corporate-event records in vendor databases. We introduce Search-to-Record, a database-assurance task in which search-enabled large language models reconstruct institution-defined event records from public sources for a known security universe and historical cutoff, and DelistBench, a 1,200-record benchmark for security-level delisting announcements. We evaluate five models in paired closed-book and web-enabled conditions. Web access raises announcement-date accuracy within seven days by 34.0–48.0 percentage points and event-status accuracy by approximately 2.8–21.7 points; the best system achieves 81.5% overall joint accuracy within seven days. Economy web systems achieve 75.9–78.3% overall joint accuracy within seven days at 4.5–6.6% of the API cost of the most expensive web system. Risk-based triage identifies low-error subsets, although the highest-coverage operating point still sends 27.3% of the balanced test set to review. The evaluation identifies web retrieval as the main source of timing gains and shows that low-cost systems can approach the best system’s accuracy. Together, Search-to-Record, DelistBench, and the evaluation provide concrete deployment guidance: calibrate triage to local event prevalence and market mix, preserve positive-event recall, and route positive and ambiguous cases to targeted review. DelistBench is publicly available at https://github.com/tj-zyyyyyyy/DelistBench.</abstract>
+      <pdf hash="96b9cdf8"/>
+      <bibkey>yao-etal-2026-delistbench</bibkey>
+    </paper>
+    <paper id="52">
+      <!-- https://aclanthology.org/2026.finnlp-1.52/ -->
+      <title><fixed-case>D</fixed-case>eal<fixed-case>T</fixed-case>race: Localizing and Intervening on Failures in Agentic Financial Reasoning</title>
+      <author id="alina-hyk" orcid="0009-0009-2008-0638"><first>Alina</first><last>Hyk</last></author>
+      <pages>611-631</pages>
+      <abstract>Analyzing a financial deal is a long, multi-step task: an analyst reads a narrative memorandum against the Excel model behind it, rebuilds the forecast under the valuation, and writes a recommendation. LLM agents increasingly perform such work, but financial benchmarks measure isolated skills or final answers and do not show where a long analysis fails. We present DealTrace, a benchmark built on real deal packages, each pairing a confidential information memorandum with its financial model. A five-stage pipeline—extract, reconcile, project a masked forecast, assess market context, recommend—follows the analyst workflow; every clause of the recommendation cites the stage that produced it, and knockout and repair interventions attribute the outcome to individual stages. Across six frontier models, three scaffolding conditions, and four model judges, extraction, reconciliation, and grounding are reliable, and forecasting is the decisive stage: it is the strongest correlate of judged quality, the costliest stage to remove, and the only repair that improves every model, after which the models reach nearly the same score. Models flag discrepancies accurately but rarely use them in the verdict, a failure that outcome-level evaluation cannot detect. Scaffolding improves stage-level performance far more than the final score, and a critique pass adds cost without reliable gain. DealTrace evaluates the analysis process itself, not only its final answer.</abstract>
+      <pdf hash="621e1a7e"/>
+      <bibkey>hyk-2026-dealtrace</bibkey>
+    </paper>
+    <paper id="53">
+      <!-- https://aclanthology.org/2026.finnlp-1.53/ -->
+      <title>Topic-Aware Environmental Claim Extraction from Corporate News</title>
+      <author><first>Tanay Kumar</first><last>Gupta</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Vaishali</first><last>Aggarwal</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Ishan</first><last>Verma</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <pages>632-649</pages>
+      <abstract>Corporate environmental claims frequently appear in news articles, providing an external view of sustainability-related communications. However, extracting such claims remains challenging as they are often implicit, distributed across multiple sentences, and embedded within narrative contexts. In this work, we propose an end-to-end system for automated environmental claim extraction enriched with contextual metadata. Our pipeline combines multi-label topic classification, topic-conditioned candidate claim-evidence extraction using large language models (LLMs), and candidate filtering with ASE-BERT, a lightweight aspect- and sentiment-aware classifier for claim detection. To support evaluation, we construct a curated dataset of corporate environmental news, annotated with claims, supporting evidence, and contextual attributes. Experimental results demonstrate that for claim classification, ASE-BERT attains the highest F1 <tex-math>(0.87)</tex-math> across the four combined environmental claim datasets, exceeding the best baseline without task-specific fine-tuning by 4 points. For end-to-end extraction, topic conditioning alone improves LLM F1 by an average of 15 points, and our full pipeline adds a further 5 points over the best topic-conditioned setting. These findings demonstrate that incorporating topic awareness and claim filtering substantially improves environmental claim extraction from corporate news, supporting downstream sustainability intelligence and decision-making tasks.</abstract>
+      <pdf hash="b4e1227b"/>
+      <bibkey>gupta-etal-2026-topic</bibkey>
+    </paper>
+    <paper id="54">
+      <!-- https://aclanthology.org/2026.finnlp-1.54/ -->
+      <title>Do Tools Matter, or Just Their Descriptions?</title>
+      <author><first>Ananya</first><last>Tomar</last></author>
+      <author><first>Ayush</first><last>Nangia</last><affiliation>Lossfunk</affiliation></author>
+      <pages>650-666</pages>
+      <abstract>Tool-augmented language models are increasingly applied to financial document reasoning, a setting that demands numerical precision over long financial filings. Earlier comparisons either mix up the model with its scaffolding or report tool-use gains without separating code, strategy, and environment. We isolate these factors in a controlled same-model ablation: six configurations share an identical GPT-5 backbone and differ only in the tool surface (callable tools plus their descriptions), with one control that additionally forces sub-model delegation. On DocMath-Eval under oracle context, the fully equipped configuration beats the restricted-tool baseline by +3.6 points (p=0.0028). Where this gain comes from matters more than its size: the system tools that give that configuration its name are used on under 0.2% of samples, and a description-only control, which describes the same tools but never runs them, performs almost identically (within 1 point on every split). The benefit comes from the tool descriptions, not from executing the tools. On long-document splits, the equipped model uses fewer iterations, has answers available earlier when runs are cut short, and varies its tool mix with document length. Comprehension errors dominate the hardest failures: the bottleneck is document comprehension, not the tool interface.</abstract>
+      <pdf hash="e4b39c85"/>
+      <bibkey>tomar-nangia-2026-tools</bibkey>
+    </paper>
+    <paper id="55">
+      <!-- https://aclanthology.org/2026.finnlp-1.55/ -->
+      <title>Human Agreement and Return Association Are Not Interchangeable Criteria</title>
+      <author><first>A S</first><last>Aravinthakshan</last></author>
+      <author id="laven-srivastava" orcid="0009-0008-1298-1420"><first>Laven</first><last>Srivastava</last></author>
+      <author><first>Harsh</first><last>Nandwani</last><affiliation>Perssonify</affiliation></author>
+      <pages>667-680</pages>
+      <abstract>Financial NLP has a standard workflow: validate a sentiment tool against human labels, then trust it to extract market signal. This assumes the two evaluations measure the same thing. We test that assumption in a setting where both can be measured at once: a corpus of securities class actions (2002–2025) linking 70,500 X[formerly Twitter] messages to abnormal stock returns, with a single-annotator human labelled gold sample. Running five instruments (VADER, Loughran–McDonald, FinBERT, Twitter-RoBERTa, and an LLM annotator) through one identical pipeline, we find that the relationship between construct and predictive validity depends on the sampling convention and score representation. Under conventional method-specific sampling, human agreement aligns more closely with graded same-day associations than with one-day leads. On a fixed-<tex-math>n</tex-math> panel, however, agreement has similar graded rank correlations at both horizons, while the coarse ordering remains weak. Benchmark agreement therefore establishes semantic validity but does not by itself determine predictive rankings. In a conversation that is 17.6% spam, message volume predicts neither market damage nor settlement size.</abstract>
+      <pdf hash="4b2f6077"/>
+      <bibkey>aravinthakshan-etal-2026-human</bibkey>
+    </paper>
+    <paper id="57">
+      <!-- https://aclanthology.org/2026.finnlp-1.57/ -->
+      <title>Bags of Words, Bags of Analysts: Two Event Spaces for Industry Classification</title>
+      <author id="artem-lensky" orcid="0000-0002-4745-6756"><first>Artem</first><last>Lensky</last><affiliation>University of New South Wales and University of Sydney, University of Sydney</affiliation></author>
+      <pages>681-686</pages>
+      <abstract>A company’s GICS sector can be inferred from what the firm writes about itself, and it can be inferred from who chooses to write about the firm. We show these are the same inference over two event spaces, and fit one multinomial naïve Bayes to both. In the first a company is a bag of the words of Item 1 of its 10-K; in the second it is a bag of the 814 analysts who covered it, with no use of what they wrote. Sector prototypes are counted log-probabilities in both cases, w_s = log p_s , so the two differ only in what is being counted.<par/>Over 426 S   P 500 constituents the word space gives 83.7% top-1 recovery and the analyst space 73.7%, against a 16.2% majority-class baseline. Because the two spaces are conditionally independent given the sector their log-likelihoods simply add – but doing so captures only a quarter of the available gain (+0.75 points). A filing supplies some 2,100 wordevents against 18 analyst events at the median, and naïve Bayes counts each as independent, so the word log-likelihood varies across the eleven sectors with a median standard deviation of 766 nats against 8.3 for the analyst log-likelihood, a factor of 92: the sum is numerically dominated and analyst evidence rarely moves a decision. Standardising each log-likelihood within a company before adding removes the scale disparity and recovers +2.9 points [0.4, 5.4], reaching 86.5% top-1 and 94.8% top-2.<par/>A dense encoder is not better here, and not combinable on the same terms. Qwen3-Embedding-4B over the same filings reaches 76.9% under the nearest-centroid classifier that dense vectors admit, below naïve Bayes over the same words; and having no event counts it cannot form a third event space, so combining it means leaving the likelihood and choosing a scale.</abstract>
+      <pdf hash="a59f76c8"/>
+      <bibkey>lensky-2026-bags</bibkey>
+    </paper>
+    <paper id="59">
+      <!-- https://aclanthology.org/2026.finnlp-1.59/ -->
+      <title>Market Signal Injection: Adversarial Context Manipulation of <fixed-case>LLM</fixed-case> Pricing Agents</title>
+      <author id="dohun-lee" orcid="0009-0009-6888-7852"><first>Dohun</first><last>Lee</last><affiliation>Seoul National University</affiliation></author>
+      <author id="hyunwoo-park" orcid="0000-0001-9818-217X"><first>Hyunwoo</first><last>Park</last><affiliation>Seoul National University</affiliation></author>
+      <pages>687-716</pages>
+      <abstract>Large language model (LLM) pricing agents may respond to how market data is presented, even when its numerical values remain unchanged. We introduce market signal injection (MSI), an attack that manipulates numerical formatting, competitor ordering, or qualitative market commentary without issuing explicit instructions. We evaluate nine open-weight models in simulated Bertrand duopoly and triopoly markets and three proprietary models in duopoly markets. Sentiment-based attacks produce the largest behavioral shifts, which propagate to other firms and alter profits and consumer surplus. Susceptibility varies across model families, and larger models are not consistently more robust. Matched neutral-text controls and a rule-based agent support a framing-based account of these shifts under the fixed demand parameters of our simulation. Episode-held-out probes distinguish baseline from attacked activations in all eleven re-evaluated model–condition pairs: linear AUC is 1.00 and MLP AUC ranges from 0.93 to 0.99. This separability does not by itself identify harmful pricing decisions. Input canonicalization removes the tested sentiment attacks, while decision boundary anchoring, which combines prompt constraints with output projection, provides partial mitigation under the tested adaptive attacks. These results identify data presentation as an attack surface for LLM pricing agents and motivate defenses that account for interactions among agents.</abstract>
+      <pdf hash="7be4a208"/>
+      <bibkey>lee-park-2026-market</bibkey>
+    </paper>
+    <paper id="60">
+      <!-- https://aclanthology.org/2026.finnlp-1.60/ -->
+      <title><fixed-case>EVOQUANT</fixed-case>: Self-Evolving Verifier-Guided Strategy Optimization for Robust Quantitative Trading</title>
+      <author><first>Jie</first><last>Mao</last></author>
+      <author id="changlun-li" orcid="0009-0001-9196-490X"><first>Changlun</first><last>Li</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou)</affiliation></author>
+      <author id="xiang-li-081x" orcid="0009-0002-2879-081X"><first>Xiang</first><last>Li</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou)</affiliation></author>
+      <author><first>Qiqi</first><last>Duan</last></author>
+      <author><first>Jinhui</first><last>Yuan</last></author>
+      <author id="xiang-liu" orcid="0009-0003-2639-1804"><first>Xiang</first><last>Liu</last></author>
+      <author id="yuyu-luo" orcid="0000-0001-9530-3327"><first>Yuyu</first><last>Luo</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou) and Hong Kong University of Science and Technology</affiliation></author>
+      <author id="jing-tang" orcid="0000-0002-0785-707X"><first>Jing</first><last>Tang</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou) and The Hong Kong University of Science and Technology</affiliation></author>
+      <author id="nan-tang" orcid="0000-0003-2832-0295"><first>Nan</first><last>Tang</last></author>
+      <pages>717-729</pages>
+      <abstract>Quantitative strategy optimization remains largely manual, requiring domain experts to identify weak signals, tune risk-control rules, and repeatedly validate iterative revisions. Large language models can accelerate this process, but directly relying on them to rewrite trading strategies often introduces hallucinated edits, strategy drift, and back-test overfitting. We propose EVOQUANT, a self-evolving verifier-guided framework for strategy optimization in quantitative trading. Our method utilizes LLMs to deeply diagnose performance bottlenecks, generate semantically controlled candidate edits, select the best strategy through a multi-stage verification pipeline, and distill optimization experience into reusable knowledge for continual self-improvement. We evaluate our method using seven representative strategies: four from the A-share market and three from the crypto market. Experimental results show that our method significantly improves the Sharpe ratio across all tested strategies: the average test Sharpe increases from −0.298 to 0.538, and the best-performing strategy achieves a 199% relative improvement. Ablation studies and stress tests under stricter conditions further validate the effectiveness and robustness of the framework. Overall, this work transforms quantitative strategy optimization from costly manual trial-and-error into an automated and verifiable iterative paradigm, offering a new path for applying large language models to financial strategy research.</abstract>
+      <pdf hash="34809e63"/>
+      <bibkey>mao-etal-2026-evoquant</bibkey>
+    </paper>
+    <paper id="62">
+      <!-- https://aclanthology.org/2026.finnlp-1.62/ -->
+      <title><fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val Challenge @ <fixed-case>EMNLP</fixed-case> 2026 - <fixed-case>F</fixed-case>in<fixed-case>NLP</fixed-case> Workshop: Multilingual Financial Language Understanding</title>
+      <author><first>Yupeng</first><last>Cao</last><affiliation>Stevens Institute of Technology</affiliation></author>
+      <author><first>Haohang</first><last>Li</last><affiliation>Stevens Institute of Technology</affiliation></author>
+      <author><first>Yuechen</first><last>Jiang</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Yueru</first><last>He</last><affiliation>Columbia University</affiliation></author>
+      <author><first>Yuyan</first><last>Wang</last><affiliation>The University of Manchester</affiliation></author>
+      <author><first>Ruoyu</first><last>Xiang</last><affiliation>The FinAI</affiliation></author>
+      <author><first>Yangyang</first><last>Yu</last><affiliation>Stevens Institute of Technology</affiliation></author>
+      <pages>730-739</pages>
+      <abstract>Financial language understanding requires accurate interpretation of numerical disclosures, implicit corporate intent, and evidence distributed across languages and documents. We present FinEval 2026, a shared task at the FinNLP workshop at EMNLP 2026, comprising Greek financial named-entity recognition, Japanese implicit communication recognition, and multilingual financial question answering. The registration records contain 35 teams after reconciliation, and 14 teams contribute system description papers. The final leaderboards contain 7, 10, and 15 entries for the three subtasks, respectively. We describe the task design, participation, submitted approaches, and final results. Leading scores reach 0.9676 entity F1, 0.9714 accuracy, and 0.3827 ROUGE-1 F1. Systems combine domain rules, language-specific modeling, structured prompting, retrieval, and controlled answer revision. Their results highlight the value of task-specific constraints while exposing limitations arising from small test sets, development-to-test shifts, and reuse of previously released reference material. We identify priorities for more reliable multilingual financial evaluation.</abstract>
+      <pdf hash="c10d733e"/>
+      <bibkey>cao-etal-2026-fineval</bibkey>
+    </paper>
+    <paper id="63">
+      <!-- https://aclanthology.org/2026.finnlp-1.63/ -->
+      <title><fixed-case>PIO</fixed-case> at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: An <fixed-case>O</fixed-case>pen<fixed-case>R</fixed-case>outer <fixed-case>API</fixed-case> Pipeline for Multilingual Financial Understanding</title>
+      <author><first>Israel Olanrewaju</first><last>Odeajo</last></author>
+      <pages>740-744</pages>
+      <abstract>We present the PIO system for the FinEval 2026 / FinNLP Multilingual Financial Language Understanding Challenge. Our submission follows the API-based agent/workflow track: all model calls go through OpenRouter and use meta-llama/llama-3.3-70b-instruct (<tex-math>\approx</tex-math>70.6B parameters). We address all three subtasks with task-specific pipelines that combine LLM prompting with high-precision rules and schema constraints. On the public leaderboard our scores are entity micro-F1 0.9748 (Greek NER), accuracy 0.9333 (Japanese ICR), and ROUGE-1 1.0000 (PolyFiQA). We describe the design choices behind each subtask, the failure modes we observed, and simple post-corrections that yielded large gains on Subtask 1.</abstract>
+      <pdf hash="ffa5fbef"/>
+      <bibkey>odeajo-2026-pio</bibkey>
+    </paper>
+    <paper id="64">
+      <!-- https://aclanthology.org/2026.finnlp-1.64/ -->
+      <title>Maddies <fixed-case>NLP</fixed-case> at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Proposition-Aware Tagged Reasoning for <fixed-case>J</fixed-case>apanese Implicit Communication Recognition</title>
+      <author><first>Madhav</first><last>Kapoor</last></author>
+      <author><first>Aditya</first><last>Channa</last><affiliation>Maharaja Agrasen Institute Of Technology</affiliation></author>
+      <author><first>Jastej</first><last>Singh</last></author>
+      <pages>745-749</pages>
+      <abstract>We describe our system for the FinNLP 2026 Japanese Financial Implicit Communication Recognition (JF-ICR) shared task. The task requires assigning one of five ordinal commitment and refusal labels to a Japanese investor-relations question and company response. Our final system uses the 30.7B-parameter OpenRouter model ‘google/gemma-4-31b-it‘ in a two-stage, proposition-aware workflow. A label-blind first stage extracts tagged evidence for the target proposition, modality, actor and controllability, negation scope, conditionality, and institutional anchors. A second stage re-reads the original Japanese with this evidence and emits the final label before an optional rationale. On 253 labeled development examples, the system reaches 60.08% accuracy versus 56.92% for our earlier single-call control, with no invalid labels. The frozen submission scores 93.33% (14/15) publicly and 94.29% (33/35) privately. Deeper decision trees, latent-score mapping, and parallel judging all reduce accuracy, favoring compact decomposition with strict output control.</abstract>
+      <pdf hash="dfbeb6bb"/>
+      <bibkey>kapoor-etal-2026-maddies</bibkey>
+    </paper>
+    <paper id="65">
+      <!-- https://aclanthology.org/2026.finnlp-1.65/ -->
+      <title><fixed-case>ADML</fixed-case> at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Version-Aware Retrieval and Grounded Sparse Editing for Multilingual Financial <fixed-case>QA</fixed-case></title>
+      <author><first>Gautier</first><last>Marti</last><affiliation>ADIA</affiliation></author>
+      <author><first>Khaled</first><last>AlNuaimi</last><affiliation>Abu Dhabi Investment Authority</affiliation></author>
+      <pages>750-754</pages>
+      <abstract>We present ADML’s second-place system for the FinEval 2026 PolyFiQA subtask. PolyFiQA requires concise answers grounded jointly in financial statements and contemporaneous news in five languages. We developed a deterministic fact compiler with strict number provenance, schema-specific realization, a 100-word budget, and a sparse answer-edit lattice. All 76 released test queries exactly matched queries in the public PolyFiQA-Expert-July snapshot released in July 2025. Under the organizer’s external-data policy, our selected lane retrieved only exact or conservatively normalized full-query references and capped them without rephrasing. It scored 0.9994 public ROUGE-1 F1 but 0.3726 privately, ranking second. The sharp split exposes reference-version shift: input identity and historical answer identity held publicly but not privately. Historical leave-company-out experiments similarly show that answer-oracle headroom is easy to construct but difficult to route safely. We argue for version-aware retrieval and abstaining grounded fallbacks rather than unconditional reference reuse.</abstract>
+      <pdf hash="5002189e"/>
+      <bibkey>marti-alnuaimi-2026-adml</bibkey>
+    </paper>
+    <paper id="66">
+      <!-- https://aclanthology.org/2026.finnlp-1.66/ -->
+      <title><fixed-case>A</fixed-case>hsan<fixed-case>BLAH</fixed-case> at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Grounded Two-Stage Financial <fixed-case>QA</fixed-case> with <fixed-case>LLM</fixed-case>-Judge Verification</title>
+      <author id="muhammad-ahsan-atiq" orcid="0009-0008-6919-2748"><first>Muhammad Ahsan</first><last>Atiq</last></author>
+      <author><first>Mohib Ahmad</first><last>Butt</last><affiliation>Shaheed Zulfikar Ali Bhutto Institute of Science and Technology</affiliation></author>
+      <pages>755-761</pages>
+      <abstract>Financial question answering demands rigorous synthesis of standardized SEC filings alongside unstructured, cross-document text. This complexity is significantly amplified in multilingual environments, where terminology and reporting conventions vary across languages. We present a two-stage pipeline for the FinNLP 2026 PolyFiQA shared task, with all inference routed through the OpenRouter API under the 70B parameter limit. Stage 1 uses Qwen3.8-27B with category-calibrated few-shot prompts to extract facts and synthesize news across five languages (English, Chinese, Japanese, Spanish, Greek). Stage 2 is an LLM-as-a-Judge formatting guard that checks format compliance, strips filler, and verifies citations, without rewriting content. On our 76-instance training/development set (used for both calibration and evaluation, no held-out split), the calibrated pipeline reaches 48.19% Macro ROUGE-1 F1, an 88.3% relative gain over a zero-shot 70B baseline and a 6.32-point margin over Llama-3-70B’s own few-shot result. Gains concentrate in categories needing narrative synthesis (Revenue Trends, Cash Flow Dynamics) and are smaller for terse, formulaic ones (R D Investments). On the official blind test set, our system scores 37.02% macro ROUGE-1 F1 on the private leaderboard (52 instances) and 31.79% on the public slice (24 instances).</abstract>
+      <pdf hash="138fe003"/>
+      <bibkey>atiq-butt-2026-ahsanblah</bibkey>
+    </paper>
+    <paper id="67">
+      <!-- https://aclanthology.org/2026.finnlp-1.67/ -->
+      <title>Finaira at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Dense Retrieval and Validated Prompt Engineering for Cross-Lingual Financial Question Answering</title>
+      <author><first>Yara Mohamed</first><last>Nasser</last><affiliation>Finaira</affiliation></author>
+      <author><first>Ashraf</first><last>Mohamed</last><affiliation>Finaira</affiliation></author>
+      <pages>762-769</pages>
+      <abstract>We describe our submission to FinEval 2026 Subtask 3 (Multilingual Financial Question Answering). We compare four retrieval strategies and find dense embedding-based retrieval strongest, consistent with its ability to match semantically equivalent content across languages with no lexical overlap. We then ablate prompt-level and inference-time techniques on top of dense retrieval, validating each addition with cross-validation; a category-conditioned router that appeared promising in-sample failed to generalize and was discarded. Our final development-set configuration length-constrained, few-shot, and corrected for a measured English-only citation bias achieves 0.412 ROUGE-1 under 5-fold cross-validation, and our separately tuned test-set submission achieves 0.3275 F1 on the public leaderboard (0.3593 private).</abstract>
+      <pdf hash="f74707c5"/>
+      <bibkey>nasser-mohamed-2026-finaira</bibkey>
+    </paper>
+    <paper id="68">
+      <!-- https://aclanthology.org/2026.finnlp-1.68/ -->
+      <title>shamikkundu at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Zero-Parameter Confidence Elicitation for <fixed-case>J</fixed-case>apanese Implicit Communication Recognition</title>
+      <author id="shamik-kundu" orcid="0009-0009-0367-045X"><first>Shamik</first><last>Kundu</last><affiliation>Trust Co. Ltd.</affiliation></author>
+      <pages>770-777</pages>
+      <abstract>We describe our submission to FinEval 2026 Subtask 2, Japanese Financial Implicit Com- munication Recognition (JF-ICR): a five-point ordinal classification of company responses in investor Q A, from +2 (strong commitment) to −2 (strong refusal). Our system fits no parameters: a 14B instruction model, served through OpenRouter, receives the shared task’s own annotation guideline verbatim and emits a schema-enforced confidence for each of the five labels; we take the argmax of the normalised distribution. Our submission ranked 5th, at 0.9429 accuracy on the held-out test rows.</abstract>
+      <pdf hash="ce3ff5e6"/>
+      <bibkey>kundu-2026-shamikkundu</bibkey>
+    </paper>
+    <paper id="69">
+      <!-- https://aclanthology.org/2026.finnlp-1.69/ -->
+      <title>Mircea Andrei Razvan at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: A Unified Prompting Approach for Multilingual Financial <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case></title>
+      <author><first>Mircea Andrei</first><last>Razvan</last></author>
+      <pages>778-782</pages>
+      <abstract>We describe our submission to Subtask 3 of the FinNLP 2026 Shared Task, based on MultiFinBen/PolyFiQA (Peng et al., 2026), in which models answer cross-document financial questions using SEC financial-report statements and contemporaneous multilingual news in English, Chinese, Japanese, Spanish, and Greek, evaluated using ROUGE-1. The task’s four fixed question templates require an answer synthesized from the news, supported by evidence cited from the financial statements. We use Qwen3-VL-30B-A3B-Instruct, an open-weight mixture-of-experts model accessed via OpenRouter, with template-aware prompting for each question type. In early development, a multi-stage pipeline separating answer generation from evidence retrieval produced a high rate of empty evidence fields. A single unified generation call substantially reduced this rate. We additionally find that several formatting conventions, including specific numeric notation, compact period references, and a fixed field label, were not reliably followed through prompt instructions alone, and were instead enforced with rule-based post-processing. Our final system achieves a ROUGE-1 F1 of 36.53% on the official test set. These results suggest that deterministic post-processing remains a practical complement to prompt-based instruction for enforcing output conventions that models do not reliably learn from context alone.</abstract>
+      <pdf hash="b40d57af"/>
+      <bibkey>razvan-2026-mircea</bibkey>
+    </paper>
+    <paper id="70">
+      <!-- https://aclanthology.org/2026.finnlp-1.70/ -->
+      <title>Daikoku at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Multi-Stage Labelling with Forced-Choice Adjudication</title>
+      <author id="kyosuke-morita" orcid="0009-0008-3827-5700"><first>Kyosuke</first><last>Morita</last><affiliation>Lloyds Banking Group</affiliation></author>
+      <pages>783-792</pages>
+      <abstract>This paper describes our submission to SubTask 2 of the FinEval 2026 Multilingual Financial Language Understanding Challenge, Japanese Financial Implicit Communication Recognition (JF-ICR), which places a company’s question-answer on a five-point commitment scale. Our submitted system, a three-stage pipeline, scores 15/15 public and 33/35 private, 4th of 10. A single open-weight model labels each of the 50 test items independently by verbaliser scoring; that labelling is audited against the class distribution the organisers publish in advance, which yields a label-free lower bound <tex-math>F</tex-math> on its error count and names the classes those errors sit in; each over-full class is then handed back to the model as a forced choice over its own members, with the exact number of mislabelled items asserted. The audit opens at <tex-math>F{=}3</tex-math> and closes at <tex-math>F{=}0</tex-math>. Enforcing the same counts directly, by min-cost assignment, also reaches <tex-math>F{=}0</tex-math> but recovers only the errors already nearest the decision boundary. The official score bounds what a floor of zero is worth: two of the 50 items are wrong beneath it, and, both the submitted labelling and the gold being balanced, those two errors can only form a compensating transposition.</abstract>
+      <pdf hash="c3f35a8a"/>
+      <bibkey>morita-2026-daikoku</bibkey>
+    </paper>
+    <paper id="71">
+      <!-- https://aclanthology.org/2026.finnlp-1.71/ -->
+      <title><fixed-case>L</fixed-case>ang<fixed-case>KG</fixed-case> at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Answer-Contract Knowledge over Instruction Engineering</title>
+      <author id="shivika-prasanna" orcid="0000-0001-9102-0709"><first>Shivika</first><last>Prasanna</last><affiliation>Fidelity Investments</affiliation></author>
+      <author id="jaeseong-lee" orcid="0009-0001-1756-5767"><first>Jaeseong</first><last>Lee</last><affiliation>University of Texas at Dallas</affiliation></author>
+      <author><first>Hui</first><last>Su</last><affiliation>Fidelity Investment</affiliation></author>
+      <author><first>Yourong</first><last>Xu</last><affiliation>Fidelity Investments</affiliation></author>
+      <pages>793-799</pages>
+      <abstract>Automated multilingual financial question answering requires models to synthesize evidence across SEC filing statements and parallel news reporting in five languages, grounding every claim in aligned, verifiable source material. We participate in the FinNLP 2026 Shared Task (FinEval 2026) Subtask 3, built on the challenging MultiFinBen/PolyFiQA benchmark, under a strict 70-billion-parameter constraint and a Macro-averaged ROUGE-1 F1 evaluation metric. We find that shared task’s practice (train) and test splits encode an inverted query-answer contract, and highly specific prompt engineering tuned against one split overfits and fails to transfer to the other. Motivated by this, we introduce an explicit answer-contract knowledge policy encoding evidence-boundedness, multilingual evidence alignment, exact-value preservation, reporting-period disambiguation, and intentional non-response, and implement it through two complementary generation strategies: Chain-of-Verification (CoVe) and Prompt-variant ensembling with heuristic re-ranking. Our submitted system (ensembling) improves over direct-prompting baseline and CoVe (0.41 to 0.49 ROUGE-1 F1 over train set) and achieves 0.324 ROUGE-1 F1 on the shared task’s leaderboard, ranking 11 of 15 teams.</abstract>
+      <pdf hash="9689b3f8"/>
+      <bibkey>prasanna-etal-2026-langkg</bibkey>
+    </paper>
+    <paper id="72">
+      <!-- https://aclanthology.org/2026.finnlp-1.72/ -->
+      <title>Jetsons at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Minimal-Pair Augmentation and Label-Routed Ensembling for <fixed-case>G</fixed-case>reek and <fixed-case>J</fixed-case>apanese Financial <fixed-case>NLP</fixed-case></title>
+      <author id="parag-pravin-dakle" orcid="0000-0001-9011-0139"><first>Parag Pravin</first><last>Dakle</last><affiliation>Fidelity Investments</affiliation></author>
+      <author><first>Sai Krishna</first><last>Rallabandi</last></author>
+      <author><first>Preethi</first><last>Raghavan</last><affiliation>Fidelity</affiliation></author>
+      <pages>800-810</pages>
+      <abstract>In this work, we describe our submissions to two FinEval-2026 subtasks - Greek financial NER and Japanese implicit commitment recognition where both tasks contain small datasets at 400 and 253 labeled instances. For Subtask 1, we select ensemble models by error diversity rather than individual rank, and combine them via label routing: each label is taken from the model that performs best empirically on that label. For Subtask 2 we introduce ordinal minimal-pair augmentation, synthetically rewriting only the stance-bearing sentence-final clause of a real investor-relations response for a specific label on the commitment scale and verified by two judges from a different model family. Additionally, we perform style-matched generation conditioned on the target register and decode under the organizers’ published label distribution via constrained assignment. Style matching contributes more than every modeling change combined (+0.17). Our leaderboard scores are 0.8879 entity F1 for subtask 1 and 0.8571 accuracy for subtask 2.</abstract>
+      <pdf hash="26df6d4d"/>
+      <bibkey>dakle-etal-2026-jetsons</bibkey>
+    </paper>
+    <paper id="73">
+      <!-- https://aclanthology.org/2026.finnlp-1.73/ -->
+      <title><fixed-case>F</fixed-case>in_<fixed-case>A</fixed-case>gent at <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Task-Aware Methods for Multilingual Financial <fixed-case>NLP</fixed-case></title>
+      <author><first>Mohotarema</first><last>Rashid</last></author>
+      <author><first>Tanzina</first><last>Hossain</last><affiliation>University of North Texas and Daffodil International University</affiliation></author>
+      <author id="xiaoying-song" orcid="0000-0001-9390-1155"><first>Xiaoying</first><last>Song</last></author>
+      <author id="lingzi-hong" orcid="0000-0001-8412-8180"><first>Lingzi</first><last>Hong</last><affiliation>University of North Texas</affiliation></author>
+      <pages>811-821</pages>
+      <abstract>We present Fin_Agent, our submission to the FinEval 2026 shared task on multilingual financial language understanding. Our systems address Greek financial named-entity recognition, Japanese implicit communication recognition, and multilingual financial question answering. For Greek NER, we combine annotation-aware numeric rules with zero-shot Qwen2.5-32B classification, achieving 0.9521 public F1 and 0.8884 private F1. For Japanese implicit communication, an interpretable cue-based ordinal scorer achieves 98.0% test accuracy. For multilingual financial QA, BGE-M3 retrieval with Qwen3-32B generation achieves 0.3023 and 0.3419 ROUGE-1 F1 on the public and private splits. Key limitations include dataset-specific rules, handcrafted cues, and limited supervision. Implementation code is available https://github.com/Rashidnira/finagent-fineval-2026.</abstract>
+      <pdf hash="48afd040"/>
+      <bibkey>rashid-etal-2026-fin</bibkey>
+    </paper>
+    <paper id="74">
+      <!-- https://aclanthology.org/2026.finnlp-1.74/ -->
+      <title>Token Crit at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Role-Specialized, Validation-Gated <fixed-case>LLM</fixed-case> Workflows for <fixed-case>JF</fixed-case>-<fixed-case>ICR</fixed-case> and Multilingual Financial <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case></title>
+      <author id="anke-xu" orcid="0009-0006-3857-6429"><first>Anke</first><last>Xu</last><affiliation>Facebook</affiliation></author>
+      <author><first>Wenbo</first><last>Cao</last></author>
+      <pages>822-828</pages>
+      <abstract>Multi-stage LLM workflows can degrade correct outputs when intermediate analyses revise shared state without constraint. We present validation-gated systems for two FinEval 2026 tasks: Japanese Financial Implicit Communication Recognition (JF-ICR) and multilingual financial Q&amp;A (PolyFiQA). Specialized roles produce structured proposals, while task-specific validators admit only scoped label transitions for JF-ICR or source-linked evidence for PolyFiQA. On the 253-example JF-ICR public development set, the final workflow reaches 62.1% accuracy, compared with 51.0% for the stronger direct LLM baseline and 54.9% for a majority-class baseline. Applying all final-stage proposals would yield a net loss of two correct predictions, whereas gated admission yields a net gain of 11. On 76 PolyFiQA training examples, the final workflow yields a modest overall ROUGE-1 improvement (0.3399 to 0.3425) but raises evidence-section ROUGE-1 F1 from 0.1570 to 0.5132. Together, these results suggest that validation-gated updating is most effective for narrow, checkable changes; open-ended synthesis still requires recall-aware admission and closer alignment between validation and answer generation.</abstract>
+      <pdf hash="d5480ae0"/>
+      <bibkey>xu-cao-2026-token</bibkey>
+    </paper>
+    <paper id="75">
+      <!-- https://aclanthology.org/2026.finnlp-1.75/ -->
+      <title>Al-Qahera at the <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: <fixed-case>GEPA</fixed-case> Prompt Evolution for <fixed-case>G</fixed-case>reek Financial <fixed-case>NER</fixed-case> and <fixed-case>J</fixed-case>apanese Implicit Communication Recognition</title>
+      <author><first>Mohamed</first><last>Mohamed</last></author>
+      <author><first>Hazem</first><last>Ajlan</last><affiliation>American University in Cairo</affiliation></author>
+      <pages>829-834</pages>
+      <abstract>We describe the Al-Qahera submission to two subtasks of the FinNLP 2026 Multilin- gual Financial Language Understanding Chal- lenge: Greek financial numeric named-entity recognition (GRFinNUM) and Japanese im- plicit communication recognition (JF-ICR). For both subtasks we optimize a single frozen task model with GEPA, a reflective, natural- language prompt evolution method, using a smaller model as reflection critic. GEPA raises held-out numeric-entity F1 from a 0.473 seed to 0.978, and raises Japanese intent-classification accuracy from a 0.38 seed to 0.692, in both cases without any change to the task model it- self. As a secondary exploration on Subtask 1, we also try Meta-Harness, a structurally differ- ent optimizer that searches over the surround- ing program instead of the prompt; it is not part of our submitted predictions, but it surfaces a concrete case of search-set overfitting that we report as a finding in its own right.</abstract>
+      <pdf hash="3e36f2fc"/>
+      <bibkey>mohamed-ajlan-2026-al-qahera</bibkey>
+    </paper>
+    <paper id="76">
+      <!-- https://aclanthology.org/2026.finnlp-1.76/ -->
+      <title><fixed-case>HX</fixed-case>-Fin at <fixed-case>F</fixed-case>in<fixed-case>E</fixed-case>val 2026: Precision-Anchored Answer Refinement and Multi-Model Evidence Selection for Multilingual Financial Question Answering</title>
+      <author><first>Peng</first><last>Li</last></author>
+      <author><first>Yinchun</first><last>Wang</last></author>
+      <pages>835-840</pages>
+      <abstract>Financial question answering requires both a concise answer grounded in news and a supporting excerpt from heterogeneous financial statements. We present a training-free modular pipeline that separates the two objectives, where the evidence module relies on the frozen output of the answer module. The Answer module constructs a high-precision core using Pairwise Selection, synthesizes a higher-recall extended answer from five candidate views, and selectively transfers supported content through Delta Augmentation and Claim Pruning. The Evidence module applies generate–refine–MBR selection to obtain a primary evidence candidate, independently generates an alternative with <sc>Qwen3.6-Think</sc>, and replaces the default only under a conservative decision policy. We evaluate answer module performance on 76 examples scored by a rubric-guided LLM judge. On the 0–4 judging scale, Pairwise Selection raises the average answer score from 2.316 to 2.540 (<tex-math>+0.224</tex-math>), while Delta Augmentation and Claim Pruning provide further gains of <tex-math>+0.079</tex-math> and <tex-math>+0.066</tex-math>, respectively.</abstract>
+      <pdf hash="ebf7e8c0"/>
+      <bibkey>li-wang-2026-hx</bibkey>
+    </paper>
+  </volume>
+</collection>
