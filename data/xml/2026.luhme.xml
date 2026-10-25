@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.luhme">
+  <volume id="1" type="proceedings" ingest-date="2026-10-19">
+    <!-- https://aclanthology.org/2026.luhme-1/ -->
+    <meta>
+      <booktitle>Proceedings of the 3rd Workshop on Language Understanding in the Human-Machine Era (<fixed-case>LUHME</fixed-case> 2026)</booktitle>
+      <editor><first>Rui</first><last>Sousa-Silva</last></editor>
+      <editor><first>Henrique</first><last>Lopes Cardoso</last></editor>
+      <editor><first>Maarit</first><last>Koponen</last></editor>
+      <editor><first>Antonio</first><last>Pareja-Lora</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Budapest, Hungary</address>
+      <isbn>979-8-89176-471-2</isbn>
+      <month>October</month>
+      <year>2026</year>
+      <pdf hash="1cf32882"/>
+      <venue>luhme</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.luhme-1.0/ -->
+      <pdf hash="232c2f40"/>
+      <bibkey>luhme-2026-1</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.luhme-1.1/ -->
+      <title><fixed-case>PCP</fixed-case>: A Controlled Benchmark for Pragmatic Intention Recognition in Clinical Communication</title>
+      <author id="kun-zhang-8483" orcid="0009-0009-2455-8483"><first>Kun</first><last>Zhang</last></author>
+      <pages>1-24</pages>
+      <abstract>Medical LLMs are commonly evaluated on factual question answering, summarization, and explicitly stated clinical information, but less on pragmatic understanding: recovering intended meaning from indirectness, hedging, urgency cues, politeness, and implicature. We present PCP, a 3,533-item benchmark for pragmatic intention recognition in clinical communication, with a controlled synthetic Core split, a close-distractor Hard split, and a small externally grounded Real-Clean split derived from public doctor–patient dialogue datasets. PCP combines answer-choice artifact audits with blind human validation of all Hard and Real-Clean items plus a 300-item Core sample, and targeted expert review of 280 items. Across eleven systems (six API-accessed, five open-weight), our main finding is a recognition-vs-naming dissociation: ten of the eleven select the intended clinical action at 95.5–98.4% aggregate accuracy but name the pragmatic phenomenon licensing it at only 56.6–64.5%, a 32–40 pp gap on the same items. Recognition is also split-dependent: API-accessed models are near ceiling on PCP-Core (98.7–99.8%) but drop on PCP-Hard-469 (83.4–90.6%) and PCP-Real-Clean-64 (79.7–90.6%), so broad controlled probes can mask difficulty exposed by close distractors and externally grounded cases. Because gold actions are often the most medically defensible choice, accuracy is a confound-limited estimate; PCP is an evaluation resource for controlled clinical-pragmatic inference, not for deployment readiness.</abstract>
+      <pdf hash="10a3e5b3"/>
+      <bibkey>zhang-2026-pcp</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.luhme-1.2/ -->
+      <title>Where Does Conversational Repair Happen? Meaning Revision Inside Language Models</title>
+      <author id="vedanth-nanesha" orcid="0009-0002-1760-134X"><first>Vedanth</first><last>Nanesha</last></author>
+      <pages>25-37</pages>
+      <abstract>Conversational repair, the process by which interlocutors detect and correct misunderstandings, is central to human language use but rarely studied in the internal representations of large language models (LLMs). We ask: when a model commits to an incorrect interpretation of an ambiguous utterance and the user corrects it, where and how does the corrected interpretation emerge across layers? We construct a controlled diagnostic dataset of 291 three-turn dialogues, pairing each repair run (an ambiguous user turn, a model commitment to a default reading, and a user correction) with a surface-matched control that performs no repair, isolating the correction’s effect. Across six instruction-tuned models from three families, we find that (i) repair revises meaning in a narrow band of mid-to-late layers, where activation patching causally shifts output to the corrected reading; (ii) when repair fails behaviourally, the corrected reading is causally absent rather than weak; (iii) attention, not the feed-forward sublayer, carries the revision; and (iv) revision is stronger when the misreading is attributed to the assistant rather than the user, indicating more than generic in-context override. These results characterize conversational repair as a localisable, model-dependent computation and provide a reusable diagnostic for meaning revision in interaction.</abstract>
+      <pdf hash="8e255eb9"/>
+      <bibkey>nanesha-2026-conversational</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.luhme-1.3/ -->
+      <title>Reading Between the Turns: User Repair as a Context-Dependent Signal of Breakdown and Recovery in Multi-Turn <fixed-case>LLM</fixed-case> Assistants</title>
+      <author id="leah-michel" orcid="0009-0000-0103-4681"><first>Leah</first><last>Michel</last></author>
+      <author id="nuno-miguel-martins-pacheco" orcid="0000-0002-2198-7823"><first>Nuno Miguel Martins</first><last>Pacheco</last><affiliation>Siemens Corporate Research</affiliation></author>
+      <author><first>Choro</first><last>Ulan uulu</last></author>
+      <author><first>Mikhail</first><last>Kulyabin</last></author>
+      <author id="jan-joosten" orcid="0009-0003-2503-4741"><first>Jan</first><last>Joosten</last></author>
+      <author><first>Filippos</first><last>Petridis</last></author>
+      <author id="michael-a-hedderich" orcid="0000-0001-6858-0791"><first>Michael A.</first><last>Hedderich</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author id="barbara-plank" orcid="0000-0002-4394-1965"><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <pages>38-53</pages>
+      <abstract>In multi-turn interactions with deployed LLM assistants, users rarely provide explicit feedback, making it difficult to assess whether the interaction succeeded or failed. We therefore investigate user repair: follow-up user actions such as rephrasing, correcting, clarifying, or requesting more information. Such actions may signal breakdown recovery, but they can also reflect ordinary task progression, making them difficult to interpret in isolation. Using a human-annotated dataset of industrial multi-turn conversations, we examine when repair is informative about assistant-side deficiencies and user dissatisfaction. We find that repair occurs more often after deficient responses, but it is also common after non-deficient responses, making it a weak standalone signal of failure. Its diagnostic value becomes clearer when it is interpreted jointly with assistant response quality, repair type, and dialogue context. Repetition/rephrasing is most strongly associated with negative feedback on deficient responses, whereas requests for more information are more common after non-deficient responses, suggesting a role in collaborative task progression. We further show that repair is not always local: while most repairs target the immediately preceding turn, a substantial minority target earlier dialogue context. These findings position user repair as a context-dependent interactional signal for monitoring, evaluating, and diagnosing deployed assistants.</abstract>
+      <pdf hash="d7b8babf"/>
+      <bibkey>michel-etal-2026-reading</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.luhme-1.4/ -->
+      <title>Beyond Fluent Responses: Finding User Dissatisfaction in Human–<fixed-case>AI</fixed-case> Interactions</title>
+      <author><first>Yuka</first><last>Saito</last><affiliation>Tohoku University</affiliation></author>
+      <author id="ikumi-numaya" orcid="0009-0001-0035-2933"><first>Ikumi</first><last>Numaya</last><affiliation>Tohoku University</affiliation></author>
+      <author id="jun-suzuki" orcid="0000-0003-2108-1340"><first>Jun</first><last>Suzuki</last><affiliation>Tohoku University, NII and RIKEN</affiliation></author>
+      <author id="reina-akama" orcid="0009-0003-1170-6674"><first>Reina</first><last>Akama</last><affiliation>Tohoku University, National Institute for Japanese Language and Linguistics and RIKEN</affiliation></author>
+      <pages>54-69</pages>
+      <abstract>As large language models generate increasingly high-quality responses, recent work on response evaluation has moved beyond response-centered criteria, such as correctness and coherence, toward user-centered criteria, including user preferences and perceived usefulness. This shift is fundamentally important for developing technologies that are truly useful to real-world users. While conventional response evaluation quantifies the quality of the response itself, users’ satisfaction in real conversations also depends on their subjective preferences and perceptions of usefulness, which do not necessarily align with response quality. This study investigates whether such user-centered signals can be detected from conversational text. Specifically, we analyze user utterances with self-reported dissatisfaction labels to examine whether user dissatisfaction in text can be detected. In English interaction, models using user utterances exceeded the 17.8% dissatisfaction label prevalence in AUPRC by up to 15 percentage points. These results suggest that user utterances reveal cues to implicit dissatisfaction. Furthermore, changes from the immediately preceding user utterance may improve dissatisfaction detection, with anomaly detection methods appearing particularly effective.</abstract>
+      <pdf hash="5ec58e6e"/>
+      <bibkey>saito-etal-2026-beyond</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.luhme-1.5/ -->
+      <title>Representational Similarity Alignment of Figurative Language in Humans and Large Language Models</title>
+      <author><first>Samhita</first><last>Bollepally</last><affiliation>Texas A&amp;M University - College Station</affiliation></author>
+      <author><first>Aurora</first><last>Sloman-Moll</last></author>
+      <author id="takashi-yamauchi" orcid="0000-0002-6372-1118"><first>Takashi</first><last>Yamauchi</last><affiliation>Texas A&amp;M University - College Station</affiliation></author>
+      <author><first>Neeka</first><last>Motamedrasa</last></author>
+      <pages>70-88</pages>
+      <abstract>Large language models (LLMs) often produce judgments similar to those of humans, but their interpretation of figurative language remains unclear. We compared human participants and four instruction-tuned LLMs (GPT-4, Gemma-2-9B, Llama-3.2, and Mistral-7B) on their ratings of 240 dialogue-based sentences spanning six linguistic traits: conventionality, sarcasm, funny, emotion, idiomacy, and Gen Z slang. While humans and LLMs aligned strongly at the surface level, differences emerged in representational similarity patterns, particularly for idiomacy and Gen Z slang. GPT-4 showed the closest alignment to humans, though all models differed at the representational level, suggesting that similar outputs may arise from different underlying language representations. We also examined the relationship between model scale and representational similarity using the Gemma model series (Gemma-2-9B-IT, Gemma-3-27B-IT, and Gemma-4-31B-IT), and found that representational similarity patterns were largely unaffected by model size.</abstract>
+      <pdf hash="9062a469"/>
+      <bibkey>bollepally-etal-2026-representational</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.luhme-1.7/ -->
+      <title>False Memories in <fixed-case>LLM</fixed-case>s: Gist-Based Recognition Despite Verbatim Context</title>
+      <author><first>Robin</first><last>Orthey</last><affiliation>Fujitsu Research and Development Center Co. Ltm.</affiliation></author>
+      <author><first>Guillaume</first><last>Pelat</last><affiliation>Fujitsu Research and Development Center Co. Ltm.</affiliation></author>
+      <author><first>Yuri</first><last>Nakao</last></author>
+      <pages>89-97</pages>
+      <abstract>Large language models (LLMs) operate over information held in their context window, but it is unclear whether they use that information by referencing it literally or by relying on a more general semantic gist. We address this question by transferring the Deese-Roediger-McDermott (DRM) false-memory paradigm, a standard method for eliciting gist-based memory errors in humans, to four LLMs spanning two architectures and two parameter scales. We test recognition of studied words, unrelated words, and critical lures across context lengths from 1k to 32k tokens, and measure responses both as discrete judgments and as a continuous probability that captures effects below the threshold of an overt response. We find that a gist-consistent false-memory signal is present in every model, even where overt false recognitions are rare, but that its expression as overt false memory is model-specific. Where false memories occur, they tend to increase with context length, and they do so even though the studied words remain available verbatim in the context, indicating that recognition is driven by gist rather than verification against the literal input. The DRM paradigm thus offers a controlled, psychologically grounded probe of gist-driven errors in LLMs.</abstract>
+      <pdf hash="27adf827"/>
+      <bibkey>orthey-etal-2026-false</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.luhme-1.8/ -->
+      <title>Human and Machine Word Associations in <fixed-case>S</fixed-case>lovenian: A Comparison of Associative Behaviour and Its Explanations</title>
+      <author><first>Klara</first><last>Vrabl</last></author>
+      <author><first>Mojca</first><last>Brglez</last><affiliation>University of Ljubljana</affiliation></author>
+      <author><first>Špela</first><last>Vintar</last><affiliation>University of Ljubljana</affiliation></author>
+      <pages>98-108</pages>
+      <abstract>Word associations are one of the most established psycholinguistic methods, offering a long-standing window onto how meaning is organised in the human mental lexicon, yet it remains unclear whether large language models (LLMs) represent and structure associative word meaning in comparable ways, particularly outside English. We present WAX-SL, the first Slovenian dataset of cue–association–explanation triplets annotated with semantic relation labels, and use it to compare human associative behaviour against parallel data generated by three open-weights LLMs. All four sources are annotated with a 20-label relational taxonomy, augmented with a validity marker for output that fails the task constraints. Results show human associations are semantically more diverse and spread across all relation types, drawing more often on action, common phrases, and emotional evaluation, whereas LLM outputs concentrate on structurally transparent relations such as causal and definitional links. The differences are also qualitative: model outputs exhibit instruction violations, semantically incoherent constructions, and hallucinated content. Inter-annotator agreement is markedly lower for machine output (κ = 0.32) than for human data (κ = 0.46), reflecting the greater ambiguity of model responses. Language-specific adaptation does not straightforwardly yield more human-like behaviour. We argue that, on this task, LLMs do not echo human associative behaviour but diverge from it in systematic ways, both in the relations they express and in their markedly higher rate of invalid output.</abstract>
+      <pdf hash="078f1327"/>
+      <bibkey>vrabl-etal-2026-human</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.luhme-1.9/ -->
+      <title>Task Competence Is Not Instruction Following: Evaluating Instruction-Conflicting Behavior in Small Language Models</title>
+      <author><first>Mahdiyeh</first><last>Farajidizaji</last><affiliation>Khajeh Nasir Toosi University of Technology</affiliation></author>
+      <author id="vatsal-raina" orcid="0000-0002-3422-6513"><first>Vatsal</first><last>Raina</last></author>
+      <pages>109-120</pages>
+      <abstract>Instruction tuning is meant to make language models follow user requests, yet it is unclear whether small models comply when an instruction conflicts with their usual task behavior. We study this across three tasks, multiple-choice question answering (MCQA), sentiment classification, and mathematical question answering, by pairing a standard instruction with a conflicting non-standard one (select an incorrect option, output the opposite sentiment, or return twice the answer). This cross-task design allows us to test whether resistance to conflicting instructions is tied to specific task characteristics or reflects a broader behavioral tendency. As all predictions are scored against the original ground truth, a model that ignores the non-standard instruction still appears "accurate". Using standard accuracy, non-standard accuracy, and an Instruction-Following Failure Rate (IFFR), we evaluate instruction-tuned Qwen models across sizes. Both standard accuracy and instruction following generally improve with scale, although the pattern is not consistent across all tasks and datasets. Small models stay competent yet routinely ignore the non-standard instruction, while larger models show a clear gap between the two settings. These findings suggest that gains in task capability do not automatically provide reliable control over model behavior. Task competence and instruction following are therefore distinct abilities, and reporting only standard accuracy hides instruction-following failures.</abstract>
+      <pdf hash="e65626c3"/>
+      <bibkey>farajidizaji-raina-2026-task</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.luhme-1.11/ -->
+      <title>Probing Language Understanding in Colombian Indigenous Languages: Zero-Shot Translation, Visual Grounding, and Cultural Fidelity</title>
+      <author><first>Santiago</first><last>Arenas</last></author>
+      <author id="ruben-manrique" orcid="0000-0001-8742-2094"><first>Ruben</first><last>Manrique</last><affiliation>Universidad de Los Andes</affiliation></author>
+      <pages>121-133</pages>
+      <abstract>Language models can generate fluent, confident-sounding text even for languages they barely cover, but fluency alone reveals little about whether that text preserves situated meaning, cultural reference, and communicative intent. We study this question for Colombian Indigenous languages through two complementary probes of language understanding: (1)zero-shot machine translation across five languages (Arhuaco, Inga, Kamentsá, Nasa Yuwe, Wayuunaiki) and (2)multimodal cultural grounding on a community-built Inga image-description dataset that, to our knowledge, is the largest available for Inga. We additionally document and release this culturally grounded multimodal dataset as a reusable resource for the Inga community and future research. We evaluate GPT-5.2, GPT-4o-mini, Gemini 2.5 Flash-Lite, Qwen2-VL-72B-Instruct, NLLB-200, and T5 variants without fine-tuning. GPT-5.2 achieves the highest translation scores (chrF 21.36, BLEU 3.42), yet absolute performance remains uniformly low. No evaluated model is suitable for direct deployment, placing Colombian Indigenous languages among the most underserved in NLP even relative to other low-resource languages. For multimodal cultural grounding, semantically aligned visual context consistently improves preservation of community-provided cultural ideas, while mismatched images cause sharp degradation, a distinction that standard similarity metrics fail to capture. These findings show that fluent generation can mask failures of situated language understanding and motivate purpose-built evaluation for Indigenous language NLP.</abstract>
+      <pdf hash="ab42d8fb"/>
+      <bibkey>arenas-manrique-2026-probing</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.luhme-1.12/ -->
+      <title>How <fixed-case>AI</fixed-case> Assistants Respond to Repeated Abuse</title>
+      <author><first>William</first><last>Guey</last></author>
+      <author><first>Wei</first><last>Zhang</last></author>
+      <author id="pierrick-bougault" orcid="0009-0005-1352-8108"><first>Pierrick</first><last>Bougault</last></author>
+      <author id="yi-wang-0632" orcid="0000-0001-7079-0632"><first>Yi</first><last>Wang</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
+      <author><first>Agoston</first><last>Bodo</last></author>
+      <author><first>Vitor D</first><last>de Moura</last></author>
+      <author><first>José O</first><last>Gomes</last></author>
+      <pages>134-143</pages>
+      <abstract>AI assistants are expected to remain useful during difficult interactions, but little is known about how repeated verbal abuse changes their engagement with an otherwise benign task. We contribute a bilingual, multi-turn framework that separates hard disengagement, an unconditional statement of noncontinuation with no stated route to resume, from soft withdrawal, continued availability, observable task-related work, and boundary setting. Each of eight time-specific API configurations contributed 48 escalation conversations and eight smaller constant-frustration comparisons, giving 448 five-turn conversations, 2,240 responses, and 6,720 metadata-blinded model judgments. Primary results use the sustained-abuse endpoint of the 48 escalation conversations per configuration. Hard disengagement ranged from 0/48 in four configurations to 24/48 (50.0%) for Gemini 3.1 Pro, with strong configuration-associated heterogeneity (matched-label Monte Carlo <tex-math>p = 1.0 \times 10^{-5}</tex-math>). GPT-5.6 Sol produced hard-disengagement labels in 15/48 (31.2%) endpoints, whereas Claude Fable 5 produced none and yielded 42/48 (87.5%) soft-withdrawal labels. Aggregate hard-disengagement rates were similar in English and Chinese (30/192 versus 32/192), although configuration-specific directions varied. Availability also differed from task-related work: Claude Opus 4.8 and Claude Fable 5 remained explicitly available in 48/48 endpoints while providing observable task-related work in only 8/48 and 7/48. Human coding was used to evaluate measurement quality. The results show why a single refusal label cannot capture whether an assistant leaves, pauses, preserves a route back, sets a boundary, or still performs substantive work.</abstract>
+      <pdf hash="d128b620"/>
+      <bibkey>guey-etal-2026-ai</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.luhme-1.13/ -->
+      <title><fixed-case>P</fixed-case>lot<fixed-case>T</fixed-case>wist: A Creative Plot Generation Framework with Small Language Models</title>
+      <author><first>Abhinav</first><last>Thorat</last><affiliation>Sony Research India</affiliation></author>
+      <author><first>Ravi Kumar</first><last>Kolla</last><affiliation>Sony Research India</affiliation></author>
+      <author><first>Jyotin</first><last>Goel</last><affiliation>Domyn</affiliation></author>
+      <author id="madhav-kataria" orcid="0009-0004-4883-9523"><first>Madhav</first><last>Kataria</last><affiliation>Sony</affiliation></author>
+      <author id="niranjan-pedanekar" orcid="0009-0009-5381-5450"><first>Niranjan</first><last>Pedanekar</last></author>
+      <pages>144-172</pages>
+      <abstract>Creative plot generation presents a fundamental challenge for language models: transforming a concise premise into a coherent narrative while satisfying multiple narrative constraints, including global coherence, character development, pacing, tone consistency, and emotional progression. Although recent Large Language Models (LLMs) demonstrate strong fluency on general-purpose tasks, they require preference alignment to perform well on domain-specific tasks such as creative plot generation. However, conducting such alignment at the scale of frontier LLMs is computationally prohibitive, significantly limiting accessibility and practical deployment. To address this, we present <sc>PlotTwist</sc>, a structured framework that enables Small Language Models (SLMs) with <tex-math>\leq 3</tex-math>B active parameters to generate high-quality, premise-conditioned plots competitive with frontier systems of vastly greater parameter scale. Our approach decomposes generation into three specialized components: (1) an Aspect Rating Reward Model, trained via a novel Positive–Negative prompting strategy; (2) a Mixture-of-Experts (MoE) plot generator aligned via Direct Preference Optimization (DPO); and (3) an Agentic Evaluation module containing a cross-family jury that emulates human critical judgment for unbiased, independent post-hoc assessment. Extensive experiments demonstrate that <sc>PlotTwist</sc> consistently outperforms all baselines, including frontier models, across multiple Narrative Quality Dimensions (NQDs), achieving higher win rates against all but the strongest baseline, with which it remains competitive. Further validation confirms strong sensitivity to narrative quality, as the framework reliably distinguishes plots derived from critically acclaimed versus widely panned screenplays. Together, these results establish structured, preference-based alignment as a resource-efficient approach to high-quality creative plot generation.</abstract>
+      <pdf hash="1c05654e"/>
+      <bibkey>thorat-etal-2026-plottwist</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.luhme-1.14/ -->
+      <title>Assessing the Comprehension of Regional Colombian Idioms by Language Models</title>
+      <author><first>Santiago Bobadilla</first><last>Suarez</last></author>
+      <author><first>Juan Diego</first><last>Osorio</last></author>
+      <author><first>Maria Alejandra Pinzon</first><last>Roncancio</last><affiliation>Universidad de Los Andes</affiliation></author>
+      <author><first>Ignacio</first><last>Chaparro</last></author>
+      <author id="ruben-manrique" orcid="0000-0001-8742-2094"><first>Ruben</first><last>Manrique</last><affiliation>Universidad de Los Andes</affiliation></author>
+      <pages>173-182</pages>
+      <abstract>This study queries 23 large language models (LLMs) and reports analyses for 22 models on Colombian idioms and regionally marked expressions. We introduce an evaluation set derived from Colombian lexicographical sources and assess models on three tasks: positive-class idiom recognition, definition generation, and context-based paraphrase generation. Automatic metrics show substantial variation across models, with Gemini-3-Flash-Preview achieving the highest average score on the meaning-oriented tasks. Human evaluation of four selected models qualifies these rankings: the best Task 2 definition accuracy reached only 58.57%, while Task 3 accuracy was higher for all four models. Exploratory regional analysis of the tagged subset shows uneven performance across Colombian macro-regions, with lower results for expressions from the Llanos and high Caribbean regions. These findings suggest that current LLMs only partially capture Colombian idiomatic meaning and motivate more regionally balanced resources and evaluation protocols for Spanish.</abstract>
+      <pdf hash="12ba49d2"/>
+      <bibkey>suarez-etal-2026-assessing</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.luhme-1.15/ -->
+      <title>Representing Human Values in Argumentation: A Linguistically Grounded Comparison of Lexicons, Embeddings, and <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Chaya</first><last>Liebeskind</last></author>
+      <author id="barbara-lewandowska-tomaszczyk" orcid="0000-0002-6836-3321"><first>Barbara</first><last>Lewandowska-Tomaszczyk</last><affiliation>University of Applied Sciences in Konin, Poland</affiliation></author>
+      <author id="shmuel-liebeskind" orcid="0009-0006-3205-7038"><first>Shmuel</first><last>Liebeskind</last></author>
+      <pages>183-196</pages>
+      <abstract>Human values are enduring motivational principles that shape how people argue, justify, and evaluate social issues. While prior work has largely approached value detection as a standard classification problem, we investigate what values look like linguistically and whether computational models reflect aspects of the structure proposed by Schwartz’s theory of basic human values. Using the training partition of the Touché ValueEval corpus, we compare lexical resources, linguistic markers, supervised classifiers over TF–IDF and sentence embeddings, an automated model-search procedure, a zero-shot large language model (Gemini 3.5 Flash), and a transformer embedding baseline (all-MiniLM-L6-v2). On a shared 124-item test split, the three dense semantic approaches form a statistically indistinguishable high-performing tier (macro-F1 0.529–0.591) and achieve substantially higher scores than the sparse lexical methods, highlighting the importance of contextual semantic representation in this setting. A constructed diagnostic sanity check shows that deontic modals, universal quantifiers, and abstract nouns behave in the expected direction for value-bearing versus opinion language; however, these cues provide little information for distinguishing individual values in the Touché data. Performance is less stable for low-support value categories. Qualitative inspection of model confusions reveals several patterns consistent with theoretically close Schwartz values, alongside confusions between more distant categories; circumplex adjacency is not formally tested. Overall, the results suggest a distinction between surface linguistic cues associated with value-bearing language and the contextual semantic information involved in distinguishing specific values, while offering qualitative evidence that some model confusions align with relationships in Schwartz’s motivational structure.</abstract>
+      <pdf hash="0e73787e"/>
+      <bibkey>liebeskind-etal-2026-representing</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.luhme-1.16/ -->
+      <title>Calibrating <fixed-case>LLM</fixed-case>-as-a-Judge for Argument Quality Assessment through Prompting and Scoring Scale Design</title>
+      <author id="guilherme-aren-marchetti" orcid="0009-0002-6616-5900"><first>Guilherme Aren</first><last>Marchetti</last><affiliation>Universidade do Porto</affiliation></author>
+      <author id="gil-rocha" orcid="0000-0001-8252-7292"><first>Gil</first><last>Rocha</last><affiliation>FEUP/LIACC</affiliation></author>
+      <author id="henrique-lopes-cardoso" orcid="0000-0003-1252-7515"><first>Henrique</first><last>Lopes Cardoso</last><affiliation>Faculty of Engineering of the University of Porto</affiliation></author>
+      <pages>197-214</pages>
+      <abstract>Although LLM-as-a-Judge approaches have been successful in several domains, recent studies show that LLMs still struggle with Computational Argumentation tasks, particularly Argument Quality Assessment. Motivated by recent results in Information Retrieval showing that scoring granularity can affect the effectiveness of LLM-based document rankers, this paper investigates whether the same effect holds in Argument Quality Assessment scenarios.<par/>Our results demonstrate that, in several cases, more granular scoring ranges yield substantially higher agreement after mapping predictions back to the original scale. This contrasts with how humans evaluate, where reducing the granularity of possible scores can foster clearer, more consistent decisions. Additionally, our error analysis reveals a recurring limitation: LLMs tend to underestimate arguments labeled by human experts as high quality, frequently assigning them medium scores instead. This suggests that, despite the gains obtained through prompt and scale design, current LLMs remain poorly calibrated at the upper end of the argument quality scale.</abstract>
+      <pdf hash="ebde871b"/>
+      <bibkey>marchetti-etal-2026-calibrating</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.luhme-1.17/ -->
+      <title>Lexical Redefinition Reveals Context-Sensitive Instruction Following</title>
+      <author><first>Roksana</first><last>Goworek</last></author>
+      <author><first>Haim</first><last>Dubossarsky</last><affiliation>Queen Mary University of London</affiliation></author>
+      <pages>215-226</pages>
+      <abstract>How do language models reconcile conflicting contextual evidence within a prompt? We study this question using lexical redefinition, where an explicit instruction specifies how a word should be interpreted and a subsequent sentence provides additional evidence through its usage. Across 870 word pairs, we find that lexical redefinitions are not applied as fixed rules. Instead, the behaviour depends systematically on the relationship between the explicit instruction and the intervening sentence: the contextualised usage can preserve, weaken, or completely reverse the instruction. These results suggest that the interpretation of an explicit instruction remains sensitive to subsequent contextual evidence. Lexical redefinition therefore provides a controlled behavioural paradigm for studying how language models integrate multiple sources of information within a prompt.</abstract>
+      <pdf hash="664e0312"/>
+      <bibkey>goworek-dubossarsky-2026-lexical</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.luhme-1.18/ -->
+      <title>To “Ba” or Not to “Ba”? <fixed-case>LLM</fixed-case> Surprisal as a Diagnostic of Context-Sensitive Language Understanding in <fixed-case>L</fixed-case>2 <fixed-case>C</fixed-case>hinese</title>
+      <author id="shengjie-zhang" orcid="0009-0007-2643-7445"><first>Shengjie</first><last>Zhang</last><affiliation>Fudan University</affiliation></author>
+      <author id="yan-cong" orcid="0000-0003-4571-9978"><first>Yan</first><last>Cong</last><affiliation>Purdue University</affiliation></author>
+      <pages>227-245</pages>
+      <abstract>Some difficulties in learning Chinese as a second language (L2 Chinese) involve choosing a sentence pattern that is grammatically well formed but less natural in context. Mandarin ba/SVO choice is one such case: learners may avoid ba when the discourse favors it or extend it to contexts where SVO is more appropriate. Because edit-based correction systems may leave both alternatives unchanged, diagnosing these choices requires sensitivity to discourse context, making the task a targeted test of context-sensitive natural language understanding (NLU). Using 200 controlled discourse contexts, we examine whether autoregressive LLM surprisal can serve as a graded diagnostic of this distinction. Across 21 open-weight models, sentence-level mean surprisal identifies the contextually preferred continuation with a mean model-level accuracy of 87.93%, whereas a MacBERT-based correction baseline leaves most contextually non-preferred continuations unchanged. Relevant context generally lowers surprisal for the intended continuation, and sentence-level scoring is more reliable than first-token scoring, whose interpretation varies with tokenizer granularity. The results suggest that surprisal can complement edit-based correction in L2 pragmatic assessment, while cross-model asymmetries, structural preference biases, and tokenizer effects underscore the need for construction-specific controls and human interpretation when evaluating context-sensitive NLU.</abstract>
+      <pdf hash="9afca44f"/>
+      <bibkey>zhang-cong-2026-ba</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.luhme-1.19/ -->
+      <title>Same Problem, Different Answer: Accuracy Hides Cross-Lingual Inconsistency in Multilingual Inference</title>
+      <author id="ahsan-habib-shihab" orcid="0009-0008-1157-6335"><first>Ahsan Habib</first><last>Shihab</last></author>
+      <author id="assel-ospan" orcid="0000-0002-1860-6997"><first>Assel</first><last>Ospan</last><affiliation>Al-Farabi Kazakh National University</affiliation></author>
+      <author id="aman-mussa" orcid="0009-0001-9972-7677"><first>Aman</first><last>Mussa</last><affiliation>Al-Farabi Kazakh National University</affiliation></author>
+      <author id="madina-mansurova" orcid="0000-0002-9680-2758"><first>Madina</first><last>Mansurova</last></author>
+      <pages>246-255</pages>
+      <abstract>Multilingual natural language understanding is almost always reported as per-language accuracy: a model is judged reliable in a language if it scores well there. This lens overstates reliability, because it aggregates over items and hides item-level cross-lingual inconsistency: the same reasoning problem receiving different answers in different languages. On the parallel XNLI benchmark (identical premise–hypothesis pairs in 15 languages) we evaluate two off-the-shelf zero-shot multilingual NLI models from different architecture families. Despite per-language accuracies of 80.8% and 71.3%, the models return a unanimous answer across all 15 languages for only 38.9% and 21.9% of test problems; the prediction flips across languages for a majority of items (61.1%, 78.1%), and agreement beyond chance is only moderate (κ = 0.70, 0.55). These flips are typically silent errors: on most split items the cross-lingual majority is correct (80.2%, 76.0%), so a reader in the dissenting language receives a wrong answer the model gets right elsewhere, and they fall disproportionately on lower-resource languages (flip involvement vs. a resource proxy: r = −0.67, −0.69). Contrary to what the negation-is-hard literature would predict, this instability is not concentrated on explicit pragmatic cues: across both models, items containing negation or quantifiers flip slightly less than cue-free items, not more. Item-level cross-lingual consistency, not aggregate accuracy, is the reliability metric that matters when the same content must be understood identically across languages. Because the instability is pervasive rather than localized, it cannot be mitigated by flagging “hard” inputs.</abstract>
+      <pdf hash="d1fa853b"/>
+      <bibkey>shihab-etal-2026-problem</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.luhme-1.20/ -->
+      <title><fixed-case>F</fixed-case>rugal<fixed-case>P</fixed-case>rompt: Reducing Contextual Overhead in Large Language Models via Token Attribution</title>
+      <author id="syed-rifat-raiyan" orcid="0009-0004-3558-3418"><first>Syed Rifat</first><last>Raiyan</last><affiliation>Islamic University of Technology</affiliation></author>
+      <author id="md-farhan-ishmam" orcid="0009-0004-3725-0342"><first>Md Farhan</first><last>Ishmam</last></author>
+      <author id="abdullah-al-imran" orcid="0000-0002-3781-8178"><first>Abdullah</first><last>Al Imran</last></author>
+      <author id="mohammad-ali-moni" orcid="0000-0003-0756-1006"><first>Mohammad Ali</first><last>Moni</last><affiliation>Charles Sturt University and The University of Queensland</affiliation></author>
+      <pages>256-271</pages>
+      <abstract>Human communication heavily relies on laconism and inferential pragmatics, allowing listeners to successfully reconstruct rich meaning from sparse, telegraphic speech. In contrast, large language models (LLMs) owe much of their stellar performance to expansive input contexts, yet such verbosity inflates monetary costs, carbon footprint, and inference-time latency. This overhead manifests from the redundant low-utility tokens present in typical prompts, as only a fraction of tokens typically carries the majority of the semantic weight. Inspired by the aforementioned cognitive psycholinguistic processes, we address this inefficiency by introducing FrugalPrompt, a novel prompt compression framework for LLMs, which retains only the most semantically significant tokens. Leveraging two state-of-the-art token attribution methods, GlobEnc and DecompX, we assign salience scores to every token in an input sequence, rank them to retain the top-k% tokens, and obtain a sparse frugalized prompt. We establish the theoretical stability of our approach and provide strong empirical results across a suite of four NLP tasks to study the trade-off between the portion of retained tokens and performance. Experimental findings across retention settings reveal asymmetric performance patterns that suggest potential task contamination effects. We posit that our work contributes to a more nuanced understanding of LLM behavior in performance-efficiency trade-offs and delineates the boundary between tasks tolerant of contextual sparsity and those requiring exhaustive context.</abstract>
+      <pdf hash="7766ca69"/>
+      <bibkey>raiyan-etal-2026-frugalprompt</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.luhme-1.21/ -->
+      <title>Sweet Talkers: How Query Formulation Shapes Sycophancy in Romantic Relationship Advice</title>
+      <author><first>Helena</first><last>Choi</last></author>
+      <author><first>Edric Castel C.</first><last>Hao</last><affiliation>Analog Devices, Inc.</affiliation></author>
+      <author><first>Karl</first><last>Bautista</last><affiliation>Ateneo de Manila University</affiliation></author>
+      <author><first>Francis Gabriel A.</first><last>Magleo</last></author>
+      <author><first>Renzo</first><last>Panti</last></author>
+      <author><first>Danielle Beatrice Ledesma</first><last>Olalia</last></author>
+      <pages>272-285</pages>
+      <abstract>Large language models (LLMs) are increasingly used for emotional support and relationship advice, where a model’s tendency to preserve a user’s face can inadvertently reinforce harmful interpersonal behaviors. To systematically examine this risk, we developed the Romantic Relationship Advice-Seeking Prompts (RRASP) dataset of 2,400 prompts across five relationship themes and evaluated social sycophancy using the ELEPHANT framework on two consumer-facing models, GPT-5 Mini and Gemini 3 Flash. Contrary to our initial hypothesis, grammatical mood alone did not produce systematic differences in sycophantic behavior, suggesting that what a user implies matters more than how they phrase it. Instead, perspective-driven framing had a stronger influence, with gaps between original and flipped prompts widening in follow-up responses. Consistent increases in framing and moral sycophancy across turns indicate that models become more likely to accept a user’s stated premises and affirm their ethical stance as a dialogue progresses. Notably, Gemini 3 Flash exhibited substantially smaller increases in moral sycophancy than GPT-5 Mini, suggesting it is more resistant to reinforcing ethically problematic positions across turns.</abstract>
+      <pdf hash="a824bb1c"/>
+      <bibkey>choi-etal-2026-sweet</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.luhme-1.22/ -->
+      <title>Beyond Warmth: Risk-Tiered Auditing of Credibility in <fixed-case>LLM</fixed-case> Companion Responses</title>
+      <author id="danping-yan" orcid="0009-0008-7748-1806"><first>Danping</first><last>Yan</last></author>
+      <pages>286-303</pages>
+      <abstract>Large language models (LLMs) are increasingly used as conversational companions, where warm and supportive responses may still become poorly scoped as guidance under uncertainty or risk. Existing evaluations often emphasize affective alignment, helpfulness, persona consistency, or overt safety violations, leaving less attention to failures where caring language becomes action-relevant but insufficiently bounded. We introduce a risk-tiered audit framework for credibility under risk in supportive companion responses, evaluating whether responses remain responsible, bounded, and behaviorally appropriate when interpreted as guidance. The framework combines fixed scenario-level risk tiers, five human-facing diagnostic credibility dimensions, and response-level failure tags to identify when warm support becomes poorly scoped guidance. Risk tiers indicate where mis-scoped guidance would be more consequential, while credibility scores and failure tags characterize response behavior in those contexts. Across a heterogeneous response pool, we find a recurring tiered failure pattern: HIGH-tier scenarios selectively expose responsibility- and behavior-facing failures even when tone and identity remain comparatively stable. These failures are dominated by overconfident guidance, where models discourage qualified escalation or commit too confidently to action under uncertainty. Cross-judge diagnostics, human validation, and portability analyses support a conservative interpretation of this credibility signal. Overall, the results suggest that supportive dialogue systems should be evaluated not only for warmth, but also for whether support remains responsible, bounded, and well-scoped when guidance carries higher stakes.</abstract>
+      <pdf hash="57b6ee66"/>
+      <bibkey>yan-2026-beyond</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.luhme-1.23/ -->
+      <title>Evaluation of Motivational Interviewing Counsellors with Task-Aware Multi-Stage <fixed-case>LLM</fixed-case>-Based Simulated Clients</title>
+      <author id="jiading-zhu" orcid="0009-0006-8997-0995"><first>Jiading</first><last>Zhu</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Xinyu Cindy</first><last>Wang</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Thomas</first><last>Nguyen</last></author>
+      <author id="yan-qing-lee" orcid="0009-0008-1926-2082"><first>Yan Qing</first><last>Lee</last></author>
+      <author id="osnat-c-melamed" orcid="0000-0002-9663-2226"><first>Osnat C.</first><last>Melamed</last><affiliation>University of Toronto</affiliation></author>
+      <author id="peter-selby" orcid="0000-0001-5401-2996"><first>Peter</first><last>Selby</last><affiliation>University of Toronto and Centre for Addiction and Mental health</affiliation></author>
+      <author id="jonathan-rose" orcid="0000-0002-3551-2175"><first>Jonathan</first><last>Rose</last><affiliation>University of Toronto</affiliation></author>
+      <pages>304-359</pages>
+      <abstract>The development and benchmarking of Large Language Model (LLM)-based Motivational Interviewing (MI) counsellors now often rely on LLM-based simulated clients. Prior work on simulated clients, however, has not aligned with the specific *tasks* fundamental to the MI therapy approach. A key task is *evoking*, in which the counsellor first elicits the client’s ambivalence and then strengthens the client’s motivation for change. We present **Evoke-Sim**, a task-aware, multi-stage LLM-based client simulation framework for evaluating MI counsellors in smoking cessation, designed specifically for the *evoking* MI task. Evoke-Sim employs structured client profiles, an evoking-specific three-stage conversation flow, and a *reveal* policy that regulates which client profile information might be disclosed at each stage. We show that, compared to existing profile-grounded simulated clients, Evoke-Sim better differentiates counsellors’ task-aware performance under our explicit formalization of the *evoking* task, while reducing non-grounded client statements and premature disclosure of client information.</abstract>
+      <pdf hash="0e430e5a"/>
+      <bibkey>zhu-etal-2026-evaluation</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.luhme-1.24/ -->
+      <title>Who Benchmarks the Benchmarks? Towards Comprehensive Evaluation of Commonsense Reasoning Benchmarks</title>
+      <author id="pavel-chizhov" orcid="0009-0001-7329-6899"><first>Pavel</first><last>Chizhov</last><affiliation>Technical University of Applied Sciences Würzburg-Schweinfurt and PleIAs</affiliation></author>
+      <author id="anton-changalidis" orcid="0000-0003-4752-2239"><first>Anton</first><last>Changalidis</last><affiliation>Pleias</affiliation></author>
+      <author id="vishnu-prasad-vijaya-kumar" orcid="0009-0001-3946-764X"><first>Vishnu Prasad Vijaya</first><last>Kumar</last><affiliation>Technical University of Applied Sciences Würzburg-Schweinfurt</affiliation></author>
+      <author><first>Yannick</first><last>Detrois</last></author>
+      <author><first>Mattia</first><last>Nee</last><affiliation>pleias</affiliation></author>
+      <author><first>Pierre-Carl</first><last>Langlais</last><affiliation>Pleias and Institut d'Etudes Politiques de Paris (Sciences Po)</affiliation></author>
+      <author id="ivan-p-yamshchikov" orcid="0000-0003-3784-0671"><first>Ivan P.</first><last>Yamshchikov</last><affiliation>Technical University of Applied Sciences Würzburg-Schweinfurt</affiliation></author>
+      <pages>360-377</pages>
+      <abstract>Commonsense reasoning is a key language model capability, as it is purportedly a prerequisite for many basic tasks, unlike specific factual knowledge. It is often measured with multiple-choice questions (MCQ) benchmarks, e.g. HellaSwag and PIQA. Some of these benchmarks, however, are outdated and contain numerous validity issues. We illustrate some typical validity issues with a case study on HellaSwag, one of the most popular and problematic benchmarks for commonsense reasoning. The issues we find range from basic ungrammaticality and numerous typos to misleading prompts or equally correct options. We show that if we remove question prompts or replace them with "Lorem ipsum dolor...", about 68% of model predictions remain the same. We argue that this occurs due to inner flaws in the benchmark, not mere contamination that might be present in some models. Since benchmark scores are an essential part of model selection in both research and commercial applications, these validity issues can have severe consequences. Based on our findings, we propose BenCheck, a package for benchmark validity analysis that encapsulates the main checks performed in our case study and can be used to audit MCQ benchmarks. We apply these checks to other commonsense reasoning benchmarks.</abstract>
+      <pdf hash="4e716893"/>
+      <bibkey>chizhov-etal-2026-benchmarks</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.luhme-1.25/ -->
+      <title>Inverse <fixed-case>T</fixed-case>uring Bench: Evaluating Language Models as Judges of Human vs. <fixed-case>AI</fixed-case> Dialogue</title>
+      <author><first>William</first><last>Hager</last></author>
+      <author id="ishika-rathi" orcid="0009-0008-8241-8940"><first>Ishika</first><last>Rathi</last><affiliation>University of California, San Diego</affiliation></author>
+      <author id="masum-hasan" orcid="0000-0001-8682-522X"><first>Masum</first><last>Hasan</last></author>
+      <author id="cameron-robert-jones" orcid="0000-0002-6609-8966"><first>Cameron Robert</first><last>Jones</last><affiliation>State University of New York at Stony Brook</affiliation></author>
+      <pages>378-388</pages>
+      <abstract>As AI systems integrate into online spaces, differentiating them from humans in conversations is increasingly important. We present INVERSE TURING BENCH, a benchmark that evaluates LLMs and other models on their ability to differentiate humans and AI in multi-turn text. The benchmark provides a collection of paired dialogue transcripts, wherein one dialogue is between two humans and the other is between a human and an AI. The task is to correctly identify which dialogue is human-only vs. human-AI. We evaluated a preliminary set of models against this benchmark, and found that GPTZero, Claude Opus-4.6, and GPT-5.5 achieve the highest accuracy: 89.41%, 77.92%, and 75.94% respectively. Our results suggest that statistical approaches to detection have semantic blind spots, but semantic approaches are susceptible to persona-prompting. Our work speaks to the Inverse Turing Test and motivates human-AI differentiation as a critical capability for AI systems. Our live benchmark can be found at https://huggingface.co/spaces/roc-hci/Inverse-Turing-Bench-Leaderboard</abstract>
+      <pdf hash="bef6e7ec"/>
+      <bibkey>hager-etal-2026-inverse</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.luhme-1.26/ -->
+      <title>Sedimented Use and Borrowed Competence: A Relational Framework for Language Models</title>
+      <author id="yanan-long" orcid="0000-0002-7171-0443"><first>Yanan</first><last>Long</last><affiliation>StickFlux Labs</affiliation></author>
+      <pages>389-399</pages>
+      <abstract>Language models learn from records of language that has already been used, and those records preserve more than lexical and syntactic form: they carry traces of communicative goals, genres, institutions, social norms, testimony, correction and practical activity. We develop a relational account of language-model competence in which behaviour is understood through the sources of guidance that shape interpretation and action, and we call text-mediated access to inherited semantic-pragmatic structure borrowed competence. Borrowed competence sits within a wider space of relations to language that includes formal signal, sedimented use, evidence-sensitive verification, addressive uptake, situated coping and accountable participation, each of which can be characterized by a source of guidance, a channel through which that guidance becomes available, a timescale over which it persists and an intervention that tests whether it mattered. This view yields an evaluation method based on discriminant interventions, explicit system boundaries and relational profiles rather than final-answer accuracy alone. A fully specified paired-archive example shows how a broad claim about pragmatic competence becomes an inspectable test, while the same logic extends to retrieval, memory, multimodal and tool-using systems and institutionally embedded agents. The resulting framework treats language competence as relational and compositional, providing a common vocabulary for studying how archives, evidence, interlocutors, environments, memory, tools and institutions jointly shape language-guided behaviour.</abstract>
+      <pdf hash="35f1ef03"/>
+      <bibkey>long-2026-sedimented</bibkey>
+    </paper>
+  </volume>
+</collection>
