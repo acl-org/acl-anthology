@@ -292,4 +292,180 @@
       <bibkey>radzinski-2026-natural</bibkey>
     </paper>
   </volume>
+  <volume id="3" type="journal" ingest-date="2026-10-26">
+    <!-- https://aclanthology.org/2026.cl-3/ -->
+    <meta>
+      <booktitle>Computational Linguistics, Volume 52, Issue 3 - September 2026</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>September</month>
+      <year>2026</year>
+      <venue>cl</venue>
+      <journal-volume>52</journal-volume>
+      <journal-issue>3</journal-issue>
+    </meta>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.cl-3.1/ -->
+      <title>An Empirical Study on Reasoning and Generalization in Large Language Models</title>
+      <author><first>Lu</first><last>Xiang</last></author>
+      <author><first>Yang</first><last>Zhao</last></author>
+      <author><first>Yaping</first><last>Zhang</last></author>
+      <author><first>Zixuan</first><last>Ren</last></author>
+      <author><first>Xingquan</first><last>Zhang</last></author>
+      <author><first>Zhiyuan</first><last>Chen</last></author>
+      <author><first>Chengqing</first><last>Zong</last></author>
+      <pages>841–896</pages>
+      <abstract>Recent reasoning-focused large language models (LLMs) (e.g., GPT-o1 and DeepSeek-R1) combine chain-of-thought prompting with reinforcement learning to generate explicit, multi-step derivations. However, their practical advantages over standard instruction-tuned models remain underexplored. In this article, we present a comprehensive empirical study to address these gaps. We compare reasoning-focused and non-reasoning LLMs across several critical dimensions: (1) their performance on mathematical and general reasoning benchmarks; (2) their generalization capabilities across 30 sub-disciplines spanning six scientific domains; (3) the qualitative and quantitative differences in their underlying solution processes; and (4) the impact of model compression via distillation on core reasoning capabilities. Crucially, to reliably conduct our in-depth process analysis, we address the critical issue of LLM-as-a-Judge reliability by proposing and validating a multi-level evaluation framework against human experts. Our experimental results demonstrate that reasoning-focused models significantly outperform non-reasoning counterparts on logic-intensive tasks such as mathematics and physics, while the latter remain competitive on factual or observational problems (e.g., biology, geography). Specifically, our validated process analysis reveals distinct styles: DeepSeek-R1 generates more elaborate reasoning processes, correlating with greater effectiveness on harder tasks, despite potential redundancy. In contrast, GPT-o1 exhibits greater conciseness and frequently presents solutions with superior clarity and efficiency, particularly on simpler problems, while struggling with complex scenarios. Additionally, reasoning capabilities can be partially preserved through distillation, with distilled reasoning models consistently outperforming their non-reasoning counterparts across all domains. These findings provide new insights into when and how explicit reasoning contributes to LLM performance, offering practical guidance for model development and deployment.</abstract>
+      <pdf hash="6de9f4c4"/>
+      <doi>10.1162/coli.a.619</doi>
+      <bibkey>xiang-etal-2026-empirical</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.cl-3.2/ -->
+      <title>Mozila: Continual Event Detection Through the Lens of Multi-Objective Optimization and Language Model Head Preservation**</title>
+      <author><first>Nam Le</first><last>Hai</last></author>
+      <author><first>Linh Ngo</first><last>Van</last></author>
+      <author><first>Sang</first><last>Dinh</last></author>
+      <pages>897–942</pages>
+      <abstract>Continual Event Detection (CED) aims to identify and classify event triggers in evolving ontologies, where novel event types emerge incrementally. Unlike standard continual learning, CED faces highly imbalanced, long-tail distributions, semantic overlaps between event types, and a prevalence of negative spans, all of which exacerbate catastrophic forgetting. To address these challenges, we propose Mozila, a novel framework that integrates Sharpness-Aware Multi-Objective Optimization (SaMOO) and Language Model Head Preservation (LMHP). SaMOO adapts gradient-based multi-objective optimization with sharpness-aware minimization to balance competing objectives, navigate the Pareto front, and locate flatter minima, enhancing robustness across sequential tasks. Meanwhile, LMHP strengthens representation learning by preserving essential linguistic knowledge from the pretrained language model head through distribution alignment, explored with three alternative strategies. To further address data imbalance, we leverage a generative model to synthesize event trigger representations, mitigating replay buffer limitations. Comprehensive experiments on standard CED benchmarks demonstrate that Mozila consistently improves performance, achieving significant improvements over baseline methods. Ablation studies and error analyses highlight the individual contributions of each component and reveal key challenges in CED, including class imbalance and distinguishing similar event types across tasks. Our framework provides a robust and generalizable solution for continual event detection in dynamic, real-world environments. All resources are publicly available at: Mozila.</abstract>
+      <pdf hash="ea62d48f"/>
+      <doi>10.1162/coli.a.617</doi>
+      <bibkey>hai-etal-2026-mozila</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.cl-3.3/ -->
+      <title><fixed-case>BAP</fixed-case> v2: An Enhanced Task Framework for Instruction Following in <fixed-case>M</fixed-case>inecraft Dialogues</title>
+      <author><first>Prashant</first><last>Jayannavar</last></author>
+      <author><first>Liliang</first><last>Ren</last></author>
+      <author><first>Marisa</first><last>Hudspeth</last></author>
+      <author><first>Risham</first><last>Sidhu</last></author>
+      <author><first>Charlotte</first><last>Lambert</last></author>
+      <author><first>Ariel</first><last>Cordes</last></author>
+      <author><first>Elizabeth</first><last>Kaplan</last></author>
+      <author><first>Anjali</first><last>Narayan-Chen</last></author>
+      <author><first>Julia</first><last>Hockenmaier</last></author>
+      <pages>943–1000</pages>
+      <abstract>Developing interactive agents that can understand language, perceive their surroundings, and act within the physical world is a long-standing goal of AI research. The Minecraft Collaborative Building Task (MCBT) (Narayan-Chen, Jayannavar, and Hockenmaier, 2019), a two-player game in which an Architect (A) instructs a Builder (B) to construct a target structure in a simulated 3D Blocks World environment, offers a rich platform to work towards this goal. In this work, we focus on the Builder Action Prediction (BAP) subtask: predicting B’s actions in a multimodal game context (Jayannavar, Narayan-Chen, and Hockenmaier, 2020)—a challenging testbed for grounded instruction following, with limited training data. We holistically re-examine this task and introduce BAP v2 to address key challenges in evaluation, training data, and modeling. Specifically, we define an enhanced evaluation benchmark, featuring a cleaner test set and fairer, more insightful metrics that also reveal spatial reasoning as the primary performance bottleneck. To address data scarcity and to teach models basic spatial skills, we generate different types of synthetic MCBT data. We observe that current, LLM-based SOTA models trained on the human BAP dialogues fail on these simpler, synthetic BAP ones, but show that training models on this synthetic data improves their performance across the board. We also introduce a new SOTA model, Llama-CRAFTS, which leverages richer input representations, and achieves an F1 score of 53.0 on the BAP v2 task and strong performance on the synthetic data. While this result marks a notable 6 points improvement over previous work, it also underscores the task’s remaining difficulty, establishing BAP v2 as a fertile ground for future research, and providing a useful measure of the spatial capabilities of current text-only LLMs in such embodied tasks.</abstract>
+      <pdf hash="4e652f3c"/>
+      <doi>10.1162/coli.a.602</doi>
+      <bibkey>jayannavar-etal-2026-bap</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.cl-3.4/ -->
+      <title>A Psychology-based Unified Dynamic Framework for Curriculum Learning</title>
+      <author><first>Guangyu</first><last>Meng</last></author>
+      <author><first>Qingkai</first><last>Zeng</last></author>
+      <author><first>John P.</first><last>Lalor</last></author>
+      <author><first>Hong</first><last>Yu</last></author>
+      <pages>1001–1049</pages>
+      <abstract>Directly learning from examples of varying difficulty levels is often challenging for both humans and machine learning models. A more effective strategy involves exposing learners to examples in a progressive order from easy to difficult. Curriculum Learning (CL) has been proposed to implement this strategy in machine learning model training. However, two key challenges persist in CL framework design: defining the difficulty of training data and determining the appropriate amount of data to input at each training step. Drawing inspiration from psychometrics, this article presents a Psychology-based Unified Dynamic Framework for Curriculum Learning (PUDF). We quantify the difficulty of training data by applying Item Response Theory (IRT) to responses from Artificial Crowds (AC). This theory-driven IRT-AC approach leads to global (i.e., model-independent) and interpretable difficulty values. Leveraging IRT, we propose a training strategy, Dynamic Data Selection via Model Ability Estimation (DDS-MAE), to schedule the appropriate amount of data during model training. Because our difficulty labeling and model ability estimation are based on a consistent theory, namely, IRT, their values are comparable within the same scope, potentially leading to aligned training data selection and faster convergence compared with the other CL methods. Experimental results demonstrate that fine-tuning pre-trained large language models with PUDF leads to higher accuracy and faster convergence on a suite of benchmark datasets compared with standard fine-tuning and state-of-the-art CL methods. Ablation studies and downstream analyses further validate the impact of PUDF for CL.</abstract>
+      <pdf hash="f76ae810"/>
+      <doi>10.1162/coli.a.584</doi>
+      <bibkey>meng-etal-2026-psychology</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.cl-3.5/ -->
+      <title>Unveiling Affective Polarization Trends in Parliamentary Proceedings</title>
+      <author><first>Gili</first><last>Goldin</last></author>
+      <author><first>Ella</first><last>Rabinovich</last></author>
+      <author><first>Shuly</first><last>Wintner</last></author>
+      <pages>1051–1083</pages>
+      <abstract>Recent years have seen an increase in polarized discourse worldwide, on various platforms. We propose a novel method for quantifying polarization, based on the emotional style of the discourse rather than on differences in ideological stands. Using measures of Valence, Arousal, and Dominance, we detect signals of emotional discourse and use them to operationalize the concept of affective polarization. Applying this method to a recently released corpus of proceedings of the Knesset, the Israeli parliament (in Hebrew), we find that the emotional style of members of government differs from that of opposition members; and that the level of affective polarization, as reflected by this style, is significantly increasing with time.</abstract>
+      <pdf hash="19c1d5c4"/>
+      <doi>10.1162/coli.a.600</doi>
+      <bibkey>goldin-etal-2026-unveiling</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.cl-3.6/ -->
+      <title>What If Deception Cannot Be Detected? A Cross-linguistic Study on the Limits of Deception Detection from Text</title>
+      <author><first>Aswathy</first><last>Velutharambath</last></author>
+      <author><first>Kai</first><last>Sassenberg</last></author>
+      <author><first>Roman</first><last>Klinger</last></author>
+      <pages>1085–1156</pages>
+      <abstract>Can deception be detected solely from written text? Cues of deceptive communication are inherently subtle, and even more so in text-only communication. Yet, prior studies have reported considerable success in automatic deception detection. In this study, we hypothesize that such findings are largely driven by artifacts introduced during data collection and do not generalize beyond specific datasets. We revisit this foundational assumption by introducing a belief-based deception framework, which defines deception as a misalignment between an author’s claims and their true beliefs, irrespective of factual accuracy, allowing deception cues to be studied in isolation. Based on this framework, we construct three corpora—collectively referred to as DeFaBel—including a German-language corpus of deceptive and non-deceptive arguments and a multilingual version in German and English, each collected under different conditions to account for potential belief change and enable cross-linguistic analysis. Using these corpora, we evaluate commonly reported linguistic cues of deception. Across all three DeFaBel variants, we find that these cues exhibit negligible and statistically insignificant correlations with deception labels, contrary to prior work that treats such cues as reliable indicators. We further benchmark against other English deception datasets that follow similar data collection protocols. While some of these show statistically significant correlations, the effect sizes remain low and, critically, the set of predictive cues is inconsistent across datasets. We also evaluate deception detection using feature-based models, pre-trained language models, and instruction-tuned large language models. While some of these models perform well on established deception datasets, they consistently perform near chance on DeFaBel. Our findings challenge the core assumption that deception can be reliably inferred from linguistic cues and call for a rethinking how deception is studied and modeled in Natural Language Processing.</abstract>
+      <pdf hash="403558c9"/>
+      <doi>10.1162/coli.a.614</doi>
+      <bibkey>velutharambath-etal-2026-deception</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.cl-3.7/ -->
+      <title>A Straightforward Approach to Construct “Lightweight” Token Graphs from Transformers</title>
+      <author><first>João</first><last>Pimentel</last></author>
+      <author><first>Joana</first><last>Amorim</last></author>
+      <author><first>Frank</first><last>Rudzicz</last></author>
+      <pages>1157–1206</pages>
+      <abstract>Even though Transformers are the standard to extract information from text, they have considerable limitations that make them sub-optimal for certain tasks. Graph neural networks (GNNs) are an alternative that mitigate some of these limitations, with recent work focusing on combining information from pre-trained language models (PLMs) with graph structures. However, most existing methods use fixed-size sliding windows to construct graphs, ignoring long-distance relationships between words. We propose a memory-efficient method to construct token graphs that exploits semantic and relational information inside Transformers via their attention coefficients, mitigating the limitations of using sliding windows. Additionally, each graph can fully encode documents longer than the Transformer’s context window via a chunk-and-stride mechanism, while also reducing memory usage. Our method surpasses the performance of sliding windows when both approaches are compared under the same model architecture, particularly in longer documents, and reaches statistically identical performance in shorter ones. It also surpasses GNN-based state-of-the-art techniques. When compared with fine-tuning, our method reaches marginally lower performance in documents that fit inside the pre-trained model’s context window. However, our method surpasses fine-tuning in documents that do not fit inside these windows, which comes as a result of fully encoding each document using our chunk-and-stride mechanism.</abstract>
+      <pdf hash="b86db45a"/>
+      <doi>10.1162/coli.a.618</doi>
+      <bibkey>pimentel-etal-2026-straightforward</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.cl-3.8/ -->
+      <title>Evaluation Framework for Highlight Explanations of Context Utilization in Language Models</title>
+      <author><first>Jingyi</first><last>Sun</last></author>
+      <author><first>Pepa</first><last>Atanasova</last></author>
+      <author><first>Sagnik Ray</first><last>Choudhury</last></author>
+      <author><first>Sekh Mainul</first><last>Islam</last></author>
+      <author><first>Isabelle</first><last>Augenstein</last></author>
+      <pages>1207–1241</pages>
+      <abstract>Context utilization, the ability of Language Models (LMs) to incorporate relevant information from the provided context when generating responses, remains largely opaque to users, who cannot determine whether models draw from parametric memory or provided context, nor identify which specific context pieces inform the response. Highlight explanations (HEs) offer a natural solution as they can point to the exact context pieces and tokens that influenced model outputs. However, no existing work evaluates their effectiveness in accurately explaining context utilization. We address this gap by introducing the first gold standard HE evaluation framework for context attribution, using controlled test cases with known ground-truth context usage, thereby avoiding the limitations of existing indirect proxy evaluations. To demonstrate the framework’s broad applicability, we evaluate four HE methods—three established techniques and MechLight, a mechanistic interpretability approach we adapt for this task—across four context scenarios, four datasets, and five LMs. Overall, we find that MechLight performs best across all context scenarios. However, our findings reveal systematic failures in all methods: Explanation accuracy degrades significantly with context length, and all methods exhibit strong positional biases in multi-document settings. Surprisingly, widely used gradient-based methods provide little value for understanding context usage. These results challenge HEs’ utility in retrieval-augmented generation, factual verification, and other applications. Our framework provides the foundation for developing accurate context attribution methods.</abstract>
+      <pdf hash="a0c91545"/>
+      <doi>10.1162/coli.a.621</doi>
+      <bibkey>sun-etal-2026-evaluation</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.cl-3.9/ -->
+      <title>On the Referential Capacity of Language Models: An Internalist Rejoinder to Mandelkern <fixed-case>L</fixed-case>inzen</title>
+      <author><first>Giosuè</first><last>Baggio</last></author>
+      <author><first>Elliot</first><last>Murphy</last></author>
+      <pages>1243–1252</pages>
+      <abstract>Mandelkern and Linzen (2024) argue that words generated by language models (LMs) are linked to causal histories of use within human linguistic communities, and ultimately to their referents. Therefore, LMs’ words refer. We qualify Mandelkern and Linzen’s claim as applicable to a narrow class of expressions. Thus qualified, the claim is valid and motivated by the need to evaluate LMs’ outputs for relevance and truth. Next, we discuss the actual scope of their claim, and we conclude that the bounds of sense and reference in LMs are more restricted than in humans. We close with some considerations on the status of LMs as members of human linguistic communities.</abstract>
+      <pdf hash="b6888a59"/>
+      <doi>10.1162/coli.a.601</doi>
+      <bibkey>baggio-murphy-2026-referential</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.cl-3.10/ -->
+      <title>A Survey of Test-time Compute: From Intuitive Inference to Deliberate Reasoning</title>
+      <author><first>Yixin</first><last>Ji</last></author>
+      <author><first>Juntao</first><last>Li</last></author>
+      <author><first>Yang</first><last>Xiang</last></author>
+      <author><first>Hai</first><last>Ye</last></author>
+      <author><first>Kaixin</first><last>Wu</last></author>
+      <author><first>Kai</first><last>Yao</last></author>
+      <author><first>Jia</first><last>Xu</last></author>
+      <author><first>Linjian</first><last>Mo</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <pages>1253–1307</pages>
+      <abstract>The remarkable performance of the o1 model in complex reasoning demonstrates that test-time compute scaling can further unlock the model’s potential, enabling powerful System-2 thinking. However, there is still a lack of comprehensive surveys for test-time compute scaling. We trace the concept of test-time compute back to System-1 models. In System-1 models, test-time compute addresses distribution shifts and improves robustness and generalization through parameter updating, input modification, representation editing, and output calibration. In System-2 models, it enhances the model’s reasoning ability to solve complex problems through repeated sampling, self-correction, and tree search. We organize this survey according to the trend of System-1 to System-2 thinking, highlighting the key role of test-time compute in the transition from System-1 models to weak System-2 models, and then to strong System-2 models. We also point out advanced topics and future directions.1</abstract>
+      <pdf hash="8e8bd8f3"/>
+      <doi>10.1162/coli.a.629</doi>
+      <bibkey>ji-etal-2026-survey</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.cl-3.11/ -->
+      <title>Deep Learning for Natural Language Processing: A Gentle Introduction</title>
+      <author><first>Aline</first><last>Paes</last></author>
+      <pages>1309–1315</pages>
+      <pdf hash="6e65d78e"/>
+      <doi>10.1162/coli.r.628</doi>
+      <bibkey>paes-2026-deep</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.cl-3.12/ -->
+      <title>Justify Your Prompts!</title>
+      <author><first>Eduardo</first><last>Calò</last></author>
+      <author><first>David M.</first><last>Howcroft</last></author>
+      <author><first>Leo</first><last>Leppänen</last></author>
+      <author><first>Saad</first><last>Mahamood</last></author>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Patrícia</first><last>Schmidtová</last></author>
+      <author><first>Emiel</first><last>van Miltenburg</last></author>
+      <pages>1317–1329</pages>
+      <abstract>When you use a large language model (LLM) in your research, you often need to formulate a prompt to elicit some relevant output from the LLM. This step is challenging since (1) LLMs are known to be brittle and their results may vary drastically between different prompts; and (2) for any given task, there are infinitely many possible prompts. Thus we end up with the following problem: If you cannot try out infinitely many prompts, how do you justify your selected prompt? This article discusses different ways in which authors may motivate their choices, and urges authors to consider how their prompting strategy might be justified.</abstract>
+      <pdf hash="8f9d4f41"/>
+      <doi>10.1162/coli.a.620</doi>
+      <bibkey>calo-etal-2026-justify</bibkey>
+    </paper>
+  </volume>
 </collection>
