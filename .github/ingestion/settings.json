@@ -1,0 +1,46 @@
+{
+  "fields": {
+    "general": "General information about this request",
+    "venue": "Venue Identifier",
+    "title": "Volume Title",
+    "affiliation": "ACL-organized Event",
+    "publication": "Date of Publication",
+    "cutoff": "Proceedings Cutoff Date",
+    "platforms": "Submission Platform(s)"
+  },
+  "checkboxes": {
+    "new_venue": "new venue",
+    "historical": "historical material"
+  },
+  "platforms": {
+    "openreview": "OpenReview",
+    "softconf": "Softconf/START",
+    "easychair": "EasyChair",
+    "other": "Other"
+  },
+  "delivery_days_before_publication": 14,
+  "reminder_days_before_deadline": [7],
+  "overdue_reminder_interval_days": 1,
+  "milestones": {
+    "publication": "Requested publication",
+    "delivery": "Proceedings delivery",
+    "freeze": "Proceedings cutoff"
+  },
+  "labels": {
+    "pending": "Not yet agreed",
+    "historical": "Historical material: coordinate publication with the Anthology; no automatic delivery deadline",
+    "reconfirmation": "Dates or submission details changed. Previously completed, affected tasks have been reopened; please confirm them again."
+  },
+  "templates": {
+    "timeline": "timeline.md",
+    "reminder": "reminder.md"
+  },
+  "checklists": [
+    {"file": "checklists/common.md", "when": []},
+    {"file": "checklists/acl.md", "when": ["acl", "current"]},
+    {"file": "checklists/softconf.md", "when": ["softconf"]},
+    {"file": "checklists/openreview.md", "when": ["openreview"]},
+    {"file": "checklists/easychair.md", "when": ["easychair"]},
+    {"file": "checklists/new-venue.md", "when": ["new-venue"]}
+  ]
+}

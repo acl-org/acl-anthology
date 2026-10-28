@@ -1,0 +1,83 @@
+name: Update ingestion submission guidance
+
+on:
+  issues:
+    types: [opened, edited, labeled, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Ingestion issue to update or opt in
+        required: true
+        type: string
+      dry_run:
+        description: Preview without editing the issue
+        type: boolean
+        default: true
+  pull_request:
+    paths:
+      - .github/ingestion/**
+      - .github/scripts/ingestion-guidance*.cjs
+      - .github/workflows/ingestion-guidance.yml
+      - .github/workflows/ingestion-reminders.yml
+      - .github/ISSUE_TEMPLATE/04-ingestion-request.yml
+      - hugo/content/info/contrib.md
+      - hugo/content/faq/submitting.md
+  push:
+    branches: [master]
+    paths:
+      - .github/ingestion/**
+      - .github/scripts/ingestion-guidance*.cjs
+      - .github/workflows/ingestion-guidance.yml
+      - .github/workflows/ingestion-reminders.yml
+      - .github/ISSUE_TEMPLATE/04-ingestion-request.yml
+      - hugo/content/info/contrib.md
+      - hugo/content/faq/submitting.md
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node --test .github/scripts/ingestion-guidance.test.cjs
+
+  update:
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'issues'
+        && github.event.sender.type != 'Bot'
+        && contains(github.event.issue.labels.*.name, 'ingestion')
+        && (github.event.action != 'labeled' || github.event.label.name == 'ingestion'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    concurrency:
+      group: ingestion-guidance-${{ github.event.issue.number || inputs.issue_number }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/github-script@v9
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        with:
+          script: |
+            const { applyGuidance } = require('./.github/scripts/ingestion-guidance.cjs');
+            await applyGuidance({
+              github, context, core,
+              number: process.env.ISSUE_NUMBER,
+              dryRun: process.env.DRY_RUN === 'true',
+            });
