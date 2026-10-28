@@ -58,7 +58,7 @@ ANTHOLOGYFILES ?= /var/www/anthology-files
 
 HUGO_ENV ?= production
 
-sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
+sourcefiles=$(shell find data -type f '(' -name "*.json" -o -name "*.yaml" -o -name "*.xml" ')')
 
 # these are shown in the generated html so everyone knows when the data
 # was generated.
