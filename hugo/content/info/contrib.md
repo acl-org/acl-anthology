@@ -9,6 +9,7 @@ This page contains general information about submitting proceedings of a confere
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 **Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
 It is also common for people to submit older proceedings or journals.
+For information about coverage by Scopus and Web of Science, see [our FAQ on scientific indexing]({{< relref "/faq/indexing.md" >}}).
 
 Please note that this document does not describe how to manage the submissions and review process, or even how to assemble proceedings from accepted papers.
 For complete information about the conference management process, especially for ACL conference publication chairs, please see [our official documentation](https://acl-org.github.io/ACLPUB/).
