@@ -602,6 +602,30 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
+def build_venue_search_index(venues):
+    """Build compact browser-search rows for the venue directory."""
+    return sorted(
+        (
+            [
+                venue["name"],
+                venue["acronym"],
+                venue_id,
+                sum(len(volumes) for volumes in venue["volumes_by_year"].values()),
+            ]
+            for venue_id, venue in venues.items()
+        ),
+        key=lambda row: (row[0].casefold(), row[2]),
+    )
+
+
+def export_venue_index(venues, builddir):
+    """Write browser-search data shared by the navbar and venue directory."""
+    index_dir = f"{builddir}/static/venues"
+    os.makedirs(index_dir, exist_ok=True)
+    with open(f"{index_dir}/index.json", "wb") as f:
+        f.write(ENCODER.encode(build_venue_search_index(venues)))
+
+
 def export_author_metrics(anthology: Anthology, builddir, dryrun=False):
     """Export current authorship counts without accessing historical Git data."""
     stats = compute_authorship_stats(anthology)
@@ -793,6 +817,7 @@ def export_venues(anthology: Anthology, builddir, dryrun):
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:
             f.write(ENCODER.encode(all_venues))
+        export_venue_index(all_venues, builddir)
 
 
 def export_events(anthology: Anthology, builddir, dryrun):
