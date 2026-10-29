@@ -155,12 +155,12 @@ Please provide the exact titles of each volume to be assigned an ISBN and send t
 
 ## Paper Awards
 
-Paper awards do not need to be known when the proceedings are submitted.
-After the conference, publication chairs should submit awards [via a GitHub issue](https://github.com/acl-org/acl-anthology/issues/new) with a TSV (tab-separated values) file containing one row per award, no header row, and three columns:
+The Anthology can display a special award annotation next to papers.
+After the papers have been ingested and assigned Anthology IDs, publication chairs can submit awards [via a GitHub issue](https://github.com/acl-org/acl-anthology/issues/new) with a TSV (tab-separated values) file containing one row per award, no header row, and three columns:
 
-1. **Anthology paper ID**, not the conference submission ID.
+1. **[Anthology paper ID]({{< relref "ids.md" >}})**, not the conference submission ID.
 2. **Award name**, such as `Best Paper Award` or `Outstanding Paper Award`.
-3. **Award citation/reasoning**, explaining why the paper received the award (leave this column empty if unavailable).
+3. (optional) **Award citation/reasoning**, explaining why the paper received the award.
 
 For example (columns are separated by tabs):
 
