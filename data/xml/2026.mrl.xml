@@ -24,11 +24,13 @@
       <pdf hash="e07b4670"/>
       <venue>mrl</venue>
       <venue>ws</venue>
+      <doi>10.18653/2026.mrl-1</doi>
     </meta>
     <frontmatter>
       <!-- https://aclanthology.org/2026.mrl-1.0/ -->
       <pdf hash="9de71324"/>
       <bibkey>mrl-2026-1</bibkey>
+      <doi>10.18653/2026.mrl-1.0</doi>
     </frontmatter>
     <paper id="1">
       <!-- https://aclanthology.org/2026.mrl-1.1/ -->
@@ -42,6 +44,7 @@
       <abstract>Active learning (AL) is a training paradigm for selecting unlabeled samples for annotation to improve model performance on a test set, which is useful when only a limited number of samples can be annotated. These algorithms often work by optimizing for the informativeness and diversity of the training data to be annotated. Recent work found that AL strategies fail to outperform random sampling on various language generation tasks when using 100-500 samples. To understand AL’s poor performance when only using few samples, we investigate whether the core assumptions underlying AL strategies hold. We find that neither the informativeness nor diversity of the training data, which AL strategies optimize for, are correlated with test set performance. Instead, factors like the ordering of the training samples and interactions with pre-training data have a larger impact on performance. This suggests that future AL methods must take these factors into account in order to work with very few samples.</abstract>
       <pdf hash="b3618a48"/>
       <bibkey>flores-etal-2026-testing</bibkey>
+      <doi>10.18653/2026.mrl-1.1</doi>
     </paper>
     <paper id="2">
       <!-- https://aclanthology.org/2026.mrl-1.2/ -->
@@ -55,6 +58,7 @@
       <abstract>Multilingual language modeling is often evaluated through broad aggregate scores, yet language-specific failures can remain hidden, especially for morphologically rich and underrepresented languages. We present NEDOQwen, a Turkish-centric 0.824B decoder-only small language model research artifact, and use it to study a low-cost diagnosis-and-repair workflow for Turkish evaluation. Internal Turkish instruction diagnostics improve after supervised fine-tuning, but external Turkish and Turkic multiple-choice benchmarks reveal weak academic knowledge and severe answer-label bias. A compact benchmark-safe repair stage yields a small improvement on TurkishMMLU-sub, from 18.11% to 21.00%, and a larger improvement on TUMLU-mini Turkish, from 21.33% to 32.22%, while an answer-label-only ablation reaches 19.56% and 27.00%. We further analyze tokenizer coverage, internal-vs-external evaluation mismatch, prediction-label distributions, paired uncertainty, and compute cost. The contribution is not a state-of-the-art Turkish model, but an auditable case study showing how small language-specific models can expose and partially repair multilingual evaluation failures while remaining unreliable.</abstract>
       <pdf hash="b8c59831"/>
       <bibkey>ozturk-etal-2026-nedoqwen</bibkey>
+      <doi>10.18653/2026.mrl-1.2</doi>
     </paper>
     <paper id="3">
       <!-- https://aclanthology.org/2026.mrl-1.3/ -->
@@ -65,6 +69,7 @@
       <abstract>Modern language models generally represent text as sequences of discrete token embeddings, an assumption deeply rooted in current practice but rarely questioned. We challenge this representation, especially for Chinese, by replacing index-based token embeddings entirely with a single rasterized image of the character sequence, processed by a vision encoder composed of a shared ResNet and a shallow Vision Transformer. To isolate the role of input representation, we construct a dual-branch controlled framework in which both a Vision-based model and an index-based baseline share an identical decoder backbone, training objective, optimizer, and data curriculum. Any performance difference is therefore attributable to the input modality only. Across all tested decoder backbones, the Vision-based model consistently outperforms the baseline, reaching a peak accuracy of 0.429 versus 0.355 for the index-based baseline—a 21% relative improvement—while converging in about half the number of training epochs. The advantage emerges especially within the first five epochs (under 21% of total data) and persists under moderate character corruption: the corrupted Vision model matches the <i>clean</i> index-based baseline. Ablation studies reveal that the advantage requires both spatially coherent input and a ViT encoder with 2D positional encodings. A cross-script comparison on English shows the advantage does not transfer directly to alphabetic writing systems, suggesting that the uniform visual density and radical structure of Chinese characters are enabling conditions. These findings suggest that transformers are more modality-agnostic than commonly assumed, and that discrete tokenization is not a fundamental requirement for Chinese language modeling.</abstract>
       <pdf hash="4f4eac01"/>
       <bibkey>xiang-guan-2026-one</bibkey>
+      <doi>10.18653/2026.mrl-1.3</doi>
     </paper>
     <paper id="4">
       <!-- https://aclanthology.org/2026.mrl-1.4/ -->
@@ -76,6 +81,7 @@
       <abstract>We release **morphoBPE**, a framework for training and comparing per-language BPE tokenizers across 242 Latin- and Cyrillic-script languages built from Wikipedia *glottosets* (per-language TF-DF lexicons), with four diagnostic evaluations of what BPE captures across scripts. Unsupervised language identification by token count reaches 13.8% accuracy across 320 Latin-script languages, against 19.83% for supervised fastText ‘lid.176‘, which returns zero for 147 of them because they fall outside its 176-language alphabet, including our best performers (Lak 81.5%, Cree 80.6%, Inuktitut 63.8%, Kabardian 60.1%). BPE aligns with morpheme boundaries at <tex-math>F_1 = 0.28</tex-math> across 15 languages (Morfessor: 0.43), and beats supervised character-*n*-gram cross-lingual transfer by +37% <tex-math>F_1</tex-math> across six pairs where labeled morphology is unavailable. BPE distance correlates moderately with Glottolog phylogeny (Mantel <tex-math>r = 0.329</tex-math>). We position per-language BPE as a coverage-first diagnostic for languages outside the supervised long tail, not as a substitute for supervised methods where labels exist.</abstract>
       <pdf hash="181b220b"/>
       <bibkey>chelombitko-etal-2026-subword</bibkey>
+      <doi>10.18653/2026.mrl-1.4</doi>
     </paper>
     <paper id="5">
       <!-- https://aclanthology.org/2026.mrl-1.5/ -->
@@ -85,6 +91,7 @@
       <abstract>Multilingual models are commonly described as supporting Chinese, but language-level coverage may conceal disparities between historical and modern varieties. We audit five public or widely deployed tokenizer families on Classical Chinese prose and Modern Chinese newspaper text. XLM-R, a canonical multilingual representation model, requires 1.070 tokens per Classical character versus 0.688 for Modern Chinese. More importantly, only 17.4% of annotated two-character Classical words receive a single XLM-R token, compared with 66.4% of Modern words. After controlling for word length and corpus frequency, the odds of atomic coverage are 0.158 of the Modern odds. Four general-purpose LLM tokenizers reproduce the same asymmetry. Exact sentence-length matching, frequency controls, Traditional-Simplified pairs, and leave-one-source-out tests rule out several simple artifacts. Multilingual tokenizers can therefore cover a language’s script while underrepresenting the lexical units of its historical varieties.</abstract>
       <pdf hash="f704d3f5"/>
       <bibkey>deng-2026-language</bibkey>
+      <doi>10.18653/2026.mrl-1.5</doi>
     </paper>
     <paper id="6">
       <!-- https://aclanthology.org/2026.mrl-1.6/ -->
@@ -96,6 +103,7 @@
       <abstract>Solvability detection is one of the most challenging aspects of mathematical reasoning for Large Language Models (LLMs). While prior work has studied this capability extensively, these analyses have been limited to English. Consequently, it remains unclear whether multilingual failures arise from differences in internal Solvability Belief or from language-dependent failures to express it. To address this gap, we introduce the first multilingual benchmark of paired solvable and unsolvable mathematical problems, extending ReliableMath to French and Greek. Using this, we train multilingual probes predicting Solvability Belief and analyze the solvability detection capabilities of state-of-the-art LLMs behaviorally, representationally, and in terms of faithfulness. We find that Solvability Belief is encoded as a largely universal, language-agnostic feature, and that higher-resource languages such as English, despite achieving stronger mathematical reasoning performance, exhibit lower solvability-detection faithfulness.</abstract>
       <pdf hash="a335bbbc"/>
       <bibkey>zoumpoulidi-etal-2026-capable</bibkey>
+      <doi>10.18653/2026.mrl-1.6</doi>
     </paper>
     <paper id="7">
       <!-- https://aclanthology.org/2026.mrl-1.7/ -->
@@ -105,6 +113,7 @@
       <abstract>We study how multilingual LLMs encode emotion in English, Russian, and Kyrgyz - a low-resource Turkic language absent from prior emotion-probing work - on a parallel corpus of 1,480 sentences with six Ekman labels mapped from GoEmotions. Across four decoder LLMs (Gemma 4, Qwen3, Llama-3.1, Mistral), an encoder baseline (XLM-R), and an expanded 8-model sample, we combine layer-wise probing, similarity metrics (CKA, Procrustes, RSA), leakage-free cross-lingual transfer, and a null-calibrated sentence-level logit lens. Three findings. (1) What separates languages in the "latent-English" pivot (Wendler et al., 2024) is not the mid-network English level — which a shuffled-representation null reproduces - but the depth of the exit from the English basin: on pooled sentence representations Kyrgyz exits only in the last third of every applicable decoder (d_<fixed-case>.5</fixed-case> ≈ .97/.86/.97) and never earlier than Russian (.97/.64/.75; under a last-token lens both languages tie late, .92–.97) - a lossier pivot, consistent with its larger transfer gap. (2) Similarity and transfer dissociate: Mistral has the highest RU–KY CKA (.800) yet the lowest KY transfer (.239), so CKA is an unreliable proxy for cross-lingual generalization. (3) Encoder/decoder architecture does not order Kyrgyz transfer: XLM-R leads (.384) but mBERT is second-to-last (.198). XLM-R’s edge is not significant on absolute KY (p=.081); it concentrates in the into-Kyrgyz directions (interaction p&lt;.01 vs. Qwen3) and reaches significance only under a secondary chance-corrected metric - consistent with pre-training data scale and domain rather than architecture (an interpretation, not a ranking predictor). All 8 models beat chance in every language.</abstract>
       <pdf hash="6e4ff2e0"/>
       <bibkey>uvalieva-2026-leaving</bibkey>
+      <doi>10.18653/2026.mrl-1.7</doi>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2026.mrl-1.8/ -->
@@ -118,6 +127,7 @@
       <abstract>Reinforcement Learning with Verifiable Rewards (RLVR) has been successfully applied to significantly boost the capabilities of pretrained large language models, especially in the math and logic problem domains. However, current research and available training datasets remain English-centric. While multilingual training data and benchmarks have been created in the past, they were not created with RLVR and current model capability in mind, and their level of difficulty is often too low to provide appropriate training signals for current models. To address this gap, we provide mAceReason-Math, a dataset of high-quality translations of challenging math problems sourced from a corpus specifically curated for RLVR (AceReason-Math). We further take specific care to clean and improve our translations, resulting in a coverage of 14 languages with more than 10,000 samples per language. We will publicly release the dataset to facilitate multilingual RLVR research and benchmarking in the research community.</abstract>
       <pdf hash="6fdbea12"/>
       <bibkey>dobler-etal-2026-macereason</bibkey>
+      <doi>10.18653/2026.mrl-1.8</doi>
     </paper>
     <paper id="9">
       <!-- https://aclanthology.org/2026.mrl-1.9/ -->
@@ -131,6 +141,7 @@
       <abstract>Grammatical gender assignment is governed by interacting phonological, semantic, and morphological factors whose relative weight varies across languages. We present the first large-scale computational analysis of gender in Hindi using a novel dataset of over 6,000 noun paradigms annotated for morphological, phonological, semantic, and lexical strata features. We tested inflection class against competing predictors with interpretable classifiers and neural networks and found that it dominates, predicting gender at ≈97% accuracy, while other features contribute negligibly. The dependence is asymmetric: inflection class nearly determines gender, whereas gender is only a partial predictor of inflection class. Inflection class is itself recoverable in part from phonological and etymological cues without reference to gender, which suggests a resolution to the bootstrapping problem: form-based cues scaffold inflection class, which in turn scaffolds gender. These findings establish Hindi as an extreme case of morphologically aligned gender and expose a limitation of language-agnostic approaches: methods that treat semantic and surface-form cues as broadly predictive of gender may miss Hindi’s near-deterministic dependence on inflection class. Our dataset enables probing whether multilingual models encode this dependency and whether it survives cross-lingual transfer.</abstract>
       <pdf hash="fe4a2d17"/>
       <bibkey>alderete-etal-2026-paradigms</bibkey>
+      <doi>10.18653/2026.mrl-1.9</doi>
     </paper>
     <paper id="10">
       <!-- https://aclanthology.org/2026.mrl-1.10/ -->
@@ -142,6 +153,7 @@
       <abstract>Cross-lingual alignment is often assumed to improve cross-lingual transfer by bringing representations of different languages closer together. However, improvements in representational alignment do not consistently translate into better downstream performance. We investigate this disconnect using XLM-R models explicitly aligned across four language pairs with token-level, sentence-level, and masked-language-modeling objectives. We evaluate their zero-shot transfer on a token-level task (part-of-speech tagging) and a sentence-level task (sentence classification), and analyze both representational changes and the gradients induced by the alignment and downstream objectives. We find that embedding-based alignment metrics do not reliably indicate whether alignment will improve or degrade downstream performance. Moreover, alignment and downstream-task gradients are often nearly orthogonal, particularly when the alignment objective and downstream task operate at different representational levels. These findings suggest that representation alignment alone is insufficient for assessing cross-lingual transfer, and that the compatibility between alignment and downstream objectives should be considered when designing or evaluating alignment methods.</abstract>
       <pdf hash="56e9aad9"/>
       <bibkey>veitsman-etal-2026-better</bibkey>
+      <doi>10.18653/2026.mrl-1.10</doi>
     </paper>
     <paper id="11">
       <!-- https://aclanthology.org/2026.mrl-1.11/ -->
@@ -153,6 +165,7 @@
       <abstract>We study machine translation of Old Assyrian Akkadian into English. Hundreds of thousands of cuneiform tablets survive, most untranslated, while the largest aligned corpus for this dialect holds roughly 6,700 sentence pairs and no pretrained Akkadian language models exist. To find which choices matter in this setting, we compare the main ones a system builder faces. We test a byte-level (ByT5) against a subword (mT5) pretrained model family, model sizes from 300 million to 1.2 billion parameters, six preprocessing schemes drawn from Assyriological practice, and the quantity of training data, each measured with three random seeds. Two factors have reliable effects. Training data adds 17.4 points on our combined metric (the geometric mean of BLEU and chrF++) from a quarter of the corpus to all of it, and model size adds 7.3 points from 300 million to 580 million parameters, with one to two more at 1.2 billion. The remaining choices have smaller effects than a single shared fine-tuning recipe suggests. With all models tuned on one narrow learning-rate grid calibrated on the byte-level family, that family led by 17 to 21 points and every preprocessing scheme hurt the larger model. Choosing each configuration’s learning rate on validation data instead cuts that lead below two points and removes part of the apparent degradation. We recommend prioritising data quantity, then model size, and treating comparisons of model families or preprocessing as reliable only when every configuration is tuned separately.</abstract>
       <pdf hash="3727a8d6"/>
       <bibkey>la-rosa-etal-2026-improves</bibkey>
+      <doi>10.18653/2026.mrl-1.11</doi>
     </paper>
     <paper id="12">
       <!-- https://aclanthology.org/2026.mrl-1.12/ -->
@@ -169,6 +182,7 @@
       <abstract>Although multilingual approaches to figurative language identification are not new, the shift beyond language-homogeneous training data requires a clearer understanding of the contribution of translated multilingual supervision. We examine this question using 742 proverb concepts across 6,787 translated instances for seven languages. We evaluate five models including multilingual encoders and instruction-tuned LLMs through progressively increasing levels of multilingual supervision. Moreover, we introduce multidimensional annotation framework for proverbs that characterizes proverbs through four complementary figurative forms: Metaphorical, Moral/Advisory, Cause–Effect, and Culture-Specific.<par/>Our findings show that overall, adding multilingual training data beyond 50% provides only limited additional improvement, although the best supervision level varies across models and languages. Also, we show that combining diverse figurative forms yields the strongest overall performance. A notable finding is that the least frequent figurative form “culture-specific” exhibits the largest performance gains under multilingual supervision. Furthermore, the moral/advisory and culture-specific forms of proverb contribute more to instruct tuning LLM overall figurative identification performance. These findings motivate multilingual figurative identification to move beyond metaphor-centric taxonomies toward concept-level multidimensional frameworks that explicitly model complementary forms of figurative meanings that are context representative.</abstract>
       <pdf hash="a5a9b758"/>
       <bibkey>alomair-etal-2026-wisdom</bibkey>
+      <doi>10.18653/2026.mrl-1.12</doi>
     </paper>
     <paper id="13">
       <!-- https://aclanthology.org/2026.mrl-1.13/ -->
@@ -178,6 +192,7 @@
       <abstract>Vision-language models (VLMs) are benchmarked on diagram-grounded science, technology, engineering, and mathematics (STEM) reasoning mostly in English, so it is unclear how much their accuracy changes when the same problem is posed in another language. We audit this for six Indian languages: 980 questions from MathVista, ScienceQA, and MMMU are machine-translated into Hindi, Bengali, Marathi, Tamil, Telugu, and Kannada with IndicTrans2 while the images stay unchanged. We evaluate seven open-weight VLMs (Qwen2.5-VL-7B/32B, Qwen3-VL-30B, InternVL2.5-8B, Aya-Vision- 8B, Gemma 3-27B, Llama-4-Maverick) and GPT-4o, plus no-image and chain-of-thought (CoT) ablations on Qwen2.5-VL-7B (68,600 inference records). Accuracy falls 9.8–24.9 percentage points (pp) from English to the Indian-language mean, and every model loses more on the Dravidian than on the Indo-Aryan languages (by 0.1–13.2 pp). For Qwen2.5- VL-7B with our prompt, CoT lowers Bengali (−14.4 pp) and Kannada (−11.4 pp) accuracy while barely changing English, but these losses coincide with more answer-extraction failures. Neither Aya-Vision-8B, trained for 23 languages of which only Hindi is among ours, nor scaling Qwen2.5-VL from 7B to 32B closes the gap, and response-level diagnostics show that fluent target-language output and correct answers can come apart. We quantify how machine translation, answer extraction, and English text in the images bound these measurements. Data and code are publicly available.</abstract>
       <pdf hash="bfb61005"/>
       <bibkey>r-2026-cross</bibkey>
+      <doi>10.18653/2026.mrl-1.13</doi>
     </paper>
     <paper id="14">
       <!-- https://aclanthology.org/2026.mrl-1.14/ -->
@@ -188,6 +203,7 @@
       <abstract>How accessible a discourse referent is for later mention depends on how it is introduced: indefinite marking can make an entity more accessible for anaphora. This dimension is computationally understudied. We ask whether language models are sensitive to this discourse function as encoded by Persian ye(k). Linguistic theory for Persian predicts that ye(k)-marked objects support anaphoric uptake more readily than bare objects. Comparing a bare object against a minimally different ye(k)-marked object, we find that both encoder- and decoder-based models assign higher scores to object-anaphoric uptake material after ye(k) contexts. The effect is reliable at the object-anaphoric NP and, in six of seven decoders, exceeds both subject-span and neutral-continuation controls, but is weaker and more model-dependent over the whole continuation. We find a parallel directional effect for an English indefinite-this contrast, showing that a comparable downstream anaphoric-uptake pattern is observable with a different language-specific cue. As a secondary finding, we show that the scoring unit (only the anaphoric uptake site vs. the whole continuation) matters, and that the local site provides a clearer signal. We will release the Persian and English stimulus sets, item-level scores, and reproduction scripts upon publication.</abstract>
       <pdf hash="cfe62dc0"/>
       <bibkey>yekrang-safakar-pado-2026-testing</bibkey>
+      <doi>10.18653/2026.mrl-1.14</doi>
     </paper>
     <paper id="15">
       <!-- https://aclanthology.org/2026.mrl-1.15/ -->
@@ -200,6 +216,7 @@
       <abstract>Static sentence encoders offer efficient multilingual inference, but their vocabularies are fixed independently of the sentence-level objective. We introduce loss-guided vocabulary discovery, a train-time procedure that uses contrastive-loss utility to identify useful adjacent token pairs, assigns each selected pair its own row, and keeps the selected pair set unchanged during continued training. In our main run, the method selects 56,071 pairs, increasing the number of embedding rows by 21.74% without changing the tokenizer or introducing contextual inference. We train the resulting encoder on 176 languages. Over three training seeds, loss-guided discovery outperforms an independently collected equal-cardinality frequency selector by 1.70±0.07, 0.12±0.05, and 0.62±0.02 points on Tatoeba, BUCC, and Flores, and the margin widens with continued training. Under matched update budgets, it also improves all 12 comparisons across four additional base-model families. The selected-pair model improves the no-pair control in all four training-resource quartiles on Tatoeba, including by 0.86 points in the lowest-resource quartile. On MTEB, our encoder outperforms the strongest competing static model by 2.92 points. Loss-guided discovery thus lets the sentence-level training signal allocate multilingual vocabulary capacity within a static encoder.</abstract>
       <pdf hash="e86b5cc7"/>
       <bibkey>malashenko-etal-2026-loss</bibkey>
+      <doi>10.18653/2026.mrl-1.15</doi>
     </paper>
     <paper id="16">
       <!-- https://aclanthology.org/2026.mrl-1.16/ -->
@@ -209,6 +226,7 @@
       <abstract>Cross-lingual speech-text retrieval for Indic languages (retrieving English text using vernacular voice queries) remains an open problem despite recent progress in multilingual speech and text representation learning. We introduce VaaniCLIP and establish a systematic benchmark on BhasaAnuvaad across Telugu, Tamil, and Hindi, demonstrating that lightweight task-specific contrastive alignment achieves strong performance where established baselines fail. Cascade pipelines (Whisper ASR → NLLB translation → LaBSE retrieval) collapse on low-resource Indic languages: Telugu cascade retrieval reaches only 3.1% R@1, roughly 18× below VaaniCLIP, and SeamlessM4T v2 (2.3B parameters) achieves near-random performance zero-shot. By contrast, VaaniCLIP aligns frozen Whisper and LaBSE encoders with partial Whisper fine-tuning (15M trainable parameters, against a 2.3B-parameter generalist model used zero-shot) and achieves R@1 of 86.4 on Hindi, 55.5 on Telugu, and 54.8 on Tamil at a normalized retrieval pool of N = 2,869, capturing 76–89% of the LaBSE text-text upper bound. A frozen Whisper-medium encoder with only 787K trainable parameters reaches 95–99% of per-language partial fine-tuning performance, confirming encoder representation quality as the primary bottleneck. We further show that the joint model transfers zero-shot to Kannada (an unseen Dravidian language), achieving R@1 of 25.1 (~700× above random) with no Kannada training data, providing evidence that VaaniCLIP learns generalizable Dravidian audio-text alignment.</abstract>
       <pdf hash="c6cc3889"/>
       <bibkey>adari-2026-vaaniclip</bibkey>
+      <doi>10.18653/2026.mrl-1.16</doi>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2026.mrl-1.17/ -->
@@ -220,6 +238,7 @@
       <abstract>Modern Standard Arabic grammatical error correction (GEC) remains underexplored for open-weight instruction-tuned large language models (LLMs). We compare natural, synthetic, and mixed training views for a highlighted-token correction task while holding the model, training-set size, and evaluation protocol fixed. We fine-tune Gemma 3 4B with QLoRA on three equal 2,000-record views and evaluate once on 511 Nahw-Passage records. Mixed supervision reaches 31.70% exact-match accuracy, compared with 20.55% for synthetic-only and 28.38% for natural-only; the mixed–natural difference is not established. Post-hoc robustness analyses preserve the mixed-over-synthetic direction, but checkpoint selection enlarges its measured size. Auxiliary diagnostics reveal a trade-off: synthetic-only changes fewer already-correct tokens, whereas mixed supervision retains more ArabicMMLU capability. The result concerns these particular data views: source also varies with domain, length, and error distribution; correction quality was not independently assessed. One model and strict single-reference scoring further limit generality.</abstract>
       <pdf hash="184117c9"/>
       <bibkey>alnuwaiser-etal-2026-natural</bibkey>
+      <doi>10.18653/2026.mrl-1.17</doi>
     </paper>
     <paper id="18">
       <!-- https://aclanthology.org/2026.mrl-1.18/ -->
@@ -230,6 +249,7 @@
       <abstract>We study how Gemma 4 31B represents African languages and responds to cultural steering. The first study compares nine African languages and three controls using probes, contrast directions, and measures of representation similarity. Transfer from English varies across languages and layers. Directions representing an Africa versus West contrast are more aligned among the African languages than between these languages and the controls at several layers. The comparison across language families passes the reported Holm threshold at five of twelve layers, although dependence between language pairs limits the statistical interpretation. Within Nigeria, Yoruba and Igbo are more aligned than the average of their pairs with Hausa at eleven of twelve layers. The second study uses separate English data to construct directions for Nigeria, Ghana, Kenya, and South Africa. Under union scoring at the selected strengths, estimated differences in attribution rates from random directions range from 0.63 to 0.81. Most outputs pass the automated structural coherence screen. Comparisons with Aya Expanse 32B show that results depend on the representation measure. Together, the studies document regional and family patterns in the sampled representations and country steering in English.</abstract>
       <pdf hash="76a6612d"/>
       <bibkey>said-shock-2026-geometric</bibkey>
+      <doi>10.18653/2026.mrl-1.18</doi>
     </paper>
     <paper id="19">
       <!-- https://aclanthology.org/2026.mrl-1.19/ -->
@@ -239,6 +259,7 @@
       <abstract>Instruction-tuned language models refuse harmful requests far less reliably in lower-resource languages than in English. That behavioural gap is well documented; its representational basis is not. In English, refusal is known to be mediated by a single linear direction in the residual stream. We ask whether that direction is one object shared across languages or many language-specific ones. Using only released multilingual safety benchmarks, we extract per-language, per-layer difference-in-means refusal directions in 10 typologically diverse languages for two open instruction-tuned models, measure their pairwise alignment against a matched non-safety control direction, and test causally whether ablating or adding the English direction changes refusal behaviour in the other nine languages. We find no evidence for a shared, refusal-specific, causally transferable direction. In Qwen2.5-7B the per-language refusal directions are only weakly aligned (median cosine 0.38), just above a matched non-safety control (0.33; difference 0.05, CI <tex-math>[0.01, 0.09]</tex-math>), and the English direction—though ablating it removes 61.9 pp of English refusal—changes refusal in 0 of nine other languages. In Llama-3.2-3B the directions are strongly aligned (0.84), but so is the control (0.86; difference <tex-math>-0.02</tex-math>), so that alignment is a generic property of the model’s multilingual geometry, not something specific to safety—and the English direction still transfers to zero of nine languages. Geometric alignment thus does not imply a shared causal mechanism: refusal does not occupy a shared, transferable multilingual subspace in either model. We pre-register all thresholds and decision rules before touching activations, and release a verifier that re-derives every reported number from persisted activations and labels.</abstract>
       <pdf hash="b54bd550"/>
       <bibkey>zhang-2026-safety-live</bibkey>
+      <doi>10.18653/2026.mrl-1.19</doi>
     </paper>
     <paper id="20">
       <!-- https://aclanthology.org/2026.mrl-1.20/ -->
@@ -249,6 +270,7 @@
       <abstract>TunisianMMLU, the only MMLU-style benchmark for Tunisian Arabic (Derja), was machine-translated with no native-speaker validation. Scanning all 21<fixed-case>,</fixed-case>500 items with native-validated patterns, we flag 63.4% of the corpus; the largest signal, in 55.1% of items, is the Moroccan present-tense prefix, a form Tunisian does not have. The dominant defect is not translation noise but a different dialect. We then present the first native-speaker audit: 400 items stratified over all 44 subjects, labelled independently by two native speakers on six criteria. The non-author annotator marks 64.5% defective, both agree on 62.0%, and author adjudication yields 86.0%. Nearly all defects originate in translation, not in the source benchmarks. Six models corroborate the labels, scoring highest on items marked clean and lowest on unrepairable ones. Corrected text raises every above-chance model by 2.3 to 4.9 points (one gain survives multiple-test correction), leaves a chance-level Derja model unchanged, and narrows the gap between a dialect-adapted model and its base without changing rank order. We release TunisianMMLU-Verified: a corrected subset, corpus-wide flags, per-item labels, the annotation guideline, and all evaluation code.</abstract>
       <pdf hash="675d4215"/>
       <bibkey>jlali-suppa-2026-tunisianmmlu</bibkey>
+      <doi>10.18653/2026.mrl-1.20</doi>
     </paper>
     <paper id="21">
       <!-- https://aclanthology.org/2026.mrl-1.21/ -->
@@ -259,6 +281,7 @@
       <abstract>We audit a multilingual affective generation benchmark eight instruction-tuned LLMs producing emoji summaries for 17,100 Bangla, English and Hindi sentences, with 6,960 human judgements and find its headline conclusions to be artefacts of the measurement instrument rather than properties of the systems. Treating annotators as a random rather than a fixed factor, no system differs significantly from any other (<tex-math>F(7,14)=0.59</tex-math>, <tex-math>p=0.76</tex-math>), although the conventional analysis declares 19 of 28 pairwise differences significant. Annotator identity explains far more rating variance than system identity, and the winning system changes whenever any single annotator is removed. The ordering that does emerge tracks output length: mean emoji count explains 78.7% of between-system variance, and a within-item length-matched comparison over 2,599 pairs reverses the leaderboard. We further show that cross-provider anisotropy differences vanish under mean-centring, that per-language token costs change sign with the normalising unit, and that multi-view row-wise splits inflate macro-F1 by 3.1 points and change the top-ranked system. In place of preference scoring we propose **emoji-affect decodability**, a reference-based probe whose rankings are stable to <tex-math>\pm0.003</tex-math> macro-F1 across seeds.</abstract>
       <pdf hash="a34d4b92"/>
       <bibkey>sadab-sakhawat-2026-two</bibkey>
+      <doi>10.18653/2026.mrl-1.21</doi>
     </paper>
     <paper id="22">
       <!-- https://aclanthology.org/2026.mrl-1.22/ -->
@@ -272,6 +295,7 @@
       <abstract>State space models such as Mamba-3 claim improved state tracking over attention at subquadratic cost, but this claim is validated almost entirely on English. We test whether it transfers to a morphologically rich, low resource setting by training parameter and token matched Transformer, Mamba-3, and hybrid language models from scratch on Bangla (24.5M nonembedding parameters, 1B tokens, five seeds per architecture). We evaluate on a new suite of 4<fixed-case>,</fixed-case>790 native speaker reviewed minimal pairs targeting Bangla subject verb person and honorific register agreement, and assess every comparison with Wilson confidence intervals and cross seed Welch <tex-math>t</tex-math>-tests. Across five seeds, the Mamba family achieves significantly lower perplexity than the Transformer (Welch p &lt; 0.001). Transformer SVA accuracy declines from 91.3% to 87.5% as the intervener lengthens (paired <tex-math>p=0.01</tex-math>), whereas Mamba-3 shows no significant decline (83.3% to 81.5%, <tex-math>p=0.22</tex-math>); however, the direct difference between their distance slopes is not significant (<tex-math>p=0.15</tex-math>). A third finding is methodological rather than architectural: most single run between architecture agreement gaps, including a honorific register advantage significant under a within run McNemar test (<tex-math>p = 0.0015</tex-math>) do not survive replication once cross seed variance is included (Welch <tex-math>p = 0.28</tex-math>), because Mamba-3’s agreement accuracy is markedly more seed sensitive than the Transformer’s (cross seed standard deviation up to <tex-math>\pm 8.4</tex-math> vs. <tex-math>\pm 3.5</tex-math>). At this scale, two seed comparisons of state space models can manufacture findings that vanish under replication. Perplexity does not predict distance behavior: the architectural signal we identify concerns robustness to distance and initialization, not a uniformly “better” architecture. We release code, probes, all fifteen checkpoints, and the analysis scripts.</abstract>
       <pdf hash="56df4234"/>
       <bibkey>al-farib-etal-2026-state</bibkey>
+      <doi>10.18653/2026.mrl-1.22</doi>
     </paper>
     <paper id="23">
       <!-- https://aclanthology.org/2026.mrl-1.23/ -->
@@ -282,6 +306,7 @@
       <abstract>Scaling laws typically characterize the performance of large language models (LLMs) through aggregate loss, potentially obscuring substantial variation across languages in multilingual pretraining. We study this variation through controlled experiments on a diverse set of languages spanning two language families, training 0.3B- and 0.5B-parameter models on up to 137B tokens. Specifically, we compare continued pretraining from a strong pretrained model with training the same architecture from scratch, examine the effects of expanding the multilingual corpus, analyze cross-family transfer through language-specific loss trajectories, and fit separate scaling laws for individual languages. Our results show that continued pretraining from a strong pretrained model leads to faster convergence and consistently stronger downstream performance than training from scratch. In contrast, reductions in training loss and more stable gradient <tex-math>\ell_2</tex-math> norms do not necessarily translate into downstream benchmark gains. We further demonstrate that training on a single language family can reduce loss for languages in another family, providing evidence of cross-family transfer. Finally, we find that data-scaling behavior is relatively consistent across languages, whereas the benefits of model scaling vary substantially. A sampling-weighted combination of the language-specific scaling laws closely reconstructs the aggregate training loss. These findings show that aggregate metrics provide an incomplete account of multilingual pretraining dynamics and highlight the importance of language-specific analyses for evaluating and scaling multilingual models.</abstract>
       <pdf hash="dbb64391"/>
       <bibkey>jin-xiong-2026-beyond</bibkey>
+      <doi>10.18653/2026.mrl-1.23</doi>
     </paper>
     <paper id="24">
       <!-- https://aclanthology.org/2026.mrl-1.24/ -->
@@ -292,6 +317,7 @@
       <abstract>Backpack language model embeddings represent each word as a weighted sum of sense vectors, offering more interpretable and intervenable lexical representations than standard contextual embeddings. Backpack sense vector representations show strong performance on lexical similarity tasks in a monolingual setting, as well as cross-lingual transfer through finetuning on aligned parallel multilingual data. Our work investigates whether representations from Backpack models trained from scratch on parallel aligned multilingual data allow for interpretable control without sacrificing translational and cross-lingual representation learning ability. We train matched 131M parameter Transformer and 132M parameter Backpack models from scratch on parallel aligned English-French EuroParl and evaluate their expressivity using validation perplexity, their learned monolingual and cross-lingual lexical relationships using Multi-SimLex and their translational ability using sentence-level cosine similarity. While the Transformer attains higher English and cross-lingual Multi-SimLex, the Backpack outperforms the Transformer on French Multi-SimLex and shows stronger translated-vs-random sentence separation. We finally compare sense-level gender bias ablations on the Backpack model with nullspace projection debiasing on the Transformer, demonstrating the effectiveness of sense vector control for debiasing multilingual representations.</abstract>
       <pdf hash="665fb091"/>
       <bibkey>ries-venkatesh-2026-evaluating</bibkey>
+      <doi>10.18653/2026.mrl-1.24</doi>
     </paper>
     <paper id="25">
       <!-- https://aclanthology.org/2026.mrl-1.25/ -->
@@ -302,6 +328,7 @@
       <abstract>The analysis of multilingual corpora with respect to political stance is of great interest to political science. However, it is a pri- ori unclear whether any differences found are genuinely cross-lingual in nature or artifacts of imperfect alignment, in particular for low- resource languages. In this study, we consider political actor portrayal in Dari and Pashto, the two main languages of Afghanistan. We work with a corpus of 200 quasi-parallel Dari–Pashto article pairs from a single outlet and evaluate the ability of three multilingual sentence-embedding models to make consistent cross-lingual predictions. We find that actor-level consistency differs substantially across models, and identical predicted labels can conceal differences in the underlying label-score profiles. We conclude that agreement alone is therefore insufficient for interpreting cross-lingual actor-portrayal predictions. This underlines the need for human validation before automatic cross-lingual predictions are used to support substantive conclusions about actor portrayal.</abstract>
       <pdf hash="013eaebd"/>
       <bibkey>vahidi-pado-2026-cross</bibkey>
+      <doi>10.18653/2026.mrl-1.25</doi>
     </paper>
     <paper id="26">
       <!-- https://aclanthology.org/2026.mrl-1.26/ -->
@@ -312,6 +339,7 @@
       <abstract>Tokenization appears across a large and heterogeneous body of NLP literature, most often as a design choice rather than the primary focus. We identify more than 800 such papers published over the last decade and use an LLM-based methodology to survey them at a scale that would not be feasible through manual review. We analyze four dimensions: the languages studied, the evaluation tasks, the intrinsic metrics used, and the granularity of the tokenization units considered. We find that machine translation is the most frequently studied topic when tokenization is discussed. Despite the multilingual focus of much of this work, a strong English and Eurocentric bias persists. Subword tokenization dominates in practice despite sustained research interest in characters, bytes, and morphemes. We release the extracted dataset to support further analysis.</abstract>
       <pdf hash="d7755960"/>
       <bibkey>vico-libovicky-2026-talk</bibkey>
+      <doi>10.18653/2026.mrl-1.26</doi>
     </paper>
     <paper id="27">
       <!-- https://aclanthology.org/2026.mrl-1.27/ -->
@@ -322,6 +350,7 @@
       <abstract>Previous work has argued that multilingual LLMs encode language-specific features most strongly in their initial and final layers, implying that intermediate layers support language-agnostic representations. This paper reconsiders this finding by performing four different experiments: three that undertake a fine-grained analysis of representations of Portuguese and Spanish, two closely related languages, and one large-scale language identification experiment that covers over 200 languages. The results of these experiments challenge the strict separation between language-specific and language-agnostic layers in multilingual LLMs, using Llama 3.2 1B as a test case. By analyzing and manipulating contextual sentence embeddings, we demonstrate that language identity remains strongly recoverable throughout the model rather than being restricted to initial and final layers. Moreover, we find that the model tends to classify ambiguous strings as closer to Spanish than to Portuguese, revealing a skew in model behavior that differs from human judgments.</abstract>
       <pdf hash="3df32b2c"/>
       <bibkey>martins-dunn-2026-language</bibkey>
+      <doi>10.18653/2026.mrl-1.27</doi>
     </paper>
     <paper id="28">
       <!-- https://aclanthology.org/2026.mrl-1.28/ -->
@@ -332,6 +361,7 @@
       <abstract>WALS and Grambank encode typological information in different forms: WALS assigns one value to each multi-valued feature, whereas Grambank mostly records the availability of constructions. Computational pipelines commonly expand both into independent binary columns. We compare that binary encoding with a categorical objective that jointly normalizes the values of each feature. The models otherwise share architecture, data, optimization and capacity. On WALS, the categorical objective recovers more of the structure implicit in feature definitions: distances track ordinal scales, compositional dimensions become consistent directions, and 45% of cross-feature nearest neighbours share a grammatical domain, compared with 20% for the binary model. The advantage persists under reparameterization-invariant diagnostics. External evaluations show the same pattern: categorical embeddings rank independently supported implicational universals more strongly, recover the two clause orders associated with languages lacking a single dominant order even when the corresponding feature is withheld, and correlate more strongly with corpus word-order variability among languages assigned the same WALS label. Held-out-branch prediction differs less between objectives, especially on Grambank. Preserving feature-level competition therefore changes representation geometry even when predictive accuracy changes little.</abstract>
       <pdf hash="c987445f"/>
       <bibkey>pan-hsieh-2026-typological</bibkey>
+      <doi>10.18653/2026.mrl-1.28</doi>
     </paper>
     <paper id="29">
       <!-- https://aclanthology.org/2026.mrl-1.29/ -->
@@ -344,6 +374,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
 </abstract>
       <pdf hash="107fe855"/>
       <bibkey>singh-2026-one</bibkey>
+      <doi>10.18653/2026.mrl-1.29</doi>
     </paper>
     <paper id="30">
       <!-- https://aclanthology.org/2026.mrl-1.30/ -->
@@ -355,6 +386,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Neural evaluation metrics for machine translation inherit their behaviour from the multilingual encoders beneath them, yet how those encoders represent low-resource African languages is rarely examined. We evaluate four large language models on English-to-Hausa and English-to-Fongbe translation across scales from 500 to 10,000 sentences, validate automatic metrics against native-speaker judgment, and then probe the multilingual representation space that neural metrics depend on. The central finding is a representation failure: XLM-R assigns near-identical vectors to semantically different texts in both languages (within-language cosine similarity above 0.99), so BERTScore cannot separate systems of visibly different quality, and COMET produces a ranking anomaly for Fongbe. This representation collapse, rather than any surface property of the languages, explains why embedding-based metrics are unreliable here. We further show that metric-human rank agreement is language-dependent, that stable system rankings require at least 2,500 sentences, and that inclusion of a language in an encoder’s pretraining set does not guarantee usable representations. We frame these results as evidence that multilingual evaluation must be validated at the representation level before it is trusted.</abstract>
       <pdf hash="3d4debbc"/>
       <bibkey>adjovi-etal-2026-multilingual</bibkey>
+      <doi>10.18653/2026.mrl-1.30</doi>
     </paper>
     <paper id="31">
       <!-- https://aclanthology.org/2026.mrl-1.31/ -->
@@ -364,6 +396,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>There is a lack of text resources for building predictive Augmentative and Alternative (AAC) interfaces in many languages. We share a compilation of four multilingual datasets in hopes of improving the situation. We started with four English datasets designed to match the conversational-style text AAC users may want to produce in person-to-person conversations. Next, we used a large language model (LLM) to correct errors and augment the original English data. Finally, we used Google’s translation LLM to convert the datasets’ 9,154 individual communications and 37,486 dialogue turns into 33 other languages.</abstract>
       <pdf hash="3be907a4"/>
       <bibkey>vertanen-2026-multilingual</bibkey>
+      <doi>10.18653/2026.mrl-1.31</doi>
     </paper>
     <paper id="32">
       <!-- https://aclanthology.org/2026.mrl-1.32/ -->
@@ -377,6 +410,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Recent work suggests that Whisper-style speech encoders exhibit semantic alignment across languages, based on spoken translation retrieval using representational similarity. If so, this would enable Whisper-style encoders as a viable way to obtain acoustic representations with semantic knowledge, enabling downstream semantic tasks with speech input. However, prior work does not control for phonetic overlap between equivalent utterances, which may artificially support retrieval. We therefore conduct pronunciation-controlled experiments to test whether cross-lingual alignment arises from semantic rather than phonetic similarity, and further probe semantic information in the encoder by way of lexical semantic analogy tasks. Results show that spoken translation retrieval remains strongly above chance with substantially reduced phonetic cues in the final layers of Whisper’s encoder. Furthermore, for both word-level and utterance-level input, Whisper’s encoder representations exhibit non-trivial analogy performance, attaining as high as 25.98% accuracy in an analogy test set. Motivated by this layerwise semantic specialization, we test whether earlier encoder layers preserve representations better suited to ASR in unsupported low-resource languages. Our results confirm it to enable performance gains in automatic speech recognition on low-resource languages unseen during training.</abstract>
       <pdf hash="b748b739"/>
       <bibkey>shim-etal-2026-whisper</bibkey>
+      <doi>10.18653/2026.mrl-1.32</doi>
     </paper>
     <paper id="33">
       <!-- https://aclanthology.org/2026.mrl-1.33/ -->
@@ -389,6 +423,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Linear probes can recover deception-related signals from large language model activations, but existing evidence is overwhelmingly English-centric. We investigate whether this discrimination transfers across languages and what representational geometry accompanies such transfer. We train instructed-deception probes on controlled honest/deceptive instruction contrasts in English, Portuguese, Spanish, German, and Chinese, and evaluate them without target-language refitting on a multilingual adaptation of DeceptionBench across five models spanning four different families. Cross-language performance remains close to matched-language baselines, with all models satisfying our prespecified noninferiority criterion, although absolute discrimination varies substantially across models. We also find that language-specific probe directions are strongly aligned and concentrate around a shared consensus direction, while response representations retain clear language-specific organization. Additional construct-validity analyses show that measurable response-level cues, including style, sentiment, factual truthfulness, and length, explain part but not all of the strongest probe discrimination. These findings together suggest that cross-lingual transfer and shared probe geometry can coexist with model-dependent detection quality and persistent language structure, indicating that representational alignment alone is insufficient evidence of reliable multilingual deception monitoring.</abstract>
       <pdf hash="23d2fc0c"/>
       <bibkey>miranda-etal-2026-cross</bibkey>
+      <doi>10.18653/2026.mrl-1.33</doi>
     </paper>
     <paper id="34">
       <!-- https://aclanthology.org/2026.mrl-1.34/ -->
@@ -400,6 +435,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Pass@<tex-math>k</tex-math> measures whether a model reaches a correct answer under repeated sampling, but never how: a lucky guess counts the same as sound reasoning. CoT-Pass@<tex-math>k</tex-math> was proposed to close that gap, adding an LLM-as-judge that must assess a solution’s reasoning chain before it counts. Its value rests entirely on one assumption: that the judge catches flawed reasoning. That assumption has never been tested inside the metric that depends on it, and never outside English, though the metric’s claims concern models used in many languages. We report the first audit of that verification step, run under the metric’s own protocol on a multilingual suite of five mathematical benchmarks in English, Turkish and Portuguese, two of them natively written. We corrupt correct solutions with deterministic edits that damage the chain and the final answer separately. We observe that all three judges accept corrupted chains almost as often as clean ones. V4-Flash and Qwen3.6 reject a solution sharply only when its final answer is wrong and accept a wrong answer more readily when the chain agrees with it; the metric’s own judge accepts most wrong answers as well. Our study shows that chain–answer agreement dominates the two larger judges’ verdicts and that all three fail to reliably detect the tested reasoning errors. Consequently the difference Pass@<tex-math>k</tex-math> <tex-math>-</tex-math> CoT-Pass@<tex-math>k</tex-math> averages 19.7 points on an earlier solver generation but only 4.1 on the current one. What little remains depends on the token budgets on both sides and on the generation mode; raising the generation budget moves Pass@64 by more than fifty points while the difference stays at zero. We close with two checks any judged reasoning metric should pass before its numbers are read as evidence about reasoning.</abstract>
       <pdf hash="2c8f56ba"/>
       <bibkey>tasalti-etal-2026-cot</bibkey>
+      <doi>10.18653/2026.mrl-1.34</doi>
     </paper>
     <paper id="35">
       <!-- https://aclanthology.org/2026.mrl-1.35/ -->
@@ -410,6 +446,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Persona vectors are linear directions in the residual-stream activations of LLMs that encode behavioral traits and enable fine-grained control over model behavior. Among them, the evil persona vector is particularly relevant to understanding harmful behavior, jailbreak vulnerabilities, and the unlearning of harmful knowledge. Yet whether this vector reflects a genuinely cross-lingual concept, rather than an artifact of its extraction language, remains untested. We conduct a systematic evil-vector transfer study across two high-resource languages (English, Spanish) and two low-resource languages (Swahili, Telugu) on four open-source instruction-tuned LLMs, and find that transfer is directionally asymmetric. Evil vectors are harder to obtain reliably from low-resource languages, and the resulting vectors are largely ineffective at steering, even within their own language. In contrast, vectors extracted from high-resource languages transfer effectively to low-resource inputs while largely preserving general knowledge, as measured by MMLU. Geometric analysis further supports this pattern: evil vectors from the two high-resource languages are closely aligned, whereas low-resource vectors align only weakly with this shared direction. These results suggest that a shared cross-lingual evil direction exists and, once reliably extracted from a high-resource language, can be reused to steer behavior in low-resource languages without additional per-language data collection.</abstract>
       <pdf hash="a3b3f939"/>
       <bibkey>kim-minku-2026-cross</bibkey>
+      <doi>10.18653/2026.mrl-1.35</doi>
     </paper>
     <paper id="36">
       <!-- https://aclanthology.org/2026.mrl-1.36/ -->
@@ -421,6 +458,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Prosodic boundary prediction from text remains underexplored for morphologically rich languages such as Hindi. We present a comprehensive study of text-based prosodic boundary prediction for Hindi children’s texts using interpretable linguistic representations. We introduce a new corpus of 54 textbook passages annotated by six fluent Hindi speakers and formulate two complementary tasks: Prosodic Boundary Detection (PBD) and Forbidden Pause Detection (FPD). Analysis of the corpus shows that 42.6% of majority-supported boundaries lack explicit punctuation, motivating the use of richer linguistic features beyond surface cues. Using a 28-feature linguistic representation, our models achieve F<tex-math>_1</tex-math> scores of 0.89 (PBD) and 0.93 (FPD), while generalizing to an independently annotated Hindi corpus without retraining. We study the optimal feature set in terms of its differences from a previously published similar work in English, and also investigate the cross-lingual portability of the feature sets to draw insights that are supported by the structural differences between Hindi and English.</abstract>
       <pdf hash="3f618d66"/>
       <bibkey>jadhav-etal-2026-interpretable</bibkey>
+      <doi>10.18653/2026.mrl-1.36</doi>
     </paper>
     <paper id="37">
       <!-- https://aclanthology.org/2026.mrl-1.37/ -->
@@ -432,6 +470,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>The development of Large Language Models has primarily focused on English-centric or massively multilingual paradigms. As a result, the dynamics of mixing just two languages from the very beginning of training remain underexplored, especially for smaller models with limited capacity. In this study, we conduct a controlled set of experiments to evaluate the impact of bilingual corpus during from-scratch pretraining. Using a capacity-constrained Gemma-4-derived 181M-parameter architecture trained on a 10 billion token budget, we compare a purely Turkish baseline against mixtures containing 10%, 20%, or 30% of an auxiliary language. We test four languages to isolate different linguistic relationships: English (a global bridge language), Azerbaijani (closely related sibling), Finnish (morphological peer), and French (lexical pivot). Our findings complicate the curse of multilinguality, the tendency for per-language performance to drop as more languages are added. We show that adding any secondary language hurts fluency on structurally uniform text. However, co-training with a typological sibling, Azerbaijani, cuts perplexity on creative and literary text by up to 45% and 51% respectively relative to the monolingual baseline. At higher mixture ratios, Azerbaijani outperforms other languages including morphological and lexical alternatives.</abstract>
       <pdf hash="f66be0cc"/>
       <bibkey>yilmaz-etal-2026-impact</bibkey>
+      <doi>10.18653/2026.mrl-1.37</doi>
     </paper>
     <paper id="38">
       <!-- https://aclanthology.org/2026.mrl-1.38/ -->
@@ -443,6 +482,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Cross-lingual zero-shot transfer and multilingual fine-tuning are promising approaches for NLP tasks such as Named Entity Recognition (NER) in low-resource languages, but in the absence of target language benchmarks, it is unclear which auxiliary language selection strategy leads to the best transfer. We introduce RunyaNER, the first publicly available NER benchmark for the East African language Runyankore, and use it to investigate the choice of which languages to use for transfer. Created with a semi-automated pipeline and fully manually verified, RunyaNER contains over 237k annotated words across 30k sentences. We benchmark pretrained models on RunyaNER, establishing that our dataset is of sufficient quality and size to produce effective Runyankore NER models. We then use RunyaNER to investigate auxiliary language selection in cross-lingual zero-shot and multilingual fine-tuning settings. Our experiments show that while transfer performance is highly sensitive to auxiliary language selection, embedding-based measures computed from labelled training spans correlate more strongly with downstream transfer performance than traditional linguistic features based on metadata or typology. By releasing RunyaNER and providing a systematic analysis of auxiliary language selection strategies, this work contributes both a new benchmark resource and practical insights for multilingual transfer in low-resource settings.</abstract>
       <pdf hash="e60d7aad"/>
       <bibkey>asiimwe-etal-2026-runyaner</bibkey>
+      <doi>10.18653/2026.mrl-1.38</doi>
     </paper>
     <paper id="39">
       <!-- https://aclanthology.org/2026.mrl-1.39/ -->
@@ -455,6 +495,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Large language models (LLMs) have demonstrated strong performance on existing code generation benchmarks. However, these benchmarks are almost entirely based on English prompts. This study examines the cost of prompt language on code generation performance for Turkish, an agglutinative and morphologically rich language. For this purpose, EN-TR CodeBench, a benchmark consisting of 60 problems and 811 unit tests at easy, medium, and hard difficulty levels, was created. Five open-source code LLMs from three model families, one with three different parameter scales, were evaluated under English, Turkish, and Turkish-localized conditions using the pass@1 metric. The results show that the use of Turkish prompts leads to a performance decrease in all five models, and this decrease narrows as model scale increases within the Qwen2.5-Coder family. Analysis according to difficulty level reveals that, for most models, the language-related performance loss increases substantially with problem complexity. Error analysis shows that the performance difference between languages is largely driven by runtime and logic errors, while syntax errors remain rare.</abstract>
       <pdf hash="97d1db63"/>
       <bibkey>incidelen-etal-2026-cost</bibkey>
+      <doi>10.18653/2026.mrl-1.39</doi>
     </paper>
     <paper id="40">
       <!-- https://aclanthology.org/2026.mrl-1.40/ -->
@@ -465,6 +506,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Continued pretraining has become a widely adopted approach for improving multilingual large language models, consistently improving performance across a diverse range of downstream NLP tasks. While these gains are well documented, little is known about how continued pretraining reshapes the internal representations that give rise to these improvements. In this work, we investigate how African-language continued pretraining reorganizes the internal representation space of multilingual language models. We compare three pretrained multilingual models, XLM-R, Gemma-3, and Llama-3.1, with their African-adapted counterparts, AfroXLMR, AfriqueGemma, and AfriqueLlama, spanning both encoder-only and decoder-only architectures. Using layer-wise representation similarity, representation geometry, linear probing, and cross-lingual transfer analyses, we characterize how continued pretraining reorganizes multilingual representations across encoder-only and decoder-only architectures. Our analysis shows that continued African-language pretraining selectively reorganizes multilingual representations rather than uniformly modifying them. This reorganization is architecture dependent, expands the effective dimensionality of the representation space, and improves both the accessibility of linguistic knowledge and its cross-lingual transfer across African languages. Together, these findings provide new insights into how continued pretraining reshapes multilingual representation spaces and advances our understanding of multilingual adaptation for underrepresented languages.</abstract>
       <pdf hash="6a1a2924"/>
       <bibkey>olowookere-ajayi-osemeke-2026-continued</bibkey>
+      <doi>10.18653/2026.mrl-1.40</doi>
     </paper>
     <paper id="41">
       <!-- https://aclanthology.org/2026.mrl-1.41/ -->
@@ -475,6 +517,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Large language model safety training is concentrated in English. We test whether the resulting refusal behavior extends to Tagalog and Taglish, a Tagalog–English mixed register used in everyday conversation. We translate all 313 StrongREJECT prompts into both forms and evaluate 29 models from nine model providers, obtaining 27<fixed-case>,</fixed-case>042 responses. Seven models give jailbreak responses to more than 10% of Tagalog prompts whose English versions they answered safely; five exceed 20%, and one reaches 32.7%. For nine models, an exact McNemar test finds more jailbreak responses in Tagalog than in English (<tex-math>p&lt;0.05</tex-math>), six of them after Bonferroni correction. Tagalog jailbreaks are concentrated in smaller models. Taglish prompts produce fewer jailbreaks than monolingual Tagalog prompts, contrasting with prior results from programmatically constructed code-switching.</abstract>
       <pdf hash="d21d80a1"/>
       <bibkey>albayda-naguio-2026-pag</bibkey>
+      <doi>10.18653/2026.mrl-1.41</doi>
     </paper>
     <paper id="42">
       <!-- https://aclanthology.org/2026.mrl-1.42/ -->
@@ -484,6 +527,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Multilingual ASR foundation models trained on high-resource standard languages possess a failure mode invisible to WER: transcribing closely related low-resource varieties leads to systematic substitution of dialect-marked content with standard-language counterparts. We investigate this phenomenon, termed Italianization, using Whisper on Neapolitan, a low-resource variety of Italian. We introduce Italianization Error Rate (IER), based on a 115-item native-speaker-validated lexicon and complemented by a lexicon-free GlotLID-ratio signal. Using an expanded Neapolitan Spoken Corpus (591 clips, 3 domains, 4 speakers), we observe three phenomena: 1) zero-shot Whisper from small to medium improves WER (81.24% to 78.53%), yet worsens IER by 44.5% relative (0.1375 to 0.1987). Capacity increases, as does the bias; 2) LoRA-finetuning, under leave-one-speaker-out training and evaluation, reduces IER by 54.9% to 69.2% relative to the zero-shot system. This entirely undoes the capacity penalty, as adapted Whisper-medium performs on par with adapted Whisper-small on IER and maintains a 6.51 pp advantage in WER; 3) manual error analysis over 120 stratified clips demonstrates that, although phonetic hallucination is the dominant error mode at the clip level, Italianization is reduced by adaptation. LoRA’s largest qualitative effect is a near-complete elimination of non-recognition errors (from 10% to 2%). We release our corpus, lexicon, splits, LoRA adapters, and annotation data.</abstract>
       <pdf hash="58315328"/>
       <bibkey>cacioli-2026-whisper</bibkey>
+      <doi>10.18653/2026.mrl-1.42</doi>
     </paper>
     <paper id="43">
       <!-- https://aclanthology.org/2026.mrl-1.43/ -->
@@ -494,6 +538,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Cross-lingual audits of LLM unlearning ask whether a fact forgotten in one language remains recoverable in another, and read a small loss increase in the second language as residual recall. We show that this inference is unsafe without a control that is routinely omitted. Auditing GradDiff unlearning of TOFU fictional-persona facts on Qwen2.5-0.5B across English, Modern Standard Arabic, Egyptian Arabic and Hindi, we find the expected signature of leakage: the unlearned model’s forget-set loss rises by +2.922 nats in English but only +0.774 in MSA, 26% as much. Measuring the base model as well shows that signature to be an artefact. English-only fine-tuning left no measurable trace of the facts in the other three varieties — it raised forget-set loss there, and raised retain-set loss by an indistinguishable amount — so there is no evidence of cross-lingual memory for unlearning to have left behind. Once the never-learned and the uniform-degradation components are removed, the MSA effect is +0.054 nats, 2.5% of English rather than 26%. We argue that a base-model transfer control and a retain-set control are jointly necessary for any cross-lingual unlearning claim, and report the audit design that yields them at no additional training cost.</abstract>
       <pdf hash="68233e3a"/>
       <bibkey>waseem-fawaz-2026-false</bibkey>
+      <doi>10.18653/2026.mrl-1.43</doi>
     </paper>
     <paper id="44">
       <!-- https://aclanthology.org/2026.mrl-1.44/ -->
@@ -505,6 +550,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Subword tokenization is widely used in modern large language models for open-vocabulary coverage and token efficiency. We revisit word-level tokenization by comparing it with SentencePiece Unigram under matched byte fallback settings, allowing both tokenizers to represent out-of-vocabulary units without unknown tokens. Using language-appropriate word-like segmentation, we evaluate models pretrained from scratch across six model configurations in English and, using a common model configuration, across four languages (English, French, Chinese, and Japanese), with vocabulary sizes of 10k, 50k, and 100k. Although subword tokenization is generally more token-efficient, raw accuracy varies across model configurations, languages, and vocabulary sizes, with word-level tokenization remaining competitive across the evaluated settings. Word-level tokenization also tends to achieve higher character-length-normalized accuracy, although this complementary metric does not isolate the effects of tokenization on model scoring or establish a universal advantage in language modeling quality. These results show that word-level tokenization can remain competitive with subword tokenization when open-vocabulary coverage and language-appropriate segmentation are provided. Our code and tokenizers are publicly available.</abstract>
       <pdf hash="efd9eda3"/>
       <bibkey>shimizu-etal-2026-revisiting</bibkey>
+      <doi>10.18653/2026.mrl-1.44</doi>
     </paper>
     <paper id="45">
       <!-- https://aclanthology.org/2026.mrl-1.45/ -->
@@ -516,6 +562,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Previous research shows that vision-language (VL) models struggle to understand fine-grained image details and tend to focus on the overall layout. Moreover, any weakness in English tends to be further amplified in the multilingual setting. To study that, we extend InpaintCOCO, an English dataset focused on fine-grained visual details, to 13 typologically diverse languages across five language families, creating MultiInpaintCOCO – a new multilingual benchmark of 953 minimal-pair examples. We further test several state-of-the-art models in multilingual multimodal retrieval, considering both light VL CLIP-like encoders and large language models. Our results show that performance degrades substantially for lower-resource languages, with the strongest predictor being the data resources available for the languages rather than typological similarity to English. In cross-lingual retrieval, most models exhibit a systematic bias toward English: when given a correct caption in a non-English language and an incorrect one in English, models preferentially select the English caption. This bias varies considerably across architectures. Among the tested models, Gemma 3 shows the strongest English preference while Qwen 3 is the least biased, despite both reaching similar monolingual accuracy across languages. The code is available at https://github.com/ufal/multi-inpaint-coco.</abstract>
       <pdf hash="84889439"/>
       <bibkey>manea-etal-2026-multiinpaintcoco</bibkey>
+      <doi>10.18653/2026.mrl-1.45</doi>
     </paper>
     <paper id="46">
       <!-- https://aclanthology.org/2026.mrl-1.46/ -->
@@ -528,6 +575,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Cross-lingual transfer is strongly conditional on how the source language is chosen, but it is impractical to determine the best candidate source for every target language, especially for low-resource target languages. Language distances are widely used to rank candidate sources due to their correlation with transfer efficacy and applicability in resource-sparse settings. However, the reliability of distance-based rankers across tasks and resource levels remains underexplored. We therefore present the first equity-focused evaluation of paradigms for ranking source languages, studying resource-level inequality and task inequality across ten cross-lingual tasks and two multilingual models. While both inequalities are most pronounced for individual language distances and an English-always baseline, they are substantially reduced by training-free composite distances, and nearly eliminated by trained rankers. We further demonstrate the reliability of rankers using language distances compared to rankers using language model internals. Overall, we find that language distances provide a practical basis for equitable and performant transfer language selection. We recommend using trained rankers when task-specific transfer evaluations are available, and composite distances otherwise.</abstract>
       <pdf hash="f788b714"/>
       <bibkey>ng-etal-2026-language</bibkey>
+      <doi>10.18653/2026.mrl-1.46</doi>
     </paper>
     <paper id="47">
       <!-- https://aclanthology.org/2026.mrl-1.47/ -->
@@ -544,6 +592,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Multimodal evaluation is strengthened when benchmarks reflect the languages, institutions, and disciplinary conventions that shape expert visual reasoning. We introduce KMMMU, a native Korean benchmark built from Korean-native examination materials. KMMMU contains 3,466 questions spanning nine disciplines and nine visual modality categories. For targeted evaluation on challenging questions and Korean-specific knowledge, we additionally provide KMMMU-Adv and KMMMU-Local, respectively. Experiments show that the strongest evaluated open-weight model reaches 42.05% on the KMMMU, while the best evaluated proprietary model achieves 52.42% on the KMMMU-Adv. Performance varies substantially across disciplines and answer formats, with Korean-specific questions showing gaps of up to 13.43%. Error analysis suggests that inspected failures often involve convention-to-label mapping, few-shot symbolic induction, localized knowledge recall, and domain-specific standards, not reasoning depth alone. KMMMU provides a testbed for native Korean expert-level multimodal understanding beyond English-centric or translation-based evaluation.</abstract>
       <pdf hash="826ad6fe"/>
       <bibkey>lee-etal-2026-kmmmu</bibkey>
+      <doi>10.18653/2026.mrl-1.47</doi>
     </paper>
     <paper id="48">
       <!-- https://aclanthology.org/2026.mrl-1.48/ -->
@@ -555,6 +604,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Author attribution is a core task in stylometry and computational text analysis, with applications in digital humanities, literary studies, and forensic linguistics. While extensively studied for high-resource languages, it remains largely unexplored for low-resource languages, including Uzbek. We introduce a new benchmark dataset for closed-set author attribution in Uzbek literary prose, comprising 54 authors and 269 works. To prevent information leakage, we adopt a work-level train–test split, ensuring that all text segments from a given literary work appear exclusively in either the training or test set. We benchmark classical stylometric approaches based on function words and character n-grams against four neural baselines, including three multilingual transformer encoders (mBERT, XLM-R, and mmBERT) and a character-level convolutional network. We also conduct an ablation study identifying (6–8) as the optimal character n-gram configuration, and analyze the effect of text length by evaluating all models across chunk sizes ranging from 100 to 800 words. In the course of this analysis we identify and correct an evaluation-unit mismatch under which classical models were scored per text chunk while neural models were scored after aggregating predictions across each work (per document): under this matched evaluation, classical character n-gram representations outperform every neural baseline, including mmBERT, at every chunk size and under both evaluation units, an advantage that a paired bootstrap significance test confirms is statistically robust (p&lt;.05) across most of the chunk-size range, though not statistically distinguishable from zero at the largest chunk sizes (700–800 words) where the two models converge. This reverses the paper’s original, mixed-unit headline comparison (mmBERT 0.91 vs. n-grams 0.87 Macro-F1 at 800 words) and demonstrates that classical stylometric features remain a strong, computationally inexpensive foundation for low-resource author attribution. Beyond the Uzbek benchmark itself, we surface this evaluation-unit confound as a concrete, quantified cautionary case for classical-versus-neural comparisons in authorship attribution more broadly. We publicly release the dataset splits, labels, derived stylometric features, and evaluation scripts as a foundation for future research on Uzbek and other low-resource languages.</abstract>
       <pdf hash="15542aef"/>
       <bibkey>ugli-etal-2026-uzlitattr</bibkey>
+      <doi>10.18653/2026.mrl-1.48</doi>
     </paper>
     <paper id="49">
       <!-- https://aclanthology.org/2026.mrl-1.49/ -->
@@ -568,6 +618,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>We present MGhana-ST, a speech translation dataset for four low-resource Ghanaian language varieties: Ga, Twi (Akuapem and Asante), Ewe, and Fante. MGhana-ST is an ongoing annotation effort; the experiments reported here use a fixed subset of approximately 16.1 hours of paired speech and English translation data. The audio is curated from two existing Ghanaian speech resources. The English translations in MGhana-ST are produced directly from the audio by 37 native-speaker annotators, rather than derived from source-language transcriptions as in the upstream resources, and are accompanied by verbal and non-verbal event annotations.<par/>Using Whisper-small as a backbone, we examine monolingual and multilingual training under severe data scarcity, reporting all baseline results as means over three training seeds. We find that flat multilingual training benefits no variety in this regime. Ga and Twi are unchanged within seed variance (<tex-math>+0.51</tex-math> and <tex-math>+0.06</tex-math> BLEU against monolingual standard deviations of 1.63 and 2.20), while Ewe declines by 6.99 BLEU and Fante by 5.11. The two varieties that degrade are the typologically isolated one, which is also drawn from a different source corpus, and the least-resourced one. We further compare empirical cross-lingual transfer with typology-based similarity and find that, in this four-language setting, transfer BLEU identifies which language pairs interact more closely than URIEL similarity does, although neither measure predicts which varieties benefit from joint training.<par/>We also report a methodological finding of independent interest. An earlier single-run version of this analysis found positive transfer for three of four varieties; that result did not survive replication across seeds. For Ga and Twi, monolingual baselines trained on two to six hours of audio have seed standard deviations of 1.63 and 2.20 BLEU, roughly five and thirty times those of the corresponding multilingual models (0.35 and 0.07). When the monolingual condition is the noisier one, a single-run comparison can show apparent transfer of this size from seed variation alone. We release MGhana-ST to support future research on African language speech technologies and low-resource multilingual speech translation.</abstract>
       <pdf hash="8cea9e61"/>
       <bibkey>acquaye-etal-2026-mghana</bibkey>
+      <doi>10.18653/2026.mrl-1.49</doi>
     </paper>
     <paper id="50">
       <!-- https://aclanthology.org/2026.mrl-1.50/ -->
@@ -577,6 +628,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>This position paper provides a multifaceted perspective on the challenge of adapting AI models (notably, large language models, LLMs) to the thousands of languages spoken worldwide which lack the vast amounts of text necessary for conventional data-intensive, imitation-based training. The paper explores two complementary emerging learning paths which are currently underexplored in the literature: explicit instruction-guided learning from linguistic resources and implicit acquisition in natural immersion contexts. By synthesizing current advances and identifying 40 open problems, this study defines an interdisciplinary research compass for the coming years.</abstract>
       <pdf hash="f2efc8a8"/>
       <bibkey>perez-ortiz-2026-research</bibkey>
+      <doi>10.18653/2026.mrl-1.50</doi>
     </paper>
     <paper id="51">
       <!-- https://aclanthology.org/2026.mrl-1.51/ -->
@@ -602,6 +654,7 @@ emph<fixed-case>transient</fixed-case> phase in depth whose location is architec
       <abstract>Pain is one of the most common and clinically important symptoms, reflecting disease onset, progression, and treatment response. However, pain is difficult to accurately capture and interpret from medical text, as its expression varies across languages, documentation types, and patient demographics, and is often embedded in terminology, negation, temporality, and contextual descriptions. Existing pain-related studies remain largely monolingual or limited to narrow clinical settings. In this study, we introduce PAINT, a multilingual framework for studying pain representation across medical exams and real-world clinical texts. PAINT includes nine pain-focused dataset partitions spanning English, Spanish, Portuguese, and Japanese, with clinician annotations in all four languages. We curated a structured schema covering pain relevance, pain presence, anatomical location, pain descriptors, and demographic information. To capture multilingual pain representations, we leverage large language models (LLMs) and adopt an ensemble strategy to improve performance. Ten clinicians across four languages validate the labels: the ensemble reaches macro-F1 of 0.91–1.00 on pain relevance and pain presence and 92–100% accuracy on demographics, with inter-annotator κ of 0.82–1.00. We release the WorldMedQA-Pain ensemble labels, the extraction pipeline, validation scripts, and clinician annotation sheets for publicly licensed corpora, providing a foundation for pain-centered clinical NLP and for studying pain documentation across languages and healthcare contexts.</abstract>
       <pdf hash="cad76bee"/>
       <bibkey>zhang-etal-2026-paint</bibkey>
+      <doi>10.18653/2026.mrl-1.51</doi>
     </paper>
   </volume>
 </collection>
