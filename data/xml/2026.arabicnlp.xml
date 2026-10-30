@@ -609,8 +609,8 @@
     <paper id="2">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.2/ -->
       <title>Sabaa at <fixed-case>NADI</fixed-case> 2026 Subtask 1.1: Matching Annotation Conventions for Dialectal <fixed-case>A</fixed-case>rabic <fixed-case>ASR</fixed-case></title>
-      <author id="mohamed-sabaa" orcid="0009-0007-8963-7460" openreview="~Mohamed_Sabaa1"><first>Mohamed</first><last>Sabaa</last></author>
       <author openreview="~Amr_Sabaa1"><first>Amr</first><last>Sabaa</last></author>
+      <author id="mohamed-sabaa" orcid="0009-0007-8963-7460" openreview="~Mohamed_Sabaa1"><first>Mohamed</first><last>Sabaa</last></author>
       <pages>31-36</pages>
       <abstract>This paper describes our submission to NADI 2026 Subtask 1.1, speech recognition for eight Arabic dialects under noisy conditions. Our system adapts whisper-large-v3-turbo with one low-rank adapter per dialect, decodes with tuned beam search, and applies a normalization step that matches the spelling conventions of the reference transcriptions rather than applying generic orthographic rules. We train only on the shared-task data, which places our results well below those of systems built with large external corpora, and we report our numbers with that constraint in mind. Country-average WER falls from 0.804 for the zero-shot backbone to 0.6053 on the test set. We also report three observations that shaped the system: per-dialect adapters outperform a jointly trained adapter on all eight dialects even when the joint model is trained for twice as long; replacing beam search with temperature sampling in order to produce diverse hypotheses for rescoring costs more accuracy than the rescoring recovers; and because the official scorer normalizes hypothesis and reference identically, generic character-level normalization cannot help, whereas learning each dialect’s annotation convention from the training transcriptions does.</abstract>
       <pdf hash="9a30f180"/>
@@ -830,7 +830,7 @@
     <paper id="20">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.20/ -->
       <title>Nile Nexus at <fixed-case>BAREC</fixed-case> Shared Task 2026: Enhancing Fine-Grained <fixed-case>A</fixed-case>rabic Readability Assessment through Ordinal-Aware Transformer Ensembling and Decision Calibration</title>
-      <author openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
+      <author id="sumaiya-zaman" orcid="0009-0000-0130-5963" openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
       <author openreview="~Miftahul_Jannat_Rishta1"><first>Miftahul Jannat</first><last>Rishta</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
       <pages>179-185</pages>
       <abstract>Readability assessment has played a vital role in education, yet most NLP work has focused on English and a few high-resource languages, leaving fine-grained Arabic readability comparatively unexplored. In the BAREC Shared Task 2026, we have addressed sentence-level classification into 19 ordinal readability levels under the Strict Track, fine-tuning four Arabic transformer encoders, MARBERT, CAMeLBERT MSA, AraELECTRA and AraBERTv2, on the official training split under multiple ordinal-aware losses: soft cross-entropy, squared Earth Mover’s Distance, direct ordinal regression and a CORAL-style cumulative-threshold loss. A validation-only greedy ensemble of all resulting models, combined with a learned per-level threshold post-processing step, has raised performance from a best single-model QWK of 0.8341 to a final validation QWK of 0.8507. On the official Blind Test leaderboard, our system has achieved a QWK of 0.848, securing 3rd place in the Strict Track</abstract>
@@ -1000,15 +1000,15 @@
     <paper id="35">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.35/ -->
       <title>Nasaq at <fixed-case>A</fixed-case>ra<fixed-case>G</fixed-case>enre 2026: Definition-Guided Approaches for Hierarchical <fixed-case>A</fixed-case>rabic Genre Classification</title>
-      <author id="samar-ahmad" orcid="0009-0004-5797-8752" openreview="~Samar_Ahmad2"><first>Samar</first><last>Ahmad</last><affiliation>King Salman International Academy for the Arabic Language</affiliation></author>
-      <author openreview="~Abdullah_I._Alharbi1"><first>Abdullah I.</first><last>Alharbi</last></author>
       <author openreview="~Shahad_Altamimi1"><first>Shahad</first><last>Altamimi</last><affiliation>King Salman International Academy for the Arabic Language</affiliation></author>
-      <author openreview="~Yahya_assiri2"><first>Yahya</first><last>Assiri</last><affiliation>King Salman International Academy for the Arabic Language</affiliation></author>
+      <author id="samar-ahmad" orcid="0009-0004-5797-8752" openreview="~Samar_Ahmad2"><first>Samar</first><last>Ahmad</last><affiliation>King Salman International Academy for the Arabic Language</affiliation></author>
       <author openreview="~Morooj_Alrajhi1"><first>Morooj</first><last>Alrajhi</last></author>
+      <author openreview="~Yahya_assiri2"><first>Yahya</first><last>Assiri</last><affiliation>King Salman International Academy for the Arabic Language</affiliation></author>
+      <author openreview="~Abdullah_I._Alharbi1"><first>Abdullah I.</first><last>Alharbi</last></author>
       <pages>281-287</pages>
       <abstract>We describe SynAnchor, Nasaq’s definition-guided system for AraGenre 2026. The task requires hierarchical Arabic genre classification under disjoint specific-genre inventories across training, development, and test, making generalization to unseen genres a central challenge. SynAnchor addresses this setting by generating Arabic anchor texts from genre definitions using GPT-4o and embedding them with BGE-M3 for similarity-based retrieval. High-confidence cases are classified directly, while ambiguous inputs are selectively adjudicated by GPT-5 among the three highest-ranked candidate genres. On the official test set of 27,972 texts spanning 74 unseen specific genres, SynAnchor achieves a Hierarchical Macro-F1 of 0.6006 on Codabench, compared with 0.2472 for the organizers’ definition-embedding baseline (approximately 2.4). Approximately 25% of test instances are resolved using retrieval alone, without LLM adjudication. The results suggest that combining definition-guided Arabic anchor synthesis with selective LLM reasoning can support hierarchical genre classification under changing label inventories.</abstract>
       <pdf hash="1ca4b43b"/>
-      <bibkey>ahmad-etal-2026-nasaq</bibkey>
+      <bibkey>altamimi-etal-2026-nasaq</bibkey>
       <doi>10.18653/2026.arabicnlp-sharedtasks.35</doi>
     </paper>
     <paper id="36">
@@ -1080,7 +1080,7 @@
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.41/ -->
       <title>Nile Nexus at <fixed-case>A</fixed-case>r<fixed-case>G</fixed-case>uard Shared Tasks: Leakage-Controlled <fixed-case>MARBERT</fixed-case>v2–<fixed-case>SVM</fixed-case> Ensemble for <fixed-case>A</fixed-case>rabic Harmful-Prompt Classification</title>
       <author openreview="~Miftahul_Jannat_Rishta1"><first>Miftahul Jannat</first><last>Rishta</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
-      <author openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
+      <author id="sumaiya-zaman" orcid="0009-0000-0130-5963" openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
       <pages>332-337</pages>
       <abstract>Arabic harmful-prompt detection has remained challenging due to dialectal variation, implicit expressions and context-dependent intent. In the ArGuard 2026 Shared Task, we have participated in Subtask B1, a binary safe/unsafe classification task scored by macro-F1. We have identified evaluation leakage in an initial pipeline: the development set has been reused for early stopping, threshold tuning and ensemble optimization, which has inflated development scores while masking poor generalization on the blind test set. To correct this, we have introduced a leakage-controlled protocol with separate fitting, checkpoint-selection and tuning splits and have compared a TF-IDF SVM baseline, MARBERTv2 and a stacking ensemble, selecting the best-performing method based on tuning-set results. We have further applied five rounds of error-driven data augmentation to address recurring failure patterns. Our final system has achieved 0.861 accuracy, 0.878 precision, 0.862 recall and 0.860 macro-F1 on the blind test leaderboard, ranking 5th. Manual error analysis has shown that remaining errors have mainly stemmed from false positives on sensitive but non-harmful content, confirming that leakage-controlled evaluation has been necessary for a reliable blind-test estimate.</abstract>
       <pdf hash="33a0568c"/>
@@ -1632,7 +1632,7 @@
     <paper id="87">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.87/ -->
       <title>Nile Nexus at <fixed-case>I</fixed-case>mage<fixed-case>E</fixed-case>val 2026 Shared Tasks: Single-Choice Reformulation and Confidence-Calibrated Refinement for Culturally Grounded Hallucination Detection</title>
-      <author openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
+      <author id="sumaiya-zaman" orcid="0009-0000-0130-5963" openreview="~Sumaiya_Zaman1"><first>Sumaiya</first><last>Zaman</last></author>
       <author openreview="~Miftahul_Jannat_Rishta1"><first>Miftahul Jannat</first><last>Rishta</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
       <pages>697-702</pages>
       <abstract>Visual hallucination detection in culturally grounded images has remained challenging due to fine-grained visual distinctions and knowledge-dependent statements. In the ImageEval2026 / ArabicNLP26 AynVQA Shared Task, we have participated in Task 1b by developing a system based on Qwen2.5-VL-7B Instruct with 4-bit quantization. We have reformulated hallucination detection as a single choice selection problem to enforce the exactly one-correct-statement constraint and have introduced confidence-based selective refinement using paraphrase ensemble voting. Our final system has achieved 0.942 accuracy, 0.058 CI, 0.000 CFHR,0.942 Q+accuracy and 0.971 Q−accuracy, ranking 6th in the English track. Error analysis has revealed that the remaining failures have mostly stemmed from fine-grained cultural and visual grounding challenges rather than prediction inconsistency.</abstract>
@@ -2008,13 +2008,13 @@
     <paper id="118">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.118/ -->
       <title><fixed-case>D</fixed-case>x<fixed-case>M</fixed-case>ulti<fixed-case>H</fixed-case>ead at <fixed-case>A</fixed-case>ra<fixed-case>S</fixed-case>eg Shared Task 2026: Alignment-Safe Sequence Labeling and Weighted Ensembling for <fixed-case>A</fixed-case>rabic Sentence Segmentation</title>
-      <author openreview="~Muhammad_Bahaa_Alsayed_Eid1"><first>Muhammad Bahaa Alsayed</first><last>Eid</last><affiliation>Independent</affiliation></author>
+      <author openreview="~Muhammad_Bahaa_Alsayed_Eid1"><first>Muhammad</first><last>Bahaa</last><affiliation>Independent</affiliation></author>
       <author openreview="~Mohamed_Khaled1"><first>Mohamed</first><last>Khaled</last><affiliation>Digital Egypt for investment co. and Independent</affiliation></author>
       <author id="mena-hany" orcid="0009-0007-7013-170X" openreview="~Mena_Hany1"><first>Mena</first><last>Hany</last></author>
       <pages>956-960</pages>
       <abstract>Sentence boundary detection in Arabic is inherently challenging due to ambiguous orthographic punctuation conventions, prolific coordinating conjunction clitics, and extensive stylistic variability across literary, religious, news, and web domains. In this paper, we present our system submission to the Closed Track of the AraSeg 2026 Shared Task. We formulate sentence boundary detection as a token-level sequence classification problem utilizing an ensemble of fine-tuned Arabic Transformer encoders: AraBERTv02, CAMeLBERT-MSA, and ARBERTv2. Our pipeline integrates an alignment-safe normalization strategy that strictly preserves gold token spans, overlapping sliding-window logit margin aggregation to counteract chunk-boundary degradation, stochastic punctuation masking during training, and calibrated positive-class loss weighting. In the official blind evaluation across eight diverse genres, our framework demonstrated strong boundary recovery across all four task tracks, securing 2nd place in both the Paragraph-Aware setting (<tex-math>F_1 = 95.0\%</tex-math>) and the No-Paragraph setting (<tex-math>F_1 = 91.3\%</tex-math>).</abstract>
       <pdf hash="109af235"/>
-      <bibkey>eid-etal-2026-dxmultihead</bibkey>
+      <bibkey>bahaa-etal-2026-dxmultihead</bibkey>
       <doi>10.18653/2026.arabicnlp-sharedtasks.118</doi>
     </paper>
     <paper id="119">
@@ -2174,7 +2174,7 @@
     </paper>
     <paper id="132">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.132/ -->
-      <title>Tathabbut at at <fixed-case>I</fixed-case>slamic<fixed-case>E</fixed-case>val 2026: Canonical-Provenance Evidence Fusion for Fine-Grained Citation Hallucination Verification</title>
+      <title>Tathabbut at <fixed-case>I</fixed-case>slamic<fixed-case>E</fixed-case>val 2026: Evidence-Grounded Verification and Selective Canonical Correction</title>
       <author openreview="~Salma_Khaled_Hegazy1"><first>Salma Khaled</first><last>Hegazy</last><affiliation>Nile University</affiliation></author>
       <pages>1075-1080</pages>
       <abstract>Islamic question-answering systems can produce fluent Arabic while altering Qur’anic wording, Hadith text, narrator chains, or source attribution. We present Tathabbut for two IslamicEval 2026 settings: fine-grained verification and canonical correction. For verification, Canonical-Provenance Evidence Fusion (CPEF) classifies Ayah, matn, isnad, and claimed-source segments by combining canonical retrieval with collection, narrator, response-level, contradiction, and exact-matn provenance evidence. CPEF achieves 0.9452 macro accuracy on the official Test set. For correction, Type-Aware Selective Canonical Retrieval (TASCR) reranks authoritative Qur’anic and Hadith candidates using lexical, memory-based, contextual, and source evidence, and abstains when confidence is insufficient. TASCR achieves 86.29% Test accuracy. A post-hoc Development diagnostic finds the gold correction for 319/327 (97.55%) recoverable cases in an expanded candidate pool, indicating that candidate discrimination and abstention are larger bottlenecks than retrieval recall. Neither submitted component invokes a generative LLM at inference time.</abstract>
