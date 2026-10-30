@@ -18,11 +18,13 @@
       <pdf hash="ddd34341"/>
       <venue>docinsights</venue>
       <venue>ws</venue>
+      <doi>10.18653/2026.docinsights-1</doi>
     </meta>
     <frontmatter>
       <!-- https://aclanthology.org/2026.docinsights-1.0/ -->
       <pdf hash="52bc430f"/>
       <bibkey>docinsights-2026-1</bibkey>
+      <doi>10.18653/2026.docinsights-1.0</doi>
     </frontmatter>
     <paper id="1">
       <!-- https://aclanthology.org/2026.docinsights-1.1/ -->
@@ -45,6 +47,7 @@
       <abstract>Whether an information extraction pipeline should process page images or parsed text depends on the document, and the answer flips across the layout spectrum. We study this trade-off under a constraint that rules out (closed) cloud services: privacy-sensitive documents processed on-premise by small (<tex-math>\le 8\mathrm{B}</tex-math> parameter) text-only and vision–language models, evaluated on both accuracy and energy over a design space spanning input representation, model family, and inference configuration. Benchmarking on the near-plain-text Kleister-NDA contracts and the layout-rich VRDU forms, we find that batching is the dominant energy lever, cutting energy per page by 38–85% at no cost in accuracy, while FP8 quantization saves 27–32% when requests are served one at a time but less than 1 mWh per page (9–19%) once batching is applied. Preprocessing dominates what remains: neural OCR costs <tex-math>17\times</tex-math> more energy per page than classical OCR and never reaches the Pareto frontier. Which representation wins flips with the type of document: vision–language models on layout-rich documents and small text-only models with a cheap parser on near-plain text, where they are both more accurate and cheaper than any vision–language configuration. Our work yields concrete guidelines for energy-efficient, privacy-compliant local information extraction.</abstract>
       <pdf hash="dbe2feab"/>
       <bibkey>walser-etal-2026-right</bibkey>
+      <doi>10.18653/2026.docinsights-1.2</doi>
     </paper>
     <paper id="3">
       <!-- https://aclanthology.org/2026.docinsights-1.3/ -->
@@ -58,6 +61,7 @@
       <abstract>Scanned mail, uploaded PDFs, and consolidated attachments often arrive as page streams that must be split into individual documents before downstream classification, extraction, or routing. Zero-shot large language models can detect document boundaries without task-specific training, but standard Page Classification (PC) and Boundary Decision (BD) formulations resolve only one boundary per model call. We introduce <tex-math>\textbf{Multi-Split Boundary Decision}</tex-math> (MSBD), which predicts multiple boundaries within a page window in a single call, reducing the number of inference requests. We evaluate MSBD across multiple language models, document collections, input modalities, and window sizes. The results reveal a model- and corpus-dependent operating range in which MSBD preserves strong segmentation accuracy while substantially improving inference efficiency, followed by a sharp decline at larger windows. MSBD provided the strongest overall accuracy–efficiency trade-off, while large windows expose distinct over- and under-segmentation behavior across models. These findings show that multi-boundary prediction can make zero-shot page stream segmentation more efficient when the window size is selected for the target corpus.</abstract>
       <pdf hash="53042b43"/>
       <bibkey>pottanigari-etal-2026-splitting</bibkey>
+      <doi>10.18653/2026.docinsights-1.3</doi>
     </paper>
     <paper id="4">
       <!-- https://aclanthology.org/2026.docinsights-1.4/ -->
@@ -72,6 +76,7 @@
       <abstract>Every document QA system begins with a choice that is rarely studied on its own: whether to feed the model page images, extracted text, or both. We isolate this choice, holding the prompt, judge, and scoring pipeline fixed, across four commercial model endpoints, two corpora, and two context regimes (gold evidence pages and the full document). On documents that fit the image budget, page images lead on accuracy at every document length on both corpora, but this advantage carries a growing latency and cost premium: text latency stays roughly flat as documents lengthen while image latency rises steadily. Text and images also fail on different questions, with exactly one representation correct on <tex-math>\textbf{19-25}</tex-math>% of items across the reported cells, so neither subsumes the other. Exploiting this complementarity, a lightweight TF-IDF router that reads only the question text gains <tex-math>\textbf{2.6 points}</tex-math> over always-text while cutting median latency <tex-math>\textbf{30}</tex-math>% relative to always-vision, on a document-disjoint held-out split.</abstract>
       <pdf hash="64b59c7b"/>
       <bibkey>pottanigari-etal-2026-text</bibkey>
+      <doi>10.18653/2026.docinsights-1.4</doi>
     </paper>
     <paper id="5">
       <!-- https://aclanthology.org/2026.docinsights-1.5/ -->
@@ -82,6 +87,7 @@
       <abstract>Document understanding requires answering questions over long, multi-page documents that interleave text, figures, and tables. Recent methods adopt the Document Retrieval-Augmented Generation (DocRAG) paradigm, which indexes each document and feeds the top-K most relevant pages to a Multimodal Large Language Model (MLLM) per query. Because each page can be represented as extracted text or a rendered image, DocRAG systems expose two key knobs: an indexing modality choice when the documents are ingested and a context modality at query time. Existing systems either fix both knobs to the visual modality or use both modalities throughout, incurring indexing and query costs regardless of document or query type. We propose AdaptiveDocRAG, which adapts both knobs as well as the size of visual context to optimize the trade-off between accuracy, query response time, and indexing time. AdaptiveDocRAG achieves this through three lightweight modules. First, document-adaptive indexing modality selection uses a text-density heuristic to route text-heavy documents to cheaper textual indexing. Second, query-adaptive context modality selection uses a learned per-query router to select textual or visual context. Third, query-aware visual context compression reuses the retriever’s per-patch query-page similarity to crop relevant sub-page regions and fuse them with top-ranked text chunks. On MMLongBench-Doc and NQ-Text with Qwen3-VL-8B, AdaptiveDocRAG matches or improves visual-only DocRAG accuracy (up to +1.1 points) at ~50% of the MLLM tokens, with 1.30-1.79x end-to-end speedup and 1.34x faster indexing.</abstract>
       <pdf hash="a3c60389"/>
       <bibkey>selvam-raghunathan-2026-adaptivedocrag</bibkey>
+      <doi>10.18653/2026.docinsights-1.5</doi>
     </paper>
     <paper id="6">
       <!-- https://aclanthology.org/2026.docinsights-1.6/ -->
@@ -91,6 +97,7 @@
       <abstract>DocVQA and InfographicVQA are scored with average normalized Levenshtein similarity (ANLS), and a DocVQA number is read as a measure of how well a model reads a page, but the lmms-eval and VLMEvalKit harnesses that compute it append a one-line terse-answer suffix to every question. ANLS divides edit distance by the length of the longer string, so a correct answer inside a sentence more than twice its length falls below the 0.5 threshold and scores zero, and removing only the suffix moved Qwen2.5-VL-3B’s DocVQA ANLS from 94.2 to 7.5. On that model ANLS given a short answer (within two tokens of the longest gold) stayed between 93.9 and 95.7 across three suffixes whose scores spanned 94.2 to 65.3, so the reported score followed the share of short answers more than the share that contained the gold. Two suffixes that lmms-eval defines for the same task differed by 28.8 points, and under one of them 79% of the answers ANLS scored zero contained the gold answer, all 305 of which a judge with negated and two-candidate controls accepted as the committed answer. On a 317-question subset, four hosted models lost between 34.4 and 89.5 points without the suffix (Gemini 3.8 Flash fell from 92.0 to 2.5), and with the suffix in place, deleting Markdown emphasis markers raised Claude Opus 5.5 by 10.9 points. On Qwen2.5-VL-3B a length-gated span scorer moved 13.3 points across the five suffixes where ANLS moved 86.6, and it scored a submission of the page’s whole OCR at 1.3, where best-subsequence exact match and the learned PEDANTS classifier gave 93.0 and 98.6. On ChartQA the suffix was worth 28.4 points of relaxed accuracy to Qwen2.5-VL-3B. We release the scorer and recommend reporting the prompt suffix and output post-processing with every document-VQA score.</abstract>
       <pdf hash="7f3d2d49"/>
       <bibkey>harish-2026-document</bibkey>
+      <doi>10.18653/2026.docinsights-1.6</doi>
     </paper>
     <paper id="7">
       <!-- https://aclanthology.org/2026.docinsights-1.7/ -->
@@ -105,6 +112,7 @@
       <abstract>Obtaining high-quality, pre-submission feedback is a critical bottleneck in the academic publication lifecycle for researchers. We introduce AutoRev, an automated author-centric feedback system that generates structured, actionable guidance prior to formal peer review. AutoRev employs a graph-based retrieval-augmented generation framework that models each paper as a hierarchical document graph, integrating textual and structural representations to retrieve salient content efficiently. By leveraging graph-based passage retrieval, AutoRev substantially reduces LLM input context length, leading to higher-quality feedback generation. Experimental results demonstrate that AutoRev significantly outperforms baselines across multiple automatic evaluation metrics, while achieving strong performance in human evaluations. We have made our code publicly available.</abstract>
       <pdf hash="0e4e2670"/>
       <bibkey>chitale-etal-2026-graph</bibkey>
+      <doi>10.18653/2026.docinsights-1.7</doi>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2026.docinsights-1.8/ -->
@@ -120,6 +128,7 @@
       <abstract>Semantic search in retrieval-augmented generation (RAG) systems is often insufficient for complex information needs, particularly when relevant evidence is scattered across multiple sources, because it may fail to retrieve the complete set of evidence. Existing approaches to addressing this problem either rely on iterative agentic retrieval, which can be computationally inefficient, or maintain additional structures such as knowledge graphs, which introduce storage and maintenance overhead. In this paper, we propose GraphER, a graph-based enrichment and reranking framework that (1) leverages the organizational structure of data to capture proximity relationships beyond semantic similarity, (2) constructs a graph at query time based on these proximities, and (3) applies graph-based ranking to surface the top candidate documents. Experiments across table retrieval, multi-hop retrieval, and long-document retrieval benchmarks demonstrate consistent improvements in terms of retrieval completeness. Additionally, GraphER requires no additional graph infrastructure and integrates seamlessly with standard vector stores. The framework is retriever-agnostic, supports multiple forms of proximity, and introduces minimal query-time latency.</abstract>
       <pdf hash="0106912c"/>
       <bibkey>miao-etal-2026-grapher</bibkey>
+      <doi>10.18653/2026.docinsights-1.8</doi>
     </paper>
     <paper id="9">
       <!-- https://aclanthology.org/2026.docinsights-1.9/ -->
@@ -135,6 +144,7 @@
       <abstract>We introduce LongDA, a data analysis benchmark for evaluating LLM-based agents under documentation-intensive analytical workflows. In contrast to existing benchmarks that assume well-specified schemas and inputs, LongDA targets real-world settings in which navigating long documentation and complex data is the primary bottleneck. To this end, we manually curate raw data files, long and heterogeneous documentation, and expert-written publications from 17 publicly available U.S. national surveys, from which we extract 505 analytical queries grounded in real analytical practice. Solving these queries requires agents to first retrieve and integrate key information from multiple unstructured documents before performing multi-step computations and writing executable code, which remains challenging for existing data analysis agents. To support the systematic evaluation under this setting, we develop LongTA, a tool-augmented agent framework that enables document access, retrieval, and code execution, and evaluate a range of proprietary and open-source models. Our experiments reveal substantial performance gaps even among state-of-the-art models, highlighting the challenges researchers should consider before applying LLM agents for decision support in real-world, high-stakes analytical settings.</abstract>
       <pdf hash="b9a57294"/>
       <bibkey>li-etal-2026-longda</bibkey>
+      <doi>10.18653/2026.docinsights-1.9</doi>
     </paper>
     <paper id="10">
       <!-- https://aclanthology.org/2026.docinsights-1.10/ -->
@@ -149,6 +159,7 @@
       <abstract>Retrieving relevant pages from visually rich documents, with evidence in charts, tables, and figures rather than body text, remains difficult: a single-pass query against a fixed index misses content in visual elements, and reordering the same candidates cannot recover a page never retrieved. We propose Reflect and Retrieve, an agentic retrieval approach centered on a Reflection Agent. After an initial page-level retrieval, the agent uses a multimodal large language model to visually reason over the retrieved page images, judge whether the evidence is sufficient, and, when gaps remain, an orchestrator issues targeted follow-up retrievals to recover the missing pages. Evaluating on two benchmarks, MMDocIR and ViDoRe V3, the Reflection Agent delivers the dominant agentic gain: it is the only configuration to beat single-step retrieval for every reasoning model on both, improving Recall@N from 0.628 to 0.663 on MMDocIR and 0.566 to 0.644 on ViDoRe V3. The improvement comes from recovering relevant pages absent in initial retrieval. Our approach indicates a clear design order: selecting an optimal embedding approach for the retrieval tool is the first step, after which the Reflection Agent contributes more value than a query decomposition agent, positioning visual reflection as the key component for document search.</abstract>
       <pdf hash="85670fc2"/>
       <bibkey>gangopadhyay-etal-2026-reflect</bibkey>
+      <doi>10.18653/2026.docinsights-1.10</doi>
     </paper>
     <paper id="11">
       <!-- https://aclanthology.org/2026.docinsights-1.11/ -->
@@ -161,6 +172,7 @@
       <abstract>Health insurance policy documents justify coverage decisions through clinical evidence and regulatory criteria, but the underlying reasoning is buried in dense medical and legal text. A pipeline is presented that extracts argument components and relations from these documents and assembles them into directed argument graphs. A dataset of 5,230 sentences and 5,685 relations across 53 documents from Aetna, CMS, and United Healthcare is constructed along with two custom annotation tools. Six classical baselines, three fine-tuned transformer models, and three instruction-tuned LLMs are evaluated, with the LLMs assessed under zero-shot, few-shot, and chain-of-thought prompting. PubMedBERT and Legal-BERT, fine-tuned on the dataset, achieve the strongest results overall (0.731 and 0.653 Macro F1 on component classification and relation extraction, respectively). Notably, the much simpler TF-IDF + SVM baseline is competitive with these fine-tuned transformers (0.709 and 0.649 Macro F1) and outperforms the best prompted LLM by 12 and 21 F1 points respectively. The dataset and code are available at https://anonymous.4open.science/r/LLM-Driven-Argument-Mapping-3ACB/README.md</abstract>
       <pdf hash="a0f3abcb"/>
       <bibkey>arun-etal-2026-llms</bibkey>
+      <doi>10.18653/2026.docinsights-1.11</doi>
     </paper>
     <paper id="12">
       <!-- https://aclanthology.org/2026.docinsights-1.12/ -->
@@ -170,6 +182,7 @@
       <abstract>Large language models can answer nutrition questions fluently, but educational assistants must also rely on the assigned source, recognize unsupported requests, and respond safely to medically sensitive or adversarial questions. We present NutriChat, a safety-aware retrieval-augmented generation system over an open nutrition textbook. Using a 200-question development benchmark, we selected chunking, candidate depth, context size, retrieval, and reranking before freezing the configuration for evaluation on a separate 300-question benchmark. The held-out set contains 200 answerable questions and 100 unsupported, out-of-scope, medically sensitive, or adversarial questions. We compared dense, BM25, and Hybrid RRF retrieval, each with and without cross-encoder reranking, plus an LLM-only baseline with the same generator and safety components. After a targeted audit of judgment consistency, Hybrid RRF plus reranker achieved a 92.0% pass rate, compared with 84.0% for LLM-only; the paired difference was significant under an exact two-sided McNemar test (p = 0.00150). It also reached 94.5% Page hit@3 and 0.880 MRR. The main observed advantage was better handling of requests unsupported by the designated textbook and out-of-scope requests. Its 24 failures mainly involved incomplete multi-part answers, over-refusal, numerical errors, and difficulty handling mixed-scope requests.</abstract>
       <pdf hash="253d0685"/>
       <bibkey>ghafouri-2026-nutrichat</bibkey>
+      <doi>10.18653/2026.docinsights-1.12</doi>
     </paper>
     <paper id="13">
       <!-- https://aclanthology.org/2026.docinsights-1.13/ -->
@@ -180,6 +193,7 @@
       <abstract>Detectors of machine-generated text score almost perfectly on scientific-literature benchmarks, implying we can reliably distinguish with these detectors human and machine-generated documents. We looked at ten scientific-document subsets from six popular resources, and on several of them that apparent ease is a side effect of how the documents were put together. A logistic regression using 27 superficial features reached 0.833-0.997 macro-<tex-math>F_1</tex-math>, and on the three arXiv subsets it outperformed every detector we evaluate with <tex-math>F_1</tex-math>-scores 0.951–0.997. The strongest cue to the detector is the PDF extraction artifact: human texts retain their original line breaks, whereas generated texts are extracted as a single block of prose. This cue, together with three other formatting features, tell the classes apart at 0.996 AUC. To distinguish benchmarks that contain such a signal from detectors that rely on one, we introduce format counterfactuals: just re-wrapping a machine-written abstract without changing a single word reverses 20-27% of a public detector’s correct decisions. Normalizing formatting before training reduces the generalization gap from 0.32 to 0.22. On format-clean benchmarks, it also raises out-of-domain macro-<tex-math>F_1</tex-math> from 0.33 to 0.65 for detectors trained on artifact-containing subsets. We release our tools and scripts to reconstruct the corrected subsets.</abstract>
       <pdf hash="eefe693b"/>
       <bibkey>voznyuk-grabovoy-2026-measuring</bibkey>
+      <doi>10.18653/2026.docinsights-1.13</doi>
     </paper>
     <paper id="14">
       <!-- https://aclanthology.org/2026.docinsights-1.14/ -->
@@ -193,6 +207,7 @@
       <abstract>Introduction: Biomedical PDFs distribute answer evidence across prose, tables, figures, and cross-document relations, complicating the retrieval of answer-sufficient context. We examine whether graph and multimodal retrieval provide complementary answers and whether direct concatenation exploits this complementarity. Methods: We screen 13 local generators on 205 pharmacokinetics/pharmacodynamics multiple-choice questions and evaluate 11 retrieval conditions over ten runs for five selected models. We quantify questions answered correctly by either or both retrieval routes and compare direct fusion with each standalone route using paired question-level bootstrap intervals. A separate ten-run panel tests answer order, irrelevant context, paraphrasing, generated distractors, and option removal. Results: Multimodal retrieval alone answers 11.5–16.2% of questions correctly that graph retrieval misses, while graph retrieval alone answers 7.9–13.9% that multimodal retrieval misses. Counting a question as correct whenever either route succeeds yields an oracle upper bound of 69.5–77.7%, exceeding direct concatenation by 8.4–13.5 percentage points. Direct fusion improves on the stronger standalone route by at most 0.6 points; paired intervals include zero in all ten model–depth comparisons. In repeated evaluation, Gemma-4-31B with multimodal retrieval achieved the highest accuracy (66.6%, 95% CI 65.4–67.8). Discussion: The central finding is substantial answer-level complementarity that direct concatenation does not reliably exploit. The oracle bound measures retrospective selection, not an implemented routing method. These findings motivate evaluating source-aware routing or reranking to select between complementary retrieval routes.</abstract>
       <pdf hash="b81855a0"/>
       <bibkey>kocbek-etal-2026-graph</bibkey>
+      <doi>10.18653/2026.docinsights-1.14</doi>
     </paper>
     <paper id="15">
       <!-- https://aclanthology.org/2026.docinsights-1.15/ -->
@@ -206,6 +221,7 @@
       <abstract>Many analytical questions over long narratives are structured even when their source documents are not. Answering them requires identifying relevant events, inducing a query-specific schema, grounding records in dispersed evidence, and computing the values of an answer table. We introduce Q-STR, a cricket-domain benchmark and diagnostic for this query-driven text-to-table problem. We construct Q-STR from ball-by-ball match narratives using executable SQL templates and release two complementary splits: a 4,256-example coverage split for breadth and a 3,467-example controlled split spanning 348 reasoning templates for within-template diagnosis. Factorized metrics distinguish recovery of the answer-table structure from fidelity of its cell values. Across four language models and seven prompting strategies, models often recover plausible table structure while failing at grounded aggregation. Gemini-2.5-Flash is strongest overall, but even its best configuration reaches only 28.56 exact table match. For open-weight models, allocating output tokens to row-local evidence and computation improves cell fidelity more reliably than multi-call planning or self-consistency. Controlled comparisons further show that event identification and numeric fidelity are only partially coupled: execution pressure is the most consistent difficulty driver, while increasing output pressure shifts errors toward undercounting. Q-STR is deliberately a cricket diagnostic rather than a general benchmark of all narrative reasoning. Its single-domain scope, model-assisted construction, and absence of an executable code-generation baseline limit broader conclusions, but its controlled design exposes where structured reasoning from long narratives breaks down.</abstract>
       <pdf hash="2f356b9e"/>
       <bibkey>upadhyay-etal-2026-q</bibkey>
+      <doi>10.18653/2026.docinsights-1.15</doi>
     </paper>
     <paper id="16">
       <!-- https://aclanthology.org/2026.docinsights-1.16/ -->
@@ -219,6 +235,7 @@
       <abstract>We present a case study developing an ontology-guided framework for extracting and validating procedural knowledge from safety-critical documents with limited annotations, specifically the Lockout-Tagout (LOTO) procedural documents. We build multimodal Procedural Knowledge Graphs (PKGs) grounded in the Procedural Knowledge Ontology (PKO) from text and diagrams using LLMs and VLMs. The extracted PKGs are evaluated on instruction- and graph-level metrics with validation against a domain expert curated ontology for action–entity relations, step order, and cross-modal alignment. Embedding-based metrics capture semantic alignment, while lexical metrics expose safety-critical mismatches. Our experiments on proprietary and public LOTO documents demonstrate the feasibility and limitations of multimodal procedural extraction and motivate ontology-guided validation.</abstract>
       <pdf hash="fa90e908"/>
       <bibkey>oguz-etal-2026-ontology</bibkey>
+      <doi>10.18653/2026.docinsights-1.16</doi>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2026.docinsights-1.17/ -->
@@ -249,6 +266,7 @@
       <abstract>Borderless and partially ruled scientific tables often omit visual boundaries that mark logical rows, columns, and spanning regions. We introduce Tabstructor, a vision–language framework for latent-border reconstruction: predicting a table bounding box and horizontal and vertical segments representing logical boundaries even when visually absent or incomplete. On a held-out external test set, we compare task-specific prompting of a frozen base model, supervised fine-tuning, structure-preserving augmentation, and optional OCR-assisted geometry refinement. We introduce the Latent Border Reconstruction Score (LBRS; 0–100, higher is better) for evaluating valid structural and geometric border recovery. Task-specific prompting improves the frozen model, while fine-tuning provides the dominant gain, increasing LBRS from 38.552 to 90.014 (paired gain 51.462; 95% paired-bootstrap CI: 45.583–57.259). The augmented predictor reaches 93.487, a further 3.473-point gain, although it receives additional cumulative training exposure. OCR-assisted refinement improves boundary localisation and extent but adds only 0.467 points on average (95% CI: <tex-math>-1.968</tex-math>–2.615) and can cause boundary-count regressions. Thus, fine-tuning performs the principal reconstruction, while refinement is an optional, non-uniform geometry adjustment.</abstract>
       <pdf hash="451f0dab"/>
       <bibkey>alon-etal-2026-tabstructor</bibkey>
+      <doi>10.18653/2026.docinsights-1.18</doi>
     </paper>
     <paper id="19">
       <!-- https://aclanthology.org/2026.docinsights-1.19/ -->
@@ -258,6 +276,7 @@
       <abstract>Document-AI pipelines increasingly begin by converting a PDF to text with a parser—classical extractors, OCR, layout models, or vision-language models—before any retrieval or reasoning. Overall-quality metrics (edit distance, TEDS) score these parsers as if all characters mattered equally. They do not: a corrupted number, date, identifier, or table cell changes meaning while barely moving a similarity score. We isolate this failure with a span-typed diagnostic over six parsers, ten structured span types, and two conditions (digital and scanned), on a controlled corpus with exact ground truth plus a real arXiv subset. Three findings. (i) Preservation is highly parser- and type-dependent: the best parser preserves 99.4% of spans while others fail specific types catastrophically (Docling drops markup to 6.0%; MarkItDown returns nothing on scanned pages), so "which parser" is a per-span-type risk decision, not a single score. (ii) Document-level text similarity does not predict span loss (Spearman ρ ≤ 0.46 across all parsers and conditions; ≈ 0 for VLMs), so standard metrics are blind to it. (iii) Downstream, corrupted spans are dangerous precisely when the parse looks successful: among questions whose evidence span was corrupted but whose document still returned text, 96.5% are answered with a confident wrong value rather than an abstention—an undetectable error—whereas total parse failure is comparatively safe because it forces an abstention. We release the resource behind these numbers: 566,904 per-span verdicts over 660 documents and 7,560 parser outputs, under CC-BY, with an independent verifier (49,720 checks) that re-derives every reported number.</abstract>
       <pdf hash="9290aa18"/>
       <bibkey>zhang-2026-silent</bibkey>
+      <doi>10.18653/2026.docinsights-1.19</doi>
     </paper>
     <paper id="20">
       <!-- https://aclanthology.org/2026.docinsights-1.20/ -->
@@ -270,6 +289,7 @@
       <abstract>Vision-language models (VLMs), despite their success in optical character recognition (OCR) tasks, are vulnerable to typographic attacks and have a fragile structure for images with multiple text layers. In this study, the DecoyBench dataset was created using the Decoy Font method. The dataset consists of 300 images, each containing text with sharp contour lines superimposed on another text with soft shading. Six recent closed-source models from three different model families were evaluated using this dataset under two different prompting conditions (naive and guided) and at two different resolutions (512 × 512 and 64 × 64). A validation study showed that human participants could read both text layers with high accuracy. In contrast, the models, with most variants and both prompting methods, read the contour text with near-human accuracy at high resolution, but almost never fully extracted the shading text. At low resolution, the contour text could not be read by either the models or humans, while the shading text could be extracted with high accuracy. The findings indicate that the evaluated VLMs exhibit a consistent behavioral limitation when processing typographic structures containing multiple spatial frequency layers.</abstract>
       <pdf hash="c9bf5205"/>
       <bibkey>incidelen-etal-2026-sorry</bibkey>
+      <doi>10.18653/2026.docinsights-1.20</doi>
     </paper>
     <paper id="21">
       <!-- https://aclanthology.org/2026.docinsights-1.21/ -->
@@ -280,6 +300,7 @@
       <abstract>Latent context compression replaces a document with a short sequence of learned vectors, but whether this beats simply keeping raw tokens under the same decoder-context budget is rarely tested. We run that test on held-out document QA, matching budgets per example against raw-token truncation and selector-specific readers trained on first-<tex-math>N</tex-math>, LLMLingua-2, and question-conditioned BM25 contexts. Our minimal compressor consists of a text encoder, learned pooling, and direct projection. It beats every tested common-cap retention baseline at nominal pooling factors <tex-math>cr{=}8</tex-math> and <tex-math>cr{=}16</tex-math>, reaching answer perplexity 3.464 versus 5.349 for the strongest baseline at <tex-math>cr{=}8</tex-math>. The advantage persists in first-sentence free generation, and a manual check of answers is directionally consistent. Adding a post-pooling transformer hurts with twelve layers and with one layer. The twelve-layer result holds in the discovery run, two replications, and a second decoder family. Removing the post-pooling transformer also makes the compressor smaller and faster. Learned pooling followed by direct projection provides the strongest quality and efficiency among the tested compressor designs.</abstract>
       <pdf hash="39cfbf5a"/>
       <bibkey>cherepanov-burlova-2026-occupy</bibkey>
+      <doi>10.18653/2026.docinsights-1.21</doi>
     </paper>
     <paper id="22">
       <!-- https://aclanthology.org/2026.docinsights-1.22/ -->
@@ -296,6 +317,7 @@
       <abstract>RAG systems are usually compared as complete pipelines, making it difficult to attribute improvements to individual components. We evaluate chunking, retrieval, fusion, and reranking through a full factorial design with paired component substitutions and equal context budgets. Across five benchmarks, chunking interacts with retrieval architecture, BM25 fusion changes direction by domain, and reranking is the only intervention we test that remains beneficial across nearly all upstream configurations. Claim-level transitions further show that similar net recall can conceal very different changes in visible evidence. These findings demonstrate that RAG components cannot be ranked independently and motivate interaction-aware evaluation instead of winner-take-all pipeline comparisons.</abstract>
       <pdf hash="3702c5e4"/>
       <bibkey>kumar-etal-2026-rag</bibkey>
+      <doi>10.18653/2026.docinsights-1.22</doi>
     </paper>
     <paper id="23">
       <!-- https://aclanthology.org/2026.docinsights-1.23/ -->
@@ -315,6 +337,7 @@
       <abstract>Translating LaTeX documents is challenging because natural-language content is tightly interleaved with executable structures such as commands, equations, environments, and cross-references. Direct translation may therefore corrupt document structure and lead to formatting errors or compilation failures. We present LaTeXTrans, a structure-aware framework that separates semantic translation from executable LaTeX structure through four stages: structure-aware parsing, protected translation, structural validation, and document reconstruction. LaTeXTrans isolates non-translatable structures with protected placeholders, validates structural constraints after translation, and reconstructs the translated content into the original multi-file project structure. We evaluate LaTeXTrans on 100 real-world LaTeX projects across multiple domains and translation directions. Experimental results show consistent improvements in translation quality over direct large language model (LLM) translation while maintaining strong structural reliability. On English–Chinese translation, LaTeXTrans achieves a 97% compilation success rate with only 0.43 formatting errors per document on average. Controlled experiments further show that its structural performance remains stable when previously unseen user-defined command and environment identifiers are introduced.</abstract>
       <pdf hash="be720fbb"/>
       <bibkey>zhu-etal-2026-latextrans</bibkey>
+      <doi>10.18653/2026.docinsights-1.23</doi>
     </paper>
     <paper id="24">
       <!-- https://aclanthology.org/2026.docinsights-1.24/ -->
@@ -326,6 +349,7 @@
       <abstract>As generative models continue to evolve, the automated generation of scientific posters from research papers has advanced rapidly. However, its evaluation almost exclusively focuses on whether the poster layout is visually well-organized and whether it covers the paper’s content. We argue that these approaches overlook a prior question: whether the selection of content for the poster is sound. A poster can be complete and well-formed, yet distort findings, break internal coherence, or spend its limited space on duplicated information. We introduce <b>CoSeCh</b> (<b>Co</b>ntent <b>Se</b>lection <b>Ch</b>eck), a suite of automatic rule-based, LLM-assisted diagnostics that probe the selected content on four distinct dimensions of quality: faithfulness (are the qualifiers that bound a claim preserved?), coherence (do selected units remain interpretable once their dependencies are removed?), recoverability (can the paper’s core claims be reconstructed from the selection?), and efficiency (is the budget spent on distinct content?). Applying CoSeCh to 5 poster generators ranging from a random selection baseline to state-of-the-art works like P2P and Paper2Poster, we find that content selection quality is strongly generator-dependent and that generators fail along different axes. Some generators preserve the qualifiers for the claims better than human authors, while others’ selection is no more coherent than random choice. Existing coverage-focused evaluation metrics like PaperQuiz cannot detect these failures. The four axes are near-independent, showing that no single coverage measure can capture them.</abstract>
       <pdf hash="f4f0a33a"/>
       <bibkey>deshpande-etal-2026-cosech</bibkey>
+      <doi>10.18653/2026.docinsights-1.24</doi>
     </paper>
     <paper id="25">
       <!-- https://aclanthology.org/2026.docinsights-1.25/ -->
@@ -342,6 +366,7 @@
       <abstract>Vision-language models (VLMs) typically process images at a native high-resolution, forcing a trade-off between accuracy and computational efficiency: high-resolution inputs capture fine details but incur significant computational costs, while low-resolution inputs advocate for efficiency, they potentially miss critical visual information, specifically OCR related. We present AwaRes, a spatial-on-demand framework that resolves this accuracy–efficiency trade-off by operating on a low-resolution global view and using tool-calling to retrieve only high-resolution segment needed for a given query, rather than escalating to the full image. We construct this supervision automatically: a judge compares low- vs. high-resolution answers to label whether cropping is needed, and an oracle grounding model localizes the evidence for the correct answer, which we map to a discrete crop set to form multi-turn tool-use trajectories. We train our framework with SFT followed by multi-turn GRPO with a composite reward that combines semantic answer correctness with explicit crop-cost penalties. AwaRes provides a practical, deployment-friendly path to high-detail VLM reasoning under tight compute budgets.</abstract>
       <pdf hash="7ccb7347"/>
       <bibkey>shabtay-etal-2026-look</bibkey>
+      <doi>10.18653/2026.docinsights-1.25</doi>
     </paper>
     <paper id="26">
       <!-- https://aclanthology.org/2026.docinsights-1.26/ -->
@@ -354,6 +379,7 @@
       <abstract>Visual document retrieval (VDR) is dominated by multi-billion-parameter models that are slow to index at full corpus scale and expensive to serve. Prior compression routes either train a smaller multi-vector encoder from scratch or distil only the query side; neither yields a compact single-vector retriever end-to-end. We present DistilVDR, a 527M end-to-end VDR system distilled bilaterally from a single 8B vision-language teacher under a pointwise cosine alignment loss. All supervision comes from the frozen teacher’s embedding space, which was itself trained with relevance supervision, so the student objective needs no relevance labels, negative sampling, or contrastive term. We match VDR’s text-query and image-document input asymmetry with an asymmetric encoder-only student that concentrates visual capacity on the document side and keeps the query side at 70M parameters. We release two variants that share the same encoders and training and differ only in the document encoder’s visual-tile budget: DistilVDR-HiRes attains 61.74 average NDCG@5 on ViDoRe v1+v2+v3 (86.9% of the 8B teacher) and leads every reproduced sub-1B baseline on the high-resolution-sensitive v3 benchmark, while DistilVDR-Fast attains 59.98 at a 3<tex-math>\times</tex-math> smaller visual-token budget. Both variants store one million documents in a 15.6 timessmaller index than the strongest sub-1B multi-vector baseline,and DistilVDR-Fast indexes 5.2 times faster than that baseline and 18 times faster than the teacher.</abstract>
       <pdf hash="9d956c94"/>
       <bibkey>liu-etal-2026-distilvdr</bibkey>
+      <doi>10.18653/2026.docinsights-1.26</doi>
     </paper>
     <paper id="27">
       <!-- https://aclanthology.org/2026.docinsights-1.27/ -->
@@ -367,6 +393,7 @@
       <abstract>Tables are central to business document workflows, but practical table-processing tasks vary substantially in structure, content, and required action. We compare eight ReAct-agent configurations built on the same Qwen3.6-35B-A3B model. The design crosses four tool profiles - Minimal, Search, Spreadsheet, and Full - with the presence or absence of Markdown-based procedural skills. We evaluate the configurations on 40 tasks from company workflows, FinQA, and SpreadsheetBench. Across three complete replicates, comprising 960 agent-task episodes, Full with skills obtains the highest aggregate success rate of 75.0% and a mean score of 0.8061. Full without skills reaches 65.0%, while Spreadsheet without skills reaches 73.3%. Aggregated across tool profiles, skills increase success from 69.4% to 72.3%, but their effect is heterogeneous: negative for Minimal and Spreadsheet and positive for Search and Full. Overall success remains stable across replicates at 70.3%, 70.9%, and 71.3%, although individual configuration results vary more substantially. These findings suggest that procedural guidance is most promising when an agent must coordinate a broad tool environment rather than as a universal augmentation.</abstract>
       <pdf hash="e3756750"/>
       <bibkey>gabbasov-etal-2026-comparative</bibkey>
+      <doi>10.18653/2026.docinsights-1.27</doi>
     </paper>
     <paper id="28">
       <!-- https://aclanthology.org/2026.docinsights-1.28/ -->
@@ -381,6 +408,7 @@
       <abstract>Visual Question Answering (VQA) is one of the most popular tasks in the fields of Computer Vision and Natural Language Processing. The task is to provide an answer to a question related to the contents of a given image. VQA has been expanded to several domains. One of these is document VQA, where the image is a page of a document and the question is related to the textual contents of the page. In this case, the system that is being evaluated has to understand textual contents that are written inside the image, differently from typical VQA where images are natural scenes. However, document VQA datasets are exclusively in English, hence the performance of the system is evaluated for the English language only. In light of this, we introduce MaDOVE (Multilingual DOcument VQA Evaluation), a novel dataset designed to evaluate document VQA in multiple languages. Moreover, to establish a strong benchmark, we conduct an extensive set of experiments by evaluating a diverse range of models on this task.</abstract>
       <pdf hash="1a2bb412"/>
       <bibkey>musacchio-etal-2026-madove</bibkey>
+      <doi>10.18653/2026.docinsights-1.28</doi>
     </paper>
     <paper id="29">
       <!-- https://aclanthology.org/2026.docinsights-1.29/ -->
@@ -395,6 +423,7 @@
       <abstract>We study the ability of LLMs to generate edit-inducing questions whose answer will improve a paper draft. On a dataset of paired submission and camera-ready papers from ICLR and NeurIPS, we compare the helpfulness of questions from GPT models with or without full paper context to that of human reviewers. GPT produces more edit-inducing questions and its questions are associated with more extensive edits and cover a broader range of edited content compared to questions from reviewers. However, a much smaller percentage of the GPT questions are edit-inducing. Our analyses confirm that automated questions can be beneficial to authors and highlight an example task where proper attending to long context deteriorates reasoning model ability to produce helpful output.</abstract>
       <pdf hash="21f88097"/>
       <bibkey>joseph-etal-2026-generating</bibkey>
+      <doi>10.18653/2026.docinsights-1.29</doi>
     </paper>
     <paper id="30">
       <!-- https://aclanthology.org/2026.docinsights-1.30/ -->
@@ -405,6 +434,7 @@
       <abstract>Document-grounded quantitative reasoning requires a system to first understand a visually presented document and then compute an exact answer from the grounded content. We describe LILIPUT, a zero-shot submission to the DocSem 2026 shared task, in which Gemini 3.8 Flash performs visual evidence localization and converts the selected content into a faithful, self-contained math problem, while DeepSeek V4 performs the downstream numerical reasoning. On 1,730 held-out test instances, our accepted submission obtains 49.54% joint exact accuracy, 55.09% answer accuracy, and 66.76% macro evidence F1. In contrast, experiments on 908 labeled training instances show much higher answer accuracy when the relevant evidence is successfully extracted: Gemini 3.7 Flash achieves 95.59%, while text-based solvers achieve 92.51%–97.03%. Although these results are not directly comparable, the large gap suggests that calculation is not the main challenge. Instead, the main difficulty is correctly understanding and extracting information from the document. We found that clean and clear documents were easier to process, while blurry, dense, and visually complex documents made extraction much harder, even after image enhancement. Since DeepSeek V4 uses the extracted content for calculation, errors during visual extraction can also lead to incorrect answers. These findings highlight visual document understanding as a key challenge for document-grounded quantitative reasoning.</abstract>
       <pdf hash="7f1d0796"/>
       <bibkey>mikat-fahim-2026-evidence</bibkey>
+      <doi>10.18653/2026.docinsights-1.30</doi>
     </paper>
     <paper id="31">
       <!-- https://aclanthology.org/2026.docinsights-1.31/ -->
@@ -417,6 +447,7 @@
       <abstract>We present Acessilia, an agentic document-parsing architecture developed for the Dr.DocBench track of the DocInsights 2026 shared task. Independent structural agents use Docling and MinerU to generate alternative canonical document trees. A Tree Differ aligns these representations using textual and spatial evidence, identifying discrepancies that are resolved by an adjudicator agent leveraging a vision-language model and visual evidence. The architecture supports hierarchical adjudication of specialised subtrees, including tables and mathematical expressions, while a deterministic serialiser converts the reconciled tree into the benchmark format. On the 509-page hidden test set, the final integrated pipeline achieves an official EvalAI overall score of 70.37, compared with 58.09 for the MinerU-only baseline, an absolute improvement of 12.28 points. Reading order shows the largest gain, increasing from 53.44 to 72.30, while text accuracy reaches 74.67 and table TEDS reaches 58.31. Formula CDM remains near zero at 0.22. These results demonstrate the effectiveness of combining complementary parser outputs through a shared canonical representation, structural alignment, and adjudication, while highlighting the need for stronger mathematical recognition and specialised processing.</abstract>
       <pdf hash="7dd73f17"/>
       <bibkey>inuzuka-etal-2026-acessilia</bibkey>
+      <doi>10.18653/2026.docinsights-1.31</doi>
     </paper>
     <paper id="32">
       <!-- https://aclanthology.org/2026.docinsights-1.32/ -->
@@ -427,6 +458,7 @@
       <abstract>EVICALC, our system for the DocSem shared task, achieved 8.61% joint accuracy on 1,730 tasks in the official final test evaluation. It reads a PDF, selects a passage, asks a language model to write an arithmetic expression, and evaluates that expression in local code. Saved intermediate results support inspection of failures. A separate public-validation run achieved 92.17% answer accuracy and 1.00 evidence F1. The configurations and metrics differ, so these scores are not a controlled comparison. Our manual, post-hoc analysis is descriptive: in one inspected case, optical character recognition (OCR) and block grouping merged the relevant passage into another block, and the system answered from unrelated text. An exploratory study of reading page images on 100 documents returned evidence identifiers for only 22 documents. These descriptive findings motivate further evaluation; they do not establish the causes of the overall score.</abstract>
       <pdf hash="f6cd140d"/>
       <bibkey>godara-gupta-2026-evidence</bibkey>
+      <doi>10.18653/2026.docinsights-1.32</doi>
     </paper>
     <paper id="33">
       <!-- https://aclanthology.org/2026.docinsights-1.33/ -->
@@ -436,6 +468,7 @@
       <abstract>DocSem requires systems to answer quantitative questions over document images while returning the evidence supporting each prediction. We present Retrieve, Reason, Verify, a modular system that separates document transcription, evidence localization, numerical reasoning, deterministic execution, and selective multi-model verification. Under controlled evidence grounding on 217 validation instances, Qwen3.8-Max achieves 98.62% Joint Exact Accuracy. Combining Qwen3.8-Max and GPT-5.6 Sol as independent solvers, with Gemini 3.1 Pro invoked only when their numerical predictions disagree, improves validation performance to 99.08%. On the 1,730-instance hidden test set, which exhibits more challenging visual and grounding conditions, including degraded document quality, non-uniform evidence identifiers, and multiple plausible evidence passages, the complete end-to-end pipeline achieves 32.7% Joint Exact Accuracy. A manual audit of 50 hidden-test instances finds that the system-selected evidence differs from the manually identified evidence in 34 cases, whereas only two cases produce different numerical answers when the evidence agrees. These observations suggest that, within the audited sample, errors are concentrated more strongly in document grounding than in downstream numerical computation once the relevant evidence has been established.</abstract>
       <pdf hash="073b88dc"/>
       <bibkey>tadivalasa-2026-retrieve</bibkey>
+      <doi>10.18653/2026.docinsights-1.33</doi>
     </paper>
     <paper id="34">
       <!-- https://aclanthology.org/2026.docinsights-1.34/ -->
@@ -445,6 +478,7 @@
       <abstract>This paper presents a two-stage vision-text cascade, submitted to the DocSem shared task at DocInsights Workshop, EMNLP 2026. A cheaper vision model (Claude Haiku 4.5) locates and transcribes the block that answers the question, and a stronger text-only model (Claude Sonnet 4.5) turns it into an arithmetic expression, which Python evaluates. Keeping the expensive model off the page images reduces cost by 14% against using one model for both, and the system reaches 88.02% answer accuracy on validation, up from 82.95%. On the test split the same system scores 7.28%, and this paper diagnoses the difference. The main constraint is block selection: test documents contain decoy blocks that repeat the question’s words while asking something else. Prose inside the blocks is transcribed almost perfectly; identifiers, which carry no redundancy, run at 75–81%. I also find that the two splits are stored at different resolutions, 220 dpi against 71–79 dpi, and that enlarging a low-resolution page before sending it improves identifier transcription by 58 points. The gain stops at the provider’s 1568 px cap, above which rendering higher delivers an identical image and accuracy does not meaningfully improve.</abstract>
       <pdf hash="174cd2b5"/>
       <bibkey>bedekar-2026-cost</bibkey>
+      <doi>10.18653/2026.docinsights-1.34</doi>
     </paper>
   </volume>
 </collection>

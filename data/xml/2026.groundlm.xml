@@ -18,11 +18,13 @@
       <pdf hash="080b661b"/>
       <venue>groundlm</venue>
       <venue>ws</venue>
+      <doi>10.18653/2026.groundlm-1</doi>
     </meta>
     <frontmatter>
       <!-- https://aclanthology.org/2026.groundlm-1.0/ -->
       <pdf hash="35aadfeb"/>
       <bibkey>groundlm-2026-1</bibkey>
+      <doi>10.18653/2026.groundlm-1.0</doi>
     </frontmatter>
     <paper id="1">
       <!-- https://aclanthology.org/2026.groundlm-1.1/ -->
@@ -46,6 +48,7 @@
       <abstract>Medical tasks such as diagnosis and treatment planning require precise and complex reasoning, particularly in life-critical domains. Unlike mathematical reasoning, medical reasoning demands meticulous, verifiable thought processes to ensure reliability and accuracy. However, there is a notable lack of datasets that provide transparent, step-by-step reasoning to validate and enhance the medical reasoning ability of AI models. To bridge this gap, we introduce **MedReason**, a large-scale high-quality medical reasoning dataset designed to enable faithful and explainable medical problem-solving in large language models (LLMs). We utilize a structured medical knowledge graph (KG) to convert clinical QA pairs into logical chains of reasoning, or “thinking paths”, which trace connections from question elements to answers via relevant KG entities. Each path is validated for consistency with clinical logic and evidence-based medicine. Our pipeline generates detailed reasoning for various medical questions from 7 medical datasets, resulting in a dataset of **32,682** question-answer pairs, each with detailed, step-by-step explanations. Experiments demonstrate that fine-tuning with our dataset consistently boosts medical problem-solving capabilities, achieving significant gains of up to **7.7%** for DeepSeek-Ditill-8B. Our top-performing model, MedReason-8B, outperforms the Huatuo-o1-8B, a state-of-the-art medical reasoning model, by up to **4.2%** on the clinical benchmark MedBullets. We also engage medical professionals from diverse specialties to assess our dataset’s quality, ensuring MedReason offers accurate and coherent medical reasoning. Our data, models, and code will be publicly available.</abstract>
       <pdf hash="132e6639"/>
       <bibkey>wu-etal-2026-medreason</bibkey>
+      <doi>10.18653/2026.groundlm-1.1</doi>
     </paper>
     <paper id="2">
       <!-- https://aclanthology.org/2026.groundlm-1.2/ -->
@@ -56,6 +59,7 @@
       <abstract>Intelligent workflows for smart manufacturing reliability and maintenance (RxM) are transitioning from static, sequential multi-agent systems toward autonomous, dynamic decision-making. However, a critical gap persists between agent coordination and the holistic co-optimization required across predictive performance, computational resources, and domain-specific business logic. To address this, we propose <b>AgiSphere-CORE</b>, a novel framework centered on a <b>Co-Optimization Core (COC)</b>. The COC maintains a unified <i>Collaborative State Vector</i> and solves a constrained optimization problem to maximize the <i>Collaborative Utility</i> <tex-math>J_{co}</tex-math>, dynamically orchestrating specialized agents for resources, models, and logic. This enables a paradigm shift from sequential to co-optimization-driven autonomy. Extensive evaluation on multiple manufacturing tasks, including classification, regression, and anomaly detection, demonstrates that AgiSphere-CORE consistently outperforms baselines, achieving superior predictive performance (e.g., 97.3% accuracy, 0.902 F1-score), improved resource efficiency (15% faster workflow time), and higher estimated domain cost savings ($148.7K). Ablation studies confirm the critical role of the COC and the adaptive learning mechanism. A detailed case study further illustrates the framework’s transparent, utility-driven trade-offs. We conclude that AgiSphere-CORE provides a robust, holistic foundation for next-generation autonomous RxM systems in smart manufacturing.</abstract>
       <pdf hash="8473feb3"/>
       <bibkey>luo-tao-2026-aagisphere</bibkey>
+      <doi>10.18653/2026.groundlm-1.2</doi>
     </paper>
     <paper id="3">
       <!-- https://aclanthology.org/2026.groundlm-1.3/ -->
@@ -66,6 +70,7 @@
       <pdf hash="88de50ff"/>
       <attachment hash="7ea4a3c4" type="attachment">2026.groundlm-1.3.attachment.zip</attachment>
       <bibkey>zihan-2026-msra</bibkey>
+      <doi>10.18653/2026.groundlm-1.3</doi>
     </paper>
     <paper id="4">
       <!-- https://aclanthology.org/2026.groundlm-1.4/ -->
@@ -76,6 +81,7 @@
       <pdf hash="63a48aa2"/>
       <attachment hash="51c3a95d" type="attachment">2026.groundlm-1.4.attachment.pdf</attachment>
       <bibkey>mohammad-2026-trust</bibkey>
+      <doi>10.18653/2026.groundlm-1.4</doi>
     </paper>
     <paper id="5">
       <!-- https://aclanthology.org/2026.groundlm-1.5/ -->
@@ -86,6 +92,7 @@
       <pdf hash="2de8924a"/>
       <attachment hash="9e63d3b8" type="attachment">2026.groundlm-1.5.attachment.zip</attachment>
       <bibkey>gupta-2026-veritygate</bibkey>
+      <doi>10.18653/2026.groundlm-1.5</doi>
     </paper>
     <paper id="6">
       <!-- https://aclanthology.org/2026.groundlm-1.6/ -->
@@ -98,6 +105,7 @@
       <abstract>Retrieval-augmented generation (RAG) grounds large language models (LLMs) in external evidence, yet multi-hop pipelines still suffer from redundant sub-queries, shallow exploration, and premature or delayed stopping. We present EVO-RAG, a phase-aware framework that couples a lightweight two-stage curriculum (Discovery→Refinement) with seven step-level rewards and an in-episode time scheduler. The scheduler decays exploration incentives as evidence accumulates while increasing efficiency and correctness pressure as uncertainty shrinks. Beyond scalar rewards, we train a multi-head preference model and benchmark DPO, PPO, and GRPO under identical rollouts and curricula for a controlled comparison. Evaluated on HotpotQA, 2WikiMultiHopQA, MuSiQue, and Bamboogle with 8B-class backbones, EVO-RAG improves EM/F1 while reducing redundant hops. Ablations show that suppressing query overlap, rewarding controlled backtracking and justified refusal, and time-dynamic weighting are key to the accuracy–efficiency trade-off.</abstract>
       <pdf hash="8de5e8ac"/>
       <bibkey>ji-etal-2026-evo</bibkey>
+      <doi>10.18653/2026.groundlm-1.6</doi>
     </paper>
     <paper id="7">
       <!-- https://aclanthology.org/2026.groundlm-1.7/ -->
@@ -110,6 +118,7 @@
       <abstract>Multi-hop question answering (QA) requires systems to iteratively retrieve evidence and reason across multiple hops. While recent RAG and agentic methods report strong results, the underlying retrieval–reasoning process is often left implicit, making procedural choices hard to compare across model families. This survey takes the execution procedure as the unit of analysis and introduces a four-axis framework covering overall execution plan, index structure, next-step control strategies and triggers, and stop/continue criteria. Using this schema, we map representative multi-hop QA systems and synthesize reported ablations and empirical tendencies on standard benchmarks, including HotpotQA, 2WikiMultiHopQA, and MuSiQue. We highlight recurring trade-offs among effectiveness, efficiency, and evidence faithfulness, and conclude with open challenges for retrieval–reasoning agents, including structure-aware planning, transferable control policies, and robust stopping under distribution shift.</abstract>
       <pdf hash="2e0ef12a"/>
       <bibkey>ji-etal-2026-retrieval</bibkey>
+      <doi>10.18653/2026.groundlm-1.7</doi>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2026.groundlm-1.8/ -->
@@ -122,6 +131,7 @@
       <pdf hash="fe729711"/>
       <attachment hash="aadd7197" type="attachment">2026.groundlm-1.8.attachment.zip</attachment>
       <bibkey>yang-etal-2026-skillnav</bibkey>
+      <doi>10.18653/2026.groundlm-1.8</doi>
     </paper>
     <paper id="9">
       <!-- https://aclanthology.org/2026.groundlm-1.9/ -->
@@ -135,6 +145,7 @@
       <abstract>Understanding the geometric structure of pre-trained language model embeddings matters for interpretability and safety. We ask whether sentence-level classification signal lives in the Riemannian geometry of contextual token embeddings, and probe it by extracting per-token pullback metrics from a learned encoder’s analytical Jacobian and aggregating them with the Frechet mean on the symmetric positive definite (SPD) manifold, we call this procedure Riemannian Mean Pooling (RMP). Across three datasets with non-trivial linguistic structure (CoLA, CREAK, RTE), RMP outperforms Euclidean mean pooling, while on FEVER-Symmetric, a benchmark constructed to remove annotation-driven lexical artifacts, the method correctly stays at chance. Ablations show that a randomly initialised encoder combined with Frechet aggregation already beats Euclidean pooling before any training, localising the source of the gain to the geometric aggregation rather than to learned manifold structure. The trained encoder adds a further 1.7 to 2.2 AUC points, consistently across the signal-bearing datasets rather than on any one of them.</abstract>
       <pdf hash="a3aa3a6b"/>
       <bibkey>konior-etal-2026-riemannian</bibkey>
+      <doi>10.18653/2026.groundlm-1.9</doi>
     </paper>
     <paper id="10">
       <!-- https://aclanthology.org/2026.groundlm-1.10/ -->
@@ -147,6 +158,7 @@
       <abstract>Large Language Models (LLMs) have demonstrated remarkable fluency and versatility across a wide range of NLP tasks, yet they remain prone to factual inaccuracies and hallucinations. This limitation poses significant risks in high-stakes domains such as healthcare, law, and scientific communication, where trust and verifiability are paramount. In this paper, we introduce DAVinCI - a Dual Attribution and Verification framework designed to enhance the factual reliability and interpretability of LLM outputs. DAVinCI operates in two stages: (i) it attributes generated claims to internal model components and external sources; (ii) it verifies each claim using entailment-based reasoning and confidence calibration. We evaluate DAVinCI across multiple datasets, including FEVER and CLIMATE-FEVER, and compare its performance against standard verification-only baselines. Our results show that DAVinCI significantly improves classification accuracy, attribution precision, recall, and F1-score by <b>5-20%</b>. Through an extensive ablation study, we isolate the contributions of evidence span selection, recalibration thresholds, and retrieval quality. We also release a modular DAVinCI implementation that can be integrated into existing LLM pipelines. By bridging attribution and verification, DAVinCI offers a scalable path to auditable, trustworthy AI systems. This work contributes to the growing effort to make LLMs not only powerful but also accountable. Our code is available at <url>https://github.com/vr25/davinci</url>.</abstract>
       <pdf hash="7c49509e"/>
       <bibkey>rawte-etal-2026-trust</bibkey>
+      <doi>10.18653/2026.groundlm-1.10</doi>
     </paper>
     <paper id="11">
       <!-- https://aclanthology.org/2026.groundlm-1.11/ -->
@@ -160,6 +172,7 @@
       <abstract>Language models (LMs) are increasingly used to generate decisions and explanations for high-stakes financial tasks, but these explanations can contain factual inconsistencies with the underlying claim or invalid causal reasoning. We propose a two-step auditing framework that decomposes each explanation into reasoning points and verifies them using natural language inference (NLI): (i) claim <tex-math>\Rightarrow</tex-math> point for factuality verification and (ii) point <tex-math>\Rightarrow</tex-math> conclusion for causality verification. To reduce reliance on expensive expert annotations, we study effective fine-tuning strategies based on semi-supervised learning (SSL) for NLI verifiers, leveraging abundant unlabeled explanations via pseudo-labeling and FreeMatch with self-adaptive confidence thresholds. Experiments across small language models and both encoder-only and decoder-only verifiers under varying labeling budgets show that SSL consistently outperforms the pre-trained baseline and supervised fine-tuning. FreeMatch is generally more robust than simple pseudo-labeling, suggesting better utilization of unlabeled data for scaling error detection of LMs’ generations.</abstract>
       <pdf hash="e1f1477f"/>
       <bibkey>liu-etal-2026-semi</bibkey>
+      <doi>10.18653/2026.groundlm-1.11</doi>
     </paper>
     <paper id="12">
       <!-- https://aclanthology.org/2026.groundlm-1.12/ -->
@@ -174,6 +187,7 @@
       <pdf hash="d9bd70d3"/>
       <attachment hash="2404a941" type="attachment">2026.groundlm-1.12.attachment.zip</attachment>
       <bibkey>sezer-etal-2026-safety</bibkey>
+      <doi>10.18653/2026.groundlm-1.12</doi>
     </paper>
     <paper id="13">
       <!-- https://aclanthology.org/2026.groundlm-1.13/ -->
@@ -185,6 +199,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) improves factual grounding, but it also lengthens prompts and raises prefill cost. Prefix caching in serving engines such as vLLM reduces this cost only when requests share the same token prefix. In grounded generation, however, adjacent queries may retrieve overlapping evidence in different orders, so set overlap does not become reusable prefix overlap. We present CacheWeaver, a lightweight prompt-layer method for cache-aware evidence ordering. The method keeps a prefix tree over recently served evidence sequences and uses a greedy walk to place the most reusable prefix first, while leaving the serving engine and retrieved evidence set unchanged. Across three vLLM configurations the method lowers median time-to-first-token (TTFT) by about 20 to 33% relative to retrieval-order prefix caching, without hurting answer quality in our QA tests. The greedy policy reaches 97.5% of the median TTFT gain from oracle ordering, which indicates that most reusable prefix locality can be recovered by a simple scheduling layer between retrieval and inference.</abstract>
       <pdf hash="ef7c87c4"/>
       <bibkey>tan-etal-2026-cacheweaver</bibkey>
+      <doi>10.18653/2026.groundlm-1.13</doi>
     </paper>
     <paper id="14">
       <!-- https://aclanthology.org/2026.groundlm-1.14/ -->
@@ -195,6 +210,7 @@
       <pdf hash="847f40de"/>
       <attachment hash="6a4aa282" type="attachment">2026.groundlm-1.14.attachment.zip</attachment>
       <bibkey>zhang-2026-grounding</bibkey>
+      <doi>10.18653/2026.groundlm-1.14</doi>
     </paper>
     <paper id="15">
       <!-- https://aclanthology.org/2026.groundlm-1.15/ -->
@@ -204,6 +220,7 @@
       <abstract>Prompt injection defenses evaluated on synthetic benchmarks do not generalize to real enterprise documents, which are longer, denser, and interleave legitimate authority language with factual content. We demonstrate this gap with a benchmark of 122 tasks across five professional domains (financial, legal, medical, scientific, DevOps) built on real retrieved documents—actual SEC filings, Federal Register rules, PubMed abstracts, arXiv papers, and GitHub postmortems—paired with LLM-generated tasks and camouflaged payloads that were not human-validated. Paraphrasing, the strongest defense on synthetic benchmarks, shows no statistically significant attack success rate reduction on real documents (p=0.500) while degrading utility from 91.8% to 82.8%. We introduce PARSE (Provenance-Aware Retrieval Sanitization), a domain-aware, fact-preserving sanitization pipeline that classifies each sentence by injection likelihood, extracts structured facts before rewriting, and verifies fact preservation via a consistency-checking loop. A directiveness gate routes 59% of real enterprise documents to a lightweight path, concentrating computational cost on high-risk documents. PARSE achieves 15.6% attack success rate—a 39% reduction versus the 25.4% baseline—at 86.9% utility, the largest reduction of any condition evaluated (h=−0.245), nominally significant (p=0.014) but not surviving correction for multiple comparisons. Practitioners should evaluate defenses on domain-matched real documents, not synthetic proxies.</abstract>
       <pdf hash="fcd00a7e"/>
       <bibkey>pai-2026-parse</bibkey>
+      <doi>10.18653/2026.groundlm-1.15</doi>
     </paper>
     <paper id="16">
       <!-- https://aclanthology.org/2026.groundlm-1.16/ -->
@@ -214,6 +231,7 @@
       <abstract>Weight quantization is the default route to running language models on consumer hardware, yet its effect on contextual faithfulness—a model’s willingness to ground answers in provided context rather than memorized priors—remains untested: faithfulness benchmarks use full-precision models, and quantization studies measure accuracy and perplexity, not grounding. We audit two instruction-tuned 3B models (Qwen2.5-3B, Llama-3.2-3B) across seven GGUF precisions from 16-bit to 2-bit, under aligned, counterfactual, and unanswerable contexts, using 300 SQuAD-derived items and three prompt templates per condition (900 trials per condition per precision). With an item-level clustered bootstrap we find faithfulness unchanged from 16 down to 5 bits in both models, while below that small but statistically detectable declines appear whose onset is model-dependent (4-bit for Llama, 3-bit for Qwen). Critically, production of the original, context-contradicting answer does not rise at any precision, so the intuitive "quantization erodes grounding" mechanism is not supported: lost faithfulness moves to off-target responses instead. Qwen additionally collapses into incoherent output at 2-bit while Llama stays fluent, making extreme compression a per-model question. Code and harness: https://github.com/movvaneeraj/quantfaith.</abstract>
       <pdf hash="6bb3fd0d"/>
       <bibkey>movva-loke-2026-quantization</bibkey>
+      <doi>10.18653/2026.groundlm-1.16</doi>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2026.groundlm-1.17/ -->
@@ -223,6 +241,7 @@
       <abstract>Grounding faithfulness is measured on two axes: whether the answer follows the retrieved context, and whether each claim is supported by the source it cites. Both can be satisfied in full by an answer that picks one side of a genuinely contested question, cites a source that holds that side, and drops the credible sources that disagree. We name this failure disagreement collapse, or the citation-faithfulness illusion, and treat it as a construct-validity hazard: a high citation score does not license the inference that the answer reflects the sources. Conflict-aware retrieval already prescribes reflecting credible debate; our contribution is to make that prescription measurable. We define disagreement recall and disagreement-attribution precision, both decoupled from answer correctness and conditioned on source credibility so that suppressing a debunked claim is not penalized; a five-component rubric with verbatim anchors; an annotation protocol for the credibility filter and for position identity; a matched-pair diagnostic that holds retrieval and citation availability fixed; and a pre-registered two-judge pilot with human adjudication. No empirical scores are reported; the contribution is the instrument and its frozen evaluation design.</abstract>
       <pdf hash="55f7298e"/>
       <bibkey>sneiderman-2026-citation</bibkey>
+      <doi>10.18653/2026.groundlm-1.17</doi>
     </paper>
     <paper id="18">
       <!-- https://aclanthology.org/2026.groundlm-1.18/ -->
@@ -236,6 +255,7 @@
       <pdf hash="fd1ccaf8"/>
       <attachment hash="8bd5cd06" type="attachment">2026.groundlm-1.18.attachment.zip</attachment>
       <bibkey>yang-etal-2026-lifecycle</bibkey>
+      <doi>10.18653/2026.groundlm-1.18</doi>
     </paper>
     <paper id="19">
       <!-- https://aclanthology.org/2026.groundlm-1.19/ -->
@@ -247,6 +267,7 @@
       <abstract>Practice often treats automatic metrics for attribution in LLM retrieval-augmented generation as interchangeable. We audit eight automatic scorers — lexical, embedding, and BERTScore baselines alongside entailment/grounding-trained models (clean and FEVER NLI, the checker MiniCheck) — across three evaluation constructs (provenance/topicality, generated-answer attribution, and fact-check entailment), asking whether any scorer transfers: stays within the 95% confidence interval of the best audited scorer on every dataset of a multi-dataset construct. In the construct with the most multi-dataset human-labeled coverage — generated-answer attribution (AttributionBench’s four source datasets, n = 1,610, with independent HAGRID, n = 2,150) — none of the audited automatic scorers does: the per-dataset metric rankings invert (Kendall τ = −0.64, p = 0.031 on AttributedQA vs. LFQA), and an off-the-shelf NLI scorer that is best on short-claim AttributedQA (AUROC 0.90) collapses to AUROC 0.53 (chance) on long-form LFQA, where BERTScore wins (0.91); the reversal persists under the tested truncation settings. This instability has a concrete decision cost: a naive "best-on-average" rule for choosing an evaluator fails leave-one-dataset-out (mean held-out regret 0.172 AUROC, worse than fixing one scorer), so metric choice should be validated on the target dataset rather than assumed from performance elsewhere. A prompt-based LLM judge avoids the chance-level collapses the automatic scorers suffer (no LFQA collapse) but is not uniformly best, ~100× costlier, and non-deterministic — relocating, not removing, the validation burden.</abstract>
       <pdf hash="27d4d767"/>
       <bibkey>ding-etal-2026-llm</bibkey>
+      <doi>10.18653/2026.groundlm-1.19</doi>
     </paper>
     <paper id="20">
       <!-- https://aclanthology.org/2026.groundlm-1.20/ -->
@@ -257,6 +278,7 @@
       <pdf hash="65b83497"/>
       <attachment hash="1293855b" type="attachment">2026.groundlm-1.20.attachment.zip</attachment>
       <bibkey>deswal-2026-eviscope</bibkey>
+      <doi>10.18653/2026.groundlm-1.20</doi>
     </paper>
     <paper id="21">
       <!-- https://aclanthology.org/2026.groundlm-1.21/ -->
@@ -272,6 +294,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) is usually evaluated by whether the final answer is correct. Under knowledge conflict, this hides a key question: did the model follow retrieved evidence, rely on its parametric prior, or produce a post-hoc rationale? We study this as context compliance, the regime in which retrieved context controls the answer even when it conflicts with the model’s prior knowledge. We introduce Context-Driven Decomposition (CDD), an inference-time diagnostic intervention that elicits contextual and prior answers, isolates the conflicting premise, and records a resolution trace that can be perturbed. Across Epi-Scale stress tests, TruthfulQA misconception injection, and cross-model reruns, CDD makes three behaviors visible. First, misleading retrieval can severely degrade accuracy: under worst-case injected context (a TruthfulQA misconception-injection probe), Standard RAG reaches only 15.0%. Second, better answers need not share the same mechanism: CDD improves adversarial accuracy on Gemini-2.5-Flash and shows directional gains across Claude variants, yet trace-perturbation sensitivity is high only on Gemini. Third, explicit decomposition improves controlled-conflict robustness over a conflict-aware instruction baseline on localized factual conflicts, with the clearest margins on Entity Swap (88.0% vs 79.3%) and Logical Contradiction (83.2% vs 75.4%). We frame RAG conflict handling as an observability problem.</abstract>
       <pdf hash="3945f851"/>
       <bibkey>chen-etal-2026-rag</bibkey>
+      <doi>10.18653/2026.groundlm-1.21</doi>
     </paper>
     <paper id="22">
       <!-- https://aclanthology.org/2026.groundlm-1.22/ -->
@@ -283,6 +306,7 @@
       <abstract>In medical LLM adaptation, collecting large-scale real clinical notes is constrained by patient privacy and annotation cost, so training pipelines often rely on notes synthesized by commercial LLMs. Those synthetic notes are not error-free. We observe that after fine-tuning on such notes, a task judge rates the resulting model’s outputs as more complete without a consistent Accuracy gain, while a hallucination judge flags more statements that the source does not support. We therefore report Accuracy and Completeness separately from hallucination counts, split the latter into Content and Format-Meta hallucinations, and report both as rates normalized by the number of fields each output format requires, so that a gain in one cannot hide a loss in the other. We then introduce Self-Detect–Refine, which applies an external LLM to detect and revise hallucinations in the training labels themselves rather than in outputs at inference time. We evaluate it across three base models, two refiners, and four refinement depths, fine-tuning a fresh copy of each base model on each label snapshot. GPT-5.2-refined labels lower Content hallucinations in every configuration, both as a share of the required fields and after length normalization. The two stages load on different components: the Completeness gain belongs to raw-label fine-tuning, whereas refinement raises Accuracy without a consistent loss in Completeness. Format-Meta changes are mixed, a lower-cost refiner is less consistent, and every judgment here comes from LLM judges on a single synthetic benchmark without clinician validation.</abstract>
       <pdf hash="98eba40d"/>
       <bibkey>lee-etal-2026-self-detect</bibkey>
+      <doi>10.18653/2026.groundlm-1.22</doi>
     </paper>
     <paper id="23">
       <!-- https://aclanthology.org/2026.groundlm-1.23/ -->
@@ -292,6 +316,7 @@
       <abstract>Graph-grounded language models are usually evaluated by answer accuracy, yet a serialized prompt is a string representation of a graph rather than the graph itself. We argue that faithful graph-grounded reasoning requires the composed predictor <tex-math>F_\theta \circ z</tex-math> to be well-defined on graph-query equivalence classes: structurally equivalent graph-query pairs should induce the same prediction regardless of textual realization. We formalize this as a structural invariance property, decompose unfaithfulness into syntactic instability, semantic interference, and distractor susceptibility, and introduce corresponding diagnostics. On controlled graph reasoning tasks, DeepSeek-V4-Flash achieves 98.9% accuracy and near-perfect syntactic stability (<tex-math>FS = .975</tex-math>), yet its isomorphism consistency drops from .969 to .701 under semantic-name relabeling (<tex-math>∆_{sem} = .268</tex-math>); only 72.9% of originally correct answers survive this transformation. Across four model families, we observe targeted semantic interference in high-accuracy models, broad unfaithfulness in weaker models, and near-perfect invariance as a capability ceiling. A graph-grounded LLM can be accurate without being structurally faithful: its predictions may fail to remain invariant under graph-equivalent textual relabelings.</abstract>
       <pdf hash="6b171bc6"/>
       <bibkey>hu-2026-graph</bibkey>
+      <doi>10.18653/2026.groundlm-1.23</doi>
     </paper>
     <paper id="24">
       <!-- https://aclanthology.org/2026.groundlm-1.24/ -->
@@ -304,6 +329,7 @@
       <pdf hash="3e95768b"/>
       <attachment hash="9d7ee41e" type="attachment">2026.groundlm-1.24.attachment.zip</attachment>
       <bibkey>yang-etal-2026-cosched</bibkey>
+      <doi>10.18653/2026.groundlm-1.24</doi>
     </paper>
     <paper id="25">
       <!-- https://aclanthology.org/2026.groundlm-1.25/ -->
@@ -314,6 +340,7 @@
       <pdf hash="81aa4ce3"/>
       <attachment hash="0214a50a" type="attachment">2026.groundlm-1.25.attachment.zip</attachment>
       <bibkey>li-2026-citation</bibkey>
+      <doi>10.18653/2026.groundlm-1.25</doi>
     </paper>
     <paper id="26">
       <!-- https://aclanthology.org/2026.groundlm-1.26/ -->
@@ -324,6 +351,7 @@
       <abstract>Customer-service QA in an AI contact center (AICC) runs under deployment constraints that benchmark QA misses: tight voice-hotline latency and a high cost for unsupported or wrong automatic answers. We deploy a system that answers only from a closed set of verified QA units: it returns a retrieved unit verbatim, or routes to clarify/abstain/handoff.The index is enriched offline by staged linguistic seeding (SLS): a human authors a per-unit world-grounded slot recipe, gpt-4.1-mini renders it into variants, and a light human gate filters them, one methodology reused across both domains, so inference stays a single retrieval pass with no query-time generation.On held-out query variants (in-distribution recipe reformulations) from two industrial domains, SLS is the dominant retrieval lever, lifting hybrid R@1 to 0.881/0.930 (+0.27/+0.34); the gain holds across all five retrievers we test. The win is the design, not the volume: at the same gpt-4.1-mini, SLS beats a budget-matched doc2query by +0.20/+0.32, and a cross-provenance control provides additional evidence of transfer across generated-query distributions; the embedding choice is secondary. Verified-unit answering also removes free-form generation’s unsupported-content surface (7–13% vs. ≈0%). We report this as an honest application study, including negative results.</abstract>
       <pdf hash="4b1998dd"/>
       <bibkey>yoon-park-2026-staged</bibkey>
+      <doi>10.18653/2026.groundlm-1.26</doi>
     </paper>
     <paper id="27">
       <!-- https://aclanthology.org/2026.groundlm-1.27/ -->
@@ -335,6 +363,7 @@
       <abstract>Structured pruning has gained attention as a promising solution for the cost-effective deployment of large language, vision-language, and domain-specific foundation models. However, most prior work has focused on general-purpose language models and often lacks a systematic comparison of pruning strategies across model scales, architectures, and real-world multimodal applications. In this paper, we conduct a comprehensive evaluation of structured pruning methods, focusing on depth pruning, width pruning, and post-pruning recovery with parameter-efficient fine-tuning. We evaluate multiple open-source models, including Qwen3-0.6B, Qwen3-4B-Instruct, Qwen3-8B, LLaVA-OneVision-0.5B, and Phi-4-Mini-Instruct, across intrinsic metrics and downstream benchmarks such as BBH, MATH Hard, MuSR, and MMLU-Pro. Our findings reveal that (1) depth pruning generally provides a more stable trade-off between efficiency and performance than width pruning; (2) width pruning can reduce memory usage, but often gives limited throughput gains and less predictable accuracy retention; (3) reasoning-intensive benchmarks, particularly mathematical reasoning tasks, are more sensitive to structured pruning than some other evaluation tasks; (4) LoRA-based post-pruning adaptation can substantially recover performance after moderate pruning; and (5) pruning behaviors observed in general-purpose models transfer to Earth observation foundation models, as demonstrated on TerraMind, where depth pruning reduces latency and GPU memory usage while maintaining competitive EuroSAT and Bigearthnet task accuracy.</abstract>
       <pdf hash="77d32fe9"/>
       <bibkey>munde-etal-2026-structured</bibkey>
+      <doi>10.18653/2026.groundlm-1.27</doi>
     </paper>
     <paper id="28">
       <!-- https://aclanthology.org/2026.groundlm-1.28/ -->
@@ -346,6 +375,7 @@
       <abstract>Retrieval-augmented language models can fail to respect negative constraints when the retriever supplies evidence about concepts the user explicitly excluded. Beyond explicit negation, queries may ask for answers that include one concept while excluding another, or for entities that belong to a category but differ from a closely related instance. Because the excluded concept still appears in the query text, dense retrievers may assign high similarity to documents about that concept even when the user asks to avoid it. We introduce E-SENS, a training-free reranking method for negation-sensitive retrieval. E-SENS extracts a compact trap query for the excluded side and subtracts trap-query similarity from the original-query retrieval score. On ExcluIR, E-SENS shows a clear recall-violation trade-off across four embedding models and reduces trap retrieval at recall-preserving settings.</abstract>
       <pdf hash="de4e7a3a"/>
       <bibkey>kim-etal-2026-e</bibkey>
+      <doi>10.18653/2026.groundlm-1.28</doi>
     </paper>
     <paper id="29">
       <!-- https://aclanthology.org/2026.groundlm-1.29/ -->
@@ -356,6 +386,7 @@
       <abstract>Hallucination detection has become a pressing requirement for trustworthy AI deployment at scale. The most accurate detection methods depend on GPU-intensive inference, proprietary API calls, or white-box access to the generating model. This puts them out of reach for resource-constrained researchers and practitioners. In this paper, we explore a practical alternative: how well can hallucination detection perform using only lightweight, CPU-feasible methods built on publicly available models? We systematically benchmark four such detectors, ROUGE-L, semantic similarity, BERTScore, and a Natural Language Inference (NLI) detector based on a FEVER-trained DeBERTa model, together with a score-level ensemble of similarity and NLI. We evaluate them across all three tasks of the HaluEval benchmark: question answering (QA), dialogue, and summarisation. We calibrate each method on a held-out validation split and evaluate it on 2,000 test instances per task, and we report bootstrap confidence intervals for the main results. We find that the similarity-NLI ensemble is the most consistent method, but that absolute performance is highly task-dependent. The ensemble ranks best on QA (F1 = 0.792, AUC-ROC = 0.873) and on dialogue (F1 = 0.694, AUC-ROC = 0.749), where NLI is the strongest standalone method; on summarisation every method performs near chance (AUC-ROC between 0.469 and 0.574). We then ask whether that failure is intrinsic to lightweight detection or an artifact of our single-pass design, and find it is largely the latter. Raising the premise budget from 800 to 1600 characters lifts summarisation AUC-ROC from 0.567 to 0.629, and replacing single-pass scoring with sentence-level chunk aggregation reaches 0.683, still on CPU and with the same model, though at roughly twenty times the NLI inference. Summarisation remains by far the hardest task, but our results do not support treating lightweight detection as intrinsically unsuited to it. All experiments run on a standard laptop CPU using public models.</abstract>
       <pdf hash="3800c2b7"/>
       <bibkey>faujdar-kadvani-2026-far</bibkey>
+      <doi>10.18653/2026.groundlm-1.29</doi>
     </paper>
     <paper id="30">
       <!-- https://aclanthology.org/2026.groundlm-1.30/ -->
@@ -372,6 +403,7 @@
       <abstract>Memory is a critical component of modern conversational systems. Prior research on memory mechanisms in RAG-based conversational systems has focused on how memory is stored and retrieved. However, less is known about how memories with different functional roles influence response quality, shape agents’ responses across conversational contexts, and lead to distinct response behaviors. Existing evaluations are also largely reference-based, often missing response nuances that address users’ preferences differently. In this work, we study the impact of different memory types on agent responses. We present a fine-grained taxonomy of conversational memory, classify retrieved memories by functional role, and design a user-centric evaluation framework that simulates user perspectives. Through comparative experiments on long-term datasets and frontier LLMs, our analysis reveals differentiated effects of memory: e.g., clarifying memory is associated with improved factual accuracy and constraint awareness, making responses more correct and personalized, while irrelevant memory reduces topic relevance and degrades constraint awareness. These findings show that, despite the power of frontier LLMs, different memory types can be leveraged to produce responses better aligned with a user’s stated constraints, and motivate further research in this direction.</abstract>
       <pdf hash="b0596ed5"/>
       <bibkey>wang-etal-2026-memory-makes</bibkey>
+      <doi>10.18653/2026.groundlm-1.30</doi>
     </paper>
     <paper id="31">
       <!-- https://aclanthology.org/2026.groundlm-1.31/ -->
@@ -383,6 +415,7 @@
       <abstract>We diagnose relational grounding failures in zero-shot English-to-Chinese dialogue summarization with small language models (SLMs). We develop and apply a Dialogue-Semantic Grounding Error Taxonomy to evaluate three open-weight SLMs alongside a supervised mBART baseline. The taxonomy captures errors in entities, events, speaker roles, circumstances, modality, discourse outcomes, omissions, and language or format issues. Our analysis shows that SLM hallucinations often involve relation-sensitive distortions of dialogue-relevant content: models may preserve source-relevant participants, events, or circumstances while altering who did what, under what conditions, or with what outcome. These findings position the taxonomy as a diagnostic evaluation framework for dialogue summarization, revealing relation-sensitive faithfulness failures that reference-based metrics may obscure.</abstract>
       <pdf hash="cbf181bd"/>
       <bibkey>lee-etal-2026-relational</bibkey>
+      <doi>10.18653/2026.groundlm-1.31</doi>
     </paper>
     <paper id="32">
       <!-- https://aclanthology.org/2026.groundlm-1.32/ -->
@@ -396,6 +429,7 @@
       <pdf hash="840ab113"/>
       <attachment hash="5d408b61" type="attachment">2026.groundlm-1.32.attachment.zip</attachment>
       <bibkey>lin-etal-2026-randomization</bibkey>
+      <doi>10.18653/2026.groundlm-1.32</doi>
     </paper>
     <paper id="33">
       <!-- https://aclanthology.org/2026.groundlm-1.33/ -->
@@ -410,6 +444,7 @@
       <pdf hash="5854d23d"/>
       <attachment hash="96dfe897" type="attachment">2026.groundlm-1.33.attachment.zip</attachment>
       <bibkey>lopez-etal-2026-safe</bibkey>
+      <doi>10.18653/2026.groundlm-1.33</doi>
     </paper>
     <paper id="34">
       <!-- https://aclanthology.org/2026.groundlm-1.34/ -->
@@ -421,6 +456,7 @@
       <abstract>Agents grounded in heterogeneous sources often encounter conflicting evidence. We study an Audited Reasoning Pipeline (ARP): a forensic analyzer reads the raw sources and emits a sanitized diagnostic, while a clean-room synthesis stage receives the question and diagnostic but not the raw context. On 100 corrupted ConflictQA instances per model, ARP raises exact match from 15 to 30 for GPT-OSS-120B and from 19 to 29 for MiniMax-M2.5.CAT-Source changes from 40 to 49 and from 74 to 56, respectively; their paired model-by-condition interaction is 27 points (95% CI [13,41], p &lt; .001), although two model/configuration pairs do not identify capability as its cause. The three diagnostic metrics are emitted before the clean-room boundary, and all items are corrupted, so conflict detection has no false-positive evaluation. Token-F1 also falls on multi-answer questions. Because the clean four-call control that gives Stage 4 both raw context and the diagnostic was not run, the air- gap’s causal effect remains unidentified.</abstract>
       <pdf hash="8c1f3c0b"/>
       <bibkey>channa-etal-2026-agent</bibkey>
+      <doi>10.18653/2026.groundlm-1.34</doi>
     </paper>
     <paper id="35">
       <!-- https://aclanthology.org/2026.groundlm-1.35/ -->
@@ -432,6 +468,7 @@
       <pdf hash="6e22ff00"/>
       <attachment hash="1465e197" type="attachment">2026.groundlm-1.35.attachment.zip</attachment>
       <bibkey>rao-layek-2026-answer</bibkey>
+      <doi>10.18653/2026.groundlm-1.35</doi>
     </paper>
     <paper id="36">
       <!-- https://aclanthology.org/2026.groundlm-1.36/ -->
@@ -441,6 +478,7 @@
       <abstract>Post-training has become the primary mechanism for grounding large language models (LLMs) to application-specific domains, enabling them to acquire new knowledge, behaviors, and policies beyond pre-training. Supervised fine-tuning (SFT) and preference optimization are the dominant paradigms for this adaptation, but are typically applied sequentially, requiring careful tuning of training schedules, regularization, and other hyperparameters.<par/>We propose Gradient-Aligned Iterative Fine-Tuning (GAIF), an adaptive post-training framework that combines three complementary components: a unified SFT+DPO objective optimized simultaneously; a prospective adaptive weighting mechanism that selects task weights based on next-step gradient geometry; and an iterative outer loop that regenerates preference pairs from the current model’s failures, keeping the supervision signal synchronized with the model’s evolving capabilities while adapting training toward arbitrary evaluation metrics, including non-differentiable ones.<par/>We evaluate GAIF on a production-scale generative movie search assistant, where a 7B LLM is adapted to the entertainment domain while remaining faithful to a fixed streaming catalog. The 7B model trained with GAIF outperforms standard SFT, sequential SFT+DPO, and a ~90B reference model in both ranking quality (NDCG) and output validity. Experiments on GSM8K mathematical reasoning further show the algorithm’s effectiveness extends beyond grounded retrieval.</abstract>
       <pdf hash="3d694654"/>
       <bibkey>shi-2026-gradient</bibkey>
+      <doi>10.18653/2026.groundlm-1.36</doi>
     </paper>
     <paper id="37">
       <!-- https://aclanthology.org/2026.groundlm-1.37/ -->
@@ -451,6 +489,7 @@
       <abstract>Compressing long multi-turn conversations requires deciding not only how to compress context, but which signal should rank memory candidates under a fixed budget. We study a sparse keep/compress/drop (KCD) codec and compare geometric, semantic, and hybrid scoring signals across conversational memory regimes. On a stress-test benchmark designed to expose support-turn failures, a geometry-scored codec substantially outperforms a semantic signal swap inside the same codec. On MSC (1,000 conversations), we show that geometry-based compression methods substantially outperform LongLLMLingua on geometric fidelity (ΔL2 ≈ +130) while LongLLMLingua modestly improves answer NLL—a geometry-behavior divergence confirming that behavioral metrics alone are insufficient to evaluate memory compression. Among KCD signal variants on MSC (1,000 conversations, Qwen2.5-1.5B), query-conditioned geometry achieves the best combination of geometric fidelity and behavioral quality simultaneously: at budget 0.50 it reduces logit L2 by 109.4 units versus semantic KCD (p&lt;0.001, conversation-level) while also achieving best answer NLL across all budgets. On LongMemEval-S (100 full-length conversations), all KCD variants significantly improve behavioral quality over uniform compression. A Llama-3.2-3B cross-model check shows that the geometry signal advantage is model-family-dependent: semantic compression dominates geometry compression on behavior across all budgets for Llama-3B (p≤0.01, conversation-level). The paper’s central claim is that geometry-behavior divergence is real and consequential, and that query-conditioned geometry is the signal that best resolves it on Qwen2.5 models.</abstract>
       <pdf hash="1581b389"/>
       <bibkey>kompally-s-2026-geometry</bibkey>
+      <doi>10.18653/2026.groundlm-1.37</doi>
     </paper>
     <paper id="38">
       <!-- https://aclanthology.org/2026.groundlm-1.38/ -->
@@ -464,6 +503,7 @@
       <abstract>Retrieval-augmented generation (RAG) systems can precompute and store key-value (KV) caches of retrieved documents to avoid re-encoding the same context for every query. Quantizing these offline caches reduces storage cost, but existing work largely evaluates compression through accuracy alone and does not ask whether the generated answers remain faithful to the retrieved evidence. This distinction is important because a model can preserve the correct answer string while weakening its grounding in the provided context. We audit Qwen2.5-7B-Instruct under BF16, INT8, and INT4 offline KV-cache settings on RGB and HotpotQA, measuring both answer accuracy and faithfulness using a hallucination detector, NLI entailment, and an LLM judge. INT8 is nearly lossless across accuracy and faithfulness metrics. In contrast, INT4 reduces accuracy and, more critically, degrades faithfulness even on examples where the answer remains factually correct: over 90% of faithfulness flips are negative. The degradation increases under noisier retrieval and larger retrieval depth. These results show that compressed RAG systems cannot be validated by EM or F1 alone; faithfulness must be audited before low-bit offline KV caches are deployed.</abstract>
       <pdf hash="a45681b2"/>
       <bibkey>asad-etal-2026-faithfulness</bibkey>
+      <doi>10.18653/2026.groundlm-1.38</doi>
     </paper>
     <paper id="39">
       <!-- https://aclanthology.org/2026.groundlm-1.39/ -->
@@ -483,6 +523,7 @@
       <abstract>We introduce a novel approach for calibrating uncertainty quantification (UQ) tailored for visual language models (VLMs). Existing state-of-the-art UQ methods rely on consistency among multiple responses, but often report higher confidence when the model is consistently incorrect, leading to poorly calibrated confidence. To address this, we leverage cross-modal consistency by grounding back the textual responses to visual inputs. The confidence from the grounding model (GM) is used to calibrate the overall confidence. Given that using a GM adds its own uncertainty, we apply temperature scaling to calibrate the GM’s confidence in the accuracy of the generated responses. We comprehensively evaluate the proposed approach across diverse range of settings, including datasets with varying visuo-linguistic complexity, Q&amp;A and caption generation tasks, general visual and specialized medical contexts, VLMs differing in scale, openness, and different categories of GMs. Experimental results show that our approach consistently improves confidence calibration, with expected calibration error (ECE) improvements ranging from 32.5% to 96.7% over both self and non-self consistency-based baselines. Code is available here https://github.com/trilokpadhi/Multimodal-Uncertainty-Quantification.</abstract>
       <pdf hash="668512f7"/>
       <bibkey>padhi-etal-2026-cross</bibkey>
+      <doi>10.18653/2026.groundlm-1.39</doi>
     </paper>
     <paper id="40">
       <!-- https://aclanthology.org/2026.groundlm-1.40/ -->
@@ -492,6 +533,7 @@
       <abstract>We introduce <b>CrossCTI</b>, a multilingual benchmark for evaluating retrieval-augmented generation (RAG) grounding faithfulness in open-source large language models applied to cyber threat intelligence (CTI) analysis. Existing CTI and forensic NLP benchmarks are predominantly English-centric, leaving a critical gap in understanding how grounding faithfulness degrades under cross-lingual distribution shift, a realistic condition in multinational security operations centers. CrossCTI translates 50 English CTI reports into Arabic, Chinese, Swahili, and Russian using NLLB-200 with entity-preserving masking, achieving 100% IOC preservation across languages. We construct 26 forensic question-answer pairs and evaluate each against all five language corpora and three open-source models (Qwen2.5-7B, Llama-3.1-8B, and Mistral-7B-v0.3), producing 390 evaluation instances, scored with token-level F1, character-level F1, and entailment-based attribution. Using a repeated-measures mixed-effects analysis that accounts for the fact that each of the 26 items is evaluated under all 15 model<tex-math>\times</tex-math>language conditions, we find that cross-lingual degradation is severe, but <i>uneven across metrics</i>: language is the dominant, robust predictor of lexical (token-level) grounding quality (<tex-math>p&lt;0.001</tex-math>), with no detectable effect of model identity on this metric. In contrast, model identity is a significant predictor of both character-level overlap and entailment-based attribution (<tex-math>p&lt;0.01</tex-math>), including a specific interaction in one model (Mistral) that underperforms specifically in Swahili. Token-level F1 drops from 0.44 (English) to 0.03 (Arabic); gold-chunk retrieval recall drops from 0.962 (English) to 0.115 (Arabic); and the instance-level correlation between retrieval success and token-level grounding is <tex-math>r=0.60</tex-math>. Performance also improves from the top-<tex-math>k=1</tex-math> to the top-<tex-math>k=3</tex-math> retrieved passages before plateauing, with no consistent gains from the additional retrieved content. We further show that the entailment-based attribution metric is significantly elevated specifically for the model used to generate the benchmark’s own QA pairs, a synthetic-annotator confound that we quantify directly via within-item paired tests rather than only disclosing qualitatively. CrossCTI provides a reproducible framework for multilingual CTI grounding evaluation and a case study in how the apparent dominant factor, language or model, depends on which grounding metric is used.</abstract>
       <pdf hash="a57b7228"/>
       <bibkey>denny-2026-lost</bibkey>
+      <doi>10.18653/2026.groundlm-1.40</doi>
     </paper>
     <paper id="41">
       <!-- https://aclanthology.org/2026.groundlm-1.41/ -->
@@ -503,6 +545,7 @@
       <abstract>We present RuleChef, a framework that uses large language models (LLMs) to generate executable rules for NLP tasks such as text classification, Named Entity Recognition (NER), or relation extraction. Rules are generated based on a task description and a set of labeled examples, then they are iteratively improved based both on additional examples and on human feedback over existing rules. RuleChef can also be used to bootstrap rules using the observed input-output pairs from any existing model for a given task. LLMs are used only at learning time, synthesizing rules and iteratively patching them based on failures measured on a held-out split. The result of this process is a fast, deterministic, and inspectable rule system. Preliminary evaluation is performed on both classification and NER tasks. We release RuleChef as open-source software under an Apache 2.0 license.</abstract>
       <pdf hash="01a3e782"/>
       <bibkey>kovacs-etal-2026-rulechef</bibkey>
+      <doi>10.18653/2026.groundlm-1.41</doi>
     </paper>
     <paper id="42">
       <!-- https://aclanthology.org/2026.groundlm-1.42/ -->
@@ -513,6 +556,7 @@
       <abstract>KV-cache compression reduces LLM inference memory by evicting context tokens, but when the evicted tokens contain answer-bearing evidence, the model may hallucinate instead of recognizing that the compressed context is insufficient. We address this failure from a behavioral perspective: to our knowledge, this is the first work to formulate compression-aware abstention as a learning problem, in which a model learns to answer when supporting evidence survives compression and abstain when it does not. We construct supervision from compressor survival masks and tight answer-bearing spans, labeling examples as Confident when evidence survives and Abstain when it is removed. A 10.1M-parameter LoRA adapter trained on ∼2.6K MuSiQue 2-hop QA examples reduces base-model hallucinations by 97% under prompt-style truncation while preserving correct answering on evidence-retaining examples. Unlike prompt-only abstention baselines, which over-abstain on many answerable high-retention examples, the trained adapter learns a conditional policy. We also evaluate the method under actual compressed-cache decoding, where multi-compressor training yields a 6–22× relative lift over the unaided base on evidence-retaining examples. Controlled-deletion experiments show that the learned behavior is driven by evidence content rather than input length alone.</abstract>
       <pdf hash="51cab4f5"/>
       <bibkey>khodabandehlou-krishnamachari-2026-compression</bibkey>
+      <doi>10.18653/2026.groundlm-1.42</doi>
     </paper>
     <paper id="43">
       <!-- https://aclanthology.org/2026.groundlm-1.43/ -->
@@ -523,6 +567,7 @@
       <abstract>LLM-as-a-judge evaluation is widely used for retrieval-augmented generation (RAG), but reusing a model as generator and judge complicates identifying self-leniency. We introduce Eval-Pair Matrix, a controlled meta-evaluation protocol for source-grounded RAG. Starting from GaRAGe, we induce one hidden answer-causal contradiction per record, generate answers from perturbed passages with GPT, Grok, and Gemini, and use the same models as blind judges against the original passages. The experiment contains 300 core records, 897 labeled outputs, and 2,683 verdicts in a crossed 3×3 matrix; the primary analysis uses 275 validated records. We estimate same-model effects by pairing judges on the exact same candidate answer. Diagonal and off-diagonal F1 are similar, and aggregate paired recall is near zero for the three tested endpoints (−0.5 pp; 95% cluster-bootstrap CI [−2.7,+1.7]). Matching judges flag answers that avoided the induced claim less often (−4.3 pp). A targeted human evaluation classifies reviewed apparent false positives as alternate source-error detections, adoption-label mistakes, or unclear cases; none were adjudicated as genuine false alarms. We recommend full matrices, answer-paired effects, behavior strata, and label-task alignment.</abstract>
       <pdf hash="f6741333"/>
       <bibkey>selvam-ghosh-2026-eval</bibkey>
+      <doi>10.18653/2026.groundlm-1.43</doi>
     </paper>
     <paper id="44">
       <!-- https://aclanthology.org/2026.groundlm-1.44/ -->
@@ -537,6 +582,7 @@
       <abstract>Hallucination detection for retrieval-augmented generation (RAG) is usually evaluated on natural-language document evidence. However, grounded generation systems increasingly rely on structured inputs: source code, developer-tool output, markdown documents, tables, and repository metadata. We introduce a unified benchmark for span-level hallucination detection over code, tool output, structured documents, and existing natural-language RAG datasets. The benchmark is built by starting from grounded correct answers, injecting localized hallucinations with exact character labels, and validating the code test split with evidence-based review. Our fine-tuned Qwen3.5-2B detector reaches 0.689 span-F1 on the unified test set and 0.60 on the code-agent source, where it substantially outperforms LettuceDetect-large (0.17) and the strongest zero-shot LLM judges we evaluated (at most 0.22). The same model remains competitive on established natural-language benchmarks, with 81.8 RAGTruth example-F1 and 0.724 English PsiloQA IoU.</abstract>
       <pdf hash="d5054729"/>
       <bibkey>kovacs-etal-2026-beyond</bibkey>
+      <doi>10.18653/2026.groundlm-1.44</doi>
     </paper>
     <paper id="45">
       <!-- https://aclanthology.org/2026.groundlm-1.45/ -->
@@ -551,6 +597,7 @@
       <abstract>AI-generated text now constitutes a substantial and growing fraction of indexed web content, creating a feedback loop in which AI assistants may retrieve and condition on their own prior generations. Prior work shows that recursive <i>training</i> on model generations causes <b>model collapse</b>: a loss of output diversity and distributional drift. We ask whether a similar collapse emerges at <i>inference</i> time, when LLMs retrieve their own generations via RAG without any parameter updates. We measure collapse as the progressive convergence of responses to a narrow set across recursive retrieval rounds. Across three contamination simulations and four open-source LLMs, answer collapse is rapid and consistent under direct contamination, but slower, partial, and model-dependent under realistic competitive retrieval. Collapse can also degrade downstream accuracy on factual multi-hop QA, though the effect is inconsistent across models. We further show that the self-generated documents we introduce are cited far above their share of the retrieved context, an effect that is not fully explained by document quality, writing style, AI authorship, and self-preference. Finally, we propose and evaluate mitigation strategies at both the retrieval and generation stages, none of which reliably prevent collapse. As AI-generated content continues to populate the open web, collapse-resistant retrieval design becomes a prerequisite for trustworthy AI assistants.</abstract>
       <pdf hash="67d17bca"/>
       <bibkey>senapati-etal-2026-retrieval</bibkey>
+      <doi>10.18653/2026.groundlm-1.45</doi>
     </paper>
     <paper id="46">
       <!-- https://aclanthology.org/2026.groundlm-1.46/ -->
@@ -561,6 +608,7 @@
       <abstract>Search APIs expose ranked snippets, URLs, and metadata on which agents decide whether to answer, search again, or fetch pages. We evaluate these interfaces as decision surfaces on a fixed sample of 100 questions from the 254-question SEALQA-HARD subset, using one frozen GPT-5.4 agent, a fixed orchestration harness, and a shared page-fetch backend across Brave, Tavily, and Firecrawl. A Kimi-K2.6 oracle labels visible URL-level evidence;a separate answer audit yields 25, 25, and 26 correct answers out of 100. These counts indicate similar observed accuracy but do not establish equivalence. Under the tested configurations, Brave exposes more pre-fetch support alongside a larger snippet surface; Tavily has a larger rank-1 share among trajectory-pooled supporting observations; and Firecrawl is associated with broader exploration. First-search query-level metrics distinguish support availability from ranking, while contradiction exposure complements contradiction-to-gold ratios. A retrospective oracle union covers 44/100 questions, versus 26/100 for the best individual provider: 18 percentage points of headroom. The observed evidence and action differences motivate evaluating search APIs jointly with agent policy and retrieval budget.</abstract>
       <pdf hash="86a82e68"/>
       <bibkey>selvam-ghosh-2026-similar</bibkey>
+      <doi>10.18653/2026.groundlm-1.46</doi>
     </paper>
     <paper id="47">
       <!-- https://aclanthology.org/2026.groundlm-1.47/ -->
@@ -573,6 +621,7 @@
       <pdf hash="556d8439"/>
       <attachment hash="b2f80f7c" type="attachment">2026.groundlm-1.47.attachment.zip</attachment>
       <bibkey>bhaduri-etal-2026-latent</bibkey>
+      <doi>10.18653/2026.groundlm-1.47</doi>
     </paper>
     <paper id="48">
       <!-- https://aclanthology.org/2026.groundlm-1.48/ -->
@@ -584,6 +633,7 @@
       <abstract>Automatic metrics stand in for native-speaker evaluation in low-resource retrieval-augmented generation (RAG), so their validity determines what can be concluded about these systems. We test whether common metrics detect re- trieval and grounding failure in one fixed RAG pipeline across ten Indic languages. They do not merely miss the failure in Santali; they invert it. Hit@5 is 0.011, yet raw XLM-R BERTScore is the highest in the set at 0.902, changes little when retrieved evidence is re- moved, and assigns nearly the same score to matched and unrelated references. The cause is coverage: the scorer maps 39% of Santali tokens to &lt;unk&gt;, and a scorer whose vocab- ulary includes Ol Chiki restores discrimina- tion while LaBSE does not. Retrieval fails for the same reason. The gold article is indexed for 80% of Santali queries, but the retriever shares XLM-R’s tokenizer and collapses before reranking. Judge-based faithfulness and con- text precision, computed by a model with a dif- ferent tokenizer, flag the failure independently. A metric that cannot represent a script does not become noisy; it becomes constant and high. We argue that metric validity in low-resource languages must be established per language, and that evidence removal, reference shuffling, and the scorer’s &lt;unk&gt; rate can be important additions.</abstract>
       <pdf hash="2883837e"/>
       <bibkey>garg-etal-2026-stable</bibkey>
+      <doi>10.18653/2026.groundlm-1.48</doi>
     </paper>
     <paper id="49">
       <!-- https://aclanthology.org/2026.groundlm-1.49/ -->
@@ -602,6 +652,7 @@
       <abstract>Modern language models are typically deployed using all transformer layers during inference, implicitly assuming that every layer contributes positively to downstream performance. Prior studies on layer skipping often focus on limited settings and commonly associate removable layers with specific transformer regions, particularly middle layers. However, whether single-layer skipping generalizes across diverse tasks, languages, and model architectures remains underexplored.<par/>In this work, we conduct a multilingual and multi-task empirical study of single-layer skipping in modern instruct-tuned language models. We evaluate 9 text-only models spanning multiple model families and parameter scales, including Gemma 3, Llama 3.2, and Qwen 3, OLMo 2 without modifying model parameters. Our experiments systematically evaluate single-layer skipping across all layers on diverse benchmarks covering NLU, reasoning, bias evaluation, code generation, instruction following, and multilingual knowledge evaluation, including MMLU across 57 subject domains and 10 typologically diverse languages.<par/>Our results show that the effect of single-layer skipping is highly context-dependent. We show that skipping a single transformer layer is an effective strategy for leveraging the capabilities of a language model: there is a high chance of achieving better benchmark performance while simultaneously reducing computation during inference. However, the optimal skipped layer varies depending on model architecture, task, domain, and language. Beneficial skipped layers occur most frequently in the second half of the network, though they also emerge in early layers in some cases. We further observe that performance improvements are more common in structured prediction tasks, whereas degradations more frequently occur in tasks requiring precise generation.</abstract>
       <pdf hash="dad7a36e"/>
       <bibkey>purwarianti-etal-2026-skip</bibkey>
+      <doi>10.18653/2026.groundlm-1.49</doi>
     </paper>
     <paper id="50">
       <!-- https://aclanthology.org/2026.groundlm-1.50/ -->
@@ -614,6 +665,7 @@
       <abstract>Named Entity Recognition for dialectal Arabic remains severely constrained by data scarcity, and LLM-based augmentation is the natural remedy. We study LLM-based augmentation for the Lebanese and Palestinian sub-corpora of Wojood 2024, using LLaMA-3.1-8B-Instruct as a generation backbone, and compare three strategies (entity-level, context-level, combined) across two k-shot sampling paradigms. The proposed multi-dimensional pipeline yields a per-sentence composite score Q(s) that exposes a sharp dialectal-authenticity gap between entity- and context-level rewriting (DA 0.92 vs. 0.51). Despite lower register fidelity, context augmentation with curriculum training delivers the most consistent gains (Curras F1 +5.70 pp); entity augmentation lifts Lebanese F1 from a zero baseline to 50.00 on Lebanese-only training, a figure the 85-sentence test set makes coarse. Ablation, weight-sensitivity, threshold sweep, a random-selection control, and a second LLM backbone show that the dialectal-authenticity dimension carries most of Q(s)’s protective effect on Lebanese and that generator choice is itself a first-class register-preservation lever.</abstract>
       <pdf hash="20a48cc9"/>
       <bibkey>saadaoui-etal-2026-quality</bibkey>
+      <doi>10.18653/2026.groundlm-1.50</doi>
     </paper>
     <paper id="51">
       <!-- https://aclanthology.org/2026.groundlm-1.51/ -->
@@ -627,6 +679,7 @@
       <pdf hash="f7b05d1f"/>
       <attachment hash="ebf1d3f9" type="attachment">2026.groundlm-1.51.attachment.zip</attachment>
       <bibkey>rathore-etal-2026-robustness</bibkey>
+      <doi>10.18653/2026.groundlm-1.51</doi>
     </paper>
     <paper id="52">
       <!-- https://aclanthology.org/2026.groundlm-1.52/ -->
@@ -640,6 +693,7 @@
       <abstract>Large language models can hallucinate with the same fluent confidence they bring to correct answers, making reliable hallucination detection essential for trustworthy deployment. Existing detectors based on LLM hidden states often rely on cosine or linear readouts that ignore the anisotropic structure of the representation space. We introduce DTS (Discriminant Truthfulness Scoring), a lightweight, gradient-free detector that whitens hidden activations using within-class covariance and scores responses with a closed-form Fisher discriminant. Across Qwen-2.5-7B and Llama-3.1-8B on four QA datasets, DTS ranks first in five of eight settings and second in the remaining three. Whitening improves over cosine scoring by 7.8 AUROC points on average, identifying the readout as a major bottleneck. When truthful and hallucinated representations overlap, class-mean steering provides additional gains without learning a steering vector. DTS requires only a single forward pass and closed-form computation, making it substantially cheaper than sampling- and gradient-based alternatives, while also extending effectively to long-form generation.</abstract>
       <pdf hash="87d6672b"/>
       <bibkey>atey-etal-2026-dts</bibkey>
+      <doi>10.18653/2026.groundlm-1.52</doi>
     </paper>
     <paper id="53">
       <!-- https://aclanthology.org/2026.groundlm-1.53/ -->
@@ -649,6 +703,7 @@
       <abstract>Grounded language models are usually evaluated by adding relevant context, but multi-turn dialogue also contains unsupported user claims that may contaminate later factual answers. We study post-pressure recoverability: whether a model returns to clean-context behavior after a user repeatedly advocates a wrong answer and then withdraws that pressure. We introduce a recovery-after-pressure protocol for multiple-choice factual dialogue and measure sycophancy hysteresis, the residual probability assigned to the user-advocated wrong answer relative to a clean-context counterfactual. Across seven instruction-tuned open-weight models and two factual benchmarks, ordinary reset often reduces but does not erase pressure-induced bias. History-preserving repairs such as user retraction, system reset, and self-verification recover only 2–3/14 model–dataset pairs under the strict clean-restoration diagnostic, whereas operations that change the effective context are substantially more reliable; the two conditions that remove the pressure-bearing history entirely, fresh-context deletion and context truncation, recover 14/14. In an oracle trusted-evidence condition across fourteen model–dataset pairs, preserving the pressure-bearing history while adding benchmark-derived trusted evidence increases accuracy from 0.368 to 0.929, while wrong-answer following falls from 41.2% to 4.3%. Controls show that the effect is not explained by dialogue length, repeated confidence, plausible distractors, mere false-answer mention, or option-label inertia. These results suggest that faithful grounded dialogue requires evaluating which prior context should be treated as evidence and which should be removed or quarantined before answering.</abstract>
       <pdf hash="f994c1b9"/>
       <bibkey>shnaidman-2026-reset</bibkey>
+      <doi>10.18653/2026.groundlm-1.53</doi>
     </paper>
     <paper id="54">
       <!-- https://aclanthology.org/2026.groundlm-1.54/ -->
@@ -658,6 +713,7 @@
       <abstract>A single faithfulness score can hide failures that require different repairs: a RAG answer may be grounded in text whose source is stale, incomplete, contradicted, low-authority, or insufficient. We introduce ContextTrace, a deterministic, local-first SDK and CLI for evidence-chain forensics that separates claim support, citation state, source condition, abstention need, root cause, repair, and regression prevention. We also introduce Groundedness-Truth-Gap, a suite for controlled conformance, while frozen RAGTruth and stress tests serve as failure-safety controls. ContextTrace’s central contribution is an inspectable evidence-chain contract. On a fresh 84-case public-document evaluation, it catches 76 of 77 failure-bearing cases and preserves all seven clean cases (balanced accuracy 0.994; MCC 0.929), the same binary confusion counts as a frozen GPT-4.1-mini judge, while producing typed diagnostic records without additional model calls. The clean-case sample is small, and fine-grained label, root, and unverifiable attribution remains limited. Post-review counterfactuals further show strong dependence on source metadata and temporal cues. We release a blinded 50-case annotation packet and scorer; independent adjudication remains pending. Our claim is reproducible fail-closed diagnosis, not truth verification or broad evaluator superiority.</abstract>
       <pdf hash="379c5d91"/>
       <bibkey>vinayaka-2026-groundedness</bibkey>
+      <doi>10.18653/2026.groundlm-1.54</doi>
     </paper>
     <paper id="55">
       <!-- https://aclanthology.org/2026.groundlm-1.55/ -->
@@ -669,6 +725,7 @@
       <abstract>Frontier multimodal large language models (MLLMs) have achieved strong performance in visual question answering (VQA), OCR-intensive image understanding, and multimodal reasoning. However, they can still produce linguistically plausible answers that are not supported by visual evidence, particularly under ambiguous OCR, weak visual evidence, and challenging spatial or physical reasoning. We introduce GroundVQA, an adversarial VQA benchmark designed to evaluate visual grounding, hallucination resistance, OCR robustness, uncertainty handling, and spatial and physical reasoning. GroundVQA contains 3,877 manually reviewed question–answer pairs constructed from approximately 2,400 public-source images and around 100 self-collected real-world images. We evaluate representative frontier MLLMs on a stratified subset of GroundVQA and complement the quantitative evaluation with qualitative analyses of recurring model strengths and failure modes. Our findings highlight a persistent reliance on semantic priors when visual evidence is ambiguous or insufficient, motivating evaluation frameworks that emphasize grounded reasoning, calibrated uncertainty, and adversarial premise rejection beyond conventional VQA accuracy.</abstract>
       <pdf hash="8a118c05"/>
       <bibkey>xu-etal-2026-human</bibkey>
+      <doi>10.18653/2026.groundlm-1.55</doi>
     </paper>
     <paper id="56">
       <!-- https://aclanthology.org/2026.groundlm-1.56/ -->
@@ -682,6 +739,7 @@
       <abstract>Recent advances in Multilingual Large Language Models (MLLMs) have improved cross-lingual conversational capabilities, yet generating reliable, institutionally usable text in low-resource languages like Bangla remains a critical bottleneck, particularly for compact, low-resource LLMs. Beyond surface fluency, state-of-the-art and small open-weight models frequently exhibit deeper generation failures in Bangla: incoherent or off-topic output, structural misformatting, and inconsistent honorific registers, that render text unusable in formal contexts. To address this, we introduce BLADE (BangLa Application and DialoguE generation), a culturally aligned instruction-tuning dataset and benchmarking framework comprising 4,196 curated interaction pairs. We use this resource to fine-tune and evaluate compact open-weight architectures, including DeepSeek-8B, LLaMA-3.2-3B, Qwen2, and TigerLLM-1B, via LoRA adapters under 4-bit NormalFloat (NF4) quantization on limited hardware. Our evaluations show that targeted fine-tuning on BLADE yields substantial improvements in generation reliability, structural fidelity, and register consistency even for the smallest models, establishing a rigorous benchmark for closing generation and pragmatic gaps in low-resource multilingual text generation. Code and dataset: https://github.com/ashuvo25/Bangla_Application_LLM</abstract>
       <pdf hash="81e83b53"/>
       <bibkey>shuvo-etal-2026-polite</bibkey>
+      <doi>10.18653/2026.groundlm-1.56</doi>
     </paper>
     <paper id="57">
       <!-- https://aclanthology.org/2026.groundlm-1.57/ -->
@@ -692,6 +750,7 @@
       <abstract>Literature-grounded question answering requires a system to retrieve the right paper, locate the right evidence within it, and generate an answer faithful to that evidence. These are three separate stages, each with its own failure mode. We present a stage-wise diagnostic study of this pipeline on LitTraceQA, a shared task requiring paper retrieval, coarse evidence localization (table/figure/page), and structured answer generation. Our pipeline combines cross-model hypothesis diversity for retrieval, a filter-then-rank evidence localizer (caption-pattern match, embedding similarity, evidence-type gate), and cross-model semantic entropy for generation-time answer aggregation and confidence estimation. We use an oracle-substitution ablation ladder, sequentially handing the pipeline the gold paper and then the gold evidence value, and reading off the resulting change in each stage’s own metric. These are sequential oracle-intervention gains, not an additive error decomposition: the stages are measured with different quantities and are not independent. Read that way, the ladder points at evidence localization as the dominant remediable bottleneck — multiple-choice accuracy rises from 0.42 with predicted evidence to 0.76 with the gold evidence value, and end-to-end accuracy stays near 0.29 even on the questions where retrieval already returned every gold paper. We also test whether cheap uncertainty signals computed at retrieval time predict which stage will fail before it does. Along the way we surface two infrastructure-level findings with direct implications for anyone building literature-grounded QA systems. First, evidence page numbers in this and similar benchmarks are keyed to a paper’s canonical published version rather than its arXiv preprint; a real failure mode when a paper has been substantively revised, though a systematic paired ablation across 45 questions finds it is an occasional rather than pervasive hazard in this pool. Second, a substantial fraction of papers hosted on OpenReview (ICLR/ICML/NeurIPS) are unreachable by ordinary scripted HTTP requests due to a JS bot-challenge, a venue-correlated failure mode unrelated to any modeling choice. We report our diagnostic protocol, quantitative results with bootstrap confidence intervals given the benchmark’s small public dev set, and a qualitative failure taxonomy, framing this as a resource and lessons-learned contribution rather than a leaderboard claim. All multiple-choice numbers are a best-case diagnostic condition: they assume access to the gold option text, which a genuine blind submission would not have.</abstract>
       <pdf hash="28f3e874"/>
       <bibkey>more-jadhav-2026-retrieve</bibkey>
+      <doi>10.18653/2026.groundlm-1.57</doi>
     </paper>
     <paper id="58">
       <!-- https://aclanthology.org/2026.groundlm-1.58/ -->
@@ -704,6 +763,7 @@
       <abstract>Large language models (LLMs) are increasingly used to generate scientific reports, but they can produce references that appear plausible while containing corrupted metadata or pointing to papers that do not exist. We introduce CITECHECK, a hybrid framework for citation hallucination detection that verifies whether a citation corresponds to a real scholarly work and whether its metadata is faithful to that work. CITECHECK retrieves candidate publications from external scholarly sources, compares the citation against the retrieved candidate using a structured LLM verifier, and maps verifier scores into three labels: Exact, Minor, and Major. We also construct a 982-citation physics benchmark with controlled corruptions that capture both subtle metadata drift and fully fabricated references. On the held-out test set, CITECHECK achieves 88.7 macro-F1 and 88.9% accuracy, outperforming GPT, Claude, and Gemini baselines, including web-search and few-shot variants. These results show that reliable citation verification benefits from combining scholarly retrieval, structured LLM-based comparison, and calibrated decision rules.</abstract>
       <pdf hash="33b4a485"/>
       <bibkey>khajavi-etal-2026-citecheck</bibkey>
+      <doi>10.18653/2026.groundlm-1.58</doi>
     </paper>
     <paper id="59">
       <!-- https://aclanthology.org/2026.groundlm-1.59/ -->
@@ -717,6 +777,7 @@
       <abstract>Policy compliance in enterprise conversational AI is not binary: the same response can satisfy one stakeholder’s policy while violating another’s. Existing evaluations largely treat compliance as a single-policy problem, which makes cross-role conflict cases difficult to construct and assess. GRACE (Generating Conflict-Aware Cases for Evaluating Policy Compliance) addresses this gap by generating matched normal and conflict cases from the same underlying scenario, assigning role-wise expected verdicts through independent per-role policy evaluation, and scoring responses independently for each role rather than collapsing compliance into a single binary label. Across four domains, this process yields 1,109 labeled scenarios, including 309 cross-role conflicts. Evaluating five LLMs shows that deny cases are easiest, allow cases are depressed by over-refusal, and conflict cases are consistently hardest, revealing failures that single-label evaluation obscures. Per-persona analysis further shows that these errors are localized to specific domain-role combinations rather than uniform across models. GRACE therefore supports both policy review and deployment-time model selection.</abstract>
       <pdf hash="1ec02a18"/>
       <bibkey>kim-etal-2026-grace</bibkey>
+      <doi>10.18653/2026.groundlm-1.59</doi>
     </paper>
     <paper id="60">
       <!-- https://aclanthology.org/2026.groundlm-1.60/ -->
@@ -728,6 +789,7 @@
       <abstract>Adaptive Bitrate (ABR) decision-making is essential for optimizing Quality of Experience (QoE) in video streaming. Traditional ABR methods typically lack fine-grained content understanding and face challenges in balancing multi-dimensional QoE objectives under real-world edge device constraints. To overcome these limitations, we propose **StreamSense Agent**, a novel framework that reformulates ABR as a sequential decision-making process informed by content and network awareness. Our approach introduces three key innovations: (1) a Dynamic Content-Aware Entity Graph (D-CAEG) for structured video representation, (2) a composite QoE-driven optimization objective integrating perceptual quality, rebuffering, smoothness, and computational cost, and (3) a hierarchical resource-aware architecture enabling real-time control through an efficient lightweight actor. We further adopt an offline-to-online co-adaptation training paradigm with federated learning for continuous adaptation. Since effective ABR control requires the same core competencies as general sequential decision-making—multi-step planning across future video chunks, dynamic information gathering from heterogeneous network signals, and adaptive strategy adjustment under resource constraints—we validate these transferable capabilities on five established benchmarks. Specifically, multi-hop search tasks (BrowseComp, BrowseComp-ZH) mirror the integration of dispersed network-trace and content-complexity signals into a bitrate plan; complex navigation tasks (WebWalkerQA) correspond to sequential buffer-state traversal under volatile bandwidth; and information-extraction tasks (Xbench-DS, SimpleQA) reflect the precision required when reading real-time streaming telemetry. StreamSense Agent achieves state-of-the-art results, attaining accuracy of 16.7% on BrowseComp, 30.5% on BrowseComp-ZH, 42.1% on Xbench-DS, and 54.2% on WebWalkerQA. Deployment-oriented evaluations further confirm its computational efficiency, achieving an inference throughput of 12.5 requests per second with a memory footprint of only 2,100 MB under edge-like constraints, yielding a normalized QoE score of 0.92. Comprehensive ablation studies validate the necessity of each proposed component. This work establishes a new paradigm for intelligent, edge-deployable bitrate adaptation.</abstract>
       <pdf hash="730a0d9c"/>
       <bibkey>jiang-etal-2026-streamsense</bibkey>
+      <doi>10.18653/2026.groundlm-1.60</doi>
     </paper>
     <paper id="61">
       <!-- https://aclanthology.org/2026.groundlm-1.61/ -->
@@ -740,6 +802,7 @@
       <pdf hash="368f7376"/>
       <attachment hash="13485272" type="attachment">2026.groundlm-1.61.attachment.zip</attachment>
       <bibkey>liu-etal-2026-position-bias</bibkey>
+      <doi>10.18653/2026.groundlm-1.61</doi>
     </paper>
     <paper id="62">
       <!-- https://aclanthology.org/2026.groundlm-1.62/ -->
@@ -751,6 +814,7 @@
       <pdf hash="c8a659d5"/>
       <attachment hash="3e01db25" type="attachment">2026.groundlm-1.62.attachment.zip</attachment>
       <bibkey>kotte-arora-2026-preserving</bibkey>
+      <doi>10.18653/2026.groundlm-1.62</doi>
     </paper>
     <paper id="63">
       <!-- https://aclanthology.org/2026.groundlm-1.63/ -->
@@ -765,6 +829,7 @@
       <pdf hash="aa2f563a"/>
       <attachment hash="7b46a0a0" type="attachment">2026.groundlm-1.63.attachment.pdf</attachment>
       <bibkey>jain-etal-2026-grounding</bibkey>
+      <doi>10.18653/2026.groundlm-1.63</doi>
     </paper>
     <paper id="64">
       <!-- https://aclanthology.org/2026.groundlm-1.64/ -->
@@ -775,6 +840,7 @@
       <pdf hash="4c80bd53"/>
       <attachment hash="36ed18d9" type="attachment">2026.groundlm-1.64.attachment.zip</attachment>
       <bibkey>yagubyan-2026-coin</bibkey>
+      <doi>10.18653/2026.groundlm-1.64</doi>
     </paper>
     <paper id="65">
       <!-- https://aclanthology.org/2026.groundlm-1.65/ -->
@@ -784,6 +850,7 @@
       <abstract>Context compression reduces generator input in retrieval-augmented generation, but answer quality alone does not characterize citation attribution. We measure citation attribution across compression methods and budgets, comparing reranking, extractive selection, abstractive summarization, token pruning, and an extract-cluster-rewrite construction on ASQA and QASPER under a fixed generator and primary entailment evaluator. On ASQA at a nominal 0.25 budget (achieved compression 0.08), a RECOMP-style compressor’s citations score 0.86 precision against its summaries but 0.12 against source spans under our re-attributability protocol. These estimates depend on a shared NLI model for span recovery and citation scoring and lack independent human calibration. Extractive selection’s observed grounded precision ranges from 0.43 to 0.49 across nominal budgets from one-half to one-tenth of the ASQA context, while answer quality declines. For the same RECOMP setting, claim verification after source recovery yields an unsupported rate of 0.88 versus 0.17 when checking summaries. This gap persists beyond structural rejection of missing provenance, but remains evaluator-dependent. A 200-question TRUE T5-XXL audit also finds emitted–grounded gaps under both fixed and recomputed source mappings, without establishing human-calibrated support rates.</abstract>
       <pdf hash="61299bfd"/>
       <bibkey>mody-2026-attribution</bibkey>
+      <doi>10.18653/2026.groundlm-1.65</doi>
     </paper>
     <paper id="66">
       <!-- https://aclanthology.org/2026.groundlm-1.66/ -->
@@ -794,6 +861,7 @@
       <abstract>Single-GPU deployment of 70B-parameter language models on an NVIDIA GPU is constrained by device memory, long-context throughput, and engineering integration cost. We cast single-GPU inference as a budget-aware design problem over these three axes and study how pruning, quantization, and KV-cache compression interact under realistic execution. Controlled ablations show that layer-wise pruning makes weight quantization more robust. KV-cache sparsification complements INT8 KV quantization by reducing memory without hurting decoding speed, while static vector quantizers often conflict with dynamic caching. Guided by these coupling results and explicit budget tracking, we assembled a practical pipeline and compressed a 70B model to about 33 GB, sustained about 57 tokens/s on 10k token prompts on a single A40, and kept absolute accuracy within 5% on common and reasoning benchmarks. We contribute design rules and a reproducible evaluation protocol that jointly report quality, memory, and end-to-end speed, and we provide a foundation for automated pipeline search under realistic single-GPU constraints.</abstract>
       <pdf hash="2dadb1f9"/>
       <bibkey>yu-shen-2026-budget</bibkey>
+      <doi>10.18653/2026.groundlm-1.66</doi>
     </paper>
     <paper id="67">
       <!-- https://aclanthology.org/2026.groundlm-1.67/ -->
@@ -810,6 +878,7 @@
       <abstract>Hallucination—where a language model generates outputs that are factually incorrect or unsupported by the source—is a major challenge for both prompted and fine-tuned language models. Detecting hallucinations is difficult due to the opaque reasoning processes of LLMs, which often provide little insight into why a model’s output may be inaccurate.<par/>In this work, we investigate whether an LLM can use an alternative, low level, symbolic competence such as SQL for unsupervised hallucination detection in some high level task. For this, we make an LLM build an SQL database from reference documents. This SQL database is then used for reasoning over the reference and the sampled response in a hallucination detection pipeline that is grounded in the database, thereby providing a neurosymbolic checkup.<par/>On RAGTruth and DiaHalu hallucination detection datasets, we find that our approach improves on direct prediction and competes with state-of-the-art hallucination detection methods, while not requiring domain-specific fine-tuning. Instead it relies on a low-level general competence already present in LLMs. This warrants further investigation of low-level LLM competences in neurosymbolic approaches.</abstract>
       <pdf hash="1380e66c"/>
       <bibkey>vukovic-etal-2026-leveraging</bibkey>
+      <doi>10.18653/2026.groundlm-1.67</doi>
     </paper>
     <paper id="68">
       <!-- https://aclanthology.org/2026.groundlm-1.68/ -->
@@ -820,6 +889,7 @@
       <abstract>In modern RAG pipelines, query augmentation methods such as HyDE and query expansion are applied to every query, resulting in substantial LLM inference costs and increased end-to-end latency. The empirical justification for this overhead in real production traffic remains largely unexplored. We present a case study of the Danish National Encyclopedia, evaluating five retrieval workflows over 20,000 query–workflow pairs from production traffic and synthetic conditions. In this system, synthetic queries suggest that LLM augmentation is needed for over 90% of queries to achieve high retrieval coverage. However, under our production deferral policy, only 27.8% of real user queries need LLM augmentation. We call this gap the Coverage Illusion and attribute it to a structural mismatch between synthetic and real query distributions. Pre-retrieval routing cannot resolve this gap, as the need for LLM augmentation is only revealed after searching the index, a result confirmed by our evaluation of four machine learning paradigms. The coverage gap, undetectable from the query alone, motivates a post-retrieval cascade that runs workflows in cheapest-first order and escalates to LLM augmentation only when a step returns no documents. Operating entirely without training overhead or secondary serving infrastructure, the cascade improves quality by +0.140 Composite Overall points over Always-HyDE, reduces latency by 31.8%, and serves 72.2% of real user queries without LLM augmentation.</abstract>
       <pdf hash="b5f13730"/>
       <bibkey>hussain-nielbo-2026-coverage</bibkey>
+      <doi>10.18653/2026.groundlm-1.68</doi>
     </paper>
     <paper id="69">
       <!-- https://aclanthology.org/2026.groundlm-1.69/ -->
@@ -830,6 +900,7 @@
       <abstract>Language models often receive a question together with a claim about what another source answered. We audit whether such claims destabilize answers in multiple-choice question answering. For each item, we hold one wrong option fixed across misleading conditions and vary the cue template attached to it. We introduce neutral-conditioned misleading cue adoption rate (NC-MCAR), which measures switches to that option only on valid cued trials where the same model first selected the gold answer under a neutral prompt. This is a measure of answer instability, not proof that the model knew the answer or that all deference is irrational. We evaluate four instruction-following models on MMLU-Pro and IndicMMLU-Pro in English, Hindi, Bengali, Tamil, and Telugu. Across 220,000 outputs, the expert template yields 41.1% aggregate NC-MCAR, compared with 12.5% for the majority template. These two conditions use the same wrong option and final instruction. Filler accuracy remains well above expert-wrong accuracy, while correct-cue prompts have high valid-response accuracy. The audit documents answer instability relevant to grounding under the tested forced-choice prompts: a bare, unverified source claim can outweigh an answer that was previously consistent with the task evidence.</abstract>
       <pdf hash="a6cdf1ef"/>
       <bibkey>ravikiran-vohra-2026-models</bibkey>
+      <doi>10.18653/2026.groundlm-1.69</doi>
     </paper>
     <paper id="70">
       <!-- https://aclanthology.org/2026.groundlm-1.70/ -->
@@ -842,6 +913,7 @@
       <abstract>Grounded language-model pipelines can be divided into three stages: selecting an object, retrieving passages for it, and using that evidence to answer. If the selected object must reach the reader, losing it breaks the handoff. Benchmark recall checks the dataset-linked object, which can differ. We audit 600 HybridQA questions across three selector families. On 1,463 resolvable records where the selected object matches the dataset-traced passage, exact key lookup and exact title matching return the object every time. With every ranked rule given the same decoded selected title, body-only BM25 omits it on 389 records (26.6%) at cutoff five, while hybrid retrieval with reranking omits it on 14 (1.0%). The two identities differ on 329 of 1,792 resolvable records. With original-question rankings, their top-five checks disagree on 106 records (5.9%). Frozen reader comparisons associate the aligned object’s presence with 28.6 to 31.0 points higher exact match. In a deliberately selected 64-item cohort, removing that passage sharply lowers exact match, while removing a similar-length comparison passage does not reproduce the drop. We release the Returned-Object Profile (ROP), an executable record of the target, returned-ID field, cutoff, membership rule, and complete expected population, with data and an offline replay.</abstract>
       <pdf hash="fef8576c"/>
       <bibkey>vohra-etal-2026-selected</bibkey>
+      <doi>10.18653/2026.groundlm-1.70</doi>
     </paper>
     <paper id="71">
       <!-- https://aclanthology.org/2026.groundlm-1.71/ -->
@@ -854,6 +926,7 @@
       <pdf hash="f29c2eb3"/>
       <attachment hash="4831e727" type="attachment">2026.groundlm-1.71.attachment.zip</attachment>
       <bibkey>imrattanatrai-etal-2026-learning</bibkey>
+      <doi>10.18653/2026.groundlm-1.71</doi>
     </paper>
     <paper id="72">
       <!-- https://aclanthology.org/2026.groundlm-1.72/ -->
@@ -869,6 +942,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) is widely used for knowledge-intensive question answering (QA) but typically relies on large language models (LLMs) as generators, which raises cost and privacy concerns. We propose TripletRAG, a simple, training-free method that converts LLM-teacher behavior into triplets (synthetic question, retrieved passages, reference answer), which are then provided as exemplar context to a small language model (SLM) at inference. TripletRAG requires only offline synthetic QA generation and retrieval; no SLM finetuning is needed. Across SQuAD and Natural Questions (KILT) datasets, triplet guidance substantially increases judge-based accuracy, and improves groundedness on SQuAD for models in the 1B–3B parameter range, with negligible or inconsistent gains for larger models (7B+). Compared to a strong lightweight baseline (MiniRAG), TripletRAG gives markedly better groundedness and correctness while keeping the pipeline simple and practical.</abstract>
       <pdf hash="89c5b33b"/>
       <bibkey>tambovtsev-etal-2026-enhancing</bibkey>
+      <doi>10.18653/2026.groundlm-1.72</doi>
     </paper>
     <paper id="73">
       <!-- https://aclanthology.org/2026.groundlm-1.73/ -->
@@ -883,6 +957,7 @@
       <pdf hash="5537a3f5"/>
       <attachment hash="ade1eebf" type="attachment">2026.groundlm-1.73.attachment.zip</attachment>
       <bibkey>zhan-etal-2026-deep</bibkey>
+      <doi>10.18653/2026.groundlm-1.73</doi>
     </paper>
     <paper id="74">
       <!-- https://aclanthology.org/2026.groundlm-1.74/ -->
@@ -896,6 +971,7 @@
       <abstract>We introduce Conversational Object Grounding, a new task in which an agent must identify a target object in a complex 3D scene by engaging in natural language dialogue with a user who knows the target. It extends multimodal reference resolution on a single referring expression to conversations over multiple turns, combining it with clarification question generation and answer understanding to resolve ambiguities. For this task, we propose a zero-shot modular approach that combines the reference resolution, object captioning, and dialogue capabilities of foundation models, using prompt chaining in conjunction with an image-grounded scene graph. Evaluations on a new benchmark constructed with 3D scenes from ScanNet show that the proposed modular approach outperforms end-to-end baselines in terms of both grounding performance (up to 13% improvement) and image processing cost (up to 63% reduction).</abstract>
       <pdf hash="ca78c102"/>
       <bibkey>keizer-etal-2026-modular</bibkey>
+      <doi>10.18653/2026.groundlm-1.74</doi>
     </paper>
     <paper id="75">
       <!-- https://aclanthology.org/2026.groundlm-1.75/ -->
@@ -907,6 +983,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) systems are increasingly adopted in medical question answering, where generated answers depend heavily on retrieved biomedical evidence. However, demographic perturbations in clinical queries can substantially alter retrieval behavior, causing retrievers to surface demographically correlated yet clinically irrelevant evidence. We refer to this phenomenon as <i>retrieval shift</i>, where demographic-sensitive retrieval representations propagate bias into downstream generation. To investigate this issue, we construct a demographically perturbed MedQA dataset and systematically analyze retrieval instability under demographic perturbations across representative medical RAG systems. Our analysis shows that RAG systems are substantially more sensitive to demographic perturbations than standalone LLMs, indicating that retrieval plays a central role in propagating demographic bias. To mitigate retrieval shift, we propose <i>Bias-Aware Neutral Debiasing</i> (<i>BAND</i>), a rotation-based retrieval debiasing framework that suppresses demographic-sensitive retrieval directions while maintaining clinically relevant retrieval behavior. Experiments demonstrate that our method consistently reduces retrieval shift while largely preserving downstream task performance across multiple medical RAG systems. Our code and dataset are available at: <url>https://github.com/hrimlee/BAND</url></abstract>
       <pdf hash="5048a8f1"/>
       <bibkey>lee-etal-2026-band</bibkey>
+      <doi>10.18653/2026.groundlm-1.75</doi>
     </paper>
     <paper id="76">
       <!-- https://aclanthology.org/2026.groundlm-1.76/ -->
@@ -917,6 +994,7 @@
       <pdf hash="f4d8b27d"/>
       <attachment hash="4fd616b9" type="attachment">2026.groundlm-1.76.attachment.zip</attachment>
       <bibkey>yergattikar-2026-agents</bibkey>
+      <doi>10.18653/2026.groundlm-1.76</doi>
     </paper>
     <paper id="77">
       <!-- https://aclanthology.org/2026.groundlm-1.77/ -->
@@ -930,6 +1008,7 @@
       <pdf hash="a7496fe5"/>
       <attachment hash="7c2522c9" type="attachment">2026.groundlm-1.77.attachment.zip</attachment>
       <bibkey>yang-etal-2026-targeted</bibkey>
+      <doi>10.18653/2026.groundlm-1.77</doi>
     </paper>
     <paper id="78">
       <!-- https://aclanthology.org/2026.groundlm-1.78/ -->
@@ -940,6 +1019,7 @@
       <pdf hash="17255d5f"/>
       <attachment hash="c3fc5754" type="attachment">2026.groundlm-1.78.attachment.zip</attachment>
       <bibkey>gupta-2026-evidence</bibkey>
+      <doi>10.18653/2026.groundlm-1.78</doi>
     </paper>
     <paper id="79">
       <!-- https://aclanthology.org/2026.groundlm-1.79/ -->
@@ -950,6 +1030,7 @@
       <pdf hash="a95e32e1"/>
       <attachment hash="a0697546" type="attachment">2026.groundlm-1.79.attachment.zip</attachment>
       <bibkey>gupta-2026-default</bibkey>
+      <doi>10.18653/2026.groundlm-1.79</doi>
     </paper>
     <paper id="80">
       <!-- https://aclanthology.org/2026.groundlm-1.80/ -->
@@ -959,6 +1040,7 @@
       <abstract>We describe our system for LitTraceQA (GroundLM @ EMNLP 2026): given a research question, retrieve the relevant papers from a pool of 27,487, cite the page and the table or figure where the answer lives, and answer in a requested format. Our main finding is that evidence grounding is limited by retrieval, not by reading. The page selector put the annotator’s page, which we call the gold page, in front of the model that locates evidence only about half the time (52.6% gold-page recall), while that model, given the page, cited the right one in 45 of the 48 locators it emitted (94%). When the page was missing it rarely said so: of 45 such cases it returned nothing 14 times, a wrong page 24 times, and a correct page 7 times, so the pipeline failed quietly almost twice as often as it failed visibly. Since the failure was that the right page was never shown, the fix is to stop choosing: each retrieved paper fits in the model’s context, so we show it whole. Page ranking survives only as a fallback inside papers too long to fit, which no test-split paper was, and gold-page recall reaches 100% on the papers we can parse. Separately, questions that identify their target by position rather than content, such as "the first author of the 24th reference", are served by parsing rather than retrieval: we resolve the bibliography into an addressable list, which also supplies identifiers the evidence metric scores. The final system scores 0.762 paper <tex-math>F_1</tex-math>, 0.441 evidence <tex-math>F_1</tex-math> and 0.920 multiple-choice accuracy on the held-out test split. Because the pipeline depends on a closed model without seed control, we release a harness that verifies the paper’s central claims against committed artifacts.</abstract>
       <pdf hash="f99e67f8"/>
       <bibkey>chauhan-2026-pagerecall</bibkey>
+      <doi>10.18653/2026.groundlm-1.80</doi>
     </paper>
     <paper id="81">
       <!-- https://aclanthology.org/2026.groundlm-1.81/ -->
@@ -977,6 +1059,7 @@
       <abstract>Scientific question answering is useful only when readers can recover the papers and evidence behind an answer. Yet many benchmarks either provide the source document or score only the final response, obscuring failures in literature retrieval and evidence localization. We present LitTraceQA, a literature-grounded question answering benchmark in which a system must return a connected trace: canonical paper identifiers, typed evidence locations, and a checkable answer. The collection contains 4,978 unique questions grounded in 4,859 papers and covers tables, figures, text spans, equations or algorithms, and citation contexts. Of these questions, 64.85% require multiple papers; answers use multiple-choice or structured-table formats; and 61.9% are missed by every memory-only challenger used during construction. We describe a generate-and-ground-challenge pipeline and an evaluation protocol that reports paper retrieval, evidence grounding, answer correctness, and strict joint success separately. LitTraceQA therefore tests whether scientific QA systems can produce answers whose provenance is inspectable, rather than merely plausible.</abstract>
       <pdf hash="95600a8b"/>
       <bibkey>liu-etal-2026-littraceqa</bibkey>
+      <doi>10.18653/2026.groundlm-1.81</doi>
     </paper>
     <paper id="82">
       <!-- https://aclanthology.org/2026.groundlm-1.82/ -->
@@ -992,6 +1075,7 @@
       <abstract>GoldenViewVQA requires models to jointly answer driving-scene questions and identify the camera view containing the supporting visual evidence, making precise evidence localization as important as answer correctness. We present **CoVeR-VQA**, a training-free multi-stage verification and correction framework for grounded multi-view VQA. Starting from GPT-5.6 zero-shot predictions, CoVeR-VQA progressively applies view-specific verification with Gemini-3.6-Flash, prior-guided joint verification with Claude-Opus-5, and cross-split group-level verification that exploits semantically filtered question groups from shared multi-view scenes and validation-derived prior knowledge. On the official GoldenViewVQA test set, the four-stage CoVeR-VQA pipeline achieves 84.75% Joint Accuracy, improving the GPT-5.6 zero-shot baseline by 13.56 percentage points, while reaching 94.92% Answer Accuracy and 86.44% View Accuracy. The final submitted run achieves 88.14% Joint Accuracy after two additional evaluator-informed post-hoc corrections. Our analysis shows that supporting-view localization remains the primary source of residual errors, highlighting the importance of explicit evidence verification for reliable multi-view multimodal reasoning.</abstract>
       <pdf hash="d4f70f10"/>
       <bibkey>wang-etal-2026-cover</bibkey>
+      <doi>10.18653/2026.groundlm-1.82</doi>
     </paper>
     <paper id="83">
       <!-- https://aclanthology.org/2026.groundlm-1.83/ -->
@@ -1001,6 +1085,7 @@
       <abstract>We present a non-visual baseline for GoldenViewVQA, a benchmark for multi-view visual question answering with evidence-source identification. The baseline reaches a joint accuracy of 0.7119 on the hidden test split and uses no visual input. Its view prediction is the fixed label CAM_FRONT, which reaches 0.7797 view accuracy on the test split, while Qwen3-4B predicts the answer from the question, answer options, and non-visual metadata with 0.8475 answer accuracy. These results show that the current benchmark permits substantial performance without image access. We analyze the supporting-view prior and performance across question groups, and discuss benchmark changes that could reduce reliance on non-visual shortcuts. We present this run as a strong non-visual baseline, not as evidence that vision is unnecessary for driving question answering. Code: https://github.com/aravind-mandiga/groundlm-goldenviewvqa.</abstract>
       <pdf hash="4c76924e"/>
       <bibkey>mandiga-2026-non</bibkey>
+      <doi>10.18653/2026.groundlm-1.83</doi>
     </paper>
     <paper id="84">
       <!-- https://aclanthology.org/2026.groundlm-1.84/ -->
@@ -1010,6 +1095,7 @@
       <abstract>We present ThousandOfWind’s hybrid system for GroundLM 2026 LitTraceQA, combining traditional retrieval-augmented generation (RAG) with code-agent research. Agents design question-specific search scripts, revise them as evidence emerges, and reconcile their findings with RAG candidates. The required-test configuration starts with independent research and accepts subsequent revisions through field-level confidence gates and table-structure checks. Using GPT-5.6 Terra in GitHub Copilot CLI, the system raises the 71-question test composite from 0.3567 to 0.7374 and multiple-choice accuracy from 18/50 to 50/50. Macro table cell accuracy reaches 0.2698, leaving structured assembly as the main bottleneck. Our analysis explains the limits of row-key-preserving repair and motivates source-supported structural editing.</abstract>
       <pdf hash="b1cac4bc"/>
       <bibkey>zhu-2026-combining</bibkey>
+      <doi>10.18653/2026.groundlm-1.84</doi>
     </paper>
     <paper id="85">
       <!-- https://aclanthology.org/2026.groundlm-1.85/ -->
@@ -1021,6 +1107,7 @@
       <abstract>GoldenViewVQA asks a multimodal model to answer a driving-scene question and identify the synchronized camera view that supports its answer. Our first system, QAVEL, used option blind routing, local image inspection, pairwise view selection, and a final verifier. Tests with GPT-5.6 Luna and Terra showed a recurring problem: extra stages often replaced correct direct predictions, and higher reasoning effort did not repair the cascade. We therefore built Joint Answer-preserving Visual Re-grounding (JAVR) around a GPT-5.6 Sol joint prediction. JAVR freezes the answer, aligns the queried actor or condition across all six views, revisits disputed cameras with target-specific crops, and changes only the view when a restricted comparator certifies an exact, direct, and complete evidence source. On the 55-item development set, JAVR produced a descriptive one item increase over its Sol anchor, from 46 to 47 jointly correct predictions, without changing any answer. Our official 59-item test submission reached 79.66% joint accuracy, 81.36% view accuracy, and 94.92% answer accuracy</abstract>
       <pdf hash="df7342cb"/>
       <bibkey>channa-etal-2026-maddies</bibkey>
+      <doi>10.18653/2026.groundlm-1.85</doi>
     </paper>
     <paper id="86">
       <!-- https://aclanthology.org/2026.groundlm-1.86/ -->
@@ -1031,6 +1118,7 @@
       <abstract>Finding a relevant paper is not the same as producing a verifiable answer from it. LitTraceQA requires canonical paper identifiers, exact evidence at the page or object level, and typed answers that match the evaluator. We call the separation between source access and scorer-visible correctness the grounding contract gap. TRACE - Target-Aware Retrieval, Attributed Evidence, and Contract-Constrained Extraction - addresses this gap with target-grouped retrieval, independent typed evidence localization, multimodal table extraction, schema-driven table construction, and fail-closed validation. It indexes 27,487 papers through passage, object, alias, citation, and dense representations while retaining the question target behind each signal. For tables, TRACE predicts the observation unit before extracting values and assembles rows with evaluator-compatible key normalization. Our audited selected clean-track artifact scores 0.760613 on the official 71-question test set, including 0.9728 paper F1, 0.6847 evidence F1, 0.9800 multiple-choice accuracy, 0.5423 table-row F1, and 0.3508 macro cell accuracy. On 11 public-development table records, a clean baseline and coordinate-aware visual fill obtain row F1 of 0.291 and 0.411, respectively; this diagnostic comparison includes fallback outputs and is not an official-test claim. Remaining errors chiefly concern locator, observation-unit, row-key, and source-value identity.</abstract>
       <pdf hash="e5e312e9"/>
       <bibkey>gupta-godara-2026-trace</bibkey>
+      <doi>10.18653/2026.groundlm-1.86</doi>
     </paper>
     <paper id="87">
       <!-- https://aclanthology.org/2026.groundlm-1.87/ -->
@@ -1043,6 +1131,7 @@
       <abstract>Literature-grounded question answering requires a system to retrieve the right papers, locate answer-bearing content in heterogeneous PDFs, and return an answer whose evidence locators can be restored from the retrieved documents. We describe SAGE, an evidence-first system for LitTraceQA that separates these dependencies. A query-only evidence plan converts a question and its public answer contract into typed evidence obligations. The system retrieves candidate papers from official metadata, acquires and parses their PDFs into provenance-preserving text and object records, reranks record-aware text and image projections, and selects a bounded evidence package with explicit slots, modality, and cross-paper coverage priorities. A multimodal generator then answers with the fixed package, while deterministic normalization permits only candidate paper IDs and locators recoverable from selected parser records. Overall, SAGE adopts an evidence-first design that separates paper retrieval, fine-grained evidence acquisition, set-level selection, and grounded answer generation while preserving provenance throughout the pipeline. On the official evaluation, the system performs strongly in paper retrieval and multiple-choice answering, whereas fine-grained evidence grounding and structured table prediction remain more challenging.</abstract>
       <pdf hash="bde702ee"/>
       <bibkey>xu-etal-2026-sage-slot</bibkey>
+      <doi>10.18653/2026.groundlm-1.87</doi>
     </paper>
     <paper id="88">
       <!-- https://aclanthology.org/2026.groundlm-1.88/ -->
@@ -1053,6 +1142,7 @@
       <abstract>We describe team OdeD’s submission to LitTraceQA, the literature-grounded question answering task at GroundLM 2026. The task scores three coupled outputs: paper identifiers, coarse evidence locators, and answers in multiple-choice or table form. Our best official score on the 71-question held-out test split is 0.7649, against 0.4563 for our first submission and 0.5519 for our best fully automated one. Little of that improvement came from the retrieval-and-reading pipeline we began with; most of it came from two other sources. Reading the released evaluator showed the metric to be more asymmetric than it appears: paper F1 and evidence F1 carry weight <tex-math>1/3</tex-math> each while each of the three answer metrics carries <tex-math>1/9</tex-math>. The evidence key is also a coarse tuple, so a correct value on a correct page scores zero when the source type or the visible object id is wrong. The 55-example development split then served to recover the dataset’s annotation conventions rather than as a tuning set, and our own submission history became a measuring instrument. Each macro metric is a mean of a small number of rational per-question values, so a controlled change to one prediction file often admits a single arithmetic explanation. Two predicted deltas returned exact to four decimals. We report the conventions this recovered, six heuristics it refuted, four bugs it exposed in our own verifiers, and the limitation that much of our final score reflects per-question auditing and leaderboard feedback rather than a system that would generalise.</abstract>
       <pdf hash="7c07f961"/>
       <bibkey>saqr-gaafar-2026-oded</bibkey>
+      <doi>10.18653/2026.groundlm-1.88</doi>
     </paper>
     <paper id="89">
       <!-- https://aclanthology.org/2026.groundlm-1.89/ -->
@@ -1067,6 +1157,7 @@
       <abstract>We describe tus-nlp’s Lit3R (Retrieve–Relate–Read) system for LitTraceQA, a shared task for literature-grounded question answering that requires systems to retrieve relevant papers, identify supporting evidence, and generate answers. Lit3R combines off-the-shelf retrieval, reranking, and large language model (LLM) components without task-specific training. The retriever iteratively combines BM25-based sparse and dense retrieval, cross-encoder reranking, and LLM-based verification, and complements retrieval based on the question with paper-to-paper expansion. The reader first identifies supporting evidence within individual papers and then synthesizes evidence across papers to produce the final answer and evidence trace. On the official test set, our system ranked 4th on the leaderboard. Our code is available at https://github.com/tus-ist-nlp/littraceqa.</abstract>
       <pdf hash="ebee1be1"/>
       <bibkey>ise-etal-2026-lit3r</bibkey>
+      <doi>10.18653/2026.groundlm-1.89</doi>
     </paper>
     <paper id="90">
       <!-- https://aclanthology.org/2026.groundlm-1.90/ -->
@@ -1077,6 +1168,7 @@
       <abstract>An autonomous vehicle has the privilege of abundant data drawn from many sources, but abundance raises a question of provenance: when we care about one specific event in the scene, which source actually carries the evi dence for it? Identifying that source matters be yond attribution, because a system that weighs every channel at once lets the irrelevant ones di lute the decision, and more input is not the same as more information. GoldenViewVQA poses this question in a controlled form, asking a sys tem to name which of six synchronised vehicle cameras carries the evidence for a question, and to answer that question. We introduce a novel two-stage system built on symbolic scene serialisation. We sweep all six views with a de tector fine-tuned on nuScenes, back-project ev ery detection onto the ground plane, associate detections across cameras into single objects that carry an explicit view-set, and render the scene as text. A language model then names the supporting view and the answer, reading either the serialisation alone (System 1) or the serialisation together with the six raw images (System 2). The pixels help the system locate evidence, not answer questions: System 2 lifts view macro-accuracy to 0.68, against 0.38 for System 1 and 0.14 for an always-CAM_FRONT baseline. Our best run reaches 0.78 joint accu racy, 0.83 view accuracy and 0.65 view macro accuracy on the official test split. Answer accu racy already reaches 0.95 with no image at all: option phrasing alone largely solves the answer head, leaving nearly all the measurable signal in the view head.</abstract>
       <pdf hash="7de533a2"/>
       <bibkey>gaafar-saqr-2026-ensar</bibkey>
+      <doi>10.18653/2026.groundlm-1.90</doi>
     </paper>
     <paper id="91">
       <!-- https://aclanthology.org/2026.groundlm-1.91/ -->
@@ -1086,6 +1178,7 @@
       <abstract>Efficient training and adaptation are central to deploying language models under resource constraints. We present a controlled comparison of six parameter-efficient fine-tuning (PEFT) methods—LoRA, QLoRA, DoRA, PiSSA, LoftQ, and AdaLoRA—across the full cross-product of three base models (Qwen2.5-1.5B, Qwen2.5-7B, Llama-3-8B) and two mathematical reasoning benchmarks (GSM8K, MATH), with every configuration trained on MetaMathQA under one identical budget and reported as mean ± standard deviation over three seeds. Qwen2.5-1.5B + PiSSA reaches 71.40 ± 0.27% on GSM8K, exceeding the unadapted 7B base model (68.50 ± 0.42%; Welch’s t(3.4) = 10.06, p = 0.001). Significance testing shows that the method ordering—PiSSA &gt; DoRA &gt; LoRA ≈ AdaLoRA ≈ LoftQ ≈ QLoRA—is identical across all three base models (Kendall’s τ = 1.0), but that only the PiSSA and DoRA gains over LoRA survive multiple-comparison correction: the LoRA/QLoRA/LoftQ/AdaLoRA cluster is statistically indistinguishable at n=3. Four-bit QLoRA cuts peak training VRAM by up to 69.6% (72.8% with PagedAdamW), within one point of the 68.7% predicted by a static-memory model, while PagedAdamW trades 15–20% throughput for memory safety. We add rank and target-module ablations, a GSM8K error taxonomy, and the finding that PiSSA’s spectral initialization at r=16 outperforms LoRA at r=64, and we release the training, evaluation, and profiling code with the exact configuration for every run.</abstract>
       <pdf hash="539a2f45"/>
       <bibkey>malpani-2026-efficient</bibkey>
+      <doi>10.18653/2026.groundlm-1.91</doi>
     </paper>
     <paper id="92">
       <!-- https://aclanthology.org/2026.groundlm-1.92/ -->
@@ -1100,6 +1193,7 @@
       <abstract>The first GroundLM shared tasks evaluate whether language models can identify the evidence behind an answer, rather than merely produce a correct answer in isolation. GoldenViewVQA requires a model to answer a multiple-choice question about six synchronized driving-camera views and identify the supporting view. LitTraceQA requires systems to retrieve scientific papers, locate answer-bearing evidence, and return multiple-choice or structured-table answers. We summarize the task design, submitted systems, official results, and recurrent failure modes. Among teams that submitted system reports, the best official joint accuracy on GoldenViewVQA is 0.8814. Answer accuracy is consistently higher than view accuracy, while macro view accuracy remains lower than micro accuracy, exposing both attribution errors and view imbalance. On the required LitTraceQA test set, the best score among teams that submitted system reports is 0.8002. Paper retrieval approaches saturation for several systems, but evidence F1 and structured-table accuracy remain substantially lower. Across both tasks, the central finding is consistent: producing a correct answer is easier than recovering the exact evidence representation required to justify it. We also report an optional 4,901-question LitTraceQA diagnostic split, whose unverified labels make it useful for stress testing but not for ranking systems on the main task.</abstract>
       <pdf hash="3ecd4c26"/>
       <bibkey>wang-etal-2026-findings</bibkey>
+      <doi>10.18653/2026.groundlm-1.92</doi>
     </paper>
   </volume>
 </collection>
