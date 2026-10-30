@@ -270,6 +270,20 @@ uv run bin/ingest.py -h
 Any required dependencies will be managed and installed automatically (in an
 isolated environment) by uv.
 
+### Requesting conference videos
+
+Export a TSV to send to Underline for an event and all its colocated volumes:
+
+```bash
+uv run bin/export_video_request.py emnlp-2026 > emnlp-2026-videos.tsv
+```
+
+The columns are `anthology_id`, `title`, and `authors` (semicolon-separated,
+in published order). Each paper appears once; front matter, back matter, and
+deleted papers are excluded. Titles are plain text and whitespace is normalized
+so each paper occupies one line. Output defaults to STDOUT; use `-o PATH` to
+write directly to a UTF-8 file. This exports a request manifest, not video links.
+
 #### Adding dependencies
 
 If you are contributing a script that requires a new dependency, it should also
