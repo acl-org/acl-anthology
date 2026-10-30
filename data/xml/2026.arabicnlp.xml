@@ -567,8 +567,8 @@
     <paper id="2">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.2/ -->
       <title>Sabaa at <fixed-case>NADI</fixed-case> 2026 Subtask 1.1: Matching Annotation Conventions for Dialectal <fixed-case>A</fixed-case>rabic <fixed-case>ASR</fixed-case></title>
-      <author id="mohamed-sabaa" orcid="0009-0007-8963-7460" openreview="~Mohamed_Sabaa1"><first>Mohamed</first><last>Sabaa</last></author>
       <author openreview="~Amr_Sabaa1"><first>Amr</first><last>Sabaa</last></author>
+      <author id="mohamed-sabaa" orcid="0009-0007-8963-7460" openreview="~Mohamed_Sabaa1"><first>Mohamed</first><last>Sabaa</last></author>
       <pages>31-36</pages>
       <abstract>This paper describes our submission to NADI 2026 Subtask 1.1, speech recognition for eight Arabic dialects under noisy conditions. Our system adapts whisper-large-v3-turbo with one low-rank adapter per dialect, decodes with tuned beam search, and applies a normalization step that matches the spelling conventions of the reference transcriptions rather than applying generic orthographic rules. We train only on the shared-task data, which places our results well below those of systems built with large external corpora, and we report our numbers with that constraint in mind. Country-average WER falls from 0.804 for the zero-shot backbone to 0.6053 on the test set. We also report three observations that shaped the system: per-dialect adapters outperform a jointly trained adapter on all eight dialects even when the joint model is trained for twice as long; replacing beam search with temperature sampling in order to produce diverse hypotheses for rescoring costs more accuracy than the rescoring recovers; and because the official scorer normalizes hypothesis and reference identically, generic character-level normalization cannot help, whereas learning each dialect’s annotation convention from the training transcriptions does.</abstract>
       <pdf hash="9a30f180"/>
