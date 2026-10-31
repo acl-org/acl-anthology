@@ -384,5 +384,6 @@ def test_author_stats_excludes_frontmatter(anthology, volume_ids):
     authors = {ns.resolve().id for paper in papers for ns in paper.authors}
 
     assert stats["paper_count"] == len(papers)
+    assert stats["doi_paper_count"] == sum(1 for paper in papers if paper.doi)
     assert stats["author_count"] == len(authors)
     assert 0 < stats["orcid_author_count"] <= stats["author_count"]

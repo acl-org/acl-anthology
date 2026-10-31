@@ -252,7 +252,7 @@ def paper_to_dict(paper):
 
 
 def author_stats(volumes: Iterable[Volume]):
-    """Count papers and unique authors across volumes, and authors with ORCID iDs.
+    """Count papers (and those with DOIs) and unique authors (and those with ORCID iDs) across volumes.
 
     Frontmatter is excluded, as its "authors" are the volume editors.
     """
@@ -265,6 +265,7 @@ def author_stats(volumes: Iterable[Volume]):
     authors = {ns.resolve() for paper in papers for ns in paper.authors}
     return {
         "paper_count": len(papers),
+        "doi_paper_count": sum(1 for paper in papers if paper.doi is not None),
         "author_count": len(authors),
         "orcid_author_count": sum(1 for person in authors if person.orcid is not None),
     }
