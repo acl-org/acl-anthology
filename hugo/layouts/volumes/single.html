@@ -22,6 +22,8 @@
     <span class="text-muted">({{ cond (eq (len .) 1) "Editor" "Editors" }})</span>
   {{ end }}
 
+  {{ partial "author_stats.html" (dict "ctx" . "data" $paper) }}
+
   <hr />
 
   <div class="row acl-paper-details">

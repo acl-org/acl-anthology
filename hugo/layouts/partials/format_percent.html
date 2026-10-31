@@ -1,0 +1,9 @@
+{{/* Formats `.part` out of `.total` as a whole percentage, except that a share
+     just under 100% gets one decimal place (rounded down, e.g. "99.9") so it
+     isn't displayed as "100" */}}
+{{ $pct := mul 100 (div (float .part) .total) }}
+{{ $out := lang.FormatNumberCustom 0 $pct }}
+{{ if and (lt .part .total) (eq $out "100") }}
+  {{ $out = lang.FormatNumberCustom 1 (div (math.Floor (mul $pct 10)) 10) }}
+{{ end }}
+{{ return $out }}
