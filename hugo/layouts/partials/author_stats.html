@@ -6,10 +6,18 @@
   {{ lang.FormatNumberCustom 0 . }} {{ cond (eq . 1) "volume" "volumes" }} &middot;
   {{ end }}
   {{ lang.FormatNumberCustom 0 $data.paper_count }} {{ cond (eq $data.paper_count 1) "paper" "papers" }}
-  ({{ lang.FormatNumberCustom 0 (mul 100 (div (float $data.doi_paper_count) $data.paper_count)) }}% with DOI)
+  {{ $doi_class := cond (eq $data.doi_paper_count $data.paper_count) "text-success" "text-danger" }}
+  (<span class="{{ $doi_class }}">{{ partial "format_percent.html" (dict "part" $data.doi_paper_count "total" $data.paper_count) }}%</span> with DOI)
   &middot; {{ lang.FormatNumberCustom 0 $data.author_count }} unique {{ cond (eq $data.author_count 1) "author" "authors" }}
   {{ if gt $data.author_count 0 }}
-  ({{ lang.FormatNumberCustom 0 (mul 100 (div (float $data.orcid_author_count) $data.author_count)) }}% <a href="{{ relref .ctx "/info/orcid.md" }}">verified with ORCID)</a>
+  {{ $orcid_ratio := div (float $data.orcid_author_count) $data.author_count }}
+  {{ $orcid_class := "text-danger" }}
+  {{ if ge $orcid_ratio 0.9 }}
+    {{ $orcid_class = "text-success" }}
+  {{ else if ge $orcid_ratio 0.5 }}
+    {{ $orcid_class = "text-warning-emphasis" }}
+  {{ end }}
+  (<span class="{{ $orcid_class }}">{{ partial "format_percent.html" (dict "part" $data.orcid_author_count "total" $data.author_count) }}%</span> <a href="{{ relref .ctx "/info/orcid.md" }}">verified with ORCID</a>)
   {{ end }}
 </p>
 {{ end }}
