@@ -15,7 +15,7 @@
   {{ if ge $orcid_ratio 0.9 }}
     {{ $orcid_class = "text-success" }}
   {{ else if ge $orcid_ratio 0.5 }}
-    {{ $orcid_class = "text-warning-emphasis" }}
+    {{ $orcid_class = "text-orange" }}
   {{ end }}
   (<span class="{{ $orcid_class }}">{{ partial "format_percent.html" (dict "part" $data.orcid_author_count "total" $data.author_count) }}%</span> <a href="{{ relref .ctx "/info/orcid.md" }}">verified with ORCID</a>)
   {{ end }}
