@@ -1,0 +1,15 @@
+{{/* Summary line of paper/DOI/author/ORCID counts for a volume or event; `.ctx` is the page, `.data` its Hugo data */}}
+{{ $data := .data }}
+{{ if gt $data.paper_count 0 }}
+<p class="text-muted mb-0">
+  {{ with $data.volume_count }}
+  {{ lang.FormatNumberCustom 0 . }} {{ cond (eq . 1) "volume" "volumes" }} &middot;
+  {{ end }}
+  {{ lang.FormatNumberCustom 0 $data.paper_count }} {{ cond (eq $data.paper_count 1) "paper" "papers" }}
+  ({{ lang.FormatNumberCustom 0 (mul 100 (div (float $data.doi_paper_count) $data.paper_count)) }}% with DOI)
+  &middot; {{ lang.FormatNumberCustom 0 $data.author_count }} unique {{ cond (eq $data.author_count 1) "author" "authors" }}
+  {{ if gt $data.author_count 0 }}
+  ({{ lang.FormatNumberCustom 0 (mul 100 (div (float $data.orcid_author_count) $data.author_count)) }}% <a href="{{ relref .ctx "/info/orcid.md" }}">verified with ORCID)</a>
+  {{ end }}
+</p>
+{{ end }}
