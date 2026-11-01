@@ -1,6 +1,7 @@
 // "Fix author" dialog on author pages (partials/author_correction_modal.html).
-// Collects a correction and opens a prefilled GitHub issue from one of two forms:
-// .github/ISSUE_TEMPLATE/02a-verify-author.yml or 02b-move-author-papers.yml.
+// Collects a correction and opens a prefilled GitHub issue from one of three forms:
+// .github/ISSUE_TEMPLATE/02a-verify-author.yml, 02b-move-author-papers.yml,
+// or 02c-other-author-page.yml.
 (function () {
   "use strict";
 
@@ -176,7 +177,7 @@
             move.textContent = "move papers from this page to it";
             move.addEventListener("click", function (event) {
               event.preventDefault();
-              chooseDestination({ id: owner, name: owner });
+              chooseDestination({ id: owner, name: owner, names: null });
               showTab("authorFixMoveTab");
             });
             setFeedback("invalid", [
@@ -227,6 +228,60 @@
     });
   }
 
+  // ---- Name matching ----
+
+  function nameTokens(name) {
+    return search.normalize(name).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  }
+
+  // All runs of adjacent tokens, concatenated: ["seon", "yeong"] -> also "seonyeong".
+  function tokenRuns(tokens) {
+    const runs = [];
+    for (let start = 0; start < tokens.length; start++) {
+      for (let end = start + 1; end <= tokens.length; end++) {
+        runs.push(tokens.slice(start, end).join(""));
+      }
+    }
+    return runs;
+  }
+
+  function pieceMatches(piece, runs) {
+    return runs.some(function (run) {
+      return run === piece
+        || (piece.length === 1 && run[0] === piece)
+        || (run.length === 1 && piece[0] === run);
+    });
+  }
+
+  // Whether every word of `from` is accounted for in `to`: runs of adjacent
+  // words must match (when concatenated) a run of words in `to`, so spacing and
+  // hyphenation don't matter ("Seon-yeong" ~ "Seonyeong"), and word order is
+  // free ("Wang Xu" ~ "Xu Wang"). Initials match any word with that first
+  // letter, or may be left unmatched (middle initials); at least one full word
+  // must match.
+  function coversName(from, toRuns, start, hasFullMatch) {
+    if (start === from.length) return hasFullMatch;
+    if (from[start].length === 1 && coversName(from, toRuns, start + 1, hasFullMatch)) {
+      return true;
+    }
+    for (let end = start + 1; end <= from.length; end++) {
+      const piece = from.slice(start, end).join("");
+      if (pieceMatches(piece, toRuns)
+        && coversName(from, toRuns, end, hasFullMatch || (piece.length > 1 && toRuns.includes(piece)))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // "José G. Lopez" ~ "Jose Lopez", "Woo Seonyeong" ~ "Seon Yeong Woo",
+  // but not "Min-Ling Zhang" ~ "Min Zhang".
+  function namesMatch(left, right) {
+    const a = nameTokens(left);
+    const b = nameTokens(right);
+    return coversName(a, tokenRuns(b), 0, false) && coversName(b, tokenRuns(a), 0, false);
+  }
+
   // ---- Move papers tab ----
 
   const moveForm = document.getElementById("authorFixMoveForm");
@@ -234,7 +289,9 @@
   const destResults = document.getElementById("authorFixDestResults");
   const destStatus = document.getElementById("authorFixDestStatus");
   const destDefaultStatus = destStatus.textContent;
+  // {id, name, names}; `names` is null when chosen via the ORCID iD check.
   let destination = null;
+  let refreshDestinations = function () {};
 
   function chooseDestination(person) {
     destination = person;
@@ -254,62 +311,106 @@
     const moveAll = document.getElementById("authorFixMoveAll");
     renderPaperList(movePapers, false);
 
+    // Names printed on the selected papers (all papers' names if none selected).
+    function paperNames() {
+      const selected = new Set(selectedPapers(movePapers, true));
+      const papers = page.papers.filter(function (paper) {
+        return selected.size === 0 || selected.has(paper.id);
+      });
+      return Array.from(new Set(papers.map(function (paper) { return paper.name; })));
+    }
+
+    // A destination must be known under a name matching every selected paper.
+    function acceptsPapers(names) {
+      return paperNames().every(function (paperName) {
+        return names.some(function (name) { return namesMatch(paperName, name); });
+      });
+    }
+
+    let searchVersion = 0;
+    async function searchDestinations() {
+      const version = ++searchVersion;
+      const typed = destSearch.value.trim();
+      // Without a query, suggest pages under the names printed on the papers.
+      const queries = typed.length >= 2 ? [typed] : paperNames();
+      let matches;
+      try {
+        const outcomes = await Promise.all(queries.map(function (query) {
+          return search.findAuthors(query, page.indexBase);
+        }));
+        const seen = new Set();
+        matches = outcomes.flatMap(function (outcome) { return outcome.matches; })
+          .filter(function (entry) {
+            if (seen.has(entry.row[1])) return false;
+            seen.add(entry.row[1]);
+            return search.isVerified(entry.row) && entry.row[1] !== page.id
+              && acceptsPapers(entry.names);
+          })
+          .slice(0, 8);
+      } catch (error) {
+        if (version !== searchVersion) return;
+        destResults.hidden = true;
+        destStatus.textContent = "Author search is temporarily unavailable.";
+        return;
+      }
+      if (version !== searchVersion || destination) return;
+      destResults.replaceChildren(...matches.map(function (entry) {
+        const button = document.createElement("button");
+        button.type = "button";
+        const details = document.createElement("small");
+        const paperCount = entry.row[2];
+        button.className = "list-group-item list-group-item-action text-body py-1";
+        // People with the same name are told apart by page ID and paper count.
+        details.className = "text-muted";
+        details.textContent = entry.row[1] + " · " + paperCount
+          + (paperCount === 1 ? " paper" : " papers");
+        button.append(search.makeAuthorIdentity(entry, {
+          identity: "d-flex flex-column",
+          heading: "d-flex align-items-center gap-1",
+          verification: "fa-xs",
+        }), details);
+        button.addEventListener("click", function () {
+          chooseDestination({ id: entry.row[1], name: entry.row[0], names: entry.names });
+        });
+        return button;
+      }));
+      destResults.hidden = matches.length === 0;
+      destStatus.textContent = matches.length === 0
+        ? "No verified author page has a name matching the selected papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
+        : destDefaultStatus;
+    }
+
+    let searchTimer;
+    refreshDestinations = function () {
+      // Keep a chosen destination only while it still fits the selected papers.
+      if (destination && destination.names && !acceptsPapers(destination.names)) {
+        destination = null;
+        destSearch.value = "";
+      }
+      if (destination) return;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(searchDestinations, 120);
+    };
+
     moveAll.addEventListener("change", function () {
       movePapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
         input.checked = moveAll.checked;
       });
+      refreshDestinations();
     });
     movePapers.addEventListener("change", function () {
       const selected = selectedPapers(movePapers, true).length;
       moveAll.checked = selected === page.papers.length;
       moveAll.indeterminate = selected > 0 && selected < page.papers.length;
+      refreshDestinations();
     });
-
-    let searchTimer;
-    let searchVersion = 0;
     destSearch.addEventListener("input", function () {
       destination = null;
       document.getElementById("authorFixDestExisting").checked = true;
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(async function () {
-        const version = ++searchVersion;
-        const query = destSearch.value.trim();
-        if (query.length < 2) {
-          destResults.hidden = true;
-          destStatus.textContent = destDefaultStatus;
-          return;
-        }
-        let matches;
-        try {
-          matches = (await search.findAuthors(query, page.indexBase)).matches;
-        } catch (error) {
-          if (version !== searchVersion) return;
-          destResults.hidden = true;
-          destStatus.textContent = "Author search is temporarily unavailable.";
-          return;
-        }
-        if (version !== searchVersion) return;
-        matches = matches.filter(function (entry) {
-          return search.isVerified(entry.row) && entry.row[1] !== page.id;
-        }).slice(0, 8);
-        destResults.replaceChildren(...matches.map(function (entry) {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "list-group-item list-group-item-action py-1";
-          button.append(search.makeAuthorIdentity(entry, {
-            identity: "d-flex flex-column",
-            heading: "d-flex align-items-center gap-1",
-            verification: "fa-xs",
-          }));
-          button.addEventListener("click", function () {
-            chooseDestination({ id: entry.row[1], name: entry.row[0] });
-          });
-          return button;
-        }));
-        destResults.hidden = matches.length === 0;
-        destStatus.textContent = matches.length === 0
-          ? "No matching verified author pages." : destDefaultStatus;
-      }, 120);
+      refreshDestinations();
+    });
+    document.getElementById("authorFixMoveTab").addEventListener("shown.bs.tab", function () {
+      refreshDestinations();
     });
 
     moveForm.addEventListener("submit", function (event) {
@@ -318,7 +419,7 @@
       const toUnverified = document.getElementById("authorFixDestUnverified").checked;
 
       if (papers.length === 0) return showError(moveForm, "Please select at least one paper to move.");
-      if (!toUnverified && !destination) return showError(moveForm, "Please search for and select the author page to move the papers to.");
+      if (!toUnverified && !destination) return showError(moveForm, "Please select the author page to move the papers to.");
 
       openIssue(moveForm, "02b-move-author-papers.yml",
         "Move Papers: " + page.id + " → " + (toUnverified ? "unverified" : destination.id), {
@@ -330,10 +431,26 @@
     });
   }
 
+  // ---- Other tab ----
+
+  function initOther() {
+    const otherForm = document.getElementById("authorFixOtherForm");
+    otherForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const description = document.getElementById("authorFixOtherDescription").value.trim();
+      if (!description) return showError(otherForm, "Please describe the problem.");
+      openIssue(otherForm, "02c-other-author-page.yml", "Author Page: " + page.id, {
+        author_page: page.url,
+        description: description,
+      });
+    });
+  }
+
   // ---- Setup ----
 
   if (verifyForm) initVerify();
   initMove();
+  initOther();
   modal.querySelectorAll("[data-author-fix-show-move]").forEach(function (link) {
     link.addEventListener("click", function (event) {
       event.preventDefault();
@@ -347,5 +464,5 @@
     }
   }, { once: true });
 
-  window.aclAuthorCorrection = { normalizeOrcid: normalizeOrcid };
+  window.aclAuthorCorrection = { namesMatch: namesMatch, normalizeOrcid: normalizeOrcid };
 })();

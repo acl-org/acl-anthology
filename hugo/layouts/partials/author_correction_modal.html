@@ -58,6 +58,9 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="authorFixMoveTab" data-bs-toggle="tab" data-bs-target="#authorFixMove" type="button" role="tab" aria-controls="authorFixMove">Move papers</button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="authorFixOtherTab" data-bs-toggle="tab" data-bs-target="#authorFixOther" type="button" role="tab" aria-controls="authorFixOther">Other</button>
+          </li>
         </ul>
 
         <div class="tab-content">
@@ -138,9 +141,9 @@
                   <label class="form-check-label" for="authorFixDestExisting">An existing verified author page</label>
                 </div>
                 <div class="ms-4 mb-2 position-relative" id="authorFixDestSearchBox">
-                  <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name or ORCID iD" autocomplete="off" aria-describedby="authorFixDestStatus">
+                  <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name" autocomplete="off" aria-describedby="authorFixDestStatus">
                   <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
-                  <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages can receive papers.</div>
+                  <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages under a name matching the selected papers are shown.</div>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="authorFixDestination" id="authorFixDestUnverified" value="unverified" {{ if not $is_verified }}disabled{{ end }}>
@@ -158,6 +161,22 @@
               <div class="mb-3">
                 <label for="authorFixMoveNotes" class="form-label">Additional notes</label>
                 <textarea class="form-control" id="authorFixMoveNotes" rows="2"></textarea>
+              </div>
+              <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+              <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            </form>
+          </div>
+
+          {{/* ---- Other ---- */}}
+          <div class="tab-pane fade" id="authorFixOther" role="tabpanel" aria-labelledby="authorFixOtherTab">
+            <form id="authorFixOtherForm" novalidate>
+              <div class="mb-3">
+                <label for="authorFixOtherDescription" class="form-label">Describe the problem <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="authorFixOtherDescription" rows="6"></textarea>
+                <div class="form-text">
+                  For anything the other tabs don't cover, such as a permanent name change. Please link any papers or
+                  other author pages involved. If a name on a paper doesn't match the PDF, use "Fix data" on that paper's page instead.
+                </div>
               </div>
               <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
               <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
