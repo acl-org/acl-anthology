@@ -352,12 +352,11 @@
         const button = document.createElement("button");
         button.type = "button";
         const details = document.createElement("small");
-        const paperCount = entry.row[2];
+        const orcid = entry.row[3];
         button.className = "list-group-item list-group-item-action text-body py-1";
-        // People with the same name are told apart by page ID and paper count.
+        // People with the same name are told apart by page ID and ORCID iD.
         details.className = "text-muted";
-        details.textContent = entry.row[1] + " · " + paperCount
-          + (paperCount === 1 ? " paper" : " papers");
+        details.textContent = entry.row[1] + (orcid ? " · " + orcid : "");
         button.append(search.makeAuthorIdentity(entry, {
           identity: "d-flex flex-column",
           heading: "d-flex align-items-center gap-1",
