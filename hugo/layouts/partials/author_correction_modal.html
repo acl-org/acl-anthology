@@ -1,0 +1,170 @@
+{{/* "Fix author" dialog on author pages; behaviour is in assets/js/author-correction.js.
+     `.ctx` is the page, `.person` its entry in hugo.Data.people */}}
+{{ $person := .person }}
+{{ $person_id := .ctx.Params.name }}
+{{ $is_verified := not (hasSuffix $person_id "/unverified") }}
+
+{{/* Papers as listed on the page, with the name this person appears under on each */}}
+{{ $canonical_name := trim (printf "%s %s" ($person.first | default "") $person.last) " " }}
+{{ $papers := slice }}
+{{ range $person.papers }}
+  {{ $paper := index (index hugo.Data.papers (index (split . "-") 0)) . }}
+  {{ if and (not $paper.retracted) (not $paper.removed) }}
+    {{ $name := $canonical_name }}
+    {{ range $paper.author }}
+      {{ if eq .id $person_id }}{{ $name = trim (printf "%s %s" (.first | default "") .last) " " }}{{ end }}
+    {{ end }}
+    {{ range $paper.editor }}
+      {{ if eq .id $person_id }}{{ $name = trim (printf "%s %s" (.first | default "") .last) " " }}{{ end }}
+    {{ end }}
+    {{ $papers = $papers | append (dict "id" . "year" $paper.year "title" $paper.title "name" $name) }}
+  {{ end }}
+{{ end }}
+<script type="application/json" id="authorFixData">
+{{ dict
+  "id" $person_id
+  "name" $person.full
+  "canonicalName" $canonical_name
+  "url" .ctx.Permalink
+  "verified" $is_verified
+  "orcid" ($person.orcid | default "")
+  "papers" $papers
+  "orcidBase" (relURL "people/orcid/")
+  "indexBase" (relURL "people/index/")
+  "peopleBase" (relURL "people/")
+  | jsonify | safeJS }}
+</script>
+
+<div class="modal fade" id="authorFixModal" tabindex="-1" aria-labelledby="authorFixModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="authorFixModalLabel">Fix author page: {{ $person.full }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Use this form to create a GitHub issue describing the correction. You will need a GitHub account.
+          A staff member will review the issue; see <a href="{{ relref .ctx "/info/author-pages.md" }}">how author pages work</a>.
+        </p>
+        <div class="alert alert-danger d-lg-none">
+          ⚠️ Mobile Users: Submitting this form to create a new issue will only work with github.com, not the GitHub Mobile app.
+        </div>
+
+        <ul class="nav nav-tabs mb-3" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="authorFixVerifyTab" data-bs-toggle="tab" data-bs-target="#authorFixVerify" type="button" role="tab" aria-controls="authorFixVerify">Verify author</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="authorFixMoveTab" data-bs-toggle="tab" data-bs-target="#authorFixMove" type="button" role="tab" aria-controls="authorFixMove">Move papers</button>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          {{/* ---- Verify author ---- */}}
+          <div class="tab-pane fade" id="authorFixVerify" role="tabpanel" aria-labelledby="authorFixVerifyTab">
+            {{ if $person.orcid }}
+            <div class="alert alert-success">
+              This page is already verified with ORCID iD
+              <a href="https://orcid.org/{{ $person.orcid }}">{{ $person.orcid }}</a>.
+              If some papers here are not by this author, use <a href="#" data-author-fix-show-move>Move papers</a>.
+            </div>
+            {{ else }}
+            <div class="alert alert-info d-none" id="authorFixOpenReview">
+              <p>
+                <b>Submitted a paper through OpenReview in 2025 or later?</b>
+                You probably don't need this form: <a href="{{ relref .ctx "/info/author-pages.md" }}#2-link-your-profiles-on-conference-management-systems-to-your-orcid-id">add your ORCID link to your OpenReview profile</a>,
+                and your page will be verified automatically within a few weeks.
+              </p>
+              <button type="button" class="btn btn-sm btn-secondary" id="authorFixOpenReviewContinue">My papers weren't submitted through OpenReview, or some papers on this page aren't mine</button>
+            </div>
+
+            <form id="authorFixVerifyForm" novalidate>
+              <div class="mb-3">
+                <label for="authorFixOrcid" class="form-label">ORCID iD <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="authorFixOrcid" placeholder="https://orcid.org/0000-0002-1825-0097" autocomplete="off" aria-describedby="authorFixOrcidFeedback">
+                <div class="form-text" id="authorFixOrcidFeedback" aria-live="polite">Don't have one? <a href="https://orcid.org/register">Register at orcid.org</a>.</div>
+              </div>
+              <div class="mb-3">
+                <label for="authorFixDegree" class="form-label">Institution of highest (anticipated) degree <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="authorFixDegree" placeholder="ex. Johns Hopkins University">
+                <div class="form-text">Your current institution if you are a student; otherwise where you received your highest degree. Used to form your author page ID, if needed.</div>
+              </div>
+              <div class="mb-3">
+                <label for="authorFixOpenReviewProfile" class="form-label">OpenReview profile URL <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="authorFixOpenReviewProfile" placeholder="https://openreview.net/profile?id=~Your_Name1">
+                <div class="form-text">Enter "none" if you don't have an OpenReview profile.</div>
+              </div>
+              <div class="mb-3">
+                <label for="authorFixPreferredName" class="form-label">Preferred author name</label>
+                <input type="text" class="form-control" id="authorFixPreferredName" placeholder="Family name, Given name(s)">
+                <div class="form-text">If you have published under multiple names, the one to show at the top of your page.</div>
+              </div>
+              <fieldset class="mb-3">
+                <legend class="form-label fs-6 mb-1">Your papers</legend>
+                <div class="form-text mb-2">Untick any papers that are not yours. {{ if $is_verified }}They will be removed from this page.{{ else }}They will stay on the unverified page.{{ end }}</div>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="verify"></div>
+              </fieldset>
+              <div class="mb-3">
+                <label for="authorFixVerifyNotes" class="form-label">Additional notes</label>
+                <textarea class="form-control" id="authorFixVerifyNotes" rows="2"></textarea>
+              </div>
+              <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+              <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            </form>
+            {{ end }}
+          </div>
+
+          {{/* ---- Move papers ---- */}}
+          <div class="tab-pane fade" id="authorFixMove" role="tabpanel" aria-labelledby="authorFixMoveTab">
+            <form id="authorFixMoveForm" novalidate>
+              <p class="form-text mt-0">
+                Use this to move papers from this page to the page they belong on. To add papers to your own page,
+                open the page where they currently appear and use this form there.
+              </p>
+              <fieldset class="mb-3">
+                <legend class="form-label fs-6 mb-1">Papers to move</legend>
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="checkbox" id="authorFixMoveAll">
+                  <label class="form-check-label fst-italic" for="authorFixMoveAll">Select all</label>
+                </div>
+                <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="move"></div>
+              </fieldset>
+
+              <fieldset class="mb-3">
+                <legend class="form-label fs-6 mb-1">Move them to</legend>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="authorFixDestination" id="authorFixDestExisting" value="existing" checked>
+                  <label class="form-check-label" for="authorFixDestExisting">An existing verified author page</label>
+                </div>
+                <div class="ms-4 mb-2 position-relative" id="authorFixDestSearchBox">
+                  <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name or ORCID iD" autocomplete="off" aria-describedby="authorFixDestStatus">
+                  <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
+                  <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages can receive papers.</div>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="authorFixDestination" id="authorFixDestUnverified" value="unverified" {{ if not $is_verified }}disabled{{ end }}>
+                  <label class="form-check-label" for="authorFixDestUnverified">These papers are by someone else, and I don't know their page</label>
+                  <div class="form-text">
+                    {{ if $is_verified }}
+                    Each paper will move to the unverified page for the name printed on it.
+                    {{ else }}
+                    Not available here: unverified pages group all papers with the same name. To separate them, the
+                    author of some of these papers needs to verify (Verify author tab) or move them to their own page.
+                    {{ end }}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="mb-3">
+                <label for="authorFixMoveNotes" class="form-label">Additional notes</label>
+                <textarea class="form-control" id="authorFixMoveNotes" rows="2"></textarea>
+              </div>
+              <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+              <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

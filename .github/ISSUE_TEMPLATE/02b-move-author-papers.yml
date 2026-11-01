@@ -1,0 +1,62 @@
+name: Move Papers Between Author Pages
+description: Move papers from one author page to another existing author page, or off a verified page whose owner did not write them.
+title: "Move Papers: {replace with current author page ID} → {replace with destination}"
+labels: ["correction", "author-page", "move-papers"]
+assignees:
+  - anthology-assist
+body:
+  - type: markdown
+    attributes:
+      value: >
+        The easiest way to fill out this form is from the yellow "Fix author" button on the author page where the
+        papers currently appear (e.g., https://aclanthology.org/people/matt-post/), which fills in the fields below.
+        To link an author page to an ORCID iD, use the "Verify Author Page" form instead.
+  - type: markdown
+    attributes:
+      value: >
+        For processing times and issue status labels, see [When will my correction be processed?](https://aclanthology.org/faq/correction-timeframe/).
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the metadata (i.e., what appears on the web pages) should match what is displayed on the PDF exactly, including any middle names and/or initials of authors.
+        If this is not the case, **you must first use the "Fix data" button on each affected paper's page to correct this** (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+        Sometimes this alone puts papers on the right page.
+      options:
+        - label: I confirm that all affected papers show the exact same names on the website as on the PDF.
+          required: true
+  - type: input
+    id: source_page
+    attributes:
+      label: Current author page
+      description: The author page where the papers currently appear.
+      placeholder: ex. https://aclanthology.org/people/matt-post/
+    validations:
+      required: true
+  - type: textarea
+    id: papers_to_move
+    attributes:
+      label: Papers to move
+      description: Anthology IDs or URLs, one per line, or `all` to move every paper on the page.
+      placeholder: ex. 2023.acl-long.42
+    validations:
+      required: true
+  - type: input
+    id: destination
+    attributes:
+      label: Destination
+      description: |
+        The existing author page the papers belong on. If the current page is verified and the papers are by
+        someone else whose page you don't know, enter `unverified`: they will move to the unverified page for
+        the name printed on each paper.
+      placeholder: ex. https://aclanthology.org/people/matt-post-jhu/ or unverified
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Anything else staff should know.
+    validations:
+      required: false
