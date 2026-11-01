@@ -245,41 +245,14 @@
     return runs;
   }
 
-  function pieceMatches(piece, runs) {
-    return runs.some(function (run) {
-      return run === piece
-        || (piece.length === 1 && run[0] === piece)
-        || (run.length === 1 && piece[0] === run);
-    });
-  }
-
-  // Whether every word of `from` is accounted for in `to`: runs of adjacent
-  // words must match (when concatenated) a run of words in `to`, so spacing and
-  // hyphenation don't matter ("Seon-yeong" ~ "Seonyeong"), and word order is
-  // free ("Wang Xu" ~ "Xu Wang"). Initials match any word with that first
-  // letter, or may be left unmatched (middle initials); at least one full word
-  // must match.
-  function coversName(from, toRuns, start, hasFullMatch) {
-    if (start === from.length) return hasFullMatch;
-    if (from[start].length === 1 && coversName(from, toRuns, start + 1, hasFullMatch)) {
-      return true;
-    }
-    for (let end = start + 1; end <= from.length; end++) {
-      const piece = from.slice(start, end).join("");
-      if (pieceMatches(piece, toRuns)
-        && coversName(from, toRuns, end, hasFullMatch || (piece.length > 1 && toRuns.includes(piece)))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // "José G. Lopez" ~ "Jose Lopez", "Woo Seonyeong" ~ "Seon Yeong Woo",
-  // but not "Min-Ling Zhang" ~ "Min Zhang".
+  // Names match if they share a name part of two or more letters, ignoring
+  // accents, case, spacing and hyphenation: "Min Wong" ~ "Seong Min",
+  // "Chris Dyer" ~ "Christopher James Dyer", "Seon-yeong Woo" ~ "Seonyeong Kim".
   function namesMatch(left, right) {
-    const a = nameTokens(left);
-    const b = nameTokens(right);
-    return coversName(a, tokenRuns(b), 0, false) && coversName(b, tokenRuns(a), 0, false);
+    const rightRuns = new Set(tokenRuns(nameTokens(right)));
+    return tokenRuns(nameTokens(left)).some(function (run) {
+      return run.length >= 2 && rightRuns.has(run);
+    });
   }
 
   // ---- Move papers tab ----
@@ -311,17 +284,25 @@
     const moveAll = document.getElementById("authorFixMoveAll");
     renderPaperList(movePapers, false);
 
-    // Names printed on the selected papers (all papers' names if none selected).
-    function paperNames() {
+    // The selected papers (all papers if none are selected).
+    function relevantPapers() {
       const selected = new Set(selectedPapers(movePapers, true));
-      const papers = page.papers.filter(function (paper) {
+      return page.papers.filter(function (paper) {
         return selected.size === 0 || selected.has(paper.id);
       });
-      return Array.from(new Set(papers.map(function (paper) { return paper.name; })));
     }
 
-    // A destination must be known under a name matching every selected paper.
-    function acceptsPapers(names) {
+    // Names printed on the relevant papers.
+    function paperNames() {
+      return Array.from(new Set(relevantPapers().map(function (paper) { return paper.name; })));
+    }
+
+    // A destination must be known under a name matching every selected paper,
+    // and must not already be an author of any of them (e.g. a coauthor).
+    function acceptsPapers(id, names) {
+      if (relevantPapers().some(function (paper) { return paper.coauthors.includes(id); })) {
+        return false;
+      }
       return paperNames().every(function (paperName) {
         return names.some(function (name) { return namesMatch(paperName, name); });
       });
@@ -344,7 +325,7 @@
             if (seen.has(entry.row[1])) return false;
             seen.add(entry.row[1]);
             return search.isVerified(entry.row) && entry.row[1] !== page.id
-              && acceptsPapers(entry.names);
+              && acceptsPapers(entry.row[1], entry.names);
           })
           .slice(0, 8);
       } catch (error) {
@@ -376,14 +357,14 @@
       }));
       destResults.hidden = matches.length === 0;
       destStatus.textContent = matches.length === 0
-        ? "No verified author page has a name matching the selected papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
+        ? "No verified author page (other than a coauthor's) has a name like the one on the selected papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
         : destDefaultStatus;
     }
 
     let searchTimer;
     refreshDestinations = function () {
       // Keep a chosen destination only while it still fits the selected papers.
-      if (destination && destination.names && !acceptsPapers(destination.names)) {
+      if (destination && destination.names && !acceptsPapers(destination.id, destination.names)) {
         destination = null;
         destSearch.value = "";
       }
