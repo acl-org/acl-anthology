@@ -18,7 +18,17 @@
     {{ range $paper.editor }}
       {{ if eq .id $person_id }}{{ $name = trim (printf "%s %s" (.first | default "") .last) " " }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
     {{ end }}
-    {{ $papers = $papers | append (dict "id" . "year" $paper.year "title" $paper.title "name" $name "coauthors" $coauthors) }}
+    {{/* Citation: full author names, then venue and year from the short
+         citation, e.g. "… (Su et al., EMNLP 2026)" -> "EMNLP 2026" */}}
+    {{ $author_names := slice }}
+    {{ range $paper.author }}{{ $author_names = $author_names | append .full }}{{ end }}
+    {{ $venue_year := replaceRE `^.*, ([^,]*)\)$` "$1" ($paper.citation | default "") }}
+    {{ $citation := delimit $author_names ", " " and " }}
+    {{ if ne $venue_year ($paper.citation | default "") }}{{ $citation = printf "%s (%s)" $citation $venue_year }}{{ end }}
+    {{ $papers = $papers | append (dict
+      "id" . "year" $paper.year "title" $paper.title "name" $name "coauthors" $coauthors
+      "url" ($.ctx.Site.GetPage (printf "/papers/%s" .)).RelPermalink
+      "citation" $citation) }}
   {{ end }}
 {{ end }}
 <script type="application/json" id="authorFixData">

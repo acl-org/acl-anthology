@@ -81,7 +81,20 @@
       meta.textContent = "(" + paper.year
         + (paper.name !== page.canonicalName ? ", as " + paper.name : "") + ")";
       label.append(meta);
-      item.append(input, label);
+      const link = document.createElement("a");
+      link.href = paper.url;
+      link.target = "_blank";
+      link.className = "ms-1 text-muted";
+      link.title = "Open paper page";
+      link.setAttribute("aria-label", "Open paper page for \u201c" + paper.title + "\u201d");
+      link.innerHTML = '<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>';
+      item.append(input, label, link);
+      if (paper.citation) {
+        new bootstrap.Tooltip(label, {
+          title: paper.citation,
+          placement: "top",
+        });
+      }
       return item;
     }));
   }
