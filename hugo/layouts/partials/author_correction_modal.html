@@ -75,12 +75,24 @@
             {{ if not $person.orcid }}
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixVerify">
               <div class="fw-semibold">Verify author</div>
-              <small class="text-muted">These are my papers: link this page to my ORCID iD{{ if not $is_verified }}, separating them from others with the same name{{ end }}.</small>
+              <small class="text-muted">
+                {{ if $is_verified }}
+                These are my papers: link this page to my ORCID iD.
+                {{ else }}
+                I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
+                {{ end }}
+              </small>
             </button>
             {{ end }}
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixMove">
               <div class="fw-semibold">Move papers</div>
-              <small class="text-muted">Some papers here belong on another author's page, or to someone else with this name.</small>
+              <small class="text-muted">
+                {{ if $is_verified }}
+                Some papers here belong on another author's page, or to someone else with this name.
+                {{ else }}
+                I already have a verified author page, e.g. under a variant of this name: move my papers here to it.
+                {{ end }}
+              </small>
             </button>
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixOther">
               <div class="fw-semibold">Something else</div>
@@ -145,8 +157,13 @@
           <h6 class="mb-3" tabindex="-1">Move papers</h6>
           <form id="authorFixMoveForm" novalidate>
             <p class="form-text mt-0">
-              Use this to move papers from this page to the page they belong on. To add papers to your own page,
-              open the page where they currently appear and use this form there.
+              {{ if $is_verified }}
+              Use this to move papers from this page to the page they belong on.
+              {{ else }}
+              Use this if you already have a verified author page (which uses another variant of this name,
+              and/or which disambiguates one individual from others with the same name).
+              {{ end }}
+              To add papers to your own page, open the page where they currently appear and use this form there.
             </p>
             <fieldset class="mb-3">
               <legend class="form-label fs-6 mb-1">Papers to move</legend>
