@@ -251,11 +251,32 @@ def paper_to_dict(paper):
     return data
 
 
+def author_stats(volumes: Iterable[Volume]):
+    """Count papers (and those with DOIs) and unique authors (and those with ORCID iDs) across volumes.
+
+    Frontmatter is excluded, as its "authors" are the volume editors.
+    """
+    papers = [
+        paper
+        for volume in volumes
+        for paper in volume.papers()
+        if not paper.is_frontmatter
+    ]
+    authors = {ns.resolve() for paper in papers for ns in paper.authors}
+    return {
+        "paper_count": len(papers),
+        "doi_paper_count": sum(1 for paper in papers if paper.doi is not None),
+        "author_count": len(authors),
+        "orcid_author_count": sum(1 for person in authors if person.orcid is not None),
+    }
+
+
 def volume_to_dict(volume):
     """
     Turn a single volume into a dictionary as used by the Hugo templates.
     """
     data = {
+        **author_stats([volume]),
         "has_abstracts": volume.has_abstracts,
         "meta_date": volume.year,  # may be overwritten below
         "papers": [paper.full_id for paper in volume.papers()],
@@ -839,6 +860,8 @@ def export_events(anthology: Anthology, builddir, dryrun):
                 sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
+        data["volume_count"] = len(data["volumes"])
+        data.update(author_stats(event.volumes()))
 
         # List venues for each volume in this event
         data["vol_venues"] = {}
