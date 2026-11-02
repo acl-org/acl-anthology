@@ -126,11 +126,24 @@
     window.open(url, "_blank");
   }
 
-  function showTab(id) {
-    bootstrap.Tab.getOrCreateInstance(document.getElementById(id)).show();
+  // ---- Steps: choose a kind of correction, then fill in its form ----
+
+  const chooser = document.getElementById("authorFixChooser");
+  const panes = modal.querySelectorAll("[data-author-fix-pane]");
+
+  // Shows the form pane with this ID, or the chooser when `id` is null.
+  function showPane(id) {
+    chooser.classList.toggle("d-none", id !== null);
+    panes.forEach(function (pane) { pane.classList.toggle("d-none", pane.id !== id); });
+    if (id === null) {
+      chooser.querySelector("button:not([disabled])").focus();
+      return;
+    }
+    document.getElementById(id).querySelector("h6").focus();
+    if (id === "authorFixMove") refreshDestinations();
   }
 
-  // ---- Verify author tab ----
+  // ---- Verify author ----
 
   const verifyForm = document.getElementById("authorFixVerifyForm");
   let orcidCheck = Promise.resolve({ orcid: null });
@@ -191,7 +204,7 @@
             move.addEventListener("click", function (event) {
               event.preventDefault();
               chooseDestination({ id: owner, name: owner, names: null });
-              showTab("authorFixMoveTab");
+              showPane("authorFixMove");
             });
             setFeedback("invalid", [
               "This ORCID iD already has an author page: ", link,
@@ -268,7 +281,7 @@
     });
   }
 
-  // ---- Move papers tab ----
+  // ---- Move papers ----
 
   const moveForm = document.getElementById("authorFixMoveForm");
   const destSearch = document.getElementById("authorFixDestSearch");
@@ -402,10 +415,6 @@
       document.getElementById("authorFixDestExisting").checked = true;
       refreshDestinations();
     });
-    document.getElementById("authorFixMoveTab").addEventListener("shown.bs.tab", function () {
-      refreshDestinations();
-    });
-
     moveForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const papers = selectedPapers(movePapers, true);
@@ -424,7 +433,7 @@
     });
   }
 
-  // ---- Other tab ----
+  // ---- Something else ----
 
   function initOther() {
     const otherForm = document.getElementById("authorFixOtherForm");
@@ -444,18 +453,12 @@
   if (verifyForm) initVerify();
   initMove();
   initOther();
-  modal.querySelectorAll("[data-author-fix-show-move]").forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      showTab("authorFixMoveTab");
-    });
+  chooser.querySelectorAll("[data-author-fix-choose]").forEach(function (button) {
+    button.addEventListener("click", function () { showPane(button.dataset.authorFixChoose); });
   });
-  // Open on Verify unless the page already has an ORCID iD.
-  modal.addEventListener("show.bs.modal", function () {
-    if (!modal.querySelector(".nav-link.active")) {
-      showTab(page.orcid ? "authorFixMoveTab" : "authorFixVerifyTab");
-    }
-  }, { once: true });
+  modal.querySelectorAll("[data-author-fix-back]").forEach(function (button) {
+    button.addEventListener("click", function () { showPane(null); });
+  });
 
   window.aclAuthorCorrection = { namesMatch: namesMatch, normalizeOrcid: normalizeOrcid };
 })();
