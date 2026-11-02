@@ -64,18 +64,20 @@
 
         {{/* Step 1: the kind of correction; each choice reveals one form below */}}
         <div id="authorFixChooser">
+          {{ if $person.orcid }}
+          <p>
+            This page is already verified with ORCID iD
+            <a href="https://orcid.org/{{ $person.orcid }}">{{ $person.orcid }}</a>.
+          </p>
+          {{ end }}
           <h6 class="mb-2" id="authorFixChooserLabel">What would you like to do?</h6>
           <div class="list-group" role="group" aria-labelledby="authorFixChooserLabel">
-            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixVerify" {{ if $person.orcid }}disabled{{ end }}>
+            {{ if not $person.orcid }}
+            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixVerify">
               <div class="fw-semibold">Verify author</div>
-              <small class="text-muted">
-                {{ if $person.orcid }}
-                This page is already verified with ORCID iD {{ $person.orcid }}.
-                {{ else }}
-                These are my papers: link this page to my ORCID iD{{ if not $is_verified }}, separating them from others with the same name{{ end }}.
-                {{ end }}
-              </small>
+              <small class="text-muted">These are my papers: link this page to my ORCID iD{{ if not $is_verified }}, separating them from others with the same name{{ end }}.</small>
             </button>
+            {{ end }}
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixMove">
               <div class="fw-semibold">Move papers</div>
               <small class="text-muted">Some papers here belong on another author's page, or to someone else with this name.</small>

@@ -136,11 +136,12 @@
     chooser.classList.toggle("d-none", id !== null);
     panes.forEach(function (pane) { pane.classList.toggle("d-none", pane.id !== id); });
     if (id === null) {
-      chooser.querySelector("button:not([disabled])").focus();
+      chooser.querySelector("button").focus();
       return;
     }
-    document.getElementById(id).querySelector("h6").focus();
-    if (id === "authorFixMove") refreshDestinations();
+    const pane = document.getElementById(id);
+    pane.querySelector("h6").focus();
+    pane.dispatchEvent(new Event("author-fix:shown"));
   }
 
   // ---- Verify author ----
@@ -410,6 +411,9 @@
       moveAll.indeterminate = selected > 0 && selected < page.papers.length;
       refreshDestinations();
     });
+    document.getElementById("authorFixMove").addEventListener("author-fix:shown", function () {
+      refreshDestinations();
+    });
     destSearch.addEventListener("input", function () {
       destination = null;
       document.getElementById("authorFixDestExisting").checked = true;
@@ -458,6 +462,11 @@
   });
   modal.querySelectorAll("[data-author-fix-back]").forEach(function (button) {
     button.addEventListener("click", function () { showPane(null); });
+  });
+  // Each opening starts from the choice; entered values are kept.
+  modal.addEventListener("hidden.bs.modal", function () {
+    chooser.classList.remove("d-none");
+    panes.forEach(function (pane) { pane.classList.add("d-none"); });
   });
 
   window.aclAuthorCorrection = { namesMatch: namesMatch, normalizeOrcid: normalizeOrcid };
