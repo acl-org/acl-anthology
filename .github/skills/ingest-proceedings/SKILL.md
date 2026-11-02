@@ -108,8 +108,10 @@ under a **different** slug, the id is wrong — use the existing slug. Examples:
 
 ### 2b-bis. Findings
 The Findings volume (usually already ingested with the main conference) must use
-`findings` as the **venue** and one of `acl`/`eacl`/`naacl` as the **volume name**
-(e.g. `2026.findings-acl`, `2026.findings-eacl`). Verify this if present.
+`findings` as the **venue** and one of `acl`/`eacl`/`emnlp`/`naacl` as the
+**volume name** (e.g. `2026.findings-acl`, `2026.findings-emnlp`). Verify this if
+present. **Findings: EMNLP must also be linked to SIGDAT**; verify this
+association after ingestion.
 
 ### 2c. New-venue names: strip ordinals, years, and conference prefixes
 Venue `name:` in `data/yaml/venues/<slug>.yaml` must be the **timeless** name.
@@ -149,6 +151,11 @@ volumes this year (e.g. a workshop + its shared task, often two repos sharing on
 venue), they must be **consistently** named: either both numbers (`1`, `2`) or
 both names — never a number mixed with a name. Also `volume_name` must match
 `^[a-z0-9]+$` (lowercase): `Workshop` is invalid → use `1`/`main`/etc.
+
+Also normalize the book title when organizers supply the redundant construction
+`The Proceedings of ...`: remove the leading article so it reads
+`Proceedings of ...`. Apply this as a post-ingest metadata correction through
+the public API rather than editing XML directly.
 
 ### 2f. Copyright forms must NOT become `<attachment>` tags
 Organizers sometimes attach the signed copyright-transfer form as a paper
@@ -207,6 +214,9 @@ git add data && git commit -m "Ingested ws_<name>"  # only on success
 (`data/xml/YYYY.<parent>.xml`) gains/extends an
 `<event id="{{PARENT_EVENT}}"><colocated><volume-id>…</volume-id>` block. (If the
 parent event isn't yet explicit, the script promotes it so the block is written.)
+The ingestion script must keep all `<volume-id>` entries in the block sorted
+lexicographically; confirm the new volume appears in order rather than merely
+being appended.
 
 ### Both modes
 Stage **only `data/`**. A driver that ingests a list and commits each on success,

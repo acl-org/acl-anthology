@@ -68,7 +68,7 @@
       <!-- https://aclanthology.org/2026.loreslm-1.4/ -->
       <title>When Multilingual Evaluation Assumptions Fail: Tokenization Effects Across Scripts</title>
       <author id="manodyna-k-h" orcid="0009-0009-2610-0759" openreview="~Manodyna_K_H1"><first>Manodyna</first><last>K H</last></author>
-      <author id="luc-de-nardi" openreview="~Luc_De_Nardi1"><first>Luc</first><last>De Nardi</last><affiliation>University of Colorado at Boulder</affiliation></author>
+      <author id="luc-de-nardi" orcid="0009-0005-1431-3061" openreview="~Luc_De_Nardi1"><first>Luc</first><last>De Nardi</last><affiliation>University of Colorado at Boulder</affiliation></author>
       <pages>41-49</pages>
       <abstract>Multilingual evaluation often relies on language coverage or translated benchmarks, implicitly assuming that subword tokenization behaves comparably across scripts. In mixed-script settings, this assumption breaks down. We examine this effect using polarity detection as a case study, comparing Orthographic Syllable Pair Encoding (OSPE) and Byte Pair Encoding (BPE) under identical architectures, data, and training conditions on SemEval Task 9, which spans Devanagari, Perso-Arabic, and Latin scripts. OSPE is applied to Hindi, Nepali, Urdu, and Arabic, while BPE is retained for English. We find that BPE systematically underestimates performance in abugida and abjad scripts, producing fragmented representations, unstable optimization, and drops of up to 27 macro-F1 points for Nepali, while English remains largely unaffected. Script-aware segmentation preserves orthographic structure, stabilizes training, and improves cross-language comparability without additional data or model scaling, highlighting tokenization as a latent but consequential evaluation decision in multilingual benchmarks.</abstract>
       <pdf hash="0dabc2b6"/>
@@ -529,7 +529,7 @@
     <paper id="42">
       <!-- https://aclanthology.org/2026.loreslm-1.42/ -->
       <title>How multilingual are multilingual <fixed-case>LLM</fixed-case>s? A case study in <fixed-case>N</fixed-case>orthern <fixed-case>S</fixed-case>ámi-<fixed-case>F</fixed-case>innish Translation</title>
-      <author openreview="~Jonne_Sälevä1"><first>Jonne</first><last>Sälevä</last><affiliation>Brandeis University</affiliation></author>
+      <author id="jonne-saleva" orcid="0009-0009-3096-0436" openreview="~Jonne_Sälevä1"><first>Jonne</first><last>Sälevä</last><affiliation>Brandeis University</affiliation></author>
       <author id="constantine-lignos" orcid="0000-0001-6410-2848" openreview="~Constantine_Lignos1"><first>Constantine</first><last>Lignos</last><affiliation>Brandeis University</affiliation></author>
       <pages>484-492</pages>
       <abstract>We use Finnish and Northern Sámi as a case study to investigate how suitable multilingual LLMs are for low-resource machine translation and how much performance can be improved using supervised finetuning with varying amounts of parallel data. Our experiments on zero-shot translation reveal that mainstream multilingual LLMs from a variety of model families are unsuitable for translation between our chosen languages as-is, regardless of the generation hyperparameters. On the other hand, our experiments on supervised finetuning reveal that even relatively small amounts of parallel data can be very useful for improving performance in both translation directions.</abstract>

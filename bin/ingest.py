@@ -427,6 +427,11 @@ def add_parent_event(
         event.add_colocated(volume_full_id)
         log.info(f"Created event entry in {parent_event} for {volume_full_id}")
 
+    sorted_colocated_ids = dict(sorted(event.colocated_ids.items()))
+    if list(event.colocated_ids) != list(sorted_colocated_ids):
+        event.colocated_ids = sorted_colocated_ids
+        event.collection.is_modified = True
+
 
 def configure_event(collection: Collection, args: argparse.Namespace) -> None:
     """Create or update event metadata supplied on the command line."""
@@ -958,7 +963,8 @@ def ingest(
 ) -> None:
     """
     Ingests the volume and its papers into the Anthology, agnostic to the underlying
-    ingestion format.
+    ingestion format. Replacing a volume preserves its position and invalidates
+    the citation-key index so removed papers do not reserve replacement keys.
     """
     volume_full_id = metadata["volume_full_id"]
     if volume_full_id in seen_volume_ids:
@@ -968,8 +974,10 @@ def ingest(
     collection = anthology.get_collection(metadata["collection_id"])
     if collection is None:
         collection = anthology.collections.create(metadata["collection_id"])
-    if collection.get(metadata["volume_name"]) is not None:
+    original_volume_order = list(collection)
+    if metadata["volume_name"] in original_volume_order:
         del collection[metadata["volume_name"]]
+        anthology.collections.bibkeys.reset()
 
     volume_kwargs: Dict[str, Any] = {
         "id": metadata["volume_name"],
@@ -993,6 +1001,11 @@ def ingest(
         )
 
     volume_obj = collection.create_volume(**volume_kwargs)
+    if metadata["volume_name"] in original_volume_order:
+        for volume_id in original_volume_order:
+            volume = collection[volume_id]
+            del collection[volume_id]
+            collection[volume_id] = volume
 
     for paper in paper_stream:
         if not paper.get("archival", True):
@@ -1209,8 +1222,11 @@ def register_volume_with_sig(
 
 
 def register_suggested_sigs(volume: Volume) -> None:
-    """Store SIG associations suggested by the volume's venues."""
-    for venue in volume.venues():
+    """Store venue-suggested SIGs, including EMNLP's for Findings: EMNLP."""
+    venues = list(volume.venues())
+    if "findings" in volume.venue_ids and volume.id == "emnlp":
+        venues.append(volume.root.venues["emnlp"])
+    for venue in venues:
         for sig in sorted(venue.sigs(), key=lambda item: item.id):
             if sig.id in volume.sig_ids:
                 continue
@@ -1257,6 +1273,11 @@ def main(args):
         )
 
     anthology.save_all()
+    if args.parent_event:
+        event = anthology.get_event(args.parent_event)
+        if event is not None:
+            # Minimal-diff serialization preserves the previous colocated order.
+            event.collection.save(minimal_diff=False)
 
 
 if __name__ == "__main__":
