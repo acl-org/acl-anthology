@@ -4,17 +4,30 @@
     {{ .Title }}
   </h2>
 
-  {{ $venue := index hugo.Data.sigs .Params.acronym }}
+  {{ $sig := index hugo.Data.sigs .Params.acronym }}
   <p>
     <ul>
-      <li><i class="fas fa-external-link-alt"></i>&nbsp; <a href="{{ $venue.url }}">Website of {{ .Params.acronym }}</a></li>
+      <li><i class="fas fa-external-link-alt"></i>&nbsp; <a href="{{ $sig.url }}">Website of {{ .Params.acronym }}</a></li>
     </ul>
   </p>
+
+  {{- with $sig.description }}
+  {{ $.RenderString (dict "display" "block") . }}
+  {{- end -}}
+  {{- with $sig.related }}
+  <p class="fw-light text-muted">
+    {{ $len := (len .) }}
+    <span class="fst-italic">See also:</span>
+    {{ range $index, $rel_acronym := . }}
+    {{ $rel_sig := index hugo.Data.sigs $rel_acronym }}<a href="{{ relref $ (printf "/sigs/%s" $rel_sig.slug) }}" title="{{ $rel_sig.name }}">{{- $rel_sig.acronym -}}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{- end -}}
   <hr />
 
   <div>
-    {{ range $year := sort (index $venue "years") "value" "desc" }}
-    {{ $volumes := index $venue "volumes_by_year" $year }}
+    {{ range $year := sort (index $sig "years") "value" "desc" }}
+    {{ $volumes := index $sig "volumes_by_year" $year }}
     <div class="row">
       <div class="col-sm-1">
         <h4>{{ $year }}</h4>

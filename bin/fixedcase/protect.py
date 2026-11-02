@@ -4,7 +4,7 @@
 # looks for file "truelist" in current dir
 
 # cd data/xml
-# for i in *xml ; do (cd ../../tools/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; echo $i ); done > log
+# for i in *xml ; do (cd ../../bin/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; mv /tmp/$i ../../data/xml/$i ; echo $i ); done > log
 
 
 import lxml.etree as ET
@@ -74,6 +74,7 @@ def protect(node):
             phrase_truelist=phrase_truelist,
             amodifiers=amodifiers,
             ndescriptors=ndescriptors,
+            raw=rawtext,
         )
         if any(fixed):
             # Generate the recased string so we know where to look in the XML
@@ -115,7 +116,11 @@ def protect(node):
             assert rawtext.lower() == recased.lower(), (rawtext, recased)
 
     if recased:
-        newnode = protect_recurse(node, recased)
+        try:
+            newnode = protect_recurse(node, recased)
+        except AssertionError:
+            print(rawtext, file=sys.stderr)
+            raise
         newnode.tail = node.tail  # tail of top level is not protected
         replace_node(node, newnode)
 
@@ -131,5 +136,8 @@ if __name__ == "__main__":
         tree.getroot().tail = "\n"
     for paper in tree.getroot().findall(".//paper"):
         for title in paper.xpath("./title|./booktitle"):
+            protect(title)
+    for paper in tree.getroot().findall(".//volume"):
+        for title in paper.xpath("./meta/title|./meta/booktitle"):
             protect(title)
     tree.write(outfile, encoding="UTF-8", xml_declaration=True)

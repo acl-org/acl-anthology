@@ -45,7 +45,7 @@
     </paper>
     <paper id="3">
       <!-- https://aclanthology.org/2025.poleval-main.3/ -->
-      <title>Detecting Machine-Generated Text in <fixed-case>P</fixed-case>olish Using Fine-Tuned Qwen Models</title>
+      <title>Detecting Machine-Generated Text in <fixed-case>P</fixed-case>olish Using Fine-Tuned <fixed-case>Q</fixed-case>wen Models</title>
       <author><first>Konrad</first><last>Pierzyński</last></author>
       <pages>16-20</pages>
       <abstract>This paper introduces the first shared task on machine-generated text (MGT) detection for Polish, organised as part of the PolEval 2025 evaluation campaign. The task evaluates participating systems under three scenarios – unsupervised, constrained, and open – designed to reflect different levels of access to training data. In total, seven systems were submitted. The results indicate that MGT detection for Polish is feasible, with the best-performing constrained systems achieving over 90% accuracy on the main evaluation set. However, performance drops when models are tested on unseen domains or generator models, revealing substantial limitations in generalisation. In the most challenging settings, unsupervised approaches beat the supervised ones. This shared task establishes a new benchmark for MGT detection in Polish. The publicly released Śmigiel dataset is intended to support future research on robust and generalisable MGT detection.</abstract>
@@ -81,7 +81,7 @@
     </paper>
     <paper id="7">
       <!-- https://aclanthology.org/2025.poleval-main.7/ -->
-      <title>Less is <fixed-case>M</fixed-case>ore—<fixed-case>A</fixed-case>chieving <fixed-case>SOTA</fixed-case> at <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2a: Gender-inclusive <fixed-case>LLM</fixed-case>s for <fixed-case>P</fixed-case>olish (Proofreading) with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> and Qwen3-8<fixed-case>B</fixed-case></title>
+      <title>Less is <fixed-case>M</fixed-case>ore—<fixed-case>A</fixed-case>chieving <fixed-case>SOTA</fixed-case> at <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2a: Gender-inclusive <fixed-case>LLM</fixed-case>s for <fixed-case>P</fixed-case>olish (Proofreading) with <fixed-case>L</fixed-case>o<fixed-case>RA</fixed-case> and <fixed-case>Q</fixed-case>wen3-8<fixed-case>B</fixed-case></title>
       <author><first>Adam</first><last>Majczyk</last></author>
       <pages>48-53</pages>
       <abstract>In this paper the winning solution of PolEval 2025 Task 2a is presented. The approach utilizes LoRA fine-tuning of the Qwen3-8B model. Multiple LoRA matrix ranks are explored. Versions with and without the system prompt in loss calculation are evaluated. New SOTA was established at <tex-math>F1=0.6039</tex-math> beating the previously best model at <tex-math>F1=0.5985</tex-math>. After the task’s conclusion the solution was improved upon and <tex-math>F1=0.6283\pm0.0056</tex-math> was achieved.</abstract>
@@ -108,7 +108,7 @@
     </paper>
     <paper id="10">
       <!-- https://aclanthology.org/2025.poleval-main.10/ -->
-      <title>Lightweight <fixed-case>IPIS</fixed-case> Instruction Tuning of Bielik-7<fixed-case>B</fixed-case> for Gender-Inclusive <fixed-case>P</fixed-case>olish&lt;—&gt;<fixed-case>E</fixed-case>nglish Translation: System Description for <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2 (<fixed-case>IPIS</fixed-case>-translation)</title>
+      <title>Lightweight <fixed-case>IPIS</fixed-case> Instruction Tuning of <fixed-case>B</fixed-case>ielik-7<fixed-case>B</fixed-case> for Gender-Inclusive <fixed-case>P</fixed-case>olish&lt;—&gt;<fixed-case>E</fixed-case>nglish Translation: System Description for <fixed-case>P</fixed-case>ol<fixed-case>E</fixed-case>val 2025 Task 2 (<fixed-case>IPIS</fixed-case>-translation)</title>
       <author><first>Mateusz</first><last>Czajka</last></author>
       <pages>66-71</pages>
       <abstract>We describe a compact but fully open-source system submitted to PolEval 2025 Task 2 (Gender-inclusive LLMs for Polish), subtask B: IPIS-translation. The goal of this subtask is gender-sensitive Polish↔English translation, including the production of gender-inclusive Polish outputs that follow specific orthographic conventions such as gender stars and slash forms. Our method performs instruction tuning of the Polish LLM Bielik-7B-Instruct using parameter-efficient LoRA adapters, with optional 4-bit NF4 quantization for single-GPU training. Samples from the Inclusive Polish Instruction Set (IPIS) are converted into a chat-style format with a task-provided gender-inclusive system prompt. Despite a deliberately lightweight tuning budget and greedy decoding, our submission placed 3rd on the hidden test B split, achieving bleu_pe = 20.7871. We detail the training and inference pipeline, discuss design choices and limitations, and outline directions for improving inclusive translation quality in Polish.</abstract>

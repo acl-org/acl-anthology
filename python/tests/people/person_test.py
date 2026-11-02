@@ -402,6 +402,25 @@ def test_person_merge_into_unverified_should_raise(anthology):
     anthology.reset_indices()
 
 
+def test_person_similar(anthology):
+    ravi_b = anthology.get_person("ravi-b")
+    ravi_bishnu = anthology.get_person("ravi-bishnu")
+    assert ravi_b.similar() == [ravi_bishnu]
+    assert ravi_bishnu.similar() == [ravi_b]
+
+
+def test_person_similar_empty(anthology):
+    person = anthology.get_person("torsten-baumann")
+    assert person.similar() == []
+
+
+def test_person_similar_with_nonexistent_person_raises(anthology):
+    person = anthology.get_person("torsten-baumann")
+    anthology.people.similar.merge("torsten-baumann", "doesntexist")
+    with pytest.raises(KeyError):
+        _ = person.similar()
+
+
 def test_person_equality(anthology_stub):
     n = Name("Wen", "Zhao")
     person1 = Person("wen-zhao", anthology_stub.people, [n])

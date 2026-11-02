@@ -78,6 +78,8 @@ class SIG:
         acronym: The SIG's acronym or short name, e.g. "SIGSEM".
         name: The SIG's full name.
         url: A website URL for the SIG.
+        description: A description text that appears on the website and may contain Markdown.
+        related_ids: A list of SIG IDs that should be considered related to this one.  This induces a symmetric relationship.  To _find_ related SIGs, use [`SIG.related()`][acl_anthology.sigs.SIG.related].
         external_meetings: A list of SIGMeeting instances recording meetings that are not part of the Anthology.
         venue_ids: A list of venues associated with this SIG, to be used as an aid during ingestion.  See also [venues()][acl_anthology.sigs.SIG.venues].
         item_ids: An unordered set of volume IDs associated with this venue.
@@ -88,6 +90,10 @@ class SIG:
     acronym: str = field(converter=str)
     name: str = field(converter=str)
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    description: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    related_ids: list[str] = field(factory=list)
     external_meetings: list[SIGMeeting] = field(
         factory=list,
         repr=lambda x: f"<list[str | SIGMeeting] with {len(x)} item{'' if len(x) == 1 else 's'}>",
@@ -176,6 +182,21 @@ class SIG:
         if venue_id in self.venue_ids:
             self.venue_ids = tuple(x for x in self.venue_ids if x != venue_id)
 
+    def related(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs marked as being related to this SIG.
+        """
+        try:
+            return [
+                self.parent[related_id] for related_id in self.parent.related[self.id]
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
+
     def venues(self) -> list[Venue]:
         """A list of venues associated with this SIG.
 
@@ -218,12 +239,16 @@ class SIGIndex(SlottedDict[SIG]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `sigs.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
+        related: A dictionary mapping SIG IDs to a set of related SIG IDs.
         is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
+    _related: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -231,6 +256,12 @@ class SIGIndex(SlottedDict[SIG]):
     @path.default
     def _path(self) -> Path:
         return self.parent.datadir / Path(SIG_INDEX_FILE)
+
+    @property
+    def related(self) -> dict[str, set[str]]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._related
 
     def load(self) -> None:
         """Load and parse the `sigs.json` file.
@@ -284,6 +315,7 @@ class SIGIndex(SlottedDict[SIG]):
     def reset(self) -> None:
         """Reset the index."""
         self.data = {}
+        self._related = defaultdict(set)
         self.is_data_loaded = False
 
     def build(self) -> None:
@@ -292,6 +324,10 @@ class SIGIndex(SlottedDict[SIG]):
         Raises:
             ValueError: If a volume lists a SIG ID that doesn't exist (i.e., isn't defined in `sigs.json`).
         """
+        for sig_id, sig in self.data.items():
+            for related_id in sig.related_ids:
+                self._related[sig_id].add(related_id)
+                self._related[related_id].add(sig_id)
         if self.no_item_ids:
             return
         for volume in self.parent.volumes():

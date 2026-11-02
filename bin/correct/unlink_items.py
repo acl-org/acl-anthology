@@ -22,49 +22,76 @@ For an existing verified author, remove explicit linking to specified papers
 See also: disable_name_matching.py (to turn off implicit linking)
 
 Usage:
-  unlink_items.py [--issue NUM] [--keep] [--remove-orcid] AUTHORID PAPERID ...
+  unlink_items.py [--issue NUM] [--keep] [--orid ORIDS] [--remove-orcid] AUTHORID PAPERID ...
 
 Arguments:
     AUTHORID            Currently verified author ID.
     PAPERID             List of paper or volume IDs associated with the verified author.
+                        '*' to target all items under the author (possibly subject to other filters).
 
 Options:
     -h --help           Show this help message.
     --issue NUM         GitHub issue number to include in commit message.
     --keep              Keep only the specified items; unlink all others.
+    --orid ORIDS        OpenReview ID(s) to use as a filter.
     --remove-orcid      For any paper being unlinked, remove the ORCID attribute if present on the namespec.
 """
 
 import logging as log
 from docopt import docopt
+from typing import Optional
 
 from acl_anthology import Anthology
+from acl_anthology.collections import Paper
 from acl_anthology.utils.logging import setup_rich_logging
 
 
-def unlink_items(author_id, paper_ids, keep_only_these_papers=False, remove_orcid=False):
+def unlink_items(
+    author_id,
+    paper_ids: Optional[list[str]],
+    keep_only_these_papers=False,
+    openreview: Optional[list[str]] = None,
+    remove_orcid=False,
+):
     changes = ""
     anthology = Anthology.from_within_repo(
         suppress_warnings=("NameSpecResolutionWarning",)
     )
 
     person = anthology.get_person(author_id)
+    items = [(paper.full_id, paper) for paper in person.anthology_items()]
 
-    numPapers = len(list(person.anthology_items()))
+    numPapers = len(items)
     log.info(f"Author {person.id} has {numPapers} implicitly or explicitly linked")
 
-    paper_and_namespec = []
-    for paper_id in paper_ids:
-        paper = anthology.get(paper_id)
-        assert paper, f"Unknown item ID: {paper_id}"
+    if paper_ids:
+        # Filter target items by explicit paper IDs
+        items = []
+        for paper_id in paper_ids:
+            paper = anthology.get(paper_id)
+            assert paper, f"Unknown item ID: {paper_id}"
+            items.append((paper_id, paper))
 
+    paper_and_namespec = []
+    for paper_id, paper in items:
         # match the author of the paper by name slug
-        matches = [namespec for namespec in paper.namespecs if namespec.id == author_id]
+        namespecs = (
+            paper.editors
+            if isinstance(paper, Paper) and paper.is_frontmatter
+            else paper.namespecs
+        )
+        matches = [namespec for namespec in namespecs if namespec.id == author_id]
+        if not paper_ids and not matches:
+            continue  # Skip paper with implicit match
         assert len(matches) == 1, (
             f"In {paper_id}, looking for exactly 1 author with id={author_id}, found: {matches}"
         )
         matched_namespec = matches[0]
-        log.info(f"In {paper_id}, matched author {matched_namespec.name}")
+        if openreview and matched_namespec.openreview not in openreview:
+            continue
+        log.info(
+            f"In {paper_id}, matched author {matched_namespec.name} openreview={matched_namespec.openreview or ''!r}"
+        )
         paper_and_namespec.append((paper, matched_namespec))
 
     numUnlinked = 0
@@ -113,10 +140,14 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
+    assert args["PAPERID"], args["PAPERID"]
+    targets = None if args["PAPERID"] == ["*"] else args["PAPERID"]
+
     msg = unlink_items(
         author_id=args["AUTHORID"],
-        paper_ids=args["PAPERID"],
+        paper_ids=targets,
         keep_only_these_papers=args["--keep"],
+        openreview=(args["--orid"] or "").split(),
         remove_orcid=args["--remove-orcid"],
     )
 

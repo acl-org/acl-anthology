@@ -1,10 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.4] — 2026-10-16
 
 ### Added
 
 - SIGs can now store `venue_ids` to indicate venues that are/have been supported by the SIG.
+- People with similar names can now be accessed more directly via `Person.similar()`.
+- `Venue` and `SIG` can now store `description` and `related_ids`; the latter are symmetric relations exposed via `Venue.related()` and `SIG.related()`.
 
 ### Changed
 

@@ -26,6 +26,7 @@ def test_sig_defaults():
     assert sig.name == "Special Interest Group on Foobar"
     assert sig.url is None
     assert sig.venue_ids == ()
+    assert sig.related_ids == []
 
 
 def test_sigindex_create(anthology):
@@ -223,6 +224,47 @@ def test_sig_remove_venue_not_present_is_noop(anthology):
     sig.remove_venue("natfake")
 
     assert sig.venue_ids == ()
+
+
+def test_sigindex_related(anthology):
+    index = anthology.sigs
+    assert index.related["sigfake1"] == {"sigfake2"}
+    assert index.related["sigfake2"] == {"sigfake1"}
+
+
+def test_sigindex_related_triggers_load(anthology):
+    index = SIGIndex(anthology)
+    assert not index.is_data_loaded
+    assert index.related["sigfake1"] == {"sigfake2"}
+    assert index.is_data_loaded
+
+
+def test_sigindex_reset_clears_related(anthology):
+    index = anthology.sigs
+    assert index.related["sigfake1"] == {"sigfake2"}
+    index.reset()
+    assert len(index._related) == 0
+
+
+def test_sig_related(anthology):
+    sigfake1 = anthology.sigs["sigfake1"]
+    sigfake2 = anthology.sigs["sigfake2"]
+    assert sigfake1.related() == [sigfake2]
+    assert sigfake2.related() == [sigfake1]
+
+
+def test_sig_related_empty(anthology):
+    sig = anthology.sigs.create(
+        id="sigfake3", acronym="SIGFAKE3", name="Another Fake Interest Group"
+    )
+    assert sig.related() == []
+
+
+def test_sig_related_with_nonexistent_sig_raises(anthology):
+    sig = anthology.sigs["sigfake1"]
+    anthology.sigs.related["sigfake1"].add("doesntexist")
+    with pytest.raises(KeyError):
+        _ = sig.related()
 
 
 def test_sigindex_roundtrip_data(anthology, tmp_path):
