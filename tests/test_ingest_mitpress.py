@@ -2,10 +2,12 @@
 
 import importlib.util
 import sys
-from datetime import date
+import pytest
+from datetime import date, datetime, timedelta, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import Mock
+from unittest.mock import MagicMock, Mock
 
 SCRIPT = Path(__file__).resolve().parents[1] / "bin" / "ingest_mitpress.py"
 sys.path.insert(0, str(SCRIPT.parent))
@@ -31,6 +33,76 @@ def test_normalize_author_specs_keeps_unknown_name_split():
     )
 
     assert authors[0].name == INGEST_MITPRESS.Name("New", "Author")
+
+
+@pytest.fixture
+def anthology_with_preferred_author():
+    canonical = INGEST_MITPRESS.Name("Barbara", "Di Eugenio")
+    alias = INGEST_MITPRESS.Name("Barbara Di", "Eugenio")
+    person = SimpleNamespace(
+        canonical_name=canonical,
+        is_explicit=True,
+        disable_name_matching=False,
+    )
+    paper = SimpleNamespace(
+        doi="10.1162/tacl.a.748",
+        full_id="2026.tacl-1.78",
+        authors=[INGEST_MITPRESS.NameSpec(canonical)],
+    )
+    collection = Mock()
+    collection.papers.return_value = [paper]
+    anthology = SimpleNamespace(
+        collections={"2026.tacl": collection},
+        people=SimpleNamespace(
+            by_name={canonical: ["barbara-di-eugenio"], alias: ["barbara-di-eugenio"]},
+            values=lambda: iter([person]),
+        ),
+    )
+    return SimpleNamespace(
+        anthology=anthology, canonical=canonical, paper=paper, collection=collection
+    )
+
+
+def test_normalize_author_specs_uses_canonical_split(anthology_with_preferred_author):
+    state = anthology_with_preferred_author
+    index = INGEST_MITPRESS.build_name_split_index(state.anthology)
+
+    authors = INGEST_MITPRESS.normalize_author_specs(
+        index, [{"first": "Barbara Di", "last": "Eugenio"}]
+    )
+
+    assert authors[0].name == state.canonical
+
+
+def test_ingest_papers_does_not_replace_canonical_split_with_alias(
+    tmp_path, monkeypatch, anthology_with_preferred_author
+):
+    state = anthology_with_preferred_author
+    monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=state.anthology))
+    download = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download)
+    args = SimpleNamespace(
+        anthology_dir=str(tmp_path),
+        pdfs_dir=str(tmp_path),
+        venue="tacl",
+        year=2026,
+        dry_run=False,
+    )
+
+    report = INGEST_MITPRESS.ingest_papers(
+        args,
+        [
+            {
+                "doi": state.paper.doi,
+                "authors": [{"first": "Barbara Di", "last": "Eugenio"}],
+            }
+        ],
+    )
+
+    assert report["existing"] == 1
+    assert report["existing_authors_updated"] == 0
+    assert state.paper.authors[0].name == state.canonical
+    download.assert_not_called()
 
 
 def test_ensure_volume_updates_existing_volume_ingest_date():
@@ -117,6 +189,258 @@ def test_find_mitpress_watermark_pages_handles_zero_width_spaces(monkeypatch):
     assert INGEST_MITPRESS.find_mitpress_watermark_pages(Path("paper.pdf")) == [2]
 
 
+@pytest.mark.parametrize(
+    "status, response_url",
+    [
+        (403, "https://direct.mit.edu/crawlprevention/governor"),
+        (429, "https://direct.mit.edu/tacl/article-pdf/paper.pdf"),
+        (200, "https://direct.mit.edu/crawlprevention/governor"),
+    ],
+)
+@pytest.mark.parametrize("retry_after", [None, "invalid", "-5"])
+def test_maybe_download_pdf_stops_on_publisher_block(
+    tmp_path, monkeypatch, caplog, status, response_url, retry_after
+):
+    destination = tmp_path / "paper.pdf"
+    destination.write_bytes(b"existing PDF")
+    response = Mock(
+        status_code=status,
+        url=response_url,
+        headers={} if retry_after is None else {"Retry-After": retry_after},
+    )
+    response.iter_content.return_value = [b"<html>Access blocked</html>"]
+    if status >= 400:
+        response.raise_for_status.side_effect = INGEST_MITPRESS.requests.HTTPError(
+            f"HTTP {status}", response=response
+        )
+    request = MagicMock()
+    request.return_value.__enter__.return_value = response
+    monkeypatch.setattr(INGEST_MITPRESS.requests, "get", request)
+    sleep = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+    cleanup = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_remove_mitpress_watermark", cleanup)
+
+    ok, _ = INGEST_MITPRESS.maybe_download_pdf(
+        "10.1162/tacl.a.785", destination, dry_run=False
+    )
+
+    assert not ok
+    request.assert_called_once()
+    sleep.assert_not_called()
+    cleanup.assert_not_called()
+    assert destination.read_bytes() == b"existing PDF"
+    assert list(tmp_path.iterdir()) == [destination]
+    assert "Not retrying" in caplog.text
+    if retry_after is not None:
+        assert "Invalid Retry-After" in caplog.text
+
+
+@pytest.mark.parametrize("header, expected", [("3600", 3600), ("0", 0), (" 120 ", 120)])
+def test_retry_after_delay_seconds(header, expected):
+    response = INGEST_MITPRESS.requests.Response()
+    response.status_code = 429
+    response.headers["Retry-After"] = header
+
+    assert INGEST_MITPRESS.retry_after_delay(response) == expected
+
+
+@pytest.mark.parametrize("seconds", [121, 0, -121])
+def test_retry_after_delay_http_date(monkeypatch, seconds):
+    now = datetime(2026, 10, 8, 15, tzinfo=timezone.utc)
+    header = format_datetime(now + timedelta(seconds=seconds), usegmt=True)
+    response = Mock(headers={"Retry-After": header})
+    monkeypatch.setattr(INGEST_MITPRESS.time, "time", lambda: now.timestamp())
+
+    assert INGEST_MITPRESS.retry_after_delay(response) == max(0, seconds)
+
+
+@pytest.mark.parametrize("header", ["", "invalid", "-1", "1.5"])
+def test_retry_after_delay_rejects_invalid_header(header, caplog):
+    response = Mock(headers={"Retry-After": header}, url="https://example.test/pdf")
+
+    assert INGEST_MITPRESS.retry_after_delay(response) is None
+    assert "Invalid Retry-After" in caplog.text
+
+
+def test_retry_after_delay_missing_header():
+    assert INGEST_MITPRESS.retry_after_delay(None) is None
+    assert INGEST_MITPRESS.retry_after_delay(Mock(headers={})) is None
+
+
+@pytest.mark.parametrize("status", [200, 403, 429, 503])
+@pytest.mark.parametrize("date_header", [False, True])
+def test_maybe_download_pdf_honors_retry_after(
+    tmp_path, monkeypatch, status, date_header
+):
+    destination = tmp_path / "paper.pdf"
+    destination.write_bytes(b"existing PDF")
+    now = datetime(2026, 10, 8, 15, tzinfo=timezone.utc)
+    header = (
+        format_datetime(now + timedelta(seconds=3600), usegmt=True)
+        if date_header
+        else "3600"
+    )
+    blocked = MagicMock(
+        status_code=status,
+        url=(
+            "https://direct.mit.edu/crawlprevention/governor"
+            if status in {200, 403}
+            else "https://direct.mit.edu/tacl/article-pdf/paper.pdf"
+        ),
+        headers={"Retry-After": header},
+    )
+    blocked.__enter__.return_value = blocked
+    blocked.raise_for_status.side_effect = INGEST_MITPRESS.requests.HTTPError(
+        f"HTTP {status}", response=blocked
+    )
+    success = MagicMock(
+        status_code=200,
+        url="https://example.test/paper.pdf",
+        headers={},
+    )
+    success.__enter__.return_value = success
+    success.iter_content.return_value = [b"new PDF"]
+    request = Mock(side_effect=[blocked, success])
+    monkeypatch.setattr(INGEST_MITPRESS.requests, "get", request)
+    monkeypatch.setattr(INGEST_MITPRESS.time, "time", lambda: now.timestamp())
+
+    def wait(seconds):
+        assert seconds == 3600
+        assert request.call_count == 1
+        assert destination.read_bytes() == b"existing PDF"
+
+    sleep = Mock(side_effect=wait)
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+    monkeypatch.setattr(
+        INGEST_MITPRESS, "maybe_remove_mitpress_watermark", Mock(return_value=1)
+    )
+    monkeypatch.setattr(
+        INGEST_MITPRESS, "find_mitpress_watermark_pages", Mock(return_value=[])
+    )
+
+    ok, _ = INGEST_MITPRESS.maybe_download_pdf(
+        "10.1162/tacl.a.785", destination, dry_run=False
+    )
+
+    assert ok
+    assert request.call_count == 2
+    sleep.assert_called_once_with(3600)
+    assert destination.read_bytes() == b"new PDF"
+    assert list(tmp_path.iterdir()) == [destination]
+
+
+def test_maybe_download_pdf_retry_after_remains_bounded(tmp_path, monkeypatch):
+    destination = tmp_path / "paper.pdf"
+    destination.write_bytes(b"existing PDF")
+    blocked = MagicMock(
+        status_code=429,
+        url="https://direct.mit.edu/crawlprevention/governor",
+        headers={"Retry-After": "3600"},
+    )
+    blocked.__enter__.return_value = blocked
+    request = Mock(return_value=blocked)
+    monkeypatch.setattr(INGEST_MITPRESS.requests, "get", request)
+    sleep = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+
+    ok, _ = INGEST_MITPRESS.maybe_download_pdf(
+        "10.1162/tacl.a.785", destination, dry_run=False
+    )
+
+    assert not ok
+    assert request.call_count == INGEST_MITPRESS.PDF_DOWNLOAD_RETRIES
+    assert sleep.call_count == INGEST_MITPRESS.PDF_DOWNLOAD_RETRIES - 1
+    assert all(call.args == (3600,) for call in sleep.call_args_list)
+    assert destination.read_bytes() == b"existing PDF"
+
+
+@pytest.mark.parametrize("status", [429, 503])
+@pytest.mark.parametrize("date_header", [False, True])
+def test_crossref_request_json_honors_retry_after(monkeypatch, status, date_header):
+    now = datetime(2026, 10, 8, 15, tzinfo=timezone.utc)
+    header = (
+        format_datetime(now + timedelta(seconds=120), usegmt=True)
+        if date_header
+        else "120"
+    )
+    response = Mock(
+        status_code=status,
+        headers={"Retry-After": header},
+        url=INGEST_MITPRESS.CROSSREF_API,
+    )
+    error = INGEST_MITPRESS.requests.HTTPError(f"HTTP {status}", response=response)
+    success = Mock()
+    success.json.return_value = {"message": {"items": []}}
+    session = Mock()
+    session.get.side_effect = [error, success]
+    sleep = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+    monkeypatch.setattr(INGEST_MITPRESS.time, "time", lambda: now.timestamp())
+
+    payload = INGEST_MITPRESS.crossref_request_json(session, {})
+
+    assert payload == {"message": {"items": []}}
+    assert session.get.call_count == 2
+    sleep.assert_called_once_with(120)
+
+
+def test_crossref_request_json_invalid_retry_after_uses_backoff(monkeypatch, caplog):
+    response = Mock(
+        headers={"Retry-After": "invalid"},
+        url=INGEST_MITPRESS.CROSSREF_API,
+    )
+    error = INGEST_MITPRESS.requests.HTTPError("HTTP 503", response=response)
+    success = Mock()
+    success.json.return_value = {"message": {}}
+    session = Mock()
+    session.get.side_effect = [error, success]
+    sleep = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+
+    assert INGEST_MITPRESS.crossref_request_json(session, {}) == {"message": {}}
+    sleep.assert_called_once_with(2)
+    assert "Invalid Retry-After" in caplog.text
+
+
+def test_maybe_download_pdf_retries_transient_error_without_overwriting(
+    tmp_path, monkeypatch
+):
+    destination = tmp_path / "paper.pdf"
+    destination.write_bytes(b"existing PDF")
+    staged_paths = []
+
+    def download(_url, path):
+        staged = Path(path)
+        staged_paths.append(staged)
+        assert destination.read_bytes() == b"existing PDF"
+        staged.write_bytes(b"new PDF")
+        if len(staged_paths) == 1:
+            raise INGEST_MITPRESS.requests.ConnectionError("Connection interrupted")
+
+    monkeypatch.setattr(INGEST_MITPRESS, "retrieve_url", download)
+    monkeypatch.setattr(
+        INGEST_MITPRESS, "maybe_remove_mitpress_watermark", Mock(return_value=1)
+    )
+    monkeypatch.setattr(
+        INGEST_MITPRESS, "find_mitpress_watermark_pages", Mock(return_value=[])
+    )
+    sleep = Mock()
+    monkeypatch.setattr(INGEST_MITPRESS.time, "sleep", sleep)
+
+    ok, _ = INGEST_MITPRESS.maybe_download_pdf(
+        "10.1162/tacl.a.785", destination, dry_run=False
+    )
+
+    assert ok
+    assert len(staged_paths) == 2
+    assert all(path != destination and not path.exists() for path in staged_paths)
+    sleep.assert_called_once_with(INGEST_MITPRESS.PDF_DOWNLOAD_RETRY_BASE_DELAY_SEC)
+    assert destination.read_bytes() == b"new PDF"
+    assert destination.stat().st_mode & 0o777 == INGEST_MITPRESS.PDF_FILE_MODE
+    assert list(tmp_path.iterdir()) == [destination]
+
+
 def test_maybe_download_pdf_fails_when_no_watermark_is_removed(tmp_path, monkeypatch):
     destination = tmp_path / "paper.pdf"
     monkeypatch.setattr(
@@ -173,7 +497,7 @@ def test_ingest_papers_does_not_download_pdf_for_existing_paper(tmp_path, monkey
     collection.papers.return_value = [existing_paper]
     anthology = SimpleNamespace(
         collections={"2026.cl": collection},
-        people=SimpleNamespace(by_name={}),
+        people=SimpleNamespace(by_name={}, values=lambda: iter(())),
     )
     monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
     download_pdf = Mock(return_value=(True, "https://example.test/paper.pdf"))
@@ -288,11 +612,104 @@ def test_discover_papers_warns_for_crossref_correction(monkeypatch, caplog):
         SimpleNamespace(venue="tacl", year=2026, volume=None)
     )
 
-    assert papers[0]["doi"] == "10.1162/tacl.x.779"
+    assert papers == [
+        {
+            "doi": "10.1162/tacl.x.779",
+            "erratum_targets": ["10.1162/tacl.a.742"],
+        }
+    ]
     assert "Crossref identifies DOI 10.1162/tacl.x.779" in caplog.text
     assert "as a correction/erratum for" in caplog.text
     assert '"Example paper" (DOI 10.1162/tacl.a.742)' in caplog.text
-    assert "not automatically suppressed" in caplog.text
+    assert "title identifies it as an erratum" in caplog.text
+    assert "unless the target already has an erratum" in caplog.text
+
+
+def test_discover_papers_does_not_attach_correction_without_erratum_title(monkeypatch):
+    correction = {
+        "DOI": "10.1162/tacl.x.779",
+        "title": ["Correction notice"],
+        "volume": "14",
+        "update-to": [
+            {"DOI": "10.1162/tacl.a.742", "type": "correction", "label": "Correction"}
+        ],
+    }
+    monkeypatch.setattr(
+        INGEST_MITPRESS,
+        "discover_crossref_items",
+        Mock(return_value=[correction]),
+    )
+
+    papers = INGEST_MITPRESS.discover_papers(
+        SimpleNamespace(venue="tacl", year=2026, volume=None)
+    )
+
+    assert papers[0]["title"] == "Correction notice"
+    assert "erratum_targets" not in papers[0]
+
+
+@pytest.mark.parametrize("has_existing_erratum", [False, True])
+def test_ingest_papers_attaches_erratum_only_when_target_has_none(
+    tmp_path, monkeypatch, has_existing_erratum
+):
+    existing_erratum = SimpleNamespace(id="1") if has_existing_erratum else None
+    target_collection = Mock()
+    target = SimpleNamespace(
+        doi="10.1162/tacl.a.742",
+        authors=[],
+        full_id="2026.tacl-1.1",
+        errata=(existing_erratum,) if existing_erratum else (),
+        collection=target_collection,
+    )
+    collection = Mock()
+    collection.papers.return_value = [target]
+    anthology = SimpleNamespace(
+        collections={"2026.tacl": collection},
+        people=SimpleNamespace(by_name={}, values=lambda: iter(())),
+        papers=lambda: iter([target]),
+    )
+    monkeypatch.setattr(INGEST_MITPRESS, "Anthology", Mock(return_value=anthology))
+    download_pdf = Mock(return_value=(True, "https://example.test/erratum.pdf"))
+    monkeypatch.setattr(INGEST_MITPRESS, "maybe_download_pdf", download_pdf)
+    pdf_reference = Mock()
+    monkeypatch.setattr(
+        INGEST_MITPRESS.PDFReference, "from_file", Mock(return_value=pdf_reference)
+    )
+    paper_erratum = Mock(return_value=SimpleNamespace(id="1"))
+    monkeypatch.setattr(INGEST_MITPRESS, "PaperErratum", paper_erratum)
+    args = SimpleNamespace(
+        anthology_dir=str(tmp_path),
+        pdfs_dir=str(tmp_path),
+        venue="tacl",
+        year=2026,
+        dry_run=False,
+    )
+
+    report = INGEST_MITPRESS.ingest_papers(
+        args,
+        [
+            {
+                "doi": "10.1162/tacl.x.779",
+                "erratum_targets": ["10.1162/tacl.a.742"],
+            }
+        ],
+    )
+
+    if has_existing_erratum:
+        download_pdf.assert_not_called()
+        paper_erratum.assert_not_called()
+        assert report["existing_errata"] == 1
+        assert report["errata_attached"] == 0
+    else:
+        download_pdf.assert_called_once()
+        paper_erratum.assert_called_once_with(
+            id="1",
+            pdf=pdf_reference,
+            date=date.today(),
+        )
+        assert target.errata[0].id == "1"
+        assert report["existing_errata"] == 0
+        assert report["errata_attached"] == 1
 
 
 def test_discover_papers_warns_for_revision_and_identifies_target(monkeypatch, caplog):
