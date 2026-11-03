@@ -42,7 +42,6 @@ from docopt import docopt
 from typing import Optional
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
 from acl_anthology.utils.logging import setup_rich_logging
 
 
@@ -75,11 +74,7 @@ def unlink_items(
     paper_and_namespec = []
     for paper_id, paper in items:
         # match the author of the paper by name slug
-        namespecs = (
-            paper.editors
-            if isinstance(paper, Paper) and paper.is_frontmatter
-            else paper.namespecs
-        )
+        namespecs = paper.namespecs
         matches = [namespec for namespec in namespecs if namespec.id == author_id]
         if not paper_ids and not matches:
             continue  # Skip paper with implicit match

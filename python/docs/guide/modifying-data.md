@@ -131,7 +131,7 @@ existing author's name, you need to remember that **names are immutable**, but
 #### Citation keys
 If a paper's title or author list has changed, you might want to recreate its
 citation key (or 'bibkey').  This can be done by calling
-[`Paper.refresh_bibkey()`][acl_anthology.collections.paper.Paper.refresh_bibkey].
+[`Paper.refresh_bibkey()`][acl_anthology.collections.record.Record.refresh_bibkey].
 If the auto-generated bibkey is identical to the current one, the bibkey will
 not change.
 

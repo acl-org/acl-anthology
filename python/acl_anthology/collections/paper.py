@@ -18,11 +18,10 @@ import attrs
 from attrs import define, field, converters, setters, validators as v
 import datetime
 import itertools as it
-import langcodes
 from lxml import etree
 from lxml.builder import E
 import sys
-from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
+from typing import Any, ClassVar, Iterable, Optional, TYPE_CHECKING
 
 if sys.version_info >= (3, 13):
     from warnings import deprecated
@@ -30,13 +29,11 @@ else:
     from typing_extensions import deprecated
 
 from .. import constants
-from ..config import config
 from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
 from ..files import (
     AttachmentReference,
     AudioReference,
     PDFReference,
-    PDFThumbnailReference,
     URLReference,
     VideoReference,
     validate_url_tuple,
@@ -51,19 +48,22 @@ from ..utils.attrs import (
     int_to_str,
     into_namespec_tuple,
     track_modifications,
-    ConvertableIntoDate,
 )
-from ..utils.citation import citeproc_render_html, render_acl_citation
-from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
-from ..utils.latex import make_bibtex_entry
+from ..utils.ids import is_valid_item_id
 from ..utils.logging import get_logger
-from .types import PaperDeletionType, PaperType, VolumeType
+from .types import PaperType, VolumeType
+from .types import PaperDeletionType as PaperDeletionType
+from .item import update_person_itemids, validate_pdf
+from .record import (
+    DeletionNotice as PaperDeletionNotice,
+    PDFRecord,
+    update_bibkey,
+    validate_attachment,
+)
 
 if TYPE_CHECKING:
-    from ..anthology import Anthology
-    from ..people import Person
     from ..utils.latex import SerializableAsBibTeX
-    from . import Event, Volume, Collection
+    from . import Event, Frontmatter, Volume
 
 log = get_logger()
 
@@ -164,7 +164,7 @@ class PaperRevision:
     """A reference to the revision's PDF.
 
     Note:
-        The `name` on this reference is only correctly resolved when accessed via [`Paper.revisions`][acl_anthology.collections.paper.Paper.revisions]; it is derived from the parent paper's `full_id` and is not present in the XML.
+        The `name` on this reference is only correctly resolved when accessed via [`PDFRecord.revisions`][acl_anthology.collections.record.PDFRecord.revisions]; it is derived from the parent record's `full_id` and is not present in the XML.
     """
 
     date: Optional[str] = field(
@@ -212,56 +212,8 @@ class PaperRevision:
         return elem
 
 
-@attach_custom_repr
-@define(field_transformer=auto_validate_types, frozen=True)
-class PaperDeletionNotice:
-    """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
-
-    type: PaperDeletionType = field(converter=PaperDeletionType)
-    """Type indicating whether the paper was _retracted_ or _removed_."""
-
-    note: Optional[str] = field()
-    """A note explaining the retraction or removal."""
-
-    date: str = field(
-        default=None, converter=date_to_str, validator=v.matches_re(constants.RE_ISO_DATE)
-    )
-    """The date on which the paper was retracted or removed."""
-
-    @classmethod
-    def from_xml(cls, element: etree._Element) -> PaperDeletionNotice:
-        """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
-        return cls(
-            type=PaperDeletionType(str(element.tag)),
-            note=str(element.text) if element.text else None,
-            date=str(element.get("date")),
-        )
-
-    def to_xml(self) -> etree._Element:
-        """
-        Returns:
-            A serialization of this deletion notice in Anthology XML format.
-        """
-        return cast(
-            etree._Element,
-            getattr(E, self.type.value)(self.note if self.note else "", date=self.date),
-        )
-
-
-def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
-    if (
-        not isinstance(value, tuple)
-        or len(value) != 2
-        or not isinstance(value[0], str)
-        or not isinstance(value[1], AttachmentReference)
-    ):
-        raise TypeError(
-            f"'attachments' needs to contain tuples of (str, AttachmentReference) (got: {value!r})"
-        )
-
-
 def _check_pdf_names(
-    paper: Paper, letter: str, value: Iterable[PaperErratum | PaperRevision]
+    paper: PDFRecord, letter: str, value: Iterable[PaperErratum | PaperRevision]
 ) -> None:
     """Verify that each item's PDF reference name, if given, matches the name that would automatically be derived for it from `paper`'s `full_id` and the item's own `id` (see `Paper.errata`/`Paper.revisions`).
 
@@ -282,7 +234,7 @@ def _check_errata_pdf_names(
 
 
 def _check_revisions_pdf_names(
-    paper: Paper, _: Any, value: tuple[PaperRevision, ...]
+    paper: PDFRecord, _: Any, value: tuple[PaperRevision, ...]
 ) -> None:
     _check_pdf_names(paper, "v", value)
 
@@ -297,48 +249,16 @@ def _into_award_tuple(value: Iterable[str | Award]) -> tuple[Award, ...]:
     )
 
 
-def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -> str:
-    """Update the bibkey in [BibkeyIndex][acl_anthology.collections.bibkeys.BibkeyIndex].
-
-    Intended to be called from `on_setattr` of an [attrs.field][].
-    """
-    bibkey_index = paper.root.collections.bibkeys
-    value = bibkey_index._index_paper(value, paper)
-    return value
-
-
-def _update_person_itemids(
-    paper: Paper, attr: attrs.Attribute[Any], value: tuple[NameSpecification, ...]
-) -> tuple[NameSpecification, ...]:
-    """Update the `item_ids` of persons linked to or unlinked from a paper/volume.
-
-    Intended to be called from `on_setattr` of an [attrs.field][].
-    """
-    person_index = paper.root.people
-    if person_index.is_data_loaded:
-        old_value = getattr(paper, attr.name)
-        # Update item_ids for people who are no longer on this item
-        for namespec in set(old_value) - set(value):
-            person = namespec.resolve()
-            person.item_ids.discard(paper.full_id_tuple)
-        # Update item_ids for people who are newly on this item
-        for namespec in set(value) - set(old_value):
-            person = person_index._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.add(paper.full_id_tuple)
-    return value
-
-
 @attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
-class Paper:
-    """A citable entry: a paper, frontmatter, or standalone media item.
+class Paper(PDFRecord):
+    """A printed paper, distinct from frontmatter and standalone media.
 
     Info:
         To create a new paper, use [`Volume.create_paper()`][acl_anthology.collections.volume.Volume.create_paper].
-        For standalone recordings, use [`Volume.create_media()`][acl_anthology.collections.volume.Volume.create_media].
 
     Attributes: Required Attributes:
         id: The ID of this paper (e.g. "1" or "42").
@@ -365,18 +285,15 @@ class Paper:
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
-        type: The item's type, including frontmatter, backmatter, and media genres.
-        publication_date: An exact publication/release date in ISO format. For media this also determines the citation year, independently of the event/volume year.
-        duration: The recording's duration in seconds.
-        episode: The episode number or identifier within a media series.
-        license: A URL describing the recording's license.
+        type: Whether this is a regular paper or backmatter.
     """
 
+    _namespec_fields: ClassVar[tuple[str, ...]] = ("authors", "_editors")
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
         validator=v.matches_re(constants.RE_BIBKEY),
-        on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
+        on_setattr=[setters.validate, track_modifications, update_bibkey],
     )
     title: MarkupText = field(converter=to_markuptext)
 
@@ -384,7 +301,7 @@ class Paper:
         default=(),
         converter=tuple,
         validator=v.deep_iterable(
-            member_validator=_attachment_validator,
+            member_validator=validate_attachment,
             iterable_validator=v.instance_of(tuple),
         ),
     )
@@ -395,7 +312,7 @@ class Paper:
             setters.convert,
             setters.validate,
             attach_parent,
-            _update_person_itemids,
+            update_person_itemids,
             track_modifications,
         ],
     )
@@ -407,7 +324,7 @@ class Paper:
             setters.convert,
             setters.validate,
             attach_parent,
-            _update_person_itemids,
+            update_person_itemids,
             track_modifications,
         ],
     )
@@ -466,31 +383,17 @@ class Paper:
     pages: Optional[str] = field(default=None)
     _pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
-    publication_date: Optional[str] = field(
-        default=None,
-        converter=date_to_str,
-        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
-    )
-    duration: Optional[int] = field(
-        default=None, validator=v.optional(v.and_(v.instance_of(int), v.gt(0)))
-    )
-    episode: Optional[str] = field(
-        default=None,
-        converter=int_to_str,
-        validator=v.optional(v.matches_re(r"\S(?:.*\S)?")),
-    )
-    license: Optional[str] = field(default=None)
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self._editors):
             namespec.parent = self
 
-    @publication_date.validator
-    def _check_publication_date(self, _: Any, value: Optional[str]) -> None:
-        if value is not None:
-            parsed = datetime.date.fromisoformat(value)
-            if not self.is_media and str(parsed.year) != self.parent.year:
-                raise ValueError("Publication date must be within the volume's year")
+    @type.validator
+    def _check_type(self, _: Any, value: PaperType) -> None:
+        if value == PaperType.FRONTMATTER:
+            raise ValueError(
+                "Frontmatter is a separate record; use Volume.create_frontmatter()"
+            )
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -499,104 +402,15 @@ class Paper:
 
     @_pdf.validator
     def _check_pdf(self, _: Any, value: Any) -> None:
-        # Adding this validator disables auto_validate_types for this field, so
-        # we need to check the type explicitly here, too.
-        if value is None:
-            return
-        if not isinstance(value, PDFReference):
-            raise TypeError(
-                f"'pdf' must be Optional[{PDFReference!r}] (got '{value!r}' that is a {type(value)!r})"
-            )
-        # <pdf> must be a local file reference according to the schema
-        if not value.is_local:
-            raise ValueError(
-                f"'pdf' of a Paper must be a local file reference (got '{value}')"
-            )
-        # If a name is given, it must match what would be derived automatically
-        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
-        if value.name and value.name != self.full_id:
-            raise ValueError(
-                f"PDF reference name {value.name!r} does not match this paper's full_id {self.full_id!r}"
-            )
-
-    @property
-    def collection(self) -> Collection:
-        """The collection this paper belongs to."""
-        return self.parent.parent
-
-    @property
-    def collection_id(self) -> str:
-        """The collection ID this paper belongs to."""
-        return self.parent.collection_id
-
-    @property
-    def volume_id(self) -> str:
-        """The volume ID this paper belongs to."""
-        return self.parent.id
-
-    @property
-    def full_id(self) -> str:
-        """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
-        return build_id(self.parent.parent.id, self.parent.id, self.id)
-
-    @property
-    def full_id_tuple(self) -> AnthologyIDTuple:
-        """The full anthology ID of this paper, as a tuple (e.g. `("L06", "1", "42")`)."""
-        return (self.parent.parent.id, self.parent.id, self.id)
-
-    @property
-    def is_deleted(self) -> bool:
-        """Returns True if this paper was retracted or removed from the Anthology."""
-        return self.deletion is not None
-
-    @property
-    def is_frontmatter(self) -> bool:
-        """Returns True if this paper represents a volume's frontmatter."""
-        return self.type == PaperType.FRONTMATTER
-
-    @property
-    def is_media(self) -> bool:
-        """Whether this is a standalone recording rather than a paper with a video."""
-        return self.type.is_media
-
-    @property
-    def type_label(self) -> str:
-        """A human-readable label for the item's genre."""
-        if self.type == PaperType.PODCAST:
-            return "Podcast episode"
-        if self.type == PaperType.MEDIA:
-            return "Media recording"
-        return self.type.value.capitalize()
-
-    @property
-    def media_format(self) -> str:
-        """The recording format, for citations; independent of playback permission."""
-        if self.audios and self.videos:
-            return "Audio and video recording"
-        if self.audios:
-            return "Audio recording"
-        if self.videos:
-            return "Video recording"
-        return "Recording"
-
-    @property
-    def root(self) -> Anthology:
-        """The Anthology instance to which this object belongs."""
-        return self.parent.parent.parent.parent
+        validate_pdf(self, _, value)
 
     @property
     def bibtype(self) -> str:
         """The BibTeX entry type for this paper."""
-        if self.is_media or self.parent.type == VolumeType.MEDIA:
-            return "misc"
-        match self.is_frontmatter, self.parent.type:
-            case (True, VolumeType.JOURNAL):
-                return "book"
-            case (False, VolumeType.JOURNAL):
+        match self.parent.type:
+            case VolumeType.JOURNAL:
                 return "article"
-            case (True, VolumeType.PROCEEDINGS):
-                return "proceedings"
-            case (False, VolumeType.PROCEEDINGS):
+            case VolumeType.PROCEEDINGS:
                 return "inproceedings"
             case _:  # pragma: no cover
                 raise ValueError(f"Unknown volume type: {self.parent.type}")
@@ -604,83 +418,21 @@ class Paper:
     @property
     def csltype(self) -> str:
         """The [CSL type](https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types) for this paper."""
-        if self.is_media:
-            if self.type == PaperType.PODCAST:
-                return "broadcast"
-            if self.type == PaperType.MEDIA and self.videos:
-                return "motion_picture"
-            return "speech"
-        if self.is_frontmatter:
-            return "book"
         if self.parent.type == VolumeType.JOURNAL:
             return "article-journal"
         # else:
         return "paper-conference"
 
     @property
-    def citeproc_dict(self) -> dict[str, Any]:
-        """The citation object corresponding to this paper for use with CiteProcJSON."""
-        data: dict[str, Any] = {
-            "id": self.bibkey,
-            "title": self.title.as_text(),
-            "type": self.csltype,
-            "author": [namespec.citeproc_dict for namespec in self.authors],
-            "editor": [namespec.citeproc_dict for namespec in self.editors],
-            "publisher": self.publisher,
-            "publisher-place": self.address,
-            # TODO: month currently not included
-            "issued": {"date-parts": [[self.year]]},
-            "URL": self.web_url,
-            "DOI": self.doi,
-            "ISBN": self.parent.isbn,
-            "page": self.pages,
-        }
-        if self.is_frontmatter:
-            data["author"] = data["editor"]
-        if self.is_media:
-            data["container-title"] = self.parent.title.as_text()
-            data["genre"] = self.type_label
-            data["medium"] = self.media_format
-            if self.episode is not None:
-                data["number"] = self.episode
-            if self.publication_date is not None:
-                data["issued"] = {
-                    "date-parts": [
-                        [int(part) for part in self.publication_date.split("-")]
-                    ]
-                }
-        elif self.parent.type == VolumeType.JOURNAL:
-            data["container-title"] = self.journal_title
-            data["volume"] = self.journal_volume
-            data["issue"] = self.journal_issue
-        elif self.parent.type == VolumeType.PROCEEDINGS:
-            data["container-title"] = self.parent.title.as_text()
-        return {k: v for k, v in data.items() if v is not None}
-
-    @property
-    def address(self) -> Optional[str]:
-        """The publisher's address for this paper. Inherited from the parent Volume."""
-        return self.parent.address
-
-    @property
     def month(self) -> Optional[str]:
         """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
         if self._month is None:
-            if self.publication_date is not None:
-                return datetime.date.fromisoformat(self.publication_date).strftime("%B")
             return self.parent.month
         return self._month
 
     @month.setter
     def month(self, value: Optional[str]) -> None:
         self._month = value
-
-    @property
-    def year(self) -> str:
-        """The year of publication. Uses a media item's release date when provided, otherwise inherits the parent Volume's year."""
-        if self.is_media and self.publication_date is not None:
-            return self.publication_date[:4]
-        return self.parent.year
 
     @property
     def editors(self) -> tuple[NameSpecification, ...]:
@@ -694,17 +446,6 @@ class Paper:
         self._editors = into_namespec_tuple(value)
 
     @property
-    def ingest_date(self) -> datetime.date:
-        """The date when this paper was added to the Anthology. Uses the paper's own ingestion date if set, otherwise inherited from the parent Volume."""
-        if self._ingest_date is None:
-            return self.parent.ingest_date
-        return datetime.date.fromisoformat(self._ingest_date)
-
-    @ingest_date.setter
-    def ingest_date(self, value: ConvertableIntoDate) -> None:
-        self._ingest_date = date_to_str(value)
-
-    @property
     def journal_issue(self) -> Optional[str]:
         """The issue number of this paper. Uses the paper's own issue number if set, otherwise inherited from the parent Volume."""
         if self._journal_issue is None:
@@ -716,11 +457,6 @@ class Paper:
         self._journal_issue = value
 
     @property
-    def journal_volume(self) -> Optional[str]:
-        """The volume number of this paper. Inherited from the parent Volume."""
-        return self.parent.journal_volume
-
-    @property
     def journal_title(self) -> Optional[str]:
         """The journal title of this paper. Uses the paper's own journal title if set, otherwise inherited from the parent Volume."""
         if self._journal_title is None:
@@ -730,32 +466,6 @@ class Paper:
     @journal_title.setter
     def journal_title(self, value: Optional[str]) -> None:
         self._journal_title = value
-
-    @property
-    def publisher(self) -> Optional[str]:
-        """The paper's publisher. Inherited from the parent Volume."""
-        return self.parent.publisher
-
-    @property
-    def pdf(self) -> Optional[PDFReference]:
-        """A reference to the paper's PDF.
-
-        `<pdf>` always refers to a local file, so the reference's `name` is derived from this paper's `full_id` rather than stored -- it is not present in the XML.
-        """
-        if self._pdf is None:
-            return None
-        return attrs.evolve(self._pdf, name=self.full_id)
-
-    @pdf.setter
-    def pdf(self, value: Optional[PDFReference]) -> None:
-        self._pdf = value
-
-    @property
-    def thumbnail(self) -> Optional[PDFThumbnailReference]:
-        """A reference to a thumbnail image of the paper's PDF."""
-        if self._pdf is not None:
-            return PDFThumbnailReference(self.full_id)
-        return None
 
     @property
     def errata(self) -> tuple[PaperErratum, ...]:
@@ -774,48 +484,6 @@ class Paper:
     @errata.setter
     def errata(self, value: Iterable[PaperErratum]) -> None:
         self._errata = tuple(value)
-
-    @property
-    def revisions(self) -> tuple[PaperRevision, ...]:
-        """Revisions for this paper; can be empty.
-
-        Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id` -- it is not present in the XML.
-        """
-        return tuple(
-            attrs.evolve(
-                revision,
-                pdf=attrs.evolve(revision.pdf, name=f"{self.full_id}v{revision.id}"),
-            )
-            for revision in self._revisions
-        )
-
-    @revisions.setter
-    def revisions(self, value: Iterable[PaperRevision]) -> None:
-        self._revisions = tuple(value)
-
-    @property
-    def language_name(self) -> Optional[str]:
-        """The name of the language this paper is written in, if specified."""
-        if self.language is None:
-            return None
-        return langcodes.Language.get(self.language).display_name()
-
-    @property
-    def venue_ids(self) -> tuple[str, ...]:
-        """Sequence of venue IDs associated with this paper. Inherited from the parent Volume."""
-        return self.parent.venue_ids
-
-    @property
-    def web_url(self) -> str:
-        """The URL of this paper's landing page on the ACL Anthology website."""
-        return cast(str, config["paper_page_template"]).format(self.full_id)
-
-    @property
-    def namespecs(self) -> tuple[NameSpecification, ...]:
-        """All name specifications on this paper."""
-        if not self._editors:
-            return self.authors
-        return self.authors + self._editors
 
     @deprecated("Paper.get_editors() is deprecated in favor of Paper.editors")
     def get_editors(self) -> tuple[NameSpecification, ...]:  # pragma: no cover
@@ -840,208 +508,34 @@ class Paper:
     def get_journal_title(self) -> str:  # pragma: no cover
         return self.journal_title or ""
 
-    def get_namespec_for(self, person: Person) -> NameSpecification:
-        """Find the NameSpecification on this paper that refers to a given Person.
-
-        Arguments:
-            person: A person that is an author/editor on this paper.
-
-        Returns:
-            The first NameSpecification that resolves to the given Person.
-
-        Raises:
-            ValueError: If none of the authors/editors resolve to the given Person.
-        """
-        namespecs = (
-            it.chain(self.namespecs, self.editors)
-            if self.is_frontmatter
-            else self.namespecs
-        )
-        for namespec in namespecs:
-            if namespec.resolve() is person:
-                return namespec
-        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
-
-    def refresh_bibkey(self) -> str:
-        """Replace this paper's bibkey with a unique, automatically-generated one.
-
-        Can be used to re-generate a bibkey after the title or author information has been modified.
-
-        Returns:
-            The new bibkey.  (May be identical to the current one.)
-        """
-        # Triggers the re-creation of the bibkey via on_setattr mechanism
-        self.bibkey = constants.NO_BIBKEY
-        return self.bibkey
-
-    def to_bibtex(self, with_abstract: bool = False) -> str:
-        """Generate a BibTeX entry for this paper.
-
-        Arguments:
-            with_abstract: If True, includes the abstract in the BibTeX entry.
-
-        Returns:
-            The BibTeX entry for this paper as a formatted string.
-
-        Raises:
-            ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
-        """
-        if self.bibkey == constants.NO_BIBKEY:  # pragma: no cover
-            raise ValueError("Cannot generate BibTeX entry without bibkey")
-        # Note: Fields are added in the order in which they will appear in the
-        # BibTeX entry, for reproducibility
-        bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
-            ("title", self.title),
-            ("author", self.authors),
-            ("editor", self.editors),
-        ]
-        if self.is_media:
-            bibtex_fields.extend(
-                [
-                    ("howpublished", self.parent.title),
-                    ("type", self.type_label),
-                    ("number", self.episode),
-                    ("date", self.publication_date),
-                ]
-            )
-        elif not self.is_frontmatter:
-            match self.parent.type:
-                case VolumeType.JOURNAL:
-                    bibtex_fields.extend(
-                        [
-                            ("journal", self.journal_title),
-                            ("volume", self.journal_volume),
-                            ("number", self.journal_issue),
-                        ]
-                    )
-                case VolumeType.PROCEEDINGS:
-                    bibtex_fields.append(("booktitle", self.parent.title))
-        bibtex_fields.extend(
-            [
-                ("month", self.month),
-                ("year", self.year),
-                ("address", self.address),
-                ("publisher", self.publisher),
-                (
-                    "note",
-                    ". ".join(
-                        filter(
-                            None,
-                            (
-                                f"{self.type_label} {self.episode}"
-                                if self.episode is not None
-                                else self.type_label,
-                                self.media_format,
-                                f"Released {self.publication_date}"
-                                if self.publication_date is not None
-                                else None,
-                                self.note,
-                            ),
-                        )
-                    )
-                    if self.is_media
-                    else self.note,
-                ),
-                ("url", self.web_url),
-                ("doi", self.doi),
-                ("pages", self.pages),
-                ("language", self.language),
-                ("ISBN", self.parent.isbn),
+    def _bibtex_container_fields(self) -> list[tuple[str, SerializableAsBibTeX]]:
+        if self.parent.type == VolumeType.JOURNAL:
+            return [
+                ("journal", self.journal_title),
+                ("volume", self.journal_volume),
+                ("number", self.journal_issue),
             ]
-        )
-        if with_abstract and self.abstract is not None:
-            bibtex_fields.append(("abstract", self.abstract))
-        return make_bibtex_entry(self.bibtype, self.bibkey, bibtex_fields)
-
-    def to_citation(self, style: Optional[str] = None) -> str:
-        """Generate a citation (reference) for this paper.
-
-        Arguments:
-            style: A path to a CSL file.  If None (default), uses the built-in ACL citation style.
-
-        Returns:
-            The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.
-        """
-        if style is None:
-            return render_acl_citation(self)
-        return citeproc_render_html(self.citeproc_dict, style)
-
-    def to_markdown_citation(self) -> str:
-        """Generate a brief citation (reference) in Markdown for this paper.
-
-        Returns:
-            The generated citation reference as a single string with Markdown markup.
-        """
-        namespecs = self.authors if not self.is_frontmatter else self.editors
-        if len(namespecs) == 0:
-            name = ""
-        elif len(namespecs) == 1:
-            name = namespecs[0].last
-        elif len(namespecs) == 2:
-            name = f"{namespecs[0].last} & {namespecs[1].last}"
-        else:
-            name = f"{namespecs[0].last} et al."
-
-        venue_year = (
-            f"{self.year}"
-            if self.parent.venue_acronym == "WS"
-            else f"{self.parent.venue_acronym} {self.year}"
-        )
-        if name:
-            return f"[{self.title.as_text()}]({self.web_url}) ({name}, {venue_year})"
-        else:
-            return f"[{self.title.as_text()}]({self.web_url}) ({venue_year})"
+        return [("booktitle", self.parent.title)]
 
     @classmethod
-    def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
-        """Instantiates a new paper from a `<frontmatter>` block in the XML."""
-        kwargs: dict[str, Any] = {
-            "id": constants.FRONTMATTER_ID,
-            "type": PaperType.FRONTMATTER,
-            "parent": parent,
-            # A frontmatter's title is the parent volume's title
-            "title": parent.title,
-            "attachments": [],
-            "urls": [],
-        }
-        # Frontmatter only supports a small subset of regular paper attributes,
-        # so we duplicate these here -- but maybe suboptimal?
-        for element in paper:
-            if isinstance(element, etree._Comment):
-                continue  # allow, but ignore comments
-            tag = str(element.tag)
-            if tag in ("bibkey", "doi", "pages"):
-                kwargs[tag] = element.text
-            elif tag == "attachment":
-                type_ = str(element.get("type", ""))
-                kwargs["attachments"].append(
-                    (type_, AttachmentReference.from_xml(element))
-                )
-            elif tag == "revision":
-                if "revisions" not in kwargs:
-                    kwargs["revisions"] = []
-                kwargs["revisions"].append(PaperRevision.from_xml(element))
-            elif tag == "pdf":
-                kwargs["pdf"] = PDFReference.from_xml(element)
-            elif tag == "url":
-                type_ = str(element.get("type", ""))
-                kwargs["urls"].append((type_, URLReference.from_xml(element)))
-            else:
-                raise AnthologyXMLError(
-                    parent.full_id_tuple,
-                    tag,
-                    "unsupported element for <frontmatter>",
-                )
-        return cls(**kwargs)
+    def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Frontmatter:
+        """Compatibility entry point returning a distinct Frontmatter instance."""
+        from .frontmatter import Frontmatter
+
+        return Frontmatter.from_xml(parent, paper)
 
     @classmethod
-    def from_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
+    def from_xml(cls, parent: Volume, paper: etree._Element) -> Paper | Frontmatter:
         """Instantiates a new paper from its `<paper>` block in the XML.
 
         This function can also be called with a `<frontmatter>` block, in which case it will just defer to [self.from_frontmatter_xml][acl_anthology.collections.paper.Paper.from_frontmatter_xml].
         """
         if paper.tag == "frontmatter":
             return Paper.from_frontmatter_xml(parent, paper)
+        if paper.tag != "paper":
+            raise AnthologyXMLError(
+                parent.full_id_tuple, str(paper.tag), "expected <paper>"
+            )
         # Remainder of this function assumes paper.tag == "paper"
         kwargs: dict[str, Any] = {
             "id": str(paper.get("id")),
@@ -1067,14 +561,8 @@ class Paper:
                 "month",
                 "note",
                 "pages",
-                "episode",
-                "license",
             ):
                 kwargs[tag] = element.text
-            elif tag == "date":
-                kwargs["publication_date"] = element.text
-            elif tag == "duration":
-                kwargs["duration"] = int(str(element.text))
             elif tag in ("author", "editor"):
                 kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
             elif tag in ("abstract", "title"):
@@ -1123,28 +611,24 @@ class Paper:
     def to_xml(self) -> etree._Element:
         """
         Returns:
-            A serialization of this paper as a `<paper>` or `<frontmatter>` block in the Anthology XML format.
+            A serialization of this paper as a `<paper>` block in the Anthology XML format.
 
         Raises:
             ValueError: If 'bibkey' is set to [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY].
         """
         if self.bibkey == constants.NO_BIBKEY:  # pragma: no cover
             raise ValueError("Cannot serialize a Paper without bibkey")
-        if self.is_frontmatter:
-            paper = etree.Element("frontmatter")
-        else:
-            paper = etree.Element("paper", attrib={"id": self.id})
+        paper = etree.Element("paper", attrib={"id": self.id})
         if self._ingest_date is not None:
             paper.set("ingest-date", self._ingest_date)
-        if self.type not in (PaperType.PAPER, PaperType.FRONTMATTER):
+        if self.type != PaperType.PAPER:
             paper.set("type", self.type.value)
         paper.append(etree.Comment(self.web_url))
-        if not self.is_frontmatter:
-            paper.append(self.title.to_xml("title"))
-            for name_spec in self.authors:
-                paper.append(name_spec.to_xml("author"))
-            for name_spec in self._editors:
-                paper.append(name_spec.to_xml("editor"))
+        paper.append(self.title.to_xml("title"))
+        for name_spec in self.authors:
+            paper.append(name_spec.to_xml("author"))
+        for name_spec in self._editors:
+            paper.append(name_spec.to_xml("editor"))
         if self.pages is not None:
             paper.append(E.pages(self.pages))
         if self.abstract is not None:
@@ -1186,14 +670,6 @@ class Paper:
             paper.append(video.to_xml("video"))
         for audio in self.audios:
             paper.append(audio.to_xml())
-        if self.publication_date is not None:
-            paper.append(E.date(self.publication_date))
-        if self.duration is not None:
-            paper.append(E.duration(str(self.duration)))
-        if self.episode is not None:
-            paper.append(E.episode(self.episode))
-        if self.license is not None:
-            paper.append(E.license(self.license))
         for award in self.awards:
             paper.append(award.to_xml())
         if self.deletion is not None:

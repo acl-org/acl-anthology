@@ -189,7 +189,7 @@ def process_volume(
     num_added += added
 
     # Add DOIs for all papers (including frontmatter)
-    for paper in volume.papers():
+    for paper in volume.records():
         if paper.is_media:
             log.info(
                 "Skipping media item %s: automatic conference DOIs do not apply",

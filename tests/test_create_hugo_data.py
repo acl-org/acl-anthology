@@ -27,7 +27,7 @@ from bin.create_hugo_data import (
     homepage_stats,
     latest_owned_ingest_date,
     newly_ingested_years,
-    paper_to_dict,
+    record_to_dict,
     venue_to_dict,
 )
 
@@ -354,7 +354,7 @@ def test_homepage_group_excludes_parent_event_updates(anthology):
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
-    data = paper_to_dict(anthology.get_paper("1998.amta-papers.1"))
+    data = record_to_dict(anthology.get_paper("1998.amta-papers.1"))
 
     assert data["urls"] == [
         {
@@ -367,7 +367,7 @@ def test_external_paper_url_is_not_exported_as_pdf(anthology):
 
 
 def test_local_paper_url_is_exported_as_pdf(anthology):
-    data = paper_to_dict(anthology.get_paper("2025.acl-long.1"))
+    data = record_to_dict(anthology.get_paper("2025.acl-long.1"))
 
     assert data["pdf"] == f"{config.url_prefix}/2025.acl-long.1.pdf"
     assert data["thumbnail"] == f"{config.url_prefix}/thumb/2025.acl-long.1.jpg"

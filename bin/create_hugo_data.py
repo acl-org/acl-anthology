@@ -54,7 +54,7 @@ import unicodedata
 from urllib.parse import parse_qs, urlsplit
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import Paper
+from acl_anthology.collections import CollectionItem, Media, Record
 from acl_anthology.collections.types import EventLink, PaperDeletionType, VolumeType
 from acl_anthology.collections.volume import Volume
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
@@ -170,9 +170,9 @@ def recording_to_dict(reference: RecordingReference, kind: str):
     return data
 
 
-def paper_to_dict(paper):
+def record_to_dict(paper: Record):
     """
-    Turn a single paper into a dictionary as used by the Hugo templates.
+    Turn a concrete bibliographic record into the shared Hugo representation.
     """
     data = {
         "bibkey": paper.bibkey,
@@ -188,7 +188,7 @@ def paper_to_dict(paper):
         "is_media": paper.is_media,
         "type": paper.type.value,
     }
-    if paper.is_media:
+    if isinstance(paper, Media):
         data["type_label"] = paper.type_label
         data["media_format"] = paper.media_format
         data["csl_json"] = ENCODER.encode(paper.citeproc_dict).decode()
@@ -277,14 +277,14 @@ def paper_to_dict(paper):
         "journal_title",
         "note",
         "month",
-        "publication_date",
-        "duration",
-        "episode",
-        "license",
     ):
         # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
+    if isinstance(paper, Media):
+        for key in ("publication_date", "duration", "episode", "license"):
+            if (value := getattr(paper, key)) is not None:
+                data[key] = value
     # Frontmatter inherits DOI from volume ... not sure if it should, and this is a bit messy
     if (
         paper.is_frontmatter
@@ -412,7 +412,7 @@ def volume_to_dict(volume):
         **author_stats([volume]),
         "has_abstracts": volume.has_abstracts,
         "meta_date": volume.year,  # may be overwritten below
-        "papers": [paper.full_id for paper in volume.papers() if not paper.is_media],
+        "papers": [item.full_id for item in volume.records() if not item.is_media],
         "media": [item.full_id for item in volume.media()],
         "type": volume.type.value,
         "title": volume.title.as_text(),
@@ -462,7 +462,7 @@ def explicitly_colocated_volume_ids(anthology: Anthology):
     }
 
 
-def latest_owned_ingest_date(items: Iterable[Volume | Paper], explicitly_colocated_ids):
+def latest_owned_ingest_date(items: Iterable[CollectionItem], explicitly_colocated_ids):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
@@ -521,7 +521,7 @@ def homepage_stats(anthology: Anthology):
     top_level_venues = [venue for venue in all_venues if venue.is_toplevel]
 
     return {
-        "paper_count": sum(1 for paper in anthology.papers() if not paper.is_media),
+        "paper_count": sum(1 for _ in anthology.papers()),
         "media_count": sum(1 for _ in anthology.media()),
         "author_count": len(anthology.people),
         "volume_count": sum(volume.type != VolumeType.MEDIA for volume in volumes),
@@ -547,7 +547,7 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
     all_media = {}
     with make_progress() as progress:
         if paper_count is None:
-            paper_count = sum(1 for _ in anthology.papers())
+            paper_count = sum(1 for _ in anthology.records())
         task = progress.add_task("Exporting papers...", total=paper_count)
         for collection in anthology.collections.values():
             collection_papers = {}
@@ -557,7 +557,7 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
                 # TODO: Could this be changed in the Hugo templates to
                 # fetch the information from the volume, instead of duplicating
                 # this information on every paper?
-                # --- this also applies to some information from paper_to_dict()
+                # --- this also applies to some information from record_to_dict()
                 # which may be fetched from the volume if not set for the paper
                 volume_bibtex[volume.full_id] = []
                 volume_data = {
@@ -576,10 +576,10 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
                     )
 
                 # Now build the data for every paper
-                for paper in volume.papers():
+                for paper in volume.records():
                     data = volume_data.copy()
                     try:
-                        data.update(paper_to_dict(paper))
+                        data.update(record_to_dict(paper))
                     except ValueError as e:
                         log.error(f"Paper {paper.full_id}: {e}")
                         continue
@@ -600,7 +600,7 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
                 all_volumes[volume.full_id] = volume_to_dict(volume)
 
             if not dryrun:
-                with open(f"{builddir}/data/papers/{collection.id}.json", "wb") as f:
+                with open(f"{builddir}/data/records/{collection.id}.json", "wb") as f:
                     f.write(ENCODER.encode(collection_papers))
 
                 for volume_id, bibtex in volume_bibtex.items():
@@ -790,13 +790,18 @@ def export_people(anthology: Anthology, builddir, dryrun):
         for person_id, person in anthology.people.items():
             cname = person.canonical_name
             items = sorted(
-                person.papers(),
+                person.records(),
                 # TODO: Sort by month as well? Converting from string first?
                 key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
             papers = [paper for paper in items if not paper.is_media]
             media = [paper for paper in items if paper.is_media]
+            edited_volumes = sorted(
+                (volume for volume in person.volumes() if not volume.has_frontmatter),
+                key=lambda volume: (volume.year, volume.full_id),
+                reverse=True,
+            )
             data = {
                 "first": cname.first,
                 "last": cname.last,
@@ -804,6 +809,7 @@ def export_people(anthology: Anthology, builddir, dryrun):
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
                 "media": [item.full_id for item in media],
+                "volumes": [volume.full_id for volume in edited_volumes],
                 "coauthors": sorted(
                     anthology.people.find_coauthors_counter(
                         person, include_volumes=False, include_media=False
@@ -822,7 +828,7 @@ def export_people(anthology: Anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
-            latest_ingest_date = latest_owned_ingest_date(items, [])
+            latest_ingest_date = latest_owned_ingest_date([*items, *edited_volumes], [])
             if latest_ingest_date == UNKNOWN_INGEST_DATE:
                 # Write 2018-01-01 by default (earliest recorded ingest date is in 2019)
                 # instead of 1900-01-01, which may be disregarded by search engines
@@ -1079,7 +1085,7 @@ def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
     """
     # Create directories
     if not dryrun:
-        for subdir in ("", "papers", "people"):
+        for subdir in ("", "records", "people"):
             target_dir = "{}/data/{}".format(builddir, subdir)
             if not check_directory(target_dir, clean=clean):
                 return
@@ -1088,12 +1094,12 @@ def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
             if not check_directory(target_dir, clean=clean):
                 return
 
-    stats = export_homepage_stats(anthology, builddir, dryrun)
+    export_homepage_stats(anthology, builddir, dryrun)
     export_papers_and_volumes(
         anthology,
         builddir,
         dryrun,
-        paper_count=stats["paper_count"] + stats["media_count"],
+        paper_count=sum(1 for _ in anthology.records()),
     )
     export_people(anthology, builddir, dryrun)
     export_author_metrics(anthology, builddir, dryrun)

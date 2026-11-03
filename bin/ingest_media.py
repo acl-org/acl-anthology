@@ -16,8 +16,8 @@ from pathlib import Path
 import msgspec
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections import Media
+from acl_anthology.collections.types import MediaType, VolumeType
 from acl_anthology.files import AudioReference, URLReference, VideoReference
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText, to_markuptext
@@ -58,7 +58,7 @@ class Link(msgspec.Struct, forbid_unknown_fields=True):
 class MediaItem(msgspec.Struct, forbid_unknown_fields=True):
     id: str
     title: str
-    type: PaperType = PaperType.MEDIA
+    type: MediaType = MediaType.MEDIA
     creators: list[Creator] = msgspec.field(default_factory=list)
     videos: list[Recording] = msgspec.field(default_factory=list)
     audios: list[Recording] = msgspec.field(default_factory=list)
@@ -90,7 +90,7 @@ def protected_title(text: MarkupText | str) -> MarkupText:
     return MarkupText.from_xml(element)
 
 
-def ingest_media(anthology: Anthology, manifest: MediaManifest) -> list[Paper]:
+def ingest_media(anthology: Anthology, manifest: MediaManifest) -> list[Media]:
     """Create media records in memory; the caller explicitly saves after validation."""
     if not is_valid_collection_id(manifest.collection):
         raise ValueError(f"Invalid collection ID: {manifest.collection}")
@@ -106,7 +106,7 @@ def ingest_media(anthology: Anthology, manifest: MediaManifest) -> list[Paper]:
     for item in manifest.items:
         if not is_valid_item_id(item.id) or not item.id.isdecimal() or int(item.id) < 1:
             raise ValueError(f"Invalid media item ID: {item.id}")
-        if not item.type.is_media:
+        if not isinstance(item.type, MediaType):
             raise ValueError(f"Not a media type: {item.type}")
         if not item.videos and not item.audios:
             raise ValueError(f"Media item {item.id} has no recording references")

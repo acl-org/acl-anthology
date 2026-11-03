@@ -52,7 +52,18 @@ from .exceptions import (
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .utils.logging import get_logger
-from .collections import CollectionIndex, Collection, Volume, Paper, Event, EventIndex
+from .collections import (
+    CollectionIndex,
+    Collection,
+    CollectionItem,
+    Event,
+    EventIndex,
+    Frontmatter,
+    Media,
+    Paper,
+    Record,
+    Volume,
+)
 from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
@@ -298,8 +309,8 @@ class Anthology:
             for collection in self.collections.values():
                 yield from collection.volumes()
 
-    def papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
-        """Returns an iterator over all citable records, including media.
+    def records(self, full_id: Optional[AnthologyID] = None) -> Iterator[Record]:
+        """Iterate over papers, frontmatter, and media, optionally restricted to an ID.
 
         Parameters:
             full_id: If provided, only papers matching the given ID will be included.
@@ -307,23 +318,45 @@ class Anthology:
         if full_id is not None:
             if (element := self.get(full_id)) is None:
                 return
-            elif isinstance(element, Paper):
-                yield from iter([element])
+            elif isinstance(element, Record):
+                yield element
             elif isinstance(element, Volume):
-                yield from element.papers()
-            else:  # Collection
-                for volume in element.volumes():
-                    yield from volume.papers()
+                yield from element.records()
+            elif isinstance(element, Collection):
+                yield from element.records()
         else:
             for collection in self.collections.values():
-                for volume in collection.volumes():
-                    yield from volume.papers()
+                yield from collection.records()
 
-    def media(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
+    def items(self, full_id: Optional[AnthologyID] = None) -> Iterator[CollectionItem]:
+        """Iterate over all identified collection items, including volumes."""
+        if full_id is not None:
+            item = self.get(full_id)
+            if item is None:
+                return
+            if isinstance(item, Record):
+                yield item
+            elif isinstance(item, Volume):
+                yield item
+                yield from item.records()
+            elif isinstance(item, Collection):
+                for volume in item.volumes():
+                    yield volume
+                    yield from volume.records()
+            return
+        for volume in self.volumes():
+            yield volume
+            yield from volume.records()
+
+    def papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
+        """Iterate over printed papers only, excluding frontmatter and media."""
+        yield from (item for item in self.records(full_id) if isinstance(item, Paper))
+
+    def media(self, full_id: Optional[AnthologyID] = None) -> Iterator[Media]:
         """Iterate over standalone media, optionally restricted to an Anthology ID."""
-        yield from (item for item in self.papers(full_id) if item.is_media)
+        yield from (item for item in self.records(full_id) if isinstance(item, Media))
 
-    def get(self, full_id: AnthologyID) -> Optional[Collection | Volume | Paper]:
+    def get(self, full_id: AnthologyID) -> Optional[Collection | CollectionItem]:
         """Access collections, volumes, and papers, depending on the provided ID.
 
         Parameters:
@@ -368,6 +401,14 @@ class Anthology:
             return None
         return collection.get(volume_id)
 
+    def get_record(self, full_id: AnthologyID) -> Optional[Record]:
+        """Look up any paper, frontmatter, or media record by its persistent ID."""
+        collection_id, volume_id, item_id = parse_id(full_id)
+        volume = self.get_volume((collection_id, volume_id, None))
+        if volume is None or item_id is None:
+            return None
+        return volume.get(item_id)
+
     def get_paper(self, full_id: AnthologyID) -> Optional[Paper]:
         """Access a paper by its ID.
 
@@ -377,11 +418,22 @@ class Anthology:
         Returns:
             The paper associated with the given ID.
         """
-        collection_id, volume_id, paper_id = parse_id(full_id)
-        volume = self.get_volume((collection_id, volume_id, None))
-        if volume is None or paper_id is None:
-            return None
-        return volume.get(paper_id)
+        item = self.get_record(full_id)
+        return item if isinstance(item, Paper) else None
+
+    def get_media(self, full_id: AnthologyID) -> Optional[Media]:
+        """Look up a standalone media record; never return a paper."""
+        item = self.get_record(full_id)
+        return item if isinstance(item, Media) else None
+
+    def get_frontmatter(self, full_id: AnthologyID) -> Optional[Frontmatter]:
+        """Look up a volume's frontmatter by its item ID."""
+        item = self.get_record(full_id)
+        return item if isinstance(item, Frontmatter) else None
+
+    def get_record_by_bibkey(self, bibkey: str) -> Optional[Record]:
+        """Look up any concrete bibliographic record by its citation key."""
+        return self.collections.bibkeys.get(bibkey)
 
     def get_paper_by_bibkey(self, bibkey: str) -> Optional[Paper]:
         """Access a paper by its citation key/bibkey.
@@ -392,7 +444,8 @@ class Anthology:
         Returns:
             The paper associated with the given bibkey.
         """
-        return self.collections.bibkeys.get(bibkey)
+        item = self.get_record_by_bibkey(bibkey)
+        return item if isinstance(item, Paper) else None
 
     def get_event(self, event_id: str) -> Optional[Event]:
         """Access an event by its ID.

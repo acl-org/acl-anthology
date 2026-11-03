@@ -69,7 +69,7 @@ Recording =
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
-  attribute type { xsd:string }?,
+  attribute type { "paper" | "backmatter" }?,
   (element abstract { MarkupText }?
    & attachment*
    & element bibkey { bibtex-key }
@@ -103,10 +103,6 @@ Paper = element paper {
    & url*
    & element video { Recording }*
    & element audio { Recording }*
-   & element date { xsd:date }?
-   & element duration { xsd:positiveInteger }?
-   & element episode { text }?
-   & element license { xsd:anyURI }?
    & element language { xsd:language }?
    & element month { text }?
    & element award {
@@ -114,6 +110,34 @@ Paper = element paper {
        text
      }*
    )
+}
+Media = element media {
+  attribute id { xsd:positiveInteger },
+  attribute ingest-date { xsd:date }?,
+  attribute type {
+    "media" | "talk" | "keynote" | "plenary" | "panel" | "meeting" |
+    "podcast" | "tutorial" | "interview" | "lecture" | "ceremony"
+  },
+  (element title { InlineMarkupText }
+   & element bibkey { bibtex-key }
+   & element author { Person }*
+   & element editor { Person }*
+   & element abstract { MarkupText }?
+   & element audio { Recording }*
+   & element video { Recording }*
+   & url*
+   & attachment*
+   & element doi { xsd:anyURI }?
+   & element language { xsd:language }?
+   & element month { text }?
+   & element note { text }?
+   & element date { xsd:date }?
+   & element duration { xsd:positiveInteger }?
+   & element episode { text }?
+   & element license { xsd:anyURI }?
+   & (element retracted { attribute date { xsd:date }, text }
+      | element removed { attribute date { xsd:date }, text })?
+  )
 }
 Meta = element meta {
   (element booktitle { InlineMarkupText }
@@ -135,6 +159,7 @@ Meta = element meta {
   )
 }
 Frontmatter = element frontmatter {
+  attribute ingest-date { xsd:date }?,
   (pdf?
    & url*
    & element pages { text }?
@@ -150,7 +175,7 @@ Volume = element volume {
   attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,
-  Paper*
+  (Paper | Media)*
 }
 Event = element event {
   attribute id { xsd:string },
