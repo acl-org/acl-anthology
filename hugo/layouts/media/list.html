@@ -4,7 +4,7 @@
   {{ .Content }}
   {{ $year := "" }}
   {{ range sort hugo.Data.media "sort_date" "desc" }}
-    {{ $item := index (index hugo.Data.papers (index (split .id "-") 0)) .id }}
+    {{ $item := index (index hugo.Data.records (index (split .id "-") 0)) .id }}
     {{ if and (not $item.removed) (not $item.retracted) }}
       {{ if ne $year .year }}
       <h3 class="mt-4">{{ .year }}</h3>

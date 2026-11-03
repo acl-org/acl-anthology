@@ -1,9 +1,5 @@
 # Citable media
 
-!!! warning "Prototype: the library model is still under review"
-
-    This implementation still represents media as paper records. The [CollectionItem refactor (#8000)](https://github.com/acl-org/acl-anthology/issues/8000) and a distinct media representation must be resolved before migrating publication metadata. The metadata migration is reviewed in a separate, dependent PR.
-
 ## Design
 
 Standalone recordings are **citable records in dedicated media volumes**.
@@ -20,11 +16,18 @@ This replaces the event-only approach proposed in
   entries must not change its ID. Never reuse an ID for a different item.
 - Audio and video are formats, independent of genre: a meeting, keynote,
   panel, or podcast episode can have either or both, and multiple recordings.
-- The existing bibliographic record class, `Paper`, is retained for API
-  compatibility. `PaperType` identifies the genre; `is_media` distinguishes
-  standalone recordings from scholarly papers. `Volume.create_media()` performs
-  the same name normalization, ORCID ingestion, person indexing, and unique
-  citation-key assignment as `create_paper()`.
+- `CollectionItem` is the shared interface for persistent IDs, collection
+  ownership, contributor specifications, and person links. Volumes and the
+  distinct `Paper`, `Frontmatter`, and `Media` record types implement it.
+  Their shared `Record` base supplies metadata views and citation machinery,
+  not a shared XML tag or paper identity.
+- `Media` is never a `Paper`: it serializes as `<media id="..." type="...">`.
+  `MediaType` identifies its genre. `Volume.create_media()` performs the
+  same normalization, ORCID ingestion, person indexing, and unique
+  citation-key assignment as the other record factories.
+- `Frontmatter` has its own restricted fields and `<frontmatter>` serializer.
+  Its title and credited editors follow the parent volume. It is created with
+  `Volume.create_frontmatter()`, not by changing a paper's type.
 - Citations point to the landing page, not a mutable recording URL. BibTeX
   uses portable `@misc` entries, CSL uses `speech`, `broadcast` (podcasts), or
   `motion_picture` (generic video), and human-readable citations identify the
@@ -41,16 +44,28 @@ This replaces the event-only approach proposed in
   The API permits media in a proceedings volume for exceptional mixed
   collections, but dedicated media volumes are the authoring convention.
 
-The shared model avoids a second, incompatible identifier and author system,
-without requiring a breaking rename of the library's `Paper` API.
-Existing `papers()` iterators include **all citable records**, as do `get()`
-and citation-key lookups. Filter `not item.is_media` when counting papers, or
-use `Anthology.media()`, `Volume.media()`, `Event.media()`, and `Person.media()`
-to select recordings.
+### Selecting items
+
+`Anthology.items()` includes identified volumes and their records.
+`Anthology.records()`, `Collection.records()`, `Volume.records()`, and
+`Person.records()` select all bibliographic records, including frontmatter and
+media. `papers()` selects printed papers only; `media()` selects media only.
+Contributor pages also show edited volumes that have no frontmatter.
+
+Use `get_record()` or `get_record_by_bibkey()` for a generic record lookup,
+and `get_media()` or `get_frontmatter()` for those specific types.
+`get_paper()` and `get_paper_by_bibkey()` do not return frontmatter or media.
+Existing identifiers, including frontmatter's `.0`, remain unchanged.
+
+These are intentional API changes from the former all-purpose `Paper` model.
+Callers that previously used `papers()` or `get_paper()` to include frontmatter
+must use the generic record APIs. Legacy `create_paper(id="0")` and the
+`PaperType.FRONTMATTER` factory selector still delegate to `create_frontmatter()`;
+directly constructing or retyping a `Paper` as frontmatter is not supported.
 
 ## Genres and metadata
 
-Supported `PaperType` media genres are `MEDIA`, `TALK`, `KEYNOTE`, `PLENARY`,
+Supported `MediaType` media genres are `MEDIA`, `TALK`, `KEYNOTE`, `PLENARY`,
 `PANEL`, `MEETING`, `PODCAST`, `TUTORIAL`, `INTERVIEW`, `LECTURE`, and `CEREMONY`.
 These cover invited and presidential addresses, business meetings, fireside
 chats, oral histories, award sessions, and opening/closing sessions as well.
@@ -106,7 +121,7 @@ Run scripts inside the checkout with `uv run`:
 
 ```python
 from acl_anthology import Anthology
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.types import MediaType, VolumeType
 from acl_anthology.files import VideoReference
 from acl_anthology.people import Name, NameSpecification
 
@@ -121,7 +136,7 @@ volume = collection.create_volume(
 item = volume.create_media(
     id="1",
     title="An invited presentation",
-    type=PaperType.KEYNOTE,
+    type=MediaType.KEYNOTE,
     authors=[NameSpecification(Name("Example", "Speaker"))],
     videos=[VideoReference("2026.acl-media.1.mp4", permission=True)],
 )
@@ -206,7 +221,7 @@ is a no-op after a successful migration. Identical duplicate creator entries
 are collapsed, without removing distinct name specifications.
 
 Recording-file corrections and availability flags belong in the separate
-metadata migration, after the library representation is settled. Verify hosted
+metadata migration, after library review. Verify hosted
 filenames, including corrections from PR #5612, rather than inventing replacement
 URLs for missing recordings.
 
@@ -215,7 +230,9 @@ uv run bin/oneoff/migrate_talks.py --dry-run
 uv run bin/oneoff/migrate_talks.py
 ```
 
-Legacy `<talk>` parsing remains supported for library compatibility, but new
-recordings should use `create_media()` rather than anonymous event talks.
+Legacy anonymous `<talk>` parsing remains supported for unchanged historical
+collections. These compatibility objects have no persistent item ID and are
+not exposed by `items()` or contributor indexing. New identified talks are
+`Media` records with `MediaType.TALK` and should use `create_media()`.
 No redirects from the unmerged PR's provisional `/talks/` URLs are needed:
 those were never published canonical identifiers.

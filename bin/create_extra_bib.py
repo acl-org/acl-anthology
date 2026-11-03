@@ -121,7 +121,7 @@ def create_bibtex(builddir, clean=False) -> None:
     ) as file_anthology_with_abstracts:
         for collection_file in track(
             sorted(
-                Path(f"{builddir}/data/papers").glob("*.json"),
+                Path(f"{builddir}/data/records").glob("*.json"),
                 key=lambda p: (infer_year(p.stem), p.stem),
                 reverse=True,
             ),
@@ -240,7 +240,7 @@ def convert_bibtex(builddir, max_workers=None):
 
     Requires data files from create_hugo_data.py.
     """
-    data_files = list(Path(f"{builddir}/data/papers").glob("*.json"))
+    data_files = list(Path(f"{builddir}/data/records").glob("*.json"))
     bib_files = list(Path(f"{builddir}/data-export/volumes").glob("*.bib"))
 
     with make_progress() as progress:

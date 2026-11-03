@@ -282,7 +282,7 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
         )
 
         # Individual papers (including frontmatter)
-        for paper in volume.papers():
+        for paper in volume.records():
             if paper.is_media:
                 log.info(
                     "Skipping media item %s: conference DOI deposits do not apply",

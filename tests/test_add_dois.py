@@ -238,7 +238,7 @@ def test_main_reports_failures_after_all_volumes(caplog):
             type=VolumeType.PROCEEDINGS,
             doi=None,
             title=volume_id,
-            papers=lambda: [],
+            records=lambda: [],
             parent=SimpleNamespace(save=MagicMock(), id="W10"),
         )
     anthology = SimpleNamespace(get_volume=volumes.get)
@@ -302,7 +302,7 @@ def test_main_existing_dois_are_not_failures(caplog):
         type=VolumeType.PROCEEDINGS,
         doi="10.18653/existing",
         title="Existing",
-        papers=lambda: [],
+        records=lambda: [],
         parent=SimpleNamespace(save=MagicMock(), id="W10"),
     )
     anthology = SimpleNamespace(get_volume=lambda _: volume)

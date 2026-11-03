@@ -56,7 +56,7 @@ def add_attachment(anthology, anthology_id, path, attach_type, overwrite=False):
 
     collection_id, _, _ = parse_id(anthology_id)
 
-    paper = anthology.get_paper(anthology_id)
+    paper = anthology.get_record(anthology_id)
     if paper is None:
         print(f"Paper {anthology_id} not found in the Anthology", file=sys.stderr)
         return None

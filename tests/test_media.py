@@ -15,7 +15,7 @@ import pytest
 from acl_anthology import Anthology
 from acl_anthology.collections import Talk
 from acl_anthology.collections.paper import PaperDeletionNotice
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.types import MediaType, VolumeType
 from acl_anthology.files import AudioReference, URLReference, VideoReference
 from acl_anthology.people import Name, NameSpecification
 
@@ -25,7 +25,7 @@ from bin.author_stats import compute_authorship_stats
 from bin.create_hugo_data import (
     author_stats,
     export_anthology,
-    paper_to_dict,
+    record_to_dict,
     recording_to_dict,
 )
 from bin.add_dois import process_volume
@@ -86,7 +86,7 @@ def decode_manifest(data):
 def test_ingest_media_persists_ids_and_metadata(anthology, manifest):
     item = ingest_media(anthology, decode_manifest(manifest))[0]
     assert item.full_id == "2026.recordings-episodes.7"
-    assert item.type == PaperType.PODCAST
+    assert item.type == MediaType.PODCAST
     assert item.audios[0].url == "https://aclanthology.org/episode-7.mp3"
     assert "<fixed-case>NLP</fixed-case>" in item.title.as_xml()
     assert item.publication_date == "2026-03-21"
@@ -121,7 +121,7 @@ def test_ingest_media_appends_without_reassigning_ids(anthology, manifest):
         (lambda data: data.update(venue="unknown"), "Unknown venue"),
         (lambda data: data.update(event="recordings-1900"), "Unknown event"),
         (lambda data: data["items"].append(data["items"][0].copy()), "Duplicate"),
-        (lambda data: data["items"][0].update(type="paper"), "Not a media type"),
+        (lambda data: data["items"][0].update(type="paper"), "Invalid enum value"),
         (lambda data: data["items"][0].update(id="0"), "Invalid media item ID"),
         (lambda data: data["items"][0].update(audios=[]), "no recording"),
         (lambda data: data["items"][0].update(publication_date="2026-02-30"), "day"),
@@ -172,8 +172,8 @@ def test_legacy_migration_preserves_recordings_and_people(anthology):
         "2026.recordings-media.1",
         "2026.recordings-media.2",
     ]
-    assert items[0].type == PaperType.KEYNOTE
-    assert items[1].type == PaperType.MEETING
+    assert items[0].type == MediaType.KEYNOTE
+    assert items[1].type == MediaType.MEETING
     assert items[0].videos[0].url == "https://aclanthology.org/old-keynote-filename.mp4"
     assert items[1].audios[0].url == "https://aclanthology.org/old-meeting-filename.mp3"
     assert items[0].authors[0].resolve().id == "rhea-example/unverified"
@@ -261,19 +261,20 @@ def exported_site(anthology, manifest, tmp_path):
     )
     keynote = media.create_media(
         title="A fabricated keynote",
-        type=PaperType.KEYNOTE,
+        type=MediaType.KEYNOTE,
         authors=[NameSpecification(Name("Rhea", "Example"))],
         videos=[VideoReference("keynote.mp4")],
     )
     restricted = media.create_media(
         title="A restricted meeting",
-        type=PaperType.MEETING,
+        type=MediaType.MEETING,
         audios=[AudioReference("PRIVATE-SENTINEL.mp3", permission=False)],
     )
     proceedings = collection.create_volume(
         "main",
         title="Fictional Proceedings",
         venue_ids=["recordings"],
+        editors=[NameSpecification(Name("Ellis", "Example"))],
     )
     paper = proceedings.create_paper(
         title="A fabricated paper",
@@ -307,6 +308,9 @@ def test_media_exports_and_paper_metrics_are_separate(exported_site):
     person = people["rhea-example/unverified"]
     assert person["papers"] == [paper.full_id]
     assert set(person["media"]) == {podcast.full_id, keynote.full_id}
+    editor = people["ellis-example/unverified"]
+    assert editor["papers"] == []
+    assert editor["volumes"] == [paper.parent.full_id]
     event = json.loads((site / "data/events.json").read_text())["recordings-2026"]
     assert event["volumes"] == [paper.parent.full_id]
     assert set(event["media"]) == {podcast.full_id, keynote.full_id, restricted.full_id}
@@ -314,12 +318,12 @@ def test_media_exports_and_paper_metrics_are_separate(exported_site):
     volumes = json.loads((site / "data/volumes.json").read_text())
     assert volumes[podcast.parent.full_id]["papers"] == []
     assert volumes[podcast.parent.full_id]["media"] == [podcast.full_id]
-    data = paper_to_dict(podcast)
+    data = record_to_dict(podcast)
     assert json.loads(data["csl_json"])["type"] == "broadcast"
     assert data["schema_org"]["datePublished"] == "2026-03-21"
     assert data["schema_org"]["duration"] == "PT3600S"
     assert data["recordings"][0]["mime_type"] == "audio/mpeg"
-    restricted_data = paper_to_dict(restricted)
+    restricted_data = record_to_dict(restricted)
     assert "PRIVATE-SENTINEL" not in json.dumps(restricted_data)
     assert restricted_data["recordings"] == []
     assert (
@@ -331,7 +335,7 @@ def test_media_exports_and_paper_metrics_are_separate(exported_site):
 def test_removed_media_do_not_expose_recordings(anthology, manifest):
     item = ingest_media(anthology, decode_manifest(manifest))[0]
     item.deletion = PaperDeletionNotice("removed", "Withdrawn", "2026-03-22")
-    data = paper_to_dict(item)
+    data = record_to_dict(item)
     assert data["recordings"] == []
     assert item.audios[0].url not in json.dumps(data)
 
@@ -343,7 +347,7 @@ def test_unavailable_recordings_retain_permission_but_are_not_embedded(
     item = ingest_media(anthology, decode_manifest(manifest))[0]
     assert item.audios[0].permission
     assert not item.audios[0].available
-    assert "episode-7.mp3" not in json.dumps(paper_to_dict(item))
+    assert "episode-7.mp3" not in json.dumps(record_to_dict(item))
     assert item.web_url in item.to_bibtex()
 
 
@@ -412,6 +416,9 @@ def test_media_pages_render_with_players_citations_and_discovery(rendered_site):
     ):
         document = html.parse(path)
         assert document.xpath(f'//a[@href="/{podcast.full_id}/"]'), path
+    editor_page = html.parse(public / "people/ellis-example/unverified/index.html")
+    assert editor_page.xpath('//h3[text()="Edited volumes"]')
+    assert editor_page.xpath(f'//a[@href="/volumes/{paper.parent.full_id}/"]')
     result = subprocess.run(
         [sys.executable, str(public / "cgi-bin/extract_citation.cgi")],
         cwd=public / "cgi-bin",
@@ -437,7 +444,7 @@ def test_media_citations_convert_to_mods_and_endnote(exported_site, monkeypatch)
     monkeypatch.setattr(create_extra_bib, "BIB2XML", bib2xml, raising=False)
     monkeypatch.setattr(create_extra_bib, "XML2END", xml2end, raising=False)
     site, _, podcast, *_ = exported_site
-    collection_file = site / f"data/papers/{podcast.collection_id}.json"
+    collection_file = site / f"data/records/{podcast.collection_id}.json"
     create_extra_bib.convert_collection_file(collection_file)
     data = json.loads(collection_file.read_text())[podcast.full_id]
     assert podcast.title.as_text() in data["mods"]

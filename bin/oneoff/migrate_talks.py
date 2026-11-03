@@ -18,8 +18,8 @@ import sys
 from attrs import evolve
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections import Media
+from acl_anthology.collections.types import MediaType, VolumeType
 from acl_anthology.files import AudioReference, URLReference, VideoReference
 
 log = logging.getLogger(__name__)
@@ -31,28 +31,28 @@ else:
     from ingest_media import protected_title
 
 
-def talk_type(title: str) -> PaperType:
+def talk_type(title: str) -> MediaType:
     """Classify only explicitly named genres; otherwise retain a generic talk."""
     title = title.casefold()
     if "keynote" in title:
-        return PaperType.KEYNOTE
+        return MediaType.KEYNOTE
     if "plenary" in title:
-        return PaperType.PLENARY
+        return MediaType.PLENARY
     if "business meeting" in title:
-        return PaperType.MEETING
+        return MediaType.MEETING
     if title.startswith("panel"):
-        return PaperType.PANEL
+        return MediaType.PANEL
     if "lecture" in title:
-        return PaperType.LECTURE
+        return MediaType.LECTURE
     if any(
         word in title
         for word in ("opening session", "closing session", "awards", "award session")
     ):
-        return PaperType.CEREMONY
-    return PaperType.TALK
+        return MediaType.CEREMONY
+    return MediaType.TALK
 
 
-def migrate_talks(anthology: Anthology) -> list[Paper]:
+def migrate_talks(anthology: Anthology) -> list[Media]:
     """Migrate all legacy talks in memory; safe to rerun after saving."""
     events = [event for event in anthology.events.values() if event.talks]
     for event in events:
@@ -95,7 +95,7 @@ def migrate_talks(anthology: Anthology) -> list[Paper]:
             item = volume.create_media(
                 id=str(number),
                 title=protected_title(talk.title),
-                type=PaperType(talk.type)
+                type=MediaType(talk.type)
                 if talk.type
                 else talk_type(talk.title.as_text()),
                 authors=[evolve(speaker, parent=None) for speaker in speakers],

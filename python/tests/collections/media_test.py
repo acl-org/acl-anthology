@@ -18,8 +18,8 @@ import pytest
 from lxml import etree
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import Paper
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections import Media
+from acl_anthology.collections.types import MediaType, PaperType, VolumeType
 from acl_anthology.files import AudioReference, VideoReference
 from acl_anthology.people import Name, NameSpecification
 from acl_anthology.text import MarkupText
@@ -39,7 +39,7 @@ def media_volume(anthology):
     )
 
 
-@pytest.mark.parametrize("genre", [genre for genre in PaperType if genre.is_media])
+@pytest.mark.parametrize("genre", list(MediaType))
 def test_media_genres_have_citations_and_stable_ids(anthology, media_volume, genre):
     item = media_volume.create_media(
         title="Understanding invented languages",
@@ -49,7 +49,8 @@ def test_media_genres_have_citations_and_stable_ids(anthology, media_volume, gen
         videos=[VideoReference("original-recording.mp4")],
     )
     assert anthology.get("2026.recordings-media.42") is item
-    assert anthology.get_paper_by_bibkey(item.bibkey) is item
+    assert anthology.get_record_by_bibkey(item.bibkey) is item
+    assert anthology.get_paper_by_bibkey(item.bibkey) is None
     assert list(anthology.media(item.full_id)) == [item]
     assert list(media_volume.media()) == [item]
     assert item in list(anthology.get_event("recordings-2026").media())
@@ -73,7 +74,7 @@ def test_podcast_roundtrip_and_citations(anthology, media_volume):
         title=MarkupText.from_xml(
             etree.fromstring("<title>Explaining <fixed-case>NLP</fixed-case></title>")
         ),
-        type=PaperType.PODCAST,
+        type=MediaType.PODCAST,
         authors=[NameSpecification(Name("Rhea", "Example"))],
         audios=[
             AudioReference("episode-7.mp3"),
@@ -102,7 +103,7 @@ def test_podcast_roundtrip_and_citations(anthology, media_volume):
     assert "booktitle" not in bibtex
     assert "Podcast episode 7" in item.to_citation()
     assert "2026-06-12" in item.to_citation()
-    parsed = Paper.from_xml(media_volume, item.to_xml())
+    parsed = Media.from_xml(media_volume, item.to_xml())
     assert parsed.type == item.type
     assert parsed.audios == item.audios
     assert parsed.publication_date == item.publication_date
@@ -144,15 +145,16 @@ def test_paper_with_video_is_not_standalone_media(anthology):
 
 def test_media_can_be_part_of_proceedings(anthology):
     volume = anthology.get_volume("2022.facl-long")
-    item = volume.create_media(title="A panel", type=PaperType.PANEL)
+    item = volume.create_media(title="A panel", type=MediaType.PANEL)
     assert item.bibtype == "misc"
     assert item.csltype == "speech"
     assert "booktitle" not in item.to_bibtex()
 
 
 def test_media_volume_defaults_and_invalid_genre(media_volume):
-    assert media_volume.create_paper(title="A recording").is_media
-    with pytest.raises(ValueError, match="Not a media type"):
+    with pytest.raises(ValueError, match="create_media"):
+        media_volume.create_paper(title="A recording")
+    with pytest.raises(ValueError):
         media_volume.create_media(title="Not a recording", type=PaperType.PAPER)
 
 
@@ -163,6 +165,7 @@ def test_media_volume_defaults_and_invalid_genre(media_volume):
         {"publication_date": "2026-1-1"},
         {"duration": 0},
         {"duration": -1},
+        {"duration": True},
         {"episode": ""},
         {"episode": " 7 "},
     ],
@@ -183,7 +186,7 @@ def test_media_audio_types_are_validated(media_volume):
 def test_media_release_year_can_differ_from_event_year(media_volume):
     item = media_volume.create_media(
         title="A recording released later",
-        type=PaperType.PODCAST,
+        type=MediaType.PODCAST,
         publication_date="2027-01-15",
         episode="9",
     )
@@ -232,7 +235,7 @@ def test_coauthors_can_exclude_media(anthology, media_volume):
 
 def test_media_csl_metadata_updates_after_corrections(media_volume):
     item = media_volume.create_media(
-        title="Original title", type=PaperType.PODCAST, publication_date="2026-03-21"
+        title="Original title", type=MediaType.PODCAST, publication_date="2026-03-21"
     )
     assert item.citeproc_dict["issued"]["date-parts"] == [[2026, 3, 21]]
     item.title = "Corrected title"
@@ -245,7 +248,7 @@ def test_media_citation_escapes_text_and_preserves_title_markup(media_volume):
     media_volume.publisher = "Test & Co"
     item = media_volume.create_media(
         title=MarkupText.from_string("Inputs <outputs> & tokens"),
-        type=PaperType.PODCAST,
+        type=MediaType.PODCAST,
         episode="S1<E2",
     )
     citation = item.to_citation()
@@ -255,7 +258,7 @@ def test_media_citation_escapes_text_and_preserves_title_markup(media_volume):
     assert "Test &amp; Co" in citation
 
 
-@pytest.mark.parametrize("genre", [PaperType.KEYNOTE, PaperType.PODCAST])
+@pytest.mark.parametrize("genre", [MediaType.KEYNOTE, MediaType.PODCAST])
 def test_media_can_be_rendered_with_csl_style(media_volume, tmp_path, genre):
     style = tmp_path / "test.csl"
     style.write_text(

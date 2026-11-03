@@ -30,6 +30,7 @@ from .event import Event
 from .types import EventLink, VolumeType
 from .volume import Volume
 from .paper import Paper
+from .record import Record
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -96,6 +97,11 @@ class Collection(SlottedDict[Volume]):
         """An iterator over all Paper objects in all volumes in this collection."""
         for volume in self.volumes():
             yield from volume.papers()
+
+    def records(self) -> Iterator[Record]:
+        """Iterate over every paper, frontmatter, and media record in this collection."""
+        for volume in self.volumes():
+            yield from volume.records()
 
     def get_event(self) -> Optional[Event]:
         """An Event explicitly defined in this collection, if any."""
@@ -260,7 +266,15 @@ class Collection(SlottedDict[Volume]):
         try:
             for _, element in etree.iterparse(
                 self.path,
-                tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
+                tag=(
+                    "meta",
+                    "frontmatter",
+                    "paper",
+                    "media",
+                    "volume",
+                    "event",
+                    "collection",
+                ),
             ):
                 discard_element = True
                 if (
@@ -270,8 +284,8 @@ class Collection(SlottedDict[Volume]):
                 ):
                     # Seeing a volume's <meta> block instantiates a new volume
                     current_volume = self._add_volume_from_xml(element)  # noqa: F841
-                elif element.tag in ("paper", "frontmatter"):
-                    current_volume._add_paper_from_xml(element)
+                elif element.tag in ("paper", "frontmatter", "media"):
+                    current_volume._add_record_from_xml(element)
                 elif element.tag == "volume":
                     current_volume = cast(Volume, None)  # noqa: F841
                 elif element.tag == "event":

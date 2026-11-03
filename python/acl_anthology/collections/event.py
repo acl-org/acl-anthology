@@ -37,7 +37,7 @@ from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_t
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Collection, Paper, Volume
+    from . import Collection, Media, Volume
 
 
 @attach_custom_repr
@@ -46,7 +46,9 @@ if TYPE_CHECKING:
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
 class Talk:
-    """A talk without an associated paper, such as a keynote or invited talk.
+    """A legacy anonymous event talk, retained for historical XML compatibility.
+
+    New identified talks use [Media][acl_anthology.collections.media.Media] with a `MediaType.TALK` genre and belong to the common CollectionItem hierarchy. Legacy talks acquire that representation when migrated.
 
     Attributes:
         title: The title of the talk.
@@ -67,7 +69,7 @@ class Talk:
             setters.validate,
             attach_parent,
             track_modifications,
-        ],  # TODO: After CollectionItem refactoring, once talks have IDs, also update the connected Persons
+        ],
     )
     attachments: dict[str, URLReference] = field(factory=dict)
 
@@ -211,7 +213,7 @@ class Event:
                 )
             yield volume
 
-    def media(self) -> Iterator[Paper]:
+    def media(self) -> Iterator[Media]:
         """Iterate over citable recordings associated with this event."""
         for volume in self.volumes():
             yield from volume.media()

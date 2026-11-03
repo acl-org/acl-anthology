@@ -41,7 +41,7 @@ class PaperDeletionType(SimpleReprEnum):
 
 
 class PaperType(SimpleReprEnum):
-    """Type of citable item, independently of its recording format."""
+    """Type of printed paper. Frontmatter is a legacy factory selector."""
 
     PAPER = "paper"
     """A regular paper."""
@@ -51,6 +51,10 @@ class PaperType(SimpleReprEnum):
 
     BACKMATTER = "backmatter"
     """The backmatter of a volume."""
+
+
+class MediaType(SimpleReprEnum):
+    """Genre of a standalone media record, independently of its recording format."""
 
     MEDIA = "media"
     """A recording without a more specific genre."""
@@ -84,11 +88,6 @@ class PaperType(SimpleReprEnum):
 
     CEREMONY = "ceremony"
     """An opening, closing, or awards ceremony."""
-
-    @property
-    def is_media(self) -> bool:
-        """Whether this type represents a standalone media item."""
-        return self not in (self.PAPER, self.FRONTMATTER, self.BACKMATTER)
 
 
 class VolumeType(SimpleReprEnum):

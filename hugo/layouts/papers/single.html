@@ -1,6 +1,6 @@
 {{ define "meta" }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.records $volume_id) .Params.anthology_id }}
   <meta content="{{ $paper.title }}" name="citation_title">
 {{ range $paper.author }}
   <meta content="{{ (index hugo.Data.people .id).full }}" name="citation_author">
@@ -45,7 +45,7 @@
 {{ define "javascript" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.records $volume_id) .Params.anthology_id }}
 <script src="{{ relURL "js/clipboard.min.js" }}"></script>
 <script src="{{ relURL "js/FileSaver.js" }}"></script>
 <script>
@@ -402,7 +402,7 @@
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
-{{ $paper := index (index hugo.Data.papers $volume_id) .Params.anthology_id }}
+{{ $paper := index (index hugo.Data.records $volume_id) .Params.anthology_id }}
 <section id="main">
   <div>
     <h2 id="title">
