@@ -12,7 +12,7 @@ from lxml import html
 import msgspec
 import pytest
 
-from acl_anthology import Anthology
+from acl_anthology import Anthology, config
 from acl_anthology.collections import Talk
 from acl_anthology.collections.paper import PaperDeletionNotice
 from acl_anthology.collections.types import MediaType, VolumeType
@@ -87,7 +87,7 @@ def test_ingest_media_persists_ids_and_metadata(anthology, manifest):
     item = ingest_media(anthology, decode_manifest(manifest))[0]
     assert item.full_id == "2026.recordings-episodes.7"
     assert item.type == MediaType.PODCAST
-    assert item.audios[0].url == "https://aclanthology.org/episode-7.mp3"
+    assert item.audios[0].url == f"{config.url_prefix}/episode-7.mp3"
     assert "<fixed-case>NLP</fixed-case>" in item.title.as_xml()
     assert item.publication_date == "2026-03-21"
     assert item.duration == 3600
@@ -167,6 +167,8 @@ def test_legacy_migration_preserves_recordings_and_people(anthology):
             ),
         ],
     )
+    video_url = collection.event.talks[0].attachments["video"].url
+    audio_url = collection.event.talks[1].attachments["audio"].url
     items = migrate_talks(anthology)
     assert [item.full_id for item in items] == [
         "2026.recordings-media.1",
@@ -174,8 +176,8 @@ def test_legacy_migration_preserves_recordings_and_people(anthology):
     ]
     assert items[0].type == MediaType.KEYNOTE
     assert items[1].type == MediaType.MEETING
-    assert items[0].videos[0].url == "https://aclanthology.org/old-keynote-filename.mp4"
-    assert items[1].audios[0].url == "https://aclanthology.org/old-meeting-filename.mp3"
+    assert items[0].videos[0].url == video_url
+    assert items[1].audios[0].url == audio_url
     assert items[0].authors[0].resolve().id == "rhea-example/unverified"
     assert len(items[0].authors) == 1
     assert "<fixed-case>NLP</fixed-case>" in items[0].title.as_xml()
