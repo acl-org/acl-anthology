@@ -1,5 +1,9 @@
 # Citable media
 
+!!! warning "Prototype: the library model is still under review"
+
+    This implementation still represents media as paper records. The [CollectionItem refactor (#8000)](https://github.com/acl-org/acl-anthology/issues/8000) and a distinct media representation must be resolved before migrating publication metadata. The metadata migration is reviewed in a separate, dependent PR.
+
 ## Design
 
 Standalone recordings are **citable records in dedicated media volumes**.
@@ -201,10 +205,10 @@ otherwise entries remain generic talks. It preflights volume collisions and
 is a no-op after a successful migration. Identical duplicate creator entries
 are collapsed, without removing distinct name specifications.
 
-The migrated data also incorporate the hosted-filename corrections from
-PR #5612, checked with HTTP HEAD requests, plus a verified NAACL 2024 panel
-filename correction. Recordings still returning 404 are marked unavailable
-rather than assigned invented replacement URLs.
+Recording-file corrections and availability flags belong in the separate
+metadata migration, after the library representation is settled. Verify hosted
+filenames, including corrections from PR #5612, rather than inventing replacement
+URLs for missing recordings.
 
 ```bash
 uv run bin/oneoff/migrate_talks.py --dry-run
