@@ -10,6 +10,7 @@
   const MAX_URL_LENGTH = 8000;
   // Unverified authors with papers since this year likely submitted via OpenReview.
   const OPENREVIEW_YEAR = 2025;
+  const OPENREVIEW_PROFILE_PREFIX = "https://openreview.net/profile?id=~";
 
   const dataElement = document.getElementById("authorFixData");
   const modal = document.getElementById("authorFixModal");
@@ -156,6 +157,55 @@
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
     renderPaperList(verifyPapers, true);
 
+    // ---- Name to show, when the ticked papers print it in different ways ----
+    const nameField = document.getElementById("authorFixPreferredName");
+    const nameOptions = nameField.querySelector("[data-author-fix-names]");
+    new bootstrap.Tooltip(document.getElementById("authorFixLastNameInfo"));
+
+    // Distinct first/last splits on the ticked papers, so "Juan Lopez Obrador"
+    // split as Juan Lopez | Obrador and Juan | Lopez Obrador are separate options.
+    function nameVariants() {
+      const mine = new Set(selectedPapers(verifyPapers, true));
+      const variants = new Map();
+      page.papers.forEach(function (paper) {
+        if (!mine.has(paper.id)) return;
+        const key = paper.first + "\u0000" + paper.last;
+        if (!variants.has(key)) variants.set(key, { first: paper.first, last: paper.last });
+      });
+      return Array.from(variants.values());
+    }
+
+    function renderNameOptions() {
+      const checked = nameOptions.querySelector("input:checked");
+      const previous = checked ? checked.value : null;
+      const variants = nameVariants();
+      nameField.hidden = variants.length < 2;
+      nameOptions.replaceChildren(...variants.map(function (variant, index) {
+        const item = document.createElement("div");
+        const input = document.createElement("input");
+        const label = document.createElement("label");
+        const last = document.createElement("b");
+        item.className = "form-check";
+        input.className = "form-check-input";
+        input.type = "radio";
+        input.name = "authorFixPreferredName";
+        input.id = "authorFixPreferredName-" + index;
+        // Sent as "Last, First" so staff see the split.
+        input.value = variant.first ? variant.last + ", " + variant.first : variant.last;
+        input.checked = input.value === previous;
+        label.className = "form-check-label";
+        label.htmlFor = input.id;
+        last.textContent = variant.last;
+        if (variant.first) label.append(variant.first + " ");
+        label.append(last);
+        item.append(input, label);
+        return item;
+      }));
+    }
+
+    renderNameOptions();
+    verifyPapers.addEventListener("change", renderNameOptions);
+
     const openReviewNotice = document.getElementById("authorFixOpenReview");
     const hasRecentPaper = page.papers.some(function (paper) {
       return parseInt(paper.year, 10) >= OPENREVIEW_YEAR;
@@ -238,7 +288,12 @@
       if (check.owner) return showError(verifyForm, "This ORCID iD already has an author page; see the note under the ORCID iD field.");
       if (!degree) return showError(verifyForm, "Please enter the institution of your highest degree.");
       if (!openReview) return showError(verifyForm, "Please enter your OpenReview profile URL, or \"none\".");
+      if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
+        return showError(verifyForm, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
+      }
       if (mine.length === 0) return showError(verifyForm, "Please tick at least one paper that is yours.");
+      const preferredName = nameField.hidden ? null : nameOptions.querySelector("input:checked");
+      if (!nameField.hidden && !preferredName) return showError(verifyForm, "Please choose the name to show on your page.");
 
       // List whichever set of papers is shorter.
       const listMine = notMine.length > mine.length;
@@ -248,7 +303,7 @@
         author_highest_degree_institution: degree,
         papers_not_mine: listMine ? "" : notMine.join("\n"),
         papers_only_mine: listMine ? mine.join("\n") : "",
-        preferred_name: document.getElementById("authorFixPreferredName").value.trim(),
+        preferred_name: preferredName ? preferredName.value : "",
         openreview_profile: openReview,
         notes: document.getElementById("authorFixVerifyNotes").value.trim(),
       });
@@ -293,9 +348,16 @@
   let destination = null;
   let refreshDestinations = function () {};
 
+  // Only verified pages offer a choice between an existing page and "unverified".
+  const destExisting = document.getElementById("authorFixDestExisting");
+  const destUnverified = document.getElementById("authorFixDestUnverified");
+  function selectExistingDestination() {
+    if (destExisting) destExisting.checked = true;
+  }
+
   function chooseDestination(person) {
     destination = person;
-    document.getElementById("authorFixDestExisting").checked = true;
+    selectExistingDestination();
     destSearch.value = person.name;
     destResults.hidden = true;
     destStatus.replaceChildren("Selected: ");
@@ -416,13 +478,13 @@
     });
     destSearch.addEventListener("input", function () {
       destination = null;
-      document.getElementById("authorFixDestExisting").checked = true;
+      selectExistingDestination();
       refreshDestinations();
     });
     moveForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const papers = selectedPapers(movePapers, true);
-      const toUnverified = document.getElementById("authorFixDestUnverified").checked;
+      const toUnverified = destUnverified !== null && destUnverified.checked;
 
       if (papers.length === 0) return showError(moveForm, "Please select at least one paper to move.");
       if (!toUnverified && !destination) return showError(moveForm, "Please select the author page to move the papers to.");
