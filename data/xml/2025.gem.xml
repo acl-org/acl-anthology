@@ -280,6 +280,7 @@
       <abstract>Despite the outstanding performance of large language models (LLMs) across various NLP tasks, hallucinations in LLMs–where LLMs generate inaccurate responses–remains as a critical problem as it can be directly connected to a crisis of building safe and reliable LLMs. Uncertainty estimation is primarily used to measure hallucination levels in LLM responses so that correct and incorrect answers can be distinguished clearly. This study proposes an effective uncertainty estimation approach, Clustering-based semantic consistency (Cleanse). Cleanse quantifies the uncertainty with the proportion of the intra-cluster consistency in the total consistency between LLM hidden embeddings which contain adequate semantic information of generations, by employing clustering. The effectiveness of Cleanse for detecting hallucination is validated using four off-the-shelf models, LLaMA-7B, LLaMA-13B, LLaMA2-7B and Mistral-7B and two question-answering benchmarks, SQuAD and CoQA.</abstract>
       <pdf hash="195b3f27"/>
       <bibkey>joo-cho-2025-cleanse</bibkey>
+      <video href="2025.gem-1.25.mp4"/>
     </paper>
     <paper id="26">
       <!-- https://aclanthology.org/2025.gem-1.26/ -->
@@ -316,6 +317,7 @@
       <abstract>The power of Large Language Models (LLMs) in user workflows has increased the desire to access such technology in everyday work. While the ability to interact with models provides noticeable benefits, it also presents challenges in terms of how much trust a user should put in the system’s responses. This is especially true for external commercial and proprietary models where there is seldom direct access and only a response from an API is provided. While standard evaluation metrics, such as accuracy, provide starting points, they often may not provide enough information to users in settings where the confidence in a system’s response is important due to downstream or real-world impact, such as in Question &amp; Answering (Q&amp;A) workflows. To support users in assessing how accurate Q&amp;A responses from such black-box LLMs scenarios are, we develop an uncertainty estimation framework that provides users with an analysis using a Dirichlet mixture model accessed from probabilities derived from a zero-shot classification model. We apply our framework to responses on the BoolQ Yes/No questions from GPT models, finding the resulting clusters allow a better quantification of uncertainty, providing a more fine-grained quantification of accuracy and precision across the space of model output while still being computationally practical. We further demonstrate its generalizability and reusability of the uncertainty model by applying it to a small set of Q&amp;A collected from U.S. government websites.</abstract>
       <pdf hash="96de9521"/>
       <bibkey>franck-etal-2025-clustering</bibkey>
+      <video href="2025.gem-1.29.mp4"/>
     </paper>
     <paper id="30">
       <!-- https://aclanthology.org/2025.gem-1.30/ -->
@@ -371,6 +373,7 @@
       <abstract>The LLM-as-a-judge paradigm offers a potential solution to scalability issues in human evaluation of large language models (LLMs), but there are still many open questions about its strengths, weaknesses, and potential biases. This study investigates thirteen models, ranging in size and family, as ‘judge models’ evaluating answers from nine base and instruction-tuned ‘exam-taker models’. We find that only the best (and largest) models show reasonable alignment with humans, though they still differ with up to 5 points from human-assigned scores. Our research highlights the need for alignment metrics beyond percent agreement, as judges with high agreement can still assign vastly different scores. We also find that smaller models and the lexical metric contains can provide a reasonable signal in ranking the exam-taker models. Further error analysis reveals vulnerabilities in judge models, such as sensitivity to prompt complexity and a bias toward leniency. Our findings show that even the best judge models differ from humans in this fairly sterile setup, indicating that caution is warranted when applying judge models in more complex scenarios.</abstract>
       <pdf hash="8fc029c3"/>
       <bibkey>thakur-etal-2025-judging</bibkey>
+      <video href="2025.gem-1.33.mp4"/>
     </paper>
     <paper id="36">
       <!-- https://aclanthology.org/2025.gem-1.36/ -->
@@ -491,6 +494,7 @@
       <abstract>Aligning large language models (LLMs) with human preferences remains a key challenge in AI. Preference-based optimization methods, such as Reinforcement Learning with Human Feedback (RLHF) and Direct Preference Optimization (DPO), rely on human-annotated datasets to improve alignment. In this work, we identify a crucial property of the existing learning method: the distinguishing signal obtained in preferred responses is often concentrated in the early tokens. We refer to this as <tex-math>\textit{shallow preference signals}</tex-math>.To explore this property, we systematically truncate preference datasets at various points and train both reward models and DPO models on the truncated data. <tex-math>\textbf{Surprisingly}</tex-math>, models trained on truncated datasets, retaining only the first half or fewer tokens, achieve comparable or even superior performance to those trained on full datasets. For example, a reward model trained on the Skywork-Reward-Preference-80K-v0.2 dataset outperforms the full dataset when trained on a 40% truncated dataset. This pattern is consistent across multiple datasets, suggesting the widespread presence of <tex-math>\textit{shallow preference signals}</tex-math>.We further investigate the distribution of the reward signal through decoding strategies. We consider two simple decoding strategies motivated by the shallow reward signal observation, namely Length Control Decoding and KL Threshold Control Decoding, which leverage shallow preference signals to optimize the trade-off between alignment and computational efficiency. The performance is even better, which again validates our hypothesis.The phenomenon of <tex-math>\textit{shallow preference signals}</tex-math> highlights potential issues in LLM alignment: existing alignment methods often focus on aligning only the initial tokens of responses, rather than considering the full response. This could lead to discrepancies with real-world human preferences, resulting in suboptimal alignment performance.</abstract>
       <pdf hash="6eac24fc"/>
       <bibkey>qi-etal-2025-shallow</bibkey>
+      <video href="2025.gem-1.48.mp4"/>
     </paper>
     <paper id="49">
       <!-- https://aclanthology.org/2025.gem-1.49/ -->
@@ -656,6 +660,7 @@
       <abstract>This study utilizes the game Codenames as a benchmarking tool to evaluate large language models (LLMs) with respect to specific linguistic and cognitive skills. LLMs play each side of the game, where one side generates a clue word covering several target words and the other guesses those target words. We designed various experiments by controlling the choice of words (abstract vs. concrete words, ambiguous vs. monosemic) or the opponent (programmed to be faster or slower in revealing words). Recent commercial and open-weight models were compared side-by-side to find out factors affecting their performance. The evaluation reveals details about their strategies, challenging cases, and limitations of LLMs.</abstract>
       <pdf hash="8ffaaf93"/>
       <bibkey>hakimov-etal-2025-ad</bibkey>
+      <video href="2025.gem-1.63.mp4"/>
     </paper>
     <paper id="64">
       <!-- https://aclanthology.org/2025.gem-1.64/ -->

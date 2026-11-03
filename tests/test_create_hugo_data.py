@@ -34,6 +34,7 @@ from bin.create_hugo_data import (
 from acl_anthology import Anthology, config
 from acl_anthology.collections.types import EventLink
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
+from acl_anthology.files import VideoReference
 
 
 @pytest.fixture(scope="module")
@@ -367,6 +368,36 @@ def test_local_paper_url_is_exported_as_pdf(anthology):
     assert data["pdf"] == f"{config.url_prefix}/2025.acl-long.1.pdf"
     assert data["thumbnail"] == f"{config.url_prefix}/thumb/2025.acl-long.1.jpg"
     assert "external" not in data
+
+
+@pytest.mark.parametrize(
+    ("videos", "expected_names"),
+    (
+        (
+            (
+                VideoReference("2025.acl-long.1.webm"),
+                VideoReference("2025.acl-long.1.1.mp4"),
+                VideoReference("2025.acl-long.1.2.mp4", permission=False),
+            ),
+            ("2025.acl-long.1.webm", "2025.acl-long.1.1.mp4"),
+        ),
+        ((VideoReference("2025.acl-long.1.mp4", permission=False),), ()),
+        ((), ()),
+    ),
+)
+def test_paper_video_urls_preserve_formats_order_and_permissions(
+    anthology, monkeypatch, videos, expected_names
+):
+    paper = anthology.get_paper("2025.acl-long.1")
+    assert paper is not None
+    monkeypatch.setattr(paper, "videos", videos)
+
+    data = paper_to_dict(paper)
+
+    if expected_names:
+        assert data["video"] == [f"{config.url_prefix}/{name}" for name in expected_names]
+    else:
+        assert "video" not in data
 
 
 @pytest.mark.parametrize(
