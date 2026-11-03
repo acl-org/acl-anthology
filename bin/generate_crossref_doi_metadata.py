@@ -49,6 +49,7 @@ import time
 from lxml import etree
 
 from acl_anthology import Anthology
+from acl_anthology.collections.types import VolumeType
 from acl_anthology.constants import RE_EVENT_ID
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -128,6 +129,12 @@ def resolve_inputs(anthology, identifiers):
     for identifier in identifiers:
         kind, value = classify_input(identifier)
         if kind == "volume":
+            volume = anthology.get_volume(value)
+            if volume is not None and volume.type == VolumeType.MEDIA:
+                log.error(
+                    "Conference DOI registration does not support media volume %s", value
+                )
+                sys.exit(1)
             volume_ids.add(value)
         elif kind == "event":
             event = anthology.get_event(value)
@@ -135,7 +142,16 @@ def resolve_inputs(anthology, identifiers):
                 log.error("Event '%s' not found", value)
                 sys.exit(1)
             for volume in event.volumes():
-                volume_ids.add(volume.full_id)
+                if volume.type == VolumeType.MEDIA:
+                    log.info(
+                        "Skipping media volume %s: conference DOI deposits do not apply",
+                        volume.full_id,
+                    )
+                else:
+                    volume_ids.add(volume.full_id)
+    if not volume_ids:
+        log.error("No proceedings volumes found for conference DOI registration")
+        sys.exit(1)
     return sorted(volume_ids)
 
 
@@ -181,6 +197,12 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
         volume = anthology.get_volume(full_volume_id)
         if volume is None:
             log.warning("Can't find volume %s", full_volume_id)
+            continue
+        if volume.type == VolumeType.MEDIA:
+            log.info(
+                "Skipping media volume %s: conference DOI deposits do not apply",
+                full_volume_id,
+            )
             continue
 
         year = volume.year
@@ -261,6 +283,12 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
 
         # Individual papers (including frontmatter)
         for paper in volume.papers():
+            if paper.is_media:
+                log.info(
+                    "Skipping media item %s: conference DOI deposits do not apply",
+                    paper.full_id,
+                )
+                continue
             is_frontmatter = paper.is_frontmatter
 
             if is_frontmatter:
@@ -328,6 +356,10 @@ def generate_crossref_xml(anthology, volume_ids, batch_id=None):
                 "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(paper_url)
             )
 
+    if not len(body):
+        raise ValueError(
+            "No proceedings volumes available for conference DOI registration"
+        )
     return etree.tostring(
         tree,
         pretty_print=True,

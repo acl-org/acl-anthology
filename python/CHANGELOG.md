@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Citable media volumes and recording genres (talks, meetings, podcasts, panels, tutorials, interviews, lectures, and ceremonies), `Volume.create_media()`, and media iterators on Anthology, volumes, events, and people.
+- Audio references with independent publication-permission and availability flags, exact release dates, duration, episode identifiers, and licenses; media-aware BibTeX, CSL-JSON, and ACL citations.
+
+### Changed
+
+- CSL metadata is recomputed after corrections rather than retaining stale cached values.
+
 ## [1.3.4] — 2026-10-16
 
 ### Added

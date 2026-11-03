@@ -299,7 +299,7 @@ class Anthology:
                 yield from collection.volumes()
 
     def papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
-        """Returns an iterator over all papers.
+        """Returns an iterator over all citable records, including media.
 
         Parameters:
             full_id: If provided, only papers matching the given ID will be included.
@@ -318,6 +318,10 @@ class Anthology:
             for collection in self.collections.values():
                 for volume in collection.volumes():
                     yield from volume.papers()
+
+    def media(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
+        """Iterate over standalone media, optionally restricted to an Anthology ID."""
+        yield from (item for item in self.papers(full_id) if item.is_media)
 
     def get(self, full_id: AnthologyID) -> Optional[Collection | Volume | Paper]:
         """Access collections, volumes, and papers, depending on the provided ID.

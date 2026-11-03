@@ -37,7 +37,7 @@ from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id, build_id_from_t
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Collection, Volume
+    from . import Collection, Paper, Volume
 
 
 @attach_custom_repr
@@ -210,6 +210,11 @@ class Event:
                     f"{build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )
             yield volume
+
+    def media(self) -> Iterator[Paper]:
+        """Iterate over citable recordings associated with this event."""
+        for volume in self.volumes():
+            yield from volume.media()
 
     def add_colocated(
         self,

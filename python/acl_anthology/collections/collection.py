@@ -159,7 +159,7 @@ class Collection(SlottedDict[Volume]):
             id: The ID of the new volume.
             title: The title of the new volume.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
-            type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+            type: Whether this is a journal, proceedings, or media volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
             **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
 
         Returns:

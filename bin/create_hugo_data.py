@@ -51,12 +51,14 @@ from rich.progress import (
 )
 import shutil
 import unicodedata
+from urllib.parse import parse_qs, urlsplit
 
 from acl_anthology import Anthology, config, primary_console
 from acl_anthology.collections.paper import Paper
 from acl_anthology.collections.types import EventLink, PaperDeletionType, VolumeType
 from acl_anthology.collections.volume import Volume
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
+from acl_anthology.files import RecordingReference
 from acl_anthology.utils.logging import setup_rich_logging
 from acl_anthology.utils.ids import is_verified_person_id
 from acl_anthology.utils.text import (
@@ -132,6 +134,42 @@ def person_to_dict(person_id, ns):
     }
 
 
+def recording_to_dict(reference: RecordingReference, kind: str):
+    """Describe permitted playback without treating arbitrary web pages as media files."""
+    data = {"url": reference.url, "kind": kind}
+    parsed = urlsplit(reference.url)
+    extension = os.path.splitext(parsed.path)[1].lower()
+    formats = {
+        "video": {".mp4": "video/mp4", ".webm": "video/webm", ".ogv": "video/ogg"},
+        "audio": {
+            ".mp3": "audio/mpeg",
+            ".m4a": "audio/mp4",
+            ".ogg": "audio/ogg",
+            ".opus": "audio/ogg",
+            ".wav": "audio/wav",
+            ".flac": "audio/flac",
+        },
+    }
+    if mime_type := formats[kind].get(extension):
+        data["mime_type"] = mime_type
+    elif kind == "video" and parsed.scheme == "https":
+        video_id = None
+        if parsed.hostname in ("youtube.com", "www.youtube.com", "m.youtube.com"):
+            if parsed.path == "/watch":
+                video_id = parse_qs(parsed.query).get("v", [None])[0]
+            elif parsed.path.startswith(("/embed/", "/shorts/")):
+                video_id = parsed.path.split("/")[2]
+        elif parsed.hostname == "youtu.be":
+            video_id = parsed.path.lstrip("/")
+        if video_id and re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+            data["embed_url"] = f"https://www.youtube-nocookie.com/embed/{video_id}"
+        elif parsed.hostname in ("vimeo.com", "www.vimeo.com", "player.vimeo.com"):
+            video_id = parsed.path.rstrip("/").split("/")[-1]
+            if video_id.isascii() and video_id.isdecimal():
+                data["embed_url"] = f"https://player.vimeo.com/video/{video_id}"
+    return data
+
+
 def paper_to_dict(paper):
     """
     Turn a single paper into a dictionary as used by the Hugo templates.
@@ -147,11 +185,80 @@ def paper_to_dict(paper):
         "citation": paper.to_markdown_citation(),
         "citation_acl": paper.to_citation(),
         "year": paper.year,
+        "is_media": paper.is_media,
+        "type": paper.type.value,
     }
+    if paper.is_media:
+        data["type_label"] = paper.type_label
+        data["media_format"] = paper.media_format
+        data["csl_json"] = ENCODER.encode(paper.citeproc_dict).decode()
+        data["recordings"] = [
+            recording_to_dict(ref, kind)
+            for kind, refs in (("video", paper.videos), ("audio", paper.audios))
+            for ref in refs
+            if ref.permission and ref.available and not paper.is_deleted
+        ]
+        structured = {
+            "@context": "https://schema.org",
+            "@type": "PodcastEpisode"
+            if paper.type.value == "podcast"
+            else "CreativeWork",
+            "@id": paper.web_url,
+            "url": paper.web_url,
+            "identifier": paper.full_id,
+            "name": paper.title.as_text(),
+            "genre": paper.type_label,
+            "creator": [
+                {
+                    "@type": "Person",
+                    "name": ns.name.as_full(),
+                    "url": f"{config.url_prefix}/people/{ns.resolve().id}/",
+                }
+                for ns in paper.authors
+            ],
+            "isPartOf": {
+                "@type": "CreativeWorkSeries",
+                "name": paper.parent.title.as_text(),
+                "url": paper.parent.web_url,
+            },
+            "associatedMedia": [
+                {
+                    "@type": "VideoObject"
+                    if recording["kind"] == "video"
+                    else "AudioObject",
+                    "name": paper.title.as_text(),
+                    "url": recording["url"],
+                    **(
+                        {
+                            "contentUrl": recording["url"],
+                            "encodingFormat": recording["mime_type"],
+                        }
+                        if "mime_type" in recording
+                        else {}
+                    ),
+                    **(
+                        {"embedUrl": recording["embed_url"]}
+                        if "embed_url" in recording
+                        else {}
+                    ),
+                }
+                for recording in data["recordings"]
+            ],
+        }
+        for field, value in (
+            ("datePublished", paper.publication_date),
+            ("episodeNumber", paper.episode),
+            ("license", paper.license),
+            ("duration", f"PT{paper.duration}S" if paper.duration else None),
+            ("inLanguage", paper.language),
+        ):
+            if value is not None:
+                structured[field] = value
+        data["schema_org"] = structured
     if paper.ingest_date != UNKNOWN_INGEST_DATE:
         data["ingest_date"] = paper.ingest_date.isoformat()
     editors = [person_to_dict(ns.resolve().id, ns) for ns in paper.editors]
-    if BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
+    if paper.is_media or BIBLIMIT is None or int(paper.id) <= BIBLIMIT:
         data["bibtex"] = paper.to_bibtex(with_abstract=True)
     if paper.is_frontmatter:
         # Editors are considered authors for the frontmatter
@@ -164,7 +271,17 @@ def paper_to_dict(paper):
             data["editor"] = editors
     if "author" in data:
         data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    for key in ("doi", "journal_issue", "journal_title", "note", "month"):
+    for key in (
+        "doi",
+        "journal_issue",
+        "journal_title",
+        "note",
+        "month",
+        "publication_date",
+        "duration",
+        "episode",
+        "license",
+    ):
         # TODO: 'journal_*' keys are currently unused on Hugo templates
         if (value := getattr(paper, key)) is not None:
             data[key] = value
@@ -245,9 +362,23 @@ def paper_to_dict(paper):
             for revision in paper.revisions
         ]
     if paper.videos:
-        videos = [video.url for video in paper.videos if video.permission]
+        videos = [
+            video.url
+            for video in paper.videos
+            if video.permission
+            and video.available
+            and (not paper.is_media or not paper.is_deleted)
+        ]
         if videos:
             data["video"] = videos
+    if audios := [
+        audio.url
+        for audio in paper.audios
+        if audio.permission
+        and audio.available
+        and (not paper.is_media or not paper.is_deleted)
+    ]:
+        data["audio"] = audios
     return data
 
 
@@ -256,15 +387,17 @@ def author_stats(volumes: Iterable[Volume]):
 
     Frontmatter is excluded, as its "authors" are the volume editors.
     """
+    volumes = list(volumes)
     papers = [
         paper
         for volume in volumes
         for paper in volume.papers()
-        if not paper.is_frontmatter
+        if not paper.is_frontmatter and not paper.is_media
     ]
     authors = {ns.resolve() for paper in papers for ns in paper.authors}
     return {
         "paper_count": len(papers),
+        "media_count": sum(1 for volume in volumes for _ in volume.media()),
         "doi_paper_count": sum(1 for paper in papers if paper.doi is not None),
         "author_count": len(authors),
         "orcid_author_count": sum(1 for person in authors if person.orcid is not None),
@@ -279,7 +412,9 @@ def volume_to_dict(volume):
         **author_stats([volume]),
         "has_abstracts": volume.has_abstracts,
         "meta_date": volume.year,  # may be overwritten below
-        "papers": [paper.full_id for paper in volume.papers()],
+        "papers": [paper.full_id for paper in volume.papers() if not paper.is_media],
+        "media": [item.full_id for item in volume.media()],
+        "type": volume.type.value,
         "title": volume.title.as_text(),
         "title_html": remove_extra_whitespace(volume.title.as_html(allow_url=False)),
         "title_raw": volume.title.as_xml(),
@@ -386,9 +521,10 @@ def homepage_stats(anthology: Anthology):
     top_level_venues = [venue for venue in all_venues if venue.is_toplevel]
 
     return {
-        "paper_count": sum(1 for _ in anthology.papers()),
+        "paper_count": sum(1 for paper in anthology.papers() if not paper.is_media),
+        "media_count": sum(1 for _ in anthology.media()),
         "author_count": len(anthology.people),
-        "volume_count": len(volumes),
+        "volume_count": sum(volume.type != VolumeType.MEDIA for volume in volumes),
         "venue_count": len(all_venues),
         "venue_year_count": sum(
             len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
@@ -408,6 +544,7 @@ def export_homepage_stats(anthology: Anthology, builddir, dryrun):
 
 def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_count=None):
     all_volumes = {}
+    all_media = {}
     with make_progress() as progress:
         if paper_count is None:
             paper_count = sum(1 for _ in anthology.papers())
@@ -447,6 +584,12 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
                         log.error(f"Paper {paper.full_id}: {e}")
                         continue
                     collection_papers[paper.full_id] = data
+                    if paper.is_media:
+                        all_media[paper.full_id] = {
+                            "id": paper.full_id,
+                            "year": paper.year,
+                            "sort_date": paper.publication_date or f"{paper.year}-01-01",
+                        }
                     if "bibtex" in data:
                         volume_bibtex[volume.full_id].append(
                             paper.to_bibtex(with_abstract=False)
@@ -472,6 +615,8 @@ def export_papers_and_volumes(anthology: Anthology, builddir, dryrun, paper_coun
     if not dryrun:
         with open(f"{builddir}/data/volumes.json", "wb") as f:
             f.write(ENCODER.encode(all_volumes))
+        with open(f"{builddir}/data/media.json", "wb") as f:
+            f.write(ENCODER.encode(all_media))
 
 
 AUTHOR_INDEX_BUCKETS = (*"abcdefghijklmnopqrstuvwxyz", "other")
@@ -644,21 +789,24 @@ def export_people(anthology: Anthology, builddir, dryrun):
         people = {}
         for person_id, person in anthology.people.items():
             cname = person.canonical_name
-            papers = sorted(
+            items = sorted(
                 person.papers(),
                 # TODO: Sort by month as well? Converting from string first?
                 key=lambda paper: (paper.year, paper.full_id),
                 reverse=True,
             )
+            papers = [paper for paper in items if not paper.is_media]
+            media = [paper for paper in items if paper.is_media]
             data = {
                 "first": cname.first,
                 "last": cname.last,
                 "full": cname.as_full(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
+                "media": [item.full_id for item in media],
                 "coauthors": sorted(
                     anthology.people.find_coauthors_counter(
-                        person, include_volumes=False
+                        person, include_volumes=False, include_media=False
                     ).most_common(),
                     key=lambda item: (
                         -item[1],
@@ -674,7 +822,7 @@ def export_people(anthology: Anthology, builddir, dryrun):
                     key=lambda item: (-item[1], item[0]),
                 ),
             }
-            latest_ingest_date = latest_owned_ingest_date(papers, [])
+            latest_ingest_date = latest_owned_ingest_date(items, [])
             if latest_ingest_date == UNKNOWN_INGEST_DATE:
                 # Write 2018-01-01 by default (earliest recorded ingest date is in 2019)
                 # instead of 1900-01-01, which may be disregarded by search engines
@@ -845,6 +993,8 @@ def export_events(anthology: Anthology, builddir, dryrun):
 
         volume_ids = []
         for volume in event.volumes():
+            if volume.type == VolumeType.MEDIA:
+                continue
             # Default sort order: alphabetically by venue ID
             sort_order = min(volume.venue_ids)
             if main_venue in volume.venue_ids:
@@ -862,6 +1012,7 @@ def export_events(anthology: Anthology, builddir, dryrun):
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
         data["volume_count"] = len(data["volumes"])
         data.update(author_stats(event.volumes()))
+        data["media"] = [item.full_id for item in event.media()]
 
         # List venues for each volume in this event
         data["vol_venues"] = {}
@@ -939,7 +1090,10 @@ def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
 
     stats = export_homepage_stats(anthology, builddir, dryrun)
     export_papers_and_volumes(
-        anthology, builddir, dryrun, paper_count=stats["paper_count"]
+        anthology,
+        builddir,
+        dryrun,
+        paper_count=stats["paper_count"] + stats["media_count"],
     )
     export_people(anthology, builddir, dryrun)
     export_author_metrics(anthology, builddir, dryrun)

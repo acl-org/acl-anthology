@@ -165,28 +165,38 @@ class PersonIndex(SlottedDict[Person]):
         return None
 
     def find_coauthors(
-        self, person: str | Person, include_volumes: bool = True
+        self,
+        person: str | Person,
+        include_volumes: bool = True,
+        include_media: bool = True,
     ) -> list[Person]:
         """Find all persons who co-authored or co-edited items with the given person.
 
         Parameters:
             person: A person ID _or_ Person instance.
             include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
+            include_media: If False, excludes participation in standalone recordings.
 
         Returns:
             A list of all persons who are co-authors; can be empty.
         """
-        coauthors = self.find_coauthors_counter(person, include_volumes=include_volumes)
+        coauthors = self.find_coauthors_counter(
+            person, include_volumes=include_volumes, include_media=include_media
+        )
         return [self.data[pid] for pid in coauthors]
 
     def find_coauthors_counter(
-        self, person: str | Person, include_volumes: bool = True
+        self,
+        person: str | Person,
+        include_volumes: bool = True,
+        include_media: bool = True,
     ) -> Counter[str]:
         """Find the count of co-authored or co-edited items per person.
 
         Parameters:
             person: A person ID _or_ Person instance.
             include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
+            include_media: If False, excludes participation in standalone recordings.
 
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
@@ -209,6 +219,8 @@ class PersonIndex(SlottedDict[Person]):
             if isinstance(item, Volume):
                 coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
             elif isinstance(item, Paper):
+                if item.is_media and not include_media:
+                    continue
                 coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
                 coauthors.update(self._resolve_namespec(ns).id for ns in item._editors)
         del coauthors[person.id]

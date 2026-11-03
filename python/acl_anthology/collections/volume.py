@@ -52,7 +52,7 @@ from .paper import (
     Paper,
     _update_person_itemids,
 )  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
-from .types import EventLink, VolumeType
+from .types import EventLink, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -584,6 +584,8 @@ class Volume(SlottedDict[Paper]):
                 id, "Paper ID already exists in volume {self.full_id}"
             )
 
+        if self.type == VolumeType.MEDIA:
+            kwargs.setdefault("type", PaperType.MEDIA)
         kwargs["parent"] = self
         paper = Paper(
             id=id,
@@ -610,6 +612,35 @@ class Volume(SlottedDict[Paper]):
         self.data[id] = paper
         self.parent.is_modified = True
         return paper
+
+    def create_media(
+        self,
+        title: MarkupText | str,
+        id: Optional[str] = None,
+        bibkey: str = constants.NO_BIBKEY,
+        type: PaperType = PaperType.MEDIA,
+        **kwargs: Any,
+    ) -> Paper:
+        """Create a citable recording, using the same stable IDs and person indexing as papers.
+
+        Parameters:
+            title: The title of the recording.
+            id: A persistent item ID; if omitted, assigns the next available numeric ID.
+            bibkey: An optional citation key; generated automatically if omitted.
+            type: The media genre, such as `PaperType.KEYNOTE`, `MEETING`, or `PODCAST`.
+            **kwargs: Attributes of [Paper][acl_anthology.collections.paper.Paper], including `authors`, `videos`, and `audios`.
+
+        Raises:
+            ValueError: If type is not a media genre.
+        """
+        type = PaperType(type)
+        if not type.is_media:
+            raise ValueError(f"Not a media type: {type}")
+        return self.create_paper(title, id=id, bibkey=bibkey, type=type, **kwargs)
+
+    def media(self) -> Iterator[Paper]:
+        """Iterate over standalone media items in this volume."""
+        yield from (paper for paper in self.papers() if paper.is_media)
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:
         """Creates a new paper belonging to this volume.

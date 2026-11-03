@@ -11,3 +11,11 @@ As of 2016, this policy has been relaxed further, and all subsequent materials a
 Note that these policies only cover ACL materials.
 As with [the DOIs]({{< relref "doi.md" >}}), this policy does not cover third-party materials.
 For reproduction privileges for such materials, please approach the respective organizations.
+
+## Audio and video recordings
+
+Recordings, including third-party podcast episodes, may have different terms
+from published papers. Consult the license information on the recording's item
+page and its original source. Permission to host, link to, or embed a recording
+does not itself grant permission to redistribute it, and an absent license
+does not imply an open license.

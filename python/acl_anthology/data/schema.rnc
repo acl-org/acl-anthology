@@ -61,6 +61,11 @@ Talk = element talk {
   )
  }
 
+Recording =
+  attribute href { xsd:anyURI },
+  attribute permission { xsd:boolean }?,
+  attribute available { xsd:boolean }?
+
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
@@ -96,10 +101,12 @@ Paper = element paper {
    & element title { InlineMarkupText }
    & pdf?
    & url*
-   & element video {
-       attribute href { xsd:anyURI },
-       attribute permission { xsd:boolean }?
-     }*
+   & element video { Recording }*
+   & element audio { Recording }*
+   & element date { xsd:date }?
+   & element duration { xsd:positiveInteger }?
+   & element episode { text }?
+   & element license { xsd:anyURI }?
    & element language { xsd:language }?
    & element month { text }?
    & element award {
@@ -139,7 +146,7 @@ Frontmatter = element frontmatter {
 }
 Volume = element volume {
   attribute id { xsd:string },
-  attribute type { "journal" | "proceedings" },
+  attribute type { "journal" | "proceedings" | "media" },
   attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,

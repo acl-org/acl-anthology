@@ -17,7 +17,6 @@ from __future__ import annotations
 import attrs
 from attrs import define, field, converters, setters, validators as v
 import datetime
-from functools import cached_property
 import itertools as it
 import langcodes
 from lxml import etree
@@ -35,6 +34,7 @@ from ..config import config
 from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
 from ..files import (
     AttachmentReference,
+    AudioReference,
     PDFReference,
     PDFThumbnailReference,
     URLReference,
@@ -334,10 +334,11 @@ def _update_person_itemids(
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
 class Paper:
-    """A paper entry.
+    """A citable entry: a paper, frontmatter, or standalone media item.
 
     Info:
         To create a new paper, use [`Volume.create_paper()`][acl_anthology.collections.volume.Volume.create_paper].
+        For standalone recordings, use [`Volume.create_media()`][acl_anthology.collections.volume.Volume.create_media].
 
     Attributes: Required Attributes:
         id: The ID of this paper (e.g. "1" or "42").
@@ -352,6 +353,7 @@ class Paper:
         errata: Errata for this paper; can be empty.  Each erratum's PDF reference has its `name` derived from this paper's `full_id` and the erratum's own `id`.
         revisions: Revisions for this paper; can be empty.  Each revision's PDF reference has its `name` derived from this paper's `full_id` and the revision's own `id`.
         videos: Zero or more references to video recordings belonging to this paper.
+        audios: Zero or more references to audio recordings.
         urls: Links to external, non-locally-hosted resources associated with this paper (e.g. supplementary materials), as tuples of `(type_of_link, reference)`; can be empty.
 
     Attributes: Optional Attributes:
@@ -363,7 +365,11 @@ class Paper:
         note: A note attached to this paper.  Used very sparingly.
         pages: Page numbers of this paper within its volume.
         pdf: A reference to the paper's PDF.
-        type: The paper's type, currently used to mark frontmatter and backmatter.
+        type: The item's type, including frontmatter, backmatter, and media genres.
+        publication_date: An exact publication/release date in ISO format. For media this also determines the citation year, independently of the event/volume year.
+        duration: The recording's duration in seconds.
+        episode: The episode number or identifier within a media series.
+        license: A URL describing the recording's license.
     """
 
     id: str = field(converter=int_to_str)  # validator defined below
@@ -430,6 +436,7 @@ class Paper:
     videos: tuple[VideoReference, ...] = field(
         default=(), converter=tuple
     )  # auto_validate_types covers this, so no validator necessary
+    audios: tuple[AudioReference, ...] = field(default=(), converter=tuple)
     urls: tuple[tuple[str, URLReference], ...] = field(
         default=(),
         converter=tuple,
@@ -459,10 +466,31 @@ class Paper:
     pages: Optional[str] = field(default=None)
     _pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
+    publication_date: Optional[str] = field(
+        default=None,
+        converter=date_to_str,
+        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
+    )
+    duration: Optional[int] = field(
+        default=None, validator=v.optional(v.and_(v.instance_of(int), v.gt(0)))
+    )
+    episode: Optional[str] = field(
+        default=None,
+        converter=int_to_str,
+        validator=v.optional(v.matches_re(r"\S(?:.*\S)?")),
+    )
+    license: Optional[str] = field(default=None)
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self._editors):
             namespec.parent = self
+
+    @publication_date.validator
+    def _check_publication_date(self, _: Any, value: Optional[str]) -> None:
+        if value is not None:
+            parsed = datetime.date.fromisoformat(value)
+            if not self.is_media and str(parsed.year) != self.parent.year:
+                raise ValueError("Publication date must be within the volume's year")
 
     @id.validator
     def _check_id(self, _: Any, value: str) -> None:
@@ -527,6 +555,31 @@ class Paper:
         return self.type == PaperType.FRONTMATTER
 
     @property
+    def is_media(self) -> bool:
+        """Whether this is a standalone recording rather than a paper with a video."""
+        return self.type.is_media
+
+    @property
+    def type_label(self) -> str:
+        """A human-readable label for the item's genre."""
+        if self.type == PaperType.PODCAST:
+            return "Podcast episode"
+        if self.type == PaperType.MEDIA:
+            return "Media recording"
+        return self.type.value.capitalize()
+
+    @property
+    def media_format(self) -> str:
+        """The recording format, for citations; independent of playback permission."""
+        if self.audios and self.videos:
+            return "Audio and video recording"
+        if self.audios:
+            return "Audio recording"
+        if self.videos:
+            return "Video recording"
+        return "Recording"
+
+    @property
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent.parent
@@ -534,6 +587,8 @@ class Paper:
     @property
     def bibtype(self) -> str:
         """The BibTeX entry type for this paper."""
+        if self.is_media or self.parent.type == VolumeType.MEDIA:
+            return "misc"
         match self.is_frontmatter, self.parent.type:
             case (True, VolumeType.JOURNAL):
                 return "book"
@@ -549,6 +604,12 @@ class Paper:
     @property
     def csltype(self) -> str:
         """The [CSL type](https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types) for this paper."""
+        if self.is_media:
+            if self.type == PaperType.PODCAST:
+                return "broadcast"
+            if self.type == PaperType.MEDIA and self.videos:
+                return "motion_picture"
+            return "speech"
         if self.is_frontmatter:
             return "book"
         if self.parent.type == VolumeType.JOURNAL:
@@ -556,7 +617,7 @@ class Paper:
         # else:
         return "paper-conference"
 
-    @cached_property
+    @property
     def citeproc_dict(self) -> dict[str, Any]:
         """The citation object corresponding to this paper for use with CiteProcJSON."""
         data: dict[str, Any] = {
@@ -576,13 +637,24 @@ class Paper:
         }
         if self.is_frontmatter:
             data["author"] = data["editor"]
-        match self.parent.type:
-            case VolumeType.JOURNAL:
-                data["container-title"] = self.journal_title
-                data["volume"] = self.journal_volume
-                data["issue"] = self.journal_issue
-            case VolumeType.PROCEEDINGS:
-                data["container-title"] = self.parent.title.as_text()
+        if self.is_media:
+            data["container-title"] = self.parent.title.as_text()
+            data["genre"] = self.type_label
+            data["medium"] = self.media_format
+            if self.episode is not None:
+                data["number"] = self.episode
+            if self.publication_date is not None:
+                data["issued"] = {
+                    "date-parts": [
+                        [int(part) for part in self.publication_date.split("-")]
+                    ]
+                }
+        elif self.parent.type == VolumeType.JOURNAL:
+            data["container-title"] = self.journal_title
+            data["volume"] = self.journal_volume
+            data["issue"] = self.journal_issue
+        elif self.parent.type == VolumeType.PROCEEDINGS:
+            data["container-title"] = self.parent.title.as_text()
         return {k: v for k, v in data.items() if v is not None}
 
     @property
@@ -594,6 +666,8 @@ class Paper:
     def month(self) -> Optional[str]:
         """The month of publication. Uses the paper's own month if set, otherwise inherited from the parent Volume."""
         if self._month is None:
+            if self.publication_date is not None:
+                return datetime.date.fromisoformat(self.publication_date).strftime("%B")
             return self.parent.month
         return self._month
 
@@ -603,7 +677,9 @@ class Paper:
 
     @property
     def year(self) -> str:
-        """The year of publication. Inherited from the parent Volume."""
+        """The year of publication. Uses a media item's release date when provided, otherwise inherits the parent Volume's year."""
+        if self.is_media and self.publication_date is not None:
+            return self.publication_date[:4]
         return self.parent.year
 
     @property
@@ -819,7 +895,16 @@ class Paper:
             ("author", self.authors),
             ("editor", self.editors),
         ]
-        if not self.is_frontmatter:
+        if self.is_media:
+            bibtex_fields.extend(
+                [
+                    ("howpublished", self.parent.title),
+                    ("type", self.type_label),
+                    ("number", self.episode),
+                    ("date", self.publication_date),
+                ]
+            )
+        elif not self.is_frontmatter:
             match self.parent.type:
                 case VolumeType.JOURNAL:
                     bibtex_fields.extend(
@@ -837,7 +922,26 @@ class Paper:
                 ("year", self.year),
                 ("address", self.address),
                 ("publisher", self.publisher),
-                ("note", self.note),
+                (
+                    "note",
+                    ". ".join(
+                        filter(
+                            None,
+                            (
+                                f"{self.type_label} {self.episode}"
+                                if self.episode is not None
+                                else self.type_label,
+                                self.media_format,
+                                f"Released {self.publication_date}"
+                                if self.publication_date is not None
+                                else None,
+                                self.note,
+                            ),
+                        )
+                    )
+                    if self.is_media
+                    else self.note,
+                ),
                 ("url", self.web_url),
                 ("doi", self.doi),
                 ("pages", self.pages),
@@ -963,8 +1067,14 @@ class Paper:
                 "month",
                 "note",
                 "pages",
+                "episode",
+                "license",
             ):
                 kwargs[tag] = element.text
+            elif tag == "date":
+                kwargs["publication_date"] = element.text
+            elif tag == "duration":
+                kwargs["duration"] = int(str(element.text))
             elif tag in ("author", "editor"):
                 kwargs[f"{tag}s"].append(NameSpecification.from_xml(element))
             elif tag in ("abstract", "title"):
@@ -997,6 +1107,8 @@ class Paper:
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
                 kwargs["videos"].append(VideoReference.from_xml(element))
+            elif tag == "audio":
+                kwargs.setdefault("audios", []).append(AudioReference.from_xml(element))
             elif tag == ("mrf"):
                 # consider an attachment of type "mrf"
                 kwargs["attachments"].append(
@@ -1024,8 +1136,8 @@ class Paper:
             paper = etree.Element("paper", attrib={"id": self.id})
         if self._ingest_date is not None:
             paper.set("ingest-date", self._ingest_date)
-        if self.type == PaperType.BACKMATTER:
-            paper.set("type", "backmatter")
+        if self.type not in (PaperType.PAPER, PaperType.FRONTMATTER):
+            paper.set("type", self.type.value)
         paper.append(etree.Comment(self.web_url))
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
@@ -1072,6 +1184,16 @@ class Paper:
             paper.append(elem)
         for video in self.videos:
             paper.append(video.to_xml("video"))
+        for audio in self.audios:
+            paper.append(audio.to_xml())
+        if self.publication_date is not None:
+            paper.append(E.date(self.publication_date))
+        if self.duration is not None:
+            paper.append(E.duration(str(self.duration)))
+        if self.episode is not None:
+            paper.append(E.episode(self.episode))
+        if self.license is not None:
+            paper.append(E.license(self.license))
         for award in self.awards:
             paper.append(award.to_xml())
         if self.deletion is not None:

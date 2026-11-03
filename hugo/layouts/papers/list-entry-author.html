@@ -30,6 +30,9 @@
       {{- range $paper.video -}}
       <a class="badge text-bg-attachment align-middle me-1" href="{{ . }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Video" aria-label="Open Video"><i class="fas fa-video"></i></a>
       {{- end -}}
+      {{- range $paper.audio -}}
+      <a class="badge text-bg-attachment align-middle me-1" href="{{ . }}" title="Audio" aria-label="Open Audio"><i class="fas fa-headphones"></i></a>
+      {{- end -}}
     </span>
   </div>
   <span class="d-block">
@@ -37,6 +40,7 @@
       <span class="badge text-bg-light align-middle">{{ .Params.anthology_id }}</span>
     {{ end }}
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    {{ with $paper.type_label }}<span class="badge text-bg-light align-middle ms-1">{{ . }}</span>{{ end }}
     <br />
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}

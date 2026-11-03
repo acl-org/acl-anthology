@@ -25,6 +25,7 @@ from citeproc import (
 )
 from citeproc.source.json import CiteProcJSON
 from pathlib import Path
+from html import escape
 from typing import Any, Sequence, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -132,6 +133,18 @@ def render_acl_citation(paper: Paper) -> str:
             if not paper.is_frontmatter:
                 authors = f"{authors} ({'eds.' if len(editors) > 1 else 'ed.'})"
     title = f'<a href="{paper.web_url}">{paper.title.as_text()}</a>'
+    if paper.is_media:
+        names = f"{escape(authors)}. " if authors else ""
+        title = f'<a href="{escape(paper.web_url)}">{paper.title.as_html(allow_url=False)}</a>'
+        genre = paper.type_label
+        if paper.episode is not None:
+            genre = f"{genre} {escape(paper.episode)}"
+        publisher = f" {escape(paper.publisher)}." if paper.publisher else ""
+        return (
+            f"{names}{paper.publication_date or paper.year}. "
+            f"{title} [{paper.media_format}]. {genre}. "
+            f"<i>{paper.parent.title.as_html(allow_url=False)}</i>.{publisher}"
+        )
     if paper.is_frontmatter:
         title = f"<i>{title}</i>"
     parent = []

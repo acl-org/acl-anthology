@@ -399,7 +399,6 @@ class Person:
 
     def anthology_items(self) -> Iterator[Paper | Volume]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
-        # TODO: This does not consider talks yet!
         for anthology_id in self.item_ids:
             item = self.root.get(anthology_id)
             if item is None:
@@ -415,7 +414,7 @@ class Person:
             yield item.get_namespec_for(self)
 
     def papers(self) -> Iterator[Paper]:
-        """Returns an iterator over all papers associated with this person.
+        """Returns an iterator over all citable records associated with this person, including media.
 
         Note:
             This will return papers where this person is an author, as well as frontmatter of volumes where they are an editor. It will _not_ include all other papers in volumes they have edited.
@@ -429,6 +428,10 @@ class Person:
                         f"Person {self.id} lists associated paper {build_id_from_tuple(anthology_id)}, which doesn't exist"
                     )  # pragma: no cover
                 yield paper
+
+    def media(self) -> Iterator[Paper]:
+        """Iterate over standalone recordings associated with this person."""
+        yield from (item for item in self.papers() if item.is_media)
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes this person has edited."""

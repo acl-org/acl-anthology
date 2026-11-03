@@ -5,6 +5,7 @@
 {{ range $paper.author }}
   <meta content="{{ (index hugo.Data.people .id).full }}" name="citation_author">
 {{ end }}
+{{ if not $paper.is_media }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index hugo.Data.volumes . }}
   {{ if isset $volume "meta_journal_title" }}
@@ -15,6 +16,11 @@
   {{ with $volume.meta_volume }}<meta content="{{ . }}" name="citation_volume">{{ end }}
   {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue">{{ end }}
   {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date">{{ end }}
+{{ end }}
+{{ else }}
+  <meta content="{{ default $paper.year $paper.publication_date }}" name="citation_publication_date">
+  <meta content="{{ $paper.media_format }}" name="DC.type">
+{{ with $paper.publisher }}<meta content="{{ . }}" name="citation_publisher">{{ end }}
 {{ end }}
 {{ with $paper.pdf }}
   <meta content="{{ . }}" name="citation_pdf_url">
@@ -27,11 +33,14 @@
   <meta property="og:image" content="{{ . }}" />
   <meta property="og:image:alt" content="First page of paper PDF." />
 {{ end }}
-  <meta property="og:type" content="article" />
+  <meta property="og:type" content="{{ if $paper.is_media }}{{ if $paper.video }}video.other{{ else }}website{{ end }}{{ else }}article{{ end }}" />
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
   <link rel="canonical" href="{{ $paper.url }}" />
+{{ with $paper.schema_org }}
+  <script type="application/ld+json">{{ . | jsonify | safeJS }}</script>
+{{ end }}
 {{ end }}
 {{ define "javascript" }}
 {{ $anthology_id := .Params.anthology_id }}
@@ -107,6 +116,7 @@
     }
   });
 
+  {{ if not $paper.is_media }}
   const paper_params = {
     anthology_id: "{{ .Params.anthology_id }}",
     title: "{{ $paper.title_raw }}",
@@ -385,6 +395,7 @@
 
     window.open(url, "_blank");
   }
+  {{ end }}
 </script>
 {{ end }}
 
@@ -409,8 +420,12 @@
       {{ end }}
     </p>
     {{ end }}
+    {{ if $paper.is_media }}
+    <p class="text-muted">{{ $paper.type_label }} &middot; {{ $paper.media_format }}</p>
+    {{ end }}
   </div>
 
+  {{ if not $paper.is_media }}
   <div class="modal fade" id="metadataModal" tabindex="-1" aria-labelledby="metadataModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -474,19 +489,23 @@
       </div>
     </div>
   </div>
+  {{ end }}
   <hr />
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
+      {{ if $paper.is_media }}
+        {{ partial "recordings.html" (dict "recordings" $paper.recordings "title" $paper.title) }}
+      {{ end }}
       {{ with $paper.retracted }}
       <div class="alert alert-danger" role="alert">
-        <b>This paper has been retracted.</b> {{ . }}
+        <b>This {{ if $paper.is_media }}recording{{ else }}paper{{ end }} has been retracted.</b> {{ . }}
       </div>
       {{ end }}
 
       {{ with $paper.removed }}
       <div class="alert alert-danger" role="alert">
-        <b>This paper has been <a href="https://aclanthology.org/info/corrections/#removal">removed</a>.</b>
+        <b>This {{ if $paper.is_media }}recording{{ else }}paper{{ end }} has been <a href="https://aclanthology.org/info/corrections/#removal">removed</a>.</b>
         {{ . }}
       </div>
       {{ end }}
@@ -520,7 +539,7 @@
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
         {{ end }}
 
-        <dt>Volume:</dt>
+        <dt>{{ if $paper.is_media }}Series / collection:{{ else }}Volume:{{ end }}</dt>
         <dd>
           {{- with $paper.parent_volume_id -}}
           {{ $volume := index hugo.Data.volumes . }}
@@ -529,12 +548,41 @@
           {{- end -}}
         </dd>
 
+        {{ if $paper.is_media }}
+        {{ with $paper.events }}
+        <dt>Event:</dt>
+        <dd>
+          {{ range . }}
+          <a href="{{ relref $ (printf "/events/%s" .) }}">{{ (index hugo.Data.events .).title }}</a>
+          {{ end }}
+        </dd>
+        {{ end }}
+        {{ with $paper.publication_date }}
+        <dt>Published:</dt>
+        <dd><time datetime="{{ . }}">{{ . }}</time></dd>
+        {{ end }}
+        {{ with $paper.episode }}
+        <dt>Episode:</dt><dd>{{ . }}</dd>
+        {{ end }}
+        {{ with $paper.duration }}
+        <dt>Duration:</dt>
+        <dd><time datetime="PT{{ . }}S">{{ printf "%d:%02d:%02d" (int (div . 3600)) (int (mod (div . 60) 60)) (int (mod . 60)) }}</time></dd>
+        {{ end }}
+        {{ with $paper.license }}
+        <dt>License:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
+        {{ end }}
+        {{ end }}
+
+        {{ if or (not $paper.is_media) (and $paper.month (not $paper.publication_date)) }}
         <dt>Month:</dt>
         <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+        {{ end }}
         <dt>Year:</dt>
         <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+        {{ if or (not $paper.is_media) $paper.address }}
         <dt>Address:</dt>
         <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+        {{ end }}
 
                 {{ with $paper.editor }}
                   {{ $len := (len .) }}
@@ -557,6 +605,7 @@
             {{ if ne (add $index 1) $len }} | {{ end }}
           {{- end -}}
         </dd>
+        {{ if or (not $paper.is_media) $volume.sigs }}
         <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
         <dd>
           {{- $len := (len $volume.sigs) -}}
@@ -568,20 +617,31 @@
           {{- end -}}
         </dd>
         {{ end }}
+        {{ end }}
 
+        {{ if or (not $paper.is_media) $paper.publisher }}
         <dt>Publisher:</dt>
         <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+        {{ end }}
+        {{ if or (not $paper.is_media) $paper.note }}
         <dt>Note:</dt>
         <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
+        {{ end }}
+        {{ if or (not $paper.is_media) $paper.pages }}
         <dt>Pages:</dt>
         <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+        {{ end }}
+        {{ if or (not $paper.is_media) $paper.language }}
         <dt>Language:</dt>
         <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
+        {{ end }}
         <dt>URL:</dt>
         <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
+        {{ if or (not $paper.is_media) $paper.doi }}
         <dt>DOI:</dt>
         <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{
             . }}</a>{{ end }}</dd>
+        {{ end }}
         {{ range $paper.award }}
         <dt>Award:</dt>
         <dd>
@@ -654,6 +714,10 @@
         <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i
               class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
         {{ end }}
+        {{ range $paper.audio }}
+        <dt class="acl-button-row">Audio:</dt>
+        <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-headphones"></i>&nbsp;{{ . }}</a></dd>
+        {{ end }}
       </dl>
     </div>
 
@@ -691,10 +755,12 @@
         <i class="fas fa-quote-left"></i><span class="ps-2">Cite</span>
       </a>
       {{ end }}
+      {{ if not $paper.is_media }}
       <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify " q" $paper.title) | safeURL
         }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar" aria-label="Search for this paper on Semantic Scholar">
         <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
+      {{ end }}
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center text-break" href="{{ .url }}"
         title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
@@ -709,11 +775,23 @@
         <span class="px-1">Video</span>
       </a>
       {{ end }}
+      {{ range $paper.audio }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open audio for '{{ $paper.title }}'">
+        <span class="align-self-center px-1"><i class="fas fa-headphones"></i></span>
+        <span class="px-1">Audio</span>
+      </a>
+      {{ end }}
+      {{ if $paper.is_media }}
+      <a class="btn btn-warning" href="{{ printf "https://github.com/acl-org/acl-anthology/issues/new?%s" (querify "title" (printf "Media correction: %s" $anthology_id)) }}" aria-label="Suggest a correction for this recording">
+        <i class="fas fa-edit"></i><span class="ps-2">Fix data</span>
+      </a>
+      {{ else }}
       <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
         title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this paper's metadata">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
         <span class="ps-md-2">Fix data</span>
       </a>
+      {{ end }}
     </div>
   </div>
   <hr />
@@ -741,6 +819,11 @@
               <a class="nav-link {{ if not $paper.endf }}disabled{{ end }}" data-bs-toggle="list" href="#citeEndnote"
                 role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
             </li>
+            {{ with $paper.csl_json }}
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="list" href="#citeCSL" role="tab" aria-controls="citeCSL" aria-selected="false">CSL-JSON</a>
+            </li>
+            {{ end }}
             <li class="nav-item">
               <a class="nav-link {{ if not $paper.bibtex }}active{{ end }}" data-bs-toggle="list" href="#citeMarkdown"
                 role="tab" aria-controls="citeMarkdown"
@@ -785,6 +868,15 @@
               </div>
               {{- end -}}
             </div>
+            {{ with $paper.csl_json }}
+            <div class="tab-pane" id="citeCSL" role="tabpanel">
+              <pre id="citeCSLContent" class="bg-light border p-2" style="max-height: 50vh;">{{ . }}</pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary btn-filesaver disabled" data-filesaver-target="#citeCSLContent" data-filesaver-name="{{ $.Params.anthology_id }}.json"><i class="fas fa-download pe-2"></i>Download as File</a>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeCSLContent" aria-label="Copy CSL-JSON to clipboard"><i class="far fa-clipboard pe-2"></i>Copy to Clipboard</button>
+              </div>
+            </div>
+            {{ end }}
             <div class="tab-pane" id="citeMarkdown" role="tabpanel">
               <h5>Markdown (Informal)</h5>
               <p id="citeMarkdownContent" class="font-monospace small bg-light border p-2">

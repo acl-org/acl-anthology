@@ -127,6 +127,7 @@ def auto_validate_types(
         AttachmentReference,
         URLReference,
         VideoReference,
+        AudioReference,
     )
     from ..people import Name, NameSpecification
     from ..text import MarkupText
@@ -142,6 +143,7 @@ def auto_validate_types(
             AttachmentReference,
             URLReference,
             VideoReference,
+            AudioReference,
             MarkupText,
             Name,
             NameSpecification,

@@ -41,10 +41,7 @@ class PaperDeletionType(SimpleReprEnum):
 
 
 class PaperType(SimpleReprEnum):
-    """Type of paper.
-
-    Currently only exists to support a few paper instances that are marked up as 'backmatter'.
-    """
+    """Type of citable item, independently of its recording format."""
 
     PAPER = "paper"
     """A regular paper."""
@@ -55,6 +52,44 @@ class PaperType(SimpleReprEnum):
     BACKMATTER = "backmatter"
     """The backmatter of a volume."""
 
+    MEDIA = "media"
+    """A recording without a more specific genre."""
+
+    TALK = "talk"
+    """An invited talk, presentation, or address."""
+
+    KEYNOTE = "keynote"
+    """A keynote talk."""
+
+    PLENARY = "plenary"
+    """A plenary talk."""
+
+    PANEL = "panel"
+    """A panel discussion."""
+
+    MEETING = "meeting"
+    """A business meeting or other meeting."""
+
+    PODCAST = "podcast"
+    """A podcast episode."""
+
+    TUTORIAL = "tutorial"
+    """A recorded tutorial without an associated paper."""
+
+    INTERVIEW = "interview"
+    """An interview or oral history."""
+
+    LECTURE = "lecture"
+    """A lecture."""
+
+    CEREMONY = "ceremony"
+    """An opening, closing, or awards ceremony."""
+
+    @property
+    def is_media(self) -> bool:
+        """Whether this type represents a standalone media item."""
+        return self not in (self.PAPER, self.FRONTMATTER, self.BACKMATTER)
+
 
 class VolumeType(SimpleReprEnum):
     """Type of publication a volume represents."""
@@ -64,3 +99,6 @@ class VolumeType(SimpleReprEnum):
 
     PROCEEDINGS = "proceedings"
     """A conference/workshop proceedings volume."""
+
+    MEDIA = "media"
+    """A collection of recordings, such as event media or a year of a podcast."""

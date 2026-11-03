@@ -78,6 +78,20 @@
           {{ ($.Site.GetPage $page).Render "list-entry-author" }}
         {{ end }}
       {{ end }}
+      {{ with $person.media }}
+      <h3 class="mt-4">Media recordings</h3>
+      {{ $year := "" }}
+      {{ range . }}
+        {{ $item := index (index hugo.Data.papers (index (split . "-") 0)) . }}
+        {{ if and (not $item.removed) (not $item.retracted) }}
+          {{ if ne $year $item.year }}
+          <h4>{{ $item.year }}</h4>
+          {{ $year = $item.year }}
+          {{ end }}
+          {{ ($.Site.GetPage (printf "/papers/%s" .)).Render "list-entry-author" }}
+        {{ end }}
+      {{ end }}
+      {{ end }}
     </div>
 
     <div class="col-lg-3">

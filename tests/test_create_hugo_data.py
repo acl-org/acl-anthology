@@ -32,7 +32,7 @@ from bin.create_hugo_data import (
 )
 
 from acl_anthology import Anthology, config
-from acl_anthology.collections.types import EventLink
+from acl_anthology.collections.types import EventLink, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 
 
@@ -45,9 +45,14 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
     stats = homepage_stats(anthology)
     top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
 
-    assert stats["paper_count"] == sum(1 for _ in anthology.papers())
+    assert stats["paper_count"] == sum(
+        1 for paper in anthology.papers() if not paper.is_media
+    )
+    assert stats["media_count"] == sum(1 for _ in anthology.media())
     assert stats["author_count"] == len(anthology.people)
-    assert stats["volume_count"] == sum(1 for _ in anthology.volumes())
+    assert stats["volume_count"] == sum(
+        1 for volume in anthology.volumes() if volume.type != VolumeType.MEDIA
+    )
     assert stats["venue_count"] == len(anthology.venues)
     assert stats["venue_year_count"] == sum(
         len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
