@@ -481,6 +481,7 @@
       <abstract>Evaluating the performance and biases of large language models (LLMs) through role-playing scenarios is becoming increasingly common, as LLMs often exhibit biased behaviors in these contexts. Building on this line of research, we introduce PapersPlease, a benchmark consisting of 3,700 moral dilemmas designed to investigate LLMs’ decision-making in prioritizing various levels of human needs. In our setup, LLMs act as immigration inspectors deciding whether to approve or deny entry based on the short narratives of people. These narratives are constructed using the Existence, Relatedness, and Growth (ERG) theory, which categorizes human needs into three hierarchical levels. Our analysis of six LLMs reveals statistically significant patterns in decision-making, suggesting that LLMs encode implicit preferences. Additionally, our evaluation of the impact of incorporating social identities into the narratives shows varying responsiveness based on both motivational needs and identity cues, with some models exhibiting higher denial rates for marginalized identities. All data is publicly available at <url>https://github.com/yeonsuuuu28/papers-please</url>.</abstract>
       <pdf hash="73fe3ad7"/>
       <bibkey>myung-etal-2025-papersplease</bibkey>
+      <video href="2025.gem-1.47.1.mp4"/>
     </paper>
     <paper id="48">
       <!-- https://aclanthology.org/2025.gem-1.48/ -->
@@ -494,7 +495,6 @@
       <abstract>Aligning large language models (LLMs) with human preferences remains a key challenge in AI. Preference-based optimization methods, such as Reinforcement Learning with Human Feedback (RLHF) and Direct Preference Optimization (DPO), rely on human-annotated datasets to improve alignment. In this work, we identify a crucial property of the existing learning method: the distinguishing signal obtained in preferred responses is often concentrated in the early tokens. We refer to this as <tex-math>\textit{shallow preference signals}</tex-math>.To explore this property, we systematically truncate preference datasets at various points and train both reward models and DPO models on the truncated data. <tex-math>\textbf{Surprisingly}</tex-math>, models trained on truncated datasets, retaining only the first half or fewer tokens, achieve comparable or even superior performance to those trained on full datasets. For example, a reward model trained on the Skywork-Reward-Preference-80K-v0.2 dataset outperforms the full dataset when trained on a 40% truncated dataset. This pattern is consistent across multiple datasets, suggesting the widespread presence of <tex-math>\textit{shallow preference signals}</tex-math>.We further investigate the distribution of the reward signal through decoding strategies. We consider two simple decoding strategies motivated by the shallow reward signal observation, namely Length Control Decoding and KL Threshold Control Decoding, which leverage shallow preference signals to optimize the trade-off between alignment and computational efficiency. The performance is even better, which again validates our hypothesis.The phenomenon of <tex-math>\textit{shallow preference signals}</tex-math> highlights potential issues in LLM alignment: existing alignment methods often focus on aligning only the initial tokens of responses, rather than considering the full response. This could lead to discrepancies with real-world human preferences, resulting in suboptimal alignment performance.</abstract>
       <pdf hash="6eac24fc"/>
       <bibkey>qi-etal-2025-shallow</bibkey>
-      <video href="2025.gem-1.48.mp4"/>
     </paper>
     <paper id="49">
       <!-- https://aclanthology.org/2025.gem-1.49/ -->
@@ -660,7 +660,6 @@
       <abstract>This study utilizes the game Codenames as a benchmarking tool to evaluate large language models (LLMs) with respect to specific linguistic and cognitive skills. LLMs play each side of the game, where one side generates a clue word covering several target words and the other guesses those target words. We designed various experiments by controlling the choice of words (abstract vs. concrete words, ambiguous vs. monosemic) or the opponent (programmed to be faster or slower in revealing words). Recent commercial and open-weight models were compared side-by-side to find out factors affecting their performance. The evaluation reveals details about their strategies, challenging cases, and limitations of LLMs.</abstract>
       <pdf hash="8ffaaf93"/>
       <bibkey>hakimov-etal-2025-ad</bibkey>
-      <video href="2025.gem-1.63.mp4"/>
     </paper>
     <paper id="64">
       <!-- https://aclanthology.org/2025.gem-1.64/ -->
