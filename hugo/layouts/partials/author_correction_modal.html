@@ -84,16 +84,17 @@
               </small>
             </button>
             {{ end }}
+            {{ if $is_verified }}
+            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixRemove">
+              <div class="fw-semibold">Remove papers</div>
+              <small class="text-muted">Some papers here are by someone else.</small>
+            </button>
+            {{ else }}
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixMove">
               <div class="fw-semibold">Move papers</div>
-              <small class="text-muted">
-                {{ if $is_verified }}
-                Some papers here are by someone else.
-                {{ else }}
-                I already have a verified author page, e.g. under a variant of this name: move my papers here to it.
-                {{ end }}
-              </small>
+              <small class="text-muted">I already have a verified author page, e.g. under a variant of this name: move my papers here to it.</small>
             </button>
+            {{ end }}
             <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixOther">
               <div class="fw-semibold">Something else</div>
               <small class="text-muted">{{ if $is_verified }}For example, a permanent name change.{{ else }}Anything not covered above.{{ end }}</small>
@@ -160,19 +161,37 @@
         </div>
         {{ end }}
 
-        {{/* ---- Move papers ---- */}}
+        {{ if $is_verified }}
+        {{/* ---- Remove papers (verified pages): unticked papers go to unverified pages ---- */}}
+        <div class="d-none" id="authorFixRemove" data-author-fix-pane>
+          <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
+          <h6 class="mb-3" tabindex="-1">Remove papers</h6>
+          <form id="authorFixRemoveForm" novalidate>
+            <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1">Papers to keep on this page</legend>
+              <div class="form-text mb-2">
+                Untick the papers that are not by this author. They will be removed from this page and moved to the
+                unverified page for the name printed on each.
+              </div>
+              <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="remove"></div>
+            </fieldset>
+            <div class="mb-3">
+              <label for="authorFixRemoveNotes" class="form-label">Additional notes</label>
+              <textarea class="form-control" id="authorFixRemoveNotes" rows="2"></textarea>
+            </div>
+            <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+          </form>
+        </div>
+        {{ else }}
+        {{/* ---- Move papers (unverified pages): to the author's verified page ---- */}}
         <div class="d-none" id="authorFixMove" data-author-fix-pane>
           <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
           <h6 class="mb-3" tabindex="-1">Move papers</h6>
           <form id="authorFixMoveForm" novalidate>
             <p class="form-text mt-0">
-              {{ if $is_verified }}
-              Use this to move papers from this page to the page they belong on. To add papers to your own page,
-              open the page where they currently appear and use this form there.
-              {{ else }}
               Use this if you already have a verified author page (which uses another variant of this name,
               and/or which disambiguates one individual from others with the same name).
-              {{ end }}
             </p>
             <fieldset class="mb-3">
               <legend class="form-label fs-6 mb-1">Papers to move</legend>
@@ -182,30 +201,13 @@
               </div>
               <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="move"></div>
             </fieldset>
-
             <fieldset class="mb-3">
-              {{ if $is_verified }}
-              <legend class="form-label fs-6 mb-1">Move them to</legend>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="authorFixDestination" id="authorFixDestExisting" value="existing" checked>
-                <label class="form-check-label" for="authorFixDestExisting">An existing verified author page</label>
-              </div>
-              {{ else }}
-              {{/* Unverified pages can only send papers to a verified page */}}
               <legend class="form-label fs-6 mb-1"><label for="authorFixDestSearch">Your verified author page</label></legend>
-              {{ end }}
-              <div class="{{ if $is_verified }}ms-4 mb-2 {{ end }}position-relative">
+              <div class="position-relative">
                 <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name" autocomplete="off" aria-describedby="authorFixDestStatus">
                 <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
                 <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages with a name like the one on the selected papers are shown, excluding their coauthors.</div>
               </div>
-              {{ if $is_verified }}
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="authorFixDestination" id="authorFixDestUnverified" value="unverified">
-                <label class="form-check-label" for="authorFixDestUnverified">These papers are by someone else, and I don't know their page</label>
-                <div class="form-text">Each paper will move to the unverified page for the name printed on it.</div>
-              </div>
-              {{ end }}
             </fieldset>
             <div class="mb-3">
               <label for="authorFixMoveNotes" class="form-label">Additional notes</label>
@@ -215,6 +217,7 @@
             <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
           </form>
         </div>
+        {{ end }}
 
         {{/* ---- Other ---- */}}
         <div class="d-none" id="authorFixOther" data-author-fix-pane>

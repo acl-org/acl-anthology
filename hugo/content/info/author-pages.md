@@ -57,10 +57,10 @@ To fix this, please verify your author page, if you haven't already, using the [
 
 If you are verifying your page now, simply untick the papers that are not yours in the "Verify author" form.
 
-If your page is already verified, please file a request to move the papers, as follows:
+If your page is already verified, please file a request to remove the papers, as follows:
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
-- Click on the "Fix author" button at the bottom of the links on the right-hand side of the page, and choose "Move papers".
-- Select the papers that are not yours. If you know the author page of the person who wrote them, search for it; otherwise choose "These papers are by someone else, and I don't know their page".
+- Click on the "Fix author" button at the bottom of the links on the right-hand side of the page, and choose "Remove papers".
+- Untick the papers that are not yours. They will be moved to the unverified page for the name printed on them, from where their author can claim them.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
 ### How to add papers to your author page
@@ -72,10 +72,12 @@ To fix this, please first of all check that the names on the other papers are co
 Second, please verify your author page, if you haven't already, using the [instructions above](#how-to-get-your-author-page-verified).
 
 If the names are correct and your author page is verified, then please file a request to move the papers, as follows:
-- Find the author page where the papers currently appear (e.g., by finding one of the papers and clicking on your name).
+- Find the unverified author page where the papers currently appear (e.g., by finding one of the papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of that page, and choose "Move papers".
 - Select the papers that are yours (or "Select all" if the whole page is yours), and choose your own author page as the destination. Only verified pages under a name sharing part of the name printed on the papers are offered, excluding the papers' other authors.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
+
+If the papers appear on another person's verified page, click on the "Fix author" button there, choose "Something else", and describe the problem.
 
 ### Other problems with author pages
 

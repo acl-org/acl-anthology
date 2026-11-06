@@ -247,19 +247,21 @@
         .then(function (owner) {
           if (owner && owner !== page.id) {
             const link = document.createElement("a");
-            const move = document.createElement("a");
+            const next = document.createElement("a");
             link.href = authorPageUrl(owner);
             link.textContent = owner;
-            move.href = "#";
-            move.textContent = "move papers from this page to it";
-            move.addEventListener("click", function (event) {
+            next.href = "#";
+            // Papers can only be moved from unverified pages; otherwise ask staff.
+            next.textContent = moveForm ? "move papers from this page to it" : "describe the problem under Something else";
+            next.addEventListener("click", function (event) {
               event.preventDefault();
+              if (!moveForm) return showPane("authorFixOther");
               chooseDestination({ id: owner, name: owner, names: null });
               showPane("authorFixMove");
             });
             setFeedback("invalid", [
               "This ORCID iD already has an author page: ", link,
-              ". Instead of verifying this page, ", move, ".",
+              ". Instead of verifying this page, ", next, ".",
             ]);
             return { orcid: orcid, owner: owner };
           }
@@ -337,27 +339,18 @@
     });
   }
 
-  // ---- Move papers ----
+  // ---- Move papers (unverified pages) ----
 
   const moveForm = document.getElementById("authorFixMoveForm");
   const destSearch = document.getElementById("authorFixDestSearch");
   const destResults = document.getElementById("authorFixDestResults");
   const destStatus = document.getElementById("authorFixDestStatus");
-  const destDefaultStatus = destStatus.textContent;
   // {id, name, names}; `names` is null when chosen via the ORCID iD check.
   let destination = null;
   let refreshDestinations = function () {};
 
-  // Only verified pages offer a choice between an existing page and "unverified".
-  const destExisting = document.getElementById("authorFixDestExisting");
-  const destUnverified = document.getElementById("authorFixDestUnverified");
-  function selectExistingDestination() {
-    if (destExisting) destExisting.checked = true;
-  }
-
   function chooseDestination(person) {
     destination = person;
-    selectExistingDestination();
     destSearch.value = person.name;
     destResults.hidden = true;
     destStatus.replaceChildren("Selected: ");
@@ -369,6 +362,7 @@
   }
 
   function initMove() {
+    const destDefaultStatus = destStatus.textContent;
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
     renderPaperList(movePapers, false);
@@ -478,24 +472,43 @@
     });
     destSearch.addEventListener("input", function () {
       destination = null;
-      selectExistingDestination();
       refreshDestinations();
     });
     moveForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const papers = selectedPapers(movePapers, true);
-      const toUnverified = destUnverified !== null && destUnverified.checked;
 
       if (papers.length === 0) return showError(moveForm, "Please select at least one paper to move.");
-      if (!toUnverified && !destination) return showError(moveForm, "Please select the author page to move the papers to.");
+      if (!destination) return showError(moveForm, "Please select the author page to move the papers to.");
 
-      openIssue(moveForm, "02b-move-author-papers.yml",
-        "Move Papers: " + page.id + " → " + (toUnverified ? "unverified" : destination.id), {
-          source_page: page.url,
-          papers_to_move: papers.length === page.papers.length ? "all" : papers.join("\n"),
-          destination: toUnverified ? "unverified" : authorPageUrl(destination.id),
-          notes: document.getElementById("authorFixMoveNotes").value.trim(),
-        });
+      openIssue(moveForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → " + destination.id, {
+        source_page: page.url,
+        papers_to_move: papers.length === page.papers.length ? "all" : papers.join("\n"),
+        destination: authorPageUrl(destination.id),
+        notes: document.getElementById("authorFixMoveNotes").value.trim(),
+      });
+    });
+  }
+
+  // ---- Remove papers (verified pages) ----
+
+  // Unticked papers go to the unverified page for their name, as a move to "unverified".
+  function initRemove() {
+    const removeForm = document.getElementById("authorFixRemoveForm");
+    const keepPapers = removeForm.querySelector("[data-author-fix-papers]");
+    renderPaperList(keepPapers, true);
+
+    removeForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const removed = selectedPapers(keepPapers, false);
+      if (removed.length === 0) return showError(removeForm, "Please untick the papers to remove from this page.");
+
+      openIssue(removeForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → unverified", {
+        source_page: page.url,
+        papers_to_move: removed.length === page.papers.length ? "all" : removed.join("\n"),
+        destination: "unverified",
+        notes: document.getElementById("authorFixRemoveNotes").value.trim(),
+      });
     });
   }
 
@@ -517,7 +530,8 @@
   // ---- Setup ----
 
   if (verifyForm) initVerify();
-  initMove();
+  if (moveForm) initMove();
+  else initRemove();
   initOther();
   chooser.querySelectorAll("[data-author-fix-choose]").forEach(function (button) {
     button.addEventListener("click", function () { showPane(button.dataset.authorFixChoose); });
