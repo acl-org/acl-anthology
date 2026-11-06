@@ -709,6 +709,14 @@
         <span class="px-1">Video</span>
       </a>
       {{ end }}
+      {{ range $paper.erratum }}
+      <a class="btn btn-warning d-flex flex-wrap justify-content-center" href="{{ .url }}"
+        title="Open erratum e{{ .id }} for '{{ $paper.title | htmlEscape }}'"
+        aria-label="Open erratum e{{ .id }} for '{{ $paper.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-exclamation-triangle"></i></span>
+        <span class="px-1">Erratum (e{{ .id }})</span>
+      </a>
+      {{ end }}
       <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
         title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this paper's metadata">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
