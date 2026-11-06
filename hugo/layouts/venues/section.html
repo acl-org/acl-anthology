@@ -3,11 +3,49 @@
 {{ end }}
 
 {{ define "main" }}
-<main role="main">
+<main role="main" data-venue-directory
+      data-venue-index="{{ relURL "venues/index.json" }}"
+      data-venues-base="{{ relURL "venues/" }}">
   <h2 id="title">{{ .Title }}</h2>
   <hr />
 
   {{ .Content }}
+
+  <section class="acl-author-search mb-4" aria-labelledby="venue-search-heading">
+    <div class="acl-author-search__heading">
+      <div>
+        <h2 id="venue-search-heading">Find venues</h2>
+        <p>Search venue names, acronyms, or Anthology venue IDs.</p>
+      </div>
+      <i class="fas fa-building-columns" aria-hidden="true"></i>
+    </div>
+
+    <form role="search" data-venue-search>
+      <label for="venue-search-input">Venue name, acronym, or ID</label>
+      <div class="acl-author-search__field">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input id="venue-search-input" type="search" inputmode="search"
+               autocomplete="off" autocapitalize="none" spellcheck="false"
+               placeholder="e.g., ACL, Computational Linguistics, or emnlp"
+               aria-describedby="venue-search-status"
+               aria-controls="venue-search-results"
+               data-venue-search-input>
+        <button type="button" title="Clear search" aria-label="Clear search"
+                data-venue-search-clear hidden>
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button class="visually-hidden" type="submit">Show all results</button>
+    </form>
+
+    <p class="acl-author-search__status" id="venue-search-status"
+       role="status" aria-live="polite" data-venue-search-status>Enter at least two characters.</p>
+    <ul class="acl-author-results" id="venue-search-results"
+        aria-label="Venue search results" data-venue-search-results hidden></ul>
+    <noscript>
+      <p class="acl-author-search__fallback">JavaScript is required for venue search. The complete venue list remains available below.</p>
+    </noscript>
+  </section>
 
   {{ with .Params.render_pagelist }}
   <ul>
@@ -17,4 +55,167 @@
   </ul>
   {{ end }}
 </main>
+{{ end }}
+
+{{ define "javascript" }}
+<script>
+  (function () {
+    const directory = document.querySelector("[data-venue-directory]");
+    if (!directory) return;
+
+    const form = directory.querySelector("[data-venue-search]");
+    const input = directory.querySelector("[data-venue-search-input]");
+    const clearButton = directory.querySelector("[data-venue-search-clear]");
+    const status = directory.querySelector("[data-venue-search-status]");
+    const results = directory.querySelector("[data-venue-search-results]");
+    const searchTools = window.aclAuthorSearch;
+    const numberFormat = new Intl.NumberFormat(document.documentElement.lang || "en");
+    const resultLimit = 20;
+    const idleStatus = "Enter at least two characters.";
+    let searchVersion = 0;
+    let inputTimer;
+    let currentQuery = "";
+    let currentMatches = [];
+    let showingAll = false;
+
+    const navigation = searchTools.createResultNavigation({
+      input: input,
+      list: results,
+      activeClass: "is-active",
+      optionSelector: "a, button",
+    });
+
+    function makeVenueResult(entry) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const identity = searchTools.makeVenueIdentity(entry, {
+        identity: "acl-author-result__identity",
+        heading: "acl-author-result__heading",
+      });
+      const arrow = document.createElement("i");
+
+      link.href = searchTools.venueUrl(directory.dataset.venuesBase, entry.row[2]);
+      arrow.className = "fas fa-arrow-right";
+      arrow.setAttribute("aria-hidden", "true");
+
+      link.append(identity, arrow);
+      item.append(link);
+      return item;
+    }
+
+    function makeShowAllResult(total) {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      const icon = document.createElement("i");
+      const label = document.createElement("span");
+      const hint = document.createElement("small");
+
+      item.className = "acl-author-results__command";
+      button.type = "button";
+      button.dataset.showAll = "";
+      icon.className = "fas fa-list-ul";
+      icon.setAttribute("aria-hidden", "true");
+      label.append("Show all " + numberFormat.format(total) + " results");
+      hint.className = "acl-author-results__hint";
+      hint.textContent = "Press Return to show all";
+      label.append(hint);
+      button.append(icon, label);
+      item.append(button);
+      return item;
+    }
+
+    function countDescription(shown, total) {
+      const label = total === 1 ? "venue" : "venues";
+      if (shown < total) {
+        return "Showing " + numberFormat.format(shown) + " of "
+          + numberFormat.format(total) + " " + label;
+      }
+      return numberFormat.format(total) + " " + label;
+    }
+
+    function renderMatches() {
+      const total = currentMatches.length;
+      const truncated = !showingAll && total > resultLimit;
+      const visible = truncated ? currentMatches.slice(0, resultLimit) : currentMatches;
+      const children = visible.map(makeVenueResult);
+
+      if (truncated) children.unshift(makeShowAllResult(total));
+      results.replaceChildren(...children);
+      results.hidden = total === 0;
+      navigation.refresh();
+      status.textContent = total === 0
+        ? "No venues match \"" + currentQuery + "\"."
+        : countDescription(visible.length, total) + ".";
+    }
+
+    function resetResults() {
+      searchVersion += 1;
+      currentMatches = [];
+      showingAll = false;
+      status.textContent = idleStatus;
+      results.replaceChildren();
+      results.hidden = true;
+      navigation.refresh();
+    }
+
+    async function search() {
+      const query = input.value.trim();
+      const version = ++searchVersion;
+      clearButton.hidden = input.value.length === 0;
+      if (searchTools.normalize(query).length < 2) {
+        resetResults();
+        return;
+      }
+
+      status.textContent = "Searching venues...";
+      results.hidden = true;
+      navigation.refresh();
+
+      try {
+        const outcome = await searchTools.findVenues(query, directory.dataset.venueIndex);
+        if (version !== searchVersion) return;
+        currentQuery = query;
+        currentMatches = outcome.matches;
+        showingAll = false;
+        renderMatches();
+      } catch (error) {
+        if (version !== searchVersion) return;
+        currentMatches = [];
+        results.hidden = true;
+        navigation.refresh();
+        status.textContent = "Search is temporarily unavailable.";
+      }
+    }
+
+    function showAllResults() {
+      if (showingAll || currentMatches.length <= resultLimit) return false;
+      showingAll = true;
+      renderMatches();
+      input.focus();
+      return true;
+    }
+
+    input.addEventListener("input", function () {
+      clearTimeout(inputTimer);
+      clearButton.hidden = input.value.length === 0;
+      inputTimer = setTimeout(search, 120);
+    });
+    results.addEventListener("click", function (event) {
+      if (event.target.closest("[data-show-all]")) showAllResults();
+    });
+    clearButton.addEventListener("click", function () {
+      clearTimeout(inputTimer);
+      input.value = "";
+      clearButton.hidden = true;
+      resetResults();
+      input.focus();
+    });
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (showAllResults()) return;
+      const firstResult = results.querySelector("a");
+      if (firstResult) firstResult.click();
+    });
+  })();
+</script>
 {{ end }}
