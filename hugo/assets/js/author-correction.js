@@ -110,8 +110,7 @@
     return n + (n === 1 ? " paper" : " papers");
   }
 
-  // Shows a running "N papers to keep · M papers to remove" line under a paper list;
-  // returns the function that refreshes it after checkboxes are set from code.
+  // Shows a running "N papers to keep · M papers to remove" line under a paper list.
   function showPaperCounts(container, tickedText, untickedText) {
     const counts = document.createElement("div");
     counts.className = "form-text mt-1";
@@ -124,7 +123,24 @@
     }
     container.addEventListener("change", update);
     update();
-    return update;
+  }
+
+  // Wires a "Select all" checkbox to a paper list. Changing it fires the list's
+  // own change event, so the list's other listeners stay in sync.
+  function initSelectAll(selectAll, container) {
+    function sync() {
+      const selected = selectedPapers(container, true).length;
+      selectAll.checked = selected === page.papers.length;
+      selectAll.indeterminate = selected > 0 && selected < page.papers.length;
+    }
+    selectAll.addEventListener("change", function () {
+      container.querySelectorAll("input[type=checkbox]").forEach(function (input) {
+        input.checked = selectAll.checked;
+      });
+      container.dispatchEvent(new Event("change"));
+    });
+    container.addEventListener("change", sync);
+    sync();
   }
 
   function showError(form, message) {
@@ -176,9 +192,14 @@
     const feedback = document.getElementById("authorFixOrcidFeedback");
     const defaultFeedback = feedback.innerHTML;
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
-    renderPaperList(verifyPapers, true);
-    if (page.verified) showPaperCounts(verifyPapers, "to keep", "to remove");
-    else showPaperCounts(verifyPapers, "to move to your page", "to stay here");
+    // On a verified page all papers start ticked; on an unverified page the author picks theirs.
+    renderPaperList(verifyPapers, page.verified);
+    if (page.verified) {
+      showPaperCounts(verifyPapers, "to keep", "to remove");
+    } else {
+      showPaperCounts(verifyPapers, "to move to your page", "to stay here");
+      initSelectAll(document.getElementById("authorFixVerifyAll"), verifyPapers);
+    }
 
     // ---- Name to show, when the ticked papers print it in different ways ----
     const nameField = document.getElementById("authorFixPreferredName");
@@ -325,7 +346,7 @@
       if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
         return showError(verifyForm, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
       }
-      if (mine.length === 0) return showError(verifyForm, "Please tick at least one paper that is yours.");
+      if (mine.length === 0) return showError(verifyForm, "Please select at least one paper that is yours.");
       const preferredName = nameField.hidden ? null : nameOptions.querySelector("input:checked");
       if (!nameField.hidden && !preferredName) return showError(verifyForm, "Please choose the name to show on your page.");
 
@@ -400,7 +421,8 @@
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
     renderPaperList(movePapers, false);
-    const updateMoveCounts = showPaperCounts(movePapers, "to move", "to stay here");
+    showPaperCounts(movePapers, "to move", "to stay here");
+    initSelectAll(moveAll, movePapers);
 
     // The selected papers (all papers if none are selected).
     function relevantPapers() {
@@ -490,17 +512,7 @@
       searchTimer = setTimeout(searchDestinations, 120);
     };
 
-    moveAll.addEventListener("change", function () {
-      movePapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
-        input.checked = moveAll.checked;
-      });
-      updateMoveCounts();
-      refreshDestinations();
-    });
     movePapers.addEventListener("change", function () {
-      const selected = selectedPapers(movePapers, true).length;
-      moveAll.checked = selected === page.papers.length;
-      moveAll.indeterminate = selected > 0 && selected < page.papers.length;
       refreshDestinations();
     });
     document.getElementById("authorFixMove").addEventListener("author-fix:shown", function () {

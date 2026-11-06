@@ -46,7 +46,7 @@ For more details on how verification works, please see [How the ACL Anthology ve
    - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
    - Look at the icon next to your name at the top of the page. If it is a green ORCID icon <i class="fab fa-orcid text-verified"></i>, then your author page is verified already!
    - Otherwise, click on the "Fix author" button at the bottom of the links on the right-hand side of the page, and choose "Verify author".
-   - Enter your ORCID iD and the other required fields. If some papers on the page are not yours, untick them.
+   - Enter your ORCID iD and the other required fields. Select the papers that are yours (on a verified page, all papers start selected; untick any that are not yours).
    - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
 ### How to remove papers from your author page

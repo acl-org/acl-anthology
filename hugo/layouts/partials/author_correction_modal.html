@@ -134,7 +134,15 @@
             </div>
             <fieldset class="mb-3">
               <legend class="form-label fs-6 mb-1">Your papers</legend>
-              <div class="form-text mb-2">Untick any papers that are not yours. {{ if $is_verified }}They will be removed from this page.{{ else }}They will stay on the unverified page.{{ end }}</div>
+              {{ if $is_verified }}
+              <div class="form-text mb-2">Untick any papers that are not yours. They will be removed from this page.</div>
+              {{ else }}
+              <div class="form-text mb-2">Select any papers that are yours. The others will stay on the unverified page.</div>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" id="authorFixVerifyAll">
+                <label class="form-check-label fst-italic" for="authorFixVerifyAll">Select all</label>
+              </div>
+              {{ end }}
               <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="verify"></div>
             </fieldset>
             {{/* Shown only when the ticked papers print the name in more than one way */}}
