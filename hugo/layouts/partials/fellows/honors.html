@@ -1,0 +1,22 @@
+<div class="acl-fellow-honors">
+  {{ with .fellow_year }}
+  <span class="acl-fellow-year">ACL Fellow, {{ . }}</span>
+  {{ end }}
+  {{ with .lifetime_achievement_award_year }}
+  <span class="acl-fellow-year">ACL Lifetime Achievement Award, {{ . }}</span>
+  {{ end }}
+  {{ with .distinguished_service_award_year }}
+  <span class="acl-fellow-year">{{ $.distinguished_service_award_name }}, {{ . }}</span>
+  {{ end }}
+</div>
+<div class="acl-fellow-details">
+  {{ if and .fellow_year .reason }}
+  <h4 class="acl-fellow-citation-label">ACL Fellow citation</h4>
+  {{ partial "fellows/citation.html" $ }}
+  {{ end }}
+  {{ partial "fellows/acceptance-speech.html" . }}
+  {{ with .distinguished_service_award_reason }}
+  <h4 class="acl-fellow-citation-label">{{ $.distinguished_service_award_name }} citation</h4>
+  {{ partial "fellows/distinguished-service-citation.html" $ }}
+  {{ end }}
+</div>
