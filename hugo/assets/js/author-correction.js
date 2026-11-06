@@ -245,23 +245,32 @@
       setFeedback(null, ["Checking whether this ORCID iD is already in the Anthology…"]);
       orcidCheck = lookupOrcid(orcid)
         .then(function (owner) {
-          if (owner && owner !== page.id) {
+          if (owner && owner !== page.id && page.verified) {
+            // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
             const link = document.createElement("a");
-            const next = document.createElement("a");
             link.href = authorPageUrl(owner);
             link.textContent = owner;
-            next.href = "#";
-            // Papers can only be moved from unverified pages; otherwise ask staff.
-            next.textContent = moveForm ? "move papers from this page to it" : "describe the problem under Something else";
-            next.addEventListener("click", function (event) {
+            setFeedback("valid", [
+              "This ORCID iD already has an author page: ", link,
+              ". Submitting will ask staff to merge this page with it.",
+            ]);
+            return { orcid: orcid, owner: null, mergeWith: owner };
+          }
+          if (owner && owner !== page.id) {
+            const link = document.createElement("a");
+            const move = document.createElement("a");
+            link.href = authorPageUrl(owner);
+            link.textContent = owner;
+            move.href = "#";
+            move.textContent = "move papers from this page to it";
+            move.addEventListener("click", function (event) {
               event.preventDefault();
-              if (!moveForm) return showPane("authorFixOther");
               chooseDestination({ id: owner, name: owner, names: null });
               showPane("authorFixMove");
             });
             setFeedback("invalid", [
               "This ORCID iD already has an author page: ", link,
-              ". Instead of verifying this page, ", next, ".",
+              ". Instead of verifying this page, ", move, ".",
             ]);
             return { orcid: orcid, owner: owner };
           }
@@ -299,8 +308,10 @@
 
       // List whichever set of papers is shorter.
       const listMine = notMine.length > mine.length;
-      openIssue(verifyForm, "02a-verify-author.yml", "Author Page: " + page.id, {
+      const title = "Author Page: " + page.id + (check.mergeWith ? " (merge with " + check.mergeWith + ")" : "");
+      openIssue(verifyForm, "02a-verify-author.yml", title, {
         author_page: page.url,
+        merge_with: check.mergeWith ? authorPageUrl(check.mergeWith) : "",
         author_orcid: "https://orcid.org/" + check.orcid,
         author_highest_degree_institution: degree,
         papers_not_mine: listMine ? "" : notMine.join("\n"),

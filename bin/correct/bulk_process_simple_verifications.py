@@ -124,6 +124,14 @@ class AnthologyMetadataUpdater:
                 return True
         return False
 
+    @staticmethod
+    def _requests_merge(issue_body: str) -> bool:
+        """Check if a "Verify Author Page" issue names another author page to merge with."""
+        m = re.search(
+            r"### Merge with author page\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL
+        )
+        return m is not None and m.group(1).strip() not in ("", "_No response_")
+
     def load_anthology(self):
         log.info("Loading anthology")
         self.anthology = Anthology.from_within_repo(
@@ -161,7 +169,7 @@ class AnthologyMetadataUpdater:
             issuelabels = [label.name for label in issue.get_labels()]
             if "[x] Split/disambiguate:" in body or self._lists_papers_not_mine(body):
                 issuetype.append("SPLIT")
-            if "[x] Merge profiles:" in body:
+            if "[x] Merge profiles:" in body or self._requests_merge(body):
                 issuetype.append("MERGE")
             if "[x] Name change:" in body:
                 issuetype.append("NAMECHANGE")
