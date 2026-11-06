@@ -125,16 +125,20 @@
     update();
   }
 
-  // Wires a "Select all" checkbox to a paper list. Changing it fires the list's
-  // own change event, so the list's other listeners stay in sync.
+  // Wires a "Select all" checkbox to a paper list, skipping disabled papers. Changing
+  // it fires the list's own change event, so the list's other listeners stay in sync.
   function initSelectAll(selectAll, container) {
+    function enabledInputs() {
+      return Array.from(container.querySelectorAll("input[type=checkbox]:not(:disabled)"));
+    }
     function sync() {
-      const selected = selectedPapers(container, true).length;
-      selectAll.checked = selected === page.papers.length;
-      selectAll.indeterminate = selected > 0 && selected < page.papers.length;
+      const inputs = enabledInputs();
+      const selected = inputs.filter(function (input) { return input.checked; }).length;
+      selectAll.checked = inputs.length > 0 && selected === inputs.length;
+      selectAll.indeterminate = selected > 0 && selected < inputs.length;
     }
     selectAll.addEventListener("change", function () {
-      container.querySelectorAll("input[type=checkbox]").forEach(function (input) {
+      enabledInputs().forEach(function (input) {
         input.checked = selectAll.checked;
       });
       container.dispatchEvent(new Event("change"));
@@ -309,7 +313,7 @@
             move.textContent = "move papers from this page to it";
             move.addEventListener("click", function (event) {
               event.preventDefault();
-              chooseDestination({ id: owner, name: owner, names: null });
+              chooseDestination({ id: owner, name: owner });
               showPane("authorFixMove");
             });
             setFeedback("invalid", [
@@ -400,53 +404,82 @@
   const destSearch = document.getElementById("authorFixDestSearch");
   const destResults = document.getElementById("authorFixDestResults");
   const destStatus = document.getElementById("authorFixDestStatus");
-  // {id, name, names}; `names` is null when chosen via the ORCID iD check.
-  let destination = null;
-  let refreshDestinations = function () {};
-
-  function chooseDestination(person) {
-    destination = person;
-    destSearch.value = person.name;
-    destResults.hidden = true;
-    destStatus.replaceChildren("Selected: ");
-    const link = document.createElement("a");
-    link.href = authorPageUrl(person.id);
-    link.target = "_blank";
-    link.textContent = person.id;
-    destStatus.append(link);
-  }
+  let destination = null;  // {id, name}
+  // Set by initMove(); also used by the ORCID iD check to pick its owner's page.
+  let chooseDestination = function () {};
 
   function initMove() {
     const destDefaultStatus = destStatus.textContent;
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
+    const papersHint = document.getElementById("authorFixMovePapersHint");
     renderPaperList(movePapers, false);
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
 
-    // The selected papers (all papers if none are selected).
-    function relevantPapers() {
-      const selected = new Set(selectedPapers(movePapers, true));
-      return page.papers.filter(function (paper) {
-        return selected.size === 0 || selected.has(paper.id);
-      });
-    }
-
-    // Names printed on the relevant papers.
+    // Names printed on the papers here.
     function paperNames() {
-      return Array.from(new Set(relevantPapers().map(function (paper) { return paper.name; })));
+      return Array.from(new Set(page.papers.map(function (paper) { return paper.name; })));
     }
 
-    // A destination must be known under a name matching every selected paper,
-    // and must not already be an author of any of them (e.g. a coauthor).
+    // A destination must be known under a name like the one on some paper here,
+    // and must not be an author of that paper already (e.g. a coauthor).
     function acceptsPapers(id, names) {
-      if (relevantPapers().some(function (paper) { return paper.coauthors.includes(id); })) {
-        return false;
-      }
-      return paperNames().every(function (paperName) {
-        return names.some(function (name) { return namesMatch(paperName, name); });
+      return page.papers.some(function (paper) {
+        return !paper.coauthors.includes(id)
+          && names.some(function (name) { return namesMatch(paper.name, name); });
       });
     }
+
+    // Papers can be selected once a destination is chosen, except those its author coauthored.
+    function updatePaperList() {
+      movePapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
+        const paper = page.papers.find(function (paper) { return paper.id === input.value; });
+        const coauthored = destination !== null && paper.coauthors.includes(destination.id);
+        input.disabled = destination === null || coauthored;
+        if (input.disabled) input.checked = false;
+        let note = input.parentElement.querySelector("[data-author-fix-coauthor]");
+        if (coauthored && !note) {
+          note = document.createElement("small");
+          note.className = "text-muted ms-1";
+          note.dataset.authorFixCoauthor = "";
+          note.textContent = "(coauthor)";
+          input.labels[0].append(note);
+        }
+        if (note) note.hidden = !coauthored;
+      });
+      moveAll.disabled = destination === null;
+      papersHint.hidden = destination !== null;
+      movePapers.dispatchEvent(new Event("change"));
+    }
+
+    function setDestination(person) {
+      destination = person;
+      if (person) {
+        destSearch.value = person.name;
+        destResults.hidden = true;
+        const link = document.createElement("a");
+        link.href = authorPageUrl(person.id);
+        link.target = "_blank";
+        link.textContent = person.id;
+        const change = document.createElement("button");
+        change.type = "button";
+        change.className = "btn btn-link btn-sm p-0 align-baseline";
+        change.textContent = "Change";
+        change.addEventListener("click", function () {
+          destSearch.value = "";
+          setDestination(null);
+          destSearch.focus();
+          refreshDestinations();
+        });
+        destStatus.replaceChildren("Selected: ", link, " \u00b7 ", change);
+      } else {
+        destStatus.textContent = destDefaultStatus;
+      }
+      updatePaperList();
+    }
+    chooseDestination = setDestination;
+    updatePaperList();
 
     let searchVersion = 0;
     async function searchDestinations() {
@@ -490,44 +523,34 @@
           verification: "fa-xs",
         }), details);
         button.addEventListener("click", function () {
-          chooseDestination({ id: entry.row[1], name: entry.row[0], names: entry.names });
+          chooseDestination({ id: entry.row[1], name: entry.row[0] });
         });
         return button;
       }));
       destResults.hidden = matches.length === 0;
       destStatus.textContent = matches.length === 0
-        ? "No verified author page (other than a coauthor's) has a name like the one on the selected papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
+        ? "No verified author page (other than a coauthor's) has a name like the one on these papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
         : destDefaultStatus;
     }
 
     let searchTimer;
-    refreshDestinations = function () {
-      // Keep a chosen destination only while it still fits the selected papers.
-      if (destination && destination.names && !acceptsPapers(destination.id, destination.names)) {
-        destination = null;
-        destSearch.value = "";
-      }
+    function refreshDestinations() {
       if (destination) return;
       clearTimeout(searchTimer);
       searchTimer = setTimeout(searchDestinations, 120);
-    };
+    }
 
-    movePapers.addEventListener("change", function () {
-      refreshDestinations();
-    });
-    document.getElementById("authorFixMove").addEventListener("author-fix:shown", function () {
-      refreshDestinations();
-    });
+    document.getElementById("authorFixMove").addEventListener("author-fix:shown", refreshDestinations);
     destSearch.addEventListener("input", function () {
-      destination = null;
+      if (destination) setDestination(null);
       refreshDestinations();
     });
     moveForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const papers = selectedPapers(movePapers, true);
 
+      if (!destination) return showError(moveForm, "Please choose your verified author page first.");
       if (papers.length === 0) return showError(moveForm, "Please select at least one paper to move.");
-      if (!destination) return showError(moveForm, "Please select the author page to move the papers to.");
 
       openIssue(moveForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → " + destination.id, {
         source_page: page.url,

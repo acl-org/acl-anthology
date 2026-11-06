@@ -74,7 +74,7 @@ Second, please verify your author page, if you haven't already, using the [instr
 If the names are correct and your author page is verified, then please file a request to move the papers, as follows:
 - Find the unverified author page where the papers currently appear (e.g., by finding one of the papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of that page, and choose "Move papers".
-- Select the papers that are yours (or "Select all" if the whole page is yours), and choose your own author page as the destination. Only verified pages under a name sharing part of the name printed on the papers are offered, excluding the papers' other authors.
+- Choose your own verified author page as the destination, then select the papers that are yours (or "Select all" if the whole page is yours). Only verified pages under a name sharing part of the name printed on the papers are offered, and papers you coauthored with the page's author can't be moved there.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
 If the papers appear on another person's verified page, click on the "Fix author" button there, choose "Something else", and describe the problem.

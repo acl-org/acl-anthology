@@ -202,20 +202,21 @@
               and/or which disambiguates one individual from others with the same name).
             </p>
             <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1"><label for="authorFixDestSearch">Your verified author page</label></legend>
+              <div class="position-relative">
+                <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name" autocomplete="off" aria-describedby="authorFixDestStatus">
+                <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
+                <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages with a name like the one on these papers are shown.</div>
+              </div>
+            </fieldset>
+            <fieldset class="mb-3">
               <legend class="form-label fs-6 mb-1">Papers to move</legend>
               <div class="form-check mb-1">
                 <input class="form-check-input" type="checkbox" id="authorFixMoveAll">
                 <label class="form-check-label fst-italic" for="authorFixMoveAll">Select all</label>
               </div>
+              <div class="form-text mt-0 mb-1" id="authorFixMovePapersHint">Choose your verified author page first.</div>
               <div class="border rounded p-2 overflow-auto" style="max-height: 16rem" data-author-fix-papers="move"></div>
-            </fieldset>
-            <fieldset class="mb-3">
-              <legend class="form-label fs-6 mb-1"><label for="authorFixDestSearch">Your verified author page</label></legend>
-              <div class="position-relative">
-                <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name" autocomplete="off" aria-describedby="authorFixDestStatus">
-                <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
-                <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages with a name like the one on the selected papers are shown, excluding their coauthors.</div>
-              </div>
             </fieldset>
             <div class="mb-3">
               <label for="authorFixMoveNotes" class="form-label">Additional notes</label>
