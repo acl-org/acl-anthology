@@ -1,0 +1,248 @@
+name: Add link and image to revision request
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  prepare_revision_preview:
+    if: contains(github.event.issue.labels.*.name, 'revision')
+    runs-on: ubuntu-latest
+    outputs:
+      valid: ${{ steps.issue_data.outputs.valid }}
+      anthology_id: ${{ steps.issue_data.outputs.anthology_id }}
+      pdf_url: ${{ steps.issue_data.outputs.pdf_url }}
+    steps:
+      - name: Extract revision request data
+        id: issue_data
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            core.setOutput('valid', 'false');
+
+            const anthologyIdMatch = body.match(
+              /(^### Anthology ID[ \t]*\r?\n\r?\n)([^\r\n]+)(?=\r?\n|$)/m,
+            );
+
+            if (!anthologyIdMatch) {
+              core.notice('The issue does not contain an Anthology ID section.');
+              return;
+            }
+
+            const anthologyIdValue = anthologyIdMatch[2].trim();
+            const linkedAnthologyId = anthologyIdValue.match(
+              /^\[([A-Za-z0-9][A-Za-z0-9.-]*)\]\(https:\/\/aclanthology\.org\/\1\/?\)$/,
+            );
+            const anthologyId = linkedAnthologyId?.[1] || anthologyIdValue;
+            if (!/^[A-Za-z0-9][A-Za-z0-9.-]*$/.test(anthologyId)) {
+              core.notice(`Not annotating unexpected Anthology ID: ${anthologyId}`);
+              return;
+            }
+
+            const pdfSectionMatch = body.match(
+              /(?:^|\r?\n)### PDF of the Revision or Erratum[ \t]*\r?\n\r?\n([\s\S]*?)(?=\r?\n\r?\n### |(?![\s\S]))/,
+            );
+            const pdfUrlMatch = pdfSectionMatch?.[1].match(
+              /\((https:\/\/github\.com\/user-attachments\/files\/\d+\/[^)\r\n]+\.pdf)\)/i,
+            );
+
+            if (!pdfUrlMatch) {
+              core.notice(
+                'The revision PDF must be attached directly to the GitHub issue.',
+              );
+              return;
+            }
+
+            core.setOutput('valid', 'true');
+            core.setOutput('anthology_id', anthologyId);
+            core.setOutput('pdf_url', pdfUrlMatch[1]);
+
+      - name: Install PDF preview tools
+        if: steps.issue_data.outputs.valid == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick poppler-utils
+
+      - name: Download revision PDF
+        if: steps.issue_data.outputs.valid == 'true'
+        env:
+          PDF_URL: ${{ steps.issue_data.outputs.pdf_url }}
+        run: |
+          set -euo pipefail
+          curl \
+            --fail \
+            --location \
+            --max-filesize 26214400 \
+            --max-time 90 \
+            --output revision.pdf \
+            --proto '=https' \
+            --proto-redir '=https' \
+            --show-error \
+            --silent \
+            "${PDF_URL}"
+          if [[ "$(head -c 5 revision.pdf)" != '%PDF-' ]]; then
+            echo 'The attached file is not a PDF.' >&2
+            exit 1
+          fi
+
+      - name: Render revision thumbnail
+        if: steps.issue_data.outputs.valid == 'true'
+        run: |
+          set -euo pipefail
+          ulimit -v 2097152
+          timeout 90s pdftoppm \
+            -f 1 \
+            -jpeg \
+            -l 1 \
+            -r 150 \
+            -singlefile \
+            revision.pdf \
+            revision-page
+          convert \
+            revision-page.jpg \
+            -background white \
+            -flatten \
+            -resize 'x600^' \
+            -gravity North \
+            -crop '600x600+0+10' \
+            -colorspace Gray \
+            revision-preview.jpg
+
+      - name: Upload revision thumbnail artifact
+        if: steps.issue_data.outputs.valid == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          path: revision-preview.jpg
+          archive: false
+          if-no-files-found: error
+          retention-days: 1
+
+  publish_revision_preview:
+    needs: prepare_revision_preview
+    if: needs.prepare_revision_preview.outputs.valid == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Download revision thumbnail artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: revision-preview.jpg
+
+      - name: Publish thumbnail and annotate issue
+        uses: actions/github-script@v9
+        env:
+          ANTHOLOGY_ID: ${{ needs.prepare_revision_preview.outputs.anthology_id }}
+          PDF_URL: ${{ needs.prepare_revision_preview.outputs.pdf_url }}
+        with:
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue = context.payload.issue;
+            const anthologyId = process.env.ANTHOLOGY_ID;
+            const pdfUrl = process.env.PDF_URL;
+            const branch = 'revision-previews';
+            const previewPath = `previews/${issue.number}.jpg`;
+            const content = fs.readFileSync('revision-preview.jpg', 'base64');
+
+            try {
+              await github.rest.git.getRef({ owner, repo, ref: `heads/${branch}` });
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
+
+              const { data: repository } = await github.rest.repos.get({ owner, repo });
+              const { data: baseRef } = await github.rest.git.getRef({
+                owner,
+                repo,
+                ref: `heads/${repository.default_branch}`,
+              });
+
+              try {
+                await github.rest.git.createRef({
+                  owner,
+                  repo,
+                  ref: `refs/heads/${branch}`,
+                  sha: baseRef.object.sha,
+                });
+              } catch (createError) {
+                if (createError.status !== 422) {
+                  throw createError;
+                }
+                await github.rest.git.getRef({ owner, repo, ref: `heads/${branch}` });
+              }
+            }
+
+            async function existingFileSha() {
+              try {
+                const { data } = await github.rest.repos.getContent({
+                  owner,
+                  repo,
+                  path: previewPath,
+                  ref: branch,
+                });
+                return data.sha;
+              } catch (error) {
+                if (error.status !== 404) {
+                  throw error;
+                }
+                return undefined;
+              }
+            }
+
+            let published;
+            for (let attempt = 1; attempt <= 3; attempt += 1) {
+              const sha = await existingFileSha();
+              try {
+                published = await github.rest.repos.createOrUpdateFileContents({
+                  owner,
+                  repo,
+                  path: previewPath,
+                  branch,
+                  message: `Add revision preview for issue #${issue.number}`,
+                  content,
+                  ...(sha && { sha }),
+                });
+                break;
+              } catch (error) {
+                if (![409, 422].includes(error.status) || attempt === 3) {
+                  throw error;
+                }
+              }
+            }
+
+            const previewUrl = [
+              'https://raw.githubusercontent.com',
+              owner,
+              repo,
+              published.data.commit.sha,
+              previewPath,
+            ].join('/');
+            const anthologyUrl = `https://aclanthology.org/${anthologyId}`;
+            const thumbnailUrl = `https://aclanthology.org/thumb/${anthologyId}.jpg`;
+            const comment = [
+              `Found ACL Anthology entry: ${anthologyUrl}`,
+              '',
+              '| Current paper | Proposed revision |',
+              '| :---: | :---: |',
+              `| [![Current paper](${thumbnailUrl})](${anthologyUrl}) | [![Proposed revision](${previewUrl})](${pdfUrl}) |`,
+              '',
+              'Please edit the Anthology ID above if it does not match the current paper.',
+              '',
+              'A staff member will review this revision request.',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body: comment,
+            });
