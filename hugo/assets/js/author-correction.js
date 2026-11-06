@@ -106,6 +106,27 @@
       .map(function (input) { return input.value; });
   }
 
+  function paperCount(n) {
+    return n + (n === 1 ? " paper" : " papers");
+  }
+
+  // Shows a running "N papers to keep · M papers to remove" line under a paper list;
+  // returns the function that refreshes it after checkboxes are set from code.
+  function showPaperCounts(container, tickedText, untickedText) {
+    const counts = document.createElement("div");
+    counts.className = "form-text mt-1";
+    counts.setAttribute("aria-live", "polite");
+    container.after(counts);
+    function update() {
+      const ticked = selectedPapers(container, true).length;
+      counts.textContent = paperCount(ticked) + " " + tickedText + " · "
+        + paperCount(page.papers.length - ticked) + " " + untickedText;
+    }
+    container.addEventListener("change", update);
+    update();
+    return update;
+  }
+
   function showError(form, message) {
     const box = form.querySelector("[data-author-fix-error]");
     box.textContent = message;
@@ -156,6 +177,8 @@
     const defaultFeedback = feedback.innerHTML;
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
     renderPaperList(verifyPapers, true);
+    if (page.verified) showPaperCounts(verifyPapers, "to keep", "to remove");
+    else showPaperCounts(verifyPapers, "to move to your page", "to stay here");
 
     // ---- Name to show, when the ticked papers print it in different ways ----
     const nameField = document.getElementById("authorFixPreferredName");
@@ -377,6 +400,7 @@
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
     renderPaperList(movePapers, false);
+    const updateMoveCounts = showPaperCounts(movePapers, "to move", "to stay here");
 
     // The selected papers (all papers if none are selected).
     function relevantPapers() {
@@ -470,6 +494,7 @@
       movePapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
         input.checked = moveAll.checked;
       });
+      updateMoveCounts();
       refreshDestinations();
     });
     movePapers.addEventListener("change", function () {
@@ -508,6 +533,7 @@
     const removeForm = document.getElementById("authorFixRemoveForm");
     const keepPapers = removeForm.querySelector("[data-author-fix-papers]");
     renderPaperList(keepPapers, true);
+    showPaperCounts(keepPapers, "to keep", "to remove");
 
     removeForm.addEventListener("submit", function (event) {
       event.preventDefault();
