@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section id="main">
+  <h2 id="title">{{ .Title }}</h2>
+  {{ .Content }}
+  {{ $year := "" }}
+  {{ range sort hugo.Data.media "sort_date" "desc" }}
+    {{ $item := index (index hugo.Data.records (index (split .id "-") 0)) .id }}
+    {{ if and (not $item.removed) (not $item.retracted) }}
+      {{ if ne $year .year }}
+      <h3 class="mt-4">{{ .year }}</h3>
+      {{ $year = .year }}
+      {{ end }}
+      {{ ($.Site.GetPage (printf "/papers/%s" .id)).Render "list-entry-author" }}
+    {{ end }}
+  {{ else }}
+  <p>No media recordings are available yet.</p>
+  {{ end }}
+</section>
+{{ end }}

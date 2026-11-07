@@ -46,7 +46,7 @@ from . import Name, ConvertableIntoName
 if TYPE_CHECKING:
     from . import NameSpecification, PersonIndex
     from ..anthology import Anthology
-    from ..collections import Paper, Volume
+    from ..collections import CollectionItem, Media, Paper, Record, Volume
 
 
 class NameLink(StrEnum):
@@ -361,7 +361,7 @@ class Person:
             self.parent.remove_person(self)
 
     def set_id_on_items(
-        self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None
+        self, exclude: Optional[list[AnthologyID | CollectionItem]] = None
     ) -> None:
         """Set this person's ID explicitly on all Anthology items associated with them.
 
@@ -379,56 +379,62 @@ class Person:
             exc.add_note("Did you want to use make_explicit() instead?")
             raise exc
 
-        from ..collections import Paper, Volume
+        from ..collections import CollectionItem
 
         excluded_ids = set()
         if exclude:
             for item in exclude:
-                if isinstance(item, (Paper, Volume)):
+                if isinstance(item, CollectionItem):
                     excluded_ids.add(item.full_id_tuple)
                 else:
                     excluded_ids.add(parse_id(item))
 
         for namespec in list(self.namespecs()):
             if not (
-                isinstance(namespec.parent, (Paper, Volume))
+                isinstance(namespec.parent, CollectionItem)
                 and namespec.parent.full_id_tuple in excluded_ids
             ):
                 self.add_name(namespec.name)
                 namespec.id = self.id
 
-    def anthology_items(self) -> Iterator[Paper | Volume]:
+    def anthology_items(self) -> Iterator[CollectionItem]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
-        # TODO: This does not consider talks yet!
+        from ..collections import CollectionItem
+
         for anthology_id in self.item_ids:
             item = self.root.get(anthology_id)
-            if item is None:
+            if not isinstance(item, CollectionItem):
                 raise ValueError(
                     f"Person {self.id} lists associated item {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )  # pragma: no cover
-            # TODO: typing issue will be resolved later with CollectionItem refactoring
-            yield item  # type: ignore
+            yield item
 
     def namespecs(self) -> Iterator[NameSpecification]:
         """Returns an iterator over all NameSpecifications that resolve to this person."""
         for item in self.anthology_items():
             yield item.get_namespec_for(self)
 
+    def records(self) -> Iterator[Record]:
+        """Iterate over all papers, frontmatter, and media credited to this person."""
+        from ..collections import Record
+
+        yield from (item for item in self.anthology_items() if isinstance(item, Record))
+
     def papers(self) -> Iterator[Paper]:
-        """Returns an iterator over all papers associated with this person.
+        """Iterate over printed papers credited to this person.
 
         Note:
             This will return papers where this person is an author, as well as frontmatter of volumes where they are an editor. It will _not_ include all other papers in volumes they have edited.
         """
-        for anthology_id in self.item_ids:
-            paper_id = anthology_id[-1]
-            if paper_id is not None:
-                paper = self.root.get_paper(anthology_id)
-                if paper is None:
-                    raise ValueError(
-                        f"Person {self.id} lists associated paper {build_id_from_tuple(anthology_id)}, which doesn't exist"
-                    )  # pragma: no cover
-                yield paper
+        from ..collections import Paper
+
+        yield from (item for item in self.records() if isinstance(item, Paper))
+
+    def media(self) -> Iterator[Media]:
+        """Iterate over standalone recordings associated with this person."""
+        from ..collections import Media
+
+        yield from (item for item in self.records() if isinstance(item, Media))
 
     def volumes(self) -> Iterator[Volume]:
         """Returns an iterator over all volumes this person has edited."""

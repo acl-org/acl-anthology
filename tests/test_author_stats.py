@@ -9,7 +9,6 @@ import pytest
 
 from acl_anthology import Anthology
 from acl_anthology.collections.paper import PaperDeletionNotice
-from acl_anthology.collections.types import PaperType
 from acl_anthology.people import Name, NameSpecification
 from bin.author_stats import (
     Category,
@@ -56,9 +55,7 @@ def test_counts_namespecs_and_deduplicates_aliases_and_earlier_years(anthology):
             title="Repeated author",
             authors=[NameSpecification(Name("A.", "Metrics"), id=person.id)],
         )
-        volume.create_paper(
-            title="Front matter", authors=authors(), type=PaperType.FRONTMATTER
-        )
+        volume.create_frontmatter()
         volume.create_paper(
             title="Removed",
             authors=authors(),
@@ -278,7 +275,7 @@ def test_editor_only_and_unpublished_people_only_affect_database_totals(antholog
             NameSpecification(Name("Editor", "Metrics"), openreview="~Editor_Metrics1")
         ],
     )
-    volume.create_paper(title="Front matter", type=PaperType.FRONTMATTER)
+    volume.create_frontmatter()
     stats = compute_authorship_stats(anthology)
     assert stats["years"] == baseline["years"]
     expected = baseline["totals"].copy()

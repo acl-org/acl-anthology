@@ -27,7 +27,7 @@ from ..exceptions import AnthologyDuplicateIDError
 from ..text import StopWords
 from ..utils.attrs import attach_custom_repr
 from ..utils.logging import get_logger
-from .paper import Paper
+from .record import Record
 
 if TYPE_CHECKING:
     from .collection import Collection
@@ -43,10 +43,10 @@ BIBKEY_MAX_NAMES = 2
 
 @attach_custom_repr
 @define
-class BibkeyIndex(SlottedDict[Paper]):
-    """Index object which collects citation keys for all papers.
+class BibkeyIndex(SlottedDict[Record]):
+    """Index object which collects citation keys for all bibliographic records.
 
-    Provides dictionary-like functionality mapping bibkeys to [Paper][acl_anthology.collections.collection.Paper] objects in the Anthology.
+    Provides dictionary-like functionality mapping bibkeys to [Record][acl_anthology.collections.record.Record] objects in the Anthology.
 
     Attributes:
         parent: The parent CollectionIndex instance to which this index belongs.
@@ -58,7 +58,7 @@ class BibkeyIndex(SlottedDict[Paper]):
         init=False, default=False, metadata={"repr_omit_if": True}
     )
 
-    def generate_bibkey(self, paper: Paper) -> str:
+    def generate_bibkey(self, paper: Record) -> str:
         """Generate a unique bibkey for the given paper.
 
         Parameters:
@@ -68,7 +68,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             The generated bibkey.
 
         Important:
-            Calling this function will _not change_ the paper's bibkey nor add the bibkey to the index.  Use [`Paper.refresh_bibkey()`][acl_anthology.collections.paper.Paper.refresh_bibkey] to automatically generate and set a bibkey for a paper.
+            Calling this function will _not change_ the record's bibkey nor add it to the index. Use [`Record.refresh_bibkey()`][acl_anthology.collections.record.Record.refresh_bibkey] to generate and set a record's key.
         """
         if not self.is_data_loaded:
             self.load()
@@ -120,7 +120,7 @@ class BibkeyIndex(SlottedDict[Paper]):
 
         return bibkey
 
-    def _index_paper(self, bibkey: str, paper: Paper) -> str:
+    def _index_record(self, bibkey: str, paper: Record) -> str:
         """Add a paper to the index.
 
         If the supplied bibkey is [`constants.NO_BIBKEY`][acl_anthology.constants.NO_BIBKEY], this will trigger creation of a new bibkey.
@@ -184,7 +184,7 @@ class BibkeyIndex(SlottedDict[Paper]):
             )
         errors = []
         for collection in iterator:
-            for paper in collection.papers():
+            for paper in collection.records():
                 if paper.bibkey in self.data:
                     log.error(
                         f"Paper {paper.full_id} has bibkey {paper.bibkey}, which is already assigned to paper {self.data[paper.bibkey].full_id}"

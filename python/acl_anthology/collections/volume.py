@@ -19,7 +19,7 @@ import attrs
 from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
-from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
+from typing import Any, ClassVar, Iterator, Optional, cast, TYPE_CHECKING
 import sys
 
 if sys.version_info >= (3, 13):
@@ -48,11 +48,12 @@ from ..utils.attrs import (
 )
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from .event import Event
-from .paper import (
-    Paper,
-    _update_person_itemids,
-)  # Note: importing a private function from Paper will be unnecessary after CollectionItem refactoring
-from .types import EventLink, VolumeType
+from .item import CollectionItem, update_person_itemids
+from .record import Record
+from .paper import Paper
+from .frontmatter import Frontmatter
+from .media import Media
+from .types import EventLink, MediaType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -154,7 +155,7 @@ def _update_venues(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
-class Volume(SlottedDict[Paper]):
+class Volume(SlottedDict[Record], CollectionItem):
     """A publication volume.
 
     Provides dictionary-like functionality mapping paper IDs to [Paper][acl_anthology.collections.paper.Paper] objects in the volume.
@@ -188,6 +189,7 @@ class Volume(SlottedDict[Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
+    _namespec_fields: ClassVar[tuple[str, ...]] = ("editors",)
     id: str = field(converter=int_to_str)  # validator defined below
     parent: Collection = field(repr=False, eq=False)
     type: VolumeType = field(converter=VolumeType)
@@ -203,7 +205,7 @@ class Volume(SlottedDict[Paper]):
             setters.convert,
             setters.validate,
             attach_parent,
-            _update_person_itemids,
+            update_person_itemids,
             track_modifications,
         ],
     )
@@ -318,9 +320,16 @@ class Volume(SlottedDict[Paper]):
         self._pdf = value
 
     @property
-    def frontmatter(self) -> Paper | None:
+    def frontmatter(self) -> Frontmatter | None:
         """Returns the volume's frontmatter, if any."""
-        return self.data.get(constants.FRONTMATTER_ID)
+        item = self.data.get(constants.FRONTMATTER_ID)
+        return item if isinstance(item, Frontmatter) else None
+
+    @property
+    def name_spec_item_ids(self) -> tuple[AnthologyIDTuple, ...]:
+        if self.frontmatter is not None:
+            return (self.full_id_tuple, self.frontmatter.full_id_tuple)
+        return (self.full_id_tuple,)
 
     @property
     def collection(self) -> Collection:
@@ -350,7 +359,7 @@ class Volume(SlottedDict[Paper]):
     @property
     def has_frontmatter(self) -> bool:
         """True if this volume has frontmatter."""
-        return constants.FRONTMATTER_ID in self.data
+        return self.frontmatter is not None
 
     @property
     def is_workshop(self) -> bool:
@@ -440,7 +449,11 @@ class Volume(SlottedDict[Paper]):
         return self.sigs()
 
     def papers(self) -> Iterator[Paper]:
-        """An iterator over all Paper objects in this volume."""
+        """Iterate over printed papers only, excluding frontmatter and media."""
+        yield from (item for item in self.data.values() if isinstance(item, Paper))
+
+    def records(self) -> Iterator[Record]:
+        """Iterate over all papers, frontmatter, and media in this volume."""
         yield from self.data.values()
 
     def add_sig(self, sig: str | SIG) -> None:
@@ -562,7 +575,7 @@ class Volume(SlottedDict[Paper]):
         id: Optional[str] = None,
         bibkey: str = constants.NO_BIBKEY,
         **kwargs: Any,
-    ) -> Paper:
+    ) -> Paper | Frontmatter:
         """Create a new [Paper][acl_anthology.collections.paper.Paper] object in this volume.
 
         Parameters:
@@ -577,6 +590,16 @@ class Volume(SlottedDict[Paper]):
         Raises:
             AnthologyDuplicateIDError: If a paper with the given ID or bibkey already exists.
         """
+        type_ = PaperType(kwargs.pop("type", PaperType.PAPER))
+        if self.type == VolumeType.MEDIA:
+            raise ValueError("Use create_media() for records in a media volume")
+        if id == constants.FRONTMATTER_ID or type_ == PaperType.FRONTMATTER:
+            if kwargs.pop("authors", ()):
+                raise ValueError("Frontmatter has volume editors, not paper authors")
+            editors = tuple(kwargs.pop("editors", ()))
+            if editors and editors != self.editors:
+                raise ValueError("Set frontmatter contributors on the volume's editors")
+            return self.create_frontmatter(bibkey=bibkey, **kwargs)
         if id is None:
             id = self.generate_paper_id()
         elif id in self.data:
@@ -589,36 +612,88 @@ class Volume(SlottedDict[Paper]):
             id=id,
             bibkey=bibkey,
             title=title,
+            type=type_,
             **kwargs,
         )
-
-        # Necessary because on_setattr is not called during initialization:
-        paper.bibkey = bibkey  # triggers bibkey generating (if necessary) & indexing
-
-        # If authors/editors were given, we fill in their ID & add them to the index
-        if paper.authors:
-            for namespec in paper.authors:
-                namespec.normalize(skip_setter=True)
-                self.root.people.ingest_namespec(namespec)
-            self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
-        if paper.editors:
-            for namespec in paper.editors:
-                namespec.normalize(skip_setter=True)
-                self.root.people.ingest_namespec(namespec)
-            self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
-
-        self.data[id] = paper
-        self.parent.is_modified = True
+        self._register_record(paper, bibkey)
         return paper
 
-    def _add_paper_from_xml(self, element: etree._Element) -> None:
-        """Creates a new paper belonging to this volume.
+    def _register_record(self, item: Record, bibkey: str) -> None:
+        if item.id in self.data:
+            raise AnthologyDuplicateIDError(
+                item.id, f"Item ID already exists in {self.full_id}"
+            )
+        item.bibkey = bibkey
+        for spec in item.namespecs:
+            spec.normalize(skip_setter=True)
+            self.root.people.ingest_namespec(spec)
+        if item.namespecs:
+            self.root.people._add_to_index(item.namespecs, item.full_id_tuple)
+        self.data[item.id] = item
+        self.parent.is_modified = True
+
+    def create_frontmatter(
+        self, bibkey: str = constants.NO_BIBKEY, **kwargs: Any
+    ) -> Frontmatter:
+        """Create this volume's distinct, restricted frontmatter record."""
+        if self.type == VolumeType.MEDIA:
+            raise ValueError("Media volumes do not have printed frontmatter")
+        item = Frontmatter(parent=self, bibkey=bibkey, **kwargs)
+        self._register_record(item, bibkey)
+        return item
+
+    def create_media(
+        self,
+        title: MarkupText | str,
+        id: Optional[str] = None,
+        bibkey: str = constants.NO_BIBKEY,
+        type: MediaType = MediaType.MEDIA,
+        **kwargs: Any,
+    ) -> Media:
+        """Create a citable recording, using the same stable IDs and person indexing as papers.
 
         Parameters:
-            element: The `<paper>` element.
+            title: The title of the recording.
+            id: A persistent item ID; if omitted, assigns the next available numeric ID.
+            bibkey: An optional citation key; generated automatically if omitted.
+            type: The media genre, such as `MediaType.KEYNOTE`, `MEETING`, or `PODCAST`.
+            **kwargs: Attributes of [Media][acl_anthology.collections.media.Media].
+
+        Raises:
+            ValueError: If type is not a media genre.
         """
-        paper = Paper.from_xml(self, element)
-        self.data[paper.id] = paper
+        item = Media(
+            id=id if id is not None else self.generate_paper_id(),
+            parent=self,
+            bibkey=bibkey,
+            title=title,
+            type=type,
+            **kwargs,
+        )
+        self._register_record(item, bibkey)
+        return item
+
+    def media(self) -> Iterator[Media]:
+        """Iterate over standalone media items in this volume."""
+        yield from (item for item in self.data.values() if isinstance(item, Media))
+
+    def _add_record_from_xml(self, element: etree._Element) -> None:
+        """Create a concrete record selected by its XML element.
+
+        Parameters:
+            element: A `<paper>`, `<frontmatter>`, or `<media>` element.
+        """
+        if element.tag == "media":
+            item: Record = Media.from_xml(self, element)
+        elif element.tag == "frontmatter":
+            item = Frontmatter.from_xml(self, element)
+        else:
+            item = Paper.from_xml(self, element)
+        if item.id in self.data:
+            raise AnthologyDuplicateIDError(
+                item.id, f"Duplicate item ID in {self.full_id}"
+            )
+        self.data[item.id] = item
 
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:

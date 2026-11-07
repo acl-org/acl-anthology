@@ -30,6 +30,7 @@ from .event import Event
 from .types import EventLink, VolumeType
 from .volume import Volume
 from .paper import Paper
+from .record import Record
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -97,6 +98,11 @@ class Collection(SlottedDict[Volume]):
         for volume in self.volumes():
             yield from volume.papers()
 
+    def records(self) -> Iterator[Record]:
+        """Iterate over every paper, frontmatter, and media record in this collection."""
+        for volume in self.volumes():
+            yield from volume.records()
+
     def get_event(self) -> Optional[Event]:
         """An Event explicitly defined in this collection, if any."""
         if not self.is_data_loaded:
@@ -159,7 +165,7 @@ class Collection(SlottedDict[Volume]):
             id: The ID of the new volume.
             title: The title of the new volume.  If given as a string, it will be [heuristically parsed for markup][acl_anthology.text.markuptext.MarkupText.from_].
             year: The year of the new volume (optional); if None, will infer the year from this collection's ID.
-            type: Whether this is a journal or proceedings volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
+            type: Whether this is a journal, proceedings, or media volume; defaults to [VolumeType.PROCEEDINGS][acl_anthology.collections.types.VolumeType].
             **kwargs: Any valid list or optional attribute of [Volume][acl_anthology.collections.volume.Volume].
 
         Returns:
@@ -260,7 +266,15 @@ class Collection(SlottedDict[Volume]):
         try:
             for _, element in etree.iterparse(
                 self.path,
-                tag=("meta", "frontmatter", "paper", "volume", "event", "collection"),
+                tag=(
+                    "meta",
+                    "frontmatter",
+                    "paper",
+                    "media",
+                    "volume",
+                    "event",
+                    "collection",
+                ),
             ):
                 discard_element = True
                 if (
@@ -270,8 +284,8 @@ class Collection(SlottedDict[Volume]):
                 ):
                     # Seeing a volume's <meta> block instantiates a new volume
                     current_volume = self._add_volume_from_xml(element)  # noqa: F841
-                elif element.tag in ("paper", "frontmatter"):
-                    current_volume._add_paper_from_xml(element)
+                elif element.tag in ("paper", "frontmatter", "media"):
+                    current_volume._add_record_from_xml(element)
                 elif element.tag == "volume":
                     current_volume = cast(Volume, None)  # noqa: F841
                 elif element.tag == "event":

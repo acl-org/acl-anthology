@@ -72,8 +72,9 @@ from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
+from acl_anthology.collections.paper import PaperErratum, PaperRevision
 from acl_anthology.collections.volume import Volume
+from acl_anthology.collections.record import PDFRecord
 from acl_anthology.files import FileReference, PDFReference
 from acl_anthology.utils.ids import parse_id
 
@@ -363,8 +364,8 @@ def add_revision(
         now = datetime.now()
         date = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
-    paper = anthology.get_paper(anth_id)
-    if paper is None:
+    paper = anthology.get_record(anth_id)
+    if not isinstance(paper, PDFRecord):
         print(f"-> FATAL: paper ID {anth_id} not found in the Anthology", file=sys.stderr)
         sys.exit(1)
 
@@ -451,7 +452,7 @@ def add_revision(
 
 
 def replace_pdf(
-    item: Paper | Volume,
+    item: PDFRecord | Volume,
     pdf_path: Path,
     label: str = "PDF",
     explanation: str | None = None,
@@ -605,8 +606,8 @@ def main(args):
             archive=True,
         )
     elif replace_in_place:
-        paper = anthology.get_paper(anthology_id)
-        if paper is None:
+        paper = anthology.get_record(anthology_id)
+        if not isinstance(paper, PDFRecord):
             print(
                 f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
                 file=sys.stderr,
@@ -622,8 +623,8 @@ def main(args):
         )
     else:
         # build a list of the checksums of all revisions for the paper
-        paper = anthology.get_paper(anthology_id)
-        if paper is None:
+        paper = anthology.get_record(anthology_id)
+        if not isinstance(paper, PDFRecord):
             print(
                 f"-> FATAL: paper ID {anthology_id} not found in the Anthology",
                 file=sys.stderr,
