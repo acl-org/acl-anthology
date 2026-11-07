@@ -607,6 +607,19 @@ def build_author_search_index(people):
     }
 
 
+def build_orcid_index(people):
+    """Map ORCID iDs to person IDs, sharded by the iD's final (check) character.
+
+    Lets the author correction panel check whether an ORCID iD is already in use
+    without downloading the author search index.
+    """
+    shards = {}
+    for person_id, person in people.items():
+        if orcid := person.get("orcid"):
+            shards.setdefault(orcid[-1], {})[orcid] = person_id
+    return shards
+
+
 def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author directory."""
     author_index = build_author_search_index(people)
@@ -621,6 +634,14 @@ def export_author_index(people, builddir):
     for bucket, rows in author_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
+
+    orcid_dir = f"{builddir}/static/people/orcid"
+    if os.path.isdir(orcid_dir):
+        shutil.rmtree(orcid_dir)
+    os.makedirs(orcid_dir)
+    for shard, mapping in build_orcid_index(people).items():
+        with open(f"{orcid_dir}/{shard}.json", "wb") as f:
+            f.write(ENCODER.encode(mapping))
 
 
 def export_author_metrics(anthology: Anthology, builddir, dryrun=False):

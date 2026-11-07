@@ -26,8 +26,9 @@ Queries the Github API for all issues in the acl-org/acl-anthology repository.
 It then goes through them, looking for ones that
 - have an issue title ending in "/unverified"
 - have both "author-page" and "correction" labels,
-- a description that includes an ORCID URL (if the iD contains 'X' it must be uppercase)
-  and "[x] Verification"; other author page request types must be unchecked
+- a description that includes an ORCID URL (if the iD contains 'X' it must be uppercase) and
+  either comes from the "Verify Author Page" form with no papers listed as not the author's,
+  or from the legacy form with "[x] Verification" and other request types unchecked
 - are approved by at least one member of the Anthology group.
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
@@ -111,6 +112,26 @@ class AnthologyMetadataUpdater:
             return None
         return {"orcid": m.group(1), "degree": m.group(2)}
 
+    @staticmethod
+    def _lists_papers_not_mine(issue_body: str) -> bool:
+        """Check if a "Verify Author Page" issue excludes any papers from the page."""
+        for heading in (
+            "Papers on this page that are not mine",
+            r"Papers on this page that are mine \(if only some\)",
+        ):
+            m = re.search(rf"### {heading}\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL)
+            if m is not None and m.group(1).strip() not in ("", "_No response_"):
+                return True
+        return False
+
+    @staticmethod
+    def _requests_merge(issue_body: str) -> bool:
+        """Check if a "Verify Author Page" issue names another author page to merge with."""
+        m = re.search(
+            r"### Merge with author page\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL
+        )
+        return m is not None and m.group(1).strip() not in ("", "_No response_")
+
     def load_anthology(self):
         log.info("Loading anthology")
         self.anthology = Anthology.from_within_repo(
@@ -143,23 +164,26 @@ class AnthologyMetadataUpdater:
 
         for issue in issues:
             # Flag non-simple issues that are not already labeled as such
+            body = issue.body.replace("\r\n", "\n").replace("\r", "\n")
             issuetype = []
             issuelabels = [label.name for label in issue.get_labels()]
-            if "[x] Split/disambiguate:" in issue.body:
+            if "[x] Split/disambiguate:" in body or self._lists_papers_not_mine(body):
                 issuetype.append("SPLIT")
-            if "[x] Merge profiles:" in issue.body:
+            if "[x] Merge profiles:" in body or self._requests_merge(body):
                 issuetype.append("MERGE")
-            if "[x] Name change:" in issue.body:
+            if "[x] Name change:" in body:
                 issuetype.append("NAMECHANGE")
+            if "move-papers" in issuelabels:
+                issuetype.append("MOVE")
             if issuetype and not any(lbl.startswith("meta:") for lbl in issuelabels):
                 log.warning(
                     f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}"
                 )
             elif (
-                "[ ] Verification:" in issue.body
-                and "[ ] Split/disambiguate:" in issue.body
-                and "[ ] Merge profiles:" in issue.body
-                and "[ ] Name change:" in issue.body
+                "[ ] Verification:" in body
+                and "[ ] Split/disambiguate:" in body
+                and "[ ] Merge profiles:" in body
+                and "[ ] Name change:" in body
             ):
                 log.warning(f"#{issue.number}: No issue type (empty checkboxes)")
 
@@ -167,14 +191,20 @@ class AnthologyMetadataUpdater:
             if not issue.title.lower().endswith("/unverified"):
                 continue
 
-            if "[x] Verification:" not in issue.body:
-                continue
-            if "[ ] Split/disambiguate:" not in issue.body:
-                continue
-            if "[ ] Merge profiles:" not in issue.body:
-                continue
-            if "[ ] Name change:" not in issue.body:
-                continue
+            if "verify-author" in issuelabels:
+                # "Verify Author Page" form: simple if no papers are excluded
+                if issuetype:
+                    continue
+            else:
+                # Legacy "Correction to Author Page" form
+                if "[x] Verification:" not in body:
+                    continue
+                if "[ ] Split/disambiguate:" not in body:
+                    continue
+                if "[ ] Merge profiles:" not in body:
+                    continue
+                if "[ ] Name change:" not in body:
+                    continue
 
             # Process the issue if consistent with command line args
             self.stats["visited_issues"] += 1
