@@ -7,8 +7,9 @@ updates:
     ignore:
       - dependency-name: "stop-words"
     groups:
-      minor-and-patch:
-        update-types: [minor, patch]
+      all-uv-updates:
+        patterns:
+          - "*"
       security-updates:
         applies-to: security-updates
         patterns:
@@ -19,6 +20,10 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      github-actions-updates:
+        patterns:
+          - "*"
 
   - package-ecosystem: "pre-commit"
     directory: "/"
@@ -29,3 +34,7 @@ updates:
         update-types:
           - "version-update:semver-major"
           - "version-update:semver-minor"
+    groups:
+      pre-commit-updates:
+        patterns:
+          - "*"
