@@ -30,7 +30,7 @@
       {{ $volumes := index $venue.volumes_by_year $year }}
       {{ $decade := printf "%s0" (slicestr $year 0 3) }}
       {{ $isNewlyIngested := in $venue.newly_ingested_years $year }}
-      {{ if and $event $event.volumes }}
+      {{ if and $event (or $event.volumes $event.media) }}
     <a{{ if $isNewlyIngested }} class="acl-venue-years__new"{{ end }} href="{{ relref $page (printf "/events/%s" $eventID) }}" data-decade="{{ $decade }}" title="{{ $event.title }}">{{ $year }}</a>
       {{ else }}
         {{ $yearURL := $venuePage.RelPermalink }}

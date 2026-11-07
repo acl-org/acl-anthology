@@ -51,7 +51,8 @@
               <span class="badge text-bg-light align-middle">{{ . }}</span>
             {{ end }}
             <a class="align-middle" href="{{ relref $ (printf "/volumes/%s" .) }}">{{ $volume.title }}</a>
-            <span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+            {{ if $volume.papers }}<span class="badge text-bg-info align-middle ms-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>{{ end }}
+            {{ with $volume.media }}<span class="badge text-bg-info align-middle ms-1">{{ len . }}&nbsp;{{ cond (gt (len .) 1) "recordings" "recording" }}</span>{{ end }}
           </li>
           {{ end }}
         </ul>

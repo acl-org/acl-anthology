@@ -47,6 +47,9 @@ class DefaultConfig:
     video_location_template: str = "${url_prefix}/{}"
     """URL formatting template for videos."""
 
+    audio_location_template: str = "${url_prefix}/{}"
+    """URL formatting template for audio recordings."""
+
     volume_page_template: str = "${url_prefix}/{}/"
     """URL formatting template for volume landing pages."""
 

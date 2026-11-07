@@ -73,19 +73,19 @@ def test_bibkeys_index_paper(anthology):
     assert "solheim-etal-2022-fastscore" not in index
 
     # Indexing the paper should add it to the index
-    index._index_paper(paper.bibkey, paper)
+    index._index_record(paper.bibkey, paper)
     assert "solheim-etal-2022-fastscore" in index
     assert index["solheim-etal-2022-fastscore"] is paper
 
     # Indexing the paper again should not change anything
-    index._index_paper(paper.bibkey, paper)
+    index._index_record(paper.bibkey, paper)
     assert "solheim-etal-2022-fastscore" in index
     assert index["solheim-etal-2022-fastscore"] is paper
 
     # Indexing a different paper with the same bibkey should raise
     with pytest.raises(ValueError):
         paper2 = anthology.get_paper("2022.facl-long.100")
-        index._index_paper(paper.bibkey, paper2)
+        index._index_record(paper.bibkey, paper2)
 
 
 def test_bibkeys_generate_bibkey_with_all_stopwords(anthology):
@@ -130,10 +130,10 @@ def test_bibkeys_generate_bibkey_should_match_existing_bibkeys(anthology):
     index.is_data_loaded = True
 
     # Now, we can check if the auto-generated bibkeys match the ones in our XML
-    for paper in anthology.papers("2022.facl"):
+    for paper in anthology.records("2022.facl"):
         assert index.generate_bibkey(paper) == paper.bibkey
         # We need to index the paper so it is taken into account for future clashes
-        index._index_paper(paper.bibkey, paper)
+        index._index_record(paper.bibkey, paper)
 
 
 @pytest.mark.parametrize("pre_load", (True, False))
@@ -144,7 +144,7 @@ def test_bibkeys_refresh_bibkey_should_update(anthology, pre_load):
 
     # We pick a paper (here, frontmatter) with a bibkey not conforming to what
     # generate_bibkey() would produce
-    paper = anthology.get_paper("2022.natfake-1.0")
+    paper = anthology.get_frontmatter("2022.natfake-1.0")
     assert paper.bibkey == "natfake-2022-natural"
     assert "natfake-2022-natural" in index
     assert index["natfake-2022-natural"] is paper
