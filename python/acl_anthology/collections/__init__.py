@@ -15,6 +15,7 @@
 from .index import CollectionIndex
 from .collection import Collection
 from .bibkeys import BibkeyIndex
+from .collectionitem import CollectionItem, ContainerItem
 from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume
@@ -26,6 +27,8 @@ __all__ = [
     "BibkeyIndex",
     "Collection",
     "CollectionIndex",
+    "CollectionItem",
+    "ContainerItem",
     "Event",
     "EventIndex",
     "EventLink",

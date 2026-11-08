@@ -32,14 +32,13 @@ else:
 
 from .. import constants
 from ..config import config
-from ..exceptions import AnthologyInvalidIDError, AnthologyXMLError
+from ..exceptions import AnthologyXMLError
 from ..files import (
     AttachmentReference,
     PDFReference,
     PDFThumbnailReference,
     URLReference,
     VideoReference,
-    validate_url_tuple,
 )
 from ..people import NameSpecification
 from ..text import MarkupText, to_markuptext
@@ -51,16 +50,15 @@ from ..utils.attrs import (
     int_to_str,
     into_namespec_tuple,
     track_modifications,
-    ConvertableIntoDate,
 )
 from ..utils.citation import citeproc_render_html, render_acl_citation
-from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
+from ..utils.ids import AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
+from .collectionitem import CollectionItem, _update_person_itemids
 from .types import PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
-    from ..anthology import Anthology
     from ..people import Person
     from ..utils.latex import SerializableAsBibTeX
     from . import Event, Volume, Collection
@@ -307,33 +305,12 @@ def _update_bibkey_index(paper: Paper, attr: attrs.Attribute[Any], value: str) -
     return value
 
 
-def _update_person_itemids(
-    paper: Paper, attr: attrs.Attribute[Any], value: tuple[NameSpecification, ...]
-) -> tuple[NameSpecification, ...]:
-    """Update the `item_ids` of persons linked to or unlinked from a paper/volume.
-
-    Intended to be called from `on_setattr` of an [attrs.field][].
-    """
-    person_index = paper.root.people
-    if person_index.is_data_loaded:
-        old_value = getattr(paper, attr.name)
-        # Update item_ids for people who are no longer on this item
-        for namespec in set(old_value) - set(value):
-            person = namespec.resolve()
-            person.item_ids.discard(paper.full_id_tuple)
-        # Update item_ids for people who are newly on this item
-        for namespec in set(value) - set(old_value):
-            person = person_index._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.add(paper.full_id_tuple)
-    return value
-
-
 @attach_custom_repr
 @define(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
-class Paper:
+class Paper(CollectionItem["Volume"]):
     """A paper entry.
 
     Info:
@@ -366,13 +343,10 @@ class Paper:
         type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
-    id: str = field(converter=int_to_str)  # validator defined below
-    parent: Volume = field(repr=False, eq=False)
     bibkey: str = field(
         validator=v.matches_re(constants.RE_BIBKEY),
         on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
     )
-    title: MarkupText = field(converter=to_markuptext)
 
     attachments: tuple[tuple[str, AttachmentReference], ...] = field(
         default=(),
@@ -430,14 +404,6 @@ class Paper:
     videos: tuple[VideoReference, ...] = field(
         default=(), converter=tuple
     )  # auto_validate_types covers this, so no validator necessary
-    urls: tuple[tuple[str, URLReference], ...] = field(
-        default=(),
-        converter=tuple,
-        validator=v.deep_iterable(
-            member_validator=validate_url_tuple,
-            iterable_validator=v.instance_of(tuple),
-        ),  # necessary because auto_validate_types cannot cover this
-    )
 
     abstract: Optional[MarkupText] = field(
         default=None, converter=converters.optional(to_markuptext)
@@ -445,51 +411,17 @@ class Paper:
     deletion: Optional[PaperDeletionNotice] = field(
         default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
-    doi: Optional[str] = field(default=None)
-    _ingest_date: Optional[str] = field(
-        default=None,
-        converter=date_to_str,
-        validator=v.optional(v.matches_re(constants.RE_ISO_DATE)),
-    )
     _journal_issue: Optional[str] = field(default=None, alias="issue")
     _journal_title: Optional[str] = field(default=None, alias="journal")
     language: Optional[str] = field(default=None)
     _month: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
-    _pdf: Optional[PDFReference] = field(default=None)
     type: PaperType = field(default=PaperType.PAPER, converter=PaperType)
 
     def __attrs_post_init__(self) -> None:
         for namespec in it.chain(self.authors, self._editors):
             namespec.parent = self
-
-    @id.validator
-    def _check_id(self, _: Any, value: str) -> None:
-        if not is_valid_item_id(value):
-            raise AnthologyInvalidIDError(value, "not a valid paper ID")
-
-    @_pdf.validator
-    def _check_pdf(self, _: Any, value: Any) -> None:
-        # Adding this validator disables auto_validate_types for this field, so
-        # we need to check the type explicitly here, too.
-        if value is None:
-            return
-        if not isinstance(value, PDFReference):
-            raise TypeError(
-                f"'pdf' must be Optional[{PDFReference!r}] (got '{value!r}' that is a {type(value)!r})"
-            )
-        # <pdf> must be a local file reference according to the schema
-        if not value.is_local:
-            raise ValueError(
-                f"'pdf' of a Paper must be a local file reference (got '{value}')"
-            )
-        # If a name is given, it must match what would be derived automatically
-        # (an empty name, e.g. from PDFReference.from_xml(), is always fine)
-        if value.name and value.name != self.full_id:
-            raise ValueError(
-                f"PDF reference name {value.name!r} does not match this paper's full_id {self.full_id!r}"
-            )
 
     @property
     def collection(self) -> Collection:
@@ -497,19 +429,9 @@ class Paper:
         return self.parent.parent
 
     @property
-    def collection_id(self) -> str:
-        """The collection ID this paper belongs to."""
-        return self.parent.collection_id
-
-    @property
     def volume_id(self) -> str:
         """The volume ID this paper belongs to."""
         return self.parent.id
-
-    @property
-    def full_id(self) -> str:
-        """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
-        return build_id(self.parent.parent.id, self.parent.id, self.id)
 
     @property
     def full_id_tuple(self) -> AnthologyIDTuple:
@@ -525,11 +447,6 @@ class Paper:
     def is_frontmatter(self) -> bool:
         """Returns True if this paper represents a volume's frontmatter."""
         return self.type == PaperType.FRONTMATTER
-
-    @property
-    def root(self) -> Anthology:
-        """The Anthology instance to which this object belongs."""
-        return self.parent.parent.parent.parent
 
     @property
     def bibtype(self) -> str:
@@ -617,16 +534,9 @@ class Paper:
     def editors(self, value: Iterable[NameSpecification]) -> None:
         self._editors = into_namespec_tuple(value)
 
-    @property
-    def ingest_date(self) -> datetime.date:
-        """The date when this paper was added to the Anthology. Uses the paper's own ingestion date if set, otherwise inherited from the parent Volume."""
-        if self._ingest_date is None:
-            return self.parent.ingest_date
-        return datetime.date.fromisoformat(self._ingest_date)
-
-    @ingest_date.setter
-    def ingest_date(self, value: ConvertableIntoDate) -> None:
-        self._ingest_date = date_to_str(value)
+    def _default_ingest_date(self) -> datetime.date:
+        # Inherited from the parent Volume if not set on the paper
+        return self.parent.ingest_date
 
     @property
     def journal_issue(self) -> Optional[str]:
@@ -659,20 +569,6 @@ class Paper:
     def publisher(self) -> Optional[str]:
         """The paper's publisher. Inherited from the parent Volume."""
         return self.parent.publisher
-
-    @property
-    def pdf(self) -> Optional[PDFReference]:
-        """A reference to the paper's PDF.
-
-        `<pdf>` always refers to a local file, so the reference's `name` is derived from this paper's `full_id` rather than stored -- it is not present in the XML.
-        """
-        if self._pdf is None:
-            return None
-        return attrs.evolve(self._pdf, name=self.full_id)
-
-    @pdf.setter
-    def pdf(self, value: Optional[PDFReference]) -> None:
-        self._pdf = value
 
     @property
     def thumbnail(self) -> Optional[PDFThumbnailReference]:

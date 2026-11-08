@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2023-2026 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Provides the base class for all dictionary-like containers."""
+"""Provides the base classes for all dictionary-like containers."""
 
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
@@ -30,28 +30,34 @@ def dict_type(x: dict[str, T]) -> str:
     return f"{value.__class__.__name__}"
 
 
-@define
-class SlottedDict(Generic[T]):
-    """A generic slotted class for dictionary-like behavior.
+def repr_data_dict(x: dict[str, T]) -> str:
+    """Produce a short repr for the `data` attribute of dictionary-like containers.
+
+    Intended to be set on the `repr` attribute of an [attrs.field][].
+    """
+    return f"<dict[str, {dict_type(x)}] with {len(x)} item{'' if len(x) == 1 else 's'}>"
+
+
+class DictMixin(Generic[T]):
+    """A generic mixin class for dictionary-like behavior.
 
     This class implements all [functions that `dict` objects](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict) provide, automatically loading underlying data sources if required, then "forwarding" the functions to the wrapped `self.data` dictionary.
 
     Keys of this dictionary are always strings (e.g., paper IDs or person IDs), while the type of values depends on the subclass.
 
+    This class holds no state and defines no slots, so it can be combined with other slotted classes.  Inheriting classes must provide `data` and `is_data_loaded` as attributes; see [SlottedDict][acl_anthology.containers.SlottedDict] for a ready-made class that does so.
+
     Attributes:
         data: The wrapped data dictionary.
-        is_data_loaded: Flag that defaults to True. Subclasses can set this to False to indicate that [`self.load()`][acl_anthology.containers.SlottedDict.load] must be called before any data can be accessed; in that case, they also have to implement the `load` function.
+        is_data_loaded: If False, indicates that [`self.load()`][acl_anthology.containers.DictMixin.load] must be called before any data can be accessed; in that case, inheriting classes also have to implement the `load` function.
     """
 
-    data: dict[str, T] = field(
-        init=False,
-        repr=lambda x: f"<dict[str, {dict_type(x)}] with {len(x)} item{'' if len(x) == 1 else 's'}>",
-        factory=dict,
-        metadata={"repr_omits_field_name": True},
-    )
-    is_data_loaded: bool = field(
-        init=False, repr=True, default=True, metadata={"repr_omit_if": True}
-    )
+    # Concrete subclasses need to define these as slots; mypy doesn't know
+    # this, so assignments to them below need a `type: ignore[misc]`
+    __slots__ = ()
+
+    data: dict[str, T]
+    is_data_loaded: bool
 
     def __contains__(self, key: str) -> bool:
         if not self.is_data_loaded:
@@ -97,7 +103,7 @@ class SlottedDict(Generic[T]):
         if not other.is_data_loaded:
             other.load()
         new_instance = copy(self)
-        new_instance.data = self.data | other.data
+        new_instance.data = self.data | other.data  # type: ignore[misc]
         return new_instance
 
     def __reversed__(self) -> Iterator[str]:
@@ -106,7 +112,8 @@ class SlottedDict(Generic[T]):
         return reversed(self.data)
 
     def clear(self) -> None:
-        self.is_data_loaded = True  # No need to load data if it's cleared
+        # No need to load data if it's cleared
+        self.is_data_loaded = True  # type: ignore[misc]
         self.data.clear()
 
     def copy(self) -> Self:
@@ -165,3 +172,25 @@ class SlottedDict(Generic[T]):
             NotImplementedError:
         """
         raise NotImplementedError()
+
+
+@define
+class SlottedDict(DictMixin[T]):
+    """A generic slotted class for dictionary-like behavior.
+
+    See [DictMixin][acl_anthology.containers.DictMixin] for the functionality this class provides.
+
+    Attributes:
+        data: The wrapped data dictionary.
+        is_data_loaded: Flag that defaults to True. Subclasses can set this to False to indicate that [`self.load()`][acl_anthology.containers.DictMixin.load] must be called before any data can be accessed; in that case, they also have to implement the `load` function.
+    """
+
+    data: dict[str, T] = field(
+        init=False,
+        repr=repr_data_dict,
+        factory=dict,
+        metadata={"repr_omits_field_name": True},
+    )
+    is_data_loaded: bool = field(
+        init=False, repr=True, default=True, metadata={"repr_omit_if": True}
+    )
