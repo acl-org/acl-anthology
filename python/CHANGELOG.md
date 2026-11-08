@@ -4,7 +4,7 @@
 
 ### Changed
 
-- `Volume` and `Paper` now inherit from a common base class `CollectionItem`, which defines their shared attributes (`id`, `parent`, `title`, `doi`, `urls`, `pdf`, `ingest_date`) and properties (`collection_id`, `full_id`, `root`).  `Volume` additionally inherits from `ContainerItem`.
+- `Volume` and `Paper` now inherit from a common abstract base class `CollectionItem`, which defines their shared attributes (`id`, `parent`, `title`, `doi`, `urls`, `pdf`, `ingest_date`) and properties (`collection_id`, `full_id`, `root`).  `Volume` additionally inherits from `ContainerItem`.
 - The dictionary-like functionality of `SlottedDict` was moved into a new mixin class `DictMixin`, so it can be combined with other slotted classes.
 - Breaking change: `title` is now a keyword-only argument when instantiating `Paper` directly.  (`Volume.create_paper()` is unaffected.)
 

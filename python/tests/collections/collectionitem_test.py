@@ -13,10 +13,31 @@
 # limitations under the License.
 
 import pytest
+from attrs import define
 
 from acl_anthology.collections import Paper, Volume
 from acl_anthology.collections.collectionitem import CollectionItem, ContainerItem
 from acl_anthology.exceptions import AnthologyInvalidIDError
+
+
+def test_collectionitem_cannot_be_instantiated(anthology):
+    collection = anthology.get_collection("2022.facl")
+    with pytest.raises(TypeError, match="abstract"):
+        CollectionItem("1", collection, title="Foo")
+    with pytest.raises(TypeError, match="abstract"):
+        ContainerItem("1", collection, title="Foo")
+
+
+def test_collectionitem_subclass_must_implement_abstract_members(anthology):
+    @define
+    class IncompleteItem(CollectionItem["Volume"]):
+        @property
+        def collection(self):
+            return self.parent.parent
+
+    volume = anthology.get_volume("2022.facl-long")
+    with pytest.raises(TypeError, match="full_id_tuple"):
+        IncompleteItem("1", volume, title="Foo")
 
 
 def test_collectionitem_hierarchy():

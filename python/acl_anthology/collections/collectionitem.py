@@ -16,6 +16,7 @@
 
 from __future__ import annotations
 
+from abc import ABC, abstractmethod
 import attrs
 from attrs import define, field, setters, validators
 import datetime
@@ -71,10 +72,10 @@ def _update_person_itemids(
     field_transformer=auto_validate_types,
     on_setattr=[setters.convert, setters.validate, track_modifications],
 )
-class CollectionItem(Generic[ParentT]):
+class CollectionItem(Generic[ParentT], ABC):
     """Abstract base class for all items in a collection that have an Anthology ID, such as volumes and papers.
 
-    This class should not be instantiated directly.
+    This class cannot be instantiated directly.  Subclasses must implement the abstract properties [collection][acl_anthology.collections.collectionitem.CollectionItem.collection], [full_id_tuple][acl_anthology.collections.collectionitem.CollectionItem.full_id_tuple], [web_url][acl_anthology.collections.collectionitem.CollectionItem.web_url], and [namespecs][acl_anthology.collections.collectionitem.CollectionItem.namespecs].
 
     Attributes: Required Attributes:
         id: The ID of this item, local to its parent (e.g. "main" for a volume, or "42" for a paper).
@@ -141,9 +142,9 @@ class CollectionItem(Generic[ParentT]):
             )
 
     @property
+    @abstractmethod
     def collection(self) -> Collection:
         """The collection this item belongs to."""
-        raise NotImplementedError()
 
     @property
     def collection_id(self) -> str:
@@ -156,9 +157,9 @@ class CollectionItem(Generic[ParentT]):
         return build_id(*self.full_id_tuple)
 
     @property
+    @abstractmethod
     def full_id_tuple(self) -> AnthologyIDTuple:
         """The full anthology ID of this item, as a tuple (e.g. `("2022.emnlp", "main", None)` or `("2022.emnlp", "main", "1")`)."""
-        raise NotImplementedError()
 
     @property
     def root(self) -> Anthology:
@@ -166,14 +167,14 @@ class CollectionItem(Generic[ParentT]):
         return self.collection.root
 
     @property
+    @abstractmethod
     def web_url(self) -> str:
         """The URL of this item's landing page on the ACL Anthology website."""
-        raise NotImplementedError()
 
     @property
+    @abstractmethod
     def namespecs(self) -> tuple[NameSpecification, ...]:
         """All name specifications on this item."""
-        raise NotImplementedError()
 
     @property
     def ingest_date(self) -> datetime.date:
@@ -212,7 +213,7 @@ class CollectionItem(Generic[ParentT]):
 class ContainerItem(CollectionItem[ParentT], DictMixin[ChildT]):
     """Abstract base class for collection items that also act as dictionary-like containers of other items, such as volumes containing papers.
 
-    This class should not be instantiated directly.  See [CollectionItem][acl_anthology.collections.collectionitem.CollectionItem] for the attributes of all collection items, and [DictMixin][acl_anthology.containers.DictMixin] for the dictionary-like functionality.
+    This class cannot be instantiated directly.  See [CollectionItem][acl_anthology.collections.collectionitem.CollectionItem] for the attributes of all collection items, and [DictMixin][acl_anthology.containers.DictMixin] for the dictionary-like functionality.
     """
 
     data: dict[str, ChildT] = field(
