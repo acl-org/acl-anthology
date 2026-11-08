@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Fix: Setting `Volume.editors` now also updates `Person.item_ids` for the volume's frontmatter, consistent with how the person index is built.
+
 ## [1.3.4] — 2026-10-16
 
 ### Added

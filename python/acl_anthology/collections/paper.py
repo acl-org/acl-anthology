@@ -312,19 +312,28 @@ def _update_person_itemids(
 ) -> tuple[NameSpecification, ...]:
     """Update the `item_ids` of persons linked to or unlinked from a paper/volume.
 
+    If called on a volume with frontmatter, the frontmatter's `item_ids` are updated as well, since the volume's editors are also associated with the frontmatter.
+
     Intended to be called from `on_setattr` of an [attrs.field][].
     """
     person_index = paper.root.people
     if person_index.is_data_loaded:
+        item_ids = [paper.full_id_tuple]
+        # TODO: hasattr check pending the CollectionItem refactoring
+        if (
+            hasattr(paper, "frontmatter")
+            and (frontmatter := paper.frontmatter) is not None
+        ):
+            item_ids.append(frontmatter.full_id_tuple)
         old_value = getattr(paper, attr.name)
         # Update item_ids for people who are no longer on this item
         for namespec in set(old_value) - set(value):
             person = namespec.resolve()
-            person.item_ids.discard(paper.full_id_tuple)
+            person.item_ids.difference_update(item_ids)
         # Update item_ids for people who are newly on this item
         for namespec in set(value) - set(old_value):
             person = person_index._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.add(paper.full_id_tuple)
+            person.item_ids.update(item_ids)
     return value
 
 

@@ -822,12 +822,15 @@ def test_volume_remove_editor(anthology):
     person = ns.resolve()
     assert person.id == UNVERIFIED_PID_FORMAT.format(pid="dario-pretto")
     assert volume.full_id_tuple in person.item_ids
+    assert volume.frontmatter is not None
+    assert volume.frontmatter.full_id_tuple in person.item_ids
 
     # Removing editor from volume
     volume.editors = [volume.editors[0], volume.editors[2]]
 
-    # Person should be updated
+    # Person should be updated, for both the volume and its frontmatter
     assert volume.full_id_tuple not in person.item_ids
+    assert volume.frontmatter.full_id_tuple not in person.item_ids
 
 
 def test_volume_add_editor(anthology):
@@ -837,12 +840,29 @@ def test_volume_add_editor(anthology):
     assert ns not in volume.editors
     person = anthology.people.get_by_namespec(ns)
     assert volume.full_id_tuple not in person.item_ids
+    assert volume.frontmatter is not None
+    assert volume.frontmatter.full_id_tuple not in person.item_ids
 
     # Adding this editor to the volume
     volume.editors += (ns,)
 
     # NameSpecification should point to volume
     assert ns.parent is volume
+    # Person should be updated, for both the volume and its frontmatter
+    assert volume.full_id_tuple in person.item_ids
+    assert volume.frontmatter.full_id_tuple in person.item_ids
+
+
+def test_volume_add_editor_without_frontmatter(anthology):
+    collection = anthology.get_collection("2022.facl")
+    volume = collection.create_volume("nofm", title="Volume without frontmatter")
+    assert volume.frontmatter is None
+    ns = NameSpec("Livia Marchetti")
+    person = anthology.people.get_by_namespec(ns)
+
+    # Adding this editor to the volume
+    volume.editors += (ns,)
+
     # Person should be updated
     assert volume.full_id_tuple in person.item_ids
 
