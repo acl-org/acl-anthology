@@ -2,10 +2,21 @@
 
 ## [Unreleased]
 
+### Added
+
+- `CollectionItem.namespec_item_ids` gives the IDs of all items that the persons in `namespecs` are linked to (e.g., a volume's editors are also linked to its frontmatter).
+
+### Fixed
+
+- Changing `Volume.editors` now also updates the person links of the volume's frontmatter.
+- Removing a name from a paper's authors or editors no longer unlinks the person from the paper if they are still listed in the other role.
+- `Volume.create_paper()` no longer links the volume's editors to every newly created paper, but only to newly created frontmatter, consistent with how the person index is built.
+
 ### Changed
 
 - `Volume` and `Paper` now inherit from a common abstract base class `CollectionItem`, which defines their shared attributes (`id`, `parent`, `title`, `doi`, `urls`, `pdf`, `ingest_date`) and properties (`collection_id`, `full_id`, `root`).  `Volume` additionally inherits from `ContainerItem`.
 - The dictionary-like functionality of `SlottedDict` was moved into a new mixin class `DictMixin`, so it can be combined with other slotted classes.
+- `namespecs` and `get_namespec_for()` are now implemented generically in `CollectionItem`, and code in `acl_anthology.people` uses `CollectionItem` instead of checking for `Paper`/`Volume` explicitly.
 - Breaking change: `title` is now a keyword-only argument when instantiating `Paper` directly.  (`Volume.create_paper()` is unaffected.)
 
 ## [1.3.4] — 2026-10-16

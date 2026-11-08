@@ -19,7 +19,7 @@ import attrs
 from attrs import define, field, converters, setters, validators
 from lxml import etree
 from lxml.builder import E
-from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
+from typing import Any, ClassVar, Iterator, Optional, cast, TYPE_CHECKING
 import sys
 
 if sys.version_info >= (3, 13):
@@ -50,7 +50,6 @@ from .paper import Paper
 from .types import EventLink, VolumeType
 
 if TYPE_CHECKING:
-    from ..people import Person
     from ..sigs import SIG
     from . import Collection, Event
 
@@ -182,6 +181,8 @@ class Volume(ContainerItem["Collection", Paper]):
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
     """
 
+    _namespec_fields: ClassVar[tuple[str, ...]] = ("editors",)
+
     type: VolumeType = field(converter=VolumeType)
     # Overrides CollectionItem.title to add the alias and make it positional
     title: MarkupText = field(alias="booktitle", converter=to_markuptext)
@@ -296,9 +297,14 @@ class Volume(ContainerItem["Collection", Paper]):
         return cast(str, config["volume_page_template"]).format(self.full_id)
 
     @property
-    def namespecs(self) -> tuple[NameSpecification, ...]:
-        """All name specifications on this volume."""
-        return self.editors
+    def namespec_item_ids(self) -> tuple[AnthologyIDTuple, ...]:
+        """IDs of all items that the persons in [`namespecs`][acl_anthology.collections.collectionitem.CollectionItem.namespecs] should be linked to.
+
+        For volumes, this includes the volume's frontmatter, if it exists, as volume editors are considered the authors of the frontmatter.
+        """
+        if (frontmatter := self.frontmatter) is not None:
+            return (self.full_id_tuple, frontmatter.full_id_tuple)
+        return (self.full_id_tuple,)
 
     @property
     def journal_title(self) -> Optional[str]:
@@ -329,23 +335,6 @@ class Volume(ContainerItem["Collection", Paper]):
     )
     def get_journal_title(self) -> str:  # pragma: no cover
         return self.journal_title or ""
-
-    def get_namespec_for(self, person: Person) -> NameSpecification:
-        """Find the NameSpecification on this volume that refers to a given Person.
-
-        Arguments:
-            person: A person that is an editor on this volume.
-
-        Returns:
-            The NameSpecification that resolves to the given Person.
-
-        Raises:
-            ValueError: If none of the editors resolve to the given Person.
-        """
-        for namespec in self.namespecs:
-            if namespec.resolve() is person:
-                return namespec
-        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
 
     def get_sigs(self) -> list[SIG]:
         return self.sigs()
@@ -507,18 +496,12 @@ class Volume(ContainerItem["Collection", Paper]):
         paper.bibkey = bibkey  # triggers bibkey generating (if necessary) & indexing
 
         # If authors/editors were given, we fill in their ID & add them to the index
-        if paper.authors:
-            for namespec in paper.authors:
-                namespec.normalize(skip_setter=True)
-                self.root.people.ingest_namespec(namespec)
-            self.root.people._add_to_index(paper.authors, paper.full_id_tuple)
-        if paper.editors:
-            for namespec in paper.editors:
-                namespec.normalize(skip_setter=True)
-                self.root.people.ingest_namespec(namespec)
-            self.root.people._add_to_index(paper.editors, paper.full_id_tuple)
+        paper._register_namespecs()
 
         self.data[id] = paper
+        if paper.is_frontmatter:
+            # Volume editors are also linked to the frontmatter
+            self.root.people._add_to_index(self.namespecs, paper.full_id_tuple)
         self.parent.is_modified = True
         return paper
 

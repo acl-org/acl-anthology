@@ -23,7 +23,7 @@ import langcodes
 from lxml import etree
 from lxml.builder import E
 import sys
-from typing import cast, Any, Iterable, Optional, TYPE_CHECKING
+from typing import cast, Any, ClassVar, Iterable, Optional, TYPE_CHECKING
 
 if sys.version_info >= (3, 13):
     from warnings import deprecated
@@ -343,6 +343,8 @@ class Paper(CollectionItem["Volume"]):
         type: The paper's type, currently used to mark frontmatter and backmatter.
     """
 
+    _namespec_fields: ClassVar[tuple[str, ...]] = ("authors", "_editors")
+
     bibkey: str = field(
         validator=v.matches_re(constants.RE_BIBKEY),
         on_setattr=[setters.validate, track_modifications, _update_bibkey_index],
@@ -630,13 +632,6 @@ class Paper(CollectionItem["Volume"]):
         """The URL of this paper's landing page on the ACL Anthology website."""
         return cast(str, config["paper_page_template"]).format(self.full_id)
 
-    @property
-    def namespecs(self) -> tuple[NameSpecification, ...]:
-        """All name specifications on this paper."""
-        if not self._editors:
-            return self.authors
-        return self.authors + self._editors
-
     @deprecated("Paper.get_editors() is deprecated in favor of Paper.editors")
     def get_editors(self) -> tuple[NameSpecification, ...]:  # pragma: no cover
         return self.editors
@@ -670,10 +665,11 @@ class Paper(CollectionItem["Volume"]):
             The first NameSpecification that resolves to the given Person.
 
         Raises:
-            ValueError: If none of the authors/editors resolve to the given Person.
+            ValueError: If none of the authors/editors resolve to the given Person.  For frontmatter, this includes the editors of the parent volume.
         """
         namespecs = (
-            it.chain(self.namespecs, self.editors)
+            # Volume editors are also linked to the frontmatter; see Volume.namespec_item_ids
+            it.chain(self.namespecs, self.parent.namespecs)
             if self.is_frontmatter
             else self.namespecs
         )

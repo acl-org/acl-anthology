@@ -20,7 +20,7 @@ from abc import ABC, abstractmethod
 import attrs
 from attrs import define, field, setters, validators
 import datetime
-from typing import Any, Generic, Optional, TypeVar, TYPE_CHECKING
+from typing import Any, ClassVar, Generic, Optional, TypeVar, TYPE_CHECKING
 
 from .. import constants
 from ..containers import DictMixin, repr_data_dict
@@ -39,6 +39,7 @@ from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..people import Person
     from . import Collection, Volume
 
 ParentT = TypeVar("ParentT", bound="Collection | Volume")
@@ -52,19 +53,24 @@ def _update_person_itemids(
 ) -> tuple[NameSpecification, ...]:
     """Update the `item_ids` of persons linked to or unlinked from a collection item.
 
-    Intended to be called from `on_setattr` of an [attrs.field][].
+    Compares the persons that all name specifications on the item resolve to before and after the change, so that a person who is still linked via another name specification on the same item (e.g. as both author and editor) keeps their link.  Updates all items in [`item.namespec_item_ids`][acl_anthology.collections.collectionitem.CollectionItem.namespec_item_ids].
+
+    Intended to be called from `on_setattr` of an [attrs.field][] that is listed in `_namespec_fields`.
     """
     person_index = item.root.people
-    if person_index.is_data_loaded:
-        old_value = getattr(item, attr.name)
-        # Update item_ids for people who are no longer on this item
-        for namespec in set(old_value) - set(value):
-            person = namespec.resolve()
-            person.item_ids.discard(item.full_id_tuple)
-        # Update item_ids for people who are newly on this item
-        for namespec in set(value) - set(old_value):
-            person = person_index._resolve_namespec(namespec, allow_creation=True)
-            person.item_ids.add(item.full_id_tuple)
+    if not person_index.is_data_loaded:
+        return value
+    persons_before = {namespec.resolve() for namespec in item.namespecs}
+    persons_after = {
+        person_index._resolve_namespec(namespec, allow_creation=True)
+        for name in item._namespec_fields
+        for namespec in (value if name == attr.name else getattr(item, name))
+    }
+    item_ids = item.namespec_item_ids
+    for person in persons_before - persons_after:
+        person.item_ids.difference_update(item_ids)
+    for person in persons_after - persons_before:
+        person.item_ids.update(item_ids)
     return value
 
 
@@ -75,7 +81,7 @@ def _update_person_itemids(
 class CollectionItem(Generic[ParentT], ABC):
     """Abstract base class for all items in a collection that have an Anthology ID, such as volumes and papers.
 
-    This class cannot be instantiated directly.  Subclasses must implement the abstract properties [collection][acl_anthology.collections.collectionitem.CollectionItem.collection], [full_id_tuple][acl_anthology.collections.collectionitem.CollectionItem.full_id_tuple], [web_url][acl_anthology.collections.collectionitem.CollectionItem.web_url], and [namespecs][acl_anthology.collections.collectionitem.CollectionItem.namespecs].
+    This class cannot be instantiated directly.  Subclasses must implement the abstract properties [collection][acl_anthology.collections.collectionitem.CollectionItem.collection], [full_id_tuple][acl_anthology.collections.collectionitem.CollectionItem.full_id_tuple], and [web_url][acl_anthology.collections.collectionitem.CollectionItem.web_url].  Subclasses with name specifications (e.g. authors or editors) should list the attributes holding them in `_namespec_fields`.
 
     Attributes: Required Attributes:
         id: The ID of this item, local to its parent (e.g. "main" for a volume, or "42" for a paper).
@@ -89,6 +95,9 @@ class CollectionItem(Generic[ParentT], ABC):
         doi: The DOI for this item.
         pdf: A reference to this item's PDF.
     """
+
+    _namespec_fields: ClassVar[tuple[str, ...]] = ()
+    """Names of the attributes holding name specifications that are attached to this item; used to implement [`namespecs`][acl_anthology.collections.collectionitem.CollectionItem.namespecs].  Each of these attributes should use `_update_person_itemids` in its `on_setattr` hooks."""
 
     id: str = field(converter=int_to_str)  # validator defined below
     parent: ParentT = field(repr=False, eq=False)
@@ -172,9 +181,50 @@ class CollectionItem(Generic[ParentT], ABC):
         """The URL of this item's landing page on the ACL Anthology website."""
 
     @property
-    @abstractmethod
     def namespecs(self) -> tuple[NameSpecification, ...]:
-        """All name specifications on this item."""
+        """All name specifications explicitly attached to this item (e.g., authors and/or editors)."""
+        return tuple(
+            namespec for name in self._namespec_fields for namespec in getattr(self, name)
+        )
+
+    @property
+    def namespec_item_ids(self) -> tuple[AnthologyIDTuple, ...]:
+        """IDs of all items that the persons in [`namespecs`][acl_anthology.collections.collectionitem.CollectionItem.namespecs] should be linked to.
+
+        By default, this is only this item's own ID, but subclasses can extend it; e.g., a volume's editors are also linked to the volume's frontmatter.
+        """
+        return (self.full_id_tuple,)
+
+    def get_namespec_for(self, person: Person) -> NameSpecification:
+        """Find the NameSpecification on this item that refers to a given Person.
+
+        Arguments:
+            person: A person that is linked to this item, e.g. as an author or editor.
+
+        Returns:
+            The first NameSpecification that resolves to the given Person.
+
+        Raises:
+            ValueError: If none of the name specifications on this item resolve to the given Person.
+        """
+        for namespec in self.namespecs:
+            if namespec.resolve() is person:
+                return namespec
+        raise ValueError(f"No NameSpecification on {self.full_id} resolves to {person}")
+
+    def _register_namespecs(self) -> None:
+        """Normalize the name specifications on this item and add them to the person index.
+
+        Intended to be called when a new item is created, since `on_setattr` hooks don't run on initialization.
+        """
+        if not self.namespecs:
+            return
+        person_index = self.root.people
+        for namespec in self.namespecs:
+            namespec.normalize(skip_setter=True)
+            person_index.ingest_namespec(namespec)
+        for item_id in self.namespec_item_ids:
+            person_index._add_to_index(self.namespecs, item_id)
 
     @property
     def ingest_date(self) -> datetime.date:
