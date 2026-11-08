@@ -64,6 +64,7 @@ import tempfile
 import urllib.parse
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import requests
 from git.repo.base import Repo
@@ -72,8 +73,8 @@ from pypdf import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import Paper, PaperErratum, PaperRevision
-from acl_anthology.collections.volume import Volume
+from acl_anthology.collections.paper import PaperErratum, PaperRevision
+from acl_anthology.collections import CollectionItem
 from acl_anthology.files import FileReference, PDFReference
 from acl_anthology.utils.ids import parse_id
 
@@ -451,7 +452,7 @@ def add_revision(
 
 
 def replace_pdf(
-    item: Paper | Volume,
+    item: CollectionItem[Any],
     pdf_path: Path,
     label: str = "PDF",
     explanation: str | None = None,

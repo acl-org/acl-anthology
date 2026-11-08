@@ -76,11 +76,11 @@ Options:
 
 import logging as log
 from docopt import docopt
-from typing import Optional, Tuple
+from typing import Any, Optional, Tuple
 
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper, Volume
+from acl_anthology.collections import CollectionItem, Paper
 from acl_anthology.people import Name, NameSpecification, Person
 from acl_anthology.utils.ids import is_valid_orcid, is_verified_person_id
 from acl_anthology.utils.logging import setup_rich_logging
@@ -293,7 +293,7 @@ def verify_by_paper(
 
     assert len(paper_ids) > 0
     name_slug_queries: set[str] = set()
-    paper_and_namespec: list[Tuple[Paper | Volume, NameSpecification]] = []
+    paper_and_namespec: list[Tuple[CollectionItem[Any], NameSpecification]] = []
     for paper_and_name_slug in paper_ids:
         if not paper_and_namespec:
             assert paper_and_name_slug.count(":") == 1, (
@@ -312,11 +312,11 @@ def verify_by_paper(
             )
             name_slug_queries.add(name_slug)
         paper = anthology.get(paper_id)
-        assert isinstance(paper, (Paper, Volume)), paper
+        assert isinstance(paper, CollectionItem), paper
 
         # match the author of the paper by name slug
-        author_list = paper.authors if isinstance(paper, Paper) else paper.editors
-        if not author_list and paper.is_frontmatter:
+        author_list = paper.namespecs
+        if not author_list and isinstance(paper, Paper) and paper.is_frontmatter:
             author_list = paper.parent.editors
         query = [name_slug] if name_slug else name_slug_queries
         matches = [

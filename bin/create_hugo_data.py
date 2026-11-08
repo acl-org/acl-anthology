@@ -36,7 +36,7 @@ from docopt import docopt
 from collections import Counter
 from datetime import date, timedelta
 from functools import cache
-from typing import Iterable
+from typing import Any, Iterable
 import logging as log
 import msgspec
 from omegaconf import OmegaConf
@@ -53,7 +53,7 @@ import shutil
 import unicodedata
 
 from acl_anthology import Anthology, config, primary_console
-from acl_anthology.collections.paper import Paper
+from acl_anthology.collections import CollectionItem
 from acl_anthology.collections.types import EventLink, PaperDeletionType, VolumeType
 from acl_anthology.collections.volume import Volume
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
@@ -327,7 +327,9 @@ def explicitly_colocated_volume_ids(anthology: Anthology):
     }
 
 
-def latest_owned_ingest_date(items: Iterable[Volume | Paper], explicitly_colocated_ids):
+def latest_owned_ingest_date(
+    items: Iterable[CollectionItem[Any]], explicitly_colocated_ids
+):
     """Return the latest ingest date excluding volumes owned by a parent event."""
     return max(
         (
