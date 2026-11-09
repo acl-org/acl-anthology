@@ -64,46 +64,69 @@
   }
 
   // With `asSwitch`, each paper gets a keep/remove switch instead of a checkbox.
-  function renderPaperList(container, checked, asSwitch) {
-    container.replaceChildren(...page.papers.map(function (paper) {
-      const item = document.createElement("div");
-      const input = document.createElement("input");
-      const label = document.createElement("label");
+  function renderPaperItem(container, paper, checked, asSwitch) {
+    const item = document.createElement("div");
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    item.className = asSwitch ? "form-check form-switch" : "form-check";
+    input.className = "form-check-input";
+    input.type = "checkbox";
+    if (asSwitch) input.setAttribute("role", "switch");
+    input.value = paper.id;
+    input.checked = checked;
+    input.id = container.dataset.authorFixPapers + "-" + paper.id;
+    label.className = "form-check-label";
+    label.htmlFor = input.id;
+    const link = document.createElement("a");
+    link.href = paper.url;
+    link.target = "_blank";
+    link.className = "ms-1 text-muted";
+    link.title = "Open paper page";
+    link.setAttribute("aria-label", "Open paper page for \u201c" + paper.title + "\u201d");
+    link.innerHTML = '<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>';
+    // Keep the link on the same line as the title's last word, however the title wraps.
+    const cut = paper.title.lastIndexOf(" ") + 1;
+    const tail = document.createElement("span");
+    tail.className = "text-nowrap";
+    tail.append(paper.title.slice(cut));
+    if (paper.name !== page.canonicalName) {
       const meta = document.createElement("small");
-      item.className = asSwitch ? "form-check form-switch" : "form-check";
-      input.className = "form-check-input";
-      input.type = "checkbox";
-      if (asSwitch) input.setAttribute("role", "switch");
-      input.value = paper.id;
-      input.checked = checked;
-      input.id = container.dataset.authorFixPapers + "-" + paper.id;
-      label.className = "form-check-label";
-      label.htmlFor = input.id;
-      label.textContent = paper.title;
-      meta.className = "text-muted";
-      meta.textContent = "(" + paper.year
-        + (paper.name !== page.canonicalName ? ", as " + paper.name : "") + ")";
-      const link = document.createElement("a");
-      link.href = paper.url;
-      link.target = "_blank";
-      link.className = "ms-1 text-muted";
-      link.title = "Open paper page";
-      link.setAttribute("aria-label", "Open paper page for \u201c" + paper.title + "\u201d");
-      link.innerHTML = '<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>';
-      // Keep the link on the same line as the year, however the title wraps.
-      const tail = document.createElement("span");
-      tail.className = "text-nowrap";
-      tail.append(meta, link);
-      label.append(" ", tail);
-      item.append(input, label);
-      if (paper.citation) {
-        new bootstrap.Tooltip(label, {
-          title: paper.citation,
-          placement: "top",
-        });
+      meta.className = "text-muted ms-1";
+      meta.textContent = "(as " + paper.name + ")";
+      tail.append(meta);
+    }
+    tail.append(link);
+    label.append(paper.title.slice(0, cut), tail);
+    item.append(input, label);
+    if (paper.citation) {
+      new bootstrap.Tooltip(label, {
+        title: paper.citation,
+        placement: "top",
+      });
+    }
+    return item;
+  }
+
+  // Papers come newest first; each year's papers form a group under a year heading.
+  function renderPaperList(container, checked, asSwitch) {
+    const groups = [];
+    let year = null;
+    page.papers.forEach(function (paper) {
+      if (paper.year !== year) {
+        year = paper.year;
+        const group = document.createElement("div");
+        const heading = document.createElement("div");
+        heading.id = container.dataset.authorFixPapers + "-year-" + groups.length;
+        heading.className = "small fw-semibold text-muted" + (groups.length ? " mt-2" : "");
+        heading.textContent = year;
+        group.setAttribute("role", "group");
+        group.setAttribute("aria-labelledby", heading.id);
+        group.append(heading);
+        groups.push(group);
       }
-      return item;
-    }));
+      groups[groups.length - 1].append(renderPaperItem(container, paper, checked, asSwitch));
+    });
+    container.replaceChildren(...groups);
   }
 
   function selectedPapers(container, checked) {
