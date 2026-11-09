@@ -225,8 +225,10 @@
     const feedback = document.getElementById("authorFixOrcidFeedback");
     const defaultFeedback = feedback.innerHTML;
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
-    // On a verified page all papers start ticked; on an unverified page the author picks theirs.
-    renderPaperList(verifyPapers, page.verified);
+    // On a verified page all papers start kept, as keep/remove switches; on an unverified
+    // page the author ticks theirs.
+    if (page.verified) verifyPapers.classList.add("acl-author-fix-switches");
+    renderPaperList(verifyPapers, page.verified, page.verified);
     if (page.verified) {
       showPaperCounts(verifyPapers, "to keep", "to remove");
     } else {
@@ -379,7 +381,11 @@
       if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
         return showError(verifyForm, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
       }
-      if (mine.length === 0) return showError(verifyForm, "Please select at least one paper that is yours.");
+      if (mine.length === 0) {
+        return showError(verifyForm, page.verified
+          ? "Please switch on (\u2713) at least one paper that is yours."
+          : "Please select at least one paper that is yours.");
+      }
       const preferredName = nameField.hidden ? null : nameOptions.querySelector("input:checked");
       if (!nameField.hidden && !preferredName) return showError(verifyForm, "Please choose the name to show on your page.");
 
