@@ -73,31 +73,43 @@
           <h6 class="mb-2" id="authorFixChooserLabel">What would you like to do?</h6>
           <div class="list-group" role="group" aria-labelledby="authorFixChooserLabel">
             {{ if not $person.orcid }}
-            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixVerify">
-              <div class="fw-semibold">Verify author</div>
-              <small class="text-muted">
-                {{ if $is_verified }}
-                These are my papers: link this page to my ORCID iD.
-                {{ else }}
-                I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
-                {{ end }}
-              </small>
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixVerify">
+              <i class="fas fa-user-check fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Verify author</div>
+                <small class="text-muted">
+                  {{ if $is_verified }}
+                  These are my papers: link this page to my ORCID iD.
+                  {{ else }}
+                  I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
+                  {{ end }}
+                </small>
+              </div>
             </button>
             {{ end }}
             {{ if $is_verified }}
-            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixRemove">
-              <div class="fw-semibold">Remove papers</div>
-              <small class="text-muted">Some papers here are by someone else.</small>
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixRemove">
+              <i class="fas fa-unlink fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Remove papers</div>
+                <small class="text-muted">Some papers here are by someone else.</small>
+              </div>
             </button>
             {{ else }}
-            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixMove">
-              <div class="fw-semibold">Move papers</div>
-              <small class="text-muted">I already have a verified author page, e.g. under a variant of this name: move my papers here to it.</small>
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixMove">
+              <i class="fas fa-file-export fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Move papers</div>
+                <small class="text-muted">I already have a verified author page, e.g. under a variant of this name: move my papers here to it.</small>
+              </div>
             </button>
             {{ end }}
-            <button type="button" class="list-group-item list-group-item-action py-2" data-author-fix-choose="authorFixOther">
-              <div class="fw-semibold">Something else</div>
-              <small class="text-muted">{{ if $is_verified }}For example, a permanent name change.{{ else }}Anything not covered above.{{ end }}</small>
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixOther">
+              <i class="far fa-comment-dots fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Something else</div>
+                <small class="text-muted">{{ if $is_verified }}For example, a permanent name change.{{ else }}Anything not covered above.{{ end }}</small>
+              </div>
             </button>
           </div>
         </div>
