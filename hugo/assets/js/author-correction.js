@@ -63,15 +63,17 @@
     return new URL(search.authorUrl(page.peopleBase, personId), page.url).toString();
   }
 
-  function renderPaperList(container, checked) {
+  // With `asSwitch`, each paper gets a keep/remove switch instead of a checkbox.
+  function renderPaperList(container, checked, asSwitch) {
     container.replaceChildren(...page.papers.map(function (paper) {
       const item = document.createElement("div");
       const input = document.createElement("input");
       const label = document.createElement("label");
       const meta = document.createElement("small");
-      item.className = "form-check";
+      item.className = asSwitch ? "form-check form-switch" : "form-check";
       input.className = "form-check-input";
       input.type = "checkbox";
+      if (asSwitch) input.setAttribute("role", "switch");
       input.value = paper.id;
       input.checked = checked;
       input.id = container.dataset.authorFixPapers + "-" + paper.id;
@@ -567,17 +569,18 @@
 
   // ---- Remove papers (verified pages) ----
 
-  // Unticked papers go to the unverified page for their name, as a move to "unverified".
+  // Papers switched off go to the unverified page for their name, as a move to "unverified".
   function initRemove() {
     const removeForm = document.getElementById("authorFixRemoveForm");
     const keepPapers = removeForm.querySelector("[data-author-fix-papers]");
-    renderPaperList(keepPapers, true);
+    keepPapers.classList.add("acl-author-fix-switches");
+    renderPaperList(keepPapers, true, true);
     showPaperCounts(keepPapers, "to keep", "to remove");
 
     removeForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const removed = selectedPapers(keepPapers, false);
-      if (removed.length === 0) return showError(removeForm, "Please untick the papers to remove from this page.");
+      if (removed.length === 0) return showError(removeForm, "Please switch off (\u2717) the papers to remove from this page.");
 
       openIssue(removeForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → unverified", {
         source_page: page.url,

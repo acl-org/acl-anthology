@@ -60,7 +60,7 @@ If you are verifying your page now, simply untick the papers that are not yours 
 If your page is already verified, please file a request to remove the papers, as follows:
 - Find your ACL Anthology author page (by using the search bar, or by finding one of your papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of the page, and choose "Remove papers".
-- Untick the papers that are not yours. They will be moved to the unverified page for the name printed on them, from where their author can claim them.
+- Switch off (✗) the papers that are not yours. They will be moved to the unverified page for the name printed on them, from where their author can claim them.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
 ### How to add papers to your author page
