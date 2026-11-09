@@ -118,7 +118,7 @@
         {{ if not $person.orcid }}
         <div class="d-none" id="authorFixVerify" data-author-fix-pane>
           <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
-          <h6 class="mb-3" tabindex="-1">Verify author</h6>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-user-check fa-fw text-primary me-1" aria-hidden="true"></i>Verify author</h6>
           <div class="alert alert-info d-none" id="authorFixOpenReview">
             <p>
               <b>Submitted a paper through OpenReview in 2025 or later?</b>
@@ -185,7 +185,7 @@
         {{/* ---- Remove papers (verified pages): unticked papers go to unverified pages ---- */}}
         <div class="d-none" id="authorFixRemove" data-author-fix-pane>
           <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
-          <h6 class="mb-3" tabindex="-1">Remove papers</h6>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-unlink fa-fw text-primary me-1" aria-hidden="true"></i>Remove papers</h6>
           <form id="authorFixRemoveForm" novalidate>
             <fieldset class="mb-3">
               <legend class="form-label fs-6 mb-1">Papers to keep on this page</legend>
@@ -207,7 +207,7 @@
         {{/* ---- Move papers (unverified pages): to the author's verified page ---- */}}
         <div class="d-none" id="authorFixMove" data-author-fix-pane>
           <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
-          <h6 class="mb-3" tabindex="-1">Move papers</h6>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-file-export fa-fw text-primary me-1" aria-hidden="true"></i>Move papers</h6>
           <form id="authorFixMoveForm" novalidate>
             <p class="form-text mt-0">
               Use this if you already have a verified author page (which uses another variant of this name,
@@ -243,7 +243,7 @@
         {{/* ---- Other ---- */}}
         <div class="d-none" id="authorFixOther" data-author-fix-pane>
           <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
-          <h6 class="mb-3" tabindex="-1">Something else</h6>
+          <h6 class="mb-3" tabindex="-1"><i class="far fa-comment-dots fa-fw text-primary me-1" aria-hidden="true"></i>Something else</h6>
           <form id="authorFixOtherForm" novalidate>
             <div class="mb-3">
               <label for="authorFixOtherDescription" class="form-label">Describe the problem <span class="text-danger">*</span></label>
