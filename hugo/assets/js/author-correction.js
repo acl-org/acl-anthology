@@ -78,10 +78,9 @@
       label.className = "form-check-label";
       label.htmlFor = input.id;
       label.textContent = paper.title;
-      meta.className = "text-muted ms-1";
+      meta.className = "text-muted";
       meta.textContent = "(" + paper.year
         + (paper.name !== page.canonicalName ? ", as " + paper.name : "") + ")";
-      label.append(meta);
       const link = document.createElement("a");
       link.href = paper.url;
       link.target = "_blank";
@@ -89,7 +88,12 @@
       link.title = "Open paper page";
       link.setAttribute("aria-label", "Open paper page for \u201c" + paper.title + "\u201d");
       link.innerHTML = '<i class="fas fa-external-link-alt fa-xs" aria-hidden="true"></i>';
-      item.append(input, label, link);
+      // Keep the link on the same line as the year, however the title wraps.
+      const tail = document.createElement("span");
+      tail.className = "text-nowrap";
+      tail.append(meta, link);
+      label.append(" ", tail);
+      item.append(input, label);
       if (paper.citation) {
         new bootstrap.Tooltip(label, {
           title: paper.citation,
@@ -444,7 +448,7 @@
           note.className = "text-muted ms-1";
           note.dataset.authorFixCoauthor = "";
           note.textContent = "(coauthor)";
-          input.labels[0].append(note);
+          input.labels[0].querySelector("a").before(note);
         }
         if (note) note.hidden = !coauthored;
       });
