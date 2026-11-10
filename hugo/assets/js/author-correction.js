@@ -259,6 +259,11 @@
       const previous = checked ? checked.value : null;
       const variants = nameVariants();
       nameField.hidden = variants.length < 2;
+      // Keep the user's choice while it is still offered; otherwise a verified
+      // page starts on its current name.
+      const keepPrevious = variants.some(function (variant) {
+        return (variant.first ? variant.last + ", " + variant.first : variant.last) === previous;
+      });
       nameOptions.replaceChildren(...variants.map(function (variant, index) {
         const item = document.createElement("div");
         const input = document.createElement("input");
@@ -271,7 +276,9 @@
         input.id = "authorFixPreferredName-" + index;
         // Sent as "Last, First" so staff see the split.
         input.value = variant.first ? variant.last + ", " + variant.first : variant.last;
-        input.checked = input.value === previous;
+        input.checked = keepPrevious
+          ? input.value === previous
+          : page.verified && variant.first === page.canonicalFirst && variant.last === page.canonicalLast;
         label.className = "form-check-label";
         label.htmlFor = input.id;
         last.textContent = variant.last;

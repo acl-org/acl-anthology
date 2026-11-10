@@ -36,6 +36,8 @@
   "id" $person_id
   "name" $person.full
   "canonicalName" $canonical_name
+  "canonicalFirst" ($person.first | default "")
+  "canonicalLast" $person.last
   "url" .ctx.Permalink
   "verified" $is_verified
   "orcid" ($person.orcid | default "")
