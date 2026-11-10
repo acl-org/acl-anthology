@@ -69,6 +69,7 @@ import requests
 from git.repo.base import Repo
 from github import Auth, Github, GithubException
 from pypdf import PdfReader, PdfWriter
+from pypdf.generic import RectangleObject
 from reportlab.pdfgen import canvas
 
 from acl_anthology import Anthology
@@ -109,7 +110,7 @@ def _make_vertical_watermark_page(width, height, text):
 
 
 def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
-    """Add a revision watermark to the first page of a PDF."""
+    """Add a first-page revision watermark, preserving page geometry and internal links."""
     reader = PdfReader(input_pdf)
     writer = PdfWriter()
     first_page = writer.add_page(reader.pages[0])
@@ -125,7 +126,9 @@ def add_revision_watermark(input_pdf, output_pdf, anth_id, revision_id, date):
     ]
     first_page.merge_page(watermark_page)
     for source_page in reader.pages[1:]:
-        writer.add_page(source_page)
+        page = writer.add_page(source_page)
+        # pypdf rebuilds link destinations using directly stored page boxes.
+        page.mediabox = RectangleObject(page.mediabox)
     with open(output_pdf, "wb") as output:
         writer.write(output)
 

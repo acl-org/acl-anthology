@@ -109,9 +109,11 @@
       <author id="tina-eliassi-rad" orcid="0000-0002-1892-1188"><first>Tina</first><last>Eliassi-Rad</last><affiliation>Northeastern University</affiliation></author>
       <pages>120-194</pages>
       <abstract>The public often attributes human-like qualities to large language models (LLMs), assuming that they "know" certain things. In reality, LLMs encode information retained during training as internal probabilistic knowledge. This study examines existing methods for probing the veracity of that knowledge and identifies three flawed underlying assumptions. To address these flaws, we introduce <tt>sAwMIL</tt> (Sparse-Aware Multiple-Instance Learning), a multiclass probing framework that combines multiple-instance learning with conformal prediction. <tt>sAwMIL</tt> leverages LLMs’ internal representations to classify statements as <i>true</i>, <i>false</i>, or <i>neither</i>. We evaluate <tt>sAwMIL</tt> across 16 open-source LLMs, including default and chat-based variants, using three new curated datasets. Our results show that (1) common probing methods fail to provide a reliable and transferable veracity direction and, in some settings, perform worse than zero-shot prompting; (2) truth and falsehood are not encoded symmetrically; and (3) LLMs encode a third type of signal that is distinct from both true and false.</abstract>
-      <pdf hash="9bd30a50"/>
+      <pdf hash="2840b3aa"/>
       <bibkey>savcisens-eliassi-rad-2026-trilemma</bibkey>
       <doi>10.18653/2026.emnlp-main.7</doi>
+      <revision id="1" hash="9bd30a50"/>
+      <revision id="2" hash="2840b3aa" date="2026-11-10">Corrected the data-split description in Appendix B and the dataset link in Appendix M.</revision>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2026.emnlp-main.8/ -->
@@ -7517,9 +7519,11 @@
       <author id="xuming-hu" orcid="0000-0001-6075-4224"><first>Xuming</first><last>Hu</last><affiliation>The Hong Kong University of Science and Technology (Guangzhou) and Hong Kong University of Science and Technology</affiliation></author>
       <pages>11523-11554</pages>
       <abstract>Large language models (LLMs) have become increasingly used for various tasks, often coupled with chain-of-thought (CoT) prompting to boost accuracy. Recent work has shown that high label-prediction accuracy does not guarantee correct intermediate reasoning, and the causes of *reasoning flaws* vary from sample to sample, yet existing remedies either focus on a single domain or assume that one flaw type applies uniformly across samples. A simple mitigation method is to provide the model with the correct answer, but we show that this yields no consistent improvement in reasoning quality. This indicates that the problem cannot be fixed by LLMs’ awareness of answers, and must instead be addressed through the structure of reasoning. Motivated by this, we propose **CRAFT** (Consensus Reasoning-knowledge-graph Aggregation for Flaw-aware Trace synthesis), which aggregates the consensus components shared across multiple candidate reasoning traces to synthesize improved ones. **CRAFT** consistently improves label-prediction accuracy on both logical and mathematical reasoning benchmarks, outperforming most baselines, while its post-processed traces achieve higher quality under fine-grained benchmark evaluation.</abstract>
-      <pdf hash="62bd5ad0"/>
+      <pdf hash="2cb85c8f"/>
       <bibkey>ling-etal-2026-correct</bibkey>
       <doi>10.18653/2026.emnlp-main.502</doi>
+      <revision id="1" hash="62bd5ad0"/>
+      <revision id="2" hash="2cb85c8f" date="2026-11-10">Added links to the code and datasets. Revised the method and experimental setup, including evaluation models and datasets, and updated the results and discussion.</revision>
     </paper>
     <paper id="503">
       <!-- https://aclanthology.org/2026.emnlp-main.503/ -->
@@ -16427,9 +16431,11 @@
       <author id="xiyang-hu" orcid="0000-0001-7269-3828"><first>Xiyang</first><last>Hu</last><affiliation>Arizona State University</affiliation></author>
       <pages>24766-24794</pages>
       <abstract>Large language models often answer structurally unanswerable questions, such as computing <tex-math>\cot(-540^\circ)</tex-math> or evaluating (1).startswith("1"), instead of abstaining. We ask whether this failure reflects missing recognition or failed routing from recognition to abstention. Across instruction-tuned models from 1.7B to 70B parameters, a single linear direction in the hidden state separates answerable from structurally impossible math and code prompts, showing that models represent impossibility before generation. Yet this recognition direction is nearly orthogonal to the canonical safety-refusal direction that mediates trained harmful-content refusal. An in-domain behavior-defined invalidity-aware direction is closer to recognition, but only partially aligned with it, and remains near-orthogonal to safety refusal. Generation-time steering along the recognition direction changes invalidity-aware behavior bidirectionally and dose-responsively on structural math and code cells, while random directions do not. Base/instruct comparisons further show that the low-cosine geometry is already present at the pretraining endpoint. The confident-on-impossible failure is therefore better explained as a routing failure than as an encoding failure: the model has a usable “no admissible answer” signal, but the safety-refusal pathway is not aligned to use it.</abstract>
-      <pdf hash="f162e4d1"/>
+      <pdf hash="b577c738"/>
       <bibkey>du-hu-2026-recognition</bibkey>
       <doi>10.18653/2026.emnlp-main.1078</doi>
+      <revision id="1" hash="f162e4d1"/>
+      <revision id="2" hash="b577c738" date="2026-11-10">Removed a redundant sentence from the abstract to match the Anthology metadata.</revision>
     </paper>
     <paper id="1079">
       <!-- https://aclanthology.org/2026.emnlp-main.1079/ -->
@@ -18547,9 +18553,11 @@
       <author id="jiaqi-zhu-5748" orcid="0009-0008-6541-5748"><first>Jiaqi</first><last>Zhu</last><affiliation>South China Normal University</affiliation></author>
       <pages>27755-27771</pages>
       <abstract>While Parameter-Efficient Fine-Tuning (PEFT) reduces the cost of adapting Large Language Models (LLMs), current methods like LoRA suffer from catastrophic forgetting due to unregulated updates on high-importance parameters. To address this stability-plasticity dilemma, we introduce ANCHORS: Adaptive Normalization for Continual High-Order Retention via Sigmoid-Guided Magnitude Control, a novel framework that ensures uninterrupted knowledge retention during aggressive adaptation. ANCHORS integrates CABR Decomposition to preserve informative subspaces and S-MagNorm, a bio-inspired normalization mechanism that utilizes Sigmoid-guided magnitude control to dynamically dampen updates on critical weights. Extensive experiments on reasoning and QA benchmarks demonstrate that ANCHORS consistently outperforms LoRA, DoRA, and CUR-LoRA. It achieves performance gains of up to 4.05% in MCQ and 2.61% in QA tasks while retaining 61.12% of pre-trained knowledge—surpassing Experience Replay and EWC baselines in continuous learning scenarios.</abstract>
-      <pdf hash="16a2abb3"/>
+      <pdf hash="a0abd4f0"/>
       <bibkey>zhang-zhu-2026-anchors</bibkey>
       <doi>10.18653/2026.emnlp-main.1215</doi>
+      <revision id="1" hash="16a2abb3"/>
+      <revision id="2" hash="a0abd4f0" date="2026-11-10">Corrected experimental tables using values recomputed from raw run outputs and revised the comparative-performance claims. The knowledge-retention results are unchanged.</revision>
     </paper>
     <paper id="1216">
       <!-- https://aclanthology.org/2026.emnlp-main.1216/ -->
@@ -19623,10 +19631,12 @@
       <author id="yu-gang-jiang" orcid="0000-0002-1907-8567"><first>Yu-Gang</first><last>Jiang</last><affiliation>Fudan University</affiliation></author>
       <pages>29255-29271</pages>
       <abstract>The rapid growth of LLM evaluation resources makes exhaustive benchmark curation increasingly difficult. Existing efficient benchmarking methods reduce evaluation cost by selecting representative subsets or predicting full-benchmark performance, but typically require evaluation results from many models and additional training. In this paper, we ask a more fundamental question: to what extent do benchmarks actually measure different things? We study this question at two levels: intra-benchmark redundancy, which supports benchmark compression, and inter-benchmark similarity, which supports evaluation-suite design. We first formalize both notions through a functionalist behavioral criterion, and then propose an evaluation-free proxy based on Sparse Autoencoder (SAE) features for redundancy diagnosis. Our central hypothesis is that behavioral overlap can be approximated by feature overlap. This hypothesis yields level-specific metrics based on feature-coverage saturation within benchmarks and feature-footprint overlap across benchmarks. Experiments show that SAE feature-based redundancy strongly correlates with performance-based redundancy across 17 benchmarks, while SAE-guided subset selection produces more stable and representative subsets than random sampling. SAE feature overlap also predicts inter-benchmark performance similarity across 8 benchmarks. These results show that SAE features can turn benchmark analysis from a costly performance-matrix problem into a feature-footprint problem, enabling evaluation-free benchmark compression and suite curation.</abstract>
-      <pdf hash="7de85931"/>
+      <pdf hash="a73f7b73"/>
       <bibkey>wang-etal-2026-benchmarks</bibkey>
       <doi>10.18653/2026.emnlp-main.1284</doi>
       <award name="Outstanding Paper Award">Presents a creative approach to analysing benchmark redundancy using sparse autoencoders, connecting interpretability with benchmarking efficiency. A thorough empirical study with promising results and potential practical impact on how language models are evaluated.</award>
+      <revision id="1" hash="7de85931"/>
+      <revision id="2" hash="a73f7b73" date="2026-11-10">Corrected an author's name from Yugang Jiang to Yu-Gang Jiang.</revision>
     </paper>
     <paper id="1285">
       <!-- https://aclanthology.org/2026.emnlp-main.1285/ -->
@@ -19899,9 +19909,11 @@
       <author id="irwin-king" orcid="0000-0001-8106-6447"><first>Irwin</first><last>King</last></author>
       <pages>29624-29643</pages>
       <abstract>Spatial intelligence, encompassing 3D perception and reasoning, is the essential next frontier of AI. Scaling current 3D vision-language models (VLMs) that rely on dense Transformers for spatial tasks incurs prohibitive computational costs. In this paper, we introduce 3D-MoE, a 3D VLM leveraging an efficient mixture-of-experts architecture with a modality- and spatial-context-aware probabilistic routing scheme, stably cultivated by a novel routing curriculum. To seamlessly extend 3D-MoE to embodied AI, we integrate a diffusion-based action head, Pose-DiT, transforming 3D-MoE into a 3D vision-language-action (VLA) model. By employing a rectified flow framework, Pose-DiT generates precise 6D pose actions in a single sampling step. Extensive experiments demonstrate that 3D-MoE achieves superior performance on diverse 3D vision-language benchmarks with drastically fewer activated parameters and yields higher success rates while enabling real-time inference for robot manipulation tasks.</abstract>
-      <pdf hash="3e66e1b4"/>
+      <pdf hash="29094bc6"/>
       <bibkey>ma-etal-2026-3d</bibkey>
       <doi>10.18653/2026.emnlp-main.1301</doi>
+      <revision id="1" hash="3e66e1b4"/>
+      <revision id="2" hash="29094bc6" date="2026-11-10">Added a code-repository link and clarified Equation (7) and the conclusion. Corrected baseline parameter counts and latency reporting, updated citations, and fixed typographical and formatting errors.</revision>
     </paper>
     <paper id="1302">
       <!-- https://aclanthology.org/2026.emnlp-main.1302/ -->
@@ -20776,9 +20788,11 @@
       <author id="yu-cheng" orcid="0000-0002-7901-8662"><first>Yu</first><last>Cheng</last><affiliation>Nanyang Technological University and Skywork AI</affiliation></author>
       <pages>30948-30994</pages>
       <abstract>We present <b>FullFront</b>, a workflow-grounded benchmark for Multimodal Large Language Models (MLLMs) across the front-end engineering pipeline—conceptualization, comprehension, and implementation—rather than evaluating any single stage in isolation. FullFront contributes along three axes: (i) a unified task formulation covering Webpage Design, Webpage Perception QA, and Webpage Code Generation (8 subtasks, 2<fixed-case>,</fixed-case>700 items); (ii) a controlled two-stage data construction pipeline that converts real-world webpages into standardized HTML with a 15-category copyright-safe image substitution scheme; and (iii) a reliability-oriented evaluation framework whose Code Score and Gemini Visual Score are validated against human judgment, cross-judge agreement, pipeline bias, and sensitivity stress tests. Across 12 MLLMs we observe a stable closed-source top tier, a Perception–Implementation Gap with distinct failure modes (Coding Bottleneck” for open-source, Grounding Failure” for proprietary), and heterogeneous open/closed capability profiles—patterns that isolated benchmarks cannot expose.</abstract>
-      <pdf hash="ccda8707"/>
+      <pdf hash="4cda0020"/>
       <bibkey>sun-etal-2026-fullfront</bibkey>
       <doi>10.18653/2026.emnlp-main.1358</doi>
+      <revision id="1" hash="ccda8707"/>
+      <revision id="2" hash="4cda0020" date="2026-11-10">Corrected Haoyu Sun's institutional affiliation.</revision>
     </paper>
     <paper id="1359">
       <!-- https://aclanthology.org/2026.emnlp-main.1359/ -->
@@ -23653,9 +23667,11 @@
       <author id="pengtao-xie" orcid="0000-0003-0521-174X"><first>Pengtao</first><last>Xie</last><affiliation>University of California, San Diego</affiliation></author>
       <pages>35367-35385</pages>
       <abstract>Conversations with chat assistants increasingly span many topics in a single long-running thread, challenging memory systems. Existing long-context and memory benchmarks often expose session or topic boundaries, or probe direct personal-memory questions. These settings understate a harder assistant-memory regime: a flat mixed-topic thread where the system must infer which earlier episode makes a later task decision valid. We introduce SCALE-QA, a constraint-grounded task QA benchmark for flat unsegmented threads targeting episode integrity failure. The dataset contains 3,000 audited questions across 10 domains, uses deterministic four-way multiple-choice grading, and includes a deterministic runtime builder; experiments use all 3,000 questions through 128k and a stratified 400-question diagnostic at 1M. SCALE-QA questions are ordinary task-oriented requests whose correct answer depends on causally related evidence introduced earlier in the conversation. We also propose Temporal-Semantic Interleaved Memory Reconstruction (TSIM), which segments the turn stream into coherent episodes and indexes them through a hierarchical multi-view memory stack with deterministic episode-level summary and cluster-routing views. Experiments show that SCALE-QA challenges strong RAG baselines and long-context LLMs alike; across three open-source and proprietary LLM backends, TSIM achieves the highest accuracy in every backend setting, gaining 5.6–17.6 accuracy points over the strongest corresponding baseline.</abstract>
-      <pdf hash="31999c9d"/>
+      <pdf hash="d80ea6a3"/>
       <bibkey>feng-etal-2026-reconstructing</bibkey>
       <doi>10.18653/2026.emnlp-main.1550</doi>
+      <revision id="1" hash="31999c9d"/>
+      <revision id="2" hash="d80ea6a3" date="2026-11-10">Corrected browser-dependent rendering artifacts in Figures 1 and 2.</revision>
     </paper>
     <paper id="1551">
       <!-- https://aclanthology.org/2026.emnlp-main.1551/ -->
@@ -29109,9 +29125,11 @@
       <author id="bo-jiang-3278" orcid="0009-0000-1080-3278"><first>Bo</first><last>Jiang</last></author>
       <pages>43516-43536</pages>
       <abstract>Reinforcement Learning with Verifiable Rewards (RLVR) successfully aligns autoregressive models in rigorous domains like mathematical reasoning and code generation. However, applying RLVR to Diffusion Large Language Models (dLLMs) is hindered by intractable sequence-level likelihoods, forcing existing methods to rely on unstable, high-variance approximations. We propose Sequence Likelihood-Free Policy Optimization (LFPO), an efficient framework that circumvents this bottleneck by formulating policy alignment as discrete velocity alignment. Inspired by continuous flow matching, LFPO eschews trajectory-level estimation and directly optimizes denoising logits via contrastive token-level updates, providing a stable, low-variance surrogate. Furthermore, predicting terminal solutions from intermediate states implicitly straightens the generation trajectory, enabling high-quality sampling with significantly fewer denoising iterations. Extensive experiments on reasoning and coding benchmarks demonstrate that LFPO matches or exceeds the accuracy of likelihood-based baselines while substantially accelerating inference.</abstract>
-      <pdf hash="17e6731a"/>
+      <pdf hash="792cf214"/>
       <bibkey>wei-etal-2026-efficient</bibkey>
       <doi>10.18653/2026.emnlp-main.1910</doi>
+      <revision id="1" hash="17e6731a"/>
+      <revision id="2" hash="792cf214" date="2026-11-10">Updated an author affiliation and contact email.</revision>
     </paper>
     <paper id="1911">
       <!-- https://aclanthology.org/2026.emnlp-main.1911/ -->
@@ -30918,10 +30936,12 @@
       <author id="tieyun-qian" orcid="0000-0003-4667-5794"><first>Tieyun</first><last>Qian</last><affiliation>Wuhan University</affiliation></author>
       <pages>46190-46211</pages>
       <abstract>Large Language Models (LLMs) encode parametric knowledge but can exhibit format bias when resolving knowledge conflicts. When evidence is rendered as text, tables, or knowledge graphs, LLMs can favor certain formats despite unchanged semantic content. Existing work mainly diagnoses this bias, while existing inference-time mitigation remains tied to a single rendered prompt. We propose FaDe, a cross-format knowledge distillation framework that treats evidence format as a controllable nuisance variable and marginalizes teacher predictions over controlled format assignments. FaDe constructs a format-marginalized soft target from these renderings, then trains the student with an asymmetric two-path objective that combines heterogeneous-format debiasing with all-text anchoring. Experiments on ConflictBank and two QA-derived controlled conflict sets with four model backbones show FaDe reduces format bias while improving dual-source coverage and cross-format stability under single-pass inference. Our code is available at https://github.com/Kaia91/FaDe.</abstract>
-      <pdf hash="a62cf5c5"/>
+      <pdf hash="754a54ed"/>
       <bibkey>yu-etal-2026-format</bibkey>
       <doi>10.18653/2026.emnlp-main.2028</doi>
       <award name="Outstanding Paper Award">Tackles the important and timely problem of format bias in how LLMs handle knowledge conflicts. Introduces a novel approach that reduces this bias across different models, supported by carefully designed experiments and compelling empirical results.</award>
+      <revision id="1" hash="a62cf5c5"/>
+      <revision id="2" hash="754a54ed" date="2026-11-10">Added equal-contribution designations for the first three authors.</revision>
     </paper>
     <paper id="2029">
       <!-- https://aclanthology.org/2026.emnlp-main.2029/ -->
@@ -32445,9 +32465,11 @@
       <author id="taesoo-kim" orcid="0000-0002-7440-2067"><first>Taesoo</first><last>Kim</last><affiliation>Georgia Institute of Technology</affiliation></author>
       <pages>48428-48453</pages>
       <abstract>Constructing inputs that drive execution to chosen code locations underpins many dynamic-analysis tasks in software engineering and security. It is a generalized constraint-solving challenge that requires agents to reason about the semantic mapping between input and code. We built COIN, the first benchmark to systematically evaluate this ability in modern code agents. By leveraging OSS-Fuzz’s long-running coverage data and maintainer-written harnesses, COIN constructs reachability challenges across over 1000 real-world projects in nine languages, and is contamination-resistant and self-refreshing as upstream code and OSS-Fuzz coverage evolve. To keep challenges non-trivial yet solvable, COIN samples two target families: lines OSS-Fuzz has covered but baselines miss, and lines never be reached but with static evidence of a reachable harness path. Across five independent runs on 137 targets from 15 projects in six languages, the strongest agent (Claude Code with Opus 4.6) reaches on average only 26.6% of the C/C++ targets and 39.7% of the Go/JVM/Python/Rust targets, never half of either set in any run, and the weakest (DeepSeek V3.2) stays below 9%, indicating substantial room for improvement.</abstract>
-      <pdf hash="3537afcb"/>
+      <pdf hash="a741ff1c"/>
       <bibkey>kim-etal-2026-coin</bibkey>
       <doi>10.18653/2026.emnlp-main.2130</doi>
+      <revision id="1" hash="3537afcb"/>
+      <revision id="2" hash="a741ff1c" date="2026-11-10">Corrected author-name formatting and added a funding acknowledgment.</revision>
     </paper>
     <paper id="2131">
       <!-- https://aclanthology.org/2026.emnlp-main.2131/ -->
@@ -35109,9 +35131,11 @@
       <author id="dongqiang-yang" orcid="0000-0002-3053-6610"><first>Dongqiang</first><last>Yang</last><affiliation>Shandong Jianzhu University</affiliation></author>
       <pages>52403-52424</pages>
       <abstract>Fine-tuning and prompting are two widely used approaches for adapting large language models to downstream tasks. However, their effectiveness on text simplification remains underexplored. We present SIMPLE, a comprehensive evaluation of large language model-based sentence simplification. We evaluate 12 open-weight large language models across diverse domains, including Wikipedia, medical, scientific, and news texts. In addition to standard evaluation metrics, we conduct a linguistic analysis of simplification outputs at the lexical, syntactic, and discourse levels. Our findings show that: 1) under practical deployment settings, QLoRA fine-tuning of base models performs better on Wikipedia-based simplification, whereas optimized prompting of instruction-tuned models performs better in non-Wikipedia domains; 2) QLoRA-fine-tuned models exhibit a strong alignment with human-written references across target readability levels, while prompted models show limited controllability over output difficulty; and 3) the primary discrepancies between large language model-generated simplifications and human references arise from syntactic restructuring and discourse coherence.</abstract>
-      <pdf hash="2e332f31"/>
+      <pdf hash="d3960de1"/>
       <bibkey>meng-yang-2026-simple</bibkey>
       <doi>10.18653/2026.emnlp-main.2306</doi>
+      <revision id="1" hash="2e332f31"/>
+      <revision id="2" hash="d3960de1" date="2026-11-10">Added a footnote identifying Dongqiang Yang as the corresponding author.</revision>
     </paper>
     <paper id="2307">
       <!-- https://aclanthology.org/2026.emnlp-main.2307/ -->
@@ -35282,9 +35306,11 @@
       <author id="robert-r-roxas" orcid="0000-0003-0657-7436"><first>Robert R.</first><last>Roxas</last><affiliation>University of the Philippines</affiliation></author>
       <pages>52655-52682</pages>
       <abstract>Idioms remain a persistent challenge for natural language understanding due to their non-compositional nature, especially in morphologically rich, low-resource languages like Cebuano. Existing work on idiom processing has explored span extraction, contrastive learning, and normalization, but typically treats these tasks independently or assumes previous steps have already been done. We propose CebIDN, a modular pipeline that unifies idiom identification, disambiguation, and normalization for Cebuano. Central to our framework is a morphology-aware canonical matcher that links extracted spans to an idiom knowledge base, passing structural tags, the idiom used, and retrieved literal hints to the downstream generative model. The system is evaluated in various tagging configurations, incorporating CRF-based sequence labeling and span-level triplet loss, along with few-shot and fine-tuned normalization strategies across both tagged and tag-free configurations. The optimal configuration (using a 3-tag BIO+CRF tagger with a tag-free normalizer) significantly outperforms a fine-tuned end-to-end LLM baseline by improving binary idiom detection (0.899 vs. 0.847 F1) and achieving superior normalization quality (88.87 vs. 86.89 BLEU; 96.40 vs. 95.04 BERTScore; 4.71 vs. 4.46 human-validated LLM evaluation scores), while running 1.7 times faster. These results demonstrate that structured task decoupling improves figurative language understanding in low-resource settings.</abstract>
-      <pdf hash="3f07f9c4"/>
+      <pdf hash="bab604ef"/>
       <bibkey>vaflor-roxas-2026-cebidn</bibkey>
       <doi>10.18653/2026.emnlp-main.2318</doi>
+      <revision id="1" hash="3f07f9c4"/>
+      <revision id="2" hash="bab604ef" date="2026-11-10">Corrected a name in the acknowledgments.</revision>
     </paper>
     <paper id="2319">
       <!-- https://aclanthology.org/2026.emnlp-main.2319/ -->
@@ -37604,9 +37630,11 @@
       <author id="ilya-makarov" orcid="0000-0002-3308-8825"><first>Ilya</first><last>Makarov</last><affiliation>iMak AI Lab</affiliation></author>
       <pages>56120-56129</pages>
       <abstract>FactRot measures whether typed factual mentions survive iterative LLM rewriting. We follow each ledger fact through every hop of a rewrite chain and score it separately, instead of measuring aggregate drift in the rewritten text. We score 1,113 ledger facts from 25 Wikipedia passages across 4 models, 4 rewrite operations, and 3 prompt conditions, with chains reaching depth 12. A GEE with passage clusters finds per-hop decay (OR=0.743 per additional hop, <tex-math>p&lt;.001</tex-math>). Type-specific faithfulness instructions do not measurably outperform generic faithfulness at hop 5 (<tex-math>\Delta=0.026</tex-math>, 95% CI [0.022, 0.073]); both improve survival over neutral prompting by roughly 0.13-0.16 absolute. On the depth-12 neutral subset, answer-restate rewriting is much more destructive than direct paraphrasing, and the frontier preview model has the highest hop-12 survival among the four models. Exact fact-type rankings, however, are unstable across models (Kendall <tex-math>W=0.082</tex-math> at hop 5).</abstract>
-      <pdf hash="13d7bd6b"/>
+      <pdf hash="4124e204"/>
       <bibkey>kulikov-etal-2026-factrot</bibkey>
       <doi>10.18653/2026.emnlp-main.2472</doi>
+      <revision id="1" hash="13d7bd6b"/>
+      <revision id="2" hash="4124e204" date="2026-11-10">Restored the acknowledgments section.</revision>
     </paper>
     <paper id="2473">
       <!-- https://aclanthology.org/2026.emnlp-main.2473/ -->
@@ -37763,9 +37791,11 @@
       <author id="michiel-a-bakker" orcid="0000-0003-4474-7109"><first>Michiel A.</first><last>Bakker</last><affiliation>Massachusetts Institute of Technology and DeepMind</affiliation></author>
       <pages>56379-56412</pages>
       <abstract>Ambiguity or vagueness is a consequential consideration when drafting prescriptive text such as laws, contracts, or organizational policies. As a greater volume of such text is produced by language models, there is a need for valid, scalable methods for quantifying ambiguity, but existing measures are based on lexical properties of text rather than how it is interpreted in context. In this paper, we propose quantifying ambiguity as the degree of disagreement among a set of stakeholders ("raters") on how alternative prescriptive statements ("policies") apply in each of a set of relevant scenarios ("cases"). Using two policy domains, we present preliminary analysis suggesting that, even when using simulated raters, this approach (i) correlates with real human disagreement, and (ii) is robust to spurious text features. We then apply the measure to existing deliberation datasets to describe the association between policy ambiguity and support for those policies. A Python package for our framework and all data used in the paper are released at https://github.com/sally-dong/DELTA-ambiguity.</abstract>
-      <pdf hash="5f3b09c1"/>
+      <pdf hash="ee8d37d5"/>
       <bibkey>dong-etal-2026-contextual</bibkey>
       <doi>10.18653/2026.emnlp-main.2483</doi>
+      <revision id="1" hash="5f3b09c1"/>
+      <revision id="2" hash="ee8d37d5" date="2026-11-10">Added an equal-contribution note for the first two authors and updated Andrew Konya's affiliation to MIT.</revision>
     </paper>
     <paper id="2484">
       <!-- https://aclanthology.org/2026.emnlp-main.2484/ -->
@@ -40597,9 +40627,11 @@
       <author><first>Maria</first><last>Becker</last><affiliation>Ruprecht-Karls-Universität Heidelberg</affiliation></author>
       <pages>60873-60881</pages>
       <abstract>Large Language Model judges are widely used to rank texts and text-generating systems through pairwise comparison, and their reliability is typically assessed via three proxies: position bias, transitivity, and pairwise agreement (self- or human-labeled). Because these proxies drive judge selection and benchmarking, a substantial literature reporting that judges perform poorly on them risks steering practitioners away from otherwise capable evaluators. We argue this assessment is misleading. Under the Bradley–Terry geometry underlying pairwise aggregation, each proxy is dominated by close-rank-gap pairs, where inconsistency is information-theoretically expected and individual verdicts contribute little to the aggregate ranking; far-gap pairs carry the ranking signal but barely move the proxies. We formalize this argument and validate it in a controlled simulation and on two human-rated corpora: the proxies correlate only weakly with ranking accuracy against gold, and their predictive component concentrates in the far-gap regime. Judges should therefore be assessed on rank-gap-conditional metrics, ideally against human rankings. Code in the supplementary zip archive.</abstract>
-      <pdf hash="f2eb6671"/>
+      <pdf hash="6d5b17e1"/>
       <bibkey>brocai-becker-2026-pair</bibkey>
       <doi>10.18653/2026.emnlp-main.2676</doi>
+      <revision id="1" hash="f2eb6671"/>
+      <revision id="2" hash="6d5b17e1" date="2026-11-10">Corrected the theoretical explanation in Section 3 and related text, added an acknowledgment, and improved figure labels. The empirical results and conclusions are unchanged.</revision>
     </paper>
     <paper id="2677">
       <!-- https://aclanthology.org/2026.emnlp-main.2677/ -->
@@ -41723,9 +41755,11 @@
       <author openreview="~Andrey_V._Galichin1"><first>Andrey V.</first><last>Galichin</last><affiliation>Applied AI Institute</affiliation></author>
       <pages>488-497</pages>
       <abstract>Recent progress in language models has been defined by scale, yet many practical applications benefit more from robust reasoning than extensive parametric knowledge. We introduce OCC-RAG, a family of models for faithful context-based QA, which prioritizes task-specific reasoning capabilities over knowledge capacity. To train OCC-RAG, we implement a novel pipeline synthesizing over three million multi-context, multi-hop QA examples that target multi-hop reasoning, strict context faithfulness, and calibrated abstention. Mid-trained on this corpus, the models produce structured reasoning traces with source citations grounded in literal quotes from the context. Despite their compact size, OCC-RAG models outperform their same-size general-purpose counterparts on every benchmark and exceed models 2–<tex-math>6\times</tex-math> larger on financial reasoning (TAT-QA) and faithfulness (ConFiQA), attaining the best results among all evaluated open-weight models up to 32B parameters. On ConFiQA they rank behind only a frontier proprietary models; on multi-hop reasoning (HotpotQA, MuSiQue) and refusal (MuSiQue-Un) they are on par with 8B-class models and close much of the remaining gap to the largest evaluated systems. We release both our <a href="https://github.com/optimal-cognitive-core">code</a> and  <a href="https://huggingface.co/collections/occ-ai/occ-rag">family of models</a>.[&lt;https://hf.co/collections/occ-ai/occ-rag&gt;]</abstract>
-      <pdf hash="281412b9"/>
+      <pdf hash="c77ce649"/>
       <bibkey>savkin-etal-2026-trust</bibkey>
       <doi>10.18653/2026.emnlp-demos.47</doi>
+      <revision id="1" hash="281412b9"/>
+      <revision id="2" hash="c77ce649" date="2026-11-10">Updated the author affiliations on the first page.</revision>
     </paper>
     <paper id="48">
       <!-- https://aclanthology.org/2026.emnlp-demos.48/ -->
@@ -42901,9 +42935,11 @@
       <author id="aidan-millar" orcid="0009-0002-0606-3582" openreview="~Aidan_Millar1"><first>Aidan</first><last>Millar</last><affiliation>Mubadala Investment Company</affiliation></author>
       <pages>655-666</pages>
       <abstract>Institutional investors search visually dense pitch decks, board packs, and diligence materials that change hourly near deal closing. OCR followed by figure verbalisation is costly to refresh at this scale and can lose chart detail. We present PULSAR, a production vision-first retrieval system deployed at Mubadala Investment Company. PULSAR indexes page images with a frozen ColPali-style backbone and uses a pooled two-stage late-interaction index: compact page summaries support initial retrieval, followed by exact MaxSim rescoring over a finer pooled representation. On ViDoRe V3, this design reduces median vector-search latency by 15.1 times against an unpooled configuration with less than 0.01 absolute NDCG@10 and Recall@10 loss; production median vector-search latency is 156 ms. Under concurrent load, the pooled index sustains approximately 88 times higher QPS than an unpooled index. The event-driven ingestion path is estimated to be approximately 20 times cheaper per page than the OCR+verbalisation baseline it replaced. Since March 2026, PULSAR has served 78 thousand documents and approximately 2.4 million pages across more than 3,000 deals. At the production top K, it more than doubles answer-fact recall over the OCR+verbalisation baseline.</abstract>
-      <pdf hash="9a637b17"/>
+      <pdf hash="107620bb"/>
       <bibkey>constable-etal-2026-pulsar</bibkey>
       <doi>10.18653/2026.emnlp-industry.39</doi>
+      <revision id="1" hash="9a637b17"/>
+      <revision id="2" hash="107620bb" date="2026-11-10">Corrected pooled-vector counts and distinguished resident and stored vector-payload estimates. Clarified indexing and statistical terminology; retrieval-quality and latency/throughput measurements are unchanged.</revision>
     </paper>
     <paper id="40">
       <!-- https://aclanthology.org/2026.emnlp-industry.40/ -->

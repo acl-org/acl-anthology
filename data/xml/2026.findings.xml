@@ -15051,10 +15051,12 @@
       <author id="luu-anh-tuan" orcid="0000-0001-6062-207X" openreview="~Anh_Tuan_Luu2"><first>Anh Tuan</first><last>Luu</last><affiliation>Nanyang Technological University</affiliation></author>
       <pages>12345-12360</pages>
       <abstract>Defending Large Language Models (LLMs) against backdoor attacks has long been trapped in a “cat-and-mouse” dilemma, where defenders passively react to ever-shifting attack strategies. To break this cycle, we posit that proactive immunization is inherently superior to reactive sanitization. In this study, we propose Poison-to-Poison (P2P), a general and effective defense algorithm that introduces a paradigm shift. Instead of waiting to detect malicious samples, P2P strategically implants benign triggers to reshape the model’s decision boundary, redirecting latent feature activation from malicious trajectories to a safe, controllable output space. This enforces the model to associate trigger-induced representations with safe outputs, thereby overriding the effects of original malicious triggers. Thanks to this robust and generalizable trigger-based fine-tuning, P2P is effective across task settings and attack types. Theoretically and empirically, we show that P2P can neutralize malicious backdoors while preserving task performance. We conduct extensive experiments on classification, mathematical reasoning, and summary generation tasks, involving multiple state-of-the-art LLMs. The results demonstrate that our P2P algorithm significantly reduces the attack success rate compared with baseline models. We hope that P2P can serve as a practical guideline for defending against backdoor attacks in the Model as a Service (MaaS) scenario, where benign prompts are embedded within the system to regulate model behavior.</abstract>
-      <pdf hash="0bd96a1b"/>
+      <pdf hash="54e14336"/>
       <attachment hash="54eb3472" type="checklist">2026.findings-acl.600.checklist.pdf</attachment>
       <bibkey>zhao-etal-2026-p2p</bibkey>
       <doi>10.18653/v1/2026.findings-acl.600</doi>
+      <revision id="1" hash="0bd96a1b"/>
+      <revision id="2" hash="54e14336" date="2026-11-10">Corrected table transcription errors and the corresponding average in Section 5.2. The main conclusions are unchanged.</revision>
     </paper>
     <paper id="601">
       <!-- https://aclanthology.org/2026.findings-acl.601/ -->
@@ -21812,10 +21814,12 @@
       <author id="li-shi" orcid="0000-0003-0882-8243" openreview="~Li_Shi3"><first>Li</first><last>Shi</last><affiliation>Tsinghua University, Tsinghua University</affiliation></author>
       <pages>20222-20231</pages>
       <abstract>Optimizing communication topology is fundamental to the efficiency and effectiveness of Large Language Model (LLM)-based Multi-Agent Systems (MAS). While recent approaches utilize reinforcement learning to dynamically construct task-specific graphs, they typically rely on single-sample policy gradients with absolute rewards (e.g., binary correctness). This paradigm suffers from severe gradient variance and the credit assignment problem: simple queries yield non-informative positive rewards for suboptimal structures, while difficult queries often result in failures that provide no learning signal. To address these challenges, we propose Graph-GRPO, a novel topology optimization framework that integrates Group Relative Policy Optimization. Instead of evaluating a single topology in isolation, Graph-GRPO samples a group of diverse communication graphs for each query and computes the advantage of specific edges based on their relative performance within the group. By normalizing rewards across the sampled group, our method effectively mitigates the noise derived from task difficulty variance and enables fine-grained credit assignment. Extensive experiments on reasoning and code generation benchmarks demonstrate that Graph-GRPO significantly outperforms state-of-the-art baselines, achieving superior training stability and identifying critical communication pathways previously obscured by reward noise.</abstract>
-      <pdf hash="799d3add"/>
+      <pdf hash="bb5f4746"/>
       <attachment hash="96d0974c" type="checklist">2026.findings-acl.1010.checklist.pdf</attachment>
       <bibkey>cang-etal-2026-graph</bibkey>
       <doi>10.18653/v1/2026.findings-acl.1010</doi>
+      <revision id="1" hash="799d3add"/>
+      <revision id="2" hash="bb5f4746" date="2026-11-10">Added funding acknowledgments.</revision>
     </paper>
     <paper id="1011">
       <!-- https://aclanthology.org/2026.findings-acl.1011/ -->
@@ -23382,10 +23386,12 @@
       <author id="beakcheol-jang" orcid="0000-0002-3911-5935" openreview="~Beakcheol_Jang1"><first>Beakcheol</first><last>Jang</last><affiliation>Yonsei University</affiliation></author>
       <pages>21952-21968</pages>
       <abstract>Time series forecasting underpins critical decision-making across diverse domains. While large language models (LLMs) offer promising reasoning capabilities, existing LLM-based time series forecasting approaches either reduce them to numerical predictors that bypass their strengths, or allow direct forecast generation that destabilizes predictions in non-stationary settings. We introduce CTRL, a framework that decouples semantic reasoning from quantitative prediction. A frozen backbone generates base forecasts, while specialized LLM agents function as controllers that analyze backbone prediction errors through decomposed trend, seasonal, and irregular components, grounding reasoning in interpretable temporal structure. Each agent outputs compact control signals that a lightweight residual decoder translates into forecast corrections. CTRL incorporates label-free test-time adaptation that detects distribution shift from input statistics alone and readapts control signals with only 3–24 LLM calls via caching. CTRL is explicitly designed to improve robustness under non-stationary temporal dynamics and distribution shift, while remaining competitive on highly stationary time series where adaptive correction provides limited additional benefit.</abstract>
-      <pdf hash="79be2e7f"/>
+      <pdf hash="5e0dca55"/>
       <attachment hash="057874b6" type="checklist">2026.findings-acl.1104.checklist.pdf</attachment>
       <bibkey>kim-etal-2026-ctrl</bibkey>
       <doi>10.18653/v1/2026.findings-acl.1104</doi>
+      <revision id="1" hash="79be2e7f"/>
+      <revision id="2" hash="5e0dca55" date="2026-10-21">Corrected bibliographic details and descriptions of cited work. The results are unchanged.</revision>
     </paper>
     <paper id="1105">
       <!-- https://aclanthology.org/2026.findings-acl.1105/ -->
@@ -23454,12 +23460,13 @@
       <author id="allen-schmaltz" orcid="0000-0001-5200-1935" openreview="~Allen_Schmaltz1"><first>Allen</first><last>Schmaltz</last><affiliation>Reexpress AI</affiliation></author>
       <pages>22037-22057</pages>
       <abstract>We introduce the Similarity-Distance-Magnitude (SDM) activation function, a more robust and interpretable formulation of the standard softmax activation function, adding Similarity (i.e., correctly predicted depth-matches into training) awareness and Distance-to-training-distribution awareness to the existing output Magnitude (i.e., decision-boundary) awareness, and enabling interpretability-by-exemplar via dense matching. We further introduce the SDM estimator, based on a data-driven partitioning of the class-wise empirical CDFs via the SDM activation, to control the class- and prediction-conditional accuracy among selective classifications. When used as the final-layer activation over pre-trained language models for selective classification, the SDM estimator is more robust to covariate shifts and out-of-distribution inputs than existing calibration methods using softmax activations, while remaining informative over in-distribution data.</abstract>
-      <pdf hash="070bd581"/>
+      <pdf hash="99abf89e"/>
       <attachment hash="5a1f1165" type="checklist">2026.findings-acl.1109.checklist.pdf</attachment>
       <bibkey>schmaltz-2026-similarity</bibkey>
       <doi>10.18653/v1/2026.findings-acl.1109</doi>
       <revision id="1" hash="6201273d"/>
       <revision id="2" hash="070bd581" date="2026-07-20">Correct minor mistakes in pseudo-code.</revision>
+      <revision id="3" hash="99abf89e" date="2026-10-21">Clarified the construction of nested SDM estimators in Section 5 and added supporting pseudocode in Appendix A.10.</revision>
     </paper>
     <paper id="1110">
       <!-- https://aclanthology.org/2026.findings-acl.1110/ -->
@@ -25307,12 +25314,13 @@
       <author id="erman-ayday" orcid="0000-0003-3383-1081" openreview="~Erman_Ayday2"><first>Erman</first><last>Ayday</last><affiliation>Case Western Reserve University</affiliation></author>
       <pages>24372-24402</pages>
       <abstract>The indistinguishability of large language model (LLM) output from human-authored content poses significant challenges, raising concerns about potential misuse of AI-generated text and its influence on future model training. Watermarking algorithms offer a viable solution by embedding detectable signatures into generated text. However, existing watermarking methods often involve trade-offs among attack robustness, generation quality, and additional overhead such as specialized frameworks or complex integrations. We propose a lightweight, topic-guided watermarking scheme for LLMs that partitions the vocabulary into topic-aligned token subsets. Given an input prompt, the scheme selects a relevant topic-specific token list, effectively “green-listing” semantically aligned tokens to embed robust marks while preserving fluency and coherence. Experimental results across multiple LLMs and state-of-the-art benchmarks demonstrate that our method achieves text quality comparable to industry-leading systems and simultaneously improves watermark robustness against paraphrasing and lexical perturbation attacks, with minimal performance overhead. Our approach avoids reliance on additional mechanisms beyond standard text generation pipelines, enabling straightforward adoption and suggesting a practical path toward globally consistent watermarking of AI-generated content.</abstract>
-      <pdf hash="c1ad57f2"/>
+      <pdf hash="f43cfb97"/>
       <attachment hash="dc968905" type="checklist">2026.findings-acl.1220.checklist.pdf</attachment>
       <bibkey>nemecek-etal-2026-topic</bibkey>
       <doi>10.18653/v1/2026.findings-acl.1220</doi>
       <revision id="1" hash="7a6ce208"/>
       <revision id="2" hash="c1ad57f2" date="2026-09-04">Update author second author affiliation.</revision>
+      <revision id="3" hash="f43cfb97" date="2026-10-21">Updated corresponding author information and author email addresses.</revision>
     </paper>
     <paper id="1221">
       <!-- https://aclanthology.org/2026.findings-acl.1221/ -->
@@ -46950,9 +46958,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="lu-liu-4507" orcid="0000-0003-1013-4507"><first>Lu</first><last>Liu</last><affiliation>University of Exeter</affiliation></author>
       <pages>9284-9314</pages>
       <abstract>This paper examines whether Code-LLMs encode latent sentiment representations and how these influence generation behavior. Using probing methods, we show that sentiment information is linearly separable in hidden states. Through activation steering, we demonstrate that manipulating sentiment-aligned directions systematically affects both output tone and downstream task performance. Notably, negative sentiment consistently reduces correctness, while positive effects are weaker and less consistent. Ablation and error analyses indicate these changes are not due to random perturbations but reflect meaningful behavioral shifts, including reduced confidence. These findings suggest that affective latent directions act as unintended control signals in Code-LLMs, with measurable impact on downstream task performance quality. Our study highlights the need to better understand and control such latent factors when deploying Code-LLMs.</abstract>
-      <pdf hash="9dfdfeb6"/>
+      <pdf hash="6e4577f9"/>
       <bibkey>ji-etal-2026-unveiling</bibkey>
       <doi>10.18653/2026.findings-emnlp.443</doi>
+      <revision id="1" hash="9dfdfeb6"/>
+      <revision id="2" hash="6e4577f9" date="2026-11-10">Standardized dataset-name formatting and corrected typographical errors.</revision>
     </paper>
     <paper id="444">
       <!-- https://aclanthology.org/2026.findings-emnlp.444/ -->
@@ -52594,9 +52604,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="chu-ren-huang" orcid="0000-0002-8526-5520"><first>Chu-Ren</first><last>Huang</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
       <pages>17334-17361</pages>
       <abstract>Due to the long temporal span and highly diverse expressions in historical documents, large language models (LLMs) still struggle with historical and cultural reasoning in Chinese history. Although taxonomic structures can effectively organize historical knowledge and facilitate knowledge-rich applications, existing historical taxonomies remain limited due to the high cost of manual construction. To address this limitation, we propose <b>CHisAgent</b>, a multi-agent LLM framework for automated historical taxonomy induction in ancient Chinese history. CHisAgent explicitly decomposes taxonomy construction into three role-specialized stages: a bottom-up <i>Inducer</i> that derives an initial hierarchy from raw historical corpora, a top-down <i>Expander</i> that introduces missing intermediate concepts using LLM world knowledge, and an evidence-guided <i>Enricher</i> that integrates external structured historical resources to ensure faithfulness. Extensive reference-free and reference-based evaluations show that the collaboration among these agents improves taxonomy coverage and hierarchical completeness, while further analysis suggests that the induced taxonomy facilitates cross-cultural alignment of historical concepts. Code and experimental data are available at  <url>https://github.com/tangxuemei1995/CHisAgent</url>.</abstract>
-      <pdf hash="2bc9d351"/>
+      <pdf hash="74202e87"/>
       <bibkey>tang-etal-2026-chisagent</bibkey>
       <doi>10.18653/2026.findings-emnlp.818</doi>
+      <revision id="1" hash="2bc9d351"/>
+      <revision id="2" hash="74202e87" date="2026-11-10">Corrected an author's given name from Jianghang to Jinghang.</revision>
     </paper>
     <paper id="819">
       <!-- https://aclanthology.org/2026.findings-emnlp.819/ -->
@@ -55279,9 +55291,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author><first>Haiyun</first><last>He</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
       <pages>20961-20984</pages>
       <abstract>Watermarking diffusion language models (DLMs) requires mechanisms compatible with iterative parallel unmasking rather than autoregressive decoding. Existing sampling-based watermarking methods typically inject position-wise i.i.d. perturbations, which can be poorly aligned with DLM decoding dynamics and degrade generation quality. We propose SAC-Copula, a quality-preserving watermarking method for DLMs based on smooth, locally correlated Gumbel perturbation fields constructed via a Gaussian copula. We further develop a SAC-aware detector using covariance-aware filtering and native-sample calibration. Mechanism-level analysis shows that local correlation reduces latent perturbation roughness and better matches iterative refinement dynamics. Experiments on LLaDA show that SAC-Copula achieves a favorable quality-detectability trade-off compared with existing baselines. In particular, further evaluations on Dream-7B and additional datasets show that SAC-Copula substantially improves PPL tail stability over the i.i.d. Gumbel baseline, while maintaining strong low-FPR detectability and competitive overall generation quality. Additional token-edit stress tests further assess watermark robustness under controlled synchronization drift. Code is available at https://github.com/PunkyKnife/SAC-Copula.</abstract>
-      <pdf hash="dfb9d722"/>
+      <pdf hash="f856dc1d"/>
       <bibkey>li-he-2026-sac</bibkey>
       <doi>10.18653/2026.findings-emnlp.993</doi>
+      <revision id="1" hash="dfb9d722"/>
+      <revision id="2" hash="f856dc1d" date="2026-11-10">Added a funding acknowledgment.</revision>
     </paper>
     <paper id="994">
       <!-- https://aclanthology.org/2026.findings-emnlp.994/ -->
@@ -55469,9 +55483,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="irwin-king" orcid="0000-0001-8106-6447"><first>Irwin</first><last>King</last></author>
       <pages>21281-21296</pages>
       <abstract>3D Gaussian Splatting (3DGS) has emerged as a powerful technique for novel view synthesis, subsequently extending into numerous spatial AI applications. However, most existing 3DGS methods operate in isolation, focusing on specific domains. In this paper, we introduce X-GS, an extensible framework that integrates previously isolated 3DGS methods into the perception module of a VLM for spatial tasks, with two major components: the *Perceiver* and the *Thinker*. The *Perceiver* performs online 3DGS-based SLAM with semantic distillation and outputs semantic Gaussians from unposed video streams. It leverages recent vision foundation models for stronger geometric priors, and we introduce three novel optimizations to improve semantic distillation efficiency. The *Thinker* interfaces diverse VLMs with these semantic Gaussians, unlocking spatial multimodal capabilities such as 3D visual grounding and scene captioning. Experimental results on diverse benchmarks demonstrate the efficiency and newly unlocked multimodal capabilities of the X-GS framework.</abstract>
-      <pdf hash="331dd988"/>
+      <pdf hash="6a1a243c"/>
       <bibkey>ma-etal-2026-x</bibkey>
       <doi>10.18653/2026.findings-emnlp.1006</doi>
+      <revision id="1" hash="331dd988"/>
+      <revision id="2" hash="6a1a243c" date="2026-11-10">Added a code-repository link and updated ablation and benchmark specifications in Tables 4 and 6. Refined the discussion and conclusion and corrected notation, citations, and formatting.</revision>
     </paper>
     <paper id="1007">
       <!-- https://aclanthology.org/2026.findings-emnlp.1007/ -->
@@ -55817,9 +55833,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="haipeng-chen" orcid="0000-0003-0572-8888"><first>Haipeng</first><last>Chen</last><affiliation>College of William and Mary</affiliation></author>
       <pages>21745-21761</pages>
       <abstract>Large Language Models (LLMs) are powerful but limited by static parametric knowledge that becomes outdated once pretraining ends. Knowledge editing addresses this problem by updating model behavior on target facts without full retraining. In particular, in-context knowledge editing has gained attention because it is training-free and readily applicable to black-box LLMs. Recent reinforcement learning (RL)-based approaches improve over fixed retrieval strategies by adapting prompt construction to the quantity-quality trade-off. Despite initial success, they fail to model the prompt as a structured entity under the distinct and often competing objectives of reliability, generality, and specificity. Previous methods largely optimize a single objective and make decisions over only part of the prompt construction process, thereby overlooking both the balance of different objectives and the global organization of demonstrations. We propose Multi-Objective In-context Knowledge Editing (MO-IKE), a multi-objective RL algorithm that formulates prompt construction for in-context knowledge editing as a Constrained Markov Decision Process. MO-IKE trains a dynamic retriever to optimize competing objectives in knowledge editing, enabling more balanced and globally coherent prompt construction. On Llama-3.2, MO-IKE improves edit success (reliability) from 85.0% to 92.0%, paraphrase consistency (generality) from 77% to 79%, while increasing retention rate (specificity) by 23.0% compared to prior RL-based methods.</abstract>
-      <pdf hash="057e0b2c"/>
+      <pdf hash="9c0f317f"/>
       <bibkey>wang-etal-2026-towards-reliable</bibkey>
       <doi>10.18653/2026.findings-emnlp.1029</doi>
+      <revision id="1" hash="057e0b2c"/>
+      <revision id="2" hash="9c0f317f" date="2026-11-10">Moved misplaced evaluation-metrics text back into Section 5.1.</revision>
     </paper>
     <paper id="1030">
       <!-- https://aclanthology.org/2026.findings-emnlp.1030/ -->
@@ -56252,9 +56270,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="xu-zhou-0620" orcid="0000-0002-0764-0620"><first>Xu</first><last>Zhou</last><affiliation>Hunan University</affiliation></author>
       <pages>22399-22424</pages>
       <abstract>Recent Hypergraph-based retrieval-augmented generation (HyperRAG) methods use hyperedges to connect multiple entities simultaneously, enabling more efficient multi-entity evidence organization than pairwise graph structures. However, existing HyperRAG methods often rely on LLM-generated summaries to construct hyperedges, which can introduce hallucinations while also incurring high indexing costs. In addition, during retrieval, existing methods typically rely on either one-hop neighbor expansion or PageRank diffusion. The former may miss useful multi-hop evidence, while the latter can suffer from uncontrolled propagation over excessive hub nodes, leading to semantic drift and noisy reasoning chains. To address these challenges, we propose HyperSU, a novel hypergraph-based RAG framework featuring semantic-unit hyperedges and clue-guided bidirectional retrieval. During construction, HyperSU formulates hyperedge construction as an entity-aware minimum-description-length (MDL) optimization problem, inducing source-grounded semantic-unit hyperedges that balance sentence-level semantic coherence and entity compactness. It then constructs a hypergraph by modeling each semantic unit as a hyperedge over its co-mentioned entities. During retrieval, HyperSU performs clue-guided bidirectional expansion over the semantic-unit hypergraph, enabling both multi-hop evidence discovery and evidence-anchored noise reduction. Experiments show that HyperSU consistently improves answer accuracy over standard, graph-based, and hypergraph-based RAG baselines, raising average accuracy on GraphRAG-Bench by 5.5 points over the strongest baseline (68.7 vs. 63.2), with larger gains on reasoning-intensive tasks, where the relative improvement reaches 14.1%. Our code is available at https://github.com/RAIDSLab/HyperSU.</abstract>
-      <pdf hash="8693eb43"/>
+      <pdf hash="2ad4c0ba"/>
       <bibkey>liu-etal-2026-hypersu</bibkey>
       <doi>10.18653/2026.findings-emnlp.1058</doi>
+      <revision id="1" hash="8693eb43"/>
+      <revision id="2" hash="2ad4c0ba" date="2026-11-10">Corrected Table 4, Figure 4, and related discussion, and clarified how the main results are averaged. The main conclusions are unchanged.</revision>
     </paper>
     <paper id="1059">
       <!-- https://aclanthology.org/2026.findings-emnlp.1059/ -->
@@ -56772,9 +56792,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="jinyoung-han" orcid="0000-0002-8911-2791"><first>Jinyoung</first><last>Han</last><affiliation>Sungkyunkwan University</affiliation></author>
       <pages>23126-23148</pages>
       <abstract>Most existing benchmarks evaluate social bias in large language models (LLMs) using multiple-choice questions (MCQ) grounded in stereotypical contexts. While MCQ formats enable straightforward quantification, how LLMs manifest social bias in task-specific contexts and under different output constraints remains underexplored. We introduce SCENE, a benchmark for measuring the social bias shown by LLMs in scenario-completion tasks. Given short scenarios involving social groups, models must complete key elements of the situation through two tasks: (i) Character Specification, which asks models to assign social attributes to characters, and (ii) Plot Continuation, which asks models to select the most plausible narrative continuation. Combining templates adapted from prior benchmarks with newly collected templates through a university-wide competition, we construct a dataset of over 75,000 Korean instances. Experiments show that bias measurements are highly sensitive to task context and output constraints, even for identical underlying scenarios, suggesting that widely used MCQ-based evaluations may not fully capture certain manifestations of stereotypes. SCENE is publicly available at https://github.com/DSAIL-SKKU/SCENE-EMNLP-2026.</abstract>
-      <pdf hash="9e7a8e9d"/>
+      <pdf hash="404b9e60"/>
       <bibkey>kang-etal-2026-scene</bibkey>
       <doi>10.18653/2026.findings-emnlp.1092</doi>
+      <revision id="1" hash="9e7a8e9d"/>
+      <revision id="2" hash="404b9e60" date="2026-11-10">Added a funding acknowledgment.</revision>
     </paper>
     <paper id="1093">
       <!-- https://aclanthology.org/2026.findings-emnlp.1093/ -->
@@ -61873,9 +61895,11 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="seongmin-mun" orcid="0000-0002-7289-5320"><first>Seongmin</first><last>Mun</last><affiliation>Kyungpook National University</affiliation></author>
       <pages>30783-30796</pages>
       <abstract>Large Language Model (LLM) surprisal is increasingly used as a proxy for human sentence processing, yet whether model expectations reflect the cognitive factors governing real-time human behavior remains uncertain. We examine Korean subject–verb honorific agreement in subject- and object-control constructions, where human eye-tracking data reveal a prominence-driven asymmetry. Evaluating three Korean-capable models, we find that surprisal was sensitive to honorific-feature mismatches, yielding attraction-like effects, but was not modulated by distractor prominence. Although surprisal selectively improved reading-time predictions, this reflected item-level predictive overlap rather than prominence sensitivity. GPT models thus capture surface regularities but do not reproduce the construction-sensitive, prominence-driven asymmetry of human dependency resolution, suggesting that LLMs diverge from humans precisely where processing depends on working-memory constraints rather than distributional expectation.</abstract>
-      <pdf hash="ff1e1f4a"/>
+      <pdf hash="4d881bea"/>
       <bibkey>kwon-etal-2026-computational</bibkey>
       <doi>10.18653/2026.findings-emnlp.1443</doi>
+      <revision id="1" hash="ff1e1f4a"/>
+      <revision id="2" hash="4d881bea" date="2026-11-10">Clarified the characterization of prior work on prominence and retrieval interference in Sections 1.2 and 7.</revision>
     </paper>
     <paper id="1444">
       <!-- https://aclanthology.org/2026.findings-emnlp.1444/ -->
@@ -76572,12 +76596,15 @@ Experiments show that silver supervision substantially improves the performance 
       <!-- https://aclanthology.org/2026.findings-emnlp.2438/ -->
       <title>Text-Based Veracity Assessment of Verbal Statements in <fixed-case>S</fixed-case>wedish</title>
       <author id="clara-gustafsson" orcid="0009-0001-2821-1382"><first>Clara</first><last>Gustafsson</last></author>
+      <author><first>Moa</first><last>Lidén</last></author>
       <author id="joakim-nivre" orcid="0000-0002-7873-3971"><first>Joakim</first><last>Nivre</last><affiliation>Uppsala University</affiliation></author>
       <pages>52303-52320</pages>
       <abstract>Determining the veracity of a verbal statement is a frequent and challenging task for legal practitioners. The Swedish Supreme Court has proposed a set of truth-indicative reliability criteria for assessing verbal statements in the Swedish legal system. LLMs’ growing ability to reason and handle complex tasks raises questions about how they perform veracity judgments of verbal statements. In this study, we explore this question on a novel Swedish mock-crime dataset. We compare simple prompting to a two-step method in which the LLM is first asked to assess the reliability criteria and then perform a criteria-informed veracity judgment. We find that accuracy is at chance level under both conditions, but that the two-step method often leads to a more reasonable truth bias and reduces models’ overconfidence. Further analysis indicates that criteria assessments predict final judgments, but not ground truth. We also find that the statement category (true or false and confession or denial) matters to overall performance and the effect of two-step prompting.</abstract>
-      <pdf hash="f29add4b"/>
-      <bibkey>gustafsson-nivre-2026-text</bibkey>
+      <pdf hash="8bc34d22"/>
+      <bibkey>gustafsson-etal-2026-text</bibkey>
       <doi>10.18653/2026.findings-emnlp.2438</doi>
+      <revision id="1" hash="f29add4b"/>
+      <revision id="2" hash="8bc34d22" date="2026-11-10">Added Moa Lidén to the author list.</revision>
     </paper>
     <paper id="2439">
       <!-- https://aclanthology.org/2026.findings-emnlp.2439/ -->
@@ -77673,8 +77700,10 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="ming-shan-hee" orcid="0000-0002-6328-5889" openreview="~Ming_Shan_Hee1"><first>Ming Shan</first><last>Hee</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>695-712</pages>
       <abstract>While the field of vision-language (VL) has achieved remarkable success in integrating visual and textual information across multiple languages and domains, there is no dedicated framework for assessing human-centric alignment in vision-language systems.<par/>We offer two contributions to address this gap. First, we introduce Anthropogenic Regional Adaptation: a regional-adaptation framework that aims to optimize model relevance to specific regional contexts while ensuring the retention of global generalization capabilities. Second, we present a simple, but effective adaptation method named Geographical-generalization-made-easy (GG-EZ), which utilizes regional data filtering and model merging.<par/>Through comprehensive ablations on 3 VL architectures: large vision-language models (LVLM), text-to-image diffusion models, and vision-language embedding models, and a case study in Southeast Asia (SEA) regional adaptation, we demonstrate the importance of Anthropogenic Regional Adaptation and GG-EZ, showing 5-15% gains in cultural relevance metrics across SEA while maintaining over 98% of global performance and even occasionally surpassing it.<par/>Our findings establish Anthropogenic Regional Alignment as a foundational paradigm towards applicability of multimodal VL architectures in diverse regions and demonstrate a simple-yet-effective baseline method that optimizes regional value alignment while preserving global generalization.</abstract>
-      <pdf hash="82d9826f"/>
+      <pdf hash="89f6b2f6"/>
       <bibkey>cahyawijaya-etal-2026-anthropogenic</bibkey>
+      <revision id="1" hash="82d9826f"/>
+      <revision id="2" hash="89f6b2f6" date="2026-11-10">Corrected the Global-Regional Parity objective, wording, and references, and added an acknowledgment.</revision>
     </paper>
     <paper id="37">
       <!-- https://aclanthology.org/2026.findings-aacl.37/ -->
@@ -79943,8 +79972,10 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="gabor-berend" orcid="0000-0002-3845-4978" openreview="~Gábor_Berend1"><first>Gábor</first><last>Berend</last><affiliation>University of Szeged</affiliation></author>
       <pages>4271-4285</pages>
       <abstract>In this paper, we introduce Latent Semantic Modeling (LSM), a sample-efficient alternative for pre-training encoder-based language models that does not require the use of a special mask symbol. This is beneficial, as it allows us to perform pre-training on naturally occurring sentences (as opposed to such ones that contain an unnatural mask symbol, which symbol is otherwise not included during fine-tuning). The main idea behind LSM is that instead of requiring the language model to return the exact identity of randomly selected (sub)tokens from an input sequence, it determines their latent semantic properties extracted from an auxiliary model using sparse coding over its activations. When fine-tuned for downstream applications, models pre-trained with LSM often perform as good or better as alternatively pre-trained models that use considerably more compute per update steps and which have gone through considerably more pre-training steps, illustrating the improved representation developed during LSM pre-training. We release our code base for replicating our results under https://github.com/szegedai/MLSM.</abstract>
-      <pdf hash="daf8ced8"/>
+      <pdf hash="0addc1bc"/>
       <bibkey>berend-2026-masking</bibkey>
+      <revision id="1" hash="daf8ced8"/>
+      <revision id="2" hash="0addc1bc" date="2026-11-10">Corrected panels (c) and (d) of Figure 1 and the MAE FLOP count in Table 1.</revision>
     </paper>
     <paper id="218">
       <!-- https://aclanthology.org/2026.findings-aacl.218/ -->
