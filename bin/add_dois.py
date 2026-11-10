@@ -28,6 +28,8 @@ Accepts either volume IDs or event IDs (auto-detected by format):
     python3 bin/add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
 
 For events, all colocated volumes are resolved automatically.
+Use --prefix v1/ for legacy DOIs of the form 10.18653/v1/<Anthology ID>.
+Full DOI prefixes (e.g., --prefix 10.18653/v1/) are also accepted.
 
 Modifies the XML.  Warns if DOIs already present.  Use -f to force.
 Failed checks are retried up to five times with exponential backoff and respect
@@ -99,22 +101,27 @@ def add_doi_to_item(
     Args:
         item: A Paper or Volume object from the acl_anthology library.
         anth_id: The full Anthology ID used to construct the DOI.
-        doi_prefix: The DOI prefix to use.
+        doi_prefix: A suffix under 10.18653/ (e.g., "v1/") or a full DOI prefix.
         force: Whether to overwrite existing DOIs.
         failures: Optional mapping of failed DOI URLs to their last error.
 
     Returns:
         True if the DOI was added, False otherwise.
     """
+    if not doi_prefix.startswith("10."):
+        doi_prefix = f"{DOI_PREFIX}{doi_prefix}"
     new_doi = f"{doi_prefix}{anth_id}"
 
-    if item.doi is not None and not force:
-        log.warning(
-            "[%s] Cowardly refusing to overwrite existing DOI %s (use --force)",
-            anth_id,
-            item.doi,
-        )
-        return False
+    if item.doi is not None:
+        if force:
+            log.warning(
+                "[%s] Overwriting existing DOI %s with %s",
+                anth_id,
+                item.doi,
+                new_doi,
+            )
+        else:
+            return False
 
     doi_url = f"{DOI_URL_PREFIX}{new_doi}"
     for attempt in range(MAX_ATTEMPTS):
@@ -242,7 +249,7 @@ if __name__ == "__main__":
         "--prefix",
         "-p",
         default=DOI_PREFIX,
-        help=f"The DOI prefix to use (default: {DOI_PREFIX})",
+        help=f"DOI prefix suffix (e.g., v1/) or full DOI prefix (default: {DOI_PREFIX})",
     )
     parser.add_argument(
         "--force",
