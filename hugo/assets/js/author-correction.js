@@ -459,11 +459,6 @@
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
 
-    // Names printed on the papers here.
-    function paperNames() {
-      return Array.from(new Set(page.papers.map(function (paper) { return paper.name; })));
-    }
-
     // A destination must be known under a name like the one on some paper here,
     // and must not be an author of that paper already (e.g. a coauthor).
     function acceptsPapers(id, names) {
@@ -512,7 +507,6 @@
           destSearch.value = "";
           setDestination(null);
           destSearch.focus();
-          refreshDestinations();
         });
         destStatus.replaceChildren("Selected: ", link, " \u00b7 ", change);
       } else {
@@ -527,15 +521,18 @@
     async function searchDestinations() {
       const version = ++searchVersion;
       const typed = destSearch.value.trim();
-      // Without a query, suggest pages under the names printed on the papers.
-      const queries = typed.length >= 2 ? [typed] : paperNames();
+      // Nothing is suggested until the user types.
+      if (typed.length < 2) {
+        destResults.hidden = true;
+        destResults.replaceChildren();
+        destStatus.textContent = destDefaultStatus;
+        return;
+      }
       let matches;
       try {
-        const outcomes = await Promise.all(queries.map(function (query) {
-          return search.findAuthors(query, page.indexBase);
-        }));
+        const outcome = await search.findAuthors(typed, page.indexBase);
         const seen = new Set();
-        matches = outcomes.flatMap(function (outcome) { return outcome.matches; })
+        matches = outcome.matches
           .filter(function (entry) {
             if (seen.has(entry.row[1])) return false;
             seen.add(entry.row[1]);
@@ -582,7 +579,6 @@
       searchTimer = setTimeout(searchDestinations, 120);
     }
 
-    document.getElementById("authorFixMove").addEventListener("author-fix:shown", refreshDestinations);
     destSearch.addEventListener("input", function () {
       if (destination) setDestination(null);
       refreshDestinations();
