@@ -35296,9 +35296,11 @@
       <author id="robert-r-roxas" orcid="0000-0003-0657-7436"><first>Robert R.</first><last>Roxas</last><affiliation>University of the Philippines</affiliation></author>
       <pages>52655-52682</pages>
       <abstract>Idioms remain a persistent challenge for natural language understanding due to their non-compositional nature, especially in morphologically rich, low-resource languages like Cebuano. Existing work on idiom processing has explored span extraction, contrastive learning, and normalization, but typically treats these tasks independently or assumes previous steps have already been done. We propose CebIDN, a modular pipeline that unifies idiom identification, disambiguation, and normalization for Cebuano. Central to our framework is a morphology-aware canonical matcher that links extracted spans to an idiom knowledge base, passing structural tags, the idiom used, and retrieved literal hints to the downstream generative model. The system is evaluated in various tagging configurations, incorporating CRF-based sequence labeling and span-level triplet loss, along with few-shot and fine-tuned normalization strategies across both tagged and tag-free configurations. The optimal configuration (using a 3-tag BIO+CRF tagger with a tag-free normalizer) significantly outperforms a fine-tuned end-to-end LLM baseline by improving binary idiom detection (0.899 vs. 0.847 F1) and achieving superior normalization quality (88.87 vs. 86.89 BLEU; 96.40 vs. 95.04 BERTScore; 4.71 vs. 4.46 human-validated LLM evaluation scores), while running 1.7 times faster. These results demonstrate that structured task decoupling improves figurative language understanding in low-resource settings.</abstract>
-      <pdf hash="3f07f9c4"/>
+      <pdf hash="bab604ef"/>
       <bibkey>vaflor-roxas-2026-cebidn</bibkey>
       <doi>10.18653/2026.emnlp-main.2318</doi>
+      <revision id="1" hash="3f07f9c4"/>
+      <revision id="2" hash="bab604ef" date="2026-11-10">Corrected a name in the acknowledgments.</revision>
     </paper>
     <paper id="2319">
       <!-- https://aclanthology.org/2026.emnlp-main.2319/ -->
