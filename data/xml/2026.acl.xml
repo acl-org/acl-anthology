@@ -2865,10 +2865,12 @@
       <author id="eunho-yang" orcid="0000-0003-2188-0169" openreview="~Eunho_Yang1"><first>Eunho</first><last>Yang</last><affiliation>Korea Advanced Institute of Science &amp; Technology</affiliation></author>
       <pages>3756-3771</pages>
       <abstract>Recent proprietary video generation models have demonstrated remarkable proficiency in synthesizing highly realistic videos from textual instructions. Most open-source text-to-video models, however, still struggle to accurately simulate real-world physics and dynamic entity interactions. Existing approaches rely on scaling laws and large-scale, high-quality video datasets to implicitly learn physical dynamics, yet this paradigm is constrained by prohibitive costs and the burdensome demands of data curation. Motivated by this, we propose a novel framework that integrates graph-structured temporal knowledge into video latent diffusion models to enhance compositional generation and interaction fidelity. Our framework constructs video scene graphs specifically designed to capture entity relationships, temporal dynamics, and global scene context. These graph-structured representations guide the generation process through cross-attention mechanisms. Additionally, we introduce Graph-Aligned Denoising Loss (GADL), a training objective that ensures adherence to conditioned graphs by incorporating node modification tasks within the denoising process, leveraging synchronized edited video-graph pairs. Comprehensive evaluations demonstrate that incorporating graph-structured knowledge significantly enhances compositionality and the accurate portrayal of real-world interactions in generated videos.</abstract>
-      <pdf hash="33a5cd6a"/>
+      <pdf hash="e8ce4f9e"/>
       <attachment hash="b5d6ae08" type="checklist">2026.acl-long.172.checklist.pdf</attachment>
       <bibkey>park-etal-2026-bringing</bibkey>
       <doi>10.18653/v1/2026.acl-long.172</doi>
+      <revision id="1" hash="33a5cd6a"/>
+      <revision id="2" hash="e8ce4f9e" date="2026-11-10">Added a corresponding-author designation for Jaeyun Song.</revision>
     </paper>
     <paper id="173">
       <!-- https://aclanthology.org/2026.acl-long.173/ -->
@@ -11538,11 +11540,13 @@
       <author id="yusuke-miyao-0253" orcid="0000-0001-7271-0253" openreview="~Yusuke_Miyao2"><first>Yusuke</first><last>Miyao</last><affiliation>NII, Tokyo Institute of Technology, The University of Tokyo and AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
       <pages>15093-15111</pages>
       <abstract>Do Large Language Models (LLMs) genuinely grasp the compositional semantics of events, or do they rely on surface-level probabilistic heuristics? We investigate the Imperfective Paradox, a logical phenomenon where the past progressive aspect entails event realization for activities (e.g., running <tex-math>\to</tex-math> ran) but not for accomplishments (e.g., building <tex-math>\nrightarrow</tex-math> built). We introduce ImperfectiveNLI, a diagnostic dataset designed to probe this distinction across diverse semantic classes. Evaluating state-of-the-art open-weight models, we uncover a pervasive Teleological Bias: models systematically hallucinate completion for goal-oriented events, even overriding explicit textual cancellation. Prompting interventions partially reduce this bias but trigger a calibration crisis, causing models to incorrectly reject valid entailments for atelic verbs. Representational analyses further show that while internal embeddings often distinguish progressive from simple past forms, inference decisions are dominated by strong priors about goal attainment. Taken together, our findings indicate that these current open-weight LLMs operate as predictive narrative engines rather than faithful logical reasoners, and that resolving aspectual inference requires moving beyond prompting toward structurally grounded alignment.</abstract>
-      <pdf hash="e1f107ca"/>
+      <pdf hash="c2cdb357"/>
       <attachment hash="86462a8d" type="checklist">2026.acl-long.689.checklist.pdf</attachment>
       <bibkey>ma-miyao-2026-imperfective</bibkey>
       <doi>10.18653/v1/2026.acl-long.689</doi>
       <award name="Best Paper">This paper makes careful and insightful use of linguistic theory to reveal substantive limitations in the language understanding and reasoning abilities of contemporary LLMs. Through the imperfective paradox, the authors show that many open 7B-9B-scale models systematically violate basic event-entailment patterns in English, behaving more like predictive narrative engines than faithful logical reasoners, even when given explicit contextual cues. The paper is especially valuable because it goes beyond documenting failure: it shows a dissociation between representation and reasoning, identifies promising effects of scale, and opens an important path for studying how logical reasoning about events can emerge or be induced in language models.</award>
+      <revision id="1" hash="e1f107ca"/>
+      <revision id="2" hash="c2cdb357" date="2026-10-21">Corrected numerical results, added a metric and a missing results figure, and fixed minor text errors. The conclusions are unchanged.</revision>
     </paper>
     <paper id="690">
       <!-- https://aclanthology.org/2026.acl-long.690/ -->
@@ -19487,10 +19491,12 @@
       <author id="guangquan-zhang" orcid="0000-0003-3960-0583" openreview="~Guangquan_Zhang2"><first>Guangquan</first><last>Zhang</last><affiliation>University of Technology Sydney (UTS)</affiliation></author>
       <pages>25273-25292</pages>
       <abstract>Detecting hallucinations in Retrieval-Augmented Generation remains a challenge. Prior approaches attribute hallucinations to a binary conflict between internal knowledge stored in FFNs and the retrieved context. However, this perspective is incomplete, failing to account for the impact of other components of the LLM, such as the user query, previously generated tokens, the self token, and the final LayerNorm adjustment. To comprehensively capture the impact of these components on hallucination detection, we propose TPA which mathematically attributes each token’s probability to seven distinct sources: Query, RAG Context, Past Token, Self Token, FFN, Final LayerNorm, and Initial Embedding. This attribution quantifies how each source contributes to the generation of the next token. Specifically, we aggregate these attribution scores by Part-of-Speech (POS) tags to quantify the contribution of each model component to the generation of specific linguistic categories within a response. By leveraging these patterns, such as detecting anomalies where Nouns rely heavily on LayerNorm, TPA effectively identifies hallucinated responses. Extensive experiments show that TPA achieves state-of-the-art performance.</abstract>
-      <pdf hash="e4a917d2"/>
+      <pdf hash="244b9b36"/>
       <attachment hash="81d16e5b" type="checklist">2026.acl-long.1159.checklist.pdf</attachment>
       <bibkey>lu-etal-2026-tpa</bibkey>
       <doi>10.18653/v1/2026.acl-long.1159</doi>
+      <revision id="1" hash="e4a917d2"/>
+      <revision id="2" hash="244b9b36" date="2026-10-21">Corrected baseline results in Tables 1 and 6 and updated the related discussion. The proposed method results and main conclusions are unchanged.</revision>
     </paper>
     <paper id="1160">
       <!-- https://aclanthology.org/2026.acl-long.1160/ -->
@@ -22765,10 +22771,12 @@
       <author id="nanning-zheng" orcid="0000-0003-1608-8257" openreview="~Nanning_Zheng1"><first>Nanning</first><last>Zheng</last><affiliation>Xi'an Jiaotong University</affiliation></author>
       <pages>29336-29357</pages>
       <abstract>Image-goal navigation steers an agent to a target location specified by an image in unseen environments. Existing methods primarily handle this task by learning an end-to-end navigation policy, which compares the similarities of target and observation images and directly predicts the actions. However, when the target is distant or lies in another room, such methods fail to extract informative visual cues, leading the agent to wander around. Motivated by the human cognitive principle that deliberate, high-level reasoning guides fast, reactive execution in complex tasks, we propose Hierarchical Reasoning Navigation (HRNav), a framework that decomposes image-goal navigation into high-level planning and low-level execution. In high-level planning, a vision-language model is trained on a self-collected dataset to generate a short-horizon plan, such as whether the agent should walk through the door or down the hallway. This downgrades the difficulty of the long-horizon task, making it more amenable to the execution part. In low-level execution, an online reinforcement learning policy is utilized to decide actions conditioned on the short-horizon plan. We also devise a novel Wandering Suppression Penalty (WSP) to further reduce the wandering problem. Together, these components form a hierarchical framew ork for Image-Goal Navigation. Extensive experiments in both simulation and real-world environments demonstrate the superiority of our method.</abstract>
-      <pdf hash="e3d608fd"/>
+      <pdf hash="2b430aac"/>
       <attachment hash="bfae3bef" type="checklist">2026.acl-long.1352.checklist.pdf</attachment>
       <bibkey>li-etal-2026-think</bibkey>
       <doi>10.18653/v1/2026.acl-long.1352</doi>
+      <revision id="1" hash="e3d608fd"/>
+      <revision id="2" hash="2b430aac" date="2026-10-21">Corrected the surname of Nanning Zheng in the author list.</revision>
     </paper>
     <paper id="1353">
       <!-- https://aclanthology.org/2026.acl-long.1353/ -->
@@ -39830,9 +39838,11 @@
       <author><first>Jeng-Yue</first><last>Liu</last></author>
       <pages>163-172</pages>
       <abstract>Diffusion language models generate text by iteratively denoising all tokens in parallel, but when and where their hidden states encode whether the output will be functionally correct remains unknown.We present the first probing study of DLM internals, training linear classifiers on hidden states to predict functional correctness.Across two models (LLaDA-8B, Dream-7B) and four tasks, we find that DLMs uniquely accumulate correctness signal across denoising steps (AUC gains of 0.08–0.11 on reasoning tasks), absent in single-pass AR decoding. However, step-0 signal reflects prompt difficulty rather than diffusion-specific computation. Signal emergence is task-dependent: structural tasks show flat profiles while reasoning tasks show gradual buildup. The two models exhibit distinct layer dynamics, with LLaDA concentrating signal in upper layers while Dream redistributes toward lower layers. We further show that probe confidence can identify likely failures, enabling selective generation that avoids 36–98% of wasted compute.</abstract>
-      <pdf hash="40865464"/>
+      <pdf hash="40601797"/>
       <bibkey>chiu-liu-2026-probing</bibkey>
       <doi>10.18653/v1/2026.acl-srw.15</doi>
+      <revision id="1" hash="40865464"/>
+      <revision id="2" hash="40601797" date="2026-10-21">Corrected bibliographic details in six references.</revision>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2026.acl-srw.17/ -->
