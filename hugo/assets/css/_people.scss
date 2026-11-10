@@ -701,15 +701,13 @@
   }
 }
 
-/* "Move papers" form: result under the mouse or highlighted with the arrow keys,
-   styled like the navbar author search. */
+/* "Move papers" form: result under the mouse or highlighted with the arrow keys
+   (both set .is-active), styled like the navbar author search. */
 #authorFixDestResults {
-  .list-group-item-action:hover,
-  .is-active {
-    background-color: $acl-soft-blue;
-  }
+  --bs-list-group-action-hover-bg: transparent;
 
-  .is-active {
+  .list-group-item-action.is-active {
+    background-color: $acl-soft-blue;
     box-shadow: inset .2rem 0 0 darken($cyan, 10%);
   }
 }
