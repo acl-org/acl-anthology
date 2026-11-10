@@ -10,6 +10,9 @@
 # PRs). For anything else, add the "preview" label to the PR manually to request
 # a build.
 #
+# Successful builds link the current PR checklist and notify linked ingestion
+# issues once.
+#
 # PRs coming from forks never get preview builds for security reasons – this
 # workflow will post a notice on the PR to clarify this if a preview would
 # otherwise be expected.
@@ -21,11 +24,6 @@ on:
     types: [opened, edited, synchronize, labeled]
     branches:
     - master
-
-# only run one at a time per PR
-concurrency:
-  group: preview-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -102,6 +100,10 @@ jobs:
 
   preview:
     needs: decide
+    # Non-building PR edits must not cancel an active preview.
+    concurrency:
+      group: preview-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     # IMPORTANT: `head.repo.full_name == github.repository` restricts this to
     # PRs from branches within our own repo. Do not remove this check: this job
     # runs arbitrary repo code (`make check site preview`) and publishes with a
@@ -174,7 +176,11 @@ jobs:
       uses: actions/github-script@v9
       with:
         script: |
-          const pr = context.payload.pull_request;
+          const { data: pr } = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number,
+          });
           if (!/^ingest\b/i.test(pr.title)) return;
 
           const body = pr.body || '';
@@ -196,7 +202,10 @@ jobs:
 
           const lines = updated.split(/\r?\n/);
           const blockStart = lines.findIndex(line => line.trim() === linkedPreviewHeading);
-          if (blockStart === -1) return;
+          if (blockStart === -1) {
+            core.warning('No preview checklist found in the current PR body; ingestion reviewers were not notified.');
+            return;
+          }
 
           let blockEnd = blockStart + 1;
           while (blockEnd < lines.length && lines[blockEnd].trim() !== '') {
