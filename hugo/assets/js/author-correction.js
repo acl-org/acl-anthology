@@ -302,6 +302,8 @@
       document.getElementById("authorFixOpenReviewContinue").addEventListener("click", function () {
         openReviewNotice.classList.add("d-none");
         verifyForm.classList.remove("d-none");
+        // This button is now hidden; keep focus in the dialog so Escape still closes it.
+        document.getElementById("authorFixOrcid").focus();
       });
     }
 
