@@ -82,6 +82,25 @@ def test_add_doi_success():
     assert item.doi == f"{DOI_PREFIX}W10-1701"
 
 
+@pytest.mark.parametrize(
+    "prefix, expected",
+    [
+        ("v1/", "10.18653/v1/W10-1701"),
+        ("10.18653/v1/", "10.18653/v1/W10-1701"),
+        ("10.1234/custom/", "10.1234/custom/W10-1701"),
+        ("", "10.18653/W10-1701"),
+    ],
+)
+def test_add_doi_prefix(prefix, expected):
+    item = SimpleNamespace(doi=None)
+    with patch(
+        "bin.add_dois.test_url_code", return_value=MagicMock(status_code=200)
+    ) as check:
+        assert add_doi_to_item(item, "W10-1701", doi_prefix=prefix) is True
+    check.assert_called_once_with(f"https://doi.org/{expected}")
+    assert item.doi == expected
+
+
 def test_add_doi_404():
     """If DOI URL returns 404, don't add."""
     item = SimpleNamespace(doi=None)
@@ -329,28 +348,30 @@ def temp_anthology(tmp_path):
     return Anthology(datadir=data_copy)
 
 
-def test_process_volume_adds_dois(temp_anthology):
+@pytest.mark.parametrize("prefix", [DOI_PREFIX, "v1/"])
+def test_process_volume_adds_dois(temp_anthology, prefix):
     """process_volume should set DOIs on volume and papers when URLs resolve."""
     mock_response = MagicMock(status_code=200)
     with (
         patch("bin.add_dois.test_url_code", return_value=mock_response),
         patch("bin.add_dois.sleep"),
     ):
-        num_added = process_volume(temp_anthology, "W10-17")
+        num_added = process_volume(temp_anthology, "W10-17", doi_prefix=prefix)
 
     # W10-17 has 64 papers (including frontmatter) + 1 volume-level DOI = 65
     assert num_added == 65
+    expected_prefix = DOI_PREFIX if prefix == DOI_PREFIX else f"{DOI_PREFIX}v1/"
 
     # Verify DOIs are set on the objects
     volume = temp_anthology.get_volume("W10-17")
-    assert volume.doi == f"{DOI_PREFIX}W10-17"
+    assert volume.doi == f"{expected_prefix}W10-17"
     for paper in volume.papers():
-        assert paper.doi == f"{DOI_PREFIX}{paper.full_id}"
+        assert paper.doi == f"{expected_prefix}{paper.full_id}"
 
     saved = Anthology(datadir=temp_anthology.datadir)
-    assert saved.get_volume("W10-17").doi == f"{DOI_PREFIX}W10-17"
+    assert saved.get_volume("W10-17").doi == f"{expected_prefix}W10-17"
     for paper in saved.get_volume("W10-17").papers():
-        assert paper.doi == f"{DOI_PREFIX}{paper.full_id}"
+        assert paper.doi == f"{expected_prefix}{paper.full_id}"
 
 
 def test_process_volume_saves_successes_and_records_paper_failures(temp_anthology):
