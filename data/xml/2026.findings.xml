@@ -79964,8 +79964,10 @@ Experiments show that silver supervision substantially improves the performance 
       <author id="gabor-berend" orcid="0000-0002-3845-4978" openreview="~Gábor_Berend1"><first>Gábor</first><last>Berend</last><affiliation>University of Szeged</affiliation></author>
       <pages>4271-4285</pages>
       <abstract>In this paper, we introduce Latent Semantic Modeling (LSM), a sample-efficient alternative for pre-training encoder-based language models that does not require the use of a special mask symbol. This is beneficial, as it allows us to perform pre-training on naturally occurring sentences (as opposed to such ones that contain an unnatural mask symbol, which symbol is otherwise not included during fine-tuning). The main idea behind LSM is that instead of requiring the language model to return the exact identity of randomly selected (sub)tokens from an input sequence, it determines their latent semantic properties extracted from an auxiliary model using sparse coding over its activations. When fine-tuned for downstream applications, models pre-trained with LSM often perform as good or better as alternatively pre-trained models that use considerably more compute per update steps and which have gone through considerably more pre-training steps, illustrating the improved representation developed during LSM pre-training. We release our code base for replicating our results under https://github.com/szegedai/MLSM.</abstract>
-      <pdf hash="daf8ced8"/>
+      <pdf hash="0addc1bc"/>
       <bibkey>berend-2026-masking</bibkey>
+      <revision id="1" hash="daf8ced8"/>
+      <revision id="2" hash="0addc1bc" date="2026-11-10">Corrected panels (c) and (d) of Figure 1 and the MAE FLOP count in Table 1.</revision>
     </paper>
     <paper id="218">
       <!-- https://aclanthology.org/2026.findings-aacl.218/ -->
