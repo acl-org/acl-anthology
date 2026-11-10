@@ -42929,9 +42929,11 @@
       <author id="aidan-millar" orcid="0009-0002-0606-3582" openreview="~Aidan_Millar1"><first>Aidan</first><last>Millar</last><affiliation>Mubadala Investment Company</affiliation></author>
       <pages>655-666</pages>
       <abstract>Institutional investors search visually dense pitch decks, board packs, and diligence materials that change hourly near deal closing. OCR followed by figure verbalisation is costly to refresh at this scale and can lose chart detail. We present PULSAR, a production vision-first retrieval system deployed at Mubadala Investment Company. PULSAR indexes page images with a frozen ColPali-style backbone and uses a pooled two-stage late-interaction index: compact page summaries support initial retrieval, followed by exact MaxSim rescoring over a finer pooled representation. On ViDoRe V3, this design reduces median vector-search latency by 15.1 times against an unpooled configuration with less than 0.01 absolute NDCG@10 and Recall@10 loss; production median vector-search latency is 156 ms. Under concurrent load, the pooled index sustains approximately 88 times higher QPS than an unpooled index. The event-driven ingestion path is estimated to be approximately 20 times cheaper per page than the OCR+verbalisation baseline it replaced. Since March 2026, PULSAR has served 78 thousand documents and approximately 2.4 million pages across more than 3,000 deals. At the production top K, it more than doubles answer-fact recall over the OCR+verbalisation baseline.</abstract>
-      <pdf hash="9a637b17"/>
+      <pdf hash="107620bb"/>
       <bibkey>constable-etal-2026-pulsar</bibkey>
       <doi>10.18653/2026.emnlp-industry.39</doi>
+      <revision id="1" hash="9a637b17"/>
+      <revision id="2" hash="107620bb" date="2026-11-10">Corrected pooled-vector counts and distinguished resident and stored vector-payload estimates. Clarified indexing and statistical terminology; retrieval-quality and latency/throughput measurements are unchanged.</revision>
     </paper>
     <paper id="40">
       <!-- https://aclanthology.org/2026.emnlp-industry.40/ -->
