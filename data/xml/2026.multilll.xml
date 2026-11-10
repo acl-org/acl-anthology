@@ -19,11 +19,13 @@
       <pdf hash="aafc8339"/>
       <venue>multilll</venue>
       <venue>ws</venue>
+      <doi>10.18653/2026.multilll-1</doi>
     </meta>
     <frontmatter>
       <!-- https://aclanthology.org/2026.multilll-1.0/ -->
       <pdf hash="4f573f27"/>
       <bibkey>multi-lll-2026-1</bibkey>
+      <doi>10.18653/2026.multilll-1.0</doi>
     </frontmatter>
     <paper id="1">
       <!-- https://aclanthology.org/2026.multilll-1.1/ -->
@@ -38,6 +40,7 @@
       <abstract>Second language writers rarely receive the detailed feedback they need to improve, as comprehensive feedback takes teachers days per class. To solve this, we present WrAFT, a Writing Assessment and Feedback Tool, that delivers reliable scores along with effective comprehensive feedback for argumentative essays. WrAFT adopts a modular design by dividing the automated writing evaluation (AWE) into essay scoring, surface-level feedback and deep-level feedback. In building the system, various Large Language Models (LLMs) have been evaluated, including LLaMA-3.3-70B-Instruct, GPT-4o, and Claude 3.7, through both supervised fine-tuning and direct prompting. Evaluation shows that WrAFT achieves state-of-the-art performance in scoring with a Quadratic Weighted Kappa (QWK) of 0.84 on a proprietary dataset of 480 TOEFL Independent Writing essays. More importantly, human evaluation of system-generated feedback also reveals high approval ratings (96.14% for surface-level, 93.03% for deep-level macro feedback, and 94.69% for deep-level micro feedback). Publicly available interactive user interface has also been developed for the system.</abstract>
       <pdf hash="d69130ba"/>
       <bibkey>labib-etal-2026-wraft</bibkey>
+      <doi>10.18653/2026.multilll-1.1</doi>
     </paper>
     <paper id="2">
       <!-- https://aclanthology.org/2026.multilll-1.2/ -->
@@ -51,6 +54,7 @@
       <abstract>Language-subspace interventions aim to improve multilingual reasoning by suppressing language-related components in mid-layer activations. Using MATH and MGSM across four open-weight LLMs, we ask three questions: do estimated language subspaces capture translation-associated variation? Does projecting them out remove language information? And do they improve accuracy without compromising response language? For the first question, we build subspaces using the existing Mean-SVD construction and our DiffPCA. Both capture substantial translation-associated variation and show similar patterns across model depth. For the second, we project out each subspace and train linear probes to classify language from the projected activations. The probes still identify language almost perfectly, showing that neither subspace exhaustively captures language information. For the third, we evaluate several intervention configurations on Qwen2.5-7B, by varying subspace creation methods and intervention operators. We find that the intervention that most improves MGSM accuracy sacrifices response-language fidelity, with only one intervention improving joint accuracy—answers that are correct and in the target language—slightly, by 1.60 points. Interestingly, subtle changes in the prompt alone can reproduce the accuracy gains albeit with significant damage to language fidelity. We argue that causal interventions must be judged on more than accuracy, to fully account for language substitution trade-offs.</abstract>
       <pdf hash="dc05d6c6"/>
       <bibkey>punglia-etal-2026-beyond</bibkey>
+      <doi>10.18653/2026.multilll-1.2</doi>
     </paper>
     <paper id="3">
       <!-- https://aclanthology.org/2026.multilll-1.3/ -->
@@ -61,6 +65,7 @@
       <abstract>We describe the GroundCorrect system of team xc-皮波 for the Sentence-Level Track of VisCGEC-v2.0 at Multi-LLL 2026. The system combines frozen Qwen3-VL-4B-Instruct global recognition, rank-8 LoRA verification of full-line and local-crop evidence, and YOLO11s character detection with deterministic edit grounding. According to the retained team record, the official V3 competition submission ranked second with score 0.5114. This result belongs exclusively to the official submission, not to the local reconstruction or the post-submission V3+ extension. Our primary local adapter comparison holds inputs, prompt, decoding, and grounding fixed: the development proxy rises from 0.1254 to 0.2234. Other configuration changes are reported as system development. V3+ is an exploratory case study that changes one development example, with no internal-selection or grounded-edit improvement. Local results are conditional configuration analyses: selection images also train the detector, and development data overlap training at the essay-group level.</abstract>
       <pdf hash="e3d979d2"/>
       <bibkey>xie-huang-2026-ground</bibkey>
+      <doi>10.18653/2026.multilll-1.3</doi>
     </paper>
     <paper id="6">
       <!-- https://aclanthology.org/2026.multilll-1.6/ -->
@@ -72,6 +77,7 @@
       <abstract>Recent alignment-free Text-to-Speech (TTS) models achieve high synthesis quality by removing explicit alignment modules and simplifying training. However, they often struggle in cross-lingual scenarios due to differences in character durations across languages, leading to duration mismatch and degraded speech quality. Existing approaches typically address this issue using explicit duration predictors, increasing model complexity. Systematic evaluation of TTS performance for Indian languages in cross-lingual settings remains under-explored due to the lack of standardized evaluation benchmarks. In this work, we construct a cross-lingual evaluation benchmark covering English and nine Indian languages and propose a language-aware inference-time duration estimation strategy for alignment-free TTS that incorporates language-specific duration-per character statistics without retraining or architectural modifications. We further develop heuristic formulations that refine duration estimation based on language-dependent duration variations. Experiments on bilingual and multilingual A-DMA models demonstrate improved speech naturalness, intelligibility, and speaker similarity while reducing duration mismatch.</abstract>
       <pdf hash="cd02ade0"/>
       <bibkey>arigala-etal-2026-cross</bibkey>
+      <doi>10.18653/2026.multilll-1.6</doi>
     </paper>
     <paper id="7">
       <!-- https://aclanthology.org/2026.multilll-1.7/ -->
@@ -81,6 +87,7 @@
       <abstract>Multimodal large language models are increasingly described as tutors for language learning: they take a handwritten page, a spoken utterance, or a slide and return fluent target-language text. We argue that this description confuses a correction engine with a teaching intervention. For systems claiming to teach through corrective feedback, we propose a teachable edit: localized on the learner’s production, typed by error category, conservative with respect to the learner’s interlanguage, and accompanied either by a faithful, level-appropriate explanation or by a recorded, calibrated abstention. Fluency of a rewritten string is the wrong success criterion. Existing explainable and pedagogically targeted grammatical error correction (GEC) work already supplies evidence words, error types, and grammar-item evaluation on text. What remains underspecified is a single record that also localizes into a multimodal artifact, scores conservatism and explanation-to-edit faithfulness, and requires calibrated abstention. We illustrate the specification on Chinese and Arabic examples, using the latter to show how language-specific error categories and right-to-left script affect localization while leaving the functional structure of the record unchanged. We state that record, compare it with EXPECT, EXCGEC, and JELV, and separate correction correctness from feedback quality and from learning outcomes. The correction, localization, and reference-based estimates of conservatism can be measured on existing benchmarks; the explanation, level, and abstention fields need a small annotation pass, which we specify and do not run.</abstract>
       <pdf hash="a9de1e93"/>
       <bibkey>zaghouani-2026-rewrites</bibkey>
+      <doi>10.18653/2026.multilll-1.7</doi>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2026.multilll-1.8/ -->
@@ -94,6 +101,7 @@
       <abstract>In this study, we built a Large Language Model (LLM)-powered interactive narrative game for French-speaking primary school learners. The system consists mainly of three modules: an initialization module for story structuring, a generation module for iterative generation of story texts and illustrations based on player choices, and a language scaffolding module for providing contextualized explanations of player-selected textual elements. Text generation is prompted using five curriculum-informed proficiency bands spanning primary to early secondary reading levels. A classroom feasibility study was conducted with 35 students aged 9-10 and two teachers at two primary schools in French-speaking Switzerland. Results showed positive student attitudes towards the stories and illustrations and high perceived ease of use. However, students perceived the game’s usefulness for French literacy activities as moderate, with many noting that the story language was below their level. Occasional issues in character consistency and repetitive illustrations across scenes were also mentioned. Teachers highlighted potential pedagogical benefits when the system is combined with additional classroom activities.</abstract>
       <pdf hash="2207b581"/>
       <bibkey>wang-etal-2026-multi</bibkey>
+      <doi>10.18653/2026.multilll-1.8</doi>
     </paper>
     <paper id="9">
       <!-- https://aclanthology.org/2026.multilll-1.9/ -->
@@ -103,6 +111,7 @@
       <abstract>Handwritten text by language learners couples recognition errors with grammatical errors, which makes automatic correction of such text harder than either subproblem alone. Visual Chinese grammatical error correction asks a system to read a handwritten sentence image and to emit both a fully corrected sentence and a list of localized visual edits. We describe a training-free pipeline that makes one call to a vision–language model (VLM) per image and jointly requests a verbatim transcription, a minimal-edit correction, and a typed bounding-box edit list in a single JSON object; a deterministic packer enforces schema and coverage, and a second engine fills only the test images for which the first produces no valid record. A paired 19-image development comparison under a proxy of the official <tex-math>F_{0.5}</tex-math> metric finds that two VLMs obtain the same edit true-positive count while one emits nearly twice as many edits; the more conservative engine has higher edit precision on this slice. The system obtains an official score of 0.5905 on the hidden sentence-level test set of the VisCGEC-v2.0 shared task. The result suggests that a single-pass training-free VLM pipeline is viable for this task, and that edit precision is a useful engine-selection signal on the measured development slice.</abstract>
       <pdf hash="075f5393"/>
       <bibkey>zhang-2026-training</bibkey>
+      <doi>10.18653/2026.multilll-1.9</doi>
     </paper>
     <paper id="10">
       <!-- https://aclanthology.org/2026.multilll-1.10/ -->
@@ -120,6 +129,7 @@
       <abstract>Low-resourced and marginalized languages suffer from generational attrition, with dwindling incentives for younger speakers to learn a language to which they may be linked culturally but which offers limited opportunities for use in education, employment, and other domains of everyday life. Gamification techniques and the integration of digital support structures may hold considerable potential for language revitalization and digitization efforts. This work explores a research design that explores approaches targeting both extrinsic and intrinsic motivation for learners of Kurdish varieties across three contrasting learning environments. By running comparable conditions in environments that differ sharply in institutional pressure, cost, and voluntariness, we aim to produce a multifaceted account of how gameful design and behavior-oriented guidance interact with learner contexts, and thereby inform future initiatives in low-resource language learning.</abstract>
       <pdf hash="fce2a4b6"/>
       <bibkey>ma-etal-2026-outlining</bibkey>
+      <doi>10.18653/2026.multilll-1.10</doi>
     </paper>
     <paper id="11">
       <!-- https://aclanthology.org/2026.multilll-1.11/ -->
@@ -131,6 +141,7 @@
       <abstract>How to evaluate large language models (LLMs) cleanly has been established as an important research era to genuinely report the performance of possibly contaminated LLMs. Yet, how to cleanly evaluate the visual language models (VLMs) is an under-studied problem. We propose a novel approach to achieve such goals through data augmentation methods on the visual input information. We then craft a new visual clean evaluation benchmark with thousands of data instances. Through extensive experiments, we found that the traditional visual data augmentation methods are useful, but they are at risk of being used as a part of the training data as a workaround. We further propose using BGR augmentation to switch the colour channel of the visual information. We found that it is a simple yet effective method for reducing the effect of data contamination and fortunately, it is also harmful to be used as a data augmentation method during training. It means that it is hard to integrate such data augmentation into training by malicious trainers and it could be a promising technique to cleanly evaluate visual LLMs. Our code, data, and model weights will be released upon publication.</abstract>
       <pdf hash="9e4956ef"/>
       <bibkey>lu-etal-2026-clean</bibkey>
+      <doi>10.18653/2026.multilll-1.11</doi>
     </paper>
     <paper id="12">
       <!-- https://aclanthology.org/2026.multilll-1.12/ -->
@@ -141,6 +152,7 @@
       <abstract>Audio representation learning has revolutionized acoustic intelligence, enabling audio foundation models to generalize and perform well across various downstream tasks. To better characterize the paradigm shift in general representation extraction and modeling, this survey presents a unified decoupled framework separating audio processing into audio-to-feature representation learning and feature-to-target downstream modeling. We systematically review modeling domains, representation forms, architectures, and pre-training paradigms, while categorizing five integration mechanisms and downstream modeling paradigms. Furthermore, we summarize representative systems and discuss key trade-offs, providing practical guidelines for designing next-generation audio foundation models.</abstract>
       <pdf hash="1384d234"/>
       <bibkey>wang-he-2026-audio</bibkey>
+      <doi>10.18653/2026.multilll-1.12</doi>
     </paper>
   </volume>
 </collection>
