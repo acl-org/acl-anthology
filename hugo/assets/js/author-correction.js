@@ -458,6 +458,22 @@
     renderPaperList(movePapers, false);
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
+    // Registered before the result navigation, so the list is still open here: Escape
+    // closes the list without also closing the dialog, and Enter never submits the form.
+    destSearch.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !destResults.hidden) event.stopPropagation();
+      if (event.key === "Enter") event.preventDefault();
+    });
+    const destNavigation = search.createResultNavigation({
+      input: destSearch,
+      list: destResults,
+      optionSelector: "button",
+      activeClass: "is-active",
+      onEscape: function () {
+        destResults.hidden = true;
+        destNavigation.refresh();
+      },
+    });
 
     // A destination must be known under a name like the one on some paper here,
     // and must not be an author of that paper already (e.g. a coauthor).
@@ -495,6 +511,7 @@
       if (person) {
         destSearch.value = person.name;
         destResults.hidden = true;
+        destNavigation.refresh();
         const link = document.createElement("a");
         link.href = authorPageUrl(person.id);
         link.target = "_blank";
@@ -525,6 +542,7 @@
       if (typed.length < 2) {
         destResults.hidden = true;
         destResults.replaceChildren();
+        destNavigation.refresh();
         destStatus.textContent = destDefaultStatus;
         return;
       }
@@ -543,6 +561,7 @@
       } catch (error) {
         if (version !== searchVersion) return;
         destResults.hidden = true;
+        destNavigation.refresh();
         destStatus.textContent = "Author search is temporarily unavailable.";
         return;
       }
@@ -567,6 +586,7 @@
         return button;
       }));
       destResults.hidden = matches.length === 0;
+      destNavigation.refresh();
       destStatus.textContent = matches.length === 0
         ? "No verified author page (other than a coauthor's) has a name like the one on these papers. If a paper's name doesn't match its PDF, use \"Fix data\" on that paper's page first."
         : destDefaultStatus;
