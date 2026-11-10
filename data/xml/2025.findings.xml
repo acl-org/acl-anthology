@@ -28164,10 +28164,12 @@
       <author id="bhuwan-dhingra" orcid="0000-0002-6874-9515" openreview="~Bhuwan_Dhingra1"><first>Bhuwan</first><last>Dhingra</last><affiliation>Duke University</affiliation></author>
       <pages>26257-26273</pages>
       <abstract>Speculative Decoding (SD) enforces strict distributional equivalence to the target model when accepting candidate tokens. While it maintains the target model’s generation quality, this strict equivalence limits the speedup achievable by SD and prevents users from trading deviations from the target distribution in exchange for further inference speed gains. To address these limitations, we introduce Fuzzy Speculative Decoding (FSD) - a decoding algorithm that generalizes SD by accepting candidate tokens based on the divergences between the target and draft model distributions. By allowing for controlled divergence from the target model, FSD enables users to flexibly trade generation quality for inference speed. Across several benchmarks, our method is able to achieve significant runtime improvements of over 5 tokens per second faster than SD at only an approximate 2% absolute reduction in benchmark accuracy. In many cases, FSD is even able to match SD benchmark accuracy at over 2 tokens per second faster, demonstrating that distributional equivalence is not necessary to maintain target model performance. Furthermore, FSD can be seamlessly integrated into existing SD extensions; we demonstrate this by applying FSD to EAGLE-2, greatly enhancing this existing extension’s efficiency while allowing it to leverage FSD’s tunable quality-speed trade-off.</abstract>
-      <pdf hash="3c4d80b2"/>
+      <pdf hash="5d9e9341"/>
       <bibkey>holsman-etal-2025-fuzzy</bibkey>
       <doi>10.18653/v1/2025.findings-acl.1346</doi>
       <video href="2025.findings-acl.1346.mp4"/>
+      <revision id="1" hash="3c4d80b2"/>
+      <revision id="2" hash="5d9e9341" date="2026-11-10">Corrected the divergence definition to reverse Jensen-Shannon and the bound and proof, which apply to sampling-based rather than greedy decoding. Clarified experimental details and corrected transcription errors; the empirical results are unchanged.</revision>
     </paper>
     <paper id="1347">
       <!-- https://aclanthology.org/2025.findings-acl.1347/ -->
