@@ -9,6 +9,9 @@ Use [add_revision.py](../../../bin/add_revision.py) for revisions and errata.
 Process requests **one at a time**, normally oldest first. Pause for the user
 when a request is ambiguous or a substantive problem needs a decision.
 
+When reporting a problem, a blocked request, or a decision needed from the user,
+include the full GitHub issue URL, not just its issue number.
+
 ## 1. Inspect the queue and working state
 
 ```bash
@@ -70,6 +73,12 @@ Download the supplied PDF into session scratch storage. Inspect it with
 `pypdf.PdfReader`: check the title, authors, page count, and relevant corrected
 passages. If the description is unclear, compare extracted text against the
 existing PDF obtained through `paper.pdf.download(...)`.
+
+Adding an author does **not** require conference or workshop approval and is
+not, by itself, a reason to pause. Update the matching author metadata through
+the public library API, preserving existing person IDs and author order.
+Call `anthology.people.ingest_namespec()` for added name specifications and
+`paper.refresh_bibkey()` after changing the author list.
 
 ### When to ask
 
