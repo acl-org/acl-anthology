@@ -16,7 +16,8 @@
 # limitations under the License.
 
 """Creates the Crossref metadata submission XML for ACL Anthology data.
-Needs to be uploaded to Crossref via the ACL organization credentials.
+Needs to be uploaded to Crossref via the ACL organization credentials;
+bin/deposit_dois.py generates and uploads it in one step.
 Note that each DOI assigned costs the ACL $1 USD.
 
 - Only assign DOIs to ACL venues (i.e., those run by ACL or
