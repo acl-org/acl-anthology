@@ -24,18 +24,18 @@ Arguments:
     AUTHORID            One or more author IDs
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
 
 def disable_name_matching(author_ids):
     changes = 0
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(
+        suppress_warnings=("NameSpecResolutionWarning",)
+    )
 
     for author_id in author_ids:
         person = anthology.get_person(author_id)
@@ -61,5 +61,4 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        disable_name_matching(author_ids=args["AUTHORID"])
+    disable_name_matching(author_ids=args["AUTHORID"])

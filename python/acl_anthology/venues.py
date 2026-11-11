@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, validators as v, asdict
+from collections import defaultdict
 from msgspec import json
 from pathlib import Path
 from typing import Any, Iterator, Optional, TYPE_CHECKING
@@ -34,6 +35,7 @@ if TYPE_CHECKING:
     from _typeshed import StrPath
     from .anthology import Anthology
     from .collections import Volume
+    from .sigs import SIG
 
 
 VENUE_INDEX_FILE = "json/venues.json"
@@ -54,6 +56,8 @@ class Venue:
         item_ids: An unordered set of volume IDs associated with this venue.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
         url: A website URL for the venue.
+        description: A description text that appears on the website and may contain Markdown.
+        related_ids: A list of venue IDs that should be considered related to this one.  This induces a symmetric relationship.  To _find_ related venues, use [`Venue.related()`][acl_anthology.venues.Venue.related].
         type: The venue classification, currently "journal" or "workshop".
     """
 
@@ -74,10 +78,13 @@ class Venue:
         default=None, validator=v.optional(v.matches_re("^[A-Z]$"))
     )
     url: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
-    # TODO: Should we reconsider 'type'? Currently used to designate journals
-    # at the venue level; but journals are also marked on the individual
-    # volumes.
+    description: Optional[str] = field(
+        default=None, validator=v.optional(v.instance_of(str))
+    )
+    related_ids: list[str] = field(factory=list)
     type: Optional[str] = field(default=None, validator=v.optional(v.instance_of(str)))
+    # SIG–Venue associations are stored in SIGs, so this attribute is populated by SIG/SIGIndex
+    _sig_ids: set[str] = field(factory=set, converter=set, repr=False, eq=False)
 
     @property
     def root(self) -> Anthology:
@@ -104,6 +111,39 @@ class Venue:
                 )
             yield volume
 
+    def related(self) -> list[Venue]:
+        """
+        Returns:
+            A list of venues marked as being related to this venue.
+        """
+        try:
+            return [
+                self.parent[related_id] for related_id in self.parent.related[self.id]
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, venue ID '{exc.args[0]}' is not defined in venues.json"
+            )
+            raise exc
+
+    def sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs normally associated with this venue, to be used as a hint at ingestion time.
+
+        Note:
+            This is only used as an aid during ingestion; these associations are _not_ propagated automatically to volumes (i.e. volumes belonging to this venue are not automatically associated with these SIGs, too).
+
+            To change the association of a venue to a SIG, modify [SIG.venue_ids][acl_anthology.sigs.SIG.venue_ids].
+        """
+        try:
+            return [self.root.sigs[sig] for sig in self._sig_ids]
+        except KeyError as exc:  # pragma: no cover
+            exc.add_note(
+                f"Most likely, SIG ID '{exc.args[0]}' is not defined in sigs.json"
+            )
+            raise exc
+
 
 @attach_custom_repr
 @define
@@ -116,12 +156,16 @@ class VenueIndex(SlottedDict[Venue]):
         parent: The parent Anthology instance to which this index belongs.
         path: The path to `venues.json`.
         no_item_ids: If set to True, skips parsing all XML files, which means the reverse-indexing of Volumes via `Venue.item_ids` will not be available.
+        related: A dictionary mapping venue IDs to a set of related venue IDs.
         is_data_loaded: A flag indicating whether the data file has been loaded and the index has been built.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     path: Path = field(init=False)
     no_item_ids: bool = field(repr=False, default=False)
+    _related: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(
         init=False, default=False, metadata={"repr_omit_if": True}
     )
@@ -129,6 +173,12 @@ class VenueIndex(SlottedDict[Venue]):
     @path.default
     def _path(self) -> Path:
         return self.parent.datadir / Path(VENUE_INDEX_FILE)
+
+    @property
+    def related(self) -> dict[str, set[str]]:
+        if not self.is_data_loaded:
+            self.load()
+        return self._related
 
     def load(self) -> None:
         """Load and parse the `venues.json` file.
@@ -182,6 +232,7 @@ class VenueIndex(SlottedDict[Venue]):
     def reset(self) -> None:
         """Reset the index."""
         self.data = {}
+        self._related = defaultdict(set)
         self.is_data_loaded = False
 
     def build(self) -> None:
@@ -190,8 +241,20 @@ class VenueIndex(SlottedDict[Venue]):
         Raises:
             ValueError: If a volume lists a venue ID that doesn't exist (i.e., isn't defined in `venues.json`).
         """
+        for venue_id, venue in self.data.items():
+            for related_id in venue.related_ids:
+                self._related[venue_id].add(related_id)
+                self._related[related_id].add(venue_id)
         if self.no_item_ids:
             return
+        for sig_id, sig in self.parent.sigs.items():
+            for venue_id in sig.venue_ids:
+                try:
+                    self.data[venue_id]._sig_ids.add(sig_id)
+                except KeyError:  # pragma: no cover
+                    raise ValueError(
+                        f"SIG {sig.id} lists associated venue {venue_id}, which doesn't exist"
+                    )
         for volume in self.parent.volumes():
             for venue_id in volume.venue_ids:
                 try:
@@ -216,8 +279,9 @@ class VenueIndex(SlottedDict[Venue]):
             # Serialize everything except "id", "item_ids", "parent" and default values
             data[venue_id] = asdict(
                 venue,
-                filter=lambda a, v: a.name not in ("id", "item_ids", "parent")
-                and v != a.default,
+                filter=lambda a, v: a.name not in ("id", "item_ids", "parent", "_sig_ids")
+                and v != a.default
+                and not (isinstance(v, list) and len(v) == 0),
             )
 
         with open(path, "wb") as f:

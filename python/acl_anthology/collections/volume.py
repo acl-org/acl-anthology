@@ -263,6 +263,9 @@ class Volume(SlottedDict[Paper]):
         if self.root.venues.is_data_loaded:
             for venue in self.venue_ids:
                 self.root.venues[venue].item_ids.add(self.full_id_tuple)
+        if self.root.sigs.is_data_loaded:
+            for sig in self.sig_ids:
+                self.root.sigs[sig].item_ids.add(self.full_id_tuple)
 
         if (
             self.type == VolumeType.JOURNAL

@@ -524,6 +524,88 @@
   line-height: 1.5;
 }
 
+.acl-author-metrics {
+  &__bar:hover rect {
+    filter: brightness(.88);
+  }
+
+  &__scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+
+    &:focus-visible {
+      outline: .15rem solid $blue;
+      outline-offset: .15rem;
+    }
+  }
+
+  &__chart {
+    display: block;
+    min-width: 100%;
+    font-size: .7rem;
+    font-variant-numeric: tabular-nums;
+
+    text {
+      fill: $acl-muted;
+    }
+  }
+
+  &__category-0 {
+    fill: darken($green, 8%);
+    background: darken($green, 8%);
+  }
+
+  &__category-1 {
+    fill: $purple;
+    background: $purple;
+  }
+
+  &__category-2 {
+    fill: tint-color($red, 60%);
+    background: tint-color($red, 60%);
+  }
+
+  &__category-3 {
+    fill: $secondary;
+    background: $secondary;
+  }
+
+  &__line {
+    fill: none;
+    stroke: $orange;
+    stroke-width: 2;
+    pointer-events: none;
+  }
+
+  &__point {
+    fill: $orange;
+  }
+
+  &__line-key {
+    width: 1.2rem;
+    border-top: .15rem solid $orange;
+  }
+
+  &__grid,
+  &__divider {
+    stroke: $acl-line;
+    stroke-width: 1;
+  }
+
+  &__divider {
+    stroke-dasharray: 3 4;
+  }
+
+  &__group-label {
+    font-weight: $font-weight-semibold;
+  }
+
+  &__table {
+    font-size: .8rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
 @include media-breakpoint-down(md) {
   .acl-people-histogram {
     padding: 1.25rem 1.15rem 1.15rem;

@@ -265,8 +265,8 @@ def abstract_has_empty_markup(abstract: MarkupText) -> bool:
 
 
 # Maps (slugified full name, number of spaces in the full name) -> set of
-# observed split points (i.e. the number of whitespace-delimited tokens in the
-# first name) seen in the existing Anthology data. Populated once in main() and
+# preferred or observed split points (the number of tokens in the first name).
+# A unique explicit canonical split takes precedence over aliases. Built in main()
 # used by resegment_name() to align ingested name splits with existing ones.
 NameSplitIndex = Dict[Tuple[str, int], set[int]]
 _name_split_index: Optional[NameSplitIndex] = None
@@ -286,7 +286,10 @@ def build_name_split_index(anthology: Anthology) -> NameSplitIndex:
     The index is keyed by the slugified full name together with the number of
     spaces in the full name (so that, e.g., "Jean-Pierre Dupont" and
     "Jean Pierre Dupont" -- which share a slug but differ in token count -- are
-    kept distinct). The value is the set of split points observed for that name.
+    kept distinct). A unique canonical split from explicitly defined persons
+    takes precedence over aliases and historical paper names. Persons with
+    name matching disabled do not supply preferences. If canonical splits
+    conflict or no canonical preference exists, retain the observed splits.
 
     Returns:
         The index, which can be assigned to the module-level ``_name_split_index``.
@@ -300,6 +303,21 @@ def build_name_split_index(anthology: Anthology) -> NameSplitIndex:
         if num_spaces < 2:
             continue
         index[(name.slugify(), num_spaces)].add(len(name.first.split()))
+
+    canonical_splits: NameSplitIndex = defaultdict(set)
+    for person in anthology.people.values():
+        if not person.is_explicit or person.disable_name_matching:
+            continue
+        name = person.canonical_name
+        if not name.first or name.script is not None:
+            continue
+        num_spaces = name.as_first_last().count(" ")
+        if num_spaces < 2:
+            continue
+        canonical_splits[(name.slugify(), num_spaces)].add(len(name.first.split()))
+    for key, splits in canonical_splits.items():
+        if len(splits) == 1:
+            index[key] = splits
     return index
 
 
@@ -426,6 +444,11 @@ def add_parent_event(
     else:
         event.add_colocated(volume_full_id)
         log.info(f"Created event entry in {parent_event} for {volume_full_id}")
+
+    sorted_colocated_ids = dict(sorted(event.colocated_ids.items()))
+    if list(event.colocated_ids) != list(sorted_colocated_ids):
+        event.colocated_ids = sorted_colocated_ids
+        event.collection.is_modified = True
 
 
 def configure_event(collection: Collection, args: argparse.Namespace) -> None:
@@ -594,6 +617,22 @@ def _aclpub_frontmatter_data(
     return read_bib_entry(bib0, "0")
 
 
+def normalize_book_title(title: MarkupText | str) -> MarkupText | str:
+    """Remove a duplicated article from an ingested volume title."""
+    pattern = r"\bthe [Tt]he\b"
+    if isinstance(title, str):
+        return re.sub(pattern, "the", title)
+    if not re.search(pattern, title.as_text()):
+        return title
+    element = title.to_xml()
+    for node in element.iter():
+        if node.text:
+            node.text = re.sub(pattern, "the", node.text)
+        if node.tail:
+            node.tail = re.sub(pattern, "the", node.tail)
+    return MarkupText.from_xml(element)
+
+
 def read_ingest_metadata(
     anthology: Anthology, source: str, format_: str, args: argparse.Namespace
 ) -> Dict[str, Any]:
@@ -629,6 +668,7 @@ def read_ingest_metadata(
             or normalize_latex(meta.get("booktitle") or meta.get("title"))
             or f"{meta['abbrev']} {meta['year']}"
         )
+        volume_title = normalize_book_title(volume_title)
         volume_editors = []
         if frontmatter_data is not None:
             volume_editors = frontmatter_data["editors"] + frontmatter_data["authors"]
@@ -717,7 +757,9 @@ def read_ingest_metadata(
             "month": meta.get("month"),
             "publisher": meta.get("publisher"),
             "address": meta.get("location"),
-            "title": normalize_latex(meta["book_title"]) or meta["book_title"],
+            "title": normalize_book_title(
+                normalize_latex(meta["book_title"]) or meta["book_title"]
+            ),
             "editors": [namespec_from_author(author) for author in meta["editors"]],
             "venue_ids": [venue_name] + (["ws"] if is_workshop else []),
             "isbn": str(meta["isbn"]) if meta.get("isbn") else None,
@@ -727,7 +769,7 @@ def read_ingest_metadata(
             "attachments_dest_dir": attachments_dest_dir,
             "proceedings_pdf_src": proceedings_pdf_src,
             "proceedings_pdf_dest": proceedings_pdf_dest,
-            "sig": None,
+            "sig": meta.get("sig"),
             "booktitle": meta.get("book_title"),
         }
 
@@ -939,7 +981,8 @@ def ingest(
 ) -> None:
     """
     Ingests the volume and its papers into the Anthology, agnostic to the underlying
-    ingestion format.
+    ingestion format. Replacing a volume preserves its position and invalidates
+    the citation-key index so removed papers do not reserve replacement keys.
     """
     volume_full_id = metadata["volume_full_id"]
     if volume_full_id in seen_volume_ids:
@@ -949,8 +992,10 @@ def ingest(
     collection = anthology.get_collection(metadata["collection_id"])
     if collection is None:
         collection = anthology.collections.create(metadata["collection_id"])
-    if collection.get(metadata["volume_name"]) is not None:
+    original_volume_order = list(collection)
+    if metadata["volume_name"] in original_volume_order:
         del collection[metadata["volume_name"]]
+        anthology.collections.bibkeys.reset()
 
     volume_kwargs: Dict[str, Any] = {
         "id": metadata["volume_name"],
@@ -974,6 +1019,11 @@ def ingest(
         )
 
     volume_obj = collection.create_volume(**volume_kwargs)
+    if metadata["volume_name"] in original_volume_order:
+        for volume_id in original_volume_order:
+            volume = collection[volume_id]
+            del collection[volume_id]
+            collection[volume_id] = volume
 
     for paper in paper_stream:
         if not paper.get("archival", True):
@@ -1028,6 +1078,7 @@ def ingest(
             metadata["sig"],
             volume_obj,
         )
+    register_suggested_sigs(volume_obj)
     configure_event(collection, args)
     add_parent_event(anthology, args.parent_event, volume_full_id)
 
@@ -1188,6 +1239,22 @@ def register_volume_with_sig(
         volume.sig_ids += (sig_key,)
 
 
+def register_suggested_sigs(volume: Volume) -> None:
+    """Store venue-suggested SIGs, including EMNLP's for Findings: EMNLP."""
+    venues = list(volume.venues())
+    if "findings" in volume.venue_ids and volume.id == "emnlp":
+        venues.append(volume.root.venues["emnlp"])
+    for venue in venues:
+        for sig in sorted(venue.sigs(), key=lambda item: item.id):
+            if sig.id in volume.sig_ids:
+                continue
+            log.info(
+                f"Adding SIG '{sig.id}' to {volume.full_id} based on venue "
+                f"association(s): {venue.id}"
+            )
+            volume.add_sig(sig)
+
+
 def main(args):
     setup_rich_logging()
 
@@ -1202,7 +1269,7 @@ def main(args):
         log.info(f"Detected {format_} format for {source}")
         formats[source] = format_
 
-    anthology = Anthology.from_within_repo()
+    anthology = Anthology.from_within_repo(suppress_warnings=False)
 
     anthology.load_all()
 
@@ -1224,6 +1291,11 @@ def main(args):
         )
 
     anthology.save_all()
+    if args.parent_event:
+        event = anthology.get_event(args.parent_event)
+        if event is not None:
+            # Minimal-diff serialization preserves the previous colocated order.
+            event.collection.save(minimal_diff=False)
 
 
 if __name__ == "__main__":

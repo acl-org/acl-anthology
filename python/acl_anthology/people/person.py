@@ -101,7 +101,7 @@ class Person:
         orcid: The person's ORCID.
         comment: A comment for disambiguation purposes.
         degree: The person's institution of highest degree, for disambiguation purposes.
-        similar_ids: A list of person IDs with names that should be considered similar to this one.  Do **not** use this to _find_ people with similar names; that should be done via [`PersonIndex.similar`][acl_anthology.people.index.PersonIndex].  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.
+        similar_ids: A list of person IDs with names that should be considered similar to this one.  This attribute can be used to explicitly add more "similar IDs" that are not automatically derived via similar names.  To _find_ people with similar names, use [`Person.similar()`][acl_anthology.people.person.Person.similar].
         is_explicit: If True, this person's ID is explicitly defined in `people.json`.  You probably want to use [`make_explicit()`][acl_anthology.people.person.Person.make_explicit] rather than change this attribute.
     """
 
@@ -441,3 +441,20 @@ class Person:
                         f"Person {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
                     )  # pragma: no cover
                 yield volume
+
+    def similar(self) -> list[Person]:
+        """
+        Returns:
+            A list of persons with names considered similar to this one.
+        """
+        try:
+            return [
+                self.parent[pid]
+                for pid in self.parent.similar.subset(self.id)
+                if pid != self.id
+            ]
+        except KeyError as exc:
+            exc.add_note(
+                f"Most likely, non-existent person ID '{exc.args[0]}' appears in a 'similar' entry in people.json"
+            )
+            raise exc

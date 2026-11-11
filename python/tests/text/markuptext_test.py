@@ -590,6 +590,7 @@ test_cases_markup_from_latex = (
 
 
 @pytest.mark.parametrize("inp, out", test_cases_markup_from_latex)
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.TeXParserWarning")
 def test_markup_from_latex(inp, out):
     markup = MarkupText.from_latex(inp)
     assert markup.as_xml() == out
@@ -648,6 +649,7 @@ test_cases_markup_from_latex_maybe = (
 
 
 @pytest.mark.parametrize("inp, out1, out2", test_cases_markup_from_latex_maybe)
+@pytest.mark.filterwarnings("ignore::acl_anthology.exceptions.TeXParserWarning")
 def test_markup_from_latex_maybe(inp, out1, out2):
     markup = MarkupText.from_latex(inp)
     assert markup.as_xml() == out1

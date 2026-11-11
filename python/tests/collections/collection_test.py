@@ -365,7 +365,7 @@ def test_collection_create_volume_should_update_venue(anthology, pre_load, reset
 )
 def test_collection_create_volume_should_update_sig(anthology, pre_load, reset):
     if pre_load:
-        anthology.venues.load()  # otherwise we test creation, not updating
+        anthology.sigs.load()  # otherwise we test creation, not updating
 
     collection = anthology.collections.create("2000.empty")
     volume = collection.create_volume(
@@ -377,7 +377,7 @@ def test_collection_create_volume_should_update_sig(anthology, pre_load, reset):
     if reset:
         anthology.reset_indices()
 
-    # Nev volume should be added to existing venue
+    # New volume should be added to existing SIG
     assert volume.full_id_tuple in anthology.sigs["sigfake1"].item_ids
 
 

@@ -31,7 +31,7 @@ jobs:
       # Setup all dependencies
       - uses: actions/checkout@v7
       - name: Install uv and set python version
-        uses: astral-sh/setup-uv@v10.1.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: ${{ matrix.python-version }}
           working-directory: python
@@ -66,6 +66,11 @@ jobs:
         if: ${{ matrix.python-version == '3.14' }}
         run: uv run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
 
+      # Build documentation, but only once to save time (doesn't depend on OS/Python version)
+      - name: Build documentation
+        if: ${{ matrix.python-version == '3.14' && matrix.os == 'ubuntu-latest' }}
+        run: uv run mkdocs build
+
       # Coverage report
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v7
@@ -89,7 +94,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install uv and set python version
-        uses: astral-sh/setup-uv@v10.1.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           python-version: "3.14"
           working-directory: python

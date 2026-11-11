@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.plurvallm">
+  <volume id="1" type="proceedings" ingest-date="2026-10-31">
+    <!-- https://aclanthology.org/2026.plurvallm-1/ -->
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Pluralistic Value Alignment of <fixed-case>LLM</fixed-case>s</booktitle>
+      <editor><first>Deyi</first><last>Xiong</last></editor>
+      <editor><first>António</first><last>Branco</last></editor>
+      <editor><first>Hongming</first><last>Zhang</last></editor>
+      <editor><first>Yue</first><last>Dong</last></editor>
+      <editor><first>Benyou</first><last>Wang</last></editor>
+      <editor><first>Wenxuan</first><last>Zhang</last></editor>
+      <editor><first>Li</first><last>Zhou</last></editor>
+      <editor><first>Jingting</first><last>Zheng</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Hengqin, China</address>
+      <isbn>979-8-89176-453-8</isbn>
+      <month>November</month>
+      <year>2026</year>
+      <pdf hash="918c647d"/>
+      <venue>plurvallm</venue>
+      <venue>ws</venue>
+      <doi>10.18653/2026.plurvallm-1</doi>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.plurvallm-1.0/ -->
+      <pdf hash="9f54d8db"/>
+      <bibkey>plurva-llm-2026-1</bibkey>
+      <doi>10.18653/2026.plurvallm-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.plurvallm-1.1/ -->
+      <title><fixed-case>S</fixed-case>tealth<fixed-case>RL</fixed-case>: Reinforcement Learning Paraphrase Attacks for Multi-Detector Evasion of <fixed-case>AI</fixed-case>-Text Detectors</title>
+      <author id="suraj-ranganath" orcid="0009-0008-8581-7365"><first>Suraj</first><last>Ranganath</last></author>
+      <author id="atharv-ramesh" orcid="0009-0000-0634-9594"><first>Atharv</first><last>Ramesh</last></author>
+      <pages>1-16</pages>
+      <abstract>AI-text detectors are increasingly used in high-stakes settings, but their robustness to meaning-preserving adversarial rewriting remains unclear. We introduce StealthRL, a reinforcement learning framework for stress-testing detectors with adaptive paraphrase attacks. StealthRL trains a paraphrase policy against a detector ensemble while enforcing semantic fidelity, then evaluates transfer to held-out detector families on the full filtered MAGE test pool. Across RoBERTa, Fast-DetectGPT, Binoculars, and MAGE, the resulting attack sharply degrades detection performance, driving mean TPR@1%FPR down to 0.024 while retaining nontrivial semantic overlap and readable prose. The attack also transfers to detectors not used during training, indicating a broader robustness failure rather than overfitting to a single target model. We complement the main results with detector-score analysis, repeated-generation stability checks, and automatic and judge-based quality evaluation. Our findings suggest that current AI-text detectors remain brittle under adaptive paraphrasing pressure and motivate robustness evaluation at deployment-relevant operating points. Our code and the trained model checkpoint are publicly available.</abstract>
+      <pdf hash="c48d0caf"/>
+      <bibkey>ranganath-ramesh-2026-stealthrl</bibkey>
+      <doi>10.18653/2026.plurvallm-1.1</doi>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.plurvallm-1.2/ -->
+      <title><fixed-case>M</fixed-case>asal<fixed-case>B</fixed-case>ench: A Benchmark for Contextual and Cross-Cultural Understanding of <fixed-case>P</fixed-case>ersian Proverbs in <fixed-case>LLM</fixed-case>s</title>
+      <author id="ghazal-kalhor" orcid="0000-0002-6153-9048"><first>Ghazal</first><last>Kalhor</last><affiliation>EPFL</affiliation></author>
+      <author id="behnam-bahrak" orcid="0000-0003-4429-2511"><first>Behnam</first><last>Bahrak</last><affiliation>Tehran Institute for Advanced Studies</affiliation></author>
+      <pages>17-23</pages>
+      <abstract>In recent years, multilingual Large Language Models (LLMs) have become an inseparable part of daily life, making it crucial for them to master the rules of conversational language in order to communicate effectively with users. While previous work has evaluated LLMs’ understanding of figurative language in high-resource languages, their performance in low-resource languages remains underexplored. In this paper, we introduce MasalBench, a comprehensive benchmark for assessing LLMs’ contextual and cross-cultural understanding of Persian proverbs, which are a key component of conversation in this low-resource language. We evaluate eight state-of-the-art LLMs on MasalBench and find that they perform well in identifying Persian proverbs in context, achieving accuracies above 0.90. However, their performance drops considerably when tasked with identifying equivalent English proverbs, with the best model achieving 0.79 accuracy. Our findings highlight the limitations of current LLMs in cultural knowledge and analogical reasoning, and they provide a framework for assessing cross-cultural understanding in other low-resource languages. MasalBench is available at https://github.com/kalhorghazal/MasalBench.</abstract>
+      <pdf hash="f67cb490"/>
+      <bibkey>kalhor-bahrak-2026-masalbench</bibkey>
+      <doi>10.18653/2026.plurvallm-1.2</doi>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.plurvallm-1.3/ -->
+      <title>Performative Alignment: Preference Learning under Deployment-Dependent Utility</title>
+      <author><first>Tarun</first><last>Chinta</last><affiliation>Phillips 66</affiliation></author>
+      <pages>24-42</pages>
+      <abstract>Characteristic model phrasings like “delve” and em dashes were favored when rare, made ubiquitous by alignment, and are now penalized by readers as a marker of machine authorship: the style’s utility fell because it became prevalent, and it became prevalent because it was optimized. RLHF is misspecified for preferences whose value depends on how prevalent an output is in deployment. We formalize this as deployment-dependent utility U(y; Dπ), distinguish it from distribution shift, define deployment-consistent policies and the performative gap, and prove that the deployment dependent component is unidentifiable from fixed-deployment preference data at any sample size, while deployment variation identifies it. In a controlled setting a static reward model becomes miscalibrated exactly where deployment concentrates, and RLHF and variational preference learning fail with and without oracle groups. Our central experiment instead elicits the utility from a frontier LLM judge over real text: the judge is robustly prevalence-averse under naturalistic exposure, the miscalibration and oracle failure reproduce, deployment-aware training under a misspecified deployment model is worst of all, and an approximately maximum-diversity policy beats every trained method, tying performative misspecification to RLHF’s documented diversity loss. The human prevalence-response remains unmeasured. Alignment under such preferences is a performative learning problem.</abstract>
+      <pdf hash="1cba52ae"/>
+      <bibkey>chinta-2026-performative</bibkey>
+      <doi>10.18653/2026.plurvallm-1.3</doi>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.plurvallm-1.4/ -->
+      <title><fixed-case>I</fixed-case>nd<fixed-case>R</fixed-case>eg<fixed-case>B</fixed-case>ias: A Dataset for Studying <fixed-case>I</fixed-case>ndian Regional Biases in <fixed-case>E</fixed-case>nglish and Code-Mixed Social Media Comments</title>
+      <author><first>Debasmita</first><last>Panda</last></author>
+      <author><first>Akash</first><last>Anil</last><affiliation>Indian Institute of Science Education and Research Bhopal</affiliation></author>
+      <author id="neelesh-kumar-shukla" orcid="0000-0002-9989-4870"><first>Neelesh Kumar</first><last>Shukla</last><affiliation>Oracle</affiliation></author>
+      <pages>43-62</pages>
+      <abstract>While social biases corresponding to gender, race, socio-economic conditions etc., have been extensively studied in the major applications of Natural Language Processing (NLP), biases corresponding to regions have garnered less attention. This is mainly because of (i) difficulty in extraction of regional biased dataset, (ii) disagreements in annotation due to inherent human’s biases, and (iii) regional biases are studied in combination with other types of social biases and are often under-represented. This paper focuses on creating a dataset IndRegBias, consisting of regional biases in an Indian context reflected by user’s comments on popular social media platforms, namely Reddit and YouTube. We carefully selected 25000 comments appearing on various threads in Reddit and videos on YouTube discussing trending topics on regional issues in India. Furthermore, we propose a multilevel annotation strategy to annotate the comments describing the severity of regional biased statements. To detect the presence of regional bias and their severity in IndRegBias, we evaluate open source Large Language Models (LLM) and Indic Language Models (ILM) by using Zero-Shot, Few-Shot, and Fine-Tuning strategies. We observe that Zero-Shot and Few-Shot approaches show lower accuracy in detecting regional biases and severity in majority of the LLMs and ILMs. However, Fine-Tuning approach significantly enhances the performance of the LLM in detecting Indian regional bias along with their severity.</abstract>
+      <pdf hash="1bf231c1"/>
+      <bibkey>panda-etal-2026-indregbias</bibkey>
+      <doi>10.18653/2026.plurvallm-1.4</doi>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.plurvallm-1.5/ -->
+      <title><fixed-case>E</fixed-case>du<fixed-case>V</fixed-case>alue<fixed-case>B</fixed-case>ench: Benchmarking Situated Value Alignment of <fixed-case>LLM</fixed-case>s in <fixed-case>C</fixed-case>hinese Educational Decision-Making</title>
+      <author><first>Junru</first><last>Wu</last></author>
+      <author id="yuqi-ren" orcid="0009-0005-8053-4073"><first>Yuqi</first><last>Ren</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Yongqi</first><last>Leng</last></author>
+      <author id="zhuowen-han" orcid="0009-0003-7190-3397"><first>Zhuowen</first><last>Han</last></author>
+      <author><first>Xiaoyang</first><last>Gong</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author><first>Zheyu</first><last>Liu</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author><first>Ruwei</first><last>Jin</last></author>
+      <author><first>Cong</first><last>Xiao</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author><first>Wenjie</first><last>Tao</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author><first>Xiao</first><last>Liu</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author><first>Lei</first><last>Guan</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author id="zhaoxia-zhang" orcid="0009-0009-0478-5339"><first>Zhaoxia</first><last>Zhang</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author id="dezhi-tong" orcid="0000-0002-1018-8129"><first>Dezhi</first><last>Tong</last><affiliation>Tianjin Normal University</affiliation></author>
+      <author id="deyi-xiong" orcid="0000-0002-2353-5038"><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
+      <pages>63-77</pages>
+      <abstract>Large language models (LLMs) are increasingly used in educational settings where decisions require factual, pedagogical, and value judgments. Existing benchmarks assess general value alignment or educational capability, but rarely evaluate whether model decisions are consistent with a specified value framework in situated educational contexts. We present EduValueBench, an expert-led benchmark of 1,696 decision-oriented items with expert reference decisions and rationales, covering 12 core values in China, seven educational scenario families, and three challenge mechanisms. We evaluated 15 LLMs from China-based providers using a multi-LLM evaluator panel. Target LLMs received only the educational question, without value labels or expert references. Against the expert-authored reference decisions, model scores range from 24.7% to 54.1%, while value- and scenario-level profiles differentiate similarly ranked models. Case analyses show that responses may be fluent and seemingly reasonable yet still optimize a different educational objective or overlook ethical boundaries. Among responses with jointly valid labels, pairwise evaluator agreement ranges from 88.2% to 92.0%. EduValueBench provides a culturally situated diagnostic benchmark for comparing unguided model decisions with expert-authored educational references. Code and data are available at https://github.com/tjunlp-lab/EduValueBench.</abstract>
+      <pdf hash="06b193c1"/>
+      <bibkey>wu-etal-2026-eduvaluebench</bibkey>
+      <doi>10.18653/2026.plurvallm-1.5</doi>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.plurvallm-1.6/ -->
+      <title>Concepts at Work: Testing Rival Conceptions of Liberty in Large Language Models</title>
+      <author id="mark-hill" orcid="0000-0001-7273-1775"><first>Mark J.</first><last>Hill</last><affiliation>King's College London, University of London</affiliation></author>
+      <pages>78-92</pages>
+      <abstract>Work on pluralistic alignment asks whether language models can represent the range of things people value. That work often treats plurality as disagreement between values, preferences, or cultural positions. We study a different kind of disagreement: two people can share a value and still disagree about its meaning. Liberty is an example. On one view, you are unfree when someone blocks actions. On another, you are unfree when actions depend on unchecked power. We ask whether models prompted to hold one of these conceptual views are able to make it legible, transferable, and operative. We test this with five instruction-tuned models and one frontier reasoning model on 20 vignettes across five domains. Results show prompted views are usually legible and transferable, and these positions can coexist with reduced operativeness. Additionally, when we impose no view at all, models more often default to a non-domination conception of freedom.</abstract>
+      <pdf hash="ffff3fa9"/>
+      <bibkey>hill-2026-concepts</bibkey>
+      <doi>10.18653/2026.plurvallm-1.6</doi>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.plurvallm-1.7/ -->
+      <title><fixed-case>P</fixed-case>lur<fixed-case>VA</fixed-case>-<fixed-case>LLM</fixed-case>-2026 Shared Task <fixed-case>T</fixed-case>rack-2: <fixed-case>P</fixed-case>luri<fixed-case>G</fixed-case>uide—Principle Distillation and Identifier-Bound Demonstrations for Pluralistic Value Alignment</title>
+      <author><first>Jingyi</first><last>Kang</last></author>
+      <author id="junyu-lu" orcid="0000-0002-4094-2540"><first>Junyu</first><last>Lu</last></author>
+      <author id="bo-xu" orcid="0000-0001-5453-978X"><first>Bo</first><last>Xu</last><affiliation>Dalian University of Technology</affiliation></author>
+      <author id="hongfei-lin" orcid="0000-0003-0872-7688"><first>Hongfei</first><last>Lin</last></author>
+      <pages>93-97</pages>
+      <abstract>We present PluriGuide, a parameter-free system for the PlurVA-LLM 2026 shared task on pluralistic value alignment across China, Indonesia, and Sri Lanka. The central challenge is not factual recall but selecting among competing, culturally situated values from limited labeled data. Our system converts the development sets into compact decision guidance through a rationale-map-reduce pipeline. A reasoning model first produces gold-conditioned, structured rationales; it then abstracts these rationales within answer groups and reduces the group summaries into a small set of principles, failure modes, and, for Indonesia, plurality instructions. After a light human review, stable principle identifiers connect this guidance to deliberately selected few-shot demonstrations. Chinese demonstrations contrast procedural accountability with common avoidance patterns, while Indonesian demonstrations span unanimous, majority, and tied-plurality cases. Sinhala items use a task-specific four-label instruction without distilled principles. A single GPT-5.6-sol model performs all test-time inference without parameter updates or per-instance human intervention. On the official Track-2 leaderboard, PluriGuide obtains 0.764, 0.696, and 0.949 accuracy on the three datasets, respectively, for a macro-average of 0.803, placing second overall in the track. These results show that compact, culturally grounded decision rules can provide an effective interface between labeled examples and inference-time reasoning.</abstract>
+      <pdf hash="d7115798"/>
+      <bibkey>kang-etal-2026-plurva</bibkey>
+      <doi>10.18653/2026.plurvallm-1.7</doi>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.plurvallm-1.8/ -->
+      <title><fixed-case>P</fixed-case>lur<fixed-case>VA</fixed-case>-<fixed-case>LLM</fixed-case>-2026 Shared Task <fixed-case>T</fixed-case>rack-1 and 2: Preference Learning for Pluralistic Value Alignment</title>
+      <author><first>Joydeb</first><last>Mondal</last><affiliation>Oracle</affiliation></author>
+      <pages>98-103</pages>
+      <abstract>We describe the Modgenix submissions to both tracks of the PlurVA-LLM 2026 Shared Task on pluralistic value alignment across China, Indonesia, and Sri Lanka. For the resource-constrained track, we use one dense 7.94B-parameter Gemma 4 E4B model for all three datasets. We recast each option as a binary candidate judgment and train rank-8 LoRA parameters using classification and pair- wise preference losses. Deterministic augmen- tation permutes answer positions, balances lan- guages, and creates a small Chinese core- action view. For the open track, we addition- ally evaluate a single GPT-5.4 model with ver- sioned multilingual prompts; its best macro accuracy is 0.795. The compact preference- trained system is stronger, so we submit it un- changed to both tracks. It obtains accuracies of 0.788, 0.683, and 0.954 on the Chinese, In- donesian, and Sri Lankan hidden sets, respec- tively, for a macro-average of 0.808 and first place on both final leaderboards. Error anal- ysis associates candidate preference learning with fewer downside-salience errors, while an objective mismatch between Indonesian anno- tator votes and consensus evaluation remains a key limitation.</abstract>
+      <pdf hash="8e15723d"/>
+      <bibkey>mondal-2026-plurva</bibkey>
+      <doi>10.18653/2026.plurvallm-1.8</doi>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.plurvallm-1.9/ -->
+      <title>The Language You Ask In: Language-Conditioned Ideological Divergence in <fixed-case>LLM</fixed-case> Analysis of Contested Political Documents</title>
+      <author><first>Oleg</first><last>Smirnov</last><affiliation>Microsoft</affiliation></author>
+      <pages>104-142</pages>
+      <abstract>Large language models are increasingly used to interpret politically contested questions, value-laden material on which there is no single correct answer, only competing interpretive traditions. We ask whether a model’s choice among those traditions can turn on the language of the prompt rather than the content. Comparing two frontier models, ChatGPT 5.2 and Claude Opus 4.5, on one contested Ukrainian civil-society document under semantically matched Russian and Ukrainian prompts, we find that both shift along the same axis on identical source text: Russian prompts elicit delegitimizing readings of the document’s authors and Ukrainian prompts legitimating ones. The magnitude is model-dependent but neither model is neutral: each adopts a language-dependent stance, and the difference is one of degree. Because contested political questions admit no correct reading against which to measure, we read this as language-conditioned variation in which interpretive tradition a model activates: the model neither holds a single stance nor surfaces the plurality of available ones, but silently adopts the dominant frame of the prompt’s language. We draw out the consequences for pluralism-aware evaluation, which must probe the same content across the languages a model serves, and for pluralistic alignment in multilingual settings.</abstract>
+      <pdf hash="8ca11695"/>
+      <bibkey>smirnov-2026-language</bibkey>
+      <doi>10.18653/2026.plurvallm-1.9</doi>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.plurvallm-1.10/ -->
+      <title><fixed-case>P</fixed-case>lur<fixed-case>VA</fixed-case>-<fixed-case>LLM</fixed-case>-2026 Shared Task <fixed-case>T</fixed-case>rack-1: Pluralistic Value Alignment in <fixed-case>LLM</fixed-case>s via Multilingual Fine-Tuning and Threshold Calibration</title>
+      <author><first>Vihindi</first><last>Kotalawala</last></author>
+      <author id="nevidu-jayatilleke" orcid="0009-0008-9613-8376"><first>Nevidu</first><last>Jayatilleke</last></author>
+      <pages>143-153</pages>
+      <abstract>We present our system for the PlurVA-LLM 2026 Shared Task Track-1, which focuses on pluralistic value alignment in the contexts of China, Indonesia, and Sri Lanka. For this resource-constrained track, we fine-tuned Llama 3.1 8B Instruct using 4-bit QLoRA. Our approach combines option-permutation augmentation for Chinese data, annotator vote expansion for Indonesian data, and binary reformulation with SinhalaMMLU augmentation for Sri Lankan data. We further applied conditional threshold calibration to the predictions for the Sri Lankan data. The final system achieved accuracies of 0.785 for Chinese, 0.715 for Indonesian, and 0.916 for Sri Lankan, resulting in an overall macro-average accuracy of 0.805.</abstract>
+      <pdf hash="350871f2"/>
+      <bibkey>kotalawala-jayatilleke-2026-plurva</bibkey>
+      <doi>10.18653/2026.plurvallm-1.10</doi>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.plurvallm-1.11/ -->
+      <title>Findings of the <fixed-case>P</fixed-case>lur<fixed-case>VA</fixed-case>-<fixed-case>LLM</fixed-case> 2026 Shared Task on Pluralistic Value Alignment Across <fixed-case>C</fixed-case>hina, <fixed-case>I</fixed-case>ndonesia, and <fixed-case>S</fixed-case>ri <fixed-case>L</fixed-case>anka</title>
+      <author id="supryadi" orcid="0009-0001-8316-1840"><first/><last>Supryadi</last><affiliation>Tianjin University</affiliation></author>
+      <author id="nethmi-muthugala" orcid="0009-0001-5905-8819"><first>Nethmi</first><last>Muthugala</last></author>
+      <author id="siyi-hao" orcid="0009-0003-2051-8579"><first>Siyi</first><last>Hao</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Aoxiang</first><last>Qin</last></author>
+      <author id="jingting-zheng" orcid="0000-0002-5472-9636"><first>Jingting</first><last>Zheng</last><affiliation>Tianjin University and Kunmimg University of Science and Technology</affiliation></author>
+      <author><first>Li</first><last>Zhou</last><affiliation>The Chinese University of Hong Kong, Shenzhen</affiliation></author>
+      <author id="wenxuan-zhang-4952" orcid="0000-0003-1492-4952"><first>Wenxuan</first><last>Zhang</last><affiliation>Singapore University of Technology and Design</affiliation></author>
+      <author id="benyou-wang" orcid="0000-0002-1501-9914"><first>Benyou</first><last>Wang</last><affiliation>The Chinese University of Hong Kong, Shenzhen</affiliation></author>
+      <author><first>Hongming</first><last>Zhang</last><affiliation>Macau University of Science and Technology</affiliation></author>
+      <author><first>António</first><last>Branco</last><affiliation>University of Lisbon</affiliation></author>
+      <author id="deyi-xiong" orcid="0000-0002-2353-5038"><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
+      <pages>154-164</pages>
+      <abstract>This paper presents an overview of the PlurVA-LLM 2026 shared task on pluralistic value alignment across China, Indonesia, and Sri Lanka. To the best of our knowledge, this is the first shared task that aims to align a single large language model (LLM) to pluralistic values of multiple countries. We use 3 pluralistic value datasets: D2VBench (Hao et al., 2026) for China, Pancasila-Dilemmas (Supryadi et al., 2026) for Indonesia, and LKValues (Muthugala et al., 2026) for Sri Lanka. The shared task consists of two tracks: Track-1, a resource-constrained track (LLMs under 8B parameters) and Track-2, an open track without model-size constraints. We received registration from 20 teams across different countries. After finalization, we received 3 submissions for Track-1 and 2 submissions for Track-2. The final score is calculated as the average accuracy of the gold-standard answers across the three datasets. The submitted methods, including fine-tuning and prompt engineering, consistently surpasses the baselines. We believe that the results and findings from this shared task provide valuable insights and serve as a foundation for future research on pluralistic value alignment in LLMs. The dataset of this shared task is available in this link https://huggingface.co/datasets/TJUNLP/PlurVA-LLM-ST-2026.</abstract>
+      <pdf hash="9d85ec00"/>
+      <bibkey>supryadi-etal-2026-findings</bibkey>
+      <doi>10.18653/2026.plurvallm-1.11</doi>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.plurvallm-1.12/ -->
+      <title><fixed-case>C</fixed-case>-<fixed-case>V</fixed-case>oices<fixed-case>C</fixed-case>ompass: Evaluating Value Alignment of <fixed-case>LLM</fixed-case>s with <fixed-case>C</fixed-case>hinese Social Values</title>
+      <author><first>Yuemei</first><last>Xu</last><affiliation>Beijing Foreign Studies University</affiliation></author>
+      <author id="han-zhang-7669" orcid="0009-0001-7694-7669"><first>Han</first><last>Zhang</last></author>
+      <pages>165-175</pages>
+      <abstract>With the widespread deployment of Large Language Models (LLMs), safety evaluation within diverse cultural value contexts has emerged as a critical issue in AI safety research. Existing studies predominantly rely on Western value systems, such as Schwartz’s theory of basic values, lacking systematic evaluation frameworks tailored to Chinese cultural values. To address this gap, C-VoicesCompass, a value alignment evaluation framework for LLMs is proposed oriented toward Chinese Social Values (CSV). The framework aims to assess the degree of LLM alignment across 12 CSV dimensions, and constructs the first human-annotated dataset, C-Voices to cover all 12 CSV dimensions, serving as a benchmark to investigate the self-annotation capacities of LLMs. Second, a lightweight value evaluator, C-VoicesEvaluator, is trained by employing an asymmetric loss function to enhance quantitative assessment precision. Finally, a value-oriented evaluation question set is developed to induce value-related responses from LLMs, enabling a systematic alignment evaluation. Experimental results show that the proposed multi-round cross-correction annotation strategy achieves annotation quality close to human annotation. Evaluations on eight mainstream LLMs reveal significant disparities in alignment and distinct value expression tendencies across the 12 dimensions. The evaluation framework has been developed for public testing at https://cvoices.net.</abstract>
+      <pdf hash="7e1d8e17"/>
+      <bibkey>xu-zhang-2026-c</bibkey>
+      <doi>10.18653/2026.plurvallm-1.12</doi>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.plurvallm-1.13/ -->
+      <title>Country Name or Cultural Evidence? A Causal Audit of Population-Grounded Steering in Large Language Models</title>
+      <author><first>Ziyan</first><last>Yang</last></author>
+      <author><first>Kuo</first><last>Zhao</last></author>
+      <pages>176-186</pages>
+      <abstract>When a country name and an observed population distribution point in different directions, which does a large language model follow? We introduce a four-condition counterfactual audit comprising a no-cue baseline, a country label, matched population evidence, and a conflict condition in which the label and evidence refer to different populations. On a quality-controlled diagnostic subset of GlobalOpinionQA, we select 100 population pairs and evaluate both reciprocal directions, yielding 200 directed contrasts and 3,200 likelihood-based predictions from four instruction-tuned models in the 7B-9B range. Country labels yield modest mean gains in fit to the named population (Country Influence: 0.028-0.071), whereas direct population evidence yields substantially larger gains (Evidence Influence: 0.184-0.284). The paired evidence advantage is positive for every model. Under conflict, normalized Evidence Override ranges from 0.543 to 0.728, 85.5-97.5% of predictions are closer to the evidence population, and all four models agree on the evidence side for 161 of 200 contrasts. These results establish a clear hierarchy of steering signals: country names influence model behavior, but explicit population distributions exert far greater influence and usually prevail when the two disagree. The pattern is consistent with evidence-weighted updating from a weaker, defeasible country cue. Our audit provides an evaluation protocol for pluralistic alignment, connecting steerable and distributional pluralism by testing not merely whether a model can be steered toward different populations, but whether its behavior tracks the observed plurality within those populations.</abstract>
+      <pdf hash="ce864177"/>
+      <bibkey>yang-zhao-2026-country</bibkey>
+      <doi>10.18653/2026.plurvallm-1.13</doi>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.plurvallm-1.14/ -->
+      <title><fixed-case>P</fixed-case>lur<fixed-case>VA</fixed-case>-<fixed-case>LLM</fixed-case>-2026 Shared Task <fixed-case>T</fixed-case>rack-1: Curriculum Fine-Tuning with Soft Labels and Positional Consistency for Cross-Cultural Value Alignment</title>
+      <author><first>Amasha</first><last>Widanagamage</last></author>
+      <author id="hansika-seneviratne" orcid="0009-0008-8611-4469"><first>Hansika</first><last>Seneviratne</last><affiliation>Informatics Institute of Technology</affiliation></author>
+      <author><first>Naween</first><last>Fernando</last><affiliation>University of Moratuwa</affiliation></author>
+      <author id="dilushri-pavithra" orcid="0009-0003-8521-7478"><first>Dilushri</first><last>Pavithra</last><affiliation>Informatics Institute of Technology</affiliation></author>
+      <author id="ruvan-weerasinghe" orcid="0000-0002-1392-7791"><first>Ruvan</first><last>Weerasinghe</last><affiliation>Informatics Institute of Technology</affiliation></author>
+      <author id="deshan-sumanathilaka" orcid="0009-0005-8933-6559"><first>Deshan</first><last>Sumanathilaka</last></author>
+      <pages>187-196</pages>
+      <abstract>Pluralistic value alignment asks whether a language model can adapt its judgements to distinct, locally grounded value systems rather than reflecting a single aggregated notion of human preference. The PlurVA-LLM shared task evaluates this setting by unifying three independently constructed, culturally grounded multiple-choice value dilemmas across Chinese, Indonesian, and Sri Lankan datasets. We present a single-model submission based on Qwen3.5-4B with LoRA fine-tuning, trained only on the 1,359 labelled development instances provided by the task. Our method combines three ideas motivated directly by the task structure: soft-label supervision for Indonesian annotator-vote distributions, consistency regularisation across option permutations to reduce answer-position bias, and a staged multilingual curriculum with cross-validation-based iteration selection. On the hidden test set, our system achieves a macro-average accuracy of 0.8062, with 0.7788 on Chinese, 0.7139 on Indonesian, and 0.9260 on Sri Lankan, outperforming a manually tuned reference curriculum from our internal development. These results show that a single parameter-efficient model can unify culturally and structurally distinct value-alignment benchmarks under a low-resource training budget.</abstract>
+      <pdf hash="6c08d704"/>
+      <bibkey>widanagamage-etal-2026-plurva</bibkey>
+      <doi>10.18653/2026.plurvallm-1.14</doi>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.plurvallm-1.15/ -->
+      <title><fixed-case>N</fixed-case>ep<fixed-case>P</fixed-case>lural: A Human-Anchored Benchmark for Persona Annotation in <fixed-case>N</fixed-case>epali Migration Discourse</title>
+      <author id="jinu-nyachhyon" orcid="0009-0009-5436-3468"><first>Jinu</first><last>Nyachhyon</last><affiliation>Herald College Kathmandu</affiliation></author>
+      <author id="anish-khatiwada" orcid="0009-0001-2557-7231"><first>Anish</first><last>Khatiwada</last><affiliation>University of Wolverhampton</affiliation></author>
+      <author><first>Bimal</first><last>Timilsina</last><affiliation>Independent</affiliation></author>
+      <pages>197-210</pages>
+      <abstract>Pluralistic alignment asks that language models faithfully represent a society’s diverse, competing values rather than collapse them into one dominant viewpoint, yet flagship pluralistic-alignment datasets remain heavily skewed toward Western respondents. We introduce NepPlural, a human-anchored benchmark for modelling competing socio-cultural personas in Nepali public discourse on youth migration and brain drain. We curate 2,148 code-mixed (Devanagari, Romanized Nepali, English) YouTube comments, annotate them along a four-axis persona taxonomy (Intent, Primary Driver, Value Orientation, Affect) plus an explicit No-Persona class, and build a 300-comment gold set labelled independently by three native Nepali speakers (mean Fleiss’ <tex-math>\kappa \approx 0.55</tex-math>). Using this gold set to audit automatic annotation, we find that LLM annotation reliability is driven by protocol. Labels collected in batches through chat interfaces reach only near-chance inter-model agreement (<tex-math>\kappa \approx 0.17</tex-math>). Annotating one comment at a time raises agreement above the native-speaker level (<tex-math>\kappa \approx 0.72</tex-math>), but consistency is not validity: under a forced-choice schema, models agree on personas for the 39% of comments native speakers judge to express none, keeping macro-F1 against human gold near 0.50. Allowing abstention resolves this: models recover No-Persona comments with F1 of 0.79 to 0.87 and, against leave-one-annotator-out references, match or exceed individual native speakers (macro-F1 0.75 to 0.86 vs. 0.75). Encoders fine-tuned on the batched labels reach only 0.34. Finally, a human-judged steerability probe finds that three frontier models adopt single persona axes with 59 to 77% fidelity but compose full personas only 33% of the time, with no congruence gap detected at this scale between Western-congruent and Nepali-collectivist personas. We release the data, code, prompts, and all model outputs.</abstract>
+      <pdf hash="db43c205"/>
+      <bibkey>nyachhyon-etal-2026-nepplural</bibkey>
+      <doi>10.18653/2026.plurvallm-1.15</doi>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.plurvallm-1.16/ -->
+      <title><fixed-case>C</fixed-case>omp<fixed-case>O</fixed-case>rca: Corpus-Scale Compliance Labelling of Instruction-Tuning Data</title>
+      <author id="philipp-e-glass" orcid="0009-0009-4807-8716"><first>Philipp E.</first><last>Glass</last><affiliation>Brunel University Uxbridge and Brunel University Uxbridge</affiliation></author>
+      <author id="alina-miron" orcid="0000-0002-0068-4495"><first>Alina</first><last>Miron</last><affiliation>Brunel University of London</affiliation></author>
+      <pages>211-218</pages>
+      <abstract>Studying how fine-tuning shapes refusal and noncompliance behaviour requires knowing which training examples refuse or otherwise fail to fulfil the request. Existing annotations cover evaluation sets, which are far smaller than training corpora. We present CompOrca, compliance labels for all 4,233,923 examples of the OpenOrca corpus. Every example was classified as compliant or noncompliant by five passes of an open-weight LLM judge (LongCat-2.0, 1.6T parameters). The corpus is released as unanimous compliance (94.75%), unanimous noncompliance (1.28%), and nonunanimous rows (3.97%), with the raw vote counts. A single pass flags 2.7–3.2% of the corpus as noncompliant, while only 1.28% is flagged by all five, so the most ambiguous rows can be filtered out. Against 450 human-annotated examples (150 annotated twice; human–human <tex-math>\\kappa = 0.93</tex-math>), the unanimous compliance and noncompliance labels are 97.3% and 86.7% precise. The noncompliance label is a high-precision subset of the corpus’s noncompliance. Published refusal-detection methods recall between 0.4% and 94.1% of human-labelled noncompliance. We release the full corpus with its per-row labels and vote counts at &lt;https://huggingface.co/datasets/cemiu/CompOrca&gt;</abstract>
+      <pdf hash="c6bb8b54"/>
+      <bibkey>glass-miron-2026-comporca</bibkey>
+      <doi>10.18653/2026.plurvallm-1.16</doi>
+    </paper>
+  </volume>
+</collection>

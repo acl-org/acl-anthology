@@ -27,12 +27,10 @@ Options:
     -h --help           Show this help message.
 """
 
-import warnings
 import logging as log
 from docopt import docopt
 
 from acl_anthology import Anthology
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.utils.logging import setup_rich_logging
 
 FLAGSHIP = [
@@ -97,9 +95,8 @@ if __name__ == "__main__":
     log.getLogger("git.cmd").setLevel(log.WARNING)
     log.getLogger("urllib3.connectionpool").setLevel(log.WARNING)
 
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        changed = compute_top_level()
+    changed = compute_top_level()
 
-        if not changed:
-            log.info("No changes to top-level venues")
-        print('Now run>>> git commit -a -m "Update top-level venues"')
+    if not changed:
+        log.info("No changes to top-level venues")
+    print('Now run>>> git commit -a -m "Update top-level venues"')

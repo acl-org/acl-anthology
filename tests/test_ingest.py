@@ -3,24 +3,121 @@
 import logging
 import pytest
 from pathlib import Path
+from shutil import copytree
 from unittest.mock import MagicMock, patch
 from types import SimpleNamespace
 
-from acl_anthology.collections.types import VolumeType
+from acl_anthology import Anthology
+from acl_anthology.collections.types import PaperType, VolumeType
 from acl_anthology.text import MarkupText
-from acl_anthology.people import Name
+from acl_anthology.people import Name, NameSpecification
 from bin.ingest import (
+    add_parent_event,
     abstract_has_empty_markup,
+    build_name_split_index,
     check_for_anonymous_pdf,
     configure_event,
     ensure_venue,
+    ingest,
     read_ingest_metadata,
     read_meta,
     resegment_name,
+    register_suggested_sigs,
     register_volume_with_sig,
 )
 
 DATADIR = Path(__file__).resolve().parent / "data"
+
+
+@pytest.mark.parametrize("with_collision", [False, True])
+def test_reingest_preserves_bibkeys_and_volume_order(tmp_path, with_collision):
+    data = Path(__file__).resolve().parents[1] / "python/tests/data/anthology"
+    anthology = Anthology(copytree(data, tmp_path / "anthology"))
+    anthology.venues.create(
+        id="test", acronym="TEST", name="Test Conference", type="conference"
+    )
+    collection = anthology.collections.create("2026.test")
+    if with_collision:
+        sibling = collection.create_volume(
+            id="other", title="Other Proceedings", venue_ids=("test",)
+        )
+        sibling_paper = sibling.create_paper(
+            id="1",
+            title="Shared Ideas",
+            authors=[NameSpecification(Name("Alex", "Smith"))],
+        )
+        assert sibling_paper.bibkey == "smith-2026-shared"
+    metadata = {
+        "collection_id": "2026.test",
+        "volume_name": "1",
+        "volume_full_id": "2026.test-1",
+        "title": "Test Proceedings",
+        "year": "2026",
+        "volume_type": VolumeType.PROCEEDINGS,
+        "editors": [],
+        "venue_ids": ["test"],
+        "publisher": "Test Publisher",
+        "address": "Test Location",
+        "month": "October",
+    }
+    args = event_args(tmp_path, ingest_date="2026-10-22", parent_event=None)
+    for pass_number in range(3):
+        papers = iter(
+            [
+                {
+                    "id": "0",
+                    "type": PaperType.FRONTMATTER,
+                    "title": "Test Proceedings",
+                },
+                {
+                    "id": "1",
+                    "type": PaperType.PAPER,
+                    "title": "Shared Selective Memory",
+                    "authors": [NameSpecification(Name("Alex", "Smith"))],
+                },
+            ]
+        )
+        ingest(anthology, metadata, papers, set(), args)
+        if pass_number == 0:
+            collection.create_volume(
+                id="last", title="Last Proceedings", venue_ids=("test",)
+            )
+        assert list(collection) == (
+            ["other", "1", "last"] if with_collision else ["1", "last"]
+        )
+        volume = collection["1"]
+        assert volume["0"].bibkey == "test-2026-1"
+        assert volume["1"].bibkey == (
+            "smith-2026-shared-selective" if with_collision else "smith-2026-shared"
+        )
+        if with_collision:
+            assert sibling_paper.bibkey == "smith-2026-shared"
+
+
+def test_add_parent_event_sorts_colocated_volumes():
+    anthology = MagicMock()
+    event = anthology.get_event.return_value
+    event.is_explicit = True
+    event.colocated_ids = {
+        ("2026", "zeta", None): "explicit",
+        ("2026", "alpha", None): "explicit",
+    }
+    volume = anthology.get_volume.return_value
+    volume.get_events.return_value = []
+
+    def add_colocated(_):
+        event.colocated_ids[("2026", "mrl", None)] = "explicit"
+
+    event.add_colocated.side_effect = add_colocated
+
+    add_parent_event(anthology, "emnlp-2026", "2026.mrl-1")
+
+    assert list(event.colocated_ids) == [
+        ("2026", "alpha", None),
+        ("2026", "mrl", None),
+        ("2026", "zeta", None),
+    ]
+    assert event.collection.is_modified is True
 
 
 def test_resegment_name_accepts_explicit_index():
@@ -28,6 +125,90 @@ def test_resegment_name_accepts_explicit_index():
     name_split_index = {(name.slugify(), 2): {1}}
 
     assert resegment_name(name, name_split_index) == Name("Arnab", "Sen Sharma")
+
+
+@pytest.fixture
+def name_split_preferences():
+    canonical = Name("Alex", "De Silva")
+    alias = Name("Alex De", "Silva")
+    people = [
+        SimpleNamespace(
+            canonical_name=canonical,
+            is_explicit=True,
+            disable_name_matching=False,
+        )
+    ]
+    anthology = SimpleNamespace(
+        people=SimpleNamespace(
+            by_name={canonical: ["alex-de-silva"], alias: ["alex-de-silva"]},
+            values=lambda: iter(people),
+        )
+    )
+    return SimpleNamespace(
+        anthology=anthology, canonical=canonical, alias=alias, people=people
+    )
+
+
+def test_name_split_index_prefers_explicit_canonical_name(name_split_preferences):
+    state = name_split_preferences
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1}
+    assert resegment_name(state.alias, index) == state.canonical
+
+
+def test_name_split_preference_preserves_spelling_and_case(name_split_preferences):
+    index = build_name_split_index(name_split_preferences.anthology)
+
+    assert resegment_name(Name("ALEX DE", "SILVA"), index) == Name("ALEX", "DE SILVA")
+
+
+@pytest.mark.parametrize("is_explicit, disabled", [(False, False), (True, True)])
+def test_name_split_index_without_canonical_preference(
+    name_split_preferences, is_explicit, disabled
+):
+    state = name_split_preferences
+    state.people[0].is_explicit = is_explicit
+    state.people[0].disable_name_matching = disabled
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
+
+
+def test_name_split_index_preserves_conflicting_canonical_splits(name_split_preferences):
+    state = name_split_preferences
+    state.people.append(
+        SimpleNamespace(
+            canonical_name=state.alias,
+            is_explicit=True,
+            disable_name_matching=False,
+        )
+    )
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
+    assert resegment_name(state.canonical, index) == state.canonical
+
+
+@pytest.mark.parametrize(
+    "canonical",
+    [Name("Alexandre", "De Silva"), Name("Alex-De", "Silva")],
+)
+def test_name_split_preference_requires_matching_full_form(
+    name_split_preferences, canonical
+):
+    state = name_split_preferences
+    state.people[0].canonical_name = canonical
+
+    index = build_name_split_index(state.anthology)
+
+    assert index[(state.alias.slugify(), 2)] == {1, 2}
+    assert resegment_name(state.alias, index) == state.alias
 
 
 def test_read_meta_accepts_multiple_spaces_between_key_and_value(tmp_path):
@@ -128,6 +309,7 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
         "volume_name": "main",
         "book_title": "Proceedings of YNLG 2025",
         "editors": [],
+        "sig": "SIGGEN",
     }
 
     with (
@@ -140,6 +322,74 @@ def test_aclpub2_metadata_uses_inferred_workshop_type(tmp_path):
 
     assert metadata["volume_type"] == VolumeType.PROCEEDINGS
     assert metadata["venue_ids"] == ["ynlg", "ws"]
+    assert metadata["sig"] == "SIGGEN"
+
+
+@pytest.mark.parametrize(
+    ("title", "expected"),
+    [
+        ("Proceedings of the the Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the The Workshop", "Proceedings of the Workshop"),
+        ("Proceedings of the Theory Workshop", "Proceedings of the Theory Workshop"),
+    ],
+)
+def test_aclpub2_normalizes_book_title(tmp_path, title, expected):
+    source = tmp_path / "source"
+    source.mkdir()
+    meta = {
+        "anthology_venue_id": "YNLG",
+        "event_name": "Workshop on Young Researchers in Natural Language Generation",
+        "year": "2025",
+        "volume_name": "main",
+        "book_title": title,
+        "editors": [],
+    }
+
+    with (
+        patch("bin.ingest.parse_conf_yaml", return_value=meta),
+        patch("bin.ingest.ensure_venue", return_value=("ynlg", "workshop")),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub2", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == expected
+
+
+def test_aclpub_normalizes_frontmatter_book_title_preserving_markup(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text("abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n")
+    title = MarkupText.from_latex(r"Proceedings of the The \textit{Workshop}")
+
+    with (
+        patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")),
+        patch(
+            "bin.ingest._aclpub_frontmatter_data",
+            return_value={"title": title, "editors": [], "authors": []},
+        ),
+    ):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_xml() == "Proceedings of the <i>Workshop</i>"
+
+
+def test_aclpub_normalizes_meta_book_title(tmp_path):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "meta").write_text(
+        "abbrev EAMT\ntitle EAMT\nyear 2026\nvolume 1\n"
+        "booktitle Proceedings of the the Workshop\n"
+    )
+
+    with patch("bin.ingest.ensure_venue", return_value=("eamt", "conference")):
+        metadata = read_ingest_metadata(
+            MagicMock(), str(source), "aclpub", ingest_args(tmp_path)
+        )
+
+    assert metadata["title"].as_text() == "Proceedings of the Workshop"
 
 
 def test_register_volume_with_sig_stores_sig_on_volume():
@@ -150,6 +400,79 @@ def test_register_volume_with_sig_stores_sig_on_volume():
     register_volume_with_sig(anthology, "sigdat", volume)
 
     assert volume.sig_ids == ("sigdat",)
+
+
+def test_register_suggested_sigs_stores_associations_from_venues(caplog):
+    sigann = SimpleNamespace(id="sigann")
+    siglex = SimpleNamespace(id="siglex")
+    starsem = MagicMock(id="starsem")
+    starsem.sigs.return_value = [siglex, sigann]
+    semeval = MagicMock(id="semeval")
+    semeval.sigs.return_value = [siglex]
+    ws = MagicMock(id="ws")
+    ws.sigs.return_value = []
+    volume = MagicMock(
+        full_id="2026.starsem-1",
+        sig_ids=("sigann",),
+    )
+    volume.venues.return_value = [starsem, semeval, ws]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    with caplog.at_level(logging.INFO):
+        register_suggested_sigs(volume)
+        register_suggested_sigs(volume)
+
+    volume.add_sig.assert_called_once_with(siglex)
+    assert volume.sig_ids == ("sigann", "siglex")
+    for venue in (starsem, semeval, ws):
+        assert venue.sigs.call_count == 2
+    assert "based on venue association(s): starsem" in caplog.text
+    assert len(caplog.records) == 1
+
+
+@pytest.mark.parametrize(
+    ("venue_id", "volume_id", "initial_sigs", "expected_sigs"),
+    [
+        ("findings", "emnlp", (), ("sigdat",)),
+        ("findings", "emnlp", ("sigdat",), ("sigdat",)),
+        ("findings", "emnlp", ("sigann",), ("sigann", "sigdat")),
+        ("findings", "acl", (), ()),
+        ("findings", "eacl", (), ()),
+        ("findings", "naacl", (), ()),
+        ("other", "emnlp", (), ()),
+    ],
+)
+def test_findings_emnlp_inherits_emnlp_sigs(
+    venue_id, volume_id, initial_sigs, expected_sigs
+):
+    sigdat = SimpleNamespace(id="sigdat")
+    venue = MagicMock(id=venue_id)
+    venue.sigs.return_value = []
+    emnlp = MagicMock(id="emnlp")
+    emnlp.sigs.return_value = [sigdat]
+    volume = MagicMock(
+        id=volume_id,
+        full_id=f"2026.{venue_id}-{volume_id}",
+        venue_ids=(venue_id,),
+        sig_ids=initial_sigs,
+        root=SimpleNamespace(venues={"emnlp": emnlp}),
+    )
+    volume.venues.return_value = [venue]
+
+    def add_sig(sig):
+        volume.sig_ids += (sig.id,)
+
+    volume.add_sig.side_effect = add_sig
+
+    register_suggested_sigs(volume)
+    register_suggested_sigs(volume)
+
+    assert volume.sig_ids == expected_sigs
+    assert volume.add_sig.call_count == len(expected_sigs) - len(initial_sigs)
 
 
 # PDFs that still carry an "Anonymous ... submission" header and should be

@@ -48,7 +48,6 @@ TODO:
 """
 
 import os
-import warnings
 from datetime import datetime
 from typing import List, Optional, Tuple, Dict
 import logging as log
@@ -65,7 +64,6 @@ import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.exceptions import NameSpecResolutionWarning
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
@@ -160,7 +158,9 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         log.info("Loading anthology")
-        self.anthology = Anthology.from_within_repo(verbose=self.verbose)
+        self.anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",), verbose=self.verbose
+        )
         # self.anthology.load_all()  # not needed to load_all?
 
     def _parse_metadata_changes(self, issue_body: str) -> None | dict:
@@ -671,14 +671,13 @@ if __name__ == "__main__":
     ids = [int(iid) for iid in args["<issueid>"]]
 
     updater = AnthologyMetadataUpdater(github_token, verbose=args["--quiet"])
-    with warnings.catch_warnings(action="ignore", category=NameSpecResolutionWarning):
-        updater.process_metadata_issues(
-            ids=ids,
-            skip_validation=args["--skip-validation"],
-            dry_run=args["--dry-run"],
-            close_old_issues=args["--close-old-issues"],
-            no_branch=args["--no-branch"],
-        )
+    updater.process_metadata_issues(
+        ids=ids,
+        skip_validation=args["--skip-validation"],
+        dry_run=args["--dry-run"],
+        close_old_issues=args["--close-old-issues"],
+        no_branch=args["--no-branch"],
+    )
 
     for stat in updater.stats:
         log.info(f"{stat}: {updater.stats[stat]}")

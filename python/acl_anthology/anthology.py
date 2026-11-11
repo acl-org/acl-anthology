@@ -44,7 +44,11 @@ if TYPE_CHECKING:
     from _typeshed import StrPath
 
 from .config import config, dirs, primary_console
-from .exceptions import SchemaMismatchWarning
+from .exceptions import (
+    SchemaMismatchWarning,
+    MaintainerWarning,
+    suppress_maintainer_warnings,
+)
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .utils.logging import get_logger
@@ -64,14 +68,24 @@ class Anthology:
 
     Attributes:
         datadir: The path to the data folder.
+        suppress_warnings: Whether or not to suppress warnings in the [MaintainerWarning][acl_anthology.exceptions.MaintainerWarning] category.  Can also be given a list of warnings to selectively suppress.  By default, all are suppressed.
         verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
     """
 
-    def __init__(self, datadir: StrPath, verbose: Optional[bool] = None) -> None:
+    def __init__(
+        self,
+        datadir: StrPath,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = None,
+        verbose: Optional[bool] = None,
+    ) -> None:
         if not Path(datadir).is_dir():  # pragma: no cover
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
+        if suppress_warnings is not None:
+            suppress_maintainer_warnings(suppress_warnings)  # pragma: no cover
         if verbose is None:
             verbose = primary_console.is_terminal
         self.verbose = verbose
@@ -114,6 +128,9 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[StrPath] = None,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = False,
         verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
@@ -121,6 +138,7 @@ class Anthology:
         Arguments:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
+            suppress_warnings: Whether or not to suppress warnings in the [MaintainerWarning][acl_anthology.exceptions.MaintainerWarning] category.  Can also be given a list of warnings to selectively suppress.  By default, all are suppressed.
             verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
 
         Note:
@@ -137,13 +155,18 @@ class Anthology:
         else:
             path = Path(path)
         git.clone_or_pull_from_repo(repo_url, path, verbose)
-        anthology = cls(datadir=path / "data", verbose=verbose)
+        anthology = cls(
+            datadir=path / "data", suppress_warnings=suppress_warnings, verbose=verbose
+        )
         anthology._is_in_default_path = in_default_path
         return anthology
 
     @classmethod
     def from_within_repo(
         cls,
+        suppress_warnings: Optional[
+            bool | Iterable[str | type[MaintainerWarning]]
+        ] = False,
         verbose: Optional[bool] = None,
     ) -> Self:
         """Instantiates the Anthology from within its own Git repo, using the repo's main data folder.
@@ -151,13 +174,16 @@ class Anthology:
         Assumes that you have cloned the acl-org/acl-anthology repo and run a script that imports this library from within the repo.
 
         Arguments:
+            suppress_warnings: Whether or not to suppress warnings in the [MaintainerWarning][acl_anthology.exceptions.MaintainerWarning] category.  Can also be given a list of warnings to selectively suppress.  By default, all are suppressed.
             verbose: Whether or not to show progress bars during longer operations.  If this argument is not supplied explicitly, it will default to True _if_ the standard output is a terminal.
 
         Raises:
             git.InvalidGitRepositoryError: If this module is not within a Git repository, e.g. if it was pip-installed.
         """
         path = Path(Repo(__file__, search_parent_directories=True).working_dir)
-        return cls(datadir=path / "data", verbose=verbose)
+        return cls(
+            datadir=path / "data", suppress_warnings=suppress_warnings, verbose=verbose
+        )
 
     def load_all(self) -> Self:
         """Load all Anthology data files.

@@ -65,6 +65,11 @@ from acl_anthology.utils.text import (
     remove_extra_whitespace,
 )
 
+if __package__:
+    from .author_stats import compute_authorship_stats
+else:
+    from author_stats import compute_authorship_stats
+
 BIBLIMIT = None
 ENCODER = msgspec.json.Encoder()
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
@@ -246,11 +251,32 @@ def paper_to_dict(paper):
     return data
 
 
+def author_stats(volumes: Iterable[Volume]):
+    """Count papers (and those with DOIs) and unique authors (and those with ORCID iDs) across volumes.
+
+    Frontmatter is excluded, as its "authors" are the volume editors.
+    """
+    papers = [
+        paper
+        for volume in volumes
+        for paper in volume.papers()
+        if not paper.is_frontmatter
+    ]
+    authors = {ns.resolve() for paper in papers for ns in paper.authors}
+    return {
+        "paper_count": len(papers),
+        "doi_paper_count": sum(1 for paper in papers if paper.doi is not None),
+        "author_count": len(authors),
+        "orcid_author_count": sum(1 for person in authors if person.orcid is not None),
+    }
+
+
 def volume_to_dict(volume):
     """
     Turn a single volume into a dictionary as used by the Hugo templates.
     """
     data = {
+        **author_stats([volume]),
         "has_abstracts": volume.has_abstracts,
         "meta_date": volume.year,  # may be overwritten below
         "papers": [paper.full_id for paper in volume.papers()],
@@ -597,6 +623,15 @@ def export_author_index(people, builddir):
             f.write(ENCODER.encode(rows))
 
 
+def export_author_metrics(anthology: Anthology, builddir, dryrun=False):
+    """Export current authorship counts without accessing historical Git data."""
+    stats = compute_authorship_stats(anthology)
+    if not dryrun:
+        with open(f"{builddir}/data/author_current.json", "wb") as f:
+            f.write(ENCODER.encode(stats))
+    return stats
+
+
 def export_people(anthology: Anthology, builddir, dryrun):
     with make_progress() as progress:
         # Just to make progress bars nicer
@@ -672,13 +707,13 @@ def export_people(anthology: Anthology, builddir, dryrun):
                 data["comment"] = person.comment
             if person.orcid is not None:
                 data["orcid"] = person.orcid
-            similar = anthology.people.similar.subset(person_id)
-            similar.remove(person_id)
-            if similar_verified := [id_ for id_ in similar if is_verified_person_id(id_)]:
-                data["similar_verified"] = sorted(list(similar_verified))
-                similar.difference_update(similar_verified)
-            if similar:  # any remaining IDs are unverified
-                data["similar_unverified"] = sorted(list(similar))
+            similar = person.similar()
+            data["similar_verified"] = sorted(
+                person.id for person in similar if person.is_explicit
+            )
+            data["similar_unverified"] = sorted(
+                person.id for person in similar if not person.is_explicit
+            )
             people[person_id] = data
             progress.update(task, advance=1)
 
@@ -730,8 +765,12 @@ def venue_to_dict(venue_id, venue, explicitly_colocated_ids, current_date=None):
         data["oldstyle_letter"] = venue.oldstyle_letter
     if venue.url is not None:
         data["url"] = venue.url
+    if venue.description is not None:
+        data["description"] = venue.description
     if venue.type is not None:
         data["type"] = venue.type
+    if related := venue.related():
+        data["related"] = set(r.id for r in related)
     data["volumes_by_year"] = {}
     sorted_volumes = sorted(
         venue.volumes(),
@@ -821,6 +860,8 @@ def export_events(anthology: Anthology, builddir, dryrun):
                 sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
+        data["volume_count"] = len(data["volumes"])
+        data.update(author_stats(event.volumes()))
 
         # List venues for each volume in this event
         data["vol_venues"] = {}
@@ -850,12 +891,17 @@ def export_sigs(anthology: Anthology, builddir, dryrun):
     print("Exporting SIGs...")
     for sig in anthology.sigs.values():
         data = {
+            "acronym": sig.acronym,
             "name": sig.name,
             "slug": sig.id,
             "volumes_by_year": {},
         }
         if sig.url is not None:
             data["url"] = sig.url
+        if sig.description is not None:
+            data["description"] = sig.description
+        if related := sig.related():
+            data["related"] = set(r.acronym for r in related)
         for year, meetings in sig.get_meetings_by_year().items():
             data["volumes_by_year"][year] = []
             for meeting in meetings:
@@ -896,6 +942,7 @@ def export_anthology(anthology: Anthology, builddir, clean=False, dryrun=False):
         anthology, builddir, dryrun, paper_count=stats["paper_count"]
     )
     export_people(anthology, builddir, dryrun)
+    export_author_metrics(anthology, builddir, dryrun)
     export_venues(anthology, builddir, dryrun)
     export_events(anthology, builddir, dryrun)
     export_sigs(anthology, builddir, dryrun)
@@ -922,7 +969,7 @@ if __name__ == "__main__":
     # This "freezes" the config, resulting in a massive speed-up
     OmegaConf.resolve(config)
 
-    anthology = Anthology(datadir=args["--importdir"]).load_all()
+    anthology = Anthology(datadir=args["--importdir"], suppress_warnings=False).load_all()
     if tracker.highest >= log.ERROR:
         exit(1)
 

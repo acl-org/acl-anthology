@@ -20,7 +20,6 @@ one author with more than N papers in the counted set.
 import argparse
 import csv
 import sys
-import warnings
 
 from collections import Counter
 from pathlib import Path
@@ -28,7 +27,6 @@ from typing import Iterable, NamedTuple
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Volume
-from acl_anthology.exceptions import NameSpecResolutionWarning
 
 
 class AuthorCount(NamedTuple):
@@ -181,13 +179,17 @@ def main() -> None:
     if args.prolific_threshold is not None and args.prolific_threshold < 0:
         parser.error("--prolific-threshold must be non-negative")
 
-    if not args.show_resolution_warnings:
-        warnings.filterwarnings("ignore", category=NameSpecResolutionWarning)
-
     include_main = not args.colocated_only
     include_colocated = not args.main_only
+    suppress_warnings = (
+        False if args.show_resolution_warnings else ("NameSpecResolutionWarning",)
+    )
 
-    anthology = Anthology(datadir=args.datadir, verbose=False)
+    anthology = Anthology(
+        datadir=args.datadir,
+        suppress_warnings=suppress_warnings,
+        verbose=False,
+    )
     volumes = event_volumes(
         anthology,
         args.event,

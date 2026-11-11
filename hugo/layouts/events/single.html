@@ -10,6 +10,7 @@
   {{ with $event.dates }}
   <span class="fw-light text-muted">{{ . }}</span><br/>
   {{ end }}
+  {{ partial "author_stats.html" (dict "ctx" . "data" $event) }}
   <hr />
 
   {{/* Get the event and iterate through all the volumes associated with it */}}

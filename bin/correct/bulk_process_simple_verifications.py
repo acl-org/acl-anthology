@@ -43,7 +43,6 @@ Options:
 """
 
 import os
-import warnings
 import logging as log
 from datetime import datetime
 
@@ -114,11 +113,13 @@ class AnthologyMetadataUpdater:
 
     def load_anthology(self):
         log.info("Loading anthology")
-        self.anthology = Anthology.from_within_repo()
+        self.anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",)
+        )
 
     def process_verification_issues(
         self,
-        issue_ids=[],
+        issue_ids: list[int] = [],
         verbose=False,
         skip_validation=False,
         dry_run=False,
@@ -126,9 +127,12 @@ class AnthologyMetadataUpdater:
     ):
         """Process all simple verification issues and create PR with changes."""
         # Get all open issues with required labels
-        issues = self.github_repo.get_issues(
-            state="open", labels=["author-page", "correction"]
-        )
+        if issue_ids and len(issue_ids) < 100:
+            issues = [self.github_repo.get_issue(num) for num in issue_ids]
+        else:
+            issues = self.github_repo.get_issues(
+                state="open", labels=["author-page", "correction"]
+            )
 
         current_branch, new_branch_name, today = self.prepare_and_switch_branch(
             no_branch=no_branch
@@ -209,8 +213,7 @@ class AnthologyMetadataUpdater:
                 author_id = data["author_id"]
 
                 # XML file path relative to repo root (for reading current state)
-                xml_repo_path = "data/xml/"
-                json_repo_path = "data/json/"
+                data_repo_path = "data/"
                 if verbose:
                     log.info(f"-> Applying changes to database for author {author_id}")
 
@@ -236,7 +239,7 @@ class AnthologyMetadataUpdater:
                     assert person.id == new_author_id, (
                         f"Explicit ID is {person.id}, expected {new_author_id}"
                     )
-                    self.anthology.save_all()
+                    self.anthology.save_all()  # Note: can be slow
                 except Exception as e:
                     log.error(
                         f"Failed to apply changes to #{issue.number}: {e}",
@@ -247,9 +250,7 @@ class AnthologyMetadataUpdater:
                     continue
 
                 # Commit changes
-                self.local_repo.index.add(
-                    [xml_repo_path + "/*.xml", json_repo_path + "/*.json"]
-                )
+                self.local_repo.git.add(data_repo_path, update=True)
                 self.local_repo.index.commit(
                     f"Process verification for {author_id} (closes #{issue.number})"
                 )
@@ -354,15 +355,14 @@ if __name__ == "__main__":
     if not github_token:
         raise ValueError("Please set GITHUB_TOKEN environment variable")
 
-    with warnings.catch_warnings(action="ignore"):  # NameSpecResolutionWarning
-        updater = AnthologyMetadataUpdater(github_token)
-        updater.process_verification_issues(
-            issue_ids=args.issue_ids,
-            verbose=not args.quiet,
-            skip_validation=args.skip_validation,
-            dry_run=args.dry_run,
-            no_branch=args.no_branch,
-        )
+    updater = AnthologyMetadataUpdater(github_token)
+    updater.process_verification_issues(
+        issue_ids=args.issue_ids,
+        verbose=not args.quiet,
+        skip_validation=args.skip_validation,
+        dry_run=args.dry_run,
+        no_branch=args.no_branch,
+    )
 
     for stat in updater.stats:
         log.info(f"{stat}: {updater.stats[stat]}")
