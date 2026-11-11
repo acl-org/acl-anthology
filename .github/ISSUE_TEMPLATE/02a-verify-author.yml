@@ -1,0 +1,117 @@
+name: Verify Author Page
+description: Link an author page to an ORCID iD, optionally leaving off papers by other people with the same name.
+title: "Author Page: {replace with author page ID}"
+labels: ["correction", "author-page", "verify-author"]
+assignees:
+  - anthology-assist
+body:
+  - type: markdown
+    attributes:
+      value: >
+        The easiest way to fill out this form is from the yellow "Fix author" button on your author page
+        (e.g., https://aclanthology.org/people/matt-post/), which checks your ORCID iD and fills in the fields below.
+        To move papers from one author page to another, use the "Move Papers Between Author Pages" form instead.
+  - type: markdown
+    attributes:
+      value: >
+        For processing times and issue status labels, see [When will my correction be processed?](https://aclanthology.org/faq/correction-timeframe/).
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > **If you authored a 2025 or 2026 publication in the Anthology that was submitted via OpenReview:**
+        > To verify your author page with an ORCID iD, simply [add your ORCID link to your OpenReview profile](https://aclanthology.org/info/author-pages/#2-link-your-profiles-on-conference-management-systems-to-your-orcid-id) and it will appear on your Anthology page within a few weeks.
+        > Please submit an issue here only if you need to change the papers listed on your author page (helps keep staff workloads manageable).
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the metadata (i.e., what appears on the web pages) should match what is displayed on the PDF exactly, including any middle names and/or initials of authors.
+        If this is not the case, **you must first use the "Fix data" button on each affected paper's page to correct this** (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+      options:
+        - label: I confirm that all affected papers show the exact same names on the website as on the PDF.
+          required: true
+  - type: input
+    id: author_page
+    attributes:
+      label: Author Page
+      description: The author page to verify.
+      placeholder: ex. https://aclanthology.org/people/matt-post/unverified/
+    validations:
+      required: true
+  - type: input
+    id: merge_with
+    attributes:
+      label: Merge with author page
+      description: |
+        If your ORCID iD already has a different author page, that page's URL. Staff will merge the two pages.
+      placeholder: ex. https://aclanthology.org/people/matt-post/
+    validations:
+      required: false
+  - type: input
+    id: author_orcid
+    attributes:
+      label: Author ORCID
+      description: |
+        Your [ORCID](https://orcid.org) link. Please also add it to your submission platform profiles per [these instructions](https://aclanthology.org/info/author-pages/).
+      placeholder: ex. https://orcid.org/0009-0003-8868-7504
+    validations:
+      required: true
+  - type: input
+    id: author_highest_degree_institution
+    attributes:
+      label: Institution of highest (anticipated) degree
+      description: |
+        The school or university where you have or will receive your highest degree (e.g., current affiliation for
+        students, Ph.D. institution for faculty and industry researchers). This will be used to form your author
+        page ID, if needed.
+      placeholder: ex. Johns Hopkins University
+    validations:
+      required: true
+  - type: textarea
+    id: papers_not_mine
+    attributes:
+      label: Papers on this page that are not mine
+      description: |
+        Anthology IDs or URLs, one per line. These papers will stay on the unverified page for their author's name.
+        Leave this and the next field empty if every paper on the page is yours; otherwise fill in whichever is shorter.
+      placeholder: ex. 2023.acl-long.42
+    validations:
+      required: false
+  - type: textarea
+    id: papers_only_mine
+    attributes:
+      label: Papers on this page that are mine (if only some)
+      description: |
+        Alternatively, list only your papers, one per line; all other papers will stay on the unverified page.
+      placeholder: ex. 2023.acl-long.42
+    validations:
+      required: false
+  - type: input
+    id: preferred_name
+    attributes:
+      label: Preferred author name
+      description: |
+        If you have published under multiple names, the main one that should appear at the top of your author page.
+        The last name is the primary part of the name, used in citations and sorting (e.g. "De Morgan" for Augustus De Morgan).
+      placeholder: ex. Last name, First name(s).
+    validations:
+      required: false
+  - type: input
+    id: openreview_profile
+    attributes:
+      label: OpenReview profile page URL
+      description: |
+        If you have an OpenReview profile page, please include it here and ensure the page has your ORCID link: [instructions](https://aclanthology.org/info/author-pages/).
+        If you do not have an OpenReview profile, put "none".
+      placeholder: ex. https://openreview.net/profile?id=~Your_Name1
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Anything else staff should know, e.g. a permanent name change.
+    validations:
+      required: false
