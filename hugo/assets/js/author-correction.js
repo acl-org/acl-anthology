@@ -528,6 +528,7 @@
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
     const papersHint = document.getElementById("authorFixMovePapersHint");
+    const papersById = new Map(page.papers.map(function (paper) { return [paper.id, paper]; }));
     renderPaperList(movePapers, false);
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
@@ -556,7 +557,7 @@
     // Papers can be selected once a destination is chosen, except those its author coauthored.
     function updatePaperList() {
       movePapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
-        const paper = page.papers.find(function (paper) { return paper.id === input.value; });
+        const paper = papersById.get(input.value);
         const coauthored = destination !== null && paper.coauthors.includes(destination.id);
         input.disabled = destination === null || coauthored;
         if (input.disabled) input.checked = false;
@@ -732,10 +733,13 @@
 
   // ---- Setup ----
 
-  if (verifyForm) initVerify();
-  if (moveForm) initMove();
-  else initRemove();
-  initOther();
+  // The forms (with a tooltip per paper) are built when the dialog first opens.
+  modal.addEventListener("show.bs.modal", function () {
+    if (verifyForm) initVerify();
+    if (moveForm) initMove();
+    else initRemove();
+    initOther();
+  }, { once: true });
   chooser.querySelectorAll("[data-author-fix-choose]").forEach(function (button) {
     button.addEventListener("click", function () { showPane(button.dataset.authorFixChoose); });
   });
