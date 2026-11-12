@@ -196,7 +196,8 @@ class AnthologyMetadataUpdater:
                 if issuetype:
                     continue
             else:
-                # Legacy "Correction to Author Page" form
+                # Ensure we have a legacy "Correction to Author Page" form
+                # with Verification as the only action.
                 if "[x] Verification:" not in body:
                     continue
                 if "[ ] Split/disambiguate:" not in body:
