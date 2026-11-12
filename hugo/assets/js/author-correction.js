@@ -249,7 +249,6 @@
     // ---- Name to show, when the ticked papers print it in different ways ----
     const nameField = document.getElementById("authorFixPreferredName");
     const nameOptions = nameField.querySelector("[data-author-fix-names]");
-    new bootstrap.Tooltip(document.getElementById("authorFixLastNameInfo"));
 
     // Distinct first/last splits on the ticked papers, so "Juan Lopez Obrador"
     // split as Juan Lopez | Obrador and Juan | Lopez Obrador are separate options.
