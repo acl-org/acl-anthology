@@ -324,7 +324,43 @@
       feedback.replaceChildren(...content);
     }
 
+    // Shows the outcome of an ORCID iD lookup under the field.
+    function showOrcidResult(result) {
+      if (result.mergeWith) {
+        // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
+        const link = document.createElement("a");
+        link.href = authorPageUrl(result.mergeWith);
+        link.textContent = result.mergeWith;
+        setFeedback("valid", [
+          "This ORCID iD already has an author page: ", link,
+          ". Submitting will ask staff to merge this page with it.",
+        ]);
+      } else if (result.owner) {
+        const owner = result.owner;
+        const link = document.createElement("a");
+        const move = document.createElement("a");
+        link.href = authorPageUrl(owner);
+        link.textContent = owner;
+        move.href = "#";
+        move.textContent = "move papers from this page to it";
+        move.addEventListener("click", function (event) {
+          event.preventDefault();
+          chooseDestination({ id: owner, name: owner });
+          showPane("authorFixMove");
+        });
+        setFeedback("invalid", [
+          "This ORCID iD already has an author page: ", link,
+          ". Instead of verifying this page, ", move, ".",
+        ]);
+      } else {
+        setFeedback("valid", ["Valid ORCID iD."]);
+      }
+    }
+
+    // Lookups can finish out of order; only the latest check updates the form.
+    let orcidCheckVersion = 0;
     function checkOrcid() {
+      const version = ++orcidCheckVersion;
       const raw = orcidInput.value;
       if (!raw.trim()) {
         orcidInput.classList.remove("is-valid", "is-invalid");
@@ -345,44 +381,20 @@
       orcidCheck = lookupOrcid(orcid)
         .then(function (owner) {
           if (owner && owner !== page.id && page.verified) {
-            // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
-            const link = document.createElement("a");
-            link.href = authorPageUrl(owner);
-            link.textContent = owner;
-            setFeedback("valid", [
-              "This ORCID iD already has an author page: ", link,
-              ". Submitting will ask staff to merge this page with it.",
-            ]);
             return { orcid: orcid, owner: null, mergeWith: owner };
           }
-          if (owner && owner !== page.id) {
-            const link = document.createElement("a");
-            const move = document.createElement("a");
-            link.href = authorPageUrl(owner);
-            link.textContent = owner;
-            move.href = "#";
-            move.textContent = "move papers from this page to it";
-            move.addEventListener("click", function (event) {
-              event.preventDefault();
-              chooseDestination({ id: owner, name: owner });
-              showPane("authorFixMove");
-            });
-            setFeedback("invalid", [
-              "This ORCID iD already has an author page: ", link,
-              ". Instead of verifying this page, ", move, ".",
-            ]);
-            return { orcid: orcid, owner: owner };
-          }
-          setFeedback("valid", ["Valid ORCID iD."]);
+          if (owner && owner !== page.id) return { orcid: orcid, owner: owner };
           return { orcid: orcid, owner: null };
         })
         .catch(function () {
           // The lookup is a convenience; staff check again when processing the issue.
-          setFeedback("valid", ["Valid ORCID iD."]);
           return { orcid: orcid, owner: null };
         })
         .then(function (result) {
-          orcidChecked = { value: value, result: result };
+          if (version === orcidCheckVersion) {
+            showOrcidResult(result);
+            orcidChecked = { value: value, result: result };
+          }
           return result;
         });
       return orcidCheck;
