@@ -679,7 +679,7 @@
   }
 }
 
-/* "Remove papers" form on author pages: keep (green, ✓) / remove (red, ✗) switches
+/* Paper lists in the "Fix author" dialog: keep (green, ✓) / remove (red, ✗) switches
    in place of checkboxes. The knob carries the symbol, in the track's colour. */
 .acl-author-fix-switches .form-switch {
   padding-left: 3em;
@@ -699,6 +699,13 @@
       border-color: $green;
     }
   }
+}
+
+/* Unverified pages: papers start off, which is neutral (gray) rather than a removal. */
+.acl-author-fix-switches--opt-in .form-switch .form-check-input:not(:checked) {
+  --bs-form-switch-bg: #{escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#fff'/><path d='M-1.1-1.1 1.1 1.1M1.1-1.1-1.1 1.1' stroke='#{$acl-muted}' stroke-width='.8' stroke-linecap='round'/></svg>"))};
+  background-color: $acl-muted;
+  border-color: $acl-muted;
 }
 
 /* "Move papers" form: result under the mouse or highlighted with the arrow keys

@@ -63,15 +63,15 @@
     return new URL(search.authorUrl(page.peopleBase, personId), page.url).toString();
   }
 
-  // With `asSwitch`, each paper gets a keep/remove switch instead of a checkbox.
-  function renderPaperItem(container, paper, checked, asSwitch) {
+  // Each paper gets an on/off switch (styled by .acl-author-fix-switches).
+  function renderPaperItem(container, paper, checked) {
     const item = document.createElement("div");
     const input = document.createElement("input");
     const label = document.createElement("label");
-    item.className = asSwitch ? "form-check form-switch" : "form-check";
+    item.className = "form-check form-switch";
     input.className = "form-check-input";
     input.type = "checkbox";
-    if (asSwitch) input.setAttribute("role", "switch");
+    input.setAttribute("role", "switch");
     input.value = paper.id;
     input.checked = checked;
     input.id = container.dataset.authorFixPapers + "-" + paper.id;
@@ -108,7 +108,7 @@
   }
 
   // Papers come newest first; each year's papers form a group under a year heading.
-  function renderPaperList(container, checked, asSwitch) {
+  function renderPaperList(container, checked) {
     const groups = [];
     let year = null;
     page.papers.forEach(function (paper) {
@@ -124,7 +124,7 @@
         group.append(heading);
         groups.push(group);
       }
-      groups[groups.length - 1].append(renderPaperItem(container, paper, checked, asSwitch));
+      groups[groups.length - 1].append(renderPaperItem(container, paper, checked));
     });
     container.replaceChildren(...groups);
   }
@@ -231,11 +231,10 @@
     const feedback = document.getElementById("authorFixOrcidFeedback");
     const defaultFeedback = feedback.innerHTML;
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
-    // On a verified page all papers start kept, as keep/remove switches; on an unverified
-    // page the author ticks theirs.
-    renderPaperList(verifyPapers, page.verified, page.verified);
+    // On a verified page all papers start kept; on an unverified page the author
+    // switches on theirs.
+    renderPaperList(verifyPapers, page.verified);
     if (page.verified) {
-      verifyPapers.classList.add("acl-author-fix-switches");
       showPaperCounts(verifyPapers, "to keep", "to remove");
     } else {
       showPaperCounts(verifyPapers, "to move to your page", "to stay here");
@@ -433,11 +432,7 @@
       if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
         return showError(verifyForm, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
       }
-      if (mine.length === 0) {
-        return showError(verifyForm, page.verified
-          ? "Please switch on (\u2713) at least one paper that is yours."
-          : "Please select at least one paper that is yours.");
-      }
+      if (mine.length === 0) return showError(verifyForm, "Please switch on (\u2713) at least one paper that is yours.");
       const preferredName = nameField.hidden ? null : nameOptions.querySelector("input:checked");
       if (!nameField.hidden && !preferredName) return showError(verifyForm, "Please choose the name to show on your page.");
 
@@ -662,7 +657,7 @@
       const papers = selectedPapers(movePapers, true);
 
       if (!destination) return showError(moveForm, "Please choose your verified author page first.");
-      if (papers.length === 0) return showError(moveForm, "Please select at least one paper to move.");
+      if (papers.length === 0) return showError(moveForm, "Please switch on (\u2713) at least one paper to move.");
 
       openIssue(moveForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → " + destination.id, {
         source_page: page.url,
@@ -679,8 +674,7 @@
   function initRemove() {
     const removeForm = document.getElementById("authorFixRemoveForm");
     const keepPapers = removeForm.querySelector("[data-author-fix-papers]");
-    keepPapers.classList.add("acl-author-fix-switches");
-    renderPaperList(keepPapers, true, true);
+    renderPaperList(keepPapers, true);
     showPaperCounts(keepPapers, "to keep", "to remove");
 
     removeForm.addEventListener("submit", function (event) {
