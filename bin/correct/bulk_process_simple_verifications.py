@@ -30,6 +30,8 @@ It then goes through them, looking for ones that
   either comes from the "Verify Author Page" form with no papers listed as not the author's,
   or from the legacy form with "[x] Verification" and other request types unchecked
 - are approved by at least one member of the Anthology group.
+  "Additional notes" are not read by this script, so the reviewer should check them
+  before approving.
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
