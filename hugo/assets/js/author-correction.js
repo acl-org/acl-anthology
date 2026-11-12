@@ -492,9 +492,14 @@
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
     // Registered before the result navigation, so the list is still open here: Escape
-    // closes the list without also closing the dialog, and Enter never submits the form.
-    destSearch.addEventListener("keydown", function (event) {
+    // closes the list without also closing the dialog (from the search box or a
+    // focused result), and Enter in the search box never submits the form.
+    function keepDialogOpenOnEscape(event) {
       if (event.key === "Escape" && !destResults.hidden) event.stopPropagation();
+    }
+    destSearch.addEventListener("keydown", keepDialogOpenOnEscape);
+    destResults.addEventListener("keydown", keepDialogOpenOnEscape);
+    destSearch.addEventListener("keydown", function (event) {
       if (event.key === "Enter") event.preventDefault();
     });
     const destNavigation = search.createResultNavigation({
