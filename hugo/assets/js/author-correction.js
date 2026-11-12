@@ -547,6 +547,8 @@
     function setDestination(person) {
       destination = person;
       if (person) {
+        // Chosen from a focused result: hiding the list would drop focus out of the dialog.
+        const focusInResults = destResults.contains(document.activeElement);
         destSearch.value = person.name;
         destResults.hidden = true;
         destNavigation.refresh();
@@ -564,6 +566,7 @@
           destSearch.focus();
         });
         destStatus.replaceChildren("Selected: ", link, " \u00b7 ", change);
+        if (focusInResults) change.focus();
       } else {
         destStatus.textContent = destDefaultStatus;
       }
