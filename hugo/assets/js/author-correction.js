@@ -176,11 +176,13 @@
     sync();
   }
 
-  function showError(form, message) {
+  // Shows text and elements in the form's error box; with none, hides it.
+  function showError(form, ...content) {
     const box = form.querySelector("[data-author-fix-error]");
-    box.textContent = message;
-    box.classList.toggle("d-none", !message);
-    if (message) box.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    const shown = content.some(Boolean);
+    box.replaceChildren(...content);
+    box.classList.toggle("d-none", !shown);
+    if (shown) box.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
   function openIssue(form, template, title, fields) {
@@ -193,17 +195,14 @@
       showError(form, "This request is too long to send to GitHub. Please select fewer papers, or open the issue on GitHub and list the papers there.");
       return;
     }
-    showError(form, "");
+    showError(form);
     if (window.open(url, "_blank")) return;
     // Blocked as a popup (e.g. after waiting for a lookup): clicking a link always works.
-    const box = form.querySelector("[data-author-fix-error]");
     const link = document.createElement("a");
     link.href = url;
     link.target = "_blank";
     link.textContent = "Open the GitHub issue";
-    box.replaceChildren("Your browser blocked the new tab. ", link, ".");
-    box.classList.remove("d-none");
-    box.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    showError(form, "Your browser blocked the new tab. ", link, ".");
   }
 
   // ---- Steps: choose a kind of correction, then fill in its form ----
@@ -219,15 +218,12 @@
       chooser.querySelector("button").focus();
       return;
     }
-    const pane = document.getElementById(id);
-    pane.querySelector("h6").focus();
-    pane.dispatchEvent(new Event("author-fix:shown"));
+    document.getElementById(id).querySelector("h6").focus();
   }
 
   // ---- Verify author ----
 
   const verifyForm = document.getElementById("authorFixVerifyForm");
-  let orcidCheck = Promise.resolve({ orcid: null });
   let orcidChecked = null;  // {value, result} once the check of the field's `value` has finished
 
   function initVerify() {
@@ -237,9 +233,9 @@
     const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
     // On a verified page all papers start kept, as keep/remove switches; on an unverified
     // page the author ticks theirs.
-    if (page.verified) verifyPapers.classList.add("acl-author-fix-switches");
     renderPaperList(verifyPapers, page.verified, page.verified);
     if (page.verified) {
+      verifyPapers.classList.add("acl-author-fix-switches");
       showPaperCounts(verifyPapers, "to keep", "to remove");
     } else {
       showPaperCounts(verifyPapers, "to move to your page", "to stay here");
@@ -312,7 +308,7 @@
         openReviewNotice.classList.add("d-none");
         verifyForm.classList.remove("d-none");
         // This button is now hidden; keep focus in the dialog so Escape still closes it.
-        document.getElementById("authorFixOrcid").focus();
+        orcidInput.focus();
       });
     }
 
@@ -323,51 +319,43 @@
       feedback.replaceChildren(...content);
     }
 
+    // A link within the dialog, e.g. to another form.
+    function actionLink(text, onClick) {
+      const link = document.createElement("a");
+      link.href = "#";
+      link.textContent = text;
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        onClick();
+      });
+      return link;
+    }
+
     // Shows the outcome of an ORCID iD lookup under the field.
     function showOrcidResult(result) {
+      const otherId = result.mergeWith || (result.owner && result.owner.id);
+      if (!otherId) return setFeedback("valid", ["Valid ORCID iD."]);
+      const link = document.createElement("a");
+      link.href = authorPageUrl(otherId);
+      link.textContent = otherId;
+      const prefix = ["This ORCID iD already has an author page: ", link];
+      const owner = result.owner;
       if (result.mergeWith) {
         // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
-        const link = document.createElement("a");
-        link.href = authorPageUrl(result.mergeWith);
-        link.textContent = result.mergeWith;
-        setFeedback("valid", [
-          "This ORCID iD already has an author page: ", link,
-          ". Submitting will ask staff to merge this page with it.",
-        ]);
-      } else if (result.owner) {
-        const owner = result.owner;
-        const link = document.createElement("a");
-        link.href = authorPageUrl(owner.id);
-        link.textContent = owner.id;
-        if (owner.acceptsPapers) {
-          const move = document.createElement("a");
-          move.href = "#";
-          move.textContent = "move papers from this page to it";
-          move.addEventListener("click", function (event) {
-            event.preventDefault();
-            chooseDestination({ id: owner.id, name: owner.name });
-            showPane("authorFixMove");
-          });
-          setFeedback("invalid", [
-            "This ORCID iD already has an author page: ", link,
-            ". Instead of verifying this page, ", move, ".",
-          ]);
-        } else {
-          const other = document.createElement("a");
-          other.href = "#";
-          other.textContent = "Something else";
-          other.addEventListener("click", function (event) {
-            event.preventDefault();
-            showPane("authorFixOther");
-          });
-          setFeedback("invalid", [
-            "This ORCID iD already has an author page: ", link,
-            ", but it can't take the papers on this page (its name doesn't match them, or its author coauthored them). Please use \u201c",
-            other, "\u201d to describe the problem.",
-          ]);
-        }
+        setFeedback("valid", [...prefix, ". Submitting will ask staff to merge this page with it."]);
+      } else if (owner.acceptsPapers) {
+        const move = actionLink("move papers from this page to it", function () {
+          chooseDestination({ id: owner.id, name: owner.name });
+          showPane("authorFixMove");
+        });
+        setFeedback("invalid", [...prefix, ". Instead of verifying this page, ", move, "."]);
       } else {
-        setFeedback("valid", ["Valid ORCID iD."]);
+        const other = actionLink("Something else", function () { showPane("authorFixOther"); });
+        setFeedback("invalid", [
+          ...prefix,
+          ", but it can't take the papers on this page (its name doesn't match them, or its author coauthored them). Please use \u201c",
+          other, "\u201d to describe the problem.",
+        ]);
       }
     }
 
@@ -393,29 +381,23 @@
         orcidInput.classList.remove("is-valid", "is-invalid");
         feedback.className = "form-text";
         feedback.innerHTML = defaultFeedback;
-        orcidCheck = Promise.resolve({ orcid: null });
-        return orcidCheck;
+        return Promise.resolve({ orcid: null });
       }
       const orcid = normalizeOrcid(raw);
       if (!orcid) {
         setFeedback("invalid", ["This is not a valid ORCID iD. It should look like 0000-0002-1825-0097."]);
-        orcidCheck = Promise.resolve({ orcid: null });
-        return orcidCheck;
+        return Promise.resolve({ orcid: null });
       }
       orcidInput.value = "https://orcid.org/" + orcid;
       const value = orcidInput.value;
       setFeedback(null, ["Checking whether this ORCID iD is already in the Anthology…"]);
-      orcidCheck = lookupOrcid(orcid)
+      return lookupOrcid(orcid)
         .then(function (owner) {
-          if (owner && owner !== page.id && page.verified) {
-            return { orcid: orcid, owner: null, mergeWith: owner };
-          }
-          if (owner && owner !== page.id) {
-            return ownerPage(orcid, owner).then(function (ownerInfo) {
-              return { orcid: orcid, owner: ownerInfo };
-            });
-          }
-          return { orcid: orcid, owner: null };
+          if (!owner || owner === page.id) return { orcid: orcid, owner: null };
+          if (page.verified) return { orcid: orcid, owner: null, mergeWith: owner };
+          return ownerPage(orcid, owner).then(function (ownerInfo) {
+            return { orcid: orcid, owner: ownerInfo };
+          });
         })
         .catch(function () {
           // The lookup is a convenience; staff check again when processing the issue.
@@ -428,7 +410,6 @@
           }
           return result;
         });
-      return orcidCheck;
     }
 
     orcidInput.addEventListener("change", checkOrcid);
