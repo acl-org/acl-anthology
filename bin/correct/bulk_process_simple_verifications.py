@@ -52,6 +52,7 @@ import git
 import re
 
 from acl_anthology.anthology import Anthology
+from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
 
@@ -101,6 +102,9 @@ class AnthologyMetadataUpdater:
         - [ ] Name change: This author has permanently changed their name.
 
         ...
+
+        The "Verify Author Page" form may also have a "### Preferred author name"
+        section; see _preferred_name().
         """
         issue_body = issue_body.replace("\r\n", "\n").replace("\r", "\n")
         m = re.search(
@@ -131,6 +135,21 @@ class AnthologyMetadataUpdater:
             r"### Merge with author page\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL
         )
         return m is not None and m.group(1).strip() not in ("", "_No response_")
+
+    @staticmethod
+    def _preferred_name(issue_body: str) -> None | Name:
+        """Get the name chosen in a "Verify Author Page" issue to show on the page.
+
+        The author correction panel sends it as "Last, First", or just "Last" for a
+        person with a single name.
+        """
+        m = re.search(
+            r"### Preferred author name\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL
+        )
+        if m is None or m.group(1).strip() in ("", "_No response_"):
+            return None
+        last, _, first = m.group(1).strip().partition(", ")
+        return Name(first or None, last)
 
     def load_anthology(self):
         log.info("Loading anthology")
@@ -259,6 +278,16 @@ class AnthologyMetadataUpdater:
                         raise ValueError(
                             f"Another author with this ORCID found (should be merge request?): {p2}"
                         )
+                    if preferred_name := self._preferred_name(body):
+                        if not person.has_name(preferred_name):
+                            raise ValueError(
+                                f"Preferred name is not one of this author's names: {preferred_name.as_last_first()}"
+                            )
+                        person.canonical_name = preferred_name
+                        if verbose:
+                            log.info(
+                                f"-> Preferred name {preferred_name.as_first_last()}"
+                            )
                     person.orcid = data["orcid"]
                     person.degree = data["degree"].strip()
                     new_author_id = author_id.replace("/unverified", "")
