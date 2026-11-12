@@ -290,6 +290,17 @@ class AnthologyMetadataUpdater:
                             log.info(
                                 f"-> Preferred name {preferred_name.as_first_last()}"
                             )
+                    # The request form doesn't list retracted or removed papers, but
+                    # they are verified along with the rest of the page.
+                    deleted = [paper for paper in person.papers() if paper.is_deleted]
+                    if deleted:
+                        log.warning(
+                            f"#{issue.number}: {author_id} includes papers not listed in the request form: "
+                            + ", ".join(
+                                f"{paper.full_id} ({paper.deletion.type.value})"
+                                for paper in deleted
+                            )
+                        )
                     person.orcid = data["orcid"]
                     person.degree = data["degree"].strip()
                     new_author_id = author_id.replace("/unverified", "")
