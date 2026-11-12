@@ -194,7 +194,16 @@
       return;
     }
     showError(form, "");
-    window.open(url, "_blank");
+    if (window.open(url, "_blank")) return;
+    // Blocked as a popup (e.g. after waiting for a lookup): clicking a link always works.
+    const box = form.querySelector("[data-author-fix-error]");
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.textContent = "Open the GitHub issue";
+    box.replaceChildren("Your browser blocked the new tab. ", link, ".");
+    box.classList.remove("d-none");
+    box.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
   // ---- Steps: choose a kind of correction, then fill in its form ----
@@ -219,6 +228,7 @@
 
   const verifyForm = document.getElementById("authorFixVerifyForm");
   let orcidCheck = Promise.resolve({ orcid: null });
+  let orcidChecked = null;  // {value, result} once the check of the field's `value` has finished
 
   function initVerify() {
     const orcidInput = document.getElementById("authorFixOrcid");
@@ -330,6 +340,7 @@
         return orcidCheck;
       }
       orcidInput.value = "https://orcid.org/" + orcid;
+      const value = orcidInput.value;
       setFeedback(null, ["Checking whether this ORCID iD is already in the Anthology…"]);
       orcidCheck = lookupOrcid(orcid)
         .then(function (owner) {
@@ -369,6 +380,10 @@
           // The lookup is a convenience; staff check again when processing the issue.
           setFeedback("valid", ["Valid ORCID iD."]);
           return { orcid: orcid, owner: null };
+        })
+        .then(function (result) {
+          orcidChecked = { value: value, result: result };
+          return result;
         });
       return orcidCheck;
     }
@@ -377,7 +392,11 @@
 
     verifyForm.addEventListener("submit", async function (event) {
       event.preventDefault();
-      const check = await checkOrcid();
+      // Without waiting when the field is already checked, so the new tab opens within
+      // the click and isn't blocked as a popup.
+      const check = orcidChecked && orcidChecked.value === orcidInput.value
+        ? orcidChecked.result
+        : await checkOrcid();
       const degree = document.getElementById("authorFixDegree").value.trim();
       const openReview = document.getElementById("authorFixOpenReviewProfile").value.trim();
       const mine = selectedPapers(verifyPapers, true);
