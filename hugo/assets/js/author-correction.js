@@ -337,23 +337,51 @@
       } else if (result.owner) {
         const owner = result.owner;
         const link = document.createElement("a");
-        const move = document.createElement("a");
-        link.href = authorPageUrl(owner);
-        link.textContent = owner;
-        move.href = "#";
-        move.textContent = "move papers from this page to it";
-        move.addEventListener("click", function (event) {
-          event.preventDefault();
-          chooseDestination({ id: owner, name: owner });
-          showPane("authorFixMove");
-        });
-        setFeedback("invalid", [
-          "This ORCID iD already has an author page: ", link,
-          ". Instead of verifying this page, ", move, ".",
-        ]);
+        link.href = authorPageUrl(owner.id);
+        link.textContent = owner.id;
+        if (owner.acceptsPapers) {
+          const move = document.createElement("a");
+          move.href = "#";
+          move.textContent = "move papers from this page to it";
+          move.addEventListener("click", function (event) {
+            event.preventDefault();
+            chooseDestination({ id: owner.id, name: owner.name });
+            showPane("authorFixMove");
+          });
+          setFeedback("invalid", [
+            "This ORCID iD already has an author page: ", link,
+            ". Instead of verifying this page, ", move, ".",
+          ]);
+        } else {
+          const other = document.createElement("a");
+          other.href = "#";
+          other.textContent = "Something else";
+          other.addEventListener("click", function (event) {
+            event.preventDefault();
+            showPane("authorFixOther");
+          });
+          setFeedback("invalid", [
+            "This ORCID iD already has an author page: ", link,
+            ", but it can't take the papers on this page (its name doesn't match them, or its author coauthored them). Please use \u201c",
+            other, "\u201d to describe the problem.",
+          ]);
+        }
       } else {
         setFeedback("valid", ["Valid ORCID iD."]);
       }
+    }
+
+    // The author page that already has this ORCID iD, with its name and whether the
+    // papers here could be moved to it (as the Move form's search would allow).
+    function ownerPage(orcid, owner) {
+      const unknown = { id: owner, name: owner, acceptsPapers: true };
+      return search.findAuthors(orcid, page.indexBase)
+        .then(function (outcome) {
+          const entry = outcome.matches.find(function (entry) { return entry.row[1] === owner; });
+          if (!entry) return unknown;
+          return { id: owner, name: entry.row[0], acceptsPapers: acceptsPapers(owner, entry.names) };
+        })
+        .catch(function () { return unknown; });
     }
 
     // Lookups can finish out of order; only the latest check updates the form.
@@ -382,7 +410,11 @@
           if (owner && owner !== page.id && page.verified) {
             return { orcid: orcid, owner: null, mergeWith: owner };
           }
-          if (owner && owner !== page.id) return { orcid: orcid, owner: owner };
+          if (owner && owner !== page.id) {
+            return ownerPage(orcid, owner).then(function (ownerInfo) {
+              return { orcid: orcid, owner: ownerInfo };
+            });
+          }
           return { orcid: orcid, owner: null };
         })
         .catch(function () {
@@ -472,6 +504,15 @@
     });
   }
 
+  // A destination must be known under a name like the one on some paper here,
+  // and must not be an author of that paper already (e.g. a coauthor).
+  function acceptsPapers(id, names) {
+    return page.papers.some(function (paper) {
+      return !paper.coauthors.includes(id)
+        && names.some(function (name) { return namesMatch(paper.name, name); });
+    });
+  }
+
   // ---- Move papers (unverified pages) ----
 
   const moveForm = document.getElementById("authorFixMoveForm");
@@ -511,15 +552,6 @@
         destNavigation.refresh();
       },
     });
-
-    // A destination must be known under a name like the one on some paper here,
-    // and must not be an author of that paper already (e.g. a coauthor).
-    function acceptsPapers(id, names) {
-      return page.papers.some(function (paper) {
-        return !paper.coauthors.includes(id)
-          && names.some(function (name) { return namesMatch(paper.name, name); });
-      });
-    }
 
     // Papers can be selected once a destination is chosen, except those its author coauthored.
     function updatePaperList() {
