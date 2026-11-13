@@ -1,0 +1,576 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.rocling">
+  <volume id="main" type="proceedings" ingest-date="2026-11-13">
+    <!-- https://aclanthology.org/2026.rocling-main/ -->
+    <meta>
+      <booktitle>Proceedings of the 38th Conference on Computational Linguistics and Speech Processing (<fixed-case>ROCLING</fixed-case> 2026)</booktitle>
+      <editor><first>Po-Chih</first><last>Kuo</last></editor>
+      <editor><first>Lung-Hao</first><last>Lee</last></editor>
+      <editor><first>An-Zi</first><last>Yen</last></editor>
+      <editor><first>Fernando Henrique Calderon</first><last>Alvarado</last></editor>
+      <editor><first>Carlos</first><last>Argueta</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>National Tsing Hua University. Hsinchu, Taiwan.</address>
+      <isbn>979-8-89176-505-4</isbn>
+      <month>November</month>
+      <year>2026</year>
+      <pdf hash="7250abd5"/>
+      <venue>rocling</venue>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.rocling-main.0/ -->
+      <pdf hash="8ae748a3"/>
+      <bibkey>rocling-2026-main</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.rocling-main.1/ -->
+      <title>Leveraging Open-Source Language Models for Privacy-Preserving Text-to-<fixed-case>SQL</fixed-case> Generation in Electronic Health Records</title>
+      <author id="grace-chan" orcid="0000-0003-4020-3147"><first>Grace</first><last>Chan</last></author>
+      <author id="po-chih-kuo" orcid="0009-0003-6047-7070"><first>Po-Chih</first><last>Kuo</last></author>
+      <pages>1-11</pages>
+      <abstract>Electronic Health Records (EHRs) are valuable sources of clinical information, yet querying them often requires specialized knowledge of structured query languages. Large Language Models (LLMs) enable more intuitive access through natural language queries; however, achieving reliable performance often requires domain-specific fine-tuning, and proprietary LLMs may raise privacy concerns because sensitive data must be transmitted to external servers. To address these challenges, we propose a fully open-source, locally deployable framework that integrates two complementary models, Llama-Coder-13B and DeepSeek-Coder-6.7B, fine-tuned using schema-aware prompts. Their outputs undergo confidence-based filtering and rule-based aggregation, leveraging the strengths of both models to improve accuracy and reliability. Evaluated on the EHRSQL 2024 shared task using the Reliability Score (RS), our approach achieves an RS(0) of 82.69 and an RS(10) of 44.99, outperforming other open-source baselines. Although a performance gap remains compared to proprietary LLMs, our system offers a practical privacy-preserving alternative while maintaining competitive performance among open-source approaches.</abstract>
+      <pdf hash="e232a367"/>
+      <bibkey>chan-kuo-2026-leveraging</bibkey>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.rocling-main.2/ -->
+      <title><fixed-case>C</fixed-case>onvo<fixed-case>D</fixed-case>rift: A Multi-Turn Conversational Dataset for Modeling Stylistic Tone Evolution</title>
+      <author id="vihindi-kotalawala" orcid="0009-0003-6911-2326"><first>Vihindi</first><last>Kotalawala</last></author>
+      <author id="pamoda-dilranga" orcid="0009-0002-3731-6829"><first>Pamoda</first><last>Dilranga</last></author>
+      <author id="gayani-thoradeniya" orcid="0009-0006-7109-2784"><first>Gayani</first><last>Thoradeniya</last></author>
+      <author id="prasan-yapa" orcid="0000-0002-4319-3944"><first>Prasan</first><last>Yapa</last></author>
+      <pages>12-24</pages>
+      <abstract>The evolution of linguistic style in conversations is an underexplored issue in NLP. Most style-control datasets focus on sentences or assume a static style throughout, missing the dynamic shifts that occur as user preferences change during interactions. We introduce ConvoDrift, a dataset designed to model progressive stylistic conversational tone drift under fixed semantic intent. It is built on 15,727 shared multi-turn conversational structures for adaptation and persona-conditioned alignment methods. It consists of six prompt-response pairs per conversation, each with the annotation of style drift and style direction labels. These pairs cover a range of communication genres. We further derive a complementary pairwise dataset by pairing semantically equivalent but stylistically distinct responses and annotating persona-conditioned preferences using five distinct style communication personas, enabling the controlled study of personalisation and pluralistic alignment in language tone. In addition to dataset construction, we conduct a comprehensive evaluation involving human validation, LLM-as-judge assessment, and automatic lexical and semantic evaluations. Across seven Likert criteria annotated by three human annotators, the average Krippendorff’s alpha is 0.88, and our lexical and semantic analyses show that drift events induce lexical changes while preserving semantic similarity.</abstract>
+      <pdf hash="8e1e125a"/>
+      <bibkey>kotalawala-etal-2026-convodrift</bibkey>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.rocling-main.3/ -->
+      <title>Answer-Boundary Extraction Can Change Measured Prompt Effects: Sequential Factorial Evidence from <fixed-case>ASD</fixed-case>iv and <fixed-case>DROP</fixed-case></title>
+      <author id="ming-hao-wang" orcid="0009-0004-0368-0619"><first>Ming-Hao</first><last>Wang</last></author>
+      <author id="hung-shin-lee" orcid="0000-0001-7044-9434"><first>Hung-Shin</first><last>Lee</last></author>
+      <pages>25-35</pages>
+      <abstract>Prompt-transformation studies usually attribute benchmark changes to the prompt, but the reported score is produced jointly by the prompt, the model, and an answer extractor. We ask whether a measured prompt effect survives a change of extraction rule alone. Holding stored outputs fixed, we rescore a discovery-stage 2⁴ factorial on ASDiv and a prospectively specified DROP study, with seven instruction-tuned checkpoints, using two non-nested extractors. Permitting post-answer text changes the extractor-specific prompt contrast by +41.68 pp on ASDiv and +19.72 pp on DROP; these are differences between prompt effects, not accuracy gains. The rule change can reverse an effect’s sign: for Granite-2B on ASDiv, the terminality effect is +46.69 pp under a last-marker extractor and -12.06 pp under a final-line extractor. The interaction is driven mainly by final-boundary failures and is heterogeneous across checkpoints. An exploratory context-aware LLM judge did not remove this dependence and sometimes replaced a response’s answer with the reference. We found no statistically significant boilerplate-by-extractor interaction on either task, and other secondary factors are less stable. Both frozen cap gates fail; mandatory common-ID analyses preserve the positive panel averages without repairing the primary runs. Extractor-sensitive effects should be attributed to the prompt–model–extractor pipeline, not to the prompt alone.</abstract>
+      <pdf hash="9d696e3d"/>
+      <bibkey>wang-lee-2026-answer</bibkey>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.rocling-main.4/ -->
+      <title>Radical-Aligned Structure in Multilingual Transformer Representations of <fixed-case>C</fixed-case>hinese Characters: A Controlled Empirical Study</title>
+      <author id="aryan-maity" orcid="0009-0009-3751-2900"><first>Aryan</first><last>Maity</last></author>
+      <pages>36-47</pages>
+      <abstract>Recurring sub-character components called radicals, the graphemic units the Kangxi system uses to organize Chinese characters, carry both semantic and phonetic cues. Whether multilingual transformers arrange their character representations along these radical lines is still an open question. To test this, we extract contextual embeddings for 6,306 single-token characters (68 Kangxi radicals, each with at least 20 members) from mBERT and Chinese-BERT and ask whether characters that share a radical lie closer together than those that do not. We contrast intra- with inter-radical similarity using Welch’s t-test under Holm-Bonferroni correction, a 1,000-shuffle permutation test, 1,000-resample bootstrap intervals, and Cohen’s d, repeating the entire pipeline under both cosine and Euclidean distance. Both models do show a radical-aligned signal that is statistically reliable yet small (d   0.06-0.14). The decisive test, however, is a controlled comparison in which same- and different-radical characters are drawn from one shared semantic field: there the effect disappears. We read this as evidence that the apparent radical geometry is inherited from the meaning structure the writing system has long encoded, not from any independent orthographic code the model has learned on its own. Rather than undercutting the work, this negative control sharpens what can actually be claimed about how transformers handle logographic scripts.</abstract>
+      <pdf hash="8621c038"/>
+      <bibkey>maity-2026-radical</bibkey>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.rocling-main.5/ -->
+      <title>Exploring the Applicability of Large Language Model and Rubric-Based Automatic Assessment of text summaries by high school students</title>
+      <author id="ru-yi-huang" orcid="0009-0005-1803-5134"><first>Ru-Yi</first><last>Huang</last></author>
+      <author id="hou-chiang-tseng" orcid="0000-0001-5249-7280"><first>Hou-Chiang</first><last>Tseng</last></author>
+      <author id="yao-ting-sung-3756" orcid="0000-0002-3538-3756"><first>Yao-Ting</first><last>Sung</last></author>
+      <pages>48-58</pages>
+      <abstract>摘要寫作訓練學生的高層次思考,反映學生從理解到闡述的思考過程。本研究旨在探討大型語言模型結合電腦摘要與評分規準的自動批改系統,在教學現場上,對高中學生於不同類型文本摘要的回饋與評分,是否與真人教師的評分與回饋方向相符。研究結果顯示,系統批改結果與真人教師的批改結果於文學性文本的總分pearson相關是0.83、科普性文本的總分pearson相關是0.89,皆呈現高度相關(&gt;.7)。且系統能詳細分析學生摘要內容,給予立即性的回饋與修正指引。</abstract>
+      <pdf hash="5ec3f5a7"/>
+      <bibkey>huang-etal-2026-exploring</bibkey>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.rocling-main.6/ -->
+      <title>Perceptual <fixed-case>MDCT</fixed-case> Audio Coding with Budget-Consistent Psychoacoustic Bit Allocation</title>
+      <author id="li-hong-guo" orcid="0009-0006-9771-3534"><first>Li-Hong</first><last>Guo</last></author>
+      <pages>59-66</pages>
+      <abstract>Bit-allocation gains depend on comparison design and evaluation target. We examine these dependencies in a modified discrete cosine transform (MDCT) prototype with complete serialized-byte accounting. Experiments on 500 clips from the Environmental Sound Classification dataset with 50 classes (ESC-50) compare four allocation objectives at four rates and a constant-resolution baseline; a central ablation extends to all 2000 clips. At 191.73 kilobits/s, masking-guided allocation improves segmental signal-to-noise ratio (segSNR) over a width-weighted comparator, yet removing masking-related weights raises segSNR further. Waveform and predicted audio-quality metrics also rank the comparators differently. A feature-regularized search, tuned on 50 clips and tested on 100 clips from a separate fold, increases log-mel cosine similarity by 0.0137 over a zero-penalty control using the same search budget. This gain comes at a 0.91-decibel segSNR cost, with no demonstrated classification gain. These findings motivate three evaluation practices: match transmitted bytes, isolate allocation factors, and verify feature improvements against the intended application endpoint.</abstract>
+      <pdf hash="5ea26b94"/>
+      <bibkey>guo-2026-perceptual</bibkey>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.rocling-main.7/ -->
+      <title>Spoofed Audio Detection in Multi-Speaker Conversations: A Dataset and Parallel Modular Diarization-Detection Pipeline</title>
+      <author id="kelvin-pratama" orcid="0009-0007-9976-8755"><first>Kelvin</first><last>Pratama</last></author>
+      <author id="wen-chieh-fang" orcid="0000-0002-3647-2232"><first>Wen-Chieh</first><last>Fang</last></author>
+      <pages>67-76</pages>
+      <abstract>Advances in speech synthesis make it possible to manipulate audio by altering only specific speakers’ turns. Spoofing research, however, has largely targeted single-speaker audio, leaving the more realistic multi-speaker case—identifying which speaker was altered and when—underexplored, with prior work restricted to fully spoofed audio or treating diarization and detection as disconnected stages. This study introduces SpoofedConversation, a dataset of bona fide, fully spoofed, and partially spoofed multi-speaker conversations, and a parallel modular pipeline combining speaker diarization with segment-level (20 ms) spoof detection to localize and attribute spoofed regions to corresponding speaker—the first pipeline evaluated end-to-end on this task. An adapted diarization error rate (ADER) is also proposed, scoring false positive, false negative, and speaker confusion per class, exposing biases that standard DER and EER conceal. The best internal configuration lowers ADER by 15–23 percentage points over a weaker one, while revealing a systematic bias toward the spoof class—establishing the feasibility of joint spoof localization and attribution and ADER’s diagnostic value.</abstract>
+      <pdf hash="f6a14d2f"/>
+      <bibkey>pratama-fang-2026-spoofed</bibkey>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.rocling-main.8/ -->
+      <title>Deployment Risk Probe Framework (<fixed-case>DRPF</fixed-case>): Complementing <fixed-case>CER</fixed-case> with Actionable Failure Modes</title>
+      <author id="ming-kun-chou" orcid="0009-0003-9377-6130"><first>Ming-Kun</first><last>Chou</last></author>
+      <author id="yu-tai-lo" orcid="0000-0002-9363-8219"><first>Yu-Tai</first><last>Lo</last></author>
+      <author id="wen-hsiang-lu" orcid="0009-0002-5149-6790"><first>Wen-Hsiang</first><last>Lu</last></author>
+      <pages>77-85</pages>
+      <abstract>When deploying ASR in high-stakes settings, character error rate (CER) alone often cannot indicate whether to exclude spurious output on non-speech input, request a repeat utterance, or manually verify recognition content. We propose a layered evaluation that splits errors into text on non-speech input, empty output on speech, and incorrect content on speech, each mapped to one of these follow-up responses. We evaluate on advance care planning dialogue by comparing a cloud and an edge deployment pipeline: when CER is similar on clinic-style sentences, short answers diverge toward content errors versus empty outputs; with other settings held fixed, changing only the language setting also changes medical-term rewrites of negated short answers and lexical coverage. Thus similar CER need not imply the same follow-up handling.</abstract>
+      <pdf hash="fe260e92"/>
+      <bibkey>chou-etal-2026-deployment</bibkey>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.rocling-main.9/ -->
+      <title>A Dual-Layer Knowledge Graph-Enhanced <fixed-case>RAG</fixed-case> Framework with Legal Equivalence Evaluation for <fixed-case>T</fixed-case>aiwanese Used Car Disputes</title>
+      <author id="bo-zhi-yao" orcid="0009-0000-5008-0932"><first>Bo-Zhi</first><last>Yao</last></author>
+      <author id="yi-ting-peng" orcid="0009-0007-4516-2256"><first>Yi-Ting</first><last>Peng</last></author>
+      <pages>86-94</pages>
+      <abstract>The used car market suffers from significant information asymmetry, which frequently results in contractual disputes. Although large language models (LLMs) provide substantial potential for automated legal assistance, their application in legal domains remains challenging due to hallucination risks and difficulties in generating legally grounded responses. This study proposes a dual-layer Knowledge Graph Retrieval-Augmented Generation (KG-RAG) framework tailored specifically for Taiwanese used car disputes. We construct a structured legal knowledge graph integrating abstract statutory knowledge with historical judicial records collected between 2000 and 2020, thereby forming a litigation experience layer that complements the statutory knowledge layer. To prevent temporal data leakage, judicial records are chronologically partitioned, with cases from 2000 to 2020 used for knowledge graph construction and cases from 2021 to 2025 reserved for evaluation. To address the semantic gap between colloquial user queries and formal legal representations, as well as the limitations of general-purpose semantic rerankers, our framework incorporates few-shot query enrichment, multi-hop graph expansion, and a weighted variant of the Reciprocal Rank Fusion (wRRF) strategy. Furthermore, we introduce a domain-specific "Soft Evaluation" framework based on a co-occurrence-based Legal Equivalence Mapping to complement strict exact-match evaluation. Comprehensive experiments show that the full KG-RAG configuration achieves a Hit@8 score of 62.81% under statute-level exact-match evaluation and 63.22% under soft-match evaluation. End-to-end generation evaluation further shows that the Qwen2.5-14B-based KG-RAG configuration achieves a generation hit rate of 55.79%, compared with 19.01% for the Qwen2.5-14B-only baseline and 43.80% for traditional vector-based RAG. The corresponding LTTR is 0.41%, compared with 11.16% for the Qwen2.5-14B-only baseline. These results show that the proposed framework improves legal retrieval and generation performance while substantially reducing high-risk recommendations relative to LLM-only generation.</abstract>
+      <pdf hash="d8e1386d"/>
+      <bibkey>yao-peng-2026-dual</bibkey>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.rocling-main.10/ -->
+      <title>Fantastic <fixed-case>T</fixed-case>aiwanese Hokkien Corpora and Where to Find Them: Bootstrapping Low-Resource Speech and Text via Off-the-Shelf <fixed-case>LLM</fixed-case>s and <fixed-case>TTS</fixed-case></title>
+      <author id="yu-kai-guo" orcid="0009-0005-9139-1127"><first>Yu-Kai</first><last>Guo</last></author>
+      <author id="chen-wei-hsu" orcid="0009-0009-4778-0466"><first>Chen-Wei</first><last>Hsu</last></author>
+      <author id="hung-wei-chen" orcid="0009-0004-3789-2425"><first>Hung-Wei</first><last>Chen</last></author>
+      <author id="hung-yi-lee" orcid="0000-0002-9654-5747"><first>Hung-Yi</first><last>Lee</last></author>
+      <pages>95-115</pages>
+      <abstract>Taiwanese Hokkien is a low-resource language with scarce, often license-restricted corpora, hindering commercial investment and technological development. This study proposes synthesizing Taiwanese text and speech corpora using off-the-shelf general-purpose LLMs and TTS models. We evaluate models’ ability to translate between Mandarin and Taiwanese via a bidirectional translation task, validated by a human expert. The best-performing cloud model, Gemini 3.1 Pro Preview, achieves near dictionary-reference quality, with correctness scoring 4.8/5 for both Han-ji and Tâi-lô, and authenticity scoring 4.8 for Han-ji but only 4.45 for Tâi-lô. Fine-tuned local small models also achieve performance comparable to many larger cloud models. We further test LLM-based TTS for Taiwanese speech generation: audio from Gemini 3.1 Flash TTS, rated by 10 native speakers, scores 3.763, 3.857, and 3.777 MOS for Pronunciation Accuracy, Technical Naturalness, and Authenticity of Accent, while quality drops sharply when only Han-ji is provided, showing Tâi-lô is likewise indispensable for speech synthesis. In a preliminary, in-sample test, clips retained by a multimodal LLM filter received slightly higher human ratings (4.005 vs. 3.799 overall), although its item-level agreement with human judgments was weak. These results suggest this approach is a feasible, promising method for generating Taiwanese corpora.</abstract>
+      <pdf hash="621f1f82"/>
+      <bibkey>guo-etal-2026-fantastic</bibkey>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.rocling-main.11/ -->
+      <title>Fact over Fiction: Detection of Pathological Hallucinations in <fixed-case>S</fixed-case>inhala-to-<fixed-case>E</fixed-case>nglish Neural Machine Translation</title>
+      <author id="navam-obeysekara" orcid="0009-0003-3371-3453"><first>Navam</first><last>Obeysekara</last></author>
+      <author id="nevidu-jayatilleke" orcid="0009-0008-9613-8376"><first>Nevidu</first><last>Jayatilleke</last></author>
+      <pages>116-126</pages>
+      <abstract>Neural Machine Translation (NMT) models, while capable of producing highly fluent outputs, remain vulnerable to hallucinations, which are translations that are natural yet semantically unrelated to the source. This vulnerability is acute in low-resource settings like Sinhala-to-English, where weak cross-lingual alignment leads to hallucinations. This paper introduces a framework for reference-free hallucination detection in this language pair. We present a 45,000-sample synthetic dataset generated through a probabilistic chain of five linguistically motivated corruption strategies, with a semantic rescue mechanism that uses character-level similarity to distinguish hallucinations from morphological variants. We fine-tune mDeBERTa-v3 for token-level sequence labelling, reaching a token-level F1 of 0.841±0.001 over three seeds on a source-disjoint test set, and study a three-signal ensemble integrating neural risk scores, sequence log-probabilities, and cross-lingual semantic embeddings (LaBSE). A source-ablation control shows that the detector relies on the Sinhala source rather than on surface artefacts of the corruption process: shuffling or removing the source reduces sentence-level AUROC from 0.970 to chance. We benchmark eight NMT systems spanning five model families and find that detector firings vary by an order of magnitude across architectures.</abstract>
+      <pdf hash="3dcd42c3"/>
+      <bibkey>obeysekara-jayatilleke-2026-fact</bibkey>
+    </paper>
+    <paper id="12">
+      <!-- https://aclanthology.org/2026.rocling-main.12/ -->
+      <title>Evaluating Morphological Analysis Performance of Open-Weight <fixed-case>LLM</fixed-case>s Using Numerals from 899 <fixed-case>A</fixed-case>ustronesian Languages: A Preliminary Study</title>
+      <author id="nai-wei-lu" orcid="0009-0008-2311-0532"><first>Nai-Wei</first><last>Lu</last></author>
+      <pages>127-135</pages>
+      <abstract>本研究以 899 種南島語言的基礎數詞(1–10) 為 測 試 集, 評 估 五 款 開 放 權 重 大 型語言模型(8B–120B)在 zero-shot 與 one-shot 條件下推導數詞構詞公式的表現,並將輸出與人工標記比對。研究有四項發現。其一,8B 模型過半回應回抄輸入詞形(Echo),未能執行分析;27B 以上模型的Echo 率近乎為零,zero-shot 整體準確率為90.0–93.8%。然而,語料中 86.7% 的數詞為單純詞,整體準確率受多數類別影響,不能直接反映模型分析構詞複雜數詞的能力。其二,one-shot 範例使 8B 模型的準確率提升 42.1 個百分點,主要歸因於 Echo 減少;對較大型模型則未帶來一致增益。將 Echo 與解析失敗分開辨識,可區分任務執行、格式合規與分析正確三個階段。其三,模型對構詞複雜數詞的偵測召回率為88–97%(啟發式基線為 57%),精確率則為 52–66%。模型常過度分析單純詞,並混淆加法與減法或誤判公式基底。其四,透過跨模型一致性與構詞透明度篩選,得到 29 個金標準未收錄的潛在構詞分析,顯示 LLM 可協助發現待查的構詞分析;然而,這些候選尚未經語言學專家驗證,因此無法判定其為模型發現的新分析,或是現有金標準的遺漏。整體而言,LLM 適合作為構詞分析的候選生成工具,但其輸出仍需專家驗證,不能直接視為可靠的最終標註。 This study evaluates five open-weight large language models (8B–120B) on numerals 1–10 from 899 Austronesian languages under zero-shot and one-shot conditions, comparing outputs with human annotations. Four findings emerge. First, the 8B model echoed over half of input forms, while models of 27B or more nearly eliminated Echo and achieved 90.0–93.8% overall accuracy. However, 86.7% of items were morphologically simple. Second, one-shot prompting raised 8B accuracy by 42.1 percentage points, mainly by reducing Echo, but yielded no consistent gains for larger models. Separating Echo and parse failures distinguishes task execution, format compliance, and analytical correctness. Third, complex-numeral detection recall was 88–97%(57% for a heuristic baseline), while precision was 52–66%. Models often overanalyzed simple forms and confused addition with subtraction or misidentified formula bases. Fourth, cross-model agreement and morphological transparency yielded 29 potential analyses absent from the gold standard, suggesting that LLMs can help identify candidate morphological analyses for further investigation. However, these candidates have not been linguistically validated, so it remains unclear whether they represent model-discovered analyses or omissions in the gold standard. Overall, LLMs are useful for generating candidates for morphological analysis, but their outputs require expert validation and should not be treated as reliable final annotations</abstract>
+      <pdf hash="d937f952"/>
+      <bibkey>lu-2026-evaluating</bibkey>
+    </paper>
+    <paper id="13">
+      <!-- https://aclanthology.org/2026.rocling-main.13/ -->
+      <title>Whose <fixed-case>T</fixed-case>aiwan? Cross-Lingual Geopolitical Framing in the Representations of Large Language Models</title>
+      <author id="guan-yu-tseng" orcid="0009-0004-4826-3683"><first>Guan-Yu</first><last>Tseng</last></author>
+      <author id="lang-ching-yeh" orcid="0009-0006-7407-969X"><first>Lang-Ching</first><last>Yeh</last></author>
+      <author id="yu-chieh-wang" orcid="0009-0003-6670-6591"><first>Yu-Chieh</first><last>Wang</last></author>
+      <author id="shu-kai-hsieh" orcid="0000-0001-9674-1249"><first>Shu-Kai</first><last>Hsieh</last></author>
+      <pages>136-150</pages>
+      <abstract>Evidence that large language models hold skewed views of contested geopolitical entities usually comes from what they generate, which shifts with the prompt and is easy to over-read. We ask the question inside the model instead: does it bring a different frame to "Taiwan" when the surrounding sentence is English rather than Taiwan Mandarin? We pair sentences that say the same thing in the two languages, add Japan and Iceland as controls, and use Natural Language Autoencoders to turn the model’s internal representation of "Taiwan" into readable text. In both Qwen2.5-7B and Gemma-3-12B, an English sentence makes that representation read "Taiwan" through a China-centered geopolitical lens nearly five times as often as a Mandarin one (14.3% vs. 3.0%), with no such gap for the controls. What changes is which frame the representation falls into, not how far it moves: the language switch displaces "Taiwan" no more than it displaces the controls. The frame can also be switched on directly, clearly in Gemma and directionally in Qwen: adding a direction computed from our own stimulus labels, which the readout never sees, pushes a Mandarin-context representation into the China-anchored state, more strongly at higher doses and back below baseline when subtracted, while equally large random directions do nothing. This holds in the representation our method reads, not yet in the text the model writes. Still, the language a user writes in can quietly change which frame a model brings to their own cultural referents.</abstract>
+      <pdf hash="78075f3a"/>
+      <bibkey>tseng-etal-2026-whose</bibkey>
+    </paper>
+    <paper id="14">
+      <!-- https://aclanthology.org/2026.rocling-main.14/ -->
+      <title><fixed-case>BGCT</fixed-case>: <fixed-case>BM</fixed-case>25-Guided Contrastive Training for Generative Retrieval</title>
+      <author id="ping-hsun-wu" orcid="0009-0001-4371-5861"><first>Ping-Hsun</first><last>Wu</last></author>
+      <author id="jheng-long-wu" orcid="0000-0003-3494-5507"><first>Jheng-Long</first><last>Wu</last></author>
+      <pages>151-161</pages>
+      <abstract>Generative Retrieval (GR) encodes a corpus into model parameters and retrieves documents by generating their identifiers, but underperforms on lexical queries where BM25 excels. We propose BGCT (BM25-Guided Contrastive Training), combining BM25 Hard Negative Mining with BM25 Knowledge Distillation, a KL-divergence loss on lexically-overlapping queries. On NQ320K, GR and BM25 candidate sets are highly complementary (mean Jaccard = 0.0835; theoretical union R@1 ceiling 78.16%). Contrary to this promise, BGCT does not surpass our locally reproduced TSGEN baseline (67.57% R@1; the original paper reports 70.82%): BGCT-HN reaches 63.60% and BGCT-Full 55.64%. An isolated KD-only ablation (59.28%) shows KD is independently harmful: its uniform-smoothing target converges, but toward uniformity rather than confident top-1 generation. A sweep over six KD weights shows R@1 decreases monotonically with the weight, so the flaw is directional rather than a tuning issue, and paired McNemar tests show the KD and HN regressions are significant (p &lt; 10⁻³⁰). We report these findings as a cautionary result: naively porting hard-negative and distillation losses from dense retrieval into generative retrieval does not close the lexical gap.</abstract>
+      <pdf hash="ce3478ab"/>
+      <bibkey>wu-wu-2026-bgct</bibkey>
+    </paper>
+    <paper id="15">
+      <!-- https://aclanthology.org/2026.rocling-main.15/ -->
+      <title><fixed-case>GTCRN</fixed-case>-<fixed-case>SS</fixed-case>:Lightweight Causal Speech Separation With Residual Allocation and Reconstruction Refinement</title>
+      <author id="shao-chun-hu" orcid="0009-0007-5473-4615"><first>Shao-Chun</first><last>Hu</last></author>
+      <author id="zi-xiang-lin" orcid="0009-0004-0260-5043"><first>Zi-Xiang</first><last>Lin</last></author>
+      <author id="hsin-min-wang-5071" orcid="0000-0003-3599-5071"><first>Hsin-Min</first><last>Wang</last></author>
+      <author id="jeih-weih-hung-3070" orcid="0000-0001-9366-3070"><first>Jeih-Weih</first><last>Hung</last></author>
+      <author id="hung-shin-lee" orcid="0000-0001-7044-9434"><first>Hung-Shin</first><last>Lee</last></author>
+      <pages>162-170</pages>
+      <abstract>Low-complexity causal speech separation must preserve speaker information and allocate residual mixture energy without relying on future feature frames. We present GTCRN-SS, a two-stage time-frequency separator that adapts the compact GTCRN enhancement backbone to fixed-output speech separation. The model combines internal residual allocation, reconstruction-conditioned refinement, and frame-aligned recurrent-state transfer. Its complex-mask estimator assigns non-target content to an unreturned residual branch, while the complementary speech estimate conditions a second stage whose final masks remain anchored to the original mixture. A lightweight low-rank adapter transfers causal recurrent evidence between recursive executions without adding another recurrent memory network. The neural graph excludes future feature frames and incurs only the fixed analysis look-ahead of the centered short-time Fourier transform. On noisy Libri2Mix, GTCRN-SS achieves 10.1 dB SDRi and 9.5 dB SI-SNRi with fewer than one million parameters and a low computational footprint. Independently trained ablations confirm the benefits of recurrent-state transfer and reconstruction conditioning, and corpus-level diagnostics show that the internal branch primarily captures residual rather than target-speech content. These results establish GTCRN-SS as an effective quality–efficiency operating point for causal monaural speech separation.</abstract>
+      <pdf hash="7d89a9d8"/>
+      <bibkey>hu-etal-2026-gtcrn</bibkey>
+    </paper>
+    <paper id="16">
+      <!-- https://aclanthology.org/2026.rocling-main.16/ -->
+      <title>Benchmarking <fixed-case>C</fixed-case>hinese Tenor–Vehicle Generation: Protocols, Baselines, and Semantic Evaluation</title>
+      <author id="yufeng-wu" orcid="0000-0002-1842-1677"><first>Yufeng</first><last>Wu</last></author>
+      <pages>171-179</pages>
+      <abstract>Generating a VT (Tenor–Vehicle) pair for a Chinese metaphor requires identifying its target and source concepts, which may extend beyond sentence substrings. We establish a dedicated benchmark for this task using 600 metaphor-positive records and existing annotations from CCIME. The benchmark uses a common output schema, failure-inclusive scoring, group-safe partitions, analysis by reference availability, and reference-blind human evaluation. Eight baseline conditions cover five prompting procedures, a span-constrained encoder, an unadapted generative base, and QLoRA (quantized low-rank adaptation). Direct prompting obtains a Pair Mean Char-F1 of 0.674; additional role guidance, decomposition, and candidate selection do not consistently improve recovery. Automatic scores are highest when both references occur on the sentence surface and lowest when neither does. In the prespecified matched comparison, QLoRA reaches 0.700 and improves over its base by +0.0165 (95% group-bootstrap interval [+0.0049, +0.0283]; Holm p = 0.0223). On 40 sampled sentences, both human assessors accept 34 QLoRA pairs, including 23 without exact reference agreement. The benchmark provides reference performance and diagnostic evidence for evaluating Chinese VT generation across lexical agreement, semantic acceptability, output constraints, and cost.</abstract>
+      <pdf hash="f9ea6f5f"/>
+      <bibkey>wu-2026-benchmarking</bibkey>
+    </paper>
+    <paper id="17">
+      <!-- https://aclanthology.org/2026.rocling-main.17/ -->
+      <title>Corpus-Grounded Reverse Verification and Abstention for Extremely Low-Resource <fixed-case>P</fixed-case>aiwan Translation</title>
+      <author id="yung-yu-huang" orcid="0009-0007-5490-3378"><first>Yung-Yu</first><last>Huang</last></author>
+      <pages>180-187</pages>
+      <abstract>Low-resource machine translation remains challenging when target-language digital resources are scarce and inference cannot rely on reference translations. We study Paiwan (ISO 639-3: pwn), a Formosan language with limited digital resources, and present a corpus-grounded framework that retrieves from a 5,923-entry Paiwan–Chinese bilingual corpus and generates candidate translations. We report its selective outputs and separately evaluate Reverse Verification (RV), a round-trip consistency classifier for candidate filtering. We evaluate on 86 items across two diagnostic sets. On Set A (40 lexical/phrase items), the system achieves a strict normalized exact match rate of 23/40 = 57.5% and a relaxed heuristic match rate of 30/40 = 75.0%. On Set B (46 dialogue sentences), it produces one correct and two partial translations, 30 marker-detected refusals, and 13 pipeline failures caused by tool-call leakage; end-to-end translation coverage is 3/46 = 6.5%, and no outputs were classified as hallucinated under the operational criteria. On the same 40 Set A inputs, RV, evaluated as a binary consistency classifier, attains 92.0% precision (23/25) against automatic operational reference-match labels at a decision threshold of τrv = 0.35; RV is a consistency diagnostic rather than independent evidence of translation correctness. The primary contribution is an evidence-grounded analysis of selective translation behavior and standalone consistency-based candidate filtering under severe corpus constraints, rather than high translation accuracy.</abstract>
+      <pdf hash="2d3db049"/>
+      <bibkey>huang-2026-corpus</bibkey>
+    </paper>
+    <paper id="18">
+      <!-- https://aclanthology.org/2026.rocling-main.18/ -->
+      <title>Synthesizer-Enhanced Bidirectional Encoders for Large-scale Scientific Language Editing Evaluation</title>
+      <author id="zhe-yu-xu" orcid="0009-0003-8308-2629"><first>Zhe-Yu</first><last>Xu</last></author>
+      <author id="po-chun-chu" orcid="0009-0005-2233-7864"><first>Po-Chun</first><last>Chu</last></author>
+      <author><first>Yuh-Shyang</first><last>Wang</last></author>
+      <author id="chieh-jen-wang" orcid="0009-0005-4681-8953"><first>Chieh-Jen</first><last>Wang</last></author>
+      <author><first>Jia-Jang</first><last>Tu</last></author>
+      <author id="lung-hao-lee" orcid="0000-0003-0472-7429"><first>Lung-Hao</first><last>Lee</last></author>
+      <pages>188-197</pages>
+      <abstract>Scientific English writing requires not only grammatical correctness but also adherence to established academic writing conventions. For non-native English-speaking researchers, language editing often requires substantial time and effort. This study proposes SynBERT, an ELECTRA-based model for scientific language editing detection that determines whether a scientific English sentence requires further editing. SynBERT is domain-adaptively pretrained on the S2ORC scientific corpus and incorporates a hybrid synthesizer attention mechanism that integrates self-attention, span-based dynamic convolution, and random synthesized attention to capture global semantics, local contextual dependencies, and global structural patterns, respectively. Experiments on the AESW 2016 scientific writing dataset demonstrate that SynBERT achieves a higher F1 score than shared-task systems and several pretrained language model baselines. Further analysis shows that both domain-adaptive pretraining and an appropriate configuration of hybrid attention contribute to improved performance.</abstract>
+      <pdf hash="1fc5c090"/>
+      <bibkey>xu-etal-2026-synthesizer</bibkey>
+    </paper>
+    <paper id="19">
+      <!-- https://aclanthology.org/2026.rocling-main.19/ -->
+      <title><fixed-case>E</fixed-case>mo<fixed-case>R</fixed-case>eflect: A Reflective Emotion Reasoning Framework for Empathetic Support Conversations</title>
+      <author id="kuan-lin-yu" orcid="0009-0003-9506-6140"><first>Kuan-Lin</first><last>Yu</last></author>
+      <author id="kuan-shun-su" orcid="0009-0007-2657-5434"><first>Kuan-Shun</first><last>Su</last></author>
+      <author id="bing-wei-lin" orcid="0009-0001-6200-0271"><first>Bing-Wei</first><last>Lin</last></author>
+      <author id="wen-ni-liu" orcid="0009-0002-6457-6650"><first>Wen-Ni</first><last>Liu</last></author>
+      <author id="lung-hao-lee" orcid="0000-0003-0472-7429"><first>Lung-Hao</first><last>Lee</last></author>
+      <pages>198-206</pages>
+      <abstract>Large language models (LLMs) have shown strong potential for emotional support con- versations, yet directly generated responses may remain emotionally misaligned, overly generic, or insufficiently actionable. We propose EmoReflect, a psychology-inspired multi-agent framework that formulates emotional support generation as a draft-reflect-refine process. EmoReflect first predicts the user’ s valence-arousal (VA) state as auxiliary affective grounding and generates an initial supportive draft. Four specialized agents then review the draft from complementary perspectives: cognitive reflection, emotional regulation, user needs, and reality-oriented guidance. Their critiques are selectively integrated to produce the final response. Experiments on ES-Conv with three LLM backbones show that EmoReflect consistently improves overall response quality over standalone generation under both GPT-based and human evaluations, particularly in emotional understanding, helpfulness, practical actionability, and perspective richness. Ablation results further demonstrate the complementary contributions of the reflective agents and VA grounding, with cognitive reflection and emotional regulation showing particularly strong effects. These findings highlight the effectiveness of affectively grounded, multi-perspective reflection for improving LLM-based emotional support.</abstract>
+      <pdf hash="c7ca7d3c"/>
+      <bibkey>yu-etal-2026-emoreflect</bibkey>
+    </paper>
+    <paper id="20">
+      <!-- https://aclanthology.org/2026.rocling-main.20/ -->
+      <title><fixed-case>EHRA</fixed-case>: An Effective Hotword Retrieval Approach for Contextual <fixed-case>ASR</fixed-case></title>
+      <author id="chiun-yu-hua" orcid="0009-0001-9419-5122"><first>Chiun-Yu</first><last>Hua</last></author>
+      <author id="tien-hong-lo" orcid="0009-0006-1825-1918"><first>Tien-Hong</first><last>Lo</last></author>
+      <author><first>Yung-Chang</first><last>Hsu</last></author>
+      <author id="berlin-chen" orcid="0000-0003-0693-8932"><first>Berlin</first><last>Chen</last></author>
+      <pages>207-213</pages>
+      <abstract>While contextual ASR enhances rare entity recognition, irrelevant prompts frequently induce hallucinations. To mitigate this challenge, we propose an effective hotword retrieval approach for Mandarin ASR that integrates semantic embedding similarity, Smith-Waterman pinyin alignment, and multi-threshold filtering. Evaluations on the AISHELL-1 dataset, utilizing a frozen Qwen3-ASR-0.6B model, demonstrate that our adaptive filtering mechanism reduces the Biased Character Error Rate (B-CER) to 16.96% while maintaining the Overall CER (O-CER) at 1.88%, effectively improving upon the fixed Top-5 baseline. Notably, the proposed mechanism yields consistent ASR performance improvements across various text encoders.</abstract>
+      <pdf hash="45e8231d"/>
+      <bibkey>hua-etal-2026-ehra</bibkey>
+    </paper>
+    <paper id="21">
+      <!-- https://aclanthology.org/2026.rocling-main.21/ -->
+      <title>Small-Model Linguistic Reasoning under Compute Constraints</title>
+      <author id="da-chen-lian" orcid="0009-0006-4850-4824"><first>Da-Chen</first><last>Lian</last></author>
+      <author id="chunki-lim" orcid="0009-0003-0914-8714"><first>Chunki</first><last>Lim</last></author>
+      <author id="kai-yang-peng" orcid="0009-0007-2753-2559"><first>Kai-Yang</first><last>Peng</last></author>
+      <author id="nai-wei-lu" orcid="0009-0008-2311-0532"><first>Nai-Wei</first><last>Lu</last></author>
+      <author id="pei-yang-lin" orcid="0009-0007-5801-1481"><first>Pei-Yang</first><last>Lin</last></author>
+      <author id="shu-kai-hsieh" orcid="0000-0001-9674-1249"><first>Shu-Kai</first><last>Hsieh</last></author>
+      <pages>214-224</pages>
+      <abstract>Linguistics Olympiad problems require inferring linguistic rules from a few examples. We study which training and inference methods help a 4B open-weights model solve such problems under the compute constraints of the IOL-AI 2026 challenge, which allows one T4 GPU and 30 minutes. We generated solutions to 175 problems with a frontier LLM; former national-team contestants reviewed 150 and flagged flawed reasoning far more often than wrong answers, revealing a gap between answer correctness and acceptable linguistic reasoning. Trained on full-length solutions, the model could not finish its answers within the generation limit, while a model trained on shortened solutions scored similarly to full-length reasoning at a fraction of the length. We also tested multilingual and in-domain training data, voting and three variants of it, and grammar retrieval; none improved consistently across evaluations. Our 4B system placed fourth of 48 teams, behind three teams that all used a 14B model.</abstract>
+      <pdf hash="cf4e4eb6"/>
+      <bibkey>lian-etal-2026-small</bibkey>
+    </paper>
+    <paper id="22">
+      <!-- https://aclanthology.org/2026.rocling-main.22/ -->
+      <title>Does Regional Decoder Specialization Help Low-Resource <fixed-case>ASR</fixed-case> Based on the <fixed-case>SLAM</fixed-case>-<fixed-case>ASR</fixed-case> Framework?</title>
+      <author id="edwin-arkel-rios" orcid="0000-0003-3020-0719"><first>Edwin Arkel</first><last>Rios</last></author>
+      <author id="jocelyn-zaruma" orcid="0009-0002-5415-9220"><first>Jocelyn</first><last>Zaruma</last></author>
+      <author id="girish-ewoorkar" orcid="0009-0008-9266-3288"><first>Girish</first><last>Ewoorkar</last></author>
+      <author id="sneh-sourabh" orcid="0009-0007-5174-253X"><first>Sneh</first><last>Sourabh</last></author>
+      <author id="julian-mack" orcid="0000-0002-7213-5508"><first>Julian</first><last>Mack</last></author>
+      <author id="hung-hui-juan" orcid="0009-0003-7491-5297"><first>Hung-Hui</first><last>Juan</last></author>
+      <author id="stephen-huang" orcid="0009-0002-5108-5852"><first>Stephen</first><last>Huang</last></author>
+      <author id="bo-cheng-lai" orcid="0000-0002-9729-5196"><first>Bo-Cheng</first><last>Lai</last></author>
+      <pages>225-235</pages>
+      <abstract>The SLAM-ASR recipe — a frozen speech encoder, a frozen large language model (LLM) as the decoder, and a small trainable projector between them — is a practical way to add the speech modality to LLMs. It is being explored to include low-resource languages in audio LLMs. However, the choice of decoder within it has not been studied under controlled conditions. We ask whether pairing each language with a regionally specialized decoder improves recognition, using the Tiny Aya family, whose four variants share one base model and one tokenizer and differ only in the regional weighting of their post-training data. Across eleven languages, the region-matched decoder is only 0.55 character error rate (CER) better on average than mismatched regional decoders (Wilcoxon signed-rank p = 0.97). The matched decoder shows no advantage on held-out test sets either, where the difference is −0.09 CER against a minimum detectable effect of 0.67. The advantage also does not grow with the amount of target-language data the decoder saw. For the median language, the matched variant saw only 1.3 percentage points more target-language data than the mismatched variants, and the largest difference is 5.7 points. Although this is up to 236 times more in relative terms, having more target-language data does not result in higher recognition accuracy. What does matter is training the projector: on low-resource languages, it improves CER over off-the-shelf models by up to 102.6, including a language supported by neither frozen component. For practitioners, a general-purpose multilingual decoder suffices, and the effort is better spent on in-language audio. We release all checkpoints and transcripts.</abstract>
+      <pdf hash="b625d22a"/>
+      <bibkey>rios-etal-2026-regional</bibkey>
+    </paper>
+    <paper id="23">
+      <!-- https://aclanthology.org/2026.rocling-main.23/ -->
+      <title>A Preliminary Study on New Word Suggestion in Formosan Languages</title>
+      <author id="chuan-jie-lin" orcid="0000-0002-7543-3615"><first>Chuan-Jie</first><last>Lin</last></author>
+      <author><first>Li-May</first><last>Sung</last></author>
+      <author><first>Pei-Lun</first><last>Liu</last></author>
+      <author><first>Chao-Feng</first><last>Chang</last></author>
+      <author><first>Meng-Jui</first><last>Tsai</last></author>
+      <author><first>Chun-Yu</first><last>Wang</last></author>
+      <author><first>Chin-Min</first><last>Wu</last></author>
+      <pages>236-245</pages>
+      <abstract>臺灣南島語這類低資源語言因詞彙量較少,在進行機器翻譯研究時常會碰到新觀念不知如何翻譯的問題。本論文試著從音譯、近義單詞、詞組表意等各種方式來推薦新詞的族語寫法。推薦音譯做法是建立中文漢語拼音與各族語聲韻母之間的對應關係,就可以將各漢語拼音音節用各族語拼寫出來。推薦單詞的做法是估算新詞語意與辭典裡各詞條語意的相似度,推薦同義詞或最高分的近義詞。推薦詞組的做法則是詢問了大型語言模型,我們提出一個三步驟的做法請大型語言模型挑選2~5個已知詞來拼組出新詞的語意。最後參考原住民族語言研究發展基金會的族語新詞創制計畫成果來觀察這些推薦方法的可行性,進而探討未來還需針對哪些族語的自然語言處理技術,以增進新詞推薦可行性。 Being low-resource languages, Formosan languages often have small size vocabulary which often lead to OOV problem in machine translation, especially for those new concepts in Chinese. This paper proposes methods to suggest new words in Formosan languages by transliteration, word similarity, and phrase construction. To do transliteration, mapping tables of vowels and consonants between Chinese and Formosan languages are constructed. Transliterated new words are generated according to these mapping tables. To make a single-word suggestion, the word in the Formosan dictionary who has the highest sense similarity with the target Chinese new word is suggested. To suggest a phrase to represent the new word, we design a three-step procedure to ask LLM to select 2~5 words in the Formosan dictionary where the combination can represent the target new word. These methods are examined based on the results of New Word Creation Projects held by Indigenous Languages Research and Development Foundation. More important future works are also discussed.</abstract>
+      <pdf hash="70f403e8"/>
+      <bibkey>lin-etal-2026-preliminary</bibkey>
+    </paper>
+    <paper id="24">
+      <!-- https://aclanthology.org/2026.rocling-main.24/ -->
+      <title><fixed-case>CTC</fixed-case>-Adapted Multi-Layer <fixed-case>SSL</fixed-case> Representations to Complement <fixed-case>GOP</fixed-case> for <fixed-case>T</fixed-case>aiwanese <fixed-case>H</fixed-case>akka Pronunciation Assessment</title>
+      <author id="jian-hua-wang" orcid="0009-0000-5771-1581"><first>Jian-Hua</first><last>Wang</last></author>
+      <author id="yi-chin-huang" orcid="0009-0001-0340-7629"><first>Yi-Chin</first><last>Huang</last></author>
+      <pages>246-251</pages>
+      <abstract>Expert-rated speech data for Taiwanese Hakka are limited, motivating the use of existing speech representations for pronunciation assessment. We adapt XLSR-53 on the Sixian-Reading corpus using a phoneme-level CTC objective and freeze the encoder during downstream scorer training. We examine whether self-supervised learning (SSL) representations provide complementary information to goodness of pronunciation (GOP). Pretrained and adapted representations are compared using the final layer, uniform averaging, and learnable layer weighting. Evaluation uses 19,668 certification responses associated with 2,809 candidate identifiers, a fixed candidate-disjoint test set, five train/validation rotations, and five training seeds. All conditions use the same Transformer scorer architecture with separately trained parameters. CTC adaptation improves SSL-only assessment under all three aggregation settings, although performance remains below GOP. When fused with GOP, learnable layer weighting achieves the highest mean PCC of 0.809, compared with 0.793 for GOP, with mean MSE and MAE of 0.424 and 0.512, respectively.</abstract>
+      <pdf hash="25aafaa0"/>
+      <bibkey>wang-huang-2026-ctc</bibkey>
+    </paper>
+    <paper id="25">
+      <!-- https://aclanthology.org/2026.rocling-main.25/ -->
+      <title><fixed-case>SINBRIEF</fixed-case>: A Hybrid Framework for Abstractive Text Summarisation of <fixed-case>S</fixed-case>inhala Legal Documents</title>
+      <author id="minduli-lasandi" orcid="0009-0003-2792-5759"><first>Minduli</first><last>Lasandi</last></author>
+      <author id="nevidu-jayatilleke" orcid="0009-0008-9613-8376"><first>Nevidu</first><last>Jayatilleke</last></author>
+      <pages>252-265</pages>
+      <abstract>Legal document summarisation in low-resource languages presents significant challenges due to the scarcity of annotated data and the complexity of domain-specific terminology. This paper presents SinBrief, a hybrid abstractive summarisation framework for Sinhala legal documents that does not require human-annotated training data. The proposed framework combines domain-aware word graph construction with neural sentence scoring to generate abstractive summaries from Sinhala legal text. Five sentence scoring models are evaluated within the framework: mBert, Llama 3.1, Falcon 7B, Laser, and a continually pre-trained Llama model domain-adapted to Sinhala legal text. The framework is evaluated on a Sinhala legal corpus using reference-free metrics, including Coverage, Density, Compression Ratio, SummaC, and Self-BertScore. Experimental results demonstrate that SinBrief produces summaries with lower lexical overlap than extractive baselines while maintaining factual consistency, demonstrating the viability of hybrid, largely annotation-free abstractive summarisation for low-resource legal NLP tasks.</abstract>
+      <pdf hash="06687a21"/>
+      <bibkey>lasandi-jayatilleke-2026-sinbrief</bibkey>
+    </paper>
+    <paper id="26">
+      <!-- https://aclanthology.org/2026.rocling-main.26/ -->
+      <title>From Keystrokes to Semantics: Applying Reasoning Large Language Models to Bilingual Code-Mixed Input Method Restoration</title>
+      <author id="hsin-jui-li" orcid="0009-0003-0990-8525"><first>Hsin-Jui</first><last>Li</last></author>
+      <author id="yu-chien-chung" orcid="0009-0003-3373-1248"><first>Yu-Chien</first><last>Chung</last></author>
+      <author id="po-chun-chen-2214" orcid="0009-0009-1078-2214"><first>Po-Chun</first><last>Chen</last></author>
+      <author id="po-chun-chen" orcid="0000-0002-2888-7278"><first>Fang-Lan</first><last>Huang</last></author>
+      <author id="hen-hsen-huang" orcid="0000-0001-9169-3081"><first>Hen-Hsen</first><last>Huang</last></author>
+      <author id="hsin-hsi-chen" orcid="0000-0001-9757-9423"><first>Hsin-Hsi</first><last>Chen</last></author>
+      <pages>266-278</pages>
+      <abstract>注音輸入法使用者常因忘記切換輸入法而產生鍵盤字串,例如欲輸入「火車有delay了」,卻得到「cji3tk u.3delayxk7」。本研究將其界定為「高歧義符號任務」,提出 HKIF(Hierarchical Knowledge-Injected Framework)架構,透過顯性知識注入、結構化推理與語意整合三層設計進行還原。本研究以 ATOM(ASCII to Mandarin)提示詞方案實作 HKIF,比較不同推理深度與提示詞下的還原效果,並延伸至倉頡輸入法及日文、韓文語境驗證。結果顯示 HKIF 架構能有效提升還原準確度(ROUGE-L 最高達 0.74),證明分層解碼設計適用於高歧義符號任務。</abstract>
+      <pdf hash="86fc290a"/>
+      <bibkey>li-etal-2026-keystrokes</bibkey>
+    </paper>
+    <paper id="27">
+      <!-- https://aclanthology.org/2026.rocling-main.27/ -->
+      <title>Lexical and Syntactic Feature Fusion for Question Type Classification</title>
+      <author id="kuei-mei-lin" orcid="0009-0003-8778-8135"><first>Kuei-Mei</first><last>Lin</last></author>
+      <author id="jui-feng-yeh" orcid="0000-0003-2798-1569"><first>Jui-Feng</first><last>Yeh</last></author>
+      <pages>279-283</pages>
+      <abstract>In question answering (QA) system, the question intent determines the direction of answer prediction. Accurately identifying question intent is crucial for answer prediction. The recent question intent identification method uses interrogative words as the main feature for reasoning. However, when explicit interrogative words are absent or when interrogative words are ambiguous, these approaches are lead to confusion and get wrong classification. To address this limitation, this paper proposes a question classification framework that integrates lexical and syntactic features. The multiple features are extracted and the proposed framework infers question intent by the features. Experimental results demonstrate the effectiveness of the proposed approach.</abstract>
+      <pdf hash="8b3c8f7a"/>
+      <bibkey>lin-yeh-2026-lexical</bibkey>
+    </paper>
+    <paper id="28">
+      <!-- https://aclanthology.org/2026.rocling-main.28/ -->
+      <title><fixed-case>PLM</fixed-case>: Large Language Models for Patent Concept Generation and Innovation Support</title>
+      <author id="chia-te-huang" orcid="0009-0006-9967-1390"><first>Chia-Te</first><last>Huang</last></author>
+      <pages>284-292</pages>
+      <abstract>Generating and evaluating patent text is constrained by the complexity of legal knowledge. General-purpose large language models (LLMs) can draft a fluent claim in one pass, but single-pass generation cannot check or improve itself against what patent drafting rewards-coherent linkage between claim elements and consistent terminology. We present PLM (Patent Large Language Model), which uses an LLM as an iterative search-and-revise agent rather than a one-shot drafter: claim revision is framed as a Monte Carlo Tree Search (MCTS*) problem. A process reward model (PRM) scores every intermediate step,and a knowledge-graph agent (KGAgent) anchors each revision to the claim’s original technical structure and flags dropped features. On a benchmark of Taiwanese utility-model patents, scored with a Step-wise Claim Quality Score (SCQS)—our search-time application of the completeness/ clarity/ consistency/linkage rubric of Jiang et al. (2025)—with BERTScore as a secondary fidelity diagnostic, PLM improves the composite SCQS by 11.9% over a GPT-4o baseline (8.21 vs. 7.34) and BERTScore by 3.9 points (0.891 vs. 0.852),with the largest gains on consistency (15.01%) and linkage (14.78%). A compute-matched ablation shows the gain comes mainly from revisions compounding across an iterative, depthwise search, not from any particular nodeselection rule.</abstract>
+      <pdf hash="e38396a1"/>
+      <bibkey>huang-2026-plm</bibkey>
+    </paper>
+    <paper id="29">
+      <!-- https://aclanthology.org/2026.rocling-main.29/ -->
+      <title>Zero-Shot Soft Labeling of Radiology Findings in Chest <fixed-case>X</fixed-case>-ray Reports Using a Large Language Model</title>
+      <author id="jungwoo-nam" orcid="0009-0008-5270-6474"><first>Jungwoo</first><last>Nam</last></author>
+      <author id="grace-chan" orcid="0000-0003-4020-3147"><first>Po-Chih</first><last>Kuo</last></author>
+      <pages>293-301</pages>
+      <abstract>Automated radiology report labeling is essential for scaling medical image analysis, yet existing frameworks like rule-based CheXpert and BERT-based CheXbert suffer from limited scalability and high reliance on expert-annotated data. To address these bottlenecks, we propose a flexible zero-shot labeling approach utilizing the Llama-3-8b model. By employing generative prompting, our method classifies 14 major thoracic diseases without explicit task-specific training. Furthermore, we introduce a soft-labeling paradigm that captures clinical ambiguity through continuous probability outputs (0 to 1), moving beyond rigid binary hard-labeling. Experimental results demonstrate that our zero-shot labeling approach maintains competitive classification performance while offering superior flexibility for sub-class expansion. Notably, downstream image classification models trained on our soft-labeled datasets exhibit improved generalization and precision, suggesting that preserving clinical uncertainty is critical for robust medical AI development.</abstract>
+      <pdf hash="4d3538ee"/>
+      <bibkey>nam-kuo-2026-zero</bibkey>
+    </paper>
+    <paper id="30">
+      <!-- https://aclanthology.org/2026.rocling-main.30/ -->
+      <title>Seasonal Consumer Preference Analysis Using Unstructured Text Mining: A Case Study of @cosme Beauty Community Reviews</title>
+      <author id="pin-han-liao" orcid="0009-0008-0552-7043"><first>Pin-Han</first><last>Liao</last></author>
+      <author id="i-hsuan-li" orcid="0009-0008-6790-2080"><first>I-Hsuan</first><last>Li</last></author>
+      <author id="guan-yun-wang" orcid="0000-0003-2060-8470"><first>Guan-Yun</first><last>Wang</last></author>
+      <pages>302-311</pages>
+      <abstract>With the growth of online platforms, beauty product reviews have become an important source of unstructured text for understanding consumer concerns. This study collected 7,855 user reviews from @cosme Taiwan published between May 2025 and May 2026. A Chinese text preprocessing pipeline was developed, and Term Frequency–Inverse Document Frequency (TF-IDF), brand seasonal analysis, and product category analysis were applied to investigate differences in review characteristics across seasons. The results show that review content exhibits different representative keywords across seasons. In addition, brands differ in their relative representation in reviews across seasons, and the mention proportions of major product categories also show different distributions across seasons. Overall, the findings reveal differences in the textual characteristics of beauty product reviews across seasons and provide a reference for further analysis of consumer review content.</abstract>
+      <pdf hash="eefc4d0a"/>
+      <bibkey>liao-etal-2026-seasonal</bibkey>
+    </paper>
+    <paper id="31">
+      <!-- https://aclanthology.org/2026.rocling-main.31/ -->
+      <title><fixed-case>S</fixed-case>undanese Discourse Particles in Dialogue: A Human-Annotated Corpus with Computational Baselines</title>
+      <author id="irwan-setiawan" orcid="0000-0002-4161-1495"><first>Irwan</first><last>Setiawan</last></author>
+      <author id="kun-ta-chuang" orcid="0000-0002-3914-8550"><first>Kun-Ta</first><last>Chuang</last></author>
+      <author id="hung-yu-kao" orcid="0000-0002-8890-8544"><first>Hung-Yu</first><last>Kao</last></author>
+      <pages>312-321</pages>
+      <abstract>Sundanese discourse particles are frequent in dialogue but difficult to model because their interpretation depends on information structure, stance, sequential organization, and lexical identity. We present a human-annotated corpus of 1,243 occurrences of ten particles from three scripted and literary dialogue sources. Three native-speaker experts independently labeled every occurrence using a particle-neutral twelve-label codebook, followed by consensus adjudication of all non-unanimous cases. Primary-function agreement was strong (Fleiss’ κ = 0.828) and increased to 0.938 after TOPIC_MANAGEMENT and FOCUS_EMPHASIS were merged. For téh, fine-grained κ was 0.251, but agreement was complete at the merged information-structure level. We provide occurrence-aware masking, dialogue-unit-grouped splits, and lexical, TF-IDF, and XLM-R baselines. On the fixed test set, particle-majority and particle-plus-context XLM-R obtained 0.670 and 0.669 macro-F1. Across five dialogue-unit-grouped folds, word TF-IDF with particle and context reached 0.722 ± 0.029, compared with 0.670 ± 0.001 for particle-majority; leave-one-source-out means were 0.749 ± 0.067 and 0.662 ± 0.014. Gains were smaller on multifunctional particles, and context-only models remained weak. The results establish a reproducible resource while showing both lexical shortcuts and limited, variable contextual gains in low-resource pragmatic classification.</abstract>
+      <pdf hash="ace4cc4b"/>
+      <bibkey>setiawan-etal-2026-sundanese</bibkey>
+    </paper>
+    <paper id="32">
+      <!-- https://aclanthology.org/2026.rocling-main.32/ -->
+      <title>Designing an Open-Source Large Language Model-Based Formative Feedback System for Book Summaries</title>
+      <author id="meng-che-chan" orcid="0009-0005-7337-8658"><first>Meng-Che</first><last>Chan</last></author>
+      <author id="hou-chiang-tseng" orcid="0000-0001-5249-7280"><first>Hou-Chiang</first><last>Tseng</last></author>
+      <author id="yao-ting-sung-3756" orcid="0000-0002-3538-3756"><first>Yao-Ting</first><last>Sung</last></author>
+      <pages>322-332</pages>
+      <abstract>書籍摘要寫作是一項整合閱讀理解與文本重構的語文任務。然而,新手寫作者常出現內容誤解、重點遺漏或修訂停留於表層文字修改等問題。雖然近年自動摘要回饋技術逐漸發展,但現有系統較少兼顧修訂順序規劃與形成性引導,難以依合理順序推進學習者進行摘要修訂。 為此,本研究設計一套基於開源大型語言模型(Gemma 4 31B)之書籍摘要形成性回饋系統。系統將摘要品質問題區分為誤解、邏輯、遺漏、主觀、多餘及破碎鬆散六類,並依據由內容理解至語篇表達的修訂原則安排回饋順序。每輪回饋聚焦於一項當前最優先處理的問題,透過提示、線索、提問與選擇題等鷹架策略,引導學習者自行發現與修正問題,而非直接提供標準答案。 本研究採專家評估方式進行初步驗證,邀請一位在職國文教師依八項教學能力評估構面,進行157筆逐輪回饋評估。結果顯示,在三點量表下,各項指標平均分數皆達2.91分以上,其中,系統在最終答案揭露構面中能避免直接提供完整答案,且連貫性、教練語氣及自然度等指標皆獲滿分評價。評估結果也顯示,系統大致能依預定的問題診斷與回饋原則運作。研究結果初步支持大型語言模型應用於書籍摘要形成性回饋與數位閱讀寫作教練之可行性。</abstract>
+      <pdf hash="9c8c1d4d"/>
+      <bibkey>chan-etal-2026-designing</bibkey>
+    </paper>
+    <paper id="33">
+      <!-- https://aclanthology.org/2026.rocling-main.33/ -->
+      <title><fixed-case>C</fixed-case>hinese Medical Question Intent Classification Based on Domain Encyclopedia Enhanced Language Models with Knowledge Graph Fine-tuning</title>
+      <author id="kuan-chu-chen" orcid="0009-0003-5660-8074"><first>Kuan-Chu</first><last>Chen</last></author>
+      <author id="tsai-chen-hsieh" orcid="0009-0005-8153-1296"><first>Tsai-Chen</first><last>Hsieh</last></author>
+      <author><first>Po-Han</first><last>Chen</last></author>
+      <author id="lung-hao-lee" orcid="0000-0003-0472-7429"><first>Lung-Hao</first><last>Lee</last></author>
+      <pages>333-342</pages>
+      <abstract>This study proposes EKG-Transformer for Chinese medical question intent classification, integrating domain-specific encyclopedic knowledge with relational knowledge from medical knowledge graphs to enhance the ability of pretrained language models to understand the intents of medical questions. Medical encyclopedias provide domain knowledge and attribute information concerning diseases, symptoms, examinations, and treatments; however, identifying the intent of a medical question often also requires understanding the semantic relationships among medical entities. To address this issue, during downstream classification, relevant medical knowledge triples are retrieved based on named entities identified in each question and are subsequently used to construct a Sentence Graph. Soft-position Embedding and a Visible Matrix are further employed to control information flow among knowledge nodes, thereby reducing semantic interference introduced by irrelevant knowledge. Experiments are conducted on the Chinese Medical Intent Dataset (CMID), which comprises classification tasks involving 4 coarse-grained categories and 36 fine-grained subcategories. The experimental results show that incorporating knowledge graph information during fine-tuning consistently improves the performance of BERT, RoBERTa, and MacBERT. In particular, the complete EKG-MacBERT model achieves Micro-F1 scores of 0.7450 and 0.5370 on the 4-category and 36-subcategory classification tasks, respectively. These results demonstrate the complementary benefits of medical encyclopedic knowledge and relational knowledge from knowledge graphs for improving Chinese medical question intent classification.</abstract>
+      <pdf hash="1cc6fa00"/>
+      <bibkey>chen-etal-2026-chinese</bibkey>
+    </paper>
+    <paper id="34">
+      <!-- https://aclanthology.org/2026.rocling-main.34/ -->
+      <title>Improving Protein-Protein Interaction Extraction via Intermediate-Task Transfer Learning with Pretrained Language Models</title>
+      <author><first>Yi-Shuo</first><last>Yin</last></author>
+      <author id="chun-wei-lin" orcid="0009-0007-2380-0261"><first>Chun-Wei</first><last>Lin</last></author>
+      <author><first>Ching-Tai</first><last>Chen</last></author>
+      <pages>343-352</pages>
+      <abstract>Protein-protein interaction (PPI) extraction is a critical task in biomedical text mining, with significant implications for drug development, cancer immunology, and precision medicine. This paper implements a transfer learning framework combined with LoRA (Low-Rank Adaptation) fine-tuning and automated hyperparameter search via Optuna, evaluated on three widely used PPI corpora: BioInfer, HPRD50, and LLL. Experimental results show that BioBERT consistently outperforms BERT across all settings, and that the multi-stage transfer learning architecture achieves better overall performance than single-stage baselines, yielding F1-score improvements of 3.8%, 1.2%, and 6.8% on the three datasets respectively, along with corresponding MCC improvements of 5.4%, 0.8%, and 14%. Further analysis reveals that the characteristics and syntactic complexity of the intermediate-task datasets influence transfer effectiveness, and that smaller corpora exhibit greater accuracy gains from multi-stage transfer than larger ones. Error analysis identifies three major categories of errors: failures in negation and contrast handling, misclassification of co-occurrence versus pathway relations, and misinterpretation of regulatory language. In addition to validating the feasibility of multi-stage transfer learning, this study provides directions for future improvements in PPI extraction models</abstract>
+      <pdf hash="29efc3d3"/>
+      <bibkey>yin-etal-2026-improving</bibkey>
+    </paper>
+    <paper id="35">
+      <!-- https://aclanthology.org/2026.rocling-main.35/ -->
+      <title>Linguistic Changes as Viewed From the ‘Knowledge Database of Diaries in <fixed-case>T</fixed-case>aiwan’ (1930s–1960s): A Quantitative Study</title>
+      <author><first>Ki Kwong Kenrich</first><last>Chen</last></author>
+      <pages>353-359</pages>
+      <abstract>Introduction. Focusing on primary materials from the ‘Knowledge Database of Diaries in Taiwan’, this article aims to outline the linguistic changes in their diaries while exploring the potential roles of migration in linguistic changes. Method. This study uses web-scraping techniques to collect large-size diaries data and develops a dictionary comparing the frequently used words in Mainland China and Taiwan, China. Then, this study uses computational linguistics to detect linguistic changes. Result. The frequency of words used in Mainland China increased after the outbreak of Second Sino-Japanese War in 1937 and after China administered the Taiwan region in 1945, respectively. Meanwhile, the frequency of words used in the Taiwan region increased after the Guomindang Government moved to Taiwan in 1949. Implications. This study sheds light on the role of geopolitical tension and/or migration on language changes and showcases the potential linkages between mobility and linguistic changes from an East Asian perspective.</abstract>
+      <pdf hash="a2db3fa3"/>
+      <bibkey>chen-2026-linguistic</bibkey>
+    </paper>
+    <paper id="36">
+      <!-- https://aclanthology.org/2026.rocling-main.36/ -->
+      <title>Structure Over Semantics: A Controlled Re-Evaluation of Multi-Party Conversation Disentanglement</title>
+      <author id="ishan-katoch" orcid="0009-0004-1013-2661"><first>Ishan</first><last>Katoch</last></author>
+      <pages>360-370</pages>
+      <abstract>Hybrids of pre-trained language models and graph neural networks are standard for multiparty conversation disentanglement, and their gains are usually credited jointly to semantic embeddings and graph structure. We test that credit assignment on the public Kummerfeld et al. (2019) IRC corpus using one fixed GCN architecture in which only node features or edge types vary, five random seeds, and both of the oracle-K clustering protocols in common use. Node features matter in aggregate (ARI 0.401 vs. 0.062 for constant features), but which features are used does not: handcrafted position, length, question-mark, and author features show no significant difference from 1024-dimensional BERT-large embeddings across 5 seeds (0.401 vs. 0.400, p = 0.40), and concatenating them adds nothing. Removing gold reply-to edges costs nothing. Speaker-continuity edges alone outperform all edge types combined. Most importantly, a non-learned baseline that groups messages by author reaches ARI 0.4287, matching or exceeding every trained model here, because 63% of gold test threads contain a single message. We also correct an earlier version of this work, whose reported advantage for handcrafted features over BERT was an artifact of feature scaling. Reported gains on this benchmark reflect its evaluation setup at least as much as the models.</abstract>
+      <pdf hash="4be7f7ae"/>
+      <bibkey>katoch-2026-structure</bibkey>
+    </paper>
+    <paper id="37">
+      <!-- https://aclanthology.org/2026.rocling-main.37/ -->
+      <title>Check Before You Commit: Selective, Puzzle-Internal Verification on <fixed-case>L</fixed-case>ing<fixed-case>O</fixed-case>ly-<fixed-case>TOO</fixed-case></title>
+      <author id="chunki-lim" orcid="0009-0003-0914-8714"><first>Peiyang</first><last>Lin</last></author>
+      <author id="pei-yang-lin" orcid="0009-0007-5801-1481"><first>Chunki</first><last>Lim</last></author>
+      <pages>371-382</pages>
+      <abstract>Large language models often produce plausible but incorrect answers to linguistics-olympiad puzzles, and obfuscated benchmarks such as LingOly-TOO make such errors hard to detect. We introduce a modular harness that converts a model’s proposed hypothesis into a deterministic, puzzle-internal test: the model proposes a mechanical skeleton for a puzzle, and deterministic code solves and verifies that skeleton against the puzzle’s own given examples, committing an answer only when verified and abstaining otherwise. On the development problems, the system commits with 97.7% precision, with 128 correct commits of 131 at 10.5% coverage. On 50 unseen problems, the system makes 73 commits with 35.6% precision and 47 errors, 46 of which were clustered around one problem whose givens do not determine a single rule. Three case studies characterize the system: deterministic solving of a scrambled-numeral puzzle with no model calls, safe rejection of an incorrect model proposal, and a verifier failure in which a rule reproduces every given yet generalizes wrongly to the query. Re-fitting the rule under leave-one-out separated correct from incorrect commits on the two problems tested. We find that verification is exact for deterministic solvers, while for model-aided solvers it is necessary but insufficient.</abstract>
+      <pdf hash="0eecf774"/>
+      <bibkey>lin-lim-2026-check</bibkey>
+    </paper>
+    <paper id="38">
+      <!-- https://aclanthology.org/2026.rocling-main.38/ -->
+      <title><fixed-case>L</fixed-case>ocal<fixed-case>PIECE</fixed-case>: A Locally Executable Framework for News Timeline Construction</title>
+      <author><first>Chien-Yu</first><last>Chu</last></author>
+      <author id="yi-shin-chen" orcid="0000-0002-8087-9670"><first>Yi-Shin</first><last>Chen</last></author>
+      <pages>383-392</pages>
+      <abstract>News timeline construction requires organizing evidence from relevant and peripheral articles, inconsistent participant references, and differences between event and publication dates. We present LocalPIECE, a locally executable extension of PIECE’s actor-centered temporal graphs. It combines optional few-shot article weighting, conservative mention and date normalization, redundancy-aware actor selection, and revised graph scoring. Our evaluation separates backbone development using retained external preprocessing artifacts from integration of the local replacement pipeline. Controlled comparisons show improved date ranking from the graph revisions; fixed diffusion removes encoder training and runs 47 times faster during encoding without changing downstream date scores. Local preprocessing reveals interactions among components rather than uniformly additive improvements. Experiments on a second topic suggest that sustained structural changes and event onsets may benefit from different temporal scoring strategies. In our evaluation, the complete pipeline processes a news collection in approximately 30 minutes on a consumer laptop, with peak RAM and GPU memory below 3 GB. The results establish local feasibility and clarify how structural change and temporal placement affect date ranking. Selecting a finite timeline without reference-based threshold tuning remains an open challenge.</abstract>
+      <pdf hash="9d7d1fd0"/>
+      <bibkey>chu-chen-2026-localpiece</bibkey>
+    </paper>
+    <paper id="39">
+      <!-- https://aclanthology.org/2026.rocling-main.39/ -->
+      <title>Evidence Before Generation: A Provenance-Aware Audit of Graph-Assisted Retrieval for <fixed-case>T</fixed-case>aiwanese Ethnohistory</title>
+      <author id="chun-shih-cheng" orcid="0009-0005-2307-6563"><first>Chun-Shih</first><last>Cheng</last></author>
+      <author id="yu-jie-tsai" orcid="0009-0004-5183-925X"><first>Yu-Jie</first><last>Tsai</last></author>
+      <author id="hsiao-yu-wang" orcid="0009-0002-7725-532X"><first>Hsiao-Yu</first><last>Wang</last></author>
+      <pages>393-401</pages>
+      <abstract>Historical contracts, images, maps, and policy records document interactions among Indigenous peoples, migrants, tenants, officials, and institutions. Ordinary graph edges, however, obscure whether a relation is source-stated, model-inferred, or assigned during cataloguing. We present a provenance-aware resource audit and task formulation for Taiwanese ethnohistory organized around three research questions. For representation (RQ1), we separate event claims from time-indexed group-membership assertions and implement a deterministic evidence gate that either cites or abstains. On 68 public catalogue titles and seven public records of contracts from 1804–1818, the gate answers 44 of 68 catalogue event queries and abstains on the other 24, 18 of them because the counterparty is absent from the title. On 27 membership questions from the contract records, co-location and surname propagation, two inference patterns the schema prohibits, would attach 12 and 5 group labels that the records do not state. The gate attaches none, but it recovers only 9 of the 15 stated memberships because its attachment rule misses labels that govern a coordinated list of names. For pre-generation defects (RQ2), the catalogue audit finds 11 uncertain titles and five duplicate-title pairs, and the audit of a 46-node GraphRAG-oriented pilot graph finds 19 weakly connected components, 12 isolated nodes, three dangling source references, and two missing files. For retrieval (RQ3), a case-level diagnostic on five pre-authored questions shows that graph expansion helps one cross-label alias query and hurts one map query. The contribution is a resource audit with an executable gate, not a benchmark for extraction or generation.</abstract>
+      <pdf hash="b1d44308"/>
+      <bibkey>cheng-etal-2026-evidence</bibkey>
+    </paper>
+    <paper id="40">
+      <!-- https://aclanthology.org/2026.rocling-main.40/ -->
+      <title>Introducing Creativity and Language Play in Digital Discourse: Insights from Creative Metaphors</title>
+      <author id="siaw-fong-chung-8324" orcid="0000-0002-9592-8324"><first>Siaw-Fong</first><last>Chung</last></author>
+      <pages>402-406</pages>
+      <abstract>Creativity and language play are central to human communication and are increasingly visible in digital discourse. Digital environments provide rich contexts for creative language practices, while AI-mediated interaction continues to reshape how creativity is expressed and interpreted. Although creativity and language play have been examined from diverse theoretical perspectives, their complexity calls for an integrative understanding. This article introduces key perspectives on creativity and language play in digital language representation, using creative metaphors as illustrative examples. It defines core concepts, discusses major theoretical considerations, and highlights how creative metaphors can provide insights into the interaction of linguistic creativity, cognition, and digital communication. The article aims to provide a conceptual foundation for future research on creativity and language play in digitally mediated contexts.</abstract>
+      <pdf hash="25cabec8"/>
+      <bibkey>chung-2026-introducing</bibkey>
+    </paper>
+    <paper id="41">
+      <!-- https://aclanthology.org/2026.rocling-main.41/ -->
+      <title>Language Play as a Marker of Authenticity in Platform-Mediated Communication</title>
+      <author id="svitlana-shurma" orcid="0000-0002-2183-2338"><first>Svitlana</first><last>Shurma</last></author>
+      <pages>407-418</pages>
+      <abstract>This presentation looks at language play through the prism of platform-mediated communication. A small case study analyzes the content of three micro-celebrities on TikTok engaged in language play that functions as a marker of their algorithmic identities. The results show that formal and verbal-level language play easily engages the audience to continue playing. When language play is realized at the level of discourse, the audience tends to focus more on the content of the narrative, rather than engage in the play. Overall, language play indexes the authenticity of micro-celebrities.</abstract>
+      <pdf hash="610a5047"/>
+      <bibkey>shurma-2026-language</bibkey>
+    </paper>
+    <paper id="42">
+      <!-- https://aclanthology.org/2026.rocling-main.42/ -->
+      <title>When <fixed-case>AI</fixed-case> Plays the Cultural Game: <fixed-case>AI</fixed-case>-Mediated Regeneration of <fixed-case>P</fixed-case>enghu Bokua as Language Play in Digital Discourse</title>
+      <author id="august-chao" orcid="0009-0009-9111-9763"><first>August</first><last>Chao</last></author>
+      <pages>419-426</pages>
+      <abstract>Bokua (褒歌) is the improvisational call-and-response folk poetry of the Penghu Islands of Taiwan, performed in the endangered Penghu accent of Taiwanese Hokkien. As a constrained creative form—seven-character lines, tonal wordplay, and dialectal stance-taking—bokua represents a vivid instance of language play facing extinction as its speaker community rapidly declines. This paper presents BokuaGen, an AI system that mediates the regeneration of this endangered creative language in digital discourse. BokuaGen integrates bias-only speaker adaptation (0.13% of model parameters), kNN-based voice conversion, LLM-assisted forced alignment, and melody extraction from real bokua recordings to produce shareable Penghu-accent bokua videos. Experiments on the only available Penghu-accent speaker (TIF1035, 234 utterances, NAER TAT-MOE corpus) show that (1) conventional fine-tuning collapses pitch (F0: 157 → 62 Hz), and adding an explicit F0 loss merely shifts the collapse to amplitude (RMS: 0.043 → 0.003)—a complementary dual mode collapse that destroys the dialect’s creative tonal identity, while our bias-only approach recovers the target F0 (191 Hz); (2) age-controlled F0 comparison shows the Penghu speaker is indistinguishable from an age-matched Quanzhou speaker (both 191 Hz), consistent with their shared linguistic origin; (3) the complete pipeline achieves F1-band spectral alignment within 0.3 dB of the real speaker; (4) G-major pentatonic melody (G: 52%) extracted from real recordings provides culturally authentic accompaniment; (5) speaker-grounded G2P—aligning grapheme-to-phoneme conversion with the target speaker’s actual readings rather than idealised dialect rules—raises syllable accuracy from 34.9% to 83.1%. The resulting digital artifacts—bokua speech synchronised with traditional melody—demonstrate how AI-mediated interaction can sustain endangered language play for contemporary audiences. A demo video is available at https://youtube.com/shorts/Mu0IAGK1ZbQ.</abstract>
+      <pdf hash="70c051e7"/>
+      <bibkey>chao-2026-ai</bibkey>
+    </paper>
+    <paper id="43">
+      <!-- https://aclanthology.org/2026.rocling-main.43/ -->
+      <title>When Guardrails Meet <fixed-case>I</fixed-case>nternet Slang: A Preliminary Study of Bidirectional Safety-Lag in Traditional <fixed-case>C</fixed-case>hinese Prompt Injection</title>
+      <author id="chen-chou-ma" orcid="0009-0008-3594-3590"><first>Chen-Chou</first><last>Ma</last></author>
+      <pages>427-437</pages>
+      <abstract>Internet slang is in constant flux, posing a dilemma for the safety classifiers (guardrails) that screen LLM inputs: too permissive and novel attacks slip through; too strict and everyday jokes get killed. At the intersection of Taiwanese Traditional-Chinese slang and prompt injection, we build a reproducible, slang-year-stratified Traditional-Chinese test set of 545 items aligned to six Taiwan-specific risk categories, plus a per-item paired generic-word control set that isolates the effect of slang itself, and evaluate four open-source guardrails differing in release year and language orientation: Llama Guard, ShieldGemma, Qwen3Guard, and Breeze Guard. The results reveal a bidirectional safety-lag whose two ends lie on different axes. Over-blocking is driven directly by slang: the Traditional-Chinese-native Breeze Guard misclassifies 62.7% of benign slang, 22.7 percentage points higher than its paired generic-word controls (p &lt; 0.001), with the gap widening as terms get newer. Under-detection is more closely tied to language orientation: even with policies aligned to the local risks, the two English-oriented models detect only 83.1% and 64.4% of attacks, with no variation across slang years; a within-family, cross-release Llama Guard series confirms that release year does not meaningfully improve handling of Traditional-Chinese slang. The multilingual Qwen3Guard is the most balanced. From these we propose actionable governance directions and invite larger follow-up work.</abstract>
+      <pdf hash="9411b611"/>
+      <bibkey>ma-2026-guardrails</bibkey>
+    </paper>
+    <paper id="44">
+      <!-- https://aclanthology.org/2026.rocling-main.44/ -->
+      <title>“Far More Remains”: Language Play and Digital Remediation in Lilit Phra Lo</title>
+      <author id="chawarote-valyamedhi" orcid="0000-0001-9657-8672"><first>Chawarote</first><last>Valyamedhi</last></author>
+      <pages>438-445</pages>
+      <abstract>Although Lilit Phra Lo has received substantial attention as a literary text, less consideration has been given to how its historically situated language play is encountered and interpreted in contemporary digital environments. This study examines language play in the poem’s forest sequence and its interpretation in contemporary digital discourse. Using qualitative textual analysis, it draws on the Thai concept of alangkan, particularly semantic (artha-alaṅkāra) and sonic (śabda-alaṅkāra) ornamentation, to analyze how botanical names generate semantic associations and increasingly intensive lexical and phonological patterning. A purposive selection of discussions on Pantip, a major Thai-language online forum, is examined as qualitative evidence of contemporary reader encounters with the poem. These discussions reveal an asymmetry between the relative accessibility of the narrative and difficulties surrounding its historical language, while also demonstrating how historical language play can acquire new interactional meanings through digital recontextualization. The study argues that digital availability does not make different dimensions of access equivalent: textual and semantic accessibility, referential knowledge, and poetic accessibility may diverge even within the same digitally available text. Digital remediation thus places historical linguistic creativity within new conditions of access, interpretation, and recontextualization.</abstract>
+      <pdf hash="b9f31c67"/>
+      <bibkey>valyamedhi-2026-far</bibkey>
+    </paper>
+    <paper id="45">
+      <!-- https://aclanthology.org/2026.rocling-main.45/ -->
+      <title><fixed-case>ROCLING</fixed-case>-2026 Shared Task: <fixed-case>C</fixed-case>hinese Dimensional Sentiment Analysis for New Immigrants’ Feeling Texts</title>
+      <author id="tzu-mi-lin" orcid="0000-0002-2604-3725"><first>Tzu-Mi</first><last>Lin</last></author>
+      <author id="wen-ni-liu" orcid="0009-0002-6457-6650"><first>Wen-Ni</first><last>Liu</last></author>
+      <author id="yen-chen-tang" orcid="0009-0003-5734-4656"><first>Yen-Chen</first><last>Tang</last></author>
+      <author id="lung-hao-lee" orcid="0000-0003-0472-7429"><first>Lung-Hao</first><last>Lee</last></author>
+      <pages>446-455</pages>
+      <abstract>This paper presents the ROCLING-2026 shared task on Dimensional Sentiment Analysis for New Immigrants’ Feeling Texts (DSA-NIFT), the fifth edition of the Chinese Dimensional Sentiment Analysis shared task series. The task requires systems to predict continuous valence and arousal scores for Chinese narratives written by new immigrants. Chinese EmoBank serves as the source-domain training data, while the development and test sets contain 1,300 new-immigrant narratives, introducing a challenging domain shift to linguistically diverse non-native Chinese texts. Eight teams participated, with five submitting system description papers. Their approaches include domain adaptation, transfer learning, LLM-assisted augmentation, affective lexicons, synthetic data, and model combination. The best system achieved MAE/PCC scores of 0.5366/0.8971 for valence and 0.8658/0.4376 for arousal. Overall, valence prediction consistently outperformed arousal prediction, highlighting arousal as a key challenge. DSA-NIFT provides a benchmark for advancing robust fine-grained affective modeling of linguistically diverse Chinese texts.</abstract>
+      <pdf hash="e62f0481"/>
+      <bibkey>lin-etal-2026-rocling</bibkey>
+    </paper>
+    <paper id="46">
+      <!-- https://aclanthology.org/2026.rocling-main.46/ -->
+      <title><fixed-case>CYUT</fixed-case> at <fixed-case>ROCLING</fixed-case>-2026 Shared Task: Perplexity-Guided Target-Domain Adaptation for <fixed-case>C</fixed-case>hinese Dimensional Sentiment Regression</title>
+      <author id="yi-min-jian" orcid="0009-0004-5334-8403"><first>Yi-Min</first><last>Jian</last></author>
+      <author id="shih-hung-wu" orcid="0000-0002-1769-0613"><first>Shih-Hung</first><last>Wu</last></author>
+      <pages>456-465</pages>
+      <abstract>This paper describes the CYUT system developed for the ROCLING-2026 Shared Task on Chinese dimensional sentiment regression. The target data consist of reflective narratives written by new immigrants, and these narratives differ substantially from the existing source corpora in text length, topic, and language use. We propose a perplexity-guided target-domain adaptation pipeline. We first fine-tune Qwen2-7B-Instruct and Ministral-3-8B-Instruct-2512 on 5,509 annotated instances from CVAS and CVAT. We then use each source model to calculate the perplexity of 200 unlabeled target-domain texts and select either the Top 30%, 40%, 50%, or all target texts for continued language-model training. After target-domain adaptation, we realign each model with the source-domain VA task and construct a dimension-specific weighted ensemble. The final Top-30% ensemble achieved a V-MAE of 0.5366, a V-PCC of 0.8971, an A-MAE of 0.8658, and an A-PCC of 0.4376 on the official test set, achieving first place on all four evaluation metrics and first place overall with an average rank of 1.</abstract>
+      <pdf hash="2e177291"/>
+      <bibkey>jian-wu-2026-cyut</bibkey>
+    </paper>
+    <paper id="47">
+      <!-- https://aclanthology.org/2026.rocling-main.47/ -->
+      <title>aoff123 at <fixed-case>ROCLING</fixed-case>-2026 Shared Task: A Validation-Guided Protocol for Staged Domain Adaptation in <fixed-case>C</fixed-case>hinese Dimensional Sentiment Analysis</title>
+      <author id="chih-yuan-cheng" orcid="0009-0003-3727-649X"><first>Chih-Yuan</first><last>Cheng</last></author>
+      <author id="yi-hsuan-huang" orcid="0009-0006-5178-3094"><first>Yi-Hsuan</first><last>Huang</last></author>
+      <author id="bor-jiunn-hwang" orcid="0000-0002-7302-1019"><first>Bor-Jiunn</first><last>Hwang</last></author>
+      <pages>466-476</pages>
+      <abstract>Dimensional sentiment analysis assigns continuous Valence and Arousal scores to text. The DSA-NIFT shared task focuses on Chinese reflections written by new immigrants. We present a validation-guided protocol in which a bounded MacBERT Valence regressor is trained on the CVAT and CVAS portions of Chinese EmoBank and then adapted to educational and medical reflection data. Checkpoints and three fixed interpolation candidates are compared using Valence mean absolute error subject to a Pearson-correlation floor on held-out DSA-MST data, while a frozen reference supplies Arousal predictions. This dimension-specific design separates Valence adaptation from Arousal preservation and treats model selection as a constrained two-metric decision. Convex interpolation preserves the score range, admits an MAE upper bound, and leaves Arousal metrics unchanged across the candidate family. The selected equal-weight blend was used in the official submission, which placed aoff123 third overall with a mean rank of 3.75. The metric profile motivates joint consideration of error and correlation when developing systems for Chinese dimensional sentiment analysis.</abstract>
+      <pdf hash="a0eeffd1"/>
+      <bibkey>cheng-etal-2026-aoff123</bibkey>
+    </paper>
+    <paper id="48">
+      <!-- https://aclanthology.org/2026.rocling-main.48/ -->
+      <title><fixed-case>SCUNLP</fixed-case> at <fixed-case>ROCLING</fixed-case>-2026 Shared Task: Augmenting <fixed-case>BERT</fixed-case> with <fixed-case>LLM</fixed-case>-Generated Affective Text for Valence-Arousal Prediction of New Immigrants’ Texts</title>
+      <author id="hsiang-wei-chen" orcid="0009-0007-8649-2067"><first>Hsiang-Wei</first><last>Chen</last></author>
+      <author id="he-chang-chan" orcid="0009-0000-5572-2551"><first>He-Chang</first><last>Chan</last></author>
+      <author id="jheng-long-wu" orcid="0000-0003-3494-5507"><first>Jheng-Long</first><last>Wu</last></author>
+      <pages>477-485</pages>
+      <abstract>Chinese texts written by new immigrants often contain colloquial expressions, cross-cultural contexts, and implicit affective information, making valence and arousal prediction challenging. This paper presents the SCUNLP system for the ROCLING-2026 shared task. We use gpt-5.4-mini to analyze affective information in each text, concatenate the LLM-generated text with the original text, and fine-tune bert-base-chinese for joint valence-arousal regression. The training data combine Chinese EmoBank with labeled data released by the ROCLING 2025 shared task, yielding 7,094 instances after cleaning. On the official test set, the system obtains valence MAE/PCC of 0.58/0.88 and arousal MAE/PCC of 0.90/0.41, ranking second overall. Compared with a BERT baseline trained without LLM-generated text, valence MAE decreases from 0.61 to 0.58. These results show that LLM-generated text can provide useful additional semantic information for BERT in low-resource Chinese dimensional sentiment analysis.</abstract>
+      <pdf hash="03968482"/>
+      <bibkey>chen-etal-2026-scunlp</bibkey>
+    </paper>
+    <paper id="49">
+      <!-- https://aclanthology.org/2026.rocling-main.49/ -->
+      <title><fixed-case>NCKU</fixed-case>_<fixed-case>NLP</fixed-case> at <fixed-case>ROCLING</fixed-case>-2026 Shared Task: Source-Aware Lexicon-Augmented Regression for Valence–Arousal Prediction</title>
+      <author id="chih-hsi-chen" orcid="0009-0008-7873-0288"><first>Chih-Hsi</first><last>Chen</last></author>
+      <author><first>Hang</first><last>Tan</last></author>
+      <pages>486-495</pages>
+      <abstract>The ROCLING-2026 DSA-NIFT shared task requires continuous valence and arousal prediction for Chinese new-immigrant reflection texts, but provides no labeled target-domain training data. Our formal submission combines MacBERT, Chinese affective-lexicon features, and source-aware arousal supervision; we additionally evaluate pseudo-labeling, pairwise supervision, and graph-guided LLM augmentation as diagnostic alternatives. The submitted system obtains 0.620/0.866 valence MAE/PCC and 0.926/0.357 arousal MAE/PCC on the official test set, ranking fourth among the seven participating teams. On official public validation, raw synthetic supervision reaches 0.461 arousal PCC but worsens arousal MAE to 1.100, whereas E19 trades slightly lower arousal PCC (0.452) for the lowest arousal MAE (0.870). A controlled augmentation ladder further separates controllability from downstream utility: graph expansion raises intrinsic seed coherence by <tex-math>14.2\times</tex-math> over VA lookup, but yields only an approximately 0.003 increase in mean test arousal PCC based on rounded leaderboard scores. In matched batch-32, three-seed reruns, the synthetic condition with the highest arousal PCC reaches 0.387 versus 0.370 without augmentation, while arousal MAE increases from 0.923 to 1.073. Together, these results highlight the need to balance PCC and MAE when selecting arousal models under weak auxiliary supervision.</abstract>
+      <pdf hash="df740fff"/>
+      <bibkey>chen-tan-2026-ncku</bibkey>
+    </paper>
+    <paper id="50">
+      <!-- https://aclanthology.org/2026.rocling-main.50/ -->
+      <title><fixed-case>YCW</fixed-case>-<fixed-case>NTUST</fixed-case> at <fixed-case>ROCLING</fixed-case>-2026 Shared Task: Leaderboard-Feedback Closed-Form Ensembling with <fixed-case>LLM</fixed-case> Direct Scoring for <fixed-case>C</fixed-case>hinese Valence–Arousal Regression</title>
+      <author id="yu-cheng-chao" orcid="0009-0009-7797-4528"><first>Yu-Cheng</first><last>Chao</last></author>
+      <author id="chuan-jhih-you" orcid="0009-0004-3712-4338"><first>Chuan-Jhih</first><last>You</last></author>
+      <author id="guan-hua-wen" orcid="0009-0008-6808-2010"><first>Guan-Hua</first><last>Wen</last></author>
+      <author id="kuan-yu-chen-7551" orcid="0000-0001-9656-7551"><first>Kuan-Yu</first><last>Chen</last></author>
+      <pages>496-510</pages>
+      <abstract>We describe YCW-NTUST’s system for the ROCLING-2026 shared task on Chinese Valence–Arousal (VA) prediction for new-immigrant texts. The system combines fine-tuned Chinese encoders, frozen embedding regression, target-domain synthetic data, lexicon scoring, and LLM direct scoring. To combine signals without test labels, we derive a closed-form ensemble from leaderboard PCC feedback and apply a positive affine transformation to reduce MAE while preserving PCC. Our final test-phase submission achieves V-MAE 0.5555, V-PCC 0.8951, A-MAE 0.8159, and A-PCC 0.4438. A replay on labeled ROCLING 2025 data estimates that leaderboard adaptation inflates the Arousal gain by about 0.016 PCC and 0.008 MAE at the 2026 signal strength. Although the submission was not included in the official ranking, its scores are competitive with the top system, particularly on Arousal MAE.</abstract>
+      <pdf hash="d954139c"/>
+      <bibkey>chao-etal-2026-ycw</bibkey>
+    </paper>
+  </volume>
+  <event id="rocling-2026">
+    <!-- https://aclanthology.org/events/rocling-2026/ -->
+    <meta>
+      <title>38th Conference on Computational Linguistics and Speech Processing (ROCLING 2026)</title>
+      <location>Hsinchu, Taiwan</location>
+      <dates>November 6–7, 2026</dates>
+    </meta>
+    <links>
+      <url type="website">https://rocling2026.github.io/NTHU_rocling_2026/</url>
+    </links>
+  </event>
+</collection>
