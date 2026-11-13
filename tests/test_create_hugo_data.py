@@ -27,12 +27,12 @@ from bin.create_hugo_data import (
     homepage_stats,
     latest_owned_ingest_date,
     newly_ingested_years,
-    paper_to_dict,
+    record_to_dict,
     venue_to_dict,
 )
 
 from acl_anthology import Anthology, config
-from acl_anthology.collections.types import EventLink
+from acl_anthology.collections.types import EventLink, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.files import VideoReference
 
@@ -46,9 +46,14 @@ def test_homepage_stats_are_computed_from_anthology(anthology):
     stats = homepage_stats(anthology)
     top_level_venues = [venue for venue in anthology.venues.values() if venue.is_toplevel]
 
-    assert stats["paper_count"] == sum(1 for _ in anthology.papers())
+    assert stats["paper_count"] == sum(
+        1 for paper in anthology.papers() if not paper.is_media
+    )
+    assert stats["media_count"] == sum(1 for _ in anthology.media())
     assert stats["author_count"] == len(anthology.people)
-    assert stats["volume_count"] == sum(1 for _ in anthology.volumes())
+    assert stats["volume_count"] == sum(
+        1 for volume in anthology.volumes() if volume.type != VolumeType.MEDIA
+    )
     assert stats["venue_count"] == len(anthology.venues)
     assert stats["venue_year_count"] == sum(
         len({volume.year for volume in venue.volumes()}) for venue in top_level_venues
@@ -350,7 +355,7 @@ def test_homepage_group_excludes_parent_event_updates(anthology):
 
 
 def test_external_paper_url_is_not_exported_as_pdf(anthology):
-    data = paper_to_dict(anthology.get_paper("1998.amta-papers.1"))
+    data = record_to_dict(anthology.get_paper("1998.amta-papers.1"))
 
     assert data["urls"] == [
         {
@@ -363,7 +368,7 @@ def test_external_paper_url_is_not_exported_as_pdf(anthology):
 
 
 def test_local_paper_url_is_exported_as_pdf(anthology):
-    data = paper_to_dict(anthology.get_paper("2025.acl-long.1"))
+    data = record_to_dict(anthology.get_paper("2025.acl-long.1"))
 
     assert data["pdf"] == f"{config.url_prefix}/2025.acl-long.1.pdf"
     assert data["thumbnail"] == f"{config.url_prefix}/thumb/2025.acl-long.1.jpg"

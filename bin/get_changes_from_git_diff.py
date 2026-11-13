@@ -30,40 +30,51 @@ The argument to the script is the URL root for the preview.
 
 import sys
 import argparse
-import lxml.etree as etree
+import logging
+from pathlib import PurePosixPath
+from typing import Iterable
 
-parser = argparse.ArgumentParser()
-parser.add_argument("url_root")
-args = parser.parse_args()
+from acl_anthology import Anthology
 
-changeset = []
-for filepath in sys.stdin:
-    filepath = filepath.rstrip()
 
-    # find volumes in this file
-    if filepath.endswith(".xml"):
-        tree = etree.parse(filepath.rstrip())
-        root = tree.getroot()
-        collection_id = root.attrib["id"]
-        for volume in root.findall("./volume"):
-            volume_name = volume.attrib["id"]
-            volume_id = f"{collection_id}-{volume_name}"
-            change = f"[{volume_id}]({args.url_root}/volumes/{volume_id})"
-            changeset.append(change)
+def changed_links(
+    filepaths: Iterable[str], url_root: str, anthology: Anthology | None = None
+) -> list[str]:
+    """Describe changed content, ignoring XML templates and test fixtures."""
+    changeset = []
+    for filepath in filepaths:
+        filepath = filepath.rstrip()
+        path = PurePosixPath(filepath)
+        if path.parent == PurePosixPath("data/xml") and path.suffix == ".xml":
+            if anthology is None:
+                anthology = Anthology.from_within_repo(suppress_warnings=True)
+            collection = anthology.get_collection(path.stem)
+            if collection is None:
+                logging.warning(
+                    "Changed collection %s is absent; omitting preview links", path.stem
+                )
+                continue
+            for volume in collection.volumes():
+                changeset.append(
+                    f"[{volume.full_id}]({url_root}/volumes/{volume.full_id})"
+                )
+        elif filepath.startswith("hugo/content/faq"):
+            change = f"[FAQ]({url_root}/faq)"
+            if change not in changeset:
+                changeset.append(change)
+        elif filepath.startswith("hugo/content/info"):
+            changeset.append(f"[Info: {path.stem}]({url_root}/info/{path.stem})")
+    if len(changeset) > 50:
+        return changeset[:50] + [f"(plus {len(changeset) - 50} more...)"]
+    return changeset
 
-    # The FAQ has changed (no link to individual files)
-    elif filepath.startswith("hugo/content/faq"):
-        change = f"[FAQ]({args.url_root}/faq)"
-        if change not in changeset:
-            changeset.append(change)
 
-    # Content pages have changed
-    elif filepath.startswith("hugo/content/info"):
-        name = filepath.split("/")[-1].replace(".md", "")
-        change = f"[Info: {name}]({args.url_root}/info/{name})"
-        changeset.append(change)
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url_root")
+    args = parser.parse_args()
+    print(", ".join(changed_links(sys.stdin, args.url_root)))
 
-if len(changeset) > 50:
-    changeset = changeset[0:50] + [f"(plus {len(changeset) - 50} more...)"]
 
-print(", ".join(changeset))
+if __name__ == "__main__":
+    main()

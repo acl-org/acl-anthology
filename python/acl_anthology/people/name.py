@@ -37,7 +37,7 @@ from ..utils.latex import latex_encode
 if TYPE_CHECKING:
     import rich
     from ..anthology import Anthology
-    from ..collections import Volume, Paper, Talk
+    from ..collections import CollectionItem, Talk
     from ..people import Person
 
 
@@ -524,7 +524,7 @@ class NameSpecification:
         default=None,
         validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
     )
-    parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
+    parent: Optional[CollectionItem | Talk] = field(default=None, repr=False, eq=False)
     orcid: Optional[str] = field(
         default=None,
         converter=convert_orcid,
@@ -555,25 +555,19 @@ class NameSpecification:
 
     @name.setter
     def name(self, value: Any) -> None:
-        # TODO: hasattr check pending the CollectionItem refactoring
+        from ..collections.item import CollectionItem
+
         if (
             self.id is None
-            and self.parent is not None
-            and hasattr(self.parent, "full_id_tuple")
+            and isinstance(self.parent, CollectionItem)
             and self.root.people.is_data_loaded
         ):
             person_before = self.resolve()
             self._name = _Name_from(value)
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.discard(self.parent.full_id_tuple)
-                person_after.item_ids.add(self.parent.full_id_tuple)
-                if (
-                    hasattr(self.parent, "frontmatter")
-                    and (frontmatter := self.parent.frontmatter) is not None
-                ):
-                    person_before.item_ids.discard(frontmatter.full_id_tuple)
-                    person_after.item_ids.add(frontmatter.full_id_tuple)
+                person_before.item_ids.difference_update(self.parent.name_spec_item_ids)
+                person_after.item_ids.update(self.parent.name_spec_item_ids)
         else:
             self._name = _Name_from(value)
 
@@ -584,24 +578,15 @@ class NameSpecification:
 
     @id.setter
     def id(self, value: Optional[str]) -> None:
-        # TODO: duplicates code from above, should probably be refactored
-        if (
-            self.parent is not None
-            and hasattr(self.parent, "full_id_tuple")
-            and self.root.people.is_data_loaded
-        ):
+        from ..collections.item import CollectionItem
+
+        if isinstance(self.parent, CollectionItem) and self.root.people.is_data_loaded:
             person_before = self.resolve()
             self._id = value
             person_after = self.root.people._resolve_namespec(self, allow_creation=True)
             if person_before != person_after:
-                person_before.item_ids.discard(self.parent.full_id_tuple)
-                person_after.item_ids.add(self.parent.full_id_tuple)
-                if (
-                    hasattr(self.parent, "frontmatter")
-                    and (frontmatter := self.parent.frontmatter) is not None
-                ):
-                    person_before.item_ids.discard(frontmatter.full_id_tuple)
-                    person_after.item_ids.add(frontmatter.full_id_tuple)
+                person_before.item_ids.difference_update(self.parent.name_spec_item_ids)
+                person_after.item_ids.update(self.parent.name_spec_item_ids)
         else:
             self._id = value
 

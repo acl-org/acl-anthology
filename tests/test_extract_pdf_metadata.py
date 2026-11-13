@@ -187,11 +187,11 @@ def test_select_papers_unions_years_ids_and_events_without_duplicates():
     workshop_2026 = SimpleNamespace(full_id="2026.workshop-1.1", year="2026")
     main_volume = SimpleNamespace(
         full_id_tuple=("2026.test", "main", None),
-        papers=lambda: iter([paper_2026]),
+        records=lambda: iter([paper_2026]),
     )
     workshop_volume = SimpleNamespace(
         full_id_tuple=("2026.workshop", "1", None),
-        papers=lambda: iter([workshop_2026]),
+        records=lambda: iter([workshop_2026]),
     )
     collection = SimpleNamespace(volumes=lambda: iter([main_volume]))
     event = SimpleNamespace(
@@ -200,7 +200,7 @@ def test_select_papers_unions_years_ids_and_events_without_duplicates():
     )
     all_papers = [paper_2025, paper_2026, workshop_2026]
     anthology = SimpleNamespace(
-        papers=lambda anthology_id=None: iter(
+        records=lambda anthology_id=None: iter(
             all_papers
             if anthology_id is None
             else {"2025.test-main.1": [paper_2025]}[anthology_id]
@@ -225,7 +225,7 @@ def test_select_papers_unions_years_ids_and_events_without_duplicates():
 
 def test_select_papers_rejects_unknown_id_before_returning_work():
     anthology = SimpleNamespace(
-        papers=lambda anthology_id=None: iter(()),
+        records=lambda anthology_id=None: iter(()),
         get_event=lambda anthology_id: None,
         get=lambda anthology_id: None,
     )
@@ -243,7 +243,7 @@ def test_select_papers_reports_malformed_publication_id_as_unknown_selector():
         raise ValueError(f"could not parse {anthology_id}")
 
     anthology = SimpleNamespace(
-        papers=lambda anthology_id=None: iter(()),
+        records=lambda anthology_id=None: iter(()),
         get_event=lambda anthology_id: None,
         get=reject_malformed_id,
     )

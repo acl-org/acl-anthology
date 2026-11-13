@@ -21,3 +21,6 @@
   {{ end }}
 </p>
 {{ end }}
+{{ with $data.media_count }}
+<p class="text-muted mb-0">{{ lang.FormatNumberCustom 0 . }} media {{ cond (eq . 1) "recording" "recordings" }}</p>
+{{ end }}

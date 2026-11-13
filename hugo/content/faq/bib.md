@@ -1,5 +1,5 @@
 ---
-Title: How do I cite papers in the ACL Anthology?
+Title: How do I cite papers and media in the ACL Anthology?
 category: usage
 weight: 1
 ---
@@ -25,5 +25,18 @@ Bulk downloads for consolidated BibTeX files are available in the following vari
 
 For individual papers, buttons are provided to download citation data in a number of formats, including BibTeX, [MODS XML](https://www.loc.gov/standards/mods/), Endnote, and an informal citation string.
 These formats can be downloaded as files or copied to the clipboard via convenient buttons.
+
+## Citing media recordings
+
+[Standalone media recordings]({{< relref "/media/" >}}), including keynotes,
+meetings, panels, and podcast episodes, have persistent Anthology IDs and
+landing pages. Use the **Cite** button on the recording's page, just as for a
+paper. Media citations use BibTeX `@misc` rather than `@inproceedings`, and
+identify the recording format and series. CSL-JSON is also available.
+
+Cite the landing-page URL, not the audio/video file or an external player's
+URL: recordings can move or be replaced without changing the citable item.
+Media citations are included in volume and consolidated bibliographic exports.
+A video accompanying a paper normally remains part of that paper's record.
 
 Finally, we also offer [an XML paper feed](https://aclanthology.org/papers/index.xml), which is useful in tools like [Zotero](https://www.zotero.org/) and [Mendeley](https://www.mendeley.com/).

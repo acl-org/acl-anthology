@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- `CollectionItem` provides the shared identity/contributor interface; distinct `Paper`, `Frontmatter`, and `Media` records share bibliography behavior without sharing paper identity or XML tags.
+- Generic `items()`, `records()`, `get_record()`, and citation-key lookups, plus `get_media()`, `get_frontmatter()`, and `create_frontmatter()`.
+- Citable media volumes and recording genres (talks, meetings, podcasts, panels, tutorials, interviews, lectures, and ceremonies), `Volume.create_media()`, and media iterators on Anthology, volumes, events, and people.
+- Audio references with independent publication-permission and availability flags, exact release dates, duration, episode identifiers, and licenses; media-aware BibTeX, CSL-JSON, and ACL citations.
+
+### Changed
+
+- **Breaking:** paper iterators and paper-specific lookups exclude frontmatter and media; use the generic record APIs to include them. Media use `<media>` and `MediaType`, not `<paper>` or `PaperType`. Frontmatter inherits its title/editors from its volume and accepts only its supported metadata.
+- CSL metadata is recomputed after corrections rather than retaining stale cached values.
+
 ## [1.3.4] — 2026-10-16
 
 ### Added

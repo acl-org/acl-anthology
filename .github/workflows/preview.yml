@@ -146,7 +146,12 @@ jobs:
       id: extract_branch
     - name: List changes
       shell: bash
-      run: echo "changes=$(git diff --name-only HEAD origin/master | python ./bin/get_changes_from_git_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }})" >> $GITHUB_OUTPUT
+      env:
+        PREVIEW_URL: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+      run: |
+        set -euo pipefail
+        changes=$(git diff --name-only HEAD origin/master | uv run python ./bin/get_changes_from_git_diff.py "$PREVIEW_URL")
+        echo "changes=$changes" >> "$GITHUB_OUTPUT"
       id: list_changes
 #    - name: list volumes debug
 #      shell: bash

@@ -89,7 +89,7 @@ def compute_authorship_stats(anthology: Anthology) -> AuthorStats:
     authorships: dict[int, Counter[Category]] = defaultdict(Counter)
     authors: dict[int, set[str]] = defaultdict(set)
     for paper in anthology.papers():
-        if paper.is_frontmatter or paper.is_deleted:
+        if paper.is_frontmatter or paper.is_deleted or getattr(paper, "is_media", False):
             continue
         if not paper.year.isdigit():
             raise ValueError(f"{paper.full_id}: invalid publication year {paper.year!r}")

@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from attrs import define, field
 from collections import Counter, defaultdict
-import itertools as it
 from msgspec import json
 from pathlib import Path
 from rich.progress import track
@@ -44,7 +43,7 @@ from . import Person, Name, NameLink, NameSpecification
 if TYPE_CHECKING:
     from _typeshed import StrPath
     from ..anthology import Anthology
-    from ..collections import Paper, Volume, Collection
+    from ..collections import CollectionItem, Volume, Collection
 
 log = get_logger()
 PEOPLE_INDEX_FILE = "json/people.json"
@@ -165,52 +164,76 @@ class PersonIndex(SlottedDict[Person]):
         return None
 
     def find_coauthors(
-        self, person: str | Person, include_volumes: bool = True
+        self,
+        person: str | Person,
+        include_volumes: bool = True,
+        include_media: bool = True,
     ) -> list[Person]:
         """Find all persons who co-authored or co-edited items with the given person.
 
         Parameters:
             person: A person ID _or_ Person instance.
             include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
+            include_media: If False, excludes participation in standalone recordings.
 
         Returns:
             A list of all persons who are co-authors; can be empty.
         """
-        coauthors = self.find_coauthors_counter(person, include_volumes=include_volumes)
+        coauthors = self.find_coauthors_counter(
+            person, include_volumes=include_volumes, include_media=include_media
+        )
         return [self.data[pid] for pid in coauthors]
 
     def find_coauthors_counter(
-        self, person: str | Person, include_volumes: bool = True
+        self,
+        person: str | Person,
+        include_volumes: bool = True,
+        include_media: bool = True,
     ) -> Counter[str]:
         """Find the count of co-authored or co-edited items per person.
 
         Parameters:
             person: A person ID _or_ Person instance.
             include_volumes: If set to False, will not consider co-editorship on volumes, unless they have frontmatter.
+            include_media: If False, excludes participation in standalone recordings.
 
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
         """
-        from ..collections import Paper, Volume
+        from ..collections import Frontmatter, Record, Volume
 
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
             person = self.data[person]
         coauthors: Counter[str] = Counter()
+        counted = set()
         for item_id in person.item_ids:
-            item = cast("Volume | Paper", self.parent.get(item_id))
+            item = self.parent.get(item_id)
+            if not isinstance(item, (Volume, Record)):
+                raise ValueError(
+                    f"Person {person.id} refers to an invalid collection item: {item_id}"
+                )
             if (
                 not include_volumes
                 and item.full_id_tuple[-1] is None  # item is a Volume
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            if isinstance(item, Volume):
-                coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
-            elif isinstance(item, Paper):
-                coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
-                coauthors.update(self._resolve_namespec(ns).id for ns in item._editors)
+            if isinstance(item, (Volume, Frontmatter)):
+                volume_id = (
+                    item.full_id_tuple
+                    if isinstance(item, Volume)
+                    else item.parent.full_id_tuple
+                )
+                if volume_id in counted:
+                    continue
+                counted.add(volume_id)
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.namespecs)
+            elif isinstance(item, Record):
+                if item.is_media and not include_media:
+                    continue
+                coauthors.update(self._resolve_namespec(ns).id for ns in item.namespecs)
         del coauthors[person.id]
         return coauthors
 
@@ -308,22 +331,15 @@ class PersonIndex(SlottedDict[Person]):
         raised_exceptions = []
         for collection in iterator:
             for volume in collection.volumes():
-                context: Paper | Volume = volume
+                context: CollectionItem = volume
                 try:
                     self._add_to_index(
                         volume.editors, volume.full_id_tuple, during_build=True
                     )
-                    for paper in volume.papers():
+                    for paper in volume.records():
                         context = paper
-                        name_specs = (
-                            # Associate explicitly given authors/editors with the paper
-                            it.chain(paper.authors, paper._editors)
-                            # For frontmatter, also associate the volume editors with it
-                            if not paper.is_frontmatter
-                            else paper.editors
-                        )
                         self._add_to_index(
-                            name_specs, paper.full_id_tuple, during_build=True
+                            paper.namespecs, paper.full_id_tuple, during_build=True
                         )
                 except Exception as exc:  # pragma: no cover
                     exc.add_note(
