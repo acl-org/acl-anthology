@@ -39,6 +39,15 @@
     {{ end }}
   </nav>
   {{ end }}
+  {{ with $event.media }}
+  <section aria-labelledby="event-media-title" class="mb-4">
+    <h3 id="event-media-title">Media recordings</h3>
+    {{ range . }}
+      {{ ($.Site.GetPage (printf "/papers/%s" .)).Render "list-entry" }}
+    {{ end }}
+  </section>
+  {{ end }}
+  {{ if $volumes }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
       <h4 class="card-title">Volumes</h4>
@@ -62,6 +71,7 @@
         {{ end }}
       </ul>
     </div>
+    {{ end }}
   </div>
 
   {{/* Check if any of the volumes associated with this event have abstracts */}}

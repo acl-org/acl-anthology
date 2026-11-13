@@ -50,6 +50,7 @@ import requests
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from acl_anthology import Anthology
+from acl_anthology.collections.types import VolumeType
 from acl_anthology.utils.logging import setup_rich_logging
 
 from generate_crossref_doi_metadata import resolve_inputs, DOI_PREFIX
@@ -178,6 +179,12 @@ def process_volume(
     if volume is None:
         log.error("Volume %s not found in the Anthology", full_volume_id)
         sys.exit(1)
+    if volume.type == VolumeType.MEDIA:
+        log.info(
+            "Skipping media volume %s: automatic conference DOIs do not apply",
+            full_volume_id,
+        )
+        return 0
 
     log.info("Attempting to add DOIs for %s", full_volume_id)
     log.info('Found volume "%s"', volume.title)
@@ -189,7 +196,13 @@ def process_volume(
     num_added += added
 
     # Add DOIs for all papers (including frontmatter)
-    for paper in volume.papers():
+    for paper in volume.records():
+        if paper.is_media:
+            log.info(
+                "Skipping media item %s: automatic conference DOIs do not apply",
+                paper.full_id,
+            )
+            continue
         added = add_doi_to_item(
             paper, paper.full_id, doi_prefix, force, failures=failures
         )

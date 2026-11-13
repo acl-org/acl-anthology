@@ -8,6 +8,12 @@ traditionally have been bound and published as a physical book.  A _collection_
 is a group of volumes that were published at the same time under the same
 _venue_.
 
+Standalone recordings use the same hierarchy and identifiers, in dedicated
+`VolumeType.MEDIA` volumes. `Media`, `Paper`, and `Frontmatter` are distinct
+record classes sharing the `CollectionItem` interface. Use `records()` and
+`get_record()` for generic access; `papers()` and `get_paper()` return printed
+papers only. See [Citable media](media.md) for the design and authoring workflow.
+
 For example, the [paper with the Anthology ID “2022.acl-long.220”](https://aclanthology.org/2022.acl-long.220/) belongs to the _collection_ `2022.acl` (indicating that it was published at ACL 2022), the _volume_ `long` (which subsumes all long papers at the conference), and has the paper ID `220`.  The following graph illustrates this hierarchy:
 
 ```mermaid

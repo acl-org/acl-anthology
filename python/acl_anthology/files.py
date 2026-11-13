@@ -241,22 +241,47 @@ def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
 
 
 @define(frozen=True)
-class VideoReference(FileReference):
-    """Reference to a video."""
+class RecordingReference(FileReference):
+    """Base class for audio/video references with publication permission and availability."""
 
-    template_field: ClassVar[str] = "video_location_template"
     permission: bool = field(default=True, converter=bool)
+    available: bool = field(default=True, converter=bool)
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
         name = str(elem.get("href"))
-        if (value := elem.get("permission")) is not None:
-            return cls(name=name, permission=xsd_boolean(str(value)))
-        else:
-            return cls(name=name)
+        permission = elem.get("permission")
+        available = elem.get("available")
+        return cls(
+            name=name,
+            permission=True if permission is None else xsd_boolean(str(permission)),
+            available=True if available is None else xsd_boolean(str(available)),
+        )
 
-    def to_xml(self, tag: str = "video") -> etree._Element:
-        elem = E.video(href=self.name)
+    def to_xml(self, tag: str = "url") -> etree._Element:
+        elem = etree.Element(tag, href=self.name)
         if not self.permission:
             elem.set("permission", "false")
+        if not self.available:
+            elem.set("available", "false")
         return elem
+
+
+@define(frozen=True)
+class VideoReference(RecordingReference):
+    """Reference to a video."""
+
+    template_field: ClassVar[str] = "video_location_template"
+
+    def to_xml(self, tag: str = "video") -> etree._Element:
+        return super().to_xml(tag)
+
+
+@define(frozen=True)
+class AudioReference(RecordingReference):
+    """Reference to an audio recording."""
+
+    template_field: ClassVar[str] = "audio_location_template"
+
+    def to_xml(self, tag: str = "audio") -> etree._Element:
+        return super().to_xml(tag)
