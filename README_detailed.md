@@ -185,6 +185,57 @@ always be made in the data files under `data/` or in the scripts that
 interpret them; changes that only affect the **presentation** on the website can
 be made within the Hugo templates.
 
+### Page-specific notices (no rebuild required)
+
+After the notice loader has been deployed once, pages fetch notices at runtime
+from **both** the site's `/page-status.tsv` (relative to its deployment root)
+and the raw source of the
+[Page status wiki page](https://github.com/acl-org/acl-anthology/wiki/Page-status).
+Use the wiki for routine updates without rebuilding or deploying the website.
+The wiki page must be created before that source will work.
+
+Both sources use the same TSV format, with literal tabs between columns:
+
+```tsv
+path	type	message
+/events/emnlp-2026/	info	The remaining EMNLP 2026 workshop proceedings will be added soon.
+```
+
+In the wiki editor, use Markdown mode and paste the TSV directly: **do not**
+wrap it in a code fence or convert it into a Markdown table. Keep the header
+even when there are no notices. Messages are plain text, not HTML or Markdown,
+and cannot contain tabs or line breaks. Supported types are `info`, `warning`,
+`danger`, and `success`.
+
+Paths are case-sensitive, site-relative paths beginning with `/`, not full
+URLs. Matching ignores trailing slashes and query strings, but does not include
+child pages. Preview deployment prefixes are excluded from matching, so the same
+notice applies to the corresponding page on a preview.
+
+Add a row to publish a notice; edit or delete it to change or remove it. Multiple
+matching rows produce multiple dismissible alerts. Both sources are additive:
+identical type/message pairs appear only once, but removing a notice requires
+removing it from every source that supplies it. Dismissal lasts until the next
+page load.
+
+The repository ships an empty local TSV in
+[`hugo/static/page-status.tsv`](hugo/static/page-status.tsv). Server operators can
+update the deployed file directly without a build; a subsequent deployment may
+overwrite those edits, so prefer the wiki for ongoing announcements. Editing the
+repository's static copy alone does not change the live file until deployment.
+
+Updates appear on subsequent page loads, subject to HTTP/CDN caching (including
+GitHub's raw-content cache). JavaScript is required. Each source loads
+independently; if either is unavailable or malformed, the other still works.
+Fetch/header failures and invalid rows are reported in the browser console,
+without replacing page content with an error banner. Invalid rows are skipped.
+
+Run the loader tests without building the site:
+
+```bash
+node --test tests/javascript/page-status.cjs
+```
+
 ### Content (Data files)
 
 The data sources of the Anthology are currently stored under `data/`.  They
