@@ -26,9 +26,12 @@ Queries the Github API for all issues in the acl-org/acl-anthology repository.
 It then goes through them, looking for ones that
 - have an issue title ending in "/unverified"
 - have both "author-page" and "correction" labels,
-- a description that includes an ORCID URL (if the iD contains 'X' it must be uppercase)
-  and "[x] Verification"; other author page request types must be unchecked
+- a description that includes an ORCID URL (if the iD contains 'X' it must be uppercase) and
+  either comes from the "Verify Author Page" form with no papers listed as not the author's,
+  or from the legacy form with "[x] Verification" and other request types unchecked
 - are approved by at least one member of the Anthology group.
+  "Additional notes" are not read by this script, so the reviewer should check them
+  before approving.
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
@@ -51,6 +54,7 @@ import git
 import re
 
 from acl_anthology.anthology import Anthology
+from acl_anthology.people import Name
 from acl_anthology.utils.logging import setup_rich_logging
 
 
@@ -100,8 +104,12 @@ class AnthologyMetadataUpdater:
         - [ ] Name change: This author has permanently changed their name.
 
         ...
+
+        The "Verify Author Page" form may also have a "### Preferred author name"
+        section; see _preferred_name().
+
+        The issue body must already have "\n" line endings.
         """
-        issue_body = issue_body.replace("\r\n", "\n").replace("\r", "\n")
         m = re.search(
             r"### Author ORCID\n\nhttps://orcid.org/([0-9X-]{19})\n\n### Institution[^\n]+\n\n([^\n]+)\n",
             issue_body,
@@ -110,6 +118,45 @@ class AnthologyMetadataUpdater:
         if m is None:
             return None
         return {"orcid": m.group(1), "degree": m.group(2)}
+
+    @staticmethod
+    def _form_field(issue_body: str, heading: str) -> None | str:
+        """Get the answer under a "### heading" in an issue form, or None if left empty."""
+        m = re.search(
+            rf"### {re.escape(heading)}\n\n(.*?)(?:\n\n###|\Z)", issue_body, re.DOTALL
+        )
+        if m is None or m.group(1).strip() in ("", "_No response_"):
+            return None
+        return m.group(1).strip()
+
+    @classmethod
+    def _lists_papers_not_mine(cls, issue_body: str) -> bool:
+        """Check if a "Verify Author Page" issue excludes any papers from the page."""
+        return any(
+            cls._form_field(issue_body, heading)
+            for heading in (
+                "Papers on this page that are not mine",
+                "Papers on this page that are mine (if only some)",
+            )
+        )
+
+    @classmethod
+    def _requests_merge(cls, issue_body: str) -> bool:
+        """Check if a "Verify Author Page" issue names another author page to merge with."""
+        return cls._form_field(issue_body, "Merge with author page") is not None
+
+    @classmethod
+    def _preferred_name(cls, issue_body: str) -> None | Name:
+        """Get the name chosen in a "Verify Author Page" issue to show on the page.
+
+        The author correction panel sends it as "Last, First", or just "Last" for a
+        person with a single name.
+        """
+        value = cls._form_field(issue_body, "Preferred author name")
+        if value is None:
+            return None
+        last, _, first = value.partition(", ")
+        return Name(first or None, last)
 
     def load_anthology(self):
         log.info("Loading anthology")
@@ -143,23 +190,26 @@ class AnthologyMetadataUpdater:
 
         for issue in issues:
             # Flag non-simple issues that are not already labeled as such
+            body = issue.body.replace("\r\n", "\n").replace("\r", "\n")
             issuetype = []
             issuelabels = [label.name for label in issue.get_labels()]
-            if "[x] Split/disambiguate:" in issue.body:
+            if "[x] Split/disambiguate:" in body or self._lists_papers_not_mine(body):
                 issuetype.append("SPLIT")
-            if "[x] Merge profiles:" in issue.body:
+            if "[x] Merge profiles:" in body or self._requests_merge(body):
                 issuetype.append("MERGE")
-            if "[x] Name change:" in issue.body:
+            if "[x] Name change:" in body:
                 issuetype.append("NAMECHANGE")
+            if "move-papers" in issuelabels:
+                issuetype.append("MOVE")
             if issuetype and not any(lbl.startswith("meta:") for lbl in issuelabels):
                 log.warning(
                     f"#{issue.number}: No meta:* label for issue type {'+'.join(issuetype)} {issue.html_url}"
                 )
             elif (
-                "[ ] Verification:" in issue.body
-                and "[ ] Split/disambiguate:" in issue.body
-                and "[ ] Merge profiles:" in issue.body
-                and "[ ] Name change:" in issue.body
+                "[ ] Verification:" in body
+                and "[ ] Split/disambiguate:" in body
+                and "[ ] Merge profiles:" in body
+                and "[ ] Name change:" in body
             ):
                 log.warning(f"#{issue.number}: No issue type (empty checkboxes)")
 
@@ -167,14 +217,23 @@ class AnthologyMetadataUpdater:
             if not issue.title.lower().endswith("/unverified"):
                 continue
 
-            if "[x] Verification:" not in issue.body:
-                continue
-            if "[ ] Split/disambiguate:" not in issue.body:
-                continue
-            if "[ ] Merge profiles:" not in issue.body:
-                continue
-            if "[ ] Name change:" not in issue.body:
-                continue
+            if "verify-author" in issuelabels:
+                # "Verify Author Page" form: simple if no papers are excluded
+                if issuetype:
+                    continue
+            else:
+                # Ensure we have a legacy "Correction to Author Page" form
+                # with Verification as the only action.
+                if not all(
+                    box in body
+                    for box in (
+                        "[x] Verification:",
+                        "[ ] Split/disambiguate:",
+                        "[ ] Merge profiles:",
+                        "[ ] Name change:",
+                    )
+                ):
+                    continue
 
             # Process the issue if consistent with command line args
             self.stats["visited_issues"] += 1
@@ -192,7 +251,7 @@ class AnthologyMetadataUpdater:
                     )
 
                 # Parse metadata changes from issue
-                data = self._parse_verification_request(issue.body)
+                data = self._parse_verification_request(body)
                 if data is None:
                     log.error(f"Failed to parse verification data in #{issue.number}")
                     continue
@@ -227,6 +286,27 @@ class AnthologyMetadataUpdater:
                     if p2 := self.anthology.people.get_by_orcid(data["orcid"]):
                         raise ValueError(
                             f"Another author with this ORCID found (should be merge request?): {p2}"
+                        )
+                    if preferred_name := self._preferred_name(body):
+                        if not person.has_name(preferred_name):
+                            raise ValueError(
+                                f"Preferred name is not one of this author's names: {preferred_name.as_last_first()}"
+                            )
+                        person.canonical_name = preferred_name
+                        if verbose:
+                            log.info(
+                                f"-> Preferred name {preferred_name.as_first_last()}"
+                            )
+                    # The request form doesn't list retracted or removed papers, but
+                    # they are verified along with the rest of the page.
+                    deleted = [paper for paper in person.papers() if paper.is_deleted]
+                    if deleted:
+                        log.warning(
+                            f"#{issue.number}: {author_id} includes papers not listed in the request form: "
+                            + ", ".join(
+                                f"{paper.full_id} ({paper.deletion.type.value})"
+                                for paper in deleted
+                            )
                         )
                     person.orcid = data["orcid"]
                     person.degree = data["degree"].strip()

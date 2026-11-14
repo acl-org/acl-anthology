@@ -16,6 +16,7 @@ from bin.create_hugo_data import (
     AUTHOR_INDEX_BUCKETS,
     author_stats,
     build_author_search_index,
+    build_orcid_index,
     compute_author_stats,
     compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
@@ -138,6 +139,24 @@ def test_author_index_data_supports_stats_and_token_lookup(tmp_path):
     with open(index_dir / "l.json") as f:
         assert ada_row in json.load(f)
     assert not stale_paper_index.exists()
+    with open(tmp_path / "static" / "people" / "orcid" / "1.json") as f:
+        assert json.load(f) == {"0000-0000-0000-0001": "ada-lovelace"}
+
+
+def test_orcid_index_is_sharded_by_check_character():
+    people = {
+        "ada-lovelace": {"orcid": "0000-0000-0000-0001"},
+        "grace-hopper": {"orcid": "0000-0002-1825-009X"},
+        "alan-turing": {"orcid": "0000-0003-0000-0001"},
+        "wei-zhang/unverified": {},
+    }
+    assert build_orcid_index(people) == {
+        "1": {
+            "0000-0000-0000-0001": "ada-lovelace",
+            "0000-0003-0000-0001": "alan-turing",
+        },
+        "X": {"0000-0002-1825-009X": "grace-hopper"},
+    }
 
 
 def test_author_metrics_export(tmp_path, monkeypatch):

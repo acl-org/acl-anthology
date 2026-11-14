@@ -154,11 +154,17 @@
         </div>
       </div>
 
-      <a class="btn btn-warning btn-lg btn-secondary w-100 mb-2" title="Correct problems with the author page" href="https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cauthor-page&projects=&template=02-name-correction.yml&title=Author+Page%3A+{{ .Params.name }}">
+      <button type="button" class="btn btn-warning btn-lg btn-secondary w-100 mb-2" title="Verify this author page or move papers off it" data-bs-toggle="modal" data-bs-target="#authorFixModal">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
         <span class="ps-md-2">Fix author</span>
-      </a>
+      </button>
     </div>
   </div>
+  {{ partial "author_correction_modal.html" (dict "ctx" . "person" $person) }}
 </section>
+{{ end }}
+
+{{ define "javascript" }}
+{{ $authorCorrection := resources.Get "js/author-correction.js" | minify | fingerprint }}
+<script defer src="{{ $authorCorrection.RelPermalink }}"></script>
 {{ end }}

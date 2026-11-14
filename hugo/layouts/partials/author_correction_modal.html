@@ -1,0 +1,265 @@
+{{/* "Fix author" dialog on author pages; behaviour is in assets/js/author-correction.js.
+     `.ctx` is the page, `.person` its entry in hugo.Data.people */}}
+{{ $person := .person }}
+{{ $person_id := .ctx.Params.name }}
+{{ $is_verified := not (hasSuffix $person_id "/unverified") }}
+
+{{/* Papers as listed on the page, with the name this person appears under on each */}}
+{{ $canonical_name := trim (printf "%s %s" ($person.first | default "") $person.last) " " }}
+{{ $papers := slice }}
+{{ range $person.papers }}
+  {{ $paper := index (index hugo.Data.papers (index (split . "-") 0)) . }}
+  {{ if and (not $paper.retracted) (not $paper.removed) }}
+    {{ $name := $canonical_name }}{{ $first := $person.first | default "" }}{{ $last := $person.last }}
+    {{ $coauthors := slice }}{{/* verified only: unverified pages can't receive papers */}}
+    {{ range $paper.author }}
+      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
+    {{ end }}
+    {{ range $paper.editor }}
+      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
+    {{ end }}
+    {{/* Citation: full author names, then venue and year from the short
+         citation, e.g. "… (Su et al., EMNLP 2026)" -> "EMNLP 2026" */}}
+    {{ $author_names := slice }}
+    {{ range $paper.author }}{{ $author_names = $author_names | append .full }}{{ end }}
+    {{ $venue_year := replaceRE `^.*, ([^,]*)\)$` "$1" ($paper.citation | default "") }}
+    {{ $citation := delimit $author_names ", " " and " }}
+    {{ if ne $venue_year ($paper.citation | default "") }}{{ $citation = printf "%s (%s)" $citation $venue_year }}{{ end }}
+    {{ $papers = $papers | append (dict
+      "id" . "year" $paper.year "title" $paper.title "name" $name "first" $first "last" $last "coauthors" $coauthors
+      "url" ($.ctx.Site.GetPage (printf "/papers/%s" .)).RelPermalink
+      "citation" $citation) }}
+  {{ end }}
+{{ end }}
+<script type="application/json" id="authorFixData">
+{{ dict
+  "id" $person_id
+  "name" $person.full
+  "canonicalName" $canonical_name
+  "canonicalFirst" ($person.first | default "")
+  "canonicalLast" $person.last
+  "url" .ctx.Permalink
+  "verified" $is_verified
+  "orcid" ($person.orcid | default "")
+  "papers" $papers
+  "orcidBase" (relURL "people/orcid/")
+  "indexBase" (relURL "people/index/")
+  "peopleBase" (relURL "people/")
+  | jsonify | safeJS }}
+</script>
+
+<div class="modal fade" id="authorFixModal" tabindex="-1" aria-labelledby="authorFixModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="authorFixModalLabel">Fix author page: {{ $person.full }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Use this form to create a GitHub issue describing the correction. You will need a GitHub account.
+          A staff member will review the issue; see <a href="{{ relref .ctx "/info/author-pages.md" }}">how author pages work</a>.
+        </p>
+        <div class="alert alert-danger d-lg-none">
+          ⚠️ Mobile Users: Submitting this form to create a new issue will only work with github.com, not the GitHub Mobile app.
+        </div>
+
+        {{/* Step 1: the kind of correction; each choice reveals one form below */}}
+        <div id="authorFixChooser">
+          {{ if $person.orcid }}
+          <p>
+            This page is already verified with ORCID iD
+            <a href="https://orcid.org/{{ $person.orcid }}">{{ $person.orcid }}</a>.
+          </p>
+          {{ end }}
+          <h6 class="mb-2" id="authorFixChooserLabel">What would you like to do?</h6>
+          <div class="list-group" role="group" aria-labelledby="authorFixChooserLabel">
+            {{ if not $person.orcid }}
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixVerify">
+              <i class="fas fa-user-check fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Verify author</div>
+                <small class="text-muted">
+                  {{ if $is_verified }}
+                  These are my papers: link this page to my ORCID iD.
+                  {{ else }}
+                  I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
+                  {{ end }}
+                </small>
+              </div>
+            </button>
+            {{ end }}
+            {{ if $is_verified }}
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixRemove">
+              <i class="fas fa-unlink fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Remove papers</div>
+                <small class="text-muted">Some papers here are by someone else.</small>
+              </div>
+            </button>
+            {{ else }}
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixMove">
+              <i class="fas fa-file-export fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Move papers</div>
+                <small class="text-muted">I already have a verified author page, e.g. under a variant of this name: move my papers here to it.</small>
+              </div>
+            </button>
+            {{ end }}
+            <button type="button" class="list-group-item list-group-item-action py-2 d-flex align-items-center gap-3" data-author-fix-choose="authorFixOther">
+              <i class="far fa-comment-dots fa-lg fa-fw text-primary" aria-hidden="true"></i>
+              <div>
+                <div class="fw-semibold">Something else</div>
+                <small class="text-muted">{{ if $is_verified }}For example, a permanent name change.{{ else }}Anything not covered above.{{ end }}</small>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {{/* ---- Verify author (pages without an ORCID iD) ---- */}}
+        {{ if not $person.orcid }}
+        <div class="d-none" id="authorFixVerify" data-author-fix-pane>
+          <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-user-check fa-fw text-primary me-1" aria-hidden="true"></i>Verify author</h6>
+          <div class="alert alert-info d-none" id="authorFixOpenReview">
+            <p>
+              <b>Submitted a paper through OpenReview in 2025 or later?</b>
+              You probably don't need this form: <a href="{{ relref .ctx "/info/author-pages.md" }}#2-link-your-profiles-on-conference-management-systems-to-your-orcid-id">add your ORCID link to your OpenReview profile</a>,
+              and your page will be verified automatically within a few weeks.
+            </p>
+            <button type="button" class="btn btn-sm btn-outline-primary" id="authorFixOpenReviewContinue">My papers weren't submitted through OpenReview, or some papers on this page aren't mine &rarr;</button>
+          </div>
+
+          <form id="authorFixVerifyForm" novalidate>
+            <div class="mb-3">
+              <label for="authorFixOrcid" class="form-label">ORCID iD <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="authorFixOrcid" placeholder="https://orcid.org/XXXX-XXXX-XXXX-XXXX" autocomplete="off" aria-describedby="authorFixOrcidFeedback">
+              <div class="form-text" id="authorFixOrcidFeedback" aria-live="polite">Don't have one? <a href="https://orcid.org/register">Register at orcid.org</a>.</div>
+            </div>
+            <div class="mb-3">
+              <label for="authorFixDegree" class="form-label">Institution of highest (anticipated) degree <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="authorFixDegree" placeholder="ex. Johns Hopkins University">
+              <div class="form-text">Your current institution if you are a student; otherwise where you received your highest degree. Used to form your author page ID, if needed.</div>
+            </div>
+            <div class="mb-3">
+              <label for="authorFixOpenReviewProfile" class="form-label">OpenReview profile URL <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="authorFixOpenReviewProfile" placeholder="https://openreview.net/profile?id=~Your_Name1">
+              <div class="form-text">Enter "none" if you don't have an OpenReview profile.</div>
+            </div>
+            <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1">Your papers</legend>
+              {{ if $is_verified }}
+              <div class="form-text mb-2">Switch off (&#x2717;) any papers that are not yours. They will be removed from this page.</div>
+              {{ else }}
+              <div class="form-text mb-2">Switch on (&#x2713;) the papers that are yours. The others will stay on the unverified page.</div>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" id="authorFixVerifyAll">
+                <label class="form-check-label fst-italic" for="authorFixVerifyAll">Select all</label>
+              </div>
+              {{ end }}
+              <div class="border rounded p-2 overflow-auto acl-author-fix-switches{{ if not $is_verified }} acl-author-fix-switches--opt-in{{ end }}" style="max-height: 16rem" data-author-fix-papers="verify"></div>
+            </fieldset>
+            {{/* Shown only when the ticked papers print the name in more than one way */}}
+            <fieldset class="mb-3" id="authorFixPreferredName" hidden>
+              <legend class="form-label fs-6 mb-1">
+                Name to show on your page <span class="text-danger">*</span>
+              </legend>
+              <div class="form-text mb-2">
+                Your papers use more than one version of your name. Choose the one to show at the top of your page. The
+                last name is in <b>bold</b>.
+                <button type="button" class="btn btn-link btn-sm p-0 align-baseline text-body" id="authorFixLastNameInfo"
+                        data-bs-toggle="tooltip" data-bs-title="The last name is the primary part of the name: it is what appears in citations and is used for sorting, e.g. &ldquo;De Morgan&rdquo; for Augustus De Morgan."
+                        aria-label="About last names"><i class="fas fa-info-circle" aria-hidden="true"></i></button>
+              </div>
+              <div data-author-fix-names></div>
+            </fieldset>
+            <div class="mb-3">
+              <label for="authorFixVerifyNotes" class="form-label">Additional notes</label>
+              <textarea class="form-control" id="authorFixVerifyNotes" rows="2"></textarea>
+            </div>
+            <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+          </form>
+        </div>
+        {{ end }}
+
+        {{ if $is_verified }}
+        {{/* ---- Remove papers (verified pages): unticked papers go to unverified pages ---- */}}
+        <div class="d-none" id="authorFixRemove" data-author-fix-pane>
+          <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-unlink fa-fw text-primary me-1" aria-hidden="true"></i>Remove papers</h6>
+          <form id="authorFixRemoveForm" novalidate>
+            <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1">Papers to keep on this page</legend>
+              <div class="form-text mb-2">
+                Switch off (&#x2717;) the papers that are not by this author. They will be removed from this page and moved to the
+                unverified page for the name printed on each.
+              </div>
+              <div class="border rounded p-2 overflow-auto acl-author-fix-switches" style="max-height: 16rem" data-author-fix-papers="remove"></div>
+            </fieldset>
+            <div class="mb-3">
+              <label for="authorFixRemoveNotes" class="form-label">Additional notes</label>
+              <textarea class="form-control" id="authorFixRemoveNotes" rows="2"></textarea>
+            </div>
+            <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+          </form>
+        </div>
+        {{ else }}
+        {{/* ---- Move papers (unverified pages): to the author's verified page ---- */}}
+        <div class="d-none" id="authorFixMove" data-author-fix-pane>
+          <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
+          <h6 class="mb-3" tabindex="-1"><i class="fas fa-file-export fa-fw text-primary me-1" aria-hidden="true"></i>Move papers</h6>
+          <form id="authorFixMoveForm" novalidate>
+            <p class="form-text mt-0">
+              Use this if you already have a verified author page (which uses another variant of this name,
+              and/or which disambiguates one individual from others with the same name).
+            </p>
+            <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1"><label for="authorFixDestSearch">Your verified author page</label></legend>
+              <div class="position-relative">
+                <input type="search" class="form-control form-control-sm" id="authorFixDestSearch" placeholder="Search by name or ORCID iD" autocomplete="off" aria-describedby="authorFixDestStatus">
+                <div class="list-group mt-1" id="authorFixDestResults" hidden></div>
+                <div class="form-text" id="authorFixDestStatus" aria-live="polite">Only verified pages with a name like the one on these papers are shown.</div>
+              </div>
+            </fieldset>
+            <fieldset class="mb-3">
+              <legend class="form-label fs-6 mb-1">Papers to move</legend>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="checkbox" id="authorFixMoveAll">
+                <label class="form-check-label fst-italic" for="authorFixMoveAll">Select all</label>
+              </div>
+              <div class="form-text mt-0 mb-1" id="authorFixMovePapersHint">Choose your verified author page first.</div>
+              <div class="border rounded p-2 overflow-auto acl-author-fix-switches acl-author-fix-switches--opt-in" style="max-height: 16rem" data-author-fix-papers="move"></div>
+            </fieldset>
+            <div class="mb-3">
+              <label for="authorFixMoveNotes" class="form-label">Additional notes</label>
+              <textarea class="form-control" id="authorFixMoveNotes" rows="2"></textarea>
+            </div>
+            <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+          </form>
+        </div>
+        {{ end }}
+
+        {{/* ---- Other ---- */}}
+        <div class="d-none" id="authorFixOther" data-author-fix-pane>
+          <button type="button" class="btn btn-link btn-sm px-0 mb-2" data-author-fix-back>&larr; Choose a different correction</button>
+          <h6 class="mb-3" tabindex="-1"><i class="far fa-comment-dots fa-fw text-primary me-1" aria-hidden="true"></i>Something else</h6>
+          <form id="authorFixOtherForm" novalidate>
+            <div class="mb-3">
+              <label for="authorFixOtherDescription" class="form-label">Describe the problem <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="authorFixOtherDescription" rows="6"></textarea>
+              <div class="form-text">
+                For anything not covered by verifying or moving papers{{ if $is_verified }}, such as a permanent name change{{ end }}. Please link any papers or
+                other author pages involved. If a name on a paper doesn't match the PDF, use "Fix data" on that paper's page instead.
+              </div>
+            </div>
+            <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
+            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
