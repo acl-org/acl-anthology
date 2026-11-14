@@ -619,10 +619,11 @@
     <paper id="47">
       <!-- https://aclanthology.org/2026.wmt-main.47/ -->
       <title>Contrastive <fixed-case>ESA</fixed-case>: Human Evaluation of Multiple Translations at Once</title>
-      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilem</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
+      <author id="vilem-zouhar" orcid="0000-0001-9874-2069"><first>Vilém</first><last>Zouhar</last><affiliation>ETH Zurich, Charles University</affiliation></author>
       <author><first>Roman</first><last>Grundkiewicz</last><affiliation>Microsoft</affiliation></author>
       <author><first>Sara</first><last>Rajaee</last><affiliation>University of Amsterdam</affiliation></author>
       <author><first>Parker</first><last>Riley</last><affiliation>Google</affiliation></author>
+      <author><first>Martin</first><last>Popel</last></author>
       <author><first>Rachel</first><last>Bawden</last><affiliation>Inria</affiliation></author>
       <author><first>Philipp</first><last>Koehn</last><affiliation>Johns Hopkins University</affiliation></author>
       <author id="marine-carpuat" orcid="0000-0003-1693-0782"><first>Marine</first><last>Carpuat</last><affiliation>University of Maryland</affiliation></author>
@@ -1924,7 +1925,7 @@
       <title>Layer-Aware Native Quantization for Compact Machine Translation: A <fixed-case>WMT</fixed-case>26 <fixed-case>E</fixed-case>nglish-to-<fixed-case>C</fixed-case>hinese Submission</title>
       <author><first>Alonso</first><last>Palomino</last><affiliation>DFKI (German Center for Artificial Intelligence Research)</affiliation></author>
       <pages>2025-2029</pages>
-      <abstract>This paper describes a submission to the constrained English-to-Simplified-Chinese track of the WMT26 Model Compression shared task. Starting from Gemma~3 12B, the system applies native BitsAndBytes NF4 with double quantization to the 144 gate, up, and down projections in the model’s 48 text-transformer MLP blocks. Attention projections, embeddings, normalization layers, the tied language-model head, and vision modules remain in BF16. The method requires no calibration or fine-tuning data and produces a mixed checkpoint whose quantized weights remain low-bit at inference. On the official 945-segment blind set, the system scores 0.7669 CometKiwi-XXL and 2.7836 MetricX-24-XXL, slightly improving on the organizer global-q4 baseline’s 0.7665 and 2.8147, respectively. Its 11.8~GB artifact is 48.4\% of BF16 size, and H100 throughput is essentially tied with global q4 (866.9 versus 867.9 source characters/s). On 332 reference-backed WMT25 segments, its chrF and BLEU gains over global q4 are significant under paired bootstrap resampling. A transferred selected-layer q3+Zstd codec reaches statistically indistinguishable local quality but expands to BF16-like memory after decoding.</abstract>
+      <abstract>This paper describes a constrained English-to-Simplified-Chinese submission to the WMT26 Model Compression shared task. The submitted system is derived from google/gemma-3-12b-it and applies native 4-bit NormalFloat quantization only to the text-transformer MLP projections: gate_proj, up_proj, and down_proj. Attention projections, embeddings, normalization layers, the language-model head, and vision modules remain in BF16. This work continues the selected-layer compression line introduced in prior speech-translation work, but shifts it from storage-oriented codec compression to deployment-oriented native quantization for text MT. The central finding is that selective native quantization is a quality-preserving compromise: it recovers significant quality lost by global q4 while avoiding the BF16-like memory expansion of the earlier q3+Zstd codec. On a local 332-segment WMT25 English-Chinese reference set, the system obtains 28.30 chrF and 31.37 BLEU, compared with 27.67 chrF and 30.80 BLEU for the organizer global-q4 baseline. The submitted artifact is 10.99 GiB and reaches 14.64 GiB peak VRAM locally, placing it between the smaller global-q4 baseline and the higher-quality BF16 model.</abstract>
       <pdf hash="1d2b4d5b"/>
       <bibkey>palomino-2026-layer</bibkey>
       <doi>10.18653/2026.wmt-main.140</doi>
@@ -2341,9 +2342,9 @@
       <title><fixed-case>NERDS</fixed-case>-<fixed-case>NITS</fixed-case> at <fixed-case>WMT</fixed-case>2026: Pivot-Based and Direct Neural Machine Translation for <fixed-case>A</fixed-case>rabic–<fixed-case>A</fixed-case>sian Low-Resource Language Pairs</title>
       <author><first>Misbahul</first><last>Karim</last><affiliation>National Institute of Technology Silchar</affiliation></author>
       <author><first>Faruk</first><last>Ahmed</last><affiliation>National Institute of Technology Silchar</affiliation></author>
-      <author><first>Mishbahul</first><last>Islam</last><affiliation>National Institute of Technology Silchar</affiliation></author>
-      <author><first>Sahinur</first><last>Laskar</last><affiliation>UPES,Dehradun</affiliation></author>
-      <author><first>Rabul</first><last>Laskar</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Mishbahul</first><last>Al Islam</last><affiliation>National Institute of Technology Silchar</affiliation></author>
+      <author><first>Sahinur Rahman</first><last>Laskar</last><affiliation>UPES,Dehradun</affiliation></author>
+      <author><first>Rabul Hussain</first><last>Laskar</last><affiliation>National Institute of Technology Silchar</affiliation></author>
       <pages>2318-2323</pages>
       <abstract>This paper presents NERDS-NITS’s sub mission to the WMT 2026 Low-Resource Arabic–Asian Language Translation Shared Task, which covers the following language pairs: Arabic↔English, Arabic↔Hindi, Arabic↔Bengali, Arabic↔Urdu, and Arabic↔Indonesian. For the three Indic language pairs, we propose a pivot-based framework that combines a fine-tuned Arabic↔English NLLB-200 model with pretrained IndicTrans2 checkpoints, motivated by the scarcity of direct Arabic–Indic parallel data. For Arabic↔Indonesian, where Indic Trans2 offers no coverage, we instead fine-tune NLLB-200-1.3B directly using QLoRA under memory-constrained conditions. Our Arabic↔English backbone, built on fine-tuned NLLB-200-600M model, forms the pivot leg for all Indic-language systems. Across all evaluated pairs, fine-tuning yields consistent improvements over zero-shot baselines, and the proposed pivot architecture further outperforms direct multilingual fine-tuning for Arabic–Indic pairs, with gains of up to 6.68 BLEU and 0.02 COMET</abstract>
       <pdf hash="9c8c877c"/>
@@ -2730,7 +2731,7 @@
     <paper id="205">
       <!-- https://aclanthology.org/2026.wmt-main.205/ -->
       <title>paramananda<fixed-case>AI</fixed-case>@<fixed-case>WMT</fixed-case>26 Video Subtitle Translation: <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case> Fine-Tuning with Test-Time Metadata Prompting</title>
-      <author><first>Shiv</first><last>Saud</last><affiliation>kathmandu university</affiliation></author>
+      <author><first>Shiv Ram</first><last>Saud</last><affiliation>kathmandu university</affiliation></author>
       <author><first>Sundeep</first><last>Dawadi</last><affiliation>kathmandu university</affiliation></author>
       <author><first>Sunil</first><last>Regmi</last><affiliation>kathmandu university</affiliation></author>
       <pages>2616-2622</pages>
@@ -2744,7 +2745,7 @@
       <title>~rupiah at <fixed-case>WMT</fixed-case>26:  Training-Free Context-Aware Subtitle Translation with <fixed-case>QE</fixed-case> Selection</title>
       <author><first>Pieter Christy Yan</first><last>Yudhistira</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
       <author><first>Sayyidah Fatimah</first><last>Azzahra</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
-      <author><first>Dzaki Rafif</first><last>Malik</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
+      <author id="dzaki-rafif-malik"><first>Dzaki Rafif</first><last>Malik</last><affiliation>Intelligent System Laboratory, Brawijaya University</affiliation></author>
       <author id="tirana-noor-fatyanosa" orcid="0000-0002-2801-5947"><first>Tirana Noor</first><last>Fatyanosa</last><affiliation>Universitas Brawijaya</affiliation></author>
       <pages>2623-2630</pages>
       <abstract>We present the training-free subtitle translation system developed by Team ~rupiah for the WMT26 Video Subtitle Translation shared task. The system translates Chinese subtitles into English and Indonesian using Hy-MT2-7B while preserving the source cue indices and timestamps. To support discourse and terminology consistency, each cue is conditioned on episode metadata, preceding source cues, translation history, and an automatically constructed episode glossary. At inference time, the system generates candidates at six temperatures, removes exact duplicates, filters candidates containing Han characters, and selects a hypothesis using reference-free CometKiwi quality estimation. A deterministic lexical-recovery step then replaces glossary terms that remain untranslated in the selected hypothesis. In the preliminary official evaluation over 100 videos per direction, ~rupiah ranks fifth of eight systems for Chinese-to-English and third of four for Chinese-to-Indonesian. Rubric-level results indicate that the largest performance gap relative to the top-ranked system is in accuracy and fidelity, whereas the gaps in fluency and subtitle conventions are smaller. Reference-based scores over 89 videos per direction provide additional diagnostics of the complete pipeline. These aggregate evaluations do not isolate the contribution of individual components. Source code available and can be accessed here: https://github.com/Pieter414/-rupiah-training-free-video-translation-subtitle</abstract>
@@ -2820,7 +2821,7 @@
       <title>Zolint at <fixed-case>WMT</fixed-case> 2026: A Multitask <fixed-case>LLM</fixed-case> Submission for the Low-Resource <fixed-case>U</fixed-case>krainian Track</title>
       <author><first>Lingchu</first><last>Yang</last><affiliation>The University of Tokyo</affiliation></author>
       <author><first>Zitong</first><last>Fu</last><affiliation>Technical University of Munich</affiliation></author>
-      <author><first>Hämmerl</first><last>Kathy</last><affiliation>Technical University of Munich</affiliation></author>
+      <author><first>Kathy</first><last>Hämmerl</last><affiliation>Technical University of Munich</affiliation></author>
       <author><first>Masaki</first><last>Ito</last><affiliation>The University of Tokyo</affiliation></author>
       <pages>2689-2696</pages>
       <abstract>We present a unified multi-task fine-tuning system submitted to the WMT 2026 Shared Task on Multitask LLMs with Limited Resources (Ukrainian track), covering machine translation, spelling correction, grammar correction, question answering, and mathematical reasoning. Our system is built on Qwen3.5-2B-Instruct and adopts a two-stage training pipeline that gradually introduces heterogeneous tasks while replaying selected data from earlier stages to mitigate catastrophic forgetting. The resulting model achieves a strong balance across all evaluated tasks, consistently outperforming the official baseline and obtaining the best performance on every task except question answering. Our results demonstrate that staged multi-task fine-tuning is an effective strategy for adapting compact multilingual LLMs under limited-resource constraints.</abstract>

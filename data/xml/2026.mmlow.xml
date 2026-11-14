@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.mmlow">
+  <volume id="main" type="proceedings" ingest-date="2026-10-31">
+    <!-- https://aclanthology.org/2026.mmlow-main/ -->
+    <meta>
+      <booktitle>Proceedings of the Fifth Workshop on Multimodal Machine Learning in Low-resource Languages</booktitle>
+      <editor><first>Rahul</first><last>Ponnusamy</last></editor>
+      <editor><first>Prasanna Kumar</first><last>Kumaresan</last></editor>
+      <editor><first>Saranya</first><last>Rajiakodi</last></editor>
+      <editor><first>Premjith</first><last>B</last></editor>
+      <editor><first>Shunmuga Priya</first><last>MC</last></editor>
+      <editor><first>Abirami</first><last>Murugappan</last></editor>
+      <editor><first>Jyothish Lal</first><last>G</last></editor>
+      <editor><first>Sowmya</first><last>V</last></editor>
+      <editor><first>Bharathi Raja</first><last>Chakravarthi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Hengqin, China</address>
+      <isbn>979-8-89176-445-3</isbn>
+      <month>November</month>
+      <year>2026</year>
+      <pdf hash="0c515950"/>
+      <venue>mmlow</venue>
+      <venue>ws</venue>
+      <doi>10.18653/2026.mmlow-main</doi>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.mmlow-main.0/ -->
+      <pdf hash="7ab271be"/>
+      <bibkey>mmlow-2026-main</bibkey>
+      <doi>10.18653/2026.mmlow-main.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.mmlow-main.1/ -->
+      <title>Script Fragmentation and Format: What Drives the <fixed-case>E</fixed-case>nglish-<fixed-case>B</fixed-case>engali Performance Gap in Open <fixed-case>LLM</fixed-case>s?</title>
+      <author><first>Shimanto</first><last>Bhowmik</last></author>
+      <author><first>Tawsif Tashwar</first><last>Dipto</last></author>
+      <author><first>Md Sazzad</first><last>Islam</last></author>
+      <author><first>Sheryl</first><last>Hsu</last></author>
+      <author><first>Tahsin</first><last>Reasat</last></author>
+      <pages>1-17</pages>
+      <abstract>Bengali is spoken by more than 230 million people, yet no standardized instrument evaluates large language models (LLMs) on Bengali across the task categories used to benchmark frontier models. We release 8 English benchmarks translated into Bengali with a single consistent pipeline and use them to evaluate 10 open LLMs from 4 families on paired English and Bengali inputs. Script fragmentation is what subword tokenizers do to Bengali’s alphasyllabary, whose written units are grapheme clusters spanning several Unicode code points: they cut the script into pieces smaller than a character, at a cost set by the vocabulary rather than the script itself. Format belongs to the evaluation, the answer shape that exact-match scoring demands regardless of whether the model knew the answer. Beyond confirming a substantial gap (macro LLM-judge score 0.79 in English versus 0.63 in Bengali), we show that part of it is a measurement artifact: exact-match accuracy conflates correctness with format adherence and because format failure is asymmetric across languages it distorts the apparent gap for some models three to five fold and even reverses its sign for one reasoning-tuned model. On the fragmentation side, Bengali costs roughly five times more tokens per word than English, the 10 models share only 4 vocabularies and that cost varies twofold across them (7.9 tokens per word under Llama3̃, 4.0 under Tekken), and under three of the four the average Bengali token spans fewer bytes than a single code point. Bengali is the constant here and the vocabularies are not, so what Bengali text costs is set by tokenizer design rather than by the script. Fertility and sequence length correlate only weakly with scores (<tex-math>r = -0.23</tex-math>), so we present this as a cost and segmentation concern rather than a driver of the gap. The datasets, pipeline and evaluation code are released.</abstract>
+      <pdf hash="d4681108"/>
+      <bibkey>bhowmik-etal-2026-script</bibkey>
+      <doi>10.18653/2026.mmlow-main.1</doi>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.mmlow-main.2/ -->
+      <title>A Foundational Study of Multimodal Speech–Text Alignment in <fixed-case>M</fixed-case>alayalam</title>
+      <author><first>Meharuniza</first><last>Nazeem</last></author>
+      <author><first>Navaneeth</first><last>S</last></author>
+      <author><first>Adithyakiran</first><last>A S</last></author>
+      <author><first>Rajeev</first><last>R R</last></author>
+      <author><first>Ashbi</first><last>Biju</last></author>
+      <pages>18-27</pages>
+      <abstract>Speech–text retrieval is a multimodal alignment task in which spoken audio and written transcripts are mapped into a shared representation space. Standard retrieval metrics test whether an audio embedding recovers its transcript from a large candidate pool, but not whether the shared representation preserves small grammatical contrasts inside agglutinated words. We construct an automatic Malayalam benchmark with 12,611 controlled audio–text comparison rows derived from 6,611 held-out audio queries. The benchmark contains three morphosyntactic categories—case, tense, and negation—and a lexical numeral-control category. Alternatives are generated with the mlmorph finitestate analyser and generator and retained after a generate–reanalyse consistency check. A CLIP-style model without explicit hard negatives obtains 37.45% full-pool Recall@1 but only 53.66% pairwise accuracy, close to the 50% pairwise baseline. We diagnose a fixedfirst-candidate loader defect that under-delivers later-generated categories and replace it with per-transcript category-aware, access-time resampling. At the matched epoch count, pairwise accuracy rises from 73.50% to 79.76%, and tense accuracy rises from 52.83% to 77.70%. The complete corrected procedure reaches 89.69% pairwise accuracy after extended training, while full-pool retrieval remains below the original checkpoint. A stratified human review of 797 rows retains or corrects 731 (91.7%); the final checkpoint obtains 74.01% on this deliberately reweighted and partly rewritten subset. These results show that global retrieval, controlled grammatical discrimination, candidate-delivery logic, and human benchmark validation are distinct components of multimodal evaluation.</abstract>
+      <pdf hash="502159c8"/>
+      <bibkey>nazeem-etal-2026-foundational</bibkey>
+      <doi>10.18653/2026.mmlow-main.2</doi>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.mmlow-main.3/ -->
+      <title>A Retrieval-Augmented Generation Approach for Enhancing Pedagogical Support in Education</title>
+      <author><first>Ramkumar</first><last>N</last></author>
+      <author><first>Rajendran</first><last>S</last></author>
+      <pages>28-39</pages>
+      <abstract>The manual creation of high-quality study materials such as summaries, question–answer sets, and flashcards remains a time-consuming task for both educators and learners. While large language models can generate such content rapidly, they frequently suffer from hallucinations and lack grounding in the source material. This paper presents a Retrieval-Augmented Generation (RAG) framework designed to address these limitations by transforming educational documents into pedagogically structured learning resources. The system integrates document preprocessing, semantic chunking, embedding-based retrieval, and a locally deployed language model to produce concise summaries, targeted questions, and flashcards. A cross-sectional evaluation involving 48 undergraduate students and 12 educators was conducted to assess usability, accuracy, cognitive support, and overall pedagogical value. Findings indicate that the AI Study Agent is perceived as supportive of comprehension and revision activities, and objective evaluation supports factual consistency relative to non-retrieval generation. Challenges related to output accuracy, oversimplification, and user trust remain consistent with limitations identified in existing GenAI literature. The study concludes that while the system demonstrates strong potential to support teaching and learning workflows, its perceived effectiveness relies on responsible use, educator oversight, and continued refinement to ensure pedagogical alignment and reliability.</abstract>
+      <pdf hash="2238535b"/>
+      <bibkey>n-s-2026-retrieval</bibkey>
+      <doi>10.18653/2026.mmlow-main.3</doi>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.mmlow-main.4/ -->
+      <title>One Head, Three Transcripts: A Controlled Oracle-to-<fixed-case>ASR</fixed-case> Audit of <fixed-case>B</fixed-case>angla Speech–Text Sentiment Analysis</title>
+      <author><first>Md</first><last>Raihan</last></author>
+      <author><first>Nilam</first><last>Rajak</last></author>
+      <author><first>Kuntal</first><last>Ghosh</last></author>
+      <author><first>Sathyanarayanan</first><last>Dhorali</last></author>
+      <pages>40-54</pages>
+      <abstract>Speech sentiment systems are routinely benchmarked with gold transcripts, but a deployed cascade must read whatever its recognizer produces. We audit that gap on BanglaMUSE, a Bangla read-speech sentiment corpus, using sentence-grouped cross-validation and a controlled substitution design in which one trained classifier is evaluated three times while only the test-time transcript changes. Replacing gold transcripts with ASR output costs 0.109 macro-F1 with Bengali XLS-R CTC and 0.341 with our Whisper large-v3 configuration, a high-error stress case. Retraining the classifier on matched recognizer output recovers 57–81% of the gap, but re-selecting only the decision threshold on ASR validation data, with weights and probabilities unchanged, already recovers 28–49%. Adding the speech embedding improves over ASR text, yet replacing it with acquisition/nuisance features gives a similar gain for gold-trained heads. These features alone predict sentiment at 0.669 macro-F1 (group-permutation null mean 0.495, p = 0.001), and a speech-only classifier that reaches 0.940 falls to 0.621 when both speaker and sentence are unseen. These speech-only and fusion results therefore do not provide clean evidence of prosodic sentiment cues. Low-resource speech–text benchmarks should report oracle and deployable conditions, separate threshold effects from retraining, and test acquisition variables before interpreting audio.</abstract>
+      <pdf hash="ece6c1a4"/>
+      <bibkey>raihan-etal-2026-one</bibkey>
+      <doi>10.18653/2026.mmlow-main.4</doi>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.mmlow-main.5/ -->
+      <title><fixed-case>MOEZHI</fixed-case>-<fixed-case>GURU</fixed-case>: Multi-Perspective Misogynistic Meme Detection via Multimodal Mixture of Experts</title>
+      <author><first>Sekar</first><last>M</last></author>
+      <author><first>Pranava</first><last>Mohan</last></author>
+      <author><first>A.</first><last>Santhanavijayan</last></author>
+      <pages>55-63</pages>
+      <abstract>Multimodal content moderation in online social spaces is a critical safety challenge, yet existing systems are heavily dominated by monolithic cultural biases and perform poorly on underrepresented languages. In this paper, we study culturally grounded misogynistic meme detection under a novel multi-perspective evaluation framework, which simultaneously assesses models across Indian, Chinese, and Western cultural lenses. We propose MoEzhi-Guru (drawing on the Dravidian term mozhi for language and the Indic term guru for expert/guide), an adaptable, resource-efficient Multimodal Mixture of Experts (MoE) model designed to handle complex cross-cultural and cross-lingual shifts. The system encodes input using mDeBERTa-v3 and SigLIP to extract rich multilingual text and global visual semantics, then fuses and routes these features through a custom MoE layer utilizing dense soft routing. This gating mechanism dynamically weights specialized expert subnetworks, capturing localized socio-cultural nuances before predicting labels through culture-specific classification heads. We evaluate our framework in four typologically diverse language subsets: Tamil and Malayalam (underrepresented Dravidian scripts), Chinese (containing colloquial and code-switched text), and English. Our system demonstrates robust cross-lingual generalization, yielding an overall average score of 0.8515 Macro-F1 and consistently exceeding a Gemma3-4b baseline by more than 0.42 Macro-F1 points. This work provides a scalable, inclusive foundation for culturally aware safety systems in low-resource and multilingual environments.</abstract>
+      <pdf hash="a49515b2"/>
+      <bibkey>m-etal-2026-moezhi</bibkey>
+      <doi>10.18653/2026.mmlow-main.5</doi>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.mmlow-main.6/ -->
+      <title>Axiom@<fixed-case>MML</fixed-case>ow 2026: Cascaded Prompting with <fixed-case>QL</fixed-case>o<fixed-case>RA</fixed-case>-Tuned <fixed-case>Q</fixed-case>wen2-<fixed-case>VL</fixed-case> for Hierarchical <fixed-case>T</fixed-case>amil Political Meme Classification</title>
+      <author><first>Md. Ajwad</first><last>Hossain</last></author>
+      <pages>64-69</pages>
+      <abstract>We present our system for the MMLow@AACL-IJCNLP 2026 shared task on multi-level classification of Tamil political memes. Our approach fine-tunes Qwen2-VL-2B-Instruct with QLoRA under a cascaded prompting strategy, in which a Level 1 stance prediction (Support/Praise vs. Troll/Oppose) conditions the prompt used for Level 2 target classification (party vs. person, per stance). On the official test set, our system achieves a Level 1 macro-F1 of 0.7173 and a Level 2 macro-F1 of 0.4429, for a final score of 0.5801, placing 5th of 7 teams. Our error analysis shows that all Level 1 errors propagate downstream, accounting for the majority of Level 2 mistakes. Additionally, a preliminary qualitative review suggests that sarcasm interpreted literally drives a large share of Level 1 misclassifications, pointing to sarcasm detection and cross-modal reasoning as key bottlenecks for this task.</abstract>
+      <pdf hash="fd8dbec7"/>
+      <bibkey>hossain-2026-axiom-mmlow</bibkey>
+      <doi>10.18653/2026.mmlow-main.6</doi>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.mmlow-main.7/ -->
+      <title><fixed-case>TVKS</fixed-case>@<fixed-case>MML</fixed-case>ow 2026: Factorized Stance <tex-math>\times</tex-math> Target Classification of <fixed-case>T</fixed-case>amil Political Memes with an Axis-Wise Multimodal Ensemble</title>
+      <author><first>Kevin selva</first><last>K</last></author>
+      <author><first>Thilagavathy</first><last>R</last></author>
+      <pages>70-75</pages>
+      <abstract>We describe the TVKS submission to the MMLow 2026 shared task on multilevel classification of Tamil political memes, which asks systems to predict a stance label (Level 1: Support/Praise vs. Troll/Oppose) and a four-way target label (Level 2) that combines stance with a Person/Party distinction. We factorize the Level 2 label into two binary axes—stance and person/party target—reconstructing Level 2 as their product rather than predicting four classes directly. A flat four-way head drives the rarest class (Troll/Oppose Against Party) to an F1 of 0.000; factorization recovers a non-degenerate prediction over all four classes. We also fix a calibration failure caused by stacking a class-balanced sampler with a class-weighted loss, and combine two multimodal models (MuRIL + ViT and MuRIL + ResNet-50) in an axis-wise ensemble that routes each binary axis to its stronger model. Our system reaches a macro-F1 of 0.8594 on Level 1 and 0.5926 on Level 2 (mean 0.7260), ranking second of seven teams. An error analysis attributes 77% of Level 2 errors to the person/party axis, where architecturally distinct visual encoders converge to the same ceiling—evidence that the residual gap is dataset ambiguity rather than a modelling deficiency.</abstract>
+      <pdf hash="ae0193c4"/>
+      <bibkey>k-r-2026-tvks</bibkey>
+      <doi>10.18653/2026.mmlow-main.7</doi>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.mmlow-main.8/ -->
+      <title>Projukti <fixed-case>K</fixed-case>avalan@<fixed-case>MML</fixed-case>ow 2026: Weighted Visual Frame and Cross-modal Fusion for Misogynistic Video Detection in <fixed-case>D</fixed-case>ravidian Language</title>
+      <author><first>Palaniraj</first><last>I</last></author>
+      <author><first>Dwaipayan</first><last>Dutta</last></author>
+      <pages>76-85</pages>
+      <abstract>Misogyny and hate content have become a serious issue in the current digital era. Such content predominantly manifests as short video clips, making automated detection mechanisms imperative for social media platforms. To effectively classify such videos, a multimodal setup is required, as video data contains image frames, audio clips, and text captions. The multimodal misogyny video classification task aims to combine all audio, visual, and extracted text information. Conventional methods typically aim to process this extracted information in parallel to reach a conclusion. Our proposed framework utilizes the pre-trained models DINOv2, wav2vec 2.0, and MuRiL-large to embed visual, audio, and text features, respectively. To mitigate overfitting on datasets of different sizes, we propose a dual-architecture approach: we utilize a regularized Gated Early-Fusion Network (EF-Net) for the highly constrained Tamil dataset, and a deeper Cross-Modal Temporal Attention Network (TA-Net) with an ensemble strategy for the Malayalam dataset. Ultimately, our framework achieved a 68.8% macro-F1 score for the Malayalam dataset and an 80.7% macro-F1 score for the Tamil dataset, securing Rank 1 in misogyny video classification for both languages.</abstract>
+      <pdf hash="f884e3e6"/>
+      <bibkey>i-dutta-2026-projukti</bibkey>
+      <doi>10.18653/2026.mmlow-main.8</doi>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.mmlow-main.9/ -->
+      <title><fixed-case>KEC</fixed-case>@<fixed-case>MML</fixed-case>ow 2026: Multimodal Fusion for Hierarchical <fixed-case>T</fixed-case>amil Political Meme Classification</title>
+      <author><first>Asvitha</first><last>RM</last></author>
+      <author><first>Amirthamozhi</first><last>VS</last></author>
+      <pages>86-90</pages>
+      <abstract>Political memes are inherently multimodal, combining visual cues, embedded text, and code-mixed language to express political stance and target specific political entities. This makes automated analysis particularly challenging in low-resource settings such as Tamil. We present the KEC system for the MMLow 2026 shared task at AACL-IJCNLP 2026, which requires hierarchical classification of Tamil political memes at two levels: stance identification and political target identification. Our approach combines XLM-RoBERTa and Vision Transformer representations with OCR-derived textual information, multimodal fusion, and bidirectional cross-modal attention. We further introduce hierarchy-aware prediction in which Level-2 target identification is conditioned on the Level-1 stance distribution, together with class-weighted objectives, adaptive task weighting, and hierarchical consistency regularization. A controlled six-stage ablation study and three-seed stability analysis are conducted on the validation split. The final hierarchical model obtains a Level-1 macro-F1 of 78.77 <tex-math>\pm</tex-math> 1.21% and Level-2 macro-F1 of 46.07 <tex-math>\pm</tex-math> 3.23%, with a joint exact-match accuracy of 55.40 <tex-math>\pm</tex-math> 2.34% across seeds 42, 123, and 2024. Our analysis indicates that visual information is particularly beneficial for stance classification, whereas multimodal fusion plays an important role in target identification, while OCR augmentation and hierarchical conditioning introduce performance trade-offs at Level 2.</abstract>
+      <pdf hash="b2b9bcac"/>
+      <bibkey>rm-vs-2026-kec</bibkey>
+      <doi>10.18653/2026.mmlow-main.9</doi>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.mmlow-main.10/ -->
+      <title><fixed-case>CPSL</fixed-case>ab2@<fixed-case>MML</fixed-case>ow 2026: A Hierarchical Multimodal Framework with Stratified K-Fold Training for Political Meme Classification</title>
+      <author><first>Anika</first><last>Srivastava</last></author>
+      <author><first>Vishal</first><last>Kumar</last></author>
+      <author><first>Harshita</first><last>Sharma</last></author>
+      <author><first>Nitisha</first><last>Aggarwal</last></author>
+      <author><first>Geetika</first><last>Jain Saxena</last></author>
+      <author><first>Amit</first><last>Pundir</last></author>
+      <author><first>Sanjeev</first><last>Singh</last></author>
+      <pages>91-96</pages>
+      <abstract>Political memes communicate opinions using the interplay between visual and textual information, posing a challenging multimodal classification task. We present a hierarchical multimodal framework for political meme classification, which decomposes the task into stance and target entity prediction. Our framework was evaluated on the data from the Multi-Level Political Meme Classification Shared Task at MMLow @ AACL-IJCNLP 2026. The task comprised two levels of classification: (i) predicting the political stance of a meme as either Support/Praise or Troll/Oppose, and (ii) identifying the target of the meme combined with the stance. We approached the task by first predicting the Level-1 labels followed by predicting the target entity (Person/Party) and then combining them in a deterministic manner to predict the final Level-2 labels. Our method used a SigLIP vision transformer for stance classification and a hybrid SigLIP-XLM-RoBERTa architecture for target classification with late fusion. We trained our models using 5-fold stratified cross-validation with checkpoint ensembling. We also performed ablation experiments to analyze the contribution of individual modalities, observing that visual features are more informative for stance prediction while textual features contain more information for target identification, which supports the multimodal task at hand. Our system achieved a macro F1 score of 0.9027 and 0.6694 for Level-1 and Level-2 classification, respectively, achieving a final score of 0.7860, ranking first in the shared task.</abstract>
+      <pdf hash="3a590136"/>
+      <bibkey>srivastava-etal-2026-cpslab2</bibkey>
+      <doi>10.18653/2026.mmlow-main.10</doi>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.mmlow-main.11/ -->
+      <title><fixed-case>CPS</fixed-case> Lab 1@<fixed-case>MML</fixed-case>ow 2026: Hierarchical Multimodal Classification of <fixed-case>T</fixed-case>amil Political Memes via Logit-Conditioned Stance-Target Prediction</title>
+      <author><first>Vishal</first><last>Kumar</last></author>
+      <author><first>Anika</first><last>Srivastava</last></author>
+      <author><first>Harshita</first><last>Sharma</last></author>
+      <author><first>Nitisha</first><last>Aggarwal</last></author>
+      <author><first>Geetika</first><last>Jain Saxena</last></author>
+      <author><first>Amit</first><last>Pundir</last></author>
+      <author><first>Sanjeev</first><last>Singh</last></author>
+      <pages>97-102</pages>
+      <abstract>Political memes have become an effective tool for online political communication and engagement. Their interpretation is particularly challenging in low-resource and code-mixed languages such as Tamil, where memes often include Tamil-English, use culturally relevant lexicon, incorporate political entities, and utilize references to prominent personalities and parties. This paper presents our submission to the MMLow shared task at AACL-IJCNLP 2026 on multi-level classification of Tamil political memes, which requires jointly predicting (i) a coarse-grained stance label (Support vs. Troll) and (ii) a fine-grained target label identifying whether the meme concerns a political party or a person. We proposed a lightweight hierarchical classifier built on frozen, pretrained multimodal encoders: images are represented using CLIP (ViT-B/32) and text using the multilingual BGE-M3 embedding model, with the two modalities combined via early, non-parametric concatenation fusion. A shared encoder feeds two prediction heads, where the target-identification head is explicitly conditioned on the stance head’s output logits via a gradient-detachment mechanism, allowing the model to respect the task’s label hierarchy without corrupting the coarse-level classifier’s gradients. To address pronounced class imbalance in both label levels, we applied balanced loss weighting at each level. On the test set of unlabeled data, our system achieved 3rd place, with macro-F1 scores of 0.856 for stance classification and 0.532 for target identification, yielding a final score of 0.694, indicating promising performance on the Tamil political meme classification problem.</abstract>
+      <pdf hash="d078a1a8"/>
+      <bibkey>kumar-etal-2026-cps</bibkey>
+      <doi>10.18653/2026.mmlow-main.11</doi>
+    </paper>
+  </volume>
+</collection>

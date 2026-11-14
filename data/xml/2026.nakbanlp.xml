@@ -498,17 +498,19 @@
     </paper>
     <paper id="37">
       <!-- https://aclanthology.org/2026.nakbanlp-1.37/ -->
-      <title><fixed-case>KUET</fixed-case> at <fixed-case>S</fixed-case>tance<fixed-case>N</fixed-case>akba Shared Task: <fixed-case>S</fixed-case>tance<fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>: Mixture-of-Experts Architecture for Stance Detection</title>
+      <title><fixed-case>S</fixed-case>tance<fixed-case>M</fixed-case>o<fixed-case>E</fixed-case>: Mixture-of-Experts Architecture for Stance Detection</title>
       <author><first>Abdullah</first><last>Al Shafi</last></author>
       <author><first>Md. Milon</first><last>Islam</last></author>
-      <author><first>Sk. Imran</first><last>Hossain</last></author>
+      <author id="sk-imran-hossain"><first>Sk. Imran</first><last>Hossain</last></author>
       <author><first>K. M. Azharul</first><last>Hasan</last></author>
       <pages>244-251</pages>
       <abstract>Actor-level stance detection aims to determine an author’s expressed position toward specific geopolitical actors mentioned or implicated in a text. Although transformer-based models have achieved relatively good performance in stance classification, they typically rely on unified representations that may not sufficiently capture heterogeneous linguistic signals, such as contrastive discourse structures, framing cues, and salient lexical indicators. This motivates the need for adaptive architectures that explicitly model diverse stance-expressive patterns. In this paper, we propose StanceMoE, a context-enhanced Mixture-of-Experts (MoE) architecture built upon a fine-tuned BERT encoder for actor-level stance detection. Our model integrates six expert modules designed to capture complementary linguistic signals, including global semantic orientation, salient lexical cues, clause-level focus, phrase-level patterns, framing indicators, and contrast-driven discourse shifts. A context-aware gating mechanism dynamically weights expert contributions, enabling adaptive routing based on input characteristics. Experiments are conducted on the StanceNakba 2026 Subtask A dataset, comprising 1,401 annotated English texts where the target actor is implicit in the text. StanceMoE achieves a macro-F1 score of 94.26%, outperforming traditional baselines, and alternative BERT-based variants.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-nakbanlp-37</url>
-      <bibkey>al-shafi-etal-2026-kuet</bibkey>
+      <bibkey>al-shafi-etal-2026-stancemoe</bibkey>
       <doi>10.63317/3pim9v9kog3d</doi>
-      <pdf hash="11d0d500"/>
+      <pdf hash="da6c576a"/>
+      <revision id="1" hash="11d0d500"/>
+      <revision id="2" hash="da6c576a" date="2026-11-10">Updated the title to match the official workshop proceedings.</revision>
     </paper>
     <paper id="38">
       <!-- https://aclanthology.org/2026.nakbanlp-1.38/ -->
@@ -518,12 +520,13 @@
       <author><first>Md. Milon</first><last>Islam</last></author>
       <author><first>Md Rezwanul</first><last>Haque</last></author>
       <author><first>Fakhri</first><last>Karray</last></author>
-      <pages>252-261</pages>
-      <abstract>We introduce PAST-TIDE, our stance detection system addressing both subtasks of the StanceNakba Shared Task at NakbaNLP@LREC-COLING 2026. The main idea is statement tuning. We redefine stance as cloze-style masked language modeling (MLM), letting a verbalizer map label words to stance categories through the pre-trained MLM head rather than appending a randomly initialized classification head. We complement this with prototypical contrastive learning, which uses learnable class prototypes for batch-size independent contrastive training, and topic-conditional layer normalization for cross-topic Arabic stance detection. PAST-TIDE achieves macro-F1 scores of 0.75 for Subtask A and 0.74 for Subtask B on the official leaderboard, indicating that minimal architectural additions to a pre-trained model can remain competitive in low-resource settings.</abstract>
+      <pages>252-257</pages>
+      <abstract>We introduce PAST-TIDE, our stance detection system addressing both subtasks of the StanceNakba Shared Task at NakbaNLP@LREC 2026. The main idea is statement tuning. We redefine stance as cloze-style masked language modeling (MLM), letting a verbalizer map label words to stance categories through the pre-trained MLM head rather than appending a randomly initialized classification head. We complement this with prototypical contrastive learning,
+which uses learnable class prototypes for batch-size independent contrastive training, and topic-conditional layer normalization for cross-topic Arabic stance detection. PAST-TIDE achieves macro-F1 scores of 0.75 for Subtask A and 0.74 for Subtask B on the official leaderboard, indicating that minimal architectural additions to a pre-trained model can remain competitive in low-resource settings.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-nakbanlp-38</url>
       <bibkey>shujon-etal-2026-past</bibkey>
       <doi>10.63317/4an3eqwpdtpf</doi>
-      <pdf hash="43d3baa4"/>
+      <pdf hash="f74705d7"/>
     </paper>
     <paper id="39">
       <!-- https://aclanthology.org/2026.nakbanlp-1.39/ -->
