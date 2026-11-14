@@ -194,11 +194,7 @@ class Collection(SlottedDict[Volume]):
         volume.is_data_loaded = True
 
         # If editors were given, we fill in their ID & add them to the index
-        if volume.editors:
-            for namespec in volume.editors:
-                namespec.normalize(skip_setter=True)
-                self.root.people.ingest_namespec(namespec)
-            self.root.people._add_to_index(volume.editors, volume.full_id_tuple)
+        volume._register_namespecs()
         # Register this volume with the EventIndex
         if self.root.events.is_data_loaded:
             self.root.events._add_volume_to_index(volume)

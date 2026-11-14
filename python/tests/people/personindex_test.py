@@ -834,6 +834,35 @@ def test_namespec_change_name_affects_volume_and_frontmatter(anthology):
     assert frontmatter_id in person2.item_ids
 
 
+def test_volume_set_editors_affects_volume_and_frontmatter(anthology):
+    index = anthology.people
+    volume = anthology.get_volume("2022.facl-long")
+    item_ids = {volume.full_id_tuple, volume.frontmatter.full_id_tuple}
+    removed = volume.editors[-1].resolve()
+    assert item_ids <= removed.item_ids
+
+    # Replacing an editor should update both the volume AND its frontmatter
+    volume.editors = volume.editors[:-1] + (NameSpecification(Name("Lena", "Quist")),)
+    added = index.get(UNVERIFIED_PID_FORMAT.format(pid="lena-quist"))
+    assert item_ids <= added.item_ids
+    assert not (item_ids & removed.item_ids)
+
+
+def test_paper_remove_editor_keeps_link_to_author(anthology):
+    index = anthology.people
+    paper = anthology.get_paper("2022.facl-long.1")
+    person = paper.authors[0].resolve()
+    assert paper.full_id_tuple in person.item_ids
+    assert index.is_data_loaded
+
+    # The same person is added as an editor, then removed again
+    paper.editors = [NameSpecification(paper.authors[0].name)]
+    assert paper.editors[0].resolve() is person
+    paper.editors = []
+    # They are still an author, so should still be linked to the paper
+    assert paper.full_id_tuple in person.item_ids
+
+
 def test_namespec_change_id_affects_name_resolution(anthology):
     index = anthology.people
     # Precondition: Find a paper that resolves to a given verified person

@@ -15,7 +15,7 @@
 import pytest
 
 from attrs import define, field
-from acl_anthology.containers import dict_type, SlottedDict
+from acl_anthology.containers import dict_type, DictMixin, SlottedDict
 
 
 class BlankContainer(SlottedDict[str]):
@@ -169,3 +169,23 @@ def test_dict_type(demo):
     assert dict_type(demo) == "int"
     blank = BlankContainer()
     assert dict_type(blank) == ""  # not determinable
+
+
+@define
+class SlottedBase:
+    name: str = field()
+
+
+@define
+class MixedContainer(SlottedBase, DictMixin[int]):
+    data: dict[str, int] = field(init=False, factory=dict)
+    is_data_loaded: bool = field(init=False, default=True)
+
+
+def test_dictmixin_combines_with_other_slotted_class():
+    mixed = MixedContainer("foo")
+    mixed["A"] = 1
+    assert mixed.name == "foo"
+    assert mixed["A"] == 1
+    assert list(mixed.keys()) == ["A"]
+    assert not hasattr(mixed, "__dict__")
