@@ -63,6 +63,13 @@
     return new URL(search.authorUrl(page.peopleBase, personId), page.url).toString();
   }
 
+  const papersById = new Map(page.papers.map(function (paper) { return [paper.id, paper]; }));
+
+  // Papers are listed in issues by their full URLs, one per line.
+  function paperUrls(ids) {
+    return ids.map(function (id) { return new URL(papersById.get(id).url, page.url).toString(); }).join("\n");
+  }
+
   // Each paper gets an on/off switch (styled by .acl-author-fix-switches).
   function renderPaperItem(container, paper, checked) {
     const item = document.createElement("div");
@@ -444,8 +451,8 @@
         merge_with: check.mergeWith ? authorPageUrl(check.mergeWith) : "",
         author_orcid: "https://orcid.org/" + check.orcid,
         author_highest_degree_institution: degree,
-        papers_not_mine: listMine ? "" : notMine.join("\n"),
-        papers_only_mine: listMine ? mine.join("\n") : "",
+        papers_not_mine: listMine ? "" : paperUrls(notMine),
+        papers_only_mine: listMine ? paperUrls(mine) : "",
         preferred_name: preferredName ? preferredName.value : "",
         openreview_profile: openReview,
         notes: document.getElementById("authorFixVerifyNotes").value.trim(),
@@ -504,7 +511,6 @@
     const movePapers = moveForm.querySelector("[data-author-fix-papers]");
     const moveAll = document.getElementById("authorFixMoveAll");
     const papersHint = document.getElementById("authorFixMovePapersHint");
-    const papersById = new Map(page.papers.map(function (paper) { return [paper.id, paper]; }));
     renderPaperList(movePapers, false);
     showPaperCounts(movePapers, "to move", "to stay here");
     initSelectAll(moveAll, movePapers);
@@ -661,7 +667,7 @@
 
       openIssue(moveForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → " + destination.id, {
         source_page: page.url,
-        papers_to_move: papers.length === page.papers.length ? "all" : papers.join("\n"),
+        papers_to_move: papers.length === page.papers.length ? "all" : paperUrls(papers),
         destination: authorPageUrl(destination.id),
         notes: document.getElementById("authorFixMoveNotes").value.trim(),
       });
@@ -684,7 +690,7 @@
 
       openIssue(removeForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → unverified", {
         source_page: page.url,
-        papers_to_move: removed.length === page.papers.length ? "all" : removed.join("\n"),
+        papers_to_move: removed.length === page.papers.length ? "all" : paperUrls(removed),
         destination: "unverified",
         notes: document.getElementById("authorFixRemoveNotes").value.trim(),
       });
