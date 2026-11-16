@@ -78,7 +78,7 @@
     <paper id="5">
       <!-- https://aclanthology.org/2026.realm-1.5/ -->
       <title>Do Context Files Help Coding Agents? A Two-Agent Ablation Study on Real Repositories</title>
-      <author openreview="~Prakhar_Khatri1"><first>Prakhar</first><last>Khatri</last><affiliation>Indian Institute of Technology, Roorkee</affiliation></author>
+      <author id="prakhar-khatri" orcid="0009-0003-4921-6275" openreview="~Prakhar_Khatri1"><first>Prakhar</first><last>Khatri</last><affiliation>Indian Institute of Technology, Roorkee</affiliation></author>
       <pages>57-67</pages>
       <abstract>Persistent context files (AGENTS.md, CLAUDE.md) are standard practice for guiding AI coding agents, yet evidence for their effectiveness is contradictory. We present a controlled ablation of context-injection strategy across two frontier agents (Claude Code and Codex), 17 real tasks from 3 repositories, and 288 evaluated runs with gold-test evaluation. Context strategy does not measurably move correctness on either agent (bounded to <tex-math>\leq</tex-math>10–15pp via equivalence testing). A failure-mode triage reveals why: agents fail on implementation skill—feature design, pattern selection, exact wiring—not missing repository knowledge that a context file could supply; a manipulation probe confirms the real AGENTS.md never converts a near-miss to a pass on either agent. We further show that borderline task difficulty is agent-specific (Spearman <tex-math>\rho=0.75</tex-math>), offering a candidate explanation for prior contradictions: single-agent studies draw tasks from different agents’ informative bands. We release all code, data, and analysis.</abstract>
       <pdf hash="e0581a82"/>
@@ -893,7 +893,7 @@
     <paper id="71">
       <!-- https://aclanthology.org/2026.realm-1.71/ -->
       <title>Chronicle: Cut-Point Replay for Regression Testing of <fixed-case>LLM</fixed-case> Agents</title>
-      <author openreview="~Tisha_Chawla1"><first>Tisha</first><last>Chawla</last><affiliation>Microsoft</affiliation></author>
+      <author id="tisha-chawla" orcid="0009-0003-9722-5221" openreview="~Tisha_Chawla1"><first>Tisha</first><last>Chawla</last><affiliation>Microsoft</affiliation></author>
       <author openreview="~Susheem_Koul1"><first>Susheem</first><last>Koul</last><affiliation>Birla Institute of Technology and Science</affiliation></author>
       <pages>1026-1031</pages>
       <abstract>Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi-step trajectory that a re-run rarely repeats. Record-and-replay makes a run reproducible, but existing agent tooling records runs only to trace or score them, not to test a code change against them. We present Chronicle, which records an agent run at its non-deterministic boundaries as immutable envelopes and replays it from the record. Its central operation, cut-point replay, serves a chosen subset of boundaries from the record and executes the complementary subset live with new code, turning a recorded incident into a regression test that runs in continuous integration. On a benchmark of 6 recorded failures with simulated model boundaries, recording adds 23 μs per crossing (0.008% of an assumed 300 ms model call), full replay issues zero model calls and is bit-stable across 20 repetitions, and cut-point tests fail on faulty code and pass on guarded and benign changes for all 6 incidents. In a mutation study of the guarded tools, cut-point tests catch every mutant that lets the recorded unsafe action through, while a baseline that stubs every boundary, using the same assertion, catches none. Chronicle and the benchmark are publicly available at https://github.com/theagentplane/chronicle.</abstract>
@@ -1269,7 +1269,7 @@
       <author openreview="~Zhongnan_Qu1"><first>Zhongnan</first><last>Qu</last><affiliation>AWS</affiliation></author>
       <author id="sheng-zhang-7417" orcid="0000-0001-6163-7417" openreview="~Sheng_Zhang1"><first>Sheng</first><last>Zhang</last><affiliation>Amazon Web Services</affiliation></author>
       <author id="mesut-erhan-unal" orcid="0000-0003-2177-9095" openreview="~Mesut_Erhan_Unal1"><first>Mesut Erhan</first><last>Unal</last><affiliation>Amazon</affiliation></author>
-      <author openreview="~Zhuowen_Tu1"><first>Zhuowen</first><last>Tu</last><affiliation>University of California, San Diego</affiliation></author>
+      <author id="zhuowen-tu" orcid="0000-0002-1900-2124" openreview="~Zhuowen_Tu1"><first>Zhuowen</first><last>Tu</last><affiliation>University of California, San Diego</affiliation></author>
       <author id="srikar-appalaraju" orcid="0000-0002-7815-8743" openreview="~srikar_appalaraju1"><first>Srikar</first><last>Appalaraju</last><affiliation>Amazon</affiliation></author>
       <author openreview="~Jianbo_Yuan1"><first>Jianbo</first><last>Yuan</last><affiliation>Amazon</affiliation></author>
       <author id="shabnam-ghadar" orcid="0009-0004-6437-1166" openreview="~Shabnam_Ghadar1"><first>Shabnam</first><last>Ghadar</last><affiliation>Amazon</affiliation></author>
