@@ -39,8 +39,8 @@ Metadata changes are generally accepted if they are consistent with the PDF, whi
 
 Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
 
-We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
-In such cases, we will ask authors to arrange for this permission to be conveyed to us, either (ideally) on the corresponding GitHub issue or via email.
+Adding an author to a PDF revision does not require approval from the associated conference or workshop program chairs.
+We may seek clarification or corroboration when authorship information is ambiguous or inconsistent.
 
 ### PDF corrections
 
@@ -85,7 +85,7 @@ Following these instructions will help us to process corrections more quickly.
 We will do our best to process revisions or errata within four weeks, but make no guarantees as to the processing time.
 Submissions not meeting these standards will be rejected, potentially without notice.
 
-A revision that changes the author list needs permission (see below).
+When a revision changes the author list, the author metadata must also be updated to match the revised PDF.
 
 Revisions will be marked with a front-page watermark, similar to the arXiv watermark.
 

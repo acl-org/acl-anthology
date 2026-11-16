@@ -14,14 +14,17 @@ from bin.create_hugo_data import (
     AUTHOR_ID_FROM_NAME,
     AUTHOR_ID_FROM_NAME_UNVERIFIED,
     AUTHOR_INDEX_BUCKETS,
+    author_stats,
     build_author_search_index,
     build_orcid_index,
+    build_venue_search_index,
     compute_author_stats,
     compute_first_paper_year_histogram,
     explicitly_colocated_volume_ids,
     export_author_index,
     export_author_metrics,
     export_homepage_stats,
+    export_venue_index,
     homepage_venue_group,
     homepage_venue_sort_key,
     homepage_stats,
@@ -34,6 +37,7 @@ from bin.create_hugo_data import (
 from acl_anthology import Anthology, config
 from acl_anthology.collections.types import EventLink
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
+from acl_anthology.files import VideoReference
 
 
 @pytest.fixture(scope="module")
@@ -235,6 +239,43 @@ def test_author_index_drops_trailing_empty_fields():
     assert row == ["Ada Lovelace", AUTHOR_ID_FROM_NAME, 1]
 
 
+def test_venue_index_supports_name_acronym_id_and_volume_count(tmp_path):
+    venues = {
+        "emnlp": {
+            "name": "Empirical Methods in Natural Language Processing",
+            "acronym": "EMNLP",
+            "volumes_by_year": {
+                2025: ["2025.emnlp-main", "2025.emnlp-demo"],
+                2026: ["2026.emnlp-main"],
+            },
+        },
+        "acl": {
+            "name": "Annual Meeting of the Association for Computational Linguistics",
+            "acronym": "ACL",
+            "volumes_by_year": {2026: ["2026.acl-long", "2026.acl-short"]},
+        },
+    }
+
+    assert build_venue_search_index(venues) == [
+        [
+            "Annual Meeting of the Association for Computational Linguistics",
+            "ACL",
+            "acl",
+            2,
+        ],
+        [
+            "Empirical Methods in Natural Language Processing",
+            "EMNLP",
+            "emnlp",
+            3,
+        ],
+    ]
+
+    export_venue_index(venues, tmp_path)
+    with open(tmp_path / "static" / "venues" / "index.json") as f:
+        assert json.load(f) == build_venue_search_index(venues)
+
+
 def test_first_paper_year_histogram_fills_gaps_and_skips_authors_without_papers():
     people = {
         "alice-smith": {"first_year": 2005},
@@ -385,3 +426,53 @@ def test_local_paper_url_is_exported_as_pdf(anthology):
     assert data["pdf"] == f"{config.url_prefix}/2025.acl-long.1.pdf"
     assert data["thumbnail"] == f"{config.url_prefix}/thumb/2025.acl-long.1.jpg"
     assert "external" not in data
+
+
+@pytest.mark.parametrize(
+    ("videos", "expected_names"),
+    (
+        (
+            (
+                VideoReference("2025.acl-long.1.webm"),
+                VideoReference("2025.acl-long.1.1.mp4"),
+                VideoReference("2025.acl-long.1.2.mp4", permission=False),
+            ),
+            ("2025.acl-long.1.webm", "2025.acl-long.1.1.mp4"),
+        ),
+        ((VideoReference("2025.acl-long.1.mp4", permission=False),), ()),
+        ((), ()),
+    ),
+)
+def test_paper_video_urls_preserve_formats_order_and_permissions(
+    anthology, monkeypatch, videos, expected_names
+):
+    paper = anthology.get_paper("2025.acl-long.1")
+    assert paper is not None
+    monkeypatch.setattr(paper, "videos", videos)
+
+    data = paper_to_dict(paper)
+
+    if expected_names:
+        assert data["video"] == [f"{config.url_prefix}/{name}" for name in expected_names]
+    else:
+        assert "video" not in data
+
+
+@pytest.mark.parametrize(
+    "volume_ids", [["2022.acl-long"], ["2022.acl-long", "2022.acl-short"]]
+)
+def test_author_stats_excludes_frontmatter(anthology, volume_ids):
+    volumes = [anthology.get_volume(volume_id) for volume_id in volume_ids]
+    stats = author_stats(volumes)
+    papers = [
+        paper
+        for volume in volumes
+        for paper in volume.papers()
+        if not paper.is_frontmatter
+    ]
+    authors = {ns.resolve().id for paper in papers for ns in paper.authors}
+
+    assert stats["paper_count"] == len(papers)
+    assert stats["doi_paper_count"] == sum(1 for paper in papers if paper.doi)
+    assert stats["author_count"] == len(authors)
+    assert 0 < stats["orcid_author_count"] <= stats["author_count"]
