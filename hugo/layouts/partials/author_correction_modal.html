@@ -85,7 +85,7 @@
                 <div class="fw-semibold">Verify author</div>
                 <small class="text-muted">
                   {{ if $is_verified }}
-                  These are my papers: link this page to my ORCID iD.
+                  This is my page: link it to my ORCID iD.
                   {{ else }}
                   I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
                   {{ end }}
@@ -199,7 +199,8 @@
           <form id="authorFixSplitForm" novalidate>
             <p class="form-text mt-0">
               Use this if you are not {{ $person.full }}, but some papers on this page are yours. Staff will move them to a
-              new verified author page for you. If this is your page, use &ldquo;Remove papers&rdquo; instead.
+              new verified author page for you. If this is your page, use
+              &ldquo;{{ if $person.orcid }}Remove papers{{ else }}Verify author{{ end }}&rdquo; instead.
             </p>
             {{ partial "author_correction_identity.html" (dict "prefix" "authorFixSplit") }}
             <fieldset class="mb-3">
