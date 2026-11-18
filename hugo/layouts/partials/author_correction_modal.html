@@ -85,7 +85,7 @@
                 <div class="fw-semibold">Verify author</div>
                 <small class="text-muted">
                   {{ if $is_verified }}
-                  This is my page: link it to my ORCID iD.
+                  This is my page: link it to my ORCID iD, and remove any papers that aren't mine.
                   {{ else }}
                   I don't have a verified author page yet: create one from my papers here, linked to my ORCID iD.
                   {{ end }}
@@ -98,7 +98,13 @@
               <i class="fas fa-unlink fa-lg fa-fw text-primary" aria-hidden="true"></i>
               <div>
                 <div class="fw-semibold">Remove papers</div>
-                <small class="text-muted">This is my page, but some papers here are by someone else.</small>
+                <small class="text-muted">
+                  {{ if $person.orcid }}
+                  This is my page, but some papers here are by someone else.
+                  {{ else }}
+                  Some papers here are by someone else (no ORCID iD needed).
+                  {{ end }}
+                </small>
               </div>
             </button>
             {{ if $has_unlinked }}
