@@ -164,7 +164,7 @@
               <textarea class="form-control" id="authorFixVerifyNotes" rows="2"></textarea>
             </div>
             <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
-            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            {{ partial "author_correction_submit.html" . }}
           </form>
         </div>
         {{ end }}
@@ -188,7 +188,7 @@
               <textarea class="form-control" id="authorFixRemoveNotes" rows="2"></textarea>
             </div>
             <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
-            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            {{ partial "author_correction_submit.html" . }}
           </form>
         </div>
         {{ if $has_unlinked }}
@@ -217,7 +217,7 @@
               <textarea class="form-control" id="authorFixSplitNotes" rows="2"></textarea>
             </div>
             <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
-            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            {{ partial "author_correction_submit.html" . }}
           </form>
         </div>
         {{ end }}
@@ -253,7 +253,7 @@
               <textarea class="form-control" id="authorFixMoveNotes" rows="2"></textarea>
             </div>
             <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
-            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            {{ partial "author_correction_submit.html" . }}
           </form>
         </div>
         {{ end }}
@@ -272,7 +272,7 @@
               </div>
             </div>
             <div class="alert alert-danger d-none" role="alert" data-author-fix-error></div>
-            <button type="submit" class="btn btn-primary">Create GitHub issue for staff review</button>
+            {{ partial "author_correction_submit.html" . }}
           </form>
         </div>
       </div>
