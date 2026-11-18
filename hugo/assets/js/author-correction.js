@@ -513,7 +513,11 @@
       note.className = "text-muted ms-1";
       note.tabIndex = 0;
       note.textContent = "(linked)";
-      input.parentElement.append(note);
+      // On the title's last line, like "(coauthor)"; its tooltip replaces the citation's.
+      const label = input.labels[0];
+      label.querySelector("a").before(note);
+      const citation = bootstrap.Tooltip.getInstance(label);
+      if (citation) citation.dispose();
       new bootstrap.Tooltip(note, {
         title: "This paper is linked to " + page.id + " in the Anthology data, so it can't be moved with this form."
           + " If it isn't by " + page.canonicalName + ", please use “Something else”.",
