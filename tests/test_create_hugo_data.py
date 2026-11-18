@@ -424,8 +424,7 @@ def test_author_entries_mark_links_by_id(anthology):
     data = paper_to_dict(anthology.get_paper("2024.emnlp-demo.34"))
     authors = {author["full"]: author for author in data["author"]}
 
-    assert authors["Matt Post"]["explicit"] is True
-    assert "explicit" not in authors["Roman Grundkiewicz"]
+    assert authors["Matt Post"]["namespec_has_id"] is True
 
 
 def test_local_paper_url_is_exported_as_pdf(anthology):

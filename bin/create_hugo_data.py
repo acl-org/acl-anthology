@@ -132,7 +132,7 @@ def person_to_dict(person_id, ns):
     }
     if ns.id is not None:
         # Linked to the person by ID in the XML, not just by name
-        data["explicit"] = True
+        data["namespec_has_id"] = True
     return data
 
 

@@ -16,10 +16,10 @@
     {{ $linked := false }}
     {{ $coauthors := slice }}{{/* verified only: unverified pages can't receive papers */}}
     {{ range $paper.author }}
-      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ $linked = .explicit | default false }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
+      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ $linked = .namespec_has_id | default false }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
     {{ end }}
     {{ range $paper.editor }}
-      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ $linked = .explicit | default false }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
+      {{ if eq .id $person_id }}{{ $first = .first | default "" }}{{ $last = .last }}{{ $name = trim (printf "%s %s" $first $last) " " }}{{ $linked = .namespec_has_id | default false }}{{ else if not (hasSuffix .id "/unverified") }}{{ $coauthors = $coauthors | append .id }}{{ end }}
     {{ end }}
     {{ if not $linked }}{{ $has_unlinked = true }}{{ end }}
     {{/* Citation: full author names, then venue and year from the short
