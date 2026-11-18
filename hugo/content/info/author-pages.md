@@ -77,7 +77,12 @@ If the names are correct and your author page is verified, then please file a re
 - Choose your own verified author page as the destination, then switch on (✓) the papers that are yours (or "Select all" if the whole page is yours). Only verified pages under a name sharing part of the name printed on the papers are offered, and papers you coauthored with the page's author can't be moved there.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
-If the papers appear on another person's verified page, click on the "Fix author" button there, choose "Something else", and describe the problem.
+If the papers appear on another person's verified page (someone with the same name as you), you can ask for them to be moved to a new verified author page of your own:
+- Click on the "Fix author" button on that page, and choose "Create my own verified page".
+- Enter your ORCID iD and the other required fields, and switch on (✓) the papers that are yours. Papers that are explicitly linked to the page's author in the Anthology data can't be chosen; if one of them is yours, choose "Something else" instead and describe the problem.
+- Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
+
+If you already have a verified author page and your papers appear on another person's verified page, click on the "Fix author" button there, choose "Something else", and describe the problem.
 
 ### Other problems with author pages
 
