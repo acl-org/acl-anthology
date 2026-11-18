@@ -228,34 +228,104 @@
     document.getElementById(id).querySelector("h6").focus();
   }
 
-  // ---- Verify author ----
+  // ---- Forms that verify a person: Verify author, Create my own verified page ----
+  // (fields from partials/author_correction_identity.html and author_correction_names.html)
 
-  const verifyForm = document.getElementById("authorFixVerifyForm");
-  let orcidChecked = null;  // {value, result} once the check of the field's `value` has finished
+  // A link within the dialog, e.g. to another form.
+  function actionLink(text, onClick) {
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = text;
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+      onClick();
+    });
+    return link;
+  }
 
-  function initVerify() {
-    const orcidInput = document.getElementById("authorFixOrcid");
-    const feedback = document.getElementById("authorFixOrcidFeedback");
+  function authorPageLink(personId) {
+    const link = document.createElement("a");
+    link.href = authorPageUrl(personId);
+    link.textContent = personId;
+    return link;
+  }
+
+  // Wires the ORCID iD field `prefix + "Orcid"`: normalizes the entry, looks it up, and
+  // shows the outcome under it. `interpret(orcid, owner)` turns the person ID that already
+  // has the iD (or null) into a result, or a promise of one, and `describe(result)` gives
+  // the feedback as [state, content]. A result with an `owner` can't be submitted.
+  function initOrcidField(prefix, interpret, describe) {
+    const input = document.getElementById(prefix + "Orcid");
+    const feedback = document.getElementById(prefix + "OrcidFeedback");
     const defaultFeedback = feedback.innerHTML;
-    const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
-    // On a verified page all papers start kept; on an unverified page the author
-    // switches on theirs.
-    renderPaperList(verifyPapers, page.verified);
-    if (page.verified) {
-      showPaperCounts(verifyPapers, "to keep", "to remove");
-    } else {
-      showPaperCounts(verifyPapers, "to move to your page", "to stay here");
-      initSelectAll(document.getElementById("authorFixVerifyAll"), verifyPapers);
+    let checked = null;  // {value, result} once the check of the field's `value` has finished
+
+    function setFeedback(state, content) {
+      input.classList.toggle("is-valid", state === "valid");
+      input.classList.toggle("is-invalid", state === "invalid");
+      feedback.className = "form-text" + (state === "invalid" ? " text-danger" : "");
+      feedback.replaceChildren(...content);
     }
 
-    // ---- Name to show, when the ticked papers print it in different ways ----
-    const nameField = document.getElementById("authorFixPreferredName");
-    const nameOptions = nameField.querySelector("[data-author-fix-names]");
+    // Lookups can finish out of order; only the latest check updates the form.
+    let version = 0;
+    function check() {
+      const current = ++version;
+      const raw = input.value;
+      if (!raw.trim()) {
+        input.classList.remove("is-valid", "is-invalid");
+        feedback.className = "form-text";
+        feedback.innerHTML = defaultFeedback;
+        return Promise.resolve({ orcid: null });
+      }
+      const orcid = normalizeOrcid(raw);
+      if (!orcid) {
+        setFeedback("invalid", ["This is not a valid ORCID iD. It should look like 0000-0002-1825-0097."]);
+        return Promise.resolve({ orcid: null });
+      }
+      input.value = "https://orcid.org/" + orcid;
+      const value = input.value;
+      setFeedback(null, ["Checking whether this ORCID iD is already in the Anthology…"]);
+      return lookupOrcid(orcid)
+        .then(function (owner) { return interpret(orcid, owner); })
+        .catch(function () {
+          // The lookup is a convenience; staff check again when processing the issue.
+          return { orcid: orcid };
+        })
+        .then(function (result) {
+          if (current === version) {
+            setFeedback(...describe(result));
+            checked = { value: value, result: result };
+          }
+          return result;
+        });
+    }
 
-    // Distinct first/last splits on the ticked papers, so "Juan Lopez Obrador"
+    input.addEventListener("change", check);
+    return {
+      input: input,
+      check: check,
+      // The finished check of the field as it is now, or null.
+      checked: function () { return checked && checked.value === input.value ? checked.result : null; },
+    };
+  }
+
+  // Name choice for the papers switched on in `papers`, when they print the name in more
+  // than one way; `isDefault(variant)`, if given, picks the option checked at first.
+  // Returns a function giving the chosen name as "Last, First" (so staff see the split),
+  // "" if no choice is needed, or null if one is missing.
+  function initNameOptions(prefix, papers, isDefault) {
+    const field = document.getElementById(prefix + "PreferredName");
+    const options = field.querySelector("[data-author-fix-names]");
+
+    function nameValue(variant) {
+      return variant.first ? variant.last + ", " + variant.first : variant.last;
+    }
+
+    // Distinct first/last splits on the switched-on papers, so "Juan Lopez Obrador"
     // split as Juan Lopez | Obrador and Juan | Lopez Obrador are separate options.
     function nameVariants() {
-      const mine = new Set(selectedPapers(verifyPapers, true));
+      const mine = new Set(selectedPapers(papers, true));
       const variants = new Map();
       page.papers.forEach(function (paper) {
         if (!mine.has(paper.id)) return;
@@ -265,17 +335,14 @@
       return Array.from(variants.values());
     }
 
-    function renderNameOptions() {
-      const checked = nameOptions.querySelector("input:checked");
+    function render() {
+      const checked = options.querySelector("input:checked");
       const previous = checked ? checked.value : null;
       const variants = nameVariants();
-      nameField.hidden = variants.length < 2;
-      // Keep the user's choice while it is still offered; otherwise a verified
-      // page starts on its current name.
-      const keepPrevious = variants.some(function (variant) {
-        return (variant.first ? variant.last + ", " + variant.first : variant.last) === previous;
-      });
-      nameOptions.replaceChildren(...variants.map(function (variant, index) {
+      field.hidden = variants.length < 2;
+      // Keep the user's choice while it is still offered.
+      const keepPrevious = variants.some(function (variant) { return nameValue(variant) === previous; });
+      options.replaceChildren(...variants.map(function (variant, index) {
         const item = document.createElement("div");
         const input = document.createElement("input");
         const label = document.createElement("label");
@@ -283,13 +350,10 @@
         item.className = "form-check";
         input.className = "form-check-input";
         input.type = "radio";
-        input.name = "authorFixPreferredName";
-        input.id = "authorFixPreferredName-" + index;
-        // Sent as "Last, First" so staff see the split.
-        input.value = variant.first ? variant.last + ", " + variant.first : variant.last;
-        input.checked = keepPrevious
-          ? input.value === previous
-          : page.verified && variant.first === page.canonicalFirst && variant.last === page.canonicalLast;
+        input.name = prefix + "PreferredName";
+        input.id = prefix + "PreferredName-" + index;
+        input.value = nameValue(variant);
+        input.checked = keepPrevious ? input.value === previous : Boolean(isDefault && isDefault(variant));
         label.className = "form-check-label";
         label.htmlFor = input.id;
         last.textContent = variant.last;
@@ -300,8 +364,86 @@
       }));
     }
 
-    renderNameOptions();
-    verifyPapers.addEventListener("change", renderNameOptions);
+    render();
+    papers.addEventListener("change", render);
+    return function chosenName() {
+      if (field.hidden) return "";
+      const checked = options.querySelector("input:checked");
+      return checked ? checked.value : null;
+    };
+  }
+
+  // Checks the fields these forms share, showing the first problem. Returns the issue
+  // fields they fill in, or undefined.
+  function identityIssueFields(form, prefix, check, mine, name) {
+    const degree = document.getElementById(prefix + "Degree").value.trim();
+    const openReview = document.getElementById(prefix + "OpenReviewProfile").value.trim();
+    if (!check.orcid) return showError(form, "Please enter a valid ORCID iD.");
+    if (check.owner) return showError(form, "This ORCID iD already has an author page; see the note under the ORCID iD field.");
+    if (!degree) return showError(form, "Please enter the institution of your highest degree.");
+    if (!openReview) return showError(form, "Please enter your OpenReview profile URL, or \"none\".");
+    if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
+      return showError(form, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
+    }
+    if (mine.length === 0) return showError(form, "Please switch on (✓) at least one paper that is yours.");
+    if (name === null) return showError(form, "Please choose the name to show on your page.");
+    return {
+      author_orcid: "https://orcid.org/" + check.orcid,
+      author_highest_degree_institution: degree,
+      preferred_name: name,
+      openreview_profile: openReview,
+    };
+  }
+
+  // ---- Verify author ----
+
+  const verifyForm = document.getElementById("authorFixVerifyForm");
+
+  function initVerify() {
+    const verifyPapers = verifyForm.querySelector("[data-author-fix-papers]");
+    // On a verified page all papers start kept; on an unverified page the author
+    // switches on theirs.
+    renderPaperList(verifyPapers, page.verified);
+    if (page.verified) {
+      showPaperCounts(verifyPapers, "to keep", "to remove");
+    } else {
+      showPaperCounts(verifyPapers, "to move to your page", "to stay here");
+      initSelectAll(document.getElementById("authorFixVerifyAll"), verifyPapers);
+    }
+    // A verified page starts on its current name.
+    const chosenName = initNameOptions("authorFix", verifyPapers, page.verified && function (variant) {
+      return variant.first === page.canonicalFirst && variant.last === page.canonicalLast;
+    });
+
+    const orcidField = initOrcidField("authorFix", function (orcid, owner) {
+      if (!owner || owner === page.id) return { orcid: orcid };
+      if (page.verified) return { orcid: orcid, mergeWith: owner };
+      return ownerPage(orcid, owner).then(function (ownerInfo) {
+        return { orcid: orcid, owner: ownerInfo };
+      });
+    }, function (result) {
+      const otherId = result.mergeWith || (result.owner && result.owner.id);
+      if (!otherId) return ["valid", ["Valid ORCID iD."]];
+      const prefix = ["This ORCID iD already has an author page: ", authorPageLink(otherId)];
+      const owner = result.owner;
+      if (result.mergeWith) {
+        // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
+        return ["valid", [...prefix, ". Submitting will ask staff to merge this page with it."]];
+      }
+      if (owner.acceptsPapers) {
+        const move = actionLink("move papers from this page to it", function () {
+          chooseDestination({ id: owner.id, name: owner.name });
+          showPane("authorFixMove");
+        });
+        return ["invalid", [...prefix, ". Instead of verifying this page, ", move, "."]];
+      }
+      const other = actionLink("Something else", function () { showPane("authorFixOther"); });
+      return ["invalid", [
+        ...prefix,
+        ", but it can't take the papers on this page (its name doesn't match them, or its author coauthored them). Please use “",
+        other, "” to describe the problem.",
+      ]];
+    });
 
     const openReviewNotice = document.getElementById("authorFixOpenReview");
     const hasRecentPaper = page.papers.some(function (paper) {
@@ -314,55 +456,8 @@
         openReviewNotice.classList.add("d-none");
         verifyForm.classList.remove("d-none");
         // This button is now hidden; keep focus in the dialog so Escape still closes it.
-        orcidInput.focus();
+        orcidField.input.focus();
       });
-    }
-
-    function setFeedback(state, content) {
-      orcidInput.classList.toggle("is-valid", state === "valid");
-      orcidInput.classList.toggle("is-invalid", state === "invalid");
-      feedback.className = "form-text" + (state === "invalid" ? " text-danger" : "");
-      feedback.replaceChildren(...content);
-    }
-
-    // A link within the dialog, e.g. to another form.
-    function actionLink(text, onClick) {
-      const link = document.createElement("a");
-      link.href = "#";
-      link.textContent = text;
-      link.addEventListener("click", function (event) {
-        event.preventDefault();
-        onClick();
-      });
-      return link;
-    }
-
-    // Shows the outcome of an ORCID iD lookup under the field.
-    function showOrcidResult(result) {
-      const otherId = result.mergeWith || (result.owner && result.owner.id);
-      if (!otherId) return setFeedback("valid", ["Valid ORCID iD."]);
-      const link = document.createElement("a");
-      link.href = authorPageUrl(otherId);
-      link.textContent = otherId;
-      const prefix = ["This ORCID iD already has an author page: ", link];
-      const owner = result.owner;
-      if (result.mergeWith) {
-        // A legacy page (verified ID, no ORCID iD): staff merge it with the iD's page.
-        setFeedback("valid", [...prefix, ". Submitting will ask staff to merge this page with it."]);
-      } else if (owner.acceptsPapers) {
-        const move = actionLink("move papers from this page to it", function () {
-          chooseDestination({ id: owner.id, name: owner.name });
-          showPane("authorFixMove");
-        });
-        setFeedback("invalid", [...prefix, ". Instead of verifying this page, ", move, "."]);
-      } else {
-        const other = actionLink("Something else", function () { showPane("authorFixOther"); });
-        setFeedback("invalid", [
-          ...prefix,
-          ", but it can't take the papers on this page (its name doesn't match them, or its author coauthored them). Please use \u201c",
-          other, "\u201d to describe the problem.",
-        ]);
-      }
     }
 
     // The author page that already has this ORCID iD, with its name and whether the
@@ -378,70 +473,15 @@
         .catch(function () { return unknown; });
     }
 
-    // Lookups can finish out of order; only the latest check updates the form.
-    let orcidCheckVersion = 0;
-    function checkOrcid() {
-      const version = ++orcidCheckVersion;
-      const raw = orcidInput.value;
-      if (!raw.trim()) {
-        orcidInput.classList.remove("is-valid", "is-invalid");
-        feedback.className = "form-text";
-        feedback.innerHTML = defaultFeedback;
-        return Promise.resolve({ orcid: null });
-      }
-      const orcid = normalizeOrcid(raw);
-      if (!orcid) {
-        setFeedback("invalid", ["This is not a valid ORCID iD. It should look like 0000-0002-1825-0097."]);
-        return Promise.resolve({ orcid: null });
-      }
-      orcidInput.value = "https://orcid.org/" + orcid;
-      const value = orcidInput.value;
-      setFeedback(null, ["Checking whether this ORCID iD is already in the Anthology…"]);
-      return lookupOrcid(orcid)
-        .then(function (owner) {
-          if (!owner || owner === page.id) return { orcid: orcid, owner: null };
-          if (page.verified) return { orcid: orcid, owner: null, mergeWith: owner };
-          return ownerPage(orcid, owner).then(function (ownerInfo) {
-            return { orcid: orcid, owner: ownerInfo };
-          });
-        })
-        .catch(function () {
-          // The lookup is a convenience; staff check again when processing the issue.
-          return { orcid: orcid, owner: null };
-        })
-        .then(function (result) {
-          if (version === orcidCheckVersion) {
-            showOrcidResult(result);
-            orcidChecked = { value: value, result: result };
-          }
-          return result;
-        });
-    }
-
-    orcidInput.addEventListener("change", checkOrcid);
-
     verifyForm.addEventListener("submit", async function (event) {
       event.preventDefault();
       // Without waiting when the field is already checked, so the new tab opens within
       // the click and isn't blocked as a popup.
-      const check = orcidChecked && orcidChecked.value === orcidInput.value
-        ? orcidChecked.result
-        : await checkOrcid();
-      const degree = document.getElementById("authorFixDegree").value.trim();
-      const openReview = document.getElementById("authorFixOpenReviewProfile").value.trim();
+      const check = orcidField.checked() || await orcidField.check();
       const mine = selectedPapers(verifyPapers, true);
       const notMine = selectedPapers(verifyPapers, false);
-
-      if (!check.orcid) return showError(verifyForm, "Please enter a valid ORCID iD.");
-      if (check.owner) return showError(verifyForm, "This ORCID iD already has an author page; see the note under the ORCID iD field.");
-      if (!degree) return showError(verifyForm, "Please enter the institution of your highest degree.");
-      if (!openReview) return showError(verifyForm, "Please enter your OpenReview profile URL, or \"none\".");
-      if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
-        return showError(verifyForm, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
-      }
-      if (mine.length === 0) return showError(verifyForm, "Please switch on (\u2713) at least one paper that is yours.");
-      const preferredName = nameField.hidden ? null : nameOptions.querySelector("input:checked");
-      if (!nameField.hidden && !preferredName) return showError(verifyForm, "Please choose the name to show on your page.");
+      const fields = identityIssueFields(verifyForm, "authorFix", check, mine, chosenName());
+      if (!fields) return;
 
       // List whichever set of papers is shorter.
       const listMine = notMine.length > mine.length;
@@ -449,13 +489,69 @@
       openIssue(verifyForm, "02a-verify-author.yml", title, {
         author_page: page.url,
         merge_with: check.mergeWith ? authorPageUrl(check.mergeWith) : "",
-        author_orcid: "https://orcid.org/" + check.orcid,
-        author_highest_degree_institution: degree,
+        ...fields,
         papers_not_mine: listMine ? "" : paperUrls(notMine),
         papers_only_mine: listMine ? paperUrls(mine) : "",
-        preferred_name: preferredName ? preferredName.value : "",
-        openreview_profile: openReview,
         notes: document.getElementById("authorFixVerifyNotes").value.trim(),
+      });
+    });
+  }
+
+  // ---- Create my own verified page (verified pages) ----
+
+  // A namesake of this page's author moves their papers to a new verified page. Papers
+  // linked to this page by ID were assigned to its author deliberately, so they stay.
+  const splitForm = document.getElementById("authorFixSplitForm");
+
+  function initSplit() {
+    const splitPapers = splitForm.querySelector("[data-author-fix-papers]");
+    renderPaperList(splitPapers, false);
+    splitPapers.querySelectorAll("input[type=checkbox]").forEach(function (input) {
+      if (!papersById.get(input.value).linked) return;
+      input.disabled = true;
+      const note = document.createElement("small");
+      note.className = "text-muted ms-1";
+      note.tabIndex = 0;
+      note.textContent = "(linked)";
+      input.parentElement.append(note);
+      new bootstrap.Tooltip(note, {
+        title: "This paper is linked to " + page.id + " in the Anthology data, so it can't be moved with this form."
+          + " If it isn't by " + page.canonicalName + ", please use “Something else”.",
+        placement: "top",
+      });
+    });
+    showPaperCounts(splitPapers, "to move to your new page", "to stay here");
+    initSelectAll(document.getElementById("authorFixSplitAll"), splitPapers);
+    const chosenName = initNameOptions("authorFixSplit", splitPapers, null);
+
+    const orcidField = initOrcidField("authorFixSplit", function (orcid, owner) {
+      return owner ? { orcid: orcid, owner: { id: owner } } : { orcid: orcid };
+    }, function (result) {
+      if (!result.owner) return ["valid", ["Valid ORCID iD."]];
+      if (result.owner.id === page.id) {
+        const remove = actionLink("Remove papers", function () { showPane("authorFixRemove"); });
+        return ["invalid", ["This ORCID iD is already linked to this page. If this is your page, please use “", remove, "” instead."]];
+      }
+      const other = actionLink("Something else", function () { showPane("authorFixOther"); });
+      return ["invalid", [
+        "This ORCID iD already has an author page: ", authorPageLink(result.owner.id),
+        ". To move papers from this page to it, please use “", other, "”.",
+      ]];
+    });
+
+    splitForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      // As in Verify author: no waiting when the field is already checked.
+      const check = orcidField.checked() || await orcidField.check();
+      const mine = selectedPapers(splitPapers, true);
+      const fields = identityIssueFields(splitForm, "authorFixSplit", check, mine, chosenName());
+      if (!fields) return;
+
+      openIssue(splitForm, "02d-split-verified-author.yml", "Split Author Page: " + page.id, {
+        source_page: page.url,
+        ...fields,
+        papers_to_move: paperUrls(mine),
+        notes: document.getElementById("authorFixSplitNotes").value.trim(),
       });
     });
   }
@@ -719,6 +815,7 @@
     if (verifyForm) initVerify();
     if (moveForm) initMove();
     else initRemove();
+    if (splitForm) initSplit();
     initOther();
   }, { once: true });
   chooser.querySelectorAll("[data-author-fix-choose]").forEach(function (button) {

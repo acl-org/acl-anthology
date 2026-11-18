@@ -1,0 +1,90 @@
+name: Split My Papers Off a Verified Author Page
+description: Create your own verified author page for your papers that appear on another person's verified page with the same name.
+title: "Split Author Page: {replace with current author page ID}"
+labels: ["correction", "author-page", "split-verified-author"]
+assignees:
+  - anthology-assist
+body:
+  - type: markdown
+    attributes:
+      value: >
+        The easiest way to fill out this form is from the yellow "Fix author" button on the author page where your
+        papers appear (e.g., https://aclanthology.org/people/matt-post/), which checks your ORCID iD and fills in the
+        fields below. If the page is your own, use "Move Papers Between Author Pages" to remove papers from it instead.
+  - type: markdown
+    attributes:
+      value: >
+        For processing times and issue status labels, see [When will my correction be processed?](https://aclanthology.org/faq/correction-timeframe/).
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the metadata (i.e., what appears on the web pages) should match what is displayed on the PDF exactly, including any middle names and/or initials of authors.
+        If this is not the case, **you must first use the "Fix data" button on each affected paper's page to correct this** (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+      options:
+        - label: I confirm that all affected papers show the exact same names on the website as on the PDF.
+          required: true
+  - type: input
+    id: source_page
+    attributes:
+      label: Current author page
+      description: The verified author page, belonging to someone else with the same name, where your papers appear.
+      placeholder: ex. https://aclanthology.org/people/matt-post/
+    validations:
+      required: true
+  - type: textarea
+    id: papers_to_move
+    attributes:
+      label: My papers on this page
+      description: Anthology paper URLs, one per line. They will be moved to your new author page.
+      placeholder: ex. https://aclanthology.org/2023.acl-long.42/
+    validations:
+      required: true
+  - type: input
+    id: author_orcid
+    attributes:
+      label: Author ORCID
+      description: |
+        Your [ORCID](https://orcid.org) link. Please also add it to your submission platform profiles per [these instructions](https://aclanthology.org/info/author-pages/).
+      placeholder: ex. https://orcid.org/0009-0003-8868-7504
+    validations:
+      required: true
+  - type: input
+    id: author_highest_degree_institution
+    attributes:
+      label: Institution of highest (anticipated) degree
+      description: |
+        The school or university where you have or will receive your highest degree (e.g., current affiliation for
+        students, Ph.D. institution for faculty and industry researchers). This will be used to form your author
+        page ID.
+      placeholder: ex. Johns Hopkins University
+    validations:
+      required: true
+  - type: input
+    id: preferred_name
+    attributes:
+      label: Preferred author name
+      description: |
+        If you have published under multiple names, the main one that should appear at the top of your author page.
+        The last name is the primary part of the name, used in citations and sorting (e.g. "De Morgan" for Augustus De Morgan).
+      placeholder: ex. Last name, First name(s).
+    validations:
+      required: false
+  - type: input
+    id: openreview_profile
+    attributes:
+      label: OpenReview profile page URL
+      description: |
+        If you have an OpenReview profile page, please include it here and ensure the page has your ORCID link: [instructions](https://aclanthology.org/info/author-pages/).
+        If you do not have an OpenReview profile, put "none".
+      placeholder: ex. https://openreview.net/profile?id=~Your_Name1
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional notes
+      description: Anything else staff should know.
+    validations:
+      required: false
