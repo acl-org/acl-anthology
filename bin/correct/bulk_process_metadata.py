@@ -63,7 +63,7 @@ import re
 import lxml.etree as etree
 
 from acl_anthology import Anthology
-from acl_anthology.collections import Paper
+from acl_anthology.collections import Record
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
@@ -247,7 +247,7 @@ class AnthologyMetadataUpdater:
         # more semantic checks
         # - Paper needs to be known to anthology
         anthology_id = json_block[ANTHOLOGY_ID]
-        if self.anthology.get_paper(anthology_id) is None:
+        if self.anthology.get_record(anthology_id) is None:
             log.warning(f"-> Paper not found: {anthology_id}")
             return False
 
@@ -284,7 +284,7 @@ class AnthologyMetadataUpdater:
         dry_run: bool = True,
         skip_validation: bool = False,
         close_old_issues: bool = False,
-    ) -> Optional[Tuple[Paper, Dict[str, str]]]:
+    ) -> Optional[Tuple[Record, Dict[str, str]]]:
         """
         Filters issues if eligible, retrieves Paper and change request on the way
 
@@ -333,12 +333,12 @@ class AnthologyMetadataUpdater:
             return None
         anthology_id = json_block.get(ANTHOLOGY_ID)
         assert anthology_id is not None, "Input validation already performed"
-        paper = self.anthology.get_paper(anthology_id)
+        paper = self.anthology.get_record(anthology_id)
         assert paper is not None, "Input validation already performed"
 
         return paper, json_block
 
-    def _update_paper_authors(self, paper: Paper, changes: dict) -> Paper:
+    def _update_paper_authors(self, paper: Record, changes: dict) -> Record:
         """
         Update authors of the paper as specified by changes.
         Logic assumes the given ID for each author is the *current* ID.
@@ -440,7 +440,7 @@ class AnthologyMetadataUpdater:
 
         return paper
 
-    def _apply_changes_to_paper(self, paper: Paper, changes: dict) -> Paper:
+    def _apply_changes_to_paper(self, paper: Record, changes: dict) -> Record:
         """Apply the specified changes to the paper."""
 
         def str_to_markup(text: str) -> MarkupText:  # raises lxml.etree.XMLSyntaxError

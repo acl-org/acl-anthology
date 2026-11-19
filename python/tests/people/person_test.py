@@ -141,7 +141,8 @@ def test_person_papers_unverified(anthology):
     assert person.canonical_name == Name("Petra", "Lindholm")
     assert len(person.item_ids) == 3
     assert len(list(person.anthology_items())) == 3
-    assert len(list(person.papers())) == 2
+    assert len(list(person.papers())) == 1
+    assert len(list(person.records())) == 2
     assert len(list(person.volumes())) == 1
 
 

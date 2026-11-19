@@ -17,7 +17,7 @@ from lxml import etree
 from pathlib import Path
 import pytest
 
-from acl_anthology.collections import Collection, Volume, VolumeType, Paper
+from acl_anthology.collections import Collection, Frontmatter, Volume, VolumeType
 from acl_anthology.files import PDFReference, URLReference
 from acl_anthology.people import (
     Name,
@@ -186,7 +186,7 @@ def test_volume_attributes_2022acl_long(anthology):
     assert volume.venue_ids == ("facl",)
     assert volume.venue_acronym == "FACL"
     assert not volume.is_workshop
-    assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
+    assert isinstance(volume.frontmatter, Frontmatter) and volume.frontmatter.id == "0"
 
 
 def test_volume_attributes_2022acl_demo(anthology):
@@ -204,7 +204,7 @@ def test_volume_attributes_2022acl_demo(anthology):
     assert volume.venue_ids == ("facl",)
     assert volume.venue_acronym == "FACL"
     assert not volume.is_workshop
-    assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
+    assert isinstance(volume.frontmatter, Frontmatter) and volume.frontmatter.id == "0"
     assert len(volume.editors) == 3
     assert volume.editors == volume.namespecs
 
@@ -221,7 +221,7 @@ def test_volume_attributes_j89(anthology):
     assert volume.journal_issue == "1"
     assert volume.journal_volume == "15"
     assert volume.journal_title == "Journal of Fabricated Computational Linguistics"
-    assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
+    assert isinstance(volume.frontmatter, Frontmatter) and volume.frontmatter.id == "0"
 
 
 def test_volume_attributes_natfake(anthology):
@@ -232,7 +232,7 @@ def test_volume_attributes_natfake(anthology):
     assert volume.is_workshop
     assert volume.venue_ids == ("natfake", "ws")
     assert volume.venue_acronym == "NATFAKE"
-    assert isinstance(volume.frontmatter, Paper) and volume.frontmatter.id == "0"
+    assert isinstance(volume.frontmatter, Frontmatter) and volume.frontmatter.id == "0"
 
 
 def test_volume_without_frontmatter(anthology):
@@ -617,7 +617,7 @@ def test_volume_roundtrip_xml(xml, anthology):
     volume = Volume.from_xml(parent, meta)
     for child in volume_element:
         if child.tag in ("frontmatter", "paper"):
-            volume._add_paper_from_xml(child)
+            volume._add_record_from_xml(child)
     # Serialize and compare
     out = volume.to_xml()
     indent(out)
