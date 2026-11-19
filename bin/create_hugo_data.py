@@ -124,12 +124,16 @@ def person_to_dict(person_id, ns):
     full_name = ns.name.as_full()
     if ns.variants:
         full_name = f"{full_name} ({', '.join(var.as_full() for var in ns.variants)})"
-    return {
+    data = {
         "id": person_id,
         "first": ns.first,
         "last": ns.last,
         "full": full_name,
     }
+    if ns.id is not None:
+        # Linked to the person by ID in the XML, not just by name
+        data["namespec_has_id"] = True
+    return data
 
 
 def paper_to_dict(paper):
