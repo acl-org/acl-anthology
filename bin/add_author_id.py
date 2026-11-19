@@ -36,7 +36,7 @@ def main(args: argparse.Namespace) -> None:
 
     if args.paper_ids:
         for paper_id in args.paper_ids:
-            paper = anthology.get_paper(paper_id)
+            paper = anthology.get_record(paper_id)
             if paper:
                 collection_to_paper_map[paper.collection_id].append(paper.full_id_tuple)
 
@@ -90,7 +90,7 @@ def main(args: argparse.Namespace) -> None:
                     paper_id = (
                         paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
                     )
-                    paper_id = anthology.get_paper(paper_tuple).full_id
+                    paper_id = anthology.get_record(paper_tuple).full_id
                     print(
                         f"Adding {args.id} to {author_first_name} {author_last_name} on paper {paper_id}..."
                     )

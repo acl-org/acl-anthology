@@ -1,0 +1,27 @@
+{{ range .recordings }}
+<div class="card bg-light mb-3">
+  <div class="card-body">
+    <h3 class="h5">{{ if eq .kind "audio" }}Audio{{ else }}Video{{ end }}</h3>
+    {{ if .embed_url }}
+    <div class="ratio ratio-16x9 mb-2">
+      <iframe src="{{ .embed_url }}" title="{{ $.title }}" loading="lazy" allowfullscreen></iframe>
+    </div>
+    {{ else if .mime_type }}
+      {{ if eq .kind "audio" }}
+      <audio controls preload="none" class="w-100" aria-label="{{ $.title }}">
+        <source src="{{ .url }}" type="{{ .mime_type }}">
+        Your browser does not support audio playback.
+      </audio>
+      {{ else }}
+      <video controls playsinline preload="none" width="1280" height="720" class="w-100 h-auto" aria-label="{{ $.title }}">
+        <source src="{{ .url }}" type="{{ .mime_type }}">
+        Your browser does not support video playback.
+      </video>
+      {{ end }}
+    {{ end }}
+    <p class="mb-0 mt-2"><a href="{{ .url }}">Open {{ .kind }} recording</a></p>
+  </div>
+</div>
+{{ else }}
+<p class="text-muted">No recording is currently available for playback.</p>
+{{ end }}

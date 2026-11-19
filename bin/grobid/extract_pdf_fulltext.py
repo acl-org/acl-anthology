@@ -57,7 +57,7 @@ import requests
 from lxml import etree
 
 from acl_anthology import Anthology
-from acl_anthology.collections.paper import Paper
+from acl_anthology.collections.record import Record
 
 
 DEFAULT_ANTHOLOGY_FILES = Path(
@@ -289,7 +289,7 @@ def parse_fulltext_tei(tei: bytes | str) -> dict[str, Any]:
     return {key: value for key, value in result.items() if value not in (None, [], {})}
 
 
-def anthology_metadata(paper: Paper) -> dict[str, Any]:
+def anthology_metadata(paper: Record) -> dict[str, Any]:
     """Collect the Anthology-side fields a search index needs to attribute hits."""
     volume = paper.parent
     result: dict[str, Any] = {
@@ -316,7 +316,7 @@ def anthology_metadata(paper: Paper) -> dict[str, Any]:
     return {key: value for key, value in result.items() if value not in (None, [], {})}
 
 
-def canonical_pdf_path(pdf_root: Path, paper: Paper) -> Path:
+def canonical_pdf_path(pdf_root: Path, paper: Record) -> Path:
     """Resolve a paper's canonical path in the anthology-files PDF tree."""
     if paper.pdf is None:
         raise ValueError(f"Paper {paper.full_id} has no PDF reference")
@@ -336,7 +336,7 @@ def output_path(pdf_path: Path, pdf_root: Path, output_root: Path) -> Path:
     return output_root / relative.with_suffix(OUTPUT_SUFFIX)
 
 
-def source_metadata(paper: Paper, pdf_path: Path) -> dict[str, Any]:
+def source_metadata(paper: Record, pdf_path: Path) -> dict[str, Any]:
     """Describe the PDF cheaply enough to re-check every paper on every run."""
     if paper.pdf is None:
         raise ValueError(f"Paper {paper.full_id} has no PDF reference")
@@ -523,7 +523,7 @@ def process_job(job: PaperJob) -> WorkResult:
         return WorkResult(job.paper_id, "transient-error", str(exception))
 
 
-def event_papers(anthology: Anthology, event_id: str) -> Iterator[Paper]:
+def event_papers(anthology: Anthology, event_id: str) -> Iterator[Record]:
     """Iterate papers in an event's own collection and colocated volumes."""
     event = anthology.get_event(event_id)
     if event is None:
@@ -534,15 +534,15 @@ def event_papers(anthology: Anthology, event_id: str) -> Iterator[Paper]:
             if volume.full_id_tuple in seen_volumes:
                 continue
             seen_volumes.add(volume.full_id_tuple)
-            yield from volume.papers()
+            yield from volume.records()
 
 
-def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]:
+def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Record]:
     """Resolve year and publication/event selectors without duplicates."""
     if not selectors:
-        return anthology.papers()
+        return anthology.records()
 
-    selected: dict[str, Paper] = {}
+    selected: dict[str, Record] = {}
     requested_years = {
         int(selector)
         for selector in selectors
@@ -550,7 +550,7 @@ def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]
     }
     matched_years: set[int] = set()
     if requested_years:
-        for paper in anthology.papers():
+        for paper in anthology.records():
             if int(paper.year) in requested_years:
                 selected.setdefault(paper.full_id, paper)
                 matched_years.add(int(paper.year))
@@ -560,7 +560,7 @@ def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]
 
     # Resolve every non-year selector before yielding work, so a typo cannot
     # leave a partially processed selection.
-    resolved: list[Iterator[Paper]] = []
+    resolved: list[Iterator[Record]] = []
     for anthology_id in selectors:
         if len(anthology_id) == 4 and anthology_id.isdecimal():
             continue
@@ -569,7 +569,7 @@ def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]
         except ValueError:
             publication = None
         if publication is not None:
-            resolved.append(anthology.papers(anthology_id))
+            resolved.append(anthology.records(anthology_id))
         elif anthology.get_event(anthology_id) is not None:
             resolved.append(event_papers(anthology, anthology_id))
         else:
@@ -580,7 +580,7 @@ def select_papers(anthology: Anthology, selectors: list[str]) -> Iterator[Paper]
     return iter(selected.values())
 
 
-def single_paper(papers: list[Paper], selectors: list[str]) -> list[Paper]:
+def single_paper(papers: list[Record], selectors: list[str]) -> list[Record]:
     """Require a selection of exactly one paper, as `--pdf` does."""
     if len(papers) != 1:
         selection = " ".join(selectors)
@@ -591,7 +591,7 @@ def single_paper(papers: list[Paper], selectors: list[str]) -> list[Paper]:
     return papers
 
 
-def make_job(paper: Paper, args: argparse.Namespace) -> tuple[str, PaperJob | None]:
+def make_job(paper: Record, args: argparse.Namespace) -> tuple[str, PaperJob | None]:
     """Classify a paper as up to date, unusable, or needing GROBID."""
     if paper.is_deleted:
         return "deleted", None

@@ -18,20 +18,30 @@ from .bibkeys import BibkeyIndex
 from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume
-from .types import EventLink, PaperDeletionType, PaperType, VolumeType
+from .types import EventLink, MediaType, PaperDeletionType, PaperType, VolumeType
 from .paper import Award, Paper
+from .item import CollectionItem
+from .record import DeletionNotice, Record
+from .frontmatter import Frontmatter
+from .media import Media
 
 __all__ = [
     "Award",
     "BibkeyIndex",
     "Collection",
     "CollectionIndex",
+    "CollectionItem",
+    "DeletionNotice",
     "Event",
     "EventIndex",
     "EventLink",
+    "Frontmatter",
+    "Media",
+    "MediaType",
     "Paper",
     "PaperDeletionType",
     "PaperType",
+    "Record",
     "Talk",
     "Volume",
     "VolumeType",

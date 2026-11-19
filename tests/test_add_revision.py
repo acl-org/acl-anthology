@@ -8,6 +8,7 @@ from pypdf import PdfReader, PdfWriter
 import pytest
 
 from acl_anthology.files import PDFReference
+from acl_anthology.collections import Frontmatter, Paper, Volume
 from bin.add_revision import add_revision, main, normalize_id
 
 
@@ -39,13 +40,13 @@ def test_add_revision_preserves_remote_pdf_reference(tmp_path: Path) -> None:
     pdf_dir = tmp_path / "pdf"
     remote_pdf = PDFReference(name="https://example.org/original.pdf")
     anthology = MagicMock()
-    paper = MagicMock()
+    paper = MagicMock(spec=Paper)
     paper.full_id = anthology_id
     paper.pdf = remote_pdf
     paper.revisions = ()
     paper.errata = ()
     paper.collection.path = tmp_path / "2026.example.xml"
-    anthology.get_paper.return_value = paper
+    anthology.get_record.return_value = paper
 
     def download(reference: PDFReference, destination: Path) -> None:
         assert reference.name == anthology_id
@@ -103,10 +104,10 @@ def test_main_uses_erratum_type_from_issue(tmp_path: Path) -> None:
     github_repo = MagicMock()
     github_repo.get_issue.return_value = issue
     anthology = MagicMock()
-    paper = MagicMock()
+    paper = MagicMock(spec=Paper)
     paper.revisions = ()
     paper.errata = ()
-    anthology.get_paper.return_value = paper
+    anthology.get_record.return_value = paper
 
     with (
         patch("bin.add_revision.Anthology.from_within_repo", return_value=anthology),
@@ -132,7 +133,7 @@ def test_main_uses_erratum_type_from_issue(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("anthology_id", "lookup_method"),
     [
-        ("2026.example-1.0", "get_paper"),
+        ("2026.example-1.0", "get_record"),
         ("2026.example-1", "get_volume"),
     ],
 )
@@ -154,7 +155,7 @@ def test_main_automatically_replaces_non_revision_targets(
         repo=None,
     )
     anthology = MagicMock()
-    item = MagicMock()
+    item = MagicMock(spec=Frontmatter if lookup_method == "get_record" else Volume)
     item.full_id = anthology_id
     item.collection.path = None
     item.pdf.download.side_effect = lambda path: Path(path).write_bytes(b"original")

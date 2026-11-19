@@ -37,7 +37,7 @@ from .ids import AnthologyIDTuple, build_id_from_tuple, is_valid_orcid
 
 if TYPE_CHECKING:
     import rich
-    from ..collections import Paper, Volume, Event, Talk
+    from ..collections import CollectionItem, Event, Talk
     from ..people import NameSpecification
 
 
@@ -57,7 +57,7 @@ def track_namespec_modifications(
 
 
 def track_modifications(
-    obj: Paper | Volume | Event | Talk, attr: attrs.Attribute[Any], value: T
+    obj: CollectionItem | Event | Talk, attr: attrs.Attribute[Any], value: T
 ) -> T:
     if attr.name != "parent":
         obj.collection.is_modified = True
@@ -127,6 +127,7 @@ def auto_validate_types(
         AttachmentReference,
         URLReference,
         VideoReference,
+        AudioReference,
     )
     from ..people import Name, NameSpecification
     from ..text import MarkupText
@@ -142,6 +143,7 @@ def auto_validate_types(
             AttachmentReference,
             URLReference,
             VideoReference,
+            AudioReference,
             MarkupText,
             Name,
             NameSpecification,
@@ -254,10 +256,10 @@ def into_str_tuple(value: Iterable[str]) -> tuple[str, ...]:
 
 
 def attach_parent(
-    item: Paper | Volume | Talk,
+    item: CollectionItem | Talk,
     attr: attrs.Attribute[Any],
-    value: list[NameSpecification],
-) -> list[NameSpecification]:
+    value: tuple[NameSpecification, ...],
+) -> tuple[NameSpecification, ...]:
     """Attach parent object to a [NameSpecification][acl_anthology.people.name.NameSpecification].
 
     Intended to be called from `on_setattr` of an [attrs.field][].
