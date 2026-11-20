@@ -17,7 +17,7 @@ from lxml import etree
 from pathlib import Path
 import pytest
 
-from acl_anthology.collections import Collection, Volume, VolumeType, Paper
+from acl_anthology.collections import Collection, Volume, VolumeType, Paper, PaperType
 from acl_anthology.files import PDFReference, URLReference
 from acl_anthology.people import (
     Name,
@@ -743,6 +743,33 @@ def test_volume_create_paper_with_editors(anthology):
         ingest_date="2025-01-07",
     )
     assert paper.editors == editors
+
+
+def test_volume_create_paper_does_not_link_volume_editors(anthology):
+    volume = anthology.get_volume("2022.facl-long")
+    editor = volume.editors[0].resolve()
+    paper = volume.create_paper(title="A paper without editors of its own")
+    # Volume editors are only linked to the volume and its frontmatter
+    assert paper.editors == volume.editors
+    assert paper.full_id_tuple not in editor.item_ids
+
+
+def test_volume_create_frontmatter_links_volume_editors(anthology):
+    collection = anthology.get_collection("2022.facl")
+    volume = collection.create_volume(
+        "newvol", title="New volume", editors=[NameSpec("Quist, Lena")]
+    )
+    editor = volume.editors[0].resolve()
+    assert editor.item_ids == {volume.full_id_tuple}
+    frontmatter = volume.create_paper(
+        title=volume.title, id="0", type=PaperType.FRONTMATTER
+    )
+    assert editor.item_ids == {volume.full_id_tuple, frontmatter.full_id_tuple}
+    assert volume.namespec_item_ids == (
+        volume.full_id_tuple,
+        frontmatter.full_id_tuple,
+    )
+    assert frontmatter.get_namespec_for(editor) is volume.editors[0]
 
 
 def test_volume_create_paper_with_existing_explicit_author(anthology):

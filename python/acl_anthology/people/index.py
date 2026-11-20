@@ -44,7 +44,7 @@ from . import Person, Name, NameLink, NameSpecification
 if TYPE_CHECKING:
     from _typeshed import StrPath
     from ..anthology import Anthology
-    from ..collections import Paper, Volume, Collection
+    from ..collections import Paper, Volume, Collection, CollectionItem
 
 log = get_logger()
 PEOPLE_INDEX_FILE = "json/people.json"
@@ -191,8 +191,6 @@ class PersonIndex(SlottedDict[Person]):
         Returns:
             A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
         """
-        from ..collections import Paper, Volume
-
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
@@ -206,11 +204,7 @@ class PersonIndex(SlottedDict[Person]):
                 and not cast("Volume", item).has_frontmatter
             ):
                 continue
-            if isinstance(item, Volume):
-                coauthors.update(self._resolve_namespec(ns).id for ns in item.editors)
-            elif isinstance(item, Paper):
-                coauthors.update(self._resolve_namespec(ns).id for ns in item.authors)
-                coauthors.update(self._resolve_namespec(ns).id for ns in item._editors)
+            coauthors.update(self._resolve_namespec(ns).id for ns in item.namespecs)
         del coauthors[person.id]
         return coauthors
 
@@ -308,23 +302,16 @@ class PersonIndex(SlottedDict[Person]):
         raised_exceptions = []
         for collection in iterator:
             for volume in collection.volumes():
-                context: Paper | Volume = volume
+                context: CollectionItem[Any] = volume
                 try:
-                    self._add_to_index(
-                        volume.editors, volume.full_id_tuple, during_build=True
+                    items: Iterable[CollectionItem[Any]] = it.chain(
+                        (volume,), volume.papers()
                     )
-                    for paper in volume.papers():
-                        context = paper
-                        name_specs = (
-                            # Associate explicitly given authors/editors with the paper
-                            it.chain(paper.authors, paper._editors)
-                            # For frontmatter, also associate the volume editors with it
-                            if not paper.is_frontmatter
-                            else paper.editors
-                        )
-                        self._add_to_index(
-                            name_specs, paper.full_id_tuple, during_build=True
-                        )
+                    for item in items:
+                        context = item
+                        namespecs = item.namespecs
+                        for item_id in item.namespec_item_ids:
+                            self._add_to_index(namespecs, item_id, during_build=True)
                 except Exception as exc:  # pragma: no cover
                     exc.add_note(
                         f"Raised in {context.__class__.__name__} {context.full_id}"

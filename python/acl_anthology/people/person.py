@@ -46,7 +46,7 @@ from . import Name, ConvertableIntoName
 if TYPE_CHECKING:
     from . import NameSpecification, PersonIndex
     from ..anthology import Anthology
-    from ..collections import Paper, Volume
+    from ..collections import CollectionItem, Paper, Volume
 
 
 class NameLink(StrEnum):
@@ -361,7 +361,7 @@ class Person:
             self.parent.remove_person(self)
 
     def set_id_on_items(
-        self, exclude: Optional[list[AnthologyID | Paper | Volume]] = None
+        self, exclude: Optional[list[AnthologyID | CollectionItem[Any]]] = None
     ) -> None:
         """Set this person's ID explicitly on all Anthology items associated with them.
 
@@ -379,35 +379,36 @@ class Person:
             exc.add_note("Did you want to use make_explicit() instead?")
             raise exc
 
-        from ..collections import Paper, Volume
+        from ..collections import CollectionItem
 
         excluded_ids = set()
         if exclude:
             for item in exclude:
-                if isinstance(item, (Paper, Volume)):
+                if isinstance(item, CollectionItem):
                     excluded_ids.add(item.full_id_tuple)
                 else:
                     excluded_ids.add(parse_id(item))
 
         for namespec in list(self.namespecs()):
             if not (
-                isinstance(namespec.parent, (Paper, Volume))
+                isinstance(namespec.parent, CollectionItem)
                 and namespec.parent.full_id_tuple in excluded_ids
             ):
                 self.add_name(namespec.name)
                 namespec.id = self.id
 
-    def anthology_items(self) -> Iterator[Paper | Volume]:
+    def anthology_items(self) -> Iterator[CollectionItem[Any]]:
         """Returns an iterator over all Anthology items associated with this person, regardless of their type."""
         # TODO: This does not consider talks yet!
+        from ..collections import CollectionItem
+
         for anthology_id in self.item_ids:
             item = self.root.get(anthology_id)
-            if item is None:
+            if not isinstance(item, CollectionItem):
                 raise ValueError(
                     f"Person {self.id} lists associated item {build_id_from_tuple(anthology_id)}, which doesn't exist"
                 )  # pragma: no cover
-            # TODO: typing issue will be resolved later with CollectionItem refactoring
-            yield item  # type: ignore
+            yield item
 
     def namespecs(self) -> Iterator[NameSpecification]:
         """Returns an iterator over all NameSpecifications that resolve to this person."""

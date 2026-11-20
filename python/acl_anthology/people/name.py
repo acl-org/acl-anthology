@@ -37,7 +37,7 @@ from ..utils.latex import latex_encode
 if TYPE_CHECKING:
     import rich
     from ..anthology import Anthology
-    from ..collections import Volume, Paper, Talk
+    from ..collections import CollectionItem, Talk
     from ..people import Person
 
 
@@ -524,7 +524,9 @@ class NameSpecification:
         default=None,
         validator=v.optional([v.instance_of(str), v.matches_re(RE_VERIFIED_PERSON_ID)]),
     )
-    parent: Optional[Paper | Volume | Talk] = field(default=None, repr=False, eq=False)
+    parent: Optional[CollectionItem[Any] | Talk] = field(
+        default=None, repr=False, eq=False
+    )
     orcid: Optional[str] = field(
         default=None,
         converter=convert_orcid,
@@ -555,27 +557,11 @@ class NameSpecification:
 
     @name.setter
     def name(self, value: Any) -> None:
-        # TODO: hasattr check pending the CollectionItem refactoring
-        if (
-            self.id is None
-            and self.parent is not None
-            and hasattr(self.parent, "full_id_tuple")
-            and self.root.people.is_data_loaded
-        ):
-            person_before = self.resolve()
+        if self.id is not None:
+            # Name change cannot affect which person this resolves to
             self._name = _Name_from(value)
-            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
-            if person_before != person_after:
-                person_before.item_ids.discard(self.parent.full_id_tuple)
-                person_after.item_ids.add(self.parent.full_id_tuple)
-                if (
-                    hasattr(self.parent, "frontmatter")
-                    and (frontmatter := self.parent.frontmatter) is not None
-                ):
-                    person_before.item_ids.discard(frontmatter.full_id_tuple)
-                    person_after.item_ids.add(frontmatter.full_id_tuple)
         else:
-            self._name = _Name_from(value)
+            self._set_and_relink("_name", _Name_from(value))
 
     @property
     def id(self) -> Optional[str]:
@@ -584,26 +570,25 @@ class NameSpecification:
 
     @id.setter
     def id(self, value: Optional[str]) -> None:
-        # TODO: duplicates code from above, should probably be refactored
-        if (
-            self.parent is not None
-            and hasattr(self.parent, "full_id_tuple")
-            and self.root.people.is_data_loaded
+        self._set_and_relink("_id", value)
+
+    def _set_and_relink(self, attr_name: Literal["_name", "_id"], value: Any) -> None:
+        """Set an attribute that can affect which person this resolves to, and update the person's `item_ids` accordingly."""
+        from ..collections import CollectionItem
+
+        if not (
+            isinstance(self.parent, CollectionItem) and self.root.people.is_data_loaded
         ):
-            person_before = self.resolve()
-            self._id = value
-            person_after = self.root.people._resolve_namespec(self, allow_creation=True)
-            if person_before != person_after:
-                person_before.item_ids.discard(self.parent.full_id_tuple)
-                person_after.item_ids.add(self.parent.full_id_tuple)
-                if (
-                    hasattr(self.parent, "frontmatter")
-                    and (frontmatter := self.parent.frontmatter) is not None
-                ):
-                    person_before.item_ids.discard(frontmatter.full_id_tuple)
-                    person_after.item_ids.add(frontmatter.full_id_tuple)
-        else:
-            self._id = value
+            setattr(self, attr_name, value)
+            return
+
+        person_before = self.resolve()
+        setattr(self, attr_name, value)
+        person_after = self.root.people._resolve_namespec(self, allow_creation=True)
+        if person_before != person_after:
+            item_ids = self.parent.namespec_item_ids
+            person_before.item_ids.difference_update(item_ids)
+            person_after.item_ids.update(item_ids)
 
     @property
     def first(self) -> Optional[str]:
