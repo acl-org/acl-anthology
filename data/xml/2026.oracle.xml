@@ -350,10 +350,11 @@
       <!-- https://aclanthology.org/2026.oracle-main.27/ -->
       <title>It Knows More Than It Can Say: Self-Evolving Prompts for Extremely Low-Resource Languages</title>
       <author><first>Gaurav</first><last>Sarkar</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author><first>Jay</first><last>Gala</last></author>
       <pages>406-411</pages>
       <abstract>Structured prompting can make large language models (LLMs) speak languages that are virtually absent from their training data: for Tulu, a Dravidian language with over two million speakers, a hand-crafted five-layer prompt reduces vocabulary contamination from the dominant neighbour Kannada from 80% to 5% with zero parameter updates. But that prompt took native speakers and targeted elicitation sessions to build: an expert bottleneck that cannot scale to the thousands of languages in the same situation. We introduce CIPHER (Contrastive Iterative Prompt Heuristic Evolution for Resourcescarce languages), which removes the expert from the loop by making the model be its own linguist. A single LLM plays every role: it translates, contrastively diagnoses its own errors against references, abstracts recurring defects into canonical linguistic rules, routes each rule to the prompt layer that repairs it, and generates judge-filtered self-play data, while an outer evolutionary loop mutates the prompt architecture itself under Pareto selection, including discovering new layer types. From 250 translation pairs and no human curation, CIPHER mines 3,471 typed error records, eliminates contamination at every scale we test (47%→0% for a 3B model), raises grammar accuracy from 28% to 44% with GPT-5, and autonomously invents a contamination-filter layer that yields the best architecture found. The evolved prompt is a compact, human-auditable linguistic artifact, produced for API-hours instead of expert-weeks.</abstract>
       <pdf hash="dc1e1135"/>
-      <bibkey>sarkar-2026-knows</bibkey>
+      <bibkey>sarkar-gala-2026-knows</bibkey>
       <doi>10.18653/2026.oracle-main.27</doi>
     </paper>
     <paper id="28">
