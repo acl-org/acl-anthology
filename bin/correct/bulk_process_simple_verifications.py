@@ -35,16 +35,20 @@ It then goes through them, looking for ones that
 It then creates a new PR on a branch labeled bulk-verifications-YYYY-MM-DD,
 where it makes a single PR from changes from all matching issues.
 
-Usage: bulk_verify_all.py [-q] [--skip-validation] [--dry-run] [--no-branch] [issue_ids...]
+Usage: bulk_process_simple_verifications.py [options] [<issue_id>...]
+
+Arguments:
+    <issue_id>               Specific issue IDs to process (default: all)
 
 Options:
     -q, --quiet              Suppress output
     --skip-validation        Skip requirement of "approved" tag
     --dry-run                Dry run (do not create PRs)
     --no-branch              Stay on the current branch
-    issue_ids                Specific issue IDs to process (default: all)
+    -h, --help               Show this help message
 """
 
+from docopt import docopt
 import os
 import logging as log
 from datetime import datetime
@@ -404,32 +408,11 @@ class AnthologyMetadataUpdater:
 if __name__ == "__main__":
     github_token = os.getenv("GITHUB_TOKEN")
 
-    import argparse
+    assert __doc__ is not None
+    args = docopt(__doc__)
+    issue_ids = [int(issue_id) for issue_id in args["<issue_id>"]]
 
-    parser = argparse.ArgumentParser(description="Bulk author verifications")
-    parser.add_argument("-q", "--quiet", action="store_true", help="Suppress output")
-    parser.add_argument(
-        "--skip-validation",
-        action="store_true",
-        help="Skip validation of approval by Anthology team member",
-    )
-    parser.add_argument(
-        "issue_ids", nargs="*", type=int, help="Specific issue IDs to process"
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Dry run (do not create PRs)",
-    )
-    parser.add_argument(
-        "--no-branch",
-        action="store_true",
-        help="Do not create a new branch or switch branches",
-    )
-
-    args = parser.parse_args()
-
-    log_level = log.DEBUG if not args.quiet else log.INFO
+    log_level = log.DEBUG if not args["--quiet"] else log.INFO
     tracker = setup_rich_logging(level=log_level)
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
@@ -440,11 +423,11 @@ if __name__ == "__main__":
 
     updater = AnthologyMetadataUpdater(github_token)
     updater.process_verification_issues(
-        issue_ids=args.issue_ids,
-        verbose=not args.quiet,
-        skip_validation=args.skip_validation,
-        dry_run=args.dry_run,
-        no_branch=args.no_branch,
+        issue_ids=issue_ids,
+        verbose=not args["--quiet"],
+        skip_validation=args["--skip-validation"],
+        dry_run=args["--dry-run"],
+        no_branch=args["--no-branch"],
     )
 
     for stat in updater.stats:
