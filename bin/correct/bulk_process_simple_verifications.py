@@ -287,7 +287,10 @@ class AnthologyMetadataUpdater:
                         raise ValueError(
                             f"Another author with this ORCID found (should be merge request?): {p2}"
                         )
-                    if preferred_name := self._preferred_name(body):
+                    if "verify-author" in issuelabels and (
+                        preferred_name := self._preferred_name(body)
+                    ):
+                        # process preferred name for the new template only
                         if not person.has_name(preferred_name):
                             raise ValueError(
                                 f"Preferred name is not one of this author's names: {preferred_name.as_last_first()}"
