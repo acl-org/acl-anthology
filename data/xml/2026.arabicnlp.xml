@@ -212,7 +212,7 @@
       <!-- https://aclanthology.org/2026.arabicnlp-main.13/ -->
       <title>Optimizing Inference Cost for <fixed-case>A</fixed-case>rabic–<fixed-case>E</fixed-case>nglish Mathematical Reasoning in <fixed-case>LLM</fixed-case>s</title>
       <author openreview="~Sahar_Melhem1"><first>Sahar</first><last>Melhem</last></author>
-      <author id="ahmad-m-mustafa" orcid="0000-0002-5264-4305" openreview="~Ahmad_M_Mustafa1"><first>Ahmad M</first><last>Mustafa</last><affiliation>Jordan University of Science and Technology</affiliation></author>
+      <author id="ahmad-m-mustafa" orcid="0000-0002-5264-4305" openreview="~Ahmad_M_Mustafa1"><first>Ahmad</first><last>Mustafa</last><affiliation>Jordan University of Science and Technology</affiliation></author>
       <pages>170-178</pages>
       <abstract>Large language models (LLMs) can solve mathematical problems through prompting, yet not all reasoning is cost-justified when using paid APIs. We study prompt-only methods for overthinking control in the black-box setting across four datasets: Arabic GSM8K, English GSM8K, English SVAMP, and ArMATH, each evaluated on 100-question subsets divided into Easy, Medium, and Hard categories. We test Direct Answer, Chain-of-Thought (CoT), First Answer Anchoring (FAA-lite), Confidence-Triggered Escalation (CTE), Self-Consistency, Verification, Arabic prompt variations, and Language-Optimal Prompt Routing (LOPR). CTE achieves 90% accuracy on Arabic GSM8K at 1.14 calls/query, 96% on English GSM8K at 1.06 calls/query, and 98% on SVAMP at 1.08 calls/query. Self-Consistency leads on ArMATH at 90% but costs 2.00 calls/query. Verification consistently increases token cost without accuracy gains. Format-Controlled CoT is the best single-call Arabic method; Bilingual-Glossary CoT is consistently harmful. CTE calibration reveals that explicit low-confidence outputs are rare (<tex-math>&lt;</tex-math>1%), so CTE succeeds mainly because high-confidence predictions are accurate, not through active uncertainty detection.</abstract>
       <pdf hash="e72035f8"/>
@@ -749,7 +749,7 @@
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.13/ -->
       <title>Lynx at the <fixed-case>NADI</fixed-case> 2026 Shared Task: Exploring <fixed-case>ASR</fixed-case> Representations and Transcripts for Dialectal <fixed-case>A</fixed-case>rabic Speech Understanding</title>
       <author id="houdaifa-atou" orcid="0009-0002-6584-5277" openreview="~Houdaifa_Atou1"><first>Houdaifa</first><last>Atou</last><affiliation>University Mohammed VI Polytechnic</affiliation></author>
-      <author openreview="~Issam_AIT_YAHIA1"><first>Issam Ait</first><last>Yahia</last></author>
+      <author id="issam-ait-yahia" orcid="0009-0008-9836-8554" openreview="~Issam_AIT_YAHIA1"><first>Issam Ait</first><last>Yahia</last></author>
       <author id="ismail-berrada" orcid="0009-0000-1860-7271" openreview="~Ismail_Berrada1"><first>Ismail</first><last>Berrada</last><affiliation>Mohammed VI Polytechnic University</affiliation></author>
       <pages>118-124</pages>
       <abstract>Speech conveys complementary information through its linguistic content and acoustic characteristics. Speech-related tasks can exploit either source of information or combine them to improve performance. In this paper, we present <i><b>Lynx_Id</b></i> and <i><b>Lynx_In</b></i>, our systems for the <i><b>NADI 2026</b></i> Spoken Dialect Identification and Intent Recognition tasks, respectively. Both systems build on an automatic speech recognition (ASR) model. <i>Lynx_Id</i> is a late-fusion system for dialect identification. It combines internal representations from the ASR encoder with predictions derived from the ASR transcript. <i>Lynx_In</i> is a two-branch text-based system that uses ASR transcriptions for intent recognition. One branch predicts the intent among the known classes, while the second acts as a gate to detect out-of-scope utterances. <i>Lynx_Id</i> achieved 53.53% accuracy and ranked third in the Spoken Dialect Identification task, while <i>Lynx_In</i> achieved a weighted F1 score of 76.86% and ranked first in the Intent Recognition task.</abstract>
@@ -2274,7 +2274,7 @@
       <author id="ilyes-benaissa" orcid="0009-0006-0958-4411" openreview="~ilyes_benaissa1"><first>Ilyes</first><last>Benaissa</last><affiliation>Consiglio Nazionale delle Ricerche and Université de Biskra</affiliation></author>
       <author openreview="~Fadi_Abdeladhim_Zidi1"><first>Fadi Abdeladhim</first><last>Zidi</last></author>
       <author id="mohamed-amine-kerkouri" orcid="0000-0002-7479-6879" openreview="~Mohamed_Amine_KERKOURI1"><first>Mohamed Amine</first><last>Kerkouri</last><affiliation>F-initiatives</affiliation></author>
-      <author openreview="~Marouane_Tliba1"><first>Marouane</first><last>Tliba</last></author>
+      <author id="marouane-tliba" orcid="0000-0002-1696-7764" openreview="~Marouane_Tliba1"><first>Marouane</first><last>Tliba</last></author>
       <author openreview="~Aladine_Chetouani1"><first>Aladine</first><last>Chetouani</last><affiliation>Université Sorbonne Paris Nord (Paris XIII)</affiliation></author>
       <pages>1126-1130</pages>
       <abstract>HalluScoring 2026 Subtask 2.2 (Hallucination Detection &amp; Find the Truth) requires systems to judge whether an Arabic generated answer is hallucinated and to select the correct one among six candidates, without access to the reference answer that would make both judgments trivial. We treat that withheld reference as privileged information: a teacher is fine-tuned with it in the prompt, then never deployed, and its advantage is transferred to a blind student through two channels knowledge distillation over the teacher’s output distribution, and a contrastive privileged-information (CPI) term that aligns the student’s hidden representation with the teacher’s gold-conditioned one. Our fine-tuned ALLaM-7B attains 84.62 combined score (Comb) on the official test set and 83.47 on the dev set.</abstract>
@@ -2557,7 +2557,7 @@
       <author openreview="~Nahla_Bassyouni1"><first>Nahla</first><last>Bassyouni</last><affiliation>American University of Beirut</affiliation></author>
       <author openreview="~Ali_Al-Zawqari1"><first>Ali</first><last>Al-Zawqari</last></author>
       <author openreview="~Mohammad_Khader1"><first>Mohammad</first><last>Khader</last></author>
-      <author id="khalid-khatib" orcid="0009-0006-7255-5349" openreview="~Khalid_Al_Khatib1"><first>Khalid Al</first><last>Khatib</last><affiliation>University of Groningen</affiliation></author>
+      <author id="khalid-al-khatib" orcid="0009-0006-7255-5349" openreview="~Khalid_Al_Khatib1"><first>Khalid</first><last>Al Khatib</last><affiliation>University of Groningen</affiliation></author>
       <pages>1287-1298</pages>
       <abstract>This paper presents Daleel 2026, the first shared task on argument mining in Arabic news editorials and competitive debates. Daleel includes two tasks: Task 1 identifies which of six argumentative discourse unit (ADU) categories are present in a paragraph, while Task 2 locates the units with their labels and exact text spans. The tasks are performed using a new corpus of 30 documents, 1,042 paragraphs, and about 76k words. Twenty-nine teams registered, 12 participated, and 10 submitted system papers. Both tasks have Closed and Open tracks. The best results for the Closed track were 0.7117 macro-F1 in Task 1 and 0.7547 modified overlap F1 in Task 2. The results show different insights: the best Closed-track score of each team was higher on debates than on editorials. A broad range of approaches was used in Task 1 submissions, including Arabic encoders, large language models, rules, and ensembles. Task 2 systems, in particular the top-ranked ones, were more similar and mainly used CRF or Viterbi decoding with combinations of models or training runs. The rare ADU categories remained difficult in both tasks, and identifying exact span boundaries was an additional challenge in Task 2.</abstract>
       <pdf hash="785a274b"/>
@@ -3064,7 +3064,7 @@
     <paper id="204">
       <!-- https://aclanthology.org/2026.arabicnlp-sharedtasks.204/ -->
       <title>Abjad at <fixed-case>AISA</fixed-case>-<fixed-case>A</fixed-case>rabic<fixed-case>FC</fixed-case>: Error Analysis and Prompt Engineering for <fixed-case>A</fixed-case>rabic Function Calling</title>
-      <author openreview="~Randa_Lakab1"><first>Randa</first><last>Lakab</last></author>
+      <author id="randa-lakab" orcid="0009-0006-4395-6485" openreview="~Randa_Lakab1"><first>Randa</first><last>Lakab</last></author>
       <author openreview="~Shahad_abdulaziz_abdullah_Alsultan1"><first>Shahad Abdulaziz Abdullah</first><last>Alsultan</last><affiliation>Princess Nourah Bint Abdulrahman University</affiliation></author>
       <author openreview="~Abrar_almutiri1"><first>Abrar</first><last>Almutiri</last></author>
       <pages>1585-1591</pages>

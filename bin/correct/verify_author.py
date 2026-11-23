@@ -93,6 +93,7 @@ def verify_by_author_id(
     suffix=None,
     canonical_name: Optional[Name] = None,
     except_paper_ids=None,
+    anthology: Optional[Anthology] = None,
 ):
     """
     Merges the author pages corresponding to the provided author IDs
@@ -110,9 +111,10 @@ def verify_by_author_id(
     one may have been autocreated and have an ORCID-based suffix).
     """
     changes = False
-    anthology = Anthology.from_within_repo(
-        suppress_warnings=("NameSpecResolutionWarning",)
-    )
+    if anthology is None:
+        anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",)
+        )
     assert is_valid_orcid(orcid), f"Invalid ORCID iD: {orcid}"
     assert author_ids, "At least 1 author ID is required"
     assert len(set(author_ids)) == len(author_ids), "Author IDs should be unique"
@@ -266,6 +268,7 @@ def verify_by_paper(
     suffix=None,
     canonical_name: Optional[Name] = None,
     only_these_papers=False,
+    anthology: Optional[Anthology] = None,
 ):
     """
     Links a verified author to specific papers not already explicitly associated with them,
@@ -287,9 +290,10 @@ def verify_by_paper(
     Does not handle the case where there is already an explicit author ID on a paper that is incorrect.
     """
     changes = False
-    anthology = Anthology.from_within_repo(
-        suppress_warnings=("NameSpecResolutionWarning",)
-    )
+    if anthology is None:
+        anthology = Anthology.from_within_repo(
+            suppress_warnings=("NameSpecResolutionWarning",)
+        )
 
     assert len(paper_ids) > 0
     name_slug_queries: set[str] = set()

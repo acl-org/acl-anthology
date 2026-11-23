@@ -35,6 +35,7 @@ import logging as log
 import os
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
+from acl_anthology.exceptions import AnthologyException
 from acl_anthology.utils.ids import is_valid_orcid
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -206,12 +207,20 @@ def refresh_or_orcids(username=None, password=None):
             for ns in user2nses[user]:
                 if person is None:
                     # log.debug("Creating a new verified person")
-                    new_aid = anthology.people.generate_person_id(ns.name, orcid=orcid)
-                    person = anthology.people.create(
-                        new_aid,
-                        [ns.name] + list(ns.variants),
-                    )
-                    numNewPerson += 1
+                    try:
+                        new_aid = anthology.people.generate_person_id(
+                            ns.name, orcid=orcid
+                        )
+                        person = anthology.people.create(
+                            new_aid,
+                            [ns.name] + list(ns.variants),
+                        )
+                        numNewPerson += 1
+                    except AnthologyException:
+                        log.error(
+                            f"Database exception encountered creating new person for {user} {orcid}"
+                        )
+                        raise
                 assert ns.id is None or ns.id == person.id, ns.id
                 person.add_name(ns.name)
                 ns.id = person.id
