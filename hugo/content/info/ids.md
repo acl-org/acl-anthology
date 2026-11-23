@@ -15,7 +15,7 @@ Everything /ingested/ into the Anthology after 2020 (including volumes from prio
 - YEAR is the 4-digit year (e.g., "2020")
 - VENUE is a lowercased, alphanumeric ([a-z0-9]+) identifier (e.g., "acl" or "repl4nlp")
 - VOLUME is a volume name (e.g., "1" or "long")
-- NUMBER is a paper number
+- NUMBER is an item number (a paper or a standalone media recording)
 
 An example is `2020.acl-1.12` for the twelth paper in the first volume.
 Its canonical page can be accessed at <https://aclanthology.org/2020.acl-main.12>.
@@ -34,6 +34,16 @@ Each yearly entry for a venue creates an "events" page.
 This can be accessed using the year and venue code.
 For example, the ACL 2020 event is available at <https://aclanthology.org/events/acl-2020>.
 This page will include all volumes published under ACL, as well as any colocated events, such as workshops.
+
+## Media identifiers
+
+Standalone recordings use the same identifier scheme in dedicated media
+volumes: for example, `2023.acl-media.1`. Podcast series can have annual episode
+volumes, such as the fictional example `2026.fictionalpodcast-episodes.1`.
+An episode's original number is metadata and need not equal its Anthology
+item number. Once assigned, an item ID must not change or be reused, even if a
+recording is replaced or entries are reordered. The underlying recording
+filename may differ from the ID, particularly for older media.
 
 ## Paper numbering
 

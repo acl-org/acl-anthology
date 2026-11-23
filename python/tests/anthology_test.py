@@ -76,8 +76,8 @@ def test_get_paper_that_doesnt_exist(anthology):
         ("fcl-1989-linguistics-15-number-4", "Q89-4000"),
     ),
 )
-def test_get_paper_by_bibkey(anthology, bibkey, full_id):
-    paper = anthology.get_paper_by_bibkey(bibkey)
+def test_get_record_by_bibkey(anthology, bibkey, full_id):
+    paper = anthology.get_record_by_bibkey(bibkey)
     assert paper is not None
     assert paper.full_id == full_id
 
@@ -86,7 +86,7 @@ def test_get_paper_by_bibkey(anthology, bibkey, full_id):
     "id_", ("2022.facl-short.0", "2022.natfake-1.0", "Q89-4000", "K06-1000")
 )
 def test_get_frontmatter(anthology, id_):
-    paper = anthology.get_paper(id_)
+    paper = anthology.get_frontmatter(id_)
     assert paper is not None
     assert paper.is_frontmatter
     assert paper is paper.parent.frontmatter
@@ -123,7 +123,8 @@ def test_papers(anthology):
         found.add(paper.collection_id)
     assert expected == found
     # TODO: can we compare this against counting "<paper>" tags or something?
-    assert count == 117
+    assert count == 107
+    assert sum(1 for _ in anthology.records()) == 117
 
 
 def test_papers_by_collection_id(anthology):
@@ -131,12 +132,12 @@ def test_papers_by_collection_id(anthology):
     for paper in anthology.papers("2022.natfake"):
         assert paper.collection_id == "2022.natfake"
         count += 1
-    assert count == 10
+    assert count == 9
 
 
 def test_papers_by_volume_id(anthology):
     # Iterate over Q89-1 papers
-    expected = set(str(i) for i in range(0, 15))
+    expected = set(str(i) for i in range(1, 15))
     found = set()
     for paper in anthology.papers("Q89-1"):
         assert paper.collection_id == "Q89"

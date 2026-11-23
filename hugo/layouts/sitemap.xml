@@ -19,7 +19,7 @@
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ range hugo.Data.papers }}{{/* PART 3: Paper PDFs */}}
+  {{ range hugo.Data.records }}{{/* PART 3: Paper PDFs */}}
     {{ range . }}
       {{ $volume := index hugo.Data.volumes .parent_volume_id }}
       {{ with .pdf }}

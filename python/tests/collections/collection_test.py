@@ -29,11 +29,11 @@ from acl_anthology.utils import xml
 from acl_anthology.text import MarkupText
 
 test_cases_xml_collections = (
-    # (filename, # volumes, # papers, has event?)
-    ("2022.facl.xml", 5, 41, True),
-    ("2022.natfake.xml", 1, 10, False),
-    ("Q89.xml", 4, 61, False),
-    ("K06.xml", 1, 5, False),
+    # (filename, # volumes, # printed papers, has event?)
+    ("2022.facl.xml", 5, 36, True),
+    ("2022.natfake.xml", 1, 9, False),
+    ("Q89.xml", 4, 58, False),
+    ("K06.xml", 1, 4, False),
 )
 
 
