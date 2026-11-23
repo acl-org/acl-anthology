@@ -319,10 +319,10 @@ def test_paper_bibtype():
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
-    paper.type = PaperType.FRONTMATTER
-    assert paper.bibtype == "proceedings"
+    with pytest.raises(ValueError, match="Frontmatter is a separate record"):
+        paper.type = PaperType.FRONTMATTER
     volume.type = VolumeType.JOURNAL
-    assert paper.bibtype == "book"
+    assert paper.bibtype == "article"
 
 
 def test_paper_remove_author(anthology):

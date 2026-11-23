@@ -23,6 +23,7 @@ from bin.add_dois import (
 )
 
 from acl_anthology import Anthology
+from acl_anthology.collections.types import VolumeType
 
 DATADIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -253,9 +254,10 @@ def test_main_reports_failures_after_all_volumes(caplog):
     volumes = {}
     for volume_id in ["W10-17", "W10-18"]:
         volumes[volume_id] = SimpleNamespace(
+            type=VolumeType.PROCEEDINGS,
             doi=None,
             title=volume_id,
-            papers=lambda: [],
+            records=lambda: [],
             parent=SimpleNamespace(save=MagicMock(), id="W10"),
         )
     anthology = SimpleNamespace(get_volume=volumes.get)
@@ -316,9 +318,10 @@ def test_main_failure_summary_is_red():
 
 def test_main_existing_dois_are_not_failures(caplog):
     volume = SimpleNamespace(
+        type=VolumeType.PROCEEDINGS,
         doi="10.18653/existing",
         title="Existing",
-        papers=lambda: [],
+        records=lambda: [],
         parent=SimpleNamespace(save=MagicMock(), id="W10"),
     )
     anthology = SimpleNamespace(get_volume=lambda _: volume)

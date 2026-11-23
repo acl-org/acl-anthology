@@ -8,7 +8,7 @@
 {{ define "main" }}
 <div class="acl-old-home row justify-content-center">
   {{ $.Scratch.Set "paper_count" 0 }}
-  {{ range hugo.Data.papers }}
+  {{ range hugo.Data.records }}
   {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 

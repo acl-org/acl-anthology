@@ -153,6 +153,12 @@
   {{ end }}
 
   <div>
+    {{ with $paper.media }}
+    <h3>Media recordings</h3>
+    {{ range . }}
+      {{ ($.Site.GetPage (printf "/papers/%s" .)).Render "list-entry" }}
+    {{ end }}
+    {{ end }}
     {{ range $paper.papers }}
       {{ $page := printf "/papers/%s" . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}

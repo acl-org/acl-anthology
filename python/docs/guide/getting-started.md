@@ -187,7 +187,7 @@ event (`ws-2020`), as well as the EMNLP 2020 event.
 
 ### Working with BibTeX entries
 
-To generate the BibTeX entry for a paper, simply call [`Paper.to_bibtex()`][acl_anthology.collections.paper.Paper.to_bibtex]:
+To generate the BibTeX entry for a paper, simply call [`Paper.to_bibtex()`][acl_anthology.collections.record.Record.to_bibtex]:
 
 ```pycon
 >>> paper = anthology.get("2022.acl-long.220")
