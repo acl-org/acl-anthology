@@ -19,12 +19,13 @@
 """Add awards to papers in the Anthology.
 
 Usage:
-  add_award.py PAPER_ID AWARD_TITLE
+  add_award.py PAPER_ID AWARD_TITLE [REASONING]
   add_award.py -f TXTFILE
 
 Arguments:
   PAPER_ID               The Anthology ID of the paper to assign the award to.
   AWARD_TITLE            The name of the award.
+  REASONING              Optional explanation of why the paper received the award.
 
 Options:
   -f, --from-file FILE   A file that lists one Anthology ID + award title per line.
@@ -35,6 +36,10 @@ Examples:
     2021.naacl-main.119 Best Long Paper
     2021.naacl-main.31 Outstanding Long Paper
     2021.naacl-main.185 Outstanding Long Paper
+
+  Tab-separated lines may add a third column with the award reasoning:
+
+    2026.emnlp-main.749<TAB>Outstanding Paper Award<TAB>Delineates a clever...
 """
 
 from docopt import docopt
@@ -43,10 +48,13 @@ import logging as log
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Collection
+from acl_anthology.collections.paper import Award
 from acl_anthology.utils.logging import setup_rich_logging
 
 
-def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
+def add_award(
+    anthology: Anthology, paper_id: str, title: str, reasoning: str | None = None
+) -> Collection:
     if (paper := anthology.get_paper(paper_id)) is None:
         log.error(f"Couldn't find paper: {paper_id}")
         return
@@ -56,7 +64,7 @@ def add_award(anthology: Anthology, paper_id: str, title: str) -> Collection:
         log.warning(f"Award '{title}' already listed for {paper_id}, skipping")
         return
 
-    paper.awards += (title,)
+    paper.awards += (Award(name=title, reasoning=reasoning or None),)
     return paper.parent.parent
 
 
@@ -68,12 +76,20 @@ if __name__ == "__main__":
 
     if (filename := args["--from-file"]) is not None:
         with open(filename, "r") as f:
-            awards = [line.strip().split(maxsplit=1) for line in f]
+            awards = []
+            for line in f:
+                if not (line := line.strip()):
+                    continue
+                if "\t" in line:
+                    fields = [x.strip() for x in line.split("\t")]
+                else:
+                    fields = line.split(maxsplit=1)
+                awards.append((fields + [None])[:3])
     else:
-        awards = [[args["PAPER_ID"], args["AWARD_TITLE"]]]
+        awards = [[args["PAPER_ID"], args["AWARD_TITLE"], args["REASONING"]]]
 
-    for paper_id, award in awards:
-        c = add_award(anthology, paper_id, award)
+    for paper_id, award, reasoning in awards:
+        c = add_award(anthology, paper_id, award, reasoning)
         if c:
             modified_collections.add(c.id)
 

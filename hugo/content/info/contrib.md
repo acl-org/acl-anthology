@@ -55,6 +55,10 @@ Please note the following important dates.
       <td><a href="#copyright">Submit copyright transfer forms</a></td>
     </tr>
     <tr>
+      <td>After the conference</td>
+      <td><a href="#paper-awards">Submit paper awards</a></td>
+    </tr>
+    <tr>
       <td>After publication</td>
       <td><a href="#errata-and-corrections">Making corrections</a></td>
     </tr>
@@ -148,6 +152,21 @@ For both current and legacy events, it is good practice for the organizers to at
 If you plan to publish or print your proceedings, you will need an ISBN.
 The ACL can provide these for *ACL conferences.
 Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
+
+## Paper Awards
+
+The Anthology can display a special award annotation next to papers.
+After the papers have been ingested and assigned Anthology IDs, publication chairs can submit awards [via a GitHub issue](https://github.com/acl-org/acl-anthology/issues/new) with a TSV (tab-separated values) file containing one row per award, no header row, and three columns:
+
+1. **[Anthology paper ID]({{< relref "ids.md" >}})**, not the conference submission ID.
+2. **Award name**, such as `Best Paper Award` or `Outstanding Paper Award`.
+3. (optional) **Award citation/reasoning**, explaining why the paper received the award.
+
+For example (columns are separated by tabs):
+
+```text
+2026.emnlp-main.749	Outstanding Paper Award	For a novel approach to multilingual evaluation.
+```
 
 ## Errata and Corrections
 

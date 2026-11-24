@@ -1,0 +1,41 @@
+name: Other Author Page Problem
+description: Report a problem with an author page that is not covered by the verify or move forms, e.g. a permanent name change.
+title: "Author Page: {replace with author page ID}"
+labels: ["correction", "author-page"]
+assignees:
+  - anthology-assist
+body:
+  - type: markdown
+    attributes:
+      value: >
+        To link an author page to an ORCID iD, or to move papers between author pages, please use the
+        "Verify Author Page" or "Move Papers Between Author Pages" forms instead; they are processed faster.
+  - type: markdown
+    attributes:
+      value: >
+        For processing times and issue status labels, see [When will my correction be processed?](https://aclanthology.org/faq/correction-timeframe/).
+  - type: checkboxes
+    id: name_correction_check
+    attributes:
+      label: Confirming that Paper Metadata is Correct
+      description: |
+        Anthology policy is that the metadata (i.e., what appears on the web pages) should match what is displayed on the PDF exactly, including any middle names and/or initials of authors.
+        If this is not the case, **you must first use the "Fix data" button on each affected paper's page to correct this** (e.g., https://aclanthology.org/1962.earlymt-1.6/).
+      options:
+        - label: I confirm that all affected papers show the exact same names on the website as on the PDF.
+          required: true
+  - type: input
+    id: author_page
+    attributes:
+      label: Author Page
+      description: The author page this concerns.
+      placeholder: ex. https://aclanthology.org/people/matt-post/
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is wrong, and what should be changed? Please link any papers or other author pages involved.
+    validations:
+      required: true

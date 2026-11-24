@@ -15,6 +15,10 @@ mod python
 check:
     make check
 
+# Run pre-commit hooks on all files
+hooks:
+    uv run pre-commit run --all-files
+
 # Upgrade Hugo to new version in Github workflows & README
 upgrade-hugo-version VERSION:
     sed -i 's/HUGO_VERSION: .*$/HUGO_VERSION: {{ VERSION }}/' .github/workflows/*.yml

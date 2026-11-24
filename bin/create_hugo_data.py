@@ -124,12 +124,16 @@ def person_to_dict(person_id, ns):
     full_name = ns.name.as_full()
     if ns.variants:
         full_name = f"{full_name} ({', '.join(var.as_full() for var in ns.variants)})"
-    return {
+    data = {
         "id": person_id,
         "first": ns.first,
         "last": ns.last,
         "full": full_name,
     }
+    if ns.id is not None:
+        # Linked to the person by ID in the XML, not just by name
+        data["namespec_has_id"] = True
+    return data
 
 
 def paper_to_dict(paper):
@@ -251,11 +255,32 @@ def paper_to_dict(paper):
     return data
 
 
+def author_stats(volumes: Iterable[Volume]):
+    """Count papers (and those with DOIs) and unique authors (and those with ORCID iDs) across volumes.
+
+    Frontmatter is excluded, as its "authors" are the volume editors.
+    """
+    papers = [
+        paper
+        for volume in volumes
+        for paper in volume.papers()
+        if not paper.is_frontmatter
+    ]
+    authors = {ns.resolve() for paper in papers for ns in paper.authors}
+    return {
+        "paper_count": len(papers),
+        "doi_paper_count": sum(1 for paper in papers if paper.doi is not None),
+        "author_count": len(authors),
+        "orcid_author_count": sum(1 for person in authors if person.orcid is not None),
+    }
+
+
 def volume_to_dict(volume):
     """
     Turn a single volume into a dictionary as used by the Hugo templates.
     """
     data = {
+        **author_stats([volume]),
         "has_abstracts": volume.has_abstracts,
         "meta_date": volume.year,  # may be overwritten below
         "papers": [paper.full_id for paper in volume.papers()],
@@ -586,6 +611,19 @@ def build_author_search_index(people):
     }
 
 
+def build_orcid_index(people):
+    """Map ORCID iDs to person IDs, sharded by the iD's final (check) character.
+
+    Lets the author correction panel check whether an ORCID iD is already in use
+    without downloading the author search index.
+    """
+    shards = {}
+    for person_id, person in people.items():
+        if orcid := person.get("orcid"):
+            shards.setdefault(orcid[-1], {})[orcid] = person_id
+    return shards
+
+
 def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author directory."""
     author_index = build_author_search_index(people)
@@ -600,6 +638,38 @@ def export_author_index(people, builddir):
     for bucket, rows in author_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
+
+    orcid_dir = f"{builddir}/static/people/orcid"
+    if os.path.isdir(orcid_dir):
+        shutil.rmtree(orcid_dir)
+    os.makedirs(orcid_dir)
+    for shard, mapping in build_orcid_index(people).items():
+        with open(f"{orcid_dir}/{shard}.json", "wb") as f:
+            f.write(ENCODER.encode(mapping))
+
+
+def build_venue_search_index(venues):
+    """Build compact browser-search rows for the venue directory."""
+    return sorted(
+        (
+            [
+                venue["name"],
+                venue["acronym"],
+                venue_id,
+                sum(len(volumes) for volumes in venue["volumes_by_year"].values()),
+            ]
+            for venue_id, venue in venues.items()
+        ),
+        key=lambda row: (row[0].casefold(), row[2]),
+    )
+
+
+def export_venue_index(venues, builddir):
+    """Write browser-search data shared by the navbar and venue directory."""
+    index_dir = f"{builddir}/static/venues"
+    os.makedirs(index_dir, exist_ok=True)
+    with open(f"{index_dir}/index.json", "wb") as f:
+        f.write(ENCODER.encode(build_venue_search_index(venues)))
 
 
 def export_author_metrics(anthology: Anthology, builddir, dryrun=False):
@@ -793,6 +863,7 @@ def export_venues(anthology: Anthology, builddir, dryrun):
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:
             f.write(ENCODER.encode(all_venues))
+        export_venue_index(all_venues, builddir)
 
 
 def export_events(anthology: Anthology, builddir, dryrun):
@@ -839,6 +910,8 @@ def export_events(anthology: Anthology, builddir, dryrun):
                 sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
         data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
+        data["volume_count"] = len(data["volumes"])
+        data.update(author_stats(event.volumes()))
 
         # List venues for each volume in this event
         data["vol_venues"] = {}

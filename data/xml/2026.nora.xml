@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2026.nora">
+  <volume id="1" type="proceedings" ingest-date="2026-10-31">
+    <!-- https://aclanthology.org/2026.nora-1/ -->
+    <meta>
+      <booktitle>Proceedings of the 3rd Workshop on <fixed-case>KNO</fixed-case>wledge <fixed-case>GR</fixed-case>aphs     Agentic Systems Interplay (<fixed-case>NORA</fixed-case> 2026)</booktitle>
+      <editor><first>Btissam</first><last>Er-Rahmadi</last></editor>
+      <editor><first>Sébastien</first><last>Montella</last></editor>
+      <editor><first>Damien</first><last>Graux</last></editor>
+      <editor><first>André</first><last>Melo</last></editor>
+      <editor><first>Hajira</first><last>Jabeen</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Hengqin, China</address>
+      <isbn>979-8-89176-457-6</isbn>
+      <month>November</month>
+      <year>2026</year>
+      <pdf hash="0cb1ae15"/>
+      <venue>nora</venue>
+      <venue>ws</venue>
+      <doi>10.18653/2026.nora-1</doi>
+    </meta>
+    <frontmatter>
+      <!-- https://aclanthology.org/2026.nora-1.0/ -->
+      <pdf hash="3ea9bf85"/>
+      <bibkey>nora-2026-1</bibkey>
+      <doi>10.18653/2026.nora-1.0</doi>
+    </frontmatter>
+    <paper id="1">
+      <!-- https://aclanthology.org/2026.nora-1.1/ -->
+      <title><fixed-case>AMU</fixed-case>: Admission and Memory Update for Personalized Conversations —Structured Memory with <fixed-case>SLM</fixed-case> Guided Control</title>
+      <author id="tao-hwang" orcid="0009-0004-2296-158X"><first>Tao</first><last>Hwang</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="yishi-diao" orcid="0009-0000-7192-361X"><first>Yishi</first><last>Diao</last><affiliation>Nanchang University</affiliation></author>
+      <pages>1-14</pages>
+      <abstract>Large language models (LLMs) have become the foundation of personalized assistants, but maintaining persistent user memory across long-term interactions remains challenging. Ex- isting memory systems often focus on stor- age, retrieval, or consolidation, while mem- ory writing remains less controlled: transient requests, duplicate statements, and outdated user states may enter memory and later be retrieved for personalization. In this paper, we present AMU: Admission and Memory Update for Personalized Conversations, an SLM-guided (Small language model guided) structured framework for writing-time mem- ory control. AMU uses structured memory filtering to decide what should enter memory and SLM-guided storage management to de- termine whether an admitted record should be stored separately, discarded as a duplicate, or fused as an update. We evaluate AMU in a con- trolled memory writing and retrieval setting. Experimental results show that AMU main- tains cleaner and more retrievable personalized memories.</abstract>
+      <pdf hash="ff8c25c5"/>
+      <attachment hash="2a9a7418" type="source_files">2026.nora-1.1.source_files.zip</attachment>
+      <bibkey>hwang-diao-2026-amu</bibkey>
+      <doi>10.18653/2026.nora-1.1</doi>
+    </paper>
+    <paper id="2">
+      <!-- https://aclanthology.org/2026.nora-1.2/ -->
+      <title>Remember, Verify, or Ask? Evaluating Memory Decisions at Reuse Time</title>
+      <author><first>Baichuan</first><last>Li</last><affiliation>Southern Methodist University, Southern Methodist University</affiliation></author>
+      <author id="junyi-yao-2503" orcid="0009-0005-6375-2503"><first>Junyi</first><last>Yao</last><affiliation>Washington University, Saint Louis</affiliation></author>
+      <author><first>Zihao</first><last>Zheng</last></author>
+      <pages>15-25</pages>
+      <abstract>Persistent memory can personalize an LLM agent, but an incorrect durable update can distort future behavior. We introduce the Memory–Clarification Boundary benchmark (MCB), which supplies an interaction-derived candidate and a later reuse context and asks whether to persist it, use it locally, verify it, or clarify it with the user. The release contains 140 primary scenarios, 70 evidence-flip contrasts, and a 36-item real-dialogue-derived extension. On 70 adjudicated primary-test items, verification recall exceeds clarification recall in all 12 label conditions across four checkpoints. However, only three comparisons remain significant after an exploratory Fisher test with Holm correction, and none involve Claude. A category oracle attains .800 accuracy, exposing strong scenario-category structure. Original label and tool-selection conditions agree on only 23–57% of items, although their differing prompts prevent attributing this solely to the interface. The naturalistic extension is descriptive: it contains only two clarification items and evaluates local models only. MCB measures reuse-time decision selection under a conservative policy; storage backends, matched policy/tool interventions, and downstream utility remain unevaluated.</abstract>
+      <pdf hash="f60e56c0"/>
+      <attachment hash="8b52693e" type="supplementary_material">2026.nora-1.2.supplementary_material.zip</attachment>
+      <attachment hash="91e70cce" type="source_files">2026.nora-1.2.source_files.zip</attachment>
+      <bibkey>li-etal-2026-remember</bibkey>
+      <doi>10.18653/2026.nora-1.2</doi>
+    </paper>
+    <paper id="3">
+      <!-- https://aclanthology.org/2026.nora-1.3/ -->
+      <title>Failure Modes of Imperfect Relational Context in <fixed-case>LLM</fixed-case> Document Extraction</title>
+      <author id="boris-kundu" orcid="0009-0004-8287-8665"><first>Boris</first><last>Kundu</last><affiliation>Independent Researcher</affiliation></author>
+      <author id="pooja-mehta" orcid="0009-0005-1902-3725"><first>Pooja</first><last>Mehta</last><affiliation>Independent Researcher</affiliation></author>
+      <pages>26-38</pages>
+      <abstract>LLM-based extraction pipelines increasingly consume relational context produced upstream, for example by a heuristic linker, a retrieval step, or another model. We study how imperfect relations between document entities affect LLM extraction on FUNSD, a benchmark of scanned forms. Using identical instructions in every condition, four LLMs receive a form’s entities with no relations (Flat), relations from a heuristic linker (Heuristic), gold relations (Oracle), or relations that are almost all wrong (Deranged). In a secondary contrast, gold relations raise accuracy for every model (4.0 to 7.9 percentage points, pp). Heuristic and deranged relations lower accuracy by 8 to 25 pp for three models, while GPT-5 shows significantly smaller effects. Comparing the same questions across conditions shows what lies behind the drops. Wrong edges are associated with answers copied from a different field, and missing edges with more blank answers even though the answer text is still present. These patterns appear under two prompt variants, but the prompts were developed on this corpus and every result is a single generation, so we treat the prompt comparison as exploratory.</abstract>
+      <pdf hash="5fdd3ea0"/>
+      <attachment hash="3d7d95c2" type="source_files">2026.nora-1.3.source_files.zip</attachment>
+      <bibkey>kundu-mehta-2026-failure</bibkey>
+      <doi>10.18653/2026.nora-1.3</doi>
+    </paper>
+    <paper id="4">
+      <!-- https://aclanthology.org/2026.nora-1.4/ -->
+      <title>Asterism: A Hebbian-Weighted Knowledge Graph as a Priority Index over Long-Term <fixed-case>LLM</fixed-case> Memory</title>
+      <author id="bidit-das" orcid="0009-0009-3810-2946"><first>Bidit</first><last>Das</last><affiliation>Independent Researcher, Plano, Texas, USA</affiliation></author>
+      <pages>39-52</pages>
+      <abstract>Large language model assistants increasingly remember users across sessions by storing unstructured text summaries. Such a summary behaves like an unindexed heap. Every stored fact carries the same retrieval priority, and nothing signals which facts matter most right now.<par/>We present Asterism, a local-first system that builds a weighted, decaying knowledge graph from conversation history. At inference time it injects a ranked subset of that graph into the model’s context. Our central design claim is architectural. The graph acts as a priority index over flat memory, in the same sense that a B-tree indexes an ordered file. Node weight is the salience signal, and it plays the role of an index key.<par/>We evaluate five retrieval conditions on two independently authored personal graphs, using 100 priority queries per graph and five assistant models from four vendors. Decoding is held fixed, and the graph is reseeded before every call.<par/>We report three findings. First, the deployed system is a weighted graph injected together with a prioritization instruction. It makes models more decisive under ambiguity than a flat list of the same facts. We score decisiveness with a pre-registered commit/hedge metric that was validated on held-out data. Every model commits to a weight-justified answer more often under the graph, in nearly every run.<par/>Second, that decisiveness is also more accurate than flat memory, in every model. Absolute accuracy stays low, however. The best model identifies the true top priority only about 40% of the time, and most models do far worse. The graph therefore delivers a large relative gain on a problem that is far from solved.<par/>Third, we separate the two ingredients with two further conditions: the graph with its instruction removed, and a flat list with that instruction added. Decisiveness does not distinguish them. The instruction alone raises commitment in all ten model and graph cells, by 11.2 points on average. That is as much as the structure alone achieves, at 10.7 points. A commit-rate gap is therefore not by itself evidence of a structural effect. Accuracy does distinguish them. Structure alone improves correctness over a flat list in all nine measured cells, and separably from zero in seven of them, against five of ten cells for the instruction alone. Among committed answers, structure alone is also more precise than the instruction alone in all nine measured cells, by 5.1 to 31.4 points, with four cells separable from zero. The two ingredients are complementary rather than redundant. The correctness gain of the deployed system matches or exceeds the better single ingredient in all ten cells, and strictly exceeds it in nine.<par/>An earlier twelve-query pilot read this decomposition as purely structural. At one hundred queries the supportable reading is narrower. The instruction buys decisiveness, and the weighted structure is what makes that decisiveness accurate.<par/>We also report the reliability of our own instrument. Agreement between the scorer and a human annotator is kappa = 0.64, and its errors bias the measured gap toward the null. We then measure two components that any automatically populated index needs. The first is an entity-resolution layer, whose accuracy ceiling we quantify. The second is a supersession mechanism that demotes contradicted facts. Retrieval latency scales approximately linearly and stays near 34 ms at 10,000 nodes. We release the full system, both benchmark graphs, and all negative results.</abstract>
+      <pdf hash="bf19f300"/>
+      <attachment hash="13e72bc8" type="source_files">2026.nora-1.4.source_files.zip</attachment>
+      <bibkey>das-2026-asterism</bibkey>
+      <doi>10.18653/2026.nora-1.4</doi>
+    </paper>
+    <paper id="5">
+      <!-- https://aclanthology.org/2026.nora-1.5/ -->
+      <title>Multi-View Contract Graph: A Knowledge Graph-Based Retrieval Framework for Contract Information Extraction</title>
+      <author><first>Momojit</first><last>Biswas</last><affiliation>Tcs-Research</affiliation></author>
+      <author id="preethu-rose-anish" orcid="0009-0001-7279-8993"><first>Preethu Rose</first><last>Anish</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <pages>53-62</pages>
+      <abstract>Legal contract understanding often requires connecting information distributed across multiple clauses and cross-referenced provisions. While Retrieval-Augmented Generation (RAG) grounds Large Language Models (LLMs) in relevant evidence, conventional retrieval primarily prioritizes direct query relevance and may overlook supporting contractual context. We propose the Multi-View Contract Graph (MCG), a contract-specific knowledge graph that models semantic, entity, keyword, and structural relationships among clauses. By traversing these relationships, MCG retrieves supporting evidence that may not directly match the query but is necessary for accurate interpretation. We evaluate MCG on the Contract Understanding Atticus Dataset (CUAD), covering 15 information categories, including audit rights, governing laws, and liability-related provisions. Across five open-source LLMs, MCG consistently outperforms traditional retrieval, achieving a best <tex-math>F_{1}</tex-math> score of 0.460 with Mistral-7B-Instruct-v0.3. Compared with BM25-RAG and ColBERT-RAG, the best MCG configuration improves <tex-math>F_{1}</tex-math> by approximately 10.0% and 12.2%, respectively. These results demonstrate that modeling clause-level relationships improves retrieval and information extraction for legal contracts.</abstract>
+      <pdf hash="9adbb612"/>
+      <attachment hash="babc955a" type="source_files">2026.nora-1.5.source_files.zip</attachment>
+      <bibkey>biswas-anish-2026-multi</bibkey>
+      <doi>10.18653/2026.nora-1.5</doi>
+    </paper>
+    <paper id="6">
+      <!-- https://aclanthology.org/2026.nora-1.6/ -->
+      <title><fixed-case>BD</fixed-case>-<fixed-case>A</fixed-case>gri<fixed-case>KG</fixed-case>: A Knowledge Graph and Bilingual <fixed-case>T</fixed-case>ext2<fixed-case>C</fixed-case>ypher Benchmark for Crop Suitability and Productivity in <fixed-case>B</fixed-case>angladesh</title>
+      <author id="md-aukerul-moin-shuvo" orcid="0000-0002-8619-3581"><first>Md. Aukerul Moin</first><last>Shuvo</last></author>
+      <author><first>Md Nazrul Islam</first><last>Mondal</last><affiliation>Rajshahi University of Engineering and Technology</affiliation></author>
+      <pages>63-76</pages>
+      <abstract>Agricultural advisory in Bangladesh rests on public statistics locked in PDF yearbooks, and on language technology that rarely speaks Bangla. We present BD-AgriKG, a knowledge graph that integrates five government sources on one administrative spine keyed by standard place codes: upazila-level land suitability for 16 crops, agro-meteorological thresholds, crop calendars, soil associations, and a newly extracted district production panel covering twelve crop years, validated against the yearbooks’ own published totals. On top of the graph we release what is, to our knowledge, the first bilingual (English and Bangla) execution-based Text2Cypher benchmark: 460 questions instantiating 26 templates, built Cypher-first so that every item carries an executable gold query and a non-empty executed answer. We report execution-accuracy baselines for seven large language models (LLMs) in both languages. The best model reaches 95.2% in English and 90.9% in Bangla under a strict exact-projection metric whose frontier failures are almost all extra returned columns. Every model scores lower in Bangla, by 1 to 14 points; after multiple-comparison correction the gap is significant for three of the seven models under a template-clustered bootstrap and for one under template-level tests, and for four models, both frontier models among them, two question templates carry most of it. One turn of execution feedback, the simplest use of the graph’s own execution signal, recovers 43-73% of the invalid and empty failures of mid-tier models and helps Bangla at least as much as English, though not significantly more, while small open models recover almost nothing. The graph, panel, benchmark and harness are released.</abstract>
+      <pdf hash="99ba1380"/>
+      <attachment hash="8b7f2d1c" type="source_files">2026.nora-1.6.source_files.zip</attachment>
+      <bibkey>shuvo-mondal-2026-bd</bibkey>
+      <doi>10.18653/2026.nora-1.6</doi>
+    </paper>
+    <paper id="7">
+      <!-- https://aclanthology.org/2026.nora-1.7/ -->
+      <title>Source-Aware Memory Retrieval across Engineering Standards</title>
+      <author id="sung-tae-yoo" orcid="0000-0002-7159-530X"><first>Sung Tae</first><last>Yoo</last><affiliation>Korea Institute of Science and Technology Information</affiliation></author>
+      <author id="heyoung-yang" orcid="0000-0002-7960-4389"><first>Heyoung</first><last>Yang</last></author>
+      <pages>77-83</pages>
+      <abstract>Engineering design and quality review often require evidence from technical standards issued by multiple organizations. In a limited context window, partial evidence is often included, and relevance-based retrieval results can become biased toward sources with a large volume of documents, leaving other necessary sources unrepresented. We implemented a deterministic source-aware retrieval layer that identifies required source groups, retrieves candidates through source-conditioned channels, and prioritizes one candidate from each channel. We also evaluated a configuration that uses within-channel cross-encoder reranking to select that candidate. Evaluation used 15 technical standards, 72 evaluation questions, and 162 annotated evidence locations, with <tex-math>k</tex-math> set to 5 for all methods. Required-source coverage was 61.5% for dense retrieval and 78.6% for cross-encoder reranking, whereas both source-aware methods achieved 100%. Source-aware reranked channel quota achieved an evidence recall of 46.0% and retrieved all required evidence for 27.8% of questions, compared with 41.8% and 23.6% for cross-encoder reranking and 32.1% and 15.3% for dense retrieval. Within the source-aware design, within-channel reranking increased mean reciprocal rank from 0.445 to 0.545. These results support separating required-source coverage from evidence ranking in bounded-context retrieval for domain-specific agent memory.</abstract>
+      <pdf hash="bfff67eb"/>
+      <attachment hash="ac9ba6dd" type="source_files">2026.nora-1.7.source_files.zip</attachment>
+      <bibkey>yoo-yang-2026-source</bibkey>
+      <doi>10.18653/2026.nora-1.7</doi>
+    </paper>
+    <paper id="8">
+      <!-- https://aclanthology.org/2026.nora-1.8/ -->
+      <title>Beyond Chunking: Node Integrity and Field Structure in <fixed-case>B</fixed-case>engali Retrieval-Augmented Agent Memory</title>
+      <author id="khan-raiyan-ibne-reza" orcid="0009-0006-0507-6065"><first>Khan Raiyan Ibne</first><last>Reza</last></author>
+      <author><first>Sanjana Aktar</first><last>Maria</last></author>
+      <author id="sumaiya-tabassum-nimi" orcid="0000-0002-3626-1697"><first>Sumaiya Tabassum</first><last>Nimi</last><affiliation>North South University</affiliation></author>
+      <pages>84-97</pages>
+      <abstract>Lexical retrieval in low-resource languages can fail when queries use symptoms, colloquial names, or procedural descriptions rather than formal terminology. Chunking can compound this problem by separating query-matching content from the field that identifies a record. We introduce a three-level representation ladder (chunked text, intact full-node text, and field-aware lexical indexing) that separates recovery associated with record integrity from the additional effect of field-aware representation. In the OCR-heavy education corpus, intact records raise Recall@10 from 37.19% to 89.65%. Field-aware indexing adds gains with fixed weights in agriculture and uniform weights in education, but uniform weighting underperforms intact text in law. Ablations indicate that useful fields depend on query formulation; full field-value shuffling reduces Recall@10 to 0.75-5.09%. In agent memory, Recall@5 rises from 27.6% to 61.9% with intact records on 583 agriculture and education queries. Across 872 queries in all three domains, uniform fielded memory has a citation rate about 12 points higher than intact memory, without higher aggregate Recall@5. These results indicate that record integrity and query-aligned content warrant separate evaluation in retrieval and agent memory.</abstract>
+      <pdf hash="1240759e"/>
+      <attachment hash="45c2ff6c" type="supplementary_material">2026.nora-1.8.supplementary_material.zip</attachment>
+      <attachment hash="68cb0c44" type="source_files">2026.nora-1.8.source_files.zip</attachment>
+      <bibkey>reza-etal-2026-beyond</bibkey>
+      <doi>10.18653/2026.nora-1.8</doi>
+    </paper>
+    <paper id="9">
+      <!-- https://aclanthology.org/2026.nora-1.9/ -->
+      <title><fixed-case>KG</fixed-case>-<fixed-case>SFT</fixed-case> Contracts: Auditing Evidence Lineage and Loader Retention in Enterprise <fixed-case>RAG</fixed-case> Adaptation</title>
+      <author><first>Bogdan</first><last>Roshchupkin</last><affiliation>Sber</affiliation></author>
+      <author><first>Alexander</first><last>Litvintsev</last><affiliation>Sber</affiliation></author>
+      <author><first>Alina</first><last>Avanesyan</last><affiliation>Higher School of Economics, Moscow, Russia</affiliation></author>
+      <author id="maria-khodorchenko" orcid="0000-0001-5446-5311"><first>Maria</first><last>Khodorchenko</last></author>
+      <author><first>Andrei</first><last>Zhukov</last><affiliation>Sber</affiliation></author>
+      <pages>98-108</pages>
+      <abstract>KG-assisted supervised fine-tuning depends on evidence selection, context compilation, and data loading. We present KG-SFT Contracts, a provenance-aware interface that audits these stages and links model comparisons to their data and scoring records. In a retrospective Russian enterprise case, a pool of 484 graph candidates contributed no graph-origin distractors to the compiled corpus, and exact loader replay discarded 40 of 946 intended examples before splitting. Removing annotated non-support context restored every row while preserving questions, targets, and verified support. Downstream comparisons remained statistically inconclusive. Controlled checks on a public graph-bearing fixture show how cross-record validation detects unresolved graph references and conflicting source revisions alongside role-aware repair. The installable implementation includes fixture-level CPU measurements, incremental adoption guidance, and an official RuBQ schema-import check. The case illustrates how lineage and retention audits make adaptation pipelines inspectable before model effects are attributed to their configured inputs.</abstract>
+      <pdf hash="23724846"/>
+      <attachment hash="31973891" type="supplementary_material">2026.nora-1.9.supplementary_material.zip</attachment>
+      <attachment hash="9628886d" type="source_files">2026.nora-1.9.source_files.zip</attachment>
+      <bibkey>roshchupkin-etal-2026-kg</bibkey>
+      <doi>10.18653/2026.nora-1.9</doi>
+    </paper>
+    <paper id="10">
+      <!-- https://aclanthology.org/2026.nora-1.10/ -->
+      <title>Tracing False Speaker Links Through Retrieval and Answering</title>
+      <author id="dev-d-goyal" orcid="0009-0009-9132-744X"><first>Dev D.</first><last>Goyal</last></author>
+      <pages>109-130</pages>
+      <abstract>Memory systems for large language model (LLM) agents can organize past conversations by person, for example in a speaker index or a knowledge graph. To answer “Who promised the budget?”, such a system searches the relevant people’s messages and passes a few to the LLM. Building the index requires entity resolution, which can wrongly link two people. A false link can change what the LLM reads and make it name the wrong person, but final-answer scores may not show this. We add false links at known rates to a retrieval pipeline, keep every message and name unchanged, and follow 280 questions from two synthetic benchmarks from search to answer. With one false link per 40 people, almost one in four workplace searches reaches a wrong person. At the highest rate, gpt-oss-120b reads a different context in 81.0% of workplace runs, but its accuracy falls by 1.75 percentage points, because improved and worsened answers offset each other. For gpt-oss on the social benchmark, one question that loses its only labeled supporting message accounts for 79% of history-weighted loss. Accuracy alone can therefore hide identity errors. We provide a tool and a memory error card that measure each step.</abstract>
+      <pdf hash="ea6eb340"/>
+      <attachment hash="40931a6d" type="supplementary_material">2026.nora-1.10.supplementary_material.pdf</attachment>
+      <attachment hash="fb497f63" type="source_files">2026.nora-1.10.source_files.zip</attachment>
+      <bibkey>goyal-2026-tracing</bibkey>
+      <doi>10.18653/2026.nora-1.10</doi>
+    </paper>
+    <paper id="11">
+      <!-- https://aclanthology.org/2026.nora-1.11/ -->
+      <title>Tracing Failures through Plant Topology: Propagation Reasoning by a Knowledge-Graph-Grounded <fixed-case>LLM</fixed-case> Agent</title>
+      <author><first>Muhamad</first><last>Imannulhakim</last><affiliation>PT. Pupuk Indonesia</affiliation></author>
+      <pages>131-137</pages>
+      <abstract>Diagnosing anomalies in process plants requires reasoning about how a failure at one unit propagates through interconnected equipment — knowledge that is scattered across engineering documents, and that unconstrained large language model (LLM) agents tend to fill with plausible but unsupported conclusions. We present an LLM agent, being piloted at an operating ammonia plant, whose domain memory is a knowledge graph of the plant’s process: a topology backbone translated from the process flow, enriched with knowledge from over 30 engineering documents. We evaluate its propagation reasoning against the graph itself using 46 generated probes, each run three times. Entity grounding holds at every depth: all 565 failure-mode attributions are correct, and the agent rejects every question that attaches a failure mode to the wrong unit. Mean path recall falls from 1.00 at two hops to 0.60 at eight, and 40% of eight-hop answers deny a route the graph records. Scoping the same tools to the topology backbone, with model, prompt and graph unchanged, raises eight-hop recall to 0.81 and halves these denials, suggesting that unscoped neighbourhood queries struggle to reconstruct long process routes. Retrieval over the source documents matches the agent up to six hops but not at eight.</abstract>
+      <pdf hash="67e4d12b"/>
+      <attachment hash="69aa5e43" type="source_files">2026.nora-1.11.source_files.zip</attachment>
+      <bibkey>imannulhakim-2026-tracing</bibkey>
+      <doi>10.18653/2026.nora-1.11</doi>
+    </paper>
+  </volume>
+</collection>
