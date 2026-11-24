@@ -11,8 +11,4 @@
   <input type="text" class="form-control" id="{{ $prefix }}Degree" placeholder="ex. Johns Hopkins University">
   <div class="form-text">Your current institution if you are a student; otherwise where you received your highest degree. Used to form your author page ID, if needed.</div>
 </div>
-<div class="mb-3">
-  <label for="{{ $prefix }}OpenReviewProfile" class="form-label">OpenReview profile URL <span class="text-danger">*</span></label>
-  <input type="text" class="form-control" id="{{ $prefix }}OpenReviewProfile" placeholder="https://openreview.net/profile?id=~Your_Name1">
-  <div class="form-text">Enter "none" if you don't have an OpenReview profile.</div>
-</div>
+{{ partial "author_correction_openreview.html" . }}

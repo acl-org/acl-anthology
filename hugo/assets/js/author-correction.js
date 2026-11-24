@@ -373,18 +373,26 @@
     };
   }
 
-  // Checks the fields these forms share, showing the first problem. Returns the issue
-  // fields they fill in, or undefined.
-  function identityIssueFields(form, prefix, check, mine, name) {
-    const degree = document.getElementById(prefix + "Degree").value.trim();
+  // Returns the OpenReview profile URL (or "none") entered in the form, or undefined
+  // after showing the problem.
+  function openReviewProfile(form, prefix) {
     const openReview = document.getElementById(prefix + "OpenReviewProfile").value.trim();
-    if (!check.orcid) return showError(form, "Please enter a valid ORCID iD.");
-    if (check.owner) return showError(form, "This ORCID iD already has an author page; see the note under the ORCID iD field.");
-    if (!degree) return showError(form, "Please enter the institution of your highest degree.");
     if (!openReview) return showError(form, "Please enter your OpenReview profile URL, or \"none\".");
     if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
       return showError(form, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
     }
+    return openReview;
+  }
+
+  // Checks the fields these forms share, showing the first problem. Returns the issue
+  // fields they fill in, or undefined.
+  function identityIssueFields(form, prefix, check, mine, name) {
+    const degree = document.getElementById(prefix + "Degree").value.trim();
+    if (!check.orcid) return showError(form, "Please enter a valid ORCID iD.");
+    if (check.owner) return showError(form, "This ORCID iD already has an author page; see the note under the ORCID iD field.");
+    if (!degree) return showError(form, "Please enter the institution of your highest degree.");
+    const openReview = openReviewProfile(form, prefix);
+    if (!openReview) return;
     if (mine.length === 0) return showError(form, "Please switch on (✓) at least one paper that is yours.");
     if (name === null) return showError(form, "Please choose the name to show on your page.");
     return {
@@ -764,11 +772,14 @@
 
       if (!destination) return showError(moveForm, "Please choose your verified author page first.");
       if (papers.length === 0) return showError(moveForm, "Please switch on (\u2713) at least one paper to move.");
+      const openReview = openReviewProfile(moveForm, "authorFixMove");
+      if (!openReview) return;
 
       openIssue(moveForm, "02b-move-author-papers.yml", "Move Papers: " + page.id + " → " + destination.id, {
         source_page: page.url,
         papers_to_move: papers.length === page.papers.length ? "all" : paperUrls(papers),
         destination: authorPageUrl(destination.id),
+        openreview_profile: openReview,
         notes: document.getElementById("authorFixMoveNotes").value.trim(),
       });
     });

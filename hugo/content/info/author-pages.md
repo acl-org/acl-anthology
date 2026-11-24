@@ -75,6 +75,7 @@ If the names are correct and your author page is verified, then please file a re
 - Find the unverified author page where the papers currently appear (e.g., by finding one of the papers and clicking on your name).
 - Click on the "Fix author" button at the bottom of the links on the right-hand side of that page, and choose "Move papers".
 - Choose your own verified author page as the destination, then switch on (✓) the papers that are yours (or "Select all" if the whole page is yours). Only verified pages under a name sharing part of the name printed on the papers are offered, and papers you coauthored with the page's author can't be moved there.
+- Enter your OpenReview profile URL (or "none"), so staff can check your institutional history.
 - Click on "Create GitHub issue for staff review", then on the "Create" button on GitHub, and wait for the issue to be reviewed by Anthology staff.
 
 If the papers appear on another person's verified page (someone with the same name as you), you can ask for them to be moved to a new verified author page of your own:
