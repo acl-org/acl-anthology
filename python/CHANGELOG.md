@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
+
 ## [1.3.4] — 2026-10-16
 
 ### Added

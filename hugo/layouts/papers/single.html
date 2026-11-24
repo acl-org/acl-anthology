@@ -491,6 +491,14 @@
       </div>
       {{ end }}
 
+      {{ with $paper.editorial_note }}
+      <div class="alert alert-warning acl-editorial-note" role="note">
+        <h5 class="alert-heading">{{ .heading }}</h5>
+        <p class="small text-muted mb-2">Added {{ .date }}</p>
+        {{ .html | safeHTML }}
+      </div>
+      {{ end }}
+
             {{ with $paper.abstract_html }}
             <div class="card bg-light mb-2 mb-lg-3">
               <div class="card-body acl-abstract">
