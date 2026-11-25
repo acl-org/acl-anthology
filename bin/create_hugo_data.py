@@ -212,6 +212,13 @@ def paper_to_dict(paper):
                 data["removed"] = paper.deletion.note if paper.deletion.note else " "
                 data["title"] = f"[REMOVED] {data['title']}"
                 data["title_html"] = f"[REMOVED] {data['title_html']}"
+    if (note := paper.editorial_note) is not None:
+        data["editorial_note"] = {
+            "type": note.type.value,
+            "heading": note.type.heading,
+            "date": note.date,
+            "html": remove_extra_whitespace(note.text.as_html()),
+        }
     if paper.pages is not None:
         page_first, page_last = interpret_pages(paper.pages)
         data["page_first"] = page_first

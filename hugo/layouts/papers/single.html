@@ -491,6 +491,16 @@
       </div>
       {{ end }}
 
+      {{ with $paper.editorial_note }}
+      <div class="alert alert-warning acl-editorial-note" role="note">
+        <div class="d-flex justify-content-between align-items-baseline gap-2 mb-2">
+          <h5 class="alert-heading mb-0">{{ .heading }}</h5>
+          <span class="small text-muted fw-normal fst-italic text-nowrap">Added {{ .date }}</span>
+        </div>
+        {{ .html | safeHTML }}
+      </div>
+      {{ end }}
+
             {{ with $paper.abstract_html }}
             <div class="card bg-light mb-2 mb-lg-3">
               <div class="card-body acl-abstract">

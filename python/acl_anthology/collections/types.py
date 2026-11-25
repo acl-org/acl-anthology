@@ -40,6 +40,20 @@ class PaperDeletionType(SimpleReprEnum):
     """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
 
 
+class EditorialNoteType(SimpleReprEnum):
+    """Type of an editorial note attached to a paper."""
+
+    CONCERN = "concern"
+    """Expression of concern.  Readers are alerted that the reliability of a paper is in question, e.g. while an integrity complaint is under investigation."""
+
+    @property
+    def heading(self) -> str:
+        """A human-readable heading for this type of editorial note."""
+        match self:
+            case EditorialNoteType.CONCERN:
+                return "Expression of Concern"
+
+
 class PaperType(SimpleReprEnum):
     """Type of paper.
 
