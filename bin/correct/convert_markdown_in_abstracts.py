@@ -20,10 +20,15 @@ Iterates over papers in the database and performs cleanup on abstracts,
 most notably converting from Markdown to XML markup, applying smart quotes,
 and linkifying URLs.
 
-Exits after 200 abstracts have been modified so the diff can be manually
-reviewed in batches.
+Usage: convert_markdown_in_abstracts.py [options]
+
+Options:
+    --batch             Exit after 200 abstracts have been modified so the diff
+                        can be manually reviewed in batches
+    -h, --help          Show this help message
 """
 
+from docopt import docopt
 import logging as log
 import re
 from lxml import etree
@@ -32,6 +37,10 @@ from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 from markdown_it import MarkdownIt
+
+assert __doc__ is not None
+args = docopt(__doc__)
+batch = args["--batch"]
 
 setup_rich_logging()
 
@@ -203,10 +212,14 @@ for paper in anthology.papers():
             try:
                 paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
                 i += 1
+                if i % 200 == 0:
+                    log.info(f"{i} modified")
             except etree.XMLSyntaxError as e:
                 log.error(str(e))
                 log.info(html)
-    if i >= 200:
+    if i >= 200 and batch:
         break
 
 anthology.save_all()
+if batch:
+    log.info(f"Modified {i} abstracts (capped at 200; rerun for more)")
