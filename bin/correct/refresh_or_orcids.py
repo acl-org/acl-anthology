@@ -24,6 +24,16 @@ Warns if an author ID already exists and is being ORCID-suffixed.
 If the reason is a legacy-verified author (with no ORCID yet),
 they should be merged using verify_author.py.
 
+Usage:
+  refresh_or_orcids.py [options] [COLLECTION_ID...]
+
+Arguments:
+    COLLECTION_ID       Only update volumes of the specified collection(s).
+                        E.g.: "2026.findings" for 2026.findings-acl, 2026.findings-eacl etc.
+
+Options:
+    -h --help           Show this help message.
+
 See also fetch_orcid_from_openreview.py, which applies to a single user.
 """
 
@@ -32,6 +42,7 @@ import openreview
 from openreview import Profile
 import openreview.api
 import logging as log
+from docopt import docopt
 import os
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
@@ -127,7 +138,7 @@ def get_user_orcids(ids: list, version=2, username=None, password=None) -> dict[
 # TODO: test a legacy-verified author
 
 
-def refresh_or_orcids(username=None, password=None):
+def refresh_or_orcids(username=None, password=None, collection_ids=[]):
     anthology = Anthology.from_within_repo(
         suppress_warnings=("NameSpecResolutionWarning",)
     )
@@ -135,20 +146,21 @@ def refresh_or_orcids(username=None, password=None):
     user2nses = defaultdict(list)
     nORCIDOnly, nOROnly, nBoth, nNeither = 0, 0, 0, 0
     nVols = 0
-    for vol in anthology.volumes():
-        if int(vol.year) >= EARLIEST_YEAR_WITH_OR_IDS:
-            nVols += 1
-            for paper in vol.papers():
-                for ns in paper.namespecs:
-                    if ns.orcid is None and ns.openreview is not None:
-                        user2nses[ns.openreview].append(ns)
-                        nOROnly += 1
-                    elif ns.orcid is None:
-                        nNeither += 1
-                    elif ns.openreview is not None:
-                        nBoth += 1
-                    else:
-                        nORCIDOnly += 1
+    for col in collection_ids or [None]:
+        for vol in anthology.volumes(collection_id=col):
+            if int(vol.year) >= EARLIEST_YEAR_WITH_OR_IDS:
+                nVols += 1
+                for paper in vol.papers():
+                    for ns in paper.namespecs:
+                        if ns.orcid is None and ns.openreview is not None:
+                            user2nses[ns.openreview].append(ns)
+                            nOROnly += 1
+                        elif ns.orcid is None:
+                            nNeither += 1
+                        elif ns.openreview is not None:
+                            nBoth += 1
+                        else:
+                            nORCIDOnly += 1
     del vol
     log.info(
         f"In {nVols} target volumes, {nOROnly} namespecs with openreview but not orcid, {nORCIDOnly} with orcid but not openreview, {nBoth} with both, {nNeither} with neither"
@@ -247,6 +259,9 @@ def refresh_or_orcids(username=None, password=None):
 
 
 if __name__ == "__main__":
+    assert __doc__ is not None
+    args = docopt(__doc__)
+
     tracker = setup_rich_logging(level=log.INFO)
 
     log.getLogger("acl-anthology").setLevel(log.WARNING)
@@ -255,4 +270,6 @@ if __name__ == "__main__":
 
     username = os.getenv("OR1")
     password = os.getenv("OR2")
-    refresh_or_orcids(username=username, password=password)
+    refresh_or_orcids(
+        username=username, password=password, collection_ids=args["COLLECTION_ID"]
+    )
