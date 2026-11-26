@@ -65,11 +65,30 @@ def protect_par(element: etree._Element) -> bool:
     return changed
 
 
-RE_PAR_PLACEHOLDER = re.compile(r"\s*\ue000\s*")
+RE_PAR_PLACEHOLDER = re.compile(r"\s*(?:\ue000\s*)+")
 
 
 def unprotect_par(text: str, replacement: str) -> str:
-    return RE_PAR_PLACEHOLDER.sub(replacement, text)
+    # Consecutive paragraph breaks are collapsed into one, and paragraph
+    # breaks at the very beginning or end are removed.
+    return RE_PAR_PLACEHOLDER.sub(replacement, text.strip("\ue000 ")).strip()
+
+
+def split_paragraphs(element: etree._Element) -> list[etree._Element]:
+    # Split the children of `element` at <par/> paragraph breaks.  The schema
+    # only allows <par/> at the top level of MarkupText, so it never occurs
+    # inside nested markup.  Moves children out of `element`.
+    paragraph = etree.Element("p")
+    paragraph.text = element.text
+    paragraphs = [paragraph]
+    for child in list(element):
+        if child.tag == "par":
+            paragraph = etree.Element("p")
+            paragraph.text = child.tail
+            paragraphs.append(paragraph)
+        else:
+            paragraph.append(child)  # moves child.tail along with it
+    return paragraphs
 
 
 def markup_to_latex(element: etree._Element) -> str:
@@ -202,7 +221,7 @@ class MarkupText:
         self._text = unprotect_par(text, "\n\n") if has_par else text
         return self._text
 
-    def as_html(self, allow_url: bool = True) -> str:
+    def as_html(self, allow_url: bool = True, render_paragraphs: bool = False) -> str:
         """
         Returns:
             Text with markup transformed into HTML.
@@ -210,15 +229,23 @@ class MarkupText:
         Arguments:
             allow_url: Defaults to True. If False, URLs are **not** wrapped in
                 `<a href="...">` tags, but in simply `<span>` tags.
+            render_paragraphs: Defaults to False. If True, the text is wrapped in `<p>` tags, with `<par/>` paragraph breaks starting a new paragraph; this should be used for fields that can contain paragraph breaks (such as abstracts).  If False, the text is rendered as inline HTML, with any `<par/>` paragraph breaks rendered as a single space.
         """
         if isinstance(self._content, str):
-            return xml_escape(remove_extra_whitespace(self._content))
-        cache_key = (allow_url,)
+            html = xml_escape(remove_extra_whitespace(self._content))
+            if render_paragraphs and html:
+                return f"<p>{html}</p>"
+            return html
+        cache_key = (allow_url, render_paragraphs)
         if self._html is None:
             self._html = {}
-        elif (html := self._html.get(cache_key)) is not None:
-            return html
+        elif (cached := self._html.get(cache_key)) is not None:
+            return cached
         element = copy(self._content)
+        if not render_paragraphs:
+            for sub in element.iterfind(".//par"):
+                sub.text = " "
+            etree.strip_tags(element, "par")
         for sub in element.iter():
             if sub.tag == "url":
                 if allow_url:
@@ -242,19 +269,18 @@ class MarkupText:
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
             elif sub.tag == "par":
-                # A paragraph break; for now, as a hack, convert to HTML <br/><br/>
-                sub.tag = "br"
-                another = etree.Element("br")
-                another.tail = sub.tail
-                sub.tail = None
-                sub.addnext(another)
+                continue  # handled below
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
 
-        html = remove_extra_whitespace(stringify_children(element))
-
-        # remove whitespace before or after <br/>
-        html = re.sub(r"\s*((<br/>)+)\s*", r"\1", html)
+        if render_paragraphs:
+            html = "".join(
+                f"<p>{par_html}</p>"
+                for par in split_paragraphs(element)
+                if (par_html := remove_extra_whitespace(stringify_children(par)))
+            )
+        else:
+            html = remove_extra_whitespace(stringify_children(element))
         self._html[cache_key] = html
         return html
 

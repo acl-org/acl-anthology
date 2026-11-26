@@ -5,6 +5,12 @@
 ### Added
 
 - Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
+- `MarkupText.as_html()` now takes a `render_paragraphs` argument; if True, the text is wrapped in `<p>` tags, with `<par/>` starting a new paragraph.
+
+### Changed
+
+- `MarkupText.as_html()` now renders `<par/>` as a single space (instead of `<br/><br/>`) when `render_paragraphs` is False.
+- `MarkupText.as_text()` and `MarkupText.as_html()` now collapse consecutive `<par/>` and drop it at the beginning or end of the text.
 
 ### Fixed
 

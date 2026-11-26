@@ -117,7 +117,8 @@ test_cases_markup = (
         "Paragraph one.<par/>Paragraph two.",
         {
             "text": "Paragraph one.\n\nParagraph two.",
-            "html": "Paragraph one.<br/><br/>Paragraph two.",
+            "html": "Paragraph one. Paragraph two.",
+            "html_paragraphs": "<p>Paragraph one.</p><p>Paragraph two.</p>",
             "latex": "Paragraph one.\\par Paragraph two.",
         },
     ),
@@ -125,7 +126,8 @@ test_cases_markup = (
         "Taking a <par/>break",
         {
             "text": "Taking a\n\nbreak",
-            "html": "Taking a<br/><br/>break",
+            "html": "Taking a break",
+            "html_paragraphs": "<p>Taking a</p><p>break</p>",
             "latex": "Taking a\\par break",
         },
     ),
@@ -133,7 +135,8 @@ test_cases_markup = (
         "Taking a<par/>break",
         {
             "text": "Taking a\n\nbreak",
-            "html": "Taking a<br/><br/>break",
+            "html": "Taking a break",
+            "html_paragraphs": "<p>Taking a</p><p>break</p>",
             "latex": "Taking a\\par break",
         },
     ),
@@ -141,7 +144,8 @@ test_cases_markup = (
         "Taking a <par/>    break",
         {
             "text": "Taking a\n\nbreak",
-            "html": "Taking a<br/><br/>break",
+            "html": "Taking a break",
+            "html_paragraphs": "<p>Taking a</p><p>break</p>",
             "latex": "Taking a\\par break",
         },
     ),
@@ -299,6 +303,9 @@ def test_markup_from_xml(inp, out):
     markup = MarkupText.from_xml(element)
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
+    assert markup.as_html(render_paragraphs=True) == out.get(
+        "html_paragraphs", f"<p>{out['html']}</p>" if out["html"] else ""
+    )
     assert markup.as_latex() == out["latex"]
     assert markup.as_xml() == inp
     assert MarkupText.from_(element) == markup
@@ -306,7 +313,53 @@ def test_markup_from_xml(inp, out):
         assert etree.tostring(markup.to_xml("title"), encoding="unicode") == "<title/>"
     else:
         assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
-    assert markup.contains_markup == ("<" in out["html"])
+    assert markup.contains_markup == ("<" in inp)
+
+
+test_cases_markup_paragraphs = (
+    (  # Leading, trailing, and consecutive paragraph breaks don't produce empty paragraphs
+        "<par/>One.<par/><par/> Two. <par/>",
+        "One. Two.",
+        "<p>One.</p><p>Two.</p>",
+    ),
+    (  # Markup directly adjacent to paragraph breaks
+        "<i>One</i><par/><b>Two</b> and <tex-math>x^2</tex-math><par/>Three <url>https://example.org</url>",
+        '<i>One</i> <b>Two</b> and <span class="tex-math">x<sup>2</sup></span> Three <a href="https://example.org" class="acl-markup-url">https://example.org</a>',
+        '<p><i>One</i></p><p><b>Two</b> and <span class="tex-math">x<sup>2</sup></span></p><p>Three <a href="https://example.org" class="acl-markup-url">https://example.org</a></p>',
+    ),
+    (  # Paragraph containing only markup
+        "Intro.<par/><b>Bold paragraph.</b>",
+        "Intro. <b>Bold paragraph.</b>",
+        "<p>Intro.</p><p><b>Bold paragraph.</b></p>",
+    ),
+    (  # Only paragraph breaks
+        "<par/><par/>",
+        "",
+        "",
+    ),
+)
+
+
+@pytest.mark.parametrize("inp, html, html_paragraphs", test_cases_markup_paragraphs)
+def test_markup_as_html_paragraphs(inp, html, html_paragraphs):
+    markup = MarkupText.from_xml(etree.fromstring(f"<abstract>{inp}</abstract>"))
+    assert markup.as_html() == html
+    assert markup.as_html(render_paragraphs=True) == html_paragraphs
+    # The XML representation should be unaffected by the rendering option
+    assert markup.as_xml() == inp
+
+
+def test_markup_as_text_collapses_paragraph_breaks():
+    markup = MarkupText.from_xml(
+        etree.fromstring("<abstract><par/>One.<par/><par/> Two. <par/></abstract>")
+    )
+    assert markup.as_text() == "One.\n\nTwo."
+
+
+def test_markup_as_html_paragraphs_from_string():
+    markup = MarkupText.from_string("A & B")
+    assert markup.as_html(render_paragraphs=True) == "<p>A &amp; B</p>"
+    assert MarkupText.from_string("").as_html(render_paragraphs=True) == ""
 
 
 def test_markup_from_xml_copies_element_independently_of_source():
@@ -392,6 +445,8 @@ def test_markup_as_html_caches_per_argument():
     markup = MarkupText.from_xml(etree.fromstring(f"<title>{xml}</title>"))
     assert markup.as_html(allow_url=True) == html_with_url
     assert markup.as_html(allow_url=False) == html_without_url
+    assert markup.as_html(allow_url=True) == html_with_url
+    assert markup.as_html(render_paragraphs=True) == f"<p>{html_with_url}</p>"
     assert markup.as_html(allow_url=True) == html_with_url
 
 
