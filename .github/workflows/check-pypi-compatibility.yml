@@ -1,0 +1,97 @@
+name: Check PyPI package compatibility
+
+# Checks whether the latest acl-anthology release on PyPI can still load and
+# validate the data in data/ after merging a PR.  If the PR itself would
+# trigger a new PyPI release (see publish-to-pypi.yml), the check is skipped,
+# as the new release will be published together with the data changes.
+#
+# See https://github.com/acl-org/acl-anthology/issues/9826
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'data/**'
+      - 'bin/check_pypi_compatibility.py'
+      - '.github/actions/check-pypi-release/**'
+      - '.github/workflows/check-pypi-compatibility.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Check for new PyPI release
+    runs-on: ubuntu-latest
+    outputs:
+      is-new: ${{ steps.release.outputs.is-new }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            .github
+            python
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: 3.14
+          ignore-nothing-to-cache: true
+
+      - name: Check if this PR would trigger a new PyPI release
+        id: release
+        uses: ./.github/actions/check-pypi-release
+
+      - name: Report new release
+        if: steps.release.outputs.is-new == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          echo "::notice title=PyPI compatibility check skipped::Merging this PR will publish v${VERSION} of acl-anthology to PyPI."
+
+  compat:
+    name: Check compatibility with latest PyPI release
+    needs: release
+    if: needs.release.outputs.is-new == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      # On pull_request events, this checks out the result of merging the PR
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: 3.14
+          ignore-nothing-to-cache: true
+
+      - name: Run compatibility check against latest PyPI release
+        run: |
+          set +e
+          # --no-project bypasses the workspace source for acl-anthology, and
+          # --isolated ensures a fresh environment, so that this always tests
+          # the package from PyPI rather than the local checkout
+          uv run --no-project --isolated --refresh-package acl-anthology \
+            --with acl-anthology python bin/check_pypi_compatibility.py \
+            2>&1 | tee compat-output.txt
+          exit_code=${PIPESTATUS[0]}
+          if [ "$exit_code" -ne 0 ]; then
+            echo "::error title=Incompatible with latest PyPI release::The latest acl-anthology release on PyPI can no longer load or validate the data after merging this PR. If this is intended, bump the package version in this PR (e.g. via \`just python prepare-new-release <version>\`), so that merging it publishes a compatible release. See the job summary for details."
+            {
+              echo "## ⚠️ Incompatible with latest PyPI release"
+              echo
+              echo "The latest **acl-anthology** release on PyPI can no longer load or validate the data after merging this PR."
+              echo
+              echo "If this is intended, please also bump the package version in this PR, so that merging it publishes a compatible release, e.g. by running:"
+              echo
+              echo '```'
+              echo 'just python prepare-new-release <version>'
+              echo '```'
+              echo
+              echo "<details><summary>Output</summary>"
+              echo
+              echo '```'
+              tail -c 30000 compat-output.txt
+              echo '```'
+              echo "</details>"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$exit_code"
