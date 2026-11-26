@@ -497,7 +497,9 @@
           <h5 class="alert-heading mb-0">{{ .heading }}</h5>
           <span class="small text-muted fw-normal fst-italic text-nowrap">Added {{ .date }}</span>
         </div>
-        {{ .html | safeHTML }}
+        <div class="acl-markup-paragraphs">
+          {{ .html | safeHTML }}
+        </div>
       </div>
       {{ end }}
 
@@ -505,9 +507,9 @@
             <div class="card bg-light mb-2 mb-lg-3">
               <div class="card-body acl-abstract">
                 <h5 class="card-title">Abstract</h5>
-                <span{{ if $paper.retracted }} class="text-decoration-line-through" {{ end }}>
+                <div class="acl-markup-paragraphs{{ if $paper.retracted }} text-decoration-line-through{{ end }}">
                   {{ . | safeHTML }}
-                </span>
+                </div>
               </div>
             </div>
             {{ end }}

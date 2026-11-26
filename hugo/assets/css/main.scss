@@ -164,6 +164,12 @@ ol ol {
   @extend .mt-2;
 }
 
+/* Text rendered as <p> paragraphs (abstracts, editorial notes) shouldn't add
+   extra spacing at the bottom of its card/alert */
+.acl-markup-paragraphs > p:last-child {
+  margin-bottom: 0;
+}
+
 /* For co-author/venue info on people/ pages */
 .list-group-compact {
   .list-group-item {
