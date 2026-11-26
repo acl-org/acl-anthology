@@ -14,8 +14,12 @@
 <i class="fas fa-file-powerpoint"></i>
 {{ else if eq $type "dataset" }}
 <i class="fas fa-file-archive"></i>
-{{ else if eq $type "software" }}
+{{ else if eq $type "resource" }}
+{{ if strings.HasPrefix .url "https://github.com/" }}
+<i class="fab fa-github"></i>
+{{ else }}
 <i class="fas fa-file-code"></i>
+{{ end }}
 {{ else }}
 <i class="fas fa-external-link-alt"></i>
 {{ end }}

@@ -36,8 +36,14 @@ Person =
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
+# <url type="resource"> links to code/data and must point to GitHub or Zenodo (incl. Zenodo DOIs);
+# other types must be one of those with an icon in hugo/layouts/partials/url_repr.html
 url = element url {
-  attribute type { xsd:NCName }? & xsd:anyURI
+  (attribute type { "resource" },
+   xsd:anyURI { pattern = "https://(github\.com/|zenodo\.org/|doi\.org/10\.5281/zenodo\.).*" })
+  | (attribute type {
+       "dataset" | "handbook" | "poster" | "presentation" | "slides" | "video" | "website"
+     }? & xsd:anyURI)
 }
 pdf = element pdf { empty, checksum }
 attachment = element attachment {

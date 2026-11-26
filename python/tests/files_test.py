@@ -160,6 +160,35 @@ def test_validate_url_tuple_accepts_valid_value():
     validate_url_tuple(None, None, ("dataset", URLReference("https://example.com")))
 
 
+@pytest.mark.parametrize(
+    "url",
+    (
+        "https://github.com/acl-org/acl-anthology",
+        "https://zenodo.org/records/123456",
+        "https://doi.org/10.5281/zenodo.123456",
+    ),
+)
+def test_validate_url_tuple_accepts_resource_url(url):
+    # Should not raise
+    validate_url_tuple(None, None, ("resource", URLReference(url)))
+
+
+@pytest.mark.parametrize(
+    "url",
+    (
+        "https://gitlab.com/foo/bar",
+        "http://github.com/foo/bar",
+        "https://github.com.example.org/foo",
+        "https://example.com/github.com/foo",
+        "https://doi.org/10.18653/v1/2020.acl-main.1",
+        "http://dx.doi.org/10.5281/zenodo.123456",
+    ),
+)
+def test_validate_url_tuple_rejects_invalid_resource_url(url):
+    with pytest.raises(ValueError, match="type 'resource'"):
+        validate_url_tuple(None, None, ("resource", URLReference(url)))
+
+
 def test_pdfreference_from_file(datadir):
     ref = PDFReference.from_file(datadir / "J16-4001.pdf")
     assert ref.name == "J16-4001"  # WITHOUT the .pdf
