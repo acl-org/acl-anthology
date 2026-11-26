@@ -64,6 +64,7 @@
       <pages>26-40</pages>
       <abstract>Automatic extraction of behavioral goals from health coaching notes is essential for scalable monitoring of coaching programs, yet training data is scarce and exhibits substantial domain shift across programs. We collect and annotate 157 notes from a coaching program and show that models trained on the only existing public corpus, SMARTSpan (173 notes), suffer a drop of up to 30 points in exact-match F1 when transferred to our data. To address this, we propose a factorized synthetic data generation pipeline that decomposes note variation into three largely independent axes, health coach documentation structure, patient goal content, and patient persona, extracts empirical priors from a small in-domain seed set, and samples from them to produce diverse synthetic notes with embedded goal-span labels validated via cycle-consistency filtering. In low-resource experiments with only 57 in-domain training notes, our approach outperforms rephrasing and backtranslation baselines on both exact-match and partial-match F1. Ablation analysis demonstrates that augmentation must target the in-domain distribution to be effective, and a human evaluation confirms that synthetic notes are structurally faithful, with detection driven by surface artifacts rather than content or organizational flaws.All code and generated data will be published at GitHub repository: <url>https://github.com/Michael-Tanzer/cl4health-factorized-augmentation</url>.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-03</url>
+      <url type="resource">https://github.com/Michael-Tanzer/cl4health-factorized-augmentation</url>
       <bibkey>tanzer-etal-2026-addressing</bibkey>
       <doi>10.63317/3a5koirj2a6s</doi>
       <pdf hash="bcc555b1"/>
@@ -78,6 +79,7 @@
       <pages>41-49</pages>
       <abstract>Texts are widely used in aphasia rehabilitation to support the recovery of comprehension and narrative planning. In routine practice, clinical impact depends strongly on patient motivation and on the availability of age-appropriate reading materials: adults are often offered child-oriented texts, which can be perceived as demeaning and may reduce engagement. We present a controllable generation pipeline for building a repository of Russian therapeutic reading texts for adult aphasia therapy. An anonymized repository with code and data is available at <url>https://github.com/z00logist/aphasia-exercises-generation</url>. The pipeline conditions each story on an explicit semantic triplet (12 topics-10 archetypes-11 objects) and enforces three clinically motivated complexity regimes (Basic/Intermediate/Advanced). Using batched prompting, we generate 1,296 unique stories. We evaluate the corpus with classical linguistic metrics and a LLM-as-a-judge protocol (18 binary criteria); on a stratified sample of 198 stories, overall rubric compliance is 80.0%. Surface metrics show a monotonic increase in lexical and syntactic complexity across regimes, and Basic texts closely match a small clinical anchor set of 10 therapist-authored texts. Judge-based analysis indicates near-perfect adherence to high-level narrative constraints but persistent limitations in fine-grained phonotactic control, motivating hybrid neuro-symbolic enforcement.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-04</url>
+      <url type="resource">https://github.com/z00logist/aphasia-exercises-generation</url>
       <bibkey>kolmogorova-etal-2026-scalable</bibkey>
       <doi>10.63317/479o7hjnn332</doi>
       <pdf hash="16d124aa"/>
@@ -134,6 +136,7 @@
       <pages>82-95</pages>
       <abstract>Metaphors and Metaphorical Languages (MLs) play an important role in healthcare for the information communication between clinicians, patients, and patients’ family members. In this work, we focus on the Dutch language and cancer patients’ data. We extract the metaphors used by patients using two data resources: 1) cancer patient storytelling interview data, 2) online forum, data including cancer patients’ posts, comments, and questions to professionals. We investigate how current state of the art LLMs and perform on this task by exploring different prompting strategies such as Chain of Thought, few-shot learning, and self-prompting. With human in the loop, we verify the extracted metaphors and collect the output as a corpus, named “<b>HealthQuote.NL</b>”. We believe the extracted metaphors can be useful for supporting better patient care, e.g. shared decision making, helping communication between patients and clinicians, patient health literacy, etc. It can also be integrated into the design of a care path. We share our prompts and resources at <url>https://github.com/4dpicture/HealthQuote.NL</url></abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-08</url>
+      <url type="resource">https://github.com/4dpicture/HealthQuote.NL</url>
       <bibkey>han-etal-2026-dutch</bibkey>
       <doi>10.63317/2fxa2v4tn93y</doi>
       <pdf hash="9949616d"/>
@@ -288,6 +291,7 @@
       <pages>207-222</pages>
       <abstract>The opioid epidemic has ravaged the US for the past two decades and is still a persistent threat. During the same time, the increasing use of social media has created a new avenue for people to share their journeys regarding opioid use. In this context, research in automatically determining opioid use stages (e.g., misuse, addiction, recovery) based on self disclosures in social media posts is gaining traction. In this paper, using a recent benchmark, we assess different supervised strategies for identifying self-disclosed opioid use stages from Reddit posts. We consider distilled reasoning traces from DeepSeek R1 (an open weights reasoning model), supervised contrastive learning (SCL), and few-shot in-context learning (ICL) with GPT-5 to conduct a variety of experiments with encoder and encoder-decoder models. We also conduct direct zero-shot (ZS) experiments with GPT 5 and GPT 5.2. Across different models and datasets, our strategies provide improvements in performance with some nuances that are too subtle to elaborate in the abstract. A surprising finding is that ZS results with GPT-5 are better than all supervised results, which ushers a new frontier for LLM-based classification of opioid use in social media posts. Our code is available for reuse and replication: <url>https://github.com/bionlproc/Opioid-Stage</url>.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-19</url>
+      <url type="resource">https://github.com/bionlproc/Opioid-Stage</url>
       <bibkey>ekanayake-kavuluru-2026-reasoning</bibkey>
       <doi>10.63317/4eyh8vc3atun</doi>
       <pdf hash="33a24f98"/>
@@ -587,6 +591,7 @@
       <pages>441-454</pages>
       <abstract>This paper presents the joint participation of the BIT.UA and AAUBS groups in the ArchEHR-QA 2026 shared task, which focuses on clinical question answering and evidence grounding in a low-resource setting. Due to the absence of training data and the strict data privacy constraints inherent to the healthcare domain (e.g. GDPR), we investigate the capabilities of Large Language Models (LLMs) without weight updates. We evaluate several state-of-the-art proprietary models and locally deployable open-source alternatives using various prompt engineering strategies, including task decomposition, Chain-of-Thought, and in-context learning. Furthermore, we explore majority voting and LLM-as-a-judge ensembling techniques to maximize predictive robustness. Our results demonstrate that while proprietary models exhibit strong resilience to prompt variations, domain-adapted open-source models (such as MedGemma 3 27B) achieve highly competitive performance when paired with the right prompt. Overall, our prompt-based approach proved highly effective, securing 1st place in Subtask 4 (evidence citation alignment) and 3rd place in Subtask 3 (patient-friendly answer generation). All code, results, and prompts are available on our GitHub repository: <url>https://github.com/bioinformatics-ua/ArchEHR-QA-2026</url>.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-41</url>
+      <url type="resource">https://github.com/bioinformatics-ua/ArchEHR-QA-2026</url>
       <bibkey>jonker-etal-2026-bit</bibkey>
       <doi>10.63317/4xzogwhepa32</doi>
       <pdf hash="03d1b453"/>
@@ -620,6 +625,7 @@
       <pages>469-481</pages>
       <abstract>Clinical question answering over electronic health records (EHRs) can help clinicians and patients access relevant medical information more efficiently. However, many recent approaches rely on large cloud-based models, which are difficult to deploy in clinical environments due to privacy constraints and computational requirements. In this work, we investigate how far grounded EHR question answering can be pushed when restricted to a single notebook. We participate in all four subtasks of the ArchEHR-QA 2026 shared task and evaluate several approaches designed to run on commodity hardware. All experiments are conducted locally without external APIs or cloud infrastructure. Our results show that such systems can achieve competitive performance on the shared task leaderboards. In particular, our submissions perform above average in two subtasks, and we observe that smaller models can approach the performance of much larger systems when properly configured. These findings suggest that privacy-preserving EHR QA systems running fully locally are feasible with current models and commodity hardware. The source code is available at <url>https://github.com/ibrahimey/ArchEHR-QA-2026</url>.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-43</url>
+      <url type="resource">https://github.com/ibrahimey/ArchEHR-QA-2026</url>
       <bibkey>yurt-etal-2026-sebis</bibkey>
       <doi>10.63317/3mbfiuod7bfc</doi>
       <pdf hash="b97f60e1"/>
@@ -632,6 +638,7 @@
       <pages>482-486</pages>
       <abstract>The ArchEHR-QA shared task focuses on grounded question answering using patient EHR data. For the given clinical interpretation of the patient question, note excerpt (E) and answer text (A), subtask 4 (evidence alignment) aims to cite supporting sentences from E for each sentence in A. In this paper, we propose a prompt-engineering methodology that features clinical-reasoning principles in related alignment. We adopt this methodology for GPT-5.2 in zero-shot learning mode. According to our experiments on ArchEHR-QA, incorporating clinical reasoning principles into the prompt improves F 1overall by +2.0%. Our final submission resulted in 77.4% by F 1overall, which positions us at 10th out of 16 teams. Our code is publicly available: <url>https://github.com/nicolay-r/ArchEHR-QA-2026-Task-4-MedEvi-NS</url></abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-44</url>
+      <url type="resource">https://github.com/nicolay-r/ArchEHR-QA-2026-Task-4-MedEvi-NS</url>
       <bibkey>sun-rusnachenko-2026-medevi</bibkey>
       <doi>10.63317/2uoe94adhkng</doi>
       <pdf hash="ab9fe637"/>
@@ -646,6 +653,7 @@
       <pages>487-496</pages>
       <abstract>We describe the UIC-AIHealth4All system for ArchEHR-QA 2026, a shared task on grounded question answering from electronic health records. We participated in Subtasks 2 (evidence identification), 3 (answer generation), and 4 (answer-evidence alignment). For Subtasks 2 and 3, we propose an answer-first pipeline in which the model generates candidate answers citing specific note sentences before classifying the full evidence set, exploiting the asymmetry between judging relevance in the abstract versus relative to a generated answer. For Subtask 4, we apply self-consistency voting over five independent model calls, retaining links by vote threshold. Our pipeline ranked third on evidence identification (Strict Micro F1 62.90), ninth on answer generation (Overall 31.90), and fifth on answer-evidence alignment (F1 79.81). A post-hoc linguistic analysis of 45 stylistic features reveals that model outputs remain 3.2 Flesch-Kincaid grade levels harder to read than clinician-authored references despite matching their word and sentence counts, suggesting readability warrants explicit optimization in clinical NLP systems. Code and prompts are available at <url>https://github.com/mo-arvan/archehr-qa-2026-uic-aihealth4all</url>.</abstract>
       <url>https://lrec.elra.info/lrec2026-ws-cl4health-45</url>
+      <url type="resource">https://github.com/mo-arvan/archehr-qa-2026-uic-aihealth4all</url>
       <bibkey>arvan-etal-2026-uic</bibkey>
       <doi>10.63317/3skgjregbmtf</doi>
       <pdf hash="0d0e4e82"/>
