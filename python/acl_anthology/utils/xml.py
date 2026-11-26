@@ -32,6 +32,7 @@ TAGS_WITH_MARKUP = {
     "abstract",
     "booktitle",
     "shortbooktitle",
+    "editorial-note",
 }
 """XML tags which contain MarkupText."""
 

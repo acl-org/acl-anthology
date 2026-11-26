@@ -15,7 +15,7 @@
 import copy
 import pytest
 from acl_anthology.collections import CollectionIndex
-from acl_anthology.collections.types import PaperType, VolumeType
+from acl_anthology.collections.types import EditorialNoteType, PaperType, VolumeType
 from acl_anthology.constants import UNKNOWN_INGEST_DATE
 from acl_anthology.exceptions import AnthologyXMLError, NameSpecResolutionError
 from acl_anthology.files import AttachmentReference, PDFReference, URLReference
@@ -29,6 +29,7 @@ from acl_anthology.collections.paper import (
     Paper,
     PaperDeletionType,
     PaperDeletionNotice,
+    PaperEditorialNote,
     PaperErratum,
     PaperRevision,
 )
@@ -469,6 +470,7 @@ test_cases_xml = (
   <attachment hash="12345690" type="software">2023.extra-software</attachment>
   <video href="2023.fake-video.mp4"/>
   <removed date="2023-09-30">Removed immediately for being fake</removed>
+  <editorial-note type="concern" date="2023-10-01">Readers raised <i>concerns</i>.<par/>1. The results may not be reliable.</editorial-note>
   <bibkey>why-would-you-cite-this</bibkey>
 </paper>
 """,
@@ -773,6 +775,22 @@ def test_paperdeletionnotice_from_xml(xml, type_, note, date):
 def test_paperdeletionnotice_to_xml(xml, type_, note, date):
     notice = PaperDeletionNotice(type=type_, note=note, date=date)
     assert etree.tostring(notice.to_xml(), encoding="unicode") == xml
+
+
+def test_papereditorialnote_from_xml():
+    element = etree.fromstring(
+        '<editorial-note type="concern" date="2026-11-24">Concerns.<par/>1. Results.</editorial-note>'
+    )
+    note = PaperEditorialNote.from_xml(element)
+    assert note.type == EditorialNoteType.CONCERN
+    assert note.type.heading == "Expression of Concern"
+    assert note.date == "2026-11-24"
+    assert note.text.as_html() == "Concerns.<br/><br/>1. Results."
+
+
+def test_papereditorialnote_invalid_type():
+    with pytest.raises(ValueError):
+        PaperEditorialNote(type="retraction", text="Text", date="2026-11-24")
 
 
 test_cases_papererratum = (

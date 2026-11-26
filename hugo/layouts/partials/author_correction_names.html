@@ -1,0 +1,16 @@
+{{/* Name choice of a "Fix author" form, shown only when the switched-on papers print
+     the name in more than one way; `.prefix` starts the IDs. */}}
+{{ $prefix := .prefix }}
+<fieldset class="mb-3" id="{{ $prefix }}PreferredName" hidden>
+  <legend class="form-label fs-6 mb-1">
+    Name to show on your page <span class="text-danger">*</span>
+  </legend>
+  <div class="form-text mb-2">
+    Your papers use more than one version of your name. Choose the one to show at the top of your page. The
+    last name is in <b>bold</b>.
+    <button type="button" class="btn btn-link btn-sm p-0 align-baseline text-body" id="{{ $prefix }}LastNameInfo"
+            data-bs-toggle="tooltip" data-bs-title="The last name is the primary part of the name: it is what appears in citations and is used for sorting, e.g. &ldquo;De Morgan&rdquo; for Augustus De Morgan."
+            aria-label="About last names"><i class="fas fa-info-circle" aria-hidden="true"></i></button>
+  </div>
+  <div data-author-fix-names></div>
+</fieldset>

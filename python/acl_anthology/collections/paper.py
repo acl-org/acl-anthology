@@ -57,7 +57,7 @@ from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, is_valid_item_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
-from .types import PaperDeletionType, PaperType, VolumeType
+from .types import EditorialNoteType, PaperDeletionType, PaperType, VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -248,6 +248,42 @@ class PaperDeletionNotice:
         )
 
 
+@attach_custom_repr
+@define(field_transformer=auto_validate_types, frozen=True)
+class PaperEditorialNote:
+    """An editorial note displayed with a paper, such as an expression of concern."""
+
+    type: EditorialNoteType = field(converter=EditorialNoteType)
+    """Type of the editorial note."""
+
+    text: MarkupText = field(converter=to_markuptext)
+    """The text of the editorial note."""
+
+    date: str = field(
+        converter=date_to_str, validator=v.matches_re(constants.RE_ISO_DATE)
+    )
+    """The date on which the editorial note was added."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperEditorialNote:
+        """Instantiates an editorial note from its `<editorial-note>` block in the XML."""
+        return cls(
+            type=EditorialNoteType(str(element.get("type"))),
+            text=MarkupText.from_xml(element),
+            date=str(element.get("date")),
+        )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this editorial note in Anthology XML format.
+        """
+        elem = self.text.to_xml("editorial-note")
+        elem.set("type", self.type.value)
+        elem.set("date", self.date)
+        return elem
+
+
 def _attachment_validator(instance: Paper, _: Any, value: Any) -> None:
     if (
         not isinstance(value, tuple)
@@ -358,6 +394,7 @@ class Paper:
         abstract: The full abstract.
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.
+        editorial_note: An editorial note displayed with the paper, such as an expression of concern.
         language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         month: The month of publication. If not set on the paper, this is inherited from the parent volume.
         note: A note attached to this paper.  Used very sparingly.
@@ -446,6 +483,9 @@ class Paper:
         default=None, validator=v.optional(v.instance_of(PaperDeletionNotice))
     )
     doi: Optional[str] = field(default=None)
+    editorial_note: Optional[PaperEditorialNote] = field(
+        default=None, validator=v.optional(v.instance_of(PaperEditorialNote))
+    )
     _ingest_date: Optional[str] = field(
         default=None,
         converter=date_to_str,
@@ -984,6 +1024,8 @@ class Paper:
                 kwargs["errata"].append(PaperErratum.from_xml(element))
             elif tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
+            elif tag == "editorial-note":
+                kwargs["editorial_note"] = PaperEditorialNote.from_xml(element)
             elif tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
@@ -1076,5 +1118,7 @@ class Paper:
             paper.append(award.to_xml())
         if self.deletion is not None:
             paper.append(self.deletion.to_xml())
+        if self.editorial_note is not None:
+            paper.append(self.editorial_note.to_xml())
         paper.append(E.bibkey(self.bibkey))
         return paper

@@ -124,12 +124,16 @@ def person_to_dict(person_id, ns):
     full_name = ns.name.as_full()
     if ns.variants:
         full_name = f"{full_name} ({', '.join(var.as_full() for var in ns.variants)})"
-    return {
+    data = {
         "id": person_id,
         "first": ns.first,
         "last": ns.last,
         "full": full_name,
     }
+    if ns.id is not None:
+        # Linked to the person by ID in the XML, not just by name
+        data["namespec_has_id"] = True
+    return data
 
 
 def paper_to_dict(paper):
@@ -208,6 +212,13 @@ def paper_to_dict(paper):
                 data["removed"] = paper.deletion.note if paper.deletion.note else " "
                 data["title"] = f"[REMOVED] {data['title']}"
                 data["title_html"] = f"[REMOVED] {data['title_html']}"
+    if (note := paper.editorial_note) is not None:
+        data["editorial_note"] = {
+            "type": note.type.value,
+            "heading": note.type.heading,
+            "date": note.date,
+            "html": remove_extra_whitespace(note.text.as_html()),
+        }
     if paper.pages is not None:
         page_first, page_last = interpret_pages(paper.pages)
         data["page_first"] = page_first
@@ -607,6 +618,19 @@ def build_author_search_index(people):
     }
 
 
+def build_orcid_index(people):
+    """Map ORCID iDs to person IDs, sharded by the iD's final (check) character.
+
+    Lets the author correction panel check whether an ORCID iD is already in use
+    without downloading the author search index.
+    """
+    shards = {}
+    for person_id, person in people.items():
+        if orcid := person.get("orcid"):
+            shards.setdefault(orcid[-1], {})[orcid] = person_id
+    return shards
+
+
 def export_author_index(people, builddir):
     """Write aggregate and browser-search data for the author directory."""
     author_index = build_author_search_index(people)
@@ -621,6 +645,38 @@ def export_author_index(people, builddir):
     for bucket, rows in author_index.items():
         with open(f"{index_dir}/{bucket}.json", "wb") as f:
             f.write(ENCODER.encode(rows))
+
+    orcid_dir = f"{builddir}/static/people/orcid"
+    if os.path.isdir(orcid_dir):
+        shutil.rmtree(orcid_dir)
+    os.makedirs(orcid_dir)
+    for shard, mapping in build_orcid_index(people).items():
+        with open(f"{orcid_dir}/{shard}.json", "wb") as f:
+            f.write(ENCODER.encode(mapping))
+
+
+def build_venue_search_index(venues):
+    """Build compact browser-search rows for the venue directory."""
+    return sorted(
+        (
+            [
+                venue["name"],
+                venue["acronym"],
+                venue_id,
+                sum(len(volumes) for volumes in venue["volumes_by_year"].values()),
+            ]
+            for venue_id, venue in venues.items()
+        ),
+        key=lambda row: (row[0].casefold(), row[2]),
+    )
+
+
+def export_venue_index(venues, builddir):
+    """Write browser-search data shared by the navbar and venue directory."""
+    index_dir = f"{builddir}/static/venues"
+    os.makedirs(index_dir, exist_ok=True)
+    with open(f"{index_dir}/index.json", "wb") as f:
+        f.write(ENCODER.encode(build_venue_search_index(venues)))
 
 
 def export_author_metrics(anthology: Anthology, builddir, dryrun=False):
@@ -814,6 +870,7 @@ def export_venues(anthology: Anthology, builddir, dryrun):
     if not dryrun:
         with open(f"{builddir}/data/venues.json", "wb") as f:
             f.write(ENCODER.encode(all_venues))
+        export_venue_index(all_venues, builddir)
 
 
 def export_events(anthology: Anthology, builddir, dryrun):

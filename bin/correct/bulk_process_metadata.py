@@ -670,7 +670,7 @@ if __name__ == "__main__":
 
     ids = [int(iid) for iid in args["<issueid>"]]
 
-    updater = AnthologyMetadataUpdater(github_token, verbose=args["--quiet"])
+    updater = AnthologyMetadataUpdater(github_token, verbose=not args["--quiet"])
     updater.process_metadata_issues(
         ids=ids,
         skip_validation=args["--skip-validation"],

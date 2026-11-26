@@ -23,6 +23,9 @@ and/or author list. _Volume_ metadata issues are currently unsupported.
 - `bulk_process_simple_verifications.py`: For issues that merely request to verify
 an unverified author page with ORCID.
 
+- `bulk_process_author_page_paper_moves.py`: For issues that request to move a paper
+from an unverified author page to an existing verified author page, or vice versa.
+
 ## Bulk author scripts: non-issue-based
 
 - `refresh_or_orcids.py`: For authors with an OpenReview ID stored on one or more
