@@ -113,6 +113,36 @@ def fix_url_boundaries(html: str) -> str:
     return re.sub(r"<url>([^<]+)</url>", repl, html)
 
 
+SPLIT_GITHUB_URL_RE = re.compile(
+    r"<url>((?i:https?://(?:www\.)?github\.com)/(?:[A-Za-z0-9-]+/)?)</url> (\S+)"
+)
+GITHUB_REPO_URL_RE = re.compile(
+    r"(?i:https?://(?:www\.)?github\.com)/[A-Za-z0-9-]+/[A-Za-z0-9_-][A-Za-z0-9_.-]*(?:/\S*)?"
+)
+
+NOT_A_REPO_NAME = set(
+    "a an and are as at by for from in is of on or our the to was which with".split()
+)
+"""Words following `<url>https://github.com/owner/</url>` that continue the sentence rather than the URL."""
+
+
+def join_split_github_urls(html: str) -> str:
+    """Rejoins a GitHub URL that was split by a line break in the PDF.
+
+    E.g. `<url>https://github.com/</url> owner/repo.` or `<url>https://github.com/owner/</url> repo.` becomes `<url>https://github.com/owner/repo</url>.` -- but only if the result is a link to a repository.
+    """
+
+    def repl(m: re.Match) -> str:
+        rest, trailing = split_url_trailing(m.group(2))
+        if rest.lower() in NOT_A_REPO_NAME or not GITHUB_REPO_URL_RE.fullmatch(
+            m.group(1) + rest
+        ):
+            return m.group(0)
+        return f"<url>{m.group(1)}{rest}</url>{trailing}"
+
+    return SPLIT_GITHUB_URL_RE.sub(repl, html)
+
+
 def process_md_in_xml(text: str) -> str:
     # strip out latex so Markdown parser doesn't treat _ as italics etc.
     maths = re.findall(r"<tex-math>.+?</tex-math>", text)
@@ -183,6 +213,7 @@ def process_md_in_xml(text: str) -> str:
     )
     html = re.sub(r"<span>(.+?)</span>", r"\1", html)
     html = fix_url_boundaries(html)
+    html = join_split_github_urls(html)
 
     # restore LaTeX
     html = re.sub(r"<tex-math></tex-math>", lambda m: maths.pop(0), html)
@@ -253,6 +284,22 @@ assert (
     "<url>https://github.com/a/b_(x)</url>; <url>https://github.com/a/b</url>.A demo; "
     "&lt;<url>https://x.org/a</url>&gt;]."
 ), test_out8
+
+test_in9 = (
+    "Code: <url>https://github.com/</url> owner/repo-x.git. "
+    "(<url>https://github.com/owner/</url> Repo_1). "
+    "Not joined: <url>https://github.com/Self-Curation/</url> . "
+    "<url>https://github.com/</url> textflint with results, "
+    "<url>https://github.com/owner/</url> and more."
+)
+test_out9 = process_md_in_xml(test_in9)
+assert (
+    test_out9 == "Code: <url>https://github.com/owner/repo-x.git</url>. "
+    "(<url>https://github.com/owner/Repo_1</url>). "
+    "Not joined: <url>https://github.com/Self-Curation/</url> . "
+    "<url>https://github.com/</url> textflint with results, "
+    "<url>https://github.com/owner/</url> and more."
+), test_out9
 
 
 def main() -> None:
