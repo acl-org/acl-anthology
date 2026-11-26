@@ -28,7 +28,7 @@ test_cases_whitespace = (
     (" ", ""),
     ("\n\n  \n            \n \n", ""),
     ("   text   ", "text"),
-    ("Foo\nBar\nBaz ", "FooBarBaz"),
+    ("Foo\nBar\nBaz ", "Foo Bar Baz"),
     (" Lorem  ipsum   dolor      sit\n\n\n amen", "Lorem ipsum dolor sit amen"),
 )
 

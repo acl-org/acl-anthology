@@ -10,6 +10,7 @@
 ### Changed
 
 - `MarkupText.as_html()` now renders `<par/>` as a single space (instead of `<br/><br/>`) when `render_paragraphs` is False.
+- `remove_extra_whitespace()` now replaces newlines with a space instead of deleting them, so `MarkupText` no longer glues together words separated only by a line break.
 - `MarkupText.as_text()` and `MarkupText.as_html()` now collapse consecutive `<par/>` and drop it at the beginning or end of the text.
 
 ### Fixed

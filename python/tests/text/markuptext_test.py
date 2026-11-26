@@ -173,6 +173,14 @@ test_cases_markup = (
             "latex": "Title with line breaks",
         },
     ),
+    (  # Line break without adjacent whitespace
+        "Sentence one.\nSentence two.",
+        {
+            "text": "Sentence one. Sentence two.",
+            "html": "Sentence one. Sentence two.",
+            "latex": "Sentence one. Sentence two.",
+        },
+    ),
     (
         "<span>Title with\n\n line breaks</span>",
         {
