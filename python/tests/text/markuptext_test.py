@@ -373,6 +373,28 @@ def test_markup_as_html_without_url(inp, html):
     assert markup.as_xml() == inp
 
 
+def test_markup_as_html_caches_per_argument():
+    """`as_html()` caches its result, but must not return a result rendered with different arguments."""
+    xml = "See <url>https://example.com</url> for details"
+    html_with_url = (
+        'See <a href="https://example.com" class="acl-markup-url">'
+        "https://example.com</a> for details"
+    )
+    html_without_url = (
+        'See <span class="acl-markup-url">https://example.com</span> for details'
+    )
+
+    markup = MarkupText.from_xml(etree.fromstring(f"<title>{xml}</title>"))
+    assert markup.as_html(allow_url=False) == html_without_url
+    assert markup.as_html(allow_url=True) == html_with_url
+    assert markup.as_html(allow_url=False) == html_without_url
+
+    markup = MarkupText.from_xml(etree.fromstring(f"<title>{xml}</title>"))
+    assert markup.as_html(allow_url=True) == html_with_url
+    assert markup.as_html(allow_url=False) == html_without_url
+    assert markup.as_html(allow_url=True) == html_with_url
+
+
 def test_markup_rendering_does_not_mutate_stored_content():
     """`as_text()`, `as_html()`, and `to_xml()` each work on their own copy
     of the stored content (currently via `element.__copy__()`, for the same

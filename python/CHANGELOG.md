@@ -6,6 +6,10 @@
 
 - Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
 
+### Fixed
+
+- `MarkupText.as_html()` no longer returns a cached result that was rendered with a different `allow_url` setting.
+
 ## [1.3.4] — 2026-10-16
 
 ### Added

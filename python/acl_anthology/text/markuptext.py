@@ -141,7 +141,7 @@ class MarkupText:
     _content: etree._Element | str = field(validator=v.instance_of((etree._Element, str)))
 
     # For caching
-    _html: Optional[str] = field(init=False, default=None)
+    _html: Optional[dict[tuple[bool, ...], str]] = field(init=False, default=None)
     _latex: Optional[str] = field(init=False, default=None)
     _text: Optional[str] = field(init=False, default=None)
     _xml: Optional[str] = field(init=False, default=None)
@@ -213,8 +213,11 @@ class MarkupText:
         """
         if isinstance(self._content, str):
             return xml_escape(remove_extra_whitespace(self._content))
-        if self._html is not None:
-            return self._html
+        cache_key = (allow_url,)
+        if self._html is None:
+            self._html = {}
+        elif (html := self._html.get(cache_key)) is not None:
+            return html
         element = copy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
@@ -248,11 +251,12 @@ class MarkupText:
             elif len(sub) == 0 and sub.text is None:
                 sub.text = ""
 
-        self._html = remove_extra_whitespace(stringify_children(element))
+        html = remove_extra_whitespace(stringify_children(element))
 
         # remove whitespace before or after <br/>
-        self._html = re.sub(r"\s*((<br/>)+)\s*", r"\1", self._html)
-        return self._html
+        html = re.sub(r"\s*((<br/>)+)\s*", r"\1", html)
+        self._html[cache_key] = html
+        return html
 
     def as_latex(self) -> str:
         """
