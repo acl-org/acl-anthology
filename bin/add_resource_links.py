@@ -164,10 +164,7 @@ def add_resource_links(collection_ids: list[str]) -> None:
             urls, skipped = find_resource_urls(paper.abstract)
             for link_text, reason in skipped:
                 stats["skipped"] += 1
-                level = (
-                    log.WARNING if reason in (NEEDS_CLEANUP, UNRECOGNIZED) else log.DEBUG
-                )
-                log.log(level, f"{paper.full_id}: skipped {link_text}: {reason}")
+                log.warning(f"{paper.full_id}: skipped {link_text}: {reason}")
 
             existing = {
                 normalize_key(ref.name)
