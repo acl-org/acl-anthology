@@ -113,8 +113,9 @@
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
       {{ end }}
-      {{ range $paper.urls }}
-      <dt class="text-break" style="white-space: normal">{{ .type }}:</dt>
+      {{ $url_labels := partial "url_labels.html" $paper.urls }}
+      {{ range $i, $_ := $paper.urls }}
+      <dt class="text-break" style="white-space: normal">{{ index $url_labels $i }}:</dt>
       <dd><a href="{{ .url }}">{{ .url }}</a></dd>
       {{ end }}
     </dl>
@@ -127,11 +128,12 @@
         <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(full)</small></span>
       </a>
       {{ end }}
-      {{ range $paper.urls }}
+      {{ $url_labels := partial "url_labels.html" $paper.urls }}
+      {{ range $i, $_ := $paper.urls }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center text-break" href="{{ .url }}"
-        title="Open {{ .type }} for '{{ $paper.title | htmlEscape }}'">
+        title="Open {{ index $url_labels $i }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "url_repr.html" . -}}</span>
-        <span class="px-1">{{ .type }}</span>
+        <span class="px-1">{{ index $url_labels $i }}</span>
       </a>
       {{ end }}
       {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}

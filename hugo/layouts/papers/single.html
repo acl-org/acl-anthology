@@ -119,8 +119,14 @@
       }{{ if ne (add $index 1) (len $paper.author) }},{{ end }}
       {{ end }}
     ],
-    abstract: "{{ $paper.abstract_raw }}"
+    abstract: "{{ $paper.abstract_raw }}",
+    resources: [
+      {{ range $paper.urls }}{{ if eq .type "Resource" }}"{{ .url }}",{{ end }}{{ end }}
+    ]
   };
+
+  // Must match the pattern for <url type="resource"> in data/xml/schema.rnc
+  const RESOURCE_URL_PREFIXES = ["https://github.com/", "https://zenodo.org/", "https://doi.org/10.5281/zenodo."];
 
   const deleted_authors = [];
 
@@ -130,6 +136,7 @@
     document.getElementById("paperIdSpan").textContent = paper_params.anthology_id;
     document.getElementById("paperTitle").value = paper_params.title;
     document.getElementById("paperAbstract").value = paper_params.abstract;
+    document.getElementById("paperResources").value = paper_params.resources.join("\n");
     document.getElementById("paperPDF").href = "{{ $paper.pdf }}";
     document.getElementById("paperSnapshot").href = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
     document.getElementById("paperSnapshotImg").src = "https://aclanthology.org/thumb/" + paper_params.anthology_id + "-trimmed.jpg";
@@ -323,6 +330,16 @@
     const newTitle = document.getElementById("paperTitle").value.trim();
     const newAbstract = document.getElementById("paperAbstract").value.trim();
 
+    // One resource URL per line; drop blank lines and duplicates
+    const newResources = [...new Set(
+      document.getElementById("paperResources").value.split("\n").map((x) => x.trim()).filter((x) => x)
+    )];
+    const badResources = newResources.filter((x) => !RESOURCE_URL_PREFIXES.some((p) => x.startsWith(p)) || /\s/.test(x));
+    if (badResources.length > 0) {
+      alert("Code/data links must start with one of:\n  " + RESOURCE_URL_PREFIXES.join("\n  ") + "\n\nInvalid:\n  " + badResources.join("\n  "));
+      return;
+    }
+
     const authorRows = document.querySelectorAll("#authorsContainer .author-row");
     const newAuthors = [];
     authorRows.forEach(row => {
@@ -345,6 +362,10 @@
 
     if (newAbstract !== paper_params.abstract) {
       updatedParams.abstract = newAbstract;
+    }
+
+    if (JSON.stringify(newResources) !== JSON.stringify(paper_params.resources)) {
+      updatedParams.resources = newResources;
     }
 
     const oldAuthorString = JSON.stringify(paper_params.authors);
@@ -448,6 +469,15 @@
               <label for="paperAbstract" class="form-label d-block">Abstract</label>
               <small id="abstractTitleHelp" class="form-text text-muted d-block mb-2">Correct abstract if needed. Retain XML formatting tags such as &lt;tex-math&gt;. You may use &lt;b&gt;...&lt;/b&gt; for <b>bold</b>, &lt;i&gt;...&lt;/i&gt; for <i>italic</i>, &lt;u&gt;...&lt;/u&gt; for <u>underline</u>, &lt;sc&gt;...&lt;/sc&gt; for <span style="font-variant: small-caps">small-caps</span>, &lt;tt&gt;...&lt;tt&gt; for <tt>typewriter text</tt>, &lt;url&gt;...&lt;/url&gt; for URLs, &lt;a href=...&gt; for hyperlinks, and &lt;par/&gt; for paragraph breaks.</small>
               <textarea class="form-control" id="paperAbstract" rows="6"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="paperResources" class="form-label d-block">Code and data</label>
+              <small id="resourcesHelp" class="form-text text-muted d-block mb-2">Links to code or data released with this
+                paper, one per line. Each must be a GitHub repository (https://github.com/…), a Zenodo record
+                (https://zenodo.org/…), or a Zenodo DOI (https://doi.org/10.5281/zenodo.…).</small>
+              <textarea class="form-control font-monospace" id="paperResources" rows="2"
+                aria-describedby="resourcesHelp"></textarea>
             </div>
 
             <div class="mb-3">
@@ -647,8 +677,9 @@
         <dd><a href="{{ . }}">{{ . }}</a></dd>
         {{ end }}
 
-        {{ range $paper.urls }}
-        <dt class="acl-button-row text-break" style="white-space: normal">{{ .type }}:</dt>
+        {{ $url_labels := partial "url_labels.html" $paper.urls }}
+        {{ range $i, $_ := $paper.urls }}
+        <dt class="acl-button-row text-break" style="white-space: normal">{{ index $url_labels $i }}:</dt>
         <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial
             "url_repr.html" . }}&nbsp;{{ .url }}</a></dd>
         {{ end }}
@@ -696,11 +727,12 @@
         <span class="px-1">Erratum</span>
       </a>
       {{ end }}
-      {{ range $paper.urls }}
+      {{ $url_labels := partial "url_labels.html" $paper.urls }}
+      {{ range $i, $_ := $paper.urls }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center text-break" href="{{ .url }}"
-        title="Open {{ .type }} for '{{ $paper.title | htmlEscape }}'">
+        title="Open {{ index $url_labels $i }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "url_repr.html" . -}}</span>
-        <span class="px-1">{{ .type }}</span>
+        <span class="px-1">{{ index $url_labels $i }}</span>
       </a>
       {{ end }}
       {{ if and (not $paper.retracted) (not $paper.removed) ($paper.bibtex) }}
@@ -728,7 +760,7 @@
       </a>
       {{ end }}
       <a class="btn btn-warning d-flex flex-wrap justify-content-center" href=#
-        title="Correct problems with title, author list, and abstract" onclick="showMetadataDialog()" aria-label="Suggest a correction for this paper's metadata">
+        title="Correct problems with title, author list, abstract, and code/data links" onclick="showMetadataDialog()" aria-label="Suggest a correction for this paper's metadata">
         <span class="d-none d-sm-inline"><i class="fas fa-edit"></i></span>
         <span class="ps-md-2">Fix data</span>
       </a>

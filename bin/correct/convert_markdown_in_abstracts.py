@@ -18,7 +18,9 @@
 """
 Iterates over papers in the database and performs cleanup on abstracts,
 most notably converting from Markdown to XML markup, applying smart quotes,
-and linkifying URLs.
+linkifying URLs, and moving text that was wrongly included at the end of a
+<url> (trailing punctuation, unbalanced brackets, a sentence glued onto a
+GitHub repository name) outside of the tag.
 
 Usage: convert_markdown_in_abstracts.py [options]
 
@@ -32,17 +34,12 @@ from docopt import docopt
 import logging as log
 import re
 from lxml import etree
+from xml.sax.saxutils import escape as xml_escape, unescape as xml_unescape
 
 from acl_anthology import Anthology
 from acl_anthology.utils.logging import setup_rich_logging
 
 from markdown_it import MarkdownIt
-
-assert __doc__ is not None
-args = docopt(__doc__)
-batch = args["--batch"]
-
-setup_rich_logging()
 
 md = (
     MarkdownIt(
@@ -70,6 +67,80 @@ md = (
 
 assert md.linkify
 md.linkify.set({"fuzzy_link": False, "fuzzy_email": False, "fuzzy_ip": False})
+
+URL_TRAILING_PUNCT = ".,;:!?'\"*“”‘’<>"
+URL_BRACKETS = {")": "(", "]": "[", "}": "{"}
+GITHUB_REPO_RUN_ON_RE = re.compile(
+    r"(?P<url>(?i:(?:https?://)?(?:www\.)?github\.com)/[A-Za-z0-9-]+/[A-Za-z0-9_.-]+?)"
+    r"(?P<run_on>\.(?:[A-Z][a-z]+|A))"
+)
+"""A sentence glued onto the end of a GitHub repository name, e.g. "github.com/foo/bar.Demo" (from "...github.com/foo/bar.Demo video: ...") -- a capitalized word, or the article "A".  All-caps suffixes (e.g. "Dr.ECI", "NotAI.AI") are not affected."""
+
+
+def split_url_trailing(url: str) -> tuple[str, str]:
+    """Splits text wrongly included at the end of a URL from the URL itself.
+
+    Returns:
+        A tuple `(url, trailing)` such that `url + trailing` is the input.  `trailing` contains trailing punctuation, unbalanced closing brackets, and a sentence glued onto a GitHub repository name.
+    """
+    end = len(url)
+    while end:
+        if m := GITHUB_REPO_RUN_ON_RE.fullmatch(url, endpos=end):
+            end = m.end("url")
+            continue
+        last = url[end - 1]
+        if last in URL_TRAILING_PUNCT:
+            end -= 1
+        elif last in URL_BRACKETS and url.count(last, 0, end) > url.count(
+            URL_BRACKETS[last], 0, end
+        ):
+            end -= 1
+        else:
+            break
+    if not end:  # nothing left that looks like a URL; leave unchanged
+        return url, ""
+    return url[:end], url[end:]
+
+
+def fix_url_boundaries(html: str) -> str:
+    """Moves text wrongly included at the end of a `<url>` outside of the tag."""
+
+    def repl(m: re.Match) -> str:
+        # unescape so that entities like "&gt;" aren't split in half
+        url, trailing = split_url_trailing(xml_unescape(m.group(1)))
+        return f"<url>{xml_escape(url)}</url>{xml_escape(trailing)}"
+
+    return re.sub(r"<url>([^<]+)</url>", repl, html)
+
+
+SPLIT_GITHUB_URL_RE = re.compile(
+    r"<url>((?i:https?://(?:www\.)?github\.com)/(?:[A-Za-z0-9-]+/)?)</url> (\S+)"
+)
+GITHUB_REPO_URL_RE = re.compile(
+    r"(?i:https?://(?:www\.)?github\.com)/[A-Za-z0-9-]+/[A-Za-z0-9_-][A-Za-z0-9_.-]*(?:/\S*)?"
+)
+
+NOT_A_REPO_NAME = set(
+    "a an and are as at by for from in is of on or our the to was which with".split()
+)
+"""Words following `<url>https://github.com/owner/</url>` that continue the sentence rather than the URL."""
+
+
+def join_split_github_urls(html: str) -> str:
+    """Rejoins a GitHub URL that was split by a line break in the PDF.
+
+    E.g. `<url>https://github.com/</url> owner/repo.` or `<url>https://github.com/owner/</url> repo.` becomes `<url>https://github.com/owner/repo</url>.` -- but only if the result is a link to a repository.
+    """
+
+    def repl(m: re.Match) -> str:
+        rest, trailing = split_url_trailing(m.group(2))
+        if rest.lower() in NOT_A_REPO_NAME or not GITHUB_REPO_URL_RE.fullmatch(
+            m.group(1) + rest
+        ):
+            return m.group(0)
+        return f"<url>{m.group(1)}{rest}</url>{trailing}"
+
+    return SPLIT_GITHUB_URL_RE.sub(repl, html)
 
 
 def process_md_in_xml(text: str) -> str:
@@ -141,6 +212,8 @@ def process_md_in_xml(text: str) -> str:
         r'<a href="([^"]+)">\1</a>', lambda m: "<url>" + m.group(1) + "</url>", html
     )
     html = re.sub(r"<span>(.+?)</span>", r"\1", html)
+    html = fix_url_boundaries(html)
+    html = join_split_github_urls(html)
 
     # restore LaTeX
     html = re.sub(r"<tex-math></tex-math>", lambda m: maths.pop(0), html)
@@ -197,29 +270,71 @@ assert (
 ), test_out7
 
 
-anthology = Anthology.from_within_repo()
+test_in8 = (
+    "Code: <url>https://github.com/bytedance/pasa.Demo:</url> <url>https://x.org/y</url>; "
+    "(<url>https://github.com/a/b).</url> <url>https://github.com/a/NotAI.AI</url>, "
+    "<url>https://github.com/a/b_(x)</url>; <url>https://github.com/a/b.A</url> demo; "
+    "&lt;<url>https://x.org/a&gt;].</url>"
+)
+test_out8 = process_md_in_xml(test_in8)
+assert (
+    test_out8
+    == "Code: <url>https://github.com/bytedance/pasa</url>.Demo: <url>https://x.org/y</url>; "
+    "(<url>https://github.com/a/b</url>). <url>https://github.com/a/NotAI.AI</url>, "
+    "<url>https://github.com/a/b_(x)</url>; <url>https://github.com/a/b</url>.A demo; "
+    "&lt;<url>https://x.org/a</url>&gt;]."
+), test_out8
+
+test_in9 = (
+    "Code: <url>https://github.com/</url> owner/repo-x.git. "
+    "(<url>https://github.com/owner/</url> Repo_1). "
+    "Not joined: <url>https://github.com/Self-Curation/</url> . "
+    "<url>https://github.com/</url> textflint with results, "
+    "<url>https://github.com/owner/</url> and more."
+)
+test_out9 = process_md_in_xml(test_in9)
+assert (
+    test_out9 == "Code: <url>https://github.com/owner/repo-x.git</url>. "
+    "(<url>https://github.com/owner/Repo_1</url>). "
+    "Not joined: <url>https://github.com/Self-Curation/</url> . "
+    "<url>https://github.com/</url> textflint with results, "
+    "<url>https://github.com/owner/</url> and more."
+), test_out9
 
 
-i = 0
+def main() -> None:
+    assert __doc__ is not None
+    args = docopt(__doc__)
+    batch = args["--batch"]
 
-for paper in anthology.papers():
-    if paper.abstract is not None:
-        text = paper.abstract.as_xml()
+    setup_rich_logging()
 
-        html = process_md_in_xml(text)
+    anthology = Anthology.from_within_repo()
 
-        if html != text:
-            try:
-                paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
-                i += 1
-                if i % 200 == 0:
-                    log.info(f"{i} modified")
-            except etree.XMLSyntaxError as e:
-                log.error(str(e))
-                log.info(html)
-    if i >= 200 and batch:
-        break
+    i = 0
 
-anthology.save_all()
-if batch:
-    log.info(f"Modified {i} abstracts (capped at 200; rerun for more)")
+    for paper in anthology.papers():
+        if paper.abstract is not None:
+            text = paper.abstract.as_xml()
+
+            html = process_md_in_xml(text)
+
+            if html != text:
+                try:
+                    paper.abstract = etree.fromstring("<abstract>" + html + "</abstract>")
+                    i += 1
+                    if i % 200 == 0:
+                        log.info(f"{i} modified")
+                except etree.XMLSyntaxError as e:
+                    log.error(str(e))
+                    log.info(html)
+        if i >= 200 and batch:
+            break
+
+    anthology.save_all()
+    if batch:
+        log.info(f"Modified {i} abstracts (capped at 200; rerun for more)")
+
+
+if __name__ == "__main__":
+    main()

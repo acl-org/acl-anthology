@@ -104,6 +104,7 @@
       <abstract>Recent advancements in large language models (LLMs) have showcased impressive code generation capabilities, primarily evaluated through language-to-code benchmarks. However, these benchmarks may not fully capture a model’s code understanding abilities. We introduce CodeJudge-Eval (CJ-Eval), a novel benchmark designed to assess LLMs’ code understanding abilities from the perspective of code judging rather than code generation. CJ-Eval challenges models to determine the correctness of provided code solutions, encompassing various error types and compilation issues. By leveraging a diverse set of problems and a fine-grained judging system, CJ-Eval addresses the limitations of traditional benchmarks, including the potential memorization of solutions. Evaluation of 12 well-known LLMs on CJ-Eval reveals that even state-of-the-art models struggle, highlighting the benchmark’s ability to probe deeper into models’ code understanding abilities. Our benchmark is available at <url>https://github.com/CodeLLM-Research/CodeJudge-Eval</url> .</abstract>
       <pdf hash="ea811db4"/>
       <bibkey>zhao-etal-2025-codejudge</bibkey>
+      <url type="resource">https://github.com/CodeLLM-Research/CodeJudge-Eval</url>
     </paper>
     <paper id="8">
       <!-- https://aclanthology.org/2025.coling-main.8/ -->
@@ -165,6 +166,7 @@
       <abstract>The rise of Multi-modal Pre-training highlights the necessity for a unified Multi-Modal Knowledge Graph (MMKG) representation learning framework. Such a framework is essential for embedding structured knowledge into multi-modal Large Language Models effectively, alleviating issues like knowledge misconceptions and multi-modal hallucinations. In this work, we explore the efficacy of models in accurately embedding entities within MMKGs through two pivotal tasks: Multi-modal Knowledge Graph Completion (MKGC) and Multi-modal Entity Alignment (MMEA). Building on this foundation, we propose a novel SNAG method that utilizes a Transformer-based architecture equipped with modality-level noise masking to robustly integrate multi-modal entity features in KGs. By incorporating specific training objectives for both MKGC and MMEA, our approach achieves SOTA performance across a total of ten datasets, demonstrating its versatility. Moreover, SNAG can not only function as a standalone model but also enhance other existing methods, providing stable performance improvements. Code and data are available at <url>https://github.com/zjukg/SNAG</url>.</abstract>
       <pdf hash="30692bed"/>
       <bibkey>chen-etal-2025-noise</bibkey>
+      <url type="resource">https://github.com/zjukg/SNAG</url>
     </paper>
     <paper id="12">
       <!-- https://aclanthology.org/2025.coling-main.12/ -->
@@ -185,6 +187,7 @@
       <abstract>Existing evaluations of tool learning primarily focus on validating the alignment of selected tools for large language models (LLMs) with expected outcomes. However, these approaches rely on a limited set of scenarios where answers can be pre-determined. Furthermore, a sole emphasis on outcomes disregards the complex capabilities required for LLMs to effectively use tools. To tackle this issue, we propose ToolEyes, a fine-grained system tailored for the evaluation of the LLMs’ tool learning capabilities in authentic scenarios. The system meticulously examines seven real-world scenarios, analyzing five dimensions crucial to LLMs in tool learning: format alignment, intent comprehension, behavior planning, tool selection, and answer organization. Additionally, ToolEyes incorporates a tool library boasting approximately 600 tools, serving as an intermediary between LLMs and the physical world. Evaluations involving ten LLMs across three categories reveal a preference for specific scenarios and limited cognitive abilities in tool learning. Intriguingly, expanding the model size even exacerbates the hindrance to tool learning. The code and data are available at <url>https://github.com/Junjie-Ye/ToolEyes</url>.</abstract>
       <pdf hash="28f8c590"/>
       <bibkey>ye-etal-2025-tooleyes</bibkey>
+      <url type="resource">https://github.com/Junjie-Ye/ToolEyes</url>
     </paper>
     <paper id="13">
       <!-- https://aclanthology.org/2025.coling-main.13/ -->
@@ -231,6 +234,7 @@
       <abstract>Training automatic summary fact verifiers often faces the challenge of a lack of human-labeled data. In this paper, we explore alternative way of leveraging Large Language Model (LLM) generated feedback to address the inherent limitation of using human-labeled data. We introduce FineSumFact, a large-scale dataset containing fine-grained factual feedback on summaries. We employ 10 distinct LLMs for diverse summary generation and Llama-3-70B-Instruct for feedback. We utilize this dataset to fine-tune the lightweight open-source model Llama-3-8B-Instruct, optimizing resource efficiency while maintaining high performance. Our experimental results reveal that the model trained on extensive LLM-generated datasets surpasses that trained on smaller human-annotated datasets when evaluated using human-generated test sets. Fine-tuning fact verification models with LLM feedback can be more effective and cost-efficient than using human feedback. The dataset is available at <url>https://github.com/DISL-Lab/FineSumFact</url>.</abstract>
       <pdf hash="76fc0a8f"/>
       <bibkey>oh-etal-2025-learning</bibkey>
+      <url type="resource">https://github.com/DISL-Lab/FineSumFact</url>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2025.coling-main.17/ -->
@@ -247,6 +251,7 @@
       <abstract>Recent research in federated large language models (LLMs) has primarily focused on enabling clients to fine-tune their locally deployed homogeneous LLMs collaboratively or on transferring knowledge from server-based LLMs to small language models (SLMs) at downstream clients. However, a significant gap remains in the simultaneous mutual enhancement of both the server’s LLM and clients’ SLMs. To bridge this gap, we propose FedMKT, a parameter-efficient federated mutual knowledge transfer framework for large and small language models. This framework is designed to adaptively transfer knowledge from the server’s LLM to clients’ SLMs while concurrently enhancing the LLM with clients’ unique domain insights. We facilitate token alignment using minimum edit distance (MinED) and then selective mutual knowledge transfer between client-side SLMs and a server-side LLM, aiming to collectively enhance their performance. Through extensive experiments across three distinct scenarios, we evaluate the effectiveness of FedMKT by utilizing diverse public LLMs and SLMs on a variety of NLP text generation tasks. Empirical results demonstrate that FedMKT simultaneously boosts the performance of both LLMs and SLMs. Our code has been contributed to the FATE open-source project and is now publicly accessible at <i><url>https://github.com/FederatedAI/FATE-LLM/tree/main/python/fate_llm/algo/fedmkt</url></i></abstract>
       <pdf hash="d9b69ef8"/>
       <bibkey>fan-etal-2025-fedmkt</bibkey>
+      <url type="resource">https://github.com/FederatedAI/FATE-LLM/tree/main/python/fate_llm/algo/fedmkt</url>
     </paper>
     <paper id="18">
       <!-- https://aclanthology.org/2025.coling-main.18/ -->
@@ -274,6 +279,7 @@
       <abstract>Object categories are typically organized into a multi-granularity taxonomic hierarchy. When classifying categories at different hierarchy levels, traditional uni-modal approaches focus primarily on image features, revealing limitations in complex scenarios. Recent studies integrating Vision-Language Models (VLMs) with class hierarchies have shown promise, yet they fall short of fully exploiting the hierarchical relationships. These efforts are constrained by their inability to perform effectively across varied granularity of categories. To tackle this issue, we propose a novel framework (<b>HGCLIP</b>) that effectively combines <b>CLIP</b> with a deeper exploitation of the <b>H</b>ierarchical class structure via <b>G</b>raph representation learning. We explore constructing the class hierarchy into a graph, with its nodes representing the textual or image features of each category. After passing through a graph encoder, the textual features incorporate hierarchical structure information, while the image features emphasize class-aware features derived from prototypes through the attention mechanism. Our approach demonstrates significant improvements on 11 diverse visual recognition benchmarks. Our codes are fully available at <url>https://github.com/richard-peng-xia/HGCLIP</url>.</abstract>
       <pdf hash="d530ac75"/>
       <bibkey>xia-etal-2025-hgclip</bibkey>
+      <url type="resource">https://github.com/richard-peng-xia/HGCLIP</url>
     </paper>
     <paper id="20">
       <!-- https://aclanthology.org/2025.coling-main.20/ -->
@@ -313,6 +319,7 @@
       <abstract>Multimodal Aspect-Based Sentiment Analysis (MABSA) aims to extract aspect terms from text-image pairs and identify their sentiments. Previous methods are based on the premise that the image contains the objects referred by the aspects within the text. However, this condition cannot always be met, resulting in a suboptimal performance. In this paper, we propose COnditional Relation based <i>S</i>entiment Analysis framework (CORSA). Specifically, we design a conditional relation detector (CRD) to mitigate the impact of the unmet conditional image. Moreover, we design a visual object localizer (VOL) to locate the exact condition-related visual regions associated with the aspects. With CRD and VOL, our CORSA framework takes a multi-task form. In addition, to effectively learn CORSA we conduct two types of annotations. One is the conditional relation using a pretrained referring expression comprehension model; the other is the bounding boxes of visual objects by a pretrained object detection model. Experiments on our built C-MABSA dataset show that CORSA consistently outperforms existing methods. The code and data are available at <url>https://github.com/Liuxj-Anya/CORSA</url>.</abstract>
       <pdf hash="87d00822"/>
       <bibkey>liu-etal-2025-multimodal</bibkey>
+      <url type="resource">https://github.com/Liuxj-Anya/CORSA</url>
     </paper>
     <paper id="23">
       <!-- https://aclanthology.org/2025.coling-main.23/ -->
@@ -411,6 +418,7 @@
       <abstract>Recently, many studies focus on utilizing large language models (LLMs) into educational dialogues. Especially, within liberal arts dialogues, educators must balance Humanized communication, Teaching expertise, and Safety-ethics (HTS), besides the subject knowledge itself. However, due to collecting massive amounts of HTS-compliant teaching dialogues from real world as training corpus is expensive, the outputs of existing LLMs in teaching dialogues fall short of human standards. To address this, we design a Retrieval-augmented Multi-role Multi-expert Collaboration (RAM2C) framework to automatically generate such dialogues data. Specifically, we first establish HTS-guided knowledge bases, encompassing three domain knowledge in teaching skills, psychology, and safety ethics. Then, RAM2C organizes LLMs, which are retrieval-augmented by the above different knowledge bases, into multi-experts groups with distinct roles to generate the HTS-compliant educational dialogues dataset. We then fine-tuned the LLMs using this dataset. Empirical evaluations indicate that RAM2C-empowered LLMs excel in Chinese reading teaching, offering more personalized, and ethically safe teaching response, demonstrating RAM2C’s practicality and high quality. We release the experiments at <url>https://github.com/ram2c/ram2c</url>.</abstract>
       <pdf hash="8094aeac"/>
       <bibkey>huang-etal-2025-ram2c</bibkey>
+      <url type="resource">https://github.com/ram2c/ram2c</url>
     </paper>
     <paper id="31">
       <!-- https://aclanthology.org/2025.coling-main.31/ -->
@@ -436,6 +444,7 @@
       <abstract>Transliterating related languages that use different scripts into a common script is effective for improving crosslingual transfer in downstream tasks. However, this methodology often makes pretraining a model from scratch unavoidable, as transliteration brings about new subwords not covered in existing multilingual pretrained language models (mPLMs). This is undesirable because it requires a large computation budget. A more promising way is to make full use of available mPLMs. To this end, this paper proposes a simple but effective framework: Transliterate-Merge-Initialize (TransMI). TransMI can create strong baselines for data that is transliterated into a common script by exploiting an existing mPLM and its tokenizer without any training. TransMI has three stages: (a) transliterate the vocabulary of an mPLM into a common script; (b) merge the new vocabulary with the original vocabulary; and (c) initialize the embeddings of the new subwords. We apply TransMI to three strong recent mPLMs. Our experiments demonstrate that TransMI not only preserves the mPLM’s ability to handle non-transliterated data, but also enables it to effectively process transliterated data, thereby facilitating crosslingual transfer across scripts. The results show consistent improvements of 3% to 34% for different mPLMs and tasks. We make our code and models publicly available at <url>https://github.com/cisnlp/TransMI</url>.</abstract>
       <pdf hash="284ada06"/>
       <bibkey>liu-etal-2025-transmi</bibkey>
+      <url type="resource">https://github.com/cisnlp/TransMI</url>
     </paper>
     <paper id="33">
       <!-- https://aclanthology.org/2025.coling-main.33/ -->
@@ -464,6 +473,7 @@
       <abstract>The capacity of Large Language Models (LLMs) to comprehend and reason over long contexts is pivotal for advancements in diverse fields. Yet, they still stuggle with capturing long-distance dependencies within sequences to deeply understand semantics. To address this issue, we introduce Query-aware Inference for LLMs (Q-LLM), a system designed to process extensive sequences akin to human cognition. By focusing on memory data relevant to a given query, Q-LLM can accurately capture pertinent information within a fixed window size and provide precise answers to queries. It doesn’t require extra training and can be seamlessly integrated with any LLMs. Q-LLM using LLaMA3 (QuickLLaMA) can read Harry Potter within 30s and accurately answer the questions. On widely recognized benchmarks, Q-LLM improved by 7.17% compared to the current state-of-the-art on LLaMA3, and by 3.26% on Mistral on the <tex-math>\infty</tex-math>-bench. In the Needle-in-a-Haystack and BABILong task, Q-LLM improved upon the current SOTA by 7.0% and 6.1%. Our code is in <url>https://github.com/dvlab-research/Q-LLM</url>.</abstract>
       <pdf hash="6da27795"/>
       <bibkey>li-etal-2025-quickllama</bibkey>
+      <url type="resource">https://github.com/dvlab-research/Q-LLM</url>
     </paper>
     <paper id="35">
       <!-- https://aclanthology.org/2025.coling-main.35/ -->
@@ -517,6 +527,7 @@
       <abstract>Large language models (LLMs) have shown remarkable performances across a wide range of tasks. However, the mechanisms by which these models encode tasks of varying complexities remain poorly understood. In this paper, we explore the hypothesis that LLMs process concepts of varying complexities in different layers, introducing the idea of “Concept Depth” to suggest that more complex concepts are typically acquired in deeper layers. Specifically, we categorize concepts based on their level of abstraction, defining them in the order of increasing complexity within factual, emotional, and inferential tasks. We conduct extensive probing experiments using layer-wise representations across various LLM families (Gemma, LLaMA, Qwen) on various datasets spanning the three domains of tasks. Our findings reveal that models could efficiently conduct probing for simpler tasks in shallow layers, and more complex tasks typically necessitate deeper layers for accurate understanding. Additionally, we examine how external factors, such as adding noise to the input and quantizing the model weights, might affect layer-wise representations. Our findings suggest that these factors can impede the development of a conceptual understanding of LLMs until deeper layers are explored. We hope that our proposed concept and experimental insights will enhance the understanding of the mechanisms underlying LLMs. Our codes are available at <url>https://github.com/Luckfort/CD</url>.</abstract>
       <pdf hash="e3d289e5"/>
       <bibkey>jin-etal-2025-exploring</bibkey>
+      <url type="resource">https://github.com/Luckfort/CD</url>
     </paper>
     <paper id="38">
       <!-- https://aclanthology.org/2025.coling-main.38/ -->
@@ -605,6 +616,7 @@
       <abstract>Graph collaborative filtering has made great progress in the recommender systems, but these methods often struggle with the data sparsity issue in real-world recommendation scenarios. To mitigate the effect of data sparsity, graph collaborative filtering incorporates contrastive learning as an auxiliary task to improve model performance. However, existing contrastive learning-based methods generally use a single data augmentation graph to construct the auxiliary contrastive learning task, which has problems such as loss of key information and low robustness. To address these problems, this paper proposes a Perturbation-driven Dual Auxiliary Contrastive Learning for Collaborative Filtering Recommendation (PDACL). PDACL designs structure perturbation and weight perturbation to construct two data augmentation graphs. The Structure Perturbation Augmentation (SPA) graph perturbs the topology of the user-item interaction graph, while the Weight Perturbation Augmentation (WPA) graph reconstructs the implicit feedback unweighted graph into a weighted graph similar to the explicit feedback. These two data augmentation graphs are combined with the user-item interaction graph to construct the dual auxiliary contrastive learning task to extract the self-supervised signals without losing key information and jointly optimize it together with the supervised recommendation task, to alleviate the data sparsity problem and improve the performance. Experimental results on multiple public datasets show that PDACL outperforms numerous benchmark models, demonstrating that the dual-perturbation data augmentation graph in PDACL can overcome the shortcomings of a single data augmentation graph, leading to superior recommendation results. The implementation of our work will be found at <url>https://github.com/zky77/PDACL</url>.</abstract>
       <pdf hash="0397eead"/>
       <bibkey>mu-etal-2025-perturbation</bibkey>
+      <url type="resource">https://github.com/zky77/PDACL</url>
     </paper>
     <paper id="45">
       <!-- https://aclanthology.org/2025.coling-main.45/ -->
@@ -655,9 +667,10 @@
       <author id="man-lan"><first>Man</first><last>Lan</last></author>
       <author><first>Yang</first><last>Chong</last></author>
       <pages>710–725</pages>
-      <abstract>Large Language Models (LLMs) have demonstrated impressive capabilities across a wide range of tasks. However, their proficiency and reliability in the specialized domain of financial data analysis, particularly focusing on data-driven thinking, remain uncertain. To bridge this gap, we introduce FinDABench, a comprehensive benchmark designed to evaluate the financial data analysis capabilities of LLMs within this context. The benchmark comprises 15,200 training instances and 8,900 test instances, all meticulously crafted by human experts. FinDABench assesses LLMs across three dimensions: 1) Core Ability, evaluating the models’ ability to perform financial indicator calculation and corporate sentiment risk assessment; 2) Analytical Ability, determining the models’ ability to quickly comprehend textual information and analyze abnormal financial reports; and 3) Technical Ability, examining the models’ use of technical knowledge to address real-world data analysis challenges involving analysis generation and charts visualization from multiple perspectives. We will release FinDABench, and the evaluation scripts at <url>https://github.com/xxx</url>. FinDABench aims to provide a measure for in-depth analysis of LLM abilities and foster the advancement of LLMs in the field of financial data analysis.</abstract>
+      <abstract>Large Language Models (LLMs) have demonstrated impressive capabilities across a wide range of tasks. However, their proficiency and reliability in the specialized domain of financial data analysis, particularly focusing on data-driven thinking, remain uncertain. To bridge this gap, we introduce FinDABench, a comprehensive benchmark designed to evaluate the financial data analysis capabilities of LLMs within this context. The benchmark comprises 15,200 training instances and 8,900 test instances, all meticulously crafted by human experts. FinDABench assesses LLMs across three dimensions: 1) Core Ability, evaluating the models’ ability to perform financial indicator calculation and corporate sentiment risk assessment; 2) Analytical Ability, determining the models’ ability to quickly comprehend textual information and analyze abnormal financial reports; and 3) Technical Ability, examining the models’ use of technical knowledge to address real-world data analysis challenges involving analysis generation and charts visualization from multiple perspectives. We will release FinDABench, and the evaluation scripts at <url>https://github.com/cubenlp/FinDABench</url>. FinDABench aims to provide a measure for in-depth analysis of LLM abilities and foster the advancement of LLMs in the field of financial data analysis.</abstract>
       <pdf hash="3853b8b4"/>
       <bibkey>liu-etal-2025-findabench</bibkey>
+      <url type="resource">https://github.com/cubenlp/FinDABench</url>
     </paper>
     <paper id="49">
       <!-- https://aclanthology.org/2025.coling-main.49/ -->
@@ -764,6 +777,7 @@
       <abstract>Prior studies on Aspect-level Sentiment Classification (ALSC) emphasize modeling interrelationships among aspects and contexts but overlook the crucial role of aspects themselves as essential domain knowledge. To this end, we propose AGCL, a novel Aspect Graph Construction and Learning method, aimed at furnishing the model with finely tuned aspect information to bolster its task-understanding ability. AGCL’s pivotal innovations reside in Aspect Graph Construction (AGC) and Aspect Graph Learning (AGL), where AGC harnesses intrinsic aspect connections to construct the domain aspect graph, and then AGL iteratively updates the introduced aspect graph to enhance its domain expertise, making it more suitable for the ALSC task. Hence, this domain aspect graph can serve as a bridge connecting unseen aspects with seen aspects, thereby enhancing the model’s generalization capability. Experiment results on three widely used datasets demonstrate the significance of aspect information for ALSC and highlight AGL’s superiority in aspect learning, surpassing state-of-the-art baselines greatly. Code is available at <url>https://github.com/jian-projects/agcl</url>.</abstract>
       <pdf hash="19f51009"/>
       <bibkey>jian-etal-2025-agcl</bibkey>
+      <url type="resource">https://github.com/jian-projects/agcl</url>
     </paper>
     <paper id="57">
       <!-- https://aclanthology.org/2025.coling-main.57/ -->
@@ -892,6 +906,7 @@
       <abstract>Previous work on empathetic response generation mainly focused on utilizing the speaker’s emotions to generate responses. However, the performance of identifying fine-grained emotions is limited, introducing cascading errors to empathetic response generation. Moreover, due to the conflict between the information in the dialogue history and the recognized emotions, previous work often generated general and uninformative responses. To address the above issues, we propose a novel framework NEC (Non-Emotion-Centric empathetic dialogue generation) based on contrastive learning and context-sensitive entity and social commonsense, in which the frequent replies and sentences with incorrect emotions are punished through contrastive learning, thereby improving the empathy, diversity and information of the responses. The experimental results demonstrate that our NEC enhances the quality of empathetic generation and generates more diverse responses in comparison with the state-of-the-art baselines.The code will be available at <url>https://github.com/huangfu170/NEC-empchat</url></abstract>
       <pdf hash="2195c112"/>
       <bibkey>huangfu-etal-2025-non</bibkey>
+      <url type="resource">https://github.com/huangfu170/NEC-empchat</url>
     </paper>
     <paper id="67">
       <!-- https://aclanthology.org/2025.coling-main.67/ -->
@@ -965,6 +980,7 @@
       <abstract>Jailbreak attacks craft specific prompts or append adversarial suffixes to prompts, thereby inducing language models to generate harmful or unethical content and bypassing the model’s safety guardrails. With the recent blossom of large language models (LLMs), there’s a growing focus on jailbreak attacks to probe their safety. While current white-box attacks typically focus on meticulously identifying adversarial suffixes for specific models, their effectiveness and efficiency diminish when applied to different LLMs. In this paper, we propose a Monte Carlo Tree Search (MCTS) based Prompt Auto-generation (MPA) method to enhance the effectiveness and efficiency of attacks across various models. MPA automatically searches for and generates adversarial suffixes for valid jailbreak attacks. Specifically, we first identify a series of action candidates that could potentially trick LLMs into providing harmful responses. To streamline the exploration of adversarial suffixes, we design a prior confidence probability for each MCTS node. We then iteratively auto-generate adversarial prompts using the MCTS framework. Extensive experiments on multiple open-source models (like Llama, Gemma, and Mistral) and closed-source models (such as ChatGPT) show that our proposed MPA surpasses existing methods in search efficiency as well as attack effectiveness. The codes are available at <url>https://github.com/KDEGroup/MPA</url>.</abstract>
       <pdf hash="77658e96"/>
       <bibkey>wu-etal-2025-monte</bibkey>
+      <url type="resource">https://github.com/KDEGroup/MPA</url>
     </paper>
     <paper id="72">
       <!-- https://aclanthology.org/2025.coling-main.72/ -->
@@ -1196,6 +1212,7 @@
       <abstract>Retrieval-Augmented-Generation and Generation-Augmented-Generation have been proposed to enhance the knowledge required for question answering with Large Language Models (LLMs) by leveraging richer context. However, the former relies on external resources, and both require incorporating explicit documents into the context, which increases execution costs and susceptibility to noise data during inference. Recent works indicate that LLMs model rich knowledge, but it is often not effectively activated and awakened. Inspired by this, we propose a novel knowledge-augmented framework, Awakening-Augmented-Generation (AAG), which mimics the human ability to answer questions using only thinking and recalling to compensate for knowledge gaps, thereby awaking relevant knowledge in LLMs without relying on external resources. AAG consists of two key components for awakening richer context. Explicit awakening fine-tunes a context generator to create a synthetic, compressed document that functions as symbolic context. Implicit awakening utilizes a hypernetwork to generate adapters based on the question and synthetic document, which are inserted into LLMs to serve as parameter context. Experimental results on three datasets demonstrate that AAG exhibits significant advantages in both open-domain and closed-book settings, as well as in out-of-distribution generalization. Our code will be available at <url>https://github.com/Xnhyacinth/IAG</url>.</abstract>
       <pdf hash="3590ebe3"/>
       <bibkey>liao-etal-2025-awakening</bibkey>
+      <url type="resource">https://github.com/Xnhyacinth/IAG</url>
     </paper>
     <paper id="90">
       <!-- https://aclanthology.org/2025.coling-main.90/ -->
@@ -1234,6 +1251,7 @@
       <abstract>Session-based recommendation focuses on predicting the next item a user will interact with based on sequences of anonymous user sessions. A significant challenge in this field is data sparsity due to the typically short-term interactions. Most existing methods rely heavily on users’ current interactions, overlooking the wealth of auxiliary information available. To address this, we propose a novel model, the Multi-Graph Co-Training model (MGCOT), which leverages not only the current session graph but also similar session graphs and a global item relation graph. This approach allows for a more comprehensive exploration of intrinsic relationships and better captures user intent from multiple views, enabling session representations to complement each other. Additionally, MGCOT employs multi-head attention mechanisms to effectively capture relevant session intent and uses contrastive learning to form accurate and robust session representations. Extensive experiments on three datasets demonstrate that MGCOT significantly enhances the performance of session-based recommendations, particularly on the Diginetica dataset, achieving improvements up to 2.00% in P@20 and 10.70% in MRR@20. Resources have been made publicly available in our GitHub repository <url>https://github.com/liang-tian-tian/MGCOT</url>.</abstract>
       <pdf hash="82383bde"/>
       <bibkey>yang-liang-2025-multi</bibkey>
+      <url type="resource">https://github.com/liang-tian-tian/MGCOT</url>
     </paper>
     <paper id="93">
       <!-- https://aclanthology.org/2025.coling-main.93/ -->
@@ -1363,6 +1381,7 @@
       <abstract>With the emergence of large language models (LLMs) and their ability to perform a variety of tasks, their application in recommender systems (RecSys) has shown promise. However, we are facing significant challenges when deploying LLMs into RecSys, such as limited prompt length, unstructured item information, and un-constrained generation of recommendations, leading to sub-optimal performance. To address these issues, we propose a novel Taxonomy-guided Recommendation (TaxRec) framework to empower LLM with category information in a systematic approach. Specifically, TaxRec features a two-step process: one-time taxonomy categorization and LLM-based recommendation. In the one-time taxonomy categorization phase, we organize and categorize items, ensuring clarity and structure of item information. In the LLM-based recommendation phase, we feed the structured items into LLM prompts, achieving efficient token utilization and controlled feature generation. This enables more accurate, contextually relevant, and zero-shot recommendations without the need for domain-specific fine-tuning. Experimental results demonstrate that TaxRec significantly enhances recommendation quality compared to traditional zero-shot approaches, showcasing its efficacy as a personal recommender with LLMs. Code is available at: <url>https://github.com/yueqingliang1/TaxRec</url>.</abstract>
       <pdf hash="467c680c"/>
       <bibkey>liang-etal-2025-taxonomy</bibkey>
+      <url type="resource">https://github.com/yueqingliang1/TaxRec</url>
     </paper>
     <paper id="103">
       <!-- https://aclanthology.org/2025.coling-main.103/ -->
@@ -1720,6 +1739,7 @@
       <abstract>NLP datasets may still contain annotation errors, even when they are manually annotated. Researchers have attempted to develop methods to automatically reduce the adverse effect of errors in datasets. However, existing methods are time-consuming because they require many trained models to detect errors. This paper proposes a time-saving method that utilizes a tokenization technique called subword regularization to simulate multiple error detection models for detecting errors. Our proposed method, SubRegWeigh, can perform annotation weighting four to five times faster than the existing method. Additionally, SubRegWeigh improved performance in document classification and named entity recognition tasks. In experiments with pseudo-incorrect labels, SubRegWeigh clearly identifies pseudo-incorrect labels as annotation errors. Our code is available at <url>https://github.com/4ldk/SubRegWeigh</url>.</abstract>
       <pdf hash="9c107600"/>
       <bibkey>tsuji-etal-2025-subregweigh</bibkey>
+      <url type="resource">https://github.com/4ldk/SubRegWeigh</url>
     </paper>
     <paper id="131">
       <!-- https://aclanthology.org/2025.coling-main.131/ -->
@@ -1966,6 +1986,7 @@
       <abstract>So far, the task of Scientific Query-Focused Summarization (Sci-QFS) has lagged in development when compared to other areas of Scientific Natural Language Processing because of the lack of data. In this work, we propose a methodology to take advantage of existing collections of academic papers to obtain large-scale datasets for this task automatically. After applying it to the papers from our reading group, we introduce a novel dataset for Sci-QFS composed of 8,695 examples, each one with a query, the sentences of the full text from a paper and the relevance labels for each. After testing several classical and state-of-the-art embedding models on this data, we found that the task of Sci-QFS is far from being solved, although it is relatively straightforward for humans. Surprisingly, we found that classical methods outperformed modern pre-trained Deep Language Models (sometimes by a large margin), showing the need for large datasets to better fine-tune the latter. We share our experiments, data and models at <url>https://github.com/jarobyte91/rouge_sciqfs</url>.</abstract>
       <pdf hash="58da1d95"/>
       <bibkey>ramirez-orta-etal-2025-rouge</bibkey>
+      <url type="resource">https://github.com/jarobyte91/rouge_sciqfs</url>
     </paper>
     <paper id="150">
       <!-- https://aclanthology.org/2025.coling-main.150/ -->
@@ -2107,6 +2128,7 @@
       <abstract>Grooming minors for sexual exploitation become an increasingly significant concern in online conversation platforms. For a safer online experience for minors, machine learning models have been proposed to tap into explicit textual remarks and automate detecting predatory conversations. Such models, however, fall short of real-world applications for the sparse distribution of predatory conversations. In this paper, we propose backtranslation augmentation to augment training datasets with more predatory conversations. Through our experiments on 8 languages from 4 language families using 3 neural translators, we demonstrate that backtranslation augmentation improves models’ performance with fewer training epochs for better classification efficacy. Our code and experimental results are available at <url>https://github.com/fani-lab/osprey/tree/coling25</url>.</abstract>
       <pdf hash="2bdb9444"/>
       <bibkey>waezi-fani-2025-enhancing</bibkey>
+      <url type="resource">https://github.com/fani-lab/osprey/tree/coling25</url>
     </paper>
     <paper id="161">
       <!-- https://aclanthology.org/2025.coling-main.161/ -->
@@ -2144,6 +2166,7 @@
       <abstract>Retrieval-Augmented Generation (RAG) demonstrates great value in alleviating outdated knowledge or hallucination by supplying LLMs with updated and relevant knowledge. However, RAG still faces several challenges in tackling complex multi-hop queries, which require LLMs to perform accurate reasoning and retrieval at each step. Inspired by the human reasoning process, where we progressively search for missing information after acquiring useful clues, it is natural to question whether LLMs have similar capabilities. In this work, we first experimentally verified the ability of LLMs to extract information from the retrieved knowledge as well as to know what is still missing. Based on the above discovery, we propose a Missing Information Guided Retrieve-Extraction-Solving paradigm (MIGRES), where we leverage the identification of missing information to generate a targeted query that steers the subsequent knowledge retrieval. Besides, we design a sentence-level re-ranking filtering approach to filter the irrelevant content from the document, along with the information extraction capability of LLMs to extract useful information from denoised documents. Extensive experiments conducted on multiple public datasets reveal the superiority of the proposed MIGRES method, and analytical experiments demonstrate the effectiveness of our proposed modules. Code and data are released in <url>https://github.com/AdelWang/MIGRES</url>.</abstract>
       <pdf hash="614a8e8a"/>
       <bibkey>wang-etal-2025-llms</bibkey>
+      <url type="resource">https://github.com/AdelWang/MIGRES</url>
     </paper>
     <paper id="164">
       <!-- https://aclanthology.org/2025.coling-main.164/ -->
@@ -2177,6 +2200,7 @@
       <abstract>Recent studies have shown that post-aligning multilingual pretrained language models (mPLMs) using alignment objectives on both original and transliterated data can improve crosslingual alignment. This improvement further leads to better crosslingual transfer performance. However, it remains unclear how and why a better crosslingual alignment is achieved, as this technique only involves transliterations, and does not use any parallel data. This paper attempts to explicitly evaluate the crosslingual alignment and identify the key elements in transliteration-based approaches that contribute to better performance. For this, we train multiple models under varying setups for two pairs of related languages: (1) Polish and Ukrainian and (2) Hindi and Urdu. To assess alignment, we define four types of similarities based on sentence representations. Our experimental results show that adding transliterations alone improves the overall similarities, even for random sentence pairs. With the help of auxiliary transliteration-based alignment objectives, especially the contrastive objective, the model learns to distinguish matched from random pairs, leading to better crosslingual alignment. However, we also show that better alignment does not always yield better downstream performance, suggesting that further research is needed to clarify the connection between alignment and performance. The code implementation is based on <url>https://github.com/cisnlp/Transliteration-PPA</url>.</abstract>
       <pdf hash="67e55a3c"/>
       <bibkey>liu-etal-2025-transliterations</bibkey>
+      <url type="resource">https://github.com/cisnlp/Transliteration-PPA</url>
     </paper>
     <paper id="166">
       <!-- https://aclanthology.org/2025.coling-main.166/ -->
@@ -2190,6 +2214,7 @@
       <abstract>Handwritten text generation (HTG) aims to synthesize handwritten samples by imitating a specific writer, which has a wide range of applications and thus has significant research value. However, current studies on HTG are confronted with a main bottleneck: dominant models lack the ability to perceive and integrate handwriting styles, which affects the realism of the synthesized samples. In this paper, we propose GL-GAN, which effectively captures and integrates global and local styles. Specifically, we propose a Hybrid Style Encoder (HSE) that combines a state space model (SSM) and convolution to capture multilevel style features through various receptive fields. The captured style features are then fed to the proposed Dynamic Feature Enhancement Module (DFEM), which integrates these features by adaptively modeling the entangled relationships between multilevel styles and removing redundant details. Extensive experiments on two widely used handwriting datasets demonstrate that our GL-GAN is an effective HTG model and outperforms state-of-the-art models remarkably. Our code is publicly available at:<url>https://github.com/Fyzjym/GL-GAN</url>.</abstract>
       <pdf hash="ae6cf411"/>
       <bibkey>wang-etal-2025-gl</bibkey>
+      <url type="resource">https://github.com/Fyzjym/GL-GAN</url>
     </paper>
     <paper id="167">
       <!-- https://aclanthology.org/2025.coling-main.167/ -->
@@ -2429,6 +2454,7 @@
       <abstract>With the rapid advancements in multimodal large language models, evaluating their multimodal mathematical capabilities continues to receive wide attention. Although datasets such as MathVista have been introduced for evaluating mathematical capabilities in multimodal scenarios, there remains a lack of evaluation tools and datasets tailored for fine-grained assessment in Chinese K12 education. To systematically evaluate the ability of multimodal large models to solve Chinese multimodal mathematical problems, we propose a Chinese Multi-modal Math Skill Evaluation Benchmark (CMMaTH), containing 23,856 multimodal K12 math related questions, making it the largest Chinese multimodal mathematical problem benchmark to date. CMMaTH includes questions ranging from elementary to high school levels, offering greater diversity in problem types, solution goals, visual elements, detailed knowledge points, and standard solution annotations. To facilitate stable, fast, and cost-free model evaluation, we have developed an open-source tool called GradeGPT, which is integrated with the CMMaTH dataset. Our data and code are available at <url>https://github.com/zzli2022/CMMaTH</url>.</abstract>
       <pdf hash="5c1f478d"/>
       <bibkey>li-etal-2025-cmmath</bibkey>
+      <url type="resource">https://github.com/zzli2022/CMMaTH</url>
     </paper>
     <paper id="185">
       <!-- https://aclanthology.org/2025.coling-main.185/ -->
@@ -2717,6 +2743,7 @@
       <abstract>Large language models (LLMs) have demonstrated impressive performance across various domains. However, for clinical diagnosis, higher expectations are required for LLM’s reliability and sensitivity: thinking like physicians and remaining sensitive to key medical information that affects diagnostic reasoning, as subtle variations can lead to different diagnosis results. Yet, existing works focus mainly on investigating the sensitivity of LLMs to irrelevant context and overlook the importance of key information. In this paper, we investigate the sensitivity of LLMs, i.e. GPT-3.5, GPT-4, Gemini, Claude3 and LLaMA2-7b, to key medical information by introducing different perturbation strategies. The evaluation results highlight the limitations of current LLMs in remaining sensitive to key medical information for diagnostic decision-making. The evolution of LLMs must focus on improving their reliability, enhancing their ability to be sensitive to key information, and effectively utilizing this information. These improvements will enhance human trust in LLMs and facilitate their practical application in real-world scenarios. Our code and dataset are available at <url>https://github.com/chenwei23333/DiagnosisQA</url>.</abstract>
       <pdf hash="21994123"/>
       <bibkey>yan-etal-2025-llm</bibkey>
+      <url type="resource">https://github.com/chenwei23333/DiagnosisQA</url>
     </paper>
     <paper id="208">
       <!-- https://aclanthology.org/2025.coling-main.208/ -->
@@ -2744,6 +2771,7 @@
       <abstract>Entity alignment (EA) aims to match identical entities across different knowledge graphs (KGs). Graph neural network-based entity alignment methods have achieved promising results in Euclidean space. However, KGs often contain complex local and hierarchical structures, which are hard to represent in a single space. In this paper, we propose a novel method named as UniEA, which unifies dual-space embedding to preserve the intrinsic structure of KGs. Specifically, we simultaneously learn graph structure embeddings in both Euclidean and hyperbolic spaces to maximize the consistency between embeddings in the two spaces. Moreover, we employ contrastive learning to mitigate the misalignment issues caused by similar entities, where embeddings of similar neighboring entities become too close. Extensive experiments on benchmark datasets demonstrate that our method achieves state-of-the-art performance in structure-based EA. Our code is available at <url>https://github.com/wonderCS1213/UniEA</url>.</abstract>
       <pdf hash="cf9a3859"/>
       <bibkey>wang-etal-2025-unifying</bibkey>
+      <url type="resource">https://github.com/wonderCS1213/UniEA</url>
     </paper>
     <paper id="210">
       <!-- https://aclanthology.org/2025.coling-main.210/ -->
@@ -2822,6 +2850,7 @@
       <abstract>Small Language Models (SLMs) are attracting attention due to the high computational demands and privacy concerns of Large Language Models (LLMs). Some studies fine-tune SLMs using Chains of Thought (CoT) data distilled from LLMs, aiming to enhance their reasoning ability. Furthermore, Some CoT distillation methods introduce external symbolic knowledge into the generation process to improve the limited knowledge memory, reasoning ability and out-of-domain (OOD) generalization of SLMs. However, the introduction of symbolic knowledge increases computational overhead and introduces potential noise. In this paper, we introduce SKIntern, an innovative approach that empowers SLMs to internalize symbolic knowledge and few-shot examples gradually through a progressive fine-tuning process, guided by a predefined linear decay schedule under curriculum learning. By efficiently internalizing knowledge, SKIntern reduces computational overhead and speeds up the reasoning process by focusing solely on the question during inference. It outperforms state-of-the-art baselines by over 5%, while reducing inference costs (measured in FLOPs) by up to <tex-math>4\times</tex-math> across a wide range of SLMs in both in-domain (ID) and out-of-domain (OOD) tasks. Our code will be available at <url>https://github.com/Xnhyacinth/SKIntern</url>.</abstract>
       <pdf hash="825913b5"/>
       <bibkey>liao-etal-2025-skintern</bibkey>
+      <url type="resource">https://github.com/Xnhyacinth/SKIntern</url>
     </paper>
     <paper id="216">
       <!-- https://aclanthology.org/2025.coling-main.216/ -->
@@ -2865,6 +2894,7 @@
       <abstract>Retrieval Augmented Generation (RAG) has proven to be highly effective in boosting the generative performance of language model in knowledge-intensive tasks. However, existing RAG framework either indiscriminately perform retrieval or rely on rigid single-label classifiers to select retrieval methods, leading to inefficiencies and suboptimal performance across queries of varying complexity. To address these challenges, we propose a reinforcement learning-based framework that dynamically selects the most suitable retrieval strategy based on query complexity. To address these challenges, we propose a reinforcement learning-based framework that dynamically selects the most suitable retrieval strategy based on query complexity. Our approach leverages a multi-armed bandit algorithm, which treats each retrieval method as a distinct “arm” and adapts the selection process by balancing exploration and exploitation. Additionally, we introduce a dynamic reward function that balances accuracy and efficiency, penalizing methods that require more retrieval steps, even if they lead to a correct result. Our method achieves new state of the art results on multiple single-hop and multi-hop datasets while reducing retrieval costs. Our code are available at <url>https://github.com/FUTUREEEEEE/MBA</url>.</abstract>
       <pdf hash="a81f4f26"/>
       <bibkey>tang-etal-2025-mba</bibkey>
+      <url type="resource">https://github.com/FUTUREEEEEE/MBA</url>
     </paper>
     <paper id="219">
       <!-- https://aclanthology.org/2025.coling-main.219/ -->
@@ -2890,6 +2920,7 @@
       <abstract>Backdoor attacks remain significant security threats to generative large language models (LLMs). Since generative LLMs output sequences of high-dimensional token logits instead of low-dimensional classification logits, most existing backdoor defense methods designed for discriminative models like BERT are ineffective for generative LLMs. Inspired by the observed differences in learning behavior between backdoor and clean mapping in the frequency space, we transform gradients of each training sample, directly influencing parameter updates, into the frequency space. Our findings reveal a distinct separation between the gradients of backdoor and clean samples in the frequency space. Based on this phenomenon, we propose Gradient Clustering in the Frequency Space for Backdoor Sample Filtering (GraCeFul), which leverages sample-wise gradients in the frequency space to effectively identify backdoor samples without requiring retraining LLMs. Experimental results show that GraCeFul outperforms baselines significantly. Notably, GraCeFul exhibits remarkable computational efficiency, achieving nearly 100% recall and F1 scores in identifying backdoor samples, reducing the average success rate of various backdoor attacks to 0% with negligible drops in clean accuracy across multiple free-style question answering datasets. Additionally, GraCeFul generalizes to Llama-2 and Vicuna. The codes are publicly available at <url>https://github.com/ZrW00/GraceFul</url>.</abstract>
       <pdf hash="492af0be"/>
       <bibkey>wu-etal-2025-gracefully</bibkey>
+      <url type="resource">https://github.com/ZrW00/GraceFul</url>
     </paper>
     <paper id="221">
       <!-- https://aclanthology.org/2025.coling-main.221/ -->
@@ -3120,6 +3151,7 @@
       <abstract>Graph unlearning emerges as a crucial step to eliminate the impact of deleted elements from a trained model. However, unlearning on the knowledge graph (KG) has not yet been extensively studied. We remark that KG unlearning is non-trivial because KG is distinctive from general graphs. In this paper, we first propose a new unlearning method based on schema for KG. Specifically, we update the representation of the deleted element’s neighborhood with an unlearning object that regulates the affinity between the affected neighborhood and the instances within the same schema. Second, we raise a new task: schema unlearning. Given a schema graph to be deleted, we remove all instances matching the pattern and make the trained model forget the removed instances. Last, we evaluate the proposed unlearning method on various KG embedding models with benchmark datasets. Our codes are available at <url>https://github.com/NKUShaw/KGUnlearningBySchema</url>.</abstract>
       <pdf hash="9efd1a85"/>
       <bibkey>xiao-etal-2025-knowledge</bibkey>
+      <url type="resource">https://github.com/NKUShaw/KGUnlearningBySchema</url>
     </paper>
     <paper id="239">
       <!-- https://aclanthology.org/2025.coling-main.239/ -->
@@ -3239,6 +3271,7 @@
       <abstract>This study investigates the effectiveness of Large Language Models (LLMs) for zero-shot keyphrase extraction (KE). We propose and evaluate four prompting strategies: vanilla, role prompting, candidate-based prompting, and hybrid prompting. Experiments conducted on six widely-used KE benchmark datasets demonstrate that Llama3-8B-Instruct with vanilla prompting outperforms state-of-the-art unsupervised methods, PromptRank, by an average of 9.43%, 7.68%, and 4.82% in F1@5, F1@10, and F1@15, respectively. Hybrid prompting, which combines the strengths of vanilla and candidate-based prompting, further enhances overall performance. Moreover role prompting, which assigns a task-related role to LLMs, consistently improves performance across various prompting strategies. We also explore the impact of model size and different LLM series: GPT-4o, Gemma2, and Qwen2. Results show that Llama3 and Gemma2 demonstrate the strongest zero-shot KE performance, with hybrid prompting consistently enhancing results across most LLMs. We hope this study provides insights to researchers exploring LLMs in KE tasks, as well as practical guidance for model selection in real-world applications. Our code is available at <url>https://github.com/kangnlp/Zero-shot-KPE-with-LLMs</url>.</abstract>
       <pdf hash="5feb9cfe"/>
       <bibkey>kang-shin-2025-empirical</bibkey>
+      <url type="resource">https://github.com/kangnlp/Zero-shot-KPE-with-LLMs</url>
     </paper>
     <paper id="249">
       <!-- https://aclanthology.org/2025.coling-main.249/ -->
@@ -3349,6 +3382,7 @@
       <abstract>With the prevalence of Large Language Models (LLMs), recent studies have shifted paradigms and leveraged LLMs to tackle the challenging task of Text-to-SQL. Because of the complexity of real world databases, previous works adopt the retrieve-then-generate framework to retrieve relevant database schema and then to generate the SQL query. However, efficient embedding-based retriever suffers from lower retrieval accuracy, and more accurate LLM-based retriever is far more expensive to use, which hinders their applicability for broader applications. To overcome this issue, this paper proposes Gen-SQL, a novel generate-ground-regenerate framework, where we exploit prior knowledge from the LLM to enhance embedding-based retriever and reduce cost. Experiments on several datasets are conducted to demonstrate the effectiveness and scalability of our proposed method. We release our code and data at <url>https://github.com/jieshi10/gensql</url>.</abstract>
       <pdf hash="2a001208"/>
       <bibkey>shi-etal-2025-gen</bibkey>
+      <url type="resource">https://github.com/jieshi10/gensql</url>
     </paper>
     <paper id="257">
       <!-- https://aclanthology.org/2025.coling-main.257/ -->
@@ -3386,6 +3420,7 @@
       <abstract>Entities are important to understanding literary works, which emphasize characters, plots and environment. The research on entity recognition, especially nested entity recognition in the literary domain is still insufficient partly due to insufficient annotated data. To address this issue, we construct the first Genre-oriented Corpus for Entity Recognition in Chinese Web Novels, namely GenWebNovel, comprising 400 chapters totaling 1,214,283 tokens under two genres, XuanHuan (Eastern Fantasy) and History. Based on the corpus, we analyze the distribution of different types of entities, including person, location, and organization. We also compare the nesting patterns of nested entities between GenWebNovel and the English corpus LitBank. Even though both belong to the literary domain, entities in different genres share few overlaps, making genre adaptation of NER (Named Entity Recognition) a hard problem. We propose a novel method that utilizes a pre-trained language model as an In-context learning example retriever to boost the performance of large language models. Our experiments show that this approach significantly enhances entity recognition, matching state-of-the-art (SOTA) models without requiring additional training data. Our code, dataset, and model are available at <url>https://github.com/hjzhao73/GenWebNovel</url>.</abstract>
       <pdf hash="a966a83e"/>
       <bibkey>zhao-etal-2025-genwebnovel</bibkey>
+      <url type="resource">https://github.com/hjzhao73/GenWebNovel</url>
     </paper>
     <paper id="260">
       <!-- https://aclanthology.org/2025.coling-main.260/ -->
@@ -3400,6 +3435,7 @@
       <abstract>Ensuring the safety of large language models (LLMs) is paramount, yet identifying potential vulnerabilities is challenging. While manual red teaming is effective, it is time-consuming, costly and lacks scalability. Automated red teaming (ART) offers a more cost-effective alternative, automatically generating adversarial prompts to expose LLM vulnerabilities. However, in current ART efforts, a robust framework is absent, which explicitly frames red teaming as an effectively learnable task. To address this gap, we propose Automated Progressive Red Teaming (APRT) as an effectively learnable framework. APRT leverages three core modules: an Intention Expanding LLM that generates diverse initial attack samples, an Intention Hiding LLM that crafts deceptive prompts, and an Evil Maker to manage prompt diversity and filter ineffective samples. The three modules collectively and progressively explore and exploit LLM vulnerabilities through multi-round interactions. In addition to the framework, we further propose a novel indicator, Attack Effectiveness Rate (AER) to mitigate the limitations of existing evaluation metrics. By measuring the likelihood of eliciting unsafe but seemingly helpful responses, AER aligns closely with human evaluations. Extensive experiments with both automatic and human evaluations, demonstrate the effectiveness of APRT across both open- and closed-source LLMs. Specifically, APRT effectively elicits 54% unsafe yet useful responses from Meta’s Llama-3-8B-Instruct, 50% from GPT-4o (API access), and 39% from Claude-3.5 (API access), showcasing its robust attack capability and transferability across LLMs (especially from open-source LLMs to closed-source LLMs). The code and seed data are available at <url>https://github.com/tjunlp-lab/APRT</url>.</abstract>
       <pdf hash="0beadcdb"/>
       <bibkey>jiang-etal-2025-automated</bibkey>
+      <url type="resource">https://github.com/tjunlp-lab/APRT</url>
     </paper>
     <paper id="261">
       <!-- https://aclanthology.org/2025.coling-main.261/ -->
@@ -3501,6 +3537,7 @@
       <abstract>Making analogies is fundamental to cognition. Proportional analogies, which consist of four terms, are often used to assess linguistic and cognitive abilities. For instance, completing analogies like “Oxygen is to Gas as &lt; blank &gt; is to &lt; blank &gt;" requires identifying the semantic relationship (e.g., “type of”) between the first pair of terms (“Oxygen” and “Gas”) and finding a second pair that shares the same relationship (e.g., “Aluminum” and “Metal”). In this work, we introduce a 15K Multiple-Choice Question Answering (MCQA) dataset for proportional analogy completion and evaluate the performance of contemporary Large Language Models (LLMs) in various knowledge-enhanced prompt settings. Specifically, we augment prompts with three types of knowledge: exemplar, structured, and targeted. Our results show that despite extensive training data, solving proportional analogies remains challenging for current LLMs, with the best model achieving an accuracy of 55%. Notably, we find that providing targeted knowledge can better assist models in completing proportional analogies compared to providing exemplars or collections of structured knowledge. Our code and data are available at: <url>https://github.com/Thiliniiw/KnowledgePrompts/</url></abstract>
       <pdf hash="4c7bde60"/>
       <bibkey>wijesiriwardene-etal-2025-knowledgeprompts</bibkey>
+      <url type="resource">https://github.com/Thiliniiw/KnowledgePrompts</url>
     </paper>
     <paper id="269">
       <!-- https://aclanthology.org/2025.coling-main.269/ -->
@@ -3594,6 +3631,7 @@
       <abstract>Sentence ordering is the task of rearranging a set of unordered sentences into a coherent and logically consistent sequence. Recent work has primarily used pre-trained language models, achieving significant success in the task. However, existing sentence ordering corpora are predominantly in English, and comprehensive benchmark datasets for non-English languages are unavailable. Meanwhile, current datasets often insert specific markers into paragraphs, inadvertently making the logical sequence between sentences more apparent and reducing the models’ ability to handle genuinely unordered sentences in real applications. To address these limitations, we develop C3LRSO, a high-quality Chinese sentence ordering dataset that overcomes the aforementioned shortcomings by providing genuinely unordered sentences without artificial segmentation cues. Furthermore, given the outstanding performance of large language models on NLP tasks, we evaluate these models on our dataset for this task. Additionally, we propose a simple yet effective parameter-free approach that outperforms existing methods on this task. Experiments demonstrate the challenging nature of the dataset and the strong performance of our proposed method. These findings highlight the potential for further research in sentence ordering and the development of more robust language models. Our dataset is freely available at <url>https://github.com/JasonGuo1/C3LRSO</url>.</abstract>
       <pdf hash="5c0b4e58"/>
       <bibkey>guo-etal-2025-c3lrso</bibkey>
+      <url type="resource">https://github.com/JasonGuo1/C3LRSO</url>
     </paper>
     <paper id="276">
       <!-- https://aclanthology.org/2025.coling-main.276/ -->
@@ -3976,6 +4014,7 @@
       <abstract>Despite the advancements in training Large Language Models (LLMs) with alignment techniques to enhance the safety of generated content, these models remain susceptible to jailbreak, an adversarial attack method that exposes security vulnerabilities in LLMs. Notably, the Greedy Coordinate Gradient (GCG) method has demonstrated the ability to automatically generate adversarial suffixes that jailbreak state-of-the-art LLMs. However, the optimization process involved in GCG is highly time-consuming, rendering the jailbreaking pipeline inefficient. In this paper, we investigate the process of GCG and identify an issue of Indirect Effect, the key bottleneck of the GCG optimization. To this end, we propose the Model Attack Gradient Index GCG (MAGIC), that addresses the Indirect Effect by exploiting the gradient information of the suffix tokens, thereby accelerating the procedure by having less computation and fewer iterations. Our experiments on AdvBench show that MAGIC achieves up to a 1.5x speedup, while maintaining Attack Success Rates (ASR) on par or even higher than other baselines. Our MAGIC achieved an ASR of 74% on the Llama-2 and an ASR of 54% when conducting transfer attacks on GPT-3.5. Code is available at <url>https://github.com/jiah-li/magic</url>.</abstract>
       <pdf hash="daa661a4"/>
       <bibkey>li-etal-2025-exploiting</bibkey>
+      <url type="resource">https://github.com/jiah-li/magic</url>
     </paper>
     <paper id="306">
       <!-- https://aclanthology.org/2025.coling-main.306/ -->
@@ -3990,6 +4029,7 @@
       <abstract>Conditional semantic textual similarity (C-STS) assesses the similarity between pairs of sentence representations under different conditions. The current method encounters the over-estimation issue of positive and negative samples. Specifically, the similarity within positive samples is excessively high, while that within negative samples is excessively low. In this paper, we focus on the C-STS task and develop a conditional contrastive learning framework that constructs positive and negative samples from two perspectives, achieving the following primary objectives: (1) adaptive selection of the optimization direction for positive and negative samples to solve the over-estimation problem, (2) fully balance of the effects of hard and false negative samples. We validate the proposed method with five models based on bi-encoder and tri-encoder architectures, the results show that our proposed method achieves state-of-the-art performance. The code is available at <url>https://github.com/qinzeyang0919/CCL</url>.</abstract>
       <pdf hash="a782e9a6"/>
       <bibkey>liu-etal-2025-conditional</bibkey>
+      <url type="resource">https://github.com/qinzeyang0919/CCL</url>
     </paper>
     <paper id="307">
       <!-- https://aclanthology.org/2025.coling-main.307/ -->
@@ -4170,6 +4210,7 @@
       <abstract>Evaluating machine translation (MT) systems for low-resource languages has long been a challenge due to the limited availability of evaluation metrics and resources. As a result, researchers in this space have relied primarily on lexical-based metrics like BLEU, TER, and ChrF, which lack semantic evaluation. In this first-of-its-kind work, we propose a novel pivot-based evaluation framework that addresses these limitations; after translating low-resource language outputs into a related high-resource language, we leverage advanced neural and embedding-based metrics for more meaningful evaluation. Through a series of experiments using five low-resource languages: Assamese, Manipuri, Kannada, Bhojpuri, and Nepali, we demonstrate how this method extends the coverage of both lexical-based and embedding-based metrics, even for languages not directly supported by advanced metrics. Our results show that the differences between direct and pivot-based evaluation scores are minimal, proving that this approach is a viable and effective solution for evaluating translations in endangered and low-resource languages. This work paves the way for more inclusive, accurate, and scalable MT evaluation for underrepresented languages, marking a significant step forward in this under-explored area of research. The code and data will be made available at <url>https://github.com/AnanyaCoder/PivotBasedEvaluation</url>.</abstract>
       <pdf hash="db373ddb"/>
       <bibkey>mukherjee-etal-2025-high</bibkey>
+      <url type="resource">https://github.com/AnanyaCoder/PivotBasedEvaluation</url>
     </paper>
     <paper id="321">
       <!-- https://aclanthology.org/2025.coling-main.321/ -->
@@ -4341,6 +4382,7 @@
       <abstract>In recent years, fine-grained sentiment analysis in finance has gained significant attention, but the scarcity of entity-level datasets remains a key challenge. To address this, we have constructed the largest English and Chinese financial entity-level sentiment analysis datasets to date. Building on this foundation, we propose a novel two-stage sentiment analysis approach called Self-aware In-context Learning Correction (SILC). The first stage involves fine-tuning a base large language model to generate pseudo-labeled data specific to our task. In the second stage, we train a correction model using a GNN-based example retriever, which is informed by the pseudo-labeled data. This two-stage strategy has allowed us to achieve state-of-the-art performance on the newly constructed datasets, advancing the field of financial sentiment analysis. In a case study, we demonstrate the enhanced practical utility of our data and methods in monitoring the cryptocurrency market. Our datasets and code are available at <url>https://github.com/NLP-Bin/SILC-EFSA</url>.</abstract>
       <pdf hash="b1561748"/>
       <bibkey>zhu-etal-2025-silc</bibkey>
+      <url type="resource">https://github.com/NLP-Bin/SILC-EFSA</url>
     </paper>
     <paper id="334">
       <!-- https://aclanthology.org/2025.coling-main.334/ -->
@@ -4461,6 +4503,7 @@
       <abstract>Cryptic crosswords are puzzles that rely on general knowledge and the solver’s ability to manipulate language on different levels, dealing with various types of wordplay. Previous research suggests that solving such puzzles is challenging even for modern NLP models, including Large Language Models (LLMs). However, there is little to no research on the reasons for their poor performance on this task. In this paper, we establish the benchmark results for three popular LLMs: Gemma2, LLaMA3 and ChatGPT, showing that their performance on this task is still significantly below that of humans. We also investigate why these models struggle to achieve superior performance. We release our code and introduced datasets at <url>https://github.com/bodasadallah/decrypting-crosswords</url>.</abstract>
       <pdf hash="ea34044b"/>
       <bibkey>sadallah-etal-2025-makes</bibkey>
+      <url type="resource">https://github.com/bodasadallah/decrypting-crosswords</url>
     </paper>
     <paper id="343">
       <!-- https://aclanthology.org/2025.coling-main.343/ -->
@@ -4516,6 +4559,7 @@
       <abstract>Recently, large language models (LLMs) have made significant progress through retrieval-augmented generation (RAG) and preference learning. However, they still exhibit issues such as confirmation bias, the tendency to favor information that confirms one’s beliefs, which remains largely unexplored in current research. In this paper, we propose a novel approach to mitigate confirmation bias-induced hallucination in LLMs through a synthetic data construction pipeline and Direct Preference Optimization (DPO) training. Our method enhances the integration of diverse and complementary information from multiple passages retrieved by RAG, enabling more balanced and accurate reasoning. Experimental results demonstrate significant improvements in response accuracy and reduced hallucination on benchmarks such as Natural Questions Open and HaluBench. These findings suggest that our approach effectively mitigates confirmation bias in long-context question answering, with potential applications to other NLP tasks. We release our data, and evaluation/train code for public access.3]<url>https://github.com/OccasionallyNLP/Synthetic-Paths-to-Integral-Truth.git</url></abstract>
       <pdf hash="c0e3c81f"/>
       <bibkey>ok-etal-2025-synthetic</bibkey>
+      <url type="resource">https://github.com/OccasionallyNLP/Synthetic-Paths-to-Integral-Truth</url>
     </paper>
     <paper id="348">
       <!-- https://aclanthology.org/2025.coling-main.348/ -->
@@ -4571,6 +4615,7 @@
       <abstract>Detailed descriptions of human motion are crucial for effective fitness training, which highlights the importance of research in fine-grained human motion video captioning. Existing video captioning models often fail to capture the nuanced semantics of videos, resulting in the generated descriptions that are coarse and lack details, especially when depicting human motions. To benchmark the Body Fitness Training scenario, in this paper, we construct a fine-grained human motion video captioning dataset named BoFiT and design a state-of-the-art baseline model named BoFiT-Gen (Body Fitness Training Text Generation). BoFiT-Gen makes use of computer vision techniques to extract angular representations of human motions from videos and LLMs to generate fine-grained descriptions of human motions via prompting. Results show that BoFiT-Gen outperforms previous methods on comprehensive metrics. We aim for this dataset to serve as a useful evaluation set for visio-linguistic models and drive further progress in this field. Our dataset is released at <url>https://github.com/colmon46/bofit</url>.</abstract>
       <pdf hash="a2a6dc38"/>
       <bibkey>zhao-etal-2025-exploring</bibkey>
+      <url type="resource">https://github.com/colmon46/bofit</url>
     </paper>
     <paper id="352">
       <!-- https://aclanthology.org/2025.coling-main.352/ -->
@@ -4795,6 +4840,7 @@
       <abstract>Complex Table Question Answering involves providing accurate answers to specific questions based on intricate tables that exhibit complex layouts and flexible header locations. Despite considerable progress having been made in the LLM era, the reasoning processes of existing methods are often implicit, feeding the entire table into prompts, making it difficult to effectively filter out irrelevant information in the table. To this end, we propose GraphOTTER that explicitly establishes the reasoning process to pinpoint the correct answers. In particular, GraphOTTER leverages a graph-based representation, transforming the complex table into an undirected graph. It then conducts step-by-step reasoning on the graph, with each step guided by a set of pre-defined intermediate reasoning actions. As such, it constructs a clear reasoning path and effectively identifies the answer to a given question. Comprehensive experiments on two benchmark datasets and two LLM backbones demonstrate the effectiveness of GraphOTTER. Further analysis indicates that its success may be attributed to the ability to efficiently filter out irrelevant information, thereby focusing the reasoning process on the most pertinent data. Our code and experimental datasets are available at <url>https://github.com/JDing0521/GraphOTTER</url>.</abstract>
       <pdf hash="77044d5c"/>
       <bibkey>li-etal-2025-graphotter</bibkey>
+      <url type="resource">https://github.com/JDing0521/GraphOTTER</url>
     </paper>
     <paper id="369">
       <!-- https://aclanthology.org/2025.coling-main.369/ -->
@@ -4847,6 +4893,7 @@
       <abstract>Symbols such as numerical sequences, chemical formulas, and table delimiters exist widely, playing important roles in symbol-related tasks such as abstract reasoning, chemical property prediction, and tabular question-answering. Compared to tasks based on natural language expressions, large language models (LLMs) have limitations in understanding and reasoning on symbol-based representations, making it difficult for them to handle symbol-related problems. In this paper, we propose symbol-to-language (S2L), a method that converts symbol-based representations to language-based representations, providing valuable information for language models during reasoning. We found that, for both closed-source and open-source LLMs, the capability to solve symbol-related problems can be largely enhanced by incorporating such language-based representations. For example, by employing S2L for GPT-4, there can be substantial improvements of +21.9% and +9.5% accuracy for 1D-ARC and Dyck language tasks, respectively. There is also a consistent improvement in other six general symbol-related tasks such as table understanding and Tweet analysis. We release the GPT logs in <url>https://github.com/THUNLP-MT/symbol2language</url>.</abstract>
       <pdf hash="503a0864"/>
       <bibkey>wang-etal-2025-leveraging</bibkey>
+      <url type="resource">https://github.com/THUNLP-MT/symbol2language</url>
     </paper>
     <paper id="373">
       <!-- https://aclanthology.org/2025.coling-main.373/ -->
@@ -4911,6 +4958,7 @@
       <abstract>Large Language Models (LLMs) have demonstrated significant capabilities across numerous application domains. A key challenge is to keep these models updated with latest available information, which limits the true potential of these models for the end-applications. Although, there have been numerous attempts for LLMs’ Knowledge Editing (KE), <i>i.e.</i>, to update and/or edit the LLMs’ prior knowledge and in turn test it <i>via</i> Multi-hop Question Answering (MQA), yet these studies are primarily focused on English language. In this paper, we extend MQA-<sc>Ke</sc> for Arabic language. For this, we propose: <u><b>M</b></u>ulti-hop <u><b>Q</b></u>uestioning <u><b>A</b></u>nswering under <u><b>K</b></u>nowledge <u><sc>e</sc></u>diting for <u><sc>a</sc></u>rabic <u><sc>l</sc></u>anguage (MQA-<sc>Keal</sc>). MQA-<sc>Keal</sc> stores knowledge edits as structured knowledge units in the external memory. In order to solve multi-hop question, it first uses task-decomposition to decompose the question into smaller sub-problems. Later, for each sub-problem it iteratively queries the external memory and/or target LLM in order to generate the final response. In addition, we also contribute MQ<sc>u</sc>AKE-<sc>ar</sc> (Arabic translation of English benchmark MQ<sc>u</sc>AKE), as well as a new benchmark MQA-A<sc>eval</sc> for rigorous performance evaluation of MQA under K<sc>e</sc> for Arabic language. Experimentation evaluation reveals MQA-<sc>Keal</sc> outperforms the baseline models by a significant margin. We release the codes for MQA-<sc>Keal</sc> at <url>https://github.com/asif6827/MQA-Keal</url>.</abstract>
       <pdf hash="a6fbbb3a"/>
       <bibkey>ali-etal-2025-mqa</bibkey>
+      <url type="resource">https://github.com/asif6827/MQA-Keal</url>
     </paper>
     <paper id="378">
       <!-- https://aclanthology.org/2025.coling-main.378/ -->
@@ -5132,6 +5180,7 @@
       <bibkey>yang-etal-2025-daea</bibkey>
       <revision id="1" hash="659edf7a"/>
       <revision id="2" hash="dd2c725f" date="2025-03-16">Typo fix.</revision>
+      <url type="resource">https://github.com/yangxiaoxiaoly/DAEA</url>
     </paper>
     <paper id="394">
       <!-- https://aclanthology.org/2025.coling-main.394/ -->
@@ -5194,6 +5243,7 @@
       <abstract>Detecting fraudulent online text is essential, as these manipulative messages exploit human greed, deceive individuals, and endanger societal security. Currently, this task remains under-explored on the Chinese web due to the lack of a comprehensive dataset of Chinese fraudulent texts. However, creating such a dataset is challenging because it requires extensive annotation within a vast collection of normal texts. Additionally, the creators of fraudulent webpages continuously update their tactics to evade detection by downstream platforms and promote fraudulent messages. To this end, this work firstly presents the comprehensive <b>long-term dataset</b> of Chinese fraudulent texts collected over <b>12 months</b>, consisting of <b>59,106 entries extracted from billions of web pages</b>. Furthermore, we design and provide a wide range of baselines, including large language model-based detectors, and pre-trained language model approaches. The necessary dataset and benchmark codes for further research are available via <url>https://github.com/xuemingxxx/ChiFraud</url>.</abstract>
       <pdf hash="a89cfeb3"/>
       <bibkey>tang-etal-2025-chifraud</bibkey>
+      <url type="resource">https://github.com/xuemingxxx/ChiFraud</url>
     </paper>
     <paper id="399">
       <!-- https://aclanthology.org/2025.coling-main.399/ -->
@@ -5216,6 +5266,7 @@
       <abstract>Tokenizers act as a bridge between human language and the latent space of language models, influencing how language is represented in these models. Despite the dominance of English-Centric (EC) Large Language Models (LLMs), tokenization methods often fail to fairly represent complex scripts like Tamil, Sinhala, and Hindi, primarily due to pre-tokenization choices. This study demonstrates that pre-tokenization has a more significant impact than tokenization algorithms on achieving egalitarian representation. To address this, we introduce an improvement to the Byte Pair Encoding (BPE) algorithm by incorporating graphemes, which we term Grapheme Pair Encoding (GPE). Our experiments show that grapheme-based character extraction outperforms byte-level tokenizers for complex scripts. We validate this approach through experiments on Tamil, Sinhala, and Hindi. The codebase and resources used in this work are publicly available at <url>https://github.com/vmenan/tokenizers-coling2025</url>.</abstract>
       <pdf hash="8e4e5c6e"/>
       <bibkey>velayuthan-sarveswaran-2025-egalitarian</bibkey>
+      <url type="resource">https://github.com/vmenan/tokenizers-coling2025</url>
     </paper>
     <paper id="401">
       <!-- https://aclanthology.org/2025.coling-main.401/ -->
@@ -6048,6 +6099,7 @@
       <abstract>The preservation and revitalization of endangered and extinct languages is a meaningful endeavor, conserving cultural heritage while enriching fields like linguistics and anthropology. However, these languages are typically low-resource, making their reconstruction labor-intensive and costly. This challenge is exemplified by Nüshu, a rare script historically used by Yao women in China for self-expression within a patriarchal society. To address this challenge, we introduce NüshuRescue, an AI-driven framework designed to train large language models (LLMs) on endangered languages with minimal data. NüshuRescue automates evaluation and expands target corpora to accelerate linguistic revitalization. As a foundational component, we developed NCGold, a 500-sentence Nüshu-Chinese parallel corpus, the first publicly available dataset of its kind. Leveraging GPT-4-Turbo, with no prior exposure to Nüshu and only 35 short examples from NCGold, NüshuRescue achieved 48.69% translation accuracy on 50 withheld sentences and generated NCSilver, a set of 98 newly translated modern Chinese sentences of varying lengths. In addition, we developed FastText-based and Seq2Seq models to further support research on Nüshu. NüshuRescue provides a versatile and scalable tool for the revitalization of endangered languages, minimizing the need for extensive human input. All datasets and code have been made publicly available at <url>https://github.com/ivoryayang/NushuRescue</url>.</abstract>
       <pdf hash="5a289ffc"/>
       <bibkey>yang-etal-2025-nushurescue</bibkey>
+      <url type="resource">https://github.com/ivoryayang/NushuRescue</url>
     </paper>
     <paper id="469">
       <!-- https://aclanthology.org/2025.coling-main.469/ -->
@@ -6296,6 +6348,7 @@
       <abstract>Document-level Relation Extraction (DocRE) aims to identify relationships between entity pairs within a document. However, most existing methods assume a uniform label distribution, resulting in suboptimal performance on real-world, imbalanced datasets. To tackle this challenge, we propose a novel data augmentation approach using generative models to enhance data from the embedding space. Our method leverages the Variational Autoencoder (VAE) architecture to capture all relation-wise distributions formed by entity pair representations and augment data for underrepresented relations. To better capture the multi-label nature of DocRE, we parameterize the VAE’s latent space with a Diffusion Model. Additionally, we introduce a hierarchical training framework to integrate the proposed VAE-based augmentation module into DocRE systems. Experiments on two benchmark datasets demonstrate that our method outperforms state-of-the-art models, effectively addressing the long-tail distribution problem in DocRE. Our code is released at: <url>https://github.com/khaitran22/VaeDiff-DocRE</url></abstract>
       <pdf hash="b62d6df2"/>
       <bibkey>tran-etal-2025-vaediff</bibkey>
+      <url type="resource">https://github.com/khaitran22/VaeDiff-DocRE</url>
     </paper>
     <paper id="489">
       <!-- https://aclanthology.org/2025.coling-main.489/ -->
@@ -6734,6 +6787,7 @@
       <abstract>Multi-modal entity alignment aims to identify equivalent entities between two different multi-modal knowledge graphs, which consist of structural triples and images associated with entities. Unfortunately, prior works fuse the multi-modal knowledge of all entities only via solely one single fusion strategy. Therefore, the impact of the fusion strategy on individual entities could be largely ignored. To solve this challenge, we propose AMF2SEA, an adaptive multi-modal feature fusion strategy for entity alignment, which dynamically selects the optimal entity-level feature fusion strategy. Additionally, we build a new dataset based on DBP15K, which includes a full set of entity images from multiple inconsistent web sources, making it more representative of the real world. Experimental results demonstrate that our model achieves state-of-the-art (SOTA) performance compared to models using the same modality on DBP15K and its variants with richer image sources and styles. Our code and data are available at <url>https://github.com/ChenxiaoLiJoe/AMFFSEA</url>.</abstract>
       <pdf hash="34a58c31"/>
       <bibkey>li-etal-2025-exploring</bibkey>
+      <url type="resource">https://github.com/ChenxiaoLiJoe/AMFFSEA</url>
     </paper>
     <paper id="523">
       <!-- https://aclanthology.org/2025.coling-main.523/ -->
@@ -7050,6 +7104,7 @@
       <abstract>Visual instruction tuning is crucial for enhancing the zero-shot generalization capability of Multi-modal Large Language Models (MLLMs). In this paper, we aim to investigate a fundamental question: “what makes for good visual instructions”. Through a comprehensive empirical study, we find that instructions focusing on complex visual reasoning tasks are particularly effective in improving the performance of MLLMs, with results correlating to instruction complexity. Based on this insight, we develop a systematic approach to automatically create high-quality complex visual reasoning instructions. Our approach employs a synthesize-complicate-reformulate paradigm, leveraging multiple stages to gradually increase the complexity of the instructions while guaranteeing quality. Based on this approach, we create the ComVint dataset with 32K examples, and fine-tune four MLLMs on it. Experimental results consistently demonstrate the enhanced performance of all compared MLLMs, such as a 27.86% and 27.60% improvement for LLaVA on MME-Perception and MME-Cognition, respectively. Our code and data are publicly available at the link: <url>https://github.com/RUCAIBox/ComVint</url>.</abstract>
       <pdf hash="e3145833"/>
       <bibkey>du-etal-2025-makes</bibkey>
+      <url type="resource">https://github.com/RUCAIBox/ComVint</url>
     </paper>
     <paper id="547">
       <!-- https://aclanthology.org/2025.coling-main.547/ -->
@@ -7246,6 +7301,7 @@
       <abstract>Conversational Recommendation Systems (CRSs) are a particularly interesting application for out-of-the-box LLMs due to their potential for eliciting user preferences and making recommendations in natural language across a wide set of domains. Somewhat surprisingly, we find however that in such a conversational application, the more questions a user answers about their preferences, the worse the model’s recommendations become. We demonstrate this phenomenon on a previously published dataset as well as two novel datasets which we contribute. We also explain why earlier benchmarks failed to detect this round-over-round performance loss, highlighting the importance of the evaluation strategy we use and expanding upon Li et al. (2023a). We also present preference elicitation and recommendation strategies that mitigate this degradation in performance, beating state-of-the-art results, and show how three underlying models, GPT-3.5, GPT-4, and Claude 3.5 Sonnet, differently impact these strategies. Our datasets and code are available at <url>https://github.com/CtrlVGustavo/A-Flash-</url> in-the-Pan-CRS.</abstract>
       <pdf hash="20a74037"/>
       <bibkey>lucas-de-carvalho-etal-2025-flash</bibkey>
+      <url type="resource">https://github.com/CtrlVGustavo/A-Flash-</url>
     </paper>
     <paper id="562">
       <!-- https://aclanthology.org/2025.coling-main.562/ -->
@@ -7272,6 +7328,7 @@
       <abstract>Although large language models (LLMs) trained on extensive multilingual corpora exhibit impressive language transfer, they often fail to respond in the user’s desired language due to corpus imbalances, an embarrassingly simple problem known as the language confusion. However, existing solutions like in-context learning and supervised fine-tuning (SFT) have drawbacks: in-context learning consumes context window space, diminishing attention as text lengthens, while SFT requires extensive, labor-intensive data collection. To overcome these limitations, we propose the language-sensitive intervention (LSI), a novel, lightweight, and label-free approach. Specifically, we analyze language confusion from a causal perspective, revealing that the training corpus’s language distribution acts as a confounder, disadvantaging languages that are underrepresented in the dataset. Then, we identify a language-sensitive dimension in the LLM’s residual stream, i.e., the language vector, which allows us to estimate the average causal effect of prompts on this dimension. During inference, we directly intervene on the language vector to generate responses in the desired language.To further advance research on this issue, we introduce a new benchmark that detects language confusion and assesses content quality. Experimental results demonstrate that our method effectively mitigates language confusion without additional complex mechanisms. Our code is available at <url>https://github.com/SoseloX/LSI</url>.</abstract>
       <pdf hash="029fd367"/>
       <bibkey>yunfan-etal-2025-mitigating</bibkey>
+      <url type="resource">https://github.com/SoseloX/LSI</url>
     </paper>
     <paper id="564">
       <!-- https://aclanthology.org/2025.coling-main.564/ -->
@@ -7317,6 +7374,7 @@
       <abstract>The deployment of large language models (LLMs) raises concerns regarding their cultural misalignment and potential ramifications on individuals and societies with diverse cultural backgrounds. While the discourse has focused mainly on political and social biases, our research proposes a Cultural Alignment Test (Hoftede’s CAT) to quantify cultural alignment using Hofstede’s cultural dimension framework, which offers an explanatory cross-cultural comparison through the latent variable analysis. We apply our approach to quantitatively evaluate LLMs—namely Llama 2, GPT-3.5, and GPT-4—against the cultural dimensions of regions like the United States, China, and Arab countries, using different prompting styles and exploring the effects of language-specific fine-tuning on the models’ behavioural tendencies and cultural values. Our results quantify the cultural alignment of LLMs and reveal the difference between LLMs in explanatory cultural dimensions. Our study demonstrates that while all LLMs struggle to grasp cultural values, GPT-4 shows a unique capability to adapt to cultural nuances, particularly in Chinese settings. However, it faces challenges with American and Arab cultures. The research also highlights that fine-tuning LLama 2 models with different languages changes their responses to cultural questions, emphasizing the need for culturally diverse development in AI for worldwide acceptance and ethical use. For more details or to contribute to this research, visit our GitHub page <url>https://github.com/reemim/Hofstedes_CAT</url></abstract>
       <pdf hash="990eb826"/>
       <bibkey>masoud-etal-2025-cultural</bibkey>
+      <url type="resource">https://github.com/reemim/Hofstedes_CAT</url>
     </paper>
     <paper id="568">
       <!-- https://aclanthology.org/2025.coling-main.568/ -->
@@ -7331,6 +7389,7 @@
       <abstract>Supervised fine-tuning (SFT) is widely adopted for tailoring large language models (LLMs) to specific downstream tasks. However, the substantial computational demands of LLMs hinder iterative exploration of fine-tuning datasets and accurate evaluation of individual sample importance. To address this challenge, we introduce Meta-LoRA, a memory-efficient method for automatic sample reweighting. Meta-LoRA learns to reweight fine-tuning samples by minimizing the loss on a small, high-quality validation set through an end-to-end bi-level optimization framework based on meta-learning. To reduce memory usage associated with computing second derivatives, we approximate the bi-level optimization using gradient similarity between training and validation datasets, replacing bi-dimensional gradient similarity with the product of one-dimensional activation states and their corresponding gradients. Further memory optimization is achieved by refining gradient computations, selectively applying them to the low-rank layers of LoRA, which results in as little as 4% additional memory usage. Comprehensive evaluations across benchmark datasets in mathematics, coding, and medical domains demonstrate Meta-LoRA’s superior efficacy and efficiency. The source code is available at <url>https://github.com/liweicheng-ai/meta-lora</url>.</abstract>
       <pdf hash="588a3c98"/>
       <bibkey>li-etal-2025-meta</bibkey>
+      <url type="resource">https://github.com/liweicheng-ai/meta-lora</url>
     </paper>
     <paper id="569">
       <!-- https://aclanthology.org/2025.coling-main.569/ -->
@@ -7551,6 +7610,7 @@
       <abstract>The task of determining whether two texts are paraphrases has long been a challenge in NLP. However, the prevailing notion of paraphrase is often quite simplistic, offering only a limited view of the vast spectrum of paraphrase phenomena. Indeed, we find that evaluating models in a paraphrase dataset can leave uncertainty about their true semantic understanding. To alleviate this, we create PARAPHRASUS, a benchmark designed for multi-dimensional assessment, benchmarking and selection of paraphrase detection models. We find that paraphrase detection models under our fine-grained evaluation lens exhibit trade-offs that cannot be captured through a single classification dataset. Furthermore, PARAPHRASUS allows prompt calibration for different use cases, tailoring LLM models to specific strictness levels. PARAPHRASUS includes 3 challenges spanning over 10 datasets, including 8 repurposed and 2 newly annotated; we release it along with a benchmarking library at <url>https://github.com/impresso/paraphrasus</url></abstract>
       <pdf hash="cc55398b"/>
       <bibkey>michail-etal-2025-paraphrasus</bibkey>
+      <url type="resource">https://github.com/impresso/paraphrasus</url>
     </paper>
     <paper id="586">
       <!-- https://aclanthology.org/2025.coling-main.586/ -->
@@ -7599,6 +7659,7 @@
       <abstract>This paper introduces CharMoral, a dataset designed to analyze the moral evolution of characters in long-form narratives. CharMoral, built from 1,337 movie synopses, includes annotations for character actions, context, and morality labels. To automatically construct CharMoral, we propose a four-stage framework, utilizing Large Language Models, to automatically classify actions as moral or immoral based on context. Human evaluations and various experiments confirm the framework’s effectiveness in moral reasoning tasks in multiple genres. Our code and the CharMoral dataset are publicly available at <url>https://github.com/BaeSuyoung/CharMoral</url>.</abstract>
       <pdf hash="9e36913d"/>
       <bibkey>bae-etal-2025-charmoral</bibkey>
+      <url type="resource">https://github.com/BaeSuyoung/CharMoral</url>
     </paper>
     <paper id="590">
       <!-- https://aclanthology.org/2025.coling-main.590/ -->
@@ -7940,6 +8001,7 @@
       <abstract>Visual question answering (VQA) poses a multi-modal translation challenge that requires the analysis of both images and questions simultaneously to generate appropriate responses. Although VQA research has mainly focused on text-based questions in English, speech-based questions in English and other languages remain largely unexplored. Incorporating speech could significantly enhance the utility of VQA systems, as speech is the primary mode of human communication. To address this gap, this work implements a speech-based VQA system and introduces the textless multilingual visual question answering (TM-VQA) dataset, featuring speech-based questions in English, German, Spanish, and French. This TM-VQA dataset contains 658,111 pairs of speech-based questions and answers based on 123,287 images. Finally, a novel, cross-attention-based unified multi-modal framework is presented to evaluate the efficacy of the TM-VQA dataset. The experimental results indicate the effectiveness of the proposed unified approach over the cascaded framework for both text and speech-based VQA systems. Dataset can be accessed at <url>https://github.com/Synaptic-Coder/TM-VQA</url>.</abstract>
       <pdf hash="7830da90"/>
       <bibkey>chowdhury-etal-2025-towards</bibkey>
+      <url type="resource">https://github.com/Synaptic-Coder/TM-VQA</url>
     </paper>
     <paper id="616">
       <!-- https://aclanthology.org/2025.coling-main.616/ -->
@@ -7955,6 +8017,7 @@
       <abstract>Mental manipulation severely undermines mental wellness by covertly and negatively distorting decision-making. While there is an increasing interest in mental health care within the natural language processing community, progress in tackling manipulation remains limited due to the complexity of detecting subtle, covert tactics in conversations. In this paper, we propose Intent-Aware Prompting (IAP), a novel approach for detecting mental manipulations using large language models (LLMs), providing a deeper understanding of manipulative tactics by capturing the underlying intents of participants. Experimental results on the MentalManip dataset demonstrate superior effectiveness of IAP against other advanced prompting strategies. Notably, our approach substantially reduces false negatives, helping detect more instances of mental manipulation with minimal misjudgment of positive cases. The code of this paper is available at <url>https://github.com/Anton-Jiayuan-MA/Manip-IAP</url>.</abstract>
       <pdf hash="717c41f1"/>
       <bibkey>ma-etal-2025-detecting</bibkey>
+      <url type="resource">https://github.com/Anton-Jiayuan-MA/Manip-IAP</url>
     </paper>
     <paper id="617">
       <!-- https://aclanthology.org/2025.coling-main.617/ -->
@@ -8093,6 +8156,7 @@
       <abstract>The colossal parameters and computational overhead of Large Language Models (LLMs) challenge their real-world applications. Network pruning, which targets unstructured or structured sparsity by removing redundant parameters, has recently been explored for LLM acceleration. Existing LLM pruning works focus on unstructured pruning, which typically requires special hardware support for a practical speed-up. In contrast, structured pruning can reduce latency on general devices. However, it remains a challenge to perform structured pruning efficiently and maintain performance, especially at high sparsity ratios. To this end, we introduce an efficient structured pruning framework named CFSP, which leverages both Coarse (interblock) and Fine-grained (intrablock) activation information as an importance criterion to guide pruning. The pruning is highly efficient, as it only requires one forward pass to compute feature activations. Specifically, we first allocate the sparsity budget across blocks based on their importance and then retain important weights within each block. In addition, we introduce a recovery fine-tuning strategy that adaptively allocates training overhead based on coarse-grained importance to further improve performance. Experimental results demonstrate that CFSP outperforms existing methods on diverse models across various sparsity budgets. Our code will be available at <url>https://github.com/wyxscir/CFSP</url>.</abstract>
       <pdf hash="8395af60"/>
       <bibkey>wang-etal-2025-cfsp</bibkey>
+      <url type="resource">https://github.com/wyxscir/CFSP</url>
     </paper>
     <paper id="627">
       <!-- https://aclanthology.org/2025.coling-main.627/ -->
@@ -8119,6 +8183,7 @@
       <abstract>Despite the demonstrated potential of Large Language Models (LLMs) in diverse NLP tasks, their causal reasoning capability appears inadequate when evaluated within the context of the event causality identification (ECI) task. The ECI tasks pose significant complexity for LLMs and necessitate comprehensive causal priors for accurate identification. To improve the performance of LLMs for causal reasoning, we propose a multi-agent Decomposed reasoning framework for Event Causality Identification, designated as <i>Dr.ECI</i>. In the discovery stage, <i>Dr.ECI</i> incorporates specialized agents such as <i>Causal Explorer</i> and <i>Mediator Detector</i>, which capture implicit causality and indirect causality more effectively. In the reasoning stage, <i>Dr.ECI</i> introduces the agents <i>Direct Reasoner</i> and <i>Indirect Reasoner</i>, which leverage the knowledge of the generalized causal structure specific to the ECI. Extensive evaluations demonstrate the state-of-the-art performance of <i>Dr.ECI</i> comparing with baselines based on LLMs and supervised training. Our implementation will be open-sourced at <url>https://github.com/DMIRLAB-Group/Dr.ECI</url>.</abstract>
       <pdf hash="090f8d6c"/>
       <bibkey>cai-etal-2025-dr</bibkey>
+      <url type="resource">https://github.com/DMIRLAB-Group/Dr.ECI</url>
     </paper>
     <paper id="629">
       <!-- https://aclanthology.org/2025.coling-main.629/ -->
@@ -8134,6 +8199,7 @@
       <abstract>We introduce InternLM-Law, a large language model (LLM) tailored for addressing diverse legal tasks related to Chinese laws. These tasks range from responding to standard legal questions (e.g., legal exercises in textbooks) to analyzing complex real-world legal situations. Our work contributes to Chinese Legal NLP research by (1) conducting one of the most extensive evaluations of state-of-the-art general-purpose and legal-specific LLMs to date that involves an automatic evaluation on the 20 legal NLP tasks in LawBench, a human evaluation on a challenging version of the Legal Consultation task, and an automatic evaluation of a model’s ability to handle very long legal texts; (2) presenting a methodology for training a Chinese legal LLM that offers superior performance to all of its counterparts in our extensive evaluation; and (3) facilitating future research in this area by making all of our code and model publicly available at <url>https://github.com/InternLM/InternLM-Law</url>.</abstract>
       <pdf hash="3a4b904c"/>
       <bibkey>fei-etal-2025-internlm</bibkey>
+      <url type="resource">https://github.com/InternLM/InternLM-Law</url>
     </paper>
     <paper id="630">
       <!-- https://aclanthology.org/2025.coling-main.630/ -->
@@ -8147,6 +8213,7 @@
       <abstract>Large Language Models (LLMs) are composed of neurons that exhibit various behaviors and roles, which become increasingly diversified as models scale. Recent studies have revealed that not all neurons are active across different datasets, and this sparsity correlates positively with the task-specific ability, leading to advancements in model pruning and training efficiency. Traditional fine-tuning methods engage all parameters of LLMs, which is computationally expensive and may not be necessary. In contrast, Parameter-Efficient Fine-Tuning (PEFT) approaches aim to minimize the number of trainable parameters, yet they still operate at a relatively macro scale (e.g., layer-level). We introduce Neuron-Level Fine-Tuning (NeFT), a novel approach that refines the granularity of parameter training down to the individual neuron, enabling a more parameter-efficient fine-tuning model. The experimental results show that NeFT not only exceeded the performance of full-parameter fine-tuning and PEFT but also provided insights into the analysis of neurons. Our code and data are available at: <url>https://github.com/NLP2CT/NeFT</url>.</abstract>
       <pdf hash="9ba0c83b"/>
       <bibkey>xu-etal-2025-lets</bibkey>
+      <url type="resource">https://github.com/NLP2CT/NeFT</url>
     </paper>
     <paper id="631">
       <!-- https://aclanthology.org/2025.coling-main.631/ -->
@@ -8211,6 +8278,7 @@
       <abstract>Aspect Sentiment Quad Prediction(ASQP) enhances the scope of aspect-based sentiment analysis by introducing the necessity to predict both explicit and implicit aspect and opinion terms. Existing leading generative ASQP approaches do not modeling the contextual relationship of the review sentence to predict implicit terms. However, introducing the contextual information into the pre-trained language models framework is non-trivial due to the inflexibility of the generative encoder-decoder architecture. To well utilize the contextual information, we propose an extractive ASQP framework, CACA, which features with <i>Context-Aware Cross-Attention Network</i>. When implicit terms are present, the <i>Context-Aware Cross-Attention Network</i> enhances the alignment of aspects and opinions, through alternating updates of explicit and implicit representations. Additionally, contrastive learning is introduced in the implicit representation learning process. Experimental results on three benchmarks demonstrate the effectiveness of CACA. Our implementation will be open-sourced at <url>https://github.com/DMIRLAB-Group/CACA</url>.</abstract>
       <pdf hash="516f8acb"/>
       <bibkey>chen-etal-2025-caca</bibkey>
+      <url type="resource">https://github.com/DMIRLAB-Group/CACA</url>
     </paper>
     <paper id="636">
       <!-- https://aclanthology.org/2025.coling-main.636/ -->
@@ -8515,6 +8583,7 @@
       <abstract>With the rise of multi-modal large language models, accurately extracting and understanding textual information from video content—referred to as video-based optical character recognition (Video OCR)—has become a crucial capability. This paper introduces a novel benchmark designed to evaluate the video OCR performance of multi-modal models in videos. Comprising 1,028 videos and 2,961 question-answer pairs, this benchmark proposes several key challenges through 6 distinct sub-tasks: (1) Recognition of text content itself and its basic visual attributes, (2) Semantic and Spatial Comprehension of OCR objects in videos (3) Dynamic Motion detection and Temporal Localization. We developed this benchmark using a semi-automated approach that integrates the OCR ability of image LLMs with manual refinement, balancing efficiency, cost, and data quality. Our resource aims to help advance research in video LLMs and underscores the need for improving OCR ability for video LLMs. The benchmark will be released on <url>https://github.com/YuHuiGao/FG-Bench.git</url>.</abstract>
       <pdf hash="3818916c"/>
       <bibkey>fei-etal-2025-current</bibkey>
+      <url type="resource">https://github.com/YuHuiGao/FG-Bench</url>
     </paper>
     <paper id="660">
       <!-- https://aclanthology.org/2025.coling-main.660/ -->
@@ -8773,6 +8842,7 @@
       <abstract>Artificial intelligence has significantly revolutionized healthcare, particularly through large language models (LLMs) that demonstrate superior performance in static medical question answering benchmarks. However, evaluating the potential of LLMs for real-world clinical applications remains challenging due to the intricate nature of doctor-patient interactions. To address this, we introduce AI Hospital, a multi-agent framework emulating dynamic medical interactions between Doctor as player and NPCs including Patient and Examiner. This setup allows for more practical assessments of LLMs in simulated clinical scenarios. We develop the Multi-View Medical Evaluation (MVME) benchmark, utilizing high-quality Chinese medical records and multiple evaluation strategies to quantify the performance of LLM-driven Doctor agents on symptom collection, examination recommendations, and diagnoses. Additionally, a dispute resolution collaborative mechanism is proposed to enhance medical interaction capabilities through iterative discussions. Despite improvements, current LLMs (including GPT-4) still exhibit significant performance gaps in multi-turn interactive scenarios compared to non-interactive scenarios. Our findings highlight the need for further research to bridge these gaps and improve LLMs’ clinical decision-making capabilities. Our data, code, and experimental results are all open-sourced at <url>https://github.com/LibertFan/AI_Hospital</url>.</abstract>
       <pdf hash="156e10c2"/>
       <bibkey>fan-etal-2025-ai</bibkey>
+      <url type="resource">https://github.com/LibertFan/AI_Hospital</url>
     </paper>
     <paper id="681">
       <!-- https://aclanthology.org/2025.coling-main.681/ -->
@@ -8823,6 +8893,7 @@
       <abstract>The efficacy of detectors for texts generated by large language models (LLMs) substantially depends on the availability of large-scale training data. However, white-box zero-shot detectors, which require no such data, are limited by the accessibility of the source model of the LLM-generated text. In this paper, we propose a simple yet effective black-box zero-shot detection approach based on the observation that, from the perspective of LLMs, human-written texts typically contain more grammatical errors than LLM-generated texts. This approach involves calculating the Grammar Error Correction Score (GECScore) for the given text to differentiate between human-written and LLM-generated text. Experimental results show that our method outperforms current state-of-the-art (SOTA) zero-shot and supervised methods, achieving an average AUROC of 98.62% across XSum and Writing Prompts dataset. Additionally, our approach demonstrates strong reliability in the wild, exhibiting robust generalization and resistance to paraphrasing attacks. Data and code are available at: <url>https://github.com/NLP2CT/GECScore</url>.</abstract>
       <pdf hash="d087f620"/>
       <bibkey>wu-etal-2025-wrote</bibkey>
+      <url type="resource">https://github.com/NLP2CT/GECScore</url>
     </paper>
     <paper id="685">
       <!-- https://aclanthology.org/2025.coling-main.685/ -->
@@ -8877,6 +8948,7 @@
       <abstract>Previous work adopts large language models (LLMs) as evaluators to evaluate natural language process (NLP) tasks. However, certain shortcomings, e.g., fairness, scope, and accuracy, persist for current LLM evaluators. To analyze whether LLMs can serve as reliable alternatives to humans, we examine the fine-grained alignment between LLM evaluators and human annotators, particularly in understanding the target evaluation tasks and conducting evaluations that meet diverse criteria. This paper explores both conventional tasks (e.g., story generation) and alignment tasks (e.g., math reasoning), each with different evaluation criteria. Our analysis shows that 1) LLM evaluators can generate unnecessary criteria or omit crucial criteria, resulting in a slight deviation from the experts. 2) LLM evaluators excel in general criteria, such as fluency, but face challenges with complex criteria, such as numerical reasoning. We also find that LLM-pre-drafting before human evaluation can help reduce the impact of human subjectivity and minimize annotation outliers in pure human evaluation, leading to more objective evaluation. All resources are available at <url>https://github.com/qtli/CoEval</url>.</abstract>
       <pdf hash="3a9cd9ac"/>
       <bibkey>li-etal-2025-exploring-reliability</bibkey>
+      <url type="resource">https://github.com/qtli/CoEval</url>
     </paper>
     <paper id="689">
       <!-- https://aclanthology.org/2025.coling-main.689/ -->
@@ -8921,6 +8993,7 @@
       <abstract>Despite the recent success of two-stage prototypical networks in few-shot named entity recognition (NER), challenges such as over/under-detected false spans in the span detection stage and unaligned entity prototypes in the type classification stage persist. Additionally, LLMs have not proven to be effective few-shot information extractors in general. In this paper, we propose an approach called Boundary-Aware LLMs for Few-Shot Named Entity Recognition to address these issues. We introduce a boundary-aware contrastive learning strategy to enhance the LLM’s ability to perceive entity boundaries for generalized entity spans. Additionally, we utilize LoRAHub to align information from the target domain to the source domain, thereby enhancing adaptive cross-domain classification capabilities. Extensive experiments across various benchmarks demonstrate that our framework outperforms prior methods, validating its effectiveness. In particular, the proposed strategies demonstrate effectiveness across a range of LLM architectures. The code and data are released on <url>https://github.com/UESTC-GQJ/BANER</url>.</abstract>
       <pdf hash="01fb7eb3"/>
       <bibkey>guo-etal-2025-baner</bibkey>
+      <url type="resource">https://github.com/UESTC-GQJ/BANER</url>
     </paper>
     <paper id="692">
       <!-- https://aclanthology.org/2025.coling-main.692/ -->
@@ -8959,6 +9032,7 @@
       <abstract>Visual Language Models (VLMs) have rapidly progressed with the recent success of large language models. However, there have been few attempts to incorporate efficient linear Recurrent Neural Networks (RNNs) architectures into VLMs. In this study, we introduce VisualRWKV, the first application of a linear RNN model to multimodal learning tasks, leveraging the pre-trained RWKV language model. We propose a data-dependent recurrence and sandwich prompts to enhance our modeling capabilities, along with a 2D image scanning mechanism to enrich the processing of visual sequences. Extensive experiments demonstrate that VisualRWKV achieves competitive performance compared to Transformer-based models like LLaVA-1.5 on various benchmarks. Compared to LLaVA-1.5, VisualRWKV has a speed advantage of 3.98 times and can save 54% of GPU memory when reaching an inference length of 24K tokens. To facilitate further research and analysis, we have made the checkpoints and the associated code publicly accessible at the following GitHub repository: <url>https://github.com/howard-hou/VisualRWKV</url>.</abstract>
       <pdf hash="462f86df"/>
       <bibkey>hou-etal-2025-visualrwkv</bibkey>
+      <url type="resource">https://github.com/howard-hou/VisualRWKV</url>
     </paper>
     <paper id="695">
       <!-- https://aclanthology.org/2025.coling-main.695/ -->
@@ -9014,6 +9088,7 @@
       <abstract>Recent studies have demonstrated that large language models (LLMs) are susceptible to being misled by false premise questions (FPQs), leading to errors in factual knowledge, known as factuality hallucination. Existing benchmarks that assess this vulnerability primarily rely on manual construction, resulting in limited size and lack of expandability. In this work, we introduce an automated, scalable pipeline to create FPQs based on knowledge graphs (KGs). The first step is to modify true triplets extracted from KGs to create false premises. Subsequently, utilizing the state-of-the-art capabilities of GPTs, we generate semantically rich FPQs. Based on the proposed method, we present a comprehensive benchmark, the Knowledge Graph-based False Premise Questions (KG-FPQ), which contains approximately 178k FPQs across three knowledge domains, at six levels of confusability, and in two task formats. Using KG-FPQ, we conduct extensive evaluations on several representative LLMs and provide valuable insights. The KG-FPQ dataset and code are available at <url>https://github.com/yanxuzhu/KG-FPQ</url>.</abstract>
       <pdf hash="da29fc12"/>
       <bibkey>zhu-etal-2025-kg</bibkey>
+      <url type="resource">https://github.com/yanxuzhu/KG-FPQ</url>
     </paper>
     <paper id="699">
       <!-- https://aclanthology.org/2025.coling-main.699/ -->
@@ -9059,6 +9134,7 @@
       <abstract>Entity and relation extraction is a conventional task in the field of information extraction. Existing work primarily focuses on detecting specific relations between entities, often constrained to particular fields and lacking general applicability. In response, we propose a novel task: nominal compound relation extraction (NCRE), which concentrates on abstract and broadly applicable relation extraction between noun phrases. This task diverges significantly from traditional entity and relation extraction in two key respects. Firstly, our task involves general nominal compounds rather than named entities, which are longer and encompass a broader scope, presenting significant challenges for extraction. Secondly, relation extraction in NCRE demands an in-depth understanding of context to detect abstract relations. We manually annotate a high-quality Chinese dataset for the NCRE task and develop a model incorporating the rotary position-enhanced word pair (RoWP) detection schema. Experimental results demonstrate the efficiency of our RoWP model over previous baselines, while the suboptimal F1 scores indicate that NCRE remains a challenging task. Our code and data are available at <url>https://github.com/yeecjc/NCRE</url>.</abstract>
       <pdf hash="04c2c2cc"/>
       <bibkey>cao-etal-2025-ncre</bibkey>
+      <url type="resource">https://github.com/yeecjc/NCRE</url>
     </paper>
     <paper id="702">
       <!-- https://aclanthology.org/2025.coling-main.702/ -->
@@ -9369,6 +9445,7 @@
       <abstract>Open Named Entity Recognition (NER), which involves identifying arbitrary types of entities from arbitrary domains, remains challenging for Large Language Models (LLMs). Recent studies suggest that fine-tuning LLMs on extensive NER data can boost their performance. However, training directly on existing datasets neglects their inconsistent entity definitions and redundant data, limiting LLMs to dataset-specific learning and hindering out-of-domain adaptation. To address this, we present B2NERD, a compact dataset designed to guide LLMs’ generalization in Open NER under a universal entity taxonomy. B2NERD is refined from 54 existing English and Chinese datasets using a two-step process. First, we detect inconsistent entity definitions across datasets and clarify them by distinguishable label names to construct a universal taxonomy of 400+ entity types. Second, we address redundancy using a data pruning strategy that selects fewer samples with greater category and semantic diversity. Comprehensive evaluation shows that B2NERD significantly enhances LLMs’ Open NER capabilities. Our B2NER models, trained on B2NERD, outperform GPT-4 by 6.8-12.0 F1 points and surpass previous methods in 3 out-of-domain benchmarks across 15 datasets and 6 languages. The data, models, and code are publicly available at <url>https://github.com/UmeanNever/B2NER</url>.</abstract>
       <pdf hash="36cab819"/>
       <bibkey>yang-etal-2025-beyond</bibkey>
+      <url type="resource">https://github.com/UmeanNever/B2NER</url>
     </paper>
     <paper id="726">
       <!-- https://aclanthology.org/2025.coling-main.726/ -->
@@ -9441,6 +9518,7 @@
       <abstract>When carefully optimized by human experts, naive prompts can significantly enhance the task performance of large language models (LLMs). However, such expert-driven prompt optimizations are resource-intensive. To address this, some studies have proposed Automatic Prompt Optimization (APO), which refines naive prompts according to task outputs from in-box testing models, utilizing advanced LLMs (e.g., GPT-4) in an ad-hoc way. Although effective, current approaches face challenges in generalization and privacy risks. To overcome these limitations, we have developed the first large-scale Prompt Optimization Preference (POP) dataset, fine-tuned offline local LLM-based optimizers, and conducted fairly evaluations across various downstream models. Our method, named Free-from Instruction-oriented Prompt Optimization (FIPO), allows precise optimization of the core task instructions in naive prompts in a model-agnostic manner. FIPO uses a modular APO template that dynamically incorporates the naive task instructions, optional instruction responses, and optional ground truth to produce refined prompts. The POP dataset is meticulously constructed using advanced LLMs, undergoing rigorous cross-validation by human experts and analytical models. By leveraging insights from this dataset, along with Tulu2 models and diverse fine-tuning strategies, we validate the efficacy of the FIPO framework across five public benchmarks and six testing models. Our dataset and codes are available at: <url>https://github.com/LuJunru/FIPO_Project</url>.</abstract>
       <pdf hash="af6a1a96"/>
       <bibkey>lu-etal-2025-fipo</bibkey>
+      <url type="resource">https://github.com/LuJunru/FIPO_Project</url>
     </paper>
     <paper id="732">
       <!-- https://aclanthology.org/2025.coling-main.732/ -->
@@ -9521,6 +9599,7 @@
       <abstract>Modular deep learning is the state-of-the-art solution for lifting the curse of multilinguality, preventing the impact of negative interference and enabling cross-lingual performance in Multilingual Pre-trained Language Models. However, a trade-off of this approach is the reduction in positive transfer learning from closely related languages. In response, we introduce a novel method called language arithmetic, which enables training-free post-processing to address this limitation. Extending the task arithmetic framework, we apply learning via addition to the language adapters, transitioning the framework from a multi-task to a multilingual setup. The effectiveness of the proposed solution is demonstrated on three downstream tasks in a MAD-X-based set of cross-lingual schemes, acting as a post-processing procedure. Language arithmetic consistently improves the baselines with significant gains, especially in the most challenging case of zero-shot application. Our code and models are available at <url>https://github.com/mklimasz/language-arithmetic</url>.</abstract>
       <pdf hash="d2824d74"/>
       <bibkey>klimaszewski-etal-2025-train</bibkey>
+      <url type="resource">https://github.com/mklimasz/language-arithmetic</url>
     </paper>
     <paper id="738">
       <!-- https://aclanthology.org/2025.coling-main.738/ -->
@@ -9560,6 +9639,7 @@
       <abstract>Large Language Models (LLMs) present massive inherent knowledge and superior semantic comprehension capability, which have revolutionized various tasks in natural language processing. Despite their success, a critical gap remains in enabling LLMs to perform knowledge graph completion (KGC). Empirical evidence suggests that LLMs consistently perform worse than conventional KGC approaches, even through sophisticated prompt design or tailored instruction-tuning. Fundamentally, applying LLMs on KGC introduces several critical challenges, including a vast set of entity candidates, hallucination issue of LLMs, and under-exploitation of the graph structure. To address these challenges, we propose a novel instruction-tuning-based method, namely FtG. Specifically, we present a <i>filter-then-generate</i> paradigm and formulate the KGC task into a multiple-choice question format. In this way, we can harness the capability of LLMs while mitigating the issue casused by hallucinations. Moreover, we devise a flexible ego-graph serialization prompt and employ a structure-text adapter to couple structure and text information in a contextualized manner. Experimental results demonstrate that FtG achieves substantial performance gain compared to existing state-of-the-art methods. The instruction dataset and code are available at <url>https://github.com/LB0828/FtG</url>.</abstract>
       <pdf hash="d0d3566b"/>
       <bibkey>liu-etal-2025-filter</bibkey>
+      <url type="resource">https://github.com/LB0828/FtG</url>
     </paper>
     <paper id="741">
       <!-- https://aclanthology.org/2025.coling-main.741/ -->
@@ -9760,6 +9840,7 @@
       <abstract>The increased use of large language models (LLMs) across a variety of real-world applications calls for mechanisms to verify the fac- tual accuracy of their outputs. Difficulties lie in assessing the factuality of free-form responses in open domains. Also, different pa- pers use disparate evaluation benchmarks and measurements, which renders them hard to compare and hampers future progress. To mitigate these issues, we propose OpenFactCheck, a unified framework for building customized automatic fact-checking systems, benchmarking their accuracy, evaluating factuality of LLMs, and verifying claims in a document. OpenFactCheck consists of three modules: (i) CUSTCHECKER allows users to easily customize an automatic fact-checker and verify the factual correctness of documents and claims, (ii) LLMEVAL, a unified evaluation framework assesses LLM’s factuality ability from various perspectives fairly, and (iii) CHECKEREVAL is an extensible solution for gauging the reliability of automatic fact-checkers’ verification results using human-annotated datasets. Data and code are publicly available at <url>https://github.com/yuxiaw/openfactcheck</url>.</abstract>
       <pdf hash="7eda9107"/>
       <bibkey>wang-etal-2025-openfactcheck</bibkey>
+      <url type="resource">https://github.com/yuxiaw/openfactcheck</url>
     </paper>
     <paper id="756">
       <!-- https://aclanthology.org/2025.coling-main.756/ -->
@@ -9880,6 +9961,7 @@
       <abstract>Grammatical Error Correction is an important research direction in NLP field. Although many models of different architectures and datasets across different languages have been developed to support the research, there is a lack of a comprehensive evaluation on these models, and different architectures make it hard for developers to implement these models on their own. To address this limitation, we present UnifiedGEC, the first open-source GEC-oriented toolkit, which consists of several core components and reusable modules. In UnifiedGEC, we integrate 5 widely-used GEC models and compare their performance on 7 datasets in different languages. Additionally, GEC-related modules such as data augmentation, prompt engineering are also deployed in it. Developers are allowed to implement new models, run and evaluate on existing benchmarks through our framework in a simple way. Code, documents and detailed results of UnifiedGEC are available at <url>https://github.com/AnKate/UnifiedGEC</url>.</abstract>
       <pdf hash="12e60cc8"/>
       <bibkey>zhao-etal-2025-unifiedgec</bibkey>
+      <url type="resource">https://github.com/AnKate/UnifiedGEC</url>
     </paper>
     <paper id="6">
       <!-- https://aclanthology.org/2025.coling-demos.6/ -->
@@ -9967,6 +10049,7 @@
       <abstract>Large Language Models (LLMs) have significantly altered the landscape of Natural Language Processing (NLP), having topped the benchmarks of many standard tasks and problems, particularly when used in combination with Retrieval Augmented Generation (RAG). Despite their impressive performance and relative simplicity, its use as a baseline method has not been extensive. One of the reasons might be that adapting and optimizing RAG-based pipelines for specific NLP tasks generally requires custom development which is difficult to scale. In this work we introduce RAGthoven, a tool for automatic evaluation of RAG-based pipelines. It provides a simple yet powerful abstraction, which allows the user to start the evaluation process with nothing more than a single configuration file. To demonstrate its usefulness we conduct three case studies spanning text classification, question answering and code generation usecases. We release the code, as well as the documentation and tutorials, at <url>https://github.com/ragthoven-dev/ragthoven</url></abstract>
       <pdf hash="d76bee05"/>
       <bibkey>karetka-etal-2025-ragthoven</bibkey>
+      <url type="resource">https://github.com/ragthoven-dev/ragthoven</url>
     </paper>
     <paper id="13">
       <!-- https://aclanthology.org/2025.coling-demos.13/ -->
@@ -10017,6 +10100,7 @@
       <abstract>Sophisticated grammatical error detection/correction tools are available for a small set of languages such as English and Chinese. However, it is not straightforward—if not impossible—to adapt them to morphologically rich languages with complex writing rules like Turkish which has more than 80 million speakers. Even though several tools exist for Turkish, they primarily focus on spelling errors rather than grammatical errors and lack features such as web interfaces, error explanations and feedback mechanisms. To fill this gap, we introduce GECTurk WEB, a light, open-source, and flexible web-based system that can detect and correct the most common forms of Turkish writing errors, such as the misuse of diacritics, compound and foreign words, pronouns, light verbs along with spelling mistakes. Our system provides native speakers and second language learners an easily accessible tool to detect/correct such mistakes and also to learn from their mistakes by showing the explanation for the violated rule(s). The proposed system achieves 88,3 system usability score, and is shown to help learn/remember a grammatical rule (confirmed by 80% of the participants). The GECTurk WEB is available both as an offline tool (<url>https://github.com/GGLAB-KU/gecturkweb</url>) or at www.gecturk.net.</abstract>
       <pdf hash="11b3df72"/>
       <bibkey>gebesce-sahin-2025-gecturk</bibkey>
+      <url type="resource">https://github.com/GGLAB-KU/gecturkweb</url>
     </paper>
     <paper id="17">
       <!-- https://aclanthology.org/2025.coling-demos.17/ -->
@@ -10036,6 +10120,7 @@
       <abstract>We present GR-NLP-TOOLKIT, an open-source natural language processing (NLP) toolkit developed specifically for modern Greek. The toolkit provides state-of-the-art performance in five core NLP tasks, namely part-of-speech tagging, morphological tagging, dependency parsing, named entity recognition, and Greeklish-to-Greek transliteration. The toolkit is based on pre-trained Transformers, it is freely available, and can be easily installed in Python (pip install gr-nlp-toolkit). It is also accessible through a demonstration platform on HuggingFace, along with a publicly available API for non-commercial use. We discuss the functionality provided for each task, the underlying methods, experiments against comparable open-source toolkits, and future possible enhancements. The toolkit is available at: <url>https://github.com/nlpaueb/gr-nlp-toolkit</url></abstract>
       <pdf hash="3c264413"/>
       <bibkey>loukas-etal-2025-gr</bibkey>
+      <url type="resource">https://github.com/nlpaueb/gr-nlp-toolkit</url>
     </paper>
     <paper id="18">
       <!-- https://aclanthology.org/2025.coling-demos.18/ -->
@@ -10717,6 +10802,7 @@
       <bibkey>gain-etal-2025-transforming</bibkey>
       <revision id="1" hash="6ef70186"/>
       <revision id="2" hash="3d5d21b1" date="2025-02-06">Minor updates.</revision>
+      <url type="resource">https://github.com/babangain/ebpf_summ</url>
     </paper>
     <paper id="48">
       <!-- https://aclanthology.org/2025.coling-industry.48/ -->
@@ -10815,6 +10901,7 @@
       <abstract>Given the ubiquity of charts as a data analysis, visualization, and decision-making tool across industries and sciences, there has been a growing interest in developing pre-trained foundation models as well as general purpose instruction-tuned models for chart understanding and reasoning. However, existing methods suffer crucial drawbacks across two critical axes affecting the performance of chart representation models: they are trained on data generated from underlying data tables of the charts, ignoring the visual trends and patterns in chart images, and use weakly aligned vision-language backbone models for domain-specific training, limiting their generalizability when encountering charts in the wild. We address these important drawbacks and introduce ChartGemma, a novel chart understanding and reasoning model developed over PaliGemma. Rather than relying on underlying data tables, ChartGemma is trained on instruction-tuning data generated directly from chart images, thus capturing both high-level trends and low-level visual information from a diverse set of charts. Our simple approach achieves state-of-the-art results across 5 benchmarks spanning chart summarization, question answering, and fact-checking, and our elaborate qualitative studies on real-world charts show that ChartGemma generates more realistic and factually correct summaries compared to its contemporaries. We release the code, model checkpoints, dataset, and demos at <url>https://github.com/vis-nlp/ChartGemma</url>.</abstract>
       <pdf hash="c44fb6fb"/>
       <bibkey>masry-etal-2025-chartgemma</bibkey>
+      <url type="resource">https://github.com/vis-nlp/ChartGemma</url>
     </paper>
     <paper id="55">
       <!-- https://aclanthology.org/2025.coling-industry.55/ -->

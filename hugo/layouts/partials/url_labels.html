@@ -1,0 +1,15 @@
+{{/* Returns display labels for a list of external <url>s (as in hugo.Data.papers), in the same order:
+     the link type, except that multiple "Resource" links are numbered ("Resource 1", "Resource 2", ...). */}}
+{{ $urls := . | default slice }}
+{{ $num_resources := len (where $urls "type" "Resource") }}
+{{ $labels := slice }}
+{{ $i := 0 }}
+{{ range $urls }}
+  {{ $label := .type }}
+  {{ if and (eq .type "Resource") (gt $num_resources 1) }}
+    {{ $i = add $i 1 }}
+    {{ $label = printf "Resource %d" $i }}
+  {{ end }}
+  {{ $labels = $labels | append $label }}
+{{ end }}
+{{ return $labels }}

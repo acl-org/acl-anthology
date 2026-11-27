@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import pytest
+from lxml import etree
 from lxml.etree import RelaxNG
 from unittest.mock import patch
 
@@ -32,6 +33,29 @@ def test_instantiate(shared_datadir):
 def test_relaxng(anthology):
     relaxng = anthology.relaxng
     assert isinstance(relaxng, RelaxNG)
+
+
+@pytest.mark.parametrize(
+    "url, is_valid",
+    (
+        ("https://github.com/acl-org/acl-anthology", True),
+        ("https://zenodo.org/records/123456", True),
+        ("https://doi.org/10.5281/zenodo.123456", True),
+        ("https://gitlab.com/foo/bar", False),
+        ("http://github.com/foo/bar", False),
+        ("https://github.com.example.org/foo", False),
+        ("https://example.com/github.com/foo", False),
+        ("https://doi.org/10.18653/v1/2020.acl-main.1", False),
+        ("http://dx.doi.org/10.5281/zenodo.123456", False),
+    ),
+)
+def test_relaxng_resource_url(anthology, url, is_valid):
+    # Allowed prefixes for <url type="resource"> are only enforced by the schema
+    xml = f"""<collection id="2099.x"><volume id="1" type="proceedings">
+      <meta><booktitle>B</booktitle><venue>acl</venue><year>2099</year></meta>
+      <paper id="1"><title>T</title><bibkey>t-1</bibkey>
+        <url type="resource">{url}</url></paper></volume></collection>"""
+    assert anthology.relaxng.validate(etree.fromstring(xml)) == is_valid
 
 
 def test_get_collection(anthology):

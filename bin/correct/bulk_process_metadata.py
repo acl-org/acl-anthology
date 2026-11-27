@@ -61,9 +61,11 @@ import git
 import json
 import re
 import lxml.etree as etree
+from xml.sax.saxutils import escape as xml_escape
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
+from acl_anthology.files import URLReference
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
@@ -77,6 +79,8 @@ AUTHORS = "authors"
 AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST = "id", "last", "first"
 ABSTRACT = "abstract"
 TITLE = "title"
+RESOURCES = "resources"  # complete new list of <url type="resource"> links
+RESOURCE_TYPE = "resource"
 ANTHOLOGY_ID = "anthology_id"
 NEW_AUTHORS, OLD_AUTHORS = "authors_new", "authors_old"
 AUTHOR_ADDED = "##ADDED##"
@@ -88,6 +92,7 @@ METADATA_JSON_SCHEMA = {
         {"required": [AUTHORS, OLD_AUTHORS, NEW_AUTHORS]},
         {"required": [TITLE]},
         {"required": [ABSTRACT]},
+        {"required": [RESOURCES]},
     ],
     "properties": {
         "anthology_id": {
@@ -133,6 +138,12 @@ METADATA_JSON_SCHEMA = {
         NEW_AUTHORS: {"type": "string"},
         TITLE: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
         ABSTRACT: {"type": "string"},
+        RESOURCES: {
+            "type": "array",
+            "uniqueItems": True,
+            # allowed URL prefixes are checked against the XML schema
+            "items": {"type": "string", "pattern": "^\\S+$"},
+        },
     },
     "additionalProperties": False,
 }
@@ -252,10 +263,18 @@ class AnthologyMetadataUpdater:
             return False
 
         # - XML needs to match schema
-        for key in [TITLE, ABSTRACT]:
+        for key in [TITLE, ABSTRACT, RESOURCES]:
             if key not in json_block:
                 continue
-            ex = json_block[key]
+            if key == RESOURCES:
+                ex = ""
+                urls = "".join(
+                    f'<url type="{RESOURCE_TYPE}">{xml_escape(url)}</url>'
+                    for url in json_block[key]
+                )
+            else:
+                ex = json_block[key]
+                urls = ""
             bigtree = etree.fromstring(
                 f"""<collection id="dummy"><volume id="1" type="proceedings">
                 <meta>
@@ -266,6 +285,7 @@ class AnthologyMetadataUpdater:
                     <title>Dummy Paper Title</title>
                     <abstract>{ex}</abstract>
                     <bibkey>dummy</bibkey>
+                    {urls}
                 </paper></volume></collection>"""
             )
             try:
@@ -457,6 +477,14 @@ class AnthologyMetadataUpdater:
             # frontmatter has no abstract
             if ABSTRACT in changes:
                 paper.abstract = str_to_markup(changes[ABSTRACT])
+
+            if RESOURCES in changes:
+                # replace all resource links, keeping other <url>s as they are
+                paper.urls = tuple(
+                    url for url in paper.urls if url[0] != RESOURCE_TYPE
+                ) + tuple(
+                    (RESOURCE_TYPE, URLReference(url)) for url in changes[RESOURCES]
+                )
 
         if AUTHORS in changes:
             paper = self._update_paper_authors(paper=paper, changes=changes)
