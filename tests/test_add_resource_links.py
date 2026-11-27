@@ -77,11 +77,23 @@ def test_resource_url_skipped(text, reason):
 @pytest.mark.parametrize(
     "xml, expected",
     (
-        # Only <url> tags count, including nested in other markup
+        # Only <url> (and <a href>) tags count, including nested in other markup
         (
             "<abstract>Code: <i><url>https://github.com/a/b</url></i>; also "
             "https://github.com/c/d and <url>https://example.com</url>.</abstract>",
             ["https://github.com/a/b"],
+        ),
+        # <a href> links count too (the href, not the link text); order is kept
+        (
+            '<abstract><a href="https://github.com/a/b">our code</a>, '
+            "<url>https://zenodo.org/records/1</url> and "
+            '<a href="https://github.com/c/d">https://github.com/x/y</a> '
+            '<a href="https://example.com">site</a></abstract>',
+            [
+                "https://github.com/a/b",
+                "https://zenodo.org/records/1",
+                "https://github.com/c/d",
+            ],
         ),
         # Duplicates are merged; order of appearance is kept
         (
@@ -107,4 +119,16 @@ def test_find_resource_urls_reports_skipped():
     assert find_resource_urls(abstract) == (
         [],
         [("https://github.com/a/b.Demo:", NEEDS_CLEANUP)],
+    )
+
+
+def test_find_resource_urls_reports_skipped_href():
+    abstract = MarkupText.from_xml(
+        etree.fromstring(
+            '<abstract><a href="https://github.com/someorg">org</a></abstract>'
+        )
+    )
+    assert find_resource_urls(abstract) == (
+        [],
+        [("https://github.com/someorg", "no repository")],
     )

@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """Add resource links for GitHub/Zenodo URLs marked up in paper abstracts.
-These are extracted `<url>` tags in the abstract, and `<url type="resource">`
+These are extracted from `<url>` tags and `<a href>` links in the abstract, and `<url type="resource">`
 element is added to the paper (unless already present).
 URLs are normalized and must follow the format of a GitHub repo or Zenodo resource.
 For example:
@@ -86,7 +86,7 @@ UNRECOGNIZED = "unrecognized link format (fix abstract manually)"
 
 
 def resource_url(text: str) -> tuple[Optional[str], Optional[str]]:
-    """Interprets the contents of a `<url>` tag as a resource link if it points to GitHub or Zenodo.
+    """Interprets the contents of a `<url>` tag (or an `<a href>`) as a resource link if it points to GitHub or Zenodo.
     If the link does not follow the expected format (e.g. GitHub user rather than repo,
     or a placeholder with "anonymous" etc.), return the reason it was skipped.
 
@@ -125,15 +125,18 @@ def resource_url(text: str) -> tuple[Optional[str], Optional[str]]:
 def find_resource_urls(
     text: MarkupText,
 ) -> tuple[list[str], list[tuple[str, str]]]:
-    """Finds resource links among the `<url>` tags in a piece of markup text.
+    """Finds resource links among the `<url>` tags and `<a href>` links in a piece of markup text.
 
     Returns:
-        A tuple `(urls, skipped)`, where `urls` is a list of normalized, deduplicated resource URLs in order of appearance, and `skipped` is a list of `(url_text, reason)` tuples for links that look like resource links but were skipped.
+        A tuple `(urls, skipped)`, where `urls` is a list of normalized, deduplicated resource URLs in order of appearance, and `skipped` is a list of `(url_text, reason)` tuples for links that look like resource links but were skipped (`url_text` is the `href` for `<a>` tags).
     """
     urls: list[str] = []
     skipped: list[tuple[str, str]] = []
-    for elem in text.to_xml().iter("url"):
-        link_text = "".join(elem.itertext())
+    for elem in text.to_xml().iter("url", "a"):
+        if elem.tag == "a":
+            link_text = elem.get("href", "")
+        else:
+            link_text = "".join(elem.itertext())
         url, reason = resource_url(link_text)
         if reason is not None:
             skipped.append((link_text, reason))
