@@ -18,7 +18,7 @@ jobs:
             const prTitle = context.payload.pull_request.title.replace(/^ingest\s+/i, '');
             const prBody = context.payload.pull_request.body || '';
             const prUrl = context.payload.pull_request.html_url;
-            const commonHeader = `Merged PR: ${prUrl}`;
+            const commonHeader = `Followup from merged PR: ${prUrl}`;
 
             const issues = [
               {
@@ -40,10 +40,6 @@ jobs:
                 title: `Ingest videos for ${prTitle}`,
                 body: [
                   commonHeader,
-                  '',
-                  '## Video tasks',
-                  '',
-                  '- [ ] Ingest the videos from',
                 ].join('\n'),
                 labels: ['videos'],
               },
