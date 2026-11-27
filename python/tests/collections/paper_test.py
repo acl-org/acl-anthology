@@ -785,7 +785,9 @@ def test_papereditorialnote_from_xml():
     assert note.type == EditorialNoteType.CONCERN
     assert note.type.heading == "Expression of Concern"
     assert note.date == "2026-11-24"
-    assert note.text.as_html() == "Concerns.<br/><br/>1. Results."
+    assert (
+        note.text.as_html(render_paragraphs=True) == "<p>Concerns.</p><p>1. Results.</p>"
+    )
 
 
 def test_papereditorialnote_invalid_type():

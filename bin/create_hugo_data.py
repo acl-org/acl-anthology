@@ -183,7 +183,9 @@ def paper_to_dict(paper):
         data["language"] = language_name
     if (abstract := paper.abstract) is not None:
         try:
-            data["abstract_html"] = remove_extra_whitespace(abstract.as_html())
+            data["abstract_html"] = remove_extra_whitespace(
+                abstract.as_html(render_paragraphs=True)
+            )
         except ValueError as e:
             log.error(f"Paper {paper.full_id}: error processing abstract: {e}")
             data["abstract_html"] = abstract.as_xml()
@@ -217,7 +219,7 @@ def paper_to_dict(paper):
             "type": note.type.value,
             "heading": note.type.heading,
             "date": note.date,
-            "html": remove_extra_whitespace(note.text.as_html()),
+            "html": remove_extra_whitespace(note.text.as_html(render_paragraphs=True)),
         }
     if paper.pages is not None:
         page_first, page_last = interpret_pages(paper.pages)
