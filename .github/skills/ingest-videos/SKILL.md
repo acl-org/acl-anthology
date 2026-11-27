@@ -195,6 +195,12 @@ python3 tooling/server.py finalize --report REPORT --staging STAGING \
   --videos VIDEOS --placement move
 ```
 
+For a long-running batch, verified completed recordings can be annotated first.
+Keep a cumulative placement plan and the original matching snapshot. Subsequent
+application accepts only the exact previously validated video state, preserves
+its ordering, and appends newly verified references; unrelated metadata changes
+still fail the guard. Delay source movement until the full batch is reconciled.
+
 Use `--placement hardlink-retain` if the user chose to retain matched staging
 sources. Actual movement is **exclusive canonical hardlink creation followed by
 guarded source unlinking**, after metadata and public HTTP/size/MIME checks.

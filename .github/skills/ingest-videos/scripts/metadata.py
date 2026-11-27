@@ -274,6 +274,8 @@ def apply(report: Path, write: bool):
     anthology = Anthology.from_within_repo()
     placements_path = report / "placements.json"
     placements = read_json(placements_path)
+    validation_path = report / "metadata-validation.json"
+    previous = read_json(validation_path) if validation_path.exists() else {}
     by_paper = defaultdict(list)
     for row in placements:
         if (
@@ -301,7 +303,19 @@ def apply(report: Path, write: bool):
             {"name": video.name, "permission": video.permission} for video in paper.videos
         ]
         if actual not in (before, after):
-            raise ValueError(f"Video metadata changed since matching: {paper_id}")
+            if (
+                previous.get("status") != "passed"
+                or previous.get("repository_checks", {}).get("status") != "passed"
+                or actual != previous.get("paper_videos", {}).get(paper_id)
+                or actual[: len(before)] != before
+                or any(video not in after for video in actual)
+            ):
+                raise ValueError(f"Video metadata changed since matching: {paper_id}")
+            extended = list(actual)
+            for video in after:
+                if video not in extended:
+                    extended.append(video)
+            after = extended
         if any(not video["permission"] for video in before):
             raise ValueError(f"Withheld target: {paper_id}")
         if any(nonvideo_digest(paper) != row["nonvideo_sha256"] for row in rows):
@@ -354,6 +368,7 @@ def apply(report: Path, write: bool):
             },
             "nonvideo_metadata_preserved": True,
             "existing_order_and_permissions_preserved": True,
+            "paper_videos": changes,
             "repository_checks": {"status": "pending"},
         },
     )

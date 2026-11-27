@@ -321,6 +321,28 @@ def test_library_save_reload_preserves_other_metadata_and_video_order(
         ]
         == "pending"
     )
+    validation_path = report / "metadata-validation.json"
+    validation = common.read_json(validation_path)
+    validation["repository_checks"]["status"] = "passed"
+    common.write_json(validation_path, validation)
+    placements = common.read_json(report / "placements.json")
+    placements.append({**placements[0], "reference_name": "2022.facl-long.1.1.mp4"})
+    common.write_json(report / "placements.json", placements)
+    metadata.apply(report, True)
+    continued = Anthology(data, suppress_warnings=True).get_paper(paper.full_id)
+    assert [video.name for video in continued.videos] == [
+        "https://example.org/old.mp4",
+        "2022.facl-long.1.mp4",
+        "2022.facl-long.1.1.mp4",
+    ]
+    assert metadata.nonvideo_digest(continued) == baseline
+    unexpected = Anthology(data, suppress_warnings=True)
+    unexpected.get_paper(paper.full_id).videos += (
+        VideoReference("https://example.org/unapproved.mp4"),
+    )
+    unexpected.save_all()
+    with pytest.raises(ValueError, match="Video metadata changed"):
+        metadata.apply(report, True)
 
 
 def test_local_hls_transport_downloads_and_reuses_verified_original_segments(
