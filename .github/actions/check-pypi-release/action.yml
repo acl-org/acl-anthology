@@ -1,0 +1,36 @@
+name: Check for new PyPI release
+description: >
+  Determines whether the acl-anthology version in python/pyproject.toml is new,
+  i.e., whether merging the current state into master would publish a new
+  release to PyPI. Requires a checkout of the repo and uv on the PATH.
+
+outputs:
+  version:
+    description: The acl-anthology version declared in python/pyproject.toml
+    value: ${{ steps.find-pypi-version.outputs.version }}
+  is-new:
+    description: "'true' if there is no py-v<version> tag yet, 'false' otherwise"
+    value: ${{ steps.check-for-version-tag.outputs.is-new }}
+
+runs:
+  using: composite
+  steps:
+    - name: Read acl-anthology version
+      id: find-pypi-version
+      shell: bash
+      working-directory: python
+      run: |
+        echo "version=$(uv version --short)" >> "$GITHUB_OUTPUT"
+
+    - name: Check if this version is already tagged
+      id: check-for-version-tag
+      shell: bash
+      env:
+        VERSION: ${{ steps.find-pypi-version.outputs.version }}
+      run: |
+        # Query the remote directly, so this works with shallow checkouts
+        if git ls-remote --exit-code --tags origin "refs/tags/py-v${VERSION}" >/dev/null; then
+          echo "is-new=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "is-new=true" >> "$GITHUB_OUTPUT"
+        fi
