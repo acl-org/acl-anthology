@@ -444,6 +444,8 @@ def report_results(report: Path):
                 "size_bytes": source.get("source_fingerprint", {}).get("size", ""),
                 "sha256": source.get("sha256", ""),
                 "metadata_status": placement.get("metadata_status", ""),
+                "original_retained_path": source.get("original_retained_path", ""),
+                "normalization": source.get("normalization", ""),
                 "placement": finalized["placement"] if placement else "retained",
             }
         )
@@ -469,6 +471,9 @@ def report_results(report: Path):
         "metadata_validation": metadata,
         "archive_finalization": finalized,
         "unmatched_sources_retained": True,
+        "normalized_originals_retained": sum(
+            bool(row["original_retained_path"]) for row in rows
+        ),
     }
     write_json(report / "summary.json", summary)
     text = [

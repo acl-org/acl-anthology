@@ -574,3 +574,32 @@ def test_incomplete_http_response_is_recorded_without_losing_the_rest_of_the_bat
     assert results[0]["status"] == "failed" and "IncompleteRead" in results[0]["error"]
     assert results[1]["status"] == "downloaded"
     assert common.read_json(tmp_path / "download-job.json")["completed"] == 2
+
+
+def test_normalized_original_cannot_be_deleted_or_changed_during_finalization(tmp_path):
+    report, staging, videos = (
+        tmp_path / name for name in ("report", "staging", "videos")
+    )
+    for path in (report, staging, videos):
+        path.mkdir()
+    original = staging / "123.original.mp4"
+    original.write_bytes(b"original recording")
+    row = {
+        "original_retained_path": str(original),
+        "original_fingerprint": common.fingerprint(original),
+        "original_sha256": common.digest(original),
+    }
+    common.write_json(report / "placements.json", [row])
+    common.write_json(
+        report / "metadata-validation.json",
+        {
+            "status": "passed",
+            "repository_checks": {"status": "passed"},
+            "placements_sha256": common.digest(report / "placements.json"),
+        },
+    )
+    original.write_bytes(b"changed recording")
+    with pytest.raises(ValueError, match="retained original changed"):
+        server.finalize(report, staging, videos, "move")
+    assert original.exists()
+    assert not (report / "moves.jsonl").exists()

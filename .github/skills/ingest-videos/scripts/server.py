@@ -714,6 +714,13 @@ def finalize(report: Path, staging: Path, videos: Path, mode: str):
         raise ValueError("Validation covers a different placement plan")
     moved = {}
     for row in placements:
+        if row.get("original_retained_path"):
+            original = scoped(Path(row["original_retained_path"]), staging)
+            if (
+                fingerprint(original) != row["original_fingerprint"]
+                or digest(original) != row["original_sha256"]
+            ):
+                raise ValueError("A normalized recording's retained original changed")
         if not row["publication_allowed"]:
             raise ValueError(
                 "An unpublished recording cannot be finalized for publication"
@@ -781,6 +788,15 @@ def finalize(report: Path, staging: Path, videos: Path, mode: str):
             )
     linked = {row["sheet"]["lecture_id"] for row in placements}
     for row in read_json(report / "download-results.json"):
+        if row.get("original_retained_path"):
+            original = scoped(Path(row["original_retained_path"]), staging)
+            if (
+                fingerprint(original) != row["original_fingerprint"]
+                or digest(original) != row["original_sha256"]
+            ):
+                raise ValueError(
+                    "A normalized recording's original was changed or removed"
+                )
         if row["status"] == "downloaded" and row["sheet"]["lecture_id"] not in linked:
             source = scoped(Path(row["source_path"]), staging)
             if (
