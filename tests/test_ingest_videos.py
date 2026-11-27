@@ -444,6 +444,33 @@ def test_stream_copy_counts_packet_hashes_without_a_progress_frame_field():
         server.packet_frame_count("#media_type 1: audio\n")
 
 
+def test_packet_count_disagreement_requires_original_decode_not_a_tolerance():
+    calls = []
+
+    def original_decode():
+        calls.append("decoded original")
+        return 152.362667, 4565
+
+    reference, method = server.source_reference(
+        (152.362667, 4566), (152.362667, 4565), original_decode
+    )
+    assert calls == ["decoded original"]
+    assert reference == (152.362667, 4565)
+    assert method == "source-decoded-frame-count"
+    with pytest.raises(ValueError, match="lost original source frames"):
+        server.source_reference(
+            (152.362667, 4566),
+            (152.362667, 4565),
+            lambda: (152.362667, 4566),
+        )
+    with pytest.raises(ValueError, match="original packet timing"):
+        server.source_reference(
+            (152.362667, 4566),
+            (151.0, 4565),
+            lambda: (152.362667, 4565),
+        )
+
+
 def test_rate_limit_closes_response_and_exposes_required_cooldown(monkeypatch):
     body = io.BytesIO(b"rate limit response")
     error = HTTPError(

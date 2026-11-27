@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import sys
+from typing import Callable
 from urllib.parse import urljoin, urlparse
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -290,6 +291,19 @@ def verify_preservation(source: tuple[float, int], decoded: tuple[float, int]) -
         )
 
 
+def source_reference(
+    packets: tuple[float, int],
+    decoded: tuple[float, int],
+    decode_source: Callable[[], tuple[float, int]],
+) -> tuple[tuple[float, int], str]:
+    if packets[1] == decoded[1]:
+        reference, method = packets, "source-packet-count"
+    else:
+        reference, method = decode_source(), "source-decoded-frame-count"
+    verify_preservation(reference, decoded)
+    return reference, method
+
+
 def download_segments(
     record: dict, report: Path, staging: Path
 ) -> tuple[Path, list[Path]]:
@@ -473,7 +487,40 @@ def download_record(record: dict, report: Path, staging: Path, ffmpeg: str) -> d
         report / "logs" / (lecture_id + "-decode.log"),
     )
     decoded_progress = media_progress(process.stdout)
-    verify_preservation(source_progress, decoded_progress)
+
+    def decode_source() -> tuple[float, int]:
+        source_decode = run_ffmpeg(
+            [
+                *prefix,
+                "-xerror",
+                "-protocol_whitelist",
+                "file,crypto",
+                "-i",
+                str(playlist),
+                "-map",
+                "0:v:0",
+                "-map",
+                "0:a:0?",
+                "-vf",
+                "blackdetect=d=0.1:pix_th=0.1:pic_th=0.98",
+                "-filter_threads",
+                "1",
+                "-threads",
+                "1",
+                "-nostats",
+                "-progress",
+                "pipe:1",
+                "-f",
+                "null",
+                "-",
+            ],
+            report / "logs" / (lecture_id + "-source-decode.log"),
+        )
+        return media_progress(source_decode.stdout)
+
+    reference, validation_method = source_reference(
+        source_progress, decoded_progress, decode_source
+    )
     duration, decoded_frames = decoded_progress
     audio = bool(re.search(r"Stream #0:\d+.*Audio:", process.stderr))
     black = sum(
@@ -535,6 +582,8 @@ def download_record(record: dict, report: Path, staging: Path, ffmpeg: str) -> d
         "decoded_frames": decoded_frames,
         "source_packet_duration_seconds": source_progress[0],
         "source_video_packets": source_progress[1],
+        "source_frame_reference": reference[1],
+        "source_validation_method": validation_method,
         "playlist_duration_seconds": record["rendition"]["expected_duration"],
         "audio_stream": audio,
         "black_duration_ratio": black / duration,

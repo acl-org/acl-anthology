@@ -35,12 +35,19 @@ Use the bundled [server workflow](./scripts/server.py) and
 
 ## Snapshot and discover
 
-Save the Google sheet's CSV export on the server, including its SHA256 and
-original URL. The public export URL is:
+Save the Google sheet's CSV and TSV exports on the server, including their
+SHA256s and original URL. Keep `spreadsheet.tsv` in both the batch staging
+directory and its report directory. The public export URLs are:
 
 ```text
 https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=TAB_ID
+https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=tsv&gid=TAB_ID
 ```
+
+Preserve the original matching snapshot if the sheet changes later; record
+snapshot times and differences rather than silently replacing ingestion inputs.
+Google TSV exports contain literal quote characters: compare their cells using
+`csv.QUOTE_NONE`, not CSV quote handling. Keep the CSV snapshot as the matching input.
 
 Copy `common.py` and `server.py` into a private `tooling/` subdirectory of the
 report directory. CSV columns must include `Title`, `Paper number`, `video`, and
@@ -83,12 +90,15 @@ the original HTTPS MPEG-TS segments with Python, then ffmpeg remuxes the local
 HLS rendition into MP4 without re-encoding. This separates network transport
 from ffmpeg (the previously installed static binary crashes on HTTPS input).
 Each recording must fully
-decode, preserve the original source packet frame count and timing, and produce three
+decode, preserve the original source's frame count and timing, and produce three
 actual frames. Receipts contain SHA256, inode/size/mtime, decoded duration and
 frame count. Completed downloads are reused only after fingerprint and checksum
 validation; failed partial files are retained with explicit failure logs.
-HLS `EXTINF` durations can be rounded: compare actual source packet timing and
-decoded frame counts, not an arbitrary tolerance against the rounded playlist.
+HLS `EXTINF` durations can be rounded: compare actual source timing and frame
+counts, not an arbitrary tolerance against the rounded playlist. Coded packet
+counts are a fast check, not necessarily decoded frame counts. If they differ,
+fully decode the original HLS too and require its frame count/timing to match
+the archived MP4; never simply allow a one-frame loss.
 Only named temporary segment files are removed after the verified MP4 receipt
 is durable; unmatched original MP4s are retained.
 
