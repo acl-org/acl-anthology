@@ -1,10 +1,9 @@
 # Changelog
 
-## [1.3.5] — 2026-11-26
+## [Unreleased]
 
 ### Added
 
-- Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
 - `MarkupText.as_html()` now takes a `render_paragraphs` argument; if True, the text is wrapped in `<p>` tags, with `<par/>` starting a new paragraph.
 
 ### Changed
@@ -12,10 +11,13 @@
 - `MarkupText.as_html()` now renders `<par/>` as a single space (instead of `<br/><br/>`) when `render_paragraphs` is False.
 - `remove_extra_whitespace()` now replaces newlines with a space instead of deleting them, so `MarkupText` no longer glues together words separated only by a line break.
 - `MarkupText.as_text()` and `MarkupText.as_html()` now collapse consecutive `<par/>` and drop it at the beginning or end of the text.
+- Bugfix: `MarkupText.as_html()` no longer returns a cached result that was rendered with a different `allow_url` setting.
 
-### Fixed
+## [1.3.5] — 2026-11-26
 
-- `MarkupText.as_html()` no longer returns a cached result that was rendered with a different `allow_url` setting.
+### Added
+
+- Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
 
 ## [1.3.4] — 2026-10-16
 
