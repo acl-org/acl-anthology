@@ -603,3 +603,27 @@ def test_normalized_original_cannot_be_deleted_or_changed_during_finalization(tm
         server.finalize(report, staging, videos, "move")
     assert original.exists()
     assert not (report / "moves.jsonl").exists()
+
+
+def test_metadata_digest_ignores_structural_indentation_but_preserves_note_text():
+    from lxml import etree
+
+    class PaperModel:
+        def __init__(self, indentation, note):
+            self.indentation = indentation
+            self.note = note
+
+        def to_xml(self):
+            paper = etree.Element("paper", id="1")
+            note = etree.SubElement(paper, "editorial-note")
+            note.text = self.note
+            note.tail = self.indentation
+            etree.SubElement(paper, "bibkey").text = "test"
+            return paper
+
+    assert metadata.nonvideo_digest(
+        PaperModel("\n    ", "Text ")
+    ) == metadata.nonvideo_digest(PaperModel("\n      ", "Text "))
+    assert metadata.nonvideo_digest(
+        PaperModel("\n    ", "Text ")
+    ) != metadata.nonvideo_digest(PaperModel("\n    ", "Text"))

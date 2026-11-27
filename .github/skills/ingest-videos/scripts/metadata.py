@@ -23,6 +23,11 @@ def nonvideo_digest(paper) -> str:
     element = paper.to_xml()
     for video in list(element.findall("video")):
         element.remove(video)
+    if element.text is not None and not element.text.strip():
+        element.text = None
+    for child in element:
+        if child.tail is not None and not child.tail.strip():
+            child.tail = None
     return hashlib.sha256(etree.tostring(element)).hexdigest()
 
 
