@@ -42,7 +42,7 @@ from pathlib import Path
 from typing import Optional
 
 from acl_anthology import Anthology
-from acl_anthology.files import RESOURCE_URL_PREFIXES, URLReference
+from acl_anthology.files import URLReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
 
@@ -116,10 +116,7 @@ def resource_url(text: str) -> tuple[Optional[str], Optional[str]]:
         return None, UNRECOGNIZED
     else:
         return None, None
-    url = url.rstrip("/")
-    if not url.startswith(RESOURCE_URL_PREFIXES):  # sanity check; can't happen
-        return None, "not an allowed resource URL"
-    return url, None
+    return url.rstrip("/"), None
 
 
 def find_resource_urls(

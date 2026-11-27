@@ -61,10 +61,11 @@ import git
 import json
 import re
 import lxml.etree as etree
+from xml.sax.saxutils import escape as xml_escape
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
-from acl_anthology.files import RESOURCE_URL_PREFIXES, URLReference
+from acl_anthology.files import URLReference
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
@@ -140,12 +141,8 @@ METADATA_JSON_SCHEMA = {
         RESOURCES: {
             "type": "array",
             "uniqueItems": True,
-            "items": {
-                "type": "string",
-                "pattern": "^("
-                + "|".join(map(re.escape, RESOURCE_URL_PREFIXES))
-                + ")\\S+$",
-            },
+            # allowed URL prefixes are checked against the XML schema
+            "items": {"type": "string", "pattern": "^\\S+$"},
         },
     },
     "additionalProperties": False,
@@ -266,10 +263,18 @@ class AnthologyMetadataUpdater:
             return False
 
         # - XML needs to match schema
-        for key in [TITLE, ABSTRACT]:
+        for key in [TITLE, ABSTRACT, RESOURCES]:
             if key not in json_block:
                 continue
-            ex = json_block[key]
+            if key == RESOURCES:
+                ex = ""
+                urls = "".join(
+                    f'<url type="{RESOURCE_TYPE}">{xml_escape(url)}</url>'
+                    for url in json_block[key]
+                )
+            else:
+                ex = json_block[key]
+                urls = ""
             bigtree = etree.fromstring(
                 f"""<collection id="dummy"><volume id="1" type="proceedings">
                 <meta>
@@ -280,6 +285,7 @@ class AnthologyMetadataUpdater:
                     <title>Dummy Paper Title</title>
                     <abstract>{ex}</abstract>
                     <bibkey>dummy</bibkey>
+                    {urls}
                 </paper></volume></collection>"""
             )
             try:

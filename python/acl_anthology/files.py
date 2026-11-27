@@ -222,18 +222,10 @@ class URLReference(FileReference):
 EventFileReference = URLReference
 
 
-RESOURCE_URL_PREFIXES = (
-    "https://github.com/",
-    "https://zenodo.org/",
-    "https://doi.org/10.5281/zenodo.",
-)
-"""Allowed prefixes for `<url type="resource">`; must be kept in sync with `schema.rnc`."""
-
-
 def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
     """Validator for `tuple[tuple[str, URLReference], ...]`-shaped attrs fields.
 
-    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable] validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction, never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.  URLs of type `"resource"` must start with one of [`RESOURCE_URL_PREFIXES`][acl_anthology.files.RESOURCE_URL_PREFIXES].
+    Intended to be used as the `member_validator` of a [`v.deep_iterable`][attrs.validators.deep_iterable] validator, e.g. for `Paper.urls` and `Volume.urls`.  Since `<url>` elements are, by construction, never locally hosted (unlike `<pdf>`), this also rejects a local `URLReference`.
     """
     if (
         not isinstance(value, tuple)
@@ -245,10 +237,6 @@ def validate_url_tuple(instance: Any, attribute: Any, value: Any) -> None:
     if value[1].is_local:
         raise ValueError(
             f"'urls' must only contain non-local file references (got: {value[1]!r})"
-        )
-    if value[0] == "resource" and not value[1].name.startswith(RESOURCE_URL_PREFIXES):
-        raise ValueError(
-            f"URLs of type 'resource' must start with one of {RESOURCE_URL_PREFIXES} (got: {value[1].name!r})"
         )
 
 

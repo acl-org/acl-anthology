@@ -5,7 +5,7 @@
 ### Added
 
 - Papers can now carry an editorial note, such as an expression of concern, via `Paper.editorial_note` (a `PaperEditorialNote`, serialized as `<editorial-note type="concern" date="...">`).
-- Papers and volumes can now link to code/data via `<url type="resource">`.  Such URLs must start with `https://github.com/`, `https://zenodo.org/`, or `https://doi.org/10.5281/zenodo.` (enforced by the schema and by `validate_url_tuple`; see `RESOURCE_URL_PREFIXES`).
+- Papers and volumes can now link to code/data via `<url type="resource">`.  Such URLs must start with `https://github.com/`, `https://zenodo.org/`, or `https://doi.org/10.5281/zenodo.` (enforced by the schema).
 
 ### Changed
 
