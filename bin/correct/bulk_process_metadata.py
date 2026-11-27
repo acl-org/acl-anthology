@@ -64,6 +64,7 @@ import lxml.etree as etree
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Paper
+from acl_anthology.files import RESOURCE_URL_PREFIXES, URLReference
 from acl_anthology.people import NameSpecification, Name
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.logging import setup_rich_logging
@@ -77,6 +78,8 @@ AUTHORS = "authors"
 AUTHOR_ID, AUTHOR_LAST, AUTHOR_FIRST = "id", "last", "first"
 ABSTRACT = "abstract"
 TITLE = "title"
+RESOURCES = "resources"  # complete new list of <url type="resource"> links
+RESOURCE_TYPE = "resource"
 ANTHOLOGY_ID = "anthology_id"
 NEW_AUTHORS, OLD_AUTHORS = "authors_new", "authors_old"
 AUTHOR_ADDED = "##ADDED##"
@@ -88,6 +91,7 @@ METADATA_JSON_SCHEMA = {
         {"required": [AUTHORS, OLD_AUTHORS, NEW_AUTHORS]},
         {"required": [TITLE]},
         {"required": [ABSTRACT]},
+        {"required": [RESOURCES]},
     ],
     "properties": {
         "anthology_id": {
@@ -133,6 +137,16 @@ METADATA_JSON_SCHEMA = {
         NEW_AUTHORS: {"type": "string"},
         TITLE: {"type": "string", "pattern": "^\\S+( \\S+)*$"},
         ABSTRACT: {"type": "string"},
+        RESOURCES: {
+            "type": "array",
+            "uniqueItems": True,
+            "items": {
+                "type": "string",
+                "pattern": "^("
+                + "|".join(map(re.escape, RESOURCE_URL_PREFIXES))
+                + ")\\S+$",
+            },
+        },
     },
     "additionalProperties": False,
 }
@@ -457,6 +471,14 @@ class AnthologyMetadataUpdater:
             # frontmatter has no abstract
             if ABSTRACT in changes:
                 paper.abstract = str_to_markup(changes[ABSTRACT])
+
+            if RESOURCES in changes:
+                # replace all resource links, keeping other <url>s as they are
+                paper.urls = tuple(
+                    url for url in paper.urls if url[0] != RESOURCE_TYPE
+                ) + tuple(
+                    (RESOURCE_TYPE, URLReference(url)) for url in changes[RESOURCES]
+                )
 
         if AUTHORS in changes:
             paper = self._update_paper_authors(paper=paper, changes=changes)
