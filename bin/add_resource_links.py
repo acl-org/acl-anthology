@@ -154,7 +154,7 @@ def add_resource_links(collection_ids: list[str]) -> None:
     collections = list(map(anthology.collections.get, collection_ids)) or [anthology]
     for collection in collections:
         if not collection:
-            raise ValueError(f"Invalid collection ID")
+            raise ValueError("Invalid collection ID")
         for paper in collection.papers():
             if paper.abstract is None:
                 continue
@@ -201,4 +201,4 @@ if __name__ == "__main__":
     log.getLogger("acl-anthology").setLevel(log.WARNING)
     log.getLogger("git.cmd").setLevel(log.WARNING)
 
-    add_resource_links(args['COLLECTION_ID'])
+    add_resource_links(args["COLLECTION_ID"])
