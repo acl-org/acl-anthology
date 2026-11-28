@@ -627,3 +627,38 @@ def test_metadata_digest_ignores_structural_indentation_but_preserves_note_text(
     assert metadata.nonvideo_digest(
         PaperModel("\n    ", "Text ")
     ) != metadata.nonvideo_digest(PaperModel("\n    ", "Text"))
+
+
+@pytest.mark.parametrize(
+    ("override", "expected"),
+    ((None, "move"), ("hardlink-retain", "hardlink-retain")),
+)
+def test_finalize_cli_defaults_to_move_and_honors_retention_override(
+    tmp_path, monkeypatch, override, expected
+):
+    report, staging, videos = (
+        tmp_path / name for name in ("report", "staging", "videos")
+    )
+    for path in (report, staging, videos):
+        path.mkdir()
+    arguments = [
+        "server.py",
+        "finalize",
+        "--report",
+        str(report),
+        "--staging",
+        str(staging),
+        "--videos",
+        str(videos),
+    ]
+    if override:
+        arguments.extend(("--placement", override))
+    monkeypatch.setattr(sys, "argv", arguments)
+    modes = []
+    monkeypatch.setattr(
+        server,
+        "finalize",
+        lambda report, staging, videos, mode: modes.append(mode),
+    )
+    server.main()
+    assert modes == [expected]

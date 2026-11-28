@@ -22,9 +22,13 @@ Use the bundled [server workflow](./scripts/server.py) and
    directory, and canonical video root. For the Anthology, the SSH target is
    normally `anth`; resolve `/home/anthologizer/files/` rather than assuming its
    backing mount. Use a **new, dedicated** report directory per batch.
-2. Ask whether to include workshops and cross-presented papers (TACL/CL/other
-   conferences), and whether matched files should actually **move** or remain as
-   staging hardlinks. Unmatched/uncertain recordings always remain untouched.
+2. **Default scope: all verified papers in the supplied sheet**, including
+   workshops and cross-presented papers (TACL/CL/other conferences).
+   **Default placement: move verified matched sources into the archive** after
+   metadata and public-file validation. Do not ask these two questions again
+   unless the user requests another scope or a concrete new ambiguity requires
+   clarification. Unmatched, uncertain, unusable, and unpublished recordings
+   remain private and unlinked; preserve normalized originals.
 3. Check the worktree, disk capacity, Python, and ffmpeg. Preserve unrelated
    changes; never rewrite a user's dirty lockfile. Use
    `UV_FROZEN=true UV_NO_SYNC=true` when reusing the existing environment.
@@ -192,7 +196,7 @@ pass**:
 
 ```bash
 python3 tooling/server.py finalize --report REPORT --staging STAGING \
-  --videos VIDEOS --placement move
+  --videos VIDEOS
 ```
 
 For a long-running batch, verified completed recordings can be annotated first.
@@ -201,8 +205,8 @@ application accepts only the exact previously validated video state, preserves
 its ordering, and appends newly verified references; unrelated metadata changes
 still fail the guard. Delay source movement until the full batch is reconciled.
 
-Use `--placement hardlink-retain` if the user chose to retain matched staging
-sources. Actual movement is **exclusive canonical hardlink creation followed by
+Movement is the default. Use `--placement hardlink-retain` only if the user
+requests retaining matched staging sources. Actual movement is **exclusive canonical hardlink creation followed by
 guarded source unlinking**, after metadata and public HTTP/size/MIME checks.
 Durable intents/receipts permit resuming only the same verified actions.
 Unmatched originals are fingerprint-checked after finalization.

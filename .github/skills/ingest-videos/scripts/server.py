@@ -828,7 +828,7 @@ def main():
     parser.add_argument("--limit", type=int)
     parser.add_argument("--include-unpublished", action="store_true")
     parser.add_argument(
-        "--placement", choices=("move", "hardlink-retain"), default="hardlink-retain"
+        "--placement", choices=("move", "hardlink-retain"), default="move"
     )
     args = parser.parse_args()
     report = args.report.resolve(strict=True)
