@@ -374,9 +374,10 @@
   }
 
   // Returns the OpenReview profile URL (or "none") entered in the form, or undefined
-  // after showing the problem.
+  // after showing the problem.  A "~" percent-encoded as "%7E" (as some browsers do
+  // when copying a URL) is decoded.
   function openReviewProfile(form, prefix) {
-    const openReview = document.getElementById(prefix + "OpenReviewProfile").value.trim();
+    const openReview = document.getElementById(prefix + "OpenReviewProfile").value.trim().replace(/%7E/gi, "~");
     if (!openReview) return showError(form, "Please enter your OpenReview profile URL, or \"none\".");
     if (openReview.toLowerCase() !== "none" && !openReview.startsWith(OPENREVIEW_PROFILE_PREFIX)) {
       return showError(form, "Your OpenReview profile URL should start with " + OPENREVIEW_PROFILE_PREFIX + " (or enter \"none\").");
